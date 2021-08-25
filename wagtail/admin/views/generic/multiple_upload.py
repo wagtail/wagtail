@@ -119,9 +119,6 @@ class AddView(PermissionCheckedMixin, TemplateView):
         }
 
     def post(self, request):
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
         if not request.FILES:
             return HttpResponseBadRequest("Must upload a file")
 
@@ -204,9 +201,6 @@ class EditView(View):
 
         self.object = get_object_or_404(self.model, id=object_id)
 
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
         if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
             raise PermissionDenied
 
@@ -250,9 +244,6 @@ class DeleteView(View):
         self.model = self.get_model()
         self.object = get_object_or_404(self.model, id=object_id)
 
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
-
         if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', self.object):
             raise PermissionDenied
 
@@ -290,9 +281,6 @@ class CreateFromUploadView(View):
         self.form_class = self.get_edit_form_class()
 
         self.upload = get_object_or_404(self.upload_model, id=upload_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
         if self.upload.uploaded_by_user != request.user:
             raise PermissionDenied
@@ -336,9 +324,6 @@ class DeleteUploadView(View):
     def post(self, request, *args, **kwargs):
         upload_id = kwargs[self.upload_pk_url_kwarg]
         upload = get_object_or_404(self.upload_model, id=upload_id)
-
-        if not request.is_ajax():
-            return HttpResponseBadRequest("Cannot POST to this view without AJAX")
 
         if upload.uploaded_by_user != request.user:
             raise PermissionDenied

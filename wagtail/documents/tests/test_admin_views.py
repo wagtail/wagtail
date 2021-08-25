@@ -640,7 +640,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -691,7 +691,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
             'collection': evil_plans_collection.id
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -728,20 +728,11 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # form should contain a collection chooser
         self.assertIn('Collection', response_json['form'])
 
-    def test_add_post_noajax(self):
-        """
-        This tests that only AJAX requests are allowed to POST to the add view
-        """
-        response = self.client.post(reverse('wagtaildocs:add_multiple'))
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_add_post_nofile(self):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtaildocs:add_multiple'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtaildocs:add_multiple'))
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -764,7 +755,6 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         response = self.client.post(
             reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )),
             {'doc-%d-%s' % (self.doc.id, field): data for field, data in self.edit_post_data.items()},
-            HTTP_X_REQUESTED_WITH='XMLHttpRequest',
         )
 
         # Check response
@@ -781,19 +771,6 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
         self.check_doc_after_edit()
 
-    def test_edit_post_noajax(self):
-        """
-        This tests that a POST request to the edit view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
-            ('doc-%d-title' % self.doc.id): "New title!",
-            ('doc-%d-tags' % self.doc.id): "",
-        })
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_edit_post_validation_error(self):
         """
         This tests that a POST request to the edit page returns a json document with "success=False"
@@ -803,7 +780,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtaildocs:edit_multiple', args=(self.doc.id, )), {
             ('doc-%d-title' % self.doc.id): "",  # Required
             ('doc-%d-tags' % self.doc.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -836,7 +813,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the delete view deletes the document
         """
         # Send request
-        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -851,16 +828,6 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['doc_id'], self.doc.id)
         self.assertTrue(response_json['success'])
-
-    def test_delete_post_noajax(self):
-        """
-        This tests that a POST request to the delete view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtaildocs:delete_multiple', args=(self.doc.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
 
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
@@ -911,7 +878,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         """
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -961,7 +928,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         response = self.client.post(reverse('wagtaildocs:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"Simple text document"),
             'collection': evil_plans_collection.id
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1016,7 +983,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
             ('uploaded-document-%d-title' % self.uploaded_document.id): "New title!",
             ('uploaded-document-%d-tags' % self.uploaded_document.id): "",
             ('uploaded-document-%d-author' % self.uploaded_document.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         doc_count_after = CustomDocumentWithAuthor.objects.count()
         uploaded_doc_count_after = models.UploadedDocument.objects.count()
@@ -1054,7 +1021,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
             ('uploaded-document-%d-title' % self.uploaded_document.id): "New title!",
             ('uploaded-document-%d-tags' % self.uploaded_document.id): "fairies, donkey",
             ('uploaded-document-%d-author' % self.uploaded_document.id): "William Shakespeare",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         doc_count_after = CustomDocumentWithAuthor.objects.count()
         uploaded_doc_count_after = models.UploadedDocument.objects.count()
@@ -1087,7 +1054,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         # Send request
         response = self.client.post(reverse(
             'wagtaildocs:delete_upload_multiple', args=(self.uploaded_document.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)

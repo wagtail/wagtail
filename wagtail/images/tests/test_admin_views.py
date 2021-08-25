@@ -1387,7 +1387,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1412,20 +1412,11 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertTrue(response_json['success'])
 
-    def test_add_post_noajax(self):
-        """
-        This tests that only AJAX requests are allowed to POST to the add view
-        """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {})
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_add_post_nofile(self):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {})
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -1436,7 +1427,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1459,7 +1450,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.txt', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1494,7 +1485,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "New title!",
             ('image-%d-tags' % self.image.id): "cromarty, finisterre",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1513,19 +1504,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(image.title, "New title!")
         self.assertIn('cromarty', image.tags.names())
 
-    def test_edit_post_noajax(self):
-        """
-        This tests that a POST request to the edit view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
-        })
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_edit_post_validation_error(self):
         """
         This tests that a POST request to the edit page returns a json document with "success=False"
@@ -1535,7 +1513,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "",  # Required
             ('image-%d-tags' % self.image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1570,7 +1548,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_multiple', args=(self.image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1585,16 +1563,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], self.image.id)
         self.assertTrue(response_json['success'])
-
-    def test_delete_post_noajax(self):
-        """
-        This tests that a POST request to the delete view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
@@ -1632,7 +1600,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1665,7 +1633,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1698,7 +1666,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test-image.png', get_test_image_file().file.getvalue()),
             'collection': new_collection.id,
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImage.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1721,7 +1689,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             ('image-%d-title' % self.image.id): "New title!",
             ('image-%d-tags' % self.image.id): "footwear, dystopia",
             ('image-%d-caption' % self.image.id): "a boot stamping on a human face, forever",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1760,7 +1728,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             ('image-%d-collection' % self.image.id): new_collection.id,
             ('image-%d-tags' % self.image.id): "",
             ('image-%d-caption' % self.image.id): "ooh la la",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1782,7 +1750,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_multiple', args=(self.image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1838,7 +1806,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
 
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1875,7 +1843,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1905,7 +1873,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
             ('uploaded-image-%d-title' % self.uploaded_image.id): "New title!",
             ('uploaded-image-%d-tags' % self.uploaded_image.id): "",
             ('uploaded-image-%d-author' % self.uploaded_image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1943,7 +1911,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
             ('uploaded-image-%d-title' % self.uploaded_image.id): "New title!",
             ('uploaded-image-%d-tags' % self.uploaded_image.id): "abstract, squares",
             ('uploaded-image-%d-author' % self.uploaded_image.id): "Piet Mondrian",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1978,7 +1946,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_upload_multiple', args=(self.uploaded_image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
