@@ -29,7 +29,6 @@ class BulkAction(ABC, FormView):
     extras = dict()
     action_priority = 100
     model = None
-    object_key = 'object'
     classes = set()
 
     form_class = forms.Form
@@ -60,7 +59,7 @@ class BulkAction(ABC, FormView):
 
     def object_context(self, obj):
         return {
-            '{}'.format(self.object_key): obj
+            'item': obj
         }
 
     def __run_before_hooks(self, action_type, request, objects):
@@ -89,7 +88,7 @@ class BulkAction(ABC, FormView):
             else:
                 objects.append(obj)
         return objects, {
-            '{}s_with_no_access'.format(self.object_key): objects_with_no_access
+            'items_with_no_access': objects_with_no_access
         }
 
     def get_context_data(self, **kwargs):
@@ -99,7 +98,7 @@ class BulkAction(ABC, FormView):
             _objects.append(self.object_context(obj))
         return {
             **super().get_context_data(**kwargs),
-            '{}s'.format(self.object_key): _objects,
+            'items': _objects,
             **objects_with_no_access,
             'next': self.next_url,
             'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING'],
