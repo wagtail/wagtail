@@ -20,7 +20,7 @@ class Button:
         self.priority = priority
 
     def render(self):
-        attrs = {'href': self.url, 'class': ' '.join(sorted(self.classes))}
+        attrs = {'href': self.url, 'class': ' '.join(sorted(self.classes)), 'title': self.label}
         attrs.update(self.attrs)
         return format_html('<a{}>{}</a>', flatatt(attrs), self.label)
 
