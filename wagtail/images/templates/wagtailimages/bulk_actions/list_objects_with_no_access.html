@@ -3,8 +3,8 @@
 
 {% block per_object %}
     {% if object.can_edit %}
-    <a href="{% url 'wagtailimages:edit' object.image.id %}" target="_blank" rel="noopener noreferrer">{{ object.image.title }}</a>
+    <a href="{% url 'wagtailimages:edit' object.item.id %}" target="_blank" rel="noopener noreferrer">{{ object.item.title }}</a>
     {% else %}
-    {{ object.image.title }}
+    {{ object.item.title }}
     {% endif %}
 {% endblock per_object %}

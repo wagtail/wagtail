@@ -55,7 +55,7 @@ class MoveBulkAction(PageBulkAction):
 
     def object_context(self, obj):
         context = super().object_context(obj)
-        context['child_pages'] = context['page'].get_descendants().count()
+        context['child_pages'] = context['item'].get_descendants().count()
         return context
 
     def get_actionable_objects(self):
@@ -75,11 +75,11 @@ class MoveBulkAction(PageBulkAction):
         return pages, {
             **objects_without_access,
             'pages_without_destination_access': [
-                {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
                 for page in pages_without_destination_access
             ],
             "pages_with_duplicate_slugs": [
-                {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
                 for page in pages_with_duplicate_slugs
             ],
         }
