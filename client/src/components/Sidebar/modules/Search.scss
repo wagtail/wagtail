@@ -50,10 +50,11 @@
         padding: 0;
         width: 35px;
         height: 35px;
-        transition: opacity $menu-transition-duration ease, margin-right $menu-transition-duration ease;
+        transition: opacity $menu-transition-duration ease, width $menu-transition-duration ease;
 
         svg {
             margin-right: 15px;
+            transition: margin-right $menu-transition-duration ease;
         }
 
         .sidebar--slim & {
