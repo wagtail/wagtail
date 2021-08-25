@@ -26,6 +26,7 @@ const exposedDependencies = {
 module.exports = function exports() {
   const entrypoints = {
     'admin': [
+      'collapsible',
       'comments',
       'core',
       'date-time-chooser',
