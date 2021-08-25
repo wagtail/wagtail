@@ -497,7 +497,7 @@ ul.listing {
     }
 }
 
-.bulk-actions-choices {
+.footer.bulk-actions-choices {
     @include transition(transform 0.1s ease 0.1s);
 
     &.hidden {
@@ -506,10 +506,14 @@ ul.listing {
     }
 
     .button {
-        font-weight: 700;
+        font-weight: 600;
     }
 
     .bulk-actions-more {
+        .button {
+            border: 0;
+        }
+
         .button:not(:hover) {
             color: $color-teal;
         }
@@ -536,6 +540,21 @@ ul.listing {
     justify-content: space-around;
     width: 100%;
     align-items: center;
+    padding: 1.25em;
+    border-radius: 4px 4px 0 0;
+    margin-left: 30px;
+
+    .bulk-actions-buttons {
+        border-left: 1px solid $color-grey-2;
+        padding-left: 1.5em;
+
+        .bulk-action-btn {
+            max-width: 150px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            border: 0;
+        }
+    }
 
     .num-objects {
         text-transform: none;
@@ -547,7 +566,7 @@ ul.listing {
         background-color: transparent;
         border: 0;
         font-family: 'Open Sans';
-        align-self: baseline;
+        padding: 0;
     }
 
     .button:not(:hover) {
