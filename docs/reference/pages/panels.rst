@@ -305,7 +305,7 @@ Use ``classname="collapsible"`` to enable the collapse control.
 Use ``classname="collapsible collapsed"`` will load the editor page with the panel collapsed under its heading.
 
 You must define a ``heading`` when using ``collapsible`` with ``MultiFieldPanel``.
-You must defined a ``heading`` or ``label`` when using ``collapsible`` with ``InlinePanel``.
+You must define a ``heading`` or ``label`` when using ``collapsible`` with ``InlinePanel``.
 
 
 .. code-block:: python
