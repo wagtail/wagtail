@@ -26,3 +26,7 @@ We welcome code reviews from everyone. There's always a list of pull requests ta
 ## Translations
 
 Please submit any new or improved translations through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+
+## Accessibility testing
+
+We’d love to get feedback on the accessibility of Wagtail. Get in touch with our [accessibility team](https://github.com/wagtail/wagtail/wiki/Accessibility-team) if you are testing Wagtail and want to report your findings, or have a look at our [backlog of accessibility issues and improvements](https://github.com/wagtail/wagtail/projects/5). We also document our [testing targets and known issues](https://docs.wagtail.io/en/latest/contributing/developing.html#accessibility-targets).

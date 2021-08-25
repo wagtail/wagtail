@@ -5,7 +5,7 @@
     {{ block.super }}
     <script>
         window.headerSearch = {
-            url: "{% url 'wagtaildocs:index' %}",
+            url: "{% url 'wagtaildocs:listing_results' %}",
             termInput: "#id_q",
             targetOutput: "#document-results"
         }

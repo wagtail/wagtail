@@ -305,8 +305,13 @@ $positions: (
     }
 }
 
+//Media for Windows High Contrast
 
-
+@media (forced-colors: $media-forced-colours) {
+    .#{$namespace}-userbar-icon {
+        fill: $system-color-link-text;
+    }
+}
 
 // =============================================================================
 // Userbar positional classes (tl, tr, bl, br)
