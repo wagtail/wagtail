@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group
 from django.urls import re_path
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic, mixins
