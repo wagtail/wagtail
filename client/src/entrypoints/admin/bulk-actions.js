@@ -205,4 +205,29 @@ function addBulkActionListeners() {
     });
 }
 
+function rebindBulkActionsEventListeners() {
+  // when deselecting all checkbox, simply hide the footer for smooth transition
+  document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+    el.checked = false; // eslint-disable-line no-param-reassign
+  });
+  document.querySelector(`${BULK_ACTION_CHOICES_DIV}`).classList.add('hidden');
+  document.querySelectorAll(`${BULK_ACTION_SELECT_ALL_CHECKBOX}`).forEach(el => {
+    // remove already attached event listener first
+    el.removeEventListener('change', onSelectAllChange);
+    el.addEventListener('change', onSelectAllChange);
+  });
+  checkedState.checkedObjects.clear();
+  checkedState.numObjects = 0;
+  document.querySelectorAll(`${BULK_ACTION_PAGE_CHECKBOX_INPUT}`)
+    .forEach(el => {
+      checkedState.numObjects++;
+      el.addEventListener('change', onSelectIndividualCheckbox);
+    });
+}
+
 window.addEventListener('load', addBulkActionListeners);
+if (window.headerSearch) {
+  document.querySelector(window.headerSearch.termInput).addEventListener(
+    'search-success', rebindBulkActionsEventListeners
+  );
+}
