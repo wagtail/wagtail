@@ -14,7 +14,7 @@ Registering a custom bulk action
 
 
         @hooks.register('register_bulk_action')
-        class CustomPageBulkAction(BulkAction):
+        class MyCustomBulkAction(BulkAction):
             display_name = _("Custom Action")
             aria_label = _("Do custom action")
             action_type = "action"
@@ -29,14 +29,14 @@ Registering a custom bulk action
 
 The attributes are as follows:
 
-- ``display_name`` - The label that will be displayed on the button in the ui
-- ``aria_label`` - The ``aria-label`` attribute that will be applied to the button in the ui
+- ``display_name`` - The label that will be displayed on the button in the user interface
+- ``aria_label`` - The ``aria-label`` attribute that will be applied to the button in the user interface
 - ``action_type`` - A unique identifier for the action. Will be required in the url for bulk actions
 - ``template_name`` - The path to the confirmation template
-- ``models`` - A list of models on which the bulk action can act upon
+- ``models`` - A list of models on which the bulk action can act
 - ``action_priority`` (optional) - A number that is used to determine the placement of the button in the list of buttons
 - ``object_key`` (optional) - The key that will be used to create the context of objects
-- ``classes`` (optional) - A set of css classnames that will be used on the button in the ui
+- ``classes`` (optional) - A set of CSS classnames that will be used on the button in the user interface
 
 
 Adding bulk actions to the page explorer
@@ -60,8 +60,8 @@ Basic example
 
 
 
-Adding bulk actions to images listing
-----------------------------------------
+Adding bulk actions to the Images listing
+-----------------------------------------
 
 When creating a custom bulk action class for images, subclass from ``wagtail.images.views.bulk_actions.image_bulk_action.ImageBulkAction``
 instead of ``wagtail.admin.views.bulk_action.BulkAction``
@@ -81,8 +81,8 @@ Basic example
 
 
 
-Adding bulk actions to document listing
-----------------------------------------
+Adding bulk actions to the documents listing
+--------------------------------------------
 
 When creating a custom bulk action class for documents, subclass from ``wagtail.documents.views.bulk_actions.document_bulk_action.DocumentBulkAction``
 instead of ``wagtail.admin.views.bulk_action.BulkAction``
@@ -102,8 +102,8 @@ Basic example
 
 
 
-Adding bulk actions to user listing
-----------------------------------------
+Adding bulk actions to the user listing
+---------------------------------------
 
 When creating a custom bulk action class for users, subclass from ``wagtail.users.views.bulk_actions.user_bulk_action.UserBulkAction``
 instead of ``wagtail.admin.views.bulk_action.BulkAction``

@@ -1368,9 +1368,9 @@ Hooks for registering and customising bulk actions
 ``register_bulk_action``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Registers a new bulk action class to add to the list of bulk actions in the explorer
+  Registers a new bulk action to add to the list of bulk actions in the explorer
 
-  This hook can be added to a sub-class of ``BulkAction`` . For example:
+  This hook must be registered with a sub-class of ``BulkAction`` . For example:
 
   .. code-block:: python
 
@@ -1401,14 +1401,14 @@ Hooks for registering and customising bulk actions
 
   Do something right before a bulk action is executed (before the ``execute_action`` method is called)
 
-  This hook can be used to return an http response. For example:
+  This hook can be used to return an HTTP response. For example:
 
   .. code-block:: python
 
     from wagtail.core import hooks
 
     @hooks.register('before_bulk_action)
-    def hook_func(request, action_type, pages, action_class_instance):
+    def hook_func(request, action_type, objects, action_class_instance):
       ...
 
 
@@ -1419,14 +1419,14 @@ Hooks for registering and customising bulk actions
 
   Do something right after a bulk action is executed (after the ``execute_action`` method is called)
 
-  This hook can be used to return an http response. For example:
+  This hook can be used to return an HTTP response. For example:
 
   .. code-block:: python
 
     from wagtail.core import hooks
 
     @hooks.register('after_bulk_action)
-    def hook_func(request, action_type, pages, action_class_instance):
+    def hook_func(request, action_type, objects, action_class_instance):
       ...
 
 
