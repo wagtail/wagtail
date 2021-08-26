@@ -529,6 +529,7 @@ Contributors
 * Jannis Vajen
 * Dmitrii Faiazov
 * Amy Chan
+* Stefan Hammer
 
 Translators
 ===========
