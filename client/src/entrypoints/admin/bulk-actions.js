@@ -39,6 +39,8 @@ function onSelectAllChange(e) {
     el.checked = e.target.checked;
     if (e.target.checked) {
       el.dispatchEvent(changeEvent);
+    } else {
+      el.classList.remove('show');
     }
   }
   if (!e.target.checked) {
