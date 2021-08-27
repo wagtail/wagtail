@@ -1,10 +1,7 @@
 from django.apps import apps
 from django.http.response import Http404
 
-from wagtail.admin.views.bulk_action.registry import BulkActionRegistry
-
-
-registry = BulkActionRegistry()
+from wagtail.admin.views.bulk_action.registry import bulk_action_registry as registry
 
 
 def index(request, app_label, model_name, action):

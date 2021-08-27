@@ -16,7 +16,7 @@ class BulkActionRegistry:
                     self.actions.setdefault(model._meta.app_label, {})
                     self.actions[model._meta.app_label].setdefault(model._meta.model_name, {})
                     self.actions[model._meta.app_label][model._meta.model_name][action_class.action_type] = action_class
-            self.has_scanned_for_features = True
+            self.has_scanned_for_bulk_actions = True
 
     def get_bulk_actions_for_model(self, app_label, model_name):
         self._scan_for_bulk_actions()
@@ -25,3 +25,6 @@ class BulkActionRegistry:
     def get_bulk_action_class(self, app_label, model_name, action_type):
         self._scan_for_bulk_actions()
         return self.actions.get(app_label, {}).get(model_name, {}).get(action_type, None)
+
+
+bulk_action_registry = BulkActionRegistry()

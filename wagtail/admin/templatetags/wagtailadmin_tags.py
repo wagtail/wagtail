@@ -29,7 +29,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
-from wagtail.admin.views.bulk_action.registry import BulkActionRegistry
+from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
@@ -44,7 +44,6 @@ from wagtail.users.utils import get_gravatar_url
 
 
 register = template.Library()
-bulk_action_registry = BulkActionRegistry()
 
 register.filter('intcomma', intcomma)
 
