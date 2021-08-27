@@ -1,16 +1,16 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans count counter=images|length %}Delete 1 image{% plural %}Delete {{ counter }} images{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans count counter=items|length %}Delete 1 image{% plural %}Delete {{ counter }} images{% endblocktrans %}{% endblock %}
 
 {% block header %}
     {% trans "Delete images" as del_str %}
     {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-full-inverse" %}
 {% endblock header %}
 
-{% block objects_with_access %}
-    {% if images %}
+{% block items_with_access %}
+    {% if items %}
     <p>
-        {% blocktrans count counter=images|length %}
+        {% blocktrans count counter=items|length %}
         Are you sure you want to delete this image?
         {% plural %}
         Are you sure you want to delete these images?
@@ -18,27 +18,27 @@
     </p>
     <ul>
     {% usage_count_enabled as uc_enabled %}
-    {% for image in images %}
+    {% for image in items %}
         <li>
-            <a href="{% url 'wagtailimages:edit' image.image.id %}"  target="_blank" rel="noopener noreferrer">{{image.image.title}}</a>
+            <a href="{% url 'wagtailimages:edit' image.item.id %}"  target="_blank" rel="noopener noreferrer">{{image.item.title}}</a>
             {% if uc_enabled %}
-            (<a href="{{ image.image.usage_url }}">{% blocktrans count usage_count=image.image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
+            (<a href="{{ image.item.usage_url }}">{% blocktrans count usage_count=image.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
             {% endif %}
         </li>
     {% endfor %}
     </ul>
     {% endif %}
-{% endblock objects_with_access %}
+{% endblock items_with_access %}
 
-{% block objects_with_no_access %}
+{% block items_with_no_access %}
 
-{% blocktrans asvar no_access_msg count counter=images_with_no_access|length %}You don't have permission to delete this image{% plural %}You don't have permission to delete these images{% endblocktrans %}
-{% include 'wagtailimages/bulk_actions/list_objects_with_no_access.html' with objects=images_with_no_access no_access_msg=no_access_msg %}
+{% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this image{% plural %}You don't have permission to delete these images{% endblocktrans %}
+{% include 'wagtailimages/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-{% endblock objects_with_no_access %}
+{% endblock items_with_no_access %}
 
 {% block form_section %}
-    {% if images %}
+    {% if items %}
         {% trans 'Yes, delete' as action_button_text %}
         {% trans "No, don't delete" as no_action_button_text %}
         {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
