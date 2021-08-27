@@ -66,6 +66,10 @@ class TypedTableBlockAdapter(Adapter):
         return [
             block.name,
             block.child_blocks.values(),
+            {
+                name: child_block.get_form_state(child_block.get_default())
+                for name, child_block in block.child_blocks.items()
+            },
             meta,
         ]
 
