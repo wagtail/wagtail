@@ -58,6 +58,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   // space next to the content
   const [peeking, setPeeking] = React.useState(false);
 
+  // 'open' indicates whether the sidebar is visible or not.
+  // this is meant to be used to show/hide the menu on small screens.
+  // it only has effect on small screens.
+  const [open, setOpen] = React.useState(false);
+
   // Tracks whether the screen is below 800 pixels. In this state, the menu is completely hidden.
   // State is used here in case the user changes their browser size
   const checkWindowSizeIsMobile = () => window.innerWidth < 800;
@@ -68,6 +73,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
         setIsMobile(true);
       } else {
         setIsMobile(false);
+
+        // Close the menu as this state is not used in desktop
+        setOpen(false);
       }
     }
     window.addEventListener('resize', handleResize);
@@ -93,10 +101,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     };
   }, [slim]);
 
-  // 'open' indicates whether the sidebar is visible or not.
-  // this is meant to be used to show/hide the menu on small screens.
-  // it only has effect on small screens.
-  const [open, setOpen] = React.useState(false);
   const onClickCollapseToggle = (e: React.MouseEvent) => {
     e.preventDefault();
     setCollapsed(!collapsed);
@@ -180,8 +184,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
       <aside
         className={
           'sidebar'
-           + (slim ? ' sidebar--slim' : '')
-           + (open ? ' sidebar--open' : '')
+          + (slim ? ' sidebar--slim' : '')
+          + (isMobile ? ' sidebar--mobile' : '')
+          + ((isMobile && !open) ? ' sidebar--closed' : '')
         }
       >
         <div className="sidebar__inner">
@@ -200,7 +205,14 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
           </div>
         </div>
       </aside>
-      <button onClick={onClickOpenCloseToggle} className="button sidebar__nav-toggle">
+      <button
+        onClick={onClickOpenCloseToggle}
+        className={
+          'button sidebar-nav-toggle'
+          + (isMobile ? ' sidebar-nav-toggle--mobile' : '')
+          + (open ? ' sidebar-nav-toggle--open' : '')
+        }
+      >
         {open ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
     </>
