@@ -29,7 +29,6 @@ class BulkAction(ABC, FormView):
     extras = dict()
     action_priority = 100
     model = None
-    object_key = 'object'
     classes = set()
 
     form_class = forms.Form
@@ -60,7 +59,7 @@ class BulkAction(ABC, FormView):
 
     def object_context(self, obj):
         return {
-            '{}'.format(self.object_key): obj
+            'item': obj
         }
 
     def __run_before_hooks(self, action_type, request, objects):
@@ -77,7 +76,7 @@ class BulkAction(ABC, FormView):
 
     def get_actionable_objects(self):
         objects = []
-        objects_with_no_access = []
+        items_with_no_access = []
         object_ids = self.request.GET.getlist('id')
         if 'all' in object_ids:
             parent_page_id = int(self.request.GET.get('childOf'))
@@ -85,25 +84,27 @@ class BulkAction(ABC, FormView):
 
         for obj in self.get_queryset(object_ids):
             if not self.check_perm(obj):
-                objects_with_no_access.append(obj)
+                items_with_no_access.append(obj)
             else:
                 objects.append(obj)
-        return objects, objects_with_no_access
+        return objects, {
+            'items_with_no_access': items_with_no_access
+        }
 
     def get_context_data(self, **kwargs):
-        objects, objects_with_no_access = self.get_actionable_objects()
-        _objects = []
-        for obj in objects:
-            _objects.append(self.object_context(obj))
+        items, items_with_no_access = self.get_actionable_objects()
+        _items = []
+        for item in items:
+            _items.append(self.object_context(item))
         return {
             **super().get_context_data(**kwargs),
-            '{}s'.format(self.object_key): _objects,
-            '{}s_with_no_access'.format(self.object_key): objects_with_no_access,
+            'items': _items,
+            **items_with_no_access,
             'next': self.next_url,
             'submit_url': self.request.path + '?' + self.request.META['QUERY_STRING'],
         }
 
-    def prepare_action(self, objects):
+    def prepare_action(self, objects, objects_without_access):
         return
 
     def get_execution_context(self):
@@ -112,8 +113,8 @@ class BulkAction(ABC, FormView):
     def form_valid(self, form):
         request = self.request
         self.cleaned_form = form
-        objects, _ = self.get_actionable_objects()
-        resp = self.prepare_action(objects)
+        objects, objects_without_access = self.get_actionable_objects()
+        resp = self.prepare_action(objects, objects_without_access)
         if hasattr(resp, 'status_code'):
             return resp
         with transaction.atomic():

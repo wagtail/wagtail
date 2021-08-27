@@ -1,6 +1,5 @@
 from django import forms
 from django.contrib.auth.models import Group
-from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -31,15 +30,13 @@ class AssignRoleBulkAction(UserBulkAction):
             'role': self.cleaned_form.cleaned_data['role'],
         }
 
-    def prepare_action(self, objects):
-        if not self.request.user.is_superuser:
-            return
-        for user in objects:
-            if user == self.request.user:
-                ctx = self.get_context_data()
-                ctx['users'] = list(filter(lambda x: x['user'].pk != user.pk, ctx['users']))
-                ctx['mark_self_as_not_admin'] = [user]
-                return TemplateResponse(self.request, self.template_name, ctx)
+    def get_actionable_objects(self):
+        objects, objects_without_access = super().get_actionable_objects()
+        user = self.request.user
+        users = list(filter(lambda x: x.pk != user.pk, objects))
+        if len(objects) != len(users):
+            objects_without_access['mark_self_as_not_admin'] = [user]
+        return users, objects_without_access
 
     @classmethod
     def execute_action(cls, objects, role=None, **kwargs):
