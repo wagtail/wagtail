@@ -11,6 +11,10 @@ export class TypedTableBlock {
     this.rows = [];  // list of lists of block instances
     this.columnIdIndex = 0;
     this.prefix = prefix;
+    this.childBlockDefsByName = {};
+    this.blockDef.childBlockDefs.forEach(childBlockDef => {
+      this.childBlockDefsByName[childBlockDef.name] = childBlockDef;
+    });
 
     const dom = $(`
       <div class="typed-table-block ${h(this.blockDef.meta.classname || '')}">
@@ -132,15 +136,17 @@ export class TypedTableBlock {
     newHeaderCell.appendChild(column.headingInput);
 
     // add new cell to each body row
+    const initialCellState = this.blockDef.childBlockDefaultStates[blockDef.name];
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
-      const newCell = document.createElement('td');
+      const newCellElement = document.createElement('td');
       if (isLastColumn) {
-        tr.appendChild(newCell);
+        tr.appendChild(newCellElement);
       } else {
-        tr.insertBefore(newCell, cells[index]);
+        tr.insertBefore(newCellElement, cells[index]);
       }
-      this.rows[rowIndex].splice(index, 0, this.initCell(newCell, column, rowIndex));
+      const newCellBlock = this.initCell(newCellElement, column, rowIndex, initialCellState);
+      this.rows[rowIndex].splice(index, 0, newCellBlock);
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
@@ -152,7 +158,7 @@ export class TypedTableBlock {
     }
     return column;
   }
-  addRow() {
+  addRow(initialStates) {
     const newRowElement = document.createElement('tr');
     const newRow = [];
     const rowIndex = this.rows.length;
@@ -160,24 +166,37 @@ export class TypedTableBlock {
     this.rows.push(newRow);
     this.rowCountInput.value = this.rows.length;
     this.columns.forEach((column, i) => {
+      let initialState;
+      if (initialStates) {
+        initialState = initialStates[i];
+      } else {
+        // use block's default state
+        initialState = this.blockDef.childBlockDefaultStates[column.blockDef.name];
+      }
       const newCell = document.createElement('td');
       newRowElement.appendChild(newCell);
-      newRow[i] = this.initCell(newCell, column, rowIndex);
+      newRow[i] = this.initCell(newCell, column, rowIndex, initialState);
     });
     return newRow;
   }
-  initCell(cell, column, rowIndex) {
+  initCell(cell, column, rowIndex, initialState) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
     const cellPrefix = this.prefix + '-cell-' + rowIndex + '-' + column.id;
-    const defaultState = this.blockDef.childBlockDefaultStates[column.blockDef.name];
-    return column.blockDef.render(placeholder, cellPrefix, defaultState, null);
+    return column.blockDef.render(placeholder, cellPrefix, initialState, null);
   }
 
   setState(state) {
     this.clear();
     if (state) {
-      console.log(state);
+      state.columns.forEach((columnData, index) => {
+        const blockDef = this.childBlockDefsByName[columnData.type];
+        const column = this.insertColumn(index, blockDef);
+        column.headingInput.value = columnData.heading;
+      });
+      state.rows.forEach(row => {
+        this.addRow(row.values);
+      });
     }
   }
 
