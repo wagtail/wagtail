@@ -1,0 +1,6 @@
+{% extends 'wagtailadmin/bulk_actions/confirmation/list_items_with_no_access.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block per_item %}
+{{ item|user_display_name }}
+{% endblock per_item %}

@@ -55,34 +55,45 @@ class MoveBulkAction(PageBulkAction):
 
     def object_context(self, obj):
         context = super().object_context(obj)
-        context['child_pages'] = context['page'].get_descendants().count()
+        context['child_pages'] = context['item'].get_descendants().count()
         return context
 
-    def prepare_action(self, pages):
+    def get_actionable_objects(self):
+        objects, objects_without_access = super().get_actionable_objects()
+        request = self.request
+        destination = self.cleaned_form.cleaned_data['chooser'] if self.cleaned_form else Page.get_first_root_node()
+        pages = []
+        pages_without_destination_access = []
+        pages_with_duplicate_slugs = []
+        for page in objects:
+            if not page.permissions_for_user(request.user).can_move_to(destination):
+                pages_without_destination_access.append(page)
+            elif not Page._slug_is_available(page.slug, destination, page=page):
+                pages_with_duplicate_slugs.append(page)
+            else:
+                pages.append(page)
+        return pages, {
+            **objects_without_access,
+            'pages_without_destination_access': [
+                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                for page in pages_without_destination_access
+            ],
+            "pages_with_duplicate_slugs": [
+                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                for page in pages_with_duplicate_slugs
+            ],
+        }
+
+    def prepare_action(self, pages, pages_without_access):
         request = self.request
         move_applicable = self.cleaned_form.cleaned_data['move_applicable']
         if move_applicable:
             return
         destination = self.cleaned_form.cleaned_data['chooser']
-        pages_without_destination_access = []
-        pages_with_duplicate_slugs = []
-        for page in pages:
-            if not page.permissions_for_user(request.user).can_move_to(destination):
-                pages_without_destination_access.append(page)
-            if not Page._slug_is_available(page.slug, destination, page=page):
-                pages_with_duplicate_slugs.append(page)
-        if pages_without_destination_access or pages_with_duplicate_slugs:
+        if pages_without_access['pages_without_destination_access'] or pages_without_access['pages_with_duplicate_slugs']:
             # this will be picked up by the form
             self.destination = destination
             return TemplateResponse(request, self.template_name, {
-                'pages_without_destination_access': [
-                    {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
-                    for page in pages_without_destination_access
-                ],
-                "pages_with_duplicate_slugs": [
-                    {'page': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
-                    for page in pages_with_duplicate_slugs
-                ],
                 'destination': destination,
                 **self.get_context_data()
             })
@@ -99,10 +110,6 @@ class MoveBulkAction(PageBulkAction):
         if destination is None:
             return
         for page in objects:
-            if not page.permissions_for_user(user).can_move_to(destination):
-                continue
-            if not Page._slug_is_available(page.slug, destination, page=page):
-                continue
             page.move(destination, pos='last-child', user=user)
             num_parent_objects += 1
         return num_parent_objects, 0

@@ -42,7 +42,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
             self.assertTrue(get_user_model().objects.get(email=user.email).groups.filter(name=self.new_group).exists())
 
     def test_user_cannot_mark_self_as_not_admin(self):
-        response = self.client.post(self.self_toggle_url, self.post_data)
+        response = self.client.get(self.self_toggle_url)
 
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
