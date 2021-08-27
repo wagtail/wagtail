@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-empty-inverse" %}
 {% endblock header %}
 
-{% block objects_with_access %}
+{% block items_with_access %}
         {% if items %}
         <p>{% trans "Are you sure you want to delete these pages?" %}</p>
         <ul>
@@ -28,14 +28,14 @@
             {% endfor %}
         </ul>
         {% endif %}
-{% endblock objects_with_access %}
+{% endblock items_with_access %}
 
-{% block objects_with_no_access %}
+{% block items_with_no_access %}
 
 {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this page{% plural %}You don't have permission to delete these pages{% endblocktrans %}
-{% include './list_objects_with_no_access.html' with objects=items_with_no_access no_access_msg=no_access_msg %}
+{% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-{% endblock objects_with_no_access %}
+{% endblock items_with_no_access %}
 
 {% block form_section %}
 {% if items %}

@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/header.html" with title=header_str icon="doc-empty-inverse" %}
 {% endblock header %}
 
-{% block objects_with_access %}
+{% block items_with_access %}
         {% if items %}
         <p>{% trans "Are you sure you want to assign this role to these users?" %}</p>
         <ul>
@@ -19,17 +19,17 @@
             {% endfor %}
         </ul>
         {% endif %}
-{% endblock objects_with_access %}
+{% endblock items_with_access %}
 
-{% block objects_with_no_access %}
+{% block items_with_no_access %}
 
 {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to edit this user{% plural %}You don't have permission to edit these users{% endblocktrans %}
-{% include 'wagtailusers/bulk_actions/list_objects_with_no_access.html' with objects=items_with_no_access no_access_msg=no_access_msg %}
+{% include 'wagtailusers/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
 {% trans "A superuser cannot change their role" as no_access_msg %}
-{% include 'wagtailusers/bulk_actions/list_objects_with_no_access.html' with objects=mark_self_as_not_admin no_access_msg=no_access_msg %}
+{% include 'wagtailusers/bulk_actions/list_items_with_no_access.html' with items=mark_self_as_not_admin no_access_msg=no_access_msg %}
 
-{% endblock objects_with_no_access %}
+{% endblock items_with_no_access %}
 
 {% block form_section %}
 {% if items %}
