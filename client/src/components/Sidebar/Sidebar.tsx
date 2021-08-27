@@ -87,25 +87,44 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     }
   };
 
-  // Switch peeking on/off when the mouse cursor hovers the sidebar
-  const startPeekingTimeout = React.useRef<any>(null);
-  const stopPeekingTimeout = React.useRef<any>(null);
+  // Switch peeking on/off when the mouse cursor hovers the sidebar or focus is on the sidebar
+  const [mouseHover, setMouseHover] = React.useState(false);
+  const [focused, setFocused] = React.useState(false);
 
   const onMouseEnterHandler = () => {
-    clearTimeout(startPeekingTimeout.current);
-    clearTimeout(stopPeekingTimeout.current);
-    startPeekingTimeout.current = setTimeout(() => {
-      setPeeking(true);
-    }, 100);
+    setMouseHover(true);
   };
 
   const onMouseLeaveHandler = () => {
-    clearTimeout(startPeekingTimeout.current);
-    clearTimeout(stopPeekingTimeout.current);
-    stopPeekingTimeout.current = setTimeout(() => {
-      setPeeking(false);
-    }, SIDEBAR_TRANSITION_DURATION);
+    setMouseHover(false);
   };
+
+  const onFocusHandler = () => {
+    setFocused(true);
+  };
+
+  const onBlurHandler = () => {
+    setFocused(false);
+  };
+
+  const startPeekingTimeout = React.useRef<any>(null);
+  const stopPeekingTimeout = React.useRef<any>(null);
+
+  React.useEffect(() => {
+    if (mouseHover || focused) {
+      clearTimeout(startPeekingTimeout.current);
+      clearTimeout(stopPeekingTimeout.current);
+      startPeekingTimeout.current = setTimeout(() => {
+        setPeeking(true);
+      }, 100);
+    } else {
+      clearTimeout(startPeekingTimeout.current);
+      clearTimeout(stopPeekingTimeout.current);
+      stopPeekingTimeout.current = setTimeout(() => {
+        setPeeking(false);
+      }, SIDEBAR_TRANSITION_DURATION);
+    }
+  }, [mouseHover, focused]);
 
   // Render modules
   const renderedModules = modules.map(
@@ -132,6 +151,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
           className="sidebar__peek-hover-area"
           onMouseEnter={onMouseEnterHandler}
           onMouseLeave={onMouseLeaveHandler}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
         >
           {renderedModules}
         </div>
