@@ -19,6 +19,60 @@ class BaseTypedTableBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
+    def value_from_datadict(self, data, files, prefix):
+        column_count = int(data['%s-column-count' % prefix])
+        columns = [
+            {
+                'id': i,
+                'type': data['%s-column-%d-type' % (prefix, i)],
+                'order': int(data['%s-column-%d-order' % (prefix, i)]),
+                'heading': data['%s-column-%d-heading' % (prefix, i)],
+            }
+            for i in range(0, column_count)
+        ]
+        columns.sort(key=lambda col: col['order'])
+        for col in columns:
+            col['block'] = self.child_blocks[col['type']]
+
+        row_count = int(data['%s-row-count' % prefix])
+        rows = [
+            {'values': [
+                col['block'].value_from_datadict(
+                    data, files, '%s-cell-%d-%d' % (prefix, row_index, col['id'])
+                )
+                for col in columns
+            ]}
+            for row_index in range(0, row_count)
+        ]
+
+        return {
+            'columns': [
+                {
+                    'block': col['block'],
+                    'heading': col['heading']
+                }
+                for col in columns
+            ],
+            'rows': rows,
+        }
+
+    def get_prep_value(self, value):
+        return {
+            'columns': [
+                {'type': col['block'].name, 'heading': col['heading']}
+                for col in value['columns']
+            ],
+            'rows': [
+                {
+                    'values': [
+                        col['block'].get_prep_value(row['values'][i])
+                        for i, col in enumerate(value['columns'])
+                    ]
+                }
+                for row in value['rows']
+            ]
+        }
+
     def deconstruct(self):
         """
         Always deconstruct TypedTableBlock instances as if they were plain TypedTableBlock with all
