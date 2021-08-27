@@ -38,6 +38,7 @@ Bug fixes
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
  * Admin fields and Icon visibility issues in Windows high contrast mode (Dmitrii Faiazov)
  * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
+ * Screen readers can now access login screen field labels (Amy Chan)
 
 Upgrade considerations
 ======================

@@ -82,7 +82,7 @@ input[type=checkbox]:before {
         padding: 0;
 
         label {
-            display: none;
+            @include visuallyhidden;
         }
 
         input {

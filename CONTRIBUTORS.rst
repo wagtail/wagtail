@@ -528,6 +528,7 @@ Contributors
 * Himesh Samarasekera
 * Jannis Vajen
 * Dmitrii Faiazov
+* Amy Chan
 
 Translators
 ===========
