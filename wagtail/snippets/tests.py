@@ -416,7 +416,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):
@@ -450,7 +450,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(menu_items, request, context):
@@ -655,7 +655,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):

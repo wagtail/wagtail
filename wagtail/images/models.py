@@ -1,5 +1,7 @@
 import hashlib
+import logging
 import os.path
+import time
 
 from collections import OrderedDict
 from contextlib import contextmanager
@@ -27,6 +29,9 @@ from wagtail.images.image_operations import FilterOperation, ImageTransform, Tra
 from wagtail.images.rect import Rect
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+
+
+logger = logging.getLogger("wagtail.images")
 
 
 class SourceImageIOError(IOError):
@@ -303,7 +308,23 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             )
         except Rendition.DoesNotExist:
             # Generate the rendition image
-            generated_image = filter.run(self, BytesIO())
+            try:
+                logger.debug("Generating '%s' rendition for image %d", (
+                    filter.spec,
+                    self.pk,
+                ))
+
+                start_time = time.time()
+                generated_image = filter.run(self, BytesIO())
+
+                logger.debug("Generated '%s' rendition for image %d in %.1fms", (
+                    filter.spec,
+                    self.pk,
+                    (time.time() - start_time) * 1000
+                ))
+            except:  # noqa:B901,E722
+                logger.debug("Failed to generate '%s' rendition for image %d: %s", filter.spec, self.pk)
+                raise
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)

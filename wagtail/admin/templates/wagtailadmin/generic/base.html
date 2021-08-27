@@ -1,0 +1,14 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+
+{% block content %}
+
+    {% block header %}
+        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
+    {% endblock %}
+
+    <div class="nice-padding">
+        {% block main_content %}{% endblock %}
+    </div>
+{% endblock %}

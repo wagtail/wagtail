@@ -6,14 +6,23 @@ Changelog
 
  * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
+ * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions (Karl Hobley)
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
+ * Add a debug logger around image rendition generation (Jake Howard)
+ * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
+ * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
+ * Removed `request.is_ajax()` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Simplify generic admin view templates plus ensure `page_title` and `page_subtitle` are used consistently (Matt Westcott)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
  * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
+ * Fix: Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
+ * Fix: Admin fields and Icon visibility issues in Windows high contrast mode (Dmitrii Faiazov)
+ * Fix: `blocks.MultipleChoiceBlock`, `forms.CheckboxSelectMultiple` and `ArrayField` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
 
 
 2.14.1 (12.08.2021)
