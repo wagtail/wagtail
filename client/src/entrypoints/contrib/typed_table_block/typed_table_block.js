@@ -5,10 +5,10 @@ import { escapeHtml as h } from '../../../utils/text';
 
 export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
-    const state = initialState || {};
     this.blockDef = blockDef;
     this.type = blockDef.name;
-    this.columns = [];
+    this.columns = [];  // list of column definition objects
+    this.rows = [];  // list of lists of block instances
     this.columnIdIndex = 0;
     this.prefix = prefix;
 
@@ -62,13 +62,15 @@ export class TypedTableBlock {
 
     this.appendColumnButton.on('click', () => {
       this.toggleAddColumnMenu(this.appendColumnButton, (chosenBlockDef) => {
-        this.insertColumn(this.columns.length, chosenBlockDef);
+        this.insertColumn(this.columns.length, chosenBlockDef, { addInitialRow: true });
       });
     });
 
     this.addRowButton.on('click', () => {
       this.addRow();
     });
+
+    this.setState(initialState);
   }
 
   showAddColumnMenu(baseElement, callback) {
@@ -88,7 +90,22 @@ export class TypedTableBlock {
       this.showAddColumnMenu(baseElement, callback);
     }
   }
-  insertColumn(index, blockDef) {
+  clear() {
+    // reset to initial empty state with no rows or columns
+    this.columns = [];
+    this.rows = [];
+    this.columnIdIndex = 0;
+    this.columnCountInput.value = 0;
+    this.rowCountInput.value = 0;
+    const headerRow = this.thead.children[0];
+    // delete all header cells except for the final one containing the 'append column' button
+    headerRow.replaceChildren(headerRow.lastElementChild);
+    this.appendColumnButton.text('Add columns');
+    // delete all body rows
+    this.tbody.replaceChildren();
+    this.addRowButton.hide();
+  }
+  insertColumn(index, blockDef, opts) {
     const column = {
       blockDef,
       position: index,
@@ -104,13 +121,16 @@ export class TypedTableBlock {
     this.columnCountInput.value = this.columns.length;
 
     // add new cell to the header row
-    Array.from(this.thead.children).forEach(tr => {
-      const cells = tr.children;
-      const newCell = document.createElement('th');
-      // insertBefore is correct even for the last column, because the header row
-      // has an extra final cell to contain the 'append column' button
-      tr.insertBefore(newCell, cells[index]);
-    });
+    const headerRow = this.thead.children[0];
+    const headerCells = headerRow.children;
+    const newHeaderCell = document.createElement('th');
+    // insertBefore is correct even for the last column, because the header row
+    // has an extra final cell to contain the 'append column' button
+    headerRow.insertBefore(newHeaderCell, headerCells[index]);
+    column.headingInput = document.createElement('input');
+    column.headingInput.name = this.prefix + '-heading-' + column.id;
+    newHeaderCell.appendChild(column.headingInput);
+
     // add new cell to each body row
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
@@ -120,36 +140,45 @@ export class TypedTableBlock {
       } else {
         tr.insertBefore(newCell, cells[index]);
       }
-      this.initCell(newCell, column, rowIndex);
+      this.rows[rowIndex].splice(index, 0, this.initCell(newCell, column, rowIndex));
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
     this.appendColumnButton.text('+');
-    /* if no rows exist, add an initial one */
-    if (this.tbody.children.length === 0) {
+
+    if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
+      /* add an initial row */
       this.addRow();
     }
+    return column;
   }
   addRow() {
-    const newRow = document.createElement('tr');
-    const rowIndex = this.tbody.children.length;
-    this.tbody.appendChild(newRow);
-    this.rowCountInput.value = this.tbody.children.length;
-    this.columns.forEach(column => {
+    const newRowElement = document.createElement('tr');
+    const newRow = [];
+    const rowIndex = this.rows.length;
+    this.tbody.appendChild(newRowElement);
+    this.rows.push(newRow);
+    this.rowCountInput.value = this.rows.length;
+    this.columns.forEach((column, i) => {
       const newCell = document.createElement('td');
-      newRow.appendChild(newCell);
-      this.initCell(newCell, column, rowIndex);
+      newRowElement.appendChild(newCell);
+      newRow[i] = this.initCell(newCell, column, rowIndex);
     });
+    return newRow;
   }
   initCell(cell, column, rowIndex) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
     const cellPrefix = this.prefix + '-cell-' + rowIndex + '-' + column.id;
     const defaultState = this.blockDef.childBlockDefaultStates[column.blockDef.name];
-    column.blockDef.render(placeholder, cellPrefix, defaultState, null);
+    return column.blockDef.render(placeholder, cellPrefix, defaultState, null);
   }
 
   setState(state) {
+    this.clear();
+    if (state) {
+      console.log(state);
+    }
   }
 
   setError(errorList) {
@@ -160,9 +189,27 @@ export class TypedTableBlock {
   }
 
   getState() {
+    const state = {
+      columns: this.columns.map(column => (
+        { type: column.blockDef.name, heading: column.headingInput.value }
+      )),
+      rows: this.rows.map(row => (
+        { values: row.map(block => block.getState()) }
+      )),
+    };
+    return state;
   }
 
   getValue() {
+    const value = {
+      columns: this.columns.map(column => (
+        { type: column.blockDef.name, heading: column.headingInput.value }
+      )),
+      rows: this.rows.map(row => (
+        { values: row.map(block => block.getValue()) }
+      )),
+    };
+    return value;
   }
 
   getTextLabel(opts) {
