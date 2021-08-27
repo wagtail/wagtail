@@ -132,8 +132,6 @@ class TestBulkMove(TestCase, WagtailTestUtils):
                 page_title=child_page.title
             ), html)
 
-        self.assertContains(response, '<input type="checkbox" name="move_applicable" id="id_move_applicable">')
-
     def test_bulk_move_slug_already_taken(self):
         temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")
         temp_page_2 = SimplePage(title="Hello world!", slug="hello-world-b-1", content="hello")
@@ -151,8 +149,6 @@ class TestBulkMove(TestCase, WagtailTestUtils):
                 edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
                 page_title=child_page.title
             ), html)
-
-        self.assertContains(response, '<input type="checkbox" name="move_applicable" id="id_move_applicable">')
 
     def test_bulk_move_ignore_permission_errors(self):
         temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")

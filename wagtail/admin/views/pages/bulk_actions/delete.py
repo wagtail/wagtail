@@ -18,7 +18,7 @@ class DeleteBulkAction(PageBulkAction):
 
     def object_context(self, page):
         return {
-            'page': page,
+            'item': page,
             'descendant_count': page.get_descendant_count(),
         }
 

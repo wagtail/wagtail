@@ -1,5 +1,4 @@
 from django import forms
-from django.template.response import TemplateResponse
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
@@ -32,15 +31,13 @@ class ToggleActivityBulkAction(UserBulkAction):
             'user': self.request.user
         }
 
-    def prepare_action(self, objects):
-        if not self.cleaned_form.cleaned_data['mark_as_active']:
-            # if user has marked themselves as inactive, return an error
-            for user in objects:
-                if user == self.request.user:
-                    context = self.get_context_data()
-                    context['users'] = list(filter(lambda x: x['user'].pk != user.pk, context['users']))
-                    context['mark_self_as_inactive'] = [user]
-                    return TemplateResponse(self.request, self.template_name, context)
+    def get_actionable_objects(self):
+        objects, objects_without_access = super().get_actionable_objects()
+        user = self.request.user
+        users = list(filter(lambda x: x.pk != user.pk, objects))
+        if len(objects) != len(users):
+            objects_without_access['mark_self_as_inactive'] = [user]
+        return users, objects_without_access
 
     @classmethod
     def execute_action(cls, objects, mark_as_active=False, user=None, **kwargs):
