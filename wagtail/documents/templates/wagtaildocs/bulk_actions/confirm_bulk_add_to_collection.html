@@ -1,41 +1,41 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
-{% block titletag %}{% blocktrans count counter=documents|length %}Add 1 document to new collection {% plural %}Add {{ counter }} documents to new collection{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans count counter=items|length %}Add 1 document to new collection {% plural %}Add {{ counter }} documents to new collection{% endblocktrans %}{% endblock %}
 
 {% block header %}
     {% trans "Add documents to collection" as add_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_str icon="doc-full-inverse" %}
 {% endblock header %}
 
-{% block objects_with_access %}
-    {% if documents %}
+{% block items_with_access %}
+    {% if items %}
     <p>
-        {% blocktrans count counter=documents|length %}
+        {% blocktrans count counter=items|length %}
         Are you sure you want to add the following document to the selected collection?
         {% plural %}
         Are you sure you want to add the following documents to the selected collection?
         {% endblocktrans %}
     </p>
     <ul>
-        {% for document in documents %}
+        {% for document in items %}
         <li>
-            <a href="{% url 'wagtaildocs:edit' document.document.id %}"  target="_blank" rel="noopener noreferrer">{{document.document.title}}</a>
+            <a href="{% url 'wagtaildocs:edit' document.item.id %}"  target="_blank" rel="noopener noreferrer">{{document.item.title}}</a>
         </li>
         {% endfor %}
     </ul>
     {% endif %}
-{% endblock objects_with_access %}
+{% endblock items_with_access %}
 
-{% block objects_with_no_access %}
+{% block items_with_no_access %}
 
-{% blocktrans asvar no_access_msg count counter=documents_with_no_access|length %}You don't have permission to add this document to a collection{% plural %}You don't have permission to add these documents to a collection{% endblocktrans %}
-{% include 'wagtaildocs/bulk_actions/list_objects_with_no_access.html' with objects=documents_with_no_access no_access_msg=no_access_msg %}
+{% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to add this document to a collection{% plural %}You don't have permission to add these documents to a collection{% endblocktrans %}
+{% include 'wagtaildocs/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-{% endblock objects_with_no_access %}
+{% endblock items_with_no_access %}
 
 {% block form_section %}
-    {% if documents %}
+    {% if items %}
         {% trans 'Yes, add' as action_button_text %}
         {% trans "No, don't add" as no_action_button_text %}
         {% include 'wagtailadmin/bulk_actions/confirmation/form_with_fields.html' %}

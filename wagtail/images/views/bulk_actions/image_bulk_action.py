@@ -6,14 +6,13 @@ from wagtail.images.permissions import permission_policy as images_permission_po
 class ImageBulkAction(BulkAction):
     permission_policy = images_permission_policy
     model = get_image_model()
-    object_key = 'image'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['images_with_no_access'] = [
+        context['items_with_no_access'] = [
             {
-                'image': image,
+                'item': image,
                 'can_edit': self.permission_policy.user_has_permission_for_instance(self.request.user, 'change', image)
-            } for image in context['images_with_no_access']
+            } for image in context['items_with_no_access']
         ]
         return context

@@ -1,20 +1,20 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans count counter=pages|length %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans count counter=items|length %}Delete 1 page {% plural %}Delete {{ counter }} pages{% endblocktrans %}{% endblock %}
 
 {% block header %}
     {% trans "Delete" as del_str %}
     {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-empty-inverse" %}
 {% endblock header %}
 
-{% block objects_with_access %}
-        {% if pages %}
+{% block items_with_access %}
+        {% if items %}
         <p>{% trans "Are you sure you want to delete these pages?" %}</p>
         <ul>
-            {% for page in pages %}
+            {% for page in items %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.page.id %}" target="_blank" rel="noopener noreferrer">{{page.page.title }}</a>
+                <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noopener noreferrer">{{page.item.title }}</a>
                 {% if page.descendant_count %}
                 <p>
                     {% blocktrans count counter=page.descendant_count %}
@@ -28,17 +28,17 @@
             {% endfor %}
         </ul>
         {% endif %}
-{% endblock objects_with_access %}
+{% endblock items_with_access %}
 
-{% block objects_with_no_access %}
+{% block items_with_no_access %}
 
-{% blocktrans asvar no_access_msg count counter=pages_with_no_access|length %}You don't have permission to delete this page{% plural %}You don't have permission to delete these pages{% endblocktrans %}
-{% include './list_objects_with_no_access.html' with objects=pages_with_no_access no_access_msg=no_access_msg %}
+{% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this page{% plural %}You don't have permission to delete these pages{% endblocktrans %}
+{% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-{% endblock objects_with_no_access %}
+{% endblock items_with_no_access %}
 
 {% block form_section %}
-{% if pages %}
+{% if items %}
     {% trans 'Yes, delete' as action_button_text %}
     {% trans "No, don't delete" as no_action_button_text %}
     {% include 'wagtailadmin/bulk_actions/confirmation/form.html' with action_button_class="serious" %}
