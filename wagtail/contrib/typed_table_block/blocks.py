@@ -57,21 +57,84 @@ class BaseTypedTableBlock(Block):
         }
 
     def get_prep_value(self, value):
-        return {
-            'columns': [
-                {'type': col['block'].name, 'heading': col['heading']}
-                for col in value['columns']
-            ],
-            'rows': [
+        if value:
+            return {
+                'columns': [
+                    {'type': col['block'].name, 'heading': col['heading']}
+                    for col in value['columns']
+                ],
+                'rows': [
+                    {
+                        'values': [
+                            col['block'].get_prep_value(row['values'][i])
+                            for i, col in enumerate(value['columns'])
+                        ]
+                    }
+                    for row in value['rows']
+                ]
+            }
+        else:
+            return {
+                'columns': [],
+                'rows': [],
+            }
+
+    def to_python(self, value):
+        if value:
+            columns = [
                 {
-                    'values': [
-                        col['block'].get_prep_value(row['values'][i])
-                        for i, col in enumerate(value['columns'])
-                    ]
+                    'block': self.child_blocks[col['type']],
+                    'heading': col['heading'],
                 }
-                for row in value['rows']
+                for col in value['columns']
             ]
-        }
+            # restore data column-by-column to take advantage of bulk_to_python
+            columns_data = [
+                col['block'].bulk_to_python([
+                    row['values'][column_index] for row in value['rows']
+                ])
+                for column_index, col in enumerate(columns)
+            ]
+            return {
+                'columns': columns,
+                'rows': [
+                    {
+                        'values': [
+                            column_data[row_index]
+                            for column_data in columns_data
+                        ]
+                    }
+                    for row_index in range(0, len(value['rows']))
+                ]
+            }
+        else:
+            return {
+                'columns': [],
+                'rows': [],
+            }
+
+    def get_form_state(self, value):
+        if value:
+            return {
+                'columns': [
+                    {'type': col['block'].name, 'heading': col['heading']}
+                    for col in value['columns']
+                ],
+                'rows': [
+                    {
+                        'values': [
+                            col['block'].get_form_state(row['values'][column_index])
+                            for column_index, col in enumerate(value['columns'])
+                        ]
+                    }
+                    for row in value['rows']
+                ]
+            }
+        else:
+            return {
+                'columns': [],
+                'rows': [],
+            }
 
     def deconstruct(self):
         """
