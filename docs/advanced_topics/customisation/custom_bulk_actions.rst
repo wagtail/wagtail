@@ -23,8 +23,8 @@ Registering a custom bulk action
 
             @classmethod
             def execute_action(cls, objects, **kwargs):
-                for object in objects:
-                    do_something(object)
+                for obj in objects:
+                    do_something(obj)
                 return num_parent_objects, num_child_objects  # return the count of updated objects
 
 The attributes are as follows:
@@ -35,7 +35,6 @@ The attributes are as follows:
 - ``template_name`` - The path to the confirmation template
 - ``models`` - A list of models on which the bulk action can act
 - ``action_priority`` (optional) - A number that is used to determine the placement of the button in the list of buttons
-- ``object_key`` (optional) - The key that will be used to create the context of objects
 - ``classes`` (optional) - A set of CSS classnames that will be used on the button in the user interface
 
 An example for a confirmation template is as follows:
@@ -54,7 +53,7 @@ An example for a confirmation template is as follows:
       {% include "wagtailadmin/shared/header.html" with title=del_str icon="doc-empty-inverse" %}
   {% endblock header %}
 
-  {% block objects_with_access %}
+  {% block items_with_access %}
           {% if items %}
           <p>{% trans "Are you sure you want to delete these items?" %}</p>
           <ul>
@@ -65,14 +64,14 @@ An example for a confirmation template is as follows:
               {% endfor %}
           </ul>
           {% endif %}
-  {% endblock objects_with_access %}
+  {% endblock items_with_access %}
 
-  {% block objects_with_no_access %}
+  {% block items_with_no_access %}
 
   {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this item{% plural %}You don't have permission to delete these items{% endblocktrans %}
-  {% include './list_objects_with_no_access.html' with objects=items_with_no_access no_access_msg=no_access_msg %}
+  {% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-  {% endblock objects_with_no_access %}
+  {% endblock items_with_no_access %}
 
   {% block form_section %}
   {% if items %}
@@ -83,6 +82,21 @@ An example for a confirmation template is as follows:
       {% include 'wagtailadmin/bulk_actions/confirmation/go_back.html' %}
   {% endif %}
   {% endblock form_section %}
+
+
+.. code-block:: django
+
+  <!-- ./list_items_with_no_access.html -->
+  {% extends 'wagtailadmin/bulk_actions/confirmation/list_items_with_no_access.html' %}
+  {% load i18n %}
+
+  {% block per_item %}
+      {% if item.can_edit %}
+      <a href="{% url 'wagtailadmin_pages:edit' item.item.id %}" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
+      {% else %}
+      {{ item.item.title }}
+      {% endif %}
+  {% endblock per_item %}
 
 
 The ``execute_action`` classmethod is the only method that must be overridden for the bulk action to work properly. It
