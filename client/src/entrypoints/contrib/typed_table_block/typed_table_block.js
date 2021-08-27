@@ -120,6 +120,7 @@ export class TypedTableBlock {
     // increase positions of columns after this one
     for (let i = index; i < this.columns.length; i++) {
       this.columns[i].position++;
+      this.columns[i].positionInput.value = this.columns[i].position;
     }
     this.columns.splice(index, 0, column);
     this.columnCountInput.value = this.columns.length;
@@ -136,6 +137,11 @@ export class TypedTableBlock {
     column.typeInput.name = this.prefix + '-column-' + column.id + '-type';
     column.typeInput.value = blockDef.name;
     newHeaderCell.appendChild(column.typeInput);
+    column.positionInput = document.createElement('input');
+    column.positionInput.type = 'hidden';
+    column.positionInput.name = this.prefix + '-column-' + column.id + '-order';
+    column.positionInput.value = index;
+    newHeaderCell.appendChild(column.positionInput);
 
     column.headingInput = document.createElement('input');
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
