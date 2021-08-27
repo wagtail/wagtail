@@ -82,12 +82,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     e.preventDefault();
     setCollapsed(!collapsed);
 
-    // Unpeek if the user has just collapsed the menu
-    // Otherwise the menu would just stay open until the mouse leaves
-    if (!collapsed) {
-      setPeeking(false);
-    }
-
     if (onExpandCollapse) {
       onExpandCollapse(!collapsed);
     }
@@ -128,14 +122,19 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   return (
     <aside
       className={'sidebar' + (slim ? ' sidebar--slim' : '')}
-      onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}
     >
       <div className="sidebar__inner">
         <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
           {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
         </button>
 
-        {renderedModules}
+        <div
+          className="sidebar__peek-hover-area"
+          onMouseEnter={onMouseEnterHandler}
+          onMouseLeave={onMouseLeaveHandler}
+        >
+          {renderedModules}
+        </div>
       </div>
     </aside>
   );
