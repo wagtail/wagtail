@@ -107,18 +107,14 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     setFocused(false);
   };
 
-  const startPeekingTimeout = React.useRef<any>(null);
+  // We need a stop peeking timeout to stop the sidebar moving as someone tab's though the menu
   const stopPeekingTimeout = React.useRef<any>(null);
 
   React.useEffect(() => {
     if (mouseHover || focused) {
-      clearTimeout(startPeekingTimeout.current);
       clearTimeout(stopPeekingTimeout.current);
-      startPeekingTimeout.current = setTimeout(() => {
-        setPeeking(true);
-      }, 100);
+      setPeeking(true);
     } else {
-      clearTimeout(startPeekingTimeout.current);
       clearTimeout(stopPeekingTimeout.current);
       stopPeekingTimeout.current = setTimeout(() => {
         setPeeking(false);
