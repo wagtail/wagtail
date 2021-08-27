@@ -20,7 +20,7 @@ class BulkActionRegistry:
 
     def get_bulk_actions_for_model(self, app_label, model_name):
         self._scan_for_bulk_actions()
-        return list(self.actions.get(app_label, {}).get(model_name, {}).values())
+        return self.actions.get(app_label, {}).get(model_name, {}).values()
 
     def get_bulk_action_class(self, app_label, model_name, action_type):
         self._scan_for_bulk_actions()

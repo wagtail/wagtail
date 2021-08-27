@@ -506,7 +506,7 @@ def bulk_action_filters(context):
                         takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
 
-    bulk_actions_list = bulk_action_registry.get_bulk_actions_for_model(app_label, model_name)
+    bulk_actions_list = list(bulk_action_registry.get_bulk_actions_for_model(app_label, model_name))
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
     bulk_action_more_list = []
