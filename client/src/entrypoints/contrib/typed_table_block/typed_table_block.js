@@ -9,9 +9,13 @@ export class TypedTableBlock {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.columns = [];
+    this.columnIdIndex = 0;
+    this.prefix = prefix;
 
     const dom = $(`
       <div class="typed-table-block ${h(this.blockDef.meta.classname || '')}">
+        <input type="hidden" name="${h(prefix)}-column-count" data-column-count value="0">
+        <input type="hidden" name="${h(prefix)}-row-count" data-row-count value="0">
         <table>
           <thead>
             <tr><th><button type="button" data-append-column>Add columns</button></th></tr>
@@ -25,6 +29,8 @@ export class TypedTableBlock {
     $(placeholder).replaceWith(dom);
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
+    this.columnCountInput = dom.find('input[data-column-count]').get(0);
+    this.rowCountInput = dom.find('input[data-row-count]').get(0);
     this.appendColumnButton = dom.find('button[data-append-column]');
     this.addRowButton = dom.find('button[data-add-row]');
     this.addRowButton.hide();
@@ -85,18 +91,36 @@ export class TypedTableBlock {
   insertColumn(index, blockDef) {
     const column = {
       blockDef,
+      position: index,
+      id: this.columnIdIndex,
     };
+    this.columnIdIndex++;
+    const isLastColumn = (index === this.columns.length);
+    // increase positions of columns after this one
+    for (let i = index; i < this.columns.length; i++) {
+      this.columns[i].position++;
+    }
     this.columns.splice(index, 0, column);
+    this.columnCountInput.value = this.columns.length;
+
+    // add new cell to the header row
     Array.from(this.thead.children).forEach(tr => {
       const cells = tr.children;
       const newCell = document.createElement('th');
+      // insertBefore is correct even for the last column, because the header row
+      // has an extra final cell to contain the 'append column' button
       tr.insertBefore(newCell, cells[index]);
     });
-    Array.from(this.tbody.children).forEach(tr => {
+    // add new cell to each body row
+    Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
       const newCell = document.createElement('td');
-      tr.insertBefore(newCell, cells[index]);
-      this.initCell(newCell, blockDef);
+      if (isLastColumn) {
+        tr.appendChild(newCell);
+      } else {
+        tr.insertBefore(newCell, cells[index]);
+      }
+      this.initCell(newCell, column, rowIndex);
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
@@ -108,17 +132,21 @@ export class TypedTableBlock {
   }
   addRow() {
     const newRow = document.createElement('tr');
+    const rowIndex = this.tbody.children.length;
     this.tbody.appendChild(newRow);
+    this.rowCountInput.value = this.tbody.children.length;
     this.columns.forEach(column => {
       const newCell = document.createElement('td');
       newRow.appendChild(newCell);
-      this.initCell(newCell, column.blockDef);
+      this.initCell(newCell, column, rowIndex);
     });
   }
-  initCell(cell, blockDef) {
+  initCell(cell, column, rowIndex) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
-    blockDef.render(placeholder, 'asdf', null, null);
+    const cellPrefix = this.prefix + '-cell-' + rowIndex + '-' + column.id;
+    const defaultState = this.blockDef.childBlockDefaultStates[column.blockDef.name];
+    column.blockDef.render(placeholder, cellPrefix, defaultState, null);
   }
 
   setState(state) {
@@ -147,9 +175,10 @@ export class TypedTableBlock {
 }
 
 export class TypedTableBlockDefinition {
-  constructor(name, childBlockDefs, meta) {
+  constructor(name, childBlockDefs, childBlockDefaultStates, meta) {
     this.name = name;
     this.childBlockDefs = childBlockDefs;
+    this.childBlockDefaultStates = childBlockDefaultStates;
     this.meta = meta;
   }
 
