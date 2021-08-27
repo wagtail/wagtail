@@ -678,6 +678,7 @@ def register_icons(icons):
         'arrow-up-big.svg',
         'arrow-up.svg',
         'arrows-up-down.svg',
+        'bars.svg',
         'bin.svg',
         'bold.svg',
         'chain-broken.svg',
