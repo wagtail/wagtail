@@ -131,8 +131,14 @@ export class TypedTableBlock {
     // insertBefore is correct even for the last column, because the header row
     // has an extra final cell to contain the 'append column' button
     headerRow.insertBefore(newHeaderCell, headerCells[index]);
+    column.typeInput = document.createElement('input');
+    column.typeInput.type = 'hidden';
+    column.typeInput.name = this.prefix + '-column-' + column.id + '-type';
+    column.typeInput.value = blockDef.name;
+    newHeaderCell.appendChild(column.typeInput);
+
     column.headingInput = document.createElement('input');
-    column.headingInput.name = this.prefix + '-heading-' + column.id;
+    column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
     newHeaderCell.appendChild(column.headingInput);
 
     // add new cell to each body row
