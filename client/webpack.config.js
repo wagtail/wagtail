@@ -9,6 +9,8 @@ const getOutputPath = (app, filename) => {
     appLabel = 'wagtaildocs';
   } else if (app === 'contrib/table_block') {
     appLabel = 'table_block';
+  } else if (app === 'contrib/typed_table_block') {
+    appLabel = 'typed_table_block';
   }
 
   return path.join('wagtail', app, 'static', appLabel, 'js', filename);
@@ -69,6 +71,9 @@ module.exports = function exports() {
     ],
     'contrib/table_block': [
       'table',
+    ],
+    'contrib/typed_table_block': [
+      'typed_table_block',
     ],
   };
 
