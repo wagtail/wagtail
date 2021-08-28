@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
+from django.views.generic.base import View
 
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
@@ -42,75 +43,76 @@ def get_document_result_data(document):
     }
 
 
-def chooser(request):
-    Document = get_document_model()
+class ChooseView(View):
+    def get(self, request):
+        Document = get_document_model()
 
-    if permission_policy.user_has_permission(request.user, 'add'):
-        DocumentForm = get_document_form(Document)
-        uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
-    else:
-        uploadform = None
-
-    documents = permission_policy.instances_user_has_any_permission_for(
-        request.user, ['choose']
-    )
-
-    # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_document_chooser_queryset'):
-        documents = hook(documents, request)
-
-    q = None
-    if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
-
-        collection_id = request.GET.get('collection_id')
-        if collection_id:
-            documents = documents.filter(collection=collection_id)
-        documents_exist = documents.exists()
-
-        searchform = SearchForm(request.GET)
-        if searchform.is_valid():
-            q = searchform.cleaned_data['q']
-
-            documents = documents.search(q)
-            is_searching = True
+        if permission_policy.user_has_permission(request.user, 'add'):
+            DocumentForm = get_document_form(Document)
+            uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
         else:
-            documents = documents.order_by('-created_at')
-            is_searching = False
+            uploadform = None
 
-        # Pagination
-        paginator = Paginator(documents, per_page=10)
-        documents = paginator.get_page(request.GET.get('p'))
-
-        return TemplateResponse(request, "wagtaildocs/chooser/results.html", {
-            'documents': documents,
-            'documents_exist': documents_exist,
-            'uploadform': uploadform,
-            'query_string': q,
-            'is_searching': is_searching,
-            'collection_id': collection_id,
-        })
-    else:
-        searchform = SearchForm()
-
-        collections = permission_policy.collections_user_has_permission_for(
-            request.user, 'choose'
+        documents = permission_policy.instances_user_has_any_permission_for(
+            request.user, ['choose']
         )
-        if len(collections) < 2:
-            collections = None
 
-        documents = documents.order_by('-created_at')
-        documents_exist = documents.exists()
-        paginator = Paginator(documents, per_page=10)
-        documents = paginator.get_page(request.GET.get('p'))
+        # allow hooks to modify the queryset
+        for hook in hooks.get_hooks('construct_document_chooser_queryset'):
+            documents = hook(documents, request)
 
-        return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
-            'documents': documents,
-            'documents_exist': documents_exist,
-            'uploadform': uploadform,
-            'searchform': searchform,
-            'collections': collections,
-            'is_searching': False,
-        }, json_data=get_chooser_context())
+        q = None
+        if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
+
+            collection_id = request.GET.get('collection_id')
+            if collection_id:
+                documents = documents.filter(collection=collection_id)
+            documents_exist = documents.exists()
+
+            searchform = SearchForm(request.GET)
+            if searchform.is_valid():
+                q = searchform.cleaned_data['q']
+
+                documents = documents.search(q)
+                is_searching = True
+            else:
+                documents = documents.order_by('-created_at')
+                is_searching = False
+
+            # Pagination
+            paginator = Paginator(documents, per_page=10)
+            documents = paginator.get_page(request.GET.get('p'))
+
+            return TemplateResponse(request, "wagtaildocs/chooser/results.html", {
+                'documents': documents,
+                'documents_exist': documents_exist,
+                'uploadform': uploadform,
+                'query_string': q,
+                'is_searching': is_searching,
+                'collection_id': collection_id,
+            })
+        else:
+            searchform = SearchForm()
+
+            collections = permission_policy.collections_user_has_permission_for(
+                request.user, 'choose'
+            )
+            if len(collections) < 2:
+                collections = None
+
+            documents = documents.order_by('-created_at')
+            documents_exist = documents.exists()
+            paginator = Paginator(documents, per_page=10)
+            documents = paginator.get_page(request.GET.get('p'))
+
+            return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
+                'documents': documents,
+                'documents_exist': documents_exist,
+                'uploadform': uploadform,
+                'searchform': searchform,
+                'collections': collections,
+                'is_searching': False,
+            }, json_data=get_chooser_context())
 
 
 def document_chosen(request, document_id):

@@ -17,7 +17,7 @@ urlpatterns = [
     path('multiple/<int:doc_id>/delete/', multiple.DeleteView.as_view(), name='delete_multiple'),
     path('multiple/delete_upload/<int:uploaded_document_id>/', multiple.DeleteUploadView.as_view(), name='delete_upload_multiple'),
 
-    path('chooser/', chooser.chooser, name='chooser'),
+    path('chooser/', chooser.ChooseView.as_view(), name='chooser'),
     path('chooser/<int:document_id>/', chooser.document_chosen, name='document_chosen'),
     path('chooser/upload/', chooser.chooser_upload, name='chooser_upload'),
     path('usage/<int:document_id>/', documents.usage, name='document_usage'),
