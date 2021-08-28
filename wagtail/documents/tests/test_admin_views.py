@@ -1122,7 +1122,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
 
         # Check that we got the correct page
         self.assertEqual(response.context['documents'].number, 2)
@@ -1134,7 +1134,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
 
         # Check that we got page one
         self.assertEqual(response.context['documents'].number, 1)
@@ -1146,7 +1146,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/documents/list.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
 
         # Check that we got the last page
         self.assertEqual(response.context['documents'].number, response.context['documents'].paginator.num_pages)
