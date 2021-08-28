@@ -373,6 +373,39 @@ class CollectionOwnershipPermissionPolicy(
 class CollectionMangementPermissionPolicy(
     CollectionPermissionLookupMixin, BaseDjangoAuthPermissionPolicy
 ):
+    def _descendants_with_perm(self, user, action):
+        """
+        Return a queryset of collections descended from a collection on which this user has
+        a GroupCollectionPermission record for this action. Used for actions, like edit and
+        delete where the user cannot modify the collection where they are granted permission.
+        """
+        # Get the permission object corresponding to this action
+        permission = self._get_permission_objects_for_actions([action]).first()
+
+        # Get the collections that have a GroupCollectionPermission record
+        # for this permission and any of the user's groups;
+        # create a list of their paths
+        collection_roots = Collection.objects.filter(
+            group_permissions__group__in=user.groups.all(),
+            group_permissions__permission=permission
+        ).values('path', 'depth')
+
+        if collection_roots:
+            # build a filter expression that will filter our model to just those
+            # instances in collections with a path that starts with one of the above
+            # but excluding the collection on which permission was granted
+            collection_path_filter = (
+                Q(path__startswith=collection_roots[0]['path']) & Q(depth__gt=collection_roots[0]['depth'])
+            )
+            for collection in collection_roots[1:]:
+                collection_path_filter = collection_path_filter | (
+                    Q(path__startswith=collection['path']) & Q(depth__gt=collection['depth'])
+                )
+            return Collection.objects.all().filter(collection_path_filter)
+        else:
+            # no matching collections
+            return Collection.objects.none()
+
     def user_has_permission(self, user, action):
         """
         Return whether the given user has permission to perform the given action
@@ -385,16 +418,7 @@ class CollectionMangementPermissionPolicy(
         Return whether the given user has permission to perform any of the given actions
         on some or all instances of this model.
         """
-        if not (user.is_active and user.is_authenticated):
-            return False
-
-        if user.is_superuser:
-            return True
-
-        return GroupCollectionPermission.objects.filter(
-            group__user=user,
-            permission__in=self._get_permission_objects_for_actions(actions),
-        ).exists()
+        return self._check_perm(user, actions)
 
     def users_with_any_permission(self, actions):
         """
@@ -417,19 +441,6 @@ class CollectionMangementPermissionPolicy(
         """
         return self._check_perm(user, actions, collection=instance)
 
-    def user_has_any_permission_directly_on_instance(self, user, actions, instance):
-        """
-        Return whether the given user has any permission assigned directly to the instance.
-
-        When editing collections, we do not allow users to move nodes used to assign their
-        permissions as that might have unexpected effects on the permission cascade.
-        """
-        return GroupCollectionPermission.objects.filter(
-            group__user=user,
-            permission__in=self._get_permission_objects_for_actions(actions),
-            collection=instance,
-        ).exists()
-
     def users_with_any_permission_for_instance(self, actions, instance):
         """
         Return a queryset of all users who have permission to perform any of the given
@@ -438,35 +449,22 @@ class CollectionMangementPermissionPolicy(
         return self._users_with_perm(actions, collection=instance)
 
     def instances_user_has_permission_for(self, user, action):
-        return self.collections_user_has_permission_for(user, action)
+        if user.is_active and user.is_superuser:
+            # active superusers can perform any action (including unrecognised ones)
+            # in any collection - except for deleting the root collection
+            if action == 'delete':
+                return Collection.objects.exclude(depth=1).all()
+            else:
+                return Collection.objects.all()
+
+        elif not user.is_authenticated:
+            return Collection.objects.none()
+
+        else:
+            if action == 'delete':
+                return self._descendants_with_perm(user, action)
+            else:
+                return self._collections_with_perm(user, [action])
 
     def instances_user_has_any_permission_for(self, user, actions):
         return self.collections_user_has_any_permission_for(user, actions)
-
-    def descendants_of_collections_with_user_perm(self, user, actions):
-        """
-        Return a queryset of collections on which this user has a GroupCollectionPermission
-        record for any of the given actions because they have permission on an ancestor
-        """
-        # Get the permission objects corresponding to these actions
-        permissions = self._get_permission_objects_for_actions(actions)
-
-        # Get the collections that have a GroupCollectionPermission record
-        # for any of these permissions and any of the user's groups;
-        # create a list of their paths
-        collection_root_paths = Collection.objects.filter(
-            group_permissions__group__in=user.groups.all(),
-            group_permissions__permission__in=permissions
-        ).values_list('path', flat=True)
-
-        if collection_root_paths:
-            # build a filter expression that will filter our model to just those
-            # instances in collections with a path that starts with one of the above
-            collection_path_filter = Q(path__startswith=collection_root_paths[0])
-            for path in collection_root_paths[1:]:
-                collection_path_filter = collection_path_filter | Q(path__startswith=path)
-
-            return Collection.objects.all().filter(collection_path_filter).exclude(path__in=collection_root_paths)
-        else:
-            # no matching collections
-            return Collection.objects.none()
