@@ -49,9 +49,9 @@ class ChooseView(View):
 
         if permission_policy.user_has_permission(request.user, 'add'):
             DocumentForm = get_document_form(Document)
-            uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
+            self.uploadform = DocumentForm(user=request.user, prefix='document-chooser-upload')
         else:
-            uploadform = None
+            self.uploadform = None
 
         documents = permission_policy.instances_user_has_any_permission_for(
             request.user, ['choose']
@@ -61,59 +61,62 @@ class ChooseView(View):
         for hook in hooks.get_hooks('construct_document_chooser_queryset'):
             documents = hook(documents, request)
 
-        q = None
+        self.q = None
         if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
 
-            collection_id = request.GET.get('collection_id')
-            if collection_id:
-                documents = documents.filter(collection=collection_id)
-            documents_exist = documents.exists()
+            self.collection_id = request.GET.get('collection_id')
+            if self.collection_id:
+                documents = documents.filter(collection=self.collection_id)
+            self.documents_exist = documents.exists()
 
-            searchform = SearchForm(request.GET)
-            if searchform.is_valid():
-                q = searchform.cleaned_data['q']
+            self.searchform = SearchForm(request.GET)
+            if self.searchform.is_valid():
+                self.q = self.searchform.cleaned_data['q']
 
-                documents = documents.search(q)
-                is_searching = True
+                documents = documents.search(self.q)
+                self.is_searching = True
             else:
                 documents = documents.order_by('-created_at')
-                is_searching = False
+                self.is_searching = False
 
             # Pagination
             paginator = Paginator(documents, per_page=10)
-            documents = paginator.get_page(request.GET.get('p'))
-
-            return TemplateResponse(request, "wagtaildocs/chooser/results.html", {
-                'documents': documents,
-                'documents_exist': documents_exist,
-                'uploadform': uploadform,
-                'query_string': q,
-                'is_searching': is_searching,
-                'collection_id': collection_id,
-            })
+            self.documents = paginator.get_page(request.GET.get('p'))
+            return self.render_to_response()
         else:
-            searchform = SearchForm()
+            self.searchform = SearchForm()
 
-            collections = permission_policy.collections_user_has_permission_for(
+            self.collections = permission_policy.collections_user_has_permission_for(
                 request.user, 'choose'
             )
-            if len(collections) < 2:
-                collections = None
+            if len(self.collections) < 2:
+                self.collections = None
 
             documents = documents.order_by('-created_at')
-            documents_exist = documents.exists()
+            self.documents_exist = documents.exists()
             paginator = Paginator(documents, per_page=10)
-            documents = paginator.get_page(request.GET.get('p'))
+            self.documents = paginator.get_page(request.GET.get('p'))
+            return self.render_to_response()
 
-            return render_modal_workflow(request, 'wagtaildocs/chooser/chooser.html', None, {
-                'documents': documents,
-                'documents_exist': documents_exist,
-                'uploadform': uploadform,
-                'searchform': searchform,
-                'collections': collections,
+    def render_to_response(self):
+        if 'q' in self.request.GET or 'p' in self.request.GET or 'collection_id' in self.request.GET:
+            return TemplateResponse(self.request, "wagtaildocs/chooser/results.html", {
+                'documents': self.documents,
+                'documents_exist': self.documents_exist,
+                'uploadform': self.uploadform,
+                'query_string': self.q,
+                'is_searching': self.is_searching,
+                'collection_id': self.collection_id,
+            })
+        else:
+            return render_modal_workflow(self.request, 'wagtaildocs/chooser/chooser.html', None, {
+                'documents': self.documents,
+                'documents_exist': self.documents_exist,
+                'uploadform': self.uploadform,
+                'searchform': self.searchform,
+                'collections': self.collections,
                 'is_searching': False,
             }, json_data=get_chooser_context())
-
 
 def document_chosen(request, document_id):
     document = get_object_or_404(get_document_model(), id=document_id)
