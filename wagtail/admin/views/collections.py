@@ -7,7 +7,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.core.permissions import collection_permission_policy
 
 
@@ -23,13 +23,9 @@ class Index(IndexView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            # Only return descendants of the root node, so that the root is not editable
-            return Collection.get_first_root_node().get_descendants()
-        else:
-            return self.permission_policy.collections_user_has_any_permission_for(
-                self.request.user, ['add', 'change', 'delete']
-            )
+        return self.permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ['add', 'change', 'delete']
+        ).exclude(depth=1)
 
 
 class Create(CreateView):
@@ -45,7 +41,7 @@ class Create(CreateView):
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         # Now filter collections offered in parent field by current user's add permissions
-        collections = self.permission_policy.collections_user_has_permission_for(self.request.user, 'add')
+        collections = self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')
         form.fields['parent'].queryset = collections
         return form
 
@@ -71,30 +67,41 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
-    def get_queryset(self):
-        if self.request.user.is_superuser:
-            # Only return descendants of the root node, so that the root is not editable
-            return Collection.get_first_root_node().get_descendants()
+    def _user_may_move_collection(self, user, instance):
+        """
+        Is this instance used for assigning GroupCollectionPermissions to the user?
+        If so, this user may not move the collection to a new part of the tree
+        """
+        if user.is_active and user.is_superuser:
+            return True
         else:
-            return self.permission_policy.collections_user_has_permission_for(
-                self.request.user, 'change'
-            )
+            permissions = self.permission_policy._get_permission_objects_for_actions(['add', 'edit', 'delete'])
+            return not GroupCollectionPermission.objects.filter(
+                group__user=user,
+                permission__in=permissions,
+                collection=instance,
+            ).exists()
+
+    def get_queryset(self):
+        return self.permission_policy.instances_user_has_permission_for(
+            self.request.user, 'change'
+        ).exclude(depth=1)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         user = self.request.user
         # If this instance is a collection used to assign permissions for this user,
         # do not let the user move this collection.
-        if self.permission_policy.user_has_any_permission_directly_on_instance(
-            user, ['add', 'change', 'delete'], form.instance
-        ):
+        if not self._user_may_move_collection(user, form.instance):
+            form.fields['parent'].disabled = True
             form.fields['parent'].widget = HiddenInput()
         # or if user does not have add permission anywhere, then can't move collection
         elif not self.permission_policy.user_has_permission(user, 'add'):
+            form.fields['parent'].disabled = True
             form.fields['parent'].widget = HiddenInput()
         else:
             # Filter collections offered in parent field by current user's add permissions
-            collections = self.permission_policy.collections_user_has_permission_for(user, 'add')
+            collections = self.permission_policy.instances_user_has_permission_for(user, 'add')
             form.fields['parent'].queryset = collections
             form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
             form.fields['parent'].empty_label = None
@@ -110,25 +117,36 @@ class Edit(EditView):
         return instance
 
     def form_valid(self, form):
+        old_parent_pk = form.instance.get_parent().id
         new_parent_pk = int(form.data.get('parent', 0))
-        old_descendants = list(form.instance.get_descendants(
-            inclusive=True).values_list('pk', flat=True)
-        )
-        if new_parent_pk in old_descendants:
-            form.add_error('parent', gettext_lazy('Please select another parent'))
-            return self.form_invalid(form)
+        if not new_parent_pk == old_parent_pk:
+            # Can't move nodes used to assign permissions
+            if not self._user_may_move_collection(self.request.user, form.instance):
+                form.add_error('parent', gettext_lazy('You may not move collections used to grant permissions'))
+                return self.form_invalid(form)
+
+            # Can't move somewhere you don't have add permission
+            permitted_destinations = [
+                c.id for c in
+                self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')]
+            if new_parent_pk not in permitted_destinations:
+                form.add_error('parent', gettext_lazy('Please select another parent'))
+                return self.form_invalid(form)
+
+            # Also cannont move to be one of our own children
+            old_descendants = list(form.instance.get_descendants(
+                inclusive=True).values_list('pk', flat=True)
+            )
+            if new_parent_pk in old_descendants:
+                form.add_error('parent', gettext_lazy('Please select another parent'))
+                return self.form_invalid(form)
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_superuser:
-            can_delete = True
-        else:
-            # Can not delete the collection where the delete permission is assigned
-            can_delete = self.permission_policy.descendants_of_collections_with_user_perm(
-                self.request.user, ['delete']
-            ).filter(pk=self.object.pk).first()
-        context['can_delete'] = can_delete
+        context['can_delete'] = self.permission_policy.instances_user_has_permission_for(
+            self.request.user, 'delete'
+        ).filter(pk=self.object.pk).first()
         return context
 
 
@@ -143,13 +161,9 @@ class Delete(DeleteView):
     header_icon = 'folder-open-1'
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            # Only return descendants of the root node, so that the root is not editable
-            return Collection.get_first_root_node().get_descendants()
-        else:
-            return self.permission_policy.descendants_of_collections_with_user_perm(
-                self.request.user, ['delete']
-            )
+        return self.permission_policy.instances_user_has_permission_for(
+            self.request.user, 'delete'
+        )
 
     def get_collection_contents(self):
         collection_contents = [

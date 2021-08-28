@@ -156,6 +156,22 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertNotContains(response, "Finance")
         self.assertNotContains(response, "Add a collection")
 
+    def test_marketing_user_with_add_permission_on_root(self):
+        # Grant the marketing group permission to add to root colection
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.root_collection,
+            permission=self.add_permission
+        )
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        # (Root should not be shown)
+        self.assertEqual(
+            [collection.name for collection in response.context['object_list']],
+            ['Finance', 'Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+        self.assertContains(response, "Add a collection")
+
 
 class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
     def setUp(self):
@@ -222,7 +238,7 @@ class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils)
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
 
-        # Check that the collection was created and is a child of root
+        # Check that the collection was created and is a child of Marketing
         self.assertEqual(Collection.objects.filter(name="Affiliate Marketing").count(), 1)
         self.assertEqual(
             Collection.objects.get(name="Affiliate Marketing").get_parent(),
@@ -295,7 +311,8 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         )
 
     def test_cannot_move_parent_collection_to_descendant(self):
-        self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
+        response = self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
+        self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
         self.assertEqual(
             Collection.objects.get(pk=self.l2.pk).get_parent().pk,
             self.l1.pk
@@ -350,6 +367,12 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
 
+    def test_marketing_user_no_change_permission_post(self):
+        self.users_change_permission.delete()
+        response = self.post(self.marketing_collection.id, {})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
+
     def test_marketing_user_can_move_collection(self):
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
@@ -369,6 +392,17 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         form_fields = response.context['form'].fields
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'HiddenInput')
+        # Now try to move the collection and check it did not get moved
+        response = self.post(self.marketing_sub_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
+        self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
+
+    def test_cannot_move_parent_collection_to_descendant(self):
+        response = self.post(self.marketing_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
+        self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_collection.pk).get_parent().pk,
+            self.root_collection.pk
+        )
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
         response = self.get(collection_id=self.marketing_collection.id)
@@ -379,6 +413,22 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
         self.assertEqual(type(form_fields['parent'].widget).__name__, 'HiddenInput')
         self.assertNotContains(response, "Delete collection")
+
+    def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(self):
+        # Grant the marketing group permission to another collection so there is a valid destination
+        GroupCollectionPermission.objects.create(
+            group=self.marketing_group,
+            collection=self.finance_collection,
+            permission=self.add_permission
+        )
+        # We can move nodes lower on the tree
+        response = self.post(self.marketing_sub_collection.id,
+                             {'name': "Moved Sub", 'parent': self.finance_collection.id})
+        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(), self.finance_collection)
+        # But we can't move the node to which our edit permission was assigned
+        response = self.post(self.marketing_collection.id,
+                             {'name': self.marketing_collection.name, 'parent': self.finance_collection.id})
+        self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
         # Retrieve edit form and check fields
@@ -471,6 +521,15 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         # Check that the collection was not deleted
         self.assertTrue(Collection.objects.get(id=self.collection.id))
 
+    def test_post_root_collection(self):
+        # first we have to clear out the root collection so it is empty
+        self.collection.delete()
+
+        response = self.post(collection_id=self.root_collection.id)
+        self.assertEqual(response.status_code, 404)
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.root_collection.id))
+
 
 class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
@@ -500,15 +559,36 @@ class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUti
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
 
+    def test_post(self):
+        response = self.post(collection_id=self.marketing_sub_collection.id)
+        # Should redirect back to index
+        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+
+        # Check that the collection was deleted
+        with self.assertRaises(Collection.DoesNotExist):
+            Collection.objects.get(id=self.marketing_sub_collection.id)
+
     def test_cannot_delete_someone_elses_collection(self):
         response = self.get(self.finance_collection.id)
         self.assertEqual(response.status_code, 404)
+
+    def test_cannot_delete_someone_elses_collection_post(self):
+        response = self.post(self.finance_collection.id)
+        self.assertEqual(response.status_code, 404)
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.marketing_sub_collection.id))
 
     def test_cannot_delete_their_own_root_collection(self):
         response = self.get(self.marketing_collection.id)
         self.assertEqual(response.status_code, 404)
 
-    def test_cannot_delete_collection_with_descendants_get(self):
+    def test_cannot_delete_their_own_root_collection_post(self):
+        response = self.post(self.marketing_collection.id)
+        self.assertEqual(response.status_code, 404)
+        # Check that the collection was not deleted
+        self.assertTrue(Collection.objects.get(id=self.marketing_collection.id))
+
+    def test_cannot_delete_collection_with_descendants(self):
         self.marketing_sub_collection.add_child(instance=Collection(name='Another collection'))
 
         response = self.get(self.marketing_sub_collection.id)

@@ -1232,9 +1232,3 @@ class TestCollectionManagementPermission(PermissionPolicyTestUtils, TestCase, Wa
             self.policy.collections_user_has_any_permission_for(self.inactive_superuser, ['add', 'change']),
             []
         )
-
-    def test_descendants_of_collections_with_user_perm(self):
-        self.assertResultSetEqual(
-            self.policy.descendants_of_collections_with_user_perm(self.report_adder, ['add', 'change']),
-            [self.reports_2020_collection]
-        )
