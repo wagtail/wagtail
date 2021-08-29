@@ -86,13 +86,8 @@ class BaseChooseView(View):
 
         return self.render_to_response()
 
-    def render_to_response(self):
-        raise NotImplementedError()
-
-
-class ChooseView(BaseChooseView):
-    def render_to_response(self):
-        return render_modal_workflow(self.request, 'wagtaildocs/chooser/chooser.html', None, {
+    def get_context_data(self):
+        return {
             'documents': self.documents,
             'documents_exist': self.documents_exist,
             'uploadform': self.uploadform,
@@ -101,25 +96,28 @@ class ChooseView(BaseChooseView):
             'collections': self.collections,
             'is_searching': self.is_searching,
             'collection_id': self.collection_id,
-        }, json_data={
-            'step': 'chooser',
-            'error_label': _("Server Error"),
-            'error_message': _("Report this error to your webmaster with the following information:"),
-            'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
-        })
+        }
+
+    def render_to_response(self):
+        raise NotImplementedError()
+
+
+class ChooseView(BaseChooseView):
+    def render_to_response(self):
+        return render_modal_workflow(
+            self.request, 'wagtaildocs/chooser/chooser.html', None, self.get_context_data(),
+            json_data={
+                'step': 'chooser',
+                'error_label': _("Server Error"),
+                'error_message': _("Report this error to your webmaster with the following information:"),
+                'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+            }
+        )
 
 
 class ChooseResultsView(BaseChooseView):
     def render_to_response(self):
-        return TemplateResponse(self.request, "wagtaildocs/chooser/results.html", {
-            'documents': self.documents,
-            'documents_exist': self.documents_exist,
-            'uploadform': self.uploadform,
-            'query_string': self.q,
-            'collections': self.collections,
-            'is_searching': self.is_searching,
-            'collection_id': self.collection_id,
-        })
+        return TemplateResponse(self.request, "wagtaildocs/chooser/results.html", self.get_context_data())
 
 
 def document_chosen(request, document_id):
