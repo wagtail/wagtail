@@ -24,13 +24,11 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
         };
 
-        var searchUrl = $('form.document-search', modal.body).attr('action');
+        var searchForm = $('form.document-search', modal.body);
+        var searchUrl = searchForm.attr('action');
         var request;
         function search() {
-            loadResults(searchUrl, {
-                q: $('#id_q').val(),
-                collection_id: $('#collection_chooser_collection_id').val()
-            });
+            loadResults(searchUrl, searchForm.serialize());
             return false;
         };
 
