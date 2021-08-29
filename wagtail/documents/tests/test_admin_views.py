@@ -1228,9 +1228,9 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/upload_form.html')
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json['step'], 'chooser')
+        self.assertEqual(response_json['step'], 'reshow_upload_form')
 
     def test_post(self):
         # Build a fake file
@@ -1269,7 +1269,7 @@ class TestDocumentChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/upload_form.html')
 
         # The form should have an error
         self.assertContains(response, "Custom document with this Title and Collection already exists.")
@@ -1307,12 +1307,12 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
     def test_simple(self):
         response = self.client.get(reverse('wagtaildocs:chooser_upload'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtaildocs/chooser/upload_form.html')
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json['step'], 'chooser')
+        self.assertEqual(response_json['step'], 'reshow_upload_form')
 
         # user only has access to one collection -> should not see the collections field
-        self.assertNotIn('id_collection', response_json['html'])
+        self.assertNotIn('id_collection', response_json['htmlFragment'])
 
     def test_chooser_view(self):
         # The main chooser view also includes the form, so need to test there too
