@@ -7,8 +7,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
 
             $('.pagination a', context).on('click', function() {
-                var page = this.getAttribute("data-page");
-                setPage(page);
+                loadResults(this.href);
                 return false;
             });
 
@@ -28,37 +27,16 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         var searchUrl = $('form.document-search', modal.body).attr('action');
         var request;
         function search() {
-            request = $.ajax({
-                url: searchUrl,
-                data: {
-                    q: $('#id_q').val(),
-                    collection_id: $('#collection_chooser_collection_id').val()
-                },
-                success: function(data, status) {
-                    request = null;
-                    $('#search-results').html(data);
-                    ajaxifyLinks($('#search-results'));
-                },
-                error: function() {
-                    request = null;
-                }
+            loadResults(searchUrl, {
+                q: $('#id_q').val(),
+                collection_id: $('#collection_chooser_collection_id').val()
             });
             return false;
         };
-        function setPage(page) {
-            var dataObj;
 
-            if($('#id_q').val().length){
-                dataObj = {q: $('#id_q').val(), p: page};
-            }else{
-                dataObj = {p: page};
-            }
-
-            dataObj.collection_id = $('#collection_chooser_collection_id').val();
-
-            request = $.ajax({
-                url: searchUrl,
-                data: dataObj,
+        function loadResults(url, data) {
+            var opts = {
+                url: url,
                 success: function(data, status) {
                     request = null;
                     $('#search-results').html(data);
@@ -67,8 +45,11 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 error: function() {
                     request = null;
                 }
-            });
-            return false;
+            };
+            if (data) {
+                opts.data = data;
+            }
+            request = $.ajax(opts);
         }
 
         ajaxifyLinks(modal.body);
