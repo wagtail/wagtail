@@ -84,6 +84,13 @@ class BaseChooseView(View):
 
         paginator = Paginator(documents, per_page=10)
         self.documents = paginator.get_page(request.GET.get('p'))
+
+        self.collections = permission_policy.collections_user_has_permission_for(
+            request.user, 'choose'
+        )
+        if len(self.collections) < 2:
+            self.collections = None
+
         return self.render_to_response()
 
     def render_to_response(self):
@@ -92,19 +99,13 @@ class BaseChooseView(View):
 
 class ChooseView(BaseChooseView):
     def render_to_response(self):
-        collections = permission_policy.collections_user_has_permission_for(
-            self.request.user, 'choose'
-        )
-        if len(collections) < 2:
-            collections = None
-
         return render_modal_workflow(self.request, 'wagtaildocs/chooser/chooser.html', None, {
             'documents': self.documents,
             'documents_exist': self.documents_exist,
             'uploadform': self.uploadform,
             'query_string': self.q,
             'searchform': self.searchform,
-            'collections': collections,
+            'collections': self.collections,
             'is_searching': self.is_searching,
             'collection_id': self.collection_id,
         }, json_data=get_chooser_context())
@@ -117,6 +118,7 @@ class ChooseResultsView(BaseChooseView):
             'documents_exist': self.documents_exist,
             'uploadform': self.uploadform,
             'query_string': self.q,
+            'collections': self.collections,
             'is_searching': self.is_searching,
             'collection_id': self.collection_id,
         })
