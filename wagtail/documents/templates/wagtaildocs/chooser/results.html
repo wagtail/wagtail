@@ -49,7 +49,7 @@
         </tbody>
     </table>
 
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=documents %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents linkurl='wagtaildocs:chooser_results' %}
 {% else %}
     {% if documents_exist %}
         <p role="alert">{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
