@@ -12,7 +12,7 @@ function createDocumentChooser(id) {
   createDocumentChooser. State is either null (= no document chosen) or a dict of id, title and
   edit_link.
 
-  The result returned from the document chooser modal (see get_document_result_data in
+  The result returned from the document chooser modal (see get_document_chosen_response in
   wagtail.documents.views.chooser) is a superset of this, and can therefore be passed directly to
   chooser.setState.
   */

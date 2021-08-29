@@ -19,29 +19,21 @@ from wagtail.search import index as search_index
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-def get_chooser_context():
-    """construct context variables needed by the chooser JS"""
-    return {
-        'step': 'chooser',
-        'error_label': _("Server Error"),
-        'error_message': _("Report this error to your webmaster with the following information:"),
-        'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
-    }
-
-
-def get_document_result_data(document):
+def get_document_chosen_response(request, document):
     """
-    helper function: given a document, return the json data to pass back to the
-    chooser panel
+    helper function: given a document, return the modal workflow response that returns that
+    document back to the calling page
     """
-
-    return {
-        'id': document.id,
-        'title': document.title,
-        'url': document.url,
-        'filename': document.filename,
-        'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
-    }
+    return render_modal_workflow(
+        request, None, None,
+        None, json_data={'step': 'document_chosen', 'result': {
+            'id': document.id,
+            'title': document.title,
+            'url': document.url,
+            'filename': document.filename,
+            'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
+        }}
+    )
 
 
 class BaseChooseView(View):
@@ -109,7 +101,12 @@ class ChooseView(BaseChooseView):
             'collections': self.collections,
             'is_searching': self.is_searching,
             'collection_id': self.collection_id,
-        }, json_data=get_chooser_context())
+        }, json_data={
+            'step': 'chooser',
+            'error_label': _("Server Error"),
+            'error_message': _("Report this error to your webmaster with the following information:"),
+            'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
+        })
 
 
 class ChooseResultsView(BaseChooseView):
@@ -127,11 +124,7 @@ class ChooseResultsView(BaseChooseView):
 
 def document_chosen(request, document_id):
     document = get_object_or_404(get_document_model(), id=document_id)
-
-    return render_modal_workflow(
-        request, None, None,
-        None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
-    )
+    return get_document_chosen_response(request, document)
 
 
 @permission_checker.require('add')
@@ -157,11 +150,7 @@ def chooser_upload(request):
 
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(document)
-
-            return render_modal_workflow(
-                request, None, None,
-                None, json_data={'step': 'document_chosen', 'result': get_document_result_data(document)}
-            )
+            return get_document_chosen_response(request, document)
     else:
         form = DocumentForm(user=request.user, prefix='document-chooser-upload')
 
