@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -164,10 +165,10 @@ def chooser_upload(request):
     else:
         form = DocumentForm(user=request.user, prefix='document-chooser-upload')
 
-    documents = Document.objects.order_by('title')
-
     return render_modal_workflow(
-        request, 'wagtaildocs/chooser/chooser.html', None,
-        {'documents': documents, 'uploadform': form},
-        json_data=get_chooser_context()
+        request, None, None,
+        None, json_data={
+            'step': 'reshow_upload_form',
+            'htmlFragment': render_to_string('wagtaildocs/chooser/upload_form.html', {'form': form}, request),
+        }
     )

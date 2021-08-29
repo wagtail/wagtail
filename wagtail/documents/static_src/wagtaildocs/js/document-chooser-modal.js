@@ -1,3 +1,27 @@
+function ajaxifyDocumentUploadForm(modal) {
+    $('form.document-upload', modal.body).on('submit', function() {
+        var formdata = new FormData(this);
+
+        $.ajax({
+            url: this.action,
+            data: formdata,
+            processData: false,
+            contentType: false,
+            type: 'POST',
+            dataType: 'text',
+            success: modal.loadResponseText,
+            error: function(response, textStatus, errorThrown) {
+                var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                $('#upload', modal.body).append(
+                    '<div class="help-block help-critical">' +
+                    '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
+            }
+        });
+
+        return false;
+    });
+}
+
 DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
         function ajaxifyLinks (context) {
@@ -51,28 +75,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         ajaxifyLinks(modal.body);
-
-        $('form.document-upload', modal.body).on('submit', function() {
-            var formdata = new FormData(this);
-
-            $.ajax({
-                url: this.action,
-                data: formdata,
-                processData: false,
-                contentType: false,
-                type: 'POST',
-                dataType: 'text',
-                success: modal.loadResponseText,
-                error: function(response, textStatus, errorThrown) {
-                    var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
-                    $('#upload').append(
-                        '<div class="help-block help-critical">' +
-                        '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
-                }
-            });
-
-            return false;
-        });
+        ajaxifyDocumentUploadForm(modal);
 
         $('form.document-search', modal.body).on('submit', search);
 
@@ -90,5 +93,9 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'document_chosen': function(modal, jsonData) {
         modal.respond('documentChosen', jsonData['result']);
         modal.close();
+    },
+    'reshow_upload_form': function(modal, jsonData) {
+        $('#upload', modal.body).html(jsonData.htmlFragment);
+        ajaxifyDocumentUploadForm(modal);
     }
 };
