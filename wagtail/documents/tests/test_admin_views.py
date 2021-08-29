@@ -1106,7 +1106,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertIn('wagtailadmin/js/draftail.js', response_json['html'])
 
     def test_search(self):
-        response = self.client.get(reverse('wagtaildocs:chooser'), {'q': "Hello"})
+        response = self.client.get(reverse('wagtaildocs:chooser_results'), {'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -1118,7 +1118,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 2})
+        response = self.client.get(reverse('wagtaildocs:chooser_results'), {'p': 2})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1130,7 +1130,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 'Hello World!'})
+        response = self.client.get(reverse('wagtaildocs:chooser_results'), {'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1142,7 +1142,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:chooser'), {'p': 99999})
+        response = self.client.get(reverse('wagtaildocs:chooser_results'), {'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1185,7 +1185,7 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
             return documents.filter(uploaded_by_user=self.user)
 
         with self.register_hook('construct_document_chooser_queryset', filter_documents):
-            response = self.client.get(reverse('wagtaildocs:chooser'), {'q': 'Test'})
+            response = self.client.get(reverse('wagtaildocs:chooser_results'), {'q': 'Test'})
         self.assertEqual(len(response.context['documents']), 1)
         self.assertEqual(response.context['documents'][0], document)
 

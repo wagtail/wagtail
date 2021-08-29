@@ -43,7 +43,7 @@ def get_document_result_data(document):
     }
 
 
-class ChooseView(View):
+class BaseChooseView(View):
     def get(self, request):
         Document = get_document_model()
 
@@ -62,61 +62,65 @@ class ChooseView(View):
             documents = hook(documents, request)
 
         self.q = None
-        if 'q' in request.GET or 'p' in request.GET or 'collection_id' in request.GET:
+        self.is_searching = False
 
-            self.collection_id = request.GET.get('collection_id')
-            if self.collection_id:
-                documents = documents.filter(collection=self.collection_id)
-            self.documents_exist = documents.exists()
+        self.collection_id = request.GET.get('collection_id')
+        if self.collection_id:
+            documents = documents.filter(collection=self.collection_id)
+        self.documents_exist = documents.exists()
 
+        if 'q' in request.GET:
             self.searchform = SearchForm(request.GET)
             if self.searchform.is_valid():
                 self.q = self.searchform.cleaned_data['q']
 
                 documents = documents.search(self.q)
                 self.is_searching = True
-            else:
-                documents = documents.order_by('-created_at')
-                self.is_searching = False
-
-            # Pagination
-            paginator = Paginator(documents, per_page=10)
-            self.documents = paginator.get_page(request.GET.get('p'))
-            return self.render_to_response()
         else:
             self.searchform = SearchForm()
 
-            self.collections = permission_policy.collections_user_has_permission_for(
-                request.user, 'choose'
-            )
-            if len(self.collections) < 2:
-                self.collections = None
-
+        if not self.is_searching:
             documents = documents.order_by('-created_at')
-            self.documents_exist = documents.exists()
-            paginator = Paginator(documents, per_page=10)
-            self.documents = paginator.get_page(request.GET.get('p'))
-            return self.render_to_response()
+
+        paginator = Paginator(documents, per_page=10)
+        self.documents = paginator.get_page(request.GET.get('p'))
+        return self.render_to_response()
 
     def render_to_response(self):
-        if 'q' in self.request.GET or 'p' in self.request.GET or 'collection_id' in self.request.GET:
-            return TemplateResponse(self.request, "wagtaildocs/chooser/results.html", {
-                'documents': self.documents,
-                'documents_exist': self.documents_exist,
-                'uploadform': self.uploadform,
-                'query_string': self.q,
-                'is_searching': self.is_searching,
-                'collection_id': self.collection_id,
-            })
-        else:
-            return render_modal_workflow(self.request, 'wagtaildocs/chooser/chooser.html', None, {
-                'documents': self.documents,
-                'documents_exist': self.documents_exist,
-                'uploadform': self.uploadform,
-                'searchform': self.searchform,
-                'collections': self.collections,
-                'is_searching': False,
-            }, json_data=get_chooser_context())
+        raise NotImplementedError()
+
+
+class ChooseView(BaseChooseView):
+    def render_to_response(self):
+        collections = permission_policy.collections_user_has_permission_for(
+            self.request.user, 'choose'
+        )
+        if len(collections) < 2:
+            collections = None
+
+        return render_modal_workflow(self.request, 'wagtaildocs/chooser/chooser.html', None, {
+            'documents': self.documents,
+            'documents_exist': self.documents_exist,
+            'uploadform': self.uploadform,
+            'query_string': self.q,
+            'searchform': self.searchform,
+            'collections': collections,
+            'is_searching': self.is_searching,
+            'collection_id': self.collection_id,
+        }, json_data=get_chooser_context())
+
+
+class ChooseResultsView(BaseChooseView):
+    def render_to_response(self):
+        return TemplateResponse(self.request, "wagtaildocs/chooser/results.html", {
+            'documents': self.documents,
+            'documents_exist': self.documents_exist,
+            'uploadform': self.uploadform,
+            'query_string': self.q,
+            'is_searching': self.is_searching,
+            'collection_id': self.collection_id,
+        })
+
 
 def document_chosen(request, document_id):
     document = get_object_or_404(get_document_model(), id=document_id)
