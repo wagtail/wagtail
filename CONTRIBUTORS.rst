@@ -530,6 +530,7 @@ Contributors
 * Dmitrii Faiazov
 * Amy Chan
 * Stefan Hammer
+* Chakita Muttaraju
 
 Translators
 ===========

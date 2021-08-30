@@ -37,6 +37,7 @@ Bug fixes
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
  * Admin fields and Icon visibility issues in Windows high contrast mode (Dmitrii Faiazov)
+ * Add visual separation between the Page Editor's field panels on Windows high contrast mode (Chakita Muttaraju)
  * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Screen readers can now access login screen field labels (Amy Chan)
  * Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
