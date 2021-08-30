@@ -528,7 +528,6 @@ Contributors
 * Himesh Samarasekera
 * Jannis Vajen
 * Dmitrii Faiazov
-* Fabien Le Frapper
 * Amy Chan
 * Stefan Hammer
 * Chakita Muttaraju
