@@ -15,6 +15,7 @@
             // On medium, make it possible for the nav links to scroll.
             display: flex;
             flex-flow: column nowrap;
+            border-right: 1px solid transparent;
         }
     }
 }
