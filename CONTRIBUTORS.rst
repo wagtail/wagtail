@@ -533,6 +533,7 @@ Contributors
 * Chakita Muttaraju
 * Fabien Le Frapper
 * Jonathan "Yoni" Knoll
+* Onkar Apte
 
 Translators
 ===========
