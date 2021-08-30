@@ -21,7 +21,7 @@ Core team
 * Matthew Westcott (Torchbox)
 * Mike Dingjan (Lab Digital)
 * Naomi Morduch Toubman
-* Scott Cranfill (consumerfinance.gov)
+* Scott Cranfill (JPL)
 * Storm Heg
 * Thibaud Colas (Torchbox)
 * Tom Dyson (Torchbox)
@@ -528,6 +528,7 @@ Contributors
 * Himesh Samarasekera
 * Jannis Vajen
 * Dmitrii Faiazov
+* Fabien Heureux
 
 Translators
 ===========
