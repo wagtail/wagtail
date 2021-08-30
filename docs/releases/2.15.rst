@@ -26,6 +26,7 @@ Other features
  * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
  * Removed ``request.is_ajax()`` usage in Documents, Image and Snippet views (Matt Westcott)
  * Simplify generic admin view templates plus ensure ``page_title`` and ``page_subtitle`` are used consistently (Matt Westcott)
+ * Extend support for :ref:`collapsing edit panels <collapsible>` from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
 
 Bug fixes
 ~~~~~~~~~

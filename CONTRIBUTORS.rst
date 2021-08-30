@@ -21,7 +21,7 @@ Core team
 * Matthew Westcott (Torchbox)
 * Mike Dingjan (Lab Digital)
 * Naomi Morduch Toubman
-* Scott Cranfill (consumerfinance.gov)
+* Scott Cranfill (JPL)
 * Storm Heg
 * Thibaud Colas (Torchbox)
 * Tom Dyson (Torchbox)
@@ -531,6 +531,7 @@ Contributors
 * Amy Chan
 * Stefan Hammer
 * Chakita Muttaraju
+* Fabien Le Frapper
 
 Translators
 ===========
@@ -555,7 +556,7 @@ Translators
 * Dutch (Netherlands): Bram, Storm Heg, Kees Hink, Ramon de Jezus, Coen van der Kamp, Franklin Kingma, Maarten Kling, Thijs Kramer, Meteor0id
 * Estonian: Erlend Eelmets, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
-* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Fabien Heureux, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
+* French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: Amós Oviedo
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Patrick Craston, Peter Dreuw, Oliver Engel, Patrick Hebner, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Vorlif, Matthew Westcott, Benedikt Willi
