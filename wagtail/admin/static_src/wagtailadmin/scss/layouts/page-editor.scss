@@ -117,6 +117,7 @@
 .object {
     @include nice-padding();
     position: relative;
+    border-top: 1px solid GrayText;
 
     &:first-child {
         border: 0;
