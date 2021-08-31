@@ -53,7 +53,7 @@ class CopyForm(forms.Form):
                         pages_to_publish_count) % {'count': pages_to_publish_count}
 
                 self.fields['publish_copies'] = forms.BooleanField(
-                    required=False, initial=True, label=label, help_text=help_text
+                    required=False, initial=False, label=label, help_text=help_text
                 )
 
             # Note that only users who can publish in the new parent page can create an alias.

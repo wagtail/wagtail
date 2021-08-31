@@ -534,6 +534,7 @@ Contributors
 * Fabien Le Frapper
 * Jonathan "Yoni" Knoll
 * Onkar Apte
+* Justin Slay
 
 Translators
 ===========
