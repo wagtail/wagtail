@@ -3,7 +3,6 @@ from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 from wagtail.users.views.users import change_user_perm
 
@@ -55,8 +54,3 @@ class AssignRoleBulkAction(UserBulkAction):
             'num_parent_objects': num_parent_objects,
             'role': self.cleaned_form.cleaned_data['role'].name
         }
-
-
-@hooks.register('register_user_bulk_action')
-def assign_role(request):
-    return AssignRoleBulkAction(request)

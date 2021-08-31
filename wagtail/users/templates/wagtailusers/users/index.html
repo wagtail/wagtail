@@ -32,6 +32,6 @@
             {% include "wagtailusers/users/results.html" %}
         </div>
         {% trans "Select all users in listing" as select_all_text %}
-        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_user_bulk_action' objects=users %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='auth' model_name='user' objects=users %}
     </div>
 {% endblock %}
