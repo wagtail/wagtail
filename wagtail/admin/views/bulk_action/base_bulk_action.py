@@ -28,24 +28,28 @@ class BulkAction(ABC, FormView):
 
     extras = dict()
     action_priority = 100
-    model = None
+    models = []
+    object_key = 'object'
     classes = set()
 
     form_class = forms.Form
     cleaned_form = None
 
-    def __init__(self, request):
+    def __init__(self, request, model):
         self.request = request
         next_url = get_valid_next_url_from_request(request)
         if not next_url:
             next_url = request.path
         self.next_url = next_url
+        self.num_parent_objects = self.num_child_objects = 0
+        if model in self.models:
+            self.model = model
+        else:
+            raise Exception("model {} is not among the specified list of models".format(model.__class__.__name__))
 
     @classmethod
-    def get_queryset(cls, object_ids):
-        if cls.model is None:
-            raise Exception("model should be provided")
-        return get_list_or_404(cls.model, pk__in=object_ids)
+    def get_queryset(cls, model, object_ids):
+        return get_list_or_404(model, pk__in=object_ids)
 
     def check_perm(self, obj):
         return True
@@ -61,6 +65,12 @@ class BulkAction(ABC, FormView):
         return {
             'item': obj
         }
+
+    @classmethod
+    def get_default_model(cls):
+        if len(cls.models) == 1:
+            return cls.models[0]
+        raise Exception("Cannot get default model if number of models is greater than 1")
 
     def __run_before_hooks(self, action_type, request, objects):
         for hook in hooks.get_hooks('before_bulk_action'):
@@ -82,7 +92,7 @@ class BulkAction(ABC, FormView):
             parent_page_id = int(self.request.GET.get('childOf'))
             object_ids = self.model.objects.get(id=parent_page_id).get_children().values_list('id', flat=True)
 
-        for obj in self.get_queryset(object_ids):
+        for obj in self.get_queryset(self.model, object_ids):
             if not self.check_perm(obj):
                 items_with_no_access.append(obj)
             else:

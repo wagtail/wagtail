@@ -20,7 +20,7 @@ class TestBulkAddImagesToCollection(TestCase, WagtailTestUtils):
         self.images = [
             Image.objects.create(title=f"Test image - {i}", file=test_file) for i in range(1, 6)
         ]
-        self.url = reverse('wagtailimages:image_bulk_action', args=('add_to_collection',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailimages', 'image', 'add_to_collection',)) + '?'
         for image in self.images:
             self.url += f'id={image.id}&'
         self.post_data = {'collection': str(self.dest_collection.id)}

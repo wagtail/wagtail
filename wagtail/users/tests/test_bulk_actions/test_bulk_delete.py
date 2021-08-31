@@ -7,6 +7,9 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
 
+User = get_user_model()
+
+
 class TestUserDeleteView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a set of test users
@@ -24,7 +27,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
             password='password'
         )
         self.current_user = self.login()
-        self.url = reverse('wagtailusers_users:user_bulk_action', args=('delete',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=(User._meta.app_label, User._meta.model_name, 'delete',)) + '?'
         for user in self.test_users:
             self.url += f'id={user.pk}&'
 
@@ -44,7 +47,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
 
         # Check that the users were deleted
         for user in self.test_users:
-            self.assertFalse(get_user_model().objects.filter(email=user.email).exists())
+            self.assertFalse(User.objects.filter(email=user.email).exists())
 
     def test_user_cannot_delete_self(self):
         response = self.client.get(self.self_delete_url)
@@ -61,7 +64,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         response = self.client.post(self.self_delete_url)
 
         # Check user was not deleted
-        self.assertTrue(get_user_model().objects.filter(pk=self.current_user.pk).exists())
+        self.assertTrue(User.objects.filter(pk=self.current_user.pk).exists())
 
     def test_user_can_delete_other_superuser(self):
         response = self.client.get(self.superuser_delete_url)
@@ -73,7 +76,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         # Check that the user was deleted
-        users = get_user_model().objects.filter(email=self.superuser.email)
+        users = User.objects.filter(email=self.superuser.email)
         self.assertEqual(users.count(), 0)
 
     def test_before_delete_user_hook_post(self):
@@ -92,7 +95,7 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
         for user in self.test_users:
-            self.assertTrue(get_user_model().objects.filter(email=user.email).exists())
+            self.assertTrue(User.objects.filter(email=user.email).exists())
 
     def test_after_delete_user_hook(self):
         def hook_func(request, action_type, users, action_class_instance):
@@ -109,4 +112,4 @@ class TestUserDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
         for user in self.test_users:
-            self.assertFalse(get_user_model().objects.filter(email=user.email).exists())
+            self.assertFalse(User.objects.filter(email=user.email).exists())

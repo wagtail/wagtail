@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
-from wagtail.core import hooks
 from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 
 
@@ -45,8 +44,3 @@ class AddTagsBulkAction(ImageBulkAction):
         ) % {
             'num_parent_objects': num_parent_objects
         }
-
-
-@hooks.register('register_image_bulk_action')
-def add_tags(request):
-    return AddTagsBulkAction(request)
