@@ -43,23 +43,6 @@
             transition: opacity $menu-transition-duration ease;
         }
     }
-
-    @at-root .sidebar--slim #{&} {
-        > ul > li > a {
-            padding: 0.8em 0.8em 0.8em 1.25em;
-
-            .menuitem-label {
-                opacity: 0;
-            }
-
-            .icon-arrow-right {
-                top: 1em;
-                right: 0.15em;
-                width: 1em;
-                height: 1em;
-            }
-        }
-    }
 }
 
 .sidebar-footer {

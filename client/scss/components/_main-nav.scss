@@ -303,11 +303,10 @@ body.explorer-open {
         transform: none;
         padding-left: $menu-width;
 
-        @include transition(padding-left 0.3s ease);
+        @include transition(padding-left $menu-transition-duration ease);
     }
 
     body.sidebar-collapsed .wrapper {
-        @include transition(padding-left $menu-transition-duration ease);
         padding-left: $menu-width-slim;
     }
 
