@@ -120,7 +120,7 @@ class Edit(EditView):
         if not new_parent_pk == old_parent_pk:
             # Can't move nodes used to assign permissions
             if not self._user_may_move_collection(self.request.user, form.instance):
-                form.add_error('parent', gettext_lazy('You may not move collections used to grant permissions'))
+                form.add_error(None, gettext_lazy('You may not move collections used to grant permissions'))
                 return self.form_invalid(form)
 
             # Can't move somewhere you don't have add permission
@@ -128,7 +128,10 @@ class Edit(EditView):
                 c.id for c in
                 self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')]
             if new_parent_pk not in permitted_destinations:
-                form.add_error('parent', gettext_lazy('Please select another parent'))
+                if permitted_destinations:
+                    form.add_error(None, gettext_lazy('Please select another parent'))
+                else:
+                    form.add_error(None, gettext_lazy('You must have add permissions to be able to move a collection'))
                 return self.form_invalid(form)
 
             # Also cannont move to be one of our own children
