@@ -5,7 +5,8 @@ from wagtail.documents.permissions import permission_policy as documents_permiss
 
 class DocumentBulkAction(BulkAction):
     permission_policy = documents_permission_policy
-    model = get_document_model()
+    models = [get_document_model()]
+    object_key = 'document'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

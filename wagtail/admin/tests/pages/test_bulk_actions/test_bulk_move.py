@@ -58,7 +58,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         self.pages_to_be_moved = [self.test_page_b, self.test_page_b_1]
 
-        self.url = reverse('wagtailadmin_page_bulk_action', args=('move', )) + f'?id={self.test_page_b.id}&id={self.test_page_b_1.id}'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'move', )) + f'?id={self.test_page_b.id}&id={self.test_page_b_1.id}'
 
         # Login
         self.user = self.login()
@@ -111,7 +111,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         self.assertFalse(can_bulk_delete)
 
         response = self.client.get(
-            reverse('wagtailadmin_page_bulk_action', args=('move', )) + f'?id={self.unpublished_page.id}'
+            reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'move', )) + f'?id={self.unpublished_page.id}'
         )
 
         self.assertEqual(response.status_code, 200)

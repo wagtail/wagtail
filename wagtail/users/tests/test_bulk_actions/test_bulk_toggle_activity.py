@@ -7,6 +7,9 @@ from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
 
+User = get_user_model()
+
+
 class TestUserToggleActivityView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a set of test users
@@ -21,7 +24,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
             user.is_active = (i & 1)  # odd numbered users will be active
             user.save()
         self.current_user = self.login()
-        self.url = reverse('wagtailusers_users:user_bulk_action', args=('toggle_activity',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=(User._meta.app_label, User._meta.model_name, 'toggle_activity',)) + '?'
         self.self_toggle_url = self.url + f'id={self.current_user.pk}'
         for user in self.test_users:
             self.url += f'id={user.pk}&'
@@ -41,7 +44,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
         # Check that the users were marked as active
         for user in self.test_users:
-            self.assertTrue(get_user_model().objects.get(email=user.email).is_active)
+            self.assertTrue(User.objects.get(email=user.email).is_active)
 
     def test_user_cannot_mark_self_as_inactive(self):
         response = self.client.get(self.self_toggle_url)
@@ -56,7 +59,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         self.assertInHTML(needle, html)
 
         # Check user was not marked as inactive
-        self.assertTrue(get_user_model().objects.get(pk=self.current_user.pk).is_active)
+        self.assertTrue(User.objects.get(pk=self.current_user.pk).is_active)
 
     def test_before_toggle_user_hook_post(self):
         def hook_func(request, action_type, users, action_class_instance):
@@ -89,4 +92,4 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         self.assertEqual(response.content, b"Overridden!")
 
         for user in self.test_users:
-            self.assertTrue(get_user_model().objects.get(email=user.email).is_active)
+            self.assertTrue(User.objects.get(email=user.email).is_active)

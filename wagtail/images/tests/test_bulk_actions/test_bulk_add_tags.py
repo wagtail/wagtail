@@ -22,7 +22,7 @@ class TestBulkAddTags(TestCase, WagtailTestUtils):
         self.images = [
             Image.objects.create(title=f"Test image - {i}", file=test_file) for i in range(1, 6)
         ]
-        self.url = reverse('wagtailimages:image_bulk_action', args=('add_tags',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailimages', 'image', 'add_tags',)) + '?'
         for image in self.images:
             self.url += f'id={image.id}&'
         self.post_data = {'tags': ','.join(self.new_tags)}

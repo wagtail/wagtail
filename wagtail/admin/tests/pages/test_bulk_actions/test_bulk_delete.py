@@ -43,7 +43,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
-        self.url = reverse('wagtailadmin_page_bulk_action', args=('delete', )) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'delete', )) + '?'
         for child_page in self.pages_to_be_deleted:
             self.url += f'&id={child_page.id}'
 

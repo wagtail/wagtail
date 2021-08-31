@@ -12,6 +12,8 @@ from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
+from wagtail.users.views.bulk_actions import (
+    AssignRoleBulkAction, DeleteBulkAction, ToggleActivityBulkAction)
 from wagtail.users.widgets import UserListingButton
 
 
@@ -123,3 +125,7 @@ def user_listing_buttons(context, user):
     yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
     if user_can_delete_user(context.request.user, user):
         yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
+
+
+for action_class in [AssignRoleBulkAction, DeleteBulkAction, ToggleActivityBulkAction]:
+    hooks.register('register_bulk_action', action_class)

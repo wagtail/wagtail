@@ -2,7 +2,6 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.core import hooks
 
 
 class UnpublishBulkAction(PageBulkAction):
@@ -79,8 +78,3 @@ class UnpublishBulkAction(PageBulkAction):
             else:
                 success_message = _("%(num_parent_objects)d pages have been unpublished") % {'num_parent_objects': num_parent_objects}
         return success_message
-
-
-@hooks.register('register_page_bulk_action')
-def unpublish(request):
-    return UnpublishBulkAction(request)

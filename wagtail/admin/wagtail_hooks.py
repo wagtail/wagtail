@@ -24,6 +24,8 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.ui.sidebar import PageExplorerMenuItem as PageExplorerMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
+from wagtail.admin.views.pages.bulk_actions import (
+    DeleteBulkAction, MoveBulkAction, PublishBulkAction, UnpublishBulkAction)
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
@@ -814,3 +816,7 @@ def register_icons(icons):
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
+
+
+for action_class in [DeleteBulkAction, MoveBulkAction, PublishBulkAction, UnpublishBulkAction]:
+    hooks.register('register_bulk_action', action_class)

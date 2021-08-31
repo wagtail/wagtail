@@ -5,7 +5,6 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.core import hooks
 from wagtail.core.models import Page
 
 
@@ -113,8 +112,3 @@ class MoveBulkAction(PageBulkAction):
             page.move(destination, pos='last-child', user=user)
             num_parent_objects += 1
         return num_parent_objects, 0
-
-
-@hooks.register('register_page_bulk_action')
-def move(request):
-    return MoveBulkAction(request)

@@ -18,7 +18,7 @@ class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
         self.documents = [
             Document.objects.create(title=f"Test document - {i}") for i in range(1, 6)
         ]
-        self.url = reverse('wagtaildocs:document_bulk_action', args=('delete',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtaildocs', 'document', 'delete',)) + '?'
         for document in self.documents:
             self.url += f'id={document.id}&'
 

@@ -69,7 +69,7 @@
             {% include "wagtailimages/images/results.html" %}
         </div>
         {% trans "Select all images in listing" as select_all_text %}
-        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_image_bulk_action' %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtailimages' model_name='image' %}
     </div>
 
 {% endblock %}
