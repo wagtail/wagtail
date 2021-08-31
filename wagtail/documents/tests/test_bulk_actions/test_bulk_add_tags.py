@@ -20,7 +20,7 @@ class TestBulkAddTags(TestCase, WagtailTestUtils):
         self.documents = [
             Document.objects.create(title=f"Test document - {i}") for i in range(1, 6)
         ]
-        self.url = reverse('wagtaildocs:document_bulk_action', args=('add_tags',)) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtaildocs', 'document', 'add_tags',)) + '?'
         for document in self.documents:
             self.url += f'id={document.id}&'
         self.post_data = {'tags': ','.join(self.new_tags)}

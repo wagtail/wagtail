@@ -2,7 +2,6 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.core import hooks
 from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
 
 
@@ -42,7 +41,7 @@ class AddToCollectionBulkAction(DocumentBulkAction):
     def execute_action(cls, objects, collection=None, **kwargs):
         if collection is None:
             return
-        num_parent_objects = cls.model.objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
+        num_parent_objects = cls.get_default_model().objects.filter(pk__in=[obj.pk for obj in objects]).update(collection=collection)
         return num_parent_objects, 0
 
     def get_success_message(self, num_parent_objects, num_child_objects):
@@ -55,8 +54,3 @@ class AddToCollectionBulkAction(DocumentBulkAction):
             'num_parent_objects': num_parent_objects,
             'collection': collection
         }
-
-
-@hooks.register('register_document_bulk_action')
-def add_to_collection(request):
-    return AddToCollectionBulkAction(request)

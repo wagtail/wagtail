@@ -1,7 +1,6 @@
-from .assign_role import assign_role
-from .delete import delete
-from .dispatcher import index
-from .toggle_activity import toggle_activity
+from .assign_role import AssignRoleBulkAction
+from .delete import DeleteBulkAction
+from .toggle_activity import ToggleActivityBulkAction
 
 
-__all__ = ['assign_role', 'delete', 'index', 'toggle_activity']
+__all__ = ['AssignRoleBulkAction', 'DeleteBulkAction', 'ToggleActivityBulkAction']

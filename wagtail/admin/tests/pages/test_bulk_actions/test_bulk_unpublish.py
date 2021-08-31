@@ -27,7 +27,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         for child_page in self.child_pages:
             self.root_page.add_child(instance=child_page)
 
-        self.url = reverse('wagtailadmin_page_bulk_action', args=('unpublish', )) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )) + '?'
         for child_page in self.pages_to_be_unpublished:
             self.url += f'&id={child_page.id}'
         self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))
@@ -51,7 +51,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         This tests that the unpublish view returns an error if the page id is invalid
         """
         # Request confirm unpublish page but with illegal page id
-        response = self.client.get(reverse('wagtailadmin_page_bulk_action', args=('unpublish', )))
+        response = self.client.get(reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )))
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -191,7 +191,7 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
-        self.url = reverse('wagtailadmin_page_bulk_action', args=('unpublish', )) + '?'
+        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )) + '?'
         for child_page in self.pages_to_be_unpublished:
             self.url += f'&id={child_page.id}'
         self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))

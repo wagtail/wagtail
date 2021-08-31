@@ -47,5 +47,5 @@
         </div>
     </div>
     {% trans "Select all documents in listing" as select_all_text %}
-    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text bulk_action_register_hook='register_document_bulk_action' %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label='wagtaildocs' model_name='document' %}
 {% endblock %}

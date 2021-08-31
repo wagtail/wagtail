@@ -4,4 +4,5 @@ from wagtail.admin.views.bulk_action import BulkAction
 
 
 class UserBulkAction(BulkAction):
-    model = get_user_model()
+    models = [get_user_model()]
+    object_key = 'user'
