@@ -1532,7 +1532,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(self.task_1.pk,)))
 
         self.assertTemplateUsed(response, "wagtailadmin/workflows/confirm_disable_task.html")
-        self.assertEqual(response.context['warning_message'], "This task is in progress on 1 page. Disabling this task will cause it to be skipped in the moderation workflow.")
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 1 page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.")
 
         # create a new, unused, task and check the warning message is accurate
         unused_task = GroupApprovalTask.objects.create(name='unused_task_3')
@@ -1540,7 +1540,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
         response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(unused_task.pk,)))
 
-        self.assertEqual(response.context['warning_message'], "This task is in progress on 0 pages. Disabling this task will cause it to be skipped in the moderation workflow.")
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 0 pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.")
 
         unused_task.delete()  # clean up
 
@@ -1586,6 +1586,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+        self.task_enabled = GroupApprovalTask.objects.create(name='Enabled foo')
+        self.task_disabled = GroupApprovalTask.objects.create(name='Disabled foo', active=False)
+
     def test_get(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser'))
 
@@ -1598,6 +1601,8 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/includes/create_form.html")
         self.assertFalse(response.context['searchform'].is_searching())
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo', 'Moderators approval'])
 
     def test_search(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?q=foo')
@@ -1607,6 +1612,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
         self.assertTrue(response.context['searchform'].is_searching())
+        self.assertEqual(response.context['query_string'], 'foo')
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo'])
 
     def test_pagination(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?p=2')
