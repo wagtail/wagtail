@@ -18,6 +18,8 @@ Changelog
  * Extend support for collapsing edit panels from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
  * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
  * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
+ * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
+ * Add support for `non_field_errors` rendering in Workflow action modal (LB (Ben Johnston))
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)

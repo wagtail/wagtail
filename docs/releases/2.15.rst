@@ -29,6 +29,8 @@ Other features
  * Extend support for :ref:`collapsing edit panels <collapsible>` from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
  * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
  * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
+ * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
+ * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
 
 Bug fixes
 ~~~~~~~~~
