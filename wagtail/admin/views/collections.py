@@ -93,11 +93,9 @@ class Edit(EditView):
         # If this instance is a collection used to assign permissions for this user,
         # do not let the user move this collection.
         if not self._user_may_move_collection(user, form.instance):
-            form.fields['parent'].disabled = True
             form.fields['parent'].widget = HiddenInput()
         # or if user does not have add permission anywhere, then can't move collection
         elif not self.permission_policy.user_has_permission(user, 'add'):
-            form.fields['parent'].disabled = True
             form.fields['parent'].widget = HiddenInput()
         else:
             # Filter collections offered in parent field by current user's add permissions
