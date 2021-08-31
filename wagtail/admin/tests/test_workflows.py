@@ -1586,6 +1586,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+        self.task_enabled = GroupApprovalTask.objects.create(name='Enabled foo')
+        self.task_disabled = GroupApprovalTask.objects.create(name='Disabled foo', active=False)
+
     def test_get(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser'))
 
@@ -1598,6 +1601,8 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/includes/create_form.html")
         self.assertFalse(response.context['searchform'].is_searching())
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([_.name for _ in response.context['tasks'].object_list], ['Enabled foo', 'Moderators approval'])
 
     def test_search(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?q=foo')
@@ -1607,6 +1612,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
         self.assertTrue(response.context['searchform'].is_searching())
+        self.assertEqual(response.context['query_string'], 'foo')
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([_.name for _ in response.context['tasks'].object_list], ['Enabled foo'])
 
     def test_pagination(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?p=2')
