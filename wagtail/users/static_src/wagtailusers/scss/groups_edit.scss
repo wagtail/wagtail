@@ -16,6 +16,15 @@
         // stylelint-disable-next-line declaration-no-important
         font-size: 2.5em !important;
     }
+
+    .custom-permissions {
+        padding-bottom: 0;
+    }
+
+    .custom-permissions-item {
+        font-weight: inherit;
+        width: 100%;
+    }
 }
 
 .page-permissions-listing {

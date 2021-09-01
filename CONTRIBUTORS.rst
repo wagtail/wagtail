@@ -540,6 +540,7 @@ Contributors
 * Nick Moreton
 * Bryan Williams
 * Wout De Puysseleir
+* Kamil Marut
 
 Translators
 ===========
