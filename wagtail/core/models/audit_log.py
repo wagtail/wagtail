@@ -44,6 +44,7 @@ class BaseLogEntryManager(models.Manager):
         :param action: The action. Should be namespaced to app (e.g. wagtail.create, wagtail.workflow.start)
         :param kwargs: Addition fields to for the model deriving from BaseLogEntry
             - user: The user performing the action
+            - uuid: uuid shared between log entries from the same user action
             - title: the instance title
             - data: any additional metadata
             - content_changed, deleted - Boolean flags
@@ -90,6 +91,10 @@ class BaseLogEntry(models.Model):
     action = models.CharField(max_length=255, blank=True, db_index=True)
     data_json = models.TextField(blank=True)
     timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'), db_index=True)
+    uuid = models.UUIDField(
+        blank=True, null=True, editable=False,
+        help_text="Log entries that happened as part of the same user action are assigned the same UUID"
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
