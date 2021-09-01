@@ -41,10 +41,8 @@
         width: $menu-width-slim;
     }
 
-    // When in mobile mode, the menu will completely close when not in use
-    // Note: --closed will only be used in mobile mode, and --slim will only be used in desktop
-    // so we don't need to worry about slim menu width here
-    &--closed {
+    // The sidebar can move completely off-screen in mobile mode for extra room
+    &--hidden {
         left: -$menu-width;
     }
 

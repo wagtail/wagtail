@@ -39,12 +39,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   // Also, we may display the full menu temporarily in collapsed mode (see 'peeking' below)
-  const [collapsed, setCollapsed] = React.useState((): boolean => {
-    if (window.innerWidth < 800 || collapsedOnLoad) {
-      return true;
-    }
-    return false;
-  });
+  const [collapsed, setCollapsed] = React.useState(collapsedOnLoad);
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
@@ -58,10 +53,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   // space next to the content
   const [peeking, setPeeking] = React.useState(false);
 
-  // 'open' indicates whether the sidebar is visible or not.
-  // this is meant to be used to show/hide the menu on small screens.
-  // it only has effect on small screens.
-  const [open, setOpen] = React.useState(false);
+  // 'visibleOnMobile' indicates whether the sidebar is currently visible on mobile
+  // On mobile, the sidebar is completely hidden by default and must be opened manually
+  const [visibleOnMobile, setVisibleOnMobile] = React.useState(false);
 
   // Tracks whether the screen is below 800 pixels. In this state, the menu is completely hidden.
   // State is used here in case the user changes their browser size
@@ -75,7 +69,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
         setIsMobile(false);
 
         // Close the menu as this state is not used in desktop
-        setOpen(false);
+        setVisibleOnMobile(false);
       }
     }
     window.addEventListener('resize', handleResize);
@@ -112,18 +106,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
 
   const onClickOpenCloseToggle = (e: React.MouseEvent) => {
     e.preventDefault();
-    setOpen(!open);
+    setVisibleOnMobile(!visibleOnMobile);
     setExpandingOrCollapsing(true);
 
-    const mainContentEl = document.getElementById('main');
-
-    if (mainContentEl) {
-      if (!open) {
-        mainContentEl.classList.add('sidebar--open');
-      } else {
-        mainContentEl.classList.remove('sidebar--open');
-      }
-    }
     const finishTimeout = setTimeout(() => {
       setExpandingOrCollapsing(false);
     }, SIDEBAR_TRANSITION_DURATION);
@@ -186,7 +171,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
           'sidebar'
           + (slim ? ' sidebar--slim' : '')
           + (isMobile ? ' sidebar--mobile' : '')
-          + ((isMobile && !open) ? ' sidebar--closed' : '')
+          + ((isMobile && !visibleOnMobile) ? ' sidebar--hidden' : '')
         }
       >
         <div className="sidebar__inner">
@@ -210,10 +195,10 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
         className={
           'button sidebar-nav-toggle'
           + (isMobile ? ' sidebar-nav-toggle--mobile' : '')
-          + (open ? ' sidebar-nav-toggle--open' : '')
+          + (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
         }
       >
-        {open ? <Icon name="cross" /> : <Icon name="bars" />}
+        {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
     </>
   );
