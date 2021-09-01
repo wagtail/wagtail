@@ -30,6 +30,7 @@ from django.views.generic.edit import FormView
 
 from wagtail.admin import messages
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.core.log_actions import log
 
 from .forms import ParentChooserForm
 
@@ -194,10 +195,10 @@ class ModelFormView(WMABaseView, FormView):
         return _("The %s could not be created due to errors.") % model_name
 
     def form_valid(self, form):
-        instance = form.save()
+        self.instance = form.save()
         messages.success(
-            self.request, self.get_success_message(instance),
-            buttons=self.get_success_message_buttons(instance)
+            self.request, self.get_success_message(self.instance),
+            buttons=self.get_success_message_buttons(self.instance)
         )
         return redirect(self.get_success_url())
 
@@ -672,6 +673,11 @@ class CreateView(ModelFormView):
             return redirect(self.url_helper.get_action_url('choose_parent'))
         return super().dispatch(request, *args, **kwargs)
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        log(instance=self.instance, action='wagtail.create')
+        return response
+
     def get_meta_title(self):
         return _('Create new %s') % self.verbose_name
 
@@ -718,6 +724,11 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     def get_template_names(self):
         return self.model_admin.get_edit_template()
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        log(instance=self.instance, action='wagtail.edit')
+        return response
 
 
 class ChooseParentView(WMABaseView):
@@ -790,6 +801,7 @@ class DeleteView(InstanceSpecificView):
             msg = _("%(model_name)s '%(instance)s' deleted.") % {
                 'model_name': self.verbose_name, 'instance': self.instance
             }
+            log(instance=self.instance, action='wagtail.delete')
             self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)
