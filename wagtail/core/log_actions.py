@@ -1,3 +1,5 @@
+import uuid
+
 from warnings import warn
 
 
@@ -44,8 +46,12 @@ class LogContext:
     Stores data about the environment in which a logged action happens -
     e.g. the active user - to be stored in the log entry for that action.
     """
-    def __init__(self, user=None):
+    def __init__(self, user=None, generate_uuid=True):
         self.user = user
+        if generate_uuid:
+            self.uuid = uuid.uuid4()
+        else:
+            self.uuid = None
 
     def __enter__(self):
         self._old_log_context = getattr(_active, 'value', None)
@@ -59,7 +65,7 @@ class LogContext:
             deactivate()
 
 
-empty_log_context = LogContext()
+empty_log_context = LogContext(generate_uuid=False)
 
 
 def activate(log_context):
@@ -142,7 +148,7 @@ class LogActionRegistry:
     def get_action_label(self, action):
         return self.formatters[action].label
 
-    def log(self, instance, action, user=None, **kwargs):
+    def log(self, instance, action, user=None, uuid=None, **kwargs):
         self.scan_for_actions()
 
         # find the log entry model for the given object type
@@ -157,7 +163,8 @@ class LogActionRegistry:
             return
 
         user = user or get_active_log_context().user
-        return log_entry_model.objects.log_action(instance, action, user=user, **kwargs)
+        uuid = uuid or get_active_log_context().uuid
+        return log_entry_model.objects.log_action(instance, action, user=user, uuid=uuid, **kwargs)
 
 
 registry = LogActionRegistry()
