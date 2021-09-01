@@ -164,7 +164,8 @@ class ListView(TemplateView):
                 % {"snippet_type_name": self.model._meta.verbose_name_plural}
             )
 
-        paginator = Paginator(items, per_page=20)
+        config = self.model.snippet_config
+        paginator = Paginator(items, per_page=getattr(config, "list_per_page", 20))
         paginated_items = paginator.get_page(self.request.GET.get("p"))
 
         context.update(

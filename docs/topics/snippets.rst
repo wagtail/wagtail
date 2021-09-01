@@ -171,6 +171,37 @@ These child objects are now accessible through the page's ``advert_placements`` 
   {% endfor %}
 
 
+.. _wagtailsnippets_custom_configuration:
+
+Customise the listing view of Snippets
+--------------------------------------
+
+If a snippet model is registered with a config class that extends ``wagtail.snippets.models``, a custom attribute for ``list_per_page`` can be defined which will determine the number of Snippets shown per page in the listing view. This can override the default, which is 20.
+
+A custom Snippet config can be implemented as follows:
+
+.. code-block:: python
+
+  ...
+
+  from wagtail.snippets.models import DefaultSnippetConfig, register_snippet
+
+  ...
+
+  class CustomSnippetConfig(DefaultSnippetConfig):
+      list_per_page = 50
+
+  @register_snippet(CustomSnippetConfig)
+  class RocketLaunch(models.Model):
+      name = models.CharField(max_length=255)
+      date = models.DateField(null=True, blank=True)
+
+      panels = [
+          FieldPanel('name'),
+          FieldPanel('date'),
+      ]
+
+
 .. _wagtailsnippets_making_snippets_searchable:
 
 Making Snippets Searchable

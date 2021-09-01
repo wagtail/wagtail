@@ -28,7 +28,11 @@ from wagtail.snippets.action_menu import (
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.snippets.models import (
+    SNIPPET_MODELS,
+    DefaultSnippetConfig,
+    register_snippet,
+)
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
     AdminSnippetChooser,
@@ -42,6 +46,7 @@ from wagtail.test.snippets.models import (
     FileUploadSnippet,
     RegisterDecorator,
     RegisterFunction,
+    RocketSnippetWithConfig,
     SearchableSnippet,
     StandardSnippet,
     StandardSnippetWithCustomPrimaryKey,
@@ -115,6 +120,10 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 302)
 
+        # clean up
+        self.user.is_superuser = True
+        self.user.save()
+
     def test_ordering(self):
         """
         Listing should be ordered by PK if no ordering has been set on the model
@@ -134,6 +143,44 @@ class TestSnippetListView(TestCase, WagtailTestUtils):
             self.assertTemplateUsed(
                 response, "wagtailsnippets/snippets/type_index.html"
             )
+
+    def test_configured_pagination(self):
+        """
+        Test that when config is provided to the register_snippet decorator
+        the `list_per_page` value is honoured by the ListView
+        """
+
+        for i in range(8):
+            RocketSnippetWithConfig.objects.create(name="Rocket %d" % i)
+
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets:list",
+                args=("snippetstests", "rocketsnippetwithconfig"),
+            ),
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailsnippets/snippets/type_index.html")
+
+        # list_per_page is set to 5, first page, should have 5 items
+        self.assertEqual(len(response.context["items"]), 5)
+
+        next_page = response.context["items"].next_page_number()
+
+        # list_per_page is set to 5, second page, should have 3 items
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(
+            reverse(
+                "wagtailsnippets:list",
+                args=("snippetstests", "rocketsnippetwithconfig"),
+            ),
+            {"p": next_page},
+        )
+        self.assertEqual(len(response.context["items"]), 3)
+
+        # clean up
+        RocketSnippetWithConfig.objects.all().delete()
 
     def test_displays_add_button(self):
         self.assertContains(self.get(), "Add advert")
@@ -1357,6 +1404,133 @@ class TestSnippetRegistering(TestCase):
         # Misbehaving decorators often return None
         self.assertIsNotNone(RegisterDecorator)
         self.assertIn(RegisterDecorator, SNIPPET_MODELS)
+
+    def test_register_decorator_called(self):
+        """Test that if the decorator is called by mistake, it will still work"""
+
+        @register_snippet()
+        class TemporarySnippetModel(RegisterDecorator):
+            pass
+
+        # clean up
+        SNIPPET_MODELS.remove(TemporarySnippetModel)
+        self.assertNotIn(TemporarySnippetModel, SNIPPET_MODELS)
+        del TemporarySnippetModel
+
+
+class TestSnippetRegisteringWithConfig(TestCase):
+    """
+    Check that Models can be registered as a snippet with a Config class and
+    that a `DefaultSnippetConfig` is used when no config provided.
+    """
+
+    def test_default_register_function(self):
+        """Test that Models registered with register_snippet have the default config"""
+        self.assertIn(RegisterFunction, SNIPPET_MODELS)
+        self.assertTrue(hasattr(RegisterFunction, "snippet_config"))
+        self.assertEqual(RegisterFunction.snippet_config, DefaultSnippetConfig)
+        self.assertEqual(getattr(RegisterFunction.snippet_config, "list_per_page"), 20)
+
+    def test_default_register_decorator(self):
+        """Test that Models decoratated with register_snippet have the default config"""
+        self.assertIn(RegisterDecorator, SNIPPET_MODELS)
+        self.assertTrue(hasattr(RegisterDecorator, "snippet_config"))
+        self.assertEqual(RegisterDecorator.snippet_config, DefaultSnippetConfig)
+        self.assertEqual(getattr(RegisterDecorator.snippet_config, "list_per_page"), 20)
+
+    def test_default_register_decorator_called(self):
+        """Test that if the decorator is called by mistake, it will still use the default config"""
+
+        @register_snippet()
+        class TemporarySnippetModel(RegisterDecorator):
+            pass
+
+        self.assertTrue(hasattr(TemporarySnippetModel, "snippet_config"))
+        self.assertEqual(
+            getattr(TemporarySnippetModel.snippet_config, "list_per_page"), 20
+        )
+        self.assertIn(TemporarySnippetModel, SNIPPET_MODELS)
+
+        # clean up
+        SNIPPET_MODELS.remove(TemporarySnippetModel)
+        self.assertNotIn(TemporarySnippetModel, SNIPPET_MODELS)
+        del TemporarySnippetModel
+
+    def test_config_register_function_with_config_args(self):
+        """Test that register_snippet can be called with non-keyword args"""
+
+        class SomeConfig(DefaultSnippetConfig):
+            list_per_page = 10
+
+        class SomeModel(RegisterDecorator):
+            pass
+
+        self.assertNotIn(SomeModel, SNIPPET_MODELS)
+
+        register_snippet(SomeModel, SomeConfig)
+
+        self.assertTrue(hasattr(SomeModel, "snippet_config"))
+        self.assertEqual(getattr(SomeModel.snippet_config, "list_per_page"), 10)
+        self.assertIn(SomeModel, SNIPPET_MODELS)
+
+        # clean up
+        SNIPPET_MODELS.remove(SomeModel)
+        self.assertNotIn(SomeModel, SNIPPET_MODELS)
+        del SomeModel
+
+    def test_config_register_function_with_config_kwargs(self):
+        """Test that register_snippet can be called keyword args"""
+
+        class SomeConfig(DefaultSnippetConfig):
+            list_per_page = 50
+
+        class SomeModel(RegisterDecorator):
+            pass
+
+        self.assertNotIn(SomeModel, SNIPPET_MODELS)
+
+        register_snippet(model=SomeModel, config=SomeConfig)
+
+        self.assertTrue(hasattr(SomeModel, "snippet_config"))
+        self.assertEqual(getattr(SomeModel.snippet_config, "list_per_page"), 50)
+        self.assertIn(SomeModel, SNIPPET_MODELS)
+
+        # clean up
+        SNIPPET_MODELS.remove(SomeModel)
+        self.assertNotIn(SomeModel, SNIPPET_MODELS)
+        del SomeModel
+
+    def test_config_register_decorator_with_config_arg(self):
+        """Test that register_snippet called with a config non-keyword arg can be used as a decorator"""
+
+        # see RocketSnippetWithConfig model
+        # @register_snippet(RocketSnippetConfig)
+        # class RocketSnippetWithConfig(models.Model):
+
+        self.assertTrue(hasattr(RocketSnippetWithConfig, "snippet_config"))
+        self.assertEqual(
+            getattr(RocketSnippetWithConfig.snippet_config, "list_per_page"), 5
+        )
+        self.assertIn(RocketSnippetWithConfig, SNIPPET_MODELS)
+
+    def test_config_register_decorator_with_config_kwarg(self):
+        """Test that register_snippet called with a config keyword arg can be used as a decorator"""
+
+        class SomeConfig(DefaultSnippetConfig):
+            list_per_page = 99
+
+        @register_snippet(config=SomeConfig)
+        class SomeModel(RegisterDecorator):
+            pass
+
+        self.assertTrue(hasattr(SomeModel, "snippet_config"))
+        self.assertEqual(getattr(SomeModel.snippet_config, "list_per_page"), 99)
+        self.assertIn(SomeModel, SNIPPET_MODELS)
+
+        # clean up
+        SNIPPET_MODELS.remove(SomeModel)
+        self.assertNotIn(SomeModel, SNIPPET_MODELS)
+        del SomeModel
 
 
 class TestSnippetOrdering(TestCase):

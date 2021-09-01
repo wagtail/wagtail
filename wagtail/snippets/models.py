@@ -1,6 +1,6 @@
 from django.contrib.admin.utils import quote
 from django.core import checks
-from django.db.models import ForeignKey
+from django.db.models import ForeignKey, Model
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import register_admin_url_finder
@@ -15,6 +15,10 @@ SNIPPET_MODELS = []
 
 def get_snippet_models():
     return SNIPPET_MODELS
+
+
+class DefaultSnippetConfig:
+    list_per_page = 20
 
 
 class SnippetAdminURLFinder:
@@ -42,8 +46,9 @@ class SnippetAdminURLFinder:
             )
 
 
-def register_snippet(model):
+def _register_snippet(model, config=DefaultSnippetConfig):
     if model not in SNIPPET_MODELS:
+        model.snippet_config = config
         model.get_usage = get_object_usage
         model.usage_url = get_snippet_usage_url
         SNIPPET_MODELS.append(model)
@@ -65,6 +70,75 @@ def register_snippet(model):
         )
 
     return model
+
+
+def register_snippet(model=None, config=None):
+    """
+    A decorator to register a Model as a Snippet.
+    Can be used used as a decorator with custom config kwarg.
+
+    ```
+    @register_snippet
+    class FooterText(models.Model):
+        pass
+    ```
+
+    ```
+    class MySnippetConfig:
+        per_page = 10
+
+    @register_snippet(MySnippetConfig)
+    class FooterText(models.Model):
+        pass
+    ```
+
+    Allow to be called as a function, but requires both args
+    class MySnippetConfig:
+        per_page = 10
+
+    class FooterText(models.Model):
+        pass
+
+    register_snippet(FooterText, MySnippetConfig)
+    ```
+    """
+
+    if model is None and config is None:
+        # @register_snippet()
+        def dec(snippet_model):
+            return _register_snippet(snippet_model)
+
+        return dec
+
+    elif model is not None and config is None:
+        if issubclass(model, Model):
+            # @register_snippet
+            return _register_snippet(model)
+        else:
+            # @register_snippet(SomeConfig)
+            # model (positional arg) is the config in this case
+            def dec(snippet_model):
+                return _register_snippet(snippet_model, config=model)
+
+            return dec
+
+    elif model is None and config is not None:
+        # @register_snippet(config=SomeConfig)
+        def dec(snippet_model):
+            return _register_snippet(snippet_model, config=config)
+
+        return dec
+
+    elif config is not None and model is not None:
+        # called as a function, not a decorator
+        # register_snippet(SomeModel, SomeConfig)
+        # or register_snippet(model=SomeModel, config=SomeConfig)
+        return _register_snippet(model, config)
+
+    else:
+        raise ValueError(
+            "Unsupported arguments to register_snippet: (%r, %r)" % (model, config),
+        )
 
 
 def get_snippet_usage_url(self):

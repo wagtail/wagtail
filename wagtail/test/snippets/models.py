@@ -6,7 +6,7 @@ from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
 from wagtail.search import index
-from wagtail.snippets.models import register_snippet
+from wagtail.snippets.models import DefaultSnippetConfig, register_snippet
 
 from .forms import FancySnippetForm
 
@@ -104,3 +104,12 @@ class StandardSnippetWithCustomPrimaryKey(models.Model):
 @register_snippet
 class TranslatableSnippet(TranslatableMixin, models.Model):
     text = models.CharField(max_length=255)
+
+
+class RocketSnippetConfig(DefaultSnippetConfig):
+    list_per_page = 5
+
+
+@register_snippet(RocketSnippetConfig)
+class RocketSnippetWithConfig(models.Model):
+    name = models.CharField(max_length=255)
