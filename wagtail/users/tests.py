@@ -1430,7 +1430,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
         # use allow_extra_attrs because the input will also have an id (with an unpredictable value)
         self.assertTagInHTML(
-            '<input name="permissions" type="checkbox" checked value="%s">' % self.existing_permission.id,
+            '<option value="%s">' % self.existing_permission.id,
             str(response.content),
             allow_extra_attrs=True)
 
