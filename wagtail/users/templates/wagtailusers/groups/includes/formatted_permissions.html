@@ -8,12 +8,14 @@
         <col width="15%" />
         <col width="15%" />
         <col width="15%" />
+        <col width="30%" />
         <thead>
             <tr>
                 <th>{% trans "Name" %}</th>
                 <th>{% trans "Add" %}</th>
                 <th>{% trans "Change" %}</th>
                 <th>{% trans "Delete" %}</th>
+                <th>{% trans "Other permissions" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -38,29 +40,16 @@
                         {{ content_perms_dict.delete.checkbox.tag }}
                     {% endif %}
                 </td>
+                <td>
+                    {% if content_perms_dict.other %}
+                    <select name="permissions" multiple>
+                        {% for other_perm in content_perms_dict.other %}
+                        <option value="{{ other_perm.perm.id }}" {% if other_perm.selected %}selected{% endif %}>{% trans other_perm.perm.name %}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                </td>
             </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <h2>{% trans "Other permissions" %}</h2>
-    <table class="listing">
-        <col />
-        <col width="45%" />
-        <thead>
-            <tr>
-                <th>{% trans "Name" %}</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for perm_tuple in other_perms %}
-                <tr>
-                    <td class="title"><label for="{{ perm_tuple.1.id_for_label }}" class="plain-checkbox-label">{{ perm_tuple.0.name }}</label></td>
-                    <td>
-                        {{ perm_tuple.1.tag }}
-                    </td>
-                </tr>
             {% endfor %}
         </tbody>
     </table>
