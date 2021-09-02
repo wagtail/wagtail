@@ -8,8 +8,10 @@ $menu-footer-height: 50px;
 @import 'PageExplorerItem';
 
 .c-page-explorer {
-    width: 485px;
+    position: relative;
+    width: 100vw;
     height: 100vh;
+    max-width: 485px;
     background: $c-page-explorer-bg;
     overflow: hidden;
     flex: 1;
@@ -17,7 +19,6 @@ $menu-footer-height: 50px;
     *:focus {
         @include show-focus-outline-inside;
     }
-
 
     @include media-breakpoint-up(sm) {
         box-shadow: 2px 2px 5px $c-page-explorer-bg-active;

@@ -1,0 +1,27 @@
+.sidebar-overlay {
+    z-index: 1100;
+    width: 100vw;
+    position: fixed;
+    inset: 0;
+    visibility: hidden;
+
+    &--open {
+        visibility: visible;
+    }
+
+    &__close-button {
+        padding: 1em;
+        color: #a5a5a5;
+        border-bottom: 1px solid rgba(200, 200, 200, 0.1);
+        cursor: pointer;
+        display: block;
+        background-color: #333;
+        text-align: center;
+
+        // Overrides for default link hover.
+        &:hover {
+            color: #a5a5a5;
+            background-color: #222;
+        }
+    }
+}
