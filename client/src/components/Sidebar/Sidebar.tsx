@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import * as React from 'react';
 
 import Icon from '../Icon/Icon';
@@ -41,12 +39,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
   // Also, we may display the full menu temporarily in collapsed mode (see 'peeking' below)
-  const [collapsed, setCollapsed] = React.useState((): boolean => {
-    if (window.innerWidth < 800 || collapsedOnLoad) {
-      return true;
-    }
-    return false;
-  });
+  const [collapsed, setCollapsed] = React.useState(collapsedOnLoad);
 
   // Call onExpandCollapse(true) if menu is initialised in collapsed state
   React.useEffect(() => {
@@ -60,10 +53,34 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   // space next to the content
   const [peeking, setPeeking] = React.useState(false);
 
+  // 'visibleOnMobile' indicates whether the sidebar is currently visible on mobile
+  // On mobile, the sidebar is completely hidden by default and must be opened manually
+  const [visibleOnMobile, setVisibleOnMobile] = React.useState(false);
+
+  // Tracks whether the screen is below 800 pixels. In this state, the menu is completely hidden.
+  // State is used here in case the user changes their browser size
+  const checkWindowSizeIsMobile = () => window.innerWidth < 800;
+  const [isMobile, setIsMobile] = React.useState(checkWindowSizeIsMobile());
+  React.useEffect(() => {
+    function handleResize() {
+      if (checkWindowSizeIsMobile()) {
+        setIsMobile(true);
+      } else {
+        setIsMobile(false);
+
+        // Close the menu as this state is not used in desktop
+        setVisibleOnMobile(false);
+      }
+    }
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   // Whether or not to display the menu with slim layout.
   // Separate from 'collapsed' as the menu can still be displayed with an expanded
   // layout while in 'collapsed' mode if the user is 'peeking' into it (see above)
-  const slim = collapsed && !peeking;
+  const slim = collapsed && !peeking && !isMobile;
 
   // 'expandingOrCollapsing' is set to true whilst the the menu is transitioning between slim and expanded layouts
   const [expandingOrCollapsing, setExpandingOrCollapsing] = React.useState(false);
@@ -85,6 +102,19 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
     if (onExpandCollapse) {
       onExpandCollapse(!collapsed);
     }
+  };
+
+  const onClickOpenCloseToggle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setVisibleOnMobile(!visibleOnMobile);
+    setExpandingOrCollapsing(true);
+
+    const finishTimeout = setTimeout(() => {
+      setExpandingOrCollapsing(false);
+    }, SIDEBAR_TRANSITION_DURATION);
+    return () => {
+      clearTimeout(finishTimeout);
+    };
   };
 
   // Switch peeking on/off when the mouse cursor hovers the sidebar or focus is on the sidebar
@@ -135,24 +165,41 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   );
 
   return (
-    <aside
-      className={'sidebar' + (slim ? ' sidebar--slim' : '')}
-    >
-      <div className="sidebar__inner">
-        <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
-          {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
-        </button>
+    <>
+      <aside
+        className={
+          'sidebar'
+          + (slim ? ' sidebar--slim' : '')
+          + (isMobile ? ' sidebar--mobile' : '')
+          + ((isMobile && !visibleOnMobile) ? ' sidebar--hidden' : '')
+        }
+      >
+        <div className="sidebar__inner">
+          <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
+            {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
+          </button>
 
-        <div
-          className="sidebar__peek-hover-area"
-          onMouseEnter={onMouseEnterHandler}
-          onMouseLeave={onMouseLeaveHandler}
-          onFocus={onFocusHandler}
-          onBlur={onBlurHandler}
-        >
-          {renderedModules}
+          <div
+            className="sidebar__peek-hover-area"
+            onMouseEnter={onMouseEnterHandler}
+            onMouseLeave={onMouseLeaveHandler}
+            onFocus={onFocusHandler}
+            onBlur={onBlurHandler}
+          >
+            {renderedModules}
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+      <button
+        onClick={onClickOpenCloseToggle}
+        className={
+          'button sidebar-nav-toggle'
+          + (isMobile ? ' sidebar-nav-toggle--mobile' : '')
+          + (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
+        }
+      >
+        {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
+      </button>
+    </>
   );
 };
