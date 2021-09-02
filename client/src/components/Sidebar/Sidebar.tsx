@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 
 import Icon from '../Icon/Icon';
@@ -165,31 +166,29 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   );
 
   return (
-    <>
-      <aside
-        className={
-          'sidebar'
-          + (slim ? ' sidebar--slim' : '')
-          + (isMobile ? ' sidebar--mobile' : '')
-          + ((isMobile && !visibleOnMobile) ? ' sidebar--hidden' : '')
-        }
-      >
-        <div className="sidebar__inner">
-          <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
-            {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
-          </button>
+    <aside
+      className={
+        'sidebar'
+        + (slim ? ' sidebar--slim' : '')
+        + (isMobile ? ' sidebar--mobile' : '')
+        + ((isMobile && !visibleOnMobile) ? ' sidebar--hidden' : '')
+      }
+    >
+      <div className="sidebar__inner">
+        <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
+          {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
+        </button>
 
-          <div
-            className="sidebar__peek-hover-area"
-            onMouseEnter={onMouseEnterHandler}
-            onMouseLeave={onMouseLeaveHandler}
-            onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-          >
-            {renderedModules}
-          </div>
+        <div
+          className="sidebar__peek-hover-area"
+          onMouseEnter={onMouseEnterHandler}
+          onMouseLeave={onMouseLeaveHandler}
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+        >
+          {renderedModules}
         </div>
-      </aside>
+      </div>
       <button
         onClick={onClickOpenCloseToggle}
         className={
@@ -200,6 +199,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>
-    </>
+    </aside>
   );
 };
