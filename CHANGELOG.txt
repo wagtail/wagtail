@@ -38,6 +38,7 @@ Changelog
  * Fix: Set `default_auto_field` in `postgres_search` `AppConfig` (Nick Moreton)
  * Fix: Ensure admin tab JS events are handled on page load (Andrew Stone)
  * Fix: `EmailNotificationMixin` and `send_notification` should only send emails to active users (Bryan Williams)
+ * Fix: Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
 
 
 2.14.1 (12.08.2021)
