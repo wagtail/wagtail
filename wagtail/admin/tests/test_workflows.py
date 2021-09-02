@@ -1508,6 +1508,27 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
         self.assertEqual(TaskState.objects.filter(workflow_state__workflow=self.workflow, status=TaskState.STATUS_IN_PROGRESS).count(), 0)
 
+    def test_disable_task_view(self):
+        """Test that a view is shown before disabling a task that shows a warning"""
+        self.login(self.submitter)
+        self.submit()
+        self.login(self.superuser)
+
+        response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(self.task_1.pk,)))
+
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/confirm_disable_task.html")
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 1 page. Disabling this task will cause it to be skipped in the moderation workflow.")
+
+        # create a new, unused, task and check the warning message is accurate
+        unused_task = GroupApprovalTask.objects.create(name='unused_task_3')
+        unused_task.groups.set(Group.objects.filter(name='Moderators'))
+
+        response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(unused_task.pk,)))
+
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 0 pages. Disabling this task will cause it to be skipped in the moderation workflow.")
+
+        unused_task.delete()  # clean up
+
     def test_disable_task(self):
         """Test that deactivating a task sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
