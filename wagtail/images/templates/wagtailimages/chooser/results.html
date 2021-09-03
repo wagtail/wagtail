@@ -24,5 +24,5 @@
         {% endfor %}
     </ul>
 
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=images %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=images linkurl='wagtailimages:chooser_results' %}
 {% endif %}
