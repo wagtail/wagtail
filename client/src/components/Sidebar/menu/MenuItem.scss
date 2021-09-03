@@ -78,6 +78,7 @@
 .menuitem-label {
     @include transition(opacity $menu-transition-duration ease);
     margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .menuitem-tooltip {

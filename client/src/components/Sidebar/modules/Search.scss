@@ -41,6 +41,8 @@
     }
 
     &__submit {
+        --svg-margin: 15px;
+
         position: absolute;
         right: 0;
         top: 0;
@@ -53,15 +55,25 @@
         transition: opacity $menu-transition-duration ease, width $menu-transition-duration ease;
 
         svg {
-            margin-right: 15px;
-            transition: margin-right $menu-transition-duration ease;
+            margin-right: var(--svg-margin);
+            transition: margin-right $menu-transition-duration ease, margin-left $menu-transition-duration ease;
         }
 
         .sidebar--slim & {
             width: 100%;
 
             svg {
-                margin-right: 0;
+                --svg-margin: 0;
+            }
+        }
+
+        [dir='rtl'] & {
+            right: unset;
+            left: 0;
+
+            svg {
+                margin-right: unset;
+                margin-left: var(--svg-margin);
             }
         }
 

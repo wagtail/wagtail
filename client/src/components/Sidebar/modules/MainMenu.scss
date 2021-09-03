@@ -119,6 +119,7 @@
         }
 
         em {
+            --offset: 60px;  // Width of avatar
             box-sizing: border-box;
             padding-right: 1.8em;
             margin-top: 1.2em;
@@ -130,16 +131,13 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             position: absolute;
-            left: 60px;  // Width of avatar
-            transition: left $menu-transition-duration ease;
-        }
-    }
+            left: var(--offset);
+            transition: left $menu-transition-duration ease, right $menu-transition-duration ease;
 
-    @at-root .sidebar--slim #{&} {
-        width: $menu-width-slim;
-
-        &__account em {
-            left: $menu-width-slim - $menu-width;
+            [dir='rtl'] & {
+                left: unset;
+                right: var(--offset);
+            }
         }
     }
 
@@ -151,7 +149,11 @@
         }
     }
 
-    &--open &__account em {
-        left: 60px !important;
+    .sidebar--slim & {
+        width: $menu-width-slim;
+
+        em {
+            --offset: #{$menu-width-slim - $menu-width};
+        }
     }
 }

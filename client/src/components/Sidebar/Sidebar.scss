@@ -22,11 +22,18 @@
         width: 15px;
         height: 16px;
     }
+
+    [dir='rtl'] & {
+        right: 12px;
+        left: unset;
+    }
 }
 
 .sidebar {
+    --offset: 0;
+
     position: fixed;
-    left: 0;
+    left: var(--offset);
     width: $menu-width;
     float: left;
     display: flex;
@@ -35,7 +42,7 @@
     background: $nav-grey-3;
     z-index: 3;
 
-    @include transition(width $menu-transition-duration ease, left $menu-transition-duration ease);
+    @include transition(width $menu-transition-duration ease, left $menu-transition-duration ease, right $menu-transition-duration ease);
 
     &--slim {
         width: $menu-width-slim;
@@ -43,7 +50,12 @@
 
     // The sidebar can move completely off-screen in mobile mode for extra room
     &--hidden {
-        left: -$menu-width;
+        --offset: -$menu-width;
+    }
+
+    [dir='rtl'] & {
+        left: unset;
+        right: var(--offset);
     }
 
     &__inner {
@@ -57,6 +69,10 @@
     &__collapse-toggle {
         @include sidebar-toggle;
         display: grid;
+
+        [dir='rtl'] & {
+            transform: scaleX(-1);
+        }
     }
 
     // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
@@ -69,7 +85,7 @@
     &__peek-hover-area {
         position: absolute;
         top: 35px;  // Match height of __collapse-toggle
-        left: 0;
+        --offset: 0;
         width: 100%;
     }
 }

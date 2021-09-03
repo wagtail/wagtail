@@ -299,16 +299,27 @@ body.explorer-open {
 }
 
 @include media-breakpoint-up(sm) {
+    .wrapper {
+        --sidebar-width: #{$menu-width};
+    }
+
     .wrapper,
     body.nav-open .wrapper {
         transform: none;
-        padding-left: $menu-width;
+        padding-left: var(--sidebar-width);
 
         @include transition(padding-left $menu-transition-duration ease);
+        @include transition(padding-right $menu-transition-duration ease);
+    }
+
+    [dir='rtl'] body .wrapper,
+    [dir='rtl'] body.nav-open .wrapper {
+        padding-left: unset;
+        padding-right: var(--sidebar-width);
     }
 
     body.sidebar-collapsed .wrapper {
-        padding-left: $menu-width-slim;
+        --sidebar-width: #{$menu-width-slim};
     }
 
     .nav-wrapper {

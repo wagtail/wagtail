@@ -1,4 +1,8 @@
 .sidebar-sub-menu-trigger-icon {
+    --rotation: 0;
+    --translation: 0;
+    --scale: 1;
+
     display: block;
     width: 20px;
     height: 20px;
@@ -7,18 +11,25 @@
     top: 0;
     bottom: 0;
     margin: auto 0;
+    transform-origin: 50% 50%;
+    transform: scaleX(var(--scale)) translate(var(--translation), 0) rotate(var(--rotation));
 
     @include transition(transform $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease);
 
     &--open {
-        transform-origin: 50% 50%;
-        transform: rotate(180deg);
+        --rotation: 180deg;
     }
 
     .sidebar--slim & {
         width: 16px;
         height: 16px;
-        transform: translate3d(13px, 0, 0);
+        --translation: 13px;
+    }
+
+    [dir='rtl'] & {
+        --scale: -1;
+        right: unset;
+        left: 15px;
     }
 }
 
