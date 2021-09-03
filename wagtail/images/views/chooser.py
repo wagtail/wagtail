@@ -77,9 +77,9 @@ class ChooseView(View):
 
         if permission_policy.user_has_permission(request.user, 'add'):
             ImageForm = get_image_form(Image)
-            uploadform = ImageForm(user=request.user, prefix='image-chooser-upload')
+            self.uploadform = ImageForm(user=request.user, prefix='image-chooser-upload')
         else:
-            uploadform = None
+            self.uploadform = None
 
         images = permission_policy.instances_user_has_any_permission_for(
             request.user, ['choose']
@@ -101,39 +101,42 @@ class ChooseView(View):
 
             searchform = SearchForm(request.GET)
             if searchform.is_valid():
-                q = searchform.cleaned_data['q']
+                self.q = searchform.cleaned_data['q']
 
-                images = images.search(q)
-                is_searching = True
+                images = images.search(self.q)
+                self.is_searching = True
             else:
-                is_searching = False
-                q = None
+                self.is_searching = False
+                self.q = None
 
                 tag_name = request.GET.get('tag')
                 if tag_name:
                     images = images.filter(tags__name=tag_name)
 
-            # Pagination
-            paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-            images = paginator.get_page(request.GET.get('p'))
+        # Pagination
+        paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
+        self.images = paginator.get_page(request.GET.get('p'))
+        return self.render_to_response()
 
-            return TemplateResponse(request, "wagtailimages/chooser/results.html", {
-                'images': images,
-                'is_searching': is_searching,
-                'query_string': q,
-                'will_select_format': request.GET.get('select_format')
+    def render_to_response(self):
+        if (
+            'q' in self.request.GET or 'p' in self.request.GET or 'tag' in self.request.GET
+            or 'collection_id' in self.request.GET
+        ):
+            return TemplateResponse(self.request, "wagtailimages/chooser/results.html", {
+                'images': self.images,
+                'is_searching': self.is_searching,
+                'query_string': self.q,
+                'will_select_format': self.request.GET.get('select_format')
             })
         else:
-            paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-            images = paginator.get_page(request.GET.get('p'))
-
-            context = get_chooser_context(request)
+            context = get_chooser_context(self.request)
             context.update({
-                'images': images,
-                'uploadform': uploadform,
+                'images': self.images,
+                'uploadform': self.uploadform,
             })
             return render_modal_workflow(
-                request, 'wagtailimages/chooser/chooser.html', None, context,
+                self.request, 'wagtailimages/chooser/chooser.html', None, context,
                 json_data=get_chooser_js_data()
             )
 
