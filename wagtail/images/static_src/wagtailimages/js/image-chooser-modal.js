@@ -13,17 +13,15 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
 
             $('.pagination a', context).on('click', function() {
-                var page = this.getAttribute("data-page");
-                setPage(page);
+                fetchResults(this.href);
                 return false;
             });
         }
         var request;
 
-        function fetchResults(requestData) {
-            request = $.ajax({
-                url: searchUrl,
-                data: requestData,
+        function fetchResults(url, requestData) {
+            var opts = {
+                url: url,
                 success: function(data, status) {
                     request = null;
                     $('#image-results').html(data);
@@ -32,30 +30,21 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 error: function() {
                     request = null;
                 }
-            });
+            }
+            if (requestData) {
+                opts.data = requestData;
+            }
+            request = $.ajax(opts);
         }
 
         function search() {
             /* Searching causes currentTag to be cleared - otherwise there's
             no way to de-select a tag */
             currentTag = null;
-            fetchResults({
+            fetchResults(searchUrl, {
                 q: $('#id_q').val(),
                 collection_id: $('#collection_chooser_collection_id').val()
             });
-            return false;
-        }
-
-        function setPage(page) {
-            var params = {p: page};
-            if ($('#id_q').val().length){
-                params['q'] = $('#id_q').val();
-            }
-            if (currentTag) {
-                params['tag'] = currentTag;
-            }
-            params['collection_id'] = $('#collection_chooser_collection_id').val();
-            fetchResults(params);
             return false;
         }
 
@@ -106,7 +95,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('a.suggested-tag').on('click', function() {
             currentTag = $(this).text();
             $('#id_q').val('');
-            fetchResults({
+            fetchResults(searchUrl, {
                 'tag': currentTag,
                 collection_id: $('#collection_chooser_collection_id').val()
             });
