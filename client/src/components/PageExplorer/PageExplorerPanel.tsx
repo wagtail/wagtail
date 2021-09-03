@@ -143,7 +143,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
 
     return (
       <Transition name={transition} className="c-page-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-        <div key={depth} className="c-transition-group">
+        <div key={depth} className="c-transition-group" dir="ltr">
           <PageExplorerHeader
             depth={depth}
             page={page}
