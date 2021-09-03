@@ -1,3 +1,48 @@
+function ajaxifyImageUploadForm(modal) {
+    $('form.image-upload', modal.body).on('submit', function() {
+        var formdata = new FormData(this);
+
+        if ($('#id_image-chooser-upload-title', modal.body).val() == '') {
+            var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
+            if (!li.hasClass('error')) {
+                li.addClass('error');
+                $('#id_image-chooser-upload-title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
+            }
+            setTimeout(cancelSpinner, 500);
+        } else {
+            $.ajax({
+                url: this.action,
+                data: formdata,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                dataType: 'text',
+                success: modal.loadResponseText,
+                error: function(response, textStatus, errorThrown) {
+                    var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                    $('#upload').append(
+                        '<div class="help-block help-critical">' +
+                        '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
+                }
+            });
+        }
+
+        return false;
+    });
+
+    var fileWidget = $('#id_image-chooser-upload-file', modal.body);
+    fileWidget.on('change', function () {
+        var titleWidget = $('#id_image-chooser-upload-title', modal.body);
+        var title = titleWidget.val();
+        if (title === '') {
+            // The file widget value example: `C:\fakepath\image.jpg`
+            var parts = fileWidget.val().split('\\');
+            var fileName = parts[parts.length - 1];
+            titleWidget.val(fileName);
+        }
+    });
+}
+
 IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
         var searchForm = $('form.image-search', modal.body);
@@ -40,37 +85,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         ajaxifyLinks(modal.body);
-
-        $('form.image-upload', modal.body).on('submit', function() {
-            var formdata = new FormData(this);
-
-            if ($('#id_image-chooser-upload-title', modal.body).val() == '') {
-                var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
-                if (!li.hasClass('error')) {
-                    li.addClass('error');
-                    $('#id_image-chooser-upload-title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
-                }
-                setTimeout(cancelSpinner, 500);
-            } else {
-                $.ajax({
-                    url: this.action,
-                    data: formdata,
-                    processData: false,
-                    contentType: false,
-                    type: 'POST',
-                    dataType: 'text',
-                    success: modal.loadResponseText,
-                    error: function(response, textStatus, errorThrown) {
-                        var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
-                        $('#upload').append(
-                            '<div class="help-block help-critical">' +
-                            '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
-                    }
-                });
-            }
-
-            return false;
-        });
+        ajaxifyImageUploadForm(modal);
 
         $('form.image-search', modal.body).on('submit', search);
 
@@ -91,26 +106,14 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
             return false;
         });
-
-        function populateTitle(context) {
-            var fileWidget = $('#id_image-chooser-upload-file', context);
-            fileWidget.on('change', function () {
-                var titleWidget = $('#id_image-chooser-upload-title', context);
-                var title = titleWidget.val();
-                if (title === '') {
-                    // The file widget value example: `C:\fakepath\image.jpg`
-                    var parts = fileWidget.val().split('\\');
-                    var fileName = parts[parts.length - 1];
-                    titleWidget.val(fileName);
-                }
-            });
-        }
-
-        populateTitle(modal.body);
     },
     'image_chosen': function(modal, jsonData) {
         modal.respond('imageChosen', jsonData['result']);
         modal.close();
+    },
+    'reshow_upload_form': function(modal, jsonData) {
+        $('#upload', modal.body).replaceWith(jsonData.htmlFragment);
+        ajaxifyImageUploadForm(modal);
     },
     'select_format': function(modal) {
 

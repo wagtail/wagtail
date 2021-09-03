@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -192,23 +193,17 @@ def chooser_upload(request):
     else:
         form = ImageForm(user=request.user, prefix='image-chooser-upload')
 
-    images = Image.objects.order_by('-created_at')
+    upload_form_html = render_to_string('wagtailimages/chooser/upload_form.html', {
+        'form': form,
+        'will_select_format': request.GET.get('select_format'),
+    }, request)
 
-    # allow hooks to modify the queryset
-    for hook in hooks.get_hooks('construct_image_chooser_queryset'):
-        images = hook(images, request)
-
-    paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
-    images = paginator.get_page(request.GET.get('p'))
-
-    context = get_chooser_context(request)
-    context.update({
-        'images': images,
-        'uploadform': form,
-    })
     return render_modal_workflow(
-        request, 'wagtailimages/chooser/chooser.html', None, context,
-        json_data=get_chooser_js_data()
+        request, None, None, None,
+        json_data={
+            'step': 'reshow_upload_form',
+            'htmlFragment': upload_form_html
+        }
     )
 
 

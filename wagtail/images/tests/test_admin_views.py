@@ -1097,9 +1097,9 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json['step'], 'chooser')
+        self.assertEqual(response_json['step'], 'reshow_upload_form')
 
     def test_upload(self):
         response = self.client.post(reverse('wagtailimages:chooser_upload'), {
@@ -1130,28 +1130,10 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
 
         # The form should have an error
-        self.assertFormError(response, 'uploadform', 'file', "This field is required.")
-
-    def test_pagination_after_upload_form_error(self):
-        for i in range(0, 20):
-            Image.objects.create(
-                title="Test image %d" % i,
-                file=get_test_image_file(),
-            )
-
-        response = self.client.post(reverse('wagtailimages:chooser_upload'), {
-            'image-chooser-upload-title': "Test image",
-        })
-
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-
-        # The re-rendered image chooser listing should be paginated
-        self.assertContains(response, "Page 1 of ")
-        self.assertEqual(12, len(response.context['images']))
+        self.assertFormError(response, 'form', 'file', "This field is required.")
 
     def test_select_format_flag_after_upload_form_error(self):
         submit_url = reverse('wagtailimages:chooser_upload') + '?select_format=true'
@@ -1161,8 +1143,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         })
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertFormError(response, 'uploadform', 'file', 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
+        self.assertFormError(response, 'form', 'file', 'Upload a valid image. The file you uploaded was either not an image or a corrupted image.')
 
         # the action URL of the re-rendered form should include the select_format=true parameter
         # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
@@ -1180,8 +1162,8 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         })
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
-        self.assertFormError(response, 'uploadform', 'file', 'Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
+        self.assertFormError(response, 'form', 'file', 'Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.')
 
         # the action URL of the re-rendered form should include the select_format=true parameter
         # (NB the HTML in the response is embedded in a JS string, so need to escape accordingly)
@@ -1220,7 +1202,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
 
         # Shouldn't redirect anywhere
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
 
         # The form should have an error
         self.assertContains(response, "Custom image with this Title and Collection already exists.")
@@ -1258,7 +1240,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
     def test_get(self):
         response = self.client.get(reverse('wagtailimages:chooser_upload'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/chooser/chooser.html')
+        self.assertTemplateUsed(response, 'wagtailimages/chooser/upload_form.html')
 
         # user only has access to one collection, so no 'Collection' option
         # is displayed on the form
