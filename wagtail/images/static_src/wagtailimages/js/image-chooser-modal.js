@@ -1,10 +1,7 @@
 IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
-        var searchUrl = $('form.image-search', modal.body).attr('action');
-
-        /* currentTag stores the tag currently being filtered on, so that we can
-        preserve this when paginating */
-        var currentTag;
+        var searchForm = $('form.image-search', modal.body);
+        var searchUrl = searchForm.attr('action');
 
         function ajaxifyLinks (context) {
             $('.listing a', context).on('click', function() {
@@ -38,13 +35,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         }
 
         function search() {
-            /* Searching causes currentTag to be cleared - otherwise there's
-            no way to de-select a tag */
-            currentTag = null;
-            fetchResults(searchUrl, {
-                q: $('#id_q').val(),
-                collection_id: $('#collection_chooser_collection_id').val()
-            });
+            fetchResults(searchUrl, searchForm.serialize());
             return false;
         }
 
@@ -93,10 +84,9 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         });
         $('#collection_chooser_collection_id').on('change', search);
         $('a.suggested-tag').on('click', function() {
-            currentTag = $(this).text();
             $('#id_q').val('');
             fetchResults(searchUrl, {
-                'tag': currentTag,
+                'tag': $(this).text(),
                 collection_id: $('#collection_chooser_collection_id').val()
             });
             return false;
