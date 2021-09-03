@@ -256,6 +256,13 @@ In addition to the model fields provided, ``Page`` has many properties and metho
             class HiddenPage(Page):
                 parent_page_types = []
 
+        To allow for a page to be only created under the root page (e.g. for ``HomePage`` models) set the ``parent_page_type`` to ``['wagtailcore.Page']``.
+
+        .. code-block:: python
+
+            class HomePage(Page):
+                parent_page_types = ['wagtailcore.Page']
+
     .. automethod:: can_exist_under
 
     .. automethod:: can_create_at
