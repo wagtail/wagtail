@@ -71,7 +71,7 @@ def get_chooser_context(request):
     }
 
 
-class ChooseView(View):
+class BaseChooseView(View):
     def get(self, request):
         Image = get_image_model()
 
@@ -89,29 +89,23 @@ class ChooseView(View):
         for hook in hooks.get_hooks('construct_image_chooser_queryset'):
             images = hook(images, request)
 
-        if (
-            'q' in request.GET or 'p' in request.GET or 'tag' in request.GET
-            or 'collection_id' in request.GET
-        ):
-            # this request is triggered from search, pagination or 'popular tags';
-            # we will just render the results.html fragment
-            collection_id = request.GET.get('collection_id')
-            if collection_id:
-                images = images.filter(collection=collection_id)
+        collection_id = request.GET.get('collection_id')
+        if collection_id:
+            images = images.filter(collection=collection_id)
 
-            searchform = SearchForm(request.GET)
-            if searchform.is_valid():
-                self.q = searchform.cleaned_data['q']
+        searchform = SearchForm(request.GET)
+        if searchform.is_valid():
+            self.q = searchform.cleaned_data['q']
 
-                images = images.search(self.q)
-                self.is_searching = True
-            else:
-                self.is_searching = False
-                self.q = None
+            images = images.search(self.q)
+            self.is_searching = True
+        else:
+            self.is_searching = False
+            self.q = None
 
-                tag_name = request.GET.get('tag')
-                if tag_name:
-                    images = images.filter(tags__name=tag_name)
+            tag_name = request.GET.get('tag')
+            if tag_name:
+                images = images.filter(tags__name=tag_name)
 
         # Pagination
         paginator = Paginator(images, per_page=CHOOSER_PAGE_SIZE)
@@ -119,26 +113,32 @@ class ChooseView(View):
         return self.render_to_response()
 
     def render_to_response(self):
-        if (
-            'q' in self.request.GET or 'p' in self.request.GET or 'tag' in self.request.GET
-            or 'collection_id' in self.request.GET
-        ):
-            return TemplateResponse(self.request, "wagtailimages/chooser/results.html", {
-                'images': self.images,
-                'is_searching': self.is_searching,
-                'query_string': self.q,
-                'will_select_format': self.request.GET.get('select_format')
-            })
-        else:
-            context = get_chooser_context(self.request)
-            context.update({
-                'images': self.images,
-                'uploadform': self.uploadform,
-            })
-            return render_modal_workflow(
-                self.request, 'wagtailimages/chooser/chooser.html', None, context,
-                json_data=get_chooser_js_data()
-            )
+        raise NotImplementedError()
+
+
+class ChooseView(BaseChooseView):
+    def render_to_response(self):
+        context = get_chooser_context(self.request)
+        context.update({
+            'images': self.images,
+            'is_searching': self.is_searching,
+            'query_string': self.q,
+            'uploadform': self.uploadform,
+        })
+        return render_modal_workflow(
+            self.request, 'wagtailimages/chooser/chooser.html', None, context,
+            json_data=get_chooser_js_data()
+        )
+
+
+class ChooseResultsView(BaseChooseView):
+    def render_to_response(self):
+        return TemplateResponse(self.request, "wagtailimages/chooser/results.html", {
+            'images': self.images,
+            'is_searching': self.is_searching,
+            'query_string': self.q,
+            'will_select_format': self.request.GET.get('select_format')
+        })
 
 
 def image_chosen(request, image_id):
