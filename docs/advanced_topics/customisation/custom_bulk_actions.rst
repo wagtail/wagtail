@@ -17,10 +17,10 @@ Registering a custom bulk action
 
         @hooks.register('register_bulk_action')
         class CustomDeleteBulkAction(BulkAction):
-            display_name = _("Custom Action")
-            aria_label = _("Do custom action")
-            action_type = "action"
-            template_name = "/path/to/confirm_my_custom_bulk_action.html"
+            display_name = _("Delete")
+            aria_label = _("Delete objects")
+            action_type = "delete"
+            template_name = "/path/to/confirm_bulk_delete.html"
             models = [...]
 
             @classmethod
@@ -43,7 +43,7 @@ An example for a confirmation template is as follows:
 
 .. code-block:: django
 
-  <!-- /path/to/confirm_my_custom_bulk_action.html -->
+  <!-- /path/to/confirm_bulk_delete.html -->
 
   {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
   {% load i18n wagtailadmin_tags %}
@@ -114,7 +114,9 @@ the ``get_execution_context`` method. For example.
       num_parent_objects, num_child_objects = 0, 0
       # you could run the action per object or run them in bulk using django's bulk update and delete methods
       for obj in objects:
-        obj.do_something(user=user)
+        num_child_objects += obj.get_children().count()
+        num_parent_objects += 1
+        obj.delete(user=user)
         num_parent_objects += 1
       return num_parent_objects, num_child_objects
 
