@@ -1,7 +1,9 @@
+.. _custom_bulk_actions:
+
 Adding custom bulk actions
 ==========================================
 
-This document describes how to add custom bulk actions to different listings
+This document describes how to add custom bulk actions to different listings.
 
 
 Registering a custom bulk action
@@ -14,7 +16,7 @@ Registering a custom bulk action
 
 
         @hooks.register('register_bulk_action')
-        class MyCustomBulkAction(BulkAction):
+        class CustomDeleteBulkAction(BulkAction):
             display_name = _("Custom Action")
             aria_label = _("Do custom action")
             action_type = "action"
@@ -59,7 +61,7 @@ An example for a confirmation template is as follows:
           <ul>
               {% for item in items %}
               <li>
-                  <a href="" target="_blank" rel="noopener noreferrer">{{item.item.title }}</a>
+                  <a href="" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
               </li>
               {% endfor %}
           </ul>

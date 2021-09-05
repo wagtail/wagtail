@@ -1360,7 +1360,7 @@ Hooks for working with registered Snippets.
 Bulk actions
 ------------
 
-Hooks for registering and customising bulk actions
+Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_actions>` on how to write custom bulk actions.
 
 
 .. _register_bulk_action:
