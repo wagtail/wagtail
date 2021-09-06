@@ -129,7 +129,7 @@ select,
     }
 }
 
-@media (forced-colors:active) {
+@media (forced-colors:$media-forced-colours) {
     .tagit,
     .field-content .tagit .tagit-choice,
     .tagit .tagit-new .ui-widget-content {
