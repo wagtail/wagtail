@@ -535,6 +535,7 @@ Contributors
 * Jonathan "Yoni" Knoll
 * Onkar Apte
 * Justin Slay
+* Desai Akshata
 
 Translators
 ===========
