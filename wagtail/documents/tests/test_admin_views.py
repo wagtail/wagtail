@@ -8,6 +8,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
@@ -334,6 +335,9 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtaildocs:edit', args=(self.document.id, )))
         self.assertEqual(response.status_code, 302)
 
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.document), None)
+
     def test_post_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
@@ -362,6 +366,10 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # (see TestDocumentEditViewWithCustomDocumentModel - this confirms that form media
         # definitions are being respected)
         self.assertNotContains(response, 'wagtailadmin/js/draftail.js')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/documents/edit/%d/' % self.document.id
+        self.assertEqual(url_finder.get_edit_url(self.document), expected_url)
 
     def test_simple_with_collection_nesting(self):
         root_collection = Collection.get_first_root_node()
