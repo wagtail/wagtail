@@ -5,6 +5,7 @@ Third-party tutorials
 
     The following list is a collection of tutorials and development notes from third-party developers.
     Some of the older links may not apply to the latest Wagtail versions.
+ * `build an online consulting platform <https://sloboda-studio.com/blog/start-an-online-consulting-business/`_ (03 September 2021) 
 
 * `Add & Configure Mail in Django (or Wagtail) using Sendgrid <https://mpettersson.com/blog/how-to-add-and-configure-a-mail-service-in-django-or-wagtail/>`_ (28 May 2021)
 * `Advanced Django Development: How to build a professional CMS for any business? (3 part tutorial) <https://medium.com/engineerx/advanced-django-development-how-to-build-a-professional-cms-for-any-business-part-1-9859cb5b4d24>`_ (2 April 2021)
