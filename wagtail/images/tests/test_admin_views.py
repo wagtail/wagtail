@@ -11,6 +11,7 @@ from django.utils.html import escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Collection, GroupCollectionPermission, get_root_collection_id
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
@@ -524,6 +525,10 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.update_from_db()
         self.assertEqual(self.image.title, "Edited")
 
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/images/%d/' % self.image.id
+        self.assertEqual(url_finder.get_edit_url(self.image), expected_url)
+
     def test_edit_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
@@ -535,6 +540,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
             'title': "Edited",
         })
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.image), None)
 
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()

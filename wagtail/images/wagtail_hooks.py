@@ -6,6 +6,7 @@ from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
@@ -182,3 +183,11 @@ def describe_collection_docs(collection):
             ) % {'count': images_count},
             'url': url,
         }
+
+
+class ImageAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtailimages:edit'
+    permission_policy = permission_policy
+
+
+register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
