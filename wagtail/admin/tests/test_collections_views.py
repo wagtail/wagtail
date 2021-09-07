@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Collection
 from wagtail.documents.models import Document
 from wagtail.tests.utils import WagtailTestUtils
@@ -97,7 +98,7 @@ class TestAddCollection(TestCase, WagtailTestUtils):
 
 class TestEditCollection(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.root_collection = Collection.get_first_root_node()
         self.collection = self.root_collection.add_child(name="Holiday snaps")
         self.l1 = self.root_collection.add_child(name="Level 1")
@@ -123,6 +124,11 @@ class TestEditCollection(TestCase, WagtailTestUtils):
     def test_cannot_edit_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
         self.assertEqual(response.status_code, 404)
+
+    def test_admin_url_finder(self):
+        expected_url = '/admin/collections/%d/' % self.l2.pk
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.l2), expected_url)
 
     def test_get_nonexistent_collection(self):
         response = self.get(collection_id=100000)
