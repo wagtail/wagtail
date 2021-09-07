@@ -2,6 +2,7 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
 from wagtail.core.models import Page, Site
 from wagtail.tests.utils import WagtailTestUtils
@@ -518,7 +519,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.redirect.save()
 
         # Login
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects:edit', args=(redirect_id or self.redirect.id, )), params)
@@ -530,6 +531,10 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailredirects/edit.html')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/redirects/%d/' % self.redirect.id
+        self.assertEqual(url_finder.get_edit_url(self.redirect), expected_url)
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)
