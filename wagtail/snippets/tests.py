@@ -14,6 +14,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from taggit.models import Tag
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
@@ -546,6 +547,10 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertNotContains(response, '<a href="#advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="" data-tab="other">Other</a>', html=True)
 
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/snippets/tests/advert/edit/%d/' % self.test_snippet.pk
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
+
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', quote(self.test_snippet.pk))))
         self.assertEqual(response.status_code, 404)
@@ -564,6 +569,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.post(post_data={'text': 'test text',
                                         'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), None)
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
