@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
@@ -107,6 +108,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(
             response, '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
         )
+
+        # test that AdminURLFinder returns the edit view for the page
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/pages/%d/edit/' % self.event_page.id
+        self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_buttons_not_shown_when_workflow_disabled(self):
@@ -208,6 +214,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check that the user received a 302 redirected response
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.event_page), None)
 
     def test_page_edit_post(self):
         # Tests simple editing

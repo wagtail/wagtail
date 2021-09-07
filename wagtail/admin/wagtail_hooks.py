@@ -9,6 +9,7 @@ from draftjs_exporter.dom import DOM
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
 from wagtail import __version__
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
@@ -27,7 +28,7 @@ from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.core.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
 from wagtail.core.permissions import (
     collection_permission_policy, task_permission_policy, workflow_permission_policy)
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
@@ -782,3 +783,41 @@ def register_icons(icons):
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
+
+
+class PageAdminURLFinder:
+    def __init__(self, user):
+        self.page_perms = user and UserPagePermissionsProxy(user)
+
+    def get_edit_url(self, instance):
+        if self.page_perms and not self.page_perms.for_page(instance).can_edit():
+            return None
+        else:
+            return reverse('wagtailadmin_pages:edit', args=(instance.pk, ))
+
+
+register_admin_url_finder(Page, PageAdminURLFinder)
+
+
+class CollectionAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = collection_permission_policy
+    edit_url_name = 'wagtailadmin_collections:edit'
+
+
+register_admin_url_finder(Collection, CollectionAdminURLFinder)
+
+
+class WorkflowAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = workflow_permission_policy
+    edit_url_name = 'wagtailadmin_workflows:edit'
+
+
+register_admin_url_finder(Workflow, WorkflowAdminURLFinder)
+
+
+class WorkflowTaskAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = task_permission_policy
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+
+
+register_admin_url_finder(Task, WorkflowTaskAdminURLFinder)

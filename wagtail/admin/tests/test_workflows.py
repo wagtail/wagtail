@@ -11,6 +11,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import (
     GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
 from wagtail.core.signals import page_published
@@ -353,6 +354,13 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_admin_url_finder(self):
+        editor_url_finder = AdminURLFinder(self.editor)
+        self.assertEqual(editor_url_finder.get_edit_url(self.workflow), None)
+        moderator_url_finder = AdminURLFinder(self.moderator)
+        expected_url = '/admin/workflows/edit/%d/' % self.workflow.pk
+        self.assertEqual(moderator_url_finder.get_edit_url(self.workflow), expected_url)
+
     def test_duplicate_page_check(self):
         response = self.post({
             'name': [str(self.workflow.name)],
@@ -688,6 +696,13 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_admin_url_finder(self):
+        editor_url_finder = AdminURLFinder(self.editor)
+        self.assertEqual(editor_url_finder.get_edit_url(self.task), None)
+        moderator_url_finder = AdminURLFinder(self.moderator)
+        expected_url = '/admin/workflows/tasks/edit/%d/' % self.task.pk
+        self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
