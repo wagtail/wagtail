@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
     get_search_promotions)
@@ -268,7 +269,7 @@ class TestSearchPromotionsAddView(TestCase, WagtailTestUtils):
 
 class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create an search pick to edit
         self.query = Query.get("Hello")
@@ -279,6 +280,10 @@ class TestSearchPromotionsEditView(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailsearchpromotions:edit', args=(self.query.id, )))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsearchpromotions/edit.html')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/searchpicks/%d/' % self.query.id
+        self.assertEqual(url_finder.get_edit_url(self.search_pick), expected_url)
 
     def test_post(self):
         # Submit
