@@ -1,4 +1,5 @@
 from django.apps import apps
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
@@ -6,10 +7,12 @@ from django.urls import include, path, reverse
 from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.core.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
 from wagtail.users.widgets import UserListingButton
@@ -123,3 +126,14 @@ def user_listing_buttons(context, user):
     yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
     if user_can_delete_user(context.request.user, user):
         yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
+
+
+User = get_user_model()
+
+
+class UserAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtailusers_users:edit'
+    permission_policy = ModelPermissionPolicy(User)
+
+
+register_admin_url_finder(User, UserAdminURLFinder)
