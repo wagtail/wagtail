@@ -659,6 +659,10 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Password:')
         self.assertContains(response, 'Password confirmation:')
 
+        url_finder = AdminURLFinder(self.current_user)
+        expected_url = '/admin/users/%s/' % self.test_user.pk
+        self.assertEqual(url_finder.get_edit_url(self.test_user), expected_url)
+
     def test_nonexistant_redirect(self):
         invalid_id = '99999999-9999-9999-9999-999999999999' if settings.AUTH_USER_MODEL == 'emailuser.EmailUser' else 100000
         self.assertEqual(self.get(user_id=invalid_id).status_code, 404)
