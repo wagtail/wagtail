@@ -6,6 +6,7 @@ from django.core import checks
 from django.test import TestCase
 from openpyxl import load_workbook
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.core.models import Page
@@ -375,7 +376,7 @@ class TestEditView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def get(self, book_id):
         return self.client.get('/admin/modeladmintest/book/edit/%d/' % book_id)
@@ -388,6 +389,10 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'The Lord of the Rings')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/modeladmintest/book/edit/1/'
+        self.assertEqual(url_finder.get_edit_url(Book.objects.get(id=1)), expected_url)
 
     def test_non_existent(self):
         response = self.get(100)
@@ -584,6 +589,7 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         # Create a user
         user = self.create_user(username='test2', password='password')
         user.groups.add(Group.objects.get(pk=2))
+        self.user = user
         # Login
         self.login(username='test2', password='password')
 
@@ -604,6 +610,9 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
     def test_edit_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/edit/2/')
         self.assertRedirects(response, '/admin/')
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(Book.objects.get(id=2)), None)
 
     def test_delete_get_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/delete/2/')
