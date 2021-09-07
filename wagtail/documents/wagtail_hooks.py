@@ -8,6 +8,7 @@ from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
@@ -186,3 +187,11 @@ def check_view_restrictions(document, request):
 
             elif restriction.restriction_type in [BaseViewRestriction.LOGIN, BaseViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+class DocumentAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtaildocs:edit'
+    permission_policy = permission_policy
+
+
+register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
