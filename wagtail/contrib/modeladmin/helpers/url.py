@@ -1,3 +1,4 @@
+from django.contrib.admin.utils import quote
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import urlquote
@@ -41,6 +42,17 @@ class AdminURLHelper:
     @cached_property
     def create_url(self):
         return self.get_action_url('create')
+
+
+# for registering with wagtail.admin.admin_url_finder.
+# Subclasses should define url_helper and permission_helper
+class ModelAdminURLFinder:
+    def __init__(self, user):
+        self.user = user
+
+    def get_edit_url(self, instance):
+        if self.permission_helper.user_can_edit_obj(self.user, instance):
+            return self.url_helper.get_action_url('edit', quote(instance.pk))
 
 
 class PageAdminURLHelper(AdminURLHelper):

@@ -6,14 +6,15 @@ from django.db.models import Model
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
-    PagePermissionHelper, PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, ModelAdminURLFinder, PageAdminURLHelper,
+    PageButtonHelper, PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
 from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
@@ -54,6 +55,11 @@ class WagtailRegisterable:
             def construct_explorer_page_queryset(parent_page, queryset, request):
                 return self.modify_explorer_page_queryset(
                     parent_page, queryset, request)
+
+        self.register_admin_url_finders()
+
+    def register_admin_url_finders(self):
+        pass
 
     def will_modify_explorer_page_queryset(self):
         return False
@@ -578,6 +584,14 @@ class ModelAdmin(WagtailRegisterable):
             errors = check_panels_in_model(self.model, 'modeladmin')
             return errors
 
+    def register_admin_url_finders(self):
+        if not self.is_pagemodel:
+            finder_class = type('_ModelAdminURLFinder', (ModelAdminURLFinder, ), {
+                'permission_helper': self.permission_helper,
+                'url_helper': self.url_helper
+            })
+            register_admin_url_finder(self.model, finder_class)
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -674,6 +688,10 @@ class ModelAdminGroup(WagtailRegisterable):
             for modeladmin_class in self.items:
                 errors.extend(check_panels_in_model(modeladmin_class.model))
             return errors
+
+    def register_admin_url_finders(self):
+        for instance in self.modeladmin_instances:
+            instance.register_admin_url_finders()
 
 
 def modeladmin_register(modeladmin_class):
