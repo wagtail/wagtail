@@ -7,6 +7,9 @@ class ViewSet:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+    def on_register(self):
+        pass
+
     def get_urlpatterns(self):
         return []
 

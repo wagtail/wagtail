@@ -2,6 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 from django.urls import path
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.views import generic
 from wagtail.core.permissions import ModelPermissionPolicy
 
@@ -92,3 +93,11 @@ class ModelViewSet(ViewSet):
             path('<int:pk>/', self.edit_view, name='edit'),
             path('<int:pk>/delete/', self.delete_view, name='delete'),
         ]
+
+    def on_register(self):
+        super().on_register()
+        url_finder_class = type('_ModelAdminURLFinder', (ModelAdminURLFinder, ), {
+            'permission_policy': self.permission_policy,
+            'edit_url_name': self.get_url_name('edit')
+        })
+        register_admin_url_finder(self.model, url_finder_class)
