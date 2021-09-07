@@ -11,6 +11,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.core.models import Collection, GroupCollectionPermission, GroupPagePermission, Page
@@ -1263,7 +1264,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         )
 
         # Login
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}, group_id=None):
         return self.client.get(reverse('wagtailusers_groups:edit', args=(group_id or self.test_group.pk, )), params)
@@ -1305,6 +1306,10 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailusers/groups/edit.html')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/groups/%d/' % self.test_group.id
+        self.assertEqual(url_finder.get_edit_url(self.test_group), expected_url)
 
     def test_nonexistant_group_redirect(self):
         self.assertEqual(self.get(group_id=100000).status_code, 404)

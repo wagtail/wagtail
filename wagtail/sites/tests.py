@@ -2,6 +2,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Page, Site
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -120,7 +121,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
 
 class TestSiteEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.home_page = Page.objects.get(id=2)
         self.localhost = Site.objects.all()[0]
 
@@ -148,6 +149,10 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsites/edit.html')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/sites/%d/' % self.localhost.id
+        self.assertEqual(url_finder.get_edit_url(self.localhost), expected_url)
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(site_id=100000).status_code, 404)
