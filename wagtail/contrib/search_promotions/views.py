@@ -10,6 +10,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
+from wagtail.core.log_actions import log
 from wagtail.search import forms as search_forms
 from wagtail.search.models import Query
 
@@ -77,11 +78,30 @@ def save_searchpicks(query, new_query, searchpicks_formset):
             # Make sure the form is marked as changed so it gets saved with the new order
             form.has_changed = lambda: True
 
+        # log deleted items before saving, otherwise we lose their IDs
+        items_for_deletion = [
+            form.instance for form in searchpicks_formset.deleted_forms
+            if form.instance.pk
+        ]
+        for search_pick in items_for_deletion:
+            log(search_pick, 'wagtail.delete')
+
         searchpicks_formset.save()
+
+        for search_pick in searchpicks_formset.new_objects:
+            log(search_pick, 'wagtail.create')
 
         # If query was changed, move all search picks to the new query
         if query != new_query:
             searchpicks_formset.get_queryset().update(query=new_query)
+            # log all items in the formset as having changed
+            for search_pick, changed_fields in searchpicks_formset.changed_objects:
+                log(search_pick, 'wagtail.edit')
+        else:
+            # only log objects with actual changes
+            for search_pick, changed_fields in searchpicks_formset.changed_objects:
+                if changed_fields:
+                    log(search_pick, 'wagtail.edit')
 
         return True
     else:
@@ -99,6 +119,8 @@ def add(request):
             # Save search picks
             searchpicks_formset = forms.SearchPromotionsFormSet(request.POST, instance=query)
             if save_searchpicks(query, query, searchpicks_formset):
+                for search_pick in searchpicks_formset.new_objects:
+                    log(search_pick, 'wagtail.create')
                 messages.success(request, _("Editor's picks for '{0}' created.").format(query), buttons=[
                     messages.button(reverse('wagtailsearchpromotions:edit', args=(query.id,)), _('Edit'))
                 ])
@@ -167,7 +189,10 @@ def delete(request, query_id):
     query = get_object_or_404(Query, id=query_id)
 
     if request.method == 'POST':
-        query.editors_picks.all().delete()
+        editors_picks = query.editors_picks.all()
+        for search_pick in editors_picks:
+            log(search_pick, 'wagtail.delete')
+        editors_picks.delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 
