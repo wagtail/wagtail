@@ -11,6 +11,7 @@ from django.db.models import IntegerField, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.filters import ContentTypeFilter, DateRangePickerWidget, WagtailFilterSet
 from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import PageLogEntry
@@ -158,6 +159,8 @@ class LogEntriesView(ReportView):
         for row in queryset:
             pks_by_log_model_index[row['log_model_index']].append(row['pk'])
 
+        url_finder = AdminURLFinder(self.request.user)
+
         # for each log model found in the queryset, look up the set of log entries by id
         # and build a lookup table
         object_lookup = {}
@@ -165,10 +168,13 @@ class LogEntriesView(ReportView):
             log_entries = (
                 self.log_models[log_model_index].objects
                 .prefetch_related('user__wagtail_userprofile', 'content_type')
-                .in_bulk(pks)
+                .filter(pk__in=pks)
+                .with_instances()
             )
-            for pk, log_entry in log_entries.items():
-                object_lookup[(log_model_index, pk)] = log_entry
+            for log_entry, instance in log_entries:
+                # annotate log entry with an 'edit_url' property
+                log_entry.edit_url = url_finder.get_edit_url(instance)
+                object_lookup[(log_model_index, log_entry.pk)] = log_entry
 
         # return items from our lookup table in the order of the original queryset
         return [

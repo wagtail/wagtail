@@ -27,13 +27,8 @@
                 {% for entry in object_list %}
                     <tr>
                         <td class="title">
-                            {% if entry.page %}
-                                {% page_permissions entry.page as page_perms %}
-                                {% if page_perms.can_edit %}
-                                    <a href="{% url 'wagtailadmin_pages:edit' entry.page_id %}" title="{% trans 'Edit this page' %}">{{ entry.label }}</a>
-                                {% else %}
-                                    {{ entry.label }}
-                                {% endif %}
+                            {% if entry.edit_url %}
+                                <a href="{{ entry.edit_url }}" title="{% trans 'Edit this item' %}">{{ entry.label }}</a>
                             {% else %}
                                 {{ entry.label }}
                             {% endif %}

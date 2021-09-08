@@ -6,6 +6,8 @@ wagtail.core.models module or specific models such as Page.
 
 import json
 
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -45,6 +47,29 @@ class LogEntryQuerySet(models.QuerySet):
         # that have a concept of object types that doesn't correspond directly to ContentType
         # instances (e.g. PageLogEntry, which treats all page types as a single Page type)
         return self.filter(content_type_id=content_type.id)
+
+    def with_instances(self):
+        # return an iterable of (log_entry, instance) tuples for all log entries in this queryset.
+        # instance is None if the instance does not exist.
+        # Note: This is an expensive operation and should only be done on small querysets
+        # (e.g. after pagination).
+
+        # evaluate the queryset in full now, as we'll be iterating over it multiple times
+        log_entries = list(self)
+        ids_by_content_type = defaultdict(list)
+        for log_entry in log_entries:
+            ids_by_content_type[log_entry.content_type_id].append(log_entry.object_id)
+
+        instances_by_id = {}  # lookup of (content_type_id, stringified_object_id) to instance
+        for content_type_id, object_ids in ids_by_content_type.items():
+            model = ContentType.objects.get_for_id(content_type_id).model_class()
+            model_instances = model.objects.in_bulk(object_ids)
+            for object_id, instance in model_instances.items():
+                instances_by_id[(content_type_id, str(object_id))] = instance
+
+        for log_entry in log_entries:
+            lookup_key = (log_entry.content_type_id, str(log_entry.object_id))
+            yield (log_entry, instances_by_id.get(lookup_key))
 
 
 class BaseLogEntryManager(models.Manager):
