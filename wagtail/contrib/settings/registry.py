@@ -3,8 +3,10 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.core import hooks
+from wagtail.core.permission_policies import ModelPermissionPolicy
 
 from .permissions import user_can_edit_setting_type
 
@@ -36,6 +38,13 @@ class SettingMenuItem(MenuItem):
         return user_can_edit_setting_type(request.user, self.model)
 
 
+class SettingsAdminURLFinder(ModelAdminURLFinder):
+    def construct_edit_url(self, instance):
+        return reverse('wagtailsettings:edit', args=[
+            self.model._meta.app_label, self.model._meta.model_name, instance.site_id
+        ])
+
+
 class Registry(list):
 
     def register(self, model, **kwargs):
@@ -58,6 +67,14 @@ class Registry(list):
             return Permission.objects.filter(
                 content_type__app_label=model._meta.app_label,
                 codename='change_{}'.format(model._meta.model_name))
+
+        # Register an admin URL finder
+        permission_policy = ModelPermissionPolicy(model)
+        finder_class = type('_SettingsAdminURLFinder', (SettingsAdminURLFinder, ), {
+            'model': model,
+            'permission_policy': permission_policy
+        })
+        register_admin_url_finder(model, finder_class)
 
         return model
 
