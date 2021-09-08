@@ -15,6 +15,7 @@ from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.core.log_actions import log
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
@@ -129,6 +130,7 @@ def create(request):
         form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
+            log(user, 'wagtail.create')
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
@@ -161,6 +163,7 @@ def edit(request, user_id):
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
             user = form.save()
+            log(user, 'wagtail.edit')
 
             if user == request.user and 'password1' in form.changed_data:
                 # User is changing their own password; need to update their session hash
@@ -198,6 +201,7 @@ def delete(request, user_id):
         if hasattr(result, 'status_code'):
             return result
     if request.method == 'POST':
+        log(user, 'wagtail.delete')
         user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
         for fn in hooks.get_hooks('after_delete_user'):
