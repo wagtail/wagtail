@@ -58,6 +58,7 @@ Bug fixes
  * Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
  * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
  * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
+ * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
 
 Upgrade considerations
 ======================
