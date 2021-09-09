@@ -36,6 +36,7 @@ Other features
  * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Added ``ExcelDateFormatter`` to ``wagtail.admin.views.mixins`` so that dates in Excel exports will appear in the locale's ``SHORT_DATETIME_FORMAT`` (Andrew Stone)
  * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
+ * Add ``label_format`` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
