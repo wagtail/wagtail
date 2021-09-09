@@ -1,4 +1,3 @@
-from django.forms import HiddenInput
 from django.http import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy
@@ -7,7 +6,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
-from wagtail.core.models import Collection, GroupCollectionPermission
+from wagtail.core.models import Collection
 from wagtail.core.permissions import collection_permission_policy
 
 
@@ -38,17 +37,18 @@ class Create(CreateView):
     index_url_name = 'wagtailadmin_collections:index'
     header_icon = 'folder-open-1'
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        # Now filter collections offered in parent field by current user's add permissions
-        collections = self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')
-        form.fields['parent'].queryset = collections
-        return form
+    def get_form_kwargs(self):
+        """
+        Initialize form with user and permission policy so we can use them to set allowed parent options.
+        """
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        kwargs.update({'permission_policy': self.permission_policy})
+        return kwargs
 
     def save_instance(self):
         instance = self.form.save(commit=False)
-        parent_pk = self.form.data.get('parent')
-        parent = Collection.objects.get(pk=parent_pk)
+        parent = self.form.cleaned_data['parent']
         parent.add_child(instance=instance)
         return instance
 
@@ -67,81 +67,26 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
-    def _user_may_move_collection(self, user, instance):
-        """
-        Is this instance used for assigning GroupCollectionPermissions to the user?
-        If so, this user may not move the collection to a new part of the tree
-        """
-        if user.is_active and user.is_superuser:
-            return True
-        else:
-            permissions = self.permission_policy._get_permission_objects_for_actions(['add', 'edit', 'delete'])
-            return not GroupCollectionPermission.objects.filter(
-                group__user=user,
-                permission__in=permissions,
-                collection=instance,
-            ).exists()
-
     def get_queryset(self):
         return self.permission_policy.instances_user_has_permission_for(
             self.request.user, 'change'
         ).exclude(depth=1)
 
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        user = self.request.user
-        # If this instance is a collection used to assign permissions for this user,
-        # do not let the user move this collection.
-        if not self._user_may_move_collection(user, form.instance):
-            form.fields['parent'].widget = HiddenInput()
-        # or if user does not have add permission anywhere, then can't move collection
-        elif not self.permission_policy.user_has_permission(user, 'add'):
-            form.fields['parent'].widget = HiddenInput()
-        else:
-            # Filter collections offered in parent field by current user's add permissions
-            collections = self.permission_policy.instances_user_has_permission_for(user, 'add')
-            form.fields['parent'].queryset = collections
-            form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
-            form.fields['parent'].empty_label = None
-
-        form.initial['parent'] = form.instance.get_parent().pk
-        return form
+    def get_form_kwargs(self):
+        """
+        Initialize form with user and permission policy so we can use them to set allowed parent options.
+        """
+        kwargs = super().get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        kwargs.update({'permission_policy': self.permission_policy})
+        return kwargs
 
     def save_instance(self):
         instance = self.form.save()
-        parent_pk = self.form.data.get('parent')
-        if parent_pk and parent_pk != instance.get_parent().pk:
-            instance.move(Collection.objects.get(pk=parent_pk), 'sorted-child')
+        parent = self.form.cleaned_data['parent']
+        if parent.pk != instance.get_parent().pk:
+            instance.move(Collection.objects.get(pk=parent.pk), 'sorted-child')
         return instance
-
-    def form_valid(self, form):
-        old_parent_pk = form.instance.get_parent().id
-        new_parent_pk = int(form.data.get('parent', 0))
-        if not new_parent_pk == old_parent_pk:
-            # Can't move nodes used to assign permissions
-            if not self._user_may_move_collection(self.request.user, form.instance):
-                form.add_error(None, gettext_lazy('You may not move collections used to grant permissions'))
-                return self.form_invalid(form)
-
-            # Can't move somewhere you don't have add permission
-            permitted_destinations = [
-                c.id for c in
-                self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')]
-            if new_parent_pk not in permitted_destinations:
-                if permitted_destinations:
-                    form.add_error(None, gettext_lazy('Please select another parent'))
-                else:
-                    form.add_error(None, gettext_lazy('You must have add permissions to be able to move a collection'))
-                return self.form_invalid(form)
-
-            # Also cannont move to be one of our own children
-            old_descendants = list(form.instance.get_descendants(
-                inclusive=True).values_list('pk', flat=True)
-            )
-            if new_parent_pk in old_descendants:
-                form.add_error('parent', gettext_lazy('Please select another parent'))
-                return self.form_invalid(form)
-        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

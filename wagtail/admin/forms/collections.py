@@ -2,6 +2,7 @@ from itertools import groupby
 
 from django import forms
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Min
 from django.template.loader import render_to_string
@@ -71,7 +72,7 @@ class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
         label=gettext_lazy("Parent"),
         queryset=Collection.objects.all(),
-        required=True,
+        required=False,
         help_text=gettext_lazy(
             "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
             "descendants."
@@ -81,6 +82,70 @@ class CollectionForm(forms.ModelForm):
     class Meta:
         model = Collection
         fields = ('name',)
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        self.permission_policy = kwargs.pop('permission_policy')
+        # This user is allowed to add collections to this list of parent collections
+        possible_parents = self.permission_policy.instances_user_has_permission_for(self.user, 'add')
+
+        super().__init__(*args, **kwargs)
+        if self.instance.get_parent():
+            self.initial['parent'] = self.instance.get_parent().pk
+
+        # If user cannot add collections or move this collection, disable the parent widget,
+        # otherwise, update the parent widget to offer only parents where this user has add permissions
+        if not possible_parents or (
+                self.instance and not self._user_may_move_collection(self.user, self.instance)
+        ):
+            self.fields['parent'].disabled = True
+            self.fields['parent'].widget = forms.HiddenInput()
+        else:
+            self.fields['parent'].empty_label = None
+            self.fields['parent'].queryset = possible_parents
+            if self.instance.get_parent():
+                self.fields['parent'].disabled_queryset = self.instance.get_descendants(inclusive=True)
+
+    def clean_parent(self):
+        """
+        To get the behavior we wanted while editing, we needed to make the parent form field
+        optional, so we need to require a value for parent when creating a new collection.
+
+        Our rules about where a user may add or move a collection are as follows:
+            1. The user must have 'add' permission on the parent collection (or its ancestors)
+            2. We are not moving a collection used to assign permissions for this user
+            3. We are not trying to move a collection to be parented by one of their descendants
+
+        The first 2 items are taken care of by disabling the 'parent' field in the __init__ method
+        above. This causes Django's form machinery to use the initial value for parent regardless of
+        what the user submits. This methods enforces rule #3.
+        """
+        parent = self.cleaned_data.get('parent')
+        if self.instance._state.adding:
+            if not parent:
+                raise ValidationError(gettext_lazy('Please select a parent for this collection'))
+        elif not (parent.pk == self.initial.get('parent')):
+            old_descendants = list(self.instance.get_descendants(
+                inclusive=True).values_list('pk', flat=True)
+            )
+            if parent.pk in old_descendants:
+                raise ValidationError(gettext_lazy('Please select another parent'))
+        return parent
+
+    def _user_may_move_collection(self, user, instance):
+        """
+        Is this instance used for assigning GroupCollectionPermissions to the user?
+        If so, this user may not move the collection to a new part of the tree
+        """
+        if user.is_active and user.is_superuser:
+            return True
+        else:
+            permissions = self.permission_policy._get_permission_objects_for_actions(['add', 'edit', 'delete'])
+            return not GroupCollectionPermission.objects.filter(
+                group__user=user,
+                permission__in=permissions,
+                collection=instance,
+            ).exists()
 
 
 class BaseCollectionMemberForm(forms.ModelForm):
