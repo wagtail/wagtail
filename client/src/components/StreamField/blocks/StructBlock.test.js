@@ -31,6 +31,7 @@ class DummyWidgetDefinition {
       setState(state) { setState(widgetName, state); },
       getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
       getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
+      getTextLabel() { return `label: ${name}`; },
       focus() { focus(widgetName); },
       idForLabel: id,
     };
@@ -159,6 +160,10 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     expect(focus.mock.calls[0][0]).toBe('Heading widget');
   });
 
+  test('getTextLabel() returns text label of first widget', () => {
+    expect(boundBlock.getTextLabel()).toBe('label: the-prefix-heading_text');
+  });
+
   test('setError passes error messages to children', () => {
     boundBlock.setError([
       new StructBlockValidationError({
@@ -215,6 +220,7 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
           <p>and here is the second:</p>
           <div data-structblock-child="size"></div>
         </div>`,
+        labelFormat: '{heading_text} - {size}',
       }
     );
 
@@ -286,5 +292,11 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
     boundBlock.focus();
     expect(focus.mock.calls.length).toBe(1);
     expect(focus.mock.calls[0][0]).toBe('Heading widget');
+  });
+
+  test('getTextLabel() returns text label according to labelFormat', () => {
+    expect(boundBlock.getTextLabel()).toBe(
+      'label: the-prefix-heading_text - label: the-prefix-size'
+    );
   });
 });

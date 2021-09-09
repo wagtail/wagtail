@@ -274,6 +274,7 @@ class BaseStructBlock(Block):
         form_classname = 'struct-block'
         form_template = None
         value_class = StructValue
+        label_format = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -300,6 +301,9 @@ class StructBlockAdapter(Adapter):
 
         if block.meta.form_template:
             meta['formTemplate'] = block.render_form_template()
+
+        if block.meta.label_format:
+            meta['labelFormat'] = block.meta.label_format
 
         return [
             block.name,

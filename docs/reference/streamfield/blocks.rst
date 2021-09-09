@@ -414,6 +414,8 @@ Structural block types
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
    :param value_class: A subclass of ``wagtail.core.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
+   :param label_format:
+     Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - e.g. ``label_format = "Profile for {first_name} {surname}"``
 
 
 .. class:: wagtail.core.blocks.ListBlock
