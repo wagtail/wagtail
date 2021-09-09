@@ -537,6 +537,7 @@ Contributors
 * Justin Slay
 * Desai Akshata
 * Krzysztof Jeziorny
+* Nick Moreton
 
 Translators
 ===========
