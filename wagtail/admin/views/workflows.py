@@ -510,44 +510,44 @@ def get_task_result_data(task):
 class TaskChooserView(View):
     def dispatch(self, request):
         task_models = get_task_types()
-        create_model = None
-        can_create = False
+        self.create_model = None
+        self.can_create = False
 
         if task_permission_policy.user_has_permission(request.user, 'add'):
-            can_create = len(task_models) != 0
+            self.can_create = len(task_models) != 0
 
             if len(task_models) == 1:
-                create_model = task_models[0]
+                self.create_model = task_models[0]
 
             elif 'create_model' in request.GET:
-                create_model = resolve_model_string(request.GET['create_model'])
+                self.create_model = resolve_model_string(request.GET['create_model'])
 
-                if create_model not in task_models:
+                if self.create_model not in task_models:
                     raise Http404
 
         # Build task types list for "select task type" view
-        task_types = [
+        self.task_types = [
             (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
             for model in task_models
         ]
         # sort by lower-cased version of verbose name
-        task_types.sort(key=lambda task_type: task_type[0].lower())
+        self.task_types.sort(key=lambda task_type: task_type[0].lower())
 
         # Build task type choices for filter on "existing task" tab
-        task_type_choices = [
+        self.task_type_choices = [
             (model, model.get_verbose_name())
             for model in task_models
         ]
-        task_type_choices.sort(key=lambda task_type: task_type[1].lower())
+        self.task_type_choices.sort(key=lambda task_type: task_type[1].lower())
 
-        if create_model:
-            createform_class = get_task_form_class(create_model)
+        if self.create_model:
+            createform_class = get_task_form_class(self.create_model)
         else:
             createform_class = None
 
         q = None
         if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:
-            searchform = TaskChooserSearchForm(request.GET, task_type_choices=task_type_choices)
+            searchform = TaskChooserSearchForm(request.GET, task_type_choices=self.task_type_choices)
             tasks = all_tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
             q = ''
 
@@ -565,7 +565,7 @@ class TaskChooserView(View):
             tasks = paginator.get_page(request.GET.get('p'))
 
             return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
-                'task_types': task_types,
+                'task_types': self.task_types,
                 'searchform': searchform,
                 'tasks': tasks,
                 'all_tasks': all_tasks,
@@ -574,10 +574,10 @@ class TaskChooserView(View):
         else:
             if request.method == 'POST':
                 if createform_class:
-                    createform = createform_class(request.POST, request.FILES, prefix='create-task')
+                    self.createform = createform_class(request.POST, request.FILES, prefix='create-task')
 
-                    if createform.is_valid():
-                        task = createform.save()
+                    if self.createform.is_valid():
+                        task = self.createform.save()
 
                         response = render_modal_workflow(
                             request, None, None,
@@ -590,24 +590,27 @@ class TaskChooserView(View):
 
             else:  # request is GET
                 if createform_class:
-                    createform = createform_class(prefix='create-task')
+                    self.createform = createform_class(prefix='create-task')
                 else:
-                    createform = None
+                    self.createform = None
 
-            searchform = TaskChooserSearchForm(task_type_choices=task_type_choices)
-            tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
+            return self.render_to_response()
 
-            paginator = Paginator(tasks, per_page=10)
-            tasks = paginator.get_page(request.GET.get('p'))
+    def render_to_response(self):
+        searchform = TaskChooserSearchForm(task_type_choices=self.task_type_choices)
+        tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
 
-            return render_modal_workflow(request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
-                'task_types': task_types,
-                'tasks': tasks,
-                'searchform': searchform,
-                'createform': createform,
-                'can_create': can_create,
-                'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + request.GET.urlencode() if create_model else None
-            }, json_data=get_chooser_context())
+        paginator = Paginator(tasks, per_page=10)
+        tasks = paginator.get_page(self.request.GET.get('p'))
+
+        return render_modal_workflow(self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
+            'task_types': self.task_types,
+            'tasks': tasks,
+            'searchform': searchform,
+            'createform': self.createform,
+            'can_create': self.can_create,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + self.request.GET.urlencode() if self.create_model else None
+        }, json_data=get_chooser_context())
 
 
 def task_chosen(request, task_id):
