@@ -205,12 +205,6 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
             self.root_collection
         )
 
-    def test_parent_is_required(self):
-        response = self.post({
-            'name': "Holiday snaps",
-        })
-        self.assertContains(response, 'Please select a parent for this collection')
-
 
 class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
@@ -319,10 +313,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
     def test_cannot_move_parent_collection_to_descendant(self):
         response = self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
         self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
-        self.assertEqual(
-            Collection.objects.get(pk=self.l2.pk).get_parent().pk,
-            self.l1.pk
-        )
+        self.assertContains(response, 'Please select another parent')
 
     def test_rename_collection(self):
         data = {'name': "Skiing photos", 'parent': self.root_collection.id}
@@ -395,32 +386,27 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.users_add_permission.delete()
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
-        form_fields = response.context['form'].fields
-        self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
-        self.assertTrue(form_fields['parent'].disabled)
+        self.assertEqual(list(response.context['form'].fields.keys()), ['name'])
+        # Now try to move the collection and check it did not get moved
 
-        # Now try to move the collection and check name updated bu it did not get moved to new parent
-        self.assertEqual(self.marketing_sub_collection.get_parent(), self.marketing_collection)
+    def test_marketing_user_cannot_move_collection_if_no_add_permission_post(self):
+        self.users_add_permission.delete()
         self.post(self.marketing_sub_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
-        updated_collection = Collection.objects.get(pk=self.marketing_sub_collection.pk)
-        self.assertEqual(updated_collection.name, "New Collection Name")
-        self.assertEqual(updated_collection.get_parent(), self.marketing_collection)
+        edited_collection = Collection.objects.get(pk=self.marketing_sub_collection.id)
+        self.assertEqual(edited_collection.name, "New Collection Name")
+        self.assertEqual(edited_collection.get_parent(), self.marketing_collection)
 
     def test_cannot_move_parent_collection_to_descendant(self):
-        self.assertEqual(self.marketing_collection.get_parent(), self.root_collection)
         self.post(self.marketing_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
-        updated_collection = Collection.objects.get(pk=self.marketing_collection.pk)
-        self.assertEqual(updated_collection.name, "New Collection Name")
-        self.assertEqual(updated_collection.get_parent(), self.root_collection)
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_collection.pk).get_parent(),
+            self.root_collection
+        )
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
-        form_fields = response.context['form'].fields
-        # Can edit the name of the collection but not it's parent because this
-        # is the collection that gives me permission on a section of hierarchy
-        self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
-        self.assertTrue(form_fields['parent'].disabled)
+        self.assertEqual(list(response.context['form'].fields.keys()), ['name'])
         self.assertNotContains(response, "Delete collection")
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(self):
@@ -433,13 +419,13 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         # We can move nodes lower on the tree
         self.post(self.marketing_sub_collection.id, {'name': "Moved Sub", 'parent': self.finance_collection.id})
         self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(), self.finance_collection)
-        # But we can't move the node to which our edit permission was assigned
 
-        self.assertEqual(self.marketing_collection.get_parent(), self.root_collection)
-        self.post(self.marketing_collection.id, {'name': "Advertising", 'parent': self.finance_collection.id})
-        updated_collection = Collection.objects.get(pk=self.marketing_collection.pk)
-        self.assertEqual(updated_collection.name, "Advertising")
-        self.assertEqual(updated_collection.get_parent(), self.root_collection)
+        # But we can't move the node to which our edit permission was assigned; update is ignored
+        self.post(self.marketing_collection.id, {'name': self.marketing_collection.name, 'parent': self.finance_collection.id})
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_collection.pk).get_parent(),
+            self.root_collection
+        )
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
         # Retrieve edit form and check fields
