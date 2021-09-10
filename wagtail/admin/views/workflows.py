@@ -584,9 +584,6 @@ class TaskChooserView(View):
                             None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
                         )
 
-                        # Use a different status code so we can tell the difference between validation errors and successful creations
-                        response.status_code = 201
-
                         return response
                 else:
                     createform = createform_class(prefix='create-task')
