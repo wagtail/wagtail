@@ -538,6 +538,7 @@ Contributors
 * Desai Akshata
 * Krzysztof Jeziorny
 * Nick Moreton
+* Bryan Williams
 
 Translators
 ===========

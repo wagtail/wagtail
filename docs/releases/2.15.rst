@@ -52,6 +52,7 @@ Bug fixes
  * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
  * Set ``default_auto_field`` in ``postgres_search`` ``AppConfig`` (Nick Moreton)
  * Ensure admin tab JS events are handled on page load (Andrew Stone)
+ * `EmailNotificationMixin` and `send_notification` should only send emails to active users (Bryan Williams)
 
 Upgrade considerations
 ======================

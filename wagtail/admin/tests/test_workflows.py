@@ -1318,6 +1318,33 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertNotIn(self.superuser.email, workflow_submission_emailed_addresses)
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
+    def test_submit_notification_active_users_only(self):
+        # moderator2 is inactive
+        self.moderator2.is_active = False
+        self.moderator2.save()
+
+        # superuser is inactive
+        self.superuser.is_active = False
+        self.superuser.save()
+
+        # Submit
+        self.login(self.submitter)
+        self.submit()
+
+        workflow_submission_emails = [email for email in mail.outbox if "workflow" in email.subject]
+        workflow_submission_emailed_addresses = [address for email in workflow_submission_emails for address in
+                                                 email.to]
+        task_submission_emails = [email for email in mail.outbox if "task" in email.subject]
+        task_submission_emailed_addresses = [address for email in task_submission_emails for address in email.to]
+
+        # Check that moderator2 didn't receive a task submitted email
+        self.assertNotIn(self.moderator2.email, task_submission_emailed_addresses)
+
+        # Check that the superuser didn't receive a workflow or task email
+        self.assertNotIn(self.superuser.email, task_submission_emailed_addresses)
+        self.assertNotIn(self.superuser.email, workflow_submission_emailed_addresses)
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
     def test_submit_notification_preferences_respected(self):
         # moderator2 doesn't want emails
         self.moderator2_profile.submitted_notifications = False
