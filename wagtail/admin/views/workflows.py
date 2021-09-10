@@ -541,11 +541,13 @@ class TaskChooserView(View):
         self.task_type_choices.sort(key=lambda task_type: task_type[1].lower())
 
         if self.create_model:
-            createform_class = get_task_form_class(self.create_model)
+            self.createform_class = get_task_form_class(self.create_model)
         else:
-            createform_class = None
+            self.createform_class = None
 
-        q = None
+        return super().dispatch(request)
+
+    def get(self, request):
         if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:
             searchform = TaskChooserSearchForm(request.GET, task_type_choices=self.task_type_choices)
             tasks = all_tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
@@ -572,28 +574,29 @@ class TaskChooserView(View):
                 'query_string': q,
             })
         else:
-            if request.method == 'POST':
-                if createform_class:
-                    self.createform = createform_class(request.POST, request.FILES, prefix='create-task')
+            if self.createform_class:
+                self.createform = self.createform_class(prefix='create-task')
+            else:
+                self.createform = None
 
-                    if self.createform.is_valid():
-                        task = self.createform.save()
+            return self.render_to_response()
 
-                        response = render_modal_workflow(
-                            request, None, None,
-                            None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
-                        )
+    def post(self, request):
+        if not self.createform_class:
+            return HttpResponseBadRequest()
 
-                        return response
-                else:
-                    return HttpResponseBadRequest()
+        self.createform = self.createform_class(request.POST, request.FILES, prefix='create-task')
 
-            else:  # request is GET
-                if createform_class:
-                    self.createform = createform_class(prefix='create-task')
-                else:
-                    self.createform = None
+        if self.createform.is_valid():
+            task = self.createform.save()
 
+            response = render_modal_workflow(
+                request, None, None,
+                None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
+            )
+
+            return response
+        else:
             return self.render_to_response()
 
     def render_to_response(self):
