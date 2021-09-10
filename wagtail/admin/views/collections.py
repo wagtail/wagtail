@@ -6,7 +6,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.collections import CollectionForm
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.core import hooks
-from wagtail.core.models import Collection
+from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.core.permissions import collection_permission_policy
 
 
@@ -37,14 +37,12 @@ class Create(CreateView):
     index_url_name = 'wagtailadmin_collections:index'
     header_icon = 'folder-open-1'
 
-    def get_form_kwargs(self):
-        """
-        Initialize form with user and permission policy so we can use them to set allowed parent options.
-        """
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        kwargs.update({'permission_policy': self.permission_policy})
-        return kwargs
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        # Now filter collections offered in parent field by current user's add permissions
+        collections = self.permission_policy.instances_user_has_permission_for(self.request.user, 'add')
+        form.fields['parent'].queryset = collections
+        return form
 
     def save_instance(self):
         instance = self.form.save(commit=False)
@@ -67,24 +65,50 @@ class Edit(EditView):
     context_object_name = 'collection'
     header_icon = 'folder-open-1'
 
+    def _user_may_move_collection(self, user, instance):
+        """
+        Is this instance used for assigning GroupCollectionPermissions to the user?
+        If so, this user may not move the collection to a new part of the tree
+        """
+        if user.is_active and user.is_superuser:
+            return True
+        else:
+            permissions = self.permission_policy._get_permission_objects_for_actions(['add', 'edit', 'delete'])
+            return not GroupCollectionPermission.objects.filter(
+                group__user=user,
+                permission__in=permissions,
+                collection=instance,
+            ).exists()
+
     def get_queryset(self):
         return self.permission_policy.instances_user_has_permission_for(
             self.request.user, 'change'
         ).exclude(depth=1)
 
-    def get_form_kwargs(self):
-        """
-        Initialize form with user and permission policy so we can use them to set allowed parent options.
-        """
-        kwargs = super().get_form_kwargs()
-        kwargs.update({'user': self.request.user})
-        kwargs.update({'permission_policy': self.permission_policy})
-        return kwargs
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        user = self.request.user
+        # if user does not have add permission anywhere, they can't move a collection
+        if not self.permission_policy.user_has_permission(user, 'add'):
+            form.fields.pop('parent')
+        # If this instance is a collection used to assign permissions for this user,
+        # do not let the user move this collection.
+        elif not self._user_may_move_collection(user, form.instance):
+            form.fields.pop('parent')
+        else:
+            # Filter collections offered in parent field by current user's add permissions
+            collections = self.permission_policy.instances_user_has_permission_for(user, 'add')
+            form.fields['parent'].queryset = collections
+            form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
+            form.fields['parent'].empty_label = None
+
+        form.initial['parent'] = form.instance.get_parent().pk
+        return form
 
     def save_instance(self):
         instance = self.form.save()
-        parent = self.form.cleaned_data['parent']
-        if parent.pk != instance.get_parent().pk:
+        parent = self.form.cleaned_data.get('parent')
+        if parent and parent.pk != instance.get_parent().pk:
             instance.move(Collection.objects.get(pk=parent.pk), 'sorted-child')
         return instance
 
