@@ -572,8 +572,8 @@ class TaskChooserView(View):
                 'query_string': q,
             })
         else:
-            if createform_class:
-                if request.method == 'POST':
+            if request.method == 'POST':
+                if createform_class:
                     createform = createform_class(request.POST, request.FILES, prefix='create-task')
 
                     if createform.is_valid():
@@ -586,12 +586,13 @@ class TaskChooserView(View):
 
                         return response
                 else:
-                    createform = createform_class(prefix='create-task')
-            else:
-                if request.method == 'POST':
                     return HttpResponseBadRequest()
 
-                createform = None
+            else:  # request is GET
+                if createform_class:
+                    createform = createform_class(prefix='create-task')
+                else:
+                    createform = None
 
             searchform = TaskChooserSearchForm(task_type_choices=task_type_choices)
             tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
