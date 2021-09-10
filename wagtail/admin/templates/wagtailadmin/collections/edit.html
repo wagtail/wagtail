@@ -3,10 +3,6 @@
 
 {% block before_form %}
     {% include "wagtailadmin/collections/_privacy_switch.html" with collection=object collection_perms=collection_perms only %}
-
-    {% for error in form.non_field_errors %}
-        <div class="error-message">{{error}}</div>
-    {% endfor %}
 {% endblock %}
 
 {% block extra_js %}
