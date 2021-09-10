@@ -19,6 +19,6 @@ urlpatterns = [
     path('tasks/edit/<int:pk>/', workflows.EditTask.as_view(), name='edit_task'),
     path('tasks/disable/<int:pk>/', workflows.DisableTask.as_view(), name='disable_task'),
     path('tasks/enable/<int:pk>/', workflows.enable_task, name='enable_task'),
-    path('task_chooser/', workflows.task_chooser, name='task_chooser'),
+    path('task_chooser/', workflows.TaskChooserView.as_view(), name='task_chooser'),
     path('task_chooser/<int:task_id>/', workflows.task_chosen, name='task_chosen'),
 ]
