@@ -5,6 +5,10 @@ If you want to edit, add or remove images from the CMS outside of the individual
 
 .. image:: ../../_static/images/screen31_images_page.png
 
+* Select multiple images by checking the checkbox on the top left of each image block, then use the bulk actions bar at the bottom to perform an action on all selected images.
+
+.. image:: ../../_static/images/screen31.5_images_bulk_actions.png
+
 * Clicking an image will allow you to edit the data associated with it. This includes the title, the focal point of the image and much more.
 
 .. image:: ../../_static/images/screen32_image_edit_page.png

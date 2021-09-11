@@ -13,6 +13,10 @@ You can sort this listing either via Name or Username.
 
 .. image:: ../../_static/images/screen36_users_interface.png
 
+* Select multiple users by checking the checkbox on the left of each row, then use the bulk actions bar at the bottom to perform an action on all selected users.
+
+.. image:: ../../_static/images/screen36.5_users_bulk_actions.png
+
 Clicking on a user's name will open their profile details. From here you can then edit that users details.
 
 .. Note::
