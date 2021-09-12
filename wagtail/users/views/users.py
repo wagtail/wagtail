@@ -124,6 +124,8 @@ def index(request, *args):
             'is_searching': is_searching,
             'ordering': ordering,
             'query_string': q,
+            'app_label': User._meta.app_label,
+            'model_name': User._meta.model_name,
         })
 
 
