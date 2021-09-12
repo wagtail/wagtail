@@ -572,6 +572,7 @@ class TaskChooserView(View):
                 'tasks': tasks,
                 'all_tasks': all_tasks,
                 'query_string': q,
+                'can_create': self.can_create,
             })
         else:
             if self.createform_class:
