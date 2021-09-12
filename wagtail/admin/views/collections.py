@@ -68,7 +68,7 @@ class Edit(EditView):
     def _user_may_move_collection(self, user, instance):
         """
         Is this instance used for assigning GroupCollectionPermissions to the user?
-        If so, this user may not move the collection to a new part of the tree
+        If so, this user is not allowed do move the collection to a new part of the tree
         """
         if user.is_active and user.is_superuser:
             return True
@@ -100,16 +100,14 @@ class Edit(EditView):
             collections = self.permission_policy.instances_user_has_permission_for(user, 'add')
             form.fields['parent'].queryset = collections
             form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
-            form.fields['parent'].empty_label = None
 
         form.initial['parent'] = form.instance.get_parent().pk
         return form
 
     def save_instance(self):
         instance = self.form.save()
-        parent = self.form.cleaned_data.get('parent')
-        if parent and parent.pk != instance.get_parent().pk:
-            instance.move(Collection.objects.get(pk=parent.pk), 'sorted-child')
+        if 'parent' in self.form.changed_data:
+            instance.move(self.form.cleaned_data['parent'], 'sorted-child')
         return instance
 
     def get_context_data(self, **kwargs):
