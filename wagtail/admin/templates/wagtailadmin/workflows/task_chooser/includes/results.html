@@ -65,7 +65,7 @@
     {% else %}
         <p>
         {% trans "You haven't created any tasks." %}
-        {% if createform %}
+        {% if can_create %}
             {% blocktrans %}
                 Why not <a class="create-one-now" href="#">create one now</a>?
             {% endblocktrans %}
