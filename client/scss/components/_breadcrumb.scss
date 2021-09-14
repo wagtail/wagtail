@@ -55,7 +55,7 @@
 
     .arrow_right_icon {
         @include svg-icon(1em);
-        color: $color-teal-dark;
+        color: LinkText;
         transform: scale(1.75) translate(0.3em, 0.1em);
     }
 
