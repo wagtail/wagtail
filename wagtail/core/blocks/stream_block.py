@@ -2,7 +2,7 @@ import itertools
 import uuid
 
 from collections import OrderedDict, defaultdict
-from collections.abc import MutableSequence
+from collections.abc import Mapping, MutableSequence
 
 from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
@@ -416,6 +416,44 @@ class StreamValue(MutableSequence):
         def __repr__(self):
             return repr(list(self))
 
+    class lazy_callable_stream(Mapping):
+        """
+        Internal helper used by the `blocks_by_name` method to allow
+        lazy evaluation of the blocks retrieved.
+        """
+
+        def __init__(self, block):
+            self.block = block
+            self.block_names = [block_name for block_name in block.stream_block.child_blocks]
+
+        def __call__(self, block_name):
+            if block_name is None:
+                return self
+            return self[block_name]
+
+        def __getitem__(self, block_name):
+            if block_name not in self.block_names:
+                return []
+
+            blocks = []
+            for i in range(len(self.block)):
+                # Avoid block evaluation if possible
+                if self.block._bound_blocks[i] is None and self.block._raw_data[i]["type"] != block_name:
+                    continue
+
+                block = self.block[i]
+                if block.block_type == block_name:
+                    blocks.append(block)
+
+            return blocks
+
+        def __iter__(self):
+            for block_name in self.block_names:
+                yield self[block_name]
+
+        def __len__(self):
+            return len(self.block_names)
+
     def __init__(self, stream_block, stream_data, is_lazy=False, raw_text=None):
         """
         Construct a StreamValue linked to the given StreamBlock,
@@ -544,13 +582,7 @@ class StreamValue(MutableSequence):
         return prep_value
 
     def blocks_by_name(self, block_name=None):
-        blocks = {block: [] for block in self.stream_block.child_blocks}
-        for item in self:
-            blocks[item.block_type].append(item)
-
-        if block_name is None:
-            return blocks
-        return blocks.get(block_name, [])
+        return StreamValue.lazy_callable_stream(self)(block_name)
 
     def first_block_by_name(self, block_name):
         if block_name not in self.stream_block.child_blocks:
