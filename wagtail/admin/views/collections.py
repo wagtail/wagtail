@@ -99,6 +99,7 @@ class Edit(EditView):
             # Filter collections offered in parent field by current user's add permissions
             collections = self.permission_policy.instances_user_has_permission_for(user, 'add')
             form.fields['parent'].queryset = collections
+            # Disable unavailable options in CollectionChoiceField select widget
             form.fields['parent'].disabled_queryset = form.instance.get_descendants(inclusive=True)
 
         form.initial['parent'] = form.instance.get_parent().pk
@@ -131,7 +132,7 @@ class Delete(DeleteView):
     def get_queryset(self):
         return self.permission_policy.instances_user_has_permission_for(
             self.request.user, 'delete'
-        )
+        ).exclude(depth=1)
 
     def get_collection_contents(self):
         collection_contents = [
