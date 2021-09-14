@@ -588,9 +588,21 @@ class StreamValue(MutableSequence):
         if block_name not in self.stream_block.child_blocks:
             return
 
-        for item in self:
-            if item.block_type == block_name:
-                return item
+        for i in range(len(self)):
+            if self._bound_blocks[i] is None:
+                # Avoid block evaluation if possible
+                if self._raw_data[i]["type"] != block_name:
+                    continue
+
+                # Avoid bulk evaluation
+                raw_value = self._raw_data[i]
+                self._bound_blocks[i] = self._construct_stream_child(
+                    (raw_value["type"], raw_value["value"], raw_value.get("id", None))
+                )
+
+            block = self[i]
+            if block.block_type == block_name:
+                return block
 
     def __eq__(self, other):
         if not isinstance(other, StreamValue) or len(other) != len(self):
