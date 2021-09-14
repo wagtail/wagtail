@@ -3340,7 +3340,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         })
 
-    def test_block_types(self):
+    def test_block_names(self):
         class ArticleBlock(blocks.StreamBlock):
             heading = blocks.CharBlock()
             paragraph = blocks.RichTextBlock()
@@ -3362,30 +3362,30 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             },
         ])
 
-        blocks_by_type = value.blocks_by_type()
+        blocks_by_name = value.blocks_by_name()
         result_types = [
             [type(el) for el in block]
-            for block in blocks_by_type.values()
+            for block in blocks_by_name.values()
         ]
         self.assertEqual(result_types, [
             [blocks.StreamValue.StreamChild],
             [blocks.StreamValue.StreamChild] * 2
         ])
 
-        paragraph_blocks = value.blocks_of_type(block_type="paragraph")
+        paragraph_blocks = value.blocks_by_name(block_name="paragraph")
         self.assertEqual(len(paragraph_blocks), 2)
         for block in paragraph_blocks:
             self.assertEqual(block.block_type, 'paragraph')
 
-        self.assertEqual(value.blocks_of_type(block_type="date"), [])
-        self.assertEqual(value.blocks_of_type(block_type="invalid_type"), [])
+        self.assertEqual(value.blocks_by_name(block_name="date"), [])
+        self.assertEqual(value.blocks_by_name(block_name="invalid_name"), [])
 
-        first_heading_block = value.first_block_of_type(block_type="heading")
+        first_heading_block = value.first_block_by_name(block_name="heading")
         self.assertEqual(first_heading_block.block_type, "heading")
         self.assertEqual(first_heading_block.value, "My title")
 
-        self.assertIs(value.first_block_of_type(block_type="date"), None)
-        self.assertIs(value.first_block_of_type(block_type="invalid_type"), None)
+        self.assertIs(value.first_block_by_name(block_name="date"), None)
+        self.assertIs(value.first_block_by_name(block_name="invalid_name"), None)
 
     def test_adapt_with_classname_via_class_meta(self):
         """form_classname from meta to be used as an additional class when rendering stream block"""
