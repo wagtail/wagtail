@@ -3361,11 +3361,12 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
                 'value': 'My second paragraph',
             },
         ])
-
         blocks_by_name = value.blocks_by_name()
+        assert isinstance(blocks_by_name, blocks.StreamValue.lazy_callable_stream)
+
         result_types = [
             [type(el) for el in block]
-            for block in blocks_by_name.values()
+            for block in blocks_by_name
         ]
         self.assertEqual(result_types, [
             [blocks.StreamValue.StreamChild],       # One `heading block`
@@ -3374,6 +3375,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         ])
 
         paragraph_blocks = value.blocks_by_name(block_name="paragraph")
+        # We can also access by indexing on the stream
+        self.assertEqual(paragraph_blocks, value.blocks_by_name()["paragraph"])
+
         self.assertEqual(len(paragraph_blocks), 2)
         for block in paragraph_blocks:
             self.assertEqual(block.block_type, 'paragraph')
