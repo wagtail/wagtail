@@ -156,15 +156,22 @@ class UserColumn(Column):
     """Outputs the username and avatar for a user"""
     cell_template_name = "wagtailadmin/tables/user_cell.html"
 
+    def __init__(self, name, blank_display_name='', **kwargs):
+        super().__init__(name, **kwargs)
+        self.blank_display_name = blank_display_name
+
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
 
         user = context['value']
-        try:
-            full_name = user.get_full_name().strip()
-        except AttributeError:
-            full_name = ''
-        context['display_name'] = full_name or user.get_username()
+        if user:
+            try:
+                full_name = user.get_full_name().strip()
+            except AttributeError:
+                full_name = ''
+            context['display_name'] = full_name or user.get_username()
+        else:
+            context['display_name'] = self.blank_display_name
         return context
 
 
