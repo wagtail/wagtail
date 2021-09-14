@@ -544,13 +544,13 @@ class StreamValue(MutableSequence):
         return prep_value
 
     def blocks_by_name(self, block_name=None):
-        blocks = defaultdict(list)
+        blocks = {block: [] for block in self.stream_block.child_blocks}
         for item in self:
             blocks[item.block_type].append(item)
 
         if block_name is None:
             return blocks
-        return blocks[block_name]
+        return blocks.get(block_name, [])
 
     def first_block_by_name(self, block_name):
         if block_name not in self.stream_block.child_blocks:
