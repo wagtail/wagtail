@@ -543,29 +543,21 @@ class StreamValue(MutableSequence):
 
         return prep_value
 
-    def blocks_by_type(self):
-        blocks = {}
+    def blocks_by_name(self, block_name=None):
+        blocks = defaultdict(list)
         for item in self:
-            block_type = item.block_type
-            if block_type in blocks:
-                blocks[block_type].append(item)
-            else:
-                blocks[block_type] = [item]
+            blocks[item.block_type].append(item)
 
-        return blocks
+        if block_name is None:
+            return blocks
+        return blocks[block_name]
 
-    def blocks_of_type(self, block_type):
-        if block_type not in self.stream_block.child_blocks:
-            return []
-
-        return self.blocks_by_type().get(block_type, [])
-
-    def first_block_of_type(self, block_type):
-        if block_type not in self.stream_block.child_blocks:
+    def first_block_by_name(self, block_name):
+        if block_name not in self.stream_block.child_blocks:
             return
 
         for item in self:
-            if item.block_type == block_type:
+            if item.block_type == block_name:
                 return item
 
     def __eq__(self, other):
