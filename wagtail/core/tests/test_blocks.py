@@ -3368,8 +3368,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             for block in blocks_by_name.values()
         ]
         self.assertEqual(result_types, [
-            [blocks.StreamValue.StreamChild],
-            [blocks.StreamValue.StreamChild] * 2
+            [blocks.StreamValue.StreamChild],       # One `heading block`
+            [blocks.StreamValue.StreamChild] * 2,   # Two `paragraph` blocks
+            [],                                     # Zero `date` block
         ])
 
         paragraph_blocks = value.blocks_by_name(block_name="paragraph")
