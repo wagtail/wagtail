@@ -485,15 +485,6 @@ def enable_task(request, pk):
         return redirect('wagtailadmin_workflows:edit_task', task.id)
 
 
-def get_chooser_context():
-    """construct context variables needed by the chooser JS"""
-    return {
-        'step': 'chooser',
-        'error_label': _("Server Error"),
-        'error_message': _("Report this error to your webmaster with the following information:"),
-    }
-
-
 def get_task_result_data(task):
     """
     helper function: given a task, return the json data to pass back to the
@@ -602,14 +593,27 @@ class TaskChooserView(BaseTaskChooserView):
         paginator = Paginator(tasks, per_page=10)
         tasks = paginator.get_page(self.request.GET.get('p'))
 
-        return render_modal_workflow(self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
-            'task_types': self.get_task_type_options(),
+        chooser_html_context = {
             'tasks': tasks,
             'searchform': searchform,
             'createform': self.createform,
             'can_create': self.can_create,
             'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + self.request.GET.urlencode() if self.create_model else None
-        }, json_data=get_chooser_context())
+        }
+
+        if not self.createform:
+            chooser_html_context['task_types'] = self.get_task_type_options()
+
+        chooser_js_context = {
+            'step': 'chooser',
+            'error_label': _("Server Error"),
+            'error_message': _("Report this error to your webmaster with the following information:"),
+        }
+
+        return render_modal_workflow(
+            self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
+            chooser_html_context, json_data=chooser_js_context
+        )
 
 
 class TaskChooserResultsView(BaseTaskChooserView):
