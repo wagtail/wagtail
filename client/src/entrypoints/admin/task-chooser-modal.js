@@ -131,6 +131,10 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   task_chosen(modal, jsonData) {
     modal.respond('taskChosen', jsonData.result);
     modal.close();
+  },
+  reshow_create_tab(modal, jsonData) {
+    $('#new', modal.body).html(jsonData.htmlFragment);
+    ajaxifyTaskCreateTab(modal, jsonData);
   }
 };
 window.TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = TASK_CHOOSER_MODAL_ONLOAD_HANDLERS;

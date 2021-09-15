@@ -4,7 +4,7 @@
 {{ form.media.js }}
 
 {% if task_types|length > 1 %}
-    <a href="{% url 'wagtailadmin_workflows:task_chooser' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
+    <a href="{% url 'wagtailadmin_workflows:task_chooser_create' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
 {% endif %}
 
 <form class="task-create no-float-elements" action="{{ add_url }}" enctype="multipart/form-data" method="POST" novalidate>

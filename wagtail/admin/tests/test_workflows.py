@@ -1633,24 +1633,22 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertFalse(response.context['searchform'].is_searching())
 
     def test_get_with_create_model_selected(self):
-        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.GroupApprovalTask')
+        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.GroupApprovalTask')
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
-
-        # Check that the "create" view was shown in the "new" tab
+        # Check that the "create" view was returned
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/create_form.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/includes/select_task_type.html")
 
     def test_get_with_non_task_create_model_selected(self):
-        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.Page')
+        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.Page')
 
         self.assertEqual(response.status_code, 404)
 
     def test_get_with_base_task_create_model_selected(self):
         # Task is technically a subclass of itself so we need an extra test for it
-        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.Task')
+        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.Task')
 
         self.assertEqual(response.status_code, 404)
 
@@ -1678,7 +1676,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         }
 
     def test_post_with_create_model_selected(self):
-        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.GroupApprovalTask', self.get_post_data())
+        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.GroupApprovalTask', self.get_post_data())
 
         self.assertEqual(response.status_code, 200)
 
@@ -1700,7 +1698,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         # When a single task type exists there's no need to specify create_model
         get_task_types.return_value = [GroupApprovalTask]
 
-        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser'), self.get_post_data())
+        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser_create'), self.get_post_data())
 
         self.assertEqual(response.status_code, 200)
 
@@ -1718,7 +1716,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         })
 
     def test_post_without_create_model_selected(self):
-        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser'), self.get_post_data())
+        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser_create'), self.get_post_data())
 
         self.assertEqual(response.status_code, 400)
 
@@ -1726,7 +1724,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertFalse(Task.objects.filter(name="Editor approval task", active=True).exists())
 
     def test_post_with_non_task_create_model_selected(self):
-        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.Page', self.get_post_data())
+        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.Page', self.get_post_data())
 
         self.assertEqual(response.status_code, 404)
 
@@ -1735,7 +1733,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
 
     def test_post_with_base_task_create_model_selected(self):
         # Task is technically a subclass of itself so we need an extra test for it
-        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser') + '?create_model=wagtailcore.Task', self.get_post_data())
+        response = self.client.post(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.Task', self.get_post_data())
 
         self.assertEqual(response.status_code, 404)
 
