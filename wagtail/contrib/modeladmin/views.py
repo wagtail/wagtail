@@ -27,10 +27,14 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.views.generic.list import MultipleObjectMixin
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Column, DateColumn, Table, UserColumn
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.core.log_actions import log
+from wagtail.core.log_actions import registry as log_registry
 
 from .forms import ParentChooserForm
 
@@ -958,3 +962,36 @@ class InspectView(InstanceSpecificView):
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()
+
+
+class HistoryView(MultipleObjectMixin, WagtailAdminTemplateMixin, InstanceSpecificView):
+    page_title = gettext_lazy('History')
+    paginate_by = 50
+    columns = [
+        Column('message', label=gettext_lazy("Action")),
+        UserColumn('user', blank_display_name='system'),
+        DateColumn('timestamp', label=gettext_lazy("Date")),
+    ]
+
+    def get_page_subtitle(self):
+        return str(self.instance)
+
+    def get_template_names(self):
+        return self.model_admin.get_history_template()
+
+    def get_queryset(self):
+        return log_registry.get_logs_for_instance(self.instance).prefetch_related('user__wagtail_userprofile')
+
+    def get_context_data(self, **kwargs):
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+        index_url = self.url_helper.get_action_url('history', quote(self.instance.pk))
+        table = Table(
+            self.columns, context['object_list'], base_url=index_url, ordering=self.get_ordering()
+        )
+
+        context['table'] = table
+        context['media'] = table.media
+        context['index_url'] = index_url
+        context['is_paginated'] = True
+        return context
