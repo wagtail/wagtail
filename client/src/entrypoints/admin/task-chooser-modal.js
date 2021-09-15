@@ -1,9 +1,40 @@
 import $ from 'jquery';
 
+const ajaxifyTaskCreateTab = (modal, jsonData) => {
+  // eslint-disable-next-line func-names
+  $('#new a.task-type-choice, #new a.choose-different-task-type', modal.body).on('click', function () {
+    modal.loadUrl(this.href);
+    return false;
+  });
+
+  // eslint-disable-next-line func-names
+  $('form.task-create', modal.body).on('submit', function () {
+    const formdata = new FormData(this);
+
+    $.ajax({
+      url: this.action,
+      data: formdata,
+      processData: false,
+      contentType: false,
+      type: 'POST',
+      dataType: 'text',
+      success: modal.loadResponseText,
+      error(response, textStatus, errorThrown) {
+        const message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
+        $('#new', modal.body).append(
+          '<div class="help-block help-critical">' +
+          '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
+      }
+    });
+
+    return false;
+  });
+};
+
 const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser(modal, jsonData) {
     function ajaxifyLinks(context) {
-      $('a.task-type-choice, a.choose-different-task-type, a.task-choice', context)
+      $('a.task-choice', context)
         // eslint-disable-next-line func-names
         .on('click', function () {
           modal.loadUrl(this.href);
@@ -73,29 +104,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     }
 
     ajaxifyLinks(modal.body);
-
-    // eslint-disable-next-line func-names
-    $('form.task-create', modal.body).on('submit', function () {
-      const formdata = new FormData(this);
-
-      $.ajax({
-        url: this.action,
-        data: formdata,
-        processData: false,
-        contentType: false,
-        type: 'POST',
-        dataType: 'text',
-        success: modal.loadResponseText,
-        error(response, textStatus, errorThrown) {
-          const message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
-          $('#new').append(
-            '<div class="help-block help-critical">' +
-            '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
-        }
-      });
-
-      return false;
-    });
+    ajaxifyTaskCreateTab(modal, jsonData);
 
     $('form.task-search', modal.body).on('submit', search);
 
