@@ -47,7 +47,7 @@ def revert_to_model_level_collection_management_permissions(apps, schema_editor)
         permission__content_type__model='collection',
         permission__codename__in=['add_collection', 'change_collection', 'delete_collection'],
         collection__in=root_collections,
-    ).prefetch_related('group', 'permission')
+    ).select_related('group', 'permission')
 
     for row in group_collection_permissions.all():
         row.group.permissions.add(row.permission)
