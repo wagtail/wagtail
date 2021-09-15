@@ -1,15 +1,19 @@
+import datetime
+
 from io import BytesIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.test import TestCase
+from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
-from wagtail.core.models import Page
+from wagtail.core.models import ModelLogEntry, Page
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
@@ -621,6 +625,26 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
     def test_delete_post_permitted(self):
         response = self.client.post('/admin/modeladmintest/book/delete/2/')
         self.assertRedirects(response, '/admin/')
+
+
+class TestHistoryView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Book),
+            label="The Lord of the Rings",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
+
+    def test_simple(self):
+        response = self.client.get('/admin/modeladmintest/book/history/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td>Created</td>', html=True)
+        self.assertContains(response, '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">')
 
 
 class TestQuoting(TestCase, WagtailTestUtils):
