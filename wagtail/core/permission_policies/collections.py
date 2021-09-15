@@ -117,11 +117,10 @@ class CollectionPermissionLookupMixin:
             # in any collection
             return Collection.objects.all()
 
-        elif not user.is_authenticated:
+        if not user.is_authenticated:
             return Collection.objects.none()
 
-        else:
-            return self._collections_with_perm(user, actions)
+        return self._collections_with_perm(user, actions)
 
     def collections_user_has_permission_for(self, user, action):
         """
