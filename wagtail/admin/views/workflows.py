@@ -485,17 +485,19 @@ def enable_task(request, pk):
         return redirect('wagtailadmin_workflows:edit_task', task.id)
 
 
-def get_task_result_data(task):
+def get_task_chosen_response(request, task):
     """
-    helper function: given a task, return the json data to pass back to the
-    chooser panel
+    helper function: given a task, return the response indicating that it has been chosen
     """
-
-    return {
+    result_data = {
         'id': task.id,
         'name': task.name,
         'edit_url': reverse('wagtailadmin_workflows:edit_task', args=[task.id]),
     }
+    return render_modal_workflow(
+        request, None, None,
+        None, json_data={'step': 'task_chosen', 'result': result_data}
+    )
 
 
 class BaseTaskChooserView(View):
@@ -576,13 +578,7 @@ class TaskChooserView(BaseTaskChooserView):
 
         if self.createform.is_valid():
             task = self.createform.save()
-
-            response = render_modal_workflow(
-                request, None, None,
-                None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
-            )
-
-            return response
+            return get_task_chosen_response(request, task)
         else:
             return self.render_to_response()
 
@@ -646,8 +642,4 @@ class TaskChooserResultsView(BaseTaskChooserView):
 
 def task_chosen(request, task_id):
     task = get_object_or_404(Task, id=task_id)
-
-    return render_modal_workflow(
-        request, None, None,
-        None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
-    )
+    return get_task_chosen_response(request, task)
