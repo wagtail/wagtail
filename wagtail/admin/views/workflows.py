@@ -509,59 +509,79 @@ def get_task_result_data(task):
 
 class BaseTaskChooserView(View):
     def dispatch(self, request):
-        task_models = get_task_types()
-        self.create_model = None
-        self.can_create = False
+        self.task_models = get_task_types()
 
-        if task_permission_policy.user_has_permission(request.user, 'add'):
-            self.can_create = len(task_models) != 0
-
-            if len(task_models) == 1:
-                self.create_model = task_models[0]
-
-            elif 'create_model' in request.GET:
-                self.create_model = resolve_model_string(request.GET['create_model'])
-
-                if self.create_model not in task_models:
-                    raise Http404
-
-        # Build task types list for "select task type" view
-        self.task_types = [
-            (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
-            for model in task_models
-        ]
-        # sort by lower-cased version of verbose name
-        self.task_types.sort(key=lambda task_type: task_type[0].lower())
+        self.can_create = (
+            task_permission_policy.user_has_permission(request.user, 'add')
+            and len(self.task_models) != 0
+        )
 
         # Build task type choices for filter on "existing task" tab
         self.task_type_choices = [
             (model, model.get_verbose_name())
-            for model in task_models
+            for model in self.task_models
         ]
         self.task_type_choices.sort(key=lambda task_type: task_type[1].lower())
 
-        if self.create_model:
-            self.createform_class = get_task_form_class(self.create_model)
-        else:
-            self.createform_class = None
-
         return super().dispatch(request)
+
+    def get_create_model(self):
+        """
+        To be called after dispatch(); returns the model to use for a new task if one is known
+        (either from being the only available task mode, or from being specified in the URL as create_model)
+        """
+        if self.can_create:
+            if len(self.task_models) == 1:
+                return self.task_models[0]
+
+            elif 'create_model' in self.request.GET:
+                create_model = resolve_model_string(self.request.GET['create_model'])
+
+                if create_model not in self.task_models:
+                    raise Http404
+
+                return create_model
+
+    def get_create_form_class(self):
+        """
+        To be called after dispatch(); returns the form class for creating a new task
+        """
+        self.create_model = self.get_create_model()
+        if self.create_model:
+            return get_task_form_class(self.create_model)
+        else:
+            return None
+
+    def get_task_type_options(self):
+        """
+        To be called after dispatch(); returns the task types list for the "select task type" view
+        """
+        task_types = [
+            (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
+            for model in self.task_models
+        ]
+        # sort by lower-cased version of verbose name
+        task_types.sort(key=lambda task_type: task_type[0].lower())
+
+        return task_types
 
 
 class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
-        if self.createform_class:
-            self.createform = self.createform_class(prefix='create-task')
+        create_form_class = self.get_create_form_class()
+        if create_form_class:
+            self.createform = create_form_class(prefix='create-task')
         else:
             self.createform = None
 
         return self.render_to_response()
 
     def post(self, request):
-        if not self.createform_class:
+        create_form_class = self.get_create_form_class()
+        if not create_form_class:
             return HttpResponseBadRequest()
 
-        self.createform = self.createform_class(request.POST, request.FILES, prefix='create-task')
+        self.createform = create_form_class(request.POST, request.FILES, prefix='create-task')
 
         if self.createform.is_valid():
             task = self.createform.save()
@@ -583,7 +603,7 @@ class TaskChooserView(BaseTaskChooserView):
         tasks = paginator.get_page(self.request.GET.get('p'))
 
         return render_modal_workflow(self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
-            'task_types': self.task_types,
+            'task_types': self.get_task_type_options(),
             'tasks': tasks,
             'searchform': searchform,
             'createform': self.createform,
@@ -612,7 +632,6 @@ class TaskChooserResultsView(BaseTaskChooserView):
         tasks = paginator.get_page(request.GET.get('p'))
 
         return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
-            'task_types': self.task_types,
             'searchform': searchform,
             'tasks': tasks,
             'all_tasks': all_tasks,
