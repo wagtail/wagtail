@@ -52,9 +52,10 @@ Bug fixes
  * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
  * Set ``default_auto_field`` in ``postgres_search`` ``AppConfig`` (Nick Moreton)
  * Ensure admin tab JS events are handled on page load (Andrew Stone)
- * `EmailNotificationMixin` and `send_notification` should only send emails to active users (Bryan Williams)
+ * ``EmailNotificationMixin`` and ``send_notification`` should only send emails to active users (Bryan Williams)
  * Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
  * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
+ * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
 
 Upgrade considerations
 ======================
