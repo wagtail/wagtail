@@ -503,19 +503,10 @@ def get_task_chosen_response(request, task):
 class BaseTaskChooserView(View):
     def dispatch(self, request):
         self.task_models = get_task_types()
-
         self.can_create = (
             task_permission_policy.user_has_permission(request.user, 'add')
             and len(self.task_models) != 0
         )
-
-        # Build task type choices for filter on "existing task" tab
-        self.task_type_choices = [
-            (model, model.get_verbose_name())
-            for model in self.task_models
-        ]
-        self.task_type_choices.sort(key=lambda task_type: task_type[1].lower())
-
         return super().dispatch(request)
 
     def get_create_model(self):
@@ -558,6 +549,17 @@ class BaseTaskChooserView(View):
 
         return task_types
 
+    def get_task_type_filter_choices(self):
+        """
+        To be called after dispatch(); returns the list of task type choices for filter on "existing task" tab
+        """
+        task_type_choices = [
+            (model, model.get_verbose_name())
+            for model in self.task_models
+        ]
+        task_type_choices.sort(key=lambda task_type: task_type[1].lower())
+        return task_type_choices
+
 
 class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
@@ -583,7 +585,7 @@ class TaskChooserView(BaseTaskChooserView):
             return self.render_to_response()
 
     def render_to_response(self):
-        searchform = TaskChooserSearchForm(task_type_choices=self.task_type_choices)
+        searchform = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
         tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
 
         paginator = Paginator(tasks, per_page=10)
@@ -614,7 +616,7 @@ class TaskChooserView(BaseTaskChooserView):
 
 class TaskChooserResultsView(BaseTaskChooserView):
     def get(self, request):
-        searchform = TaskChooserSearchForm(request.GET, task_type_choices=self.task_type_choices)
+        searchform = TaskChooserSearchForm(request.GET, task_type_choices=self.get_task_type_filter_choices())
         tasks = all_tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
         q = ''
 
