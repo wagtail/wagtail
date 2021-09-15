@@ -1611,7 +1611,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo', 'Moderators approval'])
 
     def test_search(self):
-        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?q=foo')
+        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_results') + '?q=foo')
 
         self.assertEqual(response.status_code, 200)
 
@@ -1623,7 +1623,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo'])
 
     def test_pagination(self):
-        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?p=2')
+        response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_results') + '?p=2')
 
         self.assertEqual(response.status_code, 200)
 
