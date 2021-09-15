@@ -661,7 +661,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.child_page = SimplePage(title="Hello world 2", slug="hello-world2", content="hello")
         self.root_page.add_child(instance=self.child_page)
 
-        # Attempt to change the slug to one thats already in use
+        # Attempt to change the slug to one that's already in use
         post_data = {
             'title': "Hello world 2",
             'slug': 'hello-world',
@@ -2563,4 +2563,40 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(comment.text, 'A test comment')
 
         # This time, no emails should be submitted because the only subscriber has disabled these emails globally
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_updated_comments_notifications_active_users_only(self):
+        # subscriber is inactive
+        self.subscriber.is_active = False
+        self.subscriber.save()
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '0',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': '',
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was added
+        comment = self.child_page.comments.get()
+        self.assertEqual(comment.text, 'A test comment')
+
+        # No emails should be submitted because subscriber is inactive
         self.assertEqual(len(mail.outbox), 0)

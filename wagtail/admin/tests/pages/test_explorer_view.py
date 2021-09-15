@@ -559,15 +559,15 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # since it's his Closest Common Ancestor.
         expected = """
             <li class="home">
-                <a href="/admin/pages/4/" class="text-replace">
+                <a href="/admin/pages/4/">
                     <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-site"></use>
                     </svg>
                     <span class="visuallyhidden">Home</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
                 </a>
-                <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
-                    <use href="#icon-arrow-right"></use>
-                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)

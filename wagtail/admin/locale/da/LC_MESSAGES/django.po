@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Asger Sørensen <asger.soerensen@live.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -59,12 +59,6 @@ msgstr "Promover"
 
 msgid "Settings"
 msgstr "Indstillinger"
-
-msgid "Date"
-msgstr "Dato"
-
-msgid "Title"
-msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Skriv adgangskode"
@@ -237,6 +231,12 @@ msgstr "Gem"
 msgid "Saving..."
 msgstr "Gemmer..."
 
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Rediger din konto"
+
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
 
@@ -305,9 +305,6 @@ msgstr "Gendan kodeord"
 
 msgid "Reset your password"
 msgstr "Gendan dit kodeord"
-
-msgid "Dashboard"
-msgstr "Dashboard"
 
 msgid "Menu"
 msgstr "Menu"
@@ -421,6 +418,9 @@ msgstr "Opdater"
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Velkommen til %(site_name)s Wagtail CMS"
 
+msgid "Title"
+msgstr "Titel"
+
 msgid "Edit this page"
 msgstr "Rediger denne side"
 
@@ -451,6 +451,9 @@ msgstr "Dine seneste redigeringer"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Dato"
+
 msgid "Site summary"
 msgstr "Side opsummering"
 
@@ -467,9 +470,6 @@ msgstr "Log ind i Wagtail"
 
 msgid "Signing in…"
 msgstr "Logger ind..."
-
-msgid "Forgotten it?"
-msgstr "Glemt det?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -796,17 +796,11 @@ msgstr "Rod"
 msgid "Home"
 msgstr "Hjem"
 
-msgid "Edit your account"
-msgstr "Rediger din konto"
-
 msgid "Account settings"
 msgstr "Kontoindstillinger"
 
 msgid "Log out"
 msgstr "Log ud"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Gå til Wagtail admin interface"
 
 msgid "Add a child page"
 msgstr "Tilføj en underside"

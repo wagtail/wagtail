@@ -5,16 +5,16 @@
 # Translators:
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
-# Miłosz Miśkiewicz, 2017-2020
+# Miłosz Miśkiewicz, 2017-2021
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mateusz <undefined5102@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-30 13:46+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -77,8 +77,18 @@ msgstr "Wyrównanie do prawej"
 msgid "Collection"
 msgstr "Kolekcja"
 
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Obrazek jest dekoracyjny"
+
 msgid "Alt text"
 msgstr "Tekst alternatywny"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Proszę dodaj tekst alternatywny do obrazka lub oznacz go jako dekoracyjny"
 
 msgid "Filter"
 msgstr "Filtr"
@@ -124,6 +134,9 @@ msgstr "Edytuj dowolny obraz"
 
 msgid "Choose"
 msgstr "Wybierz"
+
+msgid "Select images in choosers"
+msgstr "Wybierz obrazki w listach"
 
 msgid "title"
 msgstr "tytuł"

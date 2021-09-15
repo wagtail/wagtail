@@ -301,7 +301,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
                 ['Brenik', 'Small Military Vessel', 'Destroyed'],
             ]
         }
-        # set language from testing envrionment
+        # set language from testing environment
         language = translation.get_language()
 
         self.default_table_options = DEFAULT_TABLE_OPTIONS.copy()
@@ -325,7 +325,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
     def test_table_options_language(self):
         """
-        Test that the envrionment's language is used if no language provided.
+        Test that the environment's language is used if no language provided.
         """
         # default must always contain a language value
         block = TableBlock()
@@ -338,7 +338,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # Italian
         block_it = TableBlock()
         self.assertEqual('it', block_it.table_options['language'])
-        # table_options with language provided, different to envrionment
+        # table_options with language provided, different to environment
         block_with_lang = TableBlock(table_options={'language': 'ja'})
         self.assertNotEqual('it', block_with_lang.table_options['language'])
         self.assertEqual('ja', block_with_lang.table_options['language'])

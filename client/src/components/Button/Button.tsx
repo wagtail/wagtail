@@ -18,7 +18,7 @@ const handleClick = (
     onClick(e);
   }
 
-  // If a navigate hander has been specified, replace the default behaviour
+  // If a navigate handler has been specified, replace the default behaviour
   if (navigate && !e.defaultPrevented) {
     e.preventDefault();
     navigate(href);

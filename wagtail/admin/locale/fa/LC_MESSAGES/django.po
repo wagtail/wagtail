@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -93,23 +93,14 @@ msgstr "تاریخ به"
 msgid "All"
 msgstr "همه"
 
-msgid "Started at"
-msgstr "شروع شده در"
+msgid "First Name"
+msgstr "نام کوچک"
 
-msgid "Show"
-msgstr "نمایش"
+msgid "Last Name"
+msgstr "نام خانوادگی"
 
-msgid "Awaiting my review"
-msgstr "منتظر بازنگری من"
-
-msgid "Completed at"
-msgstr "پایان یافته در"
-
-msgid "Date"
-msgstr "تاریخ"
-
-msgid "Title"
-msgstr "عنوان"
+msgid "Email"
+msgstr "ایمیل"
 
 msgid "Enter password"
 msgstr "رمزعبور را وارد کنید"
@@ -297,6 +288,12 @@ msgstr "درحال ذخیره..."
 msgid "Cancel"
 msgstr "لغو"
 
+msgid "Dashboard"
+msgstr "داشبورد"
+
+msgid "Edit your account"
+msgstr "ویرایش حساب شما"
+
 msgid "Error 404: Page not found"
 msgstr "ارور 404: صفحه یافت نشد"
 
@@ -361,9 +358,6 @@ msgstr "بازنشانی رمزعبور"
 
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
-
-msgid "Dashboard"
-msgstr "داشبورد"
 
 msgid "Menu"
 msgstr "منو"
@@ -516,6 +510,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "صفحات قفل شده"
 
+msgid "Title"
+msgstr "عنوان"
+
 msgid "Locked at"
 msgstr "قفل شده در"
 
@@ -554,6 +551,9 @@ msgstr "ویرایش‌های اخیر شما"
 
 msgid "Status"
 msgstr "وضعیت"
+
+msgid "Date"
+msgstr "تاریخ"
 
 msgid "Site summary"
 msgstr "خلاصه سایت"
@@ -594,9 +594,6 @@ msgstr "ورود به وگتیل"
 
 msgid "Signing in…"
 msgstr "در حال وارد شدن"
-
-msgid "Forgotten it?"
-msgstr "فراموش کردید؟"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1130,6 +1127,9 @@ msgstr "ویرایش صفحه"
 msgid "Requested by"
 msgstr "درخواست شده توسط"
 
+msgid "Started at"
+msgstr "شروع شده در"
+
 msgid "No pages match this report's criteria."
 msgstr "هیچ صفحه‌ای با نیازهای این گزارش همخوانی ندارد."
 
@@ -1183,6 +1183,9 @@ msgstr "قفل شده"
 msgid "No locked pages found."
 msgstr "صفحه‌ی قفل شده‌ای یافت نشد"
 
+msgid "Completed at"
+msgstr "پایان یافته در"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحه %(page_num)s از %(total_pages)s."
@@ -1198,9 +1201,6 @@ msgstr "خانه"
 
 msgid "All collections"
 msgstr "همه مجموعه ها"
-
-msgid "Edit your account"
-msgstr "ویرایش حساب شما"
 
 msgid "Account settings"
 msgstr "تنظیمات حساب"
@@ -1222,9 +1222,6 @@ msgstr ""
 "شما از یک مرورگر <strong>قدیمی</strong> استفاده می‌کنید که توسط این نرم افزار "
 "پشتیبانی نمی‌شود. خواهشا <a href=\"https://browsehappy.com/\">مرورگر خود</a> "
 "را بروزرسانی کنید."
-
-msgid "Go to Wagtail admin interface"
-msgstr "رفتن به صفحه ادمین وگتیل"
 
 msgid "Add a child page"
 msgstr "افزودن صفحه فرزند"
@@ -1422,6 +1419,12 @@ msgstr "بازبینی {0} از {1}"
 
 msgid "Page '{0}' unpublished."
 msgstr "صفحه '{0}' لغو انتشار شد."
+
+msgid "Show"
+msgstr "نمایش"
+
+msgid "Awaiting my review"
+msgstr "منتظر بازنگری من"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"

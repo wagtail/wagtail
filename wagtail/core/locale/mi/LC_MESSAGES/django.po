@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -64,58 +64,6 @@ msgstr "Tākupu"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "tautangata %(action)s"
-
-msgid "hostname"
-msgstr "Ingoa-a-manuhiri"
-
-msgid "port"
-msgstr "Tumu rorohiko"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Hāpai tēnei kī tētahi nama ērā atu kī te 80 mēna ka hiahia koe kī te kimihia "
-"te tumu kī roto ī ngā URLs\n"
-"(ara, whakawhanake kī tumu 8000). Karekau tēnei e pā tono hūrau. (kei te "
-"mahi tonu ngā tumu whakaete)."
-
-msgid "site name"
-msgstr "Ingoa-a-pae"
-
-msgid "Human-readable name for the site."
-msgstr "He Ingoa tūturu mō tēnei pae. Pānui-a-tangata"
-
-msgid "root page"
-msgstr "whārangi rarau"
-
-msgid "is default site"
-msgstr "kō te pae taunoa"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Mēna he pono, ka hūrau tēnei pae ī ngā tono katoa mō nga ingoa-a-manuhiri e "
-"kore pae tomokanga mō a rātau."
-
-msgid "site"
-msgstr "Pae"
-
-msgid "sites"
-msgstr "Ngā pae"
-
-msgid "default"
-msgstr "taunoa"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"Kua whakatakoto a %(hostname)s hei te pae taunoa. Me whakakore koe tēnei i "
-"mua, hei puritia tēnei pae hei taunoa."
 
 msgid "title"
 msgstr "taitara"
@@ -283,59 +231,11 @@ msgstr "Rōpū whakaae-a-whārangi"
 msgid "group page permissions"
 msgstr "Ngā rōpū whakaae-a-whārangi"
 
-msgid "Public"
-msgstr "Marea"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi e takiuru"
-
-msgid "Private, accessible with the following password"
-msgstr "Paraiweti, whakatapoko me tēnei kupu muna"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi i roto ngā rōpū motuhake"
-
-msgid "password"
-msgstr "Kupu muna"
-
-msgid "groups"
-msgstr "Rōpū"
-
-msgid "view restriction"
-msgstr "Kitea ngā aukatinga"
-
-msgid "view restrictions"
-msgstr "Kitea ngā aukatinga"
-
 msgid "page view restriction"
 msgstr "Kitea aukatinga-a-whārangi"
 
 msgid "page view restrictions"
 msgstr "Ngā kitea aukatinga-a-whārangi"
-
-msgid "collection"
-msgstr "kohikohinga"
-
-msgid "collection view restriction"
-msgstr "Kohikohinga kitea aukatinga"
-
-msgid "collection view restrictions"
-msgstr "Ngā kohikohinga kitea aukatinga"
-
-msgid "name"
-msgstr "Ingoa"
-
-msgid "collections"
-msgstr "Ngā kohikohinga"
-
-msgid "permission"
-msgstr "whakaae"
-
-msgid "group collection permission"
-msgstr "rōpū kohikohinga whakaae"
-
-msgid "group collection permissions"
-msgstr "Ngā rōpū kohikohinga whakaae"
 
 msgid "workflow"
 msgstr "mahi pūheke"
@@ -357,6 +257,9 @@ msgstr "Ōra mahi pūheke"
 
 msgid "workflow task orders"
 msgstr "Ngā ōra mahi pūheke"
+
+msgid "name"
+msgstr "Ingoa"
 
 msgid "active"
 msgstr "hohe"
@@ -380,6 +283,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "Ngā mahi pūheke"
+
+msgid "groups"
+msgstr "Rōpū"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -472,6 +378,12 @@ msgstr "Mahi tātaku"
 msgid "Task states"
 msgstr "Ngā mahi tātaku"
 
+msgid "page log entry"
+msgstr "takiuru tomokanga-a-whārangi"
+
+msgid "page log entries"
+msgstr "ngā takiuru tomokanga-a-whārangi"
+
 msgid "timestamp (UTC)"
 msgstr "takahi taima (UTC)"
 
@@ -488,11 +400,99 @@ msgstr "Kai whakamahi %(id)d (mukuhia)"
 msgid "system"
 msgstr "pūnaha"
 
-msgid "page log entry"
-msgstr "takiuru tomokanga-a-whārangi"
+msgid "collection"
+msgstr "kohikohinga"
 
-msgid "page log entries"
-msgstr "ngā takiuru tomokanga-a-whārangi"
+msgid "collection view restriction"
+msgstr "Kohikohinga kitea aukatinga"
+
+msgid "collection view restrictions"
+msgstr "Ngā kohikohinga kitea aukatinga"
+
+msgid "collections"
+msgstr "Ngā kohikohinga"
+
+msgid "permission"
+msgstr "whakaae"
+
+msgid "group collection permission"
+msgstr "rōpū kohikohinga whakaae"
+
+msgid "group collection permissions"
+msgstr "Ngā rōpū kohikohinga whakaae"
+
+msgid "hostname"
+msgstr "Ingoa-a-manuhiri"
+
+msgid "port"
+msgstr "Tumu rorohiko"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Hāpai tēnei kī tētahi nama ērā atu kī te 80 mēna ka hiahia koe kī te kimihia "
+"te tumu kī roto ī ngā URLs\n"
+"(ara, whakawhanake kī tumu 8000). Karekau tēnei e pā tono hūrau. (kei te "
+"mahi tonu ngā tumu whakaete)."
+
+msgid "site name"
+msgstr "Ingoa-a-pae"
+
+msgid "Human-readable name for the site."
+msgstr "He Ingoa tūturu mō tēnei pae. Pānui-a-tangata"
+
+msgid "root page"
+msgstr "whārangi rarau"
+
+msgid "is default site"
+msgstr "kō te pae taunoa"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Mēna he pono, ka hūrau tēnei pae ī ngā tono katoa mō nga ingoa-a-manuhiri e "
+"kore pae tomokanga mō a rātau."
+
+msgid "site"
+msgstr "Pae"
+
+msgid "sites"
+msgstr "Ngā pae"
+
+msgid "default"
+msgstr "taunoa"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"Kua whakatakoto a %(hostname)s hei te pae taunoa. Me whakakore koe tēnei i "
+"mua, hei puritia tēnei pae hei taunoa."
+
+msgid "Public"
+msgstr "Marea"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi e takiuru"
+
+msgid "Private, accessible with the following password"
+msgstr "Paraiweti, whakatapoko me tēnei kupu muna"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Paraiweti, whakatapoko kī ngā kai whakamahi i roto ngā rōpū motuhake"
+
+msgid "password"
+msgstr "Kupu muna"
+
+msgid "view restriction"
+msgstr "Kitea ngā aukatinga"
+
+msgid "view restrictions"
+msgstr "Kitea ngā aukatinga"
 
 msgid "Log in"
 msgstr "Takiuru"

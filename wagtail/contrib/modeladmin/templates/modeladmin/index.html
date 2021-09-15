@@ -16,15 +16,20 @@
 {% block content %}
     {% block header %}
         <header class="nice-padding hasform">
-            <div class="row header-title">
-                <div class="left">
-                    <div class="col">
-                        {% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
+            <div class="row">
+                <div class="left header-left">
+                    <div class="col header-title">
+                        {% block h1 %}
+                        <h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>
+                            {{ view.get_page_title }}
+                            {% include 'modeladmin/includes/result_count.html' %}
+                        </h1>
+                        {% endblock %}
                     </div>
                     {% block search %}{% search_form %}{% endblock %}
                 </div>
                 {% block header_extra %}
-                    <div class="right">
+                    <div class="right header-right">
                         {% if user_can_create %}
                             <div class="actionbutton">
                                 {% include 'modeladmin/includes/button.html' with button=view.button_helper.add_button %}
@@ -46,7 +51,7 @@
     {% endblock %}
 
     {% block content_main %}
-        <div>
+        <div class="main-content">
             <div class="row">
                 {% block content_cols %}
 

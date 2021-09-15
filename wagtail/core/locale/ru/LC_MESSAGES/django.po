@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-22 21:46+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:38+0000\n"
 "Last-Translator: Влад <integration.into.society@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -85,57 +85,6 @@ msgstr "Комментарий"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Неизвестное %(action)s"
-
-msgid "hostname"
-msgstr "имя хоста"
-
-msgid "port"
-msgstr "порт"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
-"порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
-"обработку запроса (так что форвардинг портов продолжает работать)."
-
-msgid "site name"
-msgstr "имя сайта"
-
-msgid "Human-readable name for the site."
-msgstr "Человеко-понятное имя для сайта."
-
-msgid "root page"
-msgstr "корневая страница"
-
-msgid "is default site"
-msgstr "сайт по умолчанию"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
-"хостов, не закрепленных за другими сайтами"
-
-msgid "site"
-msgstr "сайт"
-
-msgid "sites"
-msgstr "сайты"
-
-msgid "default"
-msgstr "по умолчанию"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
-"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
 
 msgid "title"
 msgstr "заголовок"
@@ -318,59 +267,11 @@ msgstr "право на страницу у группы"
 msgid "group page permissions"
 msgstr "права на страницу у группы"
 
-msgid "Public"
-msgstr "Публично"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Приватно, доступно для зарегистрированных пользователей"
-
-msgid "Private, accessible with the following password"
-msgstr "Приватно, доступно со следующим паролем"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Приватно, доступно для пользователей из указанных групп"
-
-msgid "password"
-msgstr "пароль"
-
-msgid "groups"
-msgstr "группы"
-
-msgid "view restriction"
-msgstr "ограничение на просмотр"
-
-msgid "view restrictions"
-msgstr "ограничения на просмотр"
-
 msgid "page view restriction"
 msgstr "ограничение на просмотр страницы"
 
 msgid "page view restrictions"
 msgstr "ограничения на просмотр страниц"
-
-msgid "collection"
-msgstr "коллекция"
-
-msgid "collection view restriction"
-msgstr "ограничение на просмотр коллекции"
-
-msgid "collection view restrictions"
-msgstr "ограничения на просмотр коллекции"
-
-msgid "name"
-msgstr "имя"
-
-msgid "collections"
-msgstr "коллекции"
-
-msgid "permission"
-msgstr "право доступа"
-
-msgid "group collection permission"
-msgstr "право доступа к коллекции у группы"
-
-msgid "group collection permissions"
-msgstr "права доступа к коллекции у группы"
 
 msgid "workflow"
 msgstr "рабочий процесс"
@@ -392,6 +293,9 @@ msgstr "порядок задачи рабочего процесса"
 
 msgid "workflow task orders"
 msgstr "порядки задач рабочего процесса"
+
+msgid "name"
+msgstr "имя"
 
 msgid "active"
 msgstr "активный"
@@ -415,6 +319,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "рабочие процессы"
+
+msgid "groups"
+msgstr "группы"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -507,22 +414,6 @@ msgstr "Статус задачи"
 msgid "Task states"
 msgstr "Статусы задачи"
 
-msgid "timestamp (UTC)"
-msgstr "отметка времени (UTC)"
-
-msgid "log entry"
-msgstr "запись в журнале"
-
-msgid "log entries"
-msgstr "записи в журнале"
-
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "пользователь %(id)d (удаленный)"
-
-msgid "system"
-msgstr "система"
-
 msgid "page log entry"
 msgstr "страница записи журнала"
 
@@ -540,6 +431,115 @@ msgstr "ответ на комментарий"
 
 msgid "comment replies"
 msgstr "ответы на комментарий"
+
+msgid "timestamp (UTC)"
+msgstr "отметка времени (UTC)"
+
+msgid "log entry"
+msgstr "запись в журнале"
+
+msgid "log entries"
+msgstr "записи в журнале"
+
+#, python-format
+msgid "user %(id)d (deleted)"
+msgstr "пользователь %(id)d (удаленный)"
+
+msgid "system"
+msgstr "система"
+
+msgid "collection"
+msgstr "коллекция"
+
+msgid "collection view restriction"
+msgstr "ограничение на просмотр коллекции"
+
+msgid "collection view restrictions"
+msgstr "ограничения на просмотр коллекции"
+
+msgid "collections"
+msgstr "коллекции"
+
+msgid "permission"
+msgstr "право доступа"
+
+msgid "group collection permission"
+msgstr "право доступа к коллекции у группы"
+
+msgid "group collection permissions"
+msgstr "права доступа к коллекции у группы"
+
+msgid "hostname"
+msgstr "имя хоста"
+
+msgid "port"
+msgstr "порт"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Укажите какой-нибудь отличный от 80 порт, если вам нужен конкретный номер "
+"порта в URL-адресе (например, разработка на порту 8000). Не влияет на "
+"обработку запроса (так что форвардинг портов продолжает работать)."
+
+msgid "site name"
+msgstr "имя сайта"
+
+msgid "Human-readable name for the site."
+msgstr "Человеко-понятное имя для сайта."
+
+msgid "root page"
+msgstr "корневая страница"
+
+msgid "is default site"
+msgstr "сайт по умолчанию"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Если выбрано, этот сайт будет обрабатывать запросы для всех имеющихся имен "
+"хостов, не закрепленных за другими сайтами"
+
+msgid "site"
+msgstr "сайт"
+
+msgid "sites"
+msgstr "сайты"
+
+msgid "default"
+msgstr "по умолчанию"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s уже настроен как сайт по умолчанию. Вы должны сначала отключить "
+"эту настройку у него, прежде, чем вы можете сохранить этот сайт по умолчанию."
+
+msgid "Public"
+msgstr "Публично"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Приватно, доступно для зарегистрированных пользователей"
+
+msgid "Private, accessible with the following password"
+msgstr "Приватно, доступно со следующим паролем"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Приватно, доступно для пользователей из указанных групп"
+
+msgid "password"
+msgstr "пароль"
+
+msgid "view restriction"
+msgstr "ограничение на просмотр"
+
+msgid "view restrictions"
+msgstr "ограничения на просмотр"
 
 msgid "Log in"
 msgstr "Войти"
@@ -649,13 +649,6 @@ msgid "Created an alias"
 msgstr "Создан псевдоним"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Сконвертирован псевдоним '%(title)s' в обычную страницу"
-
-msgid "Converted an alias into a regular page"
-msgstr "Сконвертирован псевдоним в обычную страницу"
-
-#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
 
@@ -732,9 +725,6 @@ msgstr "Копировать"
 msgid "Create alias"
 msgstr "Создать псевдоним"
 
-msgid "Convert alias into regular page"
-msgstr "Сконвертировать псевдоним в обычную страницу"
-
 msgid "Move"
 msgstr "Переместить"
 
@@ -752,6 +742,9 @@ msgstr "Обновить ограничения просмотра"
 
 msgid "Remove view restrictions"
 msgstr "Убрать ограничения просмотра"
+
+msgid "Add comment"
+msgstr "Добавить комментарий"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

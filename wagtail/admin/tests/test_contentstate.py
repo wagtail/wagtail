@@ -1036,3 +1036,21 @@ class TestContentStateToHtml(TestCase):
             <p data-block-key='00000'>Hello world!</p>
             <p data-block-key='00001'>Goodbye world!</p>
             ''')
+
+    def test_style_fallback(self):
+        # Test a block which uses an invalid inline style, and will be removed
+        converter = ContentstateConverter(features=[])
+        result = converter.to_database_format(json.dumps({
+            'entityMap': {},
+            'blocks': [
+                {
+                    'inlineStyleRanges': [{'offset': 0, 'length': 12, 'style': 'UNDERLINE'}],
+                    'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                },
+            ]
+        }))
+        self.assertHTMLEqual(result, '''
+            <p data-block-key="00000">
+                Hello world!
+            </p>
+        ''')

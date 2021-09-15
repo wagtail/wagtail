@@ -68,6 +68,37 @@ class TestHome(TestCase, WagtailTestUtils):
             '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
         )
 
+    def test_dashboard_panels(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>It looks like you're making a website. Would you like some help?</p>")
+
+        # check that media attached to dashboard panels is correctly pulled in
+        if DJANGO_VERSION >= (3, 1):
+            self.assertContains(
+                response,
+                '<script src="/static/testapp/js/clippy.js"></script>',
+                html=True
+            )
+        else:
+            self.assertContains(
+                response,
+                '<script type="text/javascript" src="/static/testapp/js/clippy.js"></script>',
+                html=True
+            )
+
+    def test_summary_items(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>0 broken links</p>")
+
+        # check that media attached to summary items is correctly pulled in
+        self.assertContains(
+            response,
+            '<link href="/static/testapp/css/broken-links.css" type="text/css" media="all" rel="stylesheet">',
+            html=True
+        )
+
     def test_never_cache_header(self):
         # This tests that wagtailadmins global cache settings have been applied correctly
         response = self.client.get(reverse('wagtailadmin_home'))
@@ -170,7 +201,7 @@ class TestSendMail(TestCase):
         email_message = mail.outbox[0]
         self.assertEqual(email_message.subject, "Test HTML subject")
         self.assertEqual(email_message.alternatives, [('<h2>Test HTML content</h2>', 'text/html')])
-        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will alwasy be added to body, even with alternatives
+        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will always be added to body, even with alternatives
         self.assertEqual(email_message.to, ["has.html@email.com"])
 
         # confirm that without html_message kwarg we do not get 'alternatives'

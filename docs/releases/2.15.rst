@@ -15,9 +15,25 @@ What's new
 Other features
 ~~~~~~~~~~~~~~
 
+ * Add the ability for the page chooser to convert external urls that match a page to internal links, see :ref:`WAGTAILADMIN_EXTERNAL_LINK_CONVERSION` (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
+ * Added "Extending Wagtail" section to documentation (Matt Westcott)
+ * Introduced :doc:`template components </extending/template_components>`, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support ``min_num`` / ``max_num`` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions. This can be used to crop images using its focal point in the browser. See :ref:`rendition_background_position_style` (Karl Hobley)
  * Added a distinct ``wagtail.copy_for_translation`` log action type (Karl Hobley)
+ * Add a debug logger around image rendition generation (Jake Howard)
+ * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
+ * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
+ * Removed ``request.is_ajax()`` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Simplify generic admin view templates plus ensure ``page_title`` and ``page_subtitle`` are used consistently (Matt Westcott)
+ * Extend support for :ref:`collapsing edit panels <collapsible>` from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
+ * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
+ * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
+ * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
+ * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
+ * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
+ * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
 
 Bug fixes
 ~~~~~~~~~
@@ -25,6 +41,46 @@ Bug fixes
  * Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * InlinePanel add button is now keyboard navigatable (Jesse Menn)
+ * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
+ * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
+ * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
+ * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Icon visibility, Page Editor field panels, sidebar menu (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston))
+ * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
+ * Screen readers can now access login screen field labels (Amy Chan)
+ * Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
+ * Add handling of invalid inline styles submitted to ``RichText`` so ``ConfigException`` is not thrown (Alex Tomkins)
+ * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
+ * Set ``default_auto_field`` in ``postgres_search`` ``AppConfig`` (Nick Moreton)
+ * Ensure admin tab JS events are handled on page load (Andrew Stone)
+ * `EmailNotificationMixin` and `send_notification` should only send emails to active users (Bryan Williams)
+ * Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
 
 Upgrade considerations
 ======================
+
+Admin homepage panels, summary items and action menu items now use components
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. _template_components_2_15:
+
+Several Wagtail hooks provide a mechanism for passing Python objects to be rendered as HTML inside admin views, and the APIs for these objects have been updated to adopt a common :doc:`template components </extending/template_components>` pattern. The affected objects are:
+
+ * Homepage panels (as registered with the :ref:`construct_homepage_panels` hook)
+ * Homepage summary items (as registered with the :ref:`construct_homepage_summary_items` hook)
+ * Page action menu items (as registered with the :ref:`register_page_action_menu_item` and :ref:`construct_page_action_menu` hooks)
+ * Snippet action menu items (as registered with the :ref:`register_snippet_action_menu_item` and :ref:`construct_snippet_action_menu` hooks)
+
+User code that creates these objects should be updated to follow the component API. This will typically require the following changes:
+
+ * Homepage panels should be made subclasses of ``wagtail.admin.ui.components.Component``, and the ``render(self)`` method should be changed to ``render_html(self, parent_context)``. (Alternatively, rather than defining ``render_html``, it may be more convenient to reimplement it with a template, as per :ref:`creating_template_components`.)
+ * Summary item classes can continue to inherit from ``wagtail.admin.site_summary.SummaryItem`` (which is now a subclass of ``Component``) as before, but:
+
+   * Any ``template`` attribute should be changed to ``template_name``;
+   * Any place where the ``render(self)`` method is overridden should be changed to ``render_html(self, parent_context)``;
+   * Any place where the ``get_context(self)`` method is overridden should be changed to ``get_context_data(self, parent_context)``.
+
+ * Action menu items for pages and snippets can continue to inherit from ``wagtail.admin.action_menu.ActionMenuItem`` and ``wagtail.snippets.action_menu.ActionMenuItem`` respectively - these are now subclasses of ``Component`` - but:
+
+   * Any ``template`` attribute should be changed to ``template_name``;
+   * Any ``get_context`` method should be renamed to ``get_context_data``;
+   * The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods no longer accept a ``request`` parameter. The request object is available in the context dictionary as ``context['request']``.

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:40+0000\n"
-"Last-Translator: Orangle Liu <orangleliu@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -45,11 +45,14 @@ msgstr "内容"
 msgid "Settings"
 msgstr "设置"
 
-msgid "Date"
-msgstr "日期"
+msgid "First Name"
+msgstr "名"
 
-msgid "Title"
-msgstr "标题"
+msgid "Last Name"
+msgstr "姓"
+
+msgid "Email"
+msgstr "电子邮件"
 
 msgid "Enter password"
 msgstr "请输入密码"
@@ -87,6 +90,9 @@ msgstr "保存"
 msgid "Saving..."
 msgstr "正在保存"
 
+msgid "Dashboard"
+msgstr "仪表板"
+
 msgid "Account"
 msgstr "账号"
 
@@ -117,9 +123,6 @@ msgstr "密码已重置"
 
 msgid "Reset your password"
 msgstr "重置您的密码"
-
-msgid "Dashboard"
-msgstr "仪表板"
 
 msgid "Menu"
 msgstr "菜单"
@@ -175,6 +178,9 @@ msgid ""
 "created will be displayed."
 msgstr "这是您的仪表盘，会显示对您已创建的内容有帮助的信息"
 
+msgid "Title"
+msgstr "标题"
+
 msgid "Edit this page"
 msgstr "编辑这个页面"
 
@@ -205,6 +211,9 @@ msgstr "你最近的编辑"
 msgid "Status"
 msgstr "状态"
 
+msgid "Date"
+msgstr "日期"
+
 msgid "Site summary"
 msgstr "网站摘要"
 
@@ -213,9 +222,6 @@ msgstr "登录"
 
 msgid "Sign in to Wagtail"
 msgstr "登录Wagtail"
-
-msgid "Forgotten it?"
-msgstr "忘记了？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."

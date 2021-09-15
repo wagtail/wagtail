@@ -6,6 +6,7 @@
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Daniel Hwang <danielblinkhw@gmail.com>, 2015
 # Ed <724195301@qq.com>, 2018
+# Favo Yang <favoyang@gmail.com>, 2021
 # First Last <abc+github@mynook.info>, 2019
 # Ford Guo <agile.guo@gmail.com>, 2020
 # Fred Zeng <979738295@qq.com>, 2016
@@ -18,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-03 02:43+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-16 17:04+0000\n"
+"Last-Translator: Favo Yang <favoyang@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -80,54 +81,6 @@ msgstr "评论"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "未知的 %(action)s"
-
-msgid "hostname"
-msgstr "主机名"
-
-msgid "port"
-msgstr "端口号"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"将此处设置为一个非80的值，如果你需要指定显示在URL中的端口（如8000）。不影响请"
-"求处理（端口转发依旧有效）。"
-
-msgid "site name"
-msgstr "站点名称"
-
-msgid "Human-readable name for the site."
-msgstr "此站点的可读名称"
-
-msgid "root page"
-msgstr "根页面"
-
-msgid "is default site"
-msgstr "是默认站点"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr "如果勾选，此站点将处理通过其它主机名访问的，尚没有站点内容的请求。"
-
-msgid "site"
-msgstr "站点"
-
-msgid "sites"
-msgstr "站点"
-
-msgid "default"
-msgstr "默认"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s已被配置为默认站点。在您将此站点设置为默认前，您必须取消原来的默"
-"认站点。"
 
 msgid "title"
 msgstr "标题"
@@ -307,59 +260,11 @@ msgstr "群组页面权限"
 msgid "group page permissions"
 msgstr "群组页面权限"
 
-msgid "Public"
-msgstr "公开"
-
-msgid "Private, accessible to logged-in users"
-msgstr "私有，登录用户可访问"
-
-msgid "Private, accessible with the following password"
-msgstr "私有，使用下列的密码访问："
-
-msgid "Private, accessible to users in specific groups"
-msgstr "私有，特定用户组中的用户可访问"
-
-msgid "password"
-msgstr "密码"
-
-msgid "groups"
-msgstr "组"
-
-msgid "view restriction"
-msgstr "查看限制"
-
-msgid "view restrictions"
-msgstr "查看限制"
-
 msgid "page view restriction"
 msgstr "查看页面限制"
 
 msgid "page view restrictions"
 msgstr "查看页面限制"
-
-msgid "collection"
-msgstr "集合"
-
-msgid "collection view restriction"
-msgstr "集合查看限制"
-
-msgid "collection view restrictions"
-msgstr "集合查看限制"
-
-msgid "name"
-msgstr "名字"
-
-msgid "collections"
-msgstr "集合"
-
-msgid "permission"
-msgstr "权限"
-
-msgid "group collection permission"
-msgstr "群组集合权限"
-
-msgid "group collection permissions"
-msgstr "群组集合权限"
 
 msgid "workflow"
 msgstr "工作流"
@@ -382,6 +287,9 @@ msgstr "工作流任务顺序"
 msgid "workflow task orders"
 msgstr "工作流任务顺序"
 
+msgid "name"
+msgstr "名字"
+
 msgid "active"
 msgstr "有效"
 
@@ -400,6 +308,9 @@ msgstr "有效工作流可以添加到页面。停用工作流不会将其从现
 
 msgid "workflows"
 msgstr "工作流"
+
+msgid "groups"
+msgstr "组"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -488,6 +399,24 @@ msgstr "任务状态"
 msgid "Task states"
 msgstr "任务状态"
 
+msgid "page log entry"
+msgstr "页面日志条目"
+
+msgid "page log entries"
+msgstr "页面日志条目"
+
+msgid "comment"
+msgstr "评论"
+
+msgid "comments"
+msgstr "评论"
+
+msgid "comment reply"
+msgstr "评论回复"
+
+msgid "comment replies"
+msgstr "评论回复"
+
 msgid "timestamp (UTC)"
 msgstr "时间戳（UTC）"
 
@@ -507,23 +436,95 @@ msgstr "用户 %(id)d (已删除)"
 msgid "system"
 msgstr "系统"
 
-msgid "page log entry"
-msgstr "页面日志条目"
+msgid "collection"
+msgstr "集合"
 
-msgid "page log entries"
-msgstr "页面日志条目"
+msgid "collection view restriction"
+msgstr "集合查看限制"
 
-msgid "comment"
-msgstr "评论"
+msgid "collection view restrictions"
+msgstr "集合查看限制"
 
-msgid "comments"
-msgstr "评论"
+msgid "collections"
+msgstr "集合"
 
-msgid "comment reply"
-msgstr "评论回复"
+msgid "permission"
+msgstr "权限"
 
-msgid "comment replies"
-msgstr "评论回复"
+msgid "group collection permission"
+msgstr "群组集合权限"
+
+msgid "group collection permissions"
+msgstr "群组集合权限"
+
+msgid "hostname"
+msgstr "主机名"
+
+msgid "port"
+msgstr "端口号"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"将此处设置为一个非80的值，如果你需要指定显示在URL中的端口（如8000）。不影响请"
+"求处理（端口转发依旧有效）。"
+
+msgid "site name"
+msgstr "站点名称"
+
+msgid "Human-readable name for the site."
+msgstr "此站点的可读名称"
+
+msgid "root page"
+msgstr "根页面"
+
+msgid "is default site"
+msgstr "是默认站点"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr "如果勾选，此站点将处理通过其它主机名访问的，尚没有站点内容的请求。"
+
+msgid "site"
+msgstr "站点"
+
+msgid "sites"
+msgstr "站点"
+
+msgid "default"
+msgstr "默认"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s已被配置为默认站点。在您将此站点设置为默认前，您必须取消原来的默"
+"认站点。"
+
+msgid "Public"
+msgstr "公开"
+
+msgid "Private, accessible to logged-in users"
+msgstr "私有，登录用户可访问"
+
+msgid "Private, accessible with the following password"
+msgstr "私有，使用下列的密码访问："
+
+msgid "Private, accessible to users in specific groups"
+msgstr "私有，特定用户组中的用户可访问"
+
+msgid "password"
+msgstr "密码"
+
+msgid "view restriction"
+msgstr "查看限制"
+
+msgid "view restrictions"
+msgstr "查看限制"
 
 msgid "Log in"
 msgstr "登录"
@@ -627,11 +628,11 @@ msgid "Created an alias"
 msgstr "已创建别名"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
+msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "已将别名%(title)s转换为常规页面"
 
-msgid "Converted an alias into a regular page"
-msgstr "已经将一个别名转换为常规页面"
+msgid "Converted an alias into an ordinary page"
+msgstr "将这个别名转换成常规页面"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -703,6 +704,55 @@ msgstr "已从“%(old)s”重命名为“%(new)s”"
 msgid "Renamed"
 msgstr "已重命名"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s添加评论：%(text)s"
+
+msgid "Added a comment"
+msgstr "添加一个评论"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s编辑了评论：%(text)s"
+
+msgid "Edited a comment"
+msgstr "已编辑了一个评论"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s删除评论：%(text)s"
+
+msgid "Deleted a comment"
+msgstr "已删除了一个评论"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s解决了评论：%(text)s"
+
+msgid "Resolved a comment"
+msgstr "已解决一个评论"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s回复了评论：%(text)s"
+
+msgid "Replied to a comment"
+msgstr "已回复了一个评论。"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s编辑了评论回复：%(text)s"
+
+msgid "Edited a reply"
+msgstr "已编辑一个回复"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "为字段%(field)s删除了评论回复：%(text)s"
+
+msgid "Deleted a reply"
+msgstr "已删除一个评论"
+
 msgid "Rename"
 msgstr "重命名"
 
@@ -715,7 +765,7 @@ msgstr "复制"
 msgid "Create alias"
 msgstr "创建别名"
 
-msgid "Convert alias into regular page"
+msgid "Convert alias into ordinary page"
 msgstr "将别名转换成常规页面"
 
 msgid "Move"
@@ -738,6 +788,27 @@ msgstr "更新查看限制"
 
 msgid "Remove view restrictions"
 msgstr "移除查看限制"
+
+msgid "Add comment"
+msgstr "添加评论"
+
+msgid "Edit comment"
+msgstr "编辑评论"
+
+msgid "Delete comment"
+msgstr "删除评论"
+
+msgid "Resolve comment"
+msgstr "解决评论"
+
+msgid "Reply to comment"
+msgstr "回复评论"
+
+msgid "Edit reply to comment"
+msgstr "编辑评论回复"
+
+msgid "Delete reply to comment"
+msgstr "删除评论回复"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

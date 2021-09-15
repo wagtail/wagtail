@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -57,57 +57,6 @@ msgstr "كلمة سر"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "كلمة المرور غير صحيحة, الرجاء المحاولة مرة أخرى."
-
-msgid "hostname"
-msgstr "اسم المضيف"
-
-msgid "port"
-msgstr "منفذ"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"عيّن هذا إلى شيء آخر غير 80 إذا كنت تريد رقم منفذ محددًا ليظهر في عناوين URL "
-"(على سبيل المثال ، التطوير على المنفذ 8000). لا يؤثر على معالجة الطلب (لذلك "
-"لا يزال يعمل إعادة توجيه المنفذ)."
-
-msgid "site name"
-msgstr "إسم الموقع"
-
-msgid "Human-readable name for the site."
-msgstr "اسم قابل للقراءة من قبل الإنسان للموقع."
-
-msgid "root page"
-msgstr "الصفحة الرئيسية"
-
-msgid "is default site"
-msgstr "أهذا هو الموقع الافتراضي"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"إذا كان هذا صحيحًا ، فسيتعامل هذا الموقع مع طلبات جميع أسماء المضيف الأخرى "
-"التي لا تحتوي على إدخال موقع خاص بها"
-
-msgid "site"
-msgstr "موقع"
-
-msgid "sites"
-msgstr "مواقع"
-
-msgid "default"
-msgstr "الإفتراضي"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s تم تكوينه بالفعل كموقع افتراضي. يجب عليك تعطيل هذا قبل أن تتمكن "
-"من حفظ هذا الموقع كإعداد افتراضي. "
 
 msgid "title"
 msgstr "عنوان"
@@ -251,6 +200,93 @@ msgstr "إذن صفحة المجموعة"
 msgid "group page permissions"
 msgstr "أذونات صفحة المجموعة"
 
+msgid "page view restriction"
+msgstr "تقييد عرض الصفحة"
+
+msgid "page view restrictions"
+msgstr "قيود عرض الصفحة"
+
+msgid "name"
+msgstr "اسم"
+
+msgid "groups"
+msgstr "مجموعات"
+
+msgid "Approve"
+msgstr "موافق"
+
+msgid "collection"
+msgstr "مجموعة"
+
+msgid "collection view restriction"
+msgstr "تقييد عرض المجموعة"
+
+msgid "collection view restrictions"
+msgstr "قيود عرض المجموعة"
+
+msgid "collections"
+msgstr "مجموعات"
+
+msgid "permission"
+msgstr "تصريح"
+
+msgid "group collection permission"
+msgstr "إذن مجموعة المجموعة"
+
+msgid "group collection permissions"
+msgstr "مجموعة أذونات المجموعة"
+
+msgid "hostname"
+msgstr "اسم المضيف"
+
+msgid "port"
+msgstr "منفذ"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"عيّن هذا إلى شيء آخر غير 80 إذا كنت تريد رقم منفذ محددًا ليظهر في عناوين URL "
+"(على سبيل المثال ، التطوير على المنفذ 8000). لا يؤثر على معالجة الطلب (لذلك "
+"لا يزال يعمل إعادة توجيه المنفذ)."
+
+msgid "site name"
+msgstr "إسم الموقع"
+
+msgid "Human-readable name for the site."
+msgstr "اسم قابل للقراءة من قبل الإنسان للموقع."
+
+msgid "root page"
+msgstr "الصفحة الرئيسية"
+
+msgid "is default site"
+msgstr "أهذا هو الموقع الافتراضي"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"إذا كان هذا صحيحًا ، فسيتعامل هذا الموقع مع طلبات جميع أسماء المضيف الأخرى "
+"التي لا تحتوي على إدخال موقع خاص بها"
+
+msgid "site"
+msgstr "موقع"
+
+msgid "sites"
+msgstr "مواقع"
+
+msgid "default"
+msgstr "الإفتراضي"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s تم تكوينه بالفعل كموقع افتراضي. يجب عليك تعطيل هذا قبل أن تتمكن "
+"من حفظ هذا الموقع كإعداد افتراضي. "
+
 msgid "Public"
 msgstr "عام"
 
@@ -266,47 +302,11 @@ msgstr "خاص ، يمكن للمستخدمين الوصول إليه في مج�
 msgid "password"
 msgstr "كلمة سر"
 
-msgid "groups"
-msgstr "مجموعات"
-
 msgid "view restriction"
 msgstr "عرض تقييد"
 
 msgid "view restrictions"
 msgstr "قيود العرض"
-
-msgid "page view restriction"
-msgstr "تقييد عرض الصفحة"
-
-msgid "page view restrictions"
-msgstr "قيود عرض الصفحة"
-
-msgid "collection"
-msgstr "مجموعة"
-
-msgid "collection view restriction"
-msgstr "تقييد عرض المجموعة"
-
-msgid "collection view restrictions"
-msgstr "قيود عرض المجموعة"
-
-msgid "name"
-msgstr "اسم"
-
-msgid "collections"
-msgstr "مجموعات"
-
-msgid "permission"
-msgstr "تصريح"
-
-msgid "group collection permission"
-msgstr "إذن مجموعة المجموعة"
-
-msgid "group collection permissions"
-msgstr "مجموعة أذونات المجموعة"
-
-msgid "Approve"
-msgstr "موافق"
 
 msgid "Log in"
 msgstr "تسجيل الدخول"

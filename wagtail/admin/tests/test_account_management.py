@@ -689,7 +689,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
     def test_password_reset_view_post_invalid_email(self):
         """
-        This posts an incalid email address to the password reset view and
+        This posts an invalid email address to the password reset view and
         checks that the password reset form raises a validation error
         """
         post_data = {

@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-06-22 14:05+0000\n"
-"Last-Translator: HossamElDin Mohamed <garo5070@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: ultraify media <ultraify@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -93,11 +93,23 @@ msgstr "التاريخ من"
 msgid "Date to"
 msgstr "تاريخ لـ"
 
-msgid "Date"
-msgstr "تاريخ"
+msgid "Preferred language"
+msgstr "اللغة المفضلة"
 
-msgid "Title"
-msgstr "عنوان"
+msgid "Current time zone"
+msgstr "المنطقة الزمنية الحالية"
+
+msgid "First Name"
+msgstr "الاسم الأول"
+
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Upload a profile picture"
+msgstr "تحميل صورة ملف شخصي"
 
 msgid "Enter password"
 msgstr "ادخل كلمة المرور"
@@ -287,6 +299,12 @@ msgstr "احفظ"
 msgid "Saving..."
 msgstr "يتم الحفظ..."
 
+msgid "Dashboard"
+msgstr "لوحة التحكم"
+
+msgid "Edit your account"
+msgstr "تعديل حسابك"
+
 msgid "Error 404: Page not found"
 msgstr "خطا 404: الصفحة المطلوبة غير متوفرة"
 
@@ -354,9 +372,6 @@ msgstr "أكملت إعادة تثبيت كلمة السر"
 
 msgid "Reset your password"
 msgstr "أعد تثبيت كلمةتك السرية"
-
-msgid "Dashboard"
-msgstr "لوحة التحكم"
 
 msgid "Menu"
 msgstr "قائمة المحتويات"
@@ -480,6 +495,9 @@ msgstr ""
 "هذه هي لوحة التحكم الخاصة بك والتي سيتم عرض معلومات مفيدة حول المحتوى الذي "
 "قمت بإنشائها."
 
+msgid "Title"
+msgstr "عنوان"
+
 msgid "Edit this page"
 msgstr "حرر هذه الصفحة"
 
@@ -516,6 +534,9 @@ msgstr "أحدث تعديلاتك"
 msgid "Status"
 msgstr "رتبة"
 
+msgid "Date"
+msgstr "تاريخ"
+
 msgid "Site summary"
 msgstr "ملحص الموقع"
 
@@ -532,9 +553,6 @@ msgstr "تسجيل الدخول لـ Wagtail"
 
 msgid "Signing in…"
 msgstr "يتم تسجيل الدخول..."
-
-msgid "Forgotten it?"
-msgstr "أنسيته؟"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -949,9 +967,6 @@ msgstr "الرئيسة"
 msgid "All collections"
 msgstr "جميع المجموعات"
 
-msgid "Edit your account"
-msgstr "تعديل حسابك"
-
 msgid "Account settings"
 msgstr "إعدادات الحساب"
 
@@ -960,9 +975,6 @@ msgstr "تسجيل الخروج"
 
 msgid "Other searches"
 msgstr "عمليات البحث الاخرى"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Go to Wagtail admin interface"
 
 msgid "Add a child page"
 msgstr "إضافة صفحة فرعية"

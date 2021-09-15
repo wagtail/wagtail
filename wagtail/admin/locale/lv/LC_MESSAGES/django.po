@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -90,26 +90,14 @@ msgstr "Datums līdz"
 msgid "All"
 msgstr "Viss"
 
-msgid "Started at"
-msgstr "Sākās plkst."
+msgid "First Name"
+msgstr "Vārds"
 
-msgid "Show"
-msgstr "Rādīt"
+msgid "Last Name"
+msgstr "Uzvārds"
 
-msgid "Awaiting my review"
-msgstr "Gaida manu pārbaudi"
-
-msgid "Completed at"
-msgstr "Pabeigts plkst."
-
-msgid "Workflow"
-msgstr "Darbplūsma"
-
-msgid "Date"
-msgstr "Datums"
-
-msgid "Title"
-msgstr "Virsraksts"
+msgid "Email"
+msgstr "E-pasts"
 
 msgid "Enter password"
 msgstr "Ievadīt paroli"
@@ -327,6 +315,12 @@ msgstr "Saglabāt"
 msgid "Saving..."
 msgstr "Saglabā..."
 
+msgid "Dashboard"
+msgstr "Informācijas panelis"
+
+msgid "Edit your account"
+msgstr "Mainīt konta iestatījumus"
+
 msgid "Error 404: Page not found"
 msgstr "Kļūda 404: lapa nav atrasta"
 
@@ -393,9 +387,6 @@ msgstr "Atjaunot paroli"
 
 msgid "Reset your password"
 msgstr "Atjaunot paroli"
-
-msgid "Dashboard"
-msgstr "Informācijas panelis"
 
 msgid "Menu"
 msgstr "Izvēlne"
@@ -528,6 +519,9 @@ msgstr ""
 msgid "Your locked pages"
 msgstr "Jūsu slēgtās lapas"
 
+msgid "Title"
+msgstr "Virsraksts"
+
 msgid "Locked at"
 msgstr "Slēgta plkst."
 
@@ -571,6 +565,9 @@ msgstr "Neseni labojumi"
 msgid "Status"
 msgstr "Statuss"
 
+msgid "Date"
+msgstr "Datums"
+
 msgid "Site summary"
 msgstr "Kopsavilkums"
 
@@ -608,9 +605,6 @@ msgstr "Ieet Wagtail"
 
 msgid "Signing in…"
 msgstr "Notiek pierakstīšanās..."
-
-msgid "Forgotten it?"
-msgstr "Aizmirsāt paroli?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -835,6 +829,9 @@ msgstr "Lūdzu ievadiet meklēšanas terminu"
 msgid "No pages use"
 msgstr "Neviena lapa nelieto"
 
+msgid "Started at"
+msgstr "Sākās plkst."
+
 msgid "Download CSV"
 msgstr "Lejupielādēt CSV failu"
 
@@ -843,6 +840,12 @@ msgstr "Atsijāt"
 
 msgid "Locked"
 msgstr "Slēgts"
+
+msgid "Workflow"
+msgstr "Darbplūsma"
+
+msgid "Completed at"
+msgstr "Pabeigts plkst."
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -853,9 +856,6 @@ msgstr "Sākumlapa"
 
 msgid "All collections"
 msgstr "Visas kolekcijas"
-
-msgid "Edit your account"
-msgstr "Mainīt konta iestatījumus"
 
 msgid "Log out"
 msgstr "Iziet"
@@ -872,9 +872,6 @@ msgstr ""
 "Wagtail pakāpeniski atsakās no IE11 atbalsta, kas var ietekmēt jūs vai jūsu "
 "organizāciju. <a href=\"%(url)s\">Uzziniet vairāk par mūsu IE11 atbalsta "
 "plāniem</a>."
-
-msgid "Go to Wagtail admin interface"
-msgstr "Doties uz Wagtail administrācijas intefeisu"
 
 msgid "Add a child page"
 msgstr "Pievienot apakšlapu"
@@ -1002,6 +999,12 @@ msgstr "Lapa '{0}' pārvietota."
 
 msgid "Page '{0}' unpublished."
 msgstr "Page '{0}' unpublished."
+
+msgid "Show"
+msgstr "Rādīt"
+
+msgid "Awaiting my review"
+msgstr "Gaida manu pārbaudi"
 
 msgid "More"
 msgstr "Vairāk"

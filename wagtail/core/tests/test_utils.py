@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*
-from django.core.exceptions import ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, SuspiciousOperation
 from django.test import TestCase, override_settings
 from django.utils.text import slugify
 from django.utils.translation import _trans
@@ -8,7 +8,8 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.core.models import Page
 from wagtail.core.utils import (
     accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug,
-    get_content_languages, get_supported_content_language_variant, safe_snake_case, string_to_ascii)
+    get_content_languages, get_supported_content_language_variant, multigetattr, safe_snake_case,
+    string_to_ascii)
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -306,3 +307,50 @@ class TestGetSupportedContentLanguageVariantWithI18nFalse(TestCase):
         # a display name for the language
         self.assertEqual(get_supported_content_language_variant('zz'), 'zz')
         self.assertEqual(get_supported_content_language_variant('zz-gb'), 'zz')
+
+
+class TestMultigetattr(TestCase):
+    def setUp(self):
+
+        class Thing:
+            colour = 'green'
+            limbs = {'arms': 2, 'legs': 3}
+
+            def __init__(self):
+                self.poke_was_called = False
+
+            def speak(self):
+                return "raaargh"
+
+            def feed(self, food):
+                return "gobble"
+
+            def poke(self):
+                self.poke_was_called = True
+                raise Exception("don't do that")
+            poke.alters_data = True
+
+        self.thing = Thing()
+
+    def test_multigetattr(self):
+        self.assertEqual(multigetattr(self.thing, 'colour'), 'green')
+        self.assertEqual(multigetattr(self, 'thing.colour'), 'green')
+        self.assertEqual(multigetattr(self.thing, 'limbs.arms'), 2)
+        self.assertEqual(multigetattr(self.thing, 'speak'), 'raaargh')
+        self.assertEqual(multigetattr(self, 'thing.speak.0'), 'r')
+
+        with self.assertRaises(AttributeError):
+            multigetattr(self.thing, 'name')
+
+        with self.assertRaises(AttributeError):
+            multigetattr(self.thing, 'limbs.antennae')
+
+        with self.assertRaises(AttributeError):
+            multigetattr(self.thing, 'speak.999')
+
+        with self.assertRaises(TypeError):
+            multigetattr(self.thing, 'feed')
+
+        with self.assertRaises(SuspiciousOperation):
+            multigetattr(self.thing, 'poke')
+        self.assertFalse(self.thing.poke_was_called)

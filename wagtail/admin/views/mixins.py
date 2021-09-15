@@ -10,6 +10,7 @@ from django.utils.translation import gettext as _
 from xlsxwriter.workbook import Workbook
 
 from wagtail.admin.forms.search import SearchForm
+from wagtail.core.utils import multigetattr
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 
@@ -88,23 +89,9 @@ class SpreadsheetExportMixin:
     def to_row_dict(self, item):
         """ Returns an OrderedDict (in the order given by list_export) of the exportable information for a model instance"""
         row_dict = OrderedDict(
-            (field, self.multigetattr(item, field)) for field in self.list_export
+            (field, multigetattr(item, field)) for field in self.list_export
         )
         return row_dict
-
-    def multigetattr(self, item, multi_attribute):
-        """ Gets the value of a dot-pathed sequence of attributes/callables on a model, calling at each stage if possible """
-        current_value = item
-        for attribute in multi_attribute.split("."):
-            try:
-                current_value = current_value()
-            except TypeError:
-                pass
-            current_value = getattr(current_value, attribute)
-        try:
-            return current_value()
-        except TypeError:
-            return current_value
 
     def get_preprocess_function(self, field, value, export_format):
         """ Returns the preprocessing function for a given field name, field value, and export format"""

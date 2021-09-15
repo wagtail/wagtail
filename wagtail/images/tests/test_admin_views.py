@@ -3,9 +3,13 @@ import json
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
-from django.test import TestCase, override_settings
+from django.template.loader import render_to_string
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
+from django.utils.encoding import force_str
+from django.utils.html import escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
+from django.utils.safestring import mark_safe
 
 from wagtail.core.models import Collection, GroupCollectionPermission, get_root_collection_id
 from wagtail.images.models import UploadedImage
@@ -499,10 +503,10 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     @override_settings(DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage')
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
-        # file_size wasn't prevously populated.
+        # file_size wasn't previously populated.
 
         # The view then attempts to reopen the file when rendering the template
-        # which caused crashes when certian storage backends were in use.
+        # which caused crashes when certain storage backends were in use.
         # See #1397
 
         response = self.get()
@@ -1296,7 +1300,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
     This tests the multiple image upload views located in wagtailimages/views/multiple.py
     """
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
         # Create an image for running tests on
         self.image = Image.objects.create(
@@ -1329,13 +1333,61 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             response.context['error_max_file_size'], "This file is too big. Maximum filesize 1000\xa0bytes."
         )
 
+    def test_add_error_max_file_size_escaped(self):
+        url = reverse('wagtailimages:add_multiple')
+        template_name = 'wagtailimages/multiple/add.html'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Too big. <br/><br/><a href='/admin/images/add/'>Try this.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context['error_max_file_size'] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
+
+    def test_add_error_accepted_file_types_escaped(self):
+        url = reverse('wagtailimages:add_multiple')
+        template_name = 'wagtailimages/multiple/add.html'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, template_name)
+
+        value = "Invalid image type. <a href='/help'>Get help.</a>"
+        response_content = force_str(response.content)
+        self.assertNotIn(value, response_content)
+        self.assertNotIn(escapejs(value), response_content)
+
+        request = RequestFactory().get(url)
+        request.user = self.user
+        context = response.context_data.copy()
+        context['error_accepted_file_types'] = mark_safe(force_str(value))
+        data = render_to_string(
+            template_name,
+            context=context,
+            request=request,
+        )
+        self.assertNotIn(value, data)
+        self.assertIn(escapejs(value), data)
+
     def test_add_post(self):
         """
         This tests that a POST request to the add view saves the image and returns an edit form
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1360,20 +1412,11 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertTrue(response_json['success'])
 
-    def test_add_post_noajax(self):
-        """
-        This tests that only AJAX requests are allowed to POST to the add view
-        """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {})
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_add_post_nofile(self):
         """
         This tests that the add view checks for a file when a user POSTs to it
         """
-        response = self.client.post(reverse('wagtailimages:add_multiple'), {}, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {})
 
         # Check response
         self.assertEqual(response.status_code, 400)
@@ -1384,7 +1427,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1407,7 +1450,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.txt', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1442,7 +1485,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "New title!",
             ('image-%d-tags' % self.image.id): "cromarty, finisterre",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1461,19 +1504,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(image.title, "New title!")
         self.assertIn('cromarty', image.tags.names())
 
-    def test_edit_post_noajax(self):
-        """
-        This tests that a POST request to the edit view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
-            ('image-%d-title' % self.image.id): "New title!",
-            ('image-%d-tags' % self.image.id): "",
-        })
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
-
     def test_edit_post_validation_error(self):
         """
         This tests that a POST request to the edit page returns a json document with "success=False"
@@ -1483,7 +1513,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:edit_multiple', args=(self.image.id, )), {
             ('image-%d-title' % self.image.id): "",  # Required
             ('image-%d-tags' % self.image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1518,7 +1548,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_multiple', args=(self.image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1533,16 +1563,6 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn('success', response_json)
         self.assertEqual(response_json['image_id'], self.image.id)
         self.assertTrue(response_json['success'])
-
-    def test_delete_post_noajax(self):
-        """
-        This tests that a POST request to the delete view without AJAX returns a 400 response
-        """
-        # Send request
-        response = self.client.post(reverse('wagtailimages:delete_multiple', args=(self.image.id, )))
-
-        # Check response
-        self.assertEqual(response.status_code, 400)
 
 
 @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
@@ -1580,7 +1600,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1613,7 +1633,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1646,7 +1666,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test-image.png', get_test_image_file().file.getvalue()),
             'collection': new_collection.id,
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImage.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1669,7 +1689,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             ('image-%d-title' % self.image.id): "New title!",
             ('image-%d-tags' % self.image.id): "footwear, dystopia",
             ('image-%d-caption' % self.image.id): "a boot stamping on a human face, forever",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1708,7 +1728,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             ('image-%d-collection' % self.image.id): new_collection.id,
             ('image-%d-tags' % self.image.id): "",
             ('image-%d-caption' % self.image.id): "ooh la la",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1730,7 +1750,7 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_multiple', args=(self.image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1786,7 +1806,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
 
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1823,7 +1843,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
             'files[]': SimpleUploadedFile('test.png', b"This is not an image!"),
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1853,7 +1873,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
             ('uploaded-image-%d-title' % self.uploaded_image.id): "New title!",
             ('uploaded-image-%d-tags' % self.uploaded_image.id): "",
             ('uploaded-image-%d-author' % self.uploaded_image.id): "",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1891,7 +1911,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
             ('uploaded-image-%d-title' % self.uploaded_image.id): "New title!",
             ('uploaded-image-%d-tags' % self.uploaded_image.id): "abstract, squares",
             ('uploaded-image-%d-author' % self.uploaded_image.id): "Piet Mondrian",
-        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        })
 
         image_count_after = CustomImageWithAuthor.objects.count()
         uploaded_image_count_after = UploadedImage.objects.count()
@@ -1926,7 +1946,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
         # Send request
         response = self.client.post(reverse(
             'wagtailimages:delete_upload_multiple', args=(self.uploaded_image.id, )
-        ), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        ))
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1965,7 +1985,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
     def test_get_bad_permissions(self):
         """
         This tests that the view returns a "permission denied" redirect if a user without correct
-        permissions attemts to access it
+        permissions attempts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False
@@ -2019,7 +2039,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
 
     def test_get_bad_permissions(self):
         """
-        This tests that the view gives a 403 if a user without correct permissions attemts to access it
+        This tests that the view gives a 403 if a user without correct permissions attempts to access it
         """
         # Remove privileges from user
         self.user.is_superuser = False

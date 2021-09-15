@@ -181,11 +181,11 @@ class BaseAPIViewSet(GenericViewSet):
 
     def check_query_parameters(self, queryset):
         """
-        Ensure that only valid query paramters are included in the URL.
+        Ensure that only valid query parameters are included in the URL.
         """
         query_parameters = set(self.request.GET.keys())
 
-        # All query paramters must be either a database field or an operation
+        # All query parameters must be either a database field or an operation
         allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
         unknown_parameters = query_parameters - allowed_query_parameters
         if unknown_parameters:

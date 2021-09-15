@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-30 09:42+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 09:20+0000\n"
 "Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -71,57 +71,6 @@ msgstr "Athugasemd"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Óþekkt %(action)s"
-
-msgid "hostname"
-msgstr "slóð"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Settu þetta sem eitthvað annað en 80 ef þú þarft sérstakt port sem á að "
-"birtast í slóðinni (t.d. 8000 fyrir þróun). Hefur ekki áhrif á beiðnir (e. "
-"request) svo port forwarding virkar ennþá)."
-
-msgid "site name"
-msgstr "Nafn síðu"
-
-msgid "Human-readable name for the site."
-msgstr "Lesanlegt nafn fyrir síðuna"
-
-msgid "root page"
-msgstr "rótarsíða"
-
-msgid "is default site"
-msgstr "er sjálfgefin síða"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Ef hakað við þá mun þessi síða sjá um beiðnir fyrir allar slóðir sem ekki "
-"hafa síðu"
-
-msgid "site"
-msgstr "síða"
-
-msgid "sites"
-msgstr "síður"
-
-msgid "default"
-msgstr "sjálfgefið"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s er þegar stillt sem sjálfgefna síðan. Þú verður að afhaka við "
-"þá síðu áður en þú getur gert þessa að sjálfgefinni."
 
 msgid "title"
 msgstr "titill"
@@ -303,59 +252,11 @@ msgstr "síðuheimild hóps"
 msgid "group page permissions"
 msgstr "síðuheimildir hóps"
 
-msgid "Public"
-msgstr "Í birtingu"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Læst, aðgengileg fyrir innskráða notendur"
-
-msgid "Private, accessible with the following password"
-msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
-
-msgid "password"
-msgstr "lykilorð"
-
-msgid "groups"
-msgstr "hópur"
-
-msgid "view restriction"
-msgstr "skoða takmörkun"
-
-msgid "view restrictions"
-msgstr "skoða takmarkanir"
-
 msgid "page view restriction"
 msgstr "skoðunartakmörkun síðu"
 
 msgid "page view restrictions"
 msgstr "skoðunartakmarkanir síðu"
-
-msgid "collection"
-msgstr "safn"
-
-msgid "collection view restriction"
-msgstr "skoðunartakmörkun safns"
-
-msgid "collection view restrictions"
-msgstr "skoðunartakmarkanir safns"
-
-msgid "name"
-msgstr "nafn"
-
-msgid "collections"
-msgstr "söfn"
-
-msgid "permission"
-msgstr "heimild"
-
-msgid "group collection permission"
-msgstr "safnheimild hóps"
-
-msgid "group collection permissions"
-msgstr "Myndasafns heimildir hóps"
 
 msgid "workflow"
 msgstr "vinnuflæði"
@@ -377,6 +278,9 @@ msgstr "röðun vinnuflæði verkefna"
 
 msgid "workflow task orders"
 msgstr "röðun skrefa vinnuflæðis"
+
+msgid "name"
+msgstr "nafn"
 
 msgid "active"
 msgstr "virkt"
@@ -400,6 +304,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "vinnuflæði"
+
+msgid "groups"
+msgstr "hópur"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -492,6 +399,24 @@ msgstr "Staða skrefs"
 msgid "Task states"
 msgstr "Stöður skrefs"
 
+msgid "page log entry"
+msgstr "atburðaskráning síðu"
+
+msgid "page log entries"
+msgstr "atburðaskráningar síðu"
+
+msgid "comment"
+msgstr "athugasemd"
+
+msgid "comments"
+msgstr "athugasemdir"
+
+msgid "comment reply"
+msgstr "svar við athugasemd"
+
+msgid "comment replies"
+msgstr "svör við athugasemdum"
+
 msgid "timestamp (UTC)"
 msgstr "tímastimpill (UTC)"
 
@@ -511,23 +436,98 @@ msgstr "notandi %(id)d (eytt)"
 msgid "system"
 msgstr "kerfi"
 
-msgid "page log entry"
-msgstr "atburðaskráning síðu"
+msgid "collection"
+msgstr "safn"
 
-msgid "page log entries"
-msgstr "atburðaskráningar síðu"
+msgid "collection view restriction"
+msgstr "skoðunartakmörkun safns"
 
-msgid "comment"
-msgstr "athugasemd"
+msgid "collection view restrictions"
+msgstr "skoðunartakmarkanir safns"
 
-msgid "comments"
-msgstr "athugasemdir"
+msgid "collections"
+msgstr "söfn"
 
-msgid "comment reply"
-msgstr "svar við athugasemd"
+msgid "permission"
+msgstr "heimild"
 
-msgid "comment replies"
-msgstr "svör við athugasemdum"
+msgid "group collection permission"
+msgstr "safnheimild hóps"
+
+msgid "group collection permissions"
+msgstr "Myndasafns heimildir hóps"
+
+msgid "hostname"
+msgstr "slóð"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Settu þetta sem eitthvað annað en 80 ef þú þarft sérstakt port sem á að "
+"birtast í slóðinni (t.d. 8000 fyrir þróun). Hefur ekki áhrif á beiðnir (e. "
+"request) svo port forwarding virkar ennþá)."
+
+msgid "site name"
+msgstr "Nafn síðu"
+
+msgid "Human-readable name for the site."
+msgstr "Lesanlegt nafn fyrir síðuna"
+
+msgid "root page"
+msgstr "rótarsíða"
+
+msgid "is default site"
+msgstr "er sjálfgefin síða"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ef hakað við þá mun þessi síða sjá um beiðnir fyrir allar slóðir sem ekki "
+"hafa síðu"
+
+msgid "site"
+msgstr "síða"
+
+msgid "sites"
+msgstr "síður"
+
+msgid "default"
+msgstr "sjálfgefið"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s er þegar stillt sem sjálfgefna síðan. Þú verður að afhaka við "
+"þá síðu áður en þú getur gert þessa að sjálfgefinni."
+
+msgid "Public"
+msgstr "Í birtingu"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Læst, aðgengileg fyrir innskráða notendur"
+
+msgid "Private, accessible with the following password"
+msgstr "Læst, aðgengileg með eftirfarandi lykilorði"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Læst, aðgengileg fyrir notendur í sérstökum grúppum"
+
+msgid "password"
+msgstr "lykilorð"
+
+msgid "view restriction"
+msgstr "skoða takmörkun"
+
+msgid "view restrictions"
+msgstr "skoða takmarkanir"
 
 msgid "Log in"
 msgstr "Innskrá"
@@ -634,10 +634,10 @@ msgid "Created an alias"
 msgstr "Bjó til spegilsíðu"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
+msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "Breytti spegilsíðunni '%(title)s' í venjulega síðu"
 
-msgid "Converted an alias into a regular page"
+msgid "Converted an alias into an ordinary page"
 msgstr "Breytti spegilsíðu í venjulega síðu"
 
 #, python-format
@@ -712,6 +712,55 @@ msgstr "Endurnefndi '%(old)s' sem '%(new)s'"
 msgid "Renamed"
 msgstr "Endurnefnt"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Bætti við athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Bætti við athugasemd"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Breytti athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Breytti athugasemd"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Eyddi athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Eyddi athugasemd"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Leysti athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Leysti athugasemd"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Svaraði athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Svaraði athugasemd"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Breytti svari við athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Breytti svari"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Eyddi svari við athugasemd við reit %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Eyddi svari"
+
 msgid "Rename"
 msgstr "Endurnefna"
 
@@ -724,7 +773,7 @@ msgstr "Afrita"
 msgid "Create alias"
 msgstr "Búa til spegilsíðu"
 
-msgid "Convert alias into regular page"
+msgid "Convert alias into ordinary page"
 msgstr "Breyta spegilsíðu í venjulega síðu"
 
 msgid "Move"
@@ -747,6 +796,27 @@ msgstr "Breyta skoðunartakmörkunum"
 
 msgid "Remove view restrictions"
 msgstr "Fjarlægja skoðunartakmarkanir"
+
+msgid "Add comment"
+msgstr "Bæta við athugasemd"
+
+msgid "Edit comment"
+msgstr "Breyta athugasemd"
+
+msgid "Delete comment"
+msgstr "Eyða athugasemd"
+
+msgid "Resolve comment"
+msgstr "Leysa athugasemd"
+
+msgid "Reply to comment"
+msgstr "Svara athugasemd"
+
+msgid "Edit reply to comment"
+msgstr "Breyta svari við athugasemd"
+
+msgid "Delete reply to comment"
+msgstr "Eyða svari við athugasemd"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

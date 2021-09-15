@@ -157,14 +157,14 @@ class TableBlock(FieldBlock):
         table_options can contain any valid handsontable options:
         https://handsontable.com/docs/6.2.2/Options.html
         contextMenu: if value from table_options is True, still use default
-        language: if value is not in table_options, attempt to get from envrionment
+        language: if value is not in table_options, attempt to get from environment
         """
 
         collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
 
         if table_options is not None:
             if table_options.get('contextMenu', None) is True:
-                # explicity check for True, as value could also be array
+                # explicitly check for True, as value could also be array
                 # delete to ensure the above default is kept for contextMenu
                 del table_options['contextMenu']
             collected_table_options.update(table_options)

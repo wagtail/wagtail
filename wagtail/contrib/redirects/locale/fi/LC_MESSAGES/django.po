@@ -6,15 +6,15 @@
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
 # Eetu Häivälä, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-16 07:34+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,12 @@ msgstr "Wagtailin uudelleenohjaukset"
 
 msgid "Type"
 msgstr "Tyyppi"
+
+msgid "Permanent"
+msgstr "Pysyvä"
+
+msgid "Temporary"
+msgstr "Tilapäinen"
 
 msgid "All"
 msgstr "Kaikki"
@@ -173,11 +179,17 @@ msgstr "Virhe"
 msgid "Continue"
 msgstr "Jatka"
 
+msgid "Export redirects"
+msgstr "Vie uudelleenohjaukset"
+
 msgid "Site"
 msgstr "Sivusto"
 
 msgid "Edit this redirect"
 msgstr "Muokkaa tätä uudelleenohjausta"
+
+msgid "No redirects found."
+msgstr "Uudelleenohjauksia ei löytynyt."
 
 #, python-format
 msgid ""
@@ -246,3 +258,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "Tuotu %(total)d uudelleenohjaus"
 msgstr[1] "Tuotu %(total)d uudelleenohjausta"
+
+msgid "Export Redirects"
+msgstr "Vie uudelleenohjaukset"

@@ -30,6 +30,7 @@ $.widget('IKS.hallowagtaillink', {
     addButton.on('click', () => {
       let href;
       let linkType;
+      let parentPageId;
 
       // Defaults.
       let url = window.chooserUrls.pageChooser;
@@ -45,15 +46,12 @@ $.widget('IKS.hallowagtaillink', {
 
       if (enclosingLink) {
         href = enclosingLink.getAttribute('href');
-        // eslint-disable-next-line no-undef
         parentPageId = enclosingLink.getAttribute('data-parent-id');
         linkType = enclosingLink.getAttribute('data-linktype');
 
         urlParams.link_text = enclosingLink.innerText;
 
-        // eslint-disable-next-line no-undef
         if (linkType === 'page' && parentPageId) {
-          // eslint-disable-next-line no-undef
           url = window.chooserUrls.pageChooser + parentPageId.toString() + '/';
         } else if (href.startsWith('mailto:')) {
           url = window.chooserUrls.emailLinkChooser;

@@ -58,7 +58,7 @@ describe('telepath: wagtail.blocks.StaticBlock HTML escaping', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
-  test('javascript cant execute', () => {
+  test('javascript can\'t execute', () => {
     expect(window.somethingBad.mock.calls.length).toBe(0);
   });
 });

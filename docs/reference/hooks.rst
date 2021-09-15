@@ -113,18 +113,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of panel objects, and should modify this list in-place as required. Panel objects are :doc:`components </extending/template_components>` with an additional ``order`` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between ``100`` and ``300``.
 
   .. code-block:: python
 
     from django.utils.safestring import mark_safe
 
+    from wagtail.admin.ui.components import Component
     from wagtail.core import hooks
 
-    class WelcomePanel:
+    class WelcomePanel(Component):
         order = 50
 
-        def render(self):
+        def render_html(self, parent_context):
             return mark_safe("""
             <section class="panel summary nice-padding">
               <h3>No, but seriously -- welcome to the admin homepage.</h3>
@@ -141,7 +142,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
+  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of summary item objects, and should modify this list in-place as required. Summary item objects are instances of ``wagtail.admin.site_summary.SummaryItem``, which extends :ref:`the Component class <creating_template_components>` with the following additional methods and properties:
+
+  .. method:: SummaryItem(request)
+
+    Constructor; receives the request object its argument
+
+  .. attribute:: order
+
+    An integer that specifies the item's position in the sequence.
+
+  .. method:: is_shown()
+
+    Returns a boolean indicating whether the summary item should be shown on this request.
 
 
 .. _construct_main_menu:
@@ -214,7 +227,7 @@ Alternatively, it can also be added to a function. For example, this function is
     def register_custom_settings_panel(request, user, profile):
         return CustomSettingsPanel(request, user, profile)
 
-More details about the options that are available can be found at :doc:`/advanced_topics/customisation/custom_account_settings`.
+More details about the options that are available can be found at :doc:`/extending/custom_account_settings`.
 
 
 .. _register_account_menu_item:
@@ -717,7 +730,7 @@ Hooks for customising the way users are directed through the process of creating
 ``register_page_action_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -726,16 +739,13 @@ Hooks for customising the way users are directed through the process of creating
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining JavaScript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
-  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+  The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods all accept a context dictionary containing the following fields:
 
   :view: name of the current view: ``'create'``, ``'edit'`` or ``'revisions_revert'``
   :page: For ``view`` = ``'edit'`` or ``'revisions_revert'``, the page being edited
   :parent_page: For ``view`` = ``'create'``, the parent page of the page being created
+  :request: The current request object
   :user_page_permissions: a ``UserPagePermissionsProxy`` object for the current user, to test permissions against
 
   .. code-block:: python
@@ -747,7 +757,7 @@ Hooks for customising the way users are directed through the process of creating
         name = 'action-guacamole'
         label = "Guacamole"
 
-        def get_url(self, request, context):
+        def get_url(self, context):
             return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 
@@ -1234,8 +1244,7 @@ Hooks for working with registered Snippets.
 
   Add an item to the popup menu of actions on the snippet creation and edit views.
   The callable passed to this hook must return an instance of
-  ``wagtail.snippets.action_menu.ActionMenuItem``. The following attributes and
-  methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  ``wagtail.snippets.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -1244,16 +1253,13 @@ Hooks for working with registered Snippets.
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: the path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
-  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+  The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods all accept a context dictionary containing the following fields:
 
   :view: name of the current view: ``'create'`` or ``'edit'``
-  :model: The snippets model class
+  :model: The snippet's model class
   :instance: For ``view`` = ``'edit'``, the instance being edited
+  :request: The current request object
 
   .. code-block:: python
 
@@ -1264,7 +1270,7 @@ Hooks for working with registered Snippets.
         name = 'action-guacamole'
         label = "Guacamole"
 
-        def get_url(self, request, context):
+        def get_url(self, context):
             return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 

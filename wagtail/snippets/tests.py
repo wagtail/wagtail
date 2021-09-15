@@ -416,7 +416,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):
@@ -450,7 +450,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(menu_items, request, context):
@@ -655,7 +655,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):
@@ -995,7 +995,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
-        self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
+        self.assertIn('createSnippetChooser("id_advert");',
                       self.snippet_chooser_panel.render_as_field())
 
     def test_target_model_autodetected(self):
@@ -1098,7 +1098,7 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
         response = self.get()
 
         # Check the filter is added
-        self.assertIn('<select id="snippet-chooser-locale" name="lang">', response.json()['html'])
+        self.assertIn('<select id="snippet-chooser-locale" name="locale_filter">', response.json()['html'])
 
         # Check both snippets are shown
         self.assertEqual(len(response.context['items']), 2)
@@ -1434,10 +1434,10 @@ class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
 
         js_args = SnippetChooserAdapter().js_args(widget)
 
+        self.assertEqual(len(js_args), 2)
         self.assertInHTML('<input type="hidden" name="__NAME__" id="__ID__">', js_args[0])
         self.assertIn('>Choose advert<', js_args[0])
         self.assertEqual(js_args[1], '__ID__')
-        self.assertEqual(js_args[2], 'tests/advert')
 
 
 class TestSnippetListViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
@@ -1658,7 +1658,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertIn("Choose another advert with custom primary key", field_html)
 
     def test_render_js(self):
-        self.assertIn('createSnippetChooser("id_advertwithcustomprimarykey", "tests/advertwithcustomprimarykey");',
+        self.assertIn('createSnippetChooser("id_advertwithcustomprimarykey");',
                       self.snippet_chooser_panel.render_as_field())
 
     def test_target_model_autodetected(self):

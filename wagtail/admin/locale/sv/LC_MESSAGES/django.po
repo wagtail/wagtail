@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 21:52+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-15 19:54+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -113,26 +113,23 @@ msgstr "Datum till"
 msgid "All"
 msgstr "Alla"
 
-msgid "Started at"
-msgstr "Påbörjades vid"
+msgid "Preferred language"
+msgstr "Föredraget språk"
 
-msgid "Show"
-msgstr "Visa"
+msgid "Current time zone"
+msgstr "Aktuell tidszon"
 
-msgid "Awaiting my review"
-msgstr "Inväntar min granskning"
+msgid "First Name"
+msgstr "Förnamn"
 
-msgid "Completed at"
-msgstr "Slutfördes vid"
+msgid "Last Name"
+msgstr "Efternamn"
 
-msgid "Workflow"
-msgstr "Arbetsflöde"
+msgid "Email"
+msgstr "E-post"
 
-msgid "Date"
-msgstr "Datum"
-
-msgid "Title"
-msgstr "Titel"
+msgid "Upload a profile picture"
+msgstr "Ladda upp en profilbild"
 
 msgid "Enter password"
 msgstr "Ange lösenord"
@@ -398,6 +395,21 @@ msgstr "Kommentar"
 msgid "More actions"
 msgstr "Fler åtgärder"
 
+msgid "Save the page to add this comment"
+msgstr "Spara sidan för att lägga till denna kommentar"
+
+msgid "Save the page to save this comment"
+msgstr "Spara sidan för att spara denna kommentar"
+
+msgid "Save the page to save this reply"
+msgstr "Spara sidan för att spara detta svar"
+
+msgid "Dashboard"
+msgstr "Instrumentpanel"
+
+msgid "Edit your account"
+msgstr "Redigera ditt konto"
+
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
 
@@ -476,9 +488,6 @@ msgstr "Ladda upp profilbild:"
 
 msgid "Reset to default"
 msgstr "Återställ till standard"
-
-msgid "Dashboard"
-msgstr "Instrumentpanel"
 
 msgid "Menu"
 msgstr "Meny"
@@ -619,6 +628,15 @@ msgstr "Flytta ner"
 msgid "Add comment"
 msgstr "Lägg till kommentar"
 
+msgid "Comments"
+msgstr "Kommentarer"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Växla synlighet på kommentarnotifieringens rullgardinsmeny"
+
+msgid "Commenting on this page"
+msgstr "Kommentering på denna sida"
+
 msgid "Comment notifications"
 msgstr "Kommentarnotifiering"
 
@@ -641,6 +659,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Dina låsta sidor"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Locked at"
 msgstr "Låstes"
@@ -684,6 +705,9 @@ msgstr "Dina senaste editeringar"
 
 msgid "Status"
 msgstr "Status"
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Site summary"
 msgstr "Sajtsammanställning"
@@ -743,8 +767,8 @@ msgstr "Logga in till Wagtail"
 msgid "Signing in…"
 msgstr "Loggar in..."
 
-msgid "Forgotten it?"
-msgstr "Glömt det?"
+msgid "Forgotten password?"
+msgstr "Glömt lösenord?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -997,8 +1021,8 @@ msgstr "Konvertera alias %(title)s"
 msgid "Convert alias"
 msgstr "Konvertera alias"
 
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "Är du säker på att du vill konvertera alias till en vanlig sida?"
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Är du säker på att du vill konvertera denna alias till en vanlig sida?"
 
 msgid "This action cannot be undone."
 msgstr "Denna handling kan inte ångras."
@@ -1187,8 +1211,8 @@ msgstr "Denna sida är ett alias av en annan sida."
 msgid "Edit original page"
 msgstr "Redigera orginalsida"
 
-msgid "Convert this alias into a regular page"
-msgstr "Konvertera alias till en vanlig sida"
+msgid "Convert this alias into an ordinary page"
+msgstr "Konvertera denna alias till en vanlig sida"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1610,6 +1634,9 @@ msgstr "Redigera sida"
 msgid "Requested by"
 msgstr "Begärdes av"
 
+msgid "Started at"
+msgstr "Påbörjades vid"
+
 msgid "Approved task"
 msgstr "Godkänn uppgift"
 
@@ -1678,11 +1705,17 @@ msgstr "Inga upplåsta sidor hittades."
 msgid "By Task"
 msgstr "Av Uppgift"
 
+msgid "Workflow"
+msgstr "Arbetsflöde"
+
 msgid "No pages have been submitted for moderation yet"
 msgstr "Inga sidor har lämnats in för moderering ännu"
 
 msgid "By Workflow"
 msgstr "Av Arbetsflöde"
+
+msgid "Completed at"
+msgstr "Slutfördes vid"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1699,9 +1732,6 @@ msgstr "Hem"
 
 msgid "All collections"
 msgstr "Alla samlingar"
-
-msgid "Edit your account"
-msgstr "Redigera ditt konto"
 
 msgid "Account settings"
 msgstr "Kontoinställningar"
@@ -1765,8 +1795,8 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Gå till Wagtail admingränssnitt"
+msgid "View Wagtail quick actions"
+msgstr "Se Wagtail snabbhandlingar"
 
 msgid "Add a child page"
 msgstr "Lägg till en undersida"
@@ -2067,8 +2097,8 @@ msgstr "Är du säker på att du vill radera denna samling?"
 msgid "Editing"
 msgstr "Redigerar"
 
-msgid "Page '{0}' has been converted into a regular page."
-msgstr "Sidan '{0}' har blivit konverterad till en vanlig sida."
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Sida '{0}' har blivit konverterad till en vanlig sida."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sida '{0}' och {1} undersida kopierad."
@@ -2163,6 +2193,9 @@ msgstr "Sidan kunde inte sparas eftersom den är låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 
+msgid "Hide commenting actions"
+msgstr "Göm kommenteringshandlingar"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
 
@@ -2217,8 +2250,26 @@ msgstr "Sida '{0}' opublicerad."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering i uppift '{1}'."
 
+msgid "Site history"
+msgstr "Sajthistorik"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Handlingsstatus"
+
+msgid "Date/Time"
+msgstr "Datum/Tid"
+
 msgid "Locked pages"
 msgstr "Låsta sidor"
+
+msgid "Show"
+msgstr "Visa"
+
+msgid "Awaiting my review"
+msgstr "Inväntar min granskning"
 
 msgid "Workflows"
 msgstr "Arbetsflöden"
@@ -2237,18 +2288,6 @@ msgstr "Arbetsflödesuppgifter"
 
 msgid "Requested By"
 msgstr "Begärdes av"
-
-msgid "Site history"
-msgstr "Sajthistorik"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Handlingsstatus"
-
-msgid "Date/Time"
-msgstr "Datum/Tid"
 
 msgid "Add a workflow"
 msgstr "Lägg till arbetsflöde"

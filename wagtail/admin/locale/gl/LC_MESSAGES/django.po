@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -100,26 +100,14 @@ msgstr "Data ata"
 msgid "All"
 msgstr "Todos"
 
-msgid "Started at"
-msgstr "Comezado o"
+msgid "First Name"
+msgstr "Nome"
 
-msgid "Show"
-msgstr "Amosar"
+msgid "Last Name"
+msgstr "Apelidos"
 
-msgid "Awaiting my review"
-msgstr "Agardar a miña revisión"
-
-msgid "Completed at"
-msgstr "Completado o"
-
-msgid "Workflow"
-msgstr "Fluxo de traballo"
-
-msgid "Date"
-msgstr "Data"
-
-msgid "Title"
-msgstr "Título"
+msgid "Email"
+msgstr "Correo electrónico"
 
 msgid "Enter password"
 msgstr "Introduce contrasinal"
@@ -262,6 +250,12 @@ msgstr "Gardar"
 msgid "Saving..."
 msgstr "Gardando..."
 
+msgid "Dashboard"
+msgstr "Panel de control"
+
+msgid "Edit your account"
+msgstr "Editar a túa conta"
+
 msgid "Go to Wagtail admin"
 msgstr "Ir ao administrador de Wagtail"
 
@@ -303,9 +297,6 @@ msgstr "Restablecer contrasinal"
 
 msgid "Reset your password"
 msgstr "Restablecer o teu contrasinal"
-
-msgid "Dashboard"
-msgstr "Panel de control"
 
 msgid "Menu"
 msgstr "Menú"
@@ -407,6 +398,9 @@ msgstr ""
 "Este é o teu panel de control onde aparecerá información útil sobre o "
 "contido que creaches."
 
+msgid "Title"
+msgstr "Título"
+
 msgid "Edit this page"
 msgstr "Editar esta páxina"
 
@@ -440,6 +434,9 @@ msgstr "As túas edicións máis recentes"
 msgid "Status"
 msgstr "Estado"
 
+msgid "Date"
+msgstr "Data"
+
 msgid "Site summary"
 msgstr "Resumo do sitio"
 
@@ -454,9 +451,6 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Iniciar sesión en Wagtail"
-
-msgid "Forgotten it?"
-msgstr "¿Esquecíchela?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -802,6 +796,9 @@ msgstr "Introduce o termo de procura arriba"
 msgid "No pages use"
 msgstr "Non hay uso de páxinas"
 
+msgid "Started at"
+msgstr "Comezado o"
+
 msgid "Download CSV"
 msgstr "Descargar CSV"
 
@@ -810,6 +807,12 @@ msgstr "Filtro"
 
 msgid "Locked"
 msgstr "Bloqueada"
+
+msgid "Workflow"
+msgstr "Fluxo de traballo"
+
+msgid "Completed at"
+msgstr "Completado o"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -821,9 +824,6 @@ msgstr "Principal"
 msgid "All collections"
 msgstr "Todas as coleccións"
 
-msgid "Edit your account"
-msgstr "Editar a túa conta"
-
 msgid "Account settings"
 msgstr "Axustes de conta"
 
@@ -832,9 +832,6 @@ msgstr "Pechar sesión"
 
 msgid "Other searches"
 msgstr "Outras procuras"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Ir á interfaz de administrador de Wagtail"
 
 msgid "Add a child page"
 msgstr "Engadir unha páxina filla"
@@ -968,6 +965,12 @@ msgstr "Páxina '{0}' movida."
 
 msgid "Page '{0}' unpublished."
 msgstr "Páxina '{0}' non publicada."
+
+msgid "Show"
+msgstr "Amosar"
+
+msgid "Awaiting my review"
+msgstr "Agardar a miña revisión"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr ""

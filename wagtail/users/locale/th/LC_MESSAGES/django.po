@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -69,15 +69,6 @@ msgstr "ชื่อกลุ่มนี้มีผู้ใช้แล้ว
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "คุณไม่สามารถที่จะได้รับการอนุญาตในหน้าเดิมหลายครั้งได้"
-
-msgid "Preferred language"
-msgstr "ภาษาที่ต้องการใช้"
-
-msgid "Current time zone"
-msgstr "โซนเวลาปัจจุบัน"
-
-msgid "Upload a profile picture"
-msgstr "อัพโหลดรูปภาพข้อมูลส่วนตัว"
 
 msgid "submitted notifications"
 msgstr "ประกาศแจ้งเตือนถูกส่ง"

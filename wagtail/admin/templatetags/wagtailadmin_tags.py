@@ -11,10 +11,12 @@ from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
 from django.forms import Media
+from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
@@ -511,7 +513,7 @@ def admin_urlquote(value):
 def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
-    the appropiate avatar url for that user.
+    the appropriate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
@@ -594,7 +596,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
     """
     Returns:
          - the time of update if last_update is today, if any prefix is supplied, the output will use it
-         - time since last update othewise. Defaults to the simplified timesince,
+         - time since last update otherwise. Defaults to the simplified timesince,
            but can return the full string if needed
     """
     if last_update.date() == datetime.today().date():
@@ -716,3 +718,31 @@ def menu_props(context):
 @register.simple_tag
 def get_comments_enabled():
     return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)
+
+
+@register.simple_tag
+def resolve_url(url):
+    # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
+    # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
+    # an empty / None value), return empty string
+    try:
+        return resolve_url_func(url)
+    except NoReverseMatch:
+        return ''
+
+
+@register.simple_tag(takes_context=True)
+def component(context, obj, fallback_render_method=False):
+    # Render a component by calling its render_html method, passing request and context from the
+    # calling template.
+    # If fallback_render_method is true, objects without a render_html method will have render()
+    # called instead (with no arguments) - this is to provide deprecation path for things that have
+    # been newly upgraded to use the component pattern.
+
+    has_render_html_method = hasattr(obj, 'render_html')
+    if fallback_render_method and not has_render_html_method and hasattr(obj, 'render'):
+        return obj.render()
+    elif not has_render_html_method:
+        raise ValueError("Cannot render %r as a component" % (obj,))
+
+    return obj.render_html(context)

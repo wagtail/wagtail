@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -49,55 +49,6 @@ msgstr "Κωδικός"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Ο κωδικός που εισαγάγατε δεν είναι σωστός. Προσπαθήστε ξανα."
-
-msgid "hostname"
-msgstr "Όνομα κεντρικού υπολογιστή"
-
-msgid "port"
-msgstr "θύρα"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Μπορείτε να χρησιμοποιήσετε κάτι διαφορετικό από το 80 αν θέλετε να "
-"εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα "
-"8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
-"προώθηση θύρας δουλεύει ακόμα)"
-
-msgid "site name"
-msgstr "ονομα site"
-
-msgid "Human-readable name for the site."
-msgstr "Φιλικό όνομα για το site."
-
-msgid "root page"
-msgstr "κεντρική σελίδα"
-
-msgid "is default site"
-msgstr "είναι το προεπιλεγμένο site"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
-"άλλα ονόματα που δεν έχουν δική τους εγγραφή"
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "sites"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s έχει ήδη ρυθμιστεί ως η προεπιλεγμένη τοποθεσία. Θα πρέπει να "
-"το απενεργοποιήσετε προτού αποθηκεύσετε αυτή την τοποθεσία ως προεπιλογή."
 
 msgid "title"
 msgstr "τίτλος"
@@ -235,6 +186,82 @@ msgstr "άδεια ομάδας σελίδων"
 msgid "group page permissions"
 msgstr "άδειες ομάδας σελίδων"
 
+msgid "page view restriction"
+msgstr "περιορισμός προβολής σελίδων"
+
+msgid "page view restrictions"
+msgstr "περιορισμός προβολών σελίδων"
+
+msgid "name"
+msgstr "όνομα"
+
+msgid "groups"
+msgstr "ομάδες"
+
+msgid "Approve"
+msgstr "Έγκριση"
+
+msgid "collection"
+msgstr "συλλογή"
+
+msgid "collections"
+msgstr "συλλογές"
+
+msgid "permission"
+msgstr "άδεια"
+
+msgid "group collection permission"
+msgstr "άδεια ομάδας συλλογών"
+
+msgid "hostname"
+msgstr "Όνομα κεντρικού υπολογιστή"
+
+msgid "port"
+msgstr "θύρα"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Μπορείτε να χρησιμοποιήσετε κάτι διαφορετικό από το 80 αν θέλετε να "
+"εμφανίζεται στις διευθύνσεις μια συγκεκριμένη θύρα (π.χ. ανάπτυξη στη θύρα "
+"8000). Δεν επηρεάζει τον τρόπο που χειρίζονται τις αιτήσεις (οπότε η "
+"προώθηση θύρας δουλεύει ακόμα)"
+
+msgid "site name"
+msgstr "ονομα site"
+
+msgid "Human-readable name for the site."
+msgstr "Φιλικό όνομα για το site."
+
+msgid "root page"
+msgstr "κεντρική σελίδα"
+
+msgid "is default site"
+msgstr "είναι το προεπιλεγμένο site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Αν είναι αληθές, το εν λόγω site θα χειρίζεται και τις αιτήσεις για όλα τα "
+"άλλα ονόματα που δεν έχουν δική τους εγγραφή"
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s έχει ήδη ρυθμιστεί ως η προεπιλεγμένη τοποθεσία. Θα πρέπει να "
+"το απενεργοποιήσετε προτού αποθηκεύσετε αυτή την τοποθεσία ως προεπιλογή."
+
 msgid "Public"
 msgstr "Δημόσια"
 
@@ -250,33 +277,6 @@ msgstr ""
 
 msgid "password"
 msgstr "κωδικός"
-
-msgid "groups"
-msgstr "ομάδες"
-
-msgid "page view restriction"
-msgstr "περιορισμός προβολής σελίδων"
-
-msgid "page view restrictions"
-msgstr "περιορισμός προβολών σελίδων"
-
-msgid "collection"
-msgstr "συλλογή"
-
-msgid "name"
-msgstr "όνομα"
-
-msgid "collections"
-msgstr "συλλογές"
-
-msgid "permission"
-msgstr "άδεια"
-
-msgid "group collection permission"
-msgstr "άδεια ομάδας συλλογών"
-
-msgid "Approve"
-msgstr "Έγκριση"
 
 msgid "Log in"
 msgstr "Είσοδος"

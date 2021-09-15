@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: mahulst\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -37,57 +37,6 @@ msgstr "Dit veld is verplicht"
 
 msgid "Password"
 msgstr "Wachtwoord"
-
-msgid "hostname"
-msgstr "hostname"
-
-msgid "port"
-msgstr "poortnummer"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
-"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
-"request afhandeling (dus port forwarding blijft werken)."
-
-msgid "site name"
-msgstr "sitenaam"
-
-msgid "Human-readable name for the site."
-msgstr "Leesbare naam voor de site."
-
-msgid "root page"
-msgstr "beginpagina"
-
-msgid "is default site"
-msgstr "is standaard site"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
-"die geen eigen site hebben."
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "sites"
-
-msgid "default"
-msgstr "standaard"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
-"aangepast voordat deze site als default kan worden aangemerkt."
 
 msgid "title"
 msgstr "titel"
@@ -204,23 +153,74 @@ msgstr "Groep pagina bevoegdheid"
 msgid "group page permissions"
 msgstr "Groep pagina bevoegdheden"
 
-msgid "Public"
-msgstr "Publiekelijk"
-
-msgid "Private, accessible with the following password"
-msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
-
-msgid "groups"
-msgstr "groepen"
-
 msgid "page view restriction"
 msgstr "Pagina bekijk beperking"
 
 msgid "page view restrictions"
 msgstr "Pagina bekijk beperkingen"
 
+msgid "groups"
+msgstr "groepen"
+
 msgid "Approve"
 msgstr "Goedkeuren"
+
+msgid "hostname"
+msgstr "hostname"
+
+msgid "port"
+msgstr "poortnummer"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Stel dit op iets anders dan 80 in als er een specifiek poortnummer in de URL "
+"moet komen (bijv. development op poort 8000). Dit heeft geen effect op "
+"request afhandeling (dus port forwarding blijft werken)."
+
+msgid "site name"
+msgstr "sitenaam"
+
+msgid "Human-readable name for the site."
+msgstr "Leesbare naam voor de site."
+
+msgid "root page"
+msgstr "beginpagina"
+
+msgid "is default site"
+msgstr "is standaard site"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Indien aangevinkt zal deze site requests voor alle andere hostnames afvangen "
+"die geen eigen site hebben."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "sites"
+
+msgid "default"
+msgstr "standaard"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s is al geconfigureerd als de default site. Deze moet worden "
+"aangepast voordat deze site als default kan worden aangemerkt."
+
+msgid "Public"
+msgstr "Publiekelijk"
+
+msgid "Private, accessible with the following password"
+msgstr "Afgeschermd, toegankelijk met het volgende wachtwoord"
 
 msgid "Your username and password didn't match. Please try again."
 msgstr ""

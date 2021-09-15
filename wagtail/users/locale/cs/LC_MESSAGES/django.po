@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 13:11+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -75,15 +75,6 @@ msgstr "Skupina s tímto názvem již existuje."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Oprávnění pro stejnou stránku nemůže být nastaveno vícekrát."
-
-msgid "Preferred language"
-msgstr "Preferovaný jazyk"
-
-msgid "Current time zone"
-msgstr "Aktuální časové pásmo"
-
-msgid "Upload a profile picture"
-msgstr "Nahrát profilovou fotografii"
 
 msgid "submitted notifications"
 msgstr "odeslané upozornění"

@@ -593,7 +593,7 @@ class ModelAdminGroup(WagtailRegisterable):
     def __init__(self):
         """
         When initialising, instantiate the classes within 'items', and assign
-        the instances to a 'modeladmin_instances' attribute for convienient
+        the instances to a 'modeladmin_instances' attribute for convenient
         access later
         """
         self.modeladmin_instances = []

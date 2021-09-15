@@ -17,14 +17,14 @@ from django.utils.translation import gettext as _
 register = Library()
 
 
-def items_for_result(view, result):
+def items_for_result(view, result, request):
     """
     Generates the actual list of data.
     """
     modeladmin = view.model_admin
     for field_name in view.list_display:
         empty_value_display = modeladmin.get_empty_value_display(field_name)
-        row_classes = ['field-%s' % field_name]
+        row_classes = ['field-%s' % field_name, 'title']
         try:
             f, attr, value = lookup_field(field_name, result, modeladmin)
         except ObjectDoesNotExist:
@@ -69,12 +69,22 @@ def items_for_result(view, result):
         row_attrs = modeladmin.get_extra_attrs_for_field_col(result, field_name)
         row_attrs['class'] = ' ' . join(row_classes)
         row_attrs_flat = flatatt(row_attrs)
-        yield format_html('<td{}>{}</td>', row_attrs_flat, result_repr)
+        if field_name == modeladmin.get_list_display_add_buttons(request):
+            edit_url = view.url_helper.get_action_url('edit', result.pk)
+            yield format_html(
+                '<td{}><div class="title-wrapper"><a href="{}" title="{}">{}</a></div></td>',
+                row_attrs_flat,
+                edit_url,
+                _('Edit this %s') % view.verbose_name,
+                result_repr
+            )
+        else:
+            yield format_html('<td{}>{}</td>', row_attrs_flat, result_repr)
 
 
-def results(view, object_list):
+def results(view, object_list, request):
     for item in object_list:
-        yield ResultList(None, items_for_result(view, item))
+        yield ResultList(None, items_for_result(view, item, request))
 
 
 @register.inclusion_tag("modeladmin/includes/result_list.html",
@@ -93,7 +103,7 @@ def result_list(context):
     context.update({
         'result_headers': headers,
         'num_sorted_fields': num_sorted_fields,
-        'results': list(results(view, object_list))})
+        'results': list(results(view, object_list, context['request']))})
     return context
 
 

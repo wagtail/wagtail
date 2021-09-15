@@ -1,3 +1,4 @@
+// stylelint-disable declaration-no-important
 .sidebar-menu-item {
     $root: &;
     @include transition(border-color $menu-transition-duration ease);
@@ -6,7 +7,7 @@
     &__link {
         @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
-        display: flex;
+        display: block;
         white-space: nowrap;
         border-left: 3px solid transparent;
 
@@ -43,6 +44,13 @@
             top: 0.5em;
             margin-top: 0;
         }
+
+        // Disable icon margin, this is instead applied to the left of the .menuitem-label
+        // This is because SVG icons and legacy icons apply this margin differently,
+        // we could remove this override when we remove legacy icons
+        .icon {
+            margin-right: 0 !important;
+        }
     }
 
     &--in-sub-menu {
@@ -69,6 +77,7 @@
 
 .menuitem-label {
     @include transition(opacity $menu-transition-duration ease);
+    margin-left: 0.5em;
 }
 
 .menuitem-tooltip {

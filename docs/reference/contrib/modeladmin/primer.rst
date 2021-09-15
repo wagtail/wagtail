@@ -213,7 +213,7 @@ For example, if you'd like to create your own view class and use it for the
     from .models import MyModel
 
     class MyCustomIndexView(IndexView):
-        # New functionality and exising method overrides added here
+        # New functionality and existing method overrides added here
         ...
 
 

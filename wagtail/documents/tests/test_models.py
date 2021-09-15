@@ -9,7 +9,7 @@ from django.test.utils import override_settings
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.documents import get_document_model, get_document_model_string, models, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import CustomDocument
+from wagtail.tests.testapp.models import CustomDocument, ReimportedDocumentModel
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -231,6 +231,9 @@ class TestGetDocumentModel(WagtailTestUtils, TestCase):
     def test_custom_get_document_model(self):
         """Test get_document_model with a custom document model"""
         self.assertIs(get_document_model(), CustomDocument)
+
+    def test_get_document_model_at_import_time(self):
+        self.assertEqual(ReimportedDocumentModel, models.Document)
 
     @override_settings(WAGTAILDOCS_DOCUMENT_MODEL='tests.CustomDocument')
     def test_custom_get_document_model_string(self):

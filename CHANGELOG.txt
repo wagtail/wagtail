@@ -4,15 +4,51 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
+ * Added "Extending Wagtail" section to documentation (Matt Westcott)
+ * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
  * Added a `background_position_style` property to renditions (Karl Hobley)
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
+ * Add a debug logger around image rendition generation (Jake Howard)
+ * Convert Documents and Images to class based views for easier overriding (Matt Westcott)
+ * Isolate admin URLs for Documents and Images search listing results with the name `'listing_results'` (Matt Westcott)
+ * Removed `request.is_ajax()` usage in Documents, Image and Snippet views (Matt Westcott)
+ * Simplify generic admin view templates plus ensure `page_title` and `page_subtitle` are used consistently (Matt Westcott)
+ * Extend support for collapsing edit panels from just MultiFieldPanels to all kinds of panels (Fabien Le Frapper, Robbie Mackay)
+ * Add object count to header within modeladmin listing view (Jonathan "Yoni" Knoll)
+ * Add ability to return HTML in multiple image upload errors (Gordon Pendleton)
+ * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
+ * Add support for `non_field_errors` rendering in Workflow action modal (LB (Ben Johnston))
+ * Support calling `get_image_model` and `get_document_model` at import time (Matt Westcott)
+ * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
+ * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
+ * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
+ * Fix: Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
+ * Fix: Multiple accessibility fixes for Windows high contrast mode; Admin fields, Icon visibility, Page Editor field panels, sidebar menu (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston))
+ * Fix: `blocks.MultipleChoiceBlock`, `forms.CheckboxSelectMultiple` and `ArrayField` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
+ * Fix: Screen readers can now access login screen field labels (Amy Chan)
+ * Fix: Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
+ * Fix: Add handling of invalid inline styles submitted to `RichText` so `ConfigException` is not thrown (Alex Tomkins)
+ * Fix: Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
+ * Fix: Set `default_auto_field` in `postgres_search` `AppConfig` (Nick Moreton)
+ * Fix: Ensure admin tab JS events are handled on page load (Andrew Stone)
+ * Fix: `EmailNotificationMixin` and `send_notification` should only send emails to active users (Bryan Williams)
+ * Fix: Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
 
 
-2.14 (xx.xx.xxxx) - IN DEVELOPMENT
+2.14.1 (12.08.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Prevent failure on Twitter embeds and others which return cache_age as a string (Matt Westcott)
+ * Fix: Fix Uncaught ReferenceError when editing links in Hallo (Cynthia Kiser)
+
+
+2.14 (02.08.2021)
 ~~~~~~~~~~~~~~~~~
 
  * Removed support for Django 2.2
@@ -449,7 +485,7 @@ Changelog
  * FieldPanel now accepts a 'heading' argument (Jacob Topp-Mugglestone)
  * Replaced deprecated `ugettext` / `ungettext` calls with `gettext` / `ngettext` (Mohamed Feddad)
  * ListBlocks now call child block `bulk_to_python` if defined (Andy Chosak)
- * Site settings are now identifiable/cachable by request as well as site (Andy Babic)
+ * Site settings are now identifiable/cacheable by request as well as site (Andy Babic)
  * Added `select_related` attribute to site settings to enable more efficient fetching of foreign key values (Andy Babic)
  * Add caching of image renditions (Tom Dyson, Tim Kamanin)
  * Add documentation for reporting security issues and internationalisation (Matt Westcott)
@@ -667,7 +703,7 @@ Changelog
  * Fix: Revised test decorator to ensure TestPageEditHandlers test cases run correctly (Alex Tomkins)
  * Fix: Wagtail bird animation in admin now ends correctly on all browsers (Deniz Dogan)
  * Fix: Explorer menu no longer shows sibling pages for which the user does not have access (Mike Hearn)
- * Fix: Fixed occurences of invalid HTML across the CMS admin (Thibaud Colas)
+ * Fix: Fixed occurrences of invalid HTML across the CMS admin (Thibaud Colas)
  * Fix: Admin HTML now includes the correct `dir` attribute for the active language (Andreas Bernacca)
  * Fix: Fix type error when using `--chunk_size` argument on `./manage.py update_index` (Seb Brown)
  * Fix: Avoid rendering entire form in EditHandler's `repr` method (Alex Tomkins)
@@ -686,7 +722,7 @@ Changelog
  * Fix: Ensure the 'add child page' button displays when focused (Helen Chapman, Katie Locke)
  * Fix: Remove tab order customisations in CMS admin (Jordan Bauer)
  * Fix: Add labels to permission checkboxes for screen reader users (Helen Chapman, Katie Locke)
- * Fix: Page.copy() no longer copies child objects when the accesssor name is included in `exclude_fields_in_copy` (Karl Hobley)
+ * Fix: Page.copy() no longer copies child objects when the accessor name is included in `exclude_fields_in_copy` (Karl Hobley)
  * Fix: Move focus to the pages explorer menu when open (Helen Chapman)
  * Fix: Clicking the privacy toggle while the page is still loading no longer loads the wrong data in the page (Helen Chapman)
  * Fix: Added missing `is_stored_locally` method to `AbstractDocument` (jonny5532)
@@ -1763,7 +1799,7 @@ Changelog
  * Added classnames to Wagtail rich text editor buttons to aid custom styling (Rob Shelton)
  * Simplified body_class in default homepage template (Josh Barr)
  * page_published signal now called with the revision object that was published (Josh Barr)
- * Added an overrideable favicon to the admin interface
+ * Added an overridable favicon to the admin interface
  * Added spinner animations to long-running form submissions
  * The EMBEDLY_KEY setting has been renamed to WAGTAILEMBEDS_EMBEDLY_KEY (Anurag Sharma)
  * StreamField blocks are now added automatically, without showing the block types menu, if only one block type exists (Alex Gleason)

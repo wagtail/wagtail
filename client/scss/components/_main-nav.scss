@@ -10,6 +10,7 @@
 
     .inner {
         background: $nav-grey-1;
+        border-right: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
 
         @include media-breakpoint-up(sm) {
             // On medium, make it possible for the nav links to scroll.
@@ -303,11 +304,10 @@ body.explorer-open {
         transform: none;
         padding-left: $menu-width;
 
-        @include transition(padding-left 0.3s ease);
+        @include transition(padding-left $menu-transition-duration ease);
     }
 
     body.sidebar-collapsed .wrapper {
-        @include transition(padding-left $menu-transition-duration ease);
         padding-left: $menu-width-slim;
     }
 

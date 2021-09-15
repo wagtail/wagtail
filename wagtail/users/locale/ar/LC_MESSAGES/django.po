@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:36+0000\n"
-"Last-Translator: abdulaziz alfuhigi <abajall@gmail.com>\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -70,15 +70,6 @@ msgstr "توجد مجموعة بهذا الإسم"
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "لا يمكن أن يكون لديك سجلات أذونات متعددة لنفس الصفحة."
-
-msgid "Preferred language"
-msgstr "اللغة المفضلة"
-
-msgid "Current time zone"
-msgstr "المنطقة الزمنية الحالية"
-
-msgid "Upload a profile picture"
-msgstr "تحميل صورة ملف شخصي"
 
 msgid "submitted notifications"
 msgstr "بلاغات مقدمة"

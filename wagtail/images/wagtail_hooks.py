@@ -126,9 +126,9 @@ def register_image_operations():
 
 class ImagesSummaryItem(SummaryItem):
     order = 200
-    template = 'wagtailimages/homepage/site_summary_images.html'
+    template_name = 'wagtailimages/homepage/site_summary_images.html'
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         site_name = get_site_for_user(self.request.user)['site_name']
 
         return {

@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"Last-Translator: Mario <mario@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -80,11 +80,23 @@ msgstr "Data husi"
 msgid "Date to"
 msgstr "Data to'o"
 
-msgid "Date"
-msgstr "Data"
+msgid "Preferred language"
+msgstr "Prefere lian"
 
-msgid "Title"
-msgstr "Titlu"
+msgid "Current time zone"
+msgstr "Zona tempu agora dadaun"
+
+msgid "First Name"
+msgstr "Naran Dahuluk"
+
+msgid "Last Name"
+msgstr "Naran Ikus"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Upload a profile picture"
+msgstr "Upload imajen profile"
 
 msgid "Enter password"
 msgstr "Hatama seña"
@@ -263,6 +275,12 @@ msgstr "Explora pajina"
 msgid "Save"
 msgstr "Rai"
 
+msgid "Dashboard"
+msgstr "Painel kontrolu"
+
+msgid "Edit your account"
+msgstr "Hadia ita nia konta"
+
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
 
@@ -331,9 +349,6 @@ msgstr "Seña muda"
 
 msgid "Reset your password"
 msgstr "Muda ita nia Seña "
-
-msgid "Dashboard"
-msgstr "Painel kontrolu"
 
 msgid "Menu"
 msgstr "Menu"
@@ -477,6 +492,9 @@ msgid ""
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
 
+msgid "Title"
+msgstr "Titlu"
+
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
 
@@ -513,6 +531,9 @@ msgstr "Ita boot nia troka sira"
 msgid "Status"
 msgstr "Estadu"
 
+msgid "Date"
+msgstr "Data"
+
 msgid "Site summary"
 msgstr "Sumariu Situs"
 
@@ -544,9 +565,6 @@ msgstr "Tama ba Wagtail"
 
 msgid "Signing in…"
 msgstr "Tama hela..."
-
-msgid "Forgotten it?"
-msgstr "Haluha ida-neʼe?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1048,9 +1066,6 @@ msgstr "Uma"
 msgid "All collections"
 msgstr "Koleksaun hotu-hotu"
 
-msgid "Edit your account"
-msgstr "Hadia ita nia konta"
-
 msgid "Account settings"
 msgstr "Konfigurasaun konta"
 
@@ -1062,9 +1077,6 @@ msgstr "Status pajina dadaun"
 
 msgid "Other searches"
 msgstr "Buka seluk"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Ba pajina administrasaun Wagtail"
 
 msgid "Add a child page"
 msgstr "Hatama pajina oan"

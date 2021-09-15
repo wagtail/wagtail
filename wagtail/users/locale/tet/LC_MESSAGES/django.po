@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:36+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -70,15 +70,6 @@ msgstr "Grupu ho naran nebaa existe tia ona."
 
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Ita la iha autorizasaun oin-oin rekorda ba pajina hanesan."
-
-msgid "Preferred language"
-msgstr "Prefere lian"
-
-msgid "Current time zone"
-msgstr "Zona tempu agora dadaun"
-
-msgid "Upload a profile picture"
-msgstr "Upload imajen profile"
 
 msgid "submitted notifications"
 msgstr "notifikasaun submete ona"

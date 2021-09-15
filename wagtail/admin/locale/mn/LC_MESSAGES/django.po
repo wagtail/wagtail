@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -72,11 +72,23 @@ msgstr "Эхлэх огноо"
 msgid "Date to"
 msgstr "Дуусах огноо"
 
-msgid "Date"
-msgstr "Огноо"
+msgid "Preferred language"
+msgstr "Сонгосон хэл"
 
-msgid "Title"
-msgstr "Гарчиг"
+msgid "Current time zone"
+msgstr "Одоогийн цагийн бүс"
+
+msgid "First Name"
+msgstr "Нэр"
+
+msgid "Last Name"
+msgstr "Овог"
+
+msgid "Email"
+msgstr "Имейл"
+
+msgid "Upload a profile picture"
+msgstr "Профайл зураг оруулах"
 
 msgid "Enter password"
 msgstr "Нууц үг оруулна уу"
@@ -250,6 +262,12 @@ msgstr "'{title}' засах"
 msgid "Save"
 msgstr "Хадгалах"
 
+msgid "Dashboard"
+msgstr "Хянах самбар"
+
+msgid "Edit your account"
+msgstr "Хэрэглэгчийн эрхээ засах"
+
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
 
@@ -318,9 +336,6 @@ msgstr "Нууц үг сэргээх"
 
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
-
-msgid "Dashboard"
-msgstr "Хянах самбар"
 
 msgid "Menu"
 msgstr "Цэс"
@@ -412,6 +427,9 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
+msgid "Title"
+msgstr "Гарчиг"
+
 msgid "Edit this page"
 msgstr "Энэ хуудсыг засах"
 
@@ -448,6 +466,9 @@ msgstr "Таны сүүлийн засварууд"
 msgid "Status"
 msgstr "Төлөв"
 
+msgid "Date"
+msgstr "Огноо"
+
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
@@ -464,9 +485,6 @@ msgstr "Нэвтрэх"
 
 msgid "Signing in…"
 msgstr "Нэвтэрч байна..."
-
-msgid "Forgotten it?"
-msgstr "Мартсан уу?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -839,9 +857,6 @@ msgstr "Нүүр хуудас"
 msgid "All collections"
 msgstr "Цуглуулга нэмэх"
 
-msgid "Edit your account"
-msgstr "Хэрэглэгчийн эрхээ засах"
-
 msgid "Account settings"
 msgstr "Хэрэглэгчийн эрхийн тохиргоо"
 
@@ -850,9 +865,6 @@ msgstr "Гарах"
 
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Админ панел руу шилжих"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"

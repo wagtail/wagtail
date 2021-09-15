@@ -254,14 +254,17 @@ label.required:after {
     }
 }
 
-// This is specifically for model that are a generated set of checkboxes/radios
+// This is specifically for list of radios/checkboxes
 .model_multiple_choice_field .input li,
+.checkbox_select_multiple .input li,
+.multiple_choice_field .input li,
 .choice_field .input li {
     label {
         display: block;
         width: auto;
         float: none;
         padding-top: 0; // Negates padding added to label for the group of fields as a whole
+        padding-bottom: 0.8em;
     }
 }
 
@@ -330,7 +333,6 @@ ul.inline li:first-child,
 li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
-
 
 // search-bars
 .search-bar {

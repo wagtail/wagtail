@@ -284,7 +284,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         with self.register_hook('filter_form_submissions_for_user', construct_forms_for_user):
             response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
 
-        # An user cant' see form submissions with the hook
+        # An user can't see form submissions with the hook
         self.assertRedirects(response, '/admin/')
 
     def test_list_submissions_filtering_date_from(self):
@@ -1267,7 +1267,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         form_submission.submit_time = '2016-01-01T12:00:00.000Z'
         form_submission.save()
 
-        # check ordering matches default which is overriden to be 'submit_time' (oldest first)
+        # check ordering matches default which is overridden to be 'submit_time' (oldest first)
         response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
         first_row_values = response.context['data_rows'][0]['fields']
         self.assertTrue('Old chocolate idea' in first_row_values)

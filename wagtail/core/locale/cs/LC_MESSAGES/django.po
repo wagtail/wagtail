@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-04-21 14:24+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:38+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -76,57 +76,6 @@ msgstr "Komentář"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Neznámé %(action)s"
-
-msgid "hostname"
-msgstr "hostname (jméno hostitele)"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Nastavte, pokud potřebujete mít v URL jiné číslo portu než 80 (např. vývoj "
-"na portu 8000). Neovlivňuje zpracování requestů (lze tedy použít s "
-"přesměrováním portů)."
-
-msgid "site name"
-msgstr "Název webu"
-
-msgid "Human-readable name for the site."
-msgstr "Jméno webu v podobě čitelné člověkem."
-
-msgid "root page"
-msgstr "výchozí stránka"
-
-msgid "is default site"
-msgstr "je defaultní web"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Je-li nastaveno, bude tento web výchozí pro všechny hostname, která nemají "
-"přiřazen žádný web."
-
-msgid "site"
-msgstr "web"
-
-msgid "sites"
-msgstr "weby"
-
-msgid "default"
-msgstr "default(ní)"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve "
-"zrušit."
 
 msgid "title"
 msgstr "titulek"
@@ -308,59 +257,11 @@ msgstr "skupinové oprávnění stránky"
 msgid "group page permissions"
 msgstr "skupinová oprávnění stránky"
 
-msgid "Public"
-msgstr "Veřejné"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privátní, pro přihlášené uživatele"
-
-msgid "Private, accessible with the following password"
-msgstr "Privátní, dostupné s následujícím heslem"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privátní, dostupné uživatelům v oprávněných skupinách"
-
-msgid "password"
-msgstr "heslo"
-
-msgid "groups"
-msgstr "skupiny"
-
-msgid "view restriction"
-msgstr "omezení zobrazení"
-
-msgid "view restrictions"
-msgstr "omezení zobrazení"
-
 msgid "page view restriction"
 msgstr "omezení zobrazení stránky"
 
 msgid "page view restrictions"
 msgstr "omezení zobrazení stránky"
-
-msgid "collection"
-msgstr "kolekce"
-
-msgid "collection view restriction"
-msgstr "omezení zobrazení kolekce"
-
-msgid "collection view restrictions"
-msgstr "omezení zobrazení kolekcí"
-
-msgid "name"
-msgstr "jméno"
-
-msgid "collections"
-msgstr "kolekce"
-
-msgid "permission"
-msgstr "oprávnění"
-
-msgid "group collection permission"
-msgstr "skupinové oprávnění pro kolekci"
-
-msgid "group collection permissions"
-msgstr "skupinová oprávnění pro kolekci"
 
 msgid "workflow"
 msgstr "postup"
@@ -382,6 +283,9 @@ msgstr "pořadí úloh postupu"
 
 msgid "workflow task orders"
 msgstr "pořadí úloh postupu"
+
+msgid "name"
+msgstr "jméno"
 
 msgid "active"
 msgstr "aktivní"
@@ -405,6 +309,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "postupy"
+
+msgid "groups"
+msgstr "skupiny"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -496,6 +403,24 @@ msgstr "Stav úlohy"
 msgid "Task states"
 msgstr "Stavy úlohy"
 
+msgid "page log entry"
+msgstr "položka logu pro stránku"
+
+msgid "page log entries"
+msgstr "položky logu pro stránku"
+
+msgid "comment"
+msgstr "komentář"
+
+msgid "comments"
+msgstr "komentáře"
+
+msgid "comment reply"
+msgstr "reakce na komentář"
+
+msgid "comment replies"
+msgstr "reakce na komentář"
+
 msgid "timestamp (UTC)"
 msgstr "timestamp - čas zpracování (UTC)"
 
@@ -515,23 +440,98 @@ msgstr "uživatel %(id)d (zrušený)"
 msgid "system"
 msgstr "systém"
 
-msgid "page log entry"
-msgstr "položka logu pro stránku"
+msgid "collection"
+msgstr "kolekce"
 
-msgid "page log entries"
-msgstr "položky logu pro stránku"
+msgid "collection view restriction"
+msgstr "omezení zobrazení kolekce"
 
-msgid "comment"
-msgstr "komentář"
+msgid "collection view restrictions"
+msgstr "omezení zobrazení kolekcí"
 
-msgid "comments"
-msgstr "komentáře"
+msgid "collections"
+msgstr "kolekce"
 
-msgid "comment reply"
-msgstr "reakce na komentář"
+msgid "permission"
+msgstr "oprávnění"
 
-msgid "comment replies"
-msgstr "reakce na komentář"
+msgid "group collection permission"
+msgstr "skupinové oprávnění pro kolekci"
+
+msgid "group collection permissions"
+msgstr "skupinová oprávnění pro kolekci"
+
+msgid "hostname"
+msgstr "hostname (jméno hostitele)"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Nastavte, pokud potřebujete mít v URL jiné číslo portu než 80 (např. vývoj "
+"na portu 8000). Neovlivňuje zpracování requestů (lze tedy použít s "
+"přesměrováním portů)."
+
+msgid "site name"
+msgstr "Název webu"
+
+msgid "Human-readable name for the site."
+msgstr "Jméno webu v podobě čitelné člověkem."
+
+msgid "root page"
+msgstr "výchozí stránka"
+
+msgid "is default site"
+msgstr "je defaultní web"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Je-li nastaveno, bude tento web výchozí pro všechny hostname, která nemají "
+"přiřazen žádný web."
+
+msgid "site"
+msgstr "web"
+
+msgid "sites"
+msgstr "weby"
+
+msgid "default"
+msgstr "default(ní)"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je již nastaven jako výchozí web. Toto nastavení musíte nejprve "
+"zrušit."
+
+msgid "Public"
+msgstr "Veřejné"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privátní, pro přihlášené uživatele"
+
+msgid "Private, accessible with the following password"
+msgstr "Privátní, dostupné s následujícím heslem"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privátní, dostupné uživatelům v oprávněných skupinách"
+
+msgid "password"
+msgstr "heslo"
+
+msgid "view restriction"
+msgstr "omezení zobrazení"
+
+msgid "view restrictions"
+msgstr "omezení zobrazení"
 
 msgid "Log in"
 msgstr "Přihlásit se"
@@ -640,13 +640,6 @@ msgid "Created an alias"
 msgstr "Byl vytvořen zástupce"
 
 #, python-format
-msgid "Converted the alias '%(title)s' into a regular page"
-msgstr "Byl změněn zástupce '%(title)s' na normální stránku"
-
-msgid "Converted an alias into a regular page"
-msgstr "Byl změněn zástupce na normální stránku"
-
-#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Přesunuto z '%(old_parent)s' do '%(new_parent)s'"
 
@@ -730,9 +723,6 @@ msgstr "Zkopírovat"
 msgid "Create alias"
 msgstr "Vytvořit zástupce"
 
-msgid "Convert alias into regular page"
-msgstr "Změnit zástupce na normální stránku"
-
 msgid "Move"
 msgstr "Přesunout"
 
@@ -753,6 +743,9 @@ msgstr "Změnit omezení zobrazení"
 
 msgid "Remove view restrictions"
 msgstr "Zrušit omezení zobrazení"
+
+msgid "Add comment"
+msgstr "Přidat komentář"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

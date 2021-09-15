@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-20 20:19+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-07-13 12:37+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -85,11 +85,23 @@ msgstr "종료일"
 msgid "All"
 msgstr "모두"
 
-msgid "Date"
-msgstr "날짜"
+msgid "Preferred language"
+msgstr "선호하는 언어"
 
-msgid "Title"
-msgstr "제목"
+msgid "Current time zone"
+msgstr "현재 타임존"
+
+msgid "First Name"
+msgstr "이름"
+
+msgid "Last Name"
+msgstr "성"
+
+msgid "Email"
+msgstr "이메일"
+
+msgid "Upload a profile picture"
+msgstr "프로필 사진 업로드"
 
 msgid "Enter password"
 msgstr "패스워드 입력"
@@ -274,6 +286,12 @@ msgstr "저장"
 msgid "Saving..."
 msgstr "저장 중..."
 
+msgid "Dashboard"
+msgstr "대시보드"
+
+msgid "Edit your account"
+msgstr "당신의 계정 변경"
+
 msgid "Error 404: Page not found"
 msgstr "에러 404: 페이지를 찾을 수 없습니다"
 
@@ -341,9 +359,6 @@ msgstr "비밀번호 초기화"
 
 msgid "Reset your password"
 msgstr "비밀번호 초기화"
-
-msgid "Dashboard"
-msgstr "대시보드"
 
 msgid "Menu"
 msgstr "메뉴"
@@ -487,6 +502,9 @@ msgstr "대시보드는 여러분이 생성한 컨텐츠들에 대한 유용한 
 msgid "Your locked pages"
 msgstr "잠긴 페이지"
 
+msgid "Title"
+msgstr "제목"
+
 msgid "Locked at"
 msgstr "잠긴 시간:"
 
@@ -526,6 +544,9 @@ msgstr "최신 수정된 기록"
 msgid "Status"
 msgstr "상태"
 
+msgid "Date"
+msgstr "날짜"
+
 msgid "Site summary"
 msgstr "사이트 요약"
 
@@ -558,9 +579,6 @@ msgstr "웨그테일에 로그인"
 
 msgid "Signing in…"
 msgstr "로그인 중..."
-
-msgid "Forgotten it?"
-msgstr "잊어버리셨나요?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1113,9 +1131,6 @@ msgstr "홈"
 msgid "All collections"
 msgstr "모든 모음"
 
-msgid "Edit your account"
-msgstr "당신의 계정 변경"
-
 msgid "Account settings"
 msgstr "계정 설정"
 
@@ -1136,9 +1151,6 @@ msgstr ""
 "이 소프트웨어가 지원하지 않는 <strong>구형</strong> 브라우저를 사용하고 있습"
 "니다. <a href=\"https://browsehappy.com/\">브라우저를 업그레이드</a> 해주세"
 "요."
-
-msgid "Go to Wagtail admin interface"
-msgstr "웨그테일 관리자 페이지로 이동"
 
 msgid "Add a child page"
 msgstr "하위페이지 추가"
