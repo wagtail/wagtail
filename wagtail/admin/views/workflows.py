@@ -5,6 +5,7 @@ from django.db import transaction
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -560,8 +561,51 @@ class BaseTaskChooserView(View):
         task_type_choices.sort(key=lambda task_type: task_type[1].lower())
         return task_type_choices
 
+    def get_form_js_context(self):
+        return {
+            'error_label': _("Server Error"),
+            'error_message': _("Report this error to your webmaster with the following information:"),
+        }
+
 
 class TaskChooserView(BaseTaskChooserView):
+    def get(self, request):
+        create_form_class = self.get_create_form_class()
+        if create_form_class:
+            self.createform = create_form_class(prefix='create-task')
+        else:
+            self.createform = None
+
+        return self.render_to_response()
+
+    def render_to_response(self):
+        searchform = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
+        tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
+
+        paginator = Paginator(tasks, per_page=10)
+        tasks = paginator.get_page(self.request.GET.get('p'))
+
+        chooser_html_context = {
+            'tasks': tasks,
+            'searchform': searchform,
+            'createform': self.createform,
+            'can_create': self.can_create,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None
+        }
+
+        if not self.createform:
+            chooser_html_context['task_types'] = self.get_task_type_options()
+
+        js_context = self.get_form_js_context()
+        js_context['step'] = 'chooser'
+
+        return render_modal_workflow(
+            self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
+            chooser_html_context, json_data=js_context
+        )
+
+
+class TaskChooserCreateView(BaseTaskChooserView):
     def get(self, request):
         create_form_class = self.get_create_form_class()
         if create_form_class:
@@ -585,32 +629,24 @@ class TaskChooserView(BaseTaskChooserView):
             return self.render_to_response()
 
     def render_to_response(self):
-        searchform = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
-        tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
+        if self.createform:
+            tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/create_form.html", {
+                'form': self.createform,
+                'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
+                'task_types': self.get_task_type_options(),
+            }, self.request)
+        else:
+            tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/select_task_type.html", {
+                'task_types': self.get_task_type_options(),
+            }, self.request)
 
-        paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(self.request.GET.get('p'))
-
-        chooser_html_context = {
-            'tasks': tasks,
-            'searchform': searchform,
-            'createform': self.createform,
-            'can_create': self.can_create,
-            'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + self.request.GET.urlencode() if self.create_model else None
-        }
-
-        if not self.createform:
-            chooser_html_context['task_types'] = self.get_task_type_options()
-
-        chooser_js_context = {
-            'step': 'chooser',
-            'error_label': _("Server Error"),
-            'error_message': _("Report this error to your webmaster with the following information:"),
-        }
+        js_context = self.get_form_js_context()
+        js_context['step'] = 'reshow_create_tab'
+        js_context['htmlFragment'] = tab_html
 
         return render_modal_workflow(
-            self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
-            chooser_html_context, json_data=chooser_js_context
+            self.request, None, None, None,
+            json_data=js_context
         )
 
 

@@ -8,7 +8,7 @@
             <li>
                 <div class="row row-flush">
                     <div class="col6">
-                        <a href="{% url 'wagtailadmin_workflows:task_chooser' %}?create_model={{ app_label|urlencode }}.{{ model_name|urlencode }}" class="icon icon-plus-inverse icon-larger task-type-choice">{{ verbose_name }}</a>
+                        <a href="{% url 'wagtailadmin_workflows:task_chooser_create' %}?create_model={{ app_label|urlencode }}.{{ model_name|urlencode }}" class="icon icon-plus-inverse icon-larger task-type-choice">{{ verbose_name }}</a>
                     </div>
                     <div class="col6">
                         {{ description }}
