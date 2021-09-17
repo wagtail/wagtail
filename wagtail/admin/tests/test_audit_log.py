@@ -151,6 +151,24 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertContains(response, 'About', 3)  # create, save draft, delete
         self.assertContains(response, 'Deleted', 2)
 
+    def test_history_with_deleted_user(self):
+        self._update_page(self.hello_page)
+
+        expected_deleted_string = f"user {self.editor.pk} (deleted)"
+        self.editor.delete()
+
+        self.login(user=self.administrator)
+
+        # check page history
+        response = self.client.get(
+            reverse('wagtailadmin_pages:history', kwargs={'page_id': self.hello_page.id})
+        )
+        self.assertContains(response, expected_deleted_string)
+
+        # check site history
+        response = self.client.get(reverse('wagtailadmin_reports:site_history'))
+        self.assertContains(response, expected_deleted_string)
+
     def test_edit_form_has_history_link(self):
         self.hello_page.save_revision()
         self.login(user=self.editor)
