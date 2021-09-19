@@ -3,7 +3,7 @@
     {{ default_menu_item }}
 {% endif %}
 {% if show_menu %}
-    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+    <div class="dropdown-toggle" aria-expanded="true" aria-controls="other-actions" tabindex="0">{% icon name="arrow-up" %}</div>
     <ul>
         {% for item in rendered_menu_items %}
             <li>
