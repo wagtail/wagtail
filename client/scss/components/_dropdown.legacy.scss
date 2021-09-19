@@ -123,11 +123,13 @@
 
         li {
             border-width: 0 0 1px;
+            
             a:focus,
             button:focus {
                 border: 3px solid #ffbf47;
             }
-        }       
+        }
+        
         @media(forced-colors:$media-forced-colours) {
             li a,
             li button {
