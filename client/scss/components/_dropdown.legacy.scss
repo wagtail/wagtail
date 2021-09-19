@@ -123,6 +123,29 @@
 
         li {
             border-width: 0 0 1px;
+            
+            a:focus,
+            button:focus {
+                border: 3px solid #ffbf47;
+            }
+        }
+        
+        @media(forced-colors:$media-forced-colours) {
+            li a,
+            li button {
+                forced-color-adjust: none;
+                background-color: #000;
+                border-color: #fff;
+                color: #fff;
+            }
+
+            li a:focus,
+            li button:focus {
+                background-color: #000;
+                forced-color-adjust: none;
+                border: 4px solid #0ff;
+                color: #fff;
+            }
         }
     }
 
