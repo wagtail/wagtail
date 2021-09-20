@@ -826,7 +826,7 @@ Database fields
 
         The workflow state which started this task state.
 
-    .. attribute:: page revision
+    .. attribute:: page_revision
 
         (foreign key to ``PageRevision``)
 
