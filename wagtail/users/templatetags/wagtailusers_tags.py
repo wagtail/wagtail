@@ -1,4 +1,5 @@
 import itertools
+import re
 
 from django import VERSION as DJANGO_VERSION
 from django import template
@@ -72,7 +73,9 @@ def format_permissions(permission_bound_field):
                     'perm': perm, 'checkbox': checkbox,
                 }
             else:
-                other_perms.append({'perm': perm, 'selected': checkbox.data['selected']})
+                other_perms.append({'perm': perm,
+                                    'name': re.sub(f"{perm.content_type.name}$", "", perm.name, flags=re.I).strip(),
+                                    'selected': checkbox.data['selected']})
 
         content_perms_dict['other'] = other_perms
         object_perms.append(content_perms_dict)

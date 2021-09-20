@@ -44,7 +44,7 @@
                     {% if content_perms_dict.other %}
                     <select name="permissions" multiple>
                         {% for other_perm in content_perms_dict.other %}
-                        <option value="{{ other_perm.perm.id }}" {% if other_perm.selected %}selected{% endif %}>{% trans other_perm.perm.name %}</option>
+                        <option value="{{ other_perm.perm.id }}" {% if other_perm.selected %}selected{% endif %}>{% trans other_perm.name %}</option>
                         {% endfor %}
                     </select>
                     {% endif %}
