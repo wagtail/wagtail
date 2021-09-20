@@ -343,11 +343,11 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
         log_entry.refresh_from_db()
 
         log_actions = LogActionRegistry('register_log_actions')
-        self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")
+        self.assertEqual(log_entry.message, "Unknown test.custom_action")
         self.assertFalse(log_actions.action_exists('test.custom_action'))
 
         with self.register_hook('register_log_actions', test_hook):
             log_actions = LogActionRegistry('register_log_actions')
             self.assertTrue(log_actions.action_exists('test.custom_action'))
-            self.assertEqual(log_actions.format_message(log_entry), "Tested!")
+            self.assertEqual(log_actions.get_formatter(log_entry).format_message(log_entry), "Tested!")
             self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')

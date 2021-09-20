@@ -168,12 +168,20 @@ class BaseLogEntry(models.Model):
     def object_id(self):
         raise NotImplementedError
 
-    def format_message(self):
-        return self.action_registry.format_message(self)
+    @cached_property
+    def formatter(self):
+        return self.action_registry.get_formatter(self)
 
-    def format_comment(self):
-        return self.action_registry.format_comment(self)
+    @cached_property
+    def message(self):
+        if self.formatter:
+            return self.formatter.format_message(self)
+        else:
+            return _('Unknown %(action)s') % {'action': self.action}
 
-    @property
+    @cached_property
     def comment(self):
-        return self.format_comment()
+        if self.formatter:
+            return self.formatter.format_comment(self)
+        else:
+            return ''
