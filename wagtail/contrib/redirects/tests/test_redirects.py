@@ -77,6 +77,7 @@ class TestRedirects(TestCase):
         ))
 
         self.assertEqual('/', normalise_path('/'))  # '/' should stay '/'
+        self.assertEqual('/foo % bar', normalise_path('/foo % bar'))  # Wildcards should stay where they are
 
         # Normalise some rubbish to make sure it doesn't crash
         normalise_path('This is not a URL')
@@ -628,3 +629,30 @@ class TestRedirectsDeleteView(TestCase, WagtailTestUtils):
         # Check that the redirect was deleted
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 0)
+
+
+class TestRedirectPattern(TestCase):
+    fixtures = ['test.json']
+
+    def test_pattern(self):
+        redirect = models.Redirect(old_path='/foo/%', redirect_link='/redirectto')
+        redirect.save()
+
+        self.assertEqual(
+            models.Redirect.objects.filter(old_path__matches="/foo/bar").get(),
+            redirect
+        )
+
+        self.assertEqual(
+            models.Redirect.objects.filter(old_path__matches="/foo/").get(),
+            redirect
+        )
+
+    def test_exact_match_without_wildcard(self):
+        redirect = models.Redirect(old_path='/foo/', redirect_link='/redirectto')
+        redirect.save()
+
+        self.assertEqual(
+            models.Redirect.objects.filter(old_path__matches=redirect.old_path).get(),
+            redirect
+        )

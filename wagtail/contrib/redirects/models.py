@@ -4,10 +4,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Page
+from .fields import PatternField
 
 
 class Redirect(models.Model):
-    old_path = models.CharField(verbose_name=_("redirect from"), max_length=255, db_index=True)
+    old_path = PatternField(verbose_name=_("redirect from"), max_length=255, db_index=True)
     site = models.ForeignKey(
         'wagtailcore.Site',
         verbose_name=_('site'),
