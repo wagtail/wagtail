@@ -1,0 +1,19 @@
+{% load i18n wagtailadmin_tags %}
+<section id="upload" class="{% if form.errors %}active {% endif %}nice-padding">
+    {% include "wagtailadmin/shared/non_field_errors.html" with form=form %}
+    <form class="document-upload" action="{% url 'wagtaildocs:chooser_upload' %}" method="POST" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+        <ul class="fields">
+            {% for field in form %}
+                {% if field.is_hidden %}
+                    {{ field }}
+                {% else %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                {% endif %}
+            {% endfor %}
+            <li>
+                <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Uploading…' %}">{% icon name="spinner" %}<em>{% trans 'Upload' %}</em></button>
+            </li>
+        </ul>
+    </form>
+</section>

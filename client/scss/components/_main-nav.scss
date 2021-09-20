@@ -24,6 +24,8 @@
     position: absolute;
     padding-left: $mobile-nice-padding;
     cursor: pointer;
+    border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
+    background-color: transparent;
 
     &:before {
         position: relative;

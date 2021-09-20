@@ -6,6 +6,7 @@ from .utils import get_postgresql_connections, set_weights
 
 class PostgresSearchConfig(AppConfig):
     name = 'wagtail.contrib.postgres_search'
+    default_auto_field = 'django.db.models.AutoField'
 
     def ready(self):
         @register(Tags.compatibility, Tags.database)

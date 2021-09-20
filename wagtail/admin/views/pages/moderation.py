@@ -24,7 +24,7 @@ def approve_moderation(request, revision_id):
         message = _("Page '{0}' published.").format(revision.page.specific_deferred.get_admin_display_title())
         buttons = []
         if revision.page.url is not None:
-            buttons.append(messages.button(revision.page.url, _('View live'), new_window=True))
+            buttons.append(messages.button(revision.page.url, _('View live'), new_window=False))
         buttons.append(messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit')))
         messages.success(request, message, buttons=buttons)
 

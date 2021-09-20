@@ -24,6 +24,7 @@ from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -647,7 +648,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
 
 class CreateView(ModelFormView):
-    page_title = _('New')
+    page_title = gettext_lazy('New')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_create(user)
@@ -682,7 +683,7 @@ class CreateView(ModelFormView):
 
 
 class EditView(ModelFormView, InstanceSpecificView):
-    page_title = _('Editing')
+    page_title = gettext_lazy('Editing')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_edit_obj(user, self.instance)
@@ -757,7 +758,7 @@ class ChooseParentView(WMABaseView):
 
 
 class DeleteView(InstanceSpecificView):
-    page_title = _('Delete')
+    page_title = gettext_lazy('Delete')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_delete_obj(user, self.instance)
@@ -822,7 +823,7 @@ class DeleteView(InstanceSpecificView):
 
 class InspectView(InstanceSpecificView):
 
-    page_title = _('Inspecting')
+    page_title = gettext_lazy('Inspecting')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)

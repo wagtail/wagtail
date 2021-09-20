@@ -32,6 +32,9 @@ Other features
  * Upgrade internal JS tooling; Node v14 plus other smaller package upgrades (LB (Ben Johnston))
  * Add support for ``non_field_errors`` rendering in Workflow action modal (LB (Ben Johnston))
  * Support calling ``get_image_model`` and ``get_document_model`` at import time (Matt Westcott)
+ * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
+ * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
+ * Added ``ExcelDateFormatter`` to ``wagtail.admin.views.mixins`` so that dates in Excel exports will appear in the locale's ``SHORT_DATETIME_FORMAT`` (Andrew Stone)
 
 Bug fixes
 ~~~~~~~~~
@@ -42,11 +45,20 @@ Bug fixes
  * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
- * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Icon visibility, Page Editor field panels, sidebar menu (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, LB (Ben Johnston))
+ * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis)
+ * Menu sidebar hamburger icon on smaller viewports now correctly indicates it is a button to screen readers and can be accessed via keyboard (Amy Chan, Dan Braghis)
  * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Screen readers can now access login screen field labels (Amy Chan)
  * Admin breadcrumbs home icon now shows for users with access to a subtree only (Stefan Hammer)
  * Add handling of invalid inline styles submitted to ``RichText`` so ``ConfigException`` is not thrown (Alex Tomkins)
+ * Ensure comment notifications dropdown handles longer translations without overflowing content (Krzysztof Jeziorny)
+ * Set ``default_auto_field`` in ``postgres_search`` ``AppConfig`` (Nick Moreton)
+ * Ensure admin tab JS events are handled on page load (Andrew Stone)
+ * ``EmailNotificationMixin`` and ``send_notification`` should only send emails to active users (Bryan Williams)
+ * Disable Task confirmation now shows the correct value for quantity of tasks in progress (LB Johnston)
+ * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
+ * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
+ * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
 
 Upgrade considerations
 ======================

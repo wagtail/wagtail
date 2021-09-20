@@ -36,7 +36,7 @@
     background-color: $color-text-base;
     padding: 20px;
     border-radius: 6px;
-    width: 260px;
+    min-width: 260px;
     box-sizing: border-box;
 
     &__title {

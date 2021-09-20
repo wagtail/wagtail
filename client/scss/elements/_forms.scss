@@ -128,6 +128,22 @@ select,
     }
 }
 
+@media (forced-colors: $media-forced-colours) {
+    .tagit,
+    .field-content .tagit .tagit-choice,
+    .tagit .tagit-new .ui-widget-content {
+        box-shadow: inset 1000px 0 0 0 $color-black;
+        color: $color-white;
+        forced-color-adjust: none;
+    }
+
+    .tagit span.tagit-label:before,
+    .tagit span.tagit-label {
+        color: $color-black;
+        forced-color-adjust: none;
+    }
+}
+
 // Reset the arrow on `<select>`s in IE10+.
 select::-ms-expand {
     display: none;
