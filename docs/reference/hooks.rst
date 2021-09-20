@@ -1379,8 +1379,27 @@ Audit log
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
-            def callback_message(data):
-                return _('Hello %(audience)s') % {
-                    'audience': data['audience'],
-                }
-            actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
+
+    Alternatively, for a log message that varies according to the log entry's data, create a subclass of ``wagtail.core.log_actions.LogFormatter`` that overrides the ``format_message`` method, and use ``register_action`` as a decorator on that class:
+
+    .. code-block:: python
+
+        from django.utils.translation import gettext_lazy as _
+
+        from wagtail.core import hooks
+        from wagtail.core.log_actions import LogFormatter
+
+        @hooks.register('register_log_actions')
+        def additional_log_actions(actions):
+            @actions.register_action('wagtail_package.greet_audience')
+            class GreetingActionFormatter(LogFormatter):
+                label = _('Greet audience')
+
+                def format_message(self, log_entry):
+                    return _('Hello %(audience)s') % {
+                        'audience': log_entry.data['audience'],
+                    }
+
+    .. versionchanged:: 2.15
+
+      The ``LogFormatter`` class was introduced. Previously, dynamic messages were achieved by passing a callable as the ``message`` argument to ``register_action``.

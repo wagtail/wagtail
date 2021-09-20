@@ -91,3 +91,43 @@ User code that creates these objects should be updated to follow the component A
    * Any ``template`` attribute should be changed to ``template_name``;
    * Any ``get_context`` method should be renamed to ``get_context_data``;
    * The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods no longer accept a ``request`` parameter. The request object is available in the context dictionary as ``context['request']``.
+
+
+Passing callables as messages in ``register_log_actions`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When defining new action types for :ref:`audit logging <audit_log>` with the :ref:`register_log_actions` hook, it was previously possible to pass a callable as the message. This is now deprecated - to define a message that depends on the log entry's data, you should now create a subclass of ``wagtail.core.log_actions.LogFormatter``. For example:
+
+.. code-block:: python
+
+    from django.utils.translation import gettext_lazy as _
+    from wagtail.core import hooks
+
+    @hooks.register('register_log_actions')
+    def additional_log_actions(actions):
+
+        def greeting_message(data):
+            return _('Hello %(audience)s') % {
+                'audience': data['audience'],
+            }
+        actions.register_action('wagtail_package.greet_audience', _('Greet audience'), greeting_message)
+
+should now be rewritten as:
+
+.. code-block:: python
+
+    from django.utils.translation import gettext_lazy as _
+    from wagtail.core import hooks
+    from wagtail.core.log_actions import LogFormatter
+
+    @hooks.register('register_log_actions')
+    def additional_log_actions(actions):
+
+        @actions.register_action('wagtail_package.greet_audience')
+        class GreetingActionFormatter(LogFormatter):
+            label = _('Greet audience')
+
+            def format_message(self, log_entry):
+                return _('Hello %(audience)s') % {
+                    'audience': log_entry.data['audience'],
+                }
