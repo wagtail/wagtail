@@ -3,10 +3,11 @@ from django.contrib.auth.models import Permission
 from django.contrib.auth.views import redirect_to_login
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.core import hooks
+from wagtail.core.log_actions import LogFormatter
 from wagtail.core.models import PageViewRestriction
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.utils import get_content_languages
@@ -111,292 +112,355 @@ def register_core_log_actions(actions):
     actions.register_action('wagtail.moderation.approve', _('Approve'), _('Approved'))
     actions.register_action('wagtail.moderation.reject', _('Reject'), _('Rejected'))
 
-    def revert_message(data):
-        try:
-            return _('Reverted to previous revision with id %(revision_id)s from %(created_at)s') % {
-                'revision_id': data['revision']['id'],
-                'created_at': data['revision']['created'],
-            }
-        except KeyError:
-            return _('Reverted to previous revision')
+    @actions.register_action('wagtail.rename')
+    class RenameActionFormatter(LogFormatter):
+        label = _('Rename')
 
-    def copy_message(data):
-        try:
-            return _('Copied from %(title)s') % {
-                'title': data['source']['title'],
-            }
-        except KeyError:
-            return _("Copied")
-
-    def copy_for_translation_message(data):
-        try:
-            return _('Copied for translation from %(title)s (%(locale)s)') % {
-                'title': data['source']['title'],
-                'locale': get_content_languages().get(data['source_locale']['language_code']) or '',
-            }
-        except KeyError:
-            return _("Copied for translation")
-
-    def create_alias_message(data):
-        try:
-            return _('Created an alias of %(title)s') % {
-                'title': data['source']['title'],
-            }
-        except KeyError:
-            return _("Created an alias")
-
-    def convert_alias_message(data):
-        try:
-            return _("Converted the alias '%(title)s' into an ordinary page") % {
-                'title': data['page']['title'],
-            }
-        except KeyError:
-            return _("Converted an alias into an ordinary page")
-
-    def move_message(data):
-        try:
-            return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
-                'old_parent': data['source']['title'],
-                'new_parent': data['destination']['title'],
-            }
-        except KeyError:
-            return _('Moved')
-
-    def reorder_message(data):
-        try:
-            return _("Reordered under '%(parent)s'") % {
-                'parent': data['destination']['title'],
-            }
-        except KeyError:
-            return _('Reordered')
-
-    def schedule_publish_message(data):
-        try:
-            if data['revision']['has_live_version']:
-                return _('Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s.') % {
-                    'revision_id': data['revision']['id'],
-                    'created_at': data['revision']['created'],
-                    'go_live_at': data['revision']['go_live_at'],
+        def format_message(self, log_entry):
+            try:
+                return _("Renamed from '%(old)s' to '%(new)s'") % {
+                    'old': log_entry.data['title']['old'],
+                    'new': log_entry.data['title']['new'],
                 }
-            else:
-                return _('Page scheduled for publishing at %(go_live_at)s') % {
-                    'go_live_at': data['revision']['go_live_at'],
+            except KeyError:
+                return _('Renamed')
+
+    @actions.register_action('wagtail.revert')
+    class RevertActionFormatter(LogFormatter):
+        label = _('Revert')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Reverted to previous revision with id %(revision_id)s from %(created_at)s') % {
+                    'revision_id': log_entry.data['revision']['id'],
+                    'created_at': log_entry.data['revision']['created'],
                 }
-        except KeyError:
-            return _('Page scheduled for publishing')
+            except KeyError:
+                return _('Reverted to previous revision')
 
-    def unschedule_publish_message(data):
-        try:
-            if data['revision']['has_live_version']:
-                return _('Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s.') % {
-                    'revision_id': data['revision']['id'],
-                    'created_at': data['revision']['created'],
-                    'go_live_at': data['revision']['go_live_at'],
+    @actions.register_action('wagtail.copy')
+    class CopyActionFormatter(LogFormatter):
+        label = _('Copy')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Copied from %(title)s') % {
+                    'title': log_entry.data['source']['title'],
                 }
-            else:
-                return _('Page unscheduled for publishing at %(go_live_at)s') % {
-                    'go_live_at': data['revision']['go_live_at'],
+            except KeyError:
+                return _("Copied")
+
+    @actions.register_action('wagtail.copy_for_translation')
+    class CopyForTranslationActionFormatter(LogFormatter):
+        label = _('Copy for translation')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Copied for translation from %(title)s (%(locale)s)') % {
+                    'title': log_entry.data['source']['title'],
+                    'locale': get_content_languages().get(log_entry.data['source_locale']['language_code']) or '',
                 }
-        except KeyError:
-            return _('Page unscheduled from publishing')
+            except KeyError:
+                return _("Copied for translation")
 
-    def add_view_restriction(data):
-        try:
-            return _("Added the '%(restriction)s' view restriction") % {
-                'restriction': data['restriction']['title'],
-            }
-        except KeyError:
-            return _('Added view restriction')
+    @actions.register_action('wagtail.create_alias')
+    class CreateAliasActionFormatter(LogFormatter):
+        label = _('Create alias')
 
-    def edit_view_restriction(data):
-        try:
-            return _("Updated the view restriction to '%(restriction)s'") % {
-                'restriction': data['restriction']['title'],
-            }
-        except KeyError:
-            return _('Updated view restriction')
+        def format_message(self, log_entry):
+            try:
+                return _('Created an alias of %(title)s') % {
+                    'title': log_entry.data['source']['title'],
+                }
+            except KeyError:
+                return _("Created an alias")
 
-    def delete_view_restriction(data):
-        try:
-            return _("Removed the '%(restriction)s' view restriction") % {
-                'restriction': data['restriction']['title'],
-            }
-        except KeyError:
-            return _('Removed view restriction')
+    @actions.register_action('wagtail.convert_alias')
+    class ConvertAliasActionFormatter(LogFormatter):
+        label = _('Convert alias into ordinary page')
 
-    def rename_message(data):
-        try:
-            return _("Renamed from '%(old)s' to '%(new)s'") % {
-                'old': data['title']['old'],
-                'new': data['title']['new'],
-            }
-        except KeyError:
-            return _('Renamed')
+        def format_message(self, log_entry):
+            try:
+                return _("Converted the alias '%(title)s' into an ordinary page") % {
+                    'title': log_entry.data['page']['title'],
+                }
+            except KeyError:
+                return _("Converted an alias into an ordinary page")
 
-    def _field_label_from_content_path(model, content_path):
-        """
-        Finds the translated field label for the given model and content path
+    @actions.register_action('wagtail.move')
+    class MoveActionFormatter(LogFormatter):
+        label = _('Move')
 
-        Raises LookupError if not found
-        """
-        field_name = content_path.split('.')[0]
-        return capfirst(model._meta.get_field(field_name).verbose_name)
+        def format_message(self, log_entry):
+            try:
+                return _("Moved from '%(old_parent)s' to '%(new_parent)s'") % {
+                    'old_parent': log_entry.data['source']['title'],
+                    'new_parent': log_entry.data['destination']['title'],
+                }
+            except KeyError:
+                return _('Moved')
 
-    def create_comment_message(log_entry):
-        try:
-            return _('Added a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['comment']['text'],
-            }
-        except KeyError:
-            return _('Added a comment')
+    @actions.register_action('wagtail.reorder')
+    class ReorderActionFormatter(LogFormatter):
+        label = _('Reorder')
 
-    create_comment_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                return _("Reordered under '%(parent)s'") % {
+                    'parent': log_entry.data['destination']['title'],
+                }
+            except KeyError:
+                return _('Reordered')
 
-    def edit_comment_message(log_entry):
-        try:
-            return _('Edited a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['comment']['text'],
-            }
-        except KeyError:
-            return _("Edited a comment")
+    @actions.register_action('wagtail.publish.schedule')
+    class SchedulePublishActionFormatter(LogFormatter):
+        label = _("Schedule publication")
 
-    edit_comment_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                if log_entry.data['revision']['has_live_version']:
+                    return _('Revision %(revision_id)s from %(created_at)s scheduled for publishing at %(go_live_at)s.') % {
+                        'revision_id': log_entry.data['revision']['id'],
+                        'created_at': log_entry.data['revision']['created'],
+                        'go_live_at': log_entry.data['revision']['go_live_at'],
+                    }
+                else:
+                    return _('Page scheduled for publishing at %(go_live_at)s') % {
+                        'go_live_at': log_entry.data['revision']['go_live_at'],
+                    }
+            except KeyError:
+                return _('Page scheduled for publishing')
 
-    def delete_comment_message(log_entry):
-        try:
-            return _('Deleted a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['comment']['text'],
-            }
-        except KeyError:
-            return _("Deleted a comment")
+    @actions.register_action('wagtail.schedule.cancel')
+    class UnschedulePublicationActionFormatter(LogFormatter):
+        label = _("Unschedule publication")
 
-    delete_comment_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                if log_entry.data['revision']['has_live_version']:
+                    return _('Revision %(revision_id)s from %(created_at)s unscheduled from publishing at %(go_live_at)s.') % {
+                        'revision_id': log_entry.data['revision']['id'],
+                        'created_at': log_entry.data['revision']['created'],
+                        'go_live_at': log_entry.data['revision']['go_live_at'],
+                    }
+                else:
+                    return _('Page unscheduled for publishing at %(go_live_at)s') % {
+                        'go_live_at': log_entry.data['revision']['go_live_at'],
+                    }
+            except KeyError:
+                return _('Page unscheduled from publishing')
 
-    def resolve_comment_message(log_entry):
-        try:
-            return _('Resolved a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['comment']['text'],
-            }
-        except KeyError:
-            return _("Resolved a comment")
+    @actions.register_action('wagtail.view_restriction.create')
+    class AddViewRestrictionActionFormatter(LogFormatter):
+        label = _("Add view restrictions")
 
-    resolve_comment_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                return _("Added the '%(restriction)s' view restriction") % {
+                    'restriction': log_entry.data['restriction']['title'],
+                }
+            except KeyError:
+                return _('Added view restriction')
 
-    def create_reply_message(log_entry):
-        try:
-            return _('Replied to comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['reply']['text'],
-            }
-        except KeyError:
-            return _('Replied to a comment')
+    @actions.register_action('wagtail.view_restriction.edit')
+    class EditViewRestrictionActionFormatter(LogFormatter):
+        label = _("Update view restrictions")
 
-    create_reply_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                return _("Updated the view restriction to '%(restriction)s'") % {
+                    'restriction': log_entry.data['restriction']['title'],
+                }
+            except KeyError:
+                return _('Updated view restriction')
 
-    def edit_reply_message(log_entry):
-        try:
-            return _('Edited a reply to a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['reply']['text'],
-            }
-        except KeyError:
-            return _("Edited a reply")
+    @actions.register_action('wagtail.view_restriction.delete')
+    class DeleteViewRestrictionActionFormatter(LogFormatter):
+        label = _("Remove view restrictions")
 
-    edit_reply_message.takes_log_entry = True
+        def format_message(self, log_entry):
+            try:
+                return _("Removed the '%(restriction)s' view restriction") % {
+                    'restriction': log_entry.data['restriction']['title'],
+                }
+            except KeyError:
+                return _('Removed view restriction')
 
-    def delete_reply_message(log_entry):
-        try:
-            return _('Deleted a reply to a comment on field %(field)s: "%(text)s"') % {
-                'field': _field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
-                'text': log_entry.data['reply']['text'],
-            }
-        except KeyError:
-            return _("Deleted a reply")
+    class CommentLogFormatter(LogFormatter):
+        @staticmethod
+        def _field_label_from_content_path(model, content_path):
+            """
+            Finds the translated field label for the given model and content path
 
-    delete_reply_message.takes_log_entry = True
+            Raises LookupError if not found
+            """
+            field_name = content_path.split('.')[0]
+            return capfirst(model._meta.get_field(field_name).verbose_name)
 
-    actions.register_action('wagtail.rename', _('Rename'), rename_message)
-    actions.register_action('wagtail.revert', _('Revert'), revert_message)
-    actions.register_action('wagtail.copy', _('Copy'), copy_message)
-    actions.register_action('wagtail.copy_for_translation', _('Copy for translation'), copy_for_translation_message)
-    actions.register_action('wagtail.create_alias', _('Create alias'), create_alias_message)
-    actions.register_action('wagtail.convert_alias', _('Convert alias into ordinary page'), convert_alias_message)
-    actions.register_action('wagtail.move', _('Move'), move_message)
-    actions.register_action('wagtail.reorder', _('Reorder'), reorder_message)
-    actions.register_action('wagtail.publish.schedule', _("Schedule publication"), schedule_publish_message)
-    actions.register_action('wagtail.schedule.cancel', _("Unschedule publication"), unschedule_publish_message)
-    actions.register_action('wagtail.view_restriction.create', _("Add view restrictions"), add_view_restriction)
-    actions.register_action('wagtail.view_restriction.edit', _("Update view restrictions"), edit_view_restriction)
-    actions.register_action('wagtail.view_restriction.delete', _("Remove view restrictions"), delete_view_restriction)
-    actions.register_action('wagtail.comments.create', _('Add comment'), create_comment_message)
-    actions.register_action('wagtail.comments.edit', _('Edit comment'), edit_comment_message)
-    actions.register_action('wagtail.comments.delete', _('Delete comment'), delete_comment_message)
-    actions.register_action('wagtail.comments.resolve', _('Resolve comment'), resolve_comment_message)
-    actions.register_action('wagtail.comments.create_reply', _('Reply to comment'), create_reply_message)
-    actions.register_action('wagtail.comments.edit_reply', _('Edit reply to comment'), edit_reply_message)
-    actions.register_action('wagtail.comments.delete_reply', _('Delete reply to comment'), delete_reply_message)
+    @actions.register_action('wagtail.comments.create')
+    class CreateCommentActionFormatter(CommentLogFormatter):
+        label = _('Add comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Added a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['comment']['text'],
+                }
+            except KeyError:
+                return _('Added a comment')
+
+    @actions.register_action('wagtail.comments.edit')
+    class EditCommentActionFormatter(CommentLogFormatter):
+        label = _('Edit comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Edited a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['comment']['text'],
+                }
+            except KeyError:
+                return _("Edited a comment")
+
+    @actions.register_action('wagtail.comments.delete')
+    class DeleteCommentActionFormatter(CommentLogFormatter):
+        label = _('Delete comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Deleted a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['comment']['text'],
+                }
+            except KeyError:
+                return _("Deleted a comment")
+
+    @actions.register_action('wagtail.comments.resolve')
+    class ResolveCommentActionFormatter(CommentLogFormatter):
+        label = _('Resolve comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Resolved a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['comment']['text'],
+                }
+            except KeyError:
+                return _("Resolved a comment")
+
+    @actions.register_action('wagtail.comments.create_reply')
+    class CreateReplyActionFormatter(CommentLogFormatter):
+        label = _('Reply to comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Replied to comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['reply']['text'],
+                }
+            except KeyError:
+                return _('Replied to a comment')
+
+    @actions.register_action('wagtail.comments.edit_reply')
+    class EditReplyActionFormatter(CommentLogFormatter):
+        label = _('Edit reply to comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Edited a reply to a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['reply']['text'],
+                }
+            except KeyError:
+                return _("Edited a reply")
+
+    @actions.register_action('wagtail.comments.delete_reply')
+    class DeleteReplyActionFormatter(CommentLogFormatter):
+        label = _('Delete reply to comment')
+
+        def format_message(self, log_entry):
+            try:
+                return _('Deleted a reply to a comment on field %(field)s: "%(text)s"') % {
+                    'field': self._field_label_from_content_path(log_entry.page.specific_class, log_entry.data['comment']['contentpath']),
+                    'text': log_entry.data['reply']['text'],
+                }
+            except KeyError:
+                return _("Deleted a reply")
 
 
 @hooks.register('register_log_actions')
 def register_workflow_log_actions(actions):
-    def workflow_start_message(data):
-        try:
-            return _("'%(workflow)s' started. Next step '%(task)s'") % {
-                'workflow': data['workflow']['title'],
-                'task': data['workflow']['next']['title'],
-            }
-        except (KeyError, TypeError):
-            return _('Workflow started')
 
-    def workflow_approve_message(data):
-        try:
-            if data['workflow']['next']:
-                return _("Approved at '%(task)s'. Next step '%(next_task)s'") % {
-                    'task': data['workflow']['task']['title'],
-                    'next_task': data['workflow']['next']['title'],
+    class WorkflowLogFormatter(LogFormatter):
+        def format_comment(self, log_entry):
+            return log_entry.data.get('comment', '')
+
+    @actions.register_action('wagtail.workflow.start')
+    class StartWorkflowActionFormatter(WorkflowLogFormatter):
+        label = _('Workflow: start')
+
+        def format_message(self, log_entry):
+            try:
+                return _("'%(workflow)s' started. Next step '%(task)s'") % {
+                    'workflow': log_entry.data['workflow']['title'],
+                    'task': log_entry.data['workflow']['next']['title'],
                 }
-            else:
-                return _("Approved at '%(task)s'. '%(workflow)s' complete") % {
-                    'task': data['workflow']['task']['title'],
-                    'workflow': data['workflow']['title'],
+            except (KeyError, TypeError):
+                return _('Workflow started')
+
+    @actions.register_action('wagtail.workflow.approve')
+    class ApproveWorkflowActionFormatter(WorkflowLogFormatter):
+        label = _('Workflow: approve task')
+
+        def format_message(self, log_entry):
+            try:
+                if log_entry.data['workflow']['next']:
+                    return _("Approved at '%(task)s'. Next step '%(next_task)s'") % {
+                        'task': log_entry.data['workflow']['task']['title'],
+                        'next_task': log_entry.data['workflow']['next']['title'],
+                    }
+                else:
+                    return _("Approved at '%(task)s'. '%(workflow)s' complete") % {
+                        'task': log_entry.data['workflow']['task']['title'],
+                        'workflow': log_entry.data['workflow']['title'],
+                    }
+            except (KeyError, TypeError):
+                return _('Workflow task approved')
+
+    @actions.register_action('wagtail.workflow.reject')
+    class RejectWorkflowActionFormatter(WorkflowLogFormatter):
+        label = _('Workflow: reject task')
+
+        def format_message(self, log_entry):
+            try:
+                return _("Rejected at '%(task)s'. Changes requested") % {
+                    'task': log_entry.data['workflow']['task']['title'],
                 }
-        except (KeyError, TypeError):
-            return _('Workflow task approved')
+            except (KeyError, TypeError):
+                return _('Workflow task rejected. Workflow complete')
 
-    def workflow_reject_message(data):
-        try:
-            return _("Rejected at '%(task)s'. Changes requested") % {
-                'task': data['workflow']['task']['title'],
-            }
-        except (KeyError, TypeError):
-            return _('Workflow task rejected. Workflow complete')
+    @actions.register_action('wagtail.workflow.resume')
+    class ResumeWorkflowActionFormatter(WorkflowLogFormatter):
+        label = _('Workflow: resume task')
 
-    def workflow_resume_message(data):
-        try:
-            return _("Resubmitted '%(task)s'. Workflow resumed'") % {
-                'task': data['workflow']['task']['title'],
-            }
-        except (KeyError, TypeError):
-            return _('Workflow task resubmitted. Workflow resumed')
+        def format_message(self, log_entry):
+            try:
+                return _("Resubmitted '%(task)s'. Workflow resumed'") % {
+                    'task': log_entry.data['workflow']['task']['title'],
+                }
+            except (KeyError, TypeError):
+                return _('Workflow task resubmitted. Workflow resumed')
 
-    def workflow_cancel_message(data):
-        try:
-            return _("Cancelled '%(workflow)s' at '%(task)s'") % {
-                'workflow': data['workflow']['title'],
-                'task': data['workflow']['task']['title'],
-            }
-        except (KeyError, TypeError):
-            return _('Workflow cancelled')
+    @actions.register_action('wagtail.workflow.cancel')
+    class CancelWorkflowActionFormatter(WorkflowLogFormatter):
+        label = _('Workflow: cancel')
 
-    def workflow_comment(data):
-        return data.get('comment', '')
-
-    actions.register_action('wagtail.workflow.start', _('Workflow: start'), workflow_start_message)
-    actions.register_action('wagtail.workflow.approve', _('Workflow: approve task'), workflow_approve_message, workflow_comment)
-    actions.register_action('wagtail.workflow.reject', _('Workflow: reject task'), workflow_reject_message, workflow_comment)
-    actions.register_action('wagtail.workflow.resume', _('Workflow: resume task'), workflow_resume_message)
-    actions.register_action('wagtail.workflow.cancel', _('Workflow: cancel'), workflow_cancel_message)
+        def format_message(self, log_entry):
+            try:
+                return _("Cancelled '%(workflow)s' at '%(task)s'") % {
+                    'workflow': log_entry.data['workflow']['title'],
+                    'task': log_entry.data['workflow']['task']['title'],
+                }
+            except (KeyError, TypeError):
+                return _('Workflow cancelled')

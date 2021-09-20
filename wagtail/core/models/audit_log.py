@@ -117,9 +117,7 @@ class BaseLogEntry(models.Model):
         return super().save(*args, **kwargs)
 
     def clean(self):
-        self.action_registry.scan_for_actions()
-
-        if self.action not in self.action_registry.actions:
+        if not self.action_registry.action_exists(self.action):
             raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
 
     def __str__(self):
