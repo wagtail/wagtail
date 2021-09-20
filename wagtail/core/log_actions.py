@@ -1,5 +1,3 @@
-from django.utils.translation import gettext_lazy as _
-
 from wagtail.core import hooks
 
 
@@ -77,20 +75,6 @@ class LogActionRegistry:
     def get_formatter(self, log_entry):
         self.scan_for_actions()
         return self.formatters.get(log_entry.action)
-
-    def format_message(self, log_entry):
-        formatter = self.get_formatter(log_entry)
-        if formatter:
-            return formatter.format_message(log_entry)
-        else:
-            return _('Unknown %(action)s') % {'action': log_entry.action}
-
-    def format_comment(self, log_entry):
-        formatter = self.get_formatter(log_entry)
-        if formatter:
-            return formatter.format_comment(log_entry)
-        else:
-            return ''
 
     def action_exists(self, action):
         self.scan_for_actions()
