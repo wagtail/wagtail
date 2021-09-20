@@ -321,11 +321,8 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
     def test_register_log_actions_hook(self):
-        # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
-        # plugin, via the register_rich_text_features hook; test that we can retrieve it here
         log_actions = LogActionRegistry('register_log_actions')
-        actions = log_actions.get_actions()
-        self.assertIn('wagtail.create', actions)
+        self.assertTrue(log_actions.action_exists('wagtail.create'))
 
     def test_action_must_be_registered(self):
         # We check actions are registered to let developers know if they have forgotten to register
@@ -347,10 +344,10 @@ class TestAuditLogHooks(TestCase, WagtailTestUtils):
 
         log_actions = LogActionRegistry('register_log_actions')
         self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")
-        self.assertNotIn('test.custom_action', log_actions.get_actions())
+        self.assertFalse(log_actions.action_exists('test.custom_action'))
 
         with self.register_hook('register_log_actions', test_hook):
             log_actions = LogActionRegistry('register_log_actions')
-            self.assertIn('test.custom_action', log_actions.get_actions())
+            self.assertTrue(log_actions.action_exists('test.custom_action'))
             self.assertEqual(log_actions.format_message(log_entry), "Tested!")
             self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')
