@@ -29,6 +29,7 @@ class BaseTypedTableBlock(Block):
                 'heading': data['%s-column-%d-heading' % (prefix, i)],
             }
             for i in range(0, column_count)
+            if not data['%s-column-%d-deleted' % (prefix, i)]
         ]
         columns.sort(key=lambda col: col['order'])
         for col in columns:
