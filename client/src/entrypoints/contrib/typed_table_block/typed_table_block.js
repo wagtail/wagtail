@@ -12,7 +12,7 @@ export class TypedTableBlock {
     // * blockDef: the block definition object
     // * position: the 0-indexed position of this column within the list of columns
     //    (will change as new columns are inserted / deleted)
-    // * id: the unique ID number assigned to this row, used in field name prefixes
+    // * id: the unique ID number assigned to this column, used in field name prefixes
     //    (will remain unchanged when new columns are inserted / deleted)
     // * typeInput: the hidden input element containing the block type
     // * positionInput: the hidden input element containing the column position
@@ -22,9 +22,16 @@ export class TypedTableBlock {
 
     // list of row definition objects, each consisting of fields:
     // * blocks: list of block instances making up this row
+    // * position: the 0-indexed position of this row within the list of rows
+    //    (will change as new rows are inserted / deleted)
+    // * id: the unique ID number assigned to this row, used in field name prefixes
+    //    (will remain unchanged when new rows are inserted / deleted)
+    // * positionInput: the hidden input element containing the row position
+    // * deletedInput: the hidden input element indicating whether this row is deleted
     this.rows = [];
 
     this.columnCountIncludingDeleted = 0;
+    this.rowCountIncludingDeleted = 0;
     this.prefix = prefix;
     this.childBlockDefsByName = {};
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
@@ -128,6 +135,7 @@ export class TypedTableBlock {
     this.rows = [];
     this.columnCountIncludingDeleted = 0;
     this.columnCountInput.value = 0;
+    this.rowCountIncludingDeleted = 0;
     this.rowCountInput.value = 0;
 
     // remove all hidden fields from deletedFieldsContainer
@@ -201,13 +209,14 @@ export class TypedTableBlock {
     // add new cell to each body row
     const initialCellState = this.blockDef.childBlockDefaultStates[blockDef.name];
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
+      const row = this.rows[rowIndex];
       const cells = tr.children;
       const newCellElement = document.createElement('td');
       // insertBefore is correct even for the last column, because each row
       // has an extra final cell to contain the 'delete row' button
       tr.insertBefore(newCellElement, cells[index]);
-      const newCellBlock = this.initCell(newCellElement, column, rowIndex, initialCellState);
-      this.rows[rowIndex].blocks.splice(index, 0, newCellBlock);
+      const newCellBlock = this.initCell(newCellElement, column, row, initialCellState);
+      row.blocks.splice(index, 0, newCellBlock);
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
@@ -245,14 +254,16 @@ export class TypedTableBlock {
   }
 
   addRow(initialStates) {
-    const newRowElement = document.createElement('tr');
-    const newRow = {
-      blocks: []
+    const rowElement = document.createElement('tr');
+    const row = {
+      blocks: [],
+      position: this.rows.length,
+      id: this.rowCountIncludingDeleted,
     };
-    const rowIndex = this.rows.length;
-    this.tbody.appendChild(newRowElement);
-    this.rows.push(newRow);
-    this.rowCountInput.value = this.rows.length;
+    this.tbody.appendChild(rowElement);
+    this.rows.push(row);
+    this.rowCountIncludingDeleted++;
+    this.rowCountInput.value = this.rowCountIncludingDeleted;
     this.columns.forEach((column, i) => {
       let initialState;
       if (initialStates) {
@@ -262,18 +273,31 @@ export class TypedTableBlock {
         initialState = this.blockDef.childBlockDefaultStates[column.blockDef.name];
       }
       const newCell = document.createElement('td');
-      newRowElement.appendChild(newCell);
-      newRow.blocks[i] = this.initCell(newCell, column, rowIndex, initialState);
+      rowElement.appendChild(newCell);
+      row.blocks[i] = this.initCell(newCell, column, row, initialState);
     });
     // add an extra cell to contain the 'remove row' button
     const controlCell = document.createElement('td');
-    newRowElement.appendChild(controlCell);
-    return newRow;
+    rowElement.appendChild(controlCell);
+
+    row.positionInput = document.createElement('input');
+    row.positionInput.type = 'hidden';
+    row.positionInput.name = this.prefix + '-row-' + row.id + '-order';
+    row.positionInput.value = row.position;
+    controlCell.appendChild(row.positionInput);
+
+    row.deletedInput = document.createElement('input');
+    row.deletedInput.type = 'hidden';
+    row.deletedInput.name = this.prefix + '-row-' + row.id + '-deleted';
+    row.deletedInput.value = '';
+    this.deletedFieldsContainer.appendChild(row.deletedInput);
+
+    return row;
   }
-  initCell(cell, column, rowIndex, initialState) {
+  initCell(cell, column, row, initialState) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
-    const cellPrefix = this.prefix + '-cell-' + rowIndex + '-' + column.id;
+    const cellPrefix = this.prefix + '-cell-' + row.id + '-' + column.id;
     return column.blockDef.render(placeholder, cellPrefix, initialState, null);
   }
 

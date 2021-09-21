@@ -37,14 +37,20 @@ class BaseTypedTableBlock(Block):
 
         row_count = int(data['%s-row-count' % prefix])
         rows = [
-            {'values': [
-                col['block'].value_from_datadict(
-                    data, files, '%s-cell-%d-%d' % (prefix, row_index, col['id'])
-                )
-                for col in columns
-            ]}
+            {
+                'id': row_index,
+                'order': int(data['%s-row-%d-order' % (prefix, row_index)]),
+                'values': [
+                    col['block'].value_from_datadict(
+                        data, files, '%s-cell-%d-%d' % (prefix, row_index, col['id'])
+                    )
+                    for col in columns
+                ],
+            }
             for row_index in range(0, row_count)
+            if not data['%s-row-%d-deleted' % (prefix, row_index)]
         ]
+        rows.sort(key=lambda row: row['order'])
 
         return {
             'columns': [
@@ -54,7 +60,10 @@ class BaseTypedTableBlock(Block):
                 }
                 for col in columns
             ],
-            'rows': rows,
+            'rows': [
+                {'values': row['values']}
+                for row in rows
+            ],
         }
 
     def get_prep_value(self, value):
