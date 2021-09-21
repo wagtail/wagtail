@@ -170,6 +170,14 @@ export class TypedTableBlock {
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
     newHeaderCell.appendChild(column.headingInput);
 
+    const prependColumnButton = $('<button type="button" title="Insert column before this one">+</button>');
+    $(newCell).append(prependColumnButton);
+    prependColumnButton.on('click', () => {
+      this.toggleAddColumnMenu(prependColumnButton, (blockDef) => {
+        this.insertColumn(column.position, blockDef, {addInitialRow: true});
+      });
+    })
+
     const deleteColumnButton = $('<button type="button" title="Delete column">x</button>');
     $(newCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
