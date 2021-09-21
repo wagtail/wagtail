@@ -7,8 +7,23 @@ export class TypedTableBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
-    this.columns = [];  // list of column definition objects
-    this.rows = [];  // list of lists of block instances
+
+    // list of column definition objects, each consisting of fields:
+    // * blockDef: the block definition object
+    // * position: the 0-indexed position of this column within the list of columns
+    //    (will change as new columns are inserted / deleted)
+    // * id: the unique ID number assigned to this row, used in field name prefixes
+    //    (will remain unchanged when new columns are inserted / deleted)
+    // * typeInput: the hidden input element containing the block type
+    // * positionInput: the hidden input element containing the column position
+    // * deletedInput: the hidden input element indicating whether this column is deleted
+    // * headingInput: the text input element for the column header
+    this.columns = [];
+
+    // list of row definition objects, each consisting of fields:
+    // * blocks: list of block instances making up this row
+    this.rows = [];
+
     this.columnCountIncludingDeleted = 0;
     this.prefix = prefix;
     this.childBlockDefsByName = {};
@@ -192,7 +207,7 @@ export class TypedTableBlock {
       // has an extra final cell to contain the 'delete row' button
       tr.insertBefore(newCellElement, cells[index]);
       const newCellBlock = this.initCell(newCellElement, column, rowIndex, initialCellState);
-      this.rows[rowIndex].splice(index, 0, newCellBlock);
+      this.rows[rowIndex].blocks.splice(index, 0, newCellBlock);
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
@@ -214,7 +229,7 @@ export class TypedTableBlock {
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
       tr.removeChild(cells[index]);
-      this.rows[rowIndex].splice(index, 1);
+      this.rows[rowIndex].blocks.splice(index, 1);
     });
     this.columns.splice(index, 1);
 
@@ -231,7 +246,9 @@ export class TypedTableBlock {
 
   addRow(initialStates) {
     const newRowElement = document.createElement('tr');
-    const newRow = [];
+    const newRow = {
+      blocks: []
+    };
     const rowIndex = this.rows.length;
     this.tbody.appendChild(newRowElement);
     this.rows.push(newRow);
@@ -246,7 +263,7 @@ export class TypedTableBlock {
       }
       const newCell = document.createElement('td');
       newRowElement.appendChild(newCell);
-      newRow[i] = this.initCell(newCell, column, rowIndex, initialState);
+      newRow.blocks[i] = this.initCell(newCell, column, rowIndex, initialState);
     });
     // add an extra cell to contain the 'remove row' button
     const controlCell = document.createElement('td');
@@ -287,7 +304,7 @@ export class TypedTableBlock {
         { type: column.blockDef.name, heading: column.headingInput.value }
       )),
       rows: this.rows.map(row => (
-        { values: row.map(block => block.getState()) }
+        { values: row.blocks.map(block => block.getState()) }
       )),
     };
     return state;
@@ -299,7 +316,7 @@ export class TypedTableBlock {
         { type: column.blockDef.name, heading: column.headingInput.value }
       )),
       rows: this.rows.map(row => (
-        { values: row.map(block => block.getValue()) }
+        { values: row.blocks.map(block => block.getValue()) }
       )),
     };
     return value;
