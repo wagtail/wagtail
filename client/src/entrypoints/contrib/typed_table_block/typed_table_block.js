@@ -134,7 +134,6 @@ export class TypedTableBlock {
       id: this.columnCountIncludingDeleted,
     };
     this.columnCountIncludingDeleted++;
-    const isLastColumn = (index === this.columns.length);
     // increase positions of columns after this one
     for (let i = index; i < this.columns.length; i++) {
       this.columns[i].position++;
@@ -171,15 +170,15 @@ export class TypedTableBlock {
     newHeaderCell.appendChild(column.headingInput);
 
     const prependColumnButton = $('<button type="button" title="Insert column before this one">+</button>');
-    $(newCell).append(prependColumnButton);
+    $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
-      this.toggleAddColumnMenu(prependColumnButton, (blockDef) => {
-        this.insertColumn(column.position, blockDef, {addInitialRow: true});
+      this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
+        this.insertColumn(column.position, chosenBlockDef, { addInitialRow: true });
       });
-    })
+    });
 
     const deleteColumnButton = $('<button type="button" title="Delete column">x</button>');
-    $(newCell).append(deleteColumnButton);
+    $(newHeaderCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
       this.deleteColumn(column.position);
     });
@@ -189,11 +188,9 @@ export class TypedTableBlock {
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
       const newCellElement = document.createElement('td');
-      if (isLastColumn) {
-        tr.appendChild(newCellElement);
-      } else {
-        tr.insertBefore(newCellElement, cells[index]);
-      }
+      // insertBefore is correct even for the last column, because each row
+      // has an extra final cell to contain the 'delete row' button
+      tr.insertBefore(newCellElement, cells[index]);
       const newCellBlock = this.initCell(newCellElement, column, rowIndex, initialCellState);
       this.rows[rowIndex].splice(index, 0, newCellBlock);
     });
@@ -212,8 +209,8 @@ export class TypedTableBlock {
     const column = this.columns[index];
     column.deletedInput.value = '1';
     const headerRow = this.thead.children[0];
-    const cells = headerRow.children;
-    headerRow.removeChild(cells[index]);
+    const headerCells = headerRow.children;
+    headerRow.removeChild(headerCells[index]);
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
       tr.removeChild(cells[index]);
@@ -251,6 +248,9 @@ export class TypedTableBlock {
       newRowElement.appendChild(newCell);
       newRow[i] = this.initCell(newCell, column, rowIndex, initialState);
     });
+    // add an extra cell to contain the 'remove row' button
+    const controlCell = document.createElement('td');
+    newRowElement.appendChild(controlCell);
     return newRow;
   }
   initCell(cell, column, rowIndex, initialState) {
