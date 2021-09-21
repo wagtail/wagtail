@@ -286,6 +286,12 @@ export class TypedTableBlock {
     row.positionInput.value = row.position;
     controlCell.appendChild(row.positionInput);
 
+    const deleteRowButton = $('<button type="button" title="Delete row">x</button>');
+    $(controlCell).append(deleteRowButton);
+    deleteRowButton.on('click', () => {
+      this.deleteRow(row.position);
+    });
+
     row.deletedInput = document.createElement('input');
     row.deletedInput.type = 'hidden';
     row.deletedInput.name = this.prefix + '-row-' + row.id + '-deleted';
@@ -294,6 +300,21 @@ export class TypedTableBlock {
 
     return row;
   }
+
+  deleteRow(index) {
+    const row = this.rows[index];
+    row.deletedInput.value = '1';
+    const rowElement = this.tbody.children[index];
+    this.tbody.removeChild(rowElement);
+    this.rows.splice(index, 1);
+
+    // reduce position values of remaining rows after this one
+    for (let i = index; i < this.rows.length; i++) {
+      this.rows[i].position--;
+      this.rows[i].positionInput.value = this.rows[i].position;
+    }
+  }
+
   initCell(cell, column, row, initialState) {
     const placeholder = document.createElement('div');
     cell.appendChild(placeholder);
