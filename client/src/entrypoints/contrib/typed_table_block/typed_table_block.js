@@ -170,6 +170,12 @@ export class TypedTableBlock {
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
     newHeaderCell.appendChild(column.headingInput);
 
+    const deleteColumnButton = $('<button type="button" title="Delete column">x</button>');
+    $(newCell).append(deleteColumnButton);
+    deleteColumnButton.on('click', () => {
+      this.deleteColumn(column.position);
+    });
+
     // add new cell to each body row
     const initialCellState = this.blockDef.childBlockDefaultStates[blockDef.name];
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
@@ -193,6 +199,31 @@ export class TypedTableBlock {
     }
     return column;
   }
+
+  deleteColumn(index) {
+    const column = this.columns[index];
+    column.deletedInput.value = '1';
+    const headerRow = this.thead.children[0];
+    const cells = headerRow.children;
+    headerRow.removeChild(cells[index]);
+    Array.from(this.tbody.children).forEach((tr, rowIndex) => {
+      const cells = tr.children;
+      tr.removeChild(cells[index]);
+      this.rows[rowIndex].splice(index, 1);
+    });
+    this.columns.splice(index, 1);
+
+    // reduce position values of remaining columns after this one
+    for (let i = index; i < this.columns.length; i++) {
+      this.columns[i].position--;
+      this.columns[i].positionInput.value = this.columns[i].position;
+    }
+
+    if (this.columns.length === 0) {
+      this.addRowButton.hide();
+    }
+  }
+
   addRow(initialStates) {
     const newRowElement = document.createElement('tr');
     const newRow = [];
