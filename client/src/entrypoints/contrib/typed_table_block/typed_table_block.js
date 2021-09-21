@@ -9,7 +9,7 @@ export class TypedTableBlock {
     this.type = blockDef.name;
     this.columns = [];  // list of column definition objects
     this.rows = [];  // list of lists of block instances
-    this.columnIdIndex = 0;
+    this.columnCountIncludingDeleted = 0;
     this.prefix = prefix;
     this.childBlockDefsByName = {};
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
@@ -20,6 +20,7 @@ export class TypedTableBlock {
       <div class="typed-table-block ${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(prefix)}-column-count" data-column-count value="0">
         <input type="hidden" name="${h(prefix)}-row-count" data-row-count value="0">
+        <div data-deleted-fields></div>
         <table>
           <thead>
             <tr><th><button type="button" data-append-column>Add columns</button></th></tr>
@@ -33,8 +34,20 @@ export class TypedTableBlock {
     $(placeholder).replaceWith(dom);
     this.thead = dom.find('table > thead').get(0);
     this.tbody = dom.find('table > tbody').get(0);
+
+    // Hidden field holding the number of columns, including deleted ones.
+    // The server-side code will use this to find out the range of column indexes to
+    // iterate over.
     this.columnCountInput = dom.find('input[data-column-count]').get(0);
+    // Hidden field holding the number of rows, including deleted ones
     this.rowCountInput = dom.find('input[data-row-count]').get(0);
+
+    // Container for the hidden fields that indicate whether a column of a given index
+    // has been deleted. A deleted column is removed from the DOM, but we need this field
+    // to persist (so that we know it's been deleted...) - so we can't store it in the
+    // table as we do for the other metadata fields (type and position).
+    this.deletedFieldsContainer = dom.find('[data-deleted-fields]').get(0);
+
     this.appendColumnButton = dom.find('button[data-append-column]');
     this.addRowButton = dom.find('button[data-add-row]');
     this.addRowButton.hide();
@@ -98,13 +111,18 @@ export class TypedTableBlock {
     // reset to initial empty state with no rows or columns
     this.columns = [];
     this.rows = [];
-    this.columnIdIndex = 0;
+    this.columnCountIncludingDeleted = 0;
     this.columnCountInput.value = 0;
     this.rowCountInput.value = 0;
+
+    // remove all hidden fields from deletedFieldsContainer
+    this.deletedFieldsContainer.replaceChildren();
+
     const headerRow = this.thead.children[0];
     // delete all header cells except for the final one containing the 'append column' button
     headerRow.replaceChildren(headerRow.lastElementChild);
     this.appendColumnButton.text('Add columns');
+
     // delete all body rows
     this.tbody.replaceChildren();
     this.addRowButton.hide();
@@ -113,9 +131,9 @@ export class TypedTableBlock {
     const column = {
       blockDef,
       position: index,
-      id: this.columnIdIndex,
+      id: this.columnCountIncludingDeleted,
     };
-    this.columnIdIndex++;
+    this.columnCountIncludingDeleted++;
     const isLastColumn = (index === this.columns.length);
     // increase positions of columns after this one
     for (let i = index; i < this.columns.length; i++) {
@@ -142,6 +160,11 @@ export class TypedTableBlock {
     column.positionInput.name = this.prefix + '-column-' + column.id + '-order';
     column.positionInput.value = index;
     newHeaderCell.appendChild(column.positionInput);
+    column.deletedInput = document.createElement('input');
+    column.deletedInput.type = 'hidden';
+    column.deletedInput.name = this.prefix + '-column-' + column.id + '-deleted';
+    column.deletedInput.value = '';
+    this.deletedFieldsContainer.appendChild(column.deletedInput);
 
     column.headingInput = document.createElement('input');
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
