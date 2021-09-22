@@ -57,6 +57,7 @@ def format_permissions(permission_bound_field):
         }
 
     object_perms = []
+    other_perms_exist = False
 
     for content_type_id in content_type_ids:
         content_perms = permissions.filter(content_type_id=content_type_id)
@@ -73,6 +74,7 @@ def format_permissions(permission_bound_field):
                     'perm': perm, 'checkbox': checkbox,
                 }
             else:
+                other_perms_exist = True
                 other_perms.append({'perm': perm,
                                     'name': re.sub(f"{perm.content_type.name}$", "", perm.name, flags=re.I).strip(),
                                     'selected': checkbox.data['selected']})
@@ -81,6 +83,7 @@ def format_permissions(permission_bound_field):
         object_perms.append(content_perms_dict)
     return {
         'object_perms': object_perms,
+        'other_perms_exist': other_perms_exist
     }
 
 

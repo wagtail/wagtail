@@ -8,14 +8,18 @@
         <col width="15%" />
         <col width="15%" />
         <col width="15%" />
+        {% if other_perms_exist %}
         <col width="30%" />
+        {% endif %}
         <thead>
             <tr>
                 <th>{% trans "Name" %}</th>
                 <th>{% trans "Add" %}</th>
                 <th>{% trans "Change" %}</th>
                 <th>{% trans "Delete" %}</th>
+                {% if other_perms_exist %}
                 <th>{% trans "Other permissions" %}</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -40,15 +44,21 @@
                         {{ content_perms_dict.delete.checkbox.tag }}
                     {% endif %}
                 </td>
+                {% if other_perms_exist %}
                 <td>
                     {% if content_perms_dict.other %}
-                    <select name="permissions" multiple>
+                    <fieldset class="other-permissions">
+                        <legend>{% trans "Other permissions" %}</legend>
                         {% for other_perm in content_perms_dict.other %}
-                        <option value="{{ other_perm.perm.id }}" {% if other_perm.selected %}selected{% endif %}>{% trans other_perm.name %}</option>
+                        <label class="other-permissions-item">
+                            <input type="checkbox" name="permissions" value="{{ other_perm.perm.id }}" {% if other_perm.selected %}checked{% endif %}>
+                            {{ other_perm.name }}
+                        </label>
                         {% endfor %}
-                    </select>
+                    </fieldset>
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
