@@ -22,6 +22,7 @@ def format_permissions(permission_bound_field):
                 'add': checkbox
                 'change': checkbox
                 'delete': checkbox
+                'custom': list_of_checkboxes_for_custom_permissions
             },
         ]
 
@@ -57,12 +58,19 @@ def format_permissions(permission_bound_field):
         }
 
     object_perms = []
-    other_perms_exist = False
+    other_perms = []
+    custom_perms_exist = False
 
     for content_type_id in content_type_ids:
         content_perms = permissions.filter(content_type_id=content_type_id)
         content_perms_dict = {}
-        other_perms = []
+        custom_perms = []
+
+        if content_perms[0].content_type.name == "admin":
+            perm = content_perms[0]
+            other_perms.append((perm, checkboxes_by_id[perm.id]))
+            continue
+
         for perm in content_perms:
             content_perms_dict['object'] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
@@ -74,16 +82,17 @@ def format_permissions(permission_bound_field):
                     'perm': perm, 'checkbox': checkbox,
                 }
             else:
-                other_perms_exist = True
-                other_perms.append({'perm': perm,
-                                    'name': re.sub(f"{perm.content_type.name}$", "", perm.name, flags=re.I).strip(),
-                                    'selected': checkbox.data['selected']})
+                custom_perms_exist = True
+                custom_perms.append({'perm': perm,
+                                     'name': re.sub(f"{perm.content_type.name}$", "", perm.name, flags=re.I).strip(),
+                                     'selected': checkbox.data['selected']})
 
-        content_perms_dict['other'] = other_perms
+        content_perms_dict['custom'] = custom_perms
         object_perms.append(content_perms_dict)
     return {
         'object_perms': object_perms,
-        'other_perms_exist': other_perms_exist
+        'other_perms': other_perms,
+        'custom_perms_exist': custom_perms_exist
     }
 
 
