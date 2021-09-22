@@ -106,7 +106,7 @@ export class TypedTableBlock {
     });
 
     this.addRowButton.on('click', () => {
-      this.addRow();
+      this.insertRow(this.rows.length);
     });
 
     this.setState(initialState);
@@ -224,7 +224,7 @@ export class TypedTableBlock {
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
       /* add an initial row */
-      this.addRow();
+      this.insertRow(0);
     }
     return column;
   }
@@ -253,15 +253,20 @@ export class TypedTableBlock {
     }
   }
 
-  addRow(initialStates) {
+  insertRow(index, initialStates) {
     const rowElement = document.createElement('tr');
     const row = {
       blocks: [],
-      position: this.rows.length,
+      position: index,
       id: this.rowCountIncludingDeleted,
     };
-    this.tbody.appendChild(rowElement);
-    this.rows.push(row);
+    if (index < this.rows.length) {
+      const followingRowElement = this.tbody.children[index];
+      this.tbody.insertBefore(rowElement, followingRowElement);
+    } else {
+      this.tbody.appendChild(rowElement);
+    }
+    this.rows.splice(index, 0, row);
     this.rowCountIncludingDeleted++;
     this.rowCountInput.value = this.rowCountIncludingDeleted;
     this.columns.forEach((column, i) => {
@@ -286,6 +291,12 @@ export class TypedTableBlock {
     row.positionInput.value = row.position;
     controlCell.appendChild(row.positionInput);
 
+    const prependRowButton = $('<button type="button" title="Insert row above this one">+</button>');
+    $(controlCell).append(prependRowButton);
+    prependRowButton.on('click', () => {
+      this.insertRow(row.position);
+    });
+
     const deleteRowButton = $('<button type="button" title="Delete row">x</button>');
     $(controlCell).append(deleteRowButton);
     deleteRowButton.on('click', () => {
@@ -297,6 +308,12 @@ export class TypedTableBlock {
     row.deletedInput.name = this.prefix + '-row-' + row.id + '-deleted';
     row.deletedInput.value = '';
     this.deletedFieldsContainer.appendChild(row.deletedInput);
+
+    // increment positions of subsequent rows
+    for (let i = index + 1; i < this.rows.length; i++) {
+      this.rows[i].position++;
+      this.rows[i].positionInput.value = this.rows[i].position;
+    }
 
     return row;
   }
@@ -330,8 +347,8 @@ export class TypedTableBlock {
         const column = this.insertColumn(index, blockDef);
         column.headingInput.value = columnData.heading;
       });
-      state.rows.forEach(row => {
-        this.addRow(row.values);
+      state.rows.forEach((row, index) => {
+        this.insertRow(index, row.values);
       });
     }
   }
