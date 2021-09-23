@@ -24,6 +24,7 @@ Changelog
  * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
  * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Added `ExcelDateFormatter` to `wagtail.admin.views.mixins` so that dates in Excel exports will appear in the locale's `SHORT_DATETIME_FORMAT` (Andrew Stone)
+ * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
