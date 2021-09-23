@@ -7,7 +7,8 @@
                 editable: null
             },
             populateToolbar: function(toolbar) {
-                var button, widget;
+                var button;
+                var widget;
 
                 widget = this;
                 button = $('<span class="' + this.widgetName + '"></span>');
@@ -20,7 +21,8 @@
                 });
                 toolbar.append(button);
                 return button.on('click', function(event) {
-                    var insertionPoint, lastSelection;
+                    var insertionPoint;
+                    var lastSelection;
 
                     lastSelection = widget.options.editable.getSelection();
                     insertionPoint = $(lastSelection.endContainer).parentsUntil('[data-hallo-editor]').last();
@@ -44,6 +46,5 @@
                 });
             }
         });
-    })(jQuery);
-
+    }(jQuery));
 }).call(this);

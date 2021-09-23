@@ -21,7 +21,7 @@
 
                     // file widget value example: `C:\fakepath\image.jpg` - convert to just the filename part
                     var filename = $(this).val().split('\\').slice(-1)[0];
-                    var data = { title: filename.replace(/\.[^\.]+$/, '') };
+                    var data = { title: filename.replace(/\.[^.]+$/, '') };
                     var maxTitleLength = parseInt($titleField.attr('maxLength') || '0', 10) || null;
 
                     // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling

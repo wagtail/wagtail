@@ -2,11 +2,15 @@ function ajaxifyImageUploadForm(modal) {
     $('form.image-upload', modal.body).on('submit', function() {
         var formdata = new FormData(this);
 
-        if ($('#id_image-chooser-upload-title', modal.body).val() == '') {
+        if (!$('#id_image-chooser-upload-title', modal.body).val()) {
             var li = $('#id_image-chooser-upload-title', modal.body).closest('li');
             if (!li.hasClass('error')) {
                 li.addClass('error');
-                $('#id_image-chooser-upload-title', modal.body).closest('.field-content').append('<p class="error-message"><span>This field is required.</span></p>')
+                $('#id_image-chooser-upload-title', modal.body)
+                  .closest('.field-content')
+                  .append(
+                    '<p class="error-message"><span>This field is required.</span></p>'
+                  );
             }
             setTimeout(cancelSpinner, 500);
         } else {
@@ -19,10 +23,10 @@ function ajaxifyImageUploadForm(modal) {
                 dataType: 'text',
                 success: modal.loadResponseText,
                 error: function(response, textStatus, errorThrown) {
-                    var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                    var message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
                     $('#upload').append(
                         '<div class="help-block help-critical">' +
-                        '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
+                        '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
                 }
             });
         }
@@ -42,14 +46,21 @@ function ajaxifyImageUploadForm(modal) {
 
             // allow event handler to override filename (used for title) & provide maxLength as int to event
             var maxTitleLength = parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-            var data = { title: filename.replace(/\.[^\.]+$/, '') };
+            var data = { title: filename.replace(/\.[^.]+$/, '') };
 
             // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
             var form = fileWidget.closest('form').get(0);
-            var event = form.dispatchEvent(new CustomEvent(
-                'wagtail:images-upload',
-                { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
-            ));
+            var event = form.dispatchEvent(
+              new CustomEvent('wagtail:images-upload', {
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                  data: data,
+                  filename: filename,
+                  maxTitleLength: maxTitleLength,
+                },
+              })
+            );
 
             if (!event) return; // do not set a title if event.preventDefault(); is called by handler
 
@@ -87,7 +98,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 error: function() {
                     request = null;
                 }
-            }
+            };
             if (requestData) {
                 opts.data = requestData;
             }
@@ -123,7 +134,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         });
     },
     'image_chosen': function(modal, jsonData) {
-        modal.respond('imageChosen', jsonData['result']);
+        modal.respond('imageChosen', jsonData.result);
         modal.close();
     },
     'reshow_upload_form': function(modal, jsonData) {
@@ -131,7 +142,6 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         ajaxifyImageUploadForm(modal);
     },
     'select_format': function(modal) {
-
         var decorativeImage = document.querySelector('#id_image-chooser-insertion-image_is_decorative');
         var altText = document.querySelector('#id_image-chooser-insertion-alt_text');
         var altTextLabel = document.querySelector('[for="id_image-chooser-insertion-alt_text"]');
@@ -142,7 +152,7 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             enableAltText();
         }
 
-        decorativeImage.addEventListener('change', function(event){
+        decorativeImage.addEventListener('change', function(event) {
             if (event.target.checked) {
                 disableAltText();
             } else {
