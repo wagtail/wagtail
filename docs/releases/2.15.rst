@@ -53,6 +53,7 @@ Other features
  * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
  * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
+ * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
 
 Bug fixes
 ~~~~~~~~~
