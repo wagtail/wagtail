@@ -1,4 +1,5 @@
 from django import forms
+from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
@@ -7,6 +8,8 @@ from wagtail.core.telepath import Adapter, register
 
 
 class TypedTable:
+    template = 'typed_table_block/typed_table_block.html'
+
     def __init__(self, columns, row_data):
         # a list of dicts, each with items 'block' (the block instance) and 'heading'
         self.columns = columns
@@ -24,6 +27,17 @@ class TypedTable:
                 column['block'].bind(value)
                 for column, value in zip(self.columns, row['values'])
             ]
+
+    def get_context(self, parent_context=None):
+        context = parent_context or {}
+        context.update({
+            'self': self,
+            'value': self,
+        })
+        return context
+
+    def render_as_block(self, context=None):
+        return render_to_string(self.template, self.get_context(context))
 
 
 class BaseTypedTableBlock(Block):
@@ -184,6 +198,12 @@ class BaseTypedTableBlock(Block):
             errors.extend(child_block._check_name(**kwargs))
 
         return errors
+
+    def render_basic(self, value, context=None):
+        if value:
+            return value.render_as_block(context)
+        else:
+            return ''
 
     class Meta:
         default = None
