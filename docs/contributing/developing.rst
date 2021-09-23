@@ -183,7 +183,6 @@ Browser        Device/OS      Version(s)
 Mobile Safari  iOS Phone      Last 2
 Mobile Safari  iOS Tablet     Last 2
 Chrome         Android        Last 2
-IE             Desktop        11
 Chrome         Desktop        Last 2
 MS Edge        Desktop        Last 2
 Firefox        Desktop        Latest
@@ -191,9 +190,9 @@ Firefox ESR    Desktop        Latest
 Safari         macOS          Last 2
 =============  =============  =============
 
-We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**. To test on IE, install virtual machines `made available by Microsoft <https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/>`_.
+We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
 
-IE 11 is gradually falling out of use, and specific features are unsupported in this browser:
+IE 11 support has been officially dropped in 2.15 as it is gradually falling out of use. Features already known not to work include:
 
 * Rich text copy-paste in the rich text editor.
 * Sticky toolbar in the rich text editor.
@@ -206,7 +205,7 @@ IE 11 is gradually falling out of use, and specific features are unsupported in 
 Browser        Device/OS      Version(s)
 =============  =============  =============
 Stock browser  Android        All
-IE             Desktop        10 and below
+IE             Desktop        All
 Safari         Windows        All
 =============  =============  =============
 
