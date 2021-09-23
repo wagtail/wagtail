@@ -539,6 +539,7 @@ Contributors
 * Krzysztof Jeziorny
 * Nick Moreton
 * Bryan Williams
+* Wout De Puysseleir
 
 Translators
 ===========
