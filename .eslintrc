@@ -39,6 +39,58 @@
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-var-requires": "off"
       }
+    },
+    {
+      "files": ["docs/_static/**"],
+      "globals": { "$": "readonly" }
+    },
+    {
+      "globals": {
+        "$": "readonly",
+        "addMessage": "readonly",
+        "buildExpandingFormset": "readonly",
+        "cancelSpinner": "readonly",
+        "escapeHtml": "readonly",
+        "insertRichTextDeleteControl": "readonly",
+        "jQuery": "readonly",
+        "jsonData": "readonly",
+        "ModalWorkflow": "readonly",
+        "DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable"
+      },
+      "files": ["wagtail/**/**"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "camelcase": [
+          "error",
+          {
+            "allow": [
+              "__unused_webpack_module",
+              "__webpack_modules__",
+              "__webpack_require__"
+            ],
+            "properties": "never"
+          }
+        ],
+        "consistent-return": "off",
+        "func-names": "off",
+        "id-length": "off",
+        "indent": "off",
+        "key-spacing": "off",
+        "new-cap": "off",
+        "newline-per-chained-call": "off",
+        "no-param-reassign": "off",
+        "no-underscore-dangle": "off",
+        "object-shorthand": "off",
+        "prefer-arrow-callback": "off",
+        "quote-props": "off",
+        "space-before-function-paren": "off",
+        "vars-on-top": "off"
+      }
     }
   ]
 }
