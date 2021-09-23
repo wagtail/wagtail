@@ -106,6 +106,7 @@
             simple_upload_url: "{% url 'wagtailimages:add' %}",
             accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
             max_file_size: {{ max_filesize|stringformat:"s"|default:"null" }}, //numeric format
+            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
             errormessages: {
                 max_file_size: "{{ error_max_file_size|escapejs }}",
                 accepted_file_types: "{{ error_accepted_file_types|escapejs }}"
