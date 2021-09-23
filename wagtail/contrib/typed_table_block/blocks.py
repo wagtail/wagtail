@@ -6,6 +6,26 @@ from wagtail.core.blocks.base import Block, DeclarativeSubBlocksMetaclass, get_h
 from wagtail.core.telepath import Adapter, register
 
 
+class TypedTable:
+    def __init__(self, columns, row_data):
+        # a list of dicts, each with items 'block' (the block instance) and 'heading'
+        self.columns = columns
+
+        # a list of dicts, each with an item 'values' (the list of block values)
+        self.row_data = row_data
+
+    @property
+    def rows(self):
+        """
+        Iterate over the rows of the table, with each row returned as a list of BoundBlocks
+        """
+        for row in self.row_data:
+            yield [
+                column['block'].bind(value)
+                for column, value in zip(self.columns, row['values'])
+            ]
+
+
 class BaseTypedTableBlock(Block):
     def __init__(self, local_blocks=None, **kwargs):
         self._constructor_kwargs = kwargs
@@ -52,35 +72,32 @@ class BaseTypedTableBlock(Block):
         ]
         rows.sort(key=lambda row: row['order'])
 
-        return {
-            'columns': [
-                {
-                    'block': col['block'],
-                    'heading': col['heading']
-                }
+        return TypedTable(
+            columns=[
+                {'block': col['block'], 'heading': col['heading']}
                 for col in columns
             ],
-            'rows': [
+            row_data=[
                 {'values': row['values']}
                 for row in rows
             ],
-        }
+        )
 
     def get_prep_value(self, table):
         if table:
             return {
                 'columns': [
                     {'type': col['block'].name, 'heading': col['heading']}
-                    for col in table['columns']
+                    for col in table.columns
                 ],
                 'rows': [
                     {
                         'values': [
                             column['block'].get_prep_value(val)
-                            for column, val in zip(table['columns'], row['values'])
+                            for column, val in zip(table.columns, row['values'])
                         ]
                     }
-                    for row in table['rows']
+                    for row in table.row_data
                 ]
             }
         else:
@@ -105,9 +122,9 @@ class BaseTypedTableBlock(Block):
                 ])
                 for column_index, col in enumerate(columns)
             ]
-            return {
-                'columns': columns,
-                'rows': [
+            return TypedTable(
+                columns=columns,
+                row_data=[
                     {
                         'values': [
                             column_data[row_index]
@@ -116,28 +133,28 @@ class BaseTypedTableBlock(Block):
                     }
                     for row_index in range(0, len(value['rows']))
                 ]
-            }
+            )
         else:
-            return {
-                'columns': [],
-                'rows': [],
-            }
+            return TypedTable(
+                columns=[],
+                row_data=[],
+            )
 
     def get_form_state(self, table):
         if table:
             return {
                 'columns': [
                     {'type': col['block'].name, 'heading': col['heading']}
-                    for col in table['columns']
+                    for col in table.columns
                 ],
                 'rows': [
                     {
                         'values': [
                             column['block'].get_form_state(val)
-                            for column, val in zip(table['columns'], row['values'])
+                            for column, val in zip(table.columns, row['values'])
                         ]
                     }
-                    for row in table['rows']
+                    for row in table.row_data
                 ]
             }
         else:
