@@ -27,8 +27,8 @@ $(function() {
         add: function(e, data) {
             $('.messages').empty();
             var $this = $(this);
-            var that = $this.data('blueimp-fileupload') || $this.data('fileupload')
-            var li = $($('#upload-list-item').html()).addClass('upload-uploading')
+            var that = $this.data('blueimp-fileupload') || $this.data('fileupload');
+            var li = $($('#upload-list-item').html()).addClass('upload-uploading');
             var options = that.options;
 
             $('#upload-list').append(li);
@@ -43,16 +43,15 @@ $(function() {
                 });
 
                 data.context.find('.preview .thumb').each(function(index, elm) {
-                    $(elm).addClass('hasthumb')
+                    $(elm).addClass('hasthumb');
                     $(elm).append(data.files[index].preview);
                 });
-
             }).done(function() {
                 data.context.find('.start').prop('disabled', false);
                 if ((that._trigger('added', e, data) !== false) &&
                         (options.autoUpload || data.autoUpload) &&
                         data.autoUpload !== false) {
-                    data.submit()
+                    data.submit();
                 }
             }).fail(function() {
                 if (data.files.error) {
@@ -105,7 +104,7 @@ $(function() {
          * @example
          * document.addEventListener('wagtail:images-upload', function(event) {
          *   // remove file extension
-         *   var newTitle = (event.detail.data.title || '').replace(/\.[^\.]+$/, "");
+         *   var newTitle = (event.detail.data.title || '').replace(/\.[^.]+$/, '');
          *   event.detail.data.title = newTitle;
          * });
          *
@@ -114,13 +113,22 @@ $(function() {
          */
         formData: function(form) {
             var filename = this.files[0].name;
-            var data = { title: filename.replace(/\.[^\.]+$/, '') };
+            var data = { title: filename.replace(/\.[^.]+$/, '') };
             var maxTitleLength = window.fileupload_opts.max_title_length;
 
-            var event = form.get(0).dispatchEvent(new CustomEvent(
-                'wagtail:images-upload',
-                { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
-            ));
+            var event = form
+              .get(0)
+              .dispatchEvent(
+                new CustomEvent('wagtail:images-upload', {
+                  bubbles: true,
+                  cancelable: true,
+                  detail: {
+                    data: data,
+                    filename: filename,
+                    maxTitleLength: maxTitleLength,
+                  },
+                })
+              );
 
             // default behaviour (title is just file name)
             return event ? form.serializeArray().concat({ name:'title', value: data.title }) : form.serializeArray();
@@ -131,14 +139,13 @@ $(function() {
             var response = JSON.parse(data.result);
 
             if (response.success) {
-                itemElement.addClass('upload-success')
+                itemElement.addClass('upload-success');
 
                 $('.right', itemElement).append(response.form);
             } else {
                 itemElement.addClass('upload-failure');
                 $('.right .error_messages', itemElement).append(response.error_message);
             }
-
         },
 
         fail: function(e, data) {
@@ -167,7 +174,7 @@ $(function() {
             if (data.success) {
                 var statusText = $('.status-msg.update-success').text();
                 addMessage('success', statusText);
-                itemElement.slideUp(function() {$(this).remove()});
+                itemElement.slideUp(function() { $(this).remove(); });
             } else {
                 form.replaceWith(data.form);
 
@@ -185,11 +192,10 @@ $(function() {
 
         var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
 
-        $.post(this.href, {csrfmiddlewaretoken: CSRFToken}, function(data) {
+        $.post(this.href, { csrfmiddlewaretoken: CSRFToken }, function(data) {
             if (data.success) {
-                itemElement.slideUp(function() {$(this).remove()});
+                itemElement.slideUp(function() { $(this).remove(); });
             }
         });
     });
-
 });

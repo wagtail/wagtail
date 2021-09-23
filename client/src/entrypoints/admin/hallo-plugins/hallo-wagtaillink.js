@@ -150,8 +150,9 @@ $.widget('IKS.hallowagtaillink', {
       }
     });
     cancelButton.on('click', () => {
-      var enclosingLink; var sel; var
-        range;
+      var enclosingLink;
+      var sel;
+      var range;
 
       enclosingLink = getEnclosingLink();
       if (enclosingLink) {

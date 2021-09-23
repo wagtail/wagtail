@@ -11,10 +11,10 @@ function ajaxifyDocumentUploadForm(modal) {
             dataType: 'text',
             success: modal.loadResponseText,
             error: function(response, textStatus, errorThrown) {
-                var message = jsonData['error_message'] + '<br />' + errorThrown + ' - ' + response.status;
+                var message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
                 $('#upload', modal.body).append(
                     '<div class="help-block help-critical">' +
-                    '<strong>' + jsonData['error_label'] + ': </strong>' + message + '</div>');
+                    '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
             }
         });
 
@@ -33,14 +33,21 @@ function ajaxifyDocumentUploadForm(modal) {
 
             // allow event handler to override filename (used for title) & provide maxLength as int to event
             var maxTitleLength = parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
-            var data = { title: filename.replace(/\.[^\.]+$/, '') };
+            var data = { title: filename.replace(/\.[^.]+$/, '') };
 
             // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
             var form = fileWidget.closest('form').get(0);
-            var event = form.dispatchEvent(new CustomEvent(
-                'wagtail:documents-upload',
-                { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
-            ));
+            var event = form.dispatchEvent(
+              new CustomEvent('wagtail:documents-upload', {
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                  data: data,
+                  filename: filename,
+                  maxTitleLength: maxTitleLength,
+                },
+              })
+            );
 
             if (!event) return; // do not set a title if event.preventDefault(); is called by handler
 
@@ -64,7 +71,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
             $('a.upload-one-now').on('click', function(e) {
                 // Set current collection ID at upload form tab
-                let collectionId = $('#collection_chooser_collection_id').val();
+                const collectionId = $('#collection_chooser_collection_id').val();
                 if (collectionId) {
                   $('#id_document-chooser-upload-collection').val(collectionId);
                 }
@@ -73,7 +80,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
                 $('a[href="#upload"]').tab('show');
                 e.preventDefault();
             });
-        };
+        }
 
         var searchForm = $('form.document-search', modal.body);
         var searchUrl = searchForm.attr('action');
@@ -81,14 +88,14 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function search() {
             loadResults(searchUrl, searchForm.serialize());
             return false;
-        };
+        }
 
         function loadResults(url, data) {
             var opts = {
                 url: url,
-                success: function(data, status) {
+                success: function(resultsData, status) {
                     request = null;
-                    $('#search-results').html(data);
+                    $('#search-results').html(resultsData);
                     ajaxifyLinks($('#search-results'));
                 },
                 error: function() {
@@ -118,7 +125,7 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         $('#collection_chooser_collection_id').on('change', search);
     },
     'document_chosen': function(modal, jsonData) {
-        modal.respond('documentChosen', jsonData['result']);
+        modal.respond('documentChosen', jsonData.result);
         modal.close();
     },
     'reshow_upload_form': function(modal, jsonData) {

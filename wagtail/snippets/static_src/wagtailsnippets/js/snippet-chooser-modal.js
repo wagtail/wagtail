@@ -24,15 +24,15 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function loadResults(url, data) {
             var opts = {
                 url: url,
-                success: function(data, status) {
+                success: function(resultsData, status) {
                     request = null;
-                    $('#search-results').html(data);
+                    $('#search-results').html(resultsData);
                     ajaxifyLinks($('#search-results'));
                 },
                 error: function() {
                     request = null;
                 }
-            }
+            };
             if (data) {
                 opts.data = data;
             }
@@ -54,7 +54,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         ajaxifyLinks(modal.body);
     },
     'chosen': function(modal, jsonData) {
-        modal.respond('snippetChosen', jsonData['result']);
+        modal.respond('snippetChosen', jsonData.result);
         modal.close();
     }
 };

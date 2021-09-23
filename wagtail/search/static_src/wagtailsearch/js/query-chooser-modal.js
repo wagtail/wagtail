@@ -1,11 +1,10 @@
 QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     'chooser': function(modal, jsonData) {
         function ajaxifyLinks (context) {
-
             $('.listing a.choose-query', context).on('click', chooseQuery);
 
             $('.pagination a', context).on('click', function() {
-                var page = this.getAttribute("data-page");
+                var page = this.getAttribute('data-page');
                 setPage(page);
                 return false;
             });
@@ -17,7 +16,7 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function search() {
             request = $.ajax({
                 url: searchUrl,
-                data: {q: $('#id_q').val()},
+                data: { q: $('#id_q').val() },
                 success: function(data, status) {
                     request = null;
                     $('#query-results').html(data);
@@ -32,10 +31,10 @@ QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         function setPage(page) {
             var dataObj;
 
-            if($('#id_q').val().length){
-                dataObj = {q: $('#id_q').val(), p: page};
-            }else{
-                dataObj = {p: page};
+            if ($('#id_q').val().length) {
+                dataObj = { q: $('#id_q').val(), p: page };
+            } else {
+                dataObj = { p: page };
             }
 
             request = $.ajax({

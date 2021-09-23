@@ -5,7 +5,7 @@ $(function() {
     var initial = $switcher.val();
     $switcher.on('change', function() {
         var url = $switcher.val();
-        if (url != initial) {
+        if (url !== initial) {
             window.location = url;
         }
     });

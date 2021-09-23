@@ -17,7 +17,7 @@ EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         });
     },
     'embed_chosen': function(modal, jsonData) {
-        modal.respond('embedChosen', jsonData['embed_html'], jsonData['embed_data']);
+        modal.respond('embedChosen', jsonData.embed_html, jsonData.embed_data);
         modal.close();
     }
 };
