@@ -290,7 +290,7 @@ We then create the decorator component:
         }, props.children);
     };
 
-This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript. It uses ES6 syntax – this would not work in IE11 unless it was converted back to ES5 with a build step.
+This is a straightforward React component. It does not use JSX since we do not want to have to use a build step for our JavaScript.
 
 Finally, we register the JS components of our plugin:
 

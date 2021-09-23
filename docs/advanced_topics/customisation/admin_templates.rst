@@ -98,8 +98,6 @@ Custom user interface colors
 
 
 .. warning::
-    CSS variables are not supported in Internet Explorer, so the admin will appear with the default colors when viewed in that browser.
-
     The default Wagtail colors conform to the WCAG2.1 AA level color contrast requirements. When customizing the admin colors you should test the contrast using tools like `Axe <https://www.deque.com/axe/browser-extensions/>`_.
 
 To customize the primary color used in the admin user interface, inject a CSS file using the hook :ref:`insert_global_admin_css` and override the variables within the ``:root`` selector:

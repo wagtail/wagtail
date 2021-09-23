@@ -153,3 +153,10 @@ calls ``PageLogEntry.objects.log_action`` should now import the ``log`` function
 call this instead (all arguments are unchanged).
 
 Additionally, for logging actions on non-Page models, it is generally no longer necessary to subclass ``BaseLogEntry``; see :ref:`audit_log` for further details.
+
+
+Removed support for Internet Explorer (IE11)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If this affects you or your organisation, consider which alternative browsers you may be able to use.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
