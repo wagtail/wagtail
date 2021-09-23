@@ -66,21 +66,21 @@ class BaseTypedTableBlock(Block):
             ],
         }
 
-    def get_prep_value(self, value):
-        if value:
+    def get_prep_value(self, table):
+        if table:
             return {
                 'columns': [
                     {'type': col['block'].name, 'heading': col['heading']}
-                    for col in value['columns']
+                    for col in table['columns']
                 ],
                 'rows': [
                     {
                         'values': [
-                            col['block'].get_prep_value(row['values'][i])
-                            for i, col in enumerate(value['columns'])
+                            column['block'].get_prep_value(val)
+                            for column, val in zip(table['columns'], row['values'])
                         ]
                     }
-                    for row in value['rows']
+                    for row in table['rows']
                 ]
             }
         else:
@@ -123,21 +123,21 @@ class BaseTypedTableBlock(Block):
                 'rows': [],
             }
 
-    def get_form_state(self, value):
-        if value:
+    def get_form_state(self, table):
+        if table:
             return {
                 'columns': [
                     {'type': col['block'].name, 'heading': col['heading']}
-                    for col in value['columns']
+                    for col in table['columns']
                 ],
                 'rows': [
                     {
                         'values': [
-                            col['block'].get_form_state(row['values'][column_index])
-                            for column_index, col in enumerate(value['columns'])
+                            column['block'].get_form_state(val)
+                            for column, val in zip(table['columns'], row['values'])
                         ]
                     }
-                    for row in value['rows']
+                    for row in table['rows']
                 ]
             }
         else:
