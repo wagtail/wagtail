@@ -1,9 +1,12 @@
 import functools
+import gettext
+import os
 
 import zoneinfo
 from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.utils.dates import MONTHS, WEEKDAYS, WEEKDAYS_ABBR
+from django.utils.translation import get_language
 from django.utils.translation import gettext as _
 
 # Wagtail languages with >=90% coverage
@@ -117,3 +120,22 @@ def get_available_admin_time_zones():
     return getattr(
         settings, "WAGTAIL_USER_TIME_ZONES", sorted(zoneinfo.available_timezones())
     )
+
+
+def gettext_domain(domain: str, message: str) -> str:
+    """
+    Similar to Django's ``gettext``, return the translation for a specific
+    domain (i.e. a specific ``.po`` file).
+    """
+    if settings.USE_I18N:
+        # Get current language, and fallback to non-specific version of language.
+        langs = [get_language()] + [get_language().split("-")[0]]
+        lc_path = os.path.join(os.path.dirname(__file__), "locale")
+        _gt = gettext.translation(
+            domain,
+            localedir=lc_path,
+            languages=langs,
+            fallback=True,
+        )
+        return _gt.gettext(message)
+    return message

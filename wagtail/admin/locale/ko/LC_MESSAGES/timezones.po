@@ -1,0 +1,1327 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"PO-Revision-Date: 2021-09-27 17:40\n"
+"Last-Translator: translate.py\n"
+"Language-Team: The Unicode Consortium CLDR <https://github.com/unicode-org/cldr-json>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Africa/Abidjan"
+msgstr "아프리카/아비장"
+
+msgid "Africa/Accra"
+msgstr "아프리카/아크라"
+
+msgid "Africa/Addis_Ababa"
+msgstr "아프리카/아디스아바바"
+
+msgid "Africa/Algiers"
+msgstr "아프리카/알제"
+
+msgid "Africa/Asmara"
+msgstr "아프리카/나이로비"
+
+msgid "Africa/Bamako"
+msgstr "아프리카/바마코"
+
+msgid "Africa/Bangui"
+msgstr "아프리카/방기"
+
+msgid "Africa/Banjul"
+msgstr "아프리카/반줄"
+
+msgid "Africa/Bissau"
+msgstr "아프리카/비사우"
+
+msgid "Africa/Blantyre"
+msgstr "아프리카/블랜타이어"
+
+msgid "Africa/Brazzaville"
+msgstr "아프리카/브라자빌"
+
+msgid "Africa/Bujumbura"
+msgstr "아프리카/부줌부라"
+
+msgid "Africa/Cairo"
+msgstr "아프리카/카이로"
+
+msgid "Africa/Casablanca"
+msgstr "아프리카/카사블랑카"
+
+msgid "Africa/Ceuta"
+msgstr "아프리카/세우타"
+
+msgid "Africa/Conakry"
+msgstr "아프리카/코나크리"
+
+msgid "Africa/Dakar"
+msgstr "아프리카/다카르"
+
+msgid "Africa/Dar_es_Salaam"
+msgstr "아프리카/다르에스살람"
+
+msgid "Africa/Djibouti"
+msgstr "아프리카/지부티"
+
+msgid "Africa/Douala"
+msgstr "아프리카/두알라"
+
+msgid "Africa/El_Aaiun"
+msgstr "아프리카/엘아이운"
+
+msgid "Africa/Freetown"
+msgstr "아프리카/프리타운"
+
+msgid "Africa/Gaborone"
+msgstr "아프리카/가보로네"
+
+msgid "Africa/Harare"
+msgstr "아프리카/하라레"
+
+msgid "Africa/Johannesburg"
+msgstr "아프리카/요하네스버그"
+
+msgid "Africa/Juba"
+msgstr "아프리카/주바"
+
+msgid "Africa/Kampala"
+msgstr "아프리카/캄팔라"
+
+msgid "Africa/Khartoum"
+msgstr "아프리카/카르툼"
+
+msgid "Africa/Kigali"
+msgstr "아프리카/키갈리"
+
+msgid "Africa/Kinshasa"
+msgstr "아프리카/킨샤사"
+
+msgid "Africa/Lagos"
+msgstr "아프리카/라고스"
+
+msgid "Africa/Libreville"
+msgstr "아프리카/리브르빌"
+
+msgid "Africa/Lome"
+msgstr "아프리카/로메"
+
+msgid "Africa/Luanda"
+msgstr "아프리카/루안다"
+
+msgid "Africa/Lubumbashi"
+msgstr "아프리카/루붐바시"
+
+msgid "Africa/Lusaka"
+msgstr "아프리카/루사카"
+
+msgid "Africa/Malabo"
+msgstr "아프리카/말라보"
+
+msgid "Africa/Maputo"
+msgstr "아프리카/마푸토"
+
+msgid "Africa/Maseru"
+msgstr "아프리카/마세루"
+
+msgid "Africa/Mbabane"
+msgstr "아프리카/음바바네"
+
+msgid "Africa/Mogadishu"
+msgstr "아프리카/모가디슈"
+
+msgid "Africa/Monrovia"
+msgstr "아프리카/몬로비아"
+
+msgid "Africa/Nairobi"
+msgstr "아프리카/나이로비"
+
+msgid "Africa/Ndjamena"
+msgstr "아프리카/엔자메나"
+
+msgid "Africa/Niamey"
+msgstr "아프리카/니아메"
+
+msgid "Africa/Nouakchott"
+msgstr "아프리카/누악쇼트"
+
+msgid "Africa/Ouagadougou"
+msgstr "아프리카/와가두구"
+
+msgid "Africa/Porto-Novo"
+msgstr "아프리카/포르토노보"
+
+msgid "Africa/Sao_Tome"
+msgstr "아프리카/상투메"
+
+msgid "Africa/Tripoli"
+msgstr "아프리카/트리폴리"
+
+msgid "Africa/Tunis"
+msgstr "아프리카/튀니스"
+
+msgid "Africa/Windhoek"
+msgstr "아프리카/빈트후크"
+
+msgid "America/Adak"
+msgstr "아메리카 대륙/에이닥"
+
+msgid "America/Anchorage"
+msgstr "아메리카 대륙/앵커리지"
+
+msgid "America/Anguilla"
+msgstr "아메리카 대륙/앙귈라"
+
+msgid "America/Antigua"
+msgstr "아메리카 대륙/안티과"
+
+msgid "America/Araguaina"
+msgstr "아메리카 대륙/아라과이나"
+
+msgid "America/Argentina/Buenos_Aires"
+msgstr "아메리카 대륙/부에노스 아이레스"
+
+msgid "America/Argentina/Catamarca"
+msgstr "아메리카 대륙/카타마르카"
+
+msgid "America/Argentina/Cordoba"
+msgstr "아메리카 대륙/코르도바"
+
+msgid "America/Argentina/Jujuy"
+msgstr "아메리카 대륙/후후이"
+
+msgid "America/Argentina/La_Rioja"
+msgstr "아메리카 대륙/아르헨티나/라 리오하"
+
+msgid "America/Argentina/Mendoza"
+msgstr "아메리카 대륙/멘도사"
+
+msgid "America/Argentina/Rio_Gallegos"
+msgstr "아메리카 대륙/아르헨티나/리오 가예고스"
+
+msgid "America/Argentina/Salta"
+msgstr "아메리카 대륙/아르헨티나/살타"
+
+msgid "America/Argentina/San_Juan"
+msgstr "아메리카 대륙/아르헨티나/산후안"
+
+msgid "America/Argentina/San_Luis"
+msgstr "아메리카 대륙/아르헨티나/산루이스"
+
+msgid "America/Argentina/Tucuman"
+msgstr "아메리카 대륙/아르헨티나/투쿠만"
+
+msgid "America/Argentina/Ushuaia"
+msgstr "아메리카 대륙/아르헨티나/우수아이아"
+
+msgid "America/Aruba"
+msgstr "아메리카 대륙/아루바"
+
+msgid "America/Asuncion"
+msgstr "아메리카 대륙/아순시온"
+
+msgid "America/Atikokan"
+msgstr "아메리카 대륙/코랄하버"
+
+msgid "America/Bahia"
+msgstr "아메리카 대륙/바히아"
+
+msgid "America/Bahia_Banderas"
+msgstr "아메리카 대륙/바이아 반데라스"
+
+msgid "America/Barbados"
+msgstr "아메리카 대륙/바베이도스"
+
+msgid "America/Belem"
+msgstr "아메리카 대륙/벨렘"
+
+msgid "America/Belize"
+msgstr "아메리카 대륙/벨리즈"
+
+msgid "America/Blanc-Sablon"
+msgstr "아메리카 대륙/블랑 사블롱"
+
+msgid "America/Boa_Vista"
+msgstr "아메리카 대륙/보아 비스타"
+
+msgid "America/Bogota"
+msgstr "아메리카 대륙/보고타"
+
+msgid "America/Boise"
+msgstr "아메리카 대륙/보이시"
+
+msgid "America/Cambridge_Bay"
+msgstr "아메리카 대륙/케임브리지 베이"
+
+msgid "America/Campo_Grande"
+msgstr "아메리카 대륙/캄포 그란데"
+
+msgid "America/Cancun"
+msgstr "아메리카 대륙/칸쿤"
+
+msgid "America/Caracas"
+msgstr "아메리카 대륙/카라카스"
+
+msgid "America/Cayenne"
+msgstr "아메리카 대륙/카옌"
+
+msgid "America/Cayman"
+msgstr "아메리카 대륙/케이맨"
+
+msgid "America/Chicago"
+msgstr "아메리카 대륙/시카고"
+
+msgid "America/Chihuahua"
+msgstr "아메리카 대륙/치와와"
+
+msgid "America/Costa_Rica"
+msgstr "아메리카 대륙/코스타리카"
+
+msgid "America/Creston"
+msgstr "아메리카 대륙/크레스톤"
+
+msgid "America/Cuiaba"
+msgstr "아메리카 대륙/쿠이아바"
+
+msgid "America/Curacao"
+msgstr "아메리카 대륙/퀴라소"
+
+msgid "America/Danmarkshavn"
+msgstr "아메리카 대륙/덴마크샤븐"
+
+msgid "America/Dawson"
+msgstr "아메리카 대륙/도슨"
+
+msgid "America/Dawson_Creek"
+msgstr "아메리카 대륙/도슨크릭"
+
+msgid "America/Denver"
+msgstr "아메리카 대륙/덴버"
+
+msgid "America/Detroit"
+msgstr "아메리카 대륙/디트로이트"
+
+msgid "America/Dominica"
+msgstr "아메리카 대륙/도미니카"
+
+msgid "America/Edmonton"
+msgstr "아메리카 대륙/에드먼턴"
+
+msgid "America/Eirunepe"
+msgstr "아메리카 대륙/아이루네페"
+
+msgid "America/El_Salvador"
+msgstr "아메리카 대륙/엘살바도르"
+
+msgid "America/Fort_Nelson"
+msgstr "아메리카 대륙/포트 넬슨"
+
+msgid "America/Fortaleza"
+msgstr "아메리카 대륙/포르탈레자"
+
+msgid "America/Glace_Bay"
+msgstr "아메리카 대륙/글라스베이"
+
+msgid "America/Goose_Bay"
+msgstr "아메리카 대륙/구즈베이"
+
+msgid "America/Grand_Turk"
+msgstr "아메리카 대륙/그랜드 터크"
+
+msgid "America/Grenada"
+msgstr "아메리카 대륙/그레나다"
+
+msgid "America/Guadeloupe"
+msgstr "아메리카 대륙/과들루프"
+
+msgid "America/Guatemala"
+msgstr "아메리카 대륙/과테말라"
+
+msgid "America/Guayaquil"
+msgstr "아메리카 대륙/과야킬"
+
+msgid "America/Guyana"
+msgstr "아메리카 대륙/가이아나"
+
+msgid "America/Halifax"
+msgstr "아메리카 대륙/핼리팩스"
+
+msgid "America/Havana"
+msgstr "아메리카 대륙/하바나"
+
+msgid "America/Hermosillo"
+msgstr "아메리카 대륙/에르모시요"
+
+msgid "America/Indiana/Indianapolis"
+msgstr "아메리카 대륙/인디애나폴리스"
+
+msgid "America/Indiana/Knox"
+msgstr "아메리카 대륙/인디애나주, 녹스"
+
+msgid "America/Indiana/Marengo"
+msgstr "아메리카 대륙/인디애나주, 머렝고"
+
+msgid "America/Indiana/Petersburg"
+msgstr "아메리카 대륙/인디애나주, 피츠버그"
+
+msgid "America/Indiana/Tell_City"
+msgstr "아메리카 대륙/인디애나주, 텔시티"
+
+msgid "America/Indiana/Vevay"
+msgstr "아메리카 대륙/인디애나주, 비비"
+
+msgid "America/Indiana/Vincennes"
+msgstr "아메리카 대륙/인디애나주, 빈센스"
+
+msgid "America/Indiana/Winamac"
+msgstr "아메리카 대륙/인디애나주, 위너맥"
+
+msgid "America/Inuvik"
+msgstr "아메리카 대륙/이누빅"
+
+msgid "America/Iqaluit"
+msgstr "아메리카 대륙/이칼루이트"
+
+msgid "America/Jamaica"
+msgstr "아메리카 대륙/자메이카"
+
+msgid "America/Juneau"
+msgstr "아메리카 대륙/주노"
+
+msgid "America/Kentucky/Louisville"
+msgstr "아메리카 대륙/루이빌"
+
+msgid "America/Kentucky/Monticello"
+msgstr "아메리카 대륙/켄터키주, 몬티첼로"
+
+msgid "America/Kralendijk"
+msgstr "아메리카 대륙/크라렌디즈크"
+
+msgid "America/La_Paz"
+msgstr "아메리카 대륙/라파스"
+
+msgid "America/Lima"
+msgstr "아메리카 대륙/리마"
+
+msgid "America/Los_Angeles"
+msgstr "아메리카 대륙/로스앤젤레스"
+
+msgid "America/Lower_Princes"
+msgstr "아메리카 대륙/로워 프린스 쿼터"
+
+msgid "America/Maceio"
+msgstr "아메리카 대륙/마세이오"
+
+msgid "America/Managua"
+msgstr "아메리카 대륙/마나과"
+
+msgid "America/Manaus"
+msgstr "아메리카 대륙/마나우스"
+
+msgid "America/Marigot"
+msgstr "아메리카 대륙/마리곳"
+
+msgid "America/Martinique"
+msgstr "아메리카 대륙/마티니크"
+
+msgid "America/Matamoros"
+msgstr "아메리카 대륙/마타모로스"
+
+msgid "America/Mazatlan"
+msgstr "아메리카 대륙/마사틀란"
+
+msgid "America/Menominee"
+msgstr "아메리카 대륙/메노미니"
+
+msgid "America/Merida"
+msgstr "아메리카 대륙/메리다"
+
+msgid "America/Metlakatla"
+msgstr "아메리카 대륙/메틀라카틀라"
+
+msgid "America/Mexico_City"
+msgstr "아메리카 대륙/멕시코 시티"
+
+msgid "America/Miquelon"
+msgstr "아메리카 대륙/미클롱"
+
+msgid "America/Moncton"
+msgstr "아메리카 대륙/몽턴"
+
+msgid "America/Monterrey"
+msgstr "아메리카 대륙/몬테레이"
+
+msgid "America/Montevideo"
+msgstr "아메리카 대륙/몬테비데오"
+
+msgid "America/Montserrat"
+msgstr "아메리카 대륙/몬세라트"
+
+msgid "America/Nassau"
+msgstr "아메리카 대륙/나소"
+
+msgid "America/New_York"
+msgstr "아메리카 대륙/뉴욕"
+
+msgid "America/Nipigon"
+msgstr "아메리카 대륙/니피곤"
+
+msgid "America/Nome"
+msgstr "아메리카 대륙/놈"
+
+msgid "America/Noronha"
+msgstr "아메리카 대륙/노롱야"
+
+msgid "America/North_Dakota/Beulah"
+msgstr "아메리카 대륙/노스다코타주, 베라"
+
+msgid "America/North_Dakota/Center"
+msgstr "아메리카 대륙/중부, 노스다코타"
+
+msgid "America/North_Dakota/New_Salem"
+msgstr "아메리카 대륙/노스다코타주, 뉴살렘"
+
+msgid "America/Nuuk"
+msgstr "아메리카 대륙/Nuuk"
+
+msgid "America/Ojinaga"
+msgstr "아메리카 대륙/오히나가"
+
+msgid "America/Panama"
+msgstr "아메리카 대륙/파나마"
+
+msgid "America/Pangnirtung"
+msgstr "아메리카 대륙/팡니르퉁"
+
+msgid "America/Paramaribo"
+msgstr "아메리카 대륙/파라마리보"
+
+msgid "America/Phoenix"
+msgstr "아메리카 대륙/피닉스"
+
+msgid "America/Port-au-Prince"
+msgstr "아메리카 대륙/포르토프랭스"
+
+msgid "America/Port_of_Spain"
+msgstr "아메리카 대륙/포트오브스페인"
+
+msgid "America/Porto_Velho"
+msgstr "아메리카 대륙/포르토벨료"
+
+msgid "America/Puerto_Rico"
+msgstr "아메리카 대륙/푸에르토리코"
+
+msgid "America/Punta_Arenas"
+msgstr "아메리카 대륙/푼타아레나스"
+
+msgid "America/Rainy_River"
+msgstr "아메리카 대륙/레이니강"
+
+msgid "America/Rankin_Inlet"
+msgstr "아메리카 대륙/랭킹 인렛"
+
+msgid "America/Recife"
+msgstr "아메리카 대륙/레시페"
+
+msgid "America/Regina"
+msgstr "아메리카 대륙/리자이나"
+
+msgid "America/Resolute"
+msgstr "아메리카 대륙/리졸루트"
+
+msgid "America/Rio_Branco"
+msgstr "아메리카 대륙/히우 브랑쿠"
+
+msgid "America/Santarem"
+msgstr "아메리카 대륙/산타렘"
+
+msgid "America/Santiago"
+msgstr "아메리카 대륙/산티아고"
+
+msgid "America/Santo_Domingo"
+msgstr "아메리카 대륙/산토도밍고"
+
+msgid "America/Sao_Paulo"
+msgstr "아메리카 대륙/상파울루"
+
+msgid "America/Scoresbysund"
+msgstr "아메리카 대륙/스코레스바이선드"
+
+msgid "America/Sitka"
+msgstr "아메리카 대륙/싯카"
+
+msgid "America/St_Barthelemy"
+msgstr "아메리카 대륙/생바르텔레미"
+
+msgid "America/St_Johns"
+msgstr "아메리카 대륙/세인트존스"
+
+msgid "America/St_Kitts"
+msgstr "아메리카 대륙/세인트키츠"
+
+msgid "America/St_Lucia"
+msgstr "아메리카 대륙/세인트루시아"
+
+msgid "America/St_Thomas"
+msgstr "아메리카 대륙/세인트토마스"
+
+msgid "America/St_Vincent"
+msgstr "아메리카 대륙/세인트빈센트"
+
+msgid "America/Swift_Current"
+msgstr "아메리카 대륙/스위프트커런트"
+
+msgid "America/Tegucigalpa"
+msgstr "아메리카 대륙/테구시갈파"
+
+msgid "America/Thule"
+msgstr "아메리카 대륙/툴레"
+
+msgid "America/Thunder_Bay"
+msgstr "아메리카 대륙/선더베이"
+
+msgid "America/Tijuana"
+msgstr "아메리카 대륙/티후아나"
+
+msgid "America/Toronto"
+msgstr "아메리카 대륙/토론토"
+
+msgid "America/Tortola"
+msgstr "아메리카 대륙/토르톨라"
+
+msgid "America/Vancouver"
+msgstr "아메리카 대륙/벤쿠버"
+
+msgid "America/Whitehorse"
+msgstr "아메리카 대륙/화이트호스"
+
+msgid "America/Winnipeg"
+msgstr "아메리카 대륙/위니펙"
+
+msgid "America/Yakutat"
+msgstr "아메리카 대륙/야쿠타트"
+
+msgid "America/Yellowknife"
+msgstr "아메리카 대륙/옐로나이프"
+
+msgid "Antarctica/Casey"
+msgstr "남극 대륙/케이시"
+
+msgid "Antarctica/Davis"
+msgstr "남극 대륙/데이비스"
+
+msgid "Antarctica/DumontDUrville"
+msgstr "남극 대륙/뒤몽 뒤르빌"
+
+msgid "Antarctica/Macquarie"
+msgstr "남극 대륙/맥쿼리"
+
+msgid "Antarctica/Mawson"
+msgstr "남극 대륙/모슨"
+
+msgid "Antarctica/McMurdo"
+msgstr "남극 대륙/맥머도"
+
+msgid "Antarctica/Palmer"
+msgstr "남극 대륙/파머"
+
+msgid "Antarctica/Rothera"
+msgstr "남극 대륙/로데라"
+
+msgid "Antarctica/Syowa"
+msgstr "남극 대륙/쇼와"
+
+msgid "Antarctica/Troll"
+msgstr "남극 대륙/트롤"
+
+msgid "Antarctica/Vostok"
+msgstr "남극 대륙/보스토크"
+
+msgid "Arctic/Longyearbyen"
+msgstr "Arctic/롱이어비엔"
+
+msgid "Asia/Aden"
+msgstr "아시아/아덴"
+
+msgid "Asia/Almaty"
+msgstr "아시아/알마티"
+
+msgid "Asia/Amman"
+msgstr "아시아/암만"
+
+msgid "Asia/Anadyr"
+msgstr "아시아/아나디리"
+
+msgid "Asia/Aqtau"
+msgstr "아시아/아크타우"
+
+msgid "Asia/Aqtobe"
+msgstr "아시아/악토브"
+
+msgid "Asia/Ashgabat"
+msgstr "아시아/아슈하바트"
+
+msgid "Asia/Atyrau"
+msgstr "아시아/아티라우"
+
+msgid "Asia/Baghdad"
+msgstr "아시아/바그다드"
+
+msgid "Asia/Bahrain"
+msgstr "아시아/바레인"
+
+msgid "Asia/Baku"
+msgstr "아시아/바쿠"
+
+msgid "Asia/Bangkok"
+msgstr "아시아/방콕"
+
+msgid "Asia/Barnaul"
+msgstr "아시아/바르나울"
+
+msgid "Asia/Beirut"
+msgstr "아시아/베이루트"
+
+msgid "Asia/Bishkek"
+msgstr "아시아/비슈케크"
+
+msgid "Asia/Brunei"
+msgstr "아시아/브루나이"
+
+msgid "Asia/Chita"
+msgstr "아시아/치타"
+
+msgid "Asia/Choibalsan"
+msgstr "아시아/초이발산"
+
+msgid "Asia/Colombo"
+msgstr "아시아/콜롬보"
+
+msgid "Asia/Damascus"
+msgstr "아시아/다마스쿠스"
+
+msgid "Asia/Dhaka"
+msgstr "아시아/다카"
+
+msgid "Asia/Dili"
+msgstr "아시아/딜리"
+
+msgid "Asia/Dubai"
+msgstr "아시아/두바이"
+
+msgid "Asia/Dushanbe"
+msgstr "아시아/두샨베"
+
+msgid "Asia/Famagusta"
+msgstr "아시아/파마구스타"
+
+msgid "Asia/Gaza"
+msgstr "아시아/가자"
+
+msgid "Asia/Hebron"
+msgstr "아시아/헤브론"
+
+msgid "Asia/Ho_Chi_Minh"
+msgstr "아시아/사이공"
+
+msgid "Asia/Hong_Kong"
+msgstr "아시아/홍콩"
+
+msgid "Asia/Hovd"
+msgstr "아시아/호브드"
+
+msgid "Asia/Irkutsk"
+msgstr "아시아/이르쿠츠크"
+
+msgid "Asia/Jakarta"
+msgstr "아시아/자카르타"
+
+msgid "Asia/Jayapura"
+msgstr "아시아/자야푸라"
+
+msgid "Asia/Jerusalem"
+msgstr "아시아/예루살렘"
+
+msgid "Asia/Kabul"
+msgstr "아시아/카불"
+
+msgid "Asia/Kamchatka"
+msgstr "아시아/캄차카"
+
+msgid "Asia/Karachi"
+msgstr "아시아/카라치"
+
+msgid "Asia/Kathmandu"
+msgstr "아시아/카트만두"
+
+msgid "Asia/Khandyga"
+msgstr "아시아/한디가"
+
+msgid "Asia/Kolkata"
+msgstr "아시아/콜카타"
+
+msgid "Asia/Krasnoyarsk"
+msgstr "아시아/크라스노야르스크"
+
+msgid "Asia/Kuala_Lumpur"
+msgstr "아시아/쿠알라룸푸르"
+
+msgid "Asia/Kuching"
+msgstr "아시아/쿠칭"
+
+msgid "Asia/Kuwait"
+msgstr "아시아/쿠웨이트"
+
+msgid "Asia/Macau"
+msgstr "아시아/마카오"
+
+msgid "Asia/Magadan"
+msgstr "아시아/마가단"
+
+msgid "Asia/Makassar"
+msgstr "아시아/마카사르"
+
+msgid "Asia/Manila"
+msgstr "아시아/마닐라"
+
+msgid "Asia/Muscat"
+msgstr "아시아/무스카트"
+
+msgid "Asia/Nicosia"
+msgstr "아시아/니코시아"
+
+msgid "Asia/Novokuznetsk"
+msgstr "아시아/노보쿠즈네츠크"
+
+msgid "Asia/Novosibirsk"
+msgstr "아시아/노보시비르스크"
+
+msgid "Asia/Omsk"
+msgstr "아시아/옴스크"
+
+msgid "Asia/Oral"
+msgstr "아시아/오랄"
+
+msgid "Asia/Phnom_Penh"
+msgstr "아시아/프놈펜"
+
+msgid "Asia/Pontianak"
+msgstr "아시아/폰티아나크"
+
+msgid "Asia/Pyongyang"
+msgstr "아시아/평양"
+
+msgid "Asia/Qatar"
+msgstr "아시아/카타르"
+
+msgid "Asia/Qostanay"
+msgstr "아시아/코스타나이"
+
+msgid "Asia/Qyzylorda"
+msgstr "아시아/키질로르다"
+
+msgid "Asia/Riyadh"
+msgstr "아시아/리야드"
+
+msgid "Asia/Sakhalin"
+msgstr "아시아/사할린"
+
+msgid "Asia/Samarkand"
+msgstr "아시아/사마르칸트"
+
+msgid "Asia/Seoul"
+msgstr "아시아/서울"
+
+msgid "Asia/Shanghai"
+msgstr "아시아/상하이"
+
+msgid "Asia/Singapore"
+msgstr "아시아/싱가포르"
+
+msgid "Asia/Srednekolymsk"
+msgstr "아시아/스레드네콜림스크"
+
+msgid "Asia/Taipei"
+msgstr "아시아/타이베이"
+
+msgid "Asia/Tashkent"
+msgstr "아시아/타슈켄트"
+
+msgid "Asia/Tbilisi"
+msgstr "아시아/트빌리시"
+
+msgid "Asia/Tehran"
+msgstr "아시아/테헤란"
+
+msgid "Asia/Thimphu"
+msgstr "아시아/팀부"
+
+msgid "Asia/Tokyo"
+msgstr "아시아/도쿄"
+
+msgid "Asia/Tomsk"
+msgstr "아시아/톰스크"
+
+msgid "Asia/Ulaanbaatar"
+msgstr "아시아/울란바토르"
+
+msgid "Asia/Urumqi"
+msgstr "아시아/우루무치"
+
+msgid "Asia/Ust-Nera"
+msgstr "아시아/우스티네라"
+
+msgid "Asia/Vientiane"
+msgstr "아시아/비엔티안"
+
+msgid "Asia/Vladivostok"
+msgstr "아시아/블라디보스토크"
+
+msgid "Asia/Yakutsk"
+msgstr "아시아/야쿠츠크"
+
+msgid "Asia/Yangon"
+msgstr "아시아/랑군"
+
+msgid "Asia/Yekaterinburg"
+msgstr "아시아/예카테린부르크"
+
+msgid "Asia/Yerevan"
+msgstr "아시아/예레반"
+
+msgid "Atlantic/Azores"
+msgstr "Atlantic/아조레스"
+
+msgid "Atlantic/Bermuda"
+msgstr "Atlantic/버뮤다"
+
+msgid "Atlantic/Canary"
+msgstr "Atlantic/카나리아 제도"
+
+msgid "Atlantic/Cape_Verde"
+msgstr "Atlantic/카보 베르데"
+
+msgid "Atlantic/Faroe"
+msgstr "Atlantic/페로 제도"
+
+msgid "Atlantic/Madeira"
+msgstr "Atlantic/마데이라"
+
+msgid "Atlantic/Reykjavik"
+msgstr "Atlantic/레이캬비크"
+
+msgid "Atlantic/South_Georgia"
+msgstr "Atlantic/사우스조지아"
+
+msgid "Atlantic/St_Helena"
+msgstr "Atlantic/세인트 헬레나"
+
+msgid "Atlantic/Stanley"
+msgstr "Atlantic/스탠리"
+
+msgid "Australia/Adelaide"
+msgstr "오스트레일리아/애들레이드"
+
+msgid "Australia/Brisbane"
+msgstr "오스트레일리아/브리스베인"
+
+msgid "Australia/Broken_Hill"
+msgstr "오스트레일리아/브로컨힐"
+
+msgid "Australia/Darwin"
+msgstr "오스트레일리아/다윈"
+
+msgid "Australia/Eucla"
+msgstr "오스트레일리아/유클라"
+
+msgid "Australia/Hobart"
+msgstr "오스트레일리아/호바트"
+
+msgid "Australia/Lindeman"
+msgstr "오스트레일리아/린데만"
+
+msgid "Australia/Lord_Howe"
+msgstr "오스트레일리아/로드 하우"
+
+msgid "Australia/Melbourne"
+msgstr "오스트레일리아/멜버른"
+
+msgid "Australia/Perth"
+msgstr "오스트레일리아/퍼스"
+
+msgid "Australia/Sydney"
+msgstr "오스트레일리아/시드니"
+
+msgid "Canada/Atlantic"
+msgstr "캐나다/대서양 시간"
+
+msgid "Canada/Central"
+msgstr "캐나다/미 중부 시간"
+
+msgid "Canada/Eastern"
+msgstr "캐나다/미 동부 시간"
+
+msgid "Canada/Mountain"
+msgstr "캐나다/미 산지 시간"
+
+msgid "Canada/Newfoundland"
+msgstr "캐나다/뉴펀들랜드 시간"
+
+msgid "Canada/Pacific"
+msgstr "캐나다/미 태평양 시간"
+
+msgid "Europe/Amsterdam"
+msgstr "유럽/암스테르담"
+
+msgid "Europe/Andorra"
+msgstr "유럽/안도라"
+
+msgid "Europe/Astrakhan"
+msgstr "유럽/아스트라한"
+
+msgid "Europe/Athens"
+msgstr "유럽/아테네"
+
+msgid "Europe/Belgrade"
+msgstr "유럽/베오그라드"
+
+msgid "Europe/Berlin"
+msgstr "유럽/베를린"
+
+msgid "Europe/Bratislava"
+msgstr "유럽/브라티슬라바"
+
+msgid "Europe/Brussels"
+msgstr "유럽/브뤼셀"
+
+msgid "Europe/Bucharest"
+msgstr "유럽/부쿠레슈티"
+
+msgid "Europe/Budapest"
+msgstr "유럽/부다페스트"
+
+msgid "Europe/Busingen"
+msgstr "유럽/뷔지겐"
+
+msgid "Europe/Chisinau"
+msgstr "유럽/키시나우"
+
+msgid "Europe/Copenhagen"
+msgstr "유럽/코펜하겐"
+
+msgid "Europe/Dublin"
+msgstr "유럽/더블린"
+
+msgid "Europe/Gibraltar"
+msgstr "유럽/지브롤터"
+
+msgid "Europe/Guernsey"
+msgstr "유럽/건지"
+
+msgid "Europe/Helsinki"
+msgstr "유럽/헬싱키"
+
+msgid "Europe/Isle_of_Man"
+msgstr "유럽/맨섬"
+
+msgid "Europe/Istanbul"
+msgstr "유럽/이스탄불"
+
+msgid "Europe/Jersey"
+msgstr "유럽/저지"
+
+msgid "Europe/Kaliningrad"
+msgstr "유럽/칼리닌그라드"
+
+msgid "Europe/Kiev"
+msgstr "유럽/키예프"
+
+msgid "Europe/Kirov"
+msgstr "유럽/키로프"
+
+msgid "Europe/Lisbon"
+msgstr "유럽/리스본"
+
+msgid "Europe/Ljubljana"
+msgstr "유럽/류블랴나"
+
+msgid "Europe/London"
+msgstr "유럽/런던"
+
+msgid "Europe/Luxembourg"
+msgstr "유럽/룩셈부르크"
+
+msgid "Europe/Madrid"
+msgstr "유럽/마드리드"
+
+msgid "Europe/Malta"
+msgstr "유럽/몰타"
+
+msgid "Europe/Mariehamn"
+msgstr "유럽/마리에함"
+
+msgid "Europe/Minsk"
+msgstr "유럽/민스크"
+
+msgid "Europe/Monaco"
+msgstr "유럽/모나코"
+
+msgid "Europe/Moscow"
+msgstr "유럽/모스크바"
+
+msgid "Europe/Oslo"
+msgstr "유럽/오슬로"
+
+msgid "Europe/Paris"
+msgstr "유럽/파리"
+
+msgid "Europe/Podgorica"
+msgstr "유럽/포드고리차"
+
+msgid "Europe/Prague"
+msgstr "유럽/프라하"
+
+msgid "Europe/Riga"
+msgstr "유럽/리가"
+
+msgid "Europe/Rome"
+msgstr "유럽/로마"
+
+msgid "Europe/Samara"
+msgstr "유럽/사마라"
+
+msgid "Europe/San_Marino"
+msgstr "유럽/산마리노"
+
+msgid "Europe/Sarajevo"
+msgstr "유럽/사라예보"
+
+msgid "Europe/Saratov"
+msgstr "유럽/사라토프"
+
+msgid "Europe/Simferopol"
+msgstr "유럽/심페로폴"
+
+msgid "Europe/Skopje"
+msgstr "유럽/스코페"
+
+msgid "Europe/Sofia"
+msgstr "유럽/소피아"
+
+msgid "Europe/Stockholm"
+msgstr "유럽/스톡홀름"
+
+msgid "Europe/Tallinn"
+msgstr "유럽/탈린"
+
+msgid "Europe/Tirane"
+msgstr "유럽/티라나"
+
+msgid "Europe/Ulyanovsk"
+msgstr "유럽/울리야노프스크"
+
+msgid "Europe/Uzhgorod"
+msgstr "유럽/우주고로트"
+
+msgid "Europe/Vaduz"
+msgstr "유럽/파두츠"
+
+msgid "Europe/Vatican"
+msgstr "유럽/바티칸"
+
+msgid "Europe/Vienna"
+msgstr "유럽/비엔나"
+
+msgid "Europe/Vilnius"
+msgstr "유럽/빌니우스"
+
+msgid "Europe/Volgograd"
+msgstr "유럽/볼고그라트"
+
+msgid "Europe/Warsaw"
+msgstr "유럽/바르샤바"
+
+msgid "Europe/Zagreb"
+msgstr "유럽/자그레브"
+
+msgid "Europe/Zaporozhye"
+msgstr "유럽/자포로지예"
+
+msgid "Europe/Zurich"
+msgstr "유럽/취리히"
+
+msgid "GMT"
+msgstr "GMT/그리니치 표준시"
+
+msgid "Indian/Antananarivo"
+msgstr "Indian/안타나나리보"
+
+msgid "Indian/Chagos"
+msgstr "Indian/차고스"
+
+msgid "Indian/Christmas"
+msgstr "Indian/크리스마스"
+
+msgid "Indian/Cocos"
+msgstr "Indian/코코스"
+
+msgid "Indian/Comoro"
+msgstr "Indian/코모로"
+
+msgid "Indian/Kerguelen"
+msgstr "Indian/케르켈렌"
+
+msgid "Indian/Mahe"
+msgstr "Indian/마헤"
+
+msgid "Indian/Maldives"
+msgstr "Indian/몰디브"
+
+msgid "Indian/Mauritius"
+msgstr "Indian/모리셔스"
+
+msgid "Indian/Mayotte"
+msgstr "Indian/메요트"
+
+msgid "Indian/Reunion"
+msgstr "Indian/레위니옹"
+
+msgid "Pacific/Apia"
+msgstr "Pacific/아피아"
+
+msgid "Pacific/Auckland"
+msgstr "Pacific/오클랜드"
+
+msgid "Pacific/Bougainville"
+msgstr "Pacific/부갱빌"
+
+msgid "Pacific/Chatham"
+msgstr "Pacific/채텀"
+
+msgid "Pacific/Chuuk"
+msgstr "Pacific/트루크"
+
+msgid "Pacific/Easter"
+msgstr "Pacific/이스터 섬"
+
+msgid "Pacific/Efate"
+msgstr "Pacific/에파테"
+
+msgid "Pacific/Enderbury"
+msgstr "Pacific/엔더베리"
+
+msgid "Pacific/Fakaofo"
+msgstr "Pacific/파카오푸"
+
+msgid "Pacific/Fiji"
+msgstr "Pacific/피지"
+
+msgid "Pacific/Funafuti"
+msgstr "Pacific/푸나푸티"
+
+msgid "Pacific/Galapagos"
+msgstr "Pacific/갈라파고스"
+
+msgid "Pacific/Gambier"
+msgstr "Pacific/감비어"
+
+msgid "Pacific/Guadalcanal"
+msgstr "Pacific/과달카날"
+
+msgid "Pacific/Guam"
+msgstr "Pacific/괌"
+
+msgid "Pacific/Honolulu"
+msgstr "Pacific/호놀룰루"
+
+msgid "Pacific/Kiritimati"
+msgstr "Pacific/키리티마티"
+
+msgid "Pacific/Kosrae"
+msgstr "Pacific/코스레"
+
+msgid "Pacific/Kwajalein"
+msgstr "Pacific/콰잘렌"
+
+msgid "Pacific/Majuro"
+msgstr "Pacific/마주로"
+
+msgid "Pacific/Marquesas"
+msgstr "Pacific/마퀘사스"
+
+msgid "Pacific/Midway"
+msgstr "Pacific/미드웨이"
+
+msgid "Pacific/Nauru"
+msgstr "Pacific/나우루"
+
+msgid "Pacific/Niue"
+msgstr "Pacific/니우에"
+
+msgid "Pacific/Norfolk"
+msgstr "Pacific/노퍽"
+
+msgid "Pacific/Noumea"
+msgstr "Pacific/누메아"
+
+msgid "Pacific/Pago_Pago"
+msgstr "Pacific/파고파고"
+
+msgid "Pacific/Palau"
+msgstr "Pacific/팔라우"
+
+msgid "Pacific/Pitcairn"
+msgstr "Pacific/핏케언"
+
+msgid "Pacific/Pohnpei"
+msgstr "Pacific/포나페"
+
+msgid "Pacific/Port_Moresby"
+msgstr "Pacific/포트모르즈비"
+
+msgid "Pacific/Rarotonga"
+msgstr "Pacific/라로통가"
+
+msgid "Pacific/Saipan"
+msgstr "Pacific/사이판"
+
+msgid "Pacific/Tahiti"
+msgstr "Pacific/타히티"
+
+msgid "Pacific/Tarawa"
+msgstr "Pacific/타라와"
+
+msgid "Pacific/Tongatapu"
+msgstr "Pacific/통가타푸"
+
+msgid "Pacific/Wake"
+msgstr "Pacific/웨이크"
+
+msgid "Pacific/Wallis"
+msgstr "Pacific/월리스"
+
+msgid "US/Alaska"
+msgstr "미국/알래스카 시간"
+
+msgid "US/Arizona"
+msgstr "미국/Arizona"
+
+msgid "US/Central"
+msgstr "미국/미 중부 시간"
+
+msgid "US/Eastern"
+msgstr "미국/미 동부 시간"
+
+msgid "US/Hawaii"
+msgstr "미국/하와이 알류샨 시간"
+
+msgid "US/Mountain"
+msgstr "미국/미 산지 시간"
+
+msgid "US/Pacific"
+msgstr "미국/미 태평양 시간"
+
+msgid "UTC"
+msgstr "UTC/협정 세계시"
