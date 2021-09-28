@@ -35,7 +35,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
 def permission_denied(request):
     """Return a standard 'permission denied' response"""
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest' 
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         raise PermissionDenied
 
     from wagtail.admin import messages
