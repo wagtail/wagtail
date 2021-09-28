@@ -35,7 +35,7 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
 def permission_denied(request):
     """Return a standard 'permission denied' response"""
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         raise PermissionDenied
 
     from wagtail.admin import messages
@@ -141,7 +141,7 @@ def user_has_any_page_permission(user):
 
 
 def reject_request(request):
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         raise PermissionDenied
 
     # import redirect_to_login here to avoid circular imports on model files that import
@@ -193,12 +193,12 @@ def require_admin_access(view_func):
                     return view_func(request, *args, **kwargs)
 
             except PermissionDenied:
-                if request.is_ajax():
+                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
                     raise
 
                 return permission_denied(request)
 
-        if not request.is_ajax():
+        if not request.headers.get('x-requested-with') == 'XMLHttpRequest':
             messages.error(request, _('You do not have permission to access the admin'))
 
         return reject_request(request)

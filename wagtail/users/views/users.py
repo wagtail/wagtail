@@ -101,7 +101,7 @@ def index(request, *args):
     paginator = Paginator(users.select_related('wagtail_userprofile'), per_page=20)
     users = paginator.get_page(request.GET.get('p'))
 
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailusers/users/results.html", {
             'users': users,
             'is_searching': is_searching,
