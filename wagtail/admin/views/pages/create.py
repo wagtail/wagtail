@@ -1,4 +1,4 @@
-from urllib.parse import urlencode, quote
+from urllib.parse import quote, urlencode
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
