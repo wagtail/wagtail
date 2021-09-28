@@ -141,3 +141,14 @@ should now be rewritten as:
                 return _('Hello %(audience)s') % {
                     'audience': log_entry.data['audience'],
                 }
+
+
+``PageLogEntry.objects.log_action`` is deprecated
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Audit logging is now supported on all model types, not just pages, and so the ``PageLogEntry.objects.log_action``
+method for logging actions performed on pages is deprecated in favour of the general-purpose ``log`` function. Code that
+calls ``PageLogEntry.objects.log_action`` should now import the ``log`` function from ``wagtail.core.log_actions`` and
+call this instead (all arguments are unchanged).
+
+Additionally, for logging actions on non-Page models, it is generally no longer necessary to subclass ``BaseLogEntry``; see :ref:`audit_log` for further details.
