@@ -54,7 +54,7 @@ def index(request):
     redirects = paginator.get_page(request.GET.get('p'))
 
     # Render template
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailredirects/results.html", {
             'ordering': ordering,
             'redirects': redirects,

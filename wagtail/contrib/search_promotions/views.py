@@ -48,7 +48,7 @@ def index(request):
     paginator = Paginator(queries, per_page=20)
     queries = paginator.get_page(request.GET.get('p'))
 
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailsearchpromotions/results.html", {
             'is_searching': is_searching,
             'ordering': ordering,

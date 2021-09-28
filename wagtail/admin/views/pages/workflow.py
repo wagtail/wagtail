@@ -88,13 +88,13 @@ class WorkflowAction(BaseWorkflowFormView):
             form = self.form_class(request.POST)
             if form.is_valid():
                 redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
-            elif self.action_modal and request.is_ajax():
+            elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 # show form errors
                 return self.render_modal_form(request, form)
         else:
             redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
 
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
         return redirect(redirect_to)
 
@@ -113,7 +113,7 @@ class CollectWorkflowActionData(BaseWorkflowFormView):
         form = self.form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'cleaned_data': form.cleaned_data})
-        elif self.action_modal and request.is_ajax():
+        elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
             # show form errors
             return self.render_modal_form(request, form)
 

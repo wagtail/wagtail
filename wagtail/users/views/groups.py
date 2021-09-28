@@ -61,7 +61,7 @@ class IndexView(mixins.SearchableListMixin, generic.IndexView):
     ordering = ['name']
 
     def get_template_names(self):
-        if self.request.is_ajax():
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return ['wagtailusers/groups/results.html']
         else:
             return ['wagtailusers/groups/index.html']

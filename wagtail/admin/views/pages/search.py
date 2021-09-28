@@ -93,7 +93,7 @@ def search(request):
     paginator = Paginator(pages, per_page=20)
     pages = paginator.get_page(request.GET.get('p'))
 
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'all_pages': all_pages,
