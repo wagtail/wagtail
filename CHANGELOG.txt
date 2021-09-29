@@ -8,6 +8,7 @@ Changelog
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
+ * Implemented automatic tree synchronisation for `contrib.simple_translation` (Mitchel Cabuloy)
  * Added a `background_position_style` property to renditions (Karl Hobley)
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
  * Add a debug logger around image rendition generation (Jake Howard)
