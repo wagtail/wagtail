@@ -258,6 +258,7 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         ("fr", "French"),
         ("de", "German"),
     ],
+    WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True
 )
 class TestPageTreeSync(WagtailTestUtils, TestCase):
     def setUp(self):
@@ -285,3 +286,13 @@ class TestPageTreeSync(WagtailTestUtils, TestCase):
 
         self.assertEqual(fr_blog_index.alias_of.specific, en_blog_index)
         self.assertEqual(de_blog_index.alias_of.specific, en_blog_index)
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
+    def test_page_sync_disabled(self):
+        en_blog_index = TestPage(title="Blog", slug="blog")
+        self.en_homepage.add_child(instance=en_blog_index)
+
+        after_create_page(None, en_blog_index)
+
+        self.assertFalse(en_blog_index.has_translation(self.fr_locale))
+        self.assertFalse(en_blog_index.has_translation(self.de_locale))

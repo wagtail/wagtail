@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Model
 
 from wagtail.core import hooks
@@ -31,8 +32,9 @@ def after_create_page(request, page):
     tree, this signal handler creates an alias of that page called
     "blog/my-blog-post" under the other locales' trees.
     """
-    # Check if the source tree needs to be synchronised into any other trees
-    # Create aliases in all those locales
-    for locale in Locale.objects.exclude(pk=page.locale_id):
-        if not page.has_translation(locale):
-            page.copy_for_translation(locale, copy_parents=True, alias=True)
+    if getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+        # Check if the source tree needs to be synchronised into any other trees
+        # Create aliases in all those locales
+        for locale in Locale.objects.exclude(pk=page.locale_id):
+            if not page.has_translation(locale):
+                page.copy_for_translation(locale, copy_parents=True, alias=True)
