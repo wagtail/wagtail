@@ -44,4 +44,4 @@ You can enable this feature by setting `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE`
 
 When this feature is turned on, every time an editor creates a page, Wagtail creates an alias for that page under the page trees of all the other locales.
 
-e.g. When an editor creates the page "/en/blog/my-blog-post/", Wagtail creates an alias of that page at "/fr/blog/my-blog-post/" and "/de/blog/my-blog-post/".
+For example, when an editor creates the page "/en/blog/my-blog-post/", Wagtail creates an alias of that page at "/fr/blog/my-blog-post/" and "/de/blog/my-blog-post/".
