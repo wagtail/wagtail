@@ -70,6 +70,8 @@ There is an active community of Wagtail users and developers responding to quest
 
 For topics and discussions that do not fit Stack Overflow's question and answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) and a [Wagtail Support mailing list](https://groups.google.com/forum/#!forum/wagtail). Please respect the time and effort of volunteers by not asking the same question in multiple places.
 
+Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project. 
+
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
 ### Commercial Support
