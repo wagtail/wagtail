@@ -26,6 +26,12 @@ The Wagtail Slack workspace is open to all users and developers of Wagtail. To j
 Please use the **#support** channel for support questions. Support is provided by members of the Wagtail community on a voluntary basis, and we cannot guarantee that questions will be answered quickly (or at all). If you want to see this resource succeed, please consider sticking around to help out! Also, please keep in mind that many of Wagtail's core and expert developers prefer to handle support queries on a non-realtime basis through Stack Overflow, and questions asked there may well get a better response.
 
 
+GitHub discussions
+~~~~~~~~~~~~~~~~~~
+
+Our `Github discussion boards <https://github.com/wagtail/wagtail/discussions>`_ are open for sharing ideas and plans for the Wagtail project.
+
+
 Issues
 ~~~~~~
 
