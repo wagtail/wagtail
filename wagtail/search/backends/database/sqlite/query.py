@@ -5,7 +5,7 @@ from django.db.models.expressions import CombinedExpression, Expression, Func, V
 from django.db.models.fields import BooleanField, Field, FloatField
 from django.db.models.sql.compiler import SQLCompiler
 
-from wagtail.search.query import And, MatchAll, Not, Or, Phrase, PlainText
+from wagtail.search.query import And, MatchAll, Not, Or, Phrase, PlainText, SearchQuery
 
 
 class BM25(Func):
@@ -115,8 +115,8 @@ class SearchQueryCombinable:
                 'instances, got %s.' % type(other).__name__
             )
         if reversed:
-            return CombinedSearchQuery(other, connector, self)
-        return CombinedSearchQuery(self, connector, other)
+            return CombinedSearchQueryExpression(other, connector, self)
+        return CombinedSearchQueryExpression(self, connector, other)
 
     # On Combinable, these are not implemented to reduce confusion with Q. In
     # this case we are actually (ab)using them to do logical combination so
@@ -134,7 +134,7 @@ class SearchQueryCombinable:
         return self._combine(other, self.BITAND, True)
 
 
-class SearchQuery(SearchQueryCombinable, Expression):
+class SearchQueryExpression(SearchQueryCombinable, Expression):
     def __init__(self, value: LexemeCombinable, using=None, **extra):
         super().__init__(output_field=SearchQueryField())
         self.using = using
@@ -152,7 +152,7 @@ class SearchQuery(SearchQueryCombinable, Expression):
         return self.value.__repr__()
 
 
-class CombinedSearchQuery(SearchQueryCombinable, CombinedExpression):
+class CombinedSearchQueryExpression(SearchQueryCombinable, CombinedExpression):
     def __init__(self, lhs, connector, rhs, output_field=None):
         super().__init__(lhs, connector, rhs, output_field)
 

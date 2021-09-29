@@ -14,7 +14,7 @@ from ....models import IndexEntry, SQLiteFTSIndexEntry
 from ....query import And, MatchAll, Not, Or, Phrase, PlainText
 from ....utils import ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks
 from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
-from .query import BM25, AndNot, Lexeme, MatchExpression, SearchQuery, normalize
+from .query import BM25, AndNot, Lexeme, MatchExpression, SearchQueryExpression, normalize
 
 
 class ObjectIndexer:
@@ -342,10 +342,10 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
                 else:
                     lexemes |= new_lexeme
 
-            return SearchQuery(lexemes, config=config)
+            return SearchQueryExpression(lexemes, config=config)
 
         elif isinstance(query, Phrase):
-            return SearchQuery(query.query_string)
+            return SearchQueryExpression(query.query_string)
 
         elif isinstance(query, AndNot):
             # Combine the two sub-queries into a query of the form `(first) AND NOT (second)`.
