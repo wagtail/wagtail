@@ -162,10 +162,13 @@ def edit(request, document_id):
                 doc.save()
                 form.save_m2m()
 
-                # If providing a new document file, delete the old one.
-                # NB Doing this via original_file.delete() clears the file field,
-                # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
+                # Only delete the original file if it was uploaded to a different path.
+                if original_file.name != doc.file.name:
+                    # If providing a new document file, delete the old one.
+                    # NB Doing this via original_file.delete() clears the file field,
+                    # which definitely isn't what we want...
+                    original_file.storage.delete(original_file.name)
+
             else:
                 doc = form.save()
 
