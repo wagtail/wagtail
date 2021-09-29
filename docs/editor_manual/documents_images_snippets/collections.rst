@@ -25,6 +25,8 @@ ______________________________________
 
 .. image:: ../../_static/images/collections_edit_img_view.png
 
+.. _collection_privacy_settings:
+
 Privacy settings
 ________________
 
@@ -36,5 +38,12 @@ ________________
 
 .. image:: ../../_static/images/collections_privacy_overlay.png
 
+Permissions set on ‘root’ apply to all collections, so if you make the 'root' collection private, all documents in the site will be private. Permissions set on other collections apply to that collection only.
+
+
 .. Note::
-    Permissions set on ‘root’ apply to all collections, so a user with ‘edit’ permission for images on root can edit all images; permissions set on other collections apply to that collection only.
+    Although privacy settings are added to a collection, they are only enforced for documents within the collection. Privacy settings do not apply to images.
+
+    If you intend to use privacy setting, please make sure your web site is configured to enforce the level of privacy you require. See :ref:`Deployment tips <deployment_tips>` for configuration details.
+
+
