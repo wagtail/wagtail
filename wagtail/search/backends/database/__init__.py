@@ -8,7 +8,7 @@ def SearchBackend(params):
     if connection.vendor == 'postgresql':
         from .postgres.postgres import PostgresSearchBackend
         return PostgresSearchBackend(params)
-    if connection.vendor == 'sqlite':
+    elif connection.vendor == 'sqlite':
         import sqlite3
         if sqlite3.sqlite_version_info < (3, 19, 0):
             # Prior to version 3.19, SQLite doesn't support FTS5 queries with column filters ('{column_1 column_2} : query'), so we need to fall back to the dummy fallback backend.
