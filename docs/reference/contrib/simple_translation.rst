@@ -29,3 +29,19 @@ Add ``"wagtail.contrib.simple_translation"`` to INSTALLED_APPS in your settings 
 Run ``python manage.py migrate`` to create the necessary permissions.
 
 In the Wagtail admin, go to settings and give some users or groups the "Can submit translations" permission.
+
+
+Page tree synchronisation
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Depending on your use case, it may be useful to keep the page trees in sync between different locales.
+
+You can enable this feature by setting `WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE` to `True`.
+
+.. code-block:: python
+
+  WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE = True
+
+When this feature is turned on, every time an editor creates a page, Wagtail creates an alias for that page under the page trees of all the other locales.
+
+For example, when an editor creates the page "/en/blog/my-blog-post/", Wagtail creates an alias of that page at "/fr/blog/my-blog-post/" and "/de/blog/my-blog-post/".
