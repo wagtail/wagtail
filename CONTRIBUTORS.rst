@@ -543,6 +543,7 @@ Contributors
 * Kamil Marut
 * Jane Liu
 * Joe Howard
+* Jochen Wersdörfer
 
 Translators
 ===========

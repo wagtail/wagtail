@@ -42,6 +42,8 @@ Other features
  * Create ``ImageFileMixin`` to extract shared file handling methods from ``AbstractImage`` and ``AbstractRendition`` (Fabien Le Frapper)
  * Add ``before_delete_page`` and ``register_permissions`` examples to Hooks documentation (Jane Liu, Daniel Fairhead)
  * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
+ * Add section about CSV exports to security documentation (Matt Westcott)
+ * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
 
 Bug fixes
 ~~~~~~~~~
