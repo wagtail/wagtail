@@ -45,3 +45,11 @@ On the day of disclosure, we will take the following steps:
 4. Post a notice to the [Wagtail support forum](https://groups.google.com/d/forum/wagtail) and Twitter feed ([\@WagtailCMS](https://twitter.com/wagtailcms)) that links to the blog post.
 
 If a reported issue is believed to be particularly time-sensitive -- due to a known exploit in the wild, for example -- the time between advance notification and public disclosure may be shortened considerably.
+
+## CSV export security considerations
+
+In various places Wagtail provides the option to export data in CSV format, and several reporters have raised the possibility of a malicious user inserting data that will be interpreted as a formula when loaded into a spreadsheet package such as Microsoft Excel. We do not consider this to be a security vulnerability in Wagtail. CSV as defined by [RFC 4180](https://datatracker.ietf.org/doc/html/rfc4180) is purely a data format, and makes no assertions about how that data is to be interpreted; the decision made by certain software to treat some strings as executable code has no basis in the specification. As such, Wagtail cannot be responsible for the data it generates being loaded into a software package that interprets it insecurely, any more than it would be responsible for its data being loaded into a missile control system. This is consistent with [the Google security team's position](https://sites.google.com/site/bughunteruniversity/nonvuln/csv-excel-formula-injection).
+
+Since the CSV format has no concept of formulae or macros, there is also no agreed-upon convention for escaping data to prevent it from being interpreted in that way; commonly-suggested approaches such as prefixing the field with a quote character would corrupt legitimate data (such as phone numbers beginning with '+') when interpreted by software correctly following the CSV specification.
+
+Wagtail's data exports default to XLSX, which can be loaded into spreadsheet software without any such issues. This minimises the risk of a user handling CSV files insecurely, as they would have to explicitly choose CSV over the more familiar XLSX format.
