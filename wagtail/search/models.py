@@ -5,6 +5,8 @@ from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import connection, models
+from django.db.models.fields import TextField
+from django.db.models.fields.related import OneToOneField
 from django.db.models.functions import Cast
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -191,6 +193,32 @@ if connection.vendor == 'postgresql':
             ]
 
     AbstractIndexEntry = AbstractPostgresIndexEntry
+
+elif connection.vendor == 'sqlite':
+
+    class AbstractSQLiteIndexEntry(BaseIndexEntry):
+        """
+        This class is the specific IndexEntry model for SQLite database systems. The autocomplete, title, and body fields store additional
+        """
+
+        autocomplete = TextField(null=True)
+        title = TextField(null=False)
+        body = TextField(null=True)
+
+        class Meta(BaseIndexEntry.Meta):
+            abstract = True
+
+    AbstractIndexEntry = AbstractSQLiteIndexEntry
+
+    class SQLiteFTSIndexEntry(models.Model):
+        autocomplete = TextField(null=True)
+        title = TextField(null=False)
+        body = TextField(null=True)
+        index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
+
+        class Meta:
+            db_table = "wagtailsearch_indexentry_fts"
+
 else:
     AbstractIndexEntry = BaseIndexEntry
 
