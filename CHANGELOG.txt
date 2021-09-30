@@ -33,6 +33,7 @@ Changelog
  * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
  * Add section about CSV exports to security documentation (Matt Westcott)
  * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
+ * Move translations in `nl_NL` to `nl` (Loïc Teixeira, Coen van der Kamp)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)

@@ -44,6 +44,7 @@ Other features
  * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
  * Add section about CSV exports to security documentation (Matt Westcott)
  * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
+ * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
 
 Bug fixes
 ~~~~~~~~~
