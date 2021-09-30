@@ -159,7 +159,6 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     objects = ImageQuerySet.as_manager()
 
-
     def _set_file_hash(self, file_contents):
         self.file_hash = hashlib.sha1(file_contents).hexdigest()
 
