@@ -381,6 +381,13 @@ class TestEditView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.user = self.login()
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Book),
+            label="The Lord of the Rings",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
 
     def get(self, book_id):
         return self.client.get('/admin/modeladmintest/book/edit/%d/' % book_id)
@@ -393,6 +400,11 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'The Lord of the Rings')
+
+        # "Last updated" timestamp should be present
+        self.assertContains(response, 'data-wagtail-tooltip="Sept. 30, 2021, 10:01 a.m."')
+        # History link should be present
+        self.assertContains(response, 'href="/admin/modeladmintest/book/history/1/"')
 
         url_finder = AdminURLFinder(self.user)
         expected_url = '/admin/modeladmintest/book/edit/1/'

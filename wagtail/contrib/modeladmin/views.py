@@ -720,6 +720,13 @@ class EditView(ModelFormView, InstanceSpecificView):
                 self.request.user, self.instance)
         }
         context.update(kwargs)
+        if self.model_admin.history_view_enabled:
+            context['latest_log_entry'] = log_registry.get_logs_for_instance(self.instance).first()
+            context['history_url'] = self.url_helper.get_action_url('history', quote(self.instance.pk))
+        else:
+            context['latest_log_entry'] = None
+            context['history_url'] = None
+
         return super().get_context_data(**context)
 
     def get_error_message(self):
