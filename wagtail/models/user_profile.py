@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="wagtail_userprofile_legacy",
+        related_name="wagtail_userprofile",
     )
 
     submitted_notifications = models.BooleanField(
