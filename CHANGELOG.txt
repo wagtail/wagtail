@@ -40,6 +40,7 @@ Changelog
  * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
  * Add support for Python 3.10 (Matt Westcott)
  * Introduce, `autocomplete`, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
+ * Use SVG icons in StreamField buttons and headers (Jérôme Lebleu)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
