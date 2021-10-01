@@ -5,6 +5,7 @@
 #
 # Translators:
 # Ed Wurch <ewurch@gmail.com>, 2021
+# A M, 2021
 #
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Ed Wurch <ewurch@gmail.com>, 2021\n"
+"Last-Translator: A M, 2021\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/torchbox/"
 "teams/8009/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +48,7 @@ msgid "Translate page"
 msgstr "Traduzir página"
 
 msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "A página '{page_title}' foi criada com sucesso em {localidades}"
+msgstr "A página '{page_title}' foi criada com sucesso em {locales}"
 
 msgid "Translate {model_name}"
 msgstr "Traduzir {model_name}"

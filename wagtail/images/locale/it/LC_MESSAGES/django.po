@@ -6,6 +6,7 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
@@ -13,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Sandro Badalamenti <sandro@mailinator.com>\n"
+"PO-Revision-Date: 2021-08-19 14:47+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -75,8 +76,18 @@ msgstr "Allineata a destra"
 msgid "Collection"
 msgstr "Raccolta"
 
+msgid "Format"
+msgstr "Formato"
+
+msgid "Image is decorative"
+msgstr "L'immagine è decorativa"
+
 msgid "Alt text"
 msgstr "Testo alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Aggiungi testo alterativo per la tua immagina o marcala come decorativa"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -118,10 +129,13 @@ msgid "Edit"
 msgstr "Modifica"
 
 msgid "Edit any image"
-msgstr "Modifica qualche immagine"
+msgstr "Modifica qualsiasi immagine"
 
 msgid "Choose"
 msgstr "Scegli"
+
+msgid "Select images in choosers"
+msgstr "Scegli immagini nei selettori"
 
 msgid "title"
 msgstr "titolo"
@@ -269,7 +283,7 @@ msgid "Current focal point shown"
 msgstr "Punto focale corrente indicato"
 
 msgid "Remove focal area"
-msgstr "Elimina focal area"
+msgstr "Elimina area focale"
 
 msgid "Max dimensions"
 msgstr "Dimensioni massime"
@@ -281,7 +295,7 @@ msgid "File not found"
 msgstr "File non trovato"
 
 msgid "Usage"
-msgstr "Uso"
+msgstr "Utilizzo"
 
 msgid "Images"
 msgstr "Immagini"
@@ -337,7 +351,7 @@ msgid "Usage of %(title)s"
 msgstr "Uso di %(title)s"
 
 msgid "Usage of"
-msgstr "Uso di"
+msgstr "Utilizzo di"
 
 msgid "Title"
 msgstr "Titolo"
@@ -383,7 +397,7 @@ msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
 
 msgid "Server Error"
-msgstr "Errore del Server"
+msgstr "Errore del server"
 
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"

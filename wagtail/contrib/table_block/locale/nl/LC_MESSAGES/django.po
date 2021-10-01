@@ -1,0 +1,51 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Coen van der Kamp <cvanderkamp@gmail.com>, 2019
+# Maarten Kling <kling.maarten@gmail.com>, 2018
+# Storm Heg <storm@stormbase.digital>, 2021
+# Thijs Kramer <thijskramer@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-09-20 20:54+0000\n"
+"Last-Translator: Loic Teixeira\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Wagtail tabel blok"
+
+msgid "Row header"
+msgstr "Rij-header"
+
+msgid "Display the first row as a header."
+msgstr "Geef de eerste rij weer als een header."
+
+msgid "Column header"
+msgstr "Kolomheader"
+
+msgid "Display the first column as a header."
+msgstr "Geef de eerste kolom als een header weer."
+
+msgid "Table caption"
+msgstr "Bijschrift"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Een algemene omschrijving van de tabel. Nuttig voor bezoekers die gebruik "
+"maken van een screen reader."
+
+msgid "Table"
+msgstr "Tabel"

@@ -6,13 +6,14 @@
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-01 07:46+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +96,16 @@ msgstr "сповіщення у разі відхилення"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Отримувати сповіщення у разі відхилення вашого редагування сторінки. "
+
+msgid "updated comments notifications"
+msgstr "оновлені повідомлення про коментарі "
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Отримувати сповіщення, коли коментарі були створені, вирішені чи видалені на "
+"сторінці, на яку ви підписалися"
 
 msgid "preferred language"
 msgstr "бажана мова"
@@ -272,8 +283,50 @@ msgid "%(time_period)s ago"
 msgstr "%(time_period)s тому"
 
 #, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+" "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+
+#, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден користувач не відповідає \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Група %(group_name)s не містить користувачів. Чому б не <a href="
+"\"%(wagtailusers_add_url)s\"> додати одного</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Немає сконфігурованих користувачів. Чому б не <a href="
+"\"%(wagtailusers_add_url)s\">додати одного</a>?"
 
 msgid "Groups"
 msgstr "Групи"

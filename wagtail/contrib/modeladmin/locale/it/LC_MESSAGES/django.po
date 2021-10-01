@@ -6,13 +6,14 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"PO-Revision-Date: 2021-08-16 20:11+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +137,9 @@ msgstr "Cerca per"
 msgid "Search %(name)s"
 msgstr "Cerca %(name)s"
 
+msgid "Download XLSX"
+msgstr "Scarica XLSX"
+
 msgid "Download CSV"
 msgstr "Scarica CSV"
 
@@ -147,12 +151,12 @@ msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
-"%(name)s non è stato ancora creato. Una delle seguenti deve essere creata "
-"prima che tu possa aggiungere qualsiasi %(name)s:"
+"Nessuna %(name)s  è stata ancora creata. Una delle seguenti deve essere "
+"creata prima che tu possa aggiungere qualsiasi %(name)s:"
 
 #, python-format
 msgid "No %(name)s have been created yet."
-msgstr "%(name)s non è stato ancora creato."
+msgstr "%(name)s non è stato ancora creata."
 
 #, python-format
 msgid ""
@@ -184,6 +188,10 @@ msgid "Next"
 msgstr "Successivo"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' creato."
+
+#, python-format
 msgid "The %s could not be created due to errors."
 msgstr "%s non può essere creato a causa di errori. "
 
@@ -202,6 +210,10 @@ msgid "Editing %s"
 msgstr "Modifica %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' aggiornato."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s non può essere salvato a causa di errori."
 
@@ -216,6 +228,10 @@ msgid ""
 msgstr ""
 "Sei sicuro di voler cancellare %s? Saranno interessati tutti gli oggetti del "
 "sito in relazione a questo."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' eliminato."
 
 msgid "Inspecting"
 msgstr "Controllo"

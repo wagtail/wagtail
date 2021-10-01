@@ -6,6 +6,7 @@
 # Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
+# Éder Brito <britoederr@gmail.com>, 2021
 # Ed Wurch <ewurch@gmail.com>, 2021
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
@@ -20,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"PO-Revision-Date: 2021-09-27 00:35+0000\n"
+"Last-Translator: Éder Brito <britoederr@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -399,6 +400,15 @@ msgstr "Comentário"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Save the page to add this comment"
+msgstr "Salve a página para adicionar este comentário"
+
+msgid "Save the page to save this comment"
+msgstr "Salve a página para salvar este comentário"
+
+msgid "Save the page to save this reply"
+msgstr "Salve a página para salvar esta resposta"
+
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -623,6 +633,15 @@ msgstr "Mover para baixo"
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
+msgid "Comments"
+msgstr "Comentários"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Alternar a visibilidade da lista de notificações de comentários"
+
+msgid "Commenting on this page"
+msgstr "Comentando nesta página"
+
 msgid "Comment notifications"
 msgstr "Notificações de comentários"
 
@@ -754,6 +773,9 @@ msgstr "Entrar no Wagtail"
 
 msgid "Signing in…"
 msgstr "Entrando..."
+
+msgid "Forgotten password?"
+msgstr "Esqueceu a senha?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1007,6 +1029,9 @@ msgstr "Converter alias %(title)s"
 msgid "Convert alias"
 msgstr "Converter alias"
 
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Tem certeza de que deseja converter este alias em uma página comum?"
+
 msgid "This action cannot be undone."
 msgstr "Essa ação não pode ser desfeita."
 
@@ -1192,6 +1217,9 @@ msgstr "Esta página é um alias de outra página."
 
 msgid "Edit original page"
 msgstr "Editar página original"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Converter este alias em uma página comum"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1751,8 +1779,38 @@ msgstr ""
 "por este software. Por favor <a href=\"https://browsehappy.com/\">atualize o "
 "seu navegador</a>."
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            O JavaScript é necessário para usar o Wagtail, mas está "
+"desativado no momento.<br />\n"
+"            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções sobre como "
+"habilitar o JavaScript em seu navegador</a>.\n"
+"        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"O Wagtail está removendo o suporte ao IE11 gradualmente, o que pode afetar a "
+"você ou sua organização. <a href=\"%(url)s\">Saiba mais sobre nossos planos "
+"de suporte IE11 </a>."
+
 msgid "Skip to main content"
 msgstr "Ir para o conteúdo principal"
+
+msgid "View Wagtail quick actions"
+msgstr "Veja as ações rápidas do Wagtail"
 
 msgid "Add a child page"
 msgstr "Adicionar subpágina"
@@ -1777,6 +1835,17 @@ msgstr "Criando…"
 
 msgid "Create"
 msgstr "Criar"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
+msgstr ""
+"Os workflows também se aplicam a sub-páginas. Se você selecionar a página "
+"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a href="
+"\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu fluxo de "
+"trabalho  atribuído."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -2046,6 +2115,9 @@ msgstr "Tem certeza de que deseja excluir esta coleção?"
 msgid "Editing"
 msgstr "Editando"
 
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "A página '{0}' foi convertida em uma página comum."
+
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' e {1} subpáginas copiadas."
 
@@ -2136,6 +2208,9 @@ msgstr "Esta página não pode ser salva já que está bloqueada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "A página não pode ser salva devido a erros de validação"
+
+msgid "Hide commenting actions"
+msgstr "Ocultar ações de comentários"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Agora a página '{0}' está desbloqueada."

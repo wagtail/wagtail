@@ -31,6 +31,7 @@
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
+# Stefan Hammer <stefan@hammerworxx.com>, 2021
 # Tibor <tibor@lpld.io>, 2020
 # Scriptim <Scriptim@gmx.de>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
@@ -41,8 +42,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-22 10:12+0000\n"
-"Last-Translator: unicode_it <info@unicode-it.de>\n"
+"PO-Revision-Date: 2021-08-26 11:28+0000\n"
+"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -236,7 +237,7 @@ msgstr[1] ""
 "deren Kopien ebenfalls veröffentlichen?"
 
 msgid "Alias"
-msgstr "Pseudonym"
+msgstr "Alias"
 
 msgid "Keep the new pages updated with future changes"
 msgstr "Halte neue Seiten mit zukünftigen Änderungen aktuell."
@@ -1063,10 +1064,10 @@ msgstr "Seiten, die %(page_type)s verwenden"
 
 #, python-format
 msgid "Convert alias %(title)s"
-msgstr "Pseudonym %(title)s konvertieren"
+msgstr "Alias %(title)s konvertieren"
 
 msgid "Convert alias"
-msgstr "Pseudonym konvertieren"
+msgstr "Alias konvertieren"
 
 msgid "Are you sure you want to convert this alias into an ordinary page?"
 msgstr ""

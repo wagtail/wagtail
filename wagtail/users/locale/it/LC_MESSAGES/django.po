@@ -5,14 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-08-13 06:19+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -91,6 +92,16 @@ msgstr "notifiche rifiutate"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Ricevi notifica quando la modifica di una tua pagina viene rifiutata"
 
+msgid "updated comments notifications"
+msgstr "notifiche commenti aggiornati"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Ricevi notifiche quando i commenti sono stati creati, risolti o eliminati su "
+"una pagina a cui ti sei iscritto per ricevere le notifiche dei commenti"
+
 msgid "preferred language"
 msgstr "lingua preferita"
 
@@ -156,8 +167,14 @@ msgstr "Aggiungi gruppo"
 msgid "Editing"
 msgstr "Modifica"
 
+msgid "View users in this group"
+msgstr "Visualizza utenti in questo gruppo"
+
 msgid "Save"
 msgstr "Salva"
+
+msgid "Permissions"
+msgstr "Permessi"
 
 msgid "Object permissions"
 msgstr "Permessi oggetto"
@@ -272,6 +289,22 @@ msgstr[1] ""
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Spiacente, nessun utente corrispondente a \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Il gruppo  %(group_name)s non ha utenti configurati. Perché non <a href="
+"\"%(wagtailusers_add_url)s\">ne aggiungi qualcuno</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Non ci sono utenti configurati. Perché non <a href=\"%(wagtailusers_add_url)s"
+"\">ne aggiungi qualcuno</a>?"
 
 msgid "Groups"
 msgstr "Gruppi"

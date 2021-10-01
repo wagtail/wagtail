@@ -29,7 +29,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('lt', 'Lithuanian'),
     ('mn', 'Mongolian'),
     ('nb', 'Norwegian Bokmål'),
-    ('nl-nl', 'Netherlands Dutch'),
+    ('nl', 'Dutch'),
     ('fa', 'Persian'),
     ('pl', 'Polish'),
     ('pt-br', 'Brazilian Portuguese'),

@@ -5,13 +5,14 @@
 # Translators:
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"PO-Revision-Date: 2021-09-29 16:40+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -85,8 +86,14 @@ msgstr "час відправки"
 msgid "form submission"
 msgstr "подання форми"
 
+msgid "form submissions"
+msgstr "подання форм"
+
 msgid "name"
 msgstr "ім'я"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Безпечна назва поля форми, мітка перетворена в ascii_snake_case"
 
 msgid "label"
 msgstr "мітка"
@@ -122,6 +129,12 @@ msgstr "допоміжний текст"
 
 msgid "Submission date"
 msgstr "Дата подання"
+
+msgid "Form"
+msgstr "Форма"
+
+msgid "Landing page"
+msgstr "Лендинг"
 
 msgid "to address"
 msgstr "за адресою"
@@ -196,6 +209,9 @@ msgstr "Дані форми <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Фільтр"
+
+msgid "Download XLSX"
+msgstr "Завантажити XLSX"
 
 msgid "Download CSV"
 msgstr "Завантажити CSV"

@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Anastasiia La, 2021
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-09-30 20:43+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -27,17 +29,27 @@ msgstr ""
 msgid "Wagtail core"
 msgstr "Ядро Wagtail "
 
+msgid "Add Comment"
+msgstr "Додати коментар"
+
 msgid "Move up"
 msgstr "Перемістити нагору"
 
 msgid "Move down"
 msgstr "Перемістити вниз"
 
+msgid "Duplicate"
+msgstr "Дублікат"
+
 msgid "Delete"
 msgstr "Видалити"
 
 msgid "Add"
 msgstr "Додати"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: для цього блоку немає опцій."
 
 msgid "This block has no options."
 msgstr "Для цього блоку немає опцій."
@@ -58,6 +70,13 @@ msgstr "Пароль"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Пароль. який ви ввели, не є коректним. Будь ласка, спробуйте ще."
+
+msgid "Comment"
+msgstr "Коментар"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Невідомо %(action)s"
 
 msgid "title"
 msgstr "заголовок"
@@ -110,6 +129,9 @@ msgstr "більше не доступне"
 msgid "locked"
 msgstr "заблоковано"
 
+msgid "locked by"
+msgstr "заблокований"
+
 msgid "first published at"
 msgstr "вперше опубліковано о"
 
@@ -125,11 +147,17 @@ msgstr "Ця коротка назва вже використовується"
 msgid "scheduled"
 msgstr "заплановано"
 
+msgid "in moderation"
+msgstr "на модерації"
+
 msgid "draft"
 msgstr "чернетка"
 
 msgid "live + scheduled"
 msgstr "наживо + заплановано"
+
+msgid "live + in moderation"
+msgstr "наживо + на модерації"
 
 msgid "live + draft"
 msgstr "наживо + чернетка"
@@ -188,8 +216,14 @@ msgstr "Видаляти сторінки разом з дочірніми"
 msgid "Lock"
 msgstr "Блокувати"
 
+msgid "Lock/unlock pages you've locked"
+msgstr "Заблокувати/розблокувати сторінки, які ви заблокували"
+
 msgid "Unlock"
 msgstr "Розблокувати"
+
+msgid "Unlock any page"
+msgstr "Розблокувати будь-яку сторінку"
 
 msgid "group"
 msgstr "група"
@@ -209,14 +243,53 @@ msgstr "обмеження показу сторінки"
 msgid "page view restrictions"
 msgstr "обмеження показу сторінки"
 
+msgid "task"
+msgstr "завдання"
+
 msgid "name"
 msgstr "ім'я"
+
+msgid "active"
+msgstr "активний"
+
+msgid "tasks"
+msgstr "завдання"
+
+msgid "workflows"
+msgstr "робочі процеси"
 
 msgid "groups"
 msgstr "групи"
 
 msgid "Approve"
 msgstr "Підтвердити"
+
+msgid "In progress"
+msgstr "В процесі"
+
+msgid "Approved"
+msgstr "Підтверджено"
+
+msgid "Needs changes"
+msgstr "Потребує змін"
+
+msgid "Cancelled"
+msgstr "Скасовано"
+
+msgid "status"
+msgstr "статус"
+
+msgid "Rejected"
+msgstr "Відхилено"
+
+msgid "Skipped"
+msgstr "Пропущено"
+
+msgid "comment"
+msgstr "коментар"
+
+msgid "comments"
+msgstr "коментарі"
 
 msgid "collection"
 msgstr "колекція"
@@ -341,11 +414,20 @@ msgstr "Французька"
 msgid "German"
 msgstr "Німецька"
 
+msgid "Create"
+msgstr "Створити"
+
+msgid "Created"
+msgstr "Створено"
+
 msgid "Save draft"
 msgstr "Зберегти чернетку"
 
 msgid "Draft saved"
 msgstr "Чернетку збережено"
+
+msgid "Deleted"
+msgstr "Видалено"
 
 msgid "Published"
 msgstr "Опубліковано"
@@ -365,12 +447,83 @@ msgstr "Розблоковано"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Moved"
+msgstr "Переміщено"
+
 #, python-format
 msgid "Renamed from '%(old)s' to '%(new)s'"
 msgstr "Перейменовано з '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Перейменовано"
+
+msgid "Added a comment"
+msgstr "Додано коментар"
+
+msgid "Deleted a comment"
+msgstr "Видалено коментар"
+
+msgid "Rename"
+msgstr "Перейменувати"
 
 msgid "Copy"
 msgstr "Копіювати"
 
 msgid "Move"
 msgstr "Перемістити"
+
+msgid "Add comment"
+msgstr "Додати коментар"
+
+msgid "Edit comment"
+msgstr "Оновити коментар"
+
+msgid "Delete comment"
+msgstr "Видалити коментар"
+
+msgid "Resolve comment"
+msgstr "Вирішити коментар"
+
+msgid "Reply to comment"
+msgstr "Відповісти на коментар"
+
+msgid "Edit reply to comment"
+msgstr "Редагувати відповідь на коментар"
+
+msgid "Delete reply to comment"
+msgstr "Видалити відповідь на коментар"
+
+msgid "Workflow started"
+msgstr "Робочий процес запущений"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Завдання робочого процесу відхилено. Процес завершено"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Завдання '%(task)s' виконано ще раз. Робочий процес відновлено'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr "Завдання виконано ще раз. Робочий процес відновлено"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Скасовано '%(workflow)s' в '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Робочий процес скасовано"
+
+msgid "Workflow: start"
+msgstr "Робочий процес: запустити"
+
+msgid "Workflow: approve task"
+msgstr "Робочий процес: затвердити завдання "
+
+msgid "Workflow: reject task"
+msgstr "Робочий процес: відхилити завдання"
+
+msgid "Workflow: resume task"
+msgstr "Робочий процес: відновити завдання"
+
+msgid "Workflow: cancel"
+msgstr "Робочий процес: скасувати"

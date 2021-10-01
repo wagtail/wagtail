@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Diogo Silva <diogo_silva30@hotmail.com>, 2021
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Luís Tiago Favas <al62006@utad.eu>, 2020
 # Luís Tiago Favas <al62006@utad.eu>, 2021
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"PO-Revision-Date: 2021-08-12 15:18+0000\n"
+"Last-Translator: Diogo Silva <diogo_silva30@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -718,6 +719,27 @@ msgstr "Nome alterado de '%(old)s' para '%(new)s'"
 msgid "Renamed"
 msgstr "Nome alterado"
 
+msgid "Added a comment"
+msgstr "Adicionou um comentário"
+
+msgid "Edited a comment"
+msgstr "Editou um comentário"
+
+msgid "Deleted a comment"
+msgstr "Apagou um comentário"
+
+msgid "Resolved a comment"
+msgstr "Resolveu um comentário"
+
+msgid "Replied to a comment"
+msgstr "Respondeu a um comentário"
+
+msgid "Edited a reply"
+msgstr "Editou uma resposta"
+
+msgid "Deleted a reply"
+msgstr "Apagou uma resposta"
+
 msgid "Rename"
 msgstr "Renomear"
 
@@ -753,6 +775,24 @@ msgstr "Remover restrições de visualização"
 
 msgid "Add comment"
 msgstr "Adicionar comentário"
+
+msgid "Edit comment"
+msgstr "Editar comentário"
+
+msgid "Delete comment"
+msgstr "Apagar comentário"
+
+msgid "Resolve comment"
+msgstr "Resolver comentário"
+
+msgid "Reply to comment"
+msgstr "Responder a comentário"
+
+msgid "Edit reply to comment"
+msgstr "Editar resposta a comentário"
+
+msgid "Delete reply to comment"
+msgstr "Apagar resposta a comentário"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"

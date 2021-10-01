@@ -5,14 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-08-14 14:29+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail table block"
-msgstr "Blocco di tabella Wagtail"
+msgstr "Blocco tabella Wagtail"
 
 msgid "Row header"
 msgstr "Intestazione di riga"
@@ -31,13 +32,13 @@ msgid "Display the first row as a header."
 msgstr "Visualizza la prima riga come intestazione."
 
 msgid "Column header"
-msgstr "Intestazione di colonna"
+msgstr "Intestazione colonna"
 
 msgid "Display the first column as a header."
 msgstr "Visualizza la prima colonna come intestazione."
 
 msgid "Table caption"
-msgstr "Titolo della tabella"
+msgstr "Didascalia"
 
 msgid ""
 "A heading that identifies the overall topic of the table, and is useful for "
@@ -45,3 +46,6 @@ msgid ""
 msgstr ""
 "Un'intestazione che identifica l'argomento generale della tabella, utile "
 "agli utenti dotati di screen reader"
+
+msgid "Table"
+msgstr "Tabella"

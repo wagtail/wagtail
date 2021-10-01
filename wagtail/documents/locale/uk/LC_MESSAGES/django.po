@@ -4,13 +4,14 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"PO-Revision-Date: 2021-10-01 07:40+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +62,9 @@ msgstr "теги"
 msgid "document"
 msgstr "документ"
 
+msgid "documents"
+msgstr "документи"
+
 msgid "Choose a document"
 msgstr "Обрати документ"
 
@@ -73,12 +77,56 @@ msgstr "Надіслати"
 msgid "Uploading…"
 msgstr "Йде надсилання..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+" "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+
 msgid "Latest documents"
 msgstr "Останні документи"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден документ не відповідає \"<em>%(query_string)s</em>\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Ви не завантажили жодних документів до цієї колекції."
+
+msgid "You haven't uploaded any documents."
+msgstr "Ви не завантажили жодних документів."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"Чому б не <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">не завантажити зараз</a>?\n"
+" "
 
 msgid "Change document:"
 msgstr "Змінити документ:"
@@ -110,6 +158,9 @@ msgstr "Ви впевнені, що хочете видалити цей док�
 msgid "Yes, delete"
 msgstr "Так, видалити"
 
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редагування %(title)s"
@@ -137,6 +188,9 @@ msgstr "Заголовок"
 
 msgid "File"
 msgstr "Файл"
+
+msgid "Created"
+msgstr "Створено"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -177,6 +231,38 @@ msgstr "Статус"
 msgid "Edit this page"
 msgstr "Редагувати цю сторінку"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span>документ <span class=\"visuallyhidden\">створено в "
+"%(site_name)s</span>\n"
+"  "
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span> документи <span class=\"visuallyhidden\">створено в "
+"%(site_name)s</span>\n"
+" "
+msgstr[2] ""
+"\n"
+"<span>%(total)s</span> документів <span class=\"visuallyhidden\">створено в "
+"%(site_name)s</span>\n"
+" "
+msgstr[3] ""
+"\n"
+"<span>%(total)s</span> документів <span class=\"visuallyhidden\">створено в "
+"%(site_name)s</span>\n"
+" "
+
 msgid "Add multiple documents"
 msgstr "Додати декілька документів"
 
@@ -193,8 +279,20 @@ msgstr "Чи оберіть з вашого комп'ютера"
 msgid "Add to collection:"
 msgstr "Додати до колекції:"
 
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Надсилання успішне. Будь ласка, у разі необхідності оновіть заголовок для "
+"цього документу. Ви також можете повністю видалити документ, якщо надсилання "
+"не було потрібне. "
+
 msgid "Sorry, upload failed."
 msgstr "Вибачте, надсилання зазнало невдачі. "
+
+msgid "Document updated."
+msgstr "Документ оновлено."
 
 msgid "You need a password to access this document."
 msgstr "Потрібний пароль для доступу до цього документу."

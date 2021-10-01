@@ -5,13 +5,14 @@
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"PO-Revision-Date: 2021-10-01 07:38+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Зображення Wagtail "
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -51,6 +55,12 @@ msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Цей файл занадто великий (%%s). Максимальний розмір файлу %s."
 
 #, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"Цей файл має занадто багато пікселів (%%s). Максимальний кількість пікселів "
+"%s."
+
+#, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Цей файл є занадто великим. Максимальний розмір файлу %s."
 
@@ -66,8 +76,19 @@ msgstr "Вирівняний по правому краю"
 msgid "Collection"
 msgstr "Колекція"
 
+msgid "Format"
+msgstr "Формат"
+
+msgid "Image is decorative"
+msgstr "Зображення декоративне"
+
 msgid "Alt text"
 msgstr "Альтернатиний текст"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Будь ласка, додайте текст до свого зображення або позначте його як "
+"декоративне"
 
 msgid "Filter"
 msgstr "Фільтр"
@@ -156,6 +177,32 @@ msgstr "Популярні теги"
 msgid "Uploading…"
 msgstr "Йде надсилання..."
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+
 msgid "Latest images"
 msgstr "Останні зображення"
 
@@ -164,6 +211,38 @@ msgstr "Оберіть формат"
 
 msgid "Insert image"
 msgstr "Вставити зображення"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Image <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Images <span class=\"visuallyhidden\">created "
+"in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"       <span>%(total)s</span>зображення <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"       "
+msgstr[2] ""
+"\n"
+"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"        "
+msgstr[3] ""
+"\n"
+"       <span>%(total)s</span>зображень <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"     "
 
 msgid "Change image file:"
 msgstr "Поміняти файл зображення:"
@@ -193,6 +272,9 @@ msgstr "Ви впевнені, що ви бажаєте видалити це з
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -238,8 +320,14 @@ msgstr "Використання"
 msgid "Images"
 msgstr "Зображення"
 
+msgid "Popular Tags:"
+msgstr "Популярні теги:"
+
 msgid "Clear choice"
 msgstr "Очистити вибір"
+
+msgid "pixels"
+msgstr "пікселів"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""

@@ -5,6 +5,8 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2021
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
+# Anastasiia La, 2021
 #
 #, fuzzy
 msgid ""
@@ -13,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2021\n"
+"Last-Translator: Anastasiia La, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/torchbox/teams/8009/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -25,8 +27,17 @@ msgstr ""
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
+msgid "Language"
+msgstr "Мова"
+
+msgid "Select a new language"
+msgstr "Оберіть нову мову"
+
 msgid "Yes, delete"
 msgstr "Так, видалити"
+
+msgid "Back"
+msgstr "Назад"
 
 msgid "Usage"
 msgstr "Використання"
