@@ -56,6 +56,7 @@ Changelog
  * Fix: Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
  * Fix: Add full support for custom `edit_handler` usage by adding missing `bind_to` call to `PreviewOnEdit` view (Stefan Hammer)
  * Fix: Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
+ * Fix: CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
 
 
 2.14.1 (12.08.2021)

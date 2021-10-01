@@ -70,6 +70,7 @@ Bug fixes
  * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
  * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
  * Add full support for custom ``edit_handler`` usage by adding missing ``bind_to`` call to ``PreviewOnEdit`` view (Stefan Hammer)
+ * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
 
 Upgrade considerations
 ======================
