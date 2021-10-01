@@ -87,10 +87,10 @@ class StreamBlockMenu extends BaseInsertionControl {
       blockDefs.forEach(blockDef => {
         const button = $(`
           <button type="button" class="c-sf-button action-add-block-${h(blockDef.name)}">
-            <span class="c-sf-button__icon">
-              <i class="icon icon-${h(blockDef.meta.icon)}"></i>
-            </span>
-            <span class="c-sf-button__label">${h(blockDef.meta.label)}</span>
+            <svg class="icon icon-${h(blockDef.meta.icon)} c-sf-button__icon" aria-hidden="true">
+              <use href="#icon-${h(blockDef.meta.icon)}"></use>
+            </svg>
+            ${h(blockDef.meta.label)}
           </button>
         `);
         grid.append(button);

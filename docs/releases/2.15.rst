@@ -56,6 +56,7 @@ Other features
  * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
  * Add support for Python 3.10 (Matt Westcott)
  * Introduce, ``autocomplete``, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
+ * Use SVG icons in StreamField buttons and headers (Jérôme Lebleu)
 
 Bug fixes
 ~~~~~~~~~

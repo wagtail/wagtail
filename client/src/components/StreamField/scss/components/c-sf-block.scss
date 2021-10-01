@@ -58,8 +58,9 @@
         }
 
         &__icon {
+            width: 20px;
+            height: 20px;
             margin: 0 $header-gutter;
-            font-size: 20px;
             transition: color $hover-transition-duration ease-in-out;
         }
     }
@@ -84,14 +85,14 @@
             cursor: pointer;
             color: $header-text-color;
             opacity: 1;
-            transition: opacity $hover-transition-duration ease-in-out, background-color $hover-transition-duration ease-in-out;
-            transition-property: opacity, color, background-color;
-            font-size: $action-font-size;
+            transition: opacity $hover-transition-duration ease-in-out, color $hover-transition-duration ease-in-out, background-color $hover-transition-duration ease-in-out;
             border-radius: 50%;
             width: 30px;
             height: 30px;
+            line-height: 1;
+            font-size: $action-font-size;
             text-align: center;
-            padding: 0 8px;
+            padding: 0;
 
             &:not(:last-of-type) {
                 margin-right: 3px;
@@ -99,23 +100,14 @@
 
             &:focus,
             &:hover {
+                color: #333;
                 background-color: rgba(0, 0, 0, 0.05);
-
-                /* stylelint-disable-next-line max-nesting-depth */
-                i {
-                    color: #333;
-                }
             }
 
-            i {
-                font-style: normal;
-                transition: color $hover-transition-duration ease-in-out;
-
-                /* stylelint-disable-next-line max-nesting-depth */
-                &:before {
-                    vertical-align: top;
-                    margin: 0 0 0 -2px;
-                }
+            svg.icon {
+                width: 1em;
+                height: 1em;
+                vertical-align: middle;
             }
 
             &[disabled] {
