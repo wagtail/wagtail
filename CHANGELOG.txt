@@ -27,7 +27,7 @@ Changelog
  * Added `ExcelDateFormatter` to `wagtail.admin.views.mixins` so that dates in Excel exports will appear in the locale's `SHORT_DATETIME_FORMAT` (Andrew Stone)
  * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
  * Add `label_format` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
- * User Group permissions will now show all custom object permissions in one row instead of a separate table (Kamil Marut)User Group permissions editing in the admin will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
+ * User Group permissions will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
  * Create `ImageFileMixin` to extract shared file handling methods from `AbstractImage` and `AbstractRendition` (Fabien Le Frapper)
  * Add `before_delete_page` and `register_permissions` examples to Hooks documentation (Jane Liu, Daniel Fairhead)
  * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
