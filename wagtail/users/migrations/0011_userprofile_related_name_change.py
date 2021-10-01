@@ -12,6 +12,13 @@ class Migration(migrations.Migration):
         ("wagtailusers", "0010_userprofile_updated_comments_notifications"),
     ]
 
+    # This migration is a dependency of '0067_copy_userprofiles',
+    # but we don't want to add this as a hard-dependency in that
+    # migration in case wagtailusers is not installed.
+    run_before = [
+        ("wagtailcore", "0071_copy_userprofiles"),
+    ]
+
     operations = [
         migrations.AlterField(
             model_name="userprofile",
