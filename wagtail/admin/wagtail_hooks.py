@@ -85,6 +85,7 @@ def register_settings_menu():
     return SettingsMenuItem(
         _('Settings'),
         settings_menu,
+        name='settings',
         icon_name='cogs',
         order=10000)
 
@@ -663,7 +664,7 @@ def register_site_history_report_menu_item():
 @hooks.register('register_admin_menu_item')
 def register_reports_menu():
     return ReportsMenuItem(
-        _('Reports'), reports_menu, icon_name='site', order=9000)
+        _('Reports'), reports_menu, name='reports', icon_name='site', order=9000)
 
 
 @hooks.register('register_icons')
