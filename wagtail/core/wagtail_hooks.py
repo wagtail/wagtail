@@ -284,9 +284,8 @@ def register_core_log_actions(actions):
 
         def format_message(self, log_entry):
             try:
-                return _("Removed the '%(restriction)s' view restriction") % {
-                    'restriction': log_entry.data['restriction']['title'],
-                }
+                return _("Removed the page view restrictions (now it is public)")
+
             except KeyError:
                 return _('Removed view restriction')
 
