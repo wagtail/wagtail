@@ -23,7 +23,9 @@
                 </h1>
 
                 <p class="page404__text">
-                    {% trans "The requested page could not be found." %}
+                    {% trans "The requested page could not be found.
+                        Please check your request again :)
+                    " %}
                 </p>
 
                 <a class="page404__button button" href="{% url 'wagtailadmin_home' %}">{% trans "Go to Wagtail admin" %}</a>
