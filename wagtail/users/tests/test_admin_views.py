@@ -20,10 +20,10 @@ from wagtail.models import (
     GroupCollectionPermission,
     GroupPagePermission,
     Page,
+    UserProfile,
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
-from wagtail.users.models import UserProfile
 from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.users.wagtail_hooks import get_group_viewset_cls
