@@ -1,6 +1,7 @@
 from functools import lru_cache
 
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -67,8 +68,9 @@ def edit(request, app_name, model_name, site_pk):
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
-            form.save()
-            log(instance, 'wagtail.edit')
+            with transaction.atomic():
+                form.save()
+                log(instance, 'wagtail.edit')
 
             messages.success(
                 request,

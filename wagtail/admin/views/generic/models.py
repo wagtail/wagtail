@@ -1,3 +1,4 @@
+from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -71,8 +72,9 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
 
     def form_valid(self, form):
         self.form = form
-        self.object = self.save_instance()
-        log(instance=self.object, action='wagtail.create')
+        with transaction.atomic():
+            self.object = self.save_instance()
+            log(instance=self.object, action='wagtail.create')
         success_message = self.get_success_message(self.object)
         if success_message is not None:
             messages.success(self.request, success_message, buttons=[
@@ -138,8 +140,9 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
 
     def form_valid(self, form):
         self.form = form
-        self.object = self.save_instance()
-        log(instance=self.object, action='wagtail.edit')
+        with transaction.atomic():
+            self.object = self.save_instance()
+            log(instance=self.object, action='wagtail.edit')
         success_message = self.get_success_message()
         if success_message is not None:
             messages.success(self.request, success_message, buttons=[
@@ -196,8 +199,9 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
-        log(instance=self.object, action='wagtail.delete')
         success_url = self.get_success_url()
-        self.object.delete()
+        with transaction.atomic():
+            log(instance=self.object, action='wagtail.delete')
+            self.object.delete()
         messages.success(request, self.get_success_message())
         return HttpResponseRedirect(success_url)

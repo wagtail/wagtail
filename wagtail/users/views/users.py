@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -129,8 +130,9 @@ def create(request):
     if request.method == 'POST':
         form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            log(user, 'wagtail.create')
+            with transaction.atomic():
+                user = form.save()
+                log(user, 'wagtail.create')
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
@@ -162,8 +164,9 @@ def edit(request, user_id):
     if request.method == 'POST':
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
-            user = form.save()
-            log(user, 'wagtail.edit')
+            with transaction.atomic():
+                user = form.save()
+                log(user, 'wagtail.edit')
 
             if user == request.user and 'password1' in form.changed_data:
                 # User is changing their own password; need to update their session hash
@@ -201,8 +204,9 @@ def delete(request, user_id):
         if hasattr(result, 'status_code'):
             return result
     if request.method == 'POST':
-        log(user, 'wagtail.delete')
-        user.delete()
+        with transaction.atomic():
+            log(user, 'wagtail.delete')
+            user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
         for fn in hooks.get_hooks('after_delete_user'):
             result = fn(request, user)

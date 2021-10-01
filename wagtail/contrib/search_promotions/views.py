@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models import Sum, functions
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -83,25 +84,26 @@ def save_searchpicks(query, new_query, searchpicks_formset):
             form.instance for form in searchpicks_formset.deleted_forms
             if form.instance.pk
         ]
-        for search_pick in items_for_deletion:
-            log(search_pick, 'wagtail.delete')
+        with transaction.atomic():
+            for search_pick in items_for_deletion:
+                log(search_pick, 'wagtail.delete')
 
-        searchpicks_formset.save()
+            searchpicks_formset.save()
 
-        for search_pick in searchpicks_formset.new_objects:
-            log(search_pick, 'wagtail.create')
+            for search_pick in searchpicks_formset.new_objects:
+                log(search_pick, 'wagtail.create')
 
-        # If query was changed, move all search picks to the new query
-        if query != new_query:
-            searchpicks_formset.get_queryset().update(query=new_query)
-            # log all items in the formset as having changed
-            for search_pick, changed_fields in searchpicks_formset.changed_objects:
-                log(search_pick, 'wagtail.edit')
-        else:
-            # only log objects with actual changes
-            for search_pick, changed_fields in searchpicks_formset.changed_objects:
-                if changed_fields:
+            # If query was changed, move all search picks to the new query
+            if query != new_query:
+                searchpicks_formset.get_queryset().update(query=new_query)
+                # log all items in the formset as having changed
+                for search_pick, changed_fields in searchpicks_formset.changed_objects:
                     log(search_pick, 'wagtail.edit')
+            else:
+                # only log objects with actual changes
+                for search_pick, changed_fields in searchpicks_formset.changed_objects:
+                    if changed_fields:
+                        log(search_pick, 'wagtail.edit')
 
         return True
     else:
@@ -190,9 +192,10 @@ def delete(request, query_id):
 
     if request.method == 'POST':
         editors_picks = query.editors_picks.all()
-        for search_pick in editors_picks:
-            log(search_pick, 'wagtail.delete')
-        editors_picks.delete()
+        with transaction.atomic():
+            for search_pick in editors_picks:
+                log(search_pick, 'wagtail.delete')
+            editors_picks.delete()
         messages.success(request, _("Editor's picks deleted."))
         return redirect('wagtailsearchpromotions:index')
 

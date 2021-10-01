@@ -2,6 +2,7 @@ import os
 
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.response import TemplateResponse
@@ -85,8 +86,9 @@ def edit(request, redirect_id):
     if request.method == 'POST':
         form = RedirectForm(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
-            form.save()
-            log(instance=theredirect, action='wagtail.edit')
+            with transaction.atomic():
+                form.save()
+                log(instance=theredirect, action='wagtail.edit')
             messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
                 messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
             ])
@@ -113,8 +115,9 @@ def delete(request, redirect_id):
         raise PermissionDenied
 
     if request.method == 'POST':
-        log(instance=theredirect, action='wagtail.delete')
-        theredirect.delete()
+        with transaction.atomic():
+            log(instance=theredirect, action='wagtail.delete')
+            theredirect.delete()
         messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
         return redirect('wagtailredirects:index')
 
@@ -128,8 +131,9 @@ def add(request):
     if request.method == 'POST':
         form = RedirectForm(request.POST, request.FILES)
         if form.is_valid():
-            theredirect = form.save()
-            log(instance=theredirect, action='wagtail.edit')
+            with transaction.atomic():
+                theredirect = form.save()
+                log(instance=theredirect, action='wagtail.edit')
 
             messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
                 messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
@@ -337,8 +341,9 @@ def create_redirects_from_dataset(dataset, config):
             errors.append([from_link, to_link, error])
             continue
 
-        redirect = form.save()
-        log(instance=redirect, action='wagtail.create')
+        with transaction.atomic():
+            redirect = form.save()
+            log(instance=redirect, action='wagtail.create')
         successes += 1
 
     return {

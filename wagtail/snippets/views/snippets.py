@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -211,8 +212,9 @@ def create(request, app_label, model_name):
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
-            form.save()
-            log(instance=instance, action='wagtail.create')
+            with transaction.atomic():
+                form.save()
+                log(instance=instance, action='wagtail.create')
 
             messages.success(
                 request,
@@ -292,8 +294,9 @@ def edit(request, app_label, model_name, pk):
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
-            form.save()
-            log(instance=instance, action='wagtail.edit')
+            with transaction.atomic():
+                form.save()
+                log(instance=instance, action='wagtail.edit')
 
             messages.success(
                 request,
@@ -369,9 +372,10 @@ def delete(request, app_label, model_name, pk=None):
     count = len(instances)
 
     if request.method == 'POST':
-        for instance in instances:
-            log(instance=instance, action='wagtail.delete')
-            instance.delete()
+        with transaction.atomic():
+            for instance in instances:
+                log(instance=instance, action='wagtail.delete')
+                instance.delete()
 
         if count == 1:
             message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {

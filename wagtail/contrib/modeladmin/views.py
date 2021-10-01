@@ -13,7 +13,7 @@ from django.core.exceptions import (
     FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied,
     SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
-from django.db import models
+from django.db import models, transaction
 from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
@@ -801,8 +801,9 @@ class DeleteView(InstanceSpecificView):
             msg = _("%(model_name)s '%(instance)s' deleted.") % {
                 'model_name': self.verbose_name, 'instance': self.instance
             }
-            log(instance=self.instance, action='wagtail.delete')
-            self.delete_instance()
+            with transaction.atomic():
+                log(instance=self.instance, action='wagtail.delete')
+                self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)
         except models.ProtectedError:
