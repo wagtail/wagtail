@@ -137,7 +137,7 @@ The ``get_context_data`` method can be overridden to pass additional context to 
 
     def get_context_data(self, **kwargs):
       context = super().get_context_data(**kwargs)
-      context['new_key] = some_value
+      context['new_key'] = some_value
       return context
 
 
