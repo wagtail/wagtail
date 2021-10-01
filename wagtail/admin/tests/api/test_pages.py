@@ -9,10 +9,9 @@ from django.utils import timezone
 
 from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
+from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry, UserProfile
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
-from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
 

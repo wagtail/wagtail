@@ -9,11 +9,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.models import Page, PageRevision
+from wagtail.models import Page, PageRevision, UserProfile
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.users.models import UserProfile
 
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
