@@ -25,6 +25,10 @@ function ModalWorkflow(opts) {
   /* remove any previous modals before continuing (closing doesn't remove them from the dom) */
   $('body > .modal').remove();
 
+  // disable the trigger element so it cannot be clicked twice while modal is loading
+  self.triggerElement = document.activeElement;
+  self.triggerElement.setAttribute('disabled', true);
+
   // set default contents of container
   const iconClose = '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
   const container = $('<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' + iconClose + wagtailConfig.STRINGS.CLOSE + '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>');
@@ -32,6 +36,17 @@ function ModalWorkflow(opts) {
   // add container to body and hide it, so content can be added to it before display
   $('body').append(container);
   container.modal('hide');
+
+  // add listener - once modal is about to be hidden, re-enable the trigger
+  container.on('hide.bs.modal', () => {
+    self.triggerElement.removeAttribute('disabled');
+  });
+
+  // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
+  container.on('hidden.bs.modal', function () {
+    self.triggerElement.focus();
+    container.remove();
+  });
 
   self.body = container.find('.modal-body');
 
