@@ -34,7 +34,7 @@ def has_png_support():
     return succeeded
 
 
-@register()
+@register('files')
 def image_library_check(app_configs, **kwargs):
     errors = []
 
