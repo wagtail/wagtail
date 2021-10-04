@@ -110,6 +110,9 @@ export class TypedTableBlock {
     });
 
     this.setState(initialState);
+    if (initialError) {
+      this.setError(initialError);
+    }
   }
 
   showAddColumnMenu(baseElement, callback) {
@@ -358,6 +361,13 @@ export class TypedTableBlock {
       return;
     }
     const error = errorList[0];
+    if (error.cellErrors) {
+      for (const [rowIndex, rowErrors] of Object.entries(error.cellErrors)) {
+        for (const [colIndex, cellError] of Object.entries(rowErrors)) {
+          this.rows[rowIndex].blocks[colIndex].setError([cellError]);
+        }
+      }
+    }
   }
 
   getState() {
@@ -406,3 +416,12 @@ export class TypedTableBlockDefinition {
   }
 }
 window.telepath.register('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', TypedTableBlockDefinition);
+
+export class TypedTableBlockValidationError {
+  constructor(cellErrors) {
+    this.cellErrors = cellErrors;
+  }
+}
+window.telepath.register(
+  'wagtail.contrib.typed_table_block.TypedTableBlockValidationError', TypedTableBlockValidationError
+);
