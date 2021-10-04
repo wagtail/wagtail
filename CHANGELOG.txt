@@ -4,6 +4,7 @@ Changelog
 2.15 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Extended audit logging to all models and added a history view for snippets and ModelAdmin (Matt Westcott. Sponsored by The Motley Fool)
  * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)

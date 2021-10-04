@@ -12,6 +12,12 @@ Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+Audit logging for all models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types, and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
