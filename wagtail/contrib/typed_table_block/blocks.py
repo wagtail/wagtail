@@ -1,10 +1,44 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks.base import Block, DeclarativeSubBlocksMetaclass, get_help_icon
 from wagtail.core.telepath import Adapter, register
+
+
+class TypedTableBlockValidationError(ValidationError):
+    def __init__(self, cell_errors=None):
+        self.cell_errors = cell_errors
+        super().__init__('Validation error in TypedTableBlock', params=cell_errors)
+
+
+class TypedTableBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.contrib.typed_table_block.TypedTableBlockValidationError'
+
+    def js_args(self, error):
+        if error.cell_errors is None:
+            return [None]
+        else:
+            return [
+                {
+                    row_index: {
+                        col_index: cell_error
+                        for col_index, cell_error in row_errors.items()
+                    }
+                    for row_index, row_errors in error.cell_errors.items()
+                }
+            ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('typed_table_block/js/typed_table_block.js'),
+        ])
+
+
+register(TypedTableBlockValidationErrorAdapter(), TypedTableBlockValidationError)
 
 
 class TypedTable:
@@ -176,6 +210,34 @@ class BaseTypedTableBlock(Block):
                 'columns': [],
                 'rows': [],
             }
+
+    def clean(self, table):
+        if table:
+            # a dict where each key is a row index, and the value is a dict of errors on that row keyed by column index
+            cell_errors = {}
+            cleaned_rows = []
+            for row_index, row in enumerate(table.row_data):
+                row_errors = {}
+                row_data = []
+                for col_index, column in enumerate(table.columns):
+                    val = row['values'][col_index]
+                    try:
+                        row_data.append(column['block'].clean(val))
+                    except ValidationError as e:
+                        row_errors[col_index] = e
+
+                if row_errors:
+                    cell_errors[row_index] = row_errors
+                else:
+                    cleaned_rows.append({'values': row_data})
+
+            if cell_errors:
+                raise TypedTableBlockValidationError(cell_errors=cell_errors)
+            else:
+                return TypedTable(columns=table.columns, row_data=cleaned_rows)
+
+        else:
+            return TypedTable(columns=[], row_data=[])
 
     def deconstruct(self):
         """
