@@ -1,10 +1,10 @@
 import os
 
-from django.core.checks import Error, Warning, register
+from django.core.checks import Error, Tags, Warning, register
 from django.core.exceptions import FieldDoesNotExist
 
 
-@register()
+@register('staticfiles')
 def css_install_check(app_configs, **kwargs):
     errors = []
 
@@ -31,7 +31,7 @@ def css_install_check(app_configs, **kwargs):
     return errors
 
 
-@register()
+@register(Tags.admin)
 def base_form_class_check(app_configs, **kwargs):
     from wagtail.admin.forms import WagtailAdminPageForm
     from wagtail.core.models import get_page_models
@@ -52,7 +52,7 @@ def base_form_class_check(app_configs, **kwargs):
     return errors
 
 
-@register()
+@register(Tags.admin)
 def get_form_class_check(app_configs, **kwargs):
     from wagtail.admin.forms import WagtailAdminPageForm
     from wagtail.core.models import get_page_models
