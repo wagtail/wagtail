@@ -35,6 +35,7 @@ Changelog
  * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
  * Move translations in `nl_NL` to `nl` (Loïc Teixeira, Coen van der Kamp)
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
+ * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
