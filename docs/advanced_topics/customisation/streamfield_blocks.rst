@@ -171,35 +171,6 @@ Here ``'myapp.blocks.AddressBlock'`` is the identifier for our JavaScript class 
     }
     window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
 
-Note that this code makes use of ES6 language features that are unavailable in IE11 - if IE11 support is required, this could be rewritten as:
-
-.. code-block:: javascript
-
-    function AddressBlockDefinition() {
-        window.wagtailStreamField.blocks.StructBlockDefinition.apply(this, arguments);
-    }
-
-    AddressBlockDefinition.prototype.render = function(placeholder, prefix, initialState, initialError) {
-        var block = window.wagtailStreamField.blocks.StructBlockDefinition.prototype.render.apply(
-            this, arguments
-        );
-
-        var stateField = $(document).find('#' + prefix + '-state');
-        var countryField = $(document).find('#' + prefix + '-country');
-        function updateStateInput() {
-            if (countryField.val() == 'us') {
-                stateField.removeAttr('disabled');
-            } else {
-                stateField.attr('disabled', true);
-            }
-        }
-        updateStateInput();
-        countryField.on('change', updateStateInput);
-
-        return block;
-    }
-    window.telepath.register('myapp.blocks.AddressBlock', AddressBlockDefinition);
-
 
 .. _custom_value_class_for_structblock:
 

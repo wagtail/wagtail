@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags %}
+
+<table {% if table.classname %}class="{{ table.classname }}"{% endif %}>
+    <thead>
+        <tr>
+            {% for column in table.columns.values %}
+                {% component column.header %}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.rows %}
+            <tr>
+                {% for cell in row.values %}
+                    {% component cell %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

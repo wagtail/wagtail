@@ -12,6 +12,12 @@ Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+Audit logging for all models
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types, and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
@@ -45,6 +51,8 @@ Other features
  * Add section about CSV exports to security documentation (Matt Westcott)
  * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
  * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
+ * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
+ * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
 
 Bug fixes
 ~~~~~~~~~
@@ -152,3 +160,10 @@ calls ``PageLogEntry.objects.log_action`` should now import the ``log`` function
 call this instead (all arguments are unchanged).
 
 Additionally, for logging actions on non-Page models, it is generally no longer necessary to subclass ``BaseLogEntry``; see :ref:`audit_log` for further details.
+
+
+Removed support for Internet Explorer (IE11)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If this affects you or your organisation, consider which alternative browsers you may be able to use.
+Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.

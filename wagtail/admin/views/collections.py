@@ -16,6 +16,7 @@ class Index(IndexView):
     context_object_name = 'collections'
     template_name = 'wagtailadmin/collections/index.html'
     add_url_name = 'wagtailadmin_collections:add'
+    index_url_name = 'wagtailadmin_collections:index'
     page_title = gettext_lazy("Collections")
     add_item_label = gettext_lazy("Add a collection")
     header_icon = 'folder-open-1'
