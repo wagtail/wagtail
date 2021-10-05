@@ -3,6 +3,7 @@ from urllib.parse import quote, urlencode
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -103,7 +104,8 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
 
         if self.form.is_valid():
-            return self.form_valid(self.form)
+            with transaction.atomic():
+                return self.form_valid(self.form)
         else:
             return self.form_invalid(self.form)
 

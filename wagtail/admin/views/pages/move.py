@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -61,26 +62,27 @@ def move_confirm(request, page_to_move_id, destination_id):
         )
         return redirect('wagtailadmin_pages:move_choose_destination', page_to_move.id, destination.id)
 
-    for fn in hooks.get_hooks('before_move_page'):
-        result = fn(request, page_to_move, destination)
-        if hasattr(result, 'status_code'):
-            return result
-
-    if request.method == 'POST':
-        # any invalid moves *should* be caught by the permission check above,
-        # so don't bother to catch InvalidMoveToDescendant
-        page_to_move.move(destination, pos='last-child', user=request.user)
-
-        messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
-            messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
-        ])
-
-        for fn in hooks.get_hooks('after_move_page'):
-            result = fn(request, page_to_move)
+    with transaction.atomic():
+        for fn in hooks.get_hooks('before_move_page'):
+            result = fn(request, page_to_move, destination)
             if hasattr(result, 'status_code'):
                 return result
 
-        return redirect('wagtailadmin_explore', destination.id)
+        if request.method == 'POST':
+            # any invalid moves *should* be caught by the permission check above,
+            # so don't bother to catch InvalidMoveToDescendant
+            page_to_move.move(destination, pos='last-child', user=request.user)
+
+            messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
+                messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
+            ])
+
+            for fn in hooks.get_hooks('after_move_page'):
+                result = fn(request, page_to_move)
+                if hasattr(result, 'status_code'):
+                    return result
+
+            return redirect('wagtailadmin_explore', destination.id)
 
     return TemplateResponse(request, 'wagtailadmin/pages/confirm_move.html', {
         'page_to_move': page_to_move,

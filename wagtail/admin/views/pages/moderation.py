@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -19,7 +20,8 @@ def approve_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
-        revision.approve_moderation(user=request.user)
+        with transaction.atomic():
+            revision.approve_moderation(user=request.user)
 
         message = _("Page '{0}' published.").format(revision.page.specific_deferred.get_admin_display_title())
         buttons = []
@@ -44,7 +46,8 @@ def reject_moderation(request, revision_id):
         return redirect('wagtailadmin_home')
 
     if request.method == 'POST':
-        revision.reject_moderation(user=request.user)
+        with transaction.atomic():
+            revision.reject_moderation(user=request.user)
 
         messages.success(request, _("Page '{0}' rejected for publication.").format(revision.page.specific_deferred.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(revision.page.id,)), _('Edit'))

@@ -5,6 +5,7 @@ from urllib.parse import quote
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.db.models import Prefetch, Q
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
@@ -412,7 +413,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.is_cancelling_workflow = bool(self.request.POST.get('action-cancel-workflow')) and self.workflow_state and self.workflow_state.user_can_cancel(self.request.user)
 
         if self.form.is_valid() and not self.page_perms.page_locked():
-            return self.form_valid(self.form)
+            with transaction.atomic():
+                return self.form_valid(self.form)
         else:
             return self.form_invalid(self.form)
 

@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
@@ -29,16 +30,17 @@ def set_page_position(request, page_to_move_id):
         # any invalid moves *should* be caught by the permission check above,
         # so don't bother to catch InvalidMoveToDescendant
 
-        if position_page:
-            # If the page has been moved to the right, insert it to the
-            # right. If left, then left.
-            old_position = list(parent_page.get_children()).index(page_to_move)
-            if int(position) < old_position:
-                page_to_move.move(position_page, pos='left', user=request.user)
-            elif int(position) > old_position:
-                page_to_move.move(position_page, pos='right', user=request.user)
-        else:
-            # Move page to end
-            page_to_move.move(parent_page, pos='last-child', user=request.user)
+        with transaction.atomic():
+            if position_page:
+                # If the page has been moved to the right, insert it to the
+                # right. If left, then left.
+                old_position = list(parent_page.get_children()).index(page_to_move)
+                if int(position) < old_position:
+                    page_to_move.move(position_page, pos='left', user=request.user)
+                elif int(position) > old_position:
+                    page_to_move.move(position_page, pos='right', user=request.user)
+            else:
+                # Move page to end
+                page_to_move.move(parent_page, pos='last-child', user=request.user)
 
     return HttpResponse('')

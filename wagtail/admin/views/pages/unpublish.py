@@ -1,4 +1,5 @@
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
@@ -22,22 +23,23 @@ def unpublish(request, page_id):
     if request.method == 'POST':
         include_descendants = request.POST.get("include_descendants", False)
 
-        for fn in hooks.get_hooks('before_unpublish_page'):
-            result = fn(request, page)
-            if hasattr(result, 'status_code'):
-                return result
+        with transaction.atomic():
+            for fn in hooks.get_hooks('before_unpublish_page'):
+                result = fn(request, page)
+                if hasattr(result, 'status_code'):
+                    return result
 
-        page.unpublish(user=request.user)
+            page.unpublish(user=request.user)
 
-        if include_descendants:
-            for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
-                if user_perms.for_page(live_descendant_page).can_unpublish():
-                    live_descendant_page.unpublish()
+            if include_descendants:
+                for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
+                    if user_perms.for_page(live_descendant_page).can_unpublish():
+                        live_descendant_page.unpublish()
 
-        for fn in hooks.get_hooks('after_unpublish_page'):
-            result = fn(request, page)
-            if hasattr(result, 'status_code'):
-                return result
+            for fn in hooks.get_hooks('after_unpublish_page'):
+                result = fn(request, page)
+                if hasattr(result, 'status_code'):
+                    return result
 
         messages.success(request, _("Page '{0}' unpublished.").format(page.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
