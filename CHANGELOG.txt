@@ -14,6 +14,7 @@ Changelog
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
+ * Removed WOFF fonts
 
 
 2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
