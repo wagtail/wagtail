@@ -3104,13 +3104,16 @@ class PageViewRestriction(BaseViewRestriction):
         """
         Custom save handler to include logging.
         :param user: the user add/updating the view restriction
-        :param specific_instance: the specific model instance the restriction applies to
         """
         specific_instance = self.page.specific
         is_new = self.id is None
         super().save(**kwargs)
 
         if specific_instance:
+            removed_restriction_type = (
+                PageViewRestriction.objects.filter(page=self.page)
+                .values_list('restriction_type', flat=True)[0]
+            )
             log(
                 instance=specific_instance,
                 action='wagtail.view_restriction.create' if is_new else 'wagtail.view_restriction.edit',
@@ -3138,7 +3141,7 @@ class PageViewRestriction(BaseViewRestriction):
                 data={
                     'restriction': {
                         'type': self.restriction_type,
-                        'title': force_str(dict(self.RESTRICTION_CHOICES).get(self.restriction_type))
+                        'title': force_str(dict(self.RESTRICTION_CHOICES).get(self.removed_restriction_type))
                     }
                 }
             )
