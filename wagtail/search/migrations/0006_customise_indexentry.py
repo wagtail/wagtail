@@ -100,7 +100,53 @@ class Migration(migrations.Migration):
                 field=models.TextField(default=''),
                 preserve_default=False,
             ),
-            # We need to add these indexes manually because Django imposes an artificial limitation that forces to specify the max length of the TextFields that get referenced by the FULLTEXT index. If we do it manually, it works, because Django can't check that we are defining a new index.
-            migrations.RunSQL(sql='ALTER TABLE wagtailsearch_indexentry ADD FULLTEXT INDEX `fulltext_title_body` (`title`, `body`)', reverse_sql='ALTER TABLE wagtailsearch_indexentry DROP INDEX `fulltext_title_body`'),
-            migrations.RunSQL(sql='ALTER TABLE wagtailsearch_indexentry ADD FULLTEXT INDEX `fulltext_autocomplete` (`autocomplete`) WITH PARSER ngram', reverse_sql='ALTER TABLE wagtailsearch_indexentry DROP INDEX `fulltext_autocomplete`')  # We use an ngram parser here, so that it matches partial search queries. The index on body and title doesn't match partial queries by default.
         ]
+
+        # Create FULLTEXT indexes
+        # We need to add these indexes manually because Django imposes an artificial limitation
+        # that forces to specify the max length of the TextFields that get referenced by the
+        # FULLTEXT index. If we do it manually, it works, because Django can't check that we are
+        # defining a new index.
+        operations.append(
+            migrations.RunSQL(
+                sql="""
+                ALTER TABLE wagtailsearch_indexentry
+                    ADD FULLTEXT INDEX `fulltext_title_body` (`title`, `body`)
+                """,
+                reverse_sql="""
+                ALTER TABLE wagtailsearch_indexentry
+                    DROP INDEX `fulltext_title_body`
+                """
+            )
+        )
+
+        # We use an ngram parser for autocomplete, so that it matches partial search queries.
+        # The index on body and title doesn't match partial queries by default.
+        # Note that this is not supported on MariaDB. See https://jira.mariadb.org/browse/MDEV-10267
+        if connection.mysql_is_mariadb:
+            operations.append(
+                migrations.RunSQL(
+                    sql="""
+                    ALTER TABLE wagtailsearch_indexentry
+                        ADD FULLTEXT INDEX `fulltext_autocomplete` (`autocomplete`)
+                    """,
+                    reverse_sql="""
+                    ALTER TABLE wagtailsearch_indexentry
+                        DROP INDEX `fulltext_autocomplete`
+                    """
+                )
+            )
+        else:
+            operations.append(
+                migrations.RunSQL(
+                    sql="""
+                    ALTER TABLE wagtailsearch_indexentry
+                        ADD FULLTEXT INDEX `fulltext_autocomplete` (`autocomplete`)
+                        WITH PARSER ngram
+                    """,
+                    reverse_sql="""
+                    ALTER TABLE wagtailsearch_indexentry
+                        DROP INDEX `fulltext_autocomplete`
+                    """
+                )
+            )
