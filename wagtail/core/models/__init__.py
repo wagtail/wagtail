@@ -3110,10 +3110,6 @@ class PageViewRestriction(BaseViewRestriction):
         super().save(**kwargs)
 
         if specific_instance:
-            removed_restriction_type = (
-                PageViewRestriction.objects.filter(page=self.page)
-                .values_list('restriction_type', flat=True)[0]
-            )
             log(
                 instance=specific_instance,
                 action='wagtail.view_restriction.create' if is_new else 'wagtail.view_restriction.edit',
@@ -3134,13 +3130,17 @@ class PageViewRestriction(BaseViewRestriction):
         """
         specific_instance = self.page.specific
         if specific_instance:
-            log(
+            self.removed_restriction_type = (
+                PageViewRestriction.objects.filter(page=self.page)
+                .values_list('restriction_type', flat=True)[0]
+            )
+            PageLogEntry.objects.log_action(
                 instance=specific_instance,
                 action='wagtail.view_restriction.delete',
                 user=user,
                 data={
                     'restriction': {
-                        'type': self.restriction_type,
+                        'type': self.removed_restriction_type,
                         'title': force_str(dict(self.RESTRICTION_CHOICES).get(self.removed_restriction_type))
                     }
                 }
