@@ -93,6 +93,7 @@
     {% url 'wagtailadmin_tag_autocomplete' as autocomplete_url %}
     <script>
         window.fileupload_opts = {
+            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
             simple_upload_url: "{% url 'wagtaildocs:add' %}"
         }
         window.tagit_opts = {
