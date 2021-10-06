@@ -10,7 +10,7 @@
 
 ### Install dependencies
 
-Wagtail supports Python 3.6, 3.7, 3.8 and 3.9.
+Wagtail supports Python 3.6, 3.7, 3.8, 3.9 and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 

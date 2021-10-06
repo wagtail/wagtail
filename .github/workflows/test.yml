@@ -21,11 +21,11 @@ on:
 # - django 3.1, python 3.7, postgres
 # - django 3.2, python 3.8, postgres
 # - django 3.2, python 3.9, mysql
-# - django 3.2, python 3.9, sqlite
+# - django 3.2, python 3.10, sqlite
 # - django 3.2, python 3.9, postgres, USE_EMAIL_USER_MODEL=yes
-# - django 3.2, python 3.9, postgres, DISABLE_TIMEZONE=yes
+# - django 3.2, python 3.10, postgres, DISABLE_TIMEZONE=yes
 # - django stable/3.2.x, python 3.9, postgres (allow failures)
-# - django main, python 3.9, postgres (allow failures)
+# - django main, python 3.10, postgres (allow failures)
 # - elasticsearch 5, django 3.0, python 3.6, sqlite
 # - elasticsearch 6, django 3.1, python 3.7, postgres
 # - elasticsearch 7, django 3.2, python 3.8, postgres
@@ -37,9 +37,9 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.6
+          - python: "3.6"
             django: "Django>=3.0,<3.1"
-          - python: 3.9
+          - python: "3.10"
             django: "Django>=3.1,<3.2"
 
     steps:
@@ -65,24 +65,24 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.7
+          - python: "3.7"
             django: "Django>=3.1,<3.2"
             experimental: false
-          - python: 3.8
+          - python: "3.8"
             django: "Django>=3.2,<3.3"
             experimental: false
-          - python: 3.9
+          - python: "3.9"
             django: "Django>=3.2,<3.3"
             emailuser: emailuser
             experimental: false
-          - python: 3.9
+          - python: "3.10"
             django: "Django>=3.2,<3.3"
             notz: notz
             experimental: false
-          - python: 3.9
+          - python: "3.9"
             django: "git+https://github.com/django/django.git@stable/3.2.x#egg=Django"
             experimental: true
-          - python: 3.9
+          - python: "3.10"
             django: "git+https://github.com/django/django.git@main#egg=Django"
             experimental: true
 
@@ -121,7 +121,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.9
+          - python: "3.9"
             django: "Django>=3.2,<3.3"
 
     services:
@@ -161,7 +161,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.6
+          - python: "3.6"
             django: "Django>=3.0,<3.1"
     steps:
       - name: Configure sysctl limits
@@ -201,7 +201,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.9
+          - python: "3.9"
             django: "Django>=3.2,<3.3"
             emailuser: emailuser
     steps:
@@ -245,7 +245,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.7
+          - python: "3.7"
             django: "Django>=3.1,<3.2"
 
     services:
@@ -293,7 +293,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: 3.8
+          - python: "3.8"
             django: "Django>=3.2,<3.3"
 
     services:
