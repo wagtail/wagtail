@@ -81,6 +81,28 @@ $(function() {
             }
         },
 
+        /**
+         * Allow a custom title to be defined by an event handler for this form.
+         * If event.preventDefault is called, the original behaviour of using the raw
+         * filename (with extension) as the title is preserved.
+         *
+         * @param {HtmlElement[]} form
+         * @returns {{name: 'string', value: *}[]}
+         */
+         formData: function(form) {
+            var filename = this.files[0].name;
+            var data = { title: filename.replace(/\.[^\.]+$/, '') };
+            var maxTitleLength = window.fileupload_opts.max_title_length;
+
+            var event = form.get(0).dispatchEvent(new CustomEvent(
+                'wagtail:documents-upload',
+                { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
+            ));
+
+            // default behaviour (title is just file name)
+            return event ? form.serializeArray().concat({ name:'title', value: data.title }) : form.serializeArray();
+        },
+
         done: function(e, data) {
             var itemElement = $(data.context);
             var response = JSON.parse(data.result);

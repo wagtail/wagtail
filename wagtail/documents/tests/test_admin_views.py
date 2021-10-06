@@ -687,6 +687,53 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
         # form should not contain a collection chooser
         self.assertNotIn('Collection', response_json['form'])
 
+    def test_add_post_with_title(self):
+        """
+        This tests that a POST request to the add view saves the document with a suplied title and returns an edit form
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'title': '(TXT) test title',
+            'files[]': SimpleUploadedFile('test.txt', b"Simple text document"),
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
+
+        # Check document
+        self.assertIn('doc', response.context)
+        self.assertEqual(response.context['doc'].title, '(TXT) test title')
+        self.assertIn('.txt', response.context['doc'].filename)
+        self.assertTrue(response.context['doc'].file_size)
+        self.assertTrue(response.context['doc'].file_hash)
+        self.assertEqual(response.context['edit_action'], '/admin/documents/multiple/%d/' % response.context['doc'].id)
+        self.assertEqual(response.context['delete_action'], '/admin/documents/multiple/%d/delete/' % response.context['doc'].id)
+
+        # check that it is in the root collection
+        doc = get_document_model().objects.get(title='(TXT) test title')
+        root_collection = Collection.get_first_root_node()
+        self.assertEqual(doc.collection, root_collection)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(
+            set(response.context['form'].fields),
+            set(get_document_model().admin_form_fields) - {'file', 'collection'},
+        )
+        self.assertEqual(response.context['form'].initial['title'], '(TXT) test title')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('doc_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['doc_id'], response.context['doc'].id)
+        self.assertTrue(response_json['success'])
+
+        # form should not contain a collection chooser
+        self.assertNotIn('Collection', response_json['form'])
+
     def test_add_post_with_collections(self):
         """
         This tests that a POST request to the add view saves the document
@@ -923,6 +970,31 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # form should not contain a collection chooser
         self.assertNotIn('Collection', response_json['form'])
+
+    def test_add_post_with_title(self):
+        """
+        This tests that a POST request to the add view saves the document with a suplied title and returns an edit form
+        """
+        response = self.client.post(reverse('wagtaildocs:add_multiple'), {
+            'title': '(TXT) test title',
+            'files[]': SimpleUploadedFile('test.txt', b"Simple text document"),
+        })
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/multiple_upload/edit_form.html')
+
+        # Check document
+        self.assertIn('uploaded_document', response.context)
+        self.assertIn('.txt', response.context['uploaded_document'].file.name)
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('uploaded_document_id', response_json)
+        self.assertIn('form', response_json)
+        self.assertEqual(response_json['uploaded_document_id'], response.context['uploaded_document'].id)
+        self.assertTrue(response_json['success'])
 
     def test_add_post_with_collections(self):
         """
