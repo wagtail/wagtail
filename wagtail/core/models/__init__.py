@@ -3134,7 +3134,7 @@ class PageViewRestriction(BaseViewRestriction):
                 PageViewRestriction.objects.filter(page=self.page)
                 .values_list('restriction_type', flat=True)[0]
             )
-            PageLogEntry.objects.log_action(
+            log(
                 instance=specific_instance,
                 action='wagtail.view_restriction.delete',
                 user=user,
