@@ -43,13 +43,13 @@ def block_fallback(props):
 
 def entity_fallback(props):
     type_ = props['entity']['type']
-    logging.warn('Missing config for "%s". Deleting entity' % type_)
+    logging.warning('Missing config for "%s". Deleting entity' % type_)
     return None
 
 
 def style_fallback(props):
     type_ = props['inline_style_range']['style']
-    logging.warn('Missing config for "%s". Deleting style.' % type_)
+    logging.warning('Missing config for "%s". Deleting style.' % type_)
     return props['children']
 
 
