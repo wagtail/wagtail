@@ -6,6 +6,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.core.validators import validate_email
 from django.db import models
 from django.template.response import TemplateResponse
+from django.utils.cache import patch_cache_control
 from django.utils.formats import date_format
 from django.utils.translation import gettext_lazy as _
 
@@ -291,7 +292,9 @@ class AbstractForm(Page):
         if mode_name == "landing":
             request.is_preview = True
             request.preview_mode = mode_name
-            return self.render_landing_page(request)
+            response = self.render_landing_page(request)
+            patch_cache_control(response, private=True)
+            return response
         else:
             return super().serve_preview(request, mode_name)
 

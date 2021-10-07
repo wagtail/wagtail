@@ -2,6 +2,7 @@ from django.http import Http404
 from django.template.response import TemplateResponse
 from django.urls import URLResolver, re_path
 from django.urls.resolvers import RegexPattern
+from django.utils.cache import patch_cache_control
 
 from wagtail.models import Page
 from wagtail.url_routing import RouteResult
@@ -170,7 +171,9 @@ class RoutablePageMixin:
         request.is_preview = True
         request.preview_mode = mode_name
 
-        return view(request, *args, **kwargs)
+        response = view(request, *args, **kwargs)
+        patch_cache_control(response, private=True)
+        return response
 
 
 class RoutablePage(RoutablePageMixin, Page):
