@@ -50,7 +50,8 @@ header {
             margin-bottom: 2em;
         }
 
-        li:before {
+        li.icon::before,
+        li svg.icon {
             opacity: 0.2;
             font-size: 6em;
             float: left;
@@ -72,6 +73,12 @@ header {
                 color: $system-color-link-text;
                 opacity: 1;
             }
+        }
+
+        li svg.icon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5em;
         }
 
         a {
