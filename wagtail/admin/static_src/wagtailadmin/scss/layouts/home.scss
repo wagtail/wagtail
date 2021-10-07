@@ -48,6 +48,10 @@ header {
         li {
             @include column(4);
             margin-bottom: 2em;
+
+            @include media-breakpoint-down(sm) {
+                width: 50%;
+            }
         }
 
         li.icon::before,
