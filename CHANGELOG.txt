@@ -38,6 +38,8 @@ Changelog
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
  * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
  * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
+ * Add support for Python 3.10 (Matt Westcott)
+ * Introduce, `autocomplete`, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
@@ -61,6 +63,7 @@ Changelog
  * Fix: Add full support for custom `edit_handler` usage by adding missing `bind_to` call to `PreviewOnEdit` view (Stefan Hammer)
  * Fix: Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
  * Fix: CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
+ * Fix: Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
 
 
 2.14.1 (12.08.2021)

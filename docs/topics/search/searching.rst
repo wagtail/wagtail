@@ -43,7 +43,7 @@ All other methods of ``PageQuerySet`` can be used with ``search()``. For example
 
 .. note::
 
-    Before the ``autocomplete()`` method was introduced, the search method also did partial matching. This behaviour is now deprecated and you should
+    Before the ``autocomplete()`` method was introduced, the search method also did partial matching. This behaviour is will be deprecated and you should
     either switch to the new ``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the new behaviour. The
     partial matching in ``search()`` will be completely removed in a future release.
 
