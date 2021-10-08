@@ -38,6 +38,7 @@ export class TypedTableBlock {
       this.childBlockDefsByName[childBlockDef.name] = childBlockDef;
     });
 
+    const strings = this.blockDef.meta.strings;
     const dom = $(`
       <div class="typed-table-block ${h(this.blockDef.meta.classname || '')}">
         <input type="hidden" name="${h(prefix)}-column-count" data-column-count value="0">
@@ -47,14 +48,14 @@ export class TypedTableBlock {
           <thead>
             <tr><th>
               <button type="button" class="button button-small button-secondary" data-append-column>
-                Add columns
+                ${h(strings.ADD_COLUMNS)}
               </button>
             </th></tr>
           </thead>
           <tbody>
           </tbody>
         </table>
-        <button type="button" class="button button-small button-secondary" data-add-row>Add row</button>
+        <button type="button" class="button button-small button-secondary" data-add-row>${h(strings.ADD_ROW)}</button>
       </div>
     `);
     $(placeholder).replaceWith(dom);
@@ -151,7 +152,7 @@ export class TypedTableBlock {
     const headerRow = this.thead.children[0];
     // delete all header cells except for the final one containing the 'append column' button
     headerRow.replaceChildren(headerRow.lastElementChild);
-    this.appendColumnButton.text('Add columns');
+    this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMNS);
 
     // delete all body rows
     this.tbody.replaceChildren();
@@ -197,11 +198,12 @@ export class TypedTableBlock {
 
     column.headingInput = document.createElement('input');
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
-    column.headingInput.placeholder = 'Column heading';
+    column.headingInput.placeholder = this.blockDef.meta.strings.COLUMN_HEADING;
     newHeaderCell.appendChild(column.headingInput);
 
     const prependColumnButton = $(`<button type="button"
-      class="button button-small button-secondary prepend-column" title="Insert column here">+</button>`);
+      class="button button-small button-secondary prepend-column"
+      title="${h(this.blockDef.meta.strings.INSERT_COLUMN_HERE)}">+</button>`);
     $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
       this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
@@ -210,7 +212,8 @@ export class TypedTableBlock {
     });
 
     const deleteColumnButton = $(`<button type="button"
-      class="button button-small button-secondary delete-column" title="Delete column">x</button>`);
+      class="button button-small button-secondary delete-column"
+      title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">x</button>`);
     $(newHeaderCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
       this.deleteColumn(column.position);
@@ -302,14 +305,15 @@ export class TypedTableBlock {
     controlCell.appendChild(row.positionInput);
 
     const prependRowButton = $(`<button type="button"
-      class="button button-small button-secondary prepend-row" title="Insert row here">+</button>`);
+      class="button button-small button-secondary prepend-row"
+      title="${h(this.blockDef.meta.strings.INSERT_ROW_HERE)}">+</button>`);
     $(controlCell).append(prependRowButton);
     prependRowButton.on('click', () => {
       this.insertRow(row.position);
     });
 
     const deleteRowButton = $(`<button type="button"
-      class="button button-small button-secondary" title="Delete row">x</button>`);
+      class="button button-small button-secondary" title="${h(this.blockDef.meta.strings.DELETE_ROW)}">x</button>`);
     $(controlCell).append(deleteRowButton);
     deleteRowButton.on('click', () => {
       this.deleteRow(row.position);
