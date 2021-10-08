@@ -33,6 +33,7 @@ var apps = [
     new App(path.join('wagtail', 'contrib', 'styleguide'), {'appName': 'wagtailstyleguide'}),
     new App(path.join('wagtail', 'contrib', 'settings'), {'appName': 'wagtailsettings'}),
     new App(path.join('wagtail', 'contrib', 'modeladmin'), {'appName': 'wagtailmodeladmin'}),
+    new App(path.join('wagtail', 'contrib', 'typed_table_block'), {'appName': 'typed_table_block'}),
 ];
 
 module.exports = {

@@ -303,7 +303,11 @@ class TypedTableBlockAdapter(Adapter):
     def media(self):
         return forms.Media(js=[
             versioned_static('typed_table_block/js/typed_table_block.js'),
-        ])
+        ], css={
+            'all': [
+                versioned_static('typed_table_block/css/typed_table_block.css'),
+            ]
+        })
 
 
 register(TypedTableBlockAdapter(), TypedTableBlock)

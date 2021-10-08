@@ -45,12 +45,16 @@ export class TypedTableBlock {
         <div data-deleted-fields></div>
         <table>
           <thead>
-            <tr><th><button type="button" data-append-column>Add columns</button></th></tr>
+            <tr><th>
+              <button type="button" class="button button-small button-secondary" data-append-column>
+                Add columns
+              </button>
+            </th></tr>
           </thead>
           <tbody>
           </tbody>
         </table>
-        <button type="button" data-add-row>Add row</button>
+        <button type="button" class="button button-small button-secondary" data-add-row>Add row</button>
       </div>
     `);
     $(placeholder).replaceWith(dom);
@@ -193,9 +197,11 @@ export class TypedTableBlock {
 
     column.headingInput = document.createElement('input');
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
+    column.headingInput.placeholder = 'Column heading';
     newHeaderCell.appendChild(column.headingInput);
 
-    const prependColumnButton = $('<button type="button" title="Insert column before this one">+</button>');
+    const prependColumnButton = $(`<button type="button"
+      class="button button-small button-secondary prepend-column" title="Insert column here">+</button>`);
     $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
       this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
@@ -203,7 +209,8 @@ export class TypedTableBlock {
       });
     });
 
-    const deleteColumnButton = $('<button type="button" title="Delete column">x</button>');
+    const deleteColumnButton = $(`<button type="button"
+      class="button button-small button-secondary delete-column" title="Delete column">x</button>`);
     $(newHeaderCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
       this.deleteColumn(column.position);
@@ -294,13 +301,15 @@ export class TypedTableBlock {
     row.positionInput.value = row.position;
     controlCell.appendChild(row.positionInput);
 
-    const prependRowButton = $('<button type="button" title="Insert row above this one">+</button>');
+    const prependRowButton = $(`<button type="button"
+      class="button button-small button-secondary prepend-row" title="Insert row here">+</button>`);
     $(controlCell).append(prependRowButton);
     prependRowButton.on('click', () => {
       this.insertRow(row.position);
     });
 
-    const deleteRowButton = $('<button type="button" title="Delete row">x</button>');
+    const deleteRowButton = $(`<button type="button"
+      class="button button-small button-secondary" title="Delete row">x</button>`);
     $(controlCell).append(deleteRowButton);
     deleteRowButton.on('click', () => {
       this.deleteRow(row.position);
