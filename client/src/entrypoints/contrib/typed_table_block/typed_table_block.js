@@ -413,8 +413,32 @@ export class TypedTableBlock {
   }
 
   getTextLabel(opts) {
-    // no usable label found
-    return null;
+    /* Use as many child text labels as we can fit into maxLength */
+    const maxLength = opts && opts.maxLength;
+    let result = '';
+
+    for (const row of this.rows) {
+      for (const block of row.blocks) {
+        if (block.getTextLabel) {
+          const childLabel = block.getTextLabel({ maxLength });
+          if (childLabel) {
+            if (!result) {
+              // always use the first child, truncated as necessary
+              result = childLabel;
+            } else {
+              const newResult = (result + ', ' + childLabel);
+              if (maxLength && newResult.length > maxLength - 1) {
+                // too long, so don't add this; return the current list with an ellipsis instead
+                if (!result.endsWith('…')) result += '…';
+                return result;
+              }
+              result = newResult;
+            }
+          }
+        }
+      }
+    }
+    return result;
   }
 
   focus(opts) {
