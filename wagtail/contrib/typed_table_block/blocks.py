@@ -2,6 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks.base import Block, DeclarativeSubBlocksMetaclass, get_help_icon
@@ -282,6 +283,15 @@ class TypedTableBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+            'strings': {
+                'ADD_COLUMNS': _("Add columns"),
+                'ADD_ROW': _("Add row"),
+                'COLUMN_HEADING': _("Column heading"),
+                'INSERT_COLUMN_HERE': _("Insert column here"),
+                'DELETE_COLUMN': _("Delete column"),
+                'INSERT_ROW_HERE': _("Insert row here"),
+                'DELETE_ROW': _("Delete row"),
+            },
         }
 
         help_text = getattr(block.meta, 'help_text', None)
