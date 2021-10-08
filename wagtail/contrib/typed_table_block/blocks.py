@@ -285,6 +285,7 @@ class TypedTableBlockAdapter(Adapter):
             'label': block.label, 'required': block.required, 'icon': block.meta.icon,
             'strings': {
                 'ADD_COLUMNS': _("Add columns"),
+                'ADD_A_COLUMN': _("Add a column"),
                 'ADD_ROW': _("Add row"),
                 'COLUMN_HEADING': _("Column heading"),
                 'INSERT_COLUMN_HERE': _("Insert column here"),
