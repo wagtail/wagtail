@@ -47,7 +47,7 @@ export class TypedTableBlock {
         <table>
           <thead>
             <tr><th>
-              <button type="button" class="button button-small button-secondary" data-append-column>
+              <button type="button" class="button button-small button-secondary append-column" data-append-column>
                 ${h(strings.ADD_COLUMNS)}
               </button>
             </th></tr>
@@ -213,7 +213,7 @@ export class TypedTableBlock {
 
     const deleteColumnButton = $(`<button type="button"
       class="button button-small button-secondary delete-column"
-      title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">x</button>`);
+      title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">&times;</button>`);
     $(newHeaderCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
       this.deleteColumn(column.position);
@@ -313,7 +313,8 @@ export class TypedTableBlock {
     });
 
     const deleteRowButton = $(`<button type="button"
-      class="button button-small button-secondary" title="${h(this.blockDef.meta.strings.DELETE_ROW)}">x</button>`);
+      class="button button-small button-secondary delete-row"
+      title="${h(this.blockDef.meta.strings.DELETE_ROW)}">&times;</button>`);
     $(controlCell).append(deleteRowButton);
     deleteRowButton.on('click', () => {
       this.deleteRow(row.position);

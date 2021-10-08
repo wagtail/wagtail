@@ -18,6 +18,10 @@
             right: 8px;
             top: 1em;
         }
+
+        button.append-column {
+            margin-left: 1em;
+        }
     }
 
     tbody tr {
@@ -27,6 +31,10 @@
             left: -2.5em;
             position: absolute;
             top: -1em;
+        }
+
+        button.delete-row {
+            margin-left: 1em;
         }
     }
 }
