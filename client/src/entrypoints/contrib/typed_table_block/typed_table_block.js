@@ -152,7 +152,7 @@ export class TypedTableBlock {
     const headerRow = this.thead.children[0];
     // delete all header cells except for the final one containing the 'append column' button
     headerRow.replaceChildren(headerRow.lastElementChild);
-    this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMNS);
+    this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMNS).removeAttr('title');
 
     // delete all body rows
     this.tbody.replaceChildren();
@@ -233,7 +233,7 @@ export class TypedTableBlock {
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
-    this.appendColumnButton.text('+');
+    this.appendColumnButton.text('+').attr('title', this.blockDef.meta.strings.ADD_A_COLUMN);
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
       /* add an initial row */
