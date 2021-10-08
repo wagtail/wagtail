@@ -1,0 +1,32 @@
+.typed-table-block {
+    table {
+        margin-top: 1.5em;
+        margin-left: 1.5em;
+    }
+
+    th {
+        position: relative;
+
+        button.prepend-column {
+            position: absolute;
+            left: -1.2em;
+            top: -2.2em;
+        }
+
+        button.delete-column {
+            position: absolute;
+            right: 8px;
+            top: 1em;
+        }
+    }
+
+    tbody tr {
+        position: relative;
+
+        button.prepend-row {
+            left: -2.5em;
+            position: absolute;
+            top: -1em;
+        }
+    }
+}
