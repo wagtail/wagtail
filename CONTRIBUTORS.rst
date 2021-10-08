@@ -544,6 +544,7 @@ Contributors
 * Jane Liu
 * Joe Howard
 * Jochen Wersdörfer
+* Sakshi Uppoor
 
 Translators
 ===========

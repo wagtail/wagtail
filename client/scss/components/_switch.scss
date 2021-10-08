@@ -38,11 +38,13 @@ $switch-color-middle-grey: #777;
         }
 
         &::after {
+            box-sizing: border-box;
             position: absolute;
             top: 50%;
             transform: translate($switch-border, -50%);
             height: $switch-height;
             width: $switch-height;
+            border: $switch-border solid $color-white;
             border-radius: 50%;
             background-color: $color-white;
         }
