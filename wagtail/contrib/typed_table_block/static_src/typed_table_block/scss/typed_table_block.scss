@@ -1,3 +1,5 @@
+@import 'wagtailadmin/scss/helpers';
+
 .typed-table-block {
     table {
         margin-top: 1.5em;
@@ -36,5 +38,23 @@
         button.delete-row {
             margin-left: 1em;
         }
+    }
+
+    ul.add-column-menu {
+        position: absolute;
+        top: 0;
+        z-index: 100;
+        min-width: 10em;
+        background-color: $color-white;
+
+        button {
+            width: 100%;
+            margin: 1px;
+        }
+    }
+
+    .control-cell ul.add-column-menu {
+        top: 3em;
+        left: -5em;
     }
 }

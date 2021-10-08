@@ -46,11 +46,13 @@ export class TypedTableBlock {
         <div data-deleted-fields></div>
         <table>
           <thead>
-            <tr><th>
-              <button type="button" class="button button-small button-secondary append-column" data-append-column>
-                ${h(strings.ADD_COLUMNS)}
-              </button>
-            </th></tr>
+            <tr>
+              <th class="control-cell">
+                <button type="button" class="button button-small button-secondary append-column" data-append-column>
+                  ${h(strings.ADD_COLUMNS)}
+                </button>
+              </th>
+            </tr>
           </thead>
           <tbody>
           </tbody>
@@ -92,9 +94,11 @@ export class TypedTableBlock {
     }
 
     this.addColumnCallback = null;
-    this.addColumnMenu = $('<ul></ul>');
+    this.addColumnMenu = $('<ul class="add-column-menu"></ul>');
     this.blockDef.childBlockDefs.forEach(childBlockDef => {
-      const columnTypeButton = $('<button type="button"></button>').text(childBlockDef.meta.label);
+      const columnTypeButton = $(
+        '<button type="button" class="button button-small"></button>'
+      ).text(childBlockDef.meta.label);
       columnTypeButton.on('click', () => {
         if (this.addColumnCallback) this.addColumnCallback(childBlockDef);
         this.hideAddColumnMenu();
