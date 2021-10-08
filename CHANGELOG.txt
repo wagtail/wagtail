@@ -42,6 +42,7 @@ Changelog
  * Introduce, `autocomplete`, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
  * Use SVG icons in StreamField buttons and headers (Jérôme Lebleu)
  * Add tags to existing Django registered checks (LB Johnston)
+ * Upgrade admin frontend JS libraries jQuery to 3.6.0 and Modernizr to 2.8.3 (Fabien Le Frapper)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
