@@ -111,6 +111,35 @@ class Migration(migrations.Migration):
             migrations.RunSQL(
                 sql="""
                 ALTER TABLE wagtailsearch_indexentry
+                    ADD FULLTEXT INDEX `fulltext_body` (`body`)
+                """,
+                reverse_sql="""
+                ALTER TABLE wagtailsearch_indexentry
+                    DROP INDEX `fulltext_body`
+                """
+            )
+        )
+
+        # We create two separate FULLTEXT indexes for the 'body' and 'title' columns, so that we are able to handle them separately afterwards.
+        # We handle them separately, for example, when we do scoring: there, we multiply the 'title' score by the value of the 'title_norm' column. This can't be done if we index 'title' and 'body' in the same index, because MySQL doesn't allow to search on subparts of a defined index (we need to search all the columns of the index at the same time).
+        operations.append(
+            migrations.RunSQL(
+                sql="""
+                ALTER TABLE wagtailsearch_indexentry
+                    ADD FULLTEXT INDEX `fulltext_title` (`title`)
+                """,
+                reverse_sql="""
+                ALTER TABLE wagtailsearch_indexentry
+                    DROP INDEX `fulltext_title`
+                """
+            )
+        )
+
+        # We also need to create a joint index on 'title' and 'body', to be able to query both at the same time. If we don't have this, some queries may return wrong results. For example, if we match 'A AND (NOT B)' against 'A, B', it returns false, but if we do (match 'A AND (NOT B)' against 'A') or (match 'A AND (NOT B)' against 'B'), the first one would return True, and the whole expression would be True (wrong result). That's the same as saying that testing subsets does not neccessarily produce the same result as testing the whole set.
+        operations.append(
+            migrations.RunSQL(
+                sql="""
+                ALTER TABLE wagtailsearch_indexentry
                     ADD FULLTEXT INDEX `fulltext_title_body` (`title`, `body`)
                 """,
                 reverse_sql="""

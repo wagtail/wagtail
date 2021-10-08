@@ -407,7 +407,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             negated = False
 
         search_query = self.build_search_query(query)
-        match_expression = MatchExpression(search_query, output_field=BooleanField())  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
+        match_expression = MatchExpression(search_query, columns=['title', 'body'], output_field=BooleanField())  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
         score_expression = (
             MatchExpression(search_query, columns=['title'], output_field=FloatField()) * F('title_norm')
             + MatchExpression(search_query, columns=['body'], output_field=FloatField())
