@@ -418,6 +418,13 @@ export class TypedTableBlock {
   }
 
   focus(opts) {
+    if (!this.columns.length) {
+      this.appendColumnButton.focus();
+    } else if (!this.rows.length) {
+      this.addRowButton.focus();
+    } else {
+      this.rows[0].blocks[0].focus(opts);
+    }
   }
 }
 
