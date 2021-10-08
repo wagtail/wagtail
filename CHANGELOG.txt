@@ -66,6 +66,7 @@ Changelog
  * Fix: Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
  * Fix: CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
  * Fix: Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
+ * Fix: Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
 
 
 2.14.1 (12.08.2021)
