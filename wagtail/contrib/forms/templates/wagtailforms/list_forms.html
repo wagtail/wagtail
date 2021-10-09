@@ -1,21 +1,33 @@
 {% load i18n %}
 <table class="listing">
-    <col width="50%"/>
+    <col width="25%"/>
+    <col width="25%"/>
     <col width="50%"/>
     <thead>
         <tr>
             <th class="title">{% trans "Title" %}</th>
-            <th class="type">{% trans "Origin" %}</th>
+            <th class="title">{% trans "Location" %}</th>
+            <th class="type">{% trans "Actions" %}</th>
         </tr>
     </thead>
     <tbody>
         {% for fp in form_pages %}
             <tr>
                 <td class="title">
-                    <div class="title-wrapper"><a href="{% url 'wagtailforms:list_submissions' fp.id %}">{{ fp|capfirst }}</a></div>
+                    <div class="title-wrapper"> {{ fp|capfirst }}</div>
                 </td>
-                <td class="type">
-                    <small><a href="{% url 'wagtailadmin_pages:edit' fp.id %}" class="nolink">{{ fp.content_type.name |capfirst }} ({{ fp.content_type.app_label }}.{{ fp.content_type.model }})</a></small>
+                <td class="location">
+                    <div class="location-wrapper"><small>({{ fp.url_path }})</small></div>
+                </td>
+                <td class="action_buttons">
+                    <a href="{% url 'wagtailforms:list_submissions' fp.id %}" class="button">View <small>Submissions</small></a>
+                    <a href="{% url 'wagtailadmin_pages:edit' fp.id %}" class="button nolink">
+                        {% if user.is_superuser %}
+                            Edit  <small>(Page {{ fp.id }})</small>
+                        {% else %}
+                            Edit <small>(Page {{ fp|capfirst }})</small>
+                        {% endif %}
+                    </a>
                 </td>
             </tr>
         {% endfor %}
