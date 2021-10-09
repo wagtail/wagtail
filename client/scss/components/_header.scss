@@ -147,6 +147,13 @@ header {
     }
 }
 
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+    header .field-content {
+        border: 0.1em solid $system-color-link-text;
+    }
+}
+
 @include media-breakpoint-up(sm) {
     header {
         padding-top: 1.5em;

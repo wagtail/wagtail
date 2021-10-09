@@ -117,6 +117,19 @@ Options
 
 .. _wagtailsearch_index_filterfield:
 
+``index.AutocompleteField``
+---------------------------
+
+These are used for autocomplete queries which match partial words. For example, a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
+
+This takes the exact same options as ``index.SearchField`` (with the exception of ``partial_match``, which has no effect).
+
+
+.. tip::
+
+   Only index fields that are displayed in the search results with ``index.AutocompleteField``. This allows users to see any words that were partial-matched on.
+
+
 ``index.FilterField``
 ---------------------
 

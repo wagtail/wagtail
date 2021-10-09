@@ -25,20 +25,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -73,20 +81,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -121,20 +137,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be duplicated 1`] = `
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -188,20 +212,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -236,20 +268,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered downward 1
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -303,20 +343,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -351,20 +399,28 @@ exports[`telepath: wagtail.blocks.StreamBlock blocks can be reordered upward 1`]
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -418,20 +474,28 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -466,20 +530,28 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders correctly 1`] = `
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -533,20 +605,28 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -570,15 +650,15 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"\\" aria-hidden=\\"false\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"><div class=\\"c-sf-add-panel__grid\\"><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_a\\">
-            <span class=\\"c-sf-button__icon\\">
-              <i class=\\"icon icon-placeholder\\"></i>
-            </span>
-            <span class=\\"c-sf-button__label\\">Test Block A</span>
+            <svg class=\\"icon icon-placeholder c-sf-button__icon\\" aria-hidden=\\"true\\">
+              <use href=\\"#icon-placeholder\\"></use>
+            </svg>
+            Test Block A
           </button><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_b\\">
-            <span class=\\"c-sf-button__icon\\">
-              <i class=\\"icon icon-pilcrow\\"></i>
-            </span>
-            <span class=\\"c-sf-button__label\\">Test Block B</span>
+            <svg class=\\"icon icon-pilcrow c-sf-button__icon\\" aria-hidden=\\"true\\">
+              <use href=\\"#icon-pilcrow\\"></use>
+            </svg>
+            Test Block B
           </button></div></div>
         </div>
       </div><div aria-hidden=\\"false\\" data-contentpath=\\"2\\">
@@ -591,20 +671,28 @@ exports[`telepath: wagtail.blocks.StreamBlock it renders menus on opening 1`] = 
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -658,20 +746,28 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block A</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -706,20 +802,28 @@ exports[`telepath: wagtail.blocks.StreamBlock setError renders error messages 1`
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block B</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -762,15 +866,15 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
         </button>
         <div data-streamblock-menu-outer=\\"\\" style=\\"\\" aria-hidden=\\"false\\">
           <div data-streamblock-menu-inner=\\"\\" class=\\"c-sf-add-panel\\"><div class=\\"c-sf-add-panel__grid\\"><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_a\\">
-            <span class=\\"c-sf-button__icon\\">
-              <i class=\\"icon icon-placeholder\\"></i>
-            </span>
-            <span class=\\"c-sf-button__label\\">Test Block &lt;A&gt;</span>
+            <svg class=\\"icon icon-placeholder c-sf-button__icon\\" aria-hidden=\\"true\\">
+              <use href=\\"#icon-placeholder\\"></use>
+            </svg>
+            Test Block &lt;A&gt;
           </button><button type=\\"button\\" class=\\"c-sf-button action-add-block-test_block_b\\">
-            <span class=\\"c-sf-button__icon\\">
-              <i class=\\"icon icon-pilcrow\\"></i>
-            </span>
-            <span class=\\"c-sf-button__label\\">Test Block &lt;B&gt;</span>
+            <svg class=\\"icon icon-pilcrow c-sf-button__icon\\" aria-hidden=\\"true\\">
+              <use href=\\"#icon-pilcrow\\"></use>
+            </svg>
+            Test Block &lt;B&gt;
           </button></div></div>
         </div>
       </div><div aria-hidden=\\"false\\" data-contentpath=\\"1\\">
@@ -783,20 +887,28 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-placeholder\\"></i>
-                </span>
+                <svg class=\\"icon icon-placeholder c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-placeholder\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block &lt;A&gt;</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete &amp; kill with fire\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">
@@ -831,20 +943,28 @@ exports[`telepath: wagtail.blocks.StreamBlock with labels that need escaping it 
           <div class=\\"c-sf-container__block-container\\">
             <div class=\\"c-sf-block\\">
               <div data-block-header=\\"\\" class=\\"c-sf-block__header c-sf-block__header--collapsible\\">
-                <span class=\\"c-sf-block__header__icon\\">
-                  <i class=\\"icon icon-pilcrow\\"></i>
-                </span>
+                <svg class=\\"icon icon-pilcrow c-sf-block__header__icon\\" aria-hidden=\\"true\\">
+                  <use href=\\"#icon-pilcrow\\"></use>
+                </svg>
                 <h3 data-block-title=\\"\\" class=\\"c-sf-block__header__title\\"></h3>
                 <div class=\\"c-sf-block__actions\\" data-block-actions=\\"\\">
                   <span class=\\"c-sf-block__type\\">Test Block &lt;B&gt;</span>
                 <button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move up\\">
-        <i class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-up\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-up\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Move down\\" disabled=\\"disabled\\">
-        <i class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-arrow-down\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-arrow-down\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Duplicate\\">
-        <i class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-duplicate\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-duplicate\\"></use>
+        </svg>
       </button><button type=\\"button\\" class=\\"c-sf-block__actions__single\\" title=\\"Delete &amp; kill with fire\\">
-        <i class=\\"icon icon-bin\\" aria-hidden=\\"true\\"></i>
+        <svg class=\\"icon icon-bin\\" aria-hidden=\\"true\\">
+          <use href=\\"#icon-bin\\"></use>
+        </svg>
       </button></div>
               </div>
               <div data-block-content=\\"\\" class=\\"c-sf-block__content\\" aria-hidden=\\"false\\">

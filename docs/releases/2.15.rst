@@ -53,6 +53,10 @@ Other features
  * Translations in ``nl_NL`` are moved to the ``nl`` po files. ``nl_NL`` translation files are deleted. Projects that use ``LANGUAGE_CODE = 'nl-nl'`` will automatically fallback to ``nl``. (Loïc Teixeira, Coen van der Kamp)
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
  * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
+ * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
+ * Add support for Python 3.10 (Matt Westcott)
+ * Introduce, ``autocomplete``, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
+ * Use SVG icons in StreamField buttons and headers (Jérôme Lebleu)
 
 Bug fixes
 ~~~~~~~~~
@@ -63,7 +67,7 @@ Bug fixes
  * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
- * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Dropdown button, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis)
+ * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Dropdown button, Editor Tabs, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon, sidebar search, streamfield buttons (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis)
  * Menu sidebar hamburger icon on smaller viewports now correctly indicates it is a button to screen readers and can be accessed via keyboard (Amy Chan, Dan Braghis)
  * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Screen readers can now access login screen field labels (Amy Chan)
@@ -79,6 +83,8 @@ Bug fixes
  * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
  * Add full support for custom ``edit_handler`` usage by adding missing ``bind_to`` call to ``PreviewOnEdit`` view (Stefan Hammer)
  * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
+ * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
+ * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
 
 Upgrade considerations
 ======================
@@ -167,3 +173,13 @@ Removed support for Internet Explorer (IE11)
 
 If this affects you or your organisation, consider which alternative browsers you may be able to use.
 Wagtail is fully compatible with Microsoft Edge, Microsoft’s replacement for Internet Explorer. You may consider using its `IE mode <https://docs.microsoft.com/en-us/deployedge/edge-ie-mode>`_ to keep access to IE11-only sites, while other sites and apps like Wagtail can leverage modern browser capabilities.
+
+
+``search()`` method partial match future deprecation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Before the ``autocomplete()`` method was introduced, the search method also did partial matching.
+This behaviour is will be deprecated in a future release and you should either switch to the new
+``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the
+new behaviour. The partial matching in ``search()`` will be completely removed in a future release.
+See: :ref:`wagtailsearch_searching_pages`
