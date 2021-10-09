@@ -498,7 +498,8 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.utils.html import format_html, format_html_join
+    from django.utils.html import format_html_join
+    from django.utils.safestring import mark_safe
     from django.templatetags.static import static
 
     from wagtail.core import hooks
@@ -511,13 +512,12 @@ Hooks for customising the editing interface for pages and snippets.
         js_includes = format_html_join('\n', '<script src="{0}"></script>',
             ((static(filename),) for filename in js_files)
         )
-        # remember to use double '{{' so they are not parsed as template placeholders
-        return js_includes + format_html(
+        return js_includes + mark_safe(
             """
             <script>
-                $(function() {{
+                $(function() {
                     $('button').raptorize();
-                }});
+                });
             </script>
             """
         )

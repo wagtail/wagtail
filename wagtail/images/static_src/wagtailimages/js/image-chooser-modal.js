@@ -34,11 +34,26 @@ function ajaxifyImageUploadForm(modal) {
     fileWidget.on('change', function () {
         var titleWidget = $('#id_image-chooser-upload-title', modal.body);
         var title = titleWidget.val();
+        // do not override a title that already exists (from manual editing or previous upload)
         if (title === '') {
             // The file widget value example: `C:\fakepath\image.jpg`
             var parts = fileWidget.val().split('\\');
-            var fileName = parts[parts.length - 1];
-            titleWidget.val(fileName);
+            var filename = parts[parts.length - 1];
+
+            // allow event handler to override filename (used for title) & provide maxLength as int to event
+            var maxTitleLength = parseInt(titleWidget.attr('maxLength') || '0', 10) || null;
+            var data = { title: filename.replace(/\.[^\.]+$/, '') };
+
+            // allow an event handler to customise data or call event.preventDefault to stop any title pre-filling
+            var form = fileWidget.closest('form').get(0);
+            var event = form.dispatchEvent(new CustomEvent(
+                'wagtail:images-upload',
+                { bubbles: true, cancelable: true, detail: { data: data, filename: filename, maxTitleLength: maxTitleLength } }
+            ));
+
+            if (!event) return; // do not set a title if event.preventDefault(); is called by handler
+
+            titleWidget.val(data.title);
         }
     });
 }
