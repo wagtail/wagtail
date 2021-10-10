@@ -165,7 +165,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
   // eslint-disable-next-line no-undef
   buildExpandingFormset(opts.formsetPrefix, {
     onAdd(formCount) {
-      const newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
+      const newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__(.*?['"])/g, formCount + '$1');
       self.initChildControls(newChildPrefix);
       if (opts.canOrder) {
         /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
