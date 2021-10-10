@@ -1,6 +1,6 @@
 from .assign_role import AssignRoleBulkAction
 from .delete import DeleteBulkAction
-from .toggle_activity import ToggleActivityBulkAction
+from .set_active_state import SetActiveStateBulkAction
 
 
-__all__ = ['AssignRoleBulkAction', 'DeleteBulkAction', 'ToggleActivityBulkAction']
+__all__ = ['AssignRoleBulkAction', 'DeleteBulkAction', 'SetActiveStateBulkAction']

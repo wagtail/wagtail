@@ -7,17 +7,21 @@ from wagtail.users.views.users import change_user_perm
 
 
 class ActivityForm(forms.Form):
-    mark_as_active = forms.BooleanField(
-        required=False,
-        label=_('Activate / Deactivate')
+    mark_as_active = forms.TypedChoiceField(
+        choices=(
+            (True, _("Active")),
+            (False, _("Inactive"))
+        ),
+        widget=forms.RadioSelect,
+        coerce=lambda x: x == 'True',
     )
 
 
-class ToggleActivityBulkAction(UserBulkAction):
-    display_name = _("Toggle activity")
-    action_type = "toggle_activity"
-    aria_label = _("Mark users as active or inactive")
-    template_name = "wagtailusers/bulk_actions/confirm_bulk_toggle_activity.html"
+class SetActiveStateBulkAction(UserBulkAction):
+    display_name = _("Set active state")
+    action_type = "set_active_state"
+    aria_label = _("Change the active state for selected users")
+    template_name = "wagtailusers/bulk_actions/confirm_bulk_set_active_state.html"
     action_priority = 20
     form_class = ActivityForm
 
