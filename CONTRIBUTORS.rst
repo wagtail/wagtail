@@ -545,6 +545,8 @@ Contributors
 * Joe Howard
 * Jochen Wersdörfer
 * Sakshi Uppoor
+* Indresh P
+* Rinish Sam
 
 Translators
 ===========

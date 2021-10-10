@@ -88,6 +88,7 @@ Bug fixes
  * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
  * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
  * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
+ * Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam)
 
 Upgrade considerations
 ======================

@@ -68,6 +68,7 @@ Changelog
  * Fix: CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
  * Fix: Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
  * Fix: Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
+ * Fix: Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam)
 
 
 2.14.1 (12.08.2021)
