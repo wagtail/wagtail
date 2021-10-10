@@ -7,7 +7,7 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 class UnpublishBulkAction(PageBulkAction):
     display_name = _("Unpublish")
     action_type = "unpublish"
-    aria_label = _("Unpublish pages")
+    aria_label = _("Unpublish selected pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html"
     action_priority = 50
 

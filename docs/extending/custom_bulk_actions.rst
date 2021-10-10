@@ -18,7 +18,7 @@ Registering a custom bulk action
         @hooks.register('register_bulk_action')
         class CustomDeleteBulkAction(BulkAction):
             display_name = _("Delete")
-            aria_label = _("Delete objects")
+            aria_label = _("Delete selected objects")
             action_type = "delete"
             template_name = "/path/to/confirm_bulk_delete.html"
             models = [...]

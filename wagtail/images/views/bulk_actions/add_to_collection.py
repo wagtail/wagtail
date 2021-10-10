@@ -17,7 +17,7 @@ class CollectionForm(forms.Form):
 class AddToCollectionBulkAction(ImageBulkAction):
     display_name = _("Add to collection")
     action_type = "add_to_collection"
-    aria_label = _("Add images to collection")
+    aria_label = _("Add selected images to collection")
     template_name = "wagtailimages/bulk_actions/confirm_bulk_add_to_collection.html"
     action_priority = 30
     form_class = CollectionForm

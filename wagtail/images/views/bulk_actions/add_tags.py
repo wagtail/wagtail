@@ -13,7 +13,7 @@ class TagForm(forms.Form):
 class AddTagsBulkAction(ImageBulkAction):
     display_name = _("Tag")
     action_type = "add_tags"
-    aria_label = _("Add tags to images")
+    aria_label = _("Add tags to the selected images")
     template_name = "wagtailimages/bulk_actions/confirm_bulk_add_tags.html"
     action_priority = 20
     form_class = TagForm

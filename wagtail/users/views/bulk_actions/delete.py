@@ -8,7 +8,7 @@ from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 class DeleteBulkAction(UserBulkAction):
     display_name = _("Delete")
     action_type = "delete"
-    aria_label = _("Delete users")
+    aria_label = _("Delete selected users")
     template_name = "wagtailusers/bulk_actions/confirm_bulk_delete.html"
     action_priority = 10
     classes = {'serious'}

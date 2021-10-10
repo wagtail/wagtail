@@ -7,7 +7,7 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 class DeleteBulkAction(PageBulkAction):
     display_name = _("Delete")
     action_type = "delete"
-    aria_label = "Delete pages"
+    aria_label = _("Delete selected pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_delete.html"
     action_priority = 30
     classes = {'serious'}

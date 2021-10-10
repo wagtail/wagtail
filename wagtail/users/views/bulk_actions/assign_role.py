@@ -16,7 +16,7 @@ class RoleForm(forms.Form):
 class AssignRoleBulkAction(UserBulkAction):
     display_name = _("Assign role")
     action_type = "assign_role"
-    aria_label = _("Assign role to users")
+    aria_label = _("Assign role to selected users")
     template_name = "wagtailusers/bulk_actions/confirm_bulk_assign_role.html"
     action_priority = 30
     form_class = RoleForm
