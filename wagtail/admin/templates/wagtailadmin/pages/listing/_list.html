@@ -51,9 +51,9 @@
                     {% if show_ordering_column %}
                         <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
                     {% elif not hide_bulk_actions %}
-                        {% include 'wagtailadmin/bulk_actions/listing_checkbox_cell.html' with obj_type='page' obj=page aria_label=checkbox_aria_label %}
+                        {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="page" obj=page aria_labelledby_prefix="page_" aria_labelledby=page.pk|unlocalize aria_labelledby_suffix="_title" %}
                     {% endif %}
-                    <td class="title" valign="top" data-listing-page-title>
+                    <td id="page_{{ page.pk|unlocalize }}_title" class="title" valign="top" data-listing-page-title>
                         {% block page_title %}
                         {% endblock %}
                     </td>

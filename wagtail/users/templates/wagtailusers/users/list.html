@@ -1,4 +1,4 @@
-{% load i18n wagtailusers_tags wagtailadmin_tags %}
+{% load i18n l10n wagtailusers_tags wagtailadmin_tags %}
 <table class="listing">
     <thead>
         <tr>
@@ -33,8 +33,8 @@
     <tbody>
         {% for user in users %}
             <tr>
-                {% include 'wagtailadmin/bulk_actions/listing_checkbox_cell.html' with obj_type='user' obj=user aria_label=checkbox_aria_label %}
-                <td class="title" valign="top">
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
+                <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
                     <div class="title-wrapper">
                         <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
