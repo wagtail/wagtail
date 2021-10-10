@@ -16,7 +16,7 @@ from wagtail.core.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
 from wagtail.users.views.bulk_actions import (
-    AssignRoleBulkAction, DeleteBulkAction, ToggleActivityBulkAction)
+    AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction)
 from wagtail.users.widgets import UserListingButton
 
 
@@ -141,5 +141,5 @@ class UserAdminURLFinder(ModelAdminURLFinder):
 register_admin_url_finder(User, UserAdminURLFinder)
 
 
-for action_class in [AssignRoleBulkAction, DeleteBulkAction, ToggleActivityBulkAction]:
+for action_class in [AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction]:
     hooks.register('register_bulk_action', action_class)

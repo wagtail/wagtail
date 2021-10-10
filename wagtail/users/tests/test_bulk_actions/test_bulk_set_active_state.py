@@ -10,7 +10,7 @@ from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 User = get_user_model()
 
 
-class TestUserToggleActivityView(TestCase, WagtailTestUtils):
+class TestUserSetActiveStateView(TestCase, WagtailTestUtils):
     def setUp(self):
         # create a set of test users
         self.test_users = [
@@ -24,7 +24,10 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
             user.is_active = (i & 1)  # odd numbered users will be active
             user.save()
         self.current_user = self.login()
-        self.url = reverse('wagtail_bulk_action', args=(User._meta.app_label, User._meta.model_name, 'toggle_activity',)) + '?'
+        self.url = reverse(
+            'wagtail_bulk_action',
+            args=(User._meta.app_label, User._meta.model_name, 'set_active_state',)
+        ) + '?'
         self.self_toggle_url = self.url + f'id={self.current_user.pk}'
         for user in self.test_users:
             self.url += f'id={user.pk}&'
@@ -34,7 +37,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailusers/bulk_actions/confirm_bulk_toggle_activity.html')
+        self.assertTemplateUsed(response, 'wagtailusers/bulk_actions/confirm_bulk_set_active_state.html')
 
     def test_bulk_toggle(self):
         response = self.client.post(self.url, self.make_active_data)
@@ -51,7 +54,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         html = response.content.decode()
-        self.assertInHTML("<p>You cannot mark yourself as inactive</p>", html)
+        self.assertInHTML("<p>You cannot change your own active status</p>", html)
 
         needle = '<ul>'
         needle += '<li>{user_email}</li>'.format(user_email=self.current_user.email)
@@ -63,7 +66,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
     def test_before_toggle_user_hook_post(self):
         def hook_func(request, action_type, users, action_class_instance):
-            self.assertEqual(action_type, 'toggle_activity')
+            self.assertEqual(action_type, 'set_active_state')
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, UserBulkAction)
             self.assertCountEqual([user.pk for user in self.test_users], [user.pk for user in users])
@@ -78,7 +81,7 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
 
     def test_after_toggle_user_hook(self):
         def hook_func(request, action_type, users, action_class_instance):
-            self.assertEqual(action_type, 'toggle_activity')
+            self.assertEqual(action_type, 'set_active_state')
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, UserBulkAction)
             self.assertCountEqual([user.pk for user in self.test_users], [user.pk for user in users])
