@@ -1411,7 +1411,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
     from wagtail.core import hooks
 
 
-    @hooks.register('register_bulk_action')
+    @hooks.register("register_bulk_action")
     class CustomBulkAction(BulkAction):
         display_name = _("Custom Action")
         action_type = "action"
@@ -1440,7 +1440,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
     from wagtail.core import hooks
 
-    @hooks.register('before_bulk_action)
+    @hooks.register("before_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
       ...
 
@@ -1458,7 +1458,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
     from wagtail.core import hooks
 
-    @hooks.register('after_bulk_action)
+    @hooks.register("after_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
       ...
 
