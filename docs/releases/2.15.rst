@@ -57,6 +57,7 @@ Other features
  * Add support for Python 3.10 (Matt Westcott)
  * Introduce, ``autocomplete``, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
  * Use SVG icons in StreamField buttons and headers (Jérôme Lebleu)
+ * Add tags to existing Django registered checks (LB Johnston)
 
 Bug fixes
 ~~~~~~~~~
@@ -82,6 +83,7 @@ Bug fixes
  * Add ``gettext_lazy`` to ``ModelAdmin`` built in view titles so that language settings are correctly used (Matt Westcott)
  * Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
  * Add full support for custom ``edit_handler`` usage by adding missing ``bind_to`` call to ``PreviewOnEdit`` view (Stefan Hammer)
+ * Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
  * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
  * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
  * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
