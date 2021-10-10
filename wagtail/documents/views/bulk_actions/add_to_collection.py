@@ -17,7 +17,7 @@ class CollectionForm(forms.Form):
 class AddToCollectionBulkAction(DocumentBulkAction):
     display_name = _("Add to collection")
     action_type = "add_to_collection"
-    aria_label = _("Add documents to collection")
+    aria_label = _("Add selected documents to collection")
     template_name = "wagtaildocs/bulk_actions/confirm_bulk_add_to_collection.html"
     action_priority = 30
     form_class = CollectionForm

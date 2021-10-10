@@ -9,9 +9,9 @@
 {% endblock header %}
 
 {% block items_with_access %}
-    {% if items %}
+{% if items %}
     <p>
-        {% blocktrans count counter=items|length %}
+        {% blocktrans trimmed count counter=items|length %}
         Are you sure you want to add the following image to the selected collection?
         {% plural %}
         Are you sure you want to add the following images to the selected collection?
@@ -24,7 +24,7 @@
         </li>
         {% endfor %}
     </ul>
-    {% endif %}
+{% endif %}
 {% endblock items_with_access %}
 
 {% block items_with_no_access %}

@@ -7,7 +7,7 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 class PublishBulkAction(PageBulkAction):
     display_name = _("Publish")
     action_type = "publish"
-    aria_label = _("Publish pages")
+    aria_label = _("Publish selected pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html"
     action_priority = 40
 

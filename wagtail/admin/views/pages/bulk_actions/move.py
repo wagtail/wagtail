@@ -28,7 +28,7 @@ class MoveForm(forms.Form):
 class MoveBulkAction(PageBulkAction):
     display_name = _("Move")
     action_type = "move"
-    aria_label = "Move pages"
+    aria_label = _("Move selected pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_move.html"
     action_priority = 10
     form_class = MoveForm

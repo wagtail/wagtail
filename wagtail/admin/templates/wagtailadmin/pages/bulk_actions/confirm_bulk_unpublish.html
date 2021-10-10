@@ -9,25 +9,25 @@
 {% endblock header %}
 
 {% block items_with_access %}
-        {% if items %}
-        <p>{% trans "Are you sure you want to unpublish these pages?" %}</p>
-        <ul>
-            {% for page in items %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noopener noreferrer">{{ page.item.title }}</a>
-                <p>
-                    {% if page.live_descendant_count %}
-                        {% blocktrans count counter=page.live_descendant_count %}
-                        This page has one subpage
-                        {% plural %}
-                        This page has {{ counter }} subpages
-                        {% endblocktrans %}
-                    {% endif %}
-                </p>
-            </li>
-            {% endfor %}
-        </ul>
-        {% endif %}
+{% if items %}
+    <p>{% trans "Are you sure you want to unpublish these pages?" %}</p>
+    <ul>
+        {% for page in items %}
+        <li>
+            <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noopener noreferrer">{{ page.item.title }}</a>
+            <p>
+                {% if page.live_descendant_count %}
+                    {% blocktrans count counter=page.live_descendant_count %}
+                    This page has one subpage
+                    {% plural %}
+                    This page has {{ counter }} subpages
+                    {% endblocktrans %}
+                {% endif %}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 {% endblock items_with_access %}
 
 {% block items_with_no_access %}

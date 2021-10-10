@@ -7,7 +7,7 @@ from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
 class DeleteBulkAction(ImageBulkAction):
     display_name = _("Delete")
     action_type = "delete"
-    aria_label = _("Delete images")
+    aria_label = _("Delete selected images")
     template_name = "wagtailimages/bulk_actions/confirm_bulk_delete.html"
     action_priority = 100
     classes = {'serious'}
