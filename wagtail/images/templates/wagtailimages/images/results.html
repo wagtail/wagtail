@@ -15,11 +15,14 @@
         <h2>{% trans "Latest images" %}</h2>
     {% endif %}
 
+    {# Used below for the checkbox aria_labelledby #}
+    <p class="visuallyhidden" id="select-image-label">{% trans "Select image" %}</p>
+
     <ul class="listing horiz images">
         {% for image in images %}
             <li>
                 <div class="bulk-action-checkbox-container">
-                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" obj=image aria_labelledby_prefix="image_" aria_labelledby=image.pk|unlocalize aria_labelledby_suffix="_title" %}
+                    {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" obj=image aria_labelledby_prefix="select-image-label image_" aria_labelledby=image.pk|unlocalize aria_labelledby_suffix="_title" %}
                 </div>
                 <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
                     <figure>

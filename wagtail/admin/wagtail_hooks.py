@@ -161,7 +161,7 @@ def bulk_action_filters():
     yield Button(
         _('All'),
         '?filters=',
-        attrs={'title': _("All pages"), 'data': {'bulk-action-filter': _("")}},
+        attrs={'title': _("All pages"), 'data': {'bulk-action-filter': ""}},
         priority=10
     )
 
