@@ -679,12 +679,19 @@ table.listing {
         }
 
         tr:hover,
-        li:hover {
+        tr:focus-within {
             .no-children a,
             .bulk-action-checkbox {
                 opacity: 1;
             }
+        }
 
+        // used on the image listing
+        li:hover,
+        li:focus-within {
+            .bulk-action-checkbox {
+                opacity: 1;
+            }
         }
 
         tr:hover .children {

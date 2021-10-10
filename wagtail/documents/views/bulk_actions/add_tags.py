@@ -13,7 +13,7 @@ class TagForm(forms.Form):
 class AddTagsBulkAction(DocumentBulkAction):
     display_name = _("Tag")
     action_type = "add_tags"
-    aria_label = _("Add tags to documents")
+    aria_label = _("Add tags to the selected documents")
     template_name = "wagtaildocs/bulk_actions/confirm_bulk_add_tags.html"
     action_priority = 20
     form_class = TagForm

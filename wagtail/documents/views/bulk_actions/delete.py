@@ -7,7 +7,7 @@ from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBu
 class DeleteBulkAction(DocumentBulkAction):
     display_name = _("Delete")
     action_type = "delete"
-    aria_label = _("Delete documents")
+    aria_label = _("Delete selected documents")
     template_name = "wagtaildocs/bulk_actions/confirm_bulk_delete.html"
     action_priority = 100
     classes = {'serious'}
