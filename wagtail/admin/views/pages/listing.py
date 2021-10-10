@@ -103,7 +103,7 @@ def index(request, parent_page_id=None):
         'do_paginate': do_paginate,
         'locale': None,
         'translations': [],
-        'show_ordering_column': 'ordering' in request.GET.dict()
+        'show_ordering_column': request.GET.get('ordering') == 'ord'
     }
 
     if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
