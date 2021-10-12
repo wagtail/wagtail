@@ -618,7 +618,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
 
     def test_meta_status_live_draft(self):
         # Save revision without republish
-        Page.objects.get(id=16).save_revision()
+        Page.objects.get(id=16).specific.save_revision()
 
         response = self.get_response(16)
         content = json.loads(response.content.decode('UTF-8'))
@@ -634,7 +634,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         # Unpublish and save revision with go live date in the future
         Page.objects.get(id=16).unpublish()
         tomorrow = timezone.now() + datetime.timedelta(days=1)
-        Page.objects.get(id=16).save_revision(approved_go_live_at=tomorrow)
+        Page.objects.get(id=16).specific.save_revision(approved_go_live_at=tomorrow)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode('UTF-8'))
