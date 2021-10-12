@@ -330,7 +330,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
-    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'postgres_index_entries', 'index_entries', 'comments']
+    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'postgres_index_entries', 'index_entries', 'wagtail_admin_comments']
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
@@ -863,7 +863,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
-        new_comments = self.comments.filter(pk__isnull=True)
+        new_comments = self.wagtail_admin_comments.filter(pk__isnull=True)
         for comment in new_comments:
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
@@ -879,7 +879,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for comment in new_comments:
             comment.revision_created = revision
 
-        update_fields = ['comments']
+        update_fields = ['wagtail_admin_comments']
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
@@ -2255,7 +2255,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``latest_revision_created_at``
         * ``first_published_at``
         * ``alias_of``
-        * ``comments``
+        * ``wagtail_admin_comments``
         """
 
         obj = self.specific_class.from_json(content_json)
@@ -2288,8 +2288,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
-        revision_comments = obj.comments
-        page_comments = self.comments.filter(resolved_at__isnull=True)
+        revision_comments = obj.wagtail_admin_comments
+        page_comments = self.wagtail_admin_comments.filter(resolved_at__isnull=True)
         for comment in page_comments:
             # attempt to retrieve the comment position from the revision's stored version
             # of the comment
@@ -2298,7 +2298,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 comment.position = revision_comment.position
             except Comment.DoesNotExist:
                 pass
-        obj.comments = page_comments
+        obj.wagtail_admin_comments = page_comments
 
         return obj
 
@@ -2578,7 +2578,7 @@ class PageRevision(models.Model):
 
         page.save()
 
-        for comment in page.comments.all().only('position'):
+        for comment in page.wagtail_admin_comments.all().only('position'):
             comment.save(update_fields=['position'])
 
         self.submitted_for_moderation = False
@@ -4052,8 +4052,8 @@ class Comment(ClusterableModel):
     """
     A comment on a field, or a field within a streamfield block
     """
-    page = ParentalKey(Page, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    page = ParentalKey(Page, on_delete=models.CASCADE, related_name='wagtail_admin_comments')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='wagtail_admin_comments')
     text = models.TextField()
 
     contentpath = models.TextField()
