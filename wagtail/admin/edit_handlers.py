@@ -847,9 +847,10 @@ class CommentPanel(EditHandler):
                 }
 
         return {
-            'comments': {
+            'wagtail_admin_comments': {
                 'form': CommentFormWithRequest,
                 'fields': ['text', 'contentpath', 'position'],
+                'formset_name': 'comments',
             }
         }
 

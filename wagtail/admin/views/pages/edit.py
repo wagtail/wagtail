@@ -141,15 +141,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         comments = Comment.objects.filter(id__in=relevant_comment_ids)
         thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
             Prefetch('comment_replies', queryset=replies),
-            Prefetch('comments', queryset=comments)
+            Prefetch('wagtail_admin_comments', queryset=comments)
         ).exclude(
-            Q(comment_replies__isnull=True) & Q(comments__isnull=True)
+            Q(comment_replies__isnull=True) & Q(wagtail_admin_comments__isnull=True)
         )
 
         # Skip if no recipients
         if not (global_recipient_users or thread_users):
             return
-        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(user.comments.values_list('pk', flat=True)))) for user in thread_users]
+        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(user.wagtail_admin_comments.values_list('pk', flat=True)))) for user in thread_users]
         mailed_users = set()
 
         for current_user, current_threads in thread_users:

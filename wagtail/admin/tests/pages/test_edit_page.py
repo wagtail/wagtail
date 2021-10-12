@@ -2139,7 +2139,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was added
-        comment = self.child_page.comments.get()
+        comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, 'A test comment')
 
         # Check notification email
@@ -2333,7 +2333,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was deleted
-        self.assertFalse(self.child_page.comments.exists())
+        self.assertFalse(self.child_page.wagtail_admin_comments.exists())
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 1)
@@ -2568,7 +2568,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was added
-        comment = self.child_page.comments.get()
+        comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, 'A test comment')
 
         # This time, no emails should be submitted because the only subscriber has disabled these emails globally
@@ -2604,7 +2604,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was added
-        comment = self.child_page.comments.get()
+        comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, 'A test comment')
 
         # No emails should be submitted because subscriber is inactive
