@@ -14,10 +14,6 @@ class RemovedInWagtail217Warning(PendingDeprecationWarning):
     pass
 
 
-class RemovedInWagtail217Warning(PendingDeprecationWarning):
-    pass
-
-
 class MovedDefinitionHandler:
     """
     A wrapper for module objects to enable definitions to be moved to a new module, with a
