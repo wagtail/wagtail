@@ -288,9 +288,9 @@ class TypedTableBlockAdapter(Adapter):
                 'ADD_A_COLUMN': _("Add a column"),
                 'ADD_ROW': _("Add row"),
                 'COLUMN_HEADING': _("Column heading"),
-                'INSERT_COLUMN_HERE': _("Insert column here"),
+                'INSERT_COLUMN': _("Insert column"),
                 'DELETE_COLUMN': _("Delete column"),
-                'INSERT_ROW_HERE': _("Insert row here"),
+                'INSERT_ROW': _("Insert row"),
                 'DELETE_ROW': _("Delete row"),
             },
         }
