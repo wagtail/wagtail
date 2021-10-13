@@ -731,7 +731,7 @@ you need to create a template `blog/blog_tag_index_page.html`:
 
 {% block content %}
 
-    {% if request.GET.tag|length %}
+    {% if request.GET.tag %}
         <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
     {% endif %}
 
