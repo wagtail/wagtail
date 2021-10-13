@@ -2259,7 +2259,21 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``wagtail_admin_comments`` (COMMENTS_RELATION_NAME)
         """
 
-        obj = self.specific_class.from_json(content_json)
+        data = json.loads(content_json)
+
+        # Old revisions (pre Wagtail 2.15) may have saved comment data under the name 'comments'
+        # rather than the current relation name as set by COMMENTS_RELATION_NAME;
+        # if a 'comments' field exists and looks like our comments model, alter the data to use
+        # COMMENTS_RELATION_NAME before restoring
+        if (
+            COMMENTS_RELATION_NAME not in data and 'comments' in data
+            and isinstance(data['comments'], list) and len(data['comments'])
+            and isinstance(data['comments'][0], dict) and 'contentpath' in data['comments'][0]
+        ):
+            data[COMMENTS_RELATION_NAME] = data['comments']
+            del data['comments']
+
+        obj = self.specific_class.from_serializable_data(data)
 
         # These should definitely never change between revisions
         obj.id = self.id
