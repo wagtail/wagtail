@@ -59,6 +59,7 @@ Other features
  * Use SVG icons in modeladmin headers and StreamField buttons/headers (Jérôme Lebleu)
  * Add tags to existing Django registered checks (LB Johnston)
  * Upgrade admin frontend JS libraries jQuery to 3.6.0 and Modernizr to 2.8.3 (Fabien Le Frapper)
+ * Added ``request.preview_mode`` so that template rendering can vary based on preview mode (Andy Chosak)
 
 Bug fixes
 ~~~~~~~~~
