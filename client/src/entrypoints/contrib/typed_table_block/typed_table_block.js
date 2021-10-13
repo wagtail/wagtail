@@ -44,19 +44,21 @@ export class TypedTableBlock {
         <input type="hidden" name="${h(prefix)}-column-count" data-column-count value="0">
         <input type="hidden" name="${h(prefix)}-row-count" data-row-count value="0">
         <div data-deleted-fields></div>
-        <table>
-          <thead>
-            <tr>
-              <th class="control-cell">
-                <button type="button" class="button button-small button-secondary append-column" data-append-column>
-                  ${h(strings.ADD_COLUMNS)}
-                </button>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+        <div class="typed-table-block__wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th class="control-cell">
+                  <button type="button" class="button button-small button-secondary append-column" data-append-column>
+                    ${h(strings.ADD_COLUMNS)}
+                  </button>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
         <button type="button" class="button button-small button-secondary" data-add-row>${h(strings.ADD_ROW)}</button>
       </div>
     `);
