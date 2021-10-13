@@ -266,8 +266,9 @@ export class TypedTableBlock {
       this.columns[i].positionInput.value = this.columns[i].position;
     }
 
+    // if no columns remain, revert to initial empty state with no rows
     if (this.columns.length === 0) {
-      this.addRowButton.hide();
+      this.clear();
     }
   }
 
