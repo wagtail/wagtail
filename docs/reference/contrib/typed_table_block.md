@@ -10,18 +10,17 @@ Installation
 Add `"wagtail.contrib.typed_table_block"` to your INSTALLED_APPS:
 
 ```python
-    INSTALLED_APPS = [
-      ...
-
-      "wagtail.contrib.typed_table_block",
-    ]
+INSTALLED_APPS = [
+    ...
+    "wagtail.contrib.typed_table_block",
+]
 ```
 
 
 Usage
 -----
 
-`TypedTableBlock` can be imported from the module `wagtail.contrib.typed_table_block.blocks` and used within a StreamField definition. Just like `StructBlock` and `StreamBlock`, it accepts a list of (name, block_type) tuples to use as child blocks:
+`TypedTableBlock` can be imported from the module `wagtail.contrib.typed_table_block.blocks` and used within a StreamField definition. Just like `StructBlock` and `StreamBlock`, it accepts a list of `(name, block_type)` tuples to use as child blocks:
 
 ```python
   from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
@@ -58,7 +57,7 @@ To keep the UI as simple as possible for authors, it's generally recommended to 
       ])
 ```
 
-On your page template, the ``{% include_block %}`` tag (called on either the individual block, or the StreamField value as a whole) will render any typed table blocks as an HTML ``<table>`` element.
+On your page template, the `{% include_block %}` tag (called on either the individual block, or the StreamField value as a whole) will render any typed table blocks as an HTML `<table>` element.
 
 ```html+django
     {% load wagtailcore_tags %}
