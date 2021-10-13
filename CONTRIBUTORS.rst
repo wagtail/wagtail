@@ -547,6 +547,7 @@ Contributors
 * Sakshi Uppoor
 * Indresh P
 * Rinish Sam
+* Anirudh V S
 
 Translators
 ===========
