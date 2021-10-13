@@ -120,6 +120,12 @@ Changelog
  * Fix: Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
 
 
+2.13.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+
+
 2.13.4 (13.07.2021)
 ~~~~~~~~~~~~~~~~~~~
 
