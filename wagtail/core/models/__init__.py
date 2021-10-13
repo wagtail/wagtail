@@ -2131,6 +2131,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         the wagtail user bar to be displayed. This request will always be a GET.
         """
         request.is_preview = True
+        request.preview_mode = mode_name
 
         response = self.serve(request)
         patch_cache_control(response, private=True)
