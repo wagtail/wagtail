@@ -9,7 +9,7 @@
     th {
         position: relative;
 
-        button.prepend-column {
+        button.prepend-column, button.append-column {
             position: absolute;
             left: -1.2em;
             top: -2.2em;
@@ -21,8 +21,8 @@
             top: 1em;
         }
 
-        button.append-column {
-            margin-left: 1em;
+        input.column-heading {
+            padding-right: 3em;
         }
     }
 
@@ -37,6 +37,10 @@
 
         button.delete-row {
             margin-left: 1em;
+        }
+
+        td {
+            vertical-align: top;
         }
     }
 
@@ -54,7 +58,7 @@
     }
 
     .control-cell ul.add-column-menu {
-        top: 3em;
+        top: 0;
         left: -5em;
     }
 }

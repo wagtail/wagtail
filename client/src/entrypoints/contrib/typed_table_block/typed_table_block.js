@@ -202,6 +202,7 @@ export class TypedTableBlock {
 
     column.headingInput = document.createElement('input');
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
+    column.headingInput.className = 'column-heading';
     column.headingInput.placeholder = this.blockDef.meta.strings.COLUMN_HEADING;
     newHeaderCell.appendChild(column.headingInput);
 
