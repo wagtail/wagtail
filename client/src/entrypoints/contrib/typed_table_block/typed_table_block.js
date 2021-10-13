@@ -208,7 +208,7 @@ export class TypedTableBlock {
 
     const prependColumnButton = $(`<button type="button"
       class="button button-small button-secondary prepend-column"
-      title="${h(this.blockDef.meta.strings.INSERT_COLUMN_HERE)}">+</button>`);
+      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">+</button>`);
     $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
       this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
@@ -311,7 +311,7 @@ export class TypedTableBlock {
 
     const prependRowButton = $(`<button type="button"
       class="button button-small button-secondary prepend-row"
-      title="${h(this.blockDef.meta.strings.INSERT_ROW_HERE)}">+</button>`);
+      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">+</button>`);
     $(controlCell).append(prependRowButton);
     prependRowButton.on('click', () => {
       this.insertRow(row.position);

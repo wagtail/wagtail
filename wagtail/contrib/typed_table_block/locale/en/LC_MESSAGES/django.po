@@ -35,7 +35,7 @@ msgid "Column heading"
 msgstr ""
 
 #: blocks.py:291
-msgid "Insert column here"
+msgid "Insert column"
 msgstr ""
 
 #: blocks.py:292
@@ -43,7 +43,7 @@ msgid "Delete column"
 msgstr ""
 
 #: blocks.py:293
-msgid "Insert row here"
+msgid "Insert row"
 msgstr ""
 
 #: blocks.py:294

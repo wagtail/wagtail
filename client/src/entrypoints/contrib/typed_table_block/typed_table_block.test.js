@@ -94,9 +94,9 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
           ADD_A_COLUMN: 'Add a column',
           ADD_ROW: 'Add row',
           COLUMN_HEADING: 'Column heading',
-          INSERT_COLUMN_HERE: 'Insert column here',
+          INSERT_COLUMN: 'Insert column',
           DELETE_COLUMN: 'Delete column',
-          INSERT_ROW_HERE: 'Insert row here',
+          INSERT_ROW: 'Insert row',
           DELETE_ROW: 'Delete row',
         },
       }

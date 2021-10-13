@@ -7,7 +7,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <div data-deleted-fields=\\"\\"><input type=\\"hidden\\" name=\\"mytable-column-0-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-column-1-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-row-0-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-row-1-deleted\\" value=\\"\\"></div>
         <table>
           <thead>
-            <tr><th><input type=\\"hidden\\" name=\\"mytable-column-0-type\\" value=\\"test_block_a\\"><input type=\\"hidden\\" name=\\"mytable-column-0-order\\" value=\\"0\\"><input name=\\"mytable-column-0-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column here\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-column\\" title=\\"Delete column\\">×</button></th><th><input type=\\"hidden\\" name=\\"mytable-column-1-type\\" value=\\"test_block_b\\"><input type=\\"hidden\\" name=\\"mytable-column-1-order\\" value=\\"1\\"><input name=\\"mytable-column-1-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column here\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-column\\" title=\\"Delete column\\">×</button></th><th class=\\"control-cell\\">
+            <tr><th><input type=\\"hidden\\" name=\\"mytable-column-0-type\\" value=\\"test_block_a\\"><input type=\\"hidden\\" name=\\"mytable-column-0-order\\" value=\\"0\\"><input name=\\"mytable-column-0-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-column\\" title=\\"Delete column\\">×</button></th><th><input type=\\"hidden\\" name=\\"mytable-column-1-type\\" value=\\"test_block_b\\"><input type=\\"hidden\\" name=\\"mytable-column-1-order\\" value=\\"1\\"><input name=\\"mytable-column-1-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-column\\" title=\\"Delete column\\">×</button></th><th class=\\"control-cell\\">
                 <button type=\\"button\\" class=\\"button button-small button-secondary append-column\\" data-append-column=\\"\\" title=\\"Add a column\\">+</button>
               </th></tr>
           </thead>
@@ -25,7 +25,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <span></span>
           </div>
         </div>
-      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row here\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-row\\" title=\\"Delete row\\">×</button></td></tr><tr><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-row\\" title=\\"Delete row\\">×</button></td></tr><tr><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
           <div class=\\"input\\">
             <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
@@ -39,7 +39,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <span></span>
           </div>
         </div>
-      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row here\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-row\\" title=\\"Delete row\\">×</button></td></tr></tbody>
+      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-small button-secondary delete-row\\" title=\\"Delete row\\">×</button></td></tr></tbody>
         </table>
         <button type=\\"button\\" class=\\"button button-small button-secondary\\" data-add-row=\\"\\" style=\\"\\">Add row</button>
       
