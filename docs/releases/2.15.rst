@@ -89,6 +89,7 @@ Bug fixes
  * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
  * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
  * Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
+ * Changed relation name used for admin commenting from ``comments`` to ``wagtail_admin_comments`` to avoid conflicts with third-party commenting apps (Matt Westcott)
 
 Upgrade considerations
 ======================
@@ -187,3 +188,14 @@ This behaviour is will be deprecated in a future release and you should either s
 ``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the
 new behaviour. The partial matching in ``search()`` will be completely removed in a future release.
 See: :ref:`wagtailsearch_searching_pages`
+
+
+Change of relation name for admin comments
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The ``related_name`` of the relation linking the Page and User models to admin comments has been
+changed from ``comments`` to ``wagtail_admin_comments``, to avoid conflicts with third-party apps
+that implement commenting. If you have any code that references the ``comments`` relation
+(including fixture files), this should be updated to refer to ``wagtail_admin_comments`` instead.
+If this is not feasible, the previous behaviour can be restored by adding
+``WAGTAIL_COMMENTS_RELATION_NAME = 'comments'`` to your project's settings.

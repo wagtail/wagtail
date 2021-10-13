@@ -69,6 +69,7 @@ Changelog
  * Fix: Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
  * Fix: Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
  * Fix: Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
+ * Fix: Changed relation name used for admin commenting from `comments` to `wagtail_admin_comments` to avoid conflicts with third-party commenting apps (Matt Westcott)
 
 
 2.14.1 (12.08.2021)
