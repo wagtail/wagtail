@@ -9,7 +9,8 @@
     th {
         position: relative;
 
-        button.prepend-column, button.append-column {
+        button.prepend-column,
+        button.append-column {
             position: absolute;
             left: -1.2em;
             top: -2.2em;
