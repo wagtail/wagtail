@@ -34,6 +34,9 @@ from .forms.models import (  # NOQA
 from .forms.pages import WagtailAdminPageForm
 
 
+COMMENTS_RELATION_NAME = getattr(settings, 'WAGTAIL_COMMENTS_RELATION_NAME', 'comments')
+
+
 def widget_with_script(widget, script):
     return mark_safe('{0}<script>{1}</script>'.format(widget, script))
 
@@ -847,9 +850,10 @@ class CommentPanel(EditHandler):
                 }
 
         return {
-            'comments': {
+            COMMENTS_RELATION_NAME: {
                 'form': CommentFormWithRequest,
                 'fields': ['text', 'contentpath', 'position'],
+                'formset_name': 'comments',
             }
         }
 
