@@ -90,8 +90,7 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         helpText: 'use <strong>plenty</strong> of these',
         helpIcon: '<div class="icon-help">?</div>',
         strings: {
-          ADD_COLUMNS: 'Add columns',
-          ADD_A_COLUMN: 'Add a column',
+          ADD_COLUMN: 'Add column',
           ADD_ROW: 'Add row',
           COLUMN_HEADING: 'Column heading',
           INSERT_COLUMN: 'Insert column',
