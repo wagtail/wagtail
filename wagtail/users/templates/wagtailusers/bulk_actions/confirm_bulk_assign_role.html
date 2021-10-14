@@ -26,9 +26,6 @@
 {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to edit this user{% plural %}You don't have permission to edit these users{% endblocktrans %}
 {% include 'wagtailusers/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-{% trans "A superuser cannot change their role" as no_access_msg %}
-{% include 'wagtailusers/bulk_actions/list_items_with_no_access.html' with items=mark_self_as_not_admin no_access_msg=no_access_msg %}
-
 {% endblock items_with_no_access %}
 
 {% block form_section %}

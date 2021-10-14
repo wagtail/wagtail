@@ -44,21 +44,6 @@ class TestUserToggleActivityView(TestCase, WagtailTestUtils):
         for user in self.test_users:
             self.assertTrue(User.objects.get(email=user.email).groups.filter(name=self.new_group).exists())
 
-    def test_user_cannot_mark_self_as_not_admin(self):
-        response = self.client.get(self.self_toggle_url)
-
-        self.assertEqual(response.status_code, 200)
-        html = response.content.decode()
-        self.assertInHTML("<p>A superuser cannot change their role</p>", html)
-
-        needle = '<ul>'
-        needle += '<li>{user_email}</li>'.format(user_email=self.current_user.email)
-        needle += '</ul>'
-        self.assertInHTML(needle, html)
-
-        # Check user was not added to the group
-        self.assertFalse(User.objects.get(email=self.current_user.email).groups.filter(name=self.new_group).exists())
-
     def test_before_toggle_user_hook_post(self):
         def hook_func(request, action_type, users, action_class_instance):
             self.assertEqual(action_type, 'assign_role')
