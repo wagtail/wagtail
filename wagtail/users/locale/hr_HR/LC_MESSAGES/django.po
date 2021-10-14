@@ -338,7 +338,7 @@ msgid "Search users"
 msgstr "Pretraži korisnike"
 
 msgid "User '{0}' created."
-msgstr "Korisnik '{0'} je stvoren."
+msgstr "Korisnik '{0}' je stvoren."
 
 msgid "Edit"
 msgstr "Uredi"

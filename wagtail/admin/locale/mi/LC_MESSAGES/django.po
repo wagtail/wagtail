@@ -326,10 +326,10 @@ msgid "Close"
 msgstr "Kōpani"
 
 msgid "Edit '{title}'"
-msgstr "Whakarerekē '{taitara}'"
+msgstr "Whakarerekē '{title}'"
 
 msgid "View child pages of '{title}'"
-msgstr "Tirohia ki ngā whārangi tamariki ō '{taitara}'"
+msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
 
 msgid "Page explorer"
 msgstr "Kaihōpara-a-whārangi"

@@ -116,7 +116,7 @@ msgid "Recommendations have not been created due to errors"
 msgstr "Rekomendasaun la kria tiha ona tanba erru sira"
 
 msgid "Editor's picks for '{0}' updated."
-msgstr "Hadia nain hatudu katak ba 0 atualiza."
+msgstr "Hadia nain hatudu katak ba '{0}' atualiza."
 
 msgid "Recommendations have not been saved due to errors"
 msgstr "Rekomendasaun la salva tiha ona tanba erru sira"

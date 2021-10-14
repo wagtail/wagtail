@@ -165,4 +165,4 @@ msgid "Recommendations have not been saved due to errors"
 msgstr "As recomendaciones non foron gardadas debido a erros"
 
 msgid "Editor's picks deleted."
-msgstr "Seleccións do editor para '{0}' eliminadas."
+msgstr "Seleccións do editor eliminadas."
