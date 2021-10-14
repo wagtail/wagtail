@@ -73,7 +73,7 @@ Changelog
  * Fix: Changed relation name used for admin commenting from `comments` to `wagtail_admin_comments` to avoid conflicts with third-party commenting apps (Matt Westcott)
 
 
-2.14.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.14.2 (14.10.2021)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
