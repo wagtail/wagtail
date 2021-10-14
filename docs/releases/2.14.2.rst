@@ -32,3 +32,13 @@ line to their project settings:
     WAGTAIL_COMMENTS_RELATION_NAME = 'wagtail_admin_comments'
 
 This will allow third-party commenting apps to work in Wagtail 2.14.2 alongside Wagtail's admin commenting functionality.
+
+Reusable library code that needs to preserve backwards compatibility with previous Wagtail versions
+can find out the relation name as follows:
+
+.. code-block:: python
+
+    try:
+        from wagtail.core.models import COMMENTS_RELATION_NAME
+    except ImportError:
+        COMMENTS_RELATION_NAME = 'comments'
