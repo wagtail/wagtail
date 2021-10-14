@@ -29,14 +29,6 @@ class AssignRoleBulkAction(UserBulkAction):
             'role': self.cleaned_form.cleaned_data['role'],
         }
 
-    def get_actionable_objects(self):
-        objects, objects_without_access = super().get_actionable_objects()
-        user = self.request.user
-        users = list(filter(lambda x: x.pk != user.pk, objects))
-        if len(objects) != len(users):
-            objects_without_access['mark_self_as_not_admin'] = [user]
-        return users, objects_without_access
-
     @classmethod
     def execute_action(cls, objects, role=None, **kwargs):
         if role is None:
