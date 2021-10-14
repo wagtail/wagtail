@@ -501,7 +501,7 @@ def bulk_action_filters(context):
 
     buttons.sort(key=lambda x: x.priority)
 
-    return {'buttons': buttons}
+    return {'title': _("View page filters"), 'buttons': buttons}
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
