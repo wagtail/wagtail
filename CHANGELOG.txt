@@ -77,6 +77,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Fix: Corrected badly-formed format strings in translations (Matt Westcott)
 
 
 2.14.1 (12.08.2021)

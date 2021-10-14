@@ -14,6 +14,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Corrected badly-formed format strings in translations (Matt Westcott)
 
 Upgrade considerations
 ======================
