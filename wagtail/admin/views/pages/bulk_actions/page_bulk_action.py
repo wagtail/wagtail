@@ -12,6 +12,9 @@ class PageBulkAction(BulkAction):
     models = [Page]
     form_class = DefaultPageForm
 
+    def get_all_pages_in_listing_query(self, parent_id):
+        return self.model.objects.get(id=parent_id).get_children().values_list('pk', flat=True)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items_with_no_access'] = [

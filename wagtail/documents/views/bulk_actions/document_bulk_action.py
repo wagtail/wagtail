@@ -7,6 +7,11 @@ class DocumentBulkAction(BulkAction):
     permission_policy = documents_permission_policy
     models = [get_document_model()]
 
+    def get_all_pages_in_listing_query(self, parent_id):
+        if parent_id is None:
+            return self.model.objects.all()
+        return self.model.objects.filter(collection_id=parent_id).values_list('pk', flat=True)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items_with_no_access'] = [
