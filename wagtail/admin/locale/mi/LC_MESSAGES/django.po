@@ -4,13 +4,14 @@
 #
 # Translators:
 # Awatea Randall <awatea@octave.nz>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"PO-Revision-Date: 2021-10-14 14:21+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -323,10 +324,10 @@ msgid "Close"
 msgstr "Kōpani"
 
 msgid "Edit '{title}'"
-msgstr "Whakarerekē '{taitara}'"
+msgstr "Whakarerekē '{title}'"
 
 msgid "View child pages of '{title}'"
-msgstr "Tirohia ki ngā whārangi tamariki ō '{taitara}'"
+msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
 
 msgid "Page explorer"
 msgstr "Kaihōpara-a-whārangi"

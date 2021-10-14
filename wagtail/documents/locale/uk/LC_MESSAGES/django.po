@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-10-01 07:40+0000\n"
+"PO-Revision-Date: 2021-10-06 18:40+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -43,6 +43,9 @@ msgstr "Редагувати будь-який документ"
 
 msgid "Choose"
 msgstr "Вибрати"
+
+msgid "Select documents in choosers"
+msgstr "Вибирати документи у селекторах"
 
 msgid "title"
 msgstr "заголовок"

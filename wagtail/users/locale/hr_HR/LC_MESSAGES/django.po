@@ -6,12 +6,13 @@
 # Dino Aljević <dino8890@protonmail.com>, 2020
 # Dino Aljević <dino8890@protonmail.com>, 2020-2021
 # Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"PO-Revision-Date: 2021-10-14 14:26+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -329,7 +330,7 @@ msgid "Search users"
 msgstr "Pretraži korisnike"
 
 msgid "User '{0}' created."
-msgstr "Korisnik '{0'} je stvoren."
+msgstr "Korisnik '{0}' je stvoren."
 
 msgid "Edit"
 msgstr "Uredi"

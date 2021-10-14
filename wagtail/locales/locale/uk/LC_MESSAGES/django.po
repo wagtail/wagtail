@@ -5,8 +5,8 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2021
-# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 # Anastasiia La, 2021
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 #
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Anastasiia La, 2021\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/torchbox/teams/8009/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wagtail locales"
+msgstr "Локалі Wagtail"
 
 msgid "Language"
 msgstr "Мова"
@@ -39,5 +42,52 @@ msgstr "Так, видалити"
 msgid "Back"
 msgstr "Назад"
 
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+"Поточний код мови цієї локалі не підтримується. Будь ласка, виберіть іншу "
+"мову або видаліть цю локаль."
+
 msgid "Usage"
 msgstr "Використання"
+
+msgid "This locale's language code is not supported"
+msgstr "Поточний код мови цієї локалі не підтримується"
+
+msgid "Locales"
+msgstr "Локалі"
+
+msgid "Add a locale"
+msgstr "Додати локаль"
+
+msgid "Add locale"
+msgstr "Додати локаль"
+
+msgid "Locale '{0}' created."
+msgstr "Локаль '{0}' створено."
+
+msgid "Locale '{0}' updated."
+msgstr "Локаль '{0}' оновлено."
+
+msgid "The locale could not be saved due to errors."
+msgstr "Локаль не можна зберегти через помилки."
+
+msgid "Delete locale"
+msgstr "Видалити локаль"
+
+msgid "Locale '{0}' deleted."
+msgstr "Локаль '{0}' видалено."
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ви впевненні, що хочете видалити цю локаль?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr "Цю локаль не можна видалити, тому що немає інших локалей."
+
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
+msgstr ""
+"Цю локаль не можна видалити, тому що є сторінки та/або інші об'єкти, які "
+"використовують її."

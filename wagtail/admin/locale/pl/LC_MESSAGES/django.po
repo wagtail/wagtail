@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 14:09+0000\n"
+"PO-Revision-Date: 2021-10-12 13:54+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -406,6 +406,15 @@ msgstr "Komentarz"
 msgid "More actions"
 msgstr "Więcej akcji"
 
+msgid "Save the page to add this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this reply"
+msgstr "Zapisz stronę aby zapisać odpowiedź"
+
 msgid "Dashboard"
 msgstr "Kokpit"
 
@@ -646,6 +655,12 @@ msgstr "Przesuń w dół"
 msgid "Add comment"
 msgstr "Dodaj komentarz"
 
+msgid "Comments"
+msgstr "Komentarze"
+
+msgid "Commenting on this page"
+msgstr "Komentowanie na tej stronie"
+
 msgid "Comment notifications"
 msgstr "Powiadomienia komentarza"
 
@@ -786,6 +801,9 @@ msgstr "Zaloguj się do Wagtaila"
 
 msgid "Signing in…"
 msgstr "Logowanie..."
+
+msgid "Forgotten password?"
+msgstr "Zapomniane hasło?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -967,6 +985,9 @@ msgstr "Konwertuj alias %(title)s"
 msgid "Convert alias"
 msgstr "Konwertuj alias"
 
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Czy na pewno chcesz przekształcić ten alias w normalną stronę?"
+
 msgid "This action cannot be undone."
 msgstr "Ta akcja nie może zostać cofnięta."
 
@@ -1146,6 +1167,9 @@ msgstr "Ta strona jest aliasem innej strony."
 
 msgid "Edit original page"
 msgstr "Edytuj oryginalną stronę"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Przekształć ten alias w normalną stronę"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1740,6 +1764,9 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Pomiń do głównej zawartości"
 
+msgid "View Wagtail quick actions"
+msgstr "Wyświetl szybkie akcje Wagtail"
+
 msgid "Add a child page"
 msgstr "Dodaj podstronę"
 
@@ -2058,6 +2085,9 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 msgid "Editing"
 msgstr "Edytowanie"
 
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Strona '{0}' została przekształcona w normalną stronę."
+
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 
@@ -2149,6 +2179,9 @@ msgstr "Nie można zapisać zmian zablokownej strony"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
+
+msgid "Hide commenting actions"
+msgstr "Ukryj akcje komentowania"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Strona '{0}' jest teraz odblokowana."
@@ -2317,6 +2350,26 @@ msgstr "Wyłącz zadanie"
 
 msgid "Task '{0}' disabled."
 msgstr "Zadanie '{0}' wyłączone."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"To zadanie jest wykonywane na %(states_in_progress)d stronie. Wyłączenie "
+"tego zadania spowoduje jego pominięcie w procesie moderacji."
+msgstr[1] ""
+"To zadanie jest wykonywane na %(states_in_progress)d stronach. Wyłączenie "
+"tego zadania spowoduje jego pominięcie w procesie moderacji."
+msgstr[2] ""
+"To zadanie jest wykonywane na %(states_in_progress)d stronach. Wyłączenie "
+"tego zadania spowoduje jego pominięcie w procesie moderacji."
+msgstr[3] ""
+"To zadanie jest wykonywane na %(states_in_progress)d stronach. Wyłączenie "
+"tego zadania spowoduje jego pominięcie w procesie moderacji."
 
 msgid "Task '{0}' enabled."
 msgstr "Zadanie '{0}' włączone."

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-01 07:38+0000\n"
+"PO-Revision-Date: 2021-10-06 18:40+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -134,6 +134,9 @@ msgstr "Редагувати будь-яке зображення"
 
 msgid "Choose"
 msgstr "Вибрати"
+
+msgid "Select images in choosers"
+msgstr "Вибирати зображення у селекторах"
 
 msgid "title"
 msgstr "заголовок"

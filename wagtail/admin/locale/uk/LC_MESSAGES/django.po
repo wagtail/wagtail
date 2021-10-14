@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Anastasiia La, 2021
 # Mykola Zamkovoi <nickzam@gmail.com>, 2014
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Viktor Shytiuk <VicHunting@yandex.ua>, 2018
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-01 07:18+0000\n"
+"PO-Revision-Date: 2021-10-07 13:29+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -395,11 +396,26 @@ msgstr "Зберегти помилку"
 msgid "This will be saved when the page is saved"
 msgstr "Це буде збережено при збереженні сторінки"
 
+msgid "Focus comment"
+msgstr "Сфосукувати коментар"
+
+msgid "Unfocus comment"
+msgstr "Розфокусувати коментар"
+
 msgid "Comment"
 msgstr "Коментар"
 
 msgid "More actions"
 msgstr "Більше дій"
+
+msgid "Save the page to add this comment"
+msgstr "Збережіть сторінку, щоб додати цей коментар"
+
+msgid "Save the page to save this comment"
+msgstr "Збережіть сторінку, щоб зберегти цей коментар"
+
+msgid "Save the page to save this reply"
+msgstr "Збережіть сторінку, щоб зберегти цю відповідь"
 
 msgid "Dashboard"
 msgstr "Панель"
@@ -507,6 +523,32 @@ msgstr "Посилання на телефон"
 msgid "Anchor link"
 msgstr "Якір посилання"
 
+#, python-format
+msgid ""
+"\n"
+"        There is %(counter)s match\n"
+"    "
+msgid_plural ""
+"\n"
+"        There are %(counter)s matches\n"
+"    "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+"        "
+
 msgid "Add an anchor link"
 msgstr "Добавити якір посилання"
 
@@ -581,8 +623,14 @@ msgstr ""
 "Налаштування приватності визначають, хто зможе переглядати документи у цій "
 "колекції."
 
+msgid "Set collection privacy. Current status: Public"
+msgstr "Встановити конфіденційність колекції. Поточний статус: Public"
+
 msgid "Public"
-msgstr "Загальнодоступний"
+msgstr "Публічний"
+
+msgid "Set collection privacy. Current status: Private"
+msgstr "Встановити конфіденційність колекції. Поточний статус: Приватний"
 
 msgid "Private"
 msgstr "Приватний"
@@ -618,6 +666,16 @@ msgstr "Додати коментар"
 
 msgid "Comments"
 msgstr "Коментарі"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr ""
+"Ввімкнути/вимкнути відображення випадаючого меню сповіщень про коментарі"
+
+msgid "Commenting on this page"
+msgstr "Коментування на цій сторінці"
+
+msgid "Comment notifications"
+msgstr "Сповіщення про коментарі"
 
 msgid "Yes, delete"
 msgstr "Так, видалити"
@@ -665,7 +723,7 @@ msgid "Type"
 msgstr "Тип"
 
 msgid "Edited"
-msgstr "Редаговано"
+msgstr "Відредаговано"
 
 msgid "Preview this page"
 msgstr "Попередній перегляд"
@@ -691,6 +749,38 @@ msgstr "Дата"
 msgid "Site summary"
 msgstr "Резюме сайту"
 
+#, python-format
+msgid ""
+"\n"
+"            <span>%(total)s</span> Page <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgid_plural ""
+"\n"
+"            <span>%(total)s</span> Pages <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"        "
+msgstr[0] ""
+"\n"
+"       <span>%(total)s</span>сторінка <span class=\"visuallyhidden"
+"\">створена в %(site_name)s</span>\n"
+"     "
+msgstr[1] ""
+"\n"
+"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"     "
+msgstr[2] ""
+"\n"
+"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"     "
+msgstr[3] ""
+"\n"
+"       <span>%(total)s</span>сторінок <span class=\"visuallyhidden"
+"\">створено в %(site_name)s</span>\n"
+"     "
+
 msgid "Your pages in a workflow"
 msgstr "Ваші сторінки в робочому процесі"
 
@@ -700,11 +790,14 @@ msgstr "Завдання"
 msgid "Task started"
 msgstr "Завдання запущене"
 
+msgid "Changes requested at"
+msgstr "Вимагаються зміни"
+
 msgid "Awaiting"
 msgstr "В очікуванні"
 
 msgid "Awaiting your review"
-msgstr "В очікуванні відгуку "
+msgstr "В очікуванні огляду"
 
 msgid "Tasks"
 msgstr "Завдання"
@@ -754,7 +847,7 @@ msgstr "Ви можете редагувати сторінку тут:"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected"
-msgstr "Сторінка \"%(title)s\" була відхилена"
+msgstr "Сторінку \"%(title)s\" було відхилено"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
@@ -766,6 +859,53 @@ msgstr "Ви можете попередньо передивитись стор
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "Сторінка \"%(page)s\" направлена на модерацію"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\"  було затверджено на етапі модерації \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було затверджено в \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено на етапі модерації \"%(task)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено впродовж \"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на затвердження на етапі модерації "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на затвердження до етапу модерації "
+"\"%(task)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr ""
+"Сторінку \"%(title)s\" було передано на затвердження на етапі модерації "
+"\"%(task)s\""
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s оновив коментарі до \"%(title)s\"."
 
 msgid "New comments"
 msgstr "Нові коментарі"
@@ -794,6 +934,64 @@ msgstr "Видалені коментарі: "
 msgid "New replies:"
 msgstr "Нові відповіді:"
 
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s оновив коментарі до \"%(title)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було затверджено в робочому процесі \"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "Сторінку \"%(title)s\" було затверджено в \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\" by %(rejector)s."
+msgstr ""
+"Сторінку \"%(title)s\" було відхилено під час \"%(task)s\" в робочому "
+"процесі \"%(workflow)s\" користувачем %(rejector)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been rejected during \"%(task)s\" in workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було відхилено під час \"%(task)s\" в робочому "
+"процесі \"%(workflow)s\"."
+
+#, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "Залишено наступний коментар: \"%(comment)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
+msgstr "Сторінку \"%(title)s\" було відхилено під час \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Сторінку \"%(title)s\" було відправлено на модерацію в робочий процес "
+"\"%(workflow)s\" користувачем %(requester)s."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr ""
+"Сторінку \"%(title)s\" було передано на модерацію до робочого процесу "
+"\"%(workflow)s\"."
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr ""
+"Сторінка \"%(title)s\" була передана до робочого процесу \"%(workflow)s\""
+
 msgid "Page privacy"
 msgstr "Приватність сторінки"
 
@@ -811,8 +1009,29 @@ msgstr "Відвідати сторінку"
 msgid "This page is live but only available to certain users"
 msgstr "Ця сторінка опублікована тільки для певних користувачів"
 
+msgid "restricted"
+msgstr "заборонений"
+
+msgid "Set page privacy. Current status: Public"
+msgstr "Встановити конфіденційність сторінки. Поточний статус: Публічний"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Встановити конфіденційність сторінки. Поточний статус: Приватний"
+
+msgid "Page privacy. Current status: Public"
+msgstr "Конфіденційність сторінки. Поточний статус: Публічний"
+
+msgid "Page privacy. Current status: Private"
+msgstr "Конфіденційність сторінки. Поточний статус: Приватний"
+
 msgid "You have <span>unsaved edits</span>"
 msgstr "У вас є <span>незбережені зміни</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "У вас є <span>незбережені коментарі</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "У вас є <span>незбережені зміни</span> і <span>коментарі</span>"
 
 msgid "Save the page before leaving"
 msgstr "Збережіть сторінку перед виходом"
@@ -845,6 +1064,17 @@ msgstr "Оберіть тип сторінки, яку ви б хотіли ст
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Сторінка використовує %(page_type)s"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Конвертувати псевдонім %(title)s"
+
+msgid "Convert alias"
+msgstr "Конвертувати псевдонім"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr ""
+"Ви впевненні, що хочете конвертувати цей псевдонім в звичайну сторінку?"
 
 msgid "This action cannot be undone."
 msgstr "Ця дія не може бути скасована."
@@ -977,6 +1207,30 @@ msgstr "Ні, не знімати з публікації"
 msgid "Publish page"
 msgstr "Опублікувати сторінку"
 
+#, python-format
+msgid ""
+"\n"
+"            This page was marked as needing changes at <strong>%(task)s</"
+"strong> in <strong>%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"            Ця сторінка була позначена, що потребує змін о <strong>%(task)s</"
+"strong> в <strong>%(workflow)s</strong>.\n"
+" "
+
+#, python-format
+msgid ""
+"\n"
+"            This page is currently at <strong>%(task)s</strong> in <strong>"
+"%(workflow)s</strong>.\n"
+"        "
+msgstr ""
+"\n"
+"           Ця сторінка зараз знаходиться на <strong>%(task)s</strong> в "
+"<strong>%(workflow)s</strong>.\n"
+"  "
+
 msgid "Publishing this page will cancel the current workflow."
 msgstr "Публікація цієї сторінки скасує поточний робочий процес."
 
@@ -1029,6 +1283,9 @@ msgstr "Ця сторінка псевдонім іншої сторінки. "
 
 msgid "Edit original page"
 msgstr "Редагувати оригінальну сторінку"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Конвертувати цей псевдонім в звичайну сторінку"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1324,16 +1581,16 @@ msgid "Unschedule Revision %(revision.id)s for %(title)s"
 msgstr "Знято з розкладу ревізію %(revision.id)s для «%(title)s»"
 
 msgid "Unschedule"
-msgstr "Зняти з плану"
+msgstr "Зняти з розкладу"
 
 msgid "Are you sure you want to unschedule this revision?"
-msgstr "Ви впевнені,  що хочете зняти з плану цю ревізію?"
+msgstr "Ви впевнені,  що хочете зняти з розкладу цю ревізію?"
 
 msgid "Yes, unschedule"
-msgstr "Так, зняти з плану"
+msgstr "Так, зняти з розкладу"
 
 msgid "No, don't unschedule"
-msgstr "Ні, не знімати з плану"
+msgstr "Ні, не знімати з розкладу"
 
 #, python-format
 msgid "Revisions of %(title)s"
@@ -1386,6 +1643,10 @@ msgstr[3] ""
 msgid "Page types"
 msgstr "Типи сторінок"
 
+#, python-format
+msgid "Sorry, no pages match <em>%(query_string)s</em>"
+msgstr "Вибачте, жодна сторінка не відповідає <em>%(query_string)s</em>"
+
 msgid "Enter a search term above"
 msgstr "Введіть пошукову фразу"
 
@@ -1400,6 +1661,10 @@ msgstr "Редагувати / Перевірити"
 
 msgid "Workflow history"
 msgstr "Історія робочого процесу"
+
+#, python-format
+msgid "Requested by <b>%(modified_by)s</b>"
+msgstr "За вимогою <b>%(modified_by)s</b>"
 
 #, python-format
 msgid "Started at <b>%(started_at)s</b>"
@@ -1449,8 +1714,44 @@ msgstr "Робочий процес запущений"
 msgid "Workflow completed"
 msgstr "Робочий процес завершений"
 
+#, python-format
+msgid ""
+"\n"
+"                                        %(action)s by <b>%(who)s</b>\n"
+"                                    "
+msgstr ""
+"\n"
+"                                        %(action)s користувачем <b>%(who)s</"
+"b>\n"
+"   "
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "Історія робочого процесу для %(title)s"
+
+msgid "Workflow history for"
+msgstr "Історія робочого процесу для"
+
 msgid "Edit page"
 msgstr "Редагувати сторінку"
+
+msgid "Requested by"
+msgstr "За вимогою"
+
+msgid "Started at"
+msgstr "Запущено о"
+
+msgid "Approved task"
+msgstr "Схвалене завдання"
+
+msgid "Incomplete task"
+msgstr "Незавершене завдання"
+
+msgid "This page hasn't been submitted for moderation yet"
+msgstr "Цю сторінку ще не надіслано на модерацію "
+
+msgid "No pages match this report's criteria."
+msgstr "Жодна сторінка не відповідає критеріям цього звіту. "
 
 msgid "Download XLSX"
 msgstr "Завантажити XLSX"
@@ -1461,8 +1762,48 @@ msgstr "Завантажити CSV"
 msgid "Filter"
 msgstr "Фільтр"
 
+msgid "Apply filters"
+msgstr "Застосувати фільтри"
+
 msgid "No pages found."
 msgstr "Сторінок не знайдено."
+
+msgid "Locking status"
+msgstr "Статус блокування"
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>you</b> at <b>%(locking_date)s</"
+"b>\n"
+"                            "
+msgstr ""
+"\n"
+"                                Заблоковано <b>вами</b> о <b>"
+"%(locking_date)s</b>\n"
+"  "
+
+#, python-format
+msgid ""
+"\n"
+"                                Locked by <b>%(locked_by)s</b> at <b>"
+"%(locking_date)s</b>\n"
+"                            "
+msgstr ""
+"\n"
+"                               Заблоковано користувачем <b>%(locked_by)s</b> "
+"о <b>%(locking_date)s</b>\n"
+"  "
+
+#, python-format
+msgid ""
+"\n"
+"                            Locked at <b>%(locking_date)s</b>\n"
+"                        "
+msgstr ""
+"\n"
+"                          Заблоковано о <b>%(locking_date)s</b>\n"
+"   "
 
 msgid "Locked"
 msgstr "Заблоковано"
@@ -1470,12 +1811,27 @@ msgstr "Заблоковано"
 msgid "No locked pages found."
 msgstr "Заблокованих сторінок немає."
 
+msgid "By Task"
+msgstr "За завданням"
+
 msgid "Workflow"
 msgstr "Робочий процес"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "Жодну сторінку ще не надіслано на модерацію "
+
+msgid "By Workflow"
+msgstr "За робочим процесом"
+
+msgid "Completed at"
+msgstr "Завершено в"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Сторінка %(page_num)s з %(total_pages)s."
+
+msgid "Breadcrumb"
+msgstr "Ланцюжок навігації"
 
 msgid "Root"
 msgstr "Корінь"
@@ -1492,14 +1848,65 @@ msgstr "Налаштування аккаунту"
 msgid "Log out"
 msgstr "Вийти"
 
+msgid "Current page status:"
+msgstr "Поточний статус сторінки:"
+
 msgid "Other searches"
 msgstr "Інші пошуки"
+
+msgid "Changes requested"
+msgstr "Вимагаються зміни"
+
+msgid "since"
+msgstr "від"
 
 msgid "Published"
 msgstr "Опубліковано"
 
 msgid "Draft saved"
 msgstr "Чернетку збережено"
+
+msgid ""
+"You are using an <strong>outdated</strong> browser not supported by this "
+"software. Please <a href=\"https://browsehappy.com/\">upgrade your browser</"
+"a>."
+msgstr ""
+"Ви використовуєте <strong>застарілий</strong> браузер, що не підтримується "
+"даним програмним забезпеченням. Будь ласка, <a href=\"https://browsehappy."
+"com/\">оновіть ваш браузер</a>."
+
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            JavaScript необхідний для функціонування Wagtail, проте він "
+"зараз відключений.<br />\n"
+"            Ось <a href=\"https://www.enable-javascript.com/\" target="
+"\"_blank\" rel=\"noopener noreferrer\">інструкції, як увімкнути JavaScript у "
+"вашому браузері</a>.\n"
+"        "
+
+#, python-format
+msgid ""
+"Wagtail is gradually removing support for IE11, which may affect you or your "
+"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
+"a>."
+msgstr ""
+"Wagtail поступово скасовує підтримку IE11, що може вплинути на вас або вашу "
+"організацію. <a href=\"%(url)s\">Дізнайтеся більше про наші плани підтримки "
+"IE11</a>. "
+
+msgid "Skip to main content"
+msgstr "Перейти до основного вмісту "
+
+msgid "View Wagtail quick actions"
+msgstr "Переглянути швидкі дії Wagtail "
 
 msgid "Add a child page"
 msgstr "Додати дочірню сторінку"
@@ -1516,14 +1923,40 @@ msgstr "Так, вимкнути"
 msgid "Are you sure you want to disable this task?"
 msgstr "Ви впевнені, що хочете вимкнути це завдання?"
 
+msgid "Assign your workflow to pages"
+msgstr "Призначте ваш робочий процес сторінкам "
+
 msgid "Creating…"
 msgstr "Створення..."
 
 msgid "Create"
 msgstr "Створити"
 
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
+msgstr ""
+"Робочі процеси також застосовуються до дочірніх сторінок. Якщо тут вибрати "
+"батьківську сторінку, її дочірні сторінки також використовуватимуть цей "
+"робочий процес. Перегляньте <a href=\"%(workflow_pages_url)s\">список "
+"сторінок</a>, в яких використовується ваш робочий процес. "
+
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr "Цей робочий процес вимкнуто, він не може бути використаний."
+
+msgid "Used on the following active workflows"
+msgstr "Використовується в наведених нижче активних робочих процесах"
+
+msgid "Not used"
+msgstr "Не використовується"
+
+msgid "Assigned pages"
+msgstr "Призначені сторінки"
+
+msgid "Assign to another page"
+msgstr "Призначити іншу сторінку"
 
 msgid "Hide disabled workflows"
 msgstr "Приховати вимкнуті робочі процеси"
@@ -1531,18 +1964,122 @@ msgstr "Приховати вимкнуті робочі процеси"
 msgid "Show disabled workflows"
 msgstr "Показати вимкнуті робочі процеси"
 
+msgid "Used by"
+msgstr "Використовується "
+
+#, python-format
+msgid ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            1 сторінка\n"
+"  "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s сторінок\n"
+"  "
+msgstr[2] ""
+"\n"
+"                                            %(counter)s сторінок\n"
+"  "
+msgstr[3] ""
+"\n"
+"                                            %(counter)s сторінок\n"
+"  "
+
 #, python-format
 msgid "Step %(step_number)s"
 msgstr "Крок %(step_number)s"
 
+#, python-format
+msgid "+%(counter)s more"
+msgid_plural "+%(counter)s more"
+msgstr[0] "+%(counter)s більше"
+msgstr[1] "+%(counter)s більше"
+msgstr[2] "+%(counter)s більше"
+msgstr[3] "+%(counter)s більше"
+
+#, python-format
+msgid ""
+"No workflows have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Жодного робочого процесу не створено. Чому б не <a href=\"%(add_url)s"
+"\">додати один</a>?"
+
+#, python-format
+msgid ""
+"There are no enabled workflows. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Немає увімкнутих робочих процесів. Чому б не <a href=\"%(add_url)s\">додати "
+"один</a>?"
+
+msgid "Choose which type of task you'd like to create."
+msgstr "Оберіть тип завдання, якого ви б хотіли створити."
+
 msgid "Choose a task"
 msgstr "Оберіть завдання"
+
+msgid "Existing"
+msgstr "Існуючі"
 
 msgid "Choose a different task type"
 msgstr "Оберіть інший тип завдання"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+" "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+
 msgid "Task type"
 msgstr "Тип завдання"
+
+msgid "Used on"
+msgstr "Використовується на "
+
+#, python-format
+msgid "Sorry, no tasks match \"<em>%(query_string)s</em>\""
+msgstr "Вибачте, жодне завдання не відповідає \"<em>%(query_string)s</em>\""
+
+msgid "You haven't created any tasks."
+msgstr "Ви не створили жодних завдань. "
+
+msgid ""
+"\n"
+"                Why not <a class=\"create-one-now\" href=\"#\">create one "
+"now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"                 Чому б не <a class=\"create-one-now\" href=\"#\">створити "
+"зараз</a>?\n"
+"  "
 
 msgid "Hide disabled tasks"
 msgstr "Приховати вимкнуті завдання"
@@ -1551,8 +2088,42 @@ msgid "Show disabled tasks"
 msgstr "Показати вимкнуті завдання"
 
 #, python-format
+msgid ""
+"No tasks have been created. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Жодного завдання не створено. Чому б не <a href=\"%(add_url)s\">додати одне</"
+"a>?"
+
+#, python-format
+msgid ""
+"There are no enabled tasks. Why not <a href=\"%(add_url)s\">add one</a>?"
+msgstr ""
+"Немає увімкнутих завдань. Чому б не <a href=\"%(add_url)s\">додати одне</a>?"
+
+#, python-format
+msgid "Pages that use workflow '%(name)s'"
+msgstr "Сторінки, які використовують робочий процес '%(name)s'"
+
+msgid "Pages that use workflow"
+msgstr "Сторінки, які використовують робочий процес"
+
+#, python-format
+msgid "Submitted to <em>%(workflow_name)s</em> at %(started_at)s"
+msgstr "Застосовано до <em>%(workflow_name)s</em> о %(started_at)s"
+
+#, python-format
 msgid "by %(modified_by)s"
 msgstr "користувачем %(modified_by)s"
+
+msgid "Submitted"
+msgstr "Застосовано"
+
+msgid "Not started"
+msgstr "Не запущено"
+
+#, python-format
+msgid "Changes requested by %(requested_by)s"
+msgstr "Зміни за вимогою %(requested_by)s"
 
 #, python-format
 msgid "Approved by %(approved_by)s"
@@ -1563,6 +2134,22 @@ msgstr "Переглянути повну історію"
 
 msgid "Compare with live version"
 msgstr "Порівняти із версією наживо"
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"ascending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку більшення."
+
+#, python-format
+msgid ""
+"Sort the order of child pages within '%(parent)s' by '%(label)s' in "
+"descending order."
+msgstr ""
+"Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
+"порядку зменшення."
 
 msgid "0 minutes"
 msgstr "0 хвилин"
@@ -1594,6 +2181,9 @@ msgstr "Ім'я та електронна адреса"
 msgid "Profile picture"
 msgstr "Зображення профілю користувача"
 
+msgid "Locale"
+msgstr "Локаль"
+
 msgid "Password"
 msgstr "Пароль"
 
@@ -1624,6 +2214,9 @@ msgstr "Ця колекція не може бути збережена чере
 msgid "Delete collection"
 msgstr "Видалили колекцію"
 
+msgid "Please select another parent"
+msgstr "Будь ласка, виберіть іншого предка"
+
 msgid "Collection '{0}' deleted."
 msgstr "Колекцію '{0}' видалено."
 
@@ -1632,6 +2225,9 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Сторінку '{0}' було конвертовано в звичайну сторінку."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Сторінка '{0}' і {1} вкладені сторінки скопійовано."
@@ -1666,14 +2262,42 @@ msgstr "Сторінку '{0}' видалено."
 msgid "This page is currently awaiting moderation"
 msgstr "Ця сторінка очікує на модерацію"
 
+msgid "Page '{0}' has been replaced with version from {1}."
+msgstr "Сторінку '{0}' було замінено версією від {1}."
+
 msgid "Page '{0}' has been updated."
 msgstr "Сторінку '{0}' оновлено."
+
+msgid "<b>Page '{}' was locked</b> by <b>you</b> on <b>{}</b>."
+msgstr "<b>Сторінка '{}' заблокована</b> <b>вами</b>  на <b>{}</b>."
+
+msgid "<b>Page '{}' is locked</b> by <b>you</b>."
+msgstr "<b>Сторінка '{}' заблокована </b> <b>вами</b>."
+
+msgid "<b>Page '{}' was locked</b> by <b>{}</b> on <b>{}</b>."
+msgstr "<b>Сторінка '{}' заблокована </b> користувачем <b>{}</b> на <b>{}</b>."
 
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Сторінка '{}' заблокована</b>."
 
 msgid "This page is currently awaiting moderation."
 msgstr "Ця сторінка очікує на модерацію."
+
+msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
+msgstr "Ця сторінка очікує <b>'{}'</b> в робочому процесі <b>'{}'</b>."
+
+msgid "Only reviewers for this task can edit the page."
+msgstr "Лише рецензенти цього завдання можуть редагувати сторінку. "
+
+msgid "Workflow on page '{0}' has been cancelled."
+msgstr "Робочий процес на сторінці '{0}' було скасовано."
+
+msgid "Version from {0} of page '{1}' has been scheduled for publishing."
+msgstr "Версія від {0} сторінки '{1}' було заплановано на публікацію."
+
+msgid "Page '{0}' is live and this version has been scheduled for publishing."
+msgstr ""
+"Сторінка '{0}' у режимі наживо і цю версію було заплановано до публікації."
 
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Сторінку '{0}' заплановано до публікації."
@@ -1696,6 +2320,9 @@ msgstr "Сторінку не можна зберегти, бо вона заб�
 msgid "The page could not be saved due to validation errors"
 msgstr "Сторінку не можна зберегти через помилки валідації"
 
+msgid "Hide commenting actions"
+msgstr "Приховати дії коментування"
+
 msgid "Page '{0}' is now unlocked."
 msgstr "Сторінку '{0}' розблоковано."
 
@@ -1713,6 +2340,13 @@ msgstr "Публікацію сторінки '{0}' відхилено."
 
 msgid "Failed to send rejection notifications"
 msgstr "Надсилання сповіщення про відхилення зазнало невдачі"
+
+msgid ""
+"The slug '{0}' is already in use at the selected parent page. Make sure the "
+"slug is unique and try again"
+msgstr ""
+"Коротка назва '{0}' вже використовується у вибраних батьківських сторінка. "
+"Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
 
 msgid "Page '{0}' moved."
 msgstr "Сторінку '{0}' переміщено."
@@ -1734,14 +2368,23 @@ msgstr "Останнє"
 msgid "revision {0} of \"{1}\""
 msgstr "ревізія {0} для \"{1}\""
 
+msgid "Version {0} of \"{1}\" unscheduled."
+msgstr "Версію {0} для \"{1}\" знято з розкладу."
+
 msgid "Page '{0}' unpublished."
 msgstr "Сторінку '{0}' знято з публікації."
+
+msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
+msgstr "Сторінка '{0}' не перебуває в очікуванні модерації в завданні '{1}'."
 
 msgid "Site history"
 msgstr "Історія сайту"
 
 msgid "ID"
 msgstr "ID"
+
+msgid "Action type"
+msgstr "Тип дії"
 
 msgid "Date/Time"
 msgstr "Дата/Час"
@@ -1751,6 +2394,9 @@ msgstr "Заблоковані сторінки"
 
 msgid "Show"
 msgstr "Показати"
+
+msgid "Awaiting my review"
+msgstr "В очікуванні огляду"
 
 msgid "Workflows"
 msgstr "Робочі процеси"
@@ -1766,6 +2412,9 @@ msgstr "Заголовок сторінки"
 
 msgid "Workflow tasks"
 msgstr "Завдання робочого процесу"
+
+msgid "Requested By"
+msgstr "За вимогою"
 
 msgid "Add a workflow"
 msgstr "Додати робочий процес"
@@ -1841,6 +2490,26 @@ msgstr "Вимкнути завдання"
 
 msgid "Task '{0}' disabled."
 msgstr "Завдання '{0}' вимкнено."
+
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow."
+msgstr[0] ""
+"Це завдання виконується на %(states_in_progress)d сторінці. Вимкнення цього "
+"завдання скасує процес модерації на цій сторінці."
+msgstr[1] ""
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках."
+msgstr[2] ""
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках."
+msgstr[3] ""
+"Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
+"завдання скасує процес модерації на цих сторінках."
 
 msgid "Task '{0}' enabled."
 msgstr "Завдання \"{0}\" увімкнено."
@@ -1919,6 +2588,9 @@ msgstr "Верхній індекс"
 
 msgid "Subscript"
 msgstr "Нижній індекс"
+
+msgid "Strikethrough"
+msgstr "Перекреслення"
 
 msgid "Code"
 msgstr "Код"
