@@ -4826,8 +4826,8 @@ class BaseLogEntry(models.Model):
             try:
                 user = self.user
             except self._meta.get_field('user').related_model.DoesNotExist:
-                # User has been deleted
-                return _('user %(id)d (deleted)') % {'id': self.user_id}
+                # User has been deleted. Using a string placeholder as the user id could be non-numeric
+                return _('user %(id)s (deleted)') % {'id': self.user_id}
 
             try:
                 full_name = user.get_full_name().strip()
