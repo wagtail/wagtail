@@ -22,7 +22,7 @@ from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import COMMENTS_RELATION_NAME, Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -32,9 +32,6 @@ from wagtail.utils.decorators import cached_classmethod
 from .forms.models import (  # NOQA
     DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
 from .forms.pages import WagtailAdminPageForm
-
-
-COMMENTS_RELATION_NAME = getattr(settings, 'WAGTAIL_COMMENTS_RELATION_NAME', 'wagtail_admin_comments')
 
 
 def widget_with_script(widget, script):
