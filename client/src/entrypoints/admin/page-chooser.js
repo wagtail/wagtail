@@ -59,7 +59,8 @@ function createPageChooser(id, openAtParentId, options) {
       if (state && state.parentId) {
         url += state.parentId + '/';
       }
-      const urlParams = { page_type: options.model_names.join(',') };
+      const pagesToMove = options.pages_to_move || [];
+      const urlParams = { page_type: options.model_names.join(','), pages_to_move: pagesToMove.join(',') };
       if (options.can_choose_root) {
         urlParams.can_choose_root = 'true';
       }

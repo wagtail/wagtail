@@ -42,6 +42,9 @@
 {% blocktrans asvar no_access_msg count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}
 {% include './list_items_with_no_access.html' with items=pages_with_duplicate_slugs no_access_msg=no_access_msg %}
 
+{% trans "There is no valid destination page for these pages" as no_access_msg %}
+{% include './list_items_with_no_access.html' with items=pages_without_common_parent_page no_access_msg=no_access_msg %}
+
 {% endblock items_with_no_access %}
 
 {% block form_section %}
