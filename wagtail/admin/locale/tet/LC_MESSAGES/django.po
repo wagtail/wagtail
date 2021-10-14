@@ -264,7 +264,7 @@ msgid "Close"
 msgstr "Taka"
 
 msgid "Edit '{title}'"
-msgstr " Edit '{titulu}'"
+msgstr " Edit '{title}'"
 
 msgid "View child pages of '{title}'"
 msgstr "Haree pajina oan sira husi '{title}'"

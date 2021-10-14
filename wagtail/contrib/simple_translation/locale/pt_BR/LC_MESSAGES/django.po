@@ -47,7 +47,7 @@ msgid "Translate page"
 msgstr "Traduzir página"
 
 msgid "The page '{page_title}' was successfully created in {locales}"
-msgstr "A página '{page_title}' foi criada com sucesso em {localidades}"
+msgstr "A página '{page_title}' foi criada com sucesso em {locales}"
 
 msgid "Translate {model_name}"
 msgstr "Traduzir {model_name}"
