@@ -227,17 +227,17 @@ input[type=checkbox]:before {
     top: -5px;
     cursor: pointer;
     display: block;
-    content: map-get($icons, 'tick');
+    content: '';
     line-height: 20px;
     width: 20px;
     height: 20px;
     background-color: $color-white;
     border: 1px solid $color-grey-4;
-    color: $color-white;
+    color: $color-teal;
 }
 
 input[type=checkbox]:checked:before {
-    color: $color-teal;
+    content: map-get($icons, 'tick');
 }
 
 input[type=checkbox][disabled]:before {
