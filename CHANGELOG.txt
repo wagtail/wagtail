@@ -78,6 +78,7 @@ Changelog
 
  * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
  * Fix: Corrected badly-formed format strings in translations (Matt Westcott)
+ * Fix: Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
 
 
 2.14.1 (12.08.2021)

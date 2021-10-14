@@ -15,6 +15,7 @@ Bug fixes
 
  * Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
  * Corrected badly-formed format strings in translations (Matt Westcott)
+ * Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
 
 Upgrade considerations
 ======================
