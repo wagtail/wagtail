@@ -36,6 +36,7 @@ function onSelectAllChange(e) {
   const changeEvent = new Event('change');
   document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach(el => {
     if (el.checked !== e.target.checked) {
+      // eslint-disable-next-line no-param-reassign
       el.checked = e.target.checked;
       if (e.target.checked) {
         el.dispatchEvent(changeEvent);

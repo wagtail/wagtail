@@ -52,15 +52,15 @@
                 text-transform: uppercase;
             }
 
-            &.is-open {
-                .c-dropdown__menu.u-toggle {
-                    display: flex;
-                }
-            }
-
             .c-dropdown__menu {
                 bottom: 50px;
                 flex-direction: column;
+            }
+        }
+
+        .bulk-actions-more.is-open {
+            .c-dropdown__menu.u-toggle {
+                display: flex;
             }
         }
     }
@@ -74,7 +74,7 @@
         border-radius: 4px 4px 0 0;
         margin-left: 30px;
 
-        input[type="checkbox"] {
+        input[type='checkbox'] {
             margin-right: 1.25em;
         }
 
