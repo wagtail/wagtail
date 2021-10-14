@@ -133,6 +133,7 @@ Changelog
 
  * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
  * Fix: Corrected badly-formed format strings in translations (Matt Westcott)
+ * Fix: Correctly handle non-numeric user IDs for deleted users in reports (Dan Braghis)
 
 
 2.13.4 (13.07.2021)
