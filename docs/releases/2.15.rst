@@ -200,3 +200,13 @@ that implement commenting. If you have any code that references the ``comments``
 (including fixture files), this should be updated to refer to ``wagtail_admin_comments`` instead.
 If this is not feasible, the previous behaviour can be restored by adding
 ``WAGTAIL_COMMENTS_RELATION_NAME = 'comments'`` to your project's settings.
+
+Reusable library code that needs to preserve backwards compatibility with previous Wagtail versions
+can find out the relation name as follows:
+
+.. code-block:: python
+
+    try:
+        from wagtail.core.models import COMMENTS_RELATION_NAME
+    except ImportError:
+        COMMENTS_RELATION_NAME = 'comments'
