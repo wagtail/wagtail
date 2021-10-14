@@ -4,9 +4,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-
-
-COMMENTS_RELATION_NAME = getattr(settings, 'WAGTAIL_COMMENTS_RELATION_NAME', 'comments')
+from wagtail.core.models import COMMENTS_RELATION_NAME
 
 
 class Migration(migrations.Migration):
