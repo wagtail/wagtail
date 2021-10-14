@@ -23,8 +23,8 @@
 
         button.delete-column {
             position: absolute;
-            right: 8px;
-            top: 1em;
+            right: 10px;
+            top: 13px;
         }
 
         input.column-heading {
@@ -32,7 +32,8 @@
         }
     }
 
-    tbody tr {
+    tbody tr,
+    tfoot tr {
         position: relative;
 
         button.prepend-row {
@@ -42,7 +43,7 @@
         }
 
         button.delete-row {
-            margin-left: 1em;
+            margin-left: 5px;
         }
 
         td:not(:last-child) {
