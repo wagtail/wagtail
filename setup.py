@@ -68,6 +68,9 @@ testing_extras = [
     # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
     # the test suite migrations correspond to >=1.3.0
     'django-taggit>=1.3.0,<2.0',
+
+    # for validating string formats in .po translation files
+    'polib>=1.1,<2.0',
 ]
 
 # Documentation dependencies
