@@ -83,13 +83,15 @@ class BulkAction(ABC, FormView):
             if hasattr(result, 'status_code'):
                 return result
 
+    def get_all_objects_in_listing_query(self, parent_id):
+        return self.model.objects.all().values_list('pk', flat=True)
+
     def get_actionable_objects(self):
         objects = []
         items_with_no_access = []
         object_ids = self.request.GET.getlist('id')
         if 'all' in object_ids:
-            parent_page_id = int(self.request.GET.get('childOf'))
-            object_ids = self.model.objects.get(id=parent_page_id).get_children().values_list('id', flat=True)
+            object_ids = self.get_all_objects_in_listing_query(self.request.GET.get('childOf'))
 
         for obj in self.get_queryset(self.model, object_ids):
             if not self.check_perm(obj):
