@@ -67,10 +67,10 @@
     // This element should cover all the area beneath the collapse toggle
     // It's only used to attach mouse enter/exit event handlers to control peeking
     &__peek-hover-area {
-        position: absolute;
-        top: 35px;  // Match height of __collapse-toggle
-        left: 0;
-        width: 100%;
+        margin-top: 35px;  // Match height of __collapse-toggle
+        display: grid;
+        grid-template-columns: 1fr;
+        overflow-y: scroll;
     }
 }
 
