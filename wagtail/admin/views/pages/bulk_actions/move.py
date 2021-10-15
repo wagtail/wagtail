@@ -5,7 +5,7 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.core.models import Page, get_page_models
+from wagtail.core.models import Page
 
 
 class BulkMovePageChooser(widgets.AdminPageChooser):
@@ -19,7 +19,8 @@ class BulkMovePageChooser(widgets.AdminPageChooser):
             'model_names': self.model_names,
             'can_choose_root': self.can_choose_root,
             'user_perms': self.user_perms,
-            'pages_to_move': self.pages_to_move
+            'target_pages': self.pages_to_move,
+            'match_subclass': False
         }
 
 
@@ -81,19 +82,10 @@ class MoveBulkAction(PageBulkAction):
         objects, objects_without_access = super().get_actionable_objects()
         request = self.request
 
-        self.target_parent_models = set()
+        self.target_parent_models = set(objects[0].specific_class.allowed_parent_page_models())
 
-        for model_class in get_page_models():
-            is_in_subpage_models = True
-            allowed_subpage_models = model_class.allowed_subpage_models()
-
-            for obj in objects:
-                if obj.specific_class not in allowed_subpage_models:
-                    is_in_subpage_models = False
-                    break
-
-            if is_in_subpage_models:
-                self.target_parent_models.add(model_class)
+        for obj in objects:
+            self.target_parent_models.intersection_update(set(obj.specific_class.allowed_parent_page_models()))
 
         self.pages_to_move = [page.id for page in objects]
 

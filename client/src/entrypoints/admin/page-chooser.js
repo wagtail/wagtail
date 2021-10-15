@@ -59,8 +59,13 @@ function createPageChooser(id, openAtParentId, options) {
       if (state && state.parentId) {
         url += state.parentId + '/';
       }
-      const pagesToMove = options.pages_to_move || [];
-      const urlParams = { page_type: options.model_names.join(','), pages_to_move: pagesToMove.join(',') };
+      const urlParams = { page_type: options.model_names.join(',') };
+      if (options.target_pages) {
+        urlParams.target_pages = options.target_pages;
+      }
+      if (options.match_subclass) {
+        urlParams.match_subclass = options.match_subclass;
+      }
       if (options.can_choose_root) {
         urlParams.can_choose_root = 'true';
       }
