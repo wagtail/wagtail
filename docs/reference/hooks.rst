@@ -1442,7 +1442,8 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
     @hooks.register("before_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
-      ...
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects would be deleted", content_type="text/plain")
 
 
 .. _after_bulk_action:
@@ -1460,7 +1461,8 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
     @hooks.register("after_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
-      ...
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects have been deleted", content_type="text/plain")
 
 
 

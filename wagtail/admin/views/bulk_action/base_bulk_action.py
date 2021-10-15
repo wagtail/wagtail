@@ -29,7 +29,6 @@ class BulkAction(ABC, FormView):
     extras = dict()
     action_priority = 100
     models = []
-    object_key = 'object'
     classes = set()
 
     form_class = forms.Form
