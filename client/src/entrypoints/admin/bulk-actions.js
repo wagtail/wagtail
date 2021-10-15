@@ -127,7 +127,7 @@ function onClickSelectAllInListing(e) {
 function onClickActionButton(e) {
   e.preventDefault();
   const url = e.target.getAttribute('href');
-  const urlParams = new URLSearchParams();
+  const urlParams = new URLSearchParams(window.location.search);
   if (checkedState.selectAllInListing) {
     urlParams.append('id', 'all');
     const parentElement = document.querySelector(BULK_ACTIONS_CHECKBOX_PARENT);
