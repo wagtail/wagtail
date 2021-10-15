@@ -18,6 +18,12 @@ Audit logging for all models
 Audit logging has been extended so that all models (not just pages) can have actions logged against them. The Site History report now includes logs from all object types, and snippets and ModelAdmin provide a history view showing previous edits to an object. This feature was developed by Matt Westcott, and sponsored by `The Motley Fool <https://www.fool.com/>`_.
 
 
+Collection management permissions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Permission for managing collections can now be assigned to individual subtrees of the collection hierarchy, allowing sub-teams within a site to control how their images and documents are organised. For more information, see :ref:`collection_management_permissions`. This feature was developed by Cynthia Kiser.
+
+
 Other features
 ~~~~~~~~~~~~~~
 
