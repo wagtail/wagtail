@@ -1,9 +1,8 @@
 from django import forms
 
 from wagtail.admin.views.bulk_action import BulkAction
+from wagtail.admin.views.pages.search import page_filter_search
 from wagtail.core.models import Page
-from wagtail.search.query import MATCH_ALL
-from wagtail.search.utils import parse_query_string
 
 
 class DefaultPageForm(forms.Form):
@@ -15,24 +14,17 @@ class PageBulkAction(BulkAction):
     form_class = DefaultPageForm
 
     def get_all_objects_in_listing_query(self, parent_id):
-        _objects = self.model.objects.all()
+        listing_objects = self.model.objects.all()
+
+        if parent_id is not None:
+            listing_objects = listing_objects.get(id=parent_id).get_children()
+
+        listing_objects = listing_objects.values_list('pk', flat=True)
 
         if 'q' in self.request.GET:
             q = self.request.GET.get('q', '')
-            filters, query = parse_query_string(q, operator='and', zero_terms=MATCH_ALL)
 
-            live_filter = filters.get('live') or filters.get('published')
-            live_filter = live_filter and live_filter.lower()
-            if live_filter in ['yes', 'true']:
-                _objects = _objects.filter(live=True)
-            elif live_filter in ['no', 'false']:
-                _objects = _objects.filter(live=False)
-
-            _objects = _objects.search(query).results()
-
-        listing_objects = []
-        for obj in _objects:
-            listing_objects.append(obj.pk)
+            listing_objects = page_filter_search(q, listing_objects)[0].results()
 
         return listing_objects
 

@@ -8,17 +8,15 @@ class DocumentBulkAction(BulkAction):
     models = [get_document_model()]
 
     def get_all_objects_in_listing_query(self, parent_id):
-        _objects = self.model.objects.all()
+        listing_objects = self.model.objects.all()
         if parent_id is not None:
-            _objects = _objects.filter(collection_id=parent_id)
+            listing_objects = listing_objects.filter(collection_id=parent_id)
+
+        listing_objects = listing_objects.values_list('pk', flat=True)
 
         if 'q' in self.request.GET:
             query_string = self.request.GET.get('q', '')
-            _objects = _objects.search(query_string).results()
-
-        listing_objects = []
-        for obj in _objects:
-            listing_objects.append(obj.pk)
+            listing_objects = listing_objects.search(query_string).results()
 
         return listing_objects
 
