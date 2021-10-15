@@ -36,6 +36,12 @@ Collection management permissions
 Permission for managing collections can now be assigned to individual subtrees of the collection hierarchy, allowing sub-teams within a site to control how their images and documents are organised. For more information, see :ref:`collection_management_permissions`. This feature was developed by Cynthia Kiser.
 
 
+Typed table block
+~~~~~~~~~~~~~~~~~
+
+A new ``TypedTableBlock`` block type is available for StreamField, allowing authors to create tables where the cell values are any StreamField block type, including rich text. For more information, see :doc:`/reference/contrib/typed_table_block`. This feature was developed by Matt Westcott, Coen van der Kamp and Scott Cranfill, and sponsored by `YouGov <https://yougov.com/>`_.
+
+
 Other features
 ~~~~~~~~~~~~~~
 

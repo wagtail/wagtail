@@ -7,6 +7,7 @@ Changelog
  * Implemented a new database search backend that supports the FTS features of the database in use (Developed by Aldán Creo. Mentored by Karl Hobley and Cynthia Kiser. Funded by Google Summer of Code)
  * Extended audit logging to all models and added a history view for snippets and ModelAdmin (Matt Westcott. Sponsored by The Motley Fool)
  * Allow granting collection management permissions over individual collections (Cynthia Kiser)
+ * Added `TypedTableBlock` block type for StreamField, for building tables with mixed data types (Matt Westcott, Coen van der Kamp, Scott Cranfill. Sponsored by YouGov)
  * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)
