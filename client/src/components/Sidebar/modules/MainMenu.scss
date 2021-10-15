@@ -1,8 +1,10 @@
+$avatar-size: 60px;
+
 // stylelint-disable declaration-no-important
 .sidebar-main-menu {
     overflow: auto;
     overflow-x: hidden;
-    margin-bottom: 60px;
+    margin-bottom: $avatar-size;
     @include transition(margin-bottom $menu-transition-duration ease);
 
     &--open-footer {
@@ -88,22 +90,28 @@
         background: $nav-footer-account-bg;
         color: $color-menu-text;
         text-transform: uppercase;
-        display: block;
+        display: flex;
+        align-items: center;
         cursor: pointer;
         position: relative;
+        padding: 0;
+        width: 100%;
+        appearance: none;
+        border: 0;
+        overflow: hidden;
 
         @include clearfix;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: rgba(100, 100, 100, 0.15);
             color: $color-white;
             text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
         }
 
         .avatar {
-            float: left;
-            width: 60px;
-            height: 60px;
+            width: $avatar-size;
+            height: $avatar-size;
 
             &:before {
                 color: inherit;
@@ -111,35 +119,41 @@
             }
         }
 
-        &--icon {
-            height: 1.5em;
-            width: 1.5em;
-            position: absolute;
-            right: 0.25em;
+        $icon-size: 1.5em;
+
+        &-icon {
+            height: $icon-size;
+            width: $icon-size;
         }
 
-        em {
+        &-toggle {
+            display: grid;
+            grid-template-columns: 1fr min-content;
             box-sizing: border-box;
-            padding-right: 1.8em;
-            margin-top: 1.2em;
-            margin-left: 0.9em;
+            padding: 0 0.9em;
             font-style: normal;
             font-weight: 700;
-            width: 125px;
+            width: $menu-width - $avatar-size;
+            line-height: $icon-size;
+            position: absolute;
+            left: $avatar-size;  // Width of avatar
+            transform: translateX(0);
+            transition: transform $menu-transition-duration ease;
+        }
+
+        &-label {
+            text-align: left;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
-            position: absolute;
-            left: 60px;  // Width of avatar
-            transition: left $menu-transition-duration ease;
         }
     }
 
     @at-root .sidebar--slim #{&} {
         width: $menu-width-slim;
 
-        &__account em {
-            left: $menu-width-slim - $menu-width;
+        &__account-toggle {
+            transform: translateX($menu-width-slim - $menu-width);
         }
     }
 
@@ -151,7 +165,7 @@
         }
     }
 
-    &--open &__account em {
-        left: 60px !important;
+    &--open &__account-toggle {
+        left: $avatar-size !important;
     }
 }

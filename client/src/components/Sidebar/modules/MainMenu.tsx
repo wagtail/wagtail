@@ -168,34 +168,35 @@ export const Menu: React.FunctionComponent<MenuProps> = (
   );
 
   return (
-    <nav className={className}>
-      <ul className="sidebar-main-menu__list">
-        {renderMenu('', menuItems, slim, state, dispatch, navigate)}
-
-        <li className={'sidebar-footer' + (accountSettingsOpen ? ' sidebar-footer--open' : '')}>
-          <div
-            className="sidebar-footer__account"
-            title={strings.EDIT_YOUR_ACCOUNT}
-            onClick={onClickAccountSettings}
-          >
-            <span className="avatar square avatar-on-dark">
-              <img src={user.avatarUrl} alt="" />
-            </span>
-            <em>
-              {user.name}
-              <Icon
-                className="sidebar-footer__account--icon"
-                name={(accountSettingsOpen ? 'arrow-down' : 'arrow-up')}
-              />
-            </em>
+    <>
+      <nav className={className}>
+        <ul className="sidebar-main-menu__list">
+          {renderMenu('', menuItems, slim, state, dispatch, navigate)}
+        </ul>
+      </nav>
+      <div className={'sidebar-footer' + (accountSettingsOpen ? ' sidebar-footer--open' : '')}>
+        <button
+          className="sidebar-footer__account"
+          title={strings.EDIT_YOUR_ACCOUNT}
+          onClick={onClickAccountSettings}
+        >
+          <div className="avatar square avatar-on-dark">
+            <img src={user.avatarUrl} alt="" />
           </div>
+          <div className="sidebar-footer__account-toggle">
+            <div className="sidebar-footer__account-label">{user.name}</div>
+            <Icon
+              className="sidebar-footer__account-icon"
+              name={(accountSettingsOpen ? 'arrow-down' : 'arrow-up')}
+            />
+          </div>
+        </button>
 
-          <ul>
-            {renderMenu('', accountMenuItems, slim, state, dispatch, navigate)}
-          </ul>
-        </li>
-      </ul>
-    </nav>
+        <ul>
+          {renderMenu('', accountMenuItems, slim, state, dispatch, navigate)}
+        </ul>
+      </div>
+    </>
   );
 };
 
