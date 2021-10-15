@@ -127,12 +127,14 @@ function onClickSelectAllInListing(e) {
 function onClickActionButton(e) {
   e.preventDefault();
   const url = e.target.getAttribute('href');
-  const urlParams = new URLSearchParams();
-  const parentElement = document.querySelector(BULK_ACTIONS_CHECKBOX_PARENT);
-  if (checkedState.selectAllInListing && parentElement) {
-    const parentPageId = parentElement.dataset.bulkActionParentId;
+  const urlParams = new URLSearchParams(window.location.search);
+  if (checkedState.selectAllInListing) {
     urlParams.append('id', 'all');
-    urlParams.append('childOf', parentPageId);
+    const parentElement = document.querySelector(BULK_ACTIONS_CHECKBOX_PARENT);
+    if (parentElement) {
+      const parentPageId = parentElement.dataset.bulkActionParentId;
+      urlParams.append('childOf', parentPageId);
+    }
   } else {
     checkedState.checkedObjects.forEach(objectId => {
       urlParams.append('id', objectId);

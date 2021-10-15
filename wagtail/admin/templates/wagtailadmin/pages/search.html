@@ -24,5 +24,6 @@
     <div id="page-results">
         {% include "wagtailadmin/pages/search_results.html" %}
     </div>
-    {% include 'wagtailadmin/bulk_actions/footer.html' with app_label='wagtailcore' model_name='page' %}
+    {% trans "Select all pages in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with app_label='wagtailcore' model_name='page' objects=pages select_all_obj_text=select_all_text %}
 {% endblock %}
