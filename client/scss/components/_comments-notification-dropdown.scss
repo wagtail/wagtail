@@ -38,6 +38,7 @@
     border-radius: 6px;
     min-width: 260px;
     box-sizing: border-box;
+    border: 1px solid $color-text-base;
 
     &__title {
         font-size: 12px;

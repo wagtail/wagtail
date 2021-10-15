@@ -548,6 +548,7 @@ Contributors
 * Indresh P
 * Rinish Sam
 * Anirudh V S
+* Shariq Jamil
 
 Translators
 ===========
