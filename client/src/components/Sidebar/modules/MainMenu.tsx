@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import * as React from 'react';
 import Icon from '../../Icon/Icon';
 
