@@ -3,7 +3,6 @@
 const BULK_ACTION_PAGE_CHECKBOX_INPUT = '[data-bulk-action-checkbox]';
 const BULK_ACTION_SELECT_ALL_CHECKBOX = '[data-bulk-action-select-all-checkbox]';
 const BULK_ACTIONS_CHECKBOX_PARENT = '[data-bulk-action-parent-id]';
-const BULK_ACTION_FILTER = '[data-bulk-action-filter]';
 const BULK_ACTION_FOOTER = '[data-bulk-action-footer]';
 const BULK_ACTION_NUM_OBJECTS = '[data-bulk-action-num-objects]';
 const BULK_ACTION_NUM_OBJECTS_IN_LISTING = '[data-bulk-action-num-objects-in-listing]';
@@ -123,42 +122,6 @@ function onClickSelectAllInListing(e) {
 }
 
 /**
- * Event listener for filter dropdown options
- */
-function onClickFilter(e) {
-  e.preventDefault();
-  const filter = e.target.dataset.bulkActionFilter || '';
-  const changeEvent = new Event('change');
-  if (filter.length) {
-    /* split the filter string into [key,value] pairs and check for the values in the
-        BULK_ACTION_PAGE_CHECKBOX_INPUT dataset */
-    const [_key, value] = filter.split(':');
-    const key = `${_key[0].toUpperCase()}${_key.slice(1)}`;
-    for (const el of document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT)) {
-      if (el.dataset[`page${key}`]) {
-        if (el.dataset[`page${key}`] === value) {
-          if (!el.checked) {
-            el.checked = true;
-            el.dispatchEvent(changeEvent);
-          }
-        } else {
-          if (el.checked) {
-            el.checked = false;
-            el.dispatchEvent(changeEvent);
-          }
-        }
-      }
-    }
-  } else {
-    /* If filter string is empty, select all checkboxes */
-    document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach(el => {
-      el.checked = true; // eslint-disable-line no-param-reassign
-    });
-    document.querySelector(BULK_ACTION_SELECT_ALL_CHECKBOX).dispatchEvent(changeEvent);
-  }
-}
-
-/**
  * Event listener for bulk actions which appends selected ids to the corresponding action url
  */
 function onClickActionButton(e) {
@@ -192,9 +155,6 @@ function addBulkActionListeners() {
   document.querySelectorAll(BULK_ACTION_SELECT_ALL_CHECKBOX).forEach(el => {
     el.addEventListener('change', onSelectAllChange);
   });
-  document.querySelectorAll(BULK_ACTION_FILTER).forEach(
-    elem => elem.addEventListener('click', onClickFilter)
-  );
   document.querySelectorAll(`${BULK_ACTION_FOOTER} .bulk-action-btn`).forEach(
     elem => elem.addEventListener('click', onClickActionButton)
   );

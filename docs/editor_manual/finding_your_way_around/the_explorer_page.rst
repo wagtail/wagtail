@@ -33,7 +33,7 @@ The Explorer page allows you to view a page's children and perform actions on th
 
 * Selecting at least one checkbox will popup an action bar at the bottom, which will list all the available bulk actions for pages.
 
-* Clicking on any action will take you to a separate page with all the selected pages, for confirmation
+* Clicking on any action will take you to a separate view with all the selected pages, for confirmation
 * Similar buttons are available for each child page. These are made visible on hover.
 
 Reordering pages
