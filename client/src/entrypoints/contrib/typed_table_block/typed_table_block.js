@@ -48,6 +48,7 @@ export class TypedTableBlock {
           <table>
             <thead>
               <tr>
+                <th></th>
                 <th class="control-cell">
                   <button type="button" class="button button-small button-secondary append-column" data-append-column>
                     ${h(strings.ADD_COLUMN)}
@@ -59,6 +60,7 @@ export class TypedTableBlock {
             </tbody>
             <tfoot>
               <tr>
+                <td class="control-cell"></td>
                 <td>
                   <button type="button" class="button button-small button-secondary prepend-row"
                     aria-label="${h(strings.ADD_ROW)}" title="${h(strings.ADD_ROW)}" data-add-row>+</button>
@@ -163,8 +165,8 @@ export class TypedTableBlock {
     this.deletedFieldsContainer.replaceChildren();
 
     const headerRow = this.thead.children[0];
-    // delete all header cells except for the final one containing the 'append column' button
-    headerRow.replaceChildren(headerRow.lastElementChild);
+    // delete all header cells except for the control columns
+    headerRow.replaceChildren(headerRow.firstElementChild, headerRow.lastElementChild);
     this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMN).removeAttr('aria-label').removeAttr('title');
 
     // delete all body rows
@@ -191,8 +193,9 @@ export class TypedTableBlock {
     const headerCells = headerRow.children;
     const newHeaderCell = document.createElement('th');
     // insertBefore is correct even for the last column, because the header row
-    // has an extra final cell to contain the 'append column' button
-    headerRow.insertBefore(newHeaderCell, headerCells[index]);
+    // has an extra final cell to contain the 'append column' button.
+    // The +1 accounts for the 'control' column on the left side, holding the 'insert row' buttons.
+    headerRow.insertBefore(newHeaderCell, headerCells[index + 1]);
     column.typeInput = document.createElement('input');
     column.typeInput.type = 'hidden';
     column.typeInput.name = this.prefix + '-column-' + column.id + '-type';
@@ -244,8 +247,9 @@ export class TypedTableBlock {
       const cells = tr.children;
       const newCellElement = document.createElement('td');
       // insertBefore is correct even for the last column, because each row
-      // has an extra final cell to contain the 'delete row' button
-      tr.insertBefore(newCellElement, cells[index]);
+      // has an extra final cell to contain the 'delete row' button.
+      // The +1 accounts for the 'control' column on the left side, holding the 'insert row' buttons.
+      tr.insertBefore(newCellElement, cells[index + 1]);
       const newCellBlock = this.initCell(newCellElement, column, row, initialCellState);
       row.blocks.splice(index, 0, newCellBlock);
     });
@@ -269,10 +273,10 @@ export class TypedTableBlock {
     column.deletedInput.value = '1';
     const headerRow = this.thead.children[0];
     const headerCells = headerRow.children;
-    headerRow.removeChild(headerCells[index]);
+    headerRow.removeChild(headerCells[index + 1]);
     Array.from(this.tbody.children).forEach((tr, rowIndex) => {
       const cells = tr.children;
-      tr.removeChild(cells[index]);
+      tr.removeChild(cells[index + 1]);
       this.rows[rowIndex].blocks.splice(index, 1);
     });
     this.columns.splice(index, 1);
@@ -305,6 +309,20 @@ export class TypedTableBlock {
     this.rows.splice(index, 0, row);
     this.rowCountIncludingDeleted++;
     this.rowCountInput.value = this.rowCountIncludingDeleted;
+
+    // add a leading cell to contain the 'insert row' button
+    const controlCellBefore = document.createElement('td');
+    controlCellBefore.className = 'control-cell';
+    rowElement.appendChild(controlCellBefore);
+    const prependRowButton = $(`<button type="button"
+      class="button button-small button-secondary prepend-row"
+      aria-label="${h(this.blockDef.meta.strings.INSERT_ROW)}"
+      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">+</button>`);
+    $(controlCellBefore).append(prependRowButton);
+    prependRowButton.on('click', () => {
+      this.insertRow(row.position);
+    });
+
     this.columns.forEach((column, i) => {
       let initialState;
       if (initialStates) {
@@ -317,24 +335,17 @@ export class TypedTableBlock {
       rowElement.appendChild(newCell);
       row.blocks[i] = this.initCell(newCell, column, row, initialState);
     });
-    // add an extra cell to contain the 'remove row' button
-    const controlCell = document.createElement('td');
-    rowElement.appendChild(controlCell);
+
+    // add a trailing cell to contain the 'remove row' button
+    const controlCellAfter = document.createElement('td');
+    controlCellAfter.className = 'control-cell';
+    rowElement.appendChild(controlCellAfter);
 
     row.positionInput = document.createElement('input');
     row.positionInput.type = 'hidden';
     row.positionInput.name = this.prefix + '-row-' + row.id + '-order';
     row.positionInput.value = row.position;
-    controlCell.appendChild(row.positionInput);
-
-    const prependRowButton = $(`<button type="button"
-      class="button button-small button-secondary prepend-row"
-      aria-label="${h(this.blockDef.meta.strings.INSERT_ROW)}"
-      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">+</button>`);
-    $(controlCell).append(prependRowButton);
-    prependRowButton.on('click', () => {
-      this.insertRow(row.position);
-    });
+    controlCellAfter.appendChild(row.positionInput);
 
     const deleteRowButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace white no delete-row"
@@ -342,7 +353,7 @@ export class TypedTableBlock {
       title="${h(this.blockDef.meta.strings.DELETE_ROW)}">
         <svg class="icon icon-bin icon" aria-hidden="true" focusable="false"><use href="#icon-bin"></use></svg>
       </button>`);
-    $(controlCell).append(deleteRowButton);
+    $(controlCellAfter).append(deleteRowButton);
     deleteRowButton.on('click', () => {
       this.deleteRow(row.position);
     });

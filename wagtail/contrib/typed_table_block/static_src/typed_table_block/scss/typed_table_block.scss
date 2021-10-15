@@ -46,7 +46,7 @@
             margin-left: 5px;
         }
 
-        td:not(:last-child) {
+        td:not(.control-cell) {
             vertical-align: top;
             min-width: 320px;
         }
