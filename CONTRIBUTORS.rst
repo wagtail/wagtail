@@ -549,6 +549,7 @@ Contributors
 * Rinish Sam
 * Anirudh V S
 * Shariq Jamil
+* Kyle Bayliss
 
 Translators
 ===========
