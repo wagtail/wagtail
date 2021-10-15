@@ -8,12 +8,12 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
         <div class=\\"typed-table-block__wrapper\\">
           <table>
             <thead>
-              <tr><th><input type=\\"hidden\\" name=\\"mytable-column-0-type\\" value=\\"test_block_a\\"><input type=\\"hidden\\" name=\\"mytable-column-0-order\\" value=\\"0\\"><input name=\\"mytable-column-0-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-column\\" title=\\"Delete column\\">
+              <tr><th><input type=\\"hidden\\" name=\\"mytable-column-0-type\\" value=\\"test_block_a\\"><input type=\\"hidden\\" name=\\"mytable-column-0-order\\" value=\\"0\\"><input name=\\"mytable-column-0-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" aria-label=\\"Insert column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-column\\" aria-label=\\"Delete column\\" title=\\"Delete column\\">
         <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-bin\\"></use></svg>
-      </button></th><th><input type=\\"hidden\\" name=\\"mytable-column-1-type\\" value=\\"test_block_b\\"><input type=\\"hidden\\" name=\\"mytable-column-1-order\\" value=\\"1\\"><input name=\\"mytable-column-1-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-column\\" title=\\"Delete column\\">
+      </button></th><th><input type=\\"hidden\\" name=\\"mytable-column-1-type\\" value=\\"test_block_b\\"><input type=\\"hidden\\" name=\\"mytable-column-1-order\\" value=\\"1\\"><input name=\\"mytable-column-1-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-column\\" aria-label=\\"Insert column\\" title=\\"Insert column\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-column\\" aria-label=\\"Delete column\\" title=\\"Delete column\\">
         <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-bin\\"></use></svg>
       </button></th><th class=\\"control-cell\\">
-                  <button type=\\"button\\" class=\\"button button-small button-secondary append-column\\" data-append-column=\\"\\" title=\\"Add column\\">+</button>
+                  <button type=\\"button\\" class=\\"button button-small button-secondary append-column\\" data-append-column=\\"\\" aria-label=\\"Add column\\" title=\\"Add column\\">+</button>
                 </th></tr>
             </thead>
             <tbody><tr><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
@@ -30,7 +30,7 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <span></span>
           </div>
         </div>
-      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-row\\" title=\\"Delete row\\">
+      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" aria-label=\\"Insert row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
         <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-bin\\"></use></svg>
       </button></td></tr><tr><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
         <div class=\\"field-content\\">
@@ -46,13 +46,13 @@ exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders cor
             <span></span>
           </div>
         </div>
-      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-row\\" title=\\"Delete row\\">
+      </div></td><td><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" aria-label=\\"Insert row\\" title=\\"Insert row\\">+</button><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace white no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
         <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-bin\\"></use></svg>
       </button></td></tr></tbody>
             <tfoot>
               <tr>
                 <td>
-                  <button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" title=\\"Add row\\" data-add-row=\\"\\" style=\\"\\">+</button>
+                  <button type=\\"button\\" class=\\"button button-small button-secondary prepend-row\\" aria-label=\\"Add row\\" title=\\"Add row\\" data-add-row=\\"\\" style=\\"\\">+</button>
                 </td>
               </tr>
             </tfoot>
