@@ -69,6 +69,7 @@ $avatar-size: 60px;
 
     > ul {
         @include transition(max-height $menu-transition-duration ease);
+        visibility: hidden;
 
         max-height: 0;
 
@@ -162,6 +163,7 @@ $avatar-size: 60px;
 
         > ul {
             max-height: $nav-footer-submenu-height;
+            visibility: visible;
         }
     }
 
