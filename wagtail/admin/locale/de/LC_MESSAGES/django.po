@@ -31,7 +31,8 @@
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
-# Stefan Hammer <stefan@hammerworxx.com>, 2021
+# th3hamm0r <stefan@hammerworxx.com>, 2021
+# th3hamm0r <stefan@hammerworxx.com>, 2021
 # Tibor <tibor@lpld.io>, 2020
 # Scriptim <Scriptim@gmx.de>, 2020
 # tobias schmidt <tobias.schmidt82@gmail.com>, 2016
@@ -42,8 +43,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-26 11:28+0000\n"
-"Last-Translator: Stefan Hammer <stefan@hammerworxx.com>\n"
+"PO-Revision-Date: 2021-10-14 19:04+0000\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1258,7 +1259,7 @@ msgid "History"
 msgstr "Historie"
 
 msgid "This page is an alias of another page."
-msgstr "Diese Seite is ein Alias einer anderen Seite."
+msgstr "Diese Seite ist ein Alias einer anderen Seite."
 
 msgid "Edit original page"
 msgstr "Originale Seite bearbeiten"
