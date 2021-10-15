@@ -150,16 +150,6 @@ class TestBulkMove(TestCase, WagtailTestUtils):
                 page_title=child_page.title
             ), html)
 
-    def test_bulk_move_ignore_permission_errors(self):
-        temp_page_1 = SimplePage(title="Hello world!", slug="hello-world-b", content="hello")
-        temp_page_2 = SimplePage(title="Hello world!", slug="hello-world-b-1", content="hello")
-        self.section_b.add_child(instance=temp_page_1)
-        self.section_b.add_child(instance=temp_page_2)
-
-        response = self.client.post(self.url, {'chooser': self.section_b.id, 'move_applicable': True})
-
-        self.assertEqual(response.status_code, 302)
-
     def test_bulk_move_triggers_signals(self):
         # Connect a mock signal handler to pre_page_move and post_page_move signals
         pre_moved_handler = mock.MagicMock()

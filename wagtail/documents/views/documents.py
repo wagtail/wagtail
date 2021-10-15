@@ -88,12 +88,16 @@ class IndexView(BaseListingView):
         if len(collections) < 2:
             collections = None
 
+        Document = get_document_model()
+
         context.update({
             'search_form': self.form,
             'popular_tags': popular_tags_for_model(get_document_model()),
             'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
             'collections': collections,
             'current_collection': self.current_collection,
+            'app_label': Document._meta.app_label,
+            'model_name': Document._meta.model_name,
         })
         return context
 
