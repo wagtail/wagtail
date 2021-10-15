@@ -24,6 +24,14 @@ To switch to this new backend, see the upgrade considerations below.
 This feature was developed by Aldán Creo as part of Google Summer of Code.
 
 
+Bulk actions
+~~~~~~~~~~~~
+
+Bulk actions are now available for Page, User, Image and Document models in the Wagtail Admin, allowing users to perform actions like publication or deletion on groups of objects at once.
+
+This feature was developed by Shohan Dutta Roy, mentored by Dan Braghis, Jacob Topp-Mugglestone, and Storm Heg.
+
+
 Audit logging for all models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -261,3 +269,14 @@ If you have used the PostgreSQL-specific ``SEARCH_CONFIG``, this will continue t
     }
 
 However, as a PostgreSQL specific feature, this will be ignored when using a different database.
+
+
+Bulk action views not covered by existing hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bulk action views provide alternative routes to actions like publishing or copying a page.
+If your site relies on hooks like ``before_publish_page`` or ``before_copy_page`` to perform
+checks, or add additional functionality, those hooks will not be called on the
+corresponding bulk action views. If you want to add this to the bulk action views as well,
+use the new bulk action hooks: :ref:`before_bulk_action` and :ref:`after bulk actions`.
+
