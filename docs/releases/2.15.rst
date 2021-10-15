@@ -49,6 +49,28 @@ Typed table block
 
 A new ``TypedTableBlock`` block type is available for StreamField, allowing authors to create tables where the cell values are any StreamField block type, including rich text. For more information, see :doc:`/reference/contrib/typed_table_block`. This feature was developed by Matt Westcott, Coen van der Kamp and Scott Cranfill, and sponsored by `YouGov <https://yougov.com/>`_.
 
+Windows high contrast support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As part of a broad push to improve the accessibility of the administration interface, Wagtail now supports `Windows high contrast mode <https://support.microsoft.com/en-us/windows/use-high-contrast-mode-in-windows-10-fedc744c-90ac-69df-aed5-c8a90125e696>`_. There are remaining known issues but we are confident Wagtail is now much more usable for people relying on this assistive technology.
+
+Individual fixes were implemented by a large number of first-time and seasoned contributors:
+
+ * Comments icon now matches link colour (Dmitrii Faiazov, LB (Ben Johnston))
+ * Sidebar logo is now visible in high contrast mode (Dmitrii Faiazov, LB (Ben Johnston))
+ * Icons in links and buttons now use the appropriate “active control” color (Dmitrii Faiazov, LB (Ben Johnston))
+ * Comments dropdown now has a border (Shariq Jamil, LB (Ben Johnston))
+ * Make StreamField block chooser menu buttons appear as buttons (Dmitrii Faiazov, LB (Ben Johnston))
+ * Add a separator to identify the search forms (Dmitrii Faiazov, LB (Ben Johnston))
+ * Update tab styles so the active tab can be identified (Dmitrii Faiazov, LB (Ben Johnston))
+ * Make hamburger menu a button for tab and high contrast accessibility (Amy Chan, Dan Braghis)
+ * Tag fields now have the correct background (Desai Akshata, LB (Ben Johnston))
+ * Added sidebar vertical seperation with main content (Onkar Apte, LB (Ben Johnston))
+ * Added vertical separation between field panels (Chakita Muttaraju, LB (Ben Johnston))
+ * Switch widgets on/off states are now visually distinguishable (Sakshi Uppoor, Thibaud Colas)
+ * Checkbox widgets on/off states are now visually distinguishable (Thibaud Colas, Jacob Topp-Mugglestone, LB (Ben Johnston))
+
+Particular thanks to LB, who reviewed almost all of those contributions, and Kyle Bayliss, who did the initial audit to identify High contrast mode issues.
 
 Other features
 ~~~~~~~~~~~~~~
@@ -102,7 +124,6 @@ Bug fixes
  * Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
- * Multiple accessibility fixes for Windows high contrast mode; Admin fields, Dropdown button, Editor Tabs, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon, sidebar search, streamfield, checkboxes (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis, Thibaud Colas, Shariq Jamil)
  * Menu sidebar hamburger icon on smaller viewports now correctly indicates it is a button to screen readers and can be accessed via keyboard (Amy Chan, Dan Braghis)
  * ``blocks.MultipleChoiceBlock``, ``forms.CheckboxSelectMultiple`` and ``ArrayField`` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Screen readers can now access login screen field labels (Amy Chan)
@@ -120,7 +141,6 @@ Bug fixes
  * Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
  * CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
  * Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
- * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
  * Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
  * Changed relation name used for admin commenting from ``comments`` to ``wagtail_admin_comments`` to avoid conflicts with third-party commenting apps (Matt Westcott)
  * CSS variables are now correctly used for the filtering menu in modeladmin (Noah H)
