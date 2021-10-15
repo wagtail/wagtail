@@ -2,7 +2,7 @@
 .sidebar-main-menu {
     overflow: auto;
     overflow-x: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     @include transition(margin-bottom $menu-transition-duration ease);
 
     &--open-footer {
