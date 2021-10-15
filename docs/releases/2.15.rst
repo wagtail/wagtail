@@ -12,6 +12,18 @@ Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+New database search backend
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail has a new search backend that uses the full-text search features of the database in use. It supports SQLite, PostgreSQL, MySQL, and MariaDB.
+
+This new search backend replaces both the existing generic database and PostgreSQL-specific search backends.
+
+To switch to this new backend, see the upgrade considerations below.
+
+This feature was developed by Aldán Creo as part of Google Summer of Code.
+
+
 Audit logging for all models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -217,3 +229,28 @@ can find out the relation name as follows:
         from wagtail.core.models import COMMENTS_RELATION_NAME
     except ImportError:
         COMMENTS_RELATION_NAME = 'comments'
+
+
+Database backends replaced
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have been deprecated:
+
+ - ``wagtail.search.backends.db``
+ - ``wagtail.contrib.postgres_search.backend``
+
+Both of these backends have now moved to ``wagtail.search.backends.database``.
+This new backend supports all of the features of the PostgreSQL backend, and also supports other databases.
+
+If you have used the PostgreSQL-specific ``SEARCH_CONFIG``, this will continue to work as before with the new backend. For example:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.database',
+            'SEARCH_CONFIG': 'english',
+        }
+    }
+
+However, as a PostgreSQL specific feature, this will be ignored when using a different database.
