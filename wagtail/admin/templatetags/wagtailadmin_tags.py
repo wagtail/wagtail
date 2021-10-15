@@ -490,20 +490,6 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_button_with_dropdown.html",
-                        takes_context=True)
-def bulk_action_filters(context):
-    button_hooks = hooks.get_hooks('register_bulk_action_filters')
-
-    buttons = []
-    for hook in button_hooks:
-        buttons.extend(hook())
-
-    buttons.sort(key=lambda x: x.priority)
-
-    return {'buttons': buttons}
-
-
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
 def bulk_action_choices(context, app_label, model_name):

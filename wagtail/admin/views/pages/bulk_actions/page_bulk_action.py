@@ -10,7 +10,6 @@ class DefaultPageForm(forms.Form):
 
 class PageBulkAction(BulkAction):
     models = [Page]
-    object_key = 'page'
     form_class = DefaultPageForm
 
     def get_context_data(self, **kwargs):

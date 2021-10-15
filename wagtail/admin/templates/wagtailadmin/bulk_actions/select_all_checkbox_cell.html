@@ -3,8 +3,5 @@
     <div>
         {% trans "Select all" as aria_label %}
         <input data-bulk-action-select-all-checkbox type="checkbox" aria-label="{{aria_label}}" />
-        {% if show_filters %}
-            {% bulk_action_filters %}
-        {% endif %}
     </div>
 </th>
