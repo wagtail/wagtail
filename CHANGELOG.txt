@@ -38,7 +38,7 @@ Changelog
  * Move translations in `nl_NL` to `nl` (Loïc Teixeira, Coen van der Kamp)
  * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
  * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
- * Added the ability to customise the pre-filled Image title on upload and it now defaults to the filename without the file extension (LB Johnston)
+ * The title field on Image and Document uploads will now default to the filename without the file extension and this behaviour can be customised (LB Johnston)
  * Add support for Python 3.10 (Matt Westcott)
  * Introduce, `autocomplete`, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
  * Use SVG icons in modeladmin headers and StreamField buttons/headers (Jérôme Lebleu)
