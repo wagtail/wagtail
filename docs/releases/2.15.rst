@@ -97,6 +97,7 @@ Bug fixes
  * Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
  * Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
  * Changed relation name used for admin commenting from ``comments`` to ``wagtail_admin_comments`` to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * CSS variables are now correctly used for the filtering menu in modeladmin (Noah H)
 
 Upgrade considerations
 ======================
