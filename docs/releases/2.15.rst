@@ -12,6 +12,14 @@ Wagtail 2.15 is designated a Long Term Support (LTS) release. Long Term Support 
 What's new
 ==========
 
+Bulk actions
+~~~~~~~~~~~~
+
+Bulk actions are now available for Page, User, Image and Document models in the Wagtail Admin, allowing users to perform actions like publication or deletion on groups of objects at once.
+
+This feature was developed by Shohan Dutta Roy, mentored by Dan Braghis, Jacob Topp-Mugglestone, and Storm Heg.
+
+
 Audit logging for all models
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -186,3 +194,14 @@ This behaviour is will be deprecated in a future release and you should either s
 ``autocomplete()`` method or pass ``partial_match=False`` into the search method to opt-in to the
 new behaviour. The partial matching in ``search()`` will be completely removed in a future release.
 See: :ref:`wagtailsearch_searching_pages`
+
+
+Bulk action views not covered by existing hooks
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bulk action views provide alternative routes to actions like publishing or copying a page.
+If your site relies on hooks like `before_publish_page` or `before_copy_page` to perform
+checks, or add additional functionality, those hooks will not be called on the
+corresponding bulk action views. If you want to add this to the bulk action views as well,
+use the new bulk action hooks: :ref:`before_bulk_action` and :ref:`after bulk actions`.
+ 
