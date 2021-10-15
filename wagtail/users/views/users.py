@@ -48,6 +48,25 @@ def get_user_edit_form():
         return UserEditForm
 
 
+def get_users_filter_query(q, model_fields):
+    conditions = Q()
+
+    for term in q.split():
+        if 'username' in model_fields:
+            conditions |= Q(username__icontains=term)
+
+        if 'first_name' in model_fields:
+            conditions |= Q(first_name__icontains=term)
+
+        if 'last_name' in model_fields:
+            conditions |= Q(last_name__icontains=term)
+
+        if 'email' in model_fields:
+            conditions |= Q(email__icontains=term)
+
+    return conditions
+
+
 @any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers('X-Requested-With')
 def index(request, *args):
@@ -67,20 +86,7 @@ def index(request, *args):
         if form.is_valid():
             q = form.cleaned_data['q']
             is_searching = True
-            conditions = Q()
-
-            for term in q.split():
-                if 'username' in model_fields:
-                    conditions |= Q(username__icontains=term)
-
-                if 'first_name' in model_fields:
-                    conditions |= Q(first_name__icontains=term)
-
-                if 'last_name' in model_fields:
-                    conditions |= Q(last_name__icontains=term)
-
-                if 'email' in model_fields:
-                    conditions |= Q(email__icontains=term)
+            conditions = get_users_filter_query(q, model_fields)
 
             users = User.objects.filter(group_filter & conditions)
     else:
