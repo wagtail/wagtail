@@ -47,23 +47,30 @@ def page_models_from_string(string):
     return tuple(page_models)
 
 
-def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None, pages_to_move=[]):
+def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=True, user_perm=None, **kwargs):
     """Returns boolean indicating of the user can choose page.
     will check if the root page can be selected and if user permissions
     should be checked.
     """
     if user_perm == 'move_to':
-        # checks if page can have subpage
-        if not permission_proxy.for_page(page).can_move():
-            return False
 
-        # checks if page class is one of the desired classes
-        if page.specific_class not in desired_classes:
+        pages_to_move = kwargs.pop('pages_to_move', [])
+        match_subclass = kwargs.pop('match_subclass', True)
+
+        # checks if page class is one of the desired classes or derived from desired class
+        matches_desired_class = False
+        for _cls in desired_classes:
+            if page == _cls or (match_subclass and issubclass(page, _cls)):
+                matches_desired_class = True
+                break
+
+        if not matches_desired_class:
             return False
 
         for page_to_move in pages_to_move:
             if page == page_to_move or page.is_descendant_of(page_to_move):
                 return False
+
         return True
 
     if not issubclass(page.specific_class or Page, desired_classes) and not desired_classes == (Page, ):
@@ -125,12 +132,14 @@ def browse(request, parent_page_id=None):
     else:
         pages_to_move = []
 
+    match_subclass = request.GET.get('match_subclass', True)
+
     # Do permission lookups for this user now, instead of for every page.
     permission_proxy = UserPagePermissionsProxy(request.user)
 
     # Parent page can be chosen if it is a instance of desired_classes
     parent_page.can_choose = can_choose_page(
-        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm, pages_to_move)
+        parent_page, permission_proxy, desired_classes, can_choose_root, user_perm, pages_to_move, match_subclass)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -140,7 +149,7 @@ def browse(request, parent_page_id=None):
 
     # Annotate each page with can_choose/can_decend flags
     for page in pages:
-        page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm, pages_to_move)
+        page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm, pages_to_move, match_subclass)
         page.can_descend = page.get_children_count()
 
     # Render
