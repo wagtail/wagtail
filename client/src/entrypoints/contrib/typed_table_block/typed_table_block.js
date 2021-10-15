@@ -209,12 +209,6 @@ export class TypedTableBlock {
     column.deletedInput.value = '';
     this.deletedFieldsContainer.appendChild(column.deletedInput);
 
-    column.headingInput = document.createElement('input');
-    column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
-    column.headingInput.className = 'column-heading';
-    column.headingInput.placeholder = this.blockDef.meta.strings.COLUMN_HEADING;
-    newHeaderCell.appendChild(column.headingInput);
-
     const prependColumnButton = $(`<button type="button"
       class="button button-small button-secondary prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
@@ -225,6 +219,12 @@ export class TypedTableBlock {
         this.insertColumn(column.position, chosenBlockDef, { addInitialRow: true });
       });
     });
+
+    column.headingInput = document.createElement('input');
+    column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
+    column.headingInput.className = 'column-heading';
+    column.headingInput.placeholder = this.blockDef.meta.strings.COLUMN_HEADING;
+    newHeaderCell.appendChild(column.headingInput);
 
     const deleteColumnButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace white no delete-column"
