@@ -98,6 +98,8 @@ class IndexView(BaseListingView):
         if len(collections) < 2:
             collections = None
 
+        Image = get_image_model()
+
         context.update({
             'search_form': self.form,
             'popular_tags': popular_tags_for_model(get_image_model()),
@@ -105,6 +107,8 @@ class IndexView(BaseListingView):
             'collections': collections,
             'current_collection': self.current_collection,
             'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
+            'app_label': Image._meta.app_label,
+            'model_name': Image._meta.model_name,
         })
         return context
 

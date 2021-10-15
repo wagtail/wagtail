@@ -8,19 +8,33 @@ from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkActi
 from wagtail.core.models import Page
 
 
+class BulkMovePageChooser(widgets.AdminPageChooser):
+    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
+        self.pages_to_move = kwargs.pop('pages_to_move', [])
+        super().__init__(target_models=target_models, can_choose_root=can_choose_root, user_perms=user_perms, **kwargs)
+
+    @widgets.AdminPageChooser.client_options.getter
+    def client_options(self):
+        return {
+            'model_names': self.model_names,
+            'can_choose_root': self.can_choose_root,
+            'user_perms': self.user_perms,
+            'target_pages': self.pages_to_move,
+            'match_subclass': False
+        }
+
+
 class MoveForm(forms.Form):
-    move_applicable = forms.BooleanField(
-        label=_("Move only applicable pages"),
-        required=False
-    )
 
     def __init__(self, *args, **kwargs):
         destination = kwargs.pop('destination')
+        target_parent_models = kwargs.pop('target_parent_models')
+        pages_to_move = kwargs.pop('pages_to_move')
         super().__init__(*args, **kwargs)
         self.fields['chooser'] = forms.ModelChoiceField(
             initial=destination,
             queryset=Page.objects.all(),
-            widget=widgets.AdminPageChooser(can_choose_root=True, user_perms='move_to'),
+            widget=BulkMovePageChooser(can_choose_root=True, user_perms='move_to', target_models=target_parent_models, pages_to_move=pages_to_move),
             label=_("Select a new parent page"),
         )
 
@@ -34,9 +48,16 @@ class MoveBulkAction(PageBulkAction):
     form_class = MoveForm
     destination = None
 
+    def __init__(self, request, model):
+        super().__init__(request, model)
+        self.target_parent_models = set()
+        self.pages_to_move = []
+
     def get_form_kwargs(self):
         ctx = super().get_form_kwargs()
         ctx['destination'] = self.destination or Page.get_first_root_node()
+        ctx['target_parent_models'] = self.target_parent_models
+        ctx['pages_to_move'] = self.pages_to_move
         return ctx
 
     def check_perm(self, page):
@@ -60,10 +81,30 @@ class MoveBulkAction(PageBulkAction):
     def get_actionable_objects(self):
         objects, objects_without_access = super().get_actionable_objects()
         request = self.request
-        destination = self.cleaned_form.cleaned_data['chooser'] if self.cleaned_form else Page.get_first_root_node()
+
+        if objects:
+            self.target_parent_models = set(objects[0].specific_class.allowed_parent_page_models())
+            for obj in objects:
+                self.target_parent_models.intersection_update(set(obj.specific_class.allowed_parent_page_models()))
+
+        self.pages_to_move = [page.id for page in objects]
+
+        if self.cleaned_form is None:
+            if len(self.target_parent_models) == 0:
+                return [], {
+                    **objects_without_access,
+                    'pages_without_common_parent_page': [
+                        {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                        for page in objects
+                    ],
+                }
+            return objects, objects_without_access
+
+        destination = self.cleaned_form.cleaned_data['chooser']
         pages = []
         pages_without_destination_access = []
         pages_with_duplicate_slugs = []
+
         for page in objects:
             if not page.permissions_for_user(request.user).can_move_to(destination):
                 pages_without_destination_access.append(page)
@@ -71,6 +112,7 @@ class MoveBulkAction(PageBulkAction):
                 pages_with_duplicate_slugs.append(page)
             else:
                 pages.append(page)
+
         return pages, {
             **objects_without_access,
             'pages_without_destination_access': [
@@ -85,9 +127,6 @@ class MoveBulkAction(PageBulkAction):
 
     def prepare_action(self, pages, pages_without_access):
         request = self.request
-        move_applicable = self.cleaned_form.cleaned_data['move_applicable']
-        if move_applicable:
-            return
         destination = self.cleaned_form.cleaned_data['chooser']
         if pages_without_access['pages_without_destination_access'] or pages_without_access['pages_with_duplicate_slugs']:
             # this will be picked up by the form
