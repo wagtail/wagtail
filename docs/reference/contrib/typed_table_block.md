@@ -30,7 +30,7 @@ from wagtail.images.blocks import ImageChooserBlock
 class DemoStreamBlock(blocks.StreamBlock):
     title = blocks.CharBlock()
     paragraph = blocks.RichTextBlock()
-    table = TableBlock([
+    table = TypedTableBlock([
         ('text', blocks.CharBlock()),
         ('numeric', blocks.FloatBlock()),
         ('rich_text', blocks.RichTextBlock()),
@@ -41,7 +41,7 @@ class DemoStreamBlock(blocks.StreamBlock):
 To keep the UI as simple as possible for authors, it's generally recommended to use Wagtail's basic built-in block types as column types, as above. However, all custom block types and parameters are supported. For example, to define a 'country' column type consisting of a dropdown of country choices:
 
 ```python
-    table = TableBlock([
+    table = TypedTableBlock([
         ('text', blocks.CharBlock()),
         ('numeric', blocks.FloatBlock()),
         ('rich_text', blocks.RichTextBlock()),
