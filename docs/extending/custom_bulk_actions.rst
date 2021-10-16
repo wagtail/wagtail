@@ -9,25 +9,25 @@ This document describes how to add custom bulk actions to different listings.
 Registering a custom bulk action
 --------------------------------
 
-    .. code-block:: python
+.. code-block:: python
 
-        from wagtail.admin.views.bulk_action import BulkAction
-        from wagtail.core import hooks
+    from wagtail.admin.views.bulk_action import BulkAction
+    from wagtail.core import hooks
 
 
-        @hooks.register('register_bulk_action')
-        class CustomDeleteBulkAction(BulkAction):
-            display_name = _("Delete")
-            aria_label = _("Delete selected objects")
-            action_type = "delete"
-            template_name = "/path/to/confirm_bulk_delete.html"
-            models = [...]
+    @hooks.register('register_bulk_action')
+    class CustomDeleteBulkAction(BulkAction):
+        display_name = _("Delete")
+        aria_label = _("Delete selected objects")
+        action_type = "delete"
+        template_name = "/path/to/confirm_bulk_delete.html"
+        models = [...]
 
-            @classmethod
-            def execute_action(cls, objects, **kwargs):
-                for obj in objects:
-                    do_something(obj)
-                return num_parent_objects, num_child_objects  # return the count of updated objects
+        @classmethod
+        def execute_action(cls, objects, **kwargs):
+            for obj in objects:
+                do_something(obj)
+            return num_parent_objects, num_child_objects  # return the count of updated objects
 
 The attributes are as follows:
 
@@ -105,57 +105,57 @@ The ``execute_action`` classmethod is the only method that must be overridden fo
 takes a list of objects as the only required argument, and a bunch of keyword arguments that can be supplied by overriding
 the ``get_execution_context`` method. For example.
 
-  .. code-block:: python
+.. code-block:: python
 
     @classmethod
     def execute_action(cls, objects, **kwargs):
-      # the kwargs here is the output of the get_execution_context method
-      user = kwargs.get('user', None)
-      num_parent_objects, num_child_objects = 0, 0
-      # you could run the action per object or run them in bulk using django's bulk update and delete methods
-      for obj in objects:
-        num_child_objects += obj.get_children().count()
-        num_parent_objects += 1
-        obj.delete(user=user)
-        num_parent_objects += 1
-      return num_parent_objects, num_child_objects
+        # the kwargs here is the output of the get_execution_context method
+        user = kwargs.get('user', None)
+        num_parent_objects, num_child_objects = 0, 0
+        # you could run the action per object or run them in bulk using django's bulk update and delete methods
+        for obj in objects:
+            num_child_objects += obj.get_children().count()
+            num_parent_objects += 1
+            obj.delete(user=user)
+            num_parent_objects += 1
+        return num_parent_objects, num_child_objects
 
 
 The ``get_execution_context`` method can be overridden to provide context to the ``execute_action``
 
-  .. code-block:: python
+.. code-block:: python
 
     def get_execution_context(self):
-      return {
-        'user': self.request.user
-      }
+        return {
+            'user': self.request.user
+        }
 
 
 The ``get_context_data`` method can be overridden to pass additional context to the confirmation template.
 
-  .. code-block:: python
+.. code-block:: python
 
     def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
-      context['new_key'] = some_value
-      return context
+        context = super().get_context_data(**kwargs)
+        context['new_key'] = some_value
+        return context
 
 
 The ``check_perm`` method can be overridden to check if an object has some permission or not. objects for which the ``check_perm``
 returns ``False`` will be available in the context under the key ``'items_with_no_access'``.
 
-  .. code-block:: python
+.. code-block:: python
 
     def check_perm(self, obj):
-      return obj.has_perm('some_perm')  # returns True or False
+        return obj.has_perm('some_perm')  # returns True or False
 
 
 The success message shown on the admin can be customised by overriding the ``get_success_message`` method.
 
-  .. code-block:: python
+.. code-block:: python
 
     def get_success_message(self, num_parent_objects, num_child_objects):
-      return _("{} objects, including {} child objects have been updated".format(num_parent_objects, num_child_objects))
+        return _("{} objects, including {} child objects have been updated".format(num_parent_objects, num_child_objects))
 
 
 
@@ -168,7 +168,7 @@ instead of ``wagtail.admin.views.bulk_action.BulkAction``
 Basic example
 ~~~~~~~~~~~~~
 
-  .. code-block:: python
+.. code-block:: python
 
     from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
     from wagtail.core import hooks
@@ -189,7 +189,7 @@ instead of ``wagtail.admin.views.bulk_action.BulkAction``
 Basic example
 ~~~~~~~~~~~~~
 
-  .. code-block:: python
+.. code-block:: python
 
     from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
     from wagtail.core import hooks
@@ -210,7 +210,7 @@ instead of ``wagtail.admin.views.bulk_action.BulkAction``
 Basic example
 ~~~~~~~~~~~~~
 
-  .. code-block:: python
+.. code-block:: python
 
     from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
     from wagtail.core import hooks
@@ -231,7 +231,7 @@ instead of ``wagtail.admin.views.bulk_action.BulkAction``
 Basic example
 ~~~~~~~~~~~~~
 
-  .. code-block:: python
+.. code-block:: python
 
     from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
     from wagtail.core import hooks
