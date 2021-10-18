@@ -100,6 +100,18 @@ class RadioSelect extends Widget {
 window.telepath.register('wagtail.widgets.RadioSelect', RadioSelect);
 
 
+class BoundSelect extends BoundWidget {
+    getTextLabel() {
+      return this.input.find(':selected').text();
+    }
+}
+
+class Select extends Widget {
+    boundWidgetClass = BoundSelect;
+}
+window.telepath.register('wagtail.widgets.Select', Select);
+
+
 class PageChooser {
     constructor(html, idPattern, config) {
         this.html = html;

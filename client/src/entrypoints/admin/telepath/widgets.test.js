@@ -152,6 +152,38 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
   });
 });
 
+describe('telepath: wagtail.widgets.Select', () => {
+  let boundWidget;
+
+  beforeEach(() => {
+    // Create a placeholder to render the widget
+    document.body.innerHTML = '<div id="placeholder"></div>';
+
+    // Unpack and render a radio select widget
+    const widgetDef = window.telepath.unpack({
+      _type: 'wagtail.widgets.Select',
+      _args: [
+        `<select name="__NAME__" id="__ID__">
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+        </select>`,
+        '__ID__'
+      ]
+    });
+    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', '1');
+  });
+
+  test('it renders correctly', () => {
+    expect(document.body.innerHTML).toMatchSnapshot();
+    const select = document.querySelector('select');
+    expect(select.options[select.selectedIndex].value).toBe('1');
+  });
+
+  test('getTextLabel() returns the text of selected option', () => {
+    expect(boundWidget.getTextLabel()).toBe('Option 1');
+  });
+});
+
 describe('telepath: wagtail.widgets.PageChooser', () => {
   let boundWidget;
 
