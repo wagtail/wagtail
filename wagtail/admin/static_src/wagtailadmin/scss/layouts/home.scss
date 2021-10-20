@@ -66,6 +66,12 @@ header {
             @include media-breakpoint-down(xs) {
                 font-size: 4em;
             }
+
+            // Media for Windows High Contrast Mode
+            @media (forced-colors: $media-forced-colours) {
+                color: $system-color-link-text;
+                opacity: 1;
+            }
         }
 
         a {
