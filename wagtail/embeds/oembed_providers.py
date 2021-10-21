@@ -545,6 +545,8 @@ sketchfab = {
     "endpoint": "https://sketchfab.com/oembed",
     "urls": [
         r'^https?://sketchfab\.com/show/.+$',
+        r'^https?://sketchfab\.com/models/.+$',
+        r'^https?://sketchfab\.com/3d-models/.+$',
     ],
 }
 
