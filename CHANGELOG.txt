@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Added Aging Pages report (Tidjani Dia)
+ * Add more SketchFab oEmbed patterns for models (Tom Usher)
 
 
 2.15.1 (11.11.2021)
