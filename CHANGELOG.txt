@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.16 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~
+
+ * ...
+
+
 2.15 LTS (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~
 
