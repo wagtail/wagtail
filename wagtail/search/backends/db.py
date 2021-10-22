@@ -1,6 +1,6 @@
 import sys
 
-from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail216Warning
+from wagtail.utils.deprecation import MovedDefinitionHandler, RemovedInWagtail217Warning
 
 
 # If users still import their backend from here, they will get a deprecation warning. The actual backend implementation is now in a submodule (database).
@@ -13,4 +13,4 @@ MOVED_DEFINITIONS = {
     'SearchBackend': ('wagtail.search.backends.database', 'SearchBackend'),
 }
 
-sys.modules[__name__] = MovedDefinitionHandler(sys.modules[__name__], MOVED_DEFINITIONS, RemovedInWagtail216Warning)
+sys.modules[__name__] = MovedDefinitionHandler(sys.modules[__name__], MOVED_DEFINITIONS, RemovedInWagtail217Warning)
