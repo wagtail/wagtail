@@ -863,6 +863,47 @@ Finally, we can update the `blog_page.html` template to display the categories:
 
 ![](../_static/images/tutorial/tutorial_10.jpg)
 
+### Testing
+
+Let's implement a test to confirm that posts that are not Live are not shown in the Index page.
+
+```
+def create_index(title='top index', slug='', intro=''):
+
+    #find root element
+    root_page = Page.objects.first().specific
+    page = BlogIndexPage(title=title, slug=slug, intro=intro)
+    root_page.add_child(instance=page)
+    root_page.save()
+    return page
+
+class BlogIndexTests(TestCase):
+
+      def test_show_live_only(self):
+          index = create_index()
+
+          time = timezone.now()
+
+          blog_page_live = BlogPage(title='blog_live', slug='blog_live', intro=[''], date=time)
+          blog_page_not_live = BlogPage(title='blog_notlive', slug='blog_not_live', intro=[''], date=time, live=False)
+
+          index.add_child(instance=blog_page_live)
+          index.add_child(instance=blog_page_not_live)
+
+          blog_page_live.save()
+          blog_page_not_live.save()
+
+          context = index.get_context(RequestFactory().get(path='/'))
+
+          context_titles = [b.title for b in context['blogpages']]
+          self.assertIn('blog_live', context_titles)
+          self.assertNotIn('blog_notlive', context_titles)
+
+```
+
+We first find the root element `root_page = Page.objects.first().specific` we then create an index page and attach it as a child. Finally we create two new blog posts and attach them as children of the BlogIndexPage. We finally verify that context return only the blog post that was created with Live status.
+
+
 ## Where next
 
 -   Read the Wagtail [topics](../topics/index) and [reference](../reference/index) documentation
