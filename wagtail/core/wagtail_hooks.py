@@ -97,7 +97,7 @@ def register_core_log_actions(actions):
     actions.register_model(Page, PageLogEntry)
 
     actions.register_action('wagtail.create', _('Create'), _('Created'))
-    actions.register_action('wagtail.edit', _('Save draft'), _('Draft saved'))
+    actions.register_action('wagtail.edit', _('Edit'), _('Edited'))
     actions.register_action('wagtail.delete', _('Delete'), _('Deleted'))
     actions.register_action('wagtail.publish', _('Publish'), _('Published'))
     actions.register_action('wagtail.publish.scheduled', _("Publish scheduled draft"), _('Published scheduled draft'))
