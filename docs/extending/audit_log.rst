@@ -61,9 +61,9 @@ Log actions provided by Wagtail
 ===================================  =====
 Action                               Notes
 ===================================  =====
-``wagtail.create``                   The page was created
-``wagtail.edit``                     A draft was saved
-``wagtail.delete``                   The page was deleted. Will only surface in the Site History for administrators
+``wagtail.create``                   The object was created
+``wagtail.edit``                     The object was edited (for pages, saved as draft)
+``wagtail.delete``                   The object was deleted. Will only surface in the Site History for administrators
 ``wagtail.publish``                  The page was published
 ``wagtail.publish.schedule``         Draft is scheduled for publishing
 ``wagtail.publish.scheduled``        Draft published via ``publish_scheduled_pages`` management command
