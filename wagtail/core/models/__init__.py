@@ -4063,6 +4063,14 @@ class PageLogEntry(BaseLogEntry):
     def object_id(self):
         return self.page_id
 
+    @cached_property
+    def message(self):
+        # for page log entries, the 'edit' action should show as 'Draft saved'
+        if self.action == 'wagtail.edit':
+            return _("Draft saved")
+        else:
+            return super().message
+
 
 class Comment(ClusterableModel):
     """
