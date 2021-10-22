@@ -867,7 +867,7 @@ Finally, we can update the `blog_page.html` template to display the categories:
 
 Let's implement a test to confirm that posts that are not Live are not shown in the Index page.
 
-```
+```python
 def create_index(title='top index', slug='', intro=''):
 
     #find root element
@@ -879,25 +879,25 @@ def create_index(title='top index', slug='', intro=''):
 
 class BlogIndexTests(TestCase):
 
-      def test_show_live_only(self):
-          index = create_index()
+    def test_show_live_only(self):
+        index = create_index()
 
-          time = timezone.now()
+        time = timezone.now()
 
-          blog_page_live = BlogPage(title='blog_live', slug='blog_live', intro=[''], date=time)
-          blog_page_not_live = BlogPage(title='blog_notlive', slug='blog_not_live', intro=[''], date=time, live=False)
+        blog_page_live = BlogPage(title='blog_live', slug='blog_live', intro=[''], date=time)
+        blog_page_not_live = BlogPage(title='blog_notlive', slug='blog_not_live', intro=[''], date=time, live=False)
 
-          index.add_child(instance=blog_page_live)
-          index.add_child(instance=blog_page_not_live)
+        index.add_child(instance=blog_page_live)
+        index.add_child(instance=blog_page_not_live)
 
-          blog_page_live.save()
-          blog_page_not_live.save()
+        blog_page_live.save()
+        blog_page_not_live.save()
 
-          context = index.get_context(RequestFactory().get(path='/'))
+        context = index.get_context(RequestFactory().get(path='/'))
 
-          context_titles = [b.title for b in context['blogpages']]
-          self.assertIn('blog_live', context_titles)
-          self.assertNotIn('blog_notlive', context_titles)
+        context_titles = [b.title for b in context['blogpages']]
+        self.assertIn('blog_live', context_titles)
+        self.assertNotIn('blog_notlive', context_titles)
 
 ```
 
