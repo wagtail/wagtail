@@ -62,9 +62,12 @@ export class TypedTableBlock {
               <tr>
                 <td class="control-cell"></td>
                 <td>
-                  <button type="button" class="button button-small button-secondary button--icon text-replace prepend-row"
+                  <button type="button"
+                    class="button button-small button-secondary button--icon text-replace prepend-row"
                     aria-label="${h(strings.ADD_ROW)}" title="${h(strings.ADD_ROW)}" data-add-row>
-                    <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
+                    <svg class="icon icon-plus icon" aria-hidden="true" focusable="false">
+                      <use href="#icon-plus"></use>
+                    </svg>
                   </button>
                 </td>
               </tr>
@@ -265,13 +268,15 @@ export class TypedTableBlock {
     this.appendColumnButton.html(
       '<svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>'
     )
-    .addClass(
-      'button--icon text-replace white'
-    ).attr(
-      'aria-label', this.blockDef.meta.strings.ADD_COLUMN
-    ).attr(
-      'title', this.blockDef.meta.strings.ADD_COLUMN
-    );
+      .addClass(
+        'button--icon text-replace white'
+      )
+      .attr(
+        'aria-label', this.blockDef.meta.strings.ADD_COLUMN
+      )
+      .attr(
+        'title', this.blockDef.meta.strings.ADD_COLUMN
+      );
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
       /* add an initial row */
