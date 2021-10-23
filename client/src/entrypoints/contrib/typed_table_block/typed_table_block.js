@@ -60,16 +60,14 @@ export class TypedTableBlock {
             </tbody>
             <tfoot>
               <tr>
-                <td class="control-cell"></td>
-                <td>
+                <td class="control-cell">
                   <button type="button"
                     class="button button-small button-secondary button--icon text-replace prepend-row"
                     aria-label="${h(strings.ADD_ROW)}" title="${h(strings.ADD_ROW)}" data-add-row>
                     <svg class="icon icon-plus icon" aria-hidden="true" focusable="false">
                       <use href="#icon-plus"></use>
                     </svg>
-                  </button>
-                </td>
+                  </button></td>
               </tr>
             </tfoot>
           </table>
