@@ -34,7 +34,7 @@ Changelog
  * Improve display of image listing for long image titles (Krzysztof Jeziorny)
  * Use SVG icons in admin home page site summary items (Jérôme Lebleu)
  * Ensure site summary items wrap on smaller devices on the admin home page (Jérôme Lebleu)
- * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast, help/error/warning blocks for fields and general content (Sakshi Uppoor, Shariq Jamil, LB (Ben Johnston))
+ * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast, help/error/warning blocks for fields and general content, side comment buttons within the page editor (Sakshi Uppoor, Shariq Jamil, LB (Ben Johnston), Jason Attwood)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
  * Fix: Refresh page from database on create before passing to hooks. Page aliases get correct `first_published_date` and `last_published_date` (Dan Braghis)

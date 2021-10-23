@@ -533,6 +533,11 @@ li.inline:first-child {
                 width: 30px;
                 height: 30px;
                 color: $color-teal;
+
+                @media (forced-colors: $media-forced-colours) {
+                    color: ButtonText;
+                    border: 1px solid;
+                }
             }
         }
     }
