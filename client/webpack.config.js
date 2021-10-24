@@ -33,6 +33,7 @@ module.exports = function exports() {
       'core',
       'date-time-chooser',
       'draftail',
+      'dropdown',
       'expanding_formset',
       'filtered-select',
       'hallo-bootstrap',
