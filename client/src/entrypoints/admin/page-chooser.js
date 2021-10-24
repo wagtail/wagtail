@@ -60,6 +60,12 @@ function createPageChooser(id, openAtParentId, options) {
         url += state.parentId + '/';
       }
       const urlParams = { page_type: options.model_names.join(',') };
+      if (options.target_pages) {
+        urlParams.target_pages = options.target_pages;
+      }
+      if (options.match_subclass) {
+        urlParams.match_subclass = options.match_subclass;
+      }
       if (options.can_choose_root) {
         urlParams.can_choose_root = 'true';
       }

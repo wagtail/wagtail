@@ -1,0 +1,6 @@
+{% load i18n wagtailadmin_tags %}
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        <div class="human-readable-date" title="{{ value|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=value|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
+    {% endif %}
+</td>

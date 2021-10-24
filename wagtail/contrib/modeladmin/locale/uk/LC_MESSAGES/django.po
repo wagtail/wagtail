@@ -4,14 +4,15 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 # Zoriana Zaiats, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Sergiy Shkodenko <shkodenkosergiy@gmail.com>\n"
+"PO-Revision-Date: 2021-09-29 17:38+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -115,6 +116,9 @@ msgstr "Повернутися назад до списку"
 msgid "Yes, delete"
 msgstr "Так, видалити"
 
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
 msgid "Home"
 msgstr "Головна"
 
@@ -133,6 +137,9 @@ msgstr "Шукати на"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Шукати %(name)s"
+
+msgid "Download XLSX"
+msgstr "Завантажити XLSX"
 
 msgid "Download CSV"
 msgstr "Завантажити CSV"
@@ -164,6 +171,9 @@ msgstr ""
 "\">додати</a>?\n"
 "                                            "
 
+msgid "Pagination"
+msgstr "Пагінація"
+
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr "Сторінка %(current_page)s з %(num_pages)s."
@@ -177,6 +187,10 @@ msgstr "Назад"
 
 msgid "Next"
 msgstr "Далі"
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' created."
+msgstr "%(model_name)s '%(instance)s' створено."
 
 #, python-format
 msgid "The %s could not be created due to errors."
@@ -197,6 +211,10 @@ msgid "Editing %s"
 msgstr "Редагування %s"
 
 #, python-format
+msgid "%(model_name)s '%(instance)s' updated."
+msgstr "%(model_name)s '%(instance)s' оновлено."
+
+#, python-format
 msgid "The %s could not be saved due to errors."
 msgstr "%s не може бути збережено через помилки."
 
@@ -211,6 +229,10 @@ msgid ""
 msgstr ""
 "Ви впевнені, що бажаєте видалити %s? Якщо є інші пов'язані сутності, то це "
 "також може їх зачепити."
+
+#, python-format
+msgid "%(model_name)s '%(instance)s' deleted."
+msgstr "%(model_name)s '%(instance)s' видалено."
 
 msgid "Inspecting"
 msgstr "Перегляд"

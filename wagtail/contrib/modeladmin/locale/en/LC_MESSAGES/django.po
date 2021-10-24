@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Parent page"
 msgstr ""
 
-#: helpers/button.py:42 views.py:729
+#: helpers/button.py:42 views.py:752
 #, python-format
 msgid "Add %s"
 msgstr ""
@@ -44,16 +44,16 @@ msgstr ""
 msgid "Inspect this %s"
 msgstr ""
 
-#: helpers/button.py:70 views.py:188
+#: helpers/button.py:70 views.py:194
 msgid "Edit"
 msgstr ""
 
-#: helpers/button.py:72
+#: helpers/button.py:72 templatetags/modeladmin_tags.py:78
 #, python-format
 msgid "Edit this %s"
 msgstr ""
 
-#: helpers/button.py:84 templates/modeladmin/edit.html:15 views.py:760
+#: helpers/button.py:84 templates/modeladmin/edit.html:19 views.py:783
 msgid "Delete"
 msgstr ""
 
@@ -99,11 +99,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: templates/modeladmin/create.html:43 templates/modeladmin/edit.html:8
+#: templates/modeladmin/create.html:56 templates/modeladmin/edit.html:12
 msgid "Saving…"
 msgstr ""
 
-#: templates/modeladmin/create.html:44 templates/modeladmin/edit.html:9
+#: templates/modeladmin/create.html:57 templates/modeladmin/edit.html:13
 msgid "Save"
 msgstr ""
 
@@ -141,6 +141,19 @@ msgstr ""
 msgid " By %(filter_title)s "
 msgstr ""
 
+#: templates/modeladmin/includes/header_with_history.html:10
+msgid "Last updated"
+msgstr ""
+
+#: templates/modeladmin/includes/header_with_history.html:14 views.py:975
+msgid "History"
+msgstr ""
+
+#: templates/modeladmin/includes/result_count.html:3
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr ""
+
 #: templates/modeladmin/includes/result_list.html:23
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -155,31 +168,31 @@ msgstr ""
 msgid "Search %(name)s"
 msgstr ""
 
-#: templates/modeladmin/index.html:35
+#: templates/modeladmin/index.html:43
 msgid "Download XLSX"
 msgstr ""
 
-#: templates/modeladmin/index.html:38
+#: templates/modeladmin/index.html:46
 msgid "Download CSV"
 msgstr ""
 
-#: templates/modeladmin/index.html:56
+#: templates/modeladmin/index.html:65
 msgid "Filter"
 msgstr ""
 
-#: templates/modeladmin/index.html:67
+#: templates/modeladmin/index.html:76
 #, python-format
 msgid ""
 "No %(name)s have been created yet. One of the following must be created "
 "before you can add any %(name)s:"
 msgstr ""
 
-#: templates/modeladmin/index.html:72
+#: templates/modeladmin/index.html:81
 #, python-format
 msgid "No %(name)s have been created yet."
 msgstr ""
 
-#: templates/modeladmin/index.html:74
+#: templates/modeladmin/index.html:83
 #, python-format
 msgid ""
 "\n"
@@ -188,11 +201,11 @@ msgid ""
 "                                            "
 msgstr ""
 
-#: templates/modeladmin/index.html:87
+#: templates/modeladmin/index.html:96
 msgid "Pagination"
 msgstr ""
 
-#: templates/modeladmin/index.html:88
+#: templates/modeladmin/index.html:97
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
 msgstr ""
@@ -202,74 +215,82 @@ msgstr ""
 msgid "Back to %(model_name)s list"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:110
+#: templatetags/modeladmin_tags.py:120
 msgid "Previous"
 msgstr ""
 
-#: templatetags/modeladmin_tags.py:124
+#: templatetags/modeladmin_tags.py:134
 msgid "Next"
 msgstr ""
 
-#: views.py:181
+#: views.py:187
 #, python-format
 msgid "%(model_name)s '%(instance)s' created."
 msgstr ""
 
-#: views.py:193
+#: views.py:199
 #, python-format
 msgid "The %s could not be created due to errors."
 msgstr ""
 
-#: views.py:650
+#: views.py:656
 msgid "New"
 msgstr ""
 
-#: views.py:675
+#: views.py:686
 #, python-format
 msgid "Create new %s"
 msgstr ""
 
-#: views.py:685
+#: views.py:696
 msgid "Editing"
 msgstr ""
 
-#: views.py:699
+#: views.py:710
 #, python-format
 msgid "Editing %s"
 msgstr ""
 
-#: views.py:702
+#: views.py:713
 #, python-format
 msgid "%(model_name)s '%(instance)s' updated."
 msgstr ""
 
-#: views.py:716
+#: views.py:734
 #, python-format
 msgid "The %s could not be saved due to errors."
 msgstr ""
 
-#: views.py:776
+#: views.py:799
 #, python-format
 msgid "Confirm deletion of %s"
 msgstr ""
 
-#: views.py:780
+#: views.py:803
 #, python-format
 msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
 
-#: views.py:789
+#: views.py:812
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."
 msgstr ""
 
-#: views.py:825
+#: views.py:850
 msgid "Inspecting"
 msgstr ""
 
-#: views.py:838
+#: views.py:863
 #, python-format
 msgid "Inspecting %s"
+msgstr ""
+
+#: views.py:978
+msgid "Action"
+msgstr ""
+
+#: views.py:980
+msgid "Date"
 msgstr ""

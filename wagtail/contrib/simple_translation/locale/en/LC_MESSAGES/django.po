@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr[1] ""
 msgid "Submit"
 msgstr ""
 
-#: tests/test_views.py:44 tests/test_views.py:45 views.py:21
+#: tests/test_views.py:46 tests/test_views.py:47 views.py:21
 #: wagtail_hooks.py:55 wagtail_hooks.py:74
 msgid "Translate"
 msgstr ""

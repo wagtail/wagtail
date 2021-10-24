@@ -4,13 +4,14 @@
 #
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
+# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-06 12:06+0000\n"
+"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -40,6 +41,40 @@ msgstr "просування у пошуку"
 
 msgid "Add search promotion"
 msgstr "Додати просування у пошуку"
+
+msgid "Add search pick"
+msgstr "Додати пошукову вибірку"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                 <p>Промотовані пошукові запити означають рекомендацію "
+"конкретних сторінок, які, можливо, не потрапляють у пошукову видачу, але "
+"можуть бути корисними. Наприклад, рекомендація сторінки пожертвування "
+"користувачу, який шукає щось з запитом \"<em>даю</em>\".</p>\n"
+" "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                 <p>Поле \"Пошуковий термін(и)\" повинне містити повний і "
+"точний пошуковий запит, для якого ви хочете щось рекомендувати, "
+"<em>включаючи</em> будь-які помилки та опечатки, які можуть допустити "
+"користувачі. Для допомоги, ви можете вибрати з найпопулярніших пошукових "
+"запитів, які скористалися користувачі вашого сайту.</p>\n"
+"  "
 
 msgid "Save"
 msgstr "Зберегти"
@@ -91,17 +126,55 @@ msgstr "Додати новий промотований результат"
 msgid "Search term(s)"
 msgstr "Пошуковий термін(и)"
 
+msgid "Order by search term alphabetically"
+msgstr "Впорядкувати за алфавітом "
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Впорядкувати за алфавітом у зворотному порядку"
+
 msgid "Promoted results"
 msgstr "Промотовані результати"
 
 msgid "Views (past week)"
 msgstr "Перегляди (останнього тижня)"
 
+msgid "Order by views (lowest first)"
+msgstr "Впорядкувати за переглядами (спочатку менше) "
+
+msgid "Order by views (highest first)"
+msgstr "Впорядкувати за переглядами (спочатку більше)"
+
 msgid "Edit this promotion"
 msgstr "Редагувати цю промоцію"
 
 msgid "None"
 msgstr "Нічого"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Знайдено %(counter)s збіг\n"
+" "
+msgstr[1] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[2] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
+msgstr[3] ""
+"\n"
+"            Знайдено %(counter)s збігів\n"
+" "
 
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""

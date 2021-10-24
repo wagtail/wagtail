@@ -66,11 +66,6 @@ The search may not return any results while this command is running, so avoid ru
 Indexing extra fields
 =====================
 
-.. warning::
-
-    Indexing extra fields is only supported by the :ref:`wagtailsearch_backends_elasticsearch` and :ref:`wagtailsearch_backends_postgresql`.  Indexing extra fields is not supported by the :ref:`wagtailsearch_backends_database`. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
-
-
 Fields must be explicitly added to the ``search_fields`` property of your ``Page``-derived model, in order for you to be able to search/filter on them. This is done by overriding ``search_fields`` to append a list of extra ``SearchField``/``FilterField`` objects to it.
 
 
@@ -116,6 +111,19 @@ Options
 
 
 .. _wagtailsearch_index_filterfield:
+
+``index.AutocompleteField``
+---------------------------
+
+These are used for autocomplete queries which match partial words. For example, a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
+
+This takes the exact same options as ``index.SearchField`` (with the exception of ``partial_match``, which has no effect).
+
+
+.. tip::
+
+   Only index fields that are displayed in the search results with ``index.AutocompleteField``. This allows users to see any words that were partial-matched on.
+
 
 ``index.FilterField``
 ---------------------

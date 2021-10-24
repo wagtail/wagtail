@@ -3,6 +3,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
@@ -65,7 +66,7 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
 
 class TestSettingCreateView(BaseTestSettingView):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_get_edit(self):
         response = self.get()
@@ -89,6 +90,10 @@ class TestSettingCreateView(BaseTestSettingView):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/settings/tests/testsetting/%d/' % default_site.pk
+        self.assertEqual(url_finder.get_edit_url(setting), expected_url)
 
     def test_file_upload_multipart(self):
         response = self.get(setting=FileUploadSetting)

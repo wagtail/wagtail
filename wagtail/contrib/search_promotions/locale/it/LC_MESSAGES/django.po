@@ -6,14 +6,15 @@
 # Claudio Bantaloukas <rockdreamer@gmail.com>, 2015
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015,2017
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-08-13 06:19+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -23,12 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
-msgstr "Promozioni di ricerca Wagtail"
+msgstr "Ricerca in evidenza Wagtail"
 
 msgid "Please specify at least one recommendation for this search term."
-msgstr ""
-"Si prega di specificare almeno una raccomandazione per questo termine di "
-"ricerca."
+msgstr "Specifica almeno una raccomandazione per questo termine di ricerca."
 
 msgid "page"
 msgstr "pagina"
@@ -37,13 +36,13 @@ msgid "description"
 msgstr "descrizione"
 
 msgid "search promotion"
-msgstr "ricerca promozionata"
+msgstr "ricerca in evidenza"
 
 msgid "Add search promotion"
-msgstr "Aggiungi ricerca promozionata"
+msgstr "Aggiungi ricerca in evidenza"
 
 msgid "Add search pick"
-msgstr "Aggiungi ricerca scelta"
+msgstr "Aggiungi ricerca consigliata"
 
 msgid ""
 "\n"
@@ -54,10 +53,10 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                <p>I risultati di ricerca promozionati sono un mezzo di "
+"                <p>I risultati di ricerca in evidenza sono un mezzo di "
 "pubblicizzare pagine specifiche che potrebbero non salire organicamente in "
-"alto nei risultati dei motori di ricerca. Ad esempio, pubblicizza la tua "
-"pagina donazione a un utente che fa una ricerca con il termine comune "
+"alto nei risultati dei motori di ricerca. Ad esempio, puoi pubblicizzare la "
+"tua pagina donazione a un utente che fa una ricerca con il termine comune "
 "\"<em>dare</em>\".</p>\n"
 "            "
 
@@ -90,7 +89,7 @@ msgstr "Elimina"
 msgid ""
 "Are you sure you want to delete all promoted results for this search term?"
 msgstr ""
-"Sei sicuro di voler eliminare tutti i risultati di ricerca pubblicizzati per "
+"Sei sicuro di voler eliminare tutti i risultati di ricerca in evidenza per "
 "questo termine di ricerca?"
 
 msgid "Yes, delete"
@@ -110,7 +109,7 @@ msgid "Move down"
 msgstr "Sposta giù"
 
 msgid "Promoted search result"
-msgstr "Risultati di ricerca promozionati"
+msgstr "Risultati di ricerca in evidenza"
 
 msgid "Add recommended page"
 msgstr "Aggiungi pagina raccomandata"
@@ -119,19 +118,31 @@ msgid "Search Terms"
 msgstr "Termini di ricerca"
 
 msgid "Promoted search results"
-msgstr "Risultati di ricerca promozionati"
+msgstr "Risultati di ricerca in evidenza"
 
 msgid "Add new promoted result"
-msgstr "Aggiungi nuovo risultato promozionato"
+msgstr "Aggiungi nuovo risultato in evidenza"
 
 msgid "Search term(s)"
 msgstr "Termine(i) di ricerca"
 
+msgid "Order by search term alphabetically"
+msgstr "Ordina per termine di ricerca in modo alfabetico"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Ordina per termine di ricerca in modo alfabetico inverso"
+
 msgid "Promoted results"
-msgstr "Risultati promozionati"
+msgstr "Risultati in evidenza"
 
 msgid "Views (past week)"
 msgstr "Viste (scorsa settimana)"
+
+msgid "Order by views (lowest first)"
+msgstr "Ordina per visualizzazioni (le più basse prima)"
+
+msgid "Order by views (highest first)"
+msgstr "Ordina per visualizzazioni (le più alte prima)"
 
 msgid "Edit this promotion"
 msgstr "Modifica questa promozione"
@@ -160,7 +171,7 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Spiacente, nessun risultato promozionato corrispondente a \"<em>"
+"Spiacente, nessun risultato in evidenza corrispondente a \"<em>"
 "%(query_string)s</em>\""
 
 #, python-format
@@ -168,11 +179,11 @@ msgid ""
 "No promoted results have been created. Why not <a href="
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Non è stato creato nessun risultato promozionato. Perché non ne <a href="
+"Non è stato creato nessun risultato in evidenza. Perché non ne <a href="
 "\"%(wagtailsearchpromotions_add_url)s\">aggiungi uno</a>?"
 
 msgid "Search promoted results"
-msgstr "Cerca risultati promozionati"
+msgstr "Cerca risultati in evidenza"
 
 msgid "Editor's picks for '{0}' created."
 msgstr "Scelta dalla redazione per '{0}' creata."
@@ -181,7 +192,7 @@ msgid "Edit"
 msgstr "Modifica"
 
 msgid "Recommendations have not been created due to errors"
-msgstr "Raccomandazione non creata a causa di errori"
+msgstr "Le raccomandazioni non sono state create a causa di errori"
 
 msgid "Editor's picks for '{0}' updated."
 msgstr "Scelta dalla redazione per '{0}' aggiornata."
@@ -190,4 +201,4 @@ msgid "Recommendations have not been saved due to errors"
 msgstr "Raccomandazione non salvata a causa di errori"
 
 msgid "Editor's picks deleted."
-msgstr "Scelta dalla redazione eliminata."
+msgstr "Scelte dalla redazione eliminate."

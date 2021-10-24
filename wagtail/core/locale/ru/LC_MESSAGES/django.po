@@ -8,6 +8,7 @@
 # Alexey Trofimov <funkindy@gmail.com>, 2020
 # Andrey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
+# Matt Westcott <matthew@torchbox.com>, 2021
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>\n"
+"PO-Revision-Date: 2021-08-13 09:19+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -364,7 +365,7 @@ msgid "status"
 msgstr "статус"
 
 msgid "requested by"
-msgstr "запрощен"
+msgstr "запрошен"
 
 msgid "current task state"
 msgstr "текущее состояние задачи"

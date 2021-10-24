@@ -22,7 +22,7 @@ from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import COMMENTS_RELATION_NAME, Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -560,7 +560,10 @@ class FieldPanel(EditHandler):
 
     def on_form_bound(self):
         self.bound_field = self.form[self.field_name]
-        self.heading = self.heading or self.bound_field.label
+        if self.heading:
+            self.bound_field.label = self.heading
+        else:
+            self.heading = self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def __repr__(self):
@@ -847,9 +850,10 @@ class CommentPanel(EditHandler):
                 }
 
         return {
-            'comments': {
+            COMMENTS_RELATION_NAME: {
                 'form': CommentFormWithRequest,
                 'fields': ['text', 'contentpath', 'position'],
+                'formset_name': 'comments',
             }
         }
 

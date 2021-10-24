@@ -4,6 +4,7 @@
 #
 # Translators:
 # Diogo Ribeiro <pdcribeiro95@gmail.com>, 2020
+# Diogo Silva <diogo_silva30@hotmail.com>, 2021
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Hugo Cachitas, 2020
@@ -19,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"PO-Revision-Date: 2021-08-12 15:26+0000\n"
+"Last-Translator: Diogo Silva <diogo_silva30@hotmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -401,6 +402,15 @@ msgstr "Comentário"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Save the page to add this comment"
+msgstr "Guarde a página para adicionar este comentário"
+
+msgid "Save the page to save this comment"
+msgstr "Guarde a página para guardar este comentário"
+
+msgid "Save the page to save this reply"
+msgstr "Guarde a página para guardar esta resposta"
+
 msgid "Dashboard"
 msgstr "Painel de controlo"
 
@@ -625,6 +635,12 @@ msgstr "Baixar"
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
+msgid "Comments"
+msgstr "Comentários"
+
+msgid "Commenting on this page"
+msgstr "Comentários nesta página"
+
 msgid "Comment notifications"
 msgstr "Notificações de comentário"
 
@@ -757,6 +773,9 @@ msgstr "Entrar no Wagtail"
 
 msgid "Signing in…"
 msgstr "A iniciar sessão..."
+
+msgid "Forgotten password?"
+msgstr "Esqueceu-se da palavra-passe?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1790,6 +1809,9 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Passar à frente para o conteúdo principal"
+
+msgid "View Wagtail quick actions"
+msgstr "Visualizar as ações rápidas do Wagtail"
 
 msgid "Add a child page"
 msgstr "Adicionar página-filha"

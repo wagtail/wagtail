@@ -6,14 +6,15 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"PO-Revision-Date: 2021-08-14 14:37+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +43,9 @@ msgstr "Modifica un documento"
 
 msgid "Choose"
 msgstr "Scegli"
+
+msgid "Select documents in choosers"
+msgstr "Seleziona i documenti nei selettori"
 
 msgid "title"
 msgstr "titolo"
@@ -179,6 +183,9 @@ msgstr "Titolo"
 msgid "File"
 msgstr "File"
 
+msgid "Created"
+msgstr "Creato"
+
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s fa"
@@ -218,6 +225,26 @@ msgstr "Stato"
 msgid "Edit this page"
 msgstr "Modifica questa pagina"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Documento creato in %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documenti creati in %(site_name)s</span>\n"
+"    "
+
 msgid "Add multiple documents"
 msgstr "Aggiungi documenti multipli"
 
@@ -246,6 +273,9 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "Spiacente, caricamento fallito."
+
+msgid "Document updated."
+msgstr "Documento aggioranto."
 
 msgid "You need a password to access this document."
 msgstr "Devi avere una password per accedere a questo documento."

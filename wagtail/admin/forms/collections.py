@@ -2,6 +2,7 @@ from itertools import groupby
 
 from django import forms
 from django.contrib.auth.models import Group, Permission
+from django.core.exceptions import ValidationError
 from django.db import transaction
 from django.db.models import Min
 from django.template.loader import render_to_string
@@ -71,7 +72,7 @@ class CollectionForm(forms.ModelForm):
     parent = CollectionChoiceField(
         label=gettext_lazy("Parent"),
         queryset=Collection.objects.all(),
-        required=False,
+        required=True,
         help_text=gettext_lazy(
             "Select hierarchical position. Note: a collection cannot become a child of itself or one of its "
             "descendants."
@@ -82,14 +83,26 @@ class CollectionForm(forms.ModelForm):
         model = Collection
         fields = ('name',)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def clean_parent(self):
+        """
+        Our rules about where a user may add or move a collection are as follows:
+            1. The user must have 'add' permission on the parent collection (or its ancestors)
+            2. We are not moving a collection used to assign permissions for this user
+            3. We are not trying to move a collection to be parented by one of their descendants
 
-        if self.instance._state.adding:
-            self.initial['parent'] = Collection.get_first_root_node().pk
-        else:
-            self.initial['parent'] = self.instance.get_parent().pk
-            self.fields['parent'].disabled_queryset = self.instance.get_descendants(inclusive=True)
+        The first 2 items are taken care in the Create and Edit views by deleting the 'parent' field
+        from the edit form if the user cannot move the collection. This causes Django's form
+        machinery to ignore the parent field for parent regardless of what the user submits.
+        This methods enforces rule #3 when we are editing an existing collection.
+        """
+        parent = self.cleaned_data['parent']
+        if not self.instance._state.adding and not parent.pk == self.initial.get('parent'):
+            old_descendants = list(self.instance.get_descendants(
+                inclusive=True).values_list('pk', flat=True)
+            )
+            if parent.pk in old_descendants:
+                raise ValidationError(gettext_lazy('Please select another parent'))
+        return parent
 
 
 class BaseCollectionMemberForm(forms.ModelForm):
@@ -308,3 +321,14 @@ def collection_member_permission_formset_factory(
         extra=0,
         can_delete=True
     )
+
+
+GroupCollectionManagementPermissionFormSet = collection_member_permission_formset_factory(
+    Collection,
+    [
+        ('add_collection', _("Add"), _("Add collections")),
+        ('change_collection', _("Edit"), _("Edit collections")),
+        ('delete_collection', _("Delete"), _("Delete collections")),
+    ],
+    'wagtailadmin/permissions/includes/collection_management_permissions_form.html'
+)

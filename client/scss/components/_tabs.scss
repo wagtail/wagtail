@@ -152,3 +152,10 @@
         width: auto;
     }
 }
+
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+    .tab-nav li.active a {
+        border-bottom: 0.3em solid $system-color-link-text;
+    }
+}

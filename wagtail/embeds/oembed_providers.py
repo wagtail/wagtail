@@ -634,6 +634,13 @@ reddit = {
     ]
 }
 
+tidal = {
+    'endpoint': 'https://oembed.tidal.com/',
+    'urls': [
+        r'^https?://(?:www\.)?tidal\.com/.+$'
+    ]
+}
+
 all_providers = [
     speakerdeck, app_net, youtube, datastudio, deviantart, blip_tv, dailymotion, flikr,
     hulu, nfb, qik, revision3, scribd, viddler, vimeo, dotsub, yfrog,
@@ -646,5 +653,5 @@ all_providers = [
     vhx_tv, justin_tv, official_fm, huffduffer, spotify, shoudio, mobypicture,
     twenty_three_hq, gmep, urtak, cacoo, dailymile, dipity, sketchfab, meetup,
     roomshare, crowd_ranking, etsy, audioboom, clikthrough, ifttt, issuu, tumblr, vidyard,
-    reddit
+    reddit, tidal
 ]

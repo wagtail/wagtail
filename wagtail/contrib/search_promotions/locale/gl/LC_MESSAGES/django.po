@@ -5,12 +5,13 @@
 # Translators:
 # Amós Oviedo <amos.oviedo@gmail.com>, 2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"PO-Revision-Date: 2021-10-14 14:25+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -165,4 +166,4 @@ msgid "Recommendations have not been saved due to errors"
 msgstr "As recomendaciones non foron gardadas debido a erros"
 
 msgid "Editor's picks deleted."
-msgstr "Seleccións do editor para '{0}' eliminadas."
+msgstr "Seleccións do editor eliminadas."

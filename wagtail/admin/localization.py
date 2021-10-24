@@ -29,7 +29,7 @@ WAGTAILADMIN_PROVIDED_LANGUAGES = [
     ('lt', 'Lithuanian'),
     ('mn', 'Mongolian'),
     ('nb', 'Norwegian Bokmål'),
-    ('nl-nl', 'Netherlands Dutch'),
+    ('nl', 'Dutch'),
     ('fa', 'Persian'),
     ('pl', 'Polish'),
     ('pt-br', 'Brazilian Portuguese'),
@@ -107,6 +107,40 @@ def get_js_translation_strings():
         # counting from -1 and use modulo 7 to get an array index
         'WEEKDAYS': [str(WEEKDAYS[d % 7]) for d in range(-1, 6)],
         'WEEKDAYS_SHORT': [str(WEEKDAYS_ABBR[d % 7]) for d in range(-1, 6)],
+
+        # used by bulk actions
+        'BULK_ACTIONS': {
+            'PAGE': {
+                'SINGULAR': _('1 page selected'),
+                'PLURAL': _("{0} pages selected"),
+                'ALL': _("All {0} pages on this screen selected"),
+                'ALL_IN_LISTING': _("All pages in listing selected"),
+            },
+            'DOCUMENT': {
+                'SINGULAR': _('1 document selected'),
+                'PLURAL': _("{0} documents selected"),
+                'ALL': _("All {0} documents on this screen selected"),
+                'ALL_IN_LISTING': _("All documents in listing selected"),
+            },
+            'IMAGE': {
+                'SINGULAR': _('1 image selected'),
+                'PLURAL': _("{0} images selected"),
+                'ALL': _("All {0} images on this screen selected"),
+                'ALL_IN_LISTING': _("All images in listing selected"),
+            },
+            'USER': {
+                'SINGULAR': _('1 user selected'),
+                'PLURAL': _("{0} users selected"),
+                'ALL': _("All {0} users on this screen selected"),
+                'ALL_IN_LISTING': _("All users in listing selected"),
+            },
+            'ITEM': {
+                'SINGULAR': _('1 item selected'),
+                'PLURAL': _("{0} items selected"),
+                'ALL': _("All {0} items on this screen selected"),
+                'ALL_IN_LISTING': _("All items in listing selected"),
+            },
+        },
     }
 
 

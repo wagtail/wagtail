@@ -13,3 +13,4 @@ Images
     feature_detection
     image_serve_view
     focal_points
+    title_generation_on_upload

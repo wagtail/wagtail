@@ -1,8 +1,10 @@
+import datetime
 import json
 
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
@@ -12,13 +14,15 @@ from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.timezone import make_aware
 from taggit.models import Tag
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
-from wagtail.core.models import Locale, Page
+from wagtail.core.models import Locale, ModelLogEntry, Page
 from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
@@ -527,6 +531,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
 
     def test_get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -546,6 +557,15 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertNotContains(response, '<a href="#advert" class="active" data-tab="advert">Advert</a>', html=True)
         self.assertNotContains(response, '<a href="#other" class="" data-tab="other">Other</a>', html=True)
 
+        # "Last updated" timestamp should be present
+        self.assertContains(response, 'data-wagtail-tooltip="Sept. 30, 2021, 10:01 a.m."')
+        # History link should be present
+        self.assertContains(response, 'href="/admin/snippets/tests/advert/history/%d/"' % self.test_snippet.pk)
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/snippets/tests/advert/edit/%d/' % self.test_snippet.pk
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
+
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', quote(self.test_snippet.pk))))
         self.assertEqual(response.status_code, 404)
@@ -564,6 +584,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.post(post_data={'text': 'test text',
                                         'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), None)
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -1044,6 +1067,32 @@ class TestUsedBy(TestCase):
     def test_snippet_used_by(self):
         advert = Advert.objects.get(pk=1)
         self.assertEqual(type(advert.get_usage()[0]), Page)
+
+
+class TestSnippetHistory(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def get(self, params={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, quote(snippet.pk))
+        return self.client.get(reverse('wagtailsnippets:history', args=args), params)
+
+    def setUp(self):
+        self.user = self.login()
+        self.test_snippet = Advert.objects.get(pk=1)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td>Created</td>', html=True)
+        self.assertContains(response, '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">')
 
 
 class TestSnippetChoose(TestCase, WagtailTestUtils):

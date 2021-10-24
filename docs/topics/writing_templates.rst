@@ -297,3 +297,6 @@ Sometimes you may wish to vary the template output depending on whether the page
           ...
         </script>
     {% endif %}
+
+If the page is being previewed, ``request.preview_mode`` can be used to determine the specific preview mode being used,
+if the page supports :attr:`multiple preview modes <wagtail.core.models.Page.preview_modes>`.

@@ -126,6 +126,32 @@ header {
         width: auto;
         padding: 0;
     }
+
+    .last-updated {
+        ul {
+            padding: 0;
+        }
+
+        li {
+            display: inline;
+            margin-right: 2em;
+        }
+
+        .avatar.small {
+            margin-left: 0;
+        }
+
+        a {
+            font-weight: bold;
+        }
+    }
+}
+
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+    header .field-content {
+        border: 0.1em solid $system-color-link-text;
+    }
 }
 
 @include media-breakpoint-up(sm) {

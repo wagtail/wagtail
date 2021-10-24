@@ -10,7 +10,7 @@
 
 ### Install dependencies
 
-Wagtail supports Python 3.6, 3.7, 3.8 and 3.9.
+Wagtail supports Python 3.6, 3.7, 3.8, 3.9 and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
@@ -731,7 +731,7 @@ you need to create a template `blog/blog_tag_index_page.html`:
 
 {% block content %}
 
-    {% if request.GET.tag|length %}
+    {% if request.GET.tag %}
         <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
     {% endif %}
 

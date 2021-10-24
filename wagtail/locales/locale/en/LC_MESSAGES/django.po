@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,13 +21,16 @@ msgstr ""
 msgid "Wagtail locales"
 msgstr ""
 
-#: forms.py:10 templates/wagtaillocales/index.html:13
-#: templates/wagtaillocales/index.html:17
+#: forms.py:10 views.py:40
 msgid "Language"
 msgstr ""
 
 #: forms.py:27
 msgid "Select a new language"
+msgstr ""
+
+#: templates/wagtaillocales/_language_title_cell.html:7
+msgid "This locale's language code is not supported"
 msgstr ""
 
 #: templates/wagtaillocales/confirm_delete.html:13
@@ -45,55 +48,51 @@ msgid ""
 "language or delete this locale."
 msgstr ""
 
-#: templates/wagtaillocales/index.html:21
-msgid "Usage"
-msgstr ""
-
-#: templates/wagtaillocales/index.html:31
-msgid "This locale's language code is not supported"
-msgstr ""
-
-#: views.py:15 wagtail_hooks.py:26
+#: views.py:32 wagtail_hooks.py:26
 msgid "Locales"
 msgstr ""
 
-#: views.py:16
+#: views.py:33
 msgid "Add a locale"
 msgstr ""
 
-#: views.py:30
-msgid "Add locale"
-msgstr ""
-
-#: views.py:31
-msgid "Locale '{0}' created."
-msgstr ""
-
-#: views.py:36
-msgid "Locale '{0}' updated."
-msgstr ""
-
-#: views.py:37
-msgid "The locale could not be saved due to errors."
-msgstr ""
-
-#: views.py:38 views.py:46
-msgid "Delete locale"
-msgstr ""
-
-#: views.py:45
-msgid "Locale '{0}' deleted."
+#: views.py:42
+msgid "Usage"
 msgstr ""
 
 #: views.py:47
-msgid "Are you sure you want to delete this locale?"
+msgid "Add locale"
+msgstr ""
+
+#: views.py:48
+msgid "Locale '{0}' created."
+msgstr ""
+
+#: views.py:53
+msgid "Locale '{0}' updated."
 msgstr ""
 
 #: views.py:54
+msgid "The locale could not be saved due to errors."
+msgstr ""
+
+#: views.py:55 views.py:63
+msgid "Delete locale"
+msgstr ""
+
+#: views.py:62
+msgid "Locale '{0}' deleted."
+msgstr ""
+
+#: views.py:64
+msgid "Are you sure you want to delete this locale?"
+msgstr ""
+
+#: views.py:71
 msgid "This locale cannot be deleted because there are no other locales."
 msgstr ""
 
-#: views.py:60
+#: views.py:77
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."

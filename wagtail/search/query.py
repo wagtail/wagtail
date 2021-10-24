@@ -19,6 +19,7 @@ class SearchQuery:
     def __repr__(self):
         raise NotImplementedError
 
+
 #
 # Basic query classes
 #

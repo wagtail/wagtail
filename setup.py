@@ -21,7 +21,7 @@ except ImportError:
 
 install_requires = [
     "Django>=3.0,<3.3",
-    "django-modelcluster>=5.1,<6.0",
+    "django-modelcluster>=5.2,<6.0",
     "django-taggit>=1.0,<2.0",
     "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
@@ -68,6 +68,9 @@ testing_extras = [
     # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
     # the test suite migrations correspond to >=1.3.0
     'django-taggit>=1.3.0,<2.0',
+
+    # for validating string formats in .po translation files
+    'polib>=1.1,<2.0',
 ]
 
 # Documentation dependencies
@@ -108,6 +111,7 @@ https://github.com/wagtail/wagtail/.",
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Framework :: Django',
         'Framework :: Django :: 3.0',
         'Framework :: Django :: 3.1',

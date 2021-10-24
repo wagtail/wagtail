@@ -1,4 +1,5 @@
 import itertools
+import re
 
 from django import VERSION as DJANGO_VERSION
 from django import template
@@ -21,6 +22,7 @@ def format_permissions(permission_bound_field):
                 'add': checkbox
                 'change': checkbox
                 'delete': checkbox
+                'custom': list_of_checkboxes_for_custom_permissions
             },
         ]
 
@@ -57,27 +59,40 @@ def format_permissions(permission_bound_field):
 
     object_perms = []
     other_perms = []
+    custom_perms_exist = False
 
     for content_type_id in content_type_ids:
         content_perms = permissions.filter(content_type_id=content_type_id)
         content_perms_dict = {}
+        custom_perms = []
+
+        if content_perms[0].content_type.name == "admin":
+            perm = content_perms[0]
+            other_perms.append((perm, checkboxes_by_id[perm.id]))
+            continue
+
         for perm in content_perms:
+            content_perms_dict['object'] = perm.content_type.name
             checkbox = checkboxes_by_id[perm.id]
             # identify the three main categories of permission, and assign to
             # the relevant dict key, else bung in the 'other_perms' list
             permission_action = perm.codename.split('_')[0]
             if permission_action in ['add', 'change', 'delete']:
-                content_perms_dict['object'] = perm.content_type.name
                 content_perms_dict[permission_action] = {
                     'perm': perm, 'checkbox': checkbox,
                 }
             else:
-                other_perms.append((perm, checkbox))
-        if content_perms_dict:
-            object_perms.append(content_perms_dict)
+                custom_perms_exist = True
+                custom_perms.append({'perm': perm,
+                                     'name': re.sub(f"{perm.content_type.name}$", "", perm.name, flags=re.I).strip(),
+                                     'selected': checkbox.data['selected']})
+
+        content_perms_dict['custom'] = custom_perms
+        object_perms.append(content_perms_dict)
     return {
         'object_perms': object_perms,
         'other_perms': other_perms,
+        'custom_perms_exist': custom_perms_exist
     }
 
 

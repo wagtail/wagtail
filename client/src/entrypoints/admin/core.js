@@ -409,6 +409,7 @@ $(() => {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
               window.history.replaceState(null, null, '?q=' + newQuery);
+              $input[0].dispatchEvent(new Event('search-success'));
             }
           },
           complete() {

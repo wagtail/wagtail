@@ -1,4 +1,4 @@
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -8,7 +8,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils import timezone
-from django.utils.http import urlquote
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
@@ -248,7 +247,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
         if self.next_url:
             # Ensure the 'next' url is passed through again if present
-            target_url += '?next=%s' % urlquote(self.next_url)
+            target_url += '?next=%s' % quote(self.next_url)
         return redirect(target_url)
 
     def form_invalid(self, form):

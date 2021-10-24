@@ -5,14 +5,15 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Giacomo Ghizzani <giacomo.ghz@gmail.com>\n"
+"PO-Revision-Date: 2021-08-17 09:16+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +31,9 @@ msgstr "Tipo"
 msgid "Permanent"
 msgstr "Permanente"
 
+msgid "Temporary"
+msgstr "Temporaneo"
+
 msgid "All"
 msgstr "Tutto"
 
@@ -40,14 +44,23 @@ msgid "All sites"
 msgstr "Tutti i siti"
 
 msgid "A redirect with this path already exists."
-msgstr "Un redirect con questa path è già esistente."
+msgstr "Un reindirizzamento con questo percorso è esiste già."
+
+msgid "File to import"
+msgstr "File da importare"
 
 #, python-format
 msgid "Supported formats: %(supported_formats)s."
 msgstr "Formati supportati: %(supported_formats)s."
 
+msgid "From field"
+msgstr "Dal campo"
+
+msgid "To field"
+msgstr "Al campo"
+
 msgid "redirect from"
-msgstr "redirect da"
+msgstr "reindirizzamento da"
 
 msgid "site"
 msgstr "sito"
@@ -59,43 +72,76 @@ msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
-"Consiglio. I redirect permanenti assicurano che i motori di ricerca "
-"dimentichino la vecchia pagina (il 'Redirect da') e indicizzeranno la nuova "
-"pagina."
+"Consigliato. I reindirizzamenti permanenti assicurano che i motori di "
+"ricerca dimentichino la vecchia pagina (il 'Reindirizzamento da') e "
+"indicizzeranno la nuova pagina."
 
 msgid "redirect to a page"
-msgstr "redirect a una pagina"
+msgstr "reindirizzamento verso una pagina"
 
 msgid "redirect to any URL"
-msgstr "redirect a URL"
+msgstr "reindirizza a un URL qualsiasi"
 
 msgid "temporary"
 msgstr "temporaneo"
 
 msgid "redirect"
-msgstr "redirect"
+msgstr "reindirizzamento"
 
 msgid "Add redirect"
-msgstr "Aggiungi redirect"
+msgstr "Aggiungi reindirizzamento"
 
 msgid "Save"
 msgstr "Salva"
 
 msgid "Redirects"
-msgstr "Redirects"
+msgstr "Reindirizzamenti"
+
+msgid "Import redirects"
+msgstr "Importa reindirizzamenti"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Seleziona un file dove i reindirizzamenti sono separati "
+"in righe e che contenga le colonne che rappresentano <code>da</code> e "
+"<code>verso</code> (possono essere chiamate in qualsiasi modo).</p>\n"
+"                <p>Dopo l'invio verrai indirizzato a una visualizzazione di "
+"conferma in cui puoi personalizzare i tuoi reindirizzamenti prima "
+"dell'importazione.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Importa"
 
 #, python-format
 msgid "Delete redirect %(title)s"
-msgstr "Elimina redirect %(title)s"
+msgstr "Elimina reindirizzamento %(title)s"
 
 msgid "Delete"
 msgstr "Elimina"
 
 msgid "Are you sure you want to delete this redirect?"
-msgstr "Sei sicuro di voler eliminare questo redirect?"
+msgstr "Sei sicuro di voler eliminare questo reindirizzamento?"
 
 msgid "Yes, delete"
 msgstr "Si, elimina"
+
+msgid "Confirm import"
+msgstr "Conferma importazione"
+
+msgid "Confirm"
+msgstr "Conferma"
+
+msgid "Cancel"
+msgstr "Annulla"
 
 msgid "Preview"
 msgstr "Anteprima"
@@ -108,7 +154,17 @@ msgid "Editing"
 msgstr "Modifica"
 
 msgid "Delete redirect"
-msgstr "Elimina redirect"
+msgstr "Elimina reindirizzamento"
+
+msgid "Summary"
+msgstr "Riepilogo"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Trovate %(total)s redirezioni, create %(successes)s e trovati %(errors)s "
+"errori."
 
 msgid "From"
 msgstr "Da"
@@ -116,14 +172,23 @@ msgstr "Da"
 msgid "To"
 msgstr "A"
 
+msgid "Error"
+msgstr "Errore"
+
 msgid "Continue"
 msgstr "Continua"
+
+msgid "Export redirects"
+msgstr "Esporta reindirizzamenti"
 
 msgid "Site"
 msgstr "Sito"
 
 msgid "Edit this redirect"
-msgstr "Modifica questo redirect"
+msgstr "Modifica questo reindirizzamento"
+
+msgid "No redirects found."
+msgstr "Nessun reindirizzamento trovato"
 
 #, python-format
 msgid ""
@@ -146,33 +211,55 @@ msgstr[1] ""
 #, python-format
 msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
 msgstr ""
-"Spiacente, nessun redirect corrispondente a \"<em>%(query_string)s</em>\""
+"Spiacente, nessun reindirizzamento corrispondente a \"<em>%(query_string)s</"
+"em>\""
 
 #, python-format
 msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Non è stato creato nessun redirect. Perché non ne <a href="
+"Non è stato creato nessun reindirizzamento. Perché non ne <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">aggiungi uno adesso</a>?"
 
 msgid "Search redirects"
-msgstr "Cerca redirects"
+msgstr "Cerca reindirizzamenti"
 
 msgid "Redirect '{0}' updated."
-msgstr "Redirect '{0}' aggiornato."
+msgstr "Reindirizzamento '{0}' aggiornato."
 
 msgid "Edit"
 msgstr "Modifica"
 
 msgid "The redirect could not be saved due to errors."
-msgstr "Il redirect non può essere salvato a causa di errori. "
+msgstr "Il reindirizzamento non può essere salvato a causa di errori. "
 
 msgid "Redirect '{0}' deleted."
-msgstr "Redirect '{0}' eliminato."
+msgstr "Reindirizzamento '{0}' eliminato."
 
 msgid "Redirect '{0}' added."
-msgstr "Redirect '{0}' aggiunto."
+msgstr "Reindirizzamento '{0}' aggiunto."
 
 msgid "The redirect could not be created due to errors."
-msgstr "Il redirect non può essere creato a causa di errori."
+msgstr "Il reindirizzamento non può essere creato a causa di errori."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Il formato file di tipo \"{}\" non è supportato"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Il file importato ha una codifica sbagliata: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr ""
+"%(error)s riscontrato durante il tentativo di leggere il file: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "%(total)d reindirizzamento importato"
+msgstr[1] "%(total)d reindirizzamenti importati"
+
+msgid "Export Redirects"
+msgstr "Esporta reindirizzamenti"

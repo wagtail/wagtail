@@ -13,7 +13,7 @@ You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setti
 
   WAGTAILSEARCH_BACKENDS = {
       'default': {
-          'BACKEND': 'wagtail.search.backends.db',
+          'BACKEND': 'wagtail.search.backends.database',
       }
   }
 
@@ -61,29 +61,14 @@ Here's a list of backends that Wagtail supports out of the box.
 Database Backend (default)
 --------------------------
 
-``wagtail.search.backends.db``
+``wagtail.search.backends.database``
 
-The database backend is very basic and is intended only to be used in development and on small sites. It cannot order results by relevance, severely hampering its usefulness when searching a large collection of pages.
+.. versionchanged:: 2.15
 
-It also doesn't support:
+    The default database search backend was changed from ``wagtail.search.backends.db``
 
-- Searching on fields in subclasses of ``Page`` (unless the class is being searched directly)
-- :ref:`wagtailsearch_indexing_callable_fields`
-- Converting accented characters to ASCII
-
-If any of these features are important to you, we recommend using Elasticsearch instead.
-
-.. _wagtailsearch_backends_postgresql:
-
-PostgreSQL Backend
-------------------
-
-``wagtail.contrib.postgres_search.backend``
-
-If you use PostgreSQL for your database and your site has less than
-a million pages, you probably want to use this backend.
-
-See :ref:`postgres_search` for more detail.
+The database search backend searches content in the database using the full text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
+This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
 
 
 .. _wagtailsearch_backends_elasticsearch:

@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Marco Badan <marco.badan@gmail.com>, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
+"Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: it\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail traduzione semplificata"
+
+msgid "Select all"
+msgstr "Seleziona tutti"
+
+msgid "Locales"
+msgstr "Lingue"
+
+msgid "All child pages will be created."
+msgstr "Tutte le pagine figlio verranno create."
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Includi il sottoalbero ({} pagina)"
+msgstr[1] "Includi il sottoalbero ({} pagine)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Una lingua è disabilitata perché una pagina genitore non è stata tradotta."
+msgstr[1] ""
+"Alcune lingue sono disabilitate perché alcune pagine genitore non sono state "
+"tradotte."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduci la pagina genitore."
+msgstr[1] "Traduci le pagine genitori."
+
+msgid "Submit"
+msgstr "Invia"
+
+msgid "Translate"
+msgstr "Traduci"
+
+msgid "{} locales"
+msgstr "{} lingue"
+
+msgid "Translate page"
+msgstr "Traduci pagina"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "La pagina '{page_title}' è stata creata con successo in {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Traduci {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "{locales} creato con successo per {model_name} '{object}'"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Traduci '%(title)s'"

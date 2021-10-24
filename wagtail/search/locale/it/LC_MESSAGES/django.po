@@ -6,13 +6,14 @@
 # Claudio Bantaloukas <rockdreamer@gmail.com>, 2015
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015
 # giammi <gian-maria.daffre@giammi.org>, 2018
+# Marco Badan <marco.badan@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2018-05-10 14:18+0000\n"
-"Last-Translator: giammi <gian-maria.daffre@giammi.org>\n"
+"PO-Revision-Date: 2021-08-14 14:35+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -31,9 +32,9 @@ msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Inserisci la stringa di ricerca completa. E' richiesta una corrispondenza "
-"esatta per mostrare i tuoi Risultati di ricerca sponsorizzati, wildcards NON "
-"sono permesse. "
+"Inserisci la stringa di ricerca completa da trovare. È necessaria una "
+"corrispondenza esatta per visualizzare i risultati in evidenza, i caratteri "
+"wildcard NON sono consentiti."
 
 msgid "Query Daily Hits"
 msgstr "Query giornaliere"
@@ -57,4 +58,4 @@ msgid "Date"
 msgstr "Data"
 
 msgid "Choose from popular search terms"
-msgstr "Scegli tra un termine di ricerca popolare"
+msgstr "Scegli tra i termini di ricerca più popolari"

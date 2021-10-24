@@ -6,13 +6,14 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
+# Marco Badan <marco.badan@gmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Edd Baldry <edd.baldry@gmail.com>\n"
+"PO-Revision-Date: 2021-08-17 08:41+0000\n"
+"Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
 "MIME-Version: 1.0\n"
@@ -83,8 +84,14 @@ msgstr "ora di invio"
 msgid "form submission"
 msgstr "invio form"
 
+msgid "form submissions"
+msgstr "invii form"
+
 msgid "name"
 msgstr "nome"
+
+msgid "Safe name of the form field, the label converted to ascii_snake_case"
+msgstr "Nome sicuro del campo del form, label convertita in ascii_snake_case"
 
 msgid "label"
 msgstr "etichetta"
@@ -122,6 +129,9 @@ msgstr "Data di invio"
 
 msgid "Form"
 msgstr "Modulo"
+
+msgid "Landing page"
+msgstr "Pagina di destinazione"
 
 msgid "to address"
 msgstr "indirizzo destinazione"
@@ -188,6 +198,9 @@ msgstr "Form data <span>%(form_title)s</span>"
 
 msgid "Filter"
 msgstr "Filtro"
+
+msgid "Download XLSX"
+msgstr "Scarica XLSX"
 
 msgid "Download CSV"
 msgstr "Scarica CSV"

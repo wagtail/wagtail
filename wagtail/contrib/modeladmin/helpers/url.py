@@ -1,6 +1,8 @@
+from urllib.parse import quote
+
+from django.contrib.admin.utils import quote as admin_quote
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.http import urlquote
 
 
 class AdminURLHelper:
@@ -43,11 +45,22 @@ class AdminURLHelper:
         return self.get_action_url('create')
 
 
+# for registering with wagtail.admin.admin_url_finder.
+# Subclasses should define url_helper and permission_helper
+class ModelAdminURLFinder:
+    def __init__(self, user):
+        self.user = user
+
+    def get_edit_url(self, instance):
+        if self.permission_helper.user_can_edit_obj(self.user, instance):
+            return self.url_helper.get_action_url('edit', admin_quote(instance.pk))
+
+
 class PageAdminURLHelper(AdminURLHelper):
 
     def get_action_url(self, action, *args, **kwargs):
-        if action in ('add', 'edit', 'delete', 'unpublish', 'copy'):
+        if action in ('add', 'edit', 'delete', 'unpublish', 'copy', 'history'):
             url_name = 'wagtailadmin_pages:%s' % action
             target_url = reverse(url_name, args=args, kwargs=kwargs)
-            return '%s?next=%s' % (target_url, urlquote(self.index_url))
+            return '%s?next=%s' % (target_url, quote(self.index_url))
         return super().get_action_url(action, *args, **kwargs)

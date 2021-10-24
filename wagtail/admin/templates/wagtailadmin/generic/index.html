@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
 
@@ -12,5 +12,22 @@
     {% endif %}
 
     {% block listing %}
+        <div class="nice-padding">
+            {% component table %}
+
+            {% if is_paginated %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            {% endif %}
+        </div>
     {% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
 {% endblock %}

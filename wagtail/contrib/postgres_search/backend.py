@@ -469,8 +469,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_index_vectors(self, search_query):
         return [
-            (F('index_entries__title'), F('index_entries__title_norm')),
-            (F('index_entries__body'), 1.0),
+            (F('postgres_index_entries__title'), F('postgres_index_entries__title_norm')),
+            (F('postgres_index_entries__body'), 1.0),
         ]
 
     def get_fields_vectors(self, search_query):
@@ -563,7 +563,7 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('index_entries__autocomplete'), 1.0)]
+        return [(F('postgres_index_entries__autocomplete'), 1.0)]
 
     def get_fields_vectors(self, search_query):
         return [

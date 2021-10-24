@@ -8,12 +8,18 @@
         <col width="15%" />
         <col width="15%" />
         <col width="15%" />
+        {% if custom_perms_exist %}
+        <col width="30%" />
+        {% endif %}
         <thead>
             <tr>
                 <th>{% trans "Name" %}</th>
                 <th>{% trans "Add" %}</th>
                 <th>{% trans "Change" %}</th>
                 <th>{% trans "Delete" %}</th>
+                {% if custom_perms_exist %}
+                <th>{% trans "Custom permissions" %}</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -38,6 +44,21 @@
                         {{ content_perms_dict.delete.checkbox.tag }}
                     {% endif %}
                 </td>
+                {% if custom_perms_exist %}
+                <td>
+                    {% if content_perms_dict.custom %}
+                    <fieldset class="custom-permissions">
+                        <legend>{% trans "Custom permissions" %}</legend>
+                        {% for custom_perm in content_perms_dict.custom %}
+                        <label class="custom-permissions-item">
+                            <input type="checkbox" name="permissions" value="{{ custom_perm.perm.id }}" {% if custom_perm.selected %}checked{% endif %}>
+                            {{ custom_perm.name }}
+                        </label>
+                        {% endfor %}
+                    </fieldset>
+                    {% endif %}
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

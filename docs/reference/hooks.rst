@@ -389,6 +389,21 @@ More details about the options that are available can be found at :doc:`/extendi
 
   Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
 
+  .. code-block:: python
+
+      from django.contrib.auth.models import Permission
+      from wagtail.core import hooks
+
+
+      @hooks.register('register_permissions')
+      def register_permissions():
+          app = 'blog'
+          model = 'extramodelset'
+
+          return Permission.objects.filter(content_type__app_label=app, codename__in=[
+              f"view_{model}", f"add_{model}", f"change_{model}", f"delete_{model}"
+          ])
+
 
 .. _filter_form_submissions_for_user:
 
@@ -416,7 +431,6 @@ More details about the options that are available can be found at :doc:`/extendi
             queryset = queryset.none()
 
         return queryset
-
 
 
 Editor interface
@@ -483,7 +497,8 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.utils.html import format_html, format_html_join
+    from django.utils.html import format_html_join
+    from django.utils.safestring import mark_safe
     from django.templatetags.static import static
 
     from wagtail.core import hooks
@@ -496,13 +511,12 @@ Hooks for customising the editing interface for pages and snippets.
         js_includes = format_html_join('\n', '<script src="{0}"></script>',
             ((static(filename),) for filename in js_files)
         )
-        # remember to use double '{{' so they are not parsed as template placeholders
-        return js_includes + format_html(
+        return js_includes + mark_safe(
             """
             <script>
-                $(function() {{
+                $(function() {
                     $('button').raptorize();
-                }});
+                });
             </script>
             """
         )
@@ -605,8 +619,26 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behaviour as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``, is is run both for both ``GET`` and ``POST`` requests.
 
+ .. code-block:: python
+
+    from django.shortcuts import redirect
+    from django.utils.html import format_html
+
+    from wagtail.admin import messages
+    from wagtail.core import hooks
+
+    from .models import AwesomePage
+
+
+    @hooks.register('before_delete_page')
+    def before_delete_page(request, page):
+        """Block awesome page deletion and show a message."""
+
+        if request.method == 'POST' and page.specific_class in [AwesomePage]:
+            messages.warning(request, "Awesome pages cannot be deleted, only unpublished")
+            return redirect('wagtailadmin_pages:delete', page.pk)
 
 .. _after_edit_page:
 
@@ -1357,6 +1389,83 @@ Hooks for working with registered Snippets.
     def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
         buttons.pop()  # Removes the 'delete' button
 
+
+Bulk actions
+------------
+
+Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_actions>` on how to write custom bulk actions.
+
+
+.. _register_bulk_action:
+
+``register_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Registers a new bulk action to add to the list of bulk actions in the explorer
+
+  This hook must be registered with a sub-class of ``BulkAction`` . For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.bulk_action import BulkAction
+    from wagtail.core import hooks
+
+
+    @hooks.register("register_bulk_action")
+    class CustomBulkAction(BulkAction):
+        display_name = _("Custom Action")
+        action_type = "action"
+        aria_label = _("Do custom action")
+        template_name = "/path/to/template"
+        models = [...]  # list of models the action should execute upon
+
+
+        @classmethod
+        def execute_action(cls, objects, **kwargs):
+            for object in objects:
+                do_something(object)
+            return num_parent_objects, num_child_objects  # return the count of updated objects
+
+
+.. _before_bulk_action:
+
+``before_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right before a bulk action is executed (before the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register("before_bulk_action")
+    def hook_func(request, action_type, objects, action_class_instance):
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects would be deleted", content_type="text/plain")
+
+
+.. _after_bulk_action:
+
+``after_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right after a bulk action is executed (after the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register("after_bulk_action")
+    def hook_func(request, action_type, objects, action_class_instance):
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects have been deleted", content_type="text/plain")
+
+
+
 Audit log
 ---------
 
@@ -1379,8 +1488,27 @@ Audit log
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
-            def callback_message(data):
-                return _('Hello %(audience)s') % {
-                    'audience': data['audience'],
-                }
-            actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
+
+    Alternatively, for a log message that varies according to the log entry's data, create a subclass of ``wagtail.core.log_actions.LogFormatter`` that overrides the ``format_message`` method, and use ``register_action`` as a decorator on that class:
+
+    .. code-block:: python
+
+        from django.utils.translation import gettext_lazy as _
+
+        from wagtail.core import hooks
+        from wagtail.core.log_actions import LogFormatter
+
+        @hooks.register('register_log_actions')
+        def additional_log_actions(actions):
+            @actions.register_action('wagtail_package.greet_audience')
+            class GreetingActionFormatter(LogFormatter):
+                label = _('Greet audience')
+
+                def format_message(self, log_entry):
+                    return _('Hello %(audience)s') % {
+                        'audience': log_entry.data['audience'],
+                    }
+
+    .. versionchanged:: 2.15
+
+      The ``LogFormatter`` class was introduced. Previously, dynamic messages were achieved by passing a callable as the ``message`` argument to ``register_action``.

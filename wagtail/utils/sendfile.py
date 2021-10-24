@@ -83,9 +83,9 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
             parts.append('filename="%s"' % ascii_filename)
 
             if ascii_filename != attachment_filename:
-                from django.utils.http import urlquote
+                from urllib.parse import quote
 
-                quoted_filename = urlquote(attachment_filename)
+                quoted_filename = quote(attachment_filename)
                 parts.append('filename*=UTF-8\'\'%s' % quoted_filename)
 
         response['Content-Disposition'] = '; '.join(parts)

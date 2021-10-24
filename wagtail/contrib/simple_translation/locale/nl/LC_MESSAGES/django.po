@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Loic Teixeira, 2021
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"PO-Revision-Date: 2021-04-21 08:38+0000\n"
+"Last-Translator: Loic Teixeira, 2021\n"
+"Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Wagtail simpele vertalingen"
+
+msgid "Select all"
+msgstr "Selecteer alles"
+
+msgid "Locales"
+msgstr "Taalregio's"
+
+msgid "All child pages will be created."
+msgstr "Alle onderliggende pagina's zullen worden aangemaakt."
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Neem onderliggende boomstructuur mee ({} pagina)"
+msgstr[1] "Neem onderliggende boomstructuur mee ({} pagina's)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Een taalregio is uitgeschakeld omdat een bovenliggende pagina niet vertaald "
+"is."
+msgstr[1] ""
+"Sommige taalregio's zijn uitgeschakeld omdat bovenliggende pagina's niet "
+"vertaald zijn."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Vertaal de bovenliggende pagina."
+msgstr[1] "Vertaal de bovenliggende paginas."
+
+msgid "Submit"
+msgstr "Verzenden"
+
+msgid "Translate"
+msgstr "Vertaal"
+
+msgid "{} locales"
+msgstr "{} taalregio's"
+
+msgid "Translate page"
+msgstr "Vertaal pagina"
+
+msgid "The page '{page_title}' was successfully created in {locales}"
+msgstr "De pagina '{page_title}' is succesvol aangemaakt in {locales}"
+
+msgid "Translate {model_name}"
+msgstr "Vertaal {model_name}"
+
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr ""
+"Vertalingen in {locales} voor {model_name} '{object}' zijn succesvol "
+"aangemaakt"
+
+#, python-format
+msgid "Translate '%(title)s'"
+msgstr "Vertaal '%(title)s'"

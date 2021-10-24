@@ -21,6 +21,19 @@
 
     {{ view.media.js }}
     {% prepopulated_slugs %}
+
+    <script>
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
+    </script>
 {% endblock %}
 
 {% block content %}

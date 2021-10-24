@@ -131,6 +131,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
     'wagtail.contrib.forms',
+    'wagtail.contrib.typed_table_block',
     'wagtail.search',
     'wagtail.embeds',
     'wagtail.images',
@@ -174,7 +175,7 @@ ALLOWED_HOSTS = ['localhost', 'testserver', 'other.example.com']
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.db',
+        'BACKEND': 'wagtail.search.backends.database.fallback',
     }
 }
 

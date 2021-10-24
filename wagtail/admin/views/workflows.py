@@ -36,6 +36,7 @@ class Index(IndexView):
     template_name = 'wagtailadmin/workflows/index.html'
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
+    index_url_name = 'wagtailadmin_workflows:index'
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = 'tasks'
@@ -307,6 +308,7 @@ class TaskIndex(IndexView):
     template_name = 'wagtailadmin/workflows/task_index.html'
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = 'thumbtack'
@@ -446,8 +448,8 @@ class DisableTask(DeleteView):
         context = super().get_context_data(**kwargs)
         states_in_progress = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk).count()
         context['warning_message'] = ngettext(
-            'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow.',
-            'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow.',
+            'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.',
+            'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.',
             states_in_progress,
         ) % {
             'states_in_progress': states_in_progress,
@@ -550,7 +552,7 @@ def task_chooser(request):
     q = None
     if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:
         searchform = TaskChooserSearchForm(request.GET, task_type_choices=task_type_choices)
-        tasks = all_tasks = searchform.task_model.objects.order_by(Lower('name'))
+        tasks = all_tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
         q = ''
 
         if searchform.is_searching():
@@ -599,7 +601,7 @@ def task_chooser(request):
             createform = None
 
         searchform = TaskChooserSearchForm(task_type_choices=task_type_choices)
-        tasks = searchform.task_model.objects.order_by(Lower('name'))
+        tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
 
         paginator = Paginator(tasks, per_page=10)
         tasks = paginator.get_page(request.GET.get('p'))

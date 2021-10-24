@@ -11,7 +11,9 @@ from django.utils.html import escapejs
 from django.utils.http import RFC3986_SUBDELIMS, urlquote
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Collection, GroupCollectionPermission, get_root_collection_id
+from wagtail.images import get_image_model
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
 from wagtail.tests.testapp.models import CustomImage, CustomImageWithAuthor
@@ -524,6 +526,10 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.update_from_db()
         self.assertEqual(self.image.title, "Edited")
 
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/images/%d/' % self.image.id
+        self.assertEqual(url_finder.get_edit_url(self.image), expected_url)
+
     def test_edit_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
@@ -535,6 +541,9 @@ class TestImageEditView(TestCase, WagtailTestUtils):
             'title': "Edited",
         })
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.image), None)
 
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()
@@ -1368,6 +1377,7 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         This tests that a POST request to the add view saves the image and returns an edit form
         """
         response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'title': 'test title',
             'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
         })
 
@@ -1378,21 +1388,59 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
 
         # Check image
         self.assertIn('image', response.context)
-        self.assertEqual(response.context['image'].title, 'test.png')
+        self.assertEqual(response.context['image'].title, 'test title')
         self.assertTrue(response.context['image'].file_size)
         self.assertTrue(response.context['image'].file_hash)
 
+        # Check image title
+        image = get_image_model().objects.get(title='test title')
+        self.assertNotIn('title', image.filename)
+        self.assertIn('.png', image.filename)
+
         # Check form
         self.assertIn('form', response.context)
-        self.assertEqual(response.context['form'].initial['title'], 'test.png')
         self.assertEqual(response.context['edit_action'], '/admin/images/multiple/%d/' % response.context['image'].id)
         self.assertEqual(response.context['delete_action'], '/admin/images/multiple/%d/delete/' % response.context['image'].id)
+        self.assertEqual(response.context['form'].initial['title'], 'test title')
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn('form', response_json)
+        self.assertIn('image_id', response_json)
+        self.assertIn('success', response_json)
+        self.assertEqual(response_json['image_id'], response.context['image'].id)
+        self.assertTrue(response_json['success'])
+
+    def test_add_post_no_title(self):
+        """
+        A POST request to the add view without the title value saves the image and uses file title if needed
+        """
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'files[]': SimpleUploadedFile('no-title.png', get_test_image_file().file.getvalue()),
+        }, HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/json')
+
+        # Check image
+        self.assertIn('image', response.context)
+        self.assertTrue(response.context['image'].file_size)
+        self.assertTrue(response.context['image'].file_hash)
+
+        # Check image title
+        image = get_image_model().objects.get(title='no-title.png')
+        self.assertEqual('no-title.png', image.filename)
+        self.assertIn('.png', image.filename)
+
+        # Check form
+        self.assertIn('form', response.context)
+        self.assertEqual(response.context['form'].initial['title'], 'no-title.png')
 
         # Check JSON
         response_json = json.loads(response.content.decode())
         self.assertIn('form', response_json)
         self.assertIn('success', response_json)
-        self.assertTrue(response_json['success'])
 
     def test_add_post_nofile(self):
         """

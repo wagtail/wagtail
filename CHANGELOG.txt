@@ -1,13 +1,19 @@
 Changelog
 =========
 
-2.15 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~
+2.15 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~
 
+ * Implemented a new database search backend that supports the FTS features of the database in use (Developed by Aldán Creo. Mentored by Karl Hobley and Cynthia Kiser. Funded by Google Summer of Code)
+ * Added bulk actions in the Wagtail Admin for Pages, Users, Images and Documents (Developed by Shohan Dutta Roy. Mentored by Dan Braghis, Jacob Topp-Mugglestone, and Storm Heg.)
+ * Extended audit logging to all models and added a history view for snippets and ModelAdmin (Matt Westcott. Sponsored by The Motley Fool)
+ * Allow granting collection management permissions over individual collections (Cynthia Kiser)
+ * Added `TypedTableBlock` block type for StreamField, for building tables with mixed data types (Matt Westcott, Coen van der Kamp, Scott Cranfill. Sponsored by YouGov)
  * Add the ability for the page chooser to convert external urls that match a page to internal links (Jacob Topp-Mugglestone. Sponsored by The Motley Fool)
  * Added "Extending Wagtail" section to documentation (Matt Westcott)
  * Introduced template components, a standard mechanism for renderable objects in the admin (Matt Westcott)
  * Support `min_num` / `max_num` options on ListBlock (Matt Westcott)
+ * Implemented automatic tree synchronisation for `contrib.simple_translation` (Mitchel Cabuloy)
  * Added a `background_position_style` property to renditions (Karl Hobley)
  * Added a distinct `wagtail.copy_for_translation` log action type (Karl Hobley)
  * Add a debug logger around image rendition generation (Jake Howard)
@@ -24,13 +30,31 @@ Changelog
  * When copying a page, default the 'Publish copied page' field to false (Justin Slay)
  * Open Preview and Live page links in the same tab, except where it would interrupt editing a Page (Sagar Agarwal)
  * Added `ExcelDateFormatter` to `wagtail.admin.views.mixins` so that dates in Excel exports will appear in the locale's `SHORT_DATETIME_FORMAT` (Andrew Stone)
+ * Add TIDAL support to the list of oEmbed providers (Wout De Puysseleir)
+ * Add `label_format` attribute to customise the label shown for a collapsed StructBlock (Matt Westcott)
+ * User Group permissions will now show all custom object permissions in one row instead of a separate table (Kamil Marut)
+ * Create `ImageFileMixin` to extract shared file handling methods from `AbstractImage` and `AbstractRendition` (Fabien Le Frapper)
+ * Add `before_delete_page` and `register_permissions` examples to Hooks documentation (Jane Liu, Daniel Fairhead)
+ * Add clarity to modeladmin template override behaviour in the documentation (Joe Howard, Dan Swain)
+ * Add section about CSV exports to security documentation (Matt Westcott)
+ * Add initial support for Django 4.0 deprecations (Matt Westcott, Jochen Wersdörfer)
+ * Move translations in `nl_NL` to `nl` (Loïc Teixeira, Coen van der Kamp)
+ * Add documentation for how to redirect to a separate page on Form builder submissions using ``RoutablePageMixin`` (Nick Smith)
+ * Refactored index listing views and made column sort-by headings more consistent (Matt Westcott)
+ * The title field on Image and Document uploads will now default to the filename without the file extension and this behaviour can be customised (LB Johnston)
+ * Add support for Python 3.10 (Matt Westcott)
+ * Introduce, `autocomplete`, a separate method which performs partial matching on specific autocomplete fields. This is useful for suggesting pages to the user in real-time as they type their query. (Karl Hobley, Matt Westcott)
+ * Use SVG icons in modeladmin headers and StreamField buttons/headers (Jérôme Lebleu)
+ * Add tags to existing Django registered checks (LB Johnston)
+ * Upgrade admin frontend JS libraries jQuery to 3.6.0 (Fabien Le Frapper)
+ * Added `request.preview_mode` so that template rendering can vary based on preview mode (Andy Chosak)
  * Fix: Delete button is now correct colour on snippets and modeladmin listings (Brandon Murch)
  * Fix: Ensure that StreamBlock / ListBlock-level validation errors are counted towards error counts (Matt Westcott)
  * Fix: InlinePanel add button is now keyboard navigatable (Jesse Menn)
  * Fix: Remove redundant 'clear' button from site root page chooser (Matt Westcott)
  * Fix: Make ModelAdmin IndexView keyboard-navigable (Saptak Sengupta)
  * Fix: Prevent error on refreshing page previews when multiple preview tabs are open (Alex Tomkins)
- * Fix: Multiple accessibility fixes for Windows high contrast mode; Admin fields, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis)
+ * Fix: Multiple accessibility fixes for Windows high contrast mode; Admin fields, Dropdown button, Editor Tabs, Icon visibility, Page Editor field panels, sidebar menu, sidebar hamburger icon, sidebar search, streamfield, checkboxes (Dmitrii Faiazov, Chakita Muttaraju, Onkar Apte, Desai Akshata, LB (Ben Johnston), Amy Chan, Dan Braghis, Thibaud Colas, Shariq Jamil)
  * Fix: Menu sidebar hamburger icon on smaller viewports now correctly indicates it is a button to screen readers and can be accessed via keyboard (Amy Chan, Dan Braghis)
  * Fix: `blocks.MultipleChoiceBlock`, `forms.CheckboxSelectMultiple` and `ArrayField` checkboxes will now stack instead of display inline to align with all other checkboxes fields (Seb Brown)
  * Fix: Screen readers can now access login screen field labels (Amy Chan)
@@ -44,6 +68,23 @@ Changelog
  * Fix: Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
  * Fix: Add `gettext_lazy` to `ModelAdmin` built in view titles so that language settings are correctly used (Matt Westcott)
  * Fix: Tabbing and keyboard interaction on the Wagtail userbar now aligns with ARIA best practices (Storm Heg)
+ * Fix: Add full support for custom `edit_handler` usage by adding missing `bind_to` call to `PreviewOnEdit` view (Stefan Hammer)
+ * Fix: Only show active (not disabled) tasks in the workflow task chooser (LB Johnston)
+ * Fix: CSS build scripts now output to the correct directory paths on Windows (Vince Salvino)
+ * Fix: Capture log output from style fallback to avoid noise in unit tests (Matt Westcott)
+ * Fix: Switch widgets on/off states are now visually different for high-contrast mode users (Sakshi Uppoor)
+ * Fix: Nested InlinePanel usage no longer fails to save when creating two or more items (Indresh P, Rinish Sam, Anirudh V S)
+ * Fix: Changed relation name used for admin commenting from `comments` to `wagtail_admin_comments` to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Fix: CSS variables are now correctly used for the filtering menu in modeladmin (Noah H)
+ * Fix: Panel heading attribute is no longer ignored when nested inside a `MultiFieldPanel` (Jérôme Lebleu)
+
+
+2.14.2 (14.10.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Fix: Corrected badly-formed format strings in translations (Matt Westcott)
+ * Fix: Page history now works correctly when it contains changes by a deleted user (Dan Braghis)
 
 
 2.14.1 (12.08.2021)
@@ -91,6 +132,14 @@ Changelog
  * Fix: Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
  * Fix: Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
+
+
+2.13.5 (14.10.2021)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow relation name used for admin commenting to be overridden to avoid conflicts with third-party commenting apps (Matt Westcott)
+ * Fix: Corrected badly-formed format strings in translations (Matt Westcott)
+ * Fix: Correctly handle non-numeric user IDs for deleted users in reports (Dan Braghis)
 
 
 2.13.4 (13.07.2021)

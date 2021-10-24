@@ -1,0 +1,20 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n %}
+{% block content %}
+    {% block header %}{% endblock header %}
+
+    <div class="nice-padding">
+        {% block items_with_access %}{% endblock %}
+        {% block items_with_no_access %}{% endblock %}
+        {% block form_section %}{% endblock %}
+    </div>
+{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ form.media.css }}
+{% endblock %}

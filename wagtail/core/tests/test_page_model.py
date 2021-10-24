@@ -18,7 +18,6 @@ from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
-from wagtail.core.log_actions import page_log_action_registry
 from wagtail.core.models import (
     Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
     get_page_models, get_translatable_models)
@@ -1150,7 +1149,7 @@ class TestCopyPage(TestCase):
     def test_copy_page_does_not_copy_comments(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
-        christmas_event.comments = [Comment(text='test', user=christmas_event.owner)]
+        christmas_event.wagtail_admin_comments = [Comment(text='test', user=christmas_event.owner)]
         christmas_event.save()
 
         # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
@@ -1160,11 +1159,11 @@ class TestCopyPage(TestCase):
         )
 
         # Check that the comments weren't removed from old page
-        self.assertEqual(christmas_event.comments.count(), 1, "Comments were removed from the original page")
+        self.assertEqual(christmas_event.wagtail_admin_comments.count(), 1, "Comments were removed from the original page")
 
         # Check that comments were NOT copied over
         self.assertFalse(
-            new_christmas_event.comments.exists(),
+            new_christmas_event.wagtail_admin_comments.exists(),
             "Comments were copied"
         )
 
@@ -2230,7 +2229,7 @@ class TestCopyForTranslation(TestCase):
         log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
         self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
         self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
-        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Root (English)")
+        self.assertEqual(log_entry.message, "Copied for translation from Root (English)")
 
     def test_copy_homepage_slug_exists(self):
         # This test is the same as test_copy_homepage, but we will create another page with
@@ -2265,7 +2264,7 @@ class TestCopyForTranslation(TestCase):
         log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
         self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
         self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
-        self.assertEqual(page_log_action_registry.format_message(log_entry), "Copied for translation from Welcome to the Wagtail test site! (English)")
+        self.assertEqual(log_entry.message, "Copied for translation from Welcome to the Wagtail test site! (English)")
 
     def test_copy_childpage_without_parent(self):
         # This test is the same as test_copy_childpage but we won't create the parent page first

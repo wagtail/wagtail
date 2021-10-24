@@ -114,7 +114,23 @@ export class StructBlock {
   }
 
   getTextLabel(opts) {
-    /* Use the text label of the first child block to return one */
+    if (this.blockDef.meta.labelFormat) {
+      /* use labelFormat - regexp replace any field references like '{first_name}'
+      with the text label of that sub-block */
+      return this.blockDef.meta.labelFormat.replace(/\{(\w+)\}/g, (tag, blockName) => {
+        const block = this.childBlocks[blockName];
+        if (block.getTextLabel) {
+          /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
+          in the format string, and dividing the remainder across all the placeholders in the string,
+          rather than just passing opts on to the child. But that would get complicated, and this is
+          better than nothing... */
+          return block.getTextLabel(opts);
+        }
+        return '';
+      });
+    }
+
+    /* if no labelFormat specified, just try each child block in turn until we find one that provides a label */
     for (const childDef of this.blockDef.childBlockDefs) {
       const child = this.childBlocks[childDef.name];
       if (child.getTextLabel) {

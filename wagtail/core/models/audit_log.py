@@ -6,6 +6,8 @@ wagtail.core.models module or specific models such as Page.
 
 import json
 
+from collections import defaultdict
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.models import ContentType
@@ -15,8 +17,16 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.core.log_actions import registry as log_action_registry
+
 
 class LogEntryQuerySet(models.QuerySet):
+    def get_user_ids(self):
+        """
+        Returns a set of user IDs of users who have created at least one log entry in this QuerySet
+        """
+        return set(self.order_by().values_list('user_id', flat=True).distinct())
+
     def get_users(self):
         """
         Returns a QuerySet of Users who have created at least one log entry in this QuerySet.
@@ -24,9 +34,42 @@ class LogEntryQuerySet(models.QuerySet):
         The returned queryset is ordered by the username.
         """
         User = get_user_model()
-        return User.objects.filter(
-            pk__in=set(self.values_list('user__pk', flat=True))
-        ).order_by(User.USERNAME_FIELD)
+        return User.objects.filter(pk__in=self.get_user_ids()).order_by(User.USERNAME_FIELD)
+
+    def get_content_type_ids(self):
+        """
+        Returns a set of IDs of content types with logged actions in this QuerySet
+        """
+        return set(self.order_by().values_list('content_type_id', flat=True).distinct())
+
+    def filter_on_content_type(self, content_type):
+        # custom method for filtering by content type, to allow overriding on log entry models
+        # that have a concept of object types that doesn't correspond directly to ContentType
+        # instances (e.g. PageLogEntry, which treats all page types as a single Page type)
+        return self.filter(content_type_id=content_type.id)
+
+    def with_instances(self):
+        # return an iterable of (log_entry, instance) tuples for all log entries in this queryset.
+        # instance is None if the instance does not exist.
+        # Note: This is an expensive operation and should only be done on small querysets
+        # (e.g. after pagination).
+
+        # evaluate the queryset in full now, as we'll be iterating over it multiple times
+        log_entries = list(self)
+        ids_by_content_type = defaultdict(list)
+        for log_entry in log_entries:
+            ids_by_content_type[log_entry.content_type_id].append(log_entry.object_id)
+
+        instances_by_id = {}  # lookup of (content_type_id, stringified_object_id) to instance
+        for content_type_id, object_ids in ids_by_content_type.items():
+            model = ContentType.objects.get_for_id(content_type_id).model_class()
+            model_instances = model.objects.in_bulk(object_ids)
+            for object_id, instance in model_instances.items():
+                instances_by_id[(content_type_id, str(object_id))] = instance
+
+        for log_entry in log_entries:
+            lookup_key = (log_entry.content_type_id, str(log_entry.object_id))
+            yield (log_entry, instances_by_id.get(lookup_key))
 
 
 class BaseLogEntryManager(models.Manager):
@@ -42,11 +85,15 @@ class BaseLogEntryManager(models.Manager):
         :param action: The action. Should be namespaced to app (e.g. wagtail.create, wagtail.workflow.start)
         :param kwargs: Addition fields to for the model deriving from BaseLogEntry
             - user: The user performing the action
+            - uuid: uuid shared between log entries from the same user action
             - title: the instance title
             - data: any additional metadata
             - content_changed, deleted - Boolean flags
         :return: The new log entry
         """
+        if instance.pk is None:
+            raise ValueError("Attempted to log an action for object %r with empty primary key" % (instance, ))
+
         data = kwargs.pop('data', '')
         title = kwargs.pop('title', None)
         if not title:
@@ -62,6 +109,9 @@ class BaseLogEntryManager(models.Manager):
             **kwargs,
         )
 
+    def viewable_by_user(self, user):
+        return self.all()
+
     def get_for_model(self, model):
         # Return empty queryset if the given object is not valid.
         if not issubclass(model, models.Model):
@@ -73,6 +123,12 @@ class BaseLogEntryManager(models.Manager):
 
     def get_for_user(self, user_id):
         return self.filter(user=user_id)
+
+    def for_instance(self, instance):
+        """
+        Return a queryset of log entries from this log model that relate to the given object instance
+        """
+        raise NotImplementedError  # must be implemented by subclass
 
 
 class BaseLogEntry(models.Model):
@@ -87,7 +143,11 @@ class BaseLogEntry(models.Model):
 
     action = models.CharField(max_length=255, blank=True, db_index=True)
     data_json = models.TextField(blank=True)
-    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'))
+    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'), db_index=True)
+    uuid = models.UUIDField(
+        blank=True, null=True, editable=False,
+        help_text="Log entries that happened as part of the same user action are assigned the same UUID"
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -104,8 +164,6 @@ class BaseLogEntry(models.Model):
 
     objects = BaseLogEntryManager()
 
-    action_registry = None
-
     class Meta:
         abstract = True
         verbose_name = _('log entry')
@@ -117,9 +175,7 @@ class BaseLogEntry(models.Model):
         return super().save(*args, **kwargs)
 
     def clean(self):
-        self.action_registry.scan_for_actions()
-
-        if self.action not in self.action_registry.actions:
+        if not log_action_registry.action_exists(self.action):
             raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
 
     def __str__(self):
@@ -170,12 +226,51 @@ class BaseLogEntry(models.Model):
     def object_id(self):
         raise NotImplementedError
 
-    def format_message(self):
-        return self.action_registry.format_message(self)
+    @cached_property
+    def formatter(self):
+        return log_action_registry.get_formatter(self)
 
-    def format_comment(self):
-        return self.action_registry.format_comment(self)
+    @cached_property
+    def message(self):
+        if self.formatter:
+            return self.formatter.format_message(self)
+        else:
+            return _('Unknown %(action)s') % {'action': self.action}
 
-    @property
+    @cached_property
     def comment(self):
-        return self.format_comment()
+        if self.formatter:
+            return self.formatter.format_comment(self)
+        else:
+            return ''
+
+
+class ModelLogEntryManager(BaseLogEntryManager):
+    def log_action(self, instance, action, **kwargs):
+        kwargs.update(object_id=str(instance.pk))
+        return super().log_action(instance, action, **kwargs)
+
+    def for_instance(self, instance):
+        return self.filter(
+            content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
+            object_id=str(instance.pk)
+        )
+
+
+class ModelLogEntry(BaseLogEntry):
+    """
+    Simple logger for generic Django models
+    """
+    object_id = models.CharField(max_length=255, blank=False, db_index=True)
+
+    objects = ModelLogEntryManager()
+
+    class Meta:
+        ordering = ['-timestamp', '-id']
+        verbose_name = _('model log entry')
+        verbose_name_plural = _('model log entries')
+
+    def __str__(self):
+        return "ModelLogEntry %d: '%s' on '%s' with id %s" % (
+            self.pk, self.action, self.object_verbose_name(), self.object_id
+        )

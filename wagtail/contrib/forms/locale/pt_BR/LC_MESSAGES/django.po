@@ -4,6 +4,7 @@
 #
 # Translators:
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Éder Brito <britoederr@gmail.com>, 2021
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gilson Filho <me@gilsondev.in>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
@@ -14,8 +15,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-11-10 13:23+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"PO-Revision-Date: 2021-09-27 00:43+0000\n"
+"Last-Translator: Éder Brito <britoederr@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +133,9 @@ msgstr "Data de envio"
 
 msgid "Form"
 msgstr "Formulário"
+
+msgid "Landing page"
+msgstr "Landing page"
 
 msgid "to address"
 msgstr "para endereço"

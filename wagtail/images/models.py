@@ -67,32 +67,7 @@ def get_rendition_upload_to(instance, filename):
     return instance.get_upload_to(filename)
 
 
-class AbstractImage(CollectionMember, index.Indexed, models.Model):
-    title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.ImageField(
-        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
-    )
-    width = models.IntegerField(verbose_name=_('width'), editable=False)
-    height = models.IntegerField(verbose_name=_('height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
-        null=True, blank=True, editable=False, on_delete=models.SET_NULL
-    )
-
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
-
-    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
-
-    file_size = models.PositiveIntegerField(null=True, editable=False)
-    # A SHA-1 hash of the file contents
-    file_hash = models.CharField(max_length=40, blank=True, editable=False)
-
-    objects = ImageQuerySet.as_manager()
-
+class ImageFileMixin:
     def is_stored_locally(self):
         """
         Returns True if the image is hosted on the local filesystem
@@ -119,6 +94,70 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    @contextmanager
+    def open_file(self):
+        # Open file if it is closed
+        close_file = False
+        try:
+            image_file = self.file
+
+            if self.file.closed:
+                # Reopen the file
+                if self.is_stored_locally():
+                    self.file.open('rb')
+                else:
+                    # Some external storage backends don't allow reopening
+                    # the file. Get a fresh file instance. #1397
+                    storage = self._meta.get_field('file').storage
+                    image_file = storage.open(self.file.name, 'rb')
+
+                close_file = True
+        except IOError as e:
+            # re-throw this as a SourceImageIOError so that calling code can distinguish
+            # these from IOErrors elsewhere in the process
+            raise SourceImageIOError(str(e))
+
+        # Seek to beginning
+        image_file.seek(0)
+
+        try:
+            yield image_file
+        finally:
+            if close_file:
+                image_file.close()
+
+    @contextmanager
+    def get_willow_image(self):
+        with self.open_file() as image_file:
+            yield WillowImage.open(image_file)
+
+
+class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Model):
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(
+        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
+
+    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
+
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+    # A SHA-1 hash of the file contents
+    file_hash = models.CharField(max_length=40, blank=True, editable=False)
+
+    objects = ImageQuerySet.as_manager()
 
     def _set_file_hash(self, file_contents):
         self.file_hash = hashlib.sha1(file_contents).hexdigest()
@@ -172,43 +211,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
-
-    @contextmanager
-    def open_file(self):
-        # Open file if it is closed
-        close_file = False
-        try:
-            image_file = self.file
-
-            if self.file.closed:
-                # Reopen the file
-                if self.is_stored_locally():
-                    self.file.open('rb')
-                else:
-                    # Some external storage backends don't allow reopening
-                    # the file. Get a fresh file instance. #1397
-                    storage = self._meta.get_field('file').storage
-                    image_file = storage.open(self.file.name, 'rb')
-
-                close_file = True
-        except IOError as e:
-            # re-throw this as a SourceImageIOError so that calling code can distinguish
-            # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
-
-        # Seek to beginning
-        image_file.seek(0)
-
-        try:
-            yield image_file
-        finally:
-            if close_file:
-                image_file.close()
-
-    @contextmanager
-    def get_willow_image(self):
-        with self.open_file() as image_file:
-            yield WillowImage.open(image_file)
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -547,7 +549,7 @@ class Filter:
         return hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
 
 
-class AbstractRendition(models.Model):
+class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
