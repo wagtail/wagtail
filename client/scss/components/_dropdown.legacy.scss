@@ -9,7 +9,7 @@
     .button {
         padding: 0 5em 0 1em;
         display: block;
-        width: 100%;
+        width: 300px;
         height: 3em;
         line-height: 3em;
         text-align: left;
@@ -181,7 +181,9 @@
         cursor: pointer;
         height: 100%;
         border-left: 1px solid rgba(255, 255, 255, 0.2);
-        position: absolute;
+        position: relative;
+        width: 15px;
+        float: right;
         right: 0;
         padding: 0 0.5em;
         text-align: center;
