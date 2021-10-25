@@ -5,7 +5,7 @@
 Backends
 ========
 
-Wagtailsearch has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch. The database backend is enabled by default.
+Wagtailsearch has support for multiple backends, giving you the choice between using the database for search or an external service such as Elasticsearch.
 
 You can configure which backend to use with the ``WAGTAILSEARCH_BACKENDS`` setting:
 
@@ -63,12 +63,12 @@ Database Backend (default)
 
 ``wagtail.search.backends.database``
 
-.. versionchanged:: 2.15
-
-    The default database search backend was changed from ``wagtail.search.backends.db``
-
 The database search backend searches content in the database using the full text search features of the database backend in use (such as PostgreSQL FTS, SQLite FTS5).
 This backend is intended to be used for development and also should be good enough to use in production on sites that don't require any Elasticsearch specific features.
+
+.. versionchanged:: 2.15
+
+    ``wagtail.search.backends.database`` replaces the old ``wagtail.search.backends.db`` backend which works using simple substring matching only. ``wagtail.search.backends.db`` is still the default if ``WAGTAILSEARCH_BACKENDS`` is not specified; ``wagtail.search.backends.database`` will become the default in Wagtail 2.17.
 
 
 .. _wagtailsearch_backends_elasticsearch:
