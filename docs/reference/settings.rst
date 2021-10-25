@@ -514,6 +514,7 @@ Wagtail update notifications
 
 For admins only, Wagtail performs a check on the dashboard to see if newer releases are available. This also provides the Wagtail team with the hostname of your Wagtail site. If you'd rather not receive update notifications, or if you'd like your site to remain unknown, you can disable it with this setting.
 
+If admins should only be informed of new long term support (LTS) versions, then set this setting to ``"lts"`` (the setting is case-insensitive).
 
 Private pages / documents
 =========================

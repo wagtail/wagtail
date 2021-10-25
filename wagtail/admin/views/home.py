@@ -1,4 +1,5 @@
 import itertools
+from typing import Any, Mapping, Union
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -34,9 +35,22 @@ class UpgradeNotificationPanel(Component):
     template_name = "wagtailadmin/home/upgrade_notification.html"
     order = 100
 
-    def render_html(self, parent_context):
-        if parent_context["request"].user.is_superuser and getattr(
-            settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True
+    def get_upgrade_check_setting(self) -> Union[bool, str]:
+        return getattr(settings, "WAGTAIL_ENABLE_UPDATE_CHECK", True)
+
+    def upgrade_check_lts_only(self) -> bool:
+        upgrade_check = self.get_upgrade_check_setting()
+        if isinstance(upgrade_check, str) and upgrade_check.lower() == "lts":
+            return True
+        return False
+
+    def get_context_data(self, parent_context: Mapping[str, Any]) -> Mapping[str, Any]:
+        return {"lts_only": self.upgrade_check_lts_only()}
+
+    def render_html(self, parent_context: Mapping[str, Any] = None) -> str:
+        if (
+            parent_context["request"].user.is_superuser
+            and self.get_upgrade_check_setting()
         ):
             return super().render_html(parent_context)
         else:
