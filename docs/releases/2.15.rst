@@ -149,6 +149,46 @@ Bug fixes
 Upgrade considerations
 ======================
 
+Database search backends replaced
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have been deprecated:
+
+ - ``wagtail.search.backends.db`` (the default if ``WAGTAILSEARCH_BACKENDS`` is not specified)
+ - ``wagtail.contrib.postgres_search.backend``
+
+Both of these backends have now been replaced by ``wagtail.search.backends.database``. This new
+backend supports all of the features of the PostgreSQL backend, and also supports other databases.
+It will be made the default backend in Wagtail 2.17. To enable the new backend, edit (or add) the
+``WAGTAILSEARCH_BACKENDS`` setting as follows:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.database',
+        }
+    }
+
+Also remove ``'wagtail.contrib.postgres_search'`` from ``INSTALLED_APPS`` if this was previously set.
+
+After switching to this backend, you will need to run the ``manage.py update_index`` management
+command to populate the search index (see :ref:`update_index`).
+
+If you have used the PostgreSQL-specific ``SEARCH_CONFIG``, this will continue to work as before with the new backend. For example:
+
+.. code-block:: python
+
+    WAGTAILSEARCH_BACKENDS = {
+        'default': {
+            'BACKEND': 'wagtail.search.backends.database',
+            'SEARCH_CONFIG': 'english',
+        }
+    }
+
+However, as a PostgreSQL specific feature, this will be ignored when using a different database.
+
+
 Admin homepage panels, summary items and action menu items now use components
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -264,31 +304,6 @@ can find out the relation name as follows:
         from wagtail.core.models import COMMENTS_RELATION_NAME
     except ImportError:
         COMMENTS_RELATION_NAME = 'comments'
-
-
-Database backends replaced
-~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The following search backends (configured in ``WAGTAILSEARCH_BACKENDS``) have been deprecated:
-
- - ``wagtail.search.backends.db``
- - ``wagtail.contrib.postgres_search.backend``
-
-Both of these backends have now moved to ``wagtail.search.backends.database``.
-This new backend supports all of the features of the PostgreSQL backend, and also supports other databases.
-
-If you have used the PostgreSQL-specific ``SEARCH_CONFIG``, this will continue to work as before with the new backend. For example:
-
-.. code-block:: python
-
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.database',
-            'SEARCH_CONFIG': 'english',
-        }
-    }
-
-However, as a PostgreSQL specific feature, this will be ignored when using a different database.
 
 
 Bulk action views not covered by existing hooks
