@@ -18,7 +18,8 @@ def get_search_backend_config():
 
     # Make sure the default backend is always defined
     search_backends.setdefault('default', {
-        'BACKEND': 'wagtail.search.backends.database',
+        # RemovedInWagtail217Warning - will switch to wagtail.search.backends.database
+        'BACKEND': 'wagtail.search.backends.db',
     })
 
     return search_backends

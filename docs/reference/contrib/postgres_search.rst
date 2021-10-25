@@ -4,6 +4,11 @@
 PostgreSQL search engine
 ========================
 
+.. warning::
+
+    | This search backend is deprecated, and has been replaced by ``wagtail.search.backends.database``. See :ref:`wagtailsearch_backends`.
+
+
 This contrib module provides a search engine backend using
 `PostgreSQL full-text search capabilities <https://www.postgresql.org/docs/current/static/textsearch.html>`_.
 

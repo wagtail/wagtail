@@ -14,7 +14,12 @@ class PostgresSearchConfig(AppConfig):
 
     def ready(self):
 
-        warnings.warn('The wagtail.contrib.postgres_search app will be deprecated in a future release. Please update your search backend to \'wagtail.search.backends.database\', which will pick up a Postgres backend automatically.', RemovedInWagtail217Warning)
+        warnings.warn(
+            "The wagtail.contrib.postgres_search backend is deprecated and has been replaced by "
+            "wagtail.search.backends.database. "
+            "See https://docs.wagtail.io/en/stable/releases/2.15.html#database-search-backends-replaced",
+            category=RemovedInWagtail217Warning
+        )
 
         @register(Tags.compatibility, Tags.database)
         def check_if_postgresql(app_configs, **kwargs):
