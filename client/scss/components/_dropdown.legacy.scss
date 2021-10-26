@@ -52,6 +52,14 @@
 
         // Media for Windows High Contrast
         @media (forced-colors: $media-forced-colours) {
+            li {
+                border-width: 1px;
+            }
+
+            li:hover {
+                border-color: Highlight;
+            }
+
             li a,
             li button {
                 forced-color-adjust: none;
@@ -200,8 +208,37 @@
 
     // Styles for dropdowns which are also buttons e.g page editor
     &.dropdown-button {
+        // Media for Windows High Contrast
+        @media (forced-colors: $media-forced-colours) {
+            button {
+                border-color: ActiveText;
+            }
+
+            button:hover {
+                border-color: Highlight;
+            }
+
+            a.button.bicolor.button:hover {
+                border-color: Highlight;
+            }
+        }
+
         .dropdown-toggle {
             border-radius: 0 3px 3px 0;
+            // Media for Windows High Contrast
+            @media (forced-colors: $media-forced-colours) {
+                background: transparent;
+                box-sizing: border-box;
+                border: 1px solid ActiveText;
+            }
+        }
+
+        .dropdown-toggle:hover {
+            // Media for Windows High Contrast
+            @media (forced-colors: $media-forced-colours) {
+                background-color: transparent;
+                border: 1px solid Highlight;
+            }
         }
 
         &.open {
