@@ -18,7 +18,16 @@ function compareVersion(versionA, versionB) {
 }
 
 function versionOutOfDate(latestVersion, currentVersion) {
+  //return true;
   return compareVersion(latestVersion, currentVersion) > 0;
 }
 
-export { compareVersion, versionOutOfDate };
+class VersionNumber {
+  constructor(versionString) {
+    this.full = 1;
+    this.major = 0;
+    this.patch = 0;
+  }
+}
+
+export { compareVersion, versionOutOfDate, VersionNumber };

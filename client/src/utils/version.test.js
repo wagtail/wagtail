@@ -1,4 +1,4 @@
-import { compareVersion, versionOutOfDate } from './version';
+import { compareVersion, versionOutOfDate, VersionNumber } from './version';
 
 describe('version.compareVersion', () => {
   it('compares 1.12 and 1.11 correctly', () => {
@@ -34,5 +34,18 @@ describe('version.versionOutOfDate', () => {
   });
   it('compares 2.6a0 and 2.4 correctly', () => {
     expect(versionOutOfDate('2.6a0', '2.4')).toBeTruthy();
+  });
+  it.skip('compares 2.6a0 and 2.6 correctly', () => {
+    expect(versionOutOfDate('2.6a0', '2.6')).toBeTruthy();
+  });
+});
+
+describe('version.VersionNumber', () => {
+  it('initialises 1', () => {
+    const result = new VersionNumber('1');
+
+    expect(result.full).toBe(1);
+    expect(result.major).toBe(0);
+    expect(result.patch).toBe(0);
   });
 });
