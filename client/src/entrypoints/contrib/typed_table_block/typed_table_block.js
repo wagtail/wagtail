@@ -192,7 +192,7 @@ export class TypedTableBlock {
       this.columns[i].positionInput.value = this.columns[i].position;
     }
     this.columns.splice(index, 0, column);
-    this.columnCountInput.value = this.columns.length;
+    this.columnCountInput.value = this.columnCountIncludingDeleted;
 
     // add new cell to the header row
     const headerRow = this.thead.children[0];
