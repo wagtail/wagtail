@@ -1,4 +1,5 @@
 from django import VERSION as DJANGO_VERSION
+from django.core.exceptions import ImproperlyConfigured
 from django.db import transaction
 from django.forms import Form
 from django.http import HttpResponseRedirect
@@ -62,6 +63,7 @@ class IndexView(
     model = None
     index_url_name = None
     add_url_name = None
+    add_item_label = _("Add")
     edit_url_name = None
     template_name = "wagtailadmin/generic/index.html"
     context_object_name = None
@@ -141,6 +143,10 @@ class IndexView(
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(instance.pk,))
 
+    def get_add_url(self):
+        if self.add_url_name:
+            return reverse(self.add_url_name)
+
     def get_valid_orderings(self):
         orderings = []
         for col in self.columns:
@@ -169,6 +175,10 @@ class IndexView(
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "add")
         )
+        if context["can_add"]:
+            context["add_url"] = self.get_add_url()
+            context["add_item_label"] = self.add_item_label
+
         context["table"] = table
         context["media"] = table.media
         context["index_url"] = index_url
@@ -201,9 +211,19 @@ class CreateView(
     submit_button_label = gettext_lazy("Create")
 
     def get_add_url(self):
+        if not self.add_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "add_url_name attribute or a get_add_url method"
+            )
         return reverse(self.add_url_name)
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.CreateView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def get_success_message(self, instance):
@@ -289,12 +309,23 @@ class EditView(
         return str(self.object)
 
     def get_edit_url(self):
+        if not self.edit_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
+                "edit_url_name attribute or a get_edit_url method"
+            )
         return reverse(self.edit_url_name, args=(self.object.id,))
 
     def get_delete_url(self):
-        return reverse(self.delete_url_name, args=(self.object.id,))
+        if self.delete_url_name:
+            return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.EditView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def save_instance(self):
@@ -350,12 +381,13 @@ class EditView(
         context = super().get_context_data(**kwargs)
         context["action_url"] = self.get_edit_url()
         context["submit_button_label"] = self.submit_button_label
-        context["delete_url"] = self.get_delete_url()
-        context["delete_item_label"] = self.delete_item_label
         context["can_delete"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "delete")
         )
+        if context["can_delete"]:
+            context["delete_url"] = self.get_delete_url()
+            context["delete_item_label"] = self.delete_item_label
         return context
 
 
@@ -381,12 +413,22 @@ class DeleteView(
         return super().get_object(queryset)
 
     def get_success_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide an "
+                "index_url_name attribute or a get_success_url method"
+            )
         return reverse(self.index_url_name)
 
     def get_page_subtitle(self):
         return str(self.object)
 
     def get_delete_url(self):
+        if not self.index_url_name:
+            raise ImproperlyConfigured(
+                "Subclasses of wagtail.admin.views.generic.models.DeleteView must provide a "
+                "delete_url_name attribute or a get_delete_url method"
+            )
         return reverse(self.delete_url_name, args=(self.object.id,))
 
     def get_success_message(self):
