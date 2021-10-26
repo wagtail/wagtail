@@ -506,7 +506,7 @@ Hooks for customising the editing interface for pages and snippets.
     @hooks.register('insert_editor_js')
     def editor_js():
         js_files = [
-            'demo/js/jquery.raptorize.1.0.js',
+            'js/fireworks.js', # https://fireworks.js.org
         ]
         js_includes = format_html_join('\n', '<script src="{0}"></script>',
             ((static(filename),) for filename in js_files)
@@ -514,8 +514,14 @@ Hooks for customising the editing interface for pages and snippets.
         return js_includes + mark_safe(
             """
             <script>
-                $(function() {
-                    $('button').raptorize();
+                window.addEventListener('DOMContentLoaded', (event) => {
+                    var container = document.createElement('div');
+                    container.style.cssText = 'position: fixed; width: 100%; height: 100%; z-index: 100; top: 0; left: 0; pointer-events: none;';
+                    container.id = 'fireworks';
+                    document.getElementById('main').prepend(container);
+                    var options = { "acceleration": 1.2, "autoresize": true, "mouse": { "click": true, "max": 3 } };
+                    var fireworks = new Fireworks(document.getElementById('fireworks'), options);
+                    fireworks.start();
                 });
             </script>
             """

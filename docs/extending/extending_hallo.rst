@@ -47,7 +47,7 @@ The constructor for ``HalloPlugin`` accepts the following keyword arguments:
 
 When writing the front-end code for the plugin, Wagtail’s Hallo implementation offers two extension points:
 
-* In JavaScript, use the ``[data-hallo-editor]`` attribute selector to target the editor, eg. ``var $editor = $('[data-hallo-editor]');``.
+* In JavaScript, use the ``[data-hallo-editor]`` attribute selector to target the editor, eg. ``var editor = document.querySelector('[data-hallo-editor]');``.
 * In CSS, use the ``.halloeditor`` class selector.
 
 
