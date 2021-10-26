@@ -125,25 +125,50 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     boundBlock.clear();
     expect(boundBlock.columns.length).toBe(0);
     expect(boundBlock.rows.length).toBe(0);
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('0');
+    expect(document.getElementsByName('mytable-row-count')[0].value).toBe('0');
   });
 
   test('supports inserting columns', () => {
     boundBlock.insertColumn(1, childBlockA);
     expect(boundBlock.columns.length).toBe(3);
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('3');
   });
 
   test('supports deleting columns', () => {
     boundBlock.deleteColumn(0);
     expect(boundBlock.columns.length).toBe(1);
+
+    // column count field still counts deleted columns (as it's used by the server-side code
+    // to find out the maximum column ID to look for)
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('2');
+  });
+
+  test('counts deleted columns in column-count hidden field', () => {
+    boundBlock.deleteColumn(0);
+    boundBlock.insertColumn(1, childBlockA);
+    expect(boundBlock.columns.length).toBe(2);
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('3');
   });
 
   test('supports inserting rows', () => {
     boundBlock.insertRow(1);
     expect(boundBlock.rows.length).toBe(3);
+    expect(document.getElementsByName('mytable-row-count')[0].value).toBe('3');
   });
 
   test('supports deleting rows', () => {
     boundBlock.deleteRow(1);
     expect(boundBlock.rows.length).toBe(1);
+    // row count field still counts deleted rows (as it's used by the server-side code
+    // to find out the maximum row ID to look for)
+    expect(document.getElementsByName('mytable-row-count')[0].value).toBe('2');
+  });
+
+  test('counts deleted rows in row-count hidden field', () => {
+    boundBlock.deleteRow(0);
+    boundBlock.insertRow(0);
+    expect(boundBlock.rows.length).toBe(2);
+    expect(document.getElementsByName('mytable-row-count')[0].value).toBe('3');
   });
 });
