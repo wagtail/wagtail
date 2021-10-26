@@ -74,6 +74,52 @@ class TestTableBlock(TestCase):
         self.assertEqual([block.value for block in rows[0]], ['nl', 'A small country with stroopwafels'])
         self.assertEqual([block.value for block in rows[1]], ['fr', 'A large country with baguettes'])
 
+    def test_submission_with_column_deletion_and_insertion(self):
+        # Test server-side behaviour in the setting described in
+        # https://github.com/wagtail/wagtail/issues/7654
+
+        # This form data represents a submission where there are three columns:
+        # country (column id 0), population (column id 3), description (column id 2)
+        # Column id 1 is a population column that was deleted before being replaced by the
+        # current one with id 3.
+        form_data = {
+            # table-column-count includes deleted columns, as it's telling the server code
+            # the maximum column ID number it should consider
+            'table-column-count': '4',
+            'table-row-count': '1',
+            'table-column-0-type': 'country',
+            'table-column-0-order': '0',
+            'table-column-0-deleted': '',
+            'table-column-0-heading': 'Country',
+            'table-column-1-deleted': '1',
+            'table-column-2-type': 'text',
+            'table-column-2-order': '2',
+            'table-column-2-deleted': '',
+            'table-column-2-heading': 'Description',
+            'table-column-3-type': 'text',
+            'table-column-3-order': '1',
+            'table-column-3-deleted': '',
+            'table-column-3-heading': 'Population',
+            'table-row-0-order': '1',
+            'table-row-0-deleted': '',
+            'table-cell-0-0': 'fr',
+            'table-cell-0-3': '68000000',
+            'table-cell-0-2': 'A large country with baguettes',
+        }
+        table = self.block.value_from_datadict(form_data, {}, 'table')
+
+        self.assertIsInstance(table, TypedTable)
+        self.assertEqual(len(table.columns), 3)
+        self.assertEqual(table.columns[0]['heading'], 'Country')
+        self.assertEqual(table.columns[1]['heading'], 'Population')
+        self.assertEqual(table.columns[2]['heading'], 'Description')
+        rows = list(table.rows)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(
+            [block.value for block in rows[0]],
+            ['fr', '68000000', 'A large country with baguettes']
+        )
+
     def test_to_python(self):
         """
         Test that we can turn JSONish data from the database into a TypedTable instance
