@@ -1,7 +1,11 @@
-function compareVersion(versionA, versionB) {
+function versionStringToArray(versionString) {
   const trailingZeroRe = /(\.0)+[^.]*$/;
-  const va = (versionA + '').replace(trailingZeroRe, '').split('.');
-  const vb = (versionB + '').replace(trailingZeroRe, '').split('.');
+  return (versionString + '').replace(trailingZeroRe, '').split('.');
+}
+
+function compareVersion(versionA, versionB) {
+  const va = versionStringToArray(versionA);
+  const vb = versionStringToArray(versionB);
   const len = Math.min(va.length, vb.length);
   for (let i = 0; i < len; i++) {
     const cmp = parseInt(va[i], 10) - parseInt(vb[i], 10);
