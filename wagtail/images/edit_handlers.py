@@ -7,8 +7,6 @@ from .widgets import AdminImageChooser
 
 
 class ImageChooserPanel(BaseChooserPanel):
-    object_type_name = "image"
-
     def widget_overrides(self):
         return {self.field_name: AdminImageChooser}
 

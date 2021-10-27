@@ -620,10 +620,9 @@ class BaseChooserPanel(FieldPanel):
     a database object such as an image, resulting in an ID that is used to populate
     a hidden foreign key input.
 
-    Subclasses provide:
-    * field_template (only required if the default template of field_panel_field.html is not usable)
-    * object_type_name - something like 'image' which will be used as the var name
-      for the object instance in the field_template
+    Subclasses can override field_template and render_as_field to customise the rendering, but
+    probably shouldn't - any custom rendering requirements are better implemented in the widget
+    rather than the panel, so that non-edit-handler-based forms can benefit from then too.
     """
 
     def get_chosen_item(self):
@@ -637,23 +636,8 @@ class BaseChooserPanel(FieldPanel):
             # like every other unpopulated field type. Yay consistency!
             return
 
-    def render_as_field(self):
-        instance_obj = self.get_chosen_item()
-        context = {
-            "field": self.bound_field,
-            self.object_type_name: instance_obj,
-            "is_chosen": bool(
-                instance_obj
-            ),  # DEPRECATED - passed to templates for backwards compatibility only
-            "show_add_comment_button": self.comments_enabled
-            and getattr(self.bound_field.field.widget, "show_add_comment_button", True),
-        }
-        return mark_safe(render_to_string(self.field_template, context))
-
 
 class PageChooserPanel(BaseChooserPanel):
-    object_type_name = "page"
-
     def __init__(self, field_name, page_type=None, can_choose_root=False):
         super().__init__(field_name=field_name)
 
