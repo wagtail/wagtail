@@ -615,26 +615,9 @@ class RichTextFieldPanel(FieldPanel):
 
 
 class BaseChooserPanel(FieldPanel):
-    """
-    Abstract superclass for panels that provide a modal interface for choosing (or creating)
-    a database object such as an image, resulting in an ID that is used to populate
-    a hidden foreign key input.
-
-    Subclasses can override field_template and render_as_field to customise the rendering, but
-    probably shouldn't - any custom rendering requirements are better implemented in the widget
-    rather than the panel, so that non-edit-handler-based forms can benefit from then too.
-    """
-
-    def get_chosen_item(self):
-        field = self.instance._meta.get_field(self.field_name)
-        related_model = field.remote_field.model
-        try:
-            return getattr(self.instance, self.field_name)
-        except related_model.DoesNotExist:
-            # if the ForeignKey is null=False, Django decides to raise
-            # a DoesNotExist exception here, rather than returning None
-            # like every other unpopulated field type. Yay consistency!
-            return
+    # For backwards compatibility only - chooser panels no longer need any base functionality
+    # beyond FieldPanel.
+    pass
 
 
 class PageChooserPanel(BaseChooserPanel):

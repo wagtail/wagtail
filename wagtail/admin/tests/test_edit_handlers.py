@@ -905,10 +905,6 @@ class TestPageChooserPanel(TestCase):
         )
         self.assertIn(expected_js, result)
 
-    def test_get_chosen_item(self):
-        result = self.page_chooser_panel.get_chosen_item()
-        self.assertEqual(result, self.christmas_page)
-
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
