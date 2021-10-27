@@ -60,11 +60,14 @@ export class TypedTableBlock {
             </tbody>
             <tfoot>
               <tr>
-                <td class="control-cell"></td>
-                <td>
-                  <button type="button" class="button button-small button-secondary prepend-row"
-                    aria-label="${h(strings.ADD_ROW)}" title="${h(strings.ADD_ROW)}" data-add-row>+</button>
-                </td>
+                <td class="control-cell">
+                  <button type="button"
+                    class="button button-small button-secondary button--icon text-replace prepend-row"
+                    aria-label="${h(strings.ADD_ROW)}" title="${h(strings.ADD_ROW)}" data-add-row>
+                    <svg class="icon icon-plus icon" aria-hidden="true" focusable="false">
+                      <use href="#icon-plus"></use>
+                    </svg>
+                  </button></td>
               </tr>
             </tfoot>
           </table>
@@ -167,7 +170,10 @@ export class TypedTableBlock {
     const headerRow = this.thead.children[0];
     // delete all header cells except for the control columns
     headerRow.replaceChildren(headerRow.firstElementChild, headerRow.lastElementChild);
-    this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMN).removeAttr('aria-label').removeAttr('title');
+    this.appendColumnButton.text(this.blockDef.meta.strings.ADD_COLUMN)
+      .removeClass('button--icon text-replace white')
+      .removeAttr('aria-label')
+      .removeAttr('title');
 
     // delete all body rows
     this.tbody.replaceChildren();
@@ -213,9 +219,11 @@ export class TypedTableBlock {
     this.deletedFieldsContainer.appendChild(column.deletedInput);
 
     const prependColumnButton = $(`<button type="button"
-      class="button button-small button-secondary prepend-column"
+      class="button button-secondary button-small button--icon text-replace prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
-      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">+</button>`);
+      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">
+        <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
+      </button>`);
     $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
       this.toggleAddColumnMenu(prependColumnButton, (chosenBlockDef) => {
@@ -230,7 +238,7 @@ export class TypedTableBlock {
     newHeaderCell.appendChild(column.headingInput);
 
     const deleteColumnButton = $(`<button type="button"
-      class="button button-secondary button-small button--icon text-replace white no delete-column"
+      class="button button-secondary button-small button--icon text-replace no delete-column"
       aria-label="${h(this.blockDef.meta.strings.DELETE_COLUMN)}"
       title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">
         <svg class="icon icon-bin icon" aria-hidden="true" focusable="false"><use href="#icon-bin"></use></svg>
@@ -255,11 +263,18 @@ export class TypedTableBlock {
     });
     /* after first column is added, enable adding rows */
     this.addRowButton.show();
-    this.appendColumnButton.text('+').attr(
-      'aria-label', this.blockDef.meta.strings.ADD_COLUMN
-    ).attr(
-      'title', this.blockDef.meta.strings.ADD_COLUMN
-    );
+    this.appendColumnButton.html(
+      '<svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>'
+    )
+      .addClass(
+        'button--icon text-replace white'
+      )
+      .attr(
+        'aria-label', this.blockDef.meta.strings.ADD_COLUMN
+      )
+      .attr(
+        'title', this.blockDef.meta.strings.ADD_COLUMN
+      );
 
     if (opts && opts.addInitialRow && this.tbody.children.length === 0) {
       /* add an initial row */
@@ -315,9 +330,11 @@ export class TypedTableBlock {
     controlCellBefore.className = 'control-cell';
     rowElement.appendChild(controlCellBefore);
     const prependRowButton = $(`<button type="button"
-      class="button button-small button-secondary prepend-row"
+      class="button button-secondary button-small button--icon text-replace prepend-row"
       aria-label="${h(this.blockDef.meta.strings.INSERT_ROW)}"
-      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">+</button>`);
+      title="${h(this.blockDef.meta.strings.INSERT_ROW)}">
+        <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
+      </button>`);
     $(controlCellBefore).append(prependRowButton);
     prependRowButton.on('click', () => {
       this.insertRow(row.position);
@@ -348,7 +365,7 @@ export class TypedTableBlock {
     controlCellAfter.appendChild(row.positionInput);
 
     const deleteRowButton = $(`<button type="button"
-      class="button button-secondary button-small button--icon text-replace white no delete-row"
+      class="button button-secondary button-small button--icon text-replace no delete-row"
       aria-label="${h(this.blockDef.meta.strings.DELETE_ROW)}"
       title="${h(this.blockDef.meta.strings.DELETE_ROW)}">
         <svg class="icon icon-bin icon" aria-hidden="true" focusable="false"><use href="#icon-bin"></use></svg>

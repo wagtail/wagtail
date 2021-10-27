@@ -4,11 +4,11 @@
     &__wrapper {
         overflow-x: auto;
         // Reserve space for the add column menu.
-        min-height: 320px;
+        min-height: 20rem;
     }
 
     table {
-        margin: 2.5em 0 1em 2.5em;
+        margin: 2.5rem 0 1rem 2.5rem;
     }
 
     th {
@@ -17,19 +17,23 @@
         button.prepend-column,
         button.append-column {
             position: absolute;
-            left: -1.2em;
-            top: -2.2em;
+            left: -0.9rem;
+            top: -2rem;
         }
 
         button.delete-column {
             position: absolute;
-            right: 10px;
-            top: 13px;
+            right: 0.625rem;
+            top: 0.875rem;
         }
 
         input.column-heading {
-            padding-right: 3em;
+            padding-right: 3rem;
         }
+    }
+
+    td {
+        position: relative;
     }
 
     tbody tr,
@@ -37,26 +41,27 @@
         position: relative;
 
         button.prepend-row {
-            left: -2.5em;
+            left: -2rem;
             position: absolute;
-            top: -1em;
+            top: -0.9rem;
         }
 
         button.delete-row {
-            margin-left: 5px;
+            margin-left: 0.25rem;
         }
 
         td:not(.control-cell) {
             vertical-align: top;
-            min-width: 320px;
+            min-width: 20rem;
         }
     }
 
     ul.add-column-menu {
         position: absolute;
         top: 0;
+        left: -0.9rem;
         z-index: 100;
-        min-width: 10em;
+        min-width: 10rem;
         background-color: $color-white;
 
         button {
