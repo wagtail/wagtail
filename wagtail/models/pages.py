@@ -52,7 +52,7 @@ from wagtail.edit_handlers import (
     TabbedInterface)
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
-from wagtail.query import PageQuerySet
+from wagtail.models.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete)

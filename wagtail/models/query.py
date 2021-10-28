@@ -234,7 +234,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.exact_type_q(*types))
 
     def public_q(self):
-        from wagtail.models import PageViewRestriction
+        from .pages import PageViewRestriction
 
         q = Q()
         for restriction in PageViewRestriction.objects.select_related('page').all():
@@ -427,7 +427,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         Used by `workflow_in_progress` and `current_workflow_progress` properties on
         `wagtailcore.models.Page`.
         """
-        from .models import WorkflowState
+        from .workflows import WorkflowState
 
         workflow_states = WorkflowState.objects.active().select_related(
             "current_task_state__task"
@@ -447,7 +447,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         Annotates each page with the existence of an approved go live time.
         Used by `approved_schedule` property on `wagtailcore.models.Page`.
         """
-        from .models import PageRevision
+        from .pages import PageRevision
 
         return self.annotate(
             _approved_schedule=Exists(
@@ -479,7 +479,7 @@ def specific_iterator(qs, defer=False):
 
     This should be called from ``PageQuerySet.specific``
     """
-    from wagtail.models import Page
+    from .pages import Page
 
     annotation_aliases = qs.query.annotations.keys()
     values = qs.values('pk', 'content_type', *annotation_aliases)

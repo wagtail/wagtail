@@ -807,7 +807,7 @@ class TestSpecificQuery(TestCase):
 
         # Trick specific_iterator into always looking for EventPages
         with mock.patch(
-            'wagtail.query.ContentType.objects.get_for_id',
+            'wagtail.models.query.ContentType.objects.get_for_id',
             return_value=ContentType.objects.get_for_model(EventPage),
         ):
             with self.assertWarnsRegex(RuntimeWarning, "Specific versions of the following pages could not be found"):
