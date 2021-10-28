@@ -7,4 +7,4 @@ class WagtailUsersAppConfig(AppConfig):
     label = 'wagtailusers'
     verbose_name = _("Wagtail users")
     default_auto_field = 'django.db.models.AutoField'
-    group_viewset = 'wagtail.users.views.groups.GroupViewSet'
+    group_viewset = 'wagtail.admin.views.groups.GroupViewSet'

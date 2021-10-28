@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.users.views import users
+from wagtail.admin.views import users
 
 
 app_name = 'wagtailusers_users'

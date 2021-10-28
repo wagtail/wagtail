@@ -3,11 +3,11 @@ from django.urls import re_path
 from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
+from wagtail.admin.forms.users import GroupForm, GroupPagePermissionFormSet
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic, mixins
+from wagtail.admin.views.users import index
 from wagtail.admin.viewsets.model import ModelViewSet
-from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
-from wagtail.users.views.users import index
 
 
 _permission_panel_classes = None

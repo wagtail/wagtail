@@ -32,13 +32,13 @@ We create a model for Active Directory groups as follows:
         verbose_name_plural = "AD groups"
 
 However, there is no role field on the Wagtail group 'edit' or 'create' view.
-To add it, inherit from ``wagtail.users.forms.GroupForm`` and add a new field:
+To add it, inherit from ``wagtail.admin.forms.users.GroupForm`` and add a new field:
 
 .. code-block:: python
 
   from django import forms
 
-  from wagtail.users.forms import GroupForm as WagtailGroupForm
+  from wagtail.admin.forms.users import GroupForm as WagtailGroupForm
 
   from .models import ADGroup
 
@@ -70,7 +70,7 @@ Now add your custom form into the group viewset by inheriting the default Wagtai
 
 .. code-block:: python
 
-  from wagtail.users.views.groups import GroupViewSet as WagtailGroupViewSet
+  from wagtail.admin.views.groups import GroupViewSet as WagtailGroupViewSet
 
   from .forms import GroupForm
 
@@ -90,27 +90,27 @@ Add the field to the group 'edit'/'create' templates:
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.adgroups %}
   {% endblock extra_fields %}
 
-Finally we configure the ``wagtail.users`` application to use the custom viewset,
+Finally we configure the ``wagtail`` application to use the custom viewset,
 by setting up a custom ``AppConfig`` class. Within your project folder (i.e. the
 package containing the top-level settings and urls modules), create ``apps.py``
 (if it does not exist already) and add:
 
 .. code-block:: python
 
-  from wagtail.users.apps import WagtailUsersAppConfig
+  from wagtail.apps import WagtailAppConfig
 
 
-  class CustomUsersAppConfig(WagtailUsersAppConfig):
+  class CustomWagtailAppConfig(WagtailAppConfig):
       group_viewset = "myapplication.someapp.viewsets.GroupViewSet"
 
-Replace ``wagtail.users`` in ``settings.INSTALLED_APPS`` with the path to
-``CustomUsersAppConfig``.
+Replace ``wagtail`` in ``settings.INSTALLED_APPS`` with the path to
+``CustomWagtailAppConfig``.
 
 .. code-block:: python
 
   INSTALLED_APPS = [
       ...,
-      "myapplication.apps.CustomUsersAppConfig",
-      # "wagtail.users",
+      "myapplication.apps.CustomWagtailAppConfig",
+      # "wagtail",
       ...,
   ]

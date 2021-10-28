@@ -2,8 +2,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+from wagtail.admin.views.users import change_user_perm
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
-from wagtail.users.views.users import change_user_perm
 
 
 class ActivityForm(forms.Form):

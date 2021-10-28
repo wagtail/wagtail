@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 
 from wagtail.admin.views.bulk_action import BulkAction
-from wagtail.users.views.users import get_users_filter_query
+from wagtail.admin.views.users import get_users_filter_query
 
 
 class UserBulkAction(BulkAction):

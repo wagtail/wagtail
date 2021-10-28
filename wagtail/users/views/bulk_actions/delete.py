@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
-from wagtail.users.utils import user_can_delete_user
+from wagtail.admin.usersutils import user_can_delete_user
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
 

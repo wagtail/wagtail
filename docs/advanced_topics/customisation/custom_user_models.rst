@@ -17,7 +17,7 @@ Create a custom user model. This must at minimum inherit from ``AbstractBaseUser
       country = models.CharField(verbose_name='country', max_length=255)
       status = models.ForeignKey(MembershipStatus, on_delete=models.SET_NULL, null=True, default=1)
 
-Add the app containing your user model to ``INSTALLED_APPS`` - it must be above the ``'wagtail.users'`` line,
+Add the app containing your user model to ``INSTALLED_APPS`` - it must be above the ``'wagtail'`` line,
 in order to override Wagtail's built-in templates - and set AUTH_USER_MODEL_ to reference
 your model. In this example the app is called ``users`` and the model is ``User``
 
@@ -32,7 +32,7 @@ Create your custom user 'create' and 'edit' forms in your app:
   from django import forms
   from django.utils.translation import gettext_lazy as _
 
-  from wagtail.users.forms import UserEditForm, UserCreationForm
+  from wagtail.admin.forms.users import UserEditForm, UserCreationForm
 
   from users.models import MembershipStatus
 
