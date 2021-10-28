@@ -1,11 +1,11 @@
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.forms.sites import SiteForm
 from wagtail.admin.ui.tables import Column, StatusFlagColumn, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.models import Site
 from wagtail.permissions import site_permission_policy
-from wagtail.sites.forms import SiteForm
 
 
 class IndexView(generic.IndexView):
