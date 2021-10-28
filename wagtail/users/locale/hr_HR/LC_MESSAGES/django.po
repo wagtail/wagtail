@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-10-14 14:26+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,15 @@ msgstr "korisnički profil"
 msgid "user profiles"
 msgstr "korisnički profili"
 
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Yes, delete"
+msgstr "Da, obriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
 msgid "Delete group"
 msgstr "Obriši grupu"
 
@@ -158,9 +167,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Jeste li sigurni da želite izbrisati grupu?"
 
-msgid "Yes, delete"
-msgstr "Da, obriši"
-
 msgid "Add group"
 msgstr "Dodaj grupu"
 
@@ -187,9 +193,6 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Promijeni"
-
-msgid "Delete"
-msgstr "Obriši"
 
 msgid "Other permissions"
 msgstr "Ostale dozvole"

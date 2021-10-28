@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -140,6 +140,15 @@ msgstr "Benutzerprofil"
 msgid "user profiles"
 msgstr "Benutzerprofile"
 
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
 msgid "Delete group"
 msgstr "Gruppe löschen"
 
@@ -173,9 +182,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?"
 
-msgid "Yes, delete"
-msgstr "Ja, löschen"
-
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
@@ -202,9 +208,6 @@ msgstr "Hinzufügen"
 
 msgid "Change"
 msgstr "Ändern"
-
-msgid "Delete"
-msgstr "Löschen"
 
 msgid "Other permissions"
 msgstr "Andere Berechtigung"

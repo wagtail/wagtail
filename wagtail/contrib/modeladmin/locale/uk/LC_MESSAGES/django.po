@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-09-29 17:38+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 07:30+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -125,6 +125,16 @@ msgstr "Головна"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "за %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Востаннє оновлено"
+
+msgid "History"
+msgstr "Історія змін"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s з %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -240,3 +250,9 @@ msgstr "Перегляд"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Перегляд %s"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Date"
+msgstr "Дата"

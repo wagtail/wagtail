@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2019-01-22 16:20+0000\n"
-"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
 "MIME-Version: 1.0\n"
@@ -28,29 +28,20 @@ msgstr "အခြေခံစာမျက်နှာကို ရွေးပ�
 msgid "Choose a different root page"
 msgstr "အခြားအခြေခံစာမျက်နှာကို ရွေးပါ"
 
+msgid "Sites"
+msgstr "ဆိုက်များ"
+
+msgid "Add a site"
+msgstr "ဆိုက်တစ်ခုထည့်ပါ"
+
 msgid "Site"
 msgstr "ဆိုက်"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "ဆိုက်အမည်"
-
-msgid "Root page"
-msgstr "အခြေခံစာမျက်နှာ"
 
 msgid "Default?"
 msgstr "မူလလား"
 
 msgid "Default"
 msgstr "မူလ"
-
-msgid "Sites"
-msgstr "ဆိုက်များ"
-
-msgid "Add a site"
-msgstr "ဆိုက်တစ်ခုထည့်ပါ"
 
 msgid "Add site"
 msgstr "ဆိုက်ထည့်ပါ"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -23,6 +23,14 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail inti"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Jumlah isi minimum adalah %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Jumlah isi maksimum adalah %d"
 
 msgid "Move up"
 msgstr "Geser ke atas"
@@ -39,16 +47,8 @@ msgstr "Tambah"
 msgid "This block has no options."
 msgstr "Tidak ada pilihan untuk blok ini."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Jumlah isi minimum adalah %d"
-
 msgid "This field is required."
 msgstr "Kolom ini harus diisi."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Jumlah isi maksimum adalah %d"
 
 msgid "Password"
 msgstr "Kata Sandi"

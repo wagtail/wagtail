@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 13:51+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,14 @@ msgstr "Rdzeń Wagtail"
 
 msgid "Add Comment"
 msgstr "Dodaj Komentarz"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimalna ilość elementów to %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maksymalna ilość elementów to %d"
 
 msgid "Move up"
 msgstr "Przesuń w górę"
@@ -53,16 +61,8 @@ msgstr "%(label)s: ten blok nie ma opcji."
 msgid "This block has no options."
 msgstr "Ten block nie posiada opcji."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimalna ilość elementów to %d"
-
 msgid "This field is required."
 msgstr "To pole jest wymagane."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maksymalna ilość elementów to %d"
 
 msgid "Password"
 msgstr "Hasło"
@@ -72,10 +72,6 @@ msgstr "Wprowadzone hasło nie jest prawidłowe. Proszę spróbować ponownie."
 
 msgid "Comment"
 msgstr "Komentarz"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Nieznany %(action)s"
 
 msgid "title"
 msgstr "tytuł"
@@ -422,12 +418,12 @@ msgstr "wpis loga"
 msgid "log entries"
 msgstr "wpisy loga"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "użytkownik %(id)d (usunięty)"
-
 msgid "system"
 msgstr "system"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Nieznany %(action)s"
 
 msgid "collection"
 msgstr "kolekcja"
@@ -608,6 +604,13 @@ msgid "Reject"
 msgstr "Odrzuć"
 
 #, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Zmieniono nazwę z '%(old)s' na '%(new)s'"
+
+msgid "Renamed"
+msgstr "Zmieniona nazwa"
+
+#, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
 msgstr ""
@@ -615,6 +618,9 @@ msgstr ""
 
 msgid "Reverted to previous revision"
 msgstr "Cofnięte do poprzedniej rewizji"
+
+msgid "Copy"
+msgstr "Kopiuj"
 
 #, python-format
 msgid "Copied from %(title)s"
@@ -629,6 +635,9 @@ msgstr "Utworzono alias dla %(title)s"
 
 msgid "Created an alias"
 msgstr "Utworzono alias"
+
+msgid "Move"
+msgstr "Przesuń"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -695,12 +704,8 @@ msgstr "Usunięto restrykcję widoczności '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Usunięto restrykcję widoczności"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Zmieniono nazwę z '%(old)s' na '%(new)s'"
-
-msgid "Renamed"
-msgstr "Zmieniona nazwa"
+msgid "Add comment"
+msgstr "Dodaj komentarz"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -719,23 +724,26 @@ msgstr "Usunięto komentarz na polu %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Usunięto komentarz"
 
-msgid "Copy"
-msgstr "Kopiuj"
-
-msgid "Move"
-msgstr "Przesuń"
-
-msgid "Add comment"
-msgstr "Dodaj komentarz"
+msgid "Workflow: start"
+msgstr "Workflow: start"
 
 msgid "Workflow started"
 msgstr "Workflow rozpoczęty"
 
+msgid "Workflow: approve task"
+msgstr "Workflow: zaakceptuj zadanie"
+
 msgid "Workflow task approved"
 msgstr "Zadanie workflow zaakceptowane"
 
+msgid "Workflow: reject task"
+msgstr "Workflow: odrzuć zadanie"
+
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Zadanie workflow odrzucone. Workflow zakończony"
+
+msgid "Workflow: resume task"
+msgstr "Workflow: wznów zadanie"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -744,24 +752,12 @@ msgstr "Ponownie przesłano '%(task)s'. Workflow wznowiony'"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Zadanie workflow wysłane ponownie. Workflow wznowiony"
 
+msgid "Workflow: cancel"
+msgstr "Workflow: anuluj"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Anulowano '%(workflow)s' w '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Workflow anulowany"
-
-msgid "Workflow: start"
-msgstr "Workflow: start"
-
-msgid "Workflow: approve task"
-msgstr "Workflow: zaakceptuj zadanie"
-
-msgid "Workflow: reject task"
-msgstr "Workflow: odrzuć zadanie"
-
-msgid "Workflow: resume task"
-msgstr "Workflow: wznów zadanie"
-
-msgid "Workflow: cancel"
-msgstr "Workflow: anuluj"

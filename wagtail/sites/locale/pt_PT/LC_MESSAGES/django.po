@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-07-07 23:19+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -32,29 +32,20 @@ msgstr "Escolher uma página raiz"
 msgid "Choose a different root page"
 msgstr "Escolher uma página raiz diferente"
 
+msgid "Sites"
+msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Adicionar site"
+
 msgid "Site"
 msgstr "Site"
-
-msgid "Port"
-msgstr "Porta"
-
-msgid "Site name"
-msgstr "Nome do site"
-
-msgid "Root page"
-msgstr "Página raiz"
 
 msgid "Default?"
 msgstr "Pré-definido?"
 
 msgid "Default"
 msgstr "Pré-definido"
-
-msgid "Sites"
-msgstr "Sites"
-
-msgid "Add a site"
-msgstr "Adicionar site"
 
 msgid "Add site"
 msgstr "Adicionar site"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Dan Braghis, 2021\n"
 "Language-Team: Romanian (https://www.transifex.com/torchbox/teams/8009/ro/)\n"
@@ -31,6 +31,9 @@ msgstr "Limbă"
 msgid "Select a new language"
 msgstr "Selectează limbă nouă"
 
+msgid "This locale's language code is not supported"
+msgstr "Codul limbii pentru această localizare nu este suportat."
+
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
@@ -44,17 +47,14 @@ msgstr ""
 "Codul limbii curent pentru această localizare nu este suportat. Selectează o "
 "limbă nouă sau șterge această localizare."
 
-msgid "Usage"
-msgstr "Utilizare"
-
-msgid "This locale's language code is not supported"
-msgstr "Codul limbii pentru această localizare nu este suportat."
-
 msgid "Locales"
 msgstr "Localizări"
 
 msgid "Add a locale"
 msgstr "Adaugă o localizare"
+
+msgid "Usage"
+msgstr "Utilizare"
 
 msgid "Add locale"
 msgstr "Adaugă localizare"

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:42+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "URL"
 msgid "Parent"
 msgstr "Родител"
 
+msgid "Edit"
+msgstr "Редакция"
+
 msgid "This slug is already in use"
 msgstr "Този слъг е вече в употреба"
 
@@ -61,9 +64,6 @@ msgstr "Търсене"
 
 msgid "Search term"
 msgstr "Фраза за търсене"
-
-msgid "Edit"
-msgstr "Редакция"
 
 msgid "Save"
 msgstr "Запази"
@@ -242,6 +242,9 @@ msgstr "Изберете какъв тип страница искате да с
 msgid "Pages using %(page_type)s"
 msgstr "Страници използващи %(page_type)s"
 
+msgid "Move"
+msgstr "Премести"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Изтрийте %(title)s"
@@ -271,9 +274,6 @@ msgstr[1] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Промести %(title)s"
-
-msgid "Move"
-msgstr "Премести"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -367,6 +367,9 @@ msgstr "Излез"
 msgid "by %(modified_by)s"
 msgstr "по %(modified_by)s"
 
+msgid "More"
+msgstr "Повече"
+
 msgid "Password"
 msgstr "Парола"
 
@@ -405,9 +408,6 @@ msgstr "Страница '{0}' преместена."
 
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' отменена от публикуване."
-
-msgid "More"
-msgstr "Повече"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

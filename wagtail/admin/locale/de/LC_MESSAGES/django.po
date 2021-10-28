@@ -42,8 +42,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-14 19:04+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 11:11+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -179,12 +179,30 @@ msgstr ""
 "Wähle eine hierarchische Position. Beachte: Eine Sammlung kann kein Kind von "
 "sich selbst oder eines Nachkommen werden."
 
+msgid "Please select another parent"
+msgstr "Bitte wählen Sie einen anderen Elterteil aus."
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Sammlung anlegen."
 
 msgid "Collection"
 msgstr "Sammlung"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Add collections"
+msgstr "Sammlungen hinzufügen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit collections"
+msgstr "Sammlungen bearbeiten"
+
+msgid "Delete collections"
+msgstr "Sammlungen löschen"
 
 msgid "You cannot edit another user's comment."
 msgstr "Sie können ein Kommentar eines anderen Benutzers nicht bearbeiten."
@@ -299,9 +317,6 @@ msgstr "Geben Sie Ihrem Arbeitsablauf einen Namen"
 
 msgid "Add tasks to your workflow"
 msgstr "Fügen Sie Ihrem Arbeitsablauf Arbeitsschritte hinzu"
-
-msgid "Edit"
-msgstr "Bearbeiten"
 
 msgid "Page"
 msgstr "Seite"
@@ -447,6 +462,30 @@ msgstr "Dashboard"
 msgid "Edit your account"
 msgstr "Bearbeiten Sie Ihr Konto"
 
+msgid "1 page selected"
+msgstr "1 Seite ausgewählt"
+
+msgid "{0} pages selected"
+msgstr "{0} Seiten ausgewählt"
+
+msgid "1 document selected"
+msgstr "1 Dokument ausgewählt"
+
+msgid "{0} documents selected"
+msgstr "{0} Dokumente ausgewählt"
+
+msgid "1 image selected"
+msgstr "1 Bild ausgewählt"
+
+msgid "{0} images selected"
+msgstr "{0} Bilder ausgewählt"
+
+msgid "1 user selected"
+msgstr "1 Benutzer ausgewählt"
+
+msgid "{0} users selected"
+msgstr "{0} Benutzer ausgewählt"
+
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
 
@@ -530,6 +569,12 @@ msgstr "Auf Standard zurücksetzen"
 
 msgid "Menu"
 msgstr "Menü"
+
+msgid "Go back"
+msgstr "Zurückgehen"
+
+msgid "Select all"
+msgstr "Alles auswählen"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -1063,6 +1108,15 @@ msgstr "Wählen Sie den Typ der Seite die Sie erstellen möchten."
 msgid "Pages using %(page_type)s"
 msgstr "Seiten, die %(page_type)s verwenden"
 
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
+msgid "Move"
+msgstr "Verschieben"
+
+msgid "No, don't unpublish"
+msgstr "Nein, veröffentlicht belassen"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Alias %(title)s konvertieren"
@@ -1128,9 +1182,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s verschieben"
 
-msgid "Move"
-msgstr "Verschieben"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr ""
@@ -1178,9 +1229,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, Veröffentlichung aufheben"
-
-msgid "No, don't unpublish"
-msgstr "Nein, veröffentlicht belassen"
 
 msgid "Publish page"
 msgstr "Seite veröffentlichen"
@@ -1755,6 +1803,9 @@ msgstr "Gesperrt"
 msgid "No locked pages found."
 msgstr "Keine gesperrten Seiten gefunden"
 
+msgid "Edit this item"
+msgstr "Dieses Objekt bearbeiten"
+
 msgid "By Task"
 msgstr "Nach Aufgabe"
 
@@ -1835,16 +1886,6 @@ msgstr ""
 "target=\"_blank\" rel=\"noopener noreferrer\">Anleitung, wie man JavaScript "
 "in Ihrem Webbrowser aktiviert</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail entfernt schrittweise die Unterstützung für IE11, was Sie oder Ihr "
-"Unternehmen betreffen kann. <a href=\"%(url)s\">Erfahren Sie mehr über "
-"unsere IE11-Supportpläne</a>."
 
 msgid "Skip to main content"
 msgstr "Zum Hauptinhalt springen"
@@ -2081,6 +2122,9 @@ msgstr ""
 "Sortiere die Unterseiten von '%(parent)s' nach '%(label)s' in absteigender "
 "Reihenfolge"
 
+msgid "More"
+msgstr "Mehr"
+
 msgid "0 minutes"
 msgstr "0 Minuten"
 
@@ -2090,11 +2134,11 @@ msgstr "Jetzt gerade"
 msgid "live"
 msgstr "Veröffentlicht"
 
-msgid "live + draft"
-msgstr "Veröffentlicht + Entwurf"
-
 msgid "draft"
 msgstr "Entwurf"
+
+msgid "live + draft"
+msgstr "Veröffentlicht + Entwurf"
 
 msgid "Test"
 msgstr "Test"
@@ -2143,9 +2187,6 @@ msgstr "Beim Speichern der Sammlung sind Fehler aufgetreten."
 
 msgid "Delete collection"
 msgstr "Sammlung löschen"
-
-msgid "Please select another parent"
-msgstr "Bitte wählen Sie einen anderen Elterteil aus."
 
 msgid "Collection '{0}' deleted."
 msgstr "Sammlung ‚{0}‘ gelöscht."
@@ -2424,22 +2465,6 @@ msgstr "Aufgabe deaktivieren"
 msgid "Task '{0}' disabled."
 msgstr "Aufgabe ‚{0}‘ deaktiviert."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Diese Aufgabe ist in Bearbeitung auf %(states_in_progress)d Seite. Die "
-"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
-"Moderation übersprungen wird."
-msgstr[1] ""
-"Diese Aufgabe ist in Bearbeitung auf %(states_in_progress)d Seiten. Die "
-"Deaktivierung dieser Aufgabe wird verursachen, dass sie im Arbeitsablauf der "
-"Moderation übersprungen wird."
-
 msgid "Task '{0}' enabled."
 msgstr "Aufgabe ‚{0}‘ aktiviert."
 
@@ -2463,9 +2488,6 @@ msgstr "Veröffentlichte Version von '%(title)s' ansehen"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Unterseite zu '%(title)s' hinzufügen"
-
-msgid "More"
-msgstr "Mehr"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2545,9 +2567,6 @@ msgstr "Anderen Eintrag wählen"
 
 msgid "Clear choice"
 msgstr "Auswahl zurücksetzen"
-
-msgid "Edit this item"
-msgstr "Dieses Objekt bearbeiten"
 
 msgid "Choose another page"
 msgstr "Andere Seite auswählen"

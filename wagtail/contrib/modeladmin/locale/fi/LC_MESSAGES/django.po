@@ -5,15 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
-# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2020-2021
 # Niklas Jerva <niklas.jerva@gmail.com>, 2016
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-08-13 11:55+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 12:15+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -125,6 +125,16 @@ msgstr "Koti"
 msgid " By %(filter_title)s "
 msgstr "Tekijä %(filter_title)s"
 
+msgid "Last updated"
+msgstr "Viimeksi päivitetty"
+
+msgid "History"
+msgstr "Historia"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s/%(all_count)s"
+
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "Haulla ei löytynyt yhtään %(name)s-kohdetta."
@@ -224,8 +234,8 @@ msgid ""
 "Are you sure you want to delete this %s? If other things in your site are "
 "related to it, they may also be affected."
 msgstr ""
-"Oletko varma, että haluat poistaa %s? Tämä saattaa vaikuttaa muihin "
-"sivustossa kohteeseen liityviin asioihin."
+"Haluatko varmasti poistaa %s? Tämä saattaa vaikuttaa muihin sivustossa "
+"kohteeseen liittyviin asioihin."
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."
@@ -237,3 +247,9 @@ msgstr "Tarkastellaan"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Tarkastellaan %s"
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "Date"
+msgstr "Pvm"

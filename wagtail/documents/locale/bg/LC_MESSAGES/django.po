@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +25,9 @@ msgstr "Редакция"
 msgid "Choose"
 msgstr "Избери"
 
+msgid "Yes, delete"
+msgstr "Да, изтрий го"
+
 msgid "Choose a document"
 msgstr "Изберете документ"
 
@@ -36,6 +39,12 @@ msgstr "Качване"
 
 msgid "Latest documents"
 msgstr "Последни документи"
+
+msgid "Title"
+msgstr "Заглавие"
+
+msgid "File"
+msgstr "Файл"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -57,12 +66,6 @@ msgstr "Изтрийте %(title)s"
 msgid "Delete document"
 msgstr "Изтрий документ"
 
-msgid "Are you sure you want to delete this document?"
-msgstr "Сигурен ли сте, че искате да изтриете документа?"
-
-msgid "Yes, delete"
-msgstr "Да, изтрий го"
-
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редакция на %(title)s"
@@ -75,12 +78,6 @@ msgstr "Запази"
 
 msgid "Documents"
 msgstr "Документи"
-
-msgid "Title"
-msgstr "Заглавие"
-
-msgid "File"
-msgstr "Файл"
 
 #, python-format
 msgid ""
@@ -102,6 +99,9 @@ msgstr "Статус"
 msgid "Edit this page"
 msgstr "Редактирайте тази страница"
 
+msgid "Delete"
+msgstr "Изтрий"
+
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавен."
 
@@ -110,9 +110,6 @@ msgstr "Документа не бе запазен поради грешки."
 
 msgid "Document '{0}' updated"
 msgstr "Документа '{0}' е обновен."
-
-msgid "Delete"
-msgstr "Изтрий"
 
 msgid "Document '{0}' deleted."
 msgstr "Документа '{0}' е изтрит."

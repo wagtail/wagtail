@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,15 @@ msgstr "användarprofil"
 msgid "user profiles"
 msgstr "användarprofiler"
 
+msgid "Delete"
+msgstr "Radera"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
+
 msgid "Delete group"
 msgstr "Radera grupp"
 
@@ -156,9 +165,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Är du säker på att du vill radera denna grupp?"
 
-msgid "Yes, delete"
-msgstr "Ja, radera"
-
 msgid "Add group"
 msgstr "Lägg till grupp"
 
@@ -185,9 +191,6 @@ msgstr "Lägg till"
 
 msgid "Change"
 msgstr "Ändra"
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Other permissions"
 msgstr "Andra rättigheter"

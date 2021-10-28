@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Naglis Jonaitis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,20 @@ msgstr "žymenos"
 msgid "document"
 msgstr "dokumentas"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
 msgid "Choose a document"
 msgstr "Pasirinkti dokumentą"
 
@@ -66,15 +80,25 @@ msgstr "Paieška"
 msgid "Upload"
 msgstr "Įkelti"
 
-msgid "Uploading…"
-msgstr "Įkeliama..."
-
 msgid "Latest documents"
 msgstr "Paskutiniai dokumentai"
+
+msgid "Title"
+msgstr "Pavadinimas"
+
+msgid "File"
+msgstr "Byla"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "prieš %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Atsiprašome, joks dokumentas neatitinka \"<em>%(query_string)s</em>\""
+
+msgid "Uploading…"
+msgstr "Įkeliama..."
 
 msgid "Change document:"
 msgstr "Keisti dokumentą:"
@@ -91,23 +115,6 @@ msgstr "Ištrinti %(title)s"
 
 msgid "Delete document"
 msgstr "Ištrinti dokumentą"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Panaudota %(usage_count)s kartą"
-msgstr[1] "Panaudota %(usage_count)s kartus"
-msgstr[2] "Panaudota %(usage_count)s kartų"
-msgstr[3] "Panaudota %(usage_count)s kartų"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Ar tikrai norite ištrinti šį dokumentą?"
-
-msgid "Yes, delete"
-msgstr "Taip, ištrinti"
-
-msgid "No, don't delete"
-msgstr "Ne, neištrinti"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -130,16 +137,6 @@ msgstr "Panaudojimas"
 
 msgid "Documents"
 msgstr "Dokumentai"
-
-msgid "Title"
-msgstr "Pavadinimas"
-
-msgid "File"
-msgstr "Byla"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "prieš %(time_period)s"
 
 #, python-format
 msgid ""
@@ -203,6 +200,9 @@ msgstr "Dokumento leidimai"
 msgid "Add a document permission"
 msgstr "Pridėti dokumento leidimą"
 
+msgid "Delete"
+msgstr "Ištrinti"
+
 msgid "Server Error"
 msgstr "Serverio klaida"
 
@@ -226,9 +226,6 @@ msgstr "Dokumentas '{0}' atnaujintas"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Byla nebuvo rasta. Prašome pakeisti šaltinį arba ištrinti dokumentą"
-
-msgid "Delete"
-msgstr "Ištrinti"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokumentas '{0}' ištrintas."

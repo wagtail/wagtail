@@ -5,16 +5,16 @@
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
 # ongchi <ihcgno@icloud.com>, 2019
-# ongchi <ihcgno@icloud.com>, 2020
+# ongchi <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 12:59+0000\n"
+"Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -49,6 +49,9 @@ msgstr "刪除"
 
 msgid "Lock"
 msgstr "鎖定"
+
+msgid "Apply editor lock"
+msgstr "套用編輯鎖定"
 
 msgid "Unlock"
 msgstr "解鎖"
@@ -134,6 +137,21 @@ msgstr "對於同一個集合你不能設置多重權限"
 
 msgid "Collection"
 msgstr "集合"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add collections"
+msgstr "新增集合"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit collections"
+msgstr "編輯集合"
+
+msgid "Delete collections"
+msgstr "刪除集合"
 
 msgid "New title"
 msgstr "新增標題"
@@ -227,9 +245,6 @@ msgstr "命名工作流程"
 msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
 
-msgid "Edit"
-msgstr "編輯"
-
 msgid "Page"
 msgstr "頁面"
 
@@ -306,17 +321,38 @@ msgstr "頁面瀏覽器"
 msgid "Save"
 msgstr "儲存"
 
+msgid "Saving..."
+msgstr "儲存中..."
+
 msgid "Cancel"
 msgstr "取消"
 
+msgid "Deleting..."
+msgstr "刪除中..."
+
+msgid "Reply"
+msgstr "回覆"
+
+msgid "Retry"
+msgstr "重試"
+
 msgid "Comment"
 msgstr "評論"
+
+msgid "More actions"
+msgstr "更多動作"
 
 msgid "Dashboard"
 msgstr "控制面板"
 
 msgid "Edit your account"
 msgstr "編輯帳號"
+
+msgid "1 page selected"
+msgstr "已選擇1頁面"
+
+msgid "{0} pages selected"
+msgstr "已選擇{0}頁面"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -383,8 +419,20 @@ msgstr "密碼已重置。"
 msgid "Reset your password"
 msgstr "重置密碼"
 
+msgid "Reset to default"
+msgstr "重置為預設值"
+
 msgid "Menu"
 msgstr "選單"
+
+msgid "Go back"
+msgstr "返回"
+
+msgid "Select row"
+msgstr "選擇列"
+
+msgid "Select all"
+msgstr "全選"
 
 msgid "Explorer"
 msgstr "資源管理"
@@ -760,6 +808,15 @@ msgstr "選擇創建的頁面類型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s類型的頁面"
 
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消發佈"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "轉換別名 %(title)s"
@@ -816,9 +873,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "移動%(title)s"
 
-msgid "Move"
-msgstr "移動"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "確定將此頁面移到 '%(title)s'？"
@@ -857,9 +911,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "是，取消發佈"
-
-msgid "No, don't unpublish"
-msgstr "否，不取消發佈"
 
 msgid "Publish page"
 msgstr "發佈頁面"
@@ -1305,6 +1356,9 @@ msgstr "已鎖定"
 msgid "No locked pages found."
 msgstr "沒有已被鎖定頁面"
 
+msgid "Edit this item"
+msgstr "編輯此項"
+
 msgid "Workflow"
 msgstr "工作流程"
 
@@ -1347,15 +1401,6 @@ msgstr "已發佈"
 
 msgid "Draft saved"
 msgstr "已儲存草稿"
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
-"\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1469,17 +1514,20 @@ msgstr "檢視完整歷史"
 msgid "Compare with live version"
 msgstr "與線上版本進行比較"
 
+msgid "More"
+msgstr "更多"
+
 msgid "0 minutes"
 msgstr "0 分鐘"
 
 msgid "live"
 msgstr "在用"
 
-msgid "live + draft"
-msgstr "發佈+草稿"
-
 msgid "draft"
 msgstr "草稿"
+
+msgid "live + draft"
+msgstr "發佈+草稿"
 
 msgid "Test"
 msgstr "測試"
@@ -1722,9 +1770,6 @@ msgstr "預覽草稿版本 '%(title)s'"
 msgid "Add a child page to '%(title)s' "
 msgstr "新增子頁面至 '%(title)s'"
 
-msgid "More"
-msgstr "更多"
-
 #, python-format
 msgid "Move page '%(title)s'"
 msgstr "移動頁面 '%(title)s'"
@@ -1787,9 +1832,6 @@ msgstr "選擇其它項"
 
 msgid "Clear choice"
 msgstr "清除選擇"
-
-msgid "Edit this item"
-msgstr "編輯此項"
 
 msgid "Choose another page"
 msgstr "選擇其它頁面"

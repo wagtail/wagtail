@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-07 10:20+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -30,29 +30,20 @@ msgstr "Veldu rótar síðu"
 msgid "Choose a different root page"
 msgstr "Veldu aðra rótar síðu"
 
-msgid "Site"
+msgid "Sites"
 msgstr "Vefsvæði"
 
-msgid "Port"
-msgstr "Port"
+msgid "Add a site"
+msgstr "Bæta við síðu"
 
-msgid "Site name"
-msgstr "Nafn síðu"
-
-msgid "Root page"
-msgstr "Rótar síða"
+msgid "Site"
+msgstr "Vefsvæði"
 
 msgid "Default?"
 msgstr "Sjálfgefin?"
 
 msgid "Default"
 msgstr "Sjálfgefin"
-
-msgid "Sites"
-msgstr "Vefsvæði"
-
-msgid "Add a site"
-msgstr "Bæta við síðu"
 
 msgid "Add site"
 msgstr "Bæta við síðu"

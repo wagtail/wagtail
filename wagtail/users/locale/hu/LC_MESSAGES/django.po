@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 13:51+0000\n"
+"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +122,73 @@ msgstr "felhasználói profil"
 msgid "user profiles"
 msgstr "felhasználói fiókok"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Szerepkör hozzáadása 1 felhasználóhoz"
+msgstr[1] "Szerepkör hozzáadása %(counter)s felhasználóhoz"
+
+msgid "Assign role"
+msgstr "Szerepkör hozzáadása"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Biztosan hozzáadja a szerepkört ezekhez a felhasználókhoz?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nincs jogosultsága módosítani ezt a felhasználót"
+msgstr[1] "Nincs jogosultsága módosítani ezeket a felhasználókat"
+
+msgid "Yes, assign"
+msgstr "Igen, hozzáadom"
+
+msgid "No, don't assign"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "1 felhasználó törlése"
+msgstr[1] "%(counter)s felhasználó törlése"
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Biztosan törölni szeretné ezeket a felhasználókat?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nincs jogosultsága törölni ezt a felhasználót"
+msgstr[1] "Nincs jogosultsága törölni ezeket a felhasználókat"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "1 felhasználó státusztának megváltoztatása"
+msgstr[1] "%(counter)s felhasználó státuszának megváltoztatása"
+
+msgid "Set active state"
+msgstr "Aktív státusz beállítása"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Biztosan megváltozatja ezeknek a felhasználóknak a státuszát?"
+
+msgid "You cannot change your own active status"
+msgstr "A saját státuszt nem lehet megváltoztatni"
+
+msgid "Yes, change state"
+msgstr "Igen, megváltoztatom"
+
+msgid "No, don't change state"
+msgstr "Nem, mégsem"
+
 msgid "Delete group"
 msgstr "Csoport törlése"
 
@@ -154,9 +221,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Biztosan törli a csoportot?"
 
-msgid "Yes, delete"
-msgstr "Igen, törlés"
-
 msgid "Add group"
 msgstr "Csoport hozzáadása"
 
@@ -184,8 +248,8 @@ msgstr "Hozzáadás"
 msgid "Change"
 msgstr "Megváltoztatás"
 
-msgid "Delete"
-msgstr "Törlés"
+msgid "Custom permissions"
+msgstr "Egyedi engedélyek"
 
 msgid "Other permissions"
 msgstr "Egyéb engedélyek"
@@ -239,6 +303,9 @@ msgstr "Felhasználók"
 
 msgid "Add a user"
 msgstr "Felhasználó hozzáadása"
+
+msgid "Select all users in listing"
+msgstr "Összes felhasználó kiválasztása a listában"
 
 msgid "Username"
 msgstr "Felhasználünév"
@@ -302,6 +369,39 @@ msgid ""
 msgstr ""
 "Nincs felhasználó létrehozva. Miért nem <a href=\"%(wagtailusers_add_url)s"
 "\">ad hozzá egyet</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Szerepkör beállítás a kiválasztott felhasználókhoz"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(role)s szerepkör beállítva %(num_parent_objects)d felhasználóhoz"
+msgstr[1] "%(role)s szerepkör beállítva %(num_parent_objects)d felhasználóhoz"
+
+msgid "Delete selected users"
+msgstr "Kiválasztott felhasználók törlése"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d felhasználó törölve"
+msgstr[1] "%(num_parent_objects)d felhasználó törölve"
+
+msgid "Change the active state for selected users"
+msgstr "Kiválasztott felhasználók státuszának megváltoztatása"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d felhasználó aktívnak jelölve"
+msgstr[1] "%(num_parent_objects)d felhasználó aktívnak jelölve"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d felhasználó inaktívnak jelölve"
+msgstr[1] "%(num_parent_objects)d felhasználó inaktívnak jelölve"
 
 msgid "Groups"
 msgstr "Csoportok"

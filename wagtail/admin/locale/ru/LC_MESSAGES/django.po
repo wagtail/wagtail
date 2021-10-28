@@ -32,9 +32,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Eugene <eugene.mechanism@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -171,6 +171,9 @@ msgstr ""
 "Выберите положение в иерархии. Примечание: коллекция не может стать дочерним "
 "элементом самой себя или одного из своих потомков."
 
+msgid "Please select another parent"
+msgstr "Пожалуйста выберите другого родителя"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
@@ -178,6 +181,12 @@ msgstr ""
 
 msgid "Collection"
 msgstr "Коллекция"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Edit"
+msgstr "Редактировать"
 
 msgid "You cannot edit another user's comment."
 msgstr "Вы не можете редактировать комментарий другого пользователя."
@@ -296,9 +305,6 @@ msgstr "Задайте название рабочего процесса."
 
 msgid "Add tasks to your workflow"
 msgstr "Добавить задачи к рабочему процессу"
-
-msgid "Edit"
-msgstr "Редактировать"
 
 msgid "Page"
 msgstr "Страница"
@@ -509,6 +515,12 @@ msgstr "Восстановление значений по умолчанию"
 
 msgid "Menu"
 msgstr "Меню"
+
+msgid "Go back"
+msgstr "Обратно"
+
+msgid "Select all"
+msgstr "Выбрать все"
 
 msgid "Explorer"
 msgstr "Проводник"
@@ -1045,6 +1057,15 @@ msgstr "Выберите тип создаваемой страницы."
 msgid "Pages using %(page_type)s"
 msgstr "Страницы, использующие %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
+msgid "Move"
+msgstr "Переместить"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить опубликованным"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Сконвертировать псевдоним %(title)s"
@@ -1111,9 +1132,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Переместить %(title)s"
 
-msgid "Move"
-msgstr "Переместить"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Вы уверены, что хотите переместить эту страницу в '%(title)s'?"
@@ -1164,9 +1182,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
-
-msgid "No, don't unpublish"
-msgstr "Нет, оставить опубликованным"
 
 msgid "Publish page"
 msgstr "Опубликовать страницу"
@@ -1759,6 +1774,9 @@ msgstr "Заблокировано"
 msgid "No locked pages found."
 msgstr "Не найдены заблокированные страницы."
 
+msgid "Edit this item"
+msgstr "Редактировать этот элемент"
+
 msgid "By Task"
 msgstr "По Задаче"
 
@@ -1838,16 +1856,6 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">инструкции, как включить JavaScript в "
 "вашем браузере</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail постепенно прекращает поддержку IE11, это может затронуть вас или "
-"вашу организацию. <a href=\"%(url)s\">Узнайте больше о наших планах "
-"поддержки IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
@@ -2097,6 +2105,9 @@ msgstr ""
 "Отсортировать дочерние страницы из '%(parent)s' в '%(label)s в порядке "
 "убывания."
 
+msgid "More"
+msgstr "Больше"
+
 msgid "0 minutes"
 msgstr "0 минут"
 
@@ -2106,11 +2117,11 @@ msgstr "Только что"
 msgid "live"
 msgstr "опубликовано"
 
-msgid "live + draft"
-msgstr "опубликован + черновик"
-
 msgid "draft"
 msgstr "черновик"
+
+msgid "live + draft"
+msgstr "опубликован + черновик"
 
 msgid "Test"
 msgstr "Тест"
@@ -2159,9 +2170,6 @@ msgstr "Коллекция не может быть сохранена из-за
 
 msgid "Delete collection"
 msgstr "Удалить коллекцию"
-
-msgid "Please select another parent"
-msgstr "Пожалуйста выберите другого родителя"
 
 msgid "Collection '{0}' deleted."
 msgstr "Коллекция '{0}' удалена."
@@ -2430,30 +2438,6 @@ msgstr "Отключить задачу"
 msgid "Task '{0}' disabled."
 msgstr "Задача '{0}' отключена."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"странице. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[1] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[2] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[3] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-
 msgid "Task '{0}' enabled."
 msgstr "Задача '{0}' включена."
 
@@ -2477,9 +2461,6 @@ msgstr "Посмотреть опубликованную версию '%(title)
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Добавить дочернюю страницу '%(title)s'"
-
-msgid "More"
-msgstr "Больше"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2559,9 +2540,6 @@ msgstr "Выбрать другой элемент"
 
 msgid "Clear choice"
 msgstr "Очистить выбор"
-
-msgid "Edit this item"
-msgstr "Редактировать этот элемент"
 
 msgid "Choose another page"
 msgstr "Выбрать другую страницу"

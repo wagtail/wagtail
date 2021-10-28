@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2019-01-24 10:51+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -28,29 +28,20 @@ msgstr "Үндсэн хуудас сонгох"
 msgid "Choose a different root page"
 msgstr "Өөр үндсэн хуудас сонгох"
 
+msgid "Sites"
+msgstr "Сайтууд"
+
+msgid "Add a site"
+msgstr "Сайт нэмэх"
+
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Port"
-msgstr "Порт"
-
-msgid "Site name"
-msgstr "Сайтын нэр"
-
-msgid "Root page"
-msgstr "Үндсэн хуудас"
 
 msgid "Default?"
 msgstr "Өгөгдмөл?"
 
 msgid "Default"
 msgstr "Өгөгдмөл"
-
-msgid "Sites"
-msgstr "Сайтууд"
-
-msgid "Add a site"
-msgstr "Сайт нэмэх"
 
 msgid "Add site"
 msgstr "Сайт нэмэх"

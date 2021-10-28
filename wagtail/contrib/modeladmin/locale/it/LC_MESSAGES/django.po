@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-16 20:11+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 08:13+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -123,6 +123,16 @@ msgstr "Home"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Per %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Ultima modifica"
+
+msgid "History"
+msgstr "Storico"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s di %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -239,3 +249,9 @@ msgstr "Controllo"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Controllo %s"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Date"
+msgstr "Data"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-27 23:14+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -30,29 +30,20 @@ msgstr "Välj en topp-sida"
 msgid "Choose a different root page"
 msgstr "Välj en annan topp-sida"
 
+msgid "Sites"
+msgstr "Webbplatser"
+
+msgid "Add a site"
+msgstr "Lägg till en sajt"
+
 msgid "Site"
 msgstr "Webbplats"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Sajtnamn"
-
-msgid "Root page"
-msgstr "Topp-sida"
 
 msgid "Default?"
 msgstr "Standardwebbplats?"
 
 msgid "Default"
 msgstr "Standardwebbplats"
-
-msgid "Sites"
-msgstr "Webbplatser"
-
-msgid "Add a site"
-msgstr "Lägg till en sajt"
 
 msgid "Add site"
 msgstr "Addera sajt"

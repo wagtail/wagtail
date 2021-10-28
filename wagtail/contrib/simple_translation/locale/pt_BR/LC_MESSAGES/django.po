@@ -6,15 +6,17 @@
 # Translators:
 # Ed Wurch <ewurch@gmail.com>, 2021
 # A M, 2021
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: A M, 2021\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>, 2021\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/torchbox/"
 "teams/8009/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -34,6 +36,25 @@ msgstr "Localidades"
 
 msgid "All child pages will be created."
 msgstr "Todas páginas filho serão criadas"
+
+msgid "Include subtree ({} page)"
+msgid_plural "Include subtree ({} pages)"
+msgstr[0] "Incluir sub-árvore  ({} páginas)"
+msgstr[1] "Incluir sub-árvore  ({} páginas)"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] ""
+"Uma localidade está desativada porque uma página pai não foi traduzida."
+msgstr[1] ""
+"Algumas localidades estão desabilitadas porque algumas páginas-pai não foram "
+"traduzidas."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Traduza a páginas principal."
+msgstr[1] "Traduza as páginas principais."
 
 msgid "Submit"
 msgstr "Enviar"

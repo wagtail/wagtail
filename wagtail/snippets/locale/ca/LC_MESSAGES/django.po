@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -34,9 +34,15 @@ msgstr "Escull"
 msgid "Search"
 msgstr "Cerca"
 
+msgid "Title"
+msgstr "Títol"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ens sap greu, no hi ha cap fragment amb \"<em>%(query_string)s</em>\""
+
+msgid "History"
+msgstr "Historial"
 
 msgid "Saving…"
 msgstr "Desant…"
@@ -73,9 +79,6 @@ msgstr "Ús"
 
 msgid "Snippets"
 msgstr "Fragments"
-
-msgid "Title"
-msgstr "Títol"
 
 #, python-format
 msgid ""
@@ -128,6 +131,12 @@ msgstr "El fragment no s'ha pogut crear degut a errors."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "El fragment no s'ha pogut desar degut a errors."
+
+msgid "Action"
+msgstr "Acció"
+
+msgid "Date"
+msgstr "Data"
 
 #, python-format
 msgid "Choose %s"

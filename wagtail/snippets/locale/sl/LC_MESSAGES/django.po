@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:37+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-27 07:32+0000\n"
+"Last-Translator: Urban Prevc\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Izberite"
 msgid "Search"
 msgstr "Iskanje"
 
+msgid "Title"
+msgstr "Naziv"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni delca, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
@@ -45,6 +48,9 @@ msgstr "Ali ste prepričani, da želite izbrisati %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, ne izbriši"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -65,9 +71,6 @@ msgstr "Urejanje"
 
 msgid "Snippets"
 msgstr "Delci"
-
-msgid "Title"
-msgstr "Naziv"
 
 #, python-format
 msgid ""
@@ -120,6 +123,9 @@ msgstr "Delca, zaradi napak, ni bilo možno ustvariti."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Delca, zaradi napak, ni bilo možno shraniti."
+
+msgid "Date"
+msgstr "Datum"
 
 #, python-format
 msgid "Choose %s"

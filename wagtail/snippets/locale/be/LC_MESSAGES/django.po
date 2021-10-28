@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -35,6 +35,9 @@ msgstr "Выбраць"
 
 msgid "Search"
 msgstr "Шукаць"
+
+msgid "Title"
+msgstr "Назва"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -95,9 +98,6 @@ msgstr "Выкарыстанне"
 msgid "Snippets"
 msgstr "Фрагменты"
 
-msgid "Title"
-msgstr "Назва"
-
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -149,6 +149,9 @@ msgstr "Фрагмент кода не можа быць створана з-з�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент кода не можа быць захавана з-за памылкі."
+
+msgid "Date"
+msgstr "Дата"
 
 #, python-format
 msgid "Edit '%(title)s'"

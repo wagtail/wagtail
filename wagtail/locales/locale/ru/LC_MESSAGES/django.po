@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
@@ -33,6 +33,9 @@ msgstr "Язык"
 msgid "Select a new language"
 msgstr "Выбрать новый язык"
 
+msgid "This locale's language code is not supported"
+msgstr "Код языка этой локали не поддерживается"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
@@ -46,17 +49,14 @@ msgstr ""
 "Текущий код языка локали не поддерживается. Пожалуйста выберите новый язык "
 "или удалите эту локаль."
 
-msgid "Usage"
-msgstr "Использование"
-
-msgid "This locale's language code is not supported"
-msgstr "Код языка этой локали не поддерживается"
-
 msgid "Locales"
 msgstr "Локали"
 
 msgid "Add a locale"
 msgstr "Добавить локаль"
+
+msgid "Usage"
+msgstr "Использование"
 
 msgid "Add locale"
 msgstr "Добавить локаль"

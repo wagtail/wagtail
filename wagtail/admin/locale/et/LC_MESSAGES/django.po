@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -140,6 +140,12 @@ msgstr "Teil ei saa olla ühe kogu jaoks mitu lubade kirjet."
 msgid "Collection"
 msgstr "Kogumine"
 
+msgid "Add"
+msgstr "Lisama"
+
+msgid "Edit"
+msgstr "Muuda"
+
 msgid "New title"
 msgstr "Uus pealkiri"
 
@@ -235,9 +241,6 @@ msgstr "Andke oma töövoole nimi"
 
 msgid "Add tasks to your workflow"
 msgstr "Lisage töövoole ülesandeid"
-
-msgid "Edit"
-msgstr "Muuda"
 
 msgid "Page"
 msgstr "Leht"
@@ -842,6 +845,15 @@ msgstr "Valige, millist tüüpi lehte soovite luua."
 msgid "Pages using %(page_type)s"
 msgstr "Lehed, mis kasutavad %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+msgid "Move"
+msgstr "Liiguta"
+
+msgid "No, don't unpublish"
+msgstr "Ei, ärge avaldamist tühistage"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Kustuta %(title)s"
@@ -886,9 +898,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s teisaldamine"
 
-msgid "Move"
-msgstr "Liiguta"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Kas olete kindel, et soovite selle lehe teisaldada kausta %(title)s?"
@@ -931,9 +940,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Jah, tühista selle avaldamine"
-
-msgid "No, don't unpublish"
-msgstr "Ei, ärge avaldamist tühistage"
 
 msgid "Publish page"
 msgstr "Avaldage leht"
@@ -1472,6 +1478,9 @@ msgstr "Lukustatud"
 msgid "No locked pages found."
 msgstr "Lukustatud lehti ei leitud."
 
+msgid "Edit this item"
+msgstr "Muutke seda üksust"
+
 msgid "By Task"
 msgstr "Autor ülesanne"
 
@@ -1754,6 +1763,9 @@ msgstr ""
 "Sortige alamlehekülgede järjestus \"%(parent)s\" ja \"%(label)s\" poolt "
 "kahanevas järjekorras."
 
+msgid "More"
+msgstr "Veel"
+
 msgid "0 minutes"
 msgstr "0 minutit"
 
@@ -1763,11 +1775,11 @@ msgstr "Just praegu"
 msgid "live"
 msgstr "elama"
 
-msgid "live + draft"
-msgstr "otse + mustand"
-
 msgid "draft"
 msgstr "mustand"
+
+msgid "live + draft"
+msgstr "otse + mustand"
 
 msgid "Test"
 msgstr "Test"
@@ -2059,21 +2071,6 @@ msgstr "Keela ülesanne"
 msgid "Task '{0}' disabled."
 msgstr "Ülesanne '{0}' on keelatud."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"See ülesanne on %(states_in_progress)d lehel pooleli. Selle ülesande "
-"keelamine jätab selle modereerimise töövoos vahele."
-msgstr[1] ""
-" \n"
-"See ülesanne on %(states_in_progress)d lehtedel pooleli. Selle ülesande "
-"keelamine jätab selle modereerimise töövoos vahele."
-
 msgid "Task '{0}' enabled."
 msgstr "Ülesanne '{0}' on lubatud."
 
@@ -2095,9 +2092,6 @@ msgstr "Kuva reaalajas versioon '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Lisage alamleht lehele %(title)s"
-
-msgid "More"
-msgstr "Veel"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2177,9 +2171,6 @@ msgstr "Valige teine ​​üksus"
 
 msgid "Clear choice"
 msgstr "Eemalda valik"
-
-msgid "Edit this item"
-msgstr "Muutke seda üksust"
 
 msgid "Choose another page"
 msgstr "Valige teine ​​leht"

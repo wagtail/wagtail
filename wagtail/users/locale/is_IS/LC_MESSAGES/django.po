@@ -4,14 +4,14 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2020-2021
-# saevarom <saevar@saevar.is>, 2017-2020
+# saevarom <saevar@saevar.is>, 2017-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 09:26+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -121,6 +121,73 @@ msgstr "uppsetning notanda"
 msgid "user profiles"
 msgstr "uppsetning notenda"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Gefa 1 notanda réttindi"
+msgstr[1] "Gefa %(counter)s notendum réttindi"
+
+msgid "Assign role"
+msgstr "Gefa réttindi"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Ertu viss um að þú viljir gefa þessum notanda þessi réttindi?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Þú ert ekki með réttindi til að breyta þessum notanda"
+msgstr[1] "Þú ert ekki með réttindi til að breyta þessum notendum"
+
+msgid "Yes, assign"
+msgstr "Já,"
+
+msgid "No, don't assign"
+msgstr "Nei"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Eyða 1 notanda"
+msgstr[1] "Eyða %(counter)s notendum"
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Ertu viss um að þú viljir eyða þessum notendum?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Þú ert ekki með réttindi til að eyða þessum notanda"
+msgstr[1] "Þú ert ekki með réttindi til að eyða þessum notendum"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Breyta stöðu fyrir 1 notanda"
+msgstr[1] "Breyta stöðu fyrir %(counter)s notendur"
+
+msgid "Set active state"
+msgstr "Breyta stöðu"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Ertu viss um að þú viljir breyta stöðu þessara notenda?"
+
+msgid "You cannot change your own active status"
+msgstr "Þú getur ekki breytt þinni eigin stöðu"
+
+msgid "Yes, change state"
+msgstr "Já, breyta stöðu"
+
+msgid "No, don't change state"
+msgstr "Nei, ekki breyta stöðu"
+
 msgid "Delete group"
 msgstr "Eyða hóp"
 
@@ -156,9 +223,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ertu viss um að þú viljir eyða þessum hóp"
 
-msgid "Yes, delete"
-msgstr "Já, eyða"
-
 msgid "Add group"
 msgstr "Bæta við hóp"
 
@@ -186,8 +250,8 @@ msgstr "Bæta við"
 msgid "Change"
 msgstr "Breyta"
 
-msgid "Delete"
-msgstr "Eyða"
+msgid "Custom permissions"
+msgstr "Sérsniðnar heimildir"
 
 msgid "Other permissions"
 msgstr "Aðrar heimildir"
@@ -239,6 +303,9 @@ msgstr "Notendur"
 
 msgid "Add a user"
 msgstr "Bæta við notanda"
+
+msgid "Select all users in listing"
+msgstr "Velja alla notendur"
 
 msgid "Username"
 msgstr "Notandanafn"
@@ -301,6 +368,39 @@ msgid ""
 msgstr ""
 "Það eru engir skráðir notendur.  Viltu <a href=\"%(wagtailusers_add_url)s"
 "\">bæta við</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Gefa völdum notendum réttindi"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d notandi hefur fengið %(role)s réttindi"
+msgstr[1] "%(num_parent_objects)d notendur hafa fengið réttindin %(role)s"
+
+msgid "Delete selected users"
+msgstr "Eyða völdum notendum"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d notanda hefur verið eytt"
+msgstr[1] "%(num_parent_objects)d notendum hefur verið eytt"
+
+msgid "Change the active state for selected users"
+msgstr "Breyta stöðu valinna notenda"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d notandi hefur verið gerður virkur"
+msgstr[1] "%(num_parent_objects)d notendur hafa verið gerðir virkir"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d hefur verið gerður óvirkur"
+msgstr[1] "%(num_parent_objects)d hafa verið gerðir óvirkir"
 
 msgid "Groups"
 msgstr "Hópar"

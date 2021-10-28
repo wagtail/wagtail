@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-15 19:54+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -154,11 +154,20 @@ msgstr ""
 "Välj hierarkisk position. Obs: en samling kan inte bli en undersamling av "
 "sig själv eller dess härstammande samlingar."
 
+msgid "Please select another parent"
+msgstr "Vänligen välj en annan föräldersida"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Du kan inte ha multipla rättigheter för samma kollektion"
 
 msgid "Collection"
 msgstr "Samling"
+
+msgid "Add"
+msgstr "Lägg till"
+
+msgid "Edit"
+msgstr "Redigera"
 
 msgid "You cannot edit another user's comment."
 msgstr "Du kan inte editera andra användares kommentarer"
@@ -262,9 +271,6 @@ msgstr "Ge ditt arbetsflöde ett namn"
 
 msgid "Add tasks to your workflow"
 msgstr "Lägg till uppgifter till ditt arbetsflöde"
-
-msgid "Edit"
-msgstr "Redigera"
 
 msgid "Page"
 msgstr "Sida"
@@ -491,6 +497,12 @@ msgstr "Återställ till standard"
 
 msgid "Menu"
 msgstr "Meny"
+
+msgid "Go back"
+msgstr "Gå tillbaka"
+
+msgid "Select all"
+msgstr "Välj alla"
 
 msgid "Explorer"
 msgstr "Utforskare"
@@ -1014,6 +1026,15 @@ msgstr "Välj vilken typ av sida du skulle vilja skapa"
 msgid "Pages using %(page_type)s"
 msgstr "Sidor som använder %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
+
+msgid "Move"
+msgstr "Flytta"
+
+msgid "No, don't unpublish"
+msgstr "Nej, avpublicera inte"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Konvertera alias %(title)s"
@@ -1080,9 +1101,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Flytta %(title)s"
 
-msgid "Move"
-msgstr "Flytta"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Är du säker på att du vill flytta sidan till '%(title)s'?"
@@ -1127,9 +1145,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, avpublicera den"
-
-msgid "No, don't unpublish"
-msgstr "Nej, avpublicera inte"
 
 msgid "Publish page"
 msgstr "Publicera sida"
@@ -1702,6 +1717,9 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Inga upplåsta sidor hittades."
 
+msgid "Edit this item"
+msgstr "Redigera objektet"
+
 msgid "By Task"
 msgstr "Av Uppgift"
 
@@ -1782,15 +1800,6 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instruktioner om hur du aktiverar "
 "JavaScript i din webbläsare</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail tar gradvis bort stöd för IE11, vilket kan påverka dig eller din "
-"organisation. <a href=\"%(url)s\">Läs mer om vår IE11 supportplan</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -2022,6 +2031,9 @@ msgstr ""
 "Sortera ordningen på undersidorna inom '%(parent)s' efter '%(label)s' i "
 "fallande ordning."
 
+msgid "More"
+msgstr "Mer"
+
 msgid "0 minutes"
 msgstr "0 minuter"
 
@@ -2031,11 +2043,11 @@ msgstr "Just nu"
 msgid "live"
 msgstr "publicerad"
 
-msgid "live + draft"
-msgstr "publicerad + utkast"
-
 msgid "draft"
 msgstr "utkast"
+
+msgid "live + draft"
+msgstr "publicerad + utkast"
 
 msgid "Test"
 msgstr "Test"
@@ -2084,9 +2096,6 @@ msgstr "Samlingen kunde inte sparas pga fel."
 
 msgid "Delete collection"
 msgstr "Radera samling"
-
-msgid "Please select another parent"
-msgstr "Vänligen välj en annan föräldersida"
 
 msgid "Collection '{0}' deleted."
 msgstr "Samling '{0}' raderad."
@@ -2358,20 +2367,6 @@ msgstr "Inaktivera uppgift"
 msgid "Task '{0}' disabled."
 msgstr "Uppgift '{0}' inaktiverad.."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Denna uppgift pågår på %(states_in_progress)d sida. Inaktivering av denna "
-"uppgift gör att den hoppas över i moderationsarbetsflödet."
-msgstr[1] ""
-"Denna uppgift pågår på %(states_in_progress)d sidor. Inaktivering av denna "
-"uppgift gör att den hoppas över i moderationsarbetsflödet."
-
 msgid "Task '{0}' enabled."
 msgstr "Uppgift '{0}' aktiverad."
 
@@ -2394,9 +2389,6 @@ msgstr "Visa live-version av '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Lägg till undersida till '%(title)s'"
-
-msgid "More"
-msgstr "Mer"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2476,9 +2468,6 @@ msgstr "Välj ett annat objekt"
 
 msgid "Clear choice"
 msgstr "Rensa val"
-
-msgid "Edit this item"
-msgstr "Redigera objektet"
 
 msgid "Choose another page"
 msgstr "Välj annan sida"

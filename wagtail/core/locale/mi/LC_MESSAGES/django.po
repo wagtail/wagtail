@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -21,6 +21,14 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Iho-a-Wagtail"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Te nama iti rawa mō ēnei tūemi ko %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Te nama nui rawa mō ēnei tūemi ko %d"
 
 msgid "Move up"
 msgstr "Mū ki runga"
@@ -41,16 +49,8 @@ msgstr "%(label)s: Ehara he kōwhiringa mō tēnei paraka"
 msgid "This block has no options."
 msgstr "Ehara he kōwhiringa mō tēnei paraka"
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Te nama iti rawa mō ēnei tūemi ko %d"
-
 msgid "This field is required."
 msgstr "Hiahiatia ana tēnei whīra"
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Te nama nui rawa mō ēnei tūemi ko %d"
 
 msgid "Password"
 msgstr "Kupu muna"
@@ -60,10 +60,6 @@ msgstr "Kua hē tou kupu muna. Whakamātau koa anō."
 
 msgid "Comment"
 msgstr "Tākupu"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "tautangata %(action)s"
 
 msgid "title"
 msgstr "taitara"
@@ -393,12 +389,12 @@ msgstr "takiuru tomokanga"
 msgid "log entries"
 msgstr "ngā takiuru tomokanga"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "Kai whakamahi %(id)d (mukuhia)"
-
 msgid "system"
 msgstr "pūnaha"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "tautangata %(action)s"
 
 msgid "collection"
 msgstr "kohikohinga"

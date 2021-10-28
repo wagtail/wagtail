@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 12:22+0000\n"
-"Last-Translator: Naglis Jonaitis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -111,6 +111,12 @@ msgstr "Jūs negalite turėti daugybinių leidimų įrašų tai pačiai kolekcij
 msgid "Collection"
 msgstr "Kolekcija"
 
+msgid "Add"
+msgstr "Pridėti"
+
+msgid "Edit"
+msgstr "Redaguoti"
+
 msgid "New title"
 msgstr "Naujas pavadinimas"
 
@@ -201,9 +207,6 @@ msgstr "Šis laukas yra privalomas."
 
 msgid "Please select at least one group."
 msgstr "Prašome pasirinkti bent vieną grupę."
-
-msgid "Edit"
-msgstr "Redaguoti"
 
 msgid "Page"
 msgstr "Puslapis"
@@ -333,6 +336,12 @@ msgstr "Atstatyti savo slaptažodį"
 
 msgid "Menu"
 msgstr "Meniu"
+
+msgid "Go back"
+msgstr "Grįžti atgal"
+
+msgid "Select all"
+msgstr "Pažymėti visas"
 
 msgid "Explorer"
 msgstr "Naršyklė"
@@ -609,6 +618,15 @@ msgstr "Pasirinkite kokio tipo puslapį norite sukurti."
 msgid "Pages using %(page_type)s"
 msgstr "Puslapiai naudojantys %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
+msgid "Move"
+msgstr "Perkelti"
+
+msgid "No, don't unpublish"
+msgstr "Ne, publikuoti"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Ištrinti %(title)s"
@@ -658,9 +676,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Perkelti %(title)s"
-
-msgid "Move"
-msgstr "Perkelti"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -712,9 +727,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Taip, nebepublikuoti"
-
-msgid "No, don't unpublish"
-msgstr "Ne, publikuoti"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1067,6 +1079,9 @@ msgstr "Filtras"
 msgid "Locked"
 msgstr "Užrakinta"
 
+msgid "Edit this item"
+msgstr "Redaguoti šį elementą"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Puslapis %(page_num)s iš %(total_pages)s."
@@ -1108,14 +1123,17 @@ msgstr "pagal %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Palyginti su veikiančia versija"
 
+msgid "More"
+msgstr "Daugiau"
+
 msgid "live"
 msgstr "veikiantis"
 
-msgid "live + draft"
-msgstr "veikiantis + juodraštis"
-
 msgid "draft"
 msgstr "juodraštis"
+
+msgid "live + draft"
+msgstr "veikiantis + juodraštis"
 
 msgid "Test"
 msgstr "Testas"
@@ -1251,9 +1269,6 @@ msgstr ""
 "Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
 "informacija:"
 
-msgid "More"
-msgstr "Daugiau"
-
 #, python-format
 msgid "Heading %(level)d"
 msgstr "Antraštė %(level)d"
@@ -1290,9 +1305,6 @@ msgstr "Pasirinkti kitą elementą"
 
 msgid "Clear choice"
 msgstr "Išvalyti pasirinkimus"
-
-msgid "Edit this item"
-msgstr "Redaguoti šį elementą"
 
 msgid "Choose another page"
 msgstr "Pasirinkti kitą puslapį"

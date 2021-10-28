@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-14 14:23+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,12 @@ msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
 msgid "Collection"
 msgstr "Kolleksaun"
 
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Edit"
+msgstr "Hadia"
+
 msgid "New title"
 msgstr "Titlu foun"
 
@@ -195,9 +201,6 @@ msgstr "Ita boot prezia hatama informasaun nee "
 
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
-
-msgid "Edit"
-msgstr "Hadia"
 
 msgid "Page"
 msgstr "Pajina"
@@ -656,6 +659,15 @@ msgstr "Hili tipu pajina ita boot hakarek kria."
 msgid "Pages using %(page_type)s"
 msgstr "Pajina uza%(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+msgid "Move"
+msgstr "Muda"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hamoos %(title)s"
@@ -696,9 +708,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Muda %(title)s"
 
-msgid "Move"
-msgstr "Muda"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "ita boot hakarak muda pajina ida nee too  '%(title)s' nia laran?"
@@ -737,9 +746,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "Sin, subar"
-
-msgid "No, don't unpublish"
-msgstr "Lae, la subar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1091,11 +1097,11 @@ msgstr "Husi  %(modified_by)s"
 msgid "live"
 msgstr "Hela"
 
-msgid "live + draft"
-msgstr "Hela + esbosu"
-
 msgid "draft"
 msgstr "Esbosu"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
 
 msgid "Test"
 msgstr "Test"

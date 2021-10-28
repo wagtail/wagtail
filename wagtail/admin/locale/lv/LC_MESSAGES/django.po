@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Reinis Rozenbergs <reinisr@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -128,6 +128,12 @@ msgstr "Vienai kolekcijai nevar būt vairāki tiesību ieraksti."
 msgid "Collection"
 msgstr "Kolekcija"
 
+msgid "Add"
+msgstr "Pievienot"
+
+msgid "Edit"
+msgstr "Labot"
+
 msgid "New title"
 msgstr "Jauns virsraksts"
 
@@ -232,9 +238,6 @@ msgstr "Piešķir darbplūsmai nosaukumu"
 
 msgid "Add tasks to your workflow"
 msgstr "Pievieno uzdevumus savai darbplūsmai "
-
-msgid "Edit"
-msgstr "Labot"
 
 msgid "Page"
 msgstr "Lapa"
@@ -672,6 +675,9 @@ msgstr "Izvēlieties lapas veidu."
 msgid "Pages using %(page_type)s"
 msgstr "Lapas, kas lieto %(page_type)s"
 
+msgid "Move"
+msgstr "Pārvietot"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Dzēst %(title)s"
@@ -682,9 +688,6 @@ msgstr "Dzēst lapu?"
 #, python-format
 msgid "Move %(title)s"
 msgstr "Pārvietot %(title)s"
-
-msgid "Move"
-msgstr "Pārvietot"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -841,6 +844,9 @@ msgstr "Atsijāt"
 msgid "Locked"
 msgstr "Slēgts"
 
+msgid "Edit this item"
+msgstr "Rediģēt šo vienību"
+
 msgid "Workflow"
 msgstr "Darbplūsma"
 
@@ -863,16 +869,6 @@ msgstr "Iziet"
 msgid "Other searches"
 msgstr "Citi meklējumi"
 
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail pakāpeniski atsakās no IE11 atbalsta, kas var ietekmēt jūs vai jūsu "
-"organizāciju. <a href=\"%(url)s\">Uzziniet vairāk par mūsu IE11 atbalsta "
-"plāniem</a>."
-
 msgid "Add a child page"
 msgstr "Pievienot apakšlapu"
 
@@ -882,6 +878,9 @@ msgstr "Parādīt pārlūkā"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "autors %(modified_by)s"
+
+msgid "More"
+msgstr "Vairāk"
 
 msgid "draft"
 msgstr "melnraksts"
@@ -1006,9 +1005,6 @@ msgstr "Rādīt"
 msgid "Awaiting my review"
 msgstr "Gaida manu pārbaudi"
 
-msgid "More"
-msgstr "Vairāk"
-
 msgid "Yes"
 msgstr "Jā"
 
@@ -1023,9 +1019,6 @@ msgstr "Izvēlēties citu vienību"
 
 msgid "Clear choice"
 msgstr "Atcelt izvēli"
-
-msgid "Edit this item"
-msgstr "Rediģēt šo vienību"
 
 msgid "Choose another page"
 msgstr "Izvēlēties citu lapu"

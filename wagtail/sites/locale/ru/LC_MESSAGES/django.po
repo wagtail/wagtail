@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-02-06 20:14+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -32,29 +32,20 @@ msgstr "Выберите корневую страницу"
 msgid "Choose a different root page"
 msgstr "Выбрать другую корневую страницу"
 
+msgid "Sites"
+msgstr "Сайты"
+
+msgid "Add a site"
+msgstr "Добавить сайт"
+
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Port"
-msgstr "Порт"
-
-msgid "Site name"
-msgstr "Имя сайта"
-
-msgid "Root page"
-msgstr "Корневая страница"
 
 msgid "Default?"
 msgstr "По умолчанию?"
 
 msgid "Default"
 msgstr "По умолчанию"
-
-msgid "Sites"
-msgstr "Сайты"
-
-msgid "Add a site"
-msgstr "Добавить сайт"
 
 msgid "Add site"
 msgstr "Добавить сайт"

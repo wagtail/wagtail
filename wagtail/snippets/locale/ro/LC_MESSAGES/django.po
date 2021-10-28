@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-21 08:55+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -57,6 +57,9 @@ msgstr[2] ""
 "\n"
 "Sunt %(counter)s potriviri"
 
+msgid "Title"
+msgstr "Titlu"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -72,6 +75,9 @@ msgstr ""
 "Nu au fost creat nici un fragment %(snippet_type_name)s. De să nu <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">adăugați unul</a>?"
+
+msgid "History"
+msgstr "Istorie"
 
 msgid "Saving…"
 msgstr "În curs de salvare..."
@@ -130,9 +136,6 @@ msgstr "Fragmente"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Selectează toate %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titlu"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -208,6 +211,12 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s șters."
 msgstr[1] "%(count)d %(snippet_type)s șterse."
 msgstr[2] "%(count)d de %(snippet_type)s șterse."
+
+msgid "Action"
+msgstr "Acțiune"
+
+msgid "Date"
+msgstr "Dată"
 
 #, python-format
 msgid "Edit '%(title)s'"

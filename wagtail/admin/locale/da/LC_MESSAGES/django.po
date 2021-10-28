@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -79,6 +79,12 @@ msgstr "Forældre"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Du har ikke mulighed for at have flere tilladelser på den samme samling."
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Edit"
+msgstr "Rediger"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -158,9 +164,6 @@ msgstr "Dette felt er påkrævet."
 
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
-
-msgid "Edit"
-msgstr "Rediger"
 
 msgid "Page"
 msgstr "Side"
@@ -520,6 +523,12 @@ msgstr "Lav en side i"
 msgid "Choose which type of page you'd like to create."
 msgstr "Vælg hvilken type side du gerne vil lave."
 
+msgid "Move"
+msgstr "Flyt"
+
+msgid "No, don't unpublish"
+msgstr "Nej, afpublicer den ikke"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Slet %(title)s"
@@ -556,9 +565,6 @@ msgstr "Nej, slet den ikke"
 #, python-format
 msgid "Move %(title)s"
 msgstr "Flyt %(title)s"
-
-msgid "Move"
-msgstr "Flyt"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -604,9 +610,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, afpublicer den"
-
-msgid "No, don't unpublish"
-msgstr "Nej, afpublicer den ikke"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -790,6 +793,9 @@ msgstr "af"
 msgid "Locked"
 msgstr "Låst"
 
+msgid "Edit this item"
+msgstr "Rediger denne enhed"
+
 msgid "Root"
 msgstr "Rod"
 
@@ -811,6 +817,9 @@ msgstr "Vis i Udforsker"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "af %(modified_by)s"
+
+msgid "More"
+msgstr "Mere"
 
 msgid "Test"
 msgstr "Test"
@@ -857,9 +866,6 @@ msgstr "Seneste"
 msgid "Page '{0}' unpublished."
 msgstr "SIde '{0}' afpubliceret."
 
-msgid "More"
-msgstr "Mere"
-
 msgid "Bulleted list"
 msgstr "Liste med prikker"
 
@@ -883,9 +889,6 @@ msgstr "Vælg en til enhed"
 
 msgid "Clear choice"
 msgstr "Nulstil valg"
-
-msgid "Edit this item"
-msgstr "Rediger denne enhed"
 
 msgid "Choose another page"
 msgstr "Vælg en anden side"

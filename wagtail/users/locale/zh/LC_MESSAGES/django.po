@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -54,6 +54,9 @@ msgstr "输入和上面一样的密码用于验证"
 msgid "Administrator"
 msgstr "管理员"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Yes, delete"
 msgstr "是的，删除"
 
@@ -68,9 +71,6 @@ msgstr "名字"
 
 msgid "Add"
 msgstr "添加"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Add user"
 msgstr "添加用户"

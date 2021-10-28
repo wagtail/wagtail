@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -148,6 +148,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Col·lecció"
 
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Edit"
+msgstr "Edita"
+
 msgid "New title"
 msgstr "Nou títol"
 
@@ -250,9 +256,6 @@ msgstr "Poseu-li un nom al fluxe de treball"
 
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
-
-msgid "Edit"
-msgstr "Edita"
 
 msgid "Page"
 msgstr "Pàgina"
@@ -760,6 +763,15 @@ msgstr "Tria quin tipus de pàgina vols crear"
 msgid "Pages using %(page_type)s"
 msgstr "Pàgines que fan servir %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
+msgid "Move"
+msgstr "Mou"
+
+msgid "No, don't unpublish"
+msgstr "No despublicar-la"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Esborra %(title)s"
@@ -803,9 +815,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Mou %(title)s"
-
-msgid "Move"
-msgstr "Mou"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -851,9 +860,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Si, despublicar"
-
-msgid "No, don't unpublish"
-msgstr "No despublicar-la"
 
 msgid "Publish page"
 msgstr "Publica la pàgina"
@@ -1228,6 +1234,9 @@ msgstr "Bloquejada"
 msgid "No locked pages found."
 msgstr "No s'ha trobat cap pàgina bloquejada."
 
+msgid "Edit this item"
+msgstr "Editar aquest element"
+
 msgid "By Task"
 msgstr "Per tasca"
 
@@ -1332,6 +1341,9 @@ msgstr "Mostra l'historial complet"
 msgid "Compare with live version"
 msgstr "Comparar amb la versió en viu"
 
+msgid "More"
+msgstr "Més"
+
 msgid "0 minutes"
 msgstr "0 minuts"
 
@@ -1341,11 +1353,11 @@ msgstr "Ara mateix"
 msgid "live"
 msgstr "en viu"
 
-msgid "live + draft"
-msgstr "en viu + esborrany"
-
 msgid "draft"
 msgstr "esborrany"
+
+msgid "live + draft"
+msgstr "en viu + esborrany"
 
 msgid "Test"
 msgstr "Provar"
@@ -1496,9 +1508,6 @@ msgstr ""
 "Informeu d'aquest error a l'administrador del lloc web amb la següent "
 "informació:"
 
-msgid "More"
-msgstr "Més"
-
 msgid "Link"
 msgstr "Enllaç"
 
@@ -1522,9 +1531,6 @@ msgstr "Escull un altre element"
 
 msgid "Clear choice"
 msgstr "Opció clara"
-
-msgid "Edit this item"
-msgstr "Editar aquest element"
 
 msgid "Choose another page"
 msgstr "Escull una altra pàgina"

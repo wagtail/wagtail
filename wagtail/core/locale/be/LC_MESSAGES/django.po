@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -23,6 +23,14 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Ядро Wagtail"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Мінімальная колькасць элементаў %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максімальную колькасць элементаў %d"
 
 msgid "Move up"
 msgstr "Падвінуць наверх"
@@ -43,16 +51,8 @@ msgstr "%(label)s: у гэтага блока няма опцый."
 msgid "This block has no options."
 msgstr "Гэты блок не мае опцый."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Мінімальная колькасць элементаў %d"
-
 msgid "This field is required."
 msgstr "Патрабуецца запоўніць гэтае поле."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максімальную колькасць элементаў %d"
 
 msgid "Password"
 msgstr "Пароль"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Ford Guo <agile.guo@gmail.com>, 2020\n"
 "Language-Team: Chinese (China) (https://www.transifex.com/torchbox/"
@@ -32,6 +32,9 @@ msgstr "语言"
 msgid "Select a new language"
 msgstr "选择一种新语言"
 
+msgid "This locale's language code is not supported"
+msgstr "不支持此区域设置的语言代码"
+
 msgid "Yes, delete"
 msgstr "是的，删除"
 
@@ -43,17 +46,14 @@ msgid ""
 "language or delete this locale."
 msgstr "不支持此区域设置的当前语言代码。请选择新语言或删除此区域设置。"
 
-msgid "Usage"
-msgstr "用法"
-
-msgid "This locale's language code is not supported"
-msgstr "不支持此区域设置的语言代码"
-
 msgid "Locales"
 msgstr "区域设置"
 
 msgid "Add a locale"
 msgstr "添加区域设置"
+
+msgid "Usage"
+msgstr "用法"
 
 msgid "Add locale"
 msgstr "添加区域设置"

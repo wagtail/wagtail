@@ -6,14 +6,14 @@
 # Benoît Vogel <contact@spicy-informatique.com>, 2019
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020
+# Loic Teixeira, 2020-2021
 # Tom Dyson <tom@torchbox.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-21 17:03+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 06:15+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -125,6 +125,16 @@ msgstr "Accueil"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "Par %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Dernière mise à jour"
+
+msgid "History"
+msgstr "Historique"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s sur %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -241,3 +251,9 @@ msgstr "Inspection"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Inspection de ce/cette %s"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Date"
+msgstr "Date"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-10-01 07:46+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 10:25+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -128,6 +128,83 @@ msgstr "профіль користувача"
 msgid "user profiles"
 msgstr "профілі користувачів"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Призначити роль до 1 користувача"
+msgstr[1] "Призначити роль до %(counter)s користувачів"
+msgstr[2] "Призначити роль до %(counter)s користувачів"
+msgstr[3] "Призначити роль до %(counter)s користувачів"
+
+msgid "Assign role"
+msgstr "Призначити роль"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Ви впевненні, що хочете призначити ці ролі до цих користувачів?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Вам не дозволено редагувати цього користувача"
+msgstr[1] "Вам не дозволено редагувати цих користувачів"
+msgstr[2] "Вам не дозволено редагувати цих користувачів"
+msgstr[3] "Вам не дозволено редагувати цих користувачів"
+
+msgid "Yes, assign"
+msgstr "Так, призначити"
+
+msgid "No, don't assign"
+msgstr "Ні, не призначати"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Видалити 1 корисувача"
+msgstr[1] "Видалити %(counter)s корисувачів"
+msgstr[2] "Видалити %(counter)s корисувачів"
+msgstr[3] "Видалити %(counter)s корисувачів"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Ви впевненні, що хочете видалити цих користувачів?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Вам не дозволено видаляти цього користувача"
+msgstr[1] "Вам не дозволено видаляти цих користувачів"
+msgstr[2] "Вам не дозволено видаляти цих користувачів"
+msgstr[3] "Вам не дозволено видаляти цих користувачів"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Змінити активний стан для 1 користувача"
+msgstr[1] "Змінити активний стан для %(counter)s користувачів"
+msgstr[2] "Змінити активний стан для %(counter)s користувачів"
+msgstr[3] "Змінити активний стан для %(counter)s користувачів"
+
+msgid "Set active state"
+msgstr "Встановити активний стан"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Ви впевненні, що хочете змінити активний стан для цих користувачів?"
+
+msgid "You cannot change your own active status"
+msgstr "Ви не можете змінити власний активний статус"
+
+msgid "Yes, change state"
+msgstr "Так, змінити стан"
+
+msgid "No, don't change state"
+msgstr "Ні, не змінювати стан"
+
 msgid "Delete group"
 msgstr "Видалити групу"
 
@@ -173,9 +250,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ви впевнені, що хочете видалити цю групу?"
 
-msgid "Yes, delete"
-msgstr "Так, видалити"
-
 msgid "Add group"
 msgstr "Додати групу"
 
@@ -203,8 +277,8 @@ msgstr "Додати"
 msgid "Change"
 msgstr "Змінити"
 
-msgid "Delete"
-msgstr "Видалити"
+msgid "Custom permissions"
+msgstr "Спеціальні дозволи"
 
 msgid "Other permissions"
 msgstr "Інші дозволи"
@@ -256,6 +330,9 @@ msgstr "Користувачі"
 
 msgid "Add a user"
 msgstr "Додати користувача"
+
+msgid "Select all users in listing"
+msgstr "Обрати всіх користувачів у списку"
 
 msgid "Username"
 msgstr "Ім'я користувача"
@@ -327,6 +404,47 @@ msgid ""
 msgstr ""
 "Немає сконфігурованих користувачів. Чому б не <a href="
 "\"%(wagtailusers_add_url)s\">додати одного</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Призначити роль для вибраних користувачів"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d користувач був призначений як %(role)s"
+msgstr[1] "%(num_parent_objects)d користувачів було призначено як %(role)s"
+msgstr[2] "%(num_parent_objects)d користувачів було призначено як %(role)s"
+msgstr[3] "%(num_parent_objects)d користувачів було призначено як %(role)s"
+
+msgid "Delete selected users"
+msgstr "Видалити обраних користувачів"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)dкористувач був видалений"
+msgstr[1] "%(num_parent_objects)d користувачів було видалено"
+msgstr[2] "%(num_parent_objects)d користувачів було видалено"
+msgstr[3] "%(num_parent_objects)d користувачів було видалено"
+
+msgid "Change the active state for selected users"
+msgstr "Змінити активний стан для вибраних користувачів"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d користувач був позначений як активний"
+msgstr[1] "%(num_parent_objects)d користувачів було позначено як активний"
+msgstr[2] "%(num_parent_objects)d користувачів було позначено як активний"
+msgstr[3] "%(num_parent_objects)d користувачів було позначено як активний"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d користувач був позначений як не активний"
+msgstr[1] "%(num_parent_objects)d користувачів було позначено як не активний"
+msgstr[2] "%(num_parent_objects)d користувачів було позначено як не активний"
+msgstr[3] "%(num_parent_objects)d користувачів було позначено як не активний"
 
 msgid "Groups"
 msgstr "Групи"

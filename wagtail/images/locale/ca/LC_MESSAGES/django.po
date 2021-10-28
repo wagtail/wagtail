@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Antoni Aloy <aaloy@apsl.net>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,12 @@ msgstr "imatge"
 msgid "images"
 msgstr "imatges"
 
+msgid "Yes, delete"
+msgstr "Si, esborra"
+
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 msgid "Choose an image"
 msgstr "Escull una imatge"
 
@@ -151,9 +157,6 @@ msgstr "Puja"
 msgid "Popular tags"
 msgstr "Tags populars"
 
-msgid "Uploading…"
-msgstr "Pujant…"
-
 msgid "Latest images"
 msgstr "Últimes imatges"
 
@@ -162,6 +165,9 @@ msgstr "Escull un fomat"
 
 msgid "Insert image"
 msgstr "Insereix una imatge"
+
+msgid "Uploading…"
+msgstr "Pujant…"
 
 msgid "Change image file:"
 msgstr "Canviar fitxer d'imatge:"
@@ -177,15 +183,6 @@ msgstr "Desa"
 
 msgid "Delete image"
 msgstr "Esborra imatge"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Estàs segur que vols esborrar aquesta imatge?"
-
-msgid "Yes, delete"
-msgstr "Si, esborra"
-
-msgid "No, don't delete"
-msgstr "No, no esborrar"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -338,6 +335,9 @@ msgstr "Permisos d'imatge"
 msgid "Add an image permission"
 msgstr "Afegir un permís d'imatge"
 
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Search images"
 msgstr "Cercar imatges"
 
@@ -356,9 +356,6 @@ msgid ""
 msgstr ""
 "No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
 "imatge."
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Image '{0}' deleted."
 msgstr "Imatge '{0}' eliminada."

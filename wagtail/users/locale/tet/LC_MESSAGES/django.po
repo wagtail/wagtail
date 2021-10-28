@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,15 @@ msgstr "perfil user"
 msgid "user profiles"
 msgstr "perfil user sira"
 
+msgid "Delete"
+msgstr "Hamoos"
+
+msgid "Yes, delete"
+msgstr "Sim, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
 msgid "Delete group"
 msgstr "Hamoos grupu"
 
@@ -137,9 +146,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Ita boot prontu dunik ita boot hakarak hamoos grupu nee?"
 
-msgid "Yes, delete"
-msgstr "Sim, hamoos"
-
 msgid "Add group"
 msgstr "Hatama grupu"
 
@@ -163,9 +169,6 @@ msgstr "Hatama"
 
 msgid "Change"
 msgstr "Troka"
-
-msgid "Delete"
-msgstr "Hamoos"
 
 msgid "Other permissions"
 msgstr "Permisaun sira seluk"

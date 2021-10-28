@@ -23,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-20 05:30+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -65,6 +65,9 @@ msgstr[1] ""
 "\n"
 "Es gibt %(counter)s Ergebnisse."
 
+msgid "Title"
+msgstr "Titel"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -79,6 +82,9 @@ msgstr ""
 "Sie haben noch keine %(snippet_type_name)s Schnipsel erstellt. Warum <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">erstellen Sie nicht jetzt eins</a>?"
+
+msgid "History"
+msgstr "Historie"
 
 msgid "Saving…"
 msgstr "Speichern…"
@@ -139,9 +145,6 @@ msgstr "Schnipsel"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Wähle alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -216,6 +219,12 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s gelöscht."
 msgstr[1] "%(count)d %(snippet_type)s gelöscht."
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Date"
+msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"

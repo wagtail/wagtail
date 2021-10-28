@@ -4,7 +4,7 @@
 #
 # Translators:
 # Arne Turpyn <info@arneturpyn.com>, 2015
-# Benjamin VR <benjaaa.vr@gmail.com>, 2020
+# Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # Bram <bram2w@live.nl>, 2015
 # Brecht Dervaux <info@dervauxbrecht.be>, 2015
@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-09-21 12:44+0000\n"
-"Last-Translator: Meteor0id\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Loic Teixeira\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -163,6 +163,9 @@ msgstr ""
 "Selecteer een plek in de hiërarchie. Let op: een collectie kan niet aan "
 "zichzelf of aan onderliggende collecties worden toegevoegd."
 
+msgid "Please select another parent"
+msgstr "Selecteer een ander bovenliggend item"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Het is niet mogelijk om meerdere machtigingen voor dezelfde collectie in te "
@@ -170,6 +173,12 @@ msgstr ""
 
 msgid "Collection"
 msgstr "Collectie"
+
+msgid "Add"
+msgstr "Mag toevoegen"
+
+msgid "Edit"
+msgstr "Wijzig"
 
 msgid "You cannot edit another user's comment."
 msgstr "Je kunt opmerkingen  van een andere gebruiker niet wijzigen."
@@ -281,9 +290,6 @@ msgstr "Geef je workflow een naam"
 
 msgid "Add tasks to your workflow"
 msgstr "Voeg taken aan je workflow toe"
-
-msgid "Edit"
-msgstr "Wijzig"
 
 msgid "Page"
 msgstr "Pagina"
@@ -510,6 +516,12 @@ msgstr "Reset naar standaard foto"
 
 msgid "Menu"
 msgstr "Menu"
+
+msgid "Go back"
+msgstr "Ga terug"
+
+msgid "Select all"
+msgstr "Selecteer alles"
 
 msgid "Explorer"
 msgstr "Verkenner"
@@ -1036,6 +1048,15 @@ msgstr "Kies wat voor type pagina u wilt maken."
 msgid "Pages using %(page_type)s"
 msgstr "Pagina's van het type '%(page_type)s'"
 
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
+msgid "Move"
+msgstr "Verplaats"
+
+msgid "No, don't unpublish"
+msgstr "Nee, niet de publicatie intrekken"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Converteer alias %(title)s"
@@ -1099,9 +1120,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Verplaats %(title)s"
 
-msgid "Move"
-msgstr "Verplaats"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Weet u zeker dat u deze pagina wilt verplaatsen naar '%(title)s'?"
@@ -1144,9 +1162,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, trek de publicatie in"
-
-msgid "No, don't unpublish"
-msgstr "Nee, niet de publicatie intrekken"
 
 msgid "Publish page"
 msgstr "Publiceer pagina"
@@ -1714,6 +1729,9 @@ msgstr "Geblokkeerd"
 msgid "No locked pages found."
 msgstr "Geen geblokkeerde pagina's gevonden."
 
+msgid "Edit this item"
+msgstr "Wijzig item"
+
 msgid "By Task"
 msgstr "Op taak"
 
@@ -1794,16 +1812,6 @@ msgstr ""
 "\" rel=\"noopener noreferrer\">instructies om om Javascript in te schakelen "
 "zijn hier te vinden</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail stopt geleidelijk met het ondersteunen van IE11. Dit kan invloed op "
-"je organisatie hebben. <a href=\"%(url)s\">Lees meer over onze IE11 support "
-"mogelijkheden</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2036,6 +2044,9 @@ msgstr ""
 "Sorteer onderliggende pagina's van '%(parent)s' op '%(label)s' in aflopende "
 "volgorde."
 
+msgid "More"
+msgstr "Meer"
+
 msgid "0 minutes"
 msgstr "0 minuten"
 
@@ -2045,11 +2056,11 @@ msgstr "Zojuist"
 msgid "live"
 msgstr "live"
 
-msgid "live + draft"
-msgstr "live + concept"
-
 msgid "draft"
 msgstr "concept"
+
+msgid "live + draft"
+msgstr "live + concept"
 
 msgid "Test"
 msgstr "Test"
@@ -2098,9 +2109,6 @@ msgstr "De collectie kon vanwege fouten niet worden opgeslagen."
 
 msgid "Delete collection"
 msgstr "Verwijder collectie"
-
-msgid "Please select another parent"
-msgstr "Selecteer een ander bovenliggend item"
 
 msgid "Collection '{0}' deleted."
 msgstr "Collectie '{0}' is verwijderd."
@@ -2371,22 +2379,6 @@ msgstr "Schakel taak uit"
 msgid "Task '{0}' disabled."
 msgstr "Taak '{0}' uitgeschakeld."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Deze taak is in gebruik bij %(states_in_progress)d pagina. Deze taak "
-"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
-"workflow moderatie."
-msgstr[1] ""
-"Deze taak is in gebruik bij %(states_in_progress)d pagina's. Deze taak "
-"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
-"workflow moderatie."
-
 msgid "Task '{0}' enabled."
 msgstr "Taak '{0}' ingeschakeld."
 
@@ -2409,9 +2401,6 @@ msgstr "Toon de live versie van '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Voeg onderliggende pagina toe aan '%(title)s'"
-
-msgid "More"
-msgstr "Meer"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2491,9 +2480,6 @@ msgstr "Kies een ander item"
 
 msgid "Clear choice"
 msgstr "Leeg keuze"
-
-msgid "Edit this item"
-msgstr "Wijzig item"
 
 msgid "Choose another page"
 msgstr "Kies een andere pagina"

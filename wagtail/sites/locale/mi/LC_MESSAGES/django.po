@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-01-21 01:15+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -28,29 +28,20 @@ msgstr "Kōhiti he whārangi rarau"
 msgid "Choose a different root page"
 msgstr "Kōhiti he whārangi rarau rerekē"
 
+msgid "Sites"
+msgstr "Ngā pae"
+
+msgid "Add a site"
+msgstr "Tāpiri he pae"
+
 msgid "Site"
 msgstr "Pae"
-
-msgid "Port"
-msgstr "Tumu rorohiko"
-
-msgid "Site name"
-msgstr "Ingoa-a-pae"
-
-msgid "Root page"
-msgstr "whārangi rarau"
 
 msgid "Default?"
 msgstr "Taunoa?"
 
 msgid "Default"
 msgstr "Taunoa"
-
-msgid "Sites"
-msgstr "Ngā pae"
-
-msgid "Add a site"
-msgstr "Tāpiri he pae"
 
 msgid "Add site"
 msgstr "Tāpiri pae"

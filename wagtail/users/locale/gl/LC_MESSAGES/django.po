@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -90,6 +90,12 @@ msgstr "Recibir notificación cando a túa edición de páxina é rexeitada"
 msgid "user profile"
 msgstr "perfil de usuario"
 
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
 msgid "Delete group"
 msgstr "Eliminar grupo"
 
@@ -102,9 +108,6 @@ msgstr ""
 
 msgid "Are you sure you want to delete this group?"
 msgstr "¿Seguro que queres eliminar este grupo?"
-
-msgid "Yes, delete"
-msgstr "Si, eliminar"
 
 msgid "Add group"
 msgstr "Engadir grupo"
@@ -126,9 +129,6 @@ msgstr "Engadir"
 
 msgid "Change"
 msgstr "Cambiar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Other permissions"
 msgstr "Outros permisos"

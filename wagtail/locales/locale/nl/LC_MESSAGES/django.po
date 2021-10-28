@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2021\n"
 "Language-Team: Dutch (https://www.transifex.com/torchbox/teams/8009/nl/)\n"
@@ -30,6 +30,9 @@ msgstr "Taal"
 msgid "Select a new language"
 msgstr "Selecteer een nieuwe taal"
 
+msgid "This locale's language code is not supported"
+msgstr "De taalcode van deze taalregio wordt niet ondersteund"
+
 msgid "Yes, delete"
 msgstr "Ja, verwijder"
 
@@ -43,17 +46,14 @@ msgstr ""
 "De taalcode van de huidige taalregio wordt niet ondersteund. Kies een andere "
 "taal of verwijder deze taalregio."
 
-msgid "Usage"
-msgstr "Gebruik"
-
-msgid "This locale's language code is not supported"
-msgstr "De taalcode van deze taalregio wordt niet ondersteund"
-
 msgid "Locales"
 msgstr "Taalregio's"
 
 msgid "Add a locale"
 msgstr "Een taalregio toevoegen"
+
+msgid "Usage"
+msgstr "Gebruik"
 
 msgid "Add locale"
 msgstr "Taalregio toevoegen"

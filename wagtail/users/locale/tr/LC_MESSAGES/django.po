@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +113,15 @@ msgstr "kullanıcı profili"
 msgid "user profiles"
 msgstr "kullanıcı profilleri"
 
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Yes, delete"
+msgstr "Evet, sil"
+
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
 msgid "Delete group"
 msgstr "Grubu sil"
 
@@ -146,9 +155,6 @@ msgstr "Grubu silmek, grubun izinlerini tüm üye kullanıcılardan geri alır."
 msgid "Are you sure you want to delete this group?"
 msgstr "Grubu silmek istediğinizden emin misiniz?"
 
-msgid "Yes, delete"
-msgstr "Evet, sil"
-
 msgid "Add group"
 msgstr "Grup ekle"
 
@@ -172,9 +178,6 @@ msgstr "Ekle"
 
 msgid "Change"
 msgstr "Değiştir"
-
-msgid "Delete"
-msgstr "Sil"
 
 msgid "Other permissions"
 msgstr "Diğer izinler"

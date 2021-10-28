@@ -5,14 +5,15 @@
 # Translators:
 # Aarni Koskela, 2016
 # Aarni Koskela, 2016
+# Jiri Grönroos <jiri.gronroos@iki.fi>, 2021
 # Valter Maasalo <vmaasalo@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-18 17:18+0000\n"
-"Last-Translator: Valter Maasalo <vmaasalo@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 12:16+0000\n"
+"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Kyselyn päivittäiset vastaukset"
+
+msgid "index entry"
+msgstr "indeksitietue"
+
+msgid "index entries"
+msgstr "indeksitietuetta"
 
 msgid "Popular search terms"
 msgstr "Suositut hakutermit"

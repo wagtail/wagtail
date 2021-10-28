@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-18 06:32+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 11:54+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -138,11 +138,29 @@ msgstr "URL"
 msgid "Parent"
 msgstr "Isäntä"
 
+msgid "Please select another parent"
+msgstr "Valitse toinen isäntä"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Yhdelle kokoelmalle ei voi olla useampaa pääsyoikeusasetusta."
 
 msgid "Collection"
 msgstr "Kokoelma"
+
+msgid "Add"
+msgstr "Lisää"
+
+msgid "Add collections"
+msgstr "Lisää kokelmia"
+
+msgid "Edit"
+msgstr "Muokkaa"
+
+msgid "Edit collections"
+msgstr "Muokkaa kokoelmia"
+
+msgid "Delete collections"
+msgstr "Poista kokoelmia"
 
 msgid "You cannot edit another user's comment."
 msgstr "Et voi muokata toisen käyttäjän kommenttia."
@@ -241,9 +259,6 @@ msgstr "Anna työnkululle nimi"
 
 msgid "Add tasks to your workflow"
 msgstr "Lisää tehtäviä työnkulkuun"
-
-msgid "Edit"
-msgstr "Muokkaa"
 
 msgid "Page"
 msgstr "Sivu"
@@ -389,6 +404,66 @@ msgstr "Kojelauta"
 msgid "Edit your account"
 msgstr "Muokkaa tiliäsi"
 
+msgid "1 page selected"
+msgstr "1 sivu valittu"
+
+msgid "{0} pages selected"
+msgstr "{0} sivua valittu"
+
+msgid "All {0} pages on this screen selected"
+msgstr "Kaikki {0} sivua tässä näytössä valittu"
+
+msgid "All pages in listing selected"
+msgstr "Kaikki listauksen sivut valittu"
+
+msgid "1 document selected"
+msgstr "1 asiakirja valittu"
+
+msgid "{0} documents selected"
+msgstr "{0} asiakirjaa valittu"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Kaikki {0} asiakirjaa tässä näytössä valittu"
+
+msgid "All documents in listing selected"
+msgstr "Kaikki listauksen asiakirjat valittu"
+
+msgid "1 image selected"
+msgstr "1 kuva valittu"
+
+msgid "{0} images selected"
+msgstr "{0} kuvaa valittu"
+
+msgid "All {0} images on this screen selected"
+msgstr "Kaikki {0} kuvaa tässä näytössä valittu"
+
+msgid "All images in listing selected"
+msgstr "Kaikki listauksen kuvat valittu"
+
+msgid "1 user selected"
+msgstr "1 käyttäjä valittu"
+
+msgid "{0} users selected"
+msgstr "{0} käyttäjää valittu"
+
+msgid "All {0} users on this screen selected"
+msgstr "Kaikki {0} käyttäjää tässä näytössä valittu"
+
+msgid "All users in listing selected"
+msgstr "Kaikki listauksen käyttäjät valittu"
+
+msgid "1 item selected"
+msgstr "1 tietue valittu"
+
+msgid "{0} items selected"
+msgstr "{0} items tietuetta valittu"
+
+msgid "All {0} items on this screen selected"
+msgstr "Kaikki {0} tietuetta tässä näytössä valittu"
+
+msgid "All items in listing selected"
+msgstr "Kaikki listauksen tietueet valittu"
+
 msgid "Error 404: Page not found"
 msgstr "Virhe 404: Sivua ei löytynyt"
 
@@ -470,6 +545,18 @@ msgstr "Palauta oletusarvoon"
 msgid "Menu"
 msgstr "Valikko"
 
+msgid "Go back"
+msgstr "Siirry takaisin"
+
+msgid "Bulk actions"
+msgstr "Massatoiminnot"
+
+msgid "Select row"
+msgstr "Valitse rivi"
+
+msgid "Select all"
+msgstr "Valitse kaikki"
+
 msgid "Explorer"
 msgstr "Sivuselain"
 
@@ -535,6 +622,12 @@ msgstr[1] ""
 "\n"
 "Ainoastaan seuraavia sivutyyppejä voidaan valita tähän kenttään: %(type)s. "
 "Hakutulokset eivät sisällä muita sivutyyppejä."
+
+msgid "Convert to internal link"
+msgstr "Muunna sisäiseksi linkiksi"
+
+msgid "Use external link"
+msgstr "Käytä ulkoista linkkiä"
 
 msgid "Add an email link"
 msgstr "Lisää sähköpostilinkki"
@@ -697,6 +790,9 @@ msgstr[1] ""
 "\n"
 "<span>%(total)s</span> sivua <span class=\"visuallyhidden\">luotiin "
 "sivustolle %(site_name)s</span>"
+
+msgid "Your pages in a workflow"
+msgstr "Sivusi työnkulussa"
 
 msgid "Task"
 msgstr "Tehtävä"
@@ -894,6 +990,117 @@ msgid "Pages using %(page_type)s"
 msgstr "SIvut tyyppiä %(page_type)s"
 
 #, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Poista 1 sivu"
+msgstr[1] "Poista %(counter)s sivua"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Haluatko varmasti poistaa nämä sivut?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Tämä poistaa lisäksi yhden alisivun.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Tämä poistaa lisäksi %(counter)s alisivua.\n"
+"                    "
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Oikeutesi eivät riitä tämän sivun poistamiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden sivujen poistamiseen"
+
+msgid "No, don't delete"
+msgstr "Ei, älä poista"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Siirrä 1 sivu"
+msgstr[1] "Siirrä %(counter)s sivua"
+
+msgid "Move"
+msgstr "SIirrä"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Haluatko varmasti siirtää nämä sivut?"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Oikeutesi eivät riitä tämän sivun siirtämiseen"
+msgstr[1] "Oikeutesi eivät riitä näiden sivujen siirtämiseen"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Seuraavaa sivua ei voi siirtää kohteeseen %(dest_title)s "
+msgstr[1] "Seuraavia sivuja ei voi siirtää kohteeseen %(dest_title)s"
+
+msgid "Yes, move these pages"
+msgstr "Kyllä, siirrä nämä sivut"
+
+msgid "No, don't move"
+msgstr "Ei, älä siirrä"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Julkaise 1 sivu "
+msgstr[1] "Julkaise %(counter)s sivua"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Haluatko varmasti julkaista nämä sivut?"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Oikeutesi eivät riitä tämän sivun julkaisemiseen."
+msgstr[1] "Oikeutesi eivät riitä näiden sivujen julkaisemiseen."
+
+msgid "Yes, publish"
+msgstr "Kyllä, julkaise"
+
+msgid "No, don't publish"
+msgstr "Ei, älä julkaise"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Haluatko varmasti piilottaa näiden sivujen julkaisun?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Tällä sivulla on yksi alisivu\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Tällä sivulla on %(counter)s alisivua\n"
+"                    "
+
+msgid "Yes, unpublish"
+msgstr "Kyllä, piilota julkaisu"
+
+msgid "No, don't unpublish"
+msgstr "Ei, älä piilota"
+
+#, python-format
 msgid "Convert alias %(title)s"
 msgstr "Muunna alias %(title)s"
 
@@ -956,9 +1163,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Siirrä %(title)s"
 
-msgid "Move"
-msgstr "SIirrä"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Haluatko varmasti siirtää tämän sivun kohteeseen \"%(title)s\"?"
@@ -1000,9 +1204,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Kyllä, piilota"
-
-msgid "No, don't unpublish"
-msgstr "Ei, älä piilota"
 
 msgid "Publish page"
 msgstr "Julkaise sivu"
@@ -1100,6 +1301,12 @@ msgstr "Lokimerkintöjä ei löytynyt."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Selataan kohdetta %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Valitse kaikki listauksen sivut"
+
+msgid "Select page"
+msgstr "Valitse sivu"
 
 msgid "Drag"
 msgstr "Vedä"
@@ -1451,6 +1658,12 @@ msgstr "Keskeneräinen tehtävä"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Tätä sivua ei ole lähetetty tarkastettavaksi vielä"
 
+msgid "Collection management permissions"
+msgstr "Kokoelman hallinnan oikeudet"
+
+msgid "Add a collection permission"
+msgstr "Lisää kokoelman oikeus"
+
 msgid "No pages match this report's criteria."
 msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
 
@@ -1506,6 +1719,9 @@ msgstr "Lukittu"
 
 msgid "No locked pages found."
 msgstr "Lukittuja sivuja ei löytynyt."
+
+msgid "Edit this item"
+msgstr "Muokkaa tätä"
 
 msgid "Workflow"
 msgstr "Työnkulku"
@@ -1575,6 +1791,14 @@ msgstr ""
 "käyttöön selaimessasi</a>.\n"
 "        "
 
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"Wagtail on poistanut tuen IE:n versiolle 11. <a href=\"%(url)s\">Lue lisää "
+"vaihtoehdoista IE11:lle</a>."
+
 msgid "Skip to main content"
 msgstr "Siirry pääsisältöön"
 
@@ -1624,6 +1848,24 @@ msgstr "Piilota käytöstä poistetut työnkulut"
 
 msgid "Show disabled workflows"
 msgstr "Näytä käytöstä poistetut työnkulut"
+
+#, python-format
+msgid ""
+"\n"
+"                                            1 page\n"
+"                                        "
+msgid_plural ""
+"\n"
+"                                            %(counter)s pages\n"
+"                                        "
+msgstr[0] ""
+"\n"
+"                                            1 sivu\n"
+"                                        "
+msgstr[1] ""
+"\n"
+"                                            %(counter)s sivua\n"
+"                                        "
 
 #, python-format
 msgid "Step %(step_number)s"
@@ -1684,6 +1926,9 @@ msgstr "Työnkulkua käyttävät sivut"
 msgid "by %(modified_by)s"
 msgstr "tekijänä %(modified_by)s"
 
+msgid "Submitted"
+msgstr "Lähetetty"
+
 msgid "Not started"
 msgstr "Ei aloitettu"
 
@@ -1715,6 +1960,12 @@ msgid ""
 msgstr ""
 "Järjestä sivun '%(parent)s' alasivut kentän '%(label)s' mukaan laskevasti."
 
+msgid "More"
+msgstr "Lisää"
+
+msgid "View more bulk actions"
+msgstr "Näytä lisää massatoimintoja"
+
 msgid "0 minutes"
 msgstr "0 minuuttia"
 
@@ -1724,11 +1975,11 @@ msgstr "Juuri nyt"
 msgid "live"
 msgstr "julkaistu"
 
-msgid "live + draft"
-msgstr "julkaistu + luonnos"
-
 msgid "draft"
 msgstr "luonnos"
+
+msgid "live + draft"
+msgstr "julkaistu + luonnos"
 
 msgid "Test"
 msgstr "Testi"
@@ -1778,9 +2029,6 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
-msgid "Please select another parent"
-msgstr "Valitse toinen isäntä"
-
 msgid "Collection '{0}' deleted."
 msgstr "Kokoelma '{0}' poistettu."
 
@@ -1789,6 +2037,35 @@ msgstr "Haluatko varmasti poistaa tämän kokoelman?"
 
 msgid "Editing"
 msgstr "Muokataan"
+
+msgid "Delete selected pages"
+msgstr "Poista valitut sivut"
+
+msgid "1 page has been deleted"
+msgstr "1 sivu on poistettu"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d sivua on poistettu"
+
+msgid "Move selected pages"
+msgstr "Siirrä valitut sivut"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d sivu on siirretty"
+msgstr[1] "%(num_pages)d sivua on siirretty"
+
+msgid "Publish selected pages"
+msgstr "Julkaise valitut sivut"
+
+msgid "1 page has been published"
+msgstr "1 sivu on julkaistu"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d sivua on julkaistu"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Sivu '{0}' on muunnettu tavalliseksi sivuksi."
@@ -2018,9 +2295,6 @@ msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
 msgid "Add a child page to '%(title)s' "
 msgstr "Lisää sivulle '%(title)s' alasivu"
 
-msgid "More"
-msgstr "Lisää"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "Lisää valintoja sivulle '%(title)s'"
@@ -2099,9 +2373,6 @@ msgstr "Valitse toinen vaihtoehto"
 
 msgid "Clear choice"
 msgstr "Tyhjennä valinta"
-
-msgid "Edit this item"
-msgstr "Muokkaa tätä"
 
 msgid "Choose another page"
 msgstr "Valitse toinen sivu"

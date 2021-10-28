@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-02 08:51+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,14 @@ msgstr "Nucleu Wagtail"
 
 msgid "Add Comment"
 msgstr "Adaugă comentariu"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Numărul minim de articole este %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Numărul maxim de articole este %d"
 
 msgid "Move up"
 msgstr "Deplasează în sus"
@@ -49,16 +57,8 @@ msgstr "%(label)s: acest bloc nu are opțiuni"
 msgid "This block has no options."
 msgstr "Acest bloc nu are nici o opțiune."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Numărul minim de articole este %d"
-
 msgid "This field is required."
 msgstr "Acest câmp este obligatoriu."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Numărul maxim de articole este %d"
 
 msgid "Password"
 msgstr "Parolă"
@@ -68,10 +68,6 @@ msgstr "Parola introdusă nu este corectă. Vă rugăm să încercați din nou."
 
 msgid "Comment"
 msgstr "Comentariu"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Acțiune necunoscută %(action)s"
 
 msgid "title"
 msgstr "titlu"
@@ -435,12 +431,12 @@ msgstr "intrări jurnal"
 msgid "The log action '{}' has not been registered."
 msgstr "Acțiunea de jurnal '{}' a fost înregistrată."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "Utilizator %(id)d(șters)"
-
 msgid "system"
 msgstr "sistem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Acțiune necunoscută %(action)s"
 
 msgid "collection"
 msgstr "colecție"
@@ -620,6 +616,19 @@ msgstr "A deblochat"
 msgid "Reject"
 msgstr "Respingere"
 
+msgid "Rename"
+msgstr "Redenumire"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "A redenumit din '%(old)s' în '%(new)s'"
+
+msgid "Renamed"
+msgstr "A redenumit"
+
+msgid "Revert"
+msgstr "Inversare"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -629,12 +638,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "A revenit la versiunea precedentă"
 
+msgid "Copy"
+msgstr "Copiere"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "A fost copiată de la %(title)s"
 
 msgid "Copied"
 msgstr "A fost copiată"
+
+msgid "Create alias"
+msgstr "Creare alias"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -643,12 +658,18 @@ msgstr "A creat un alias al %(title)s"
 msgid "Created an alias"
 msgstr "A creat un alias"
 
+msgid "Convert alias into ordinary page"
+msgstr "A convertit un alias în pagină obișnuită"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "A convertit alias-ul '%(title)s' în pagină obișnuită"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "A convertit un alias în pagină obișnuită"
+
+msgid "Move"
+msgstr "Mutare"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -657,12 +678,18 @@ msgstr "A mutat de la '%(old_parent)s' la '%(new_parent)s'"
 msgid "Moved"
 msgstr "A mutat"
 
+msgid "Reorder"
+msgstr "Reordonare"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "A reordonat sub '%(parent)s'"
 
 msgid "Reordered"
 msgstr "A reordonat"
+
+msgid "Schedule publication"
+msgstr "Programare publicare"
 
 #, python-format
 msgid ""
@@ -679,6 +706,9 @@ msgstr "Pagina a fost programată pentru publicare la %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Pagina a fost programată pentru publicare"
 
+msgid "Unschedule publication"
+msgstr "Anulare programarii de publicare"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -694,12 +724,18 @@ msgstr "Programarea paginii pentru publicare la %(go_live_at)s a fost anulată"
 msgid "Page unscheduled from publishing"
 msgstr "Programarea paginii pentru publicare a fost anulată"
 
+msgid "Add view restrictions"
+msgstr "Adăugare restricții de vizualizare"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "A adăugat restricția de vizualizare '%(restriction)s'"
 
 msgid "Added view restriction"
 msgstr "A adăugat restricție de vizualizare"
+
+msgid "Update view restrictions"
+msgstr "Actualizare restricții de vizualizare"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -708,6 +744,9 @@ msgstr "A actualizat restricția de vizualizare '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "A actualizat restricția de vizualizare"
 
+msgid "Remove view restrictions"
+msgstr "Eliminare restricții de vizualizare"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "A eliminat restricția de vizualizare '%(restriction)s'"
@@ -715,12 +754,8 @@ msgstr "A eliminat restricția de vizualizare '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "A eliminat restricția de vizualizare"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "A redenumit din '%(old)s' în '%(new)s'"
-
-msgid "Renamed"
-msgstr "A redenumit"
+msgid "Add comment"
+msgstr "Adaugă comentariu"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -729,12 +764,18 @@ msgstr "A adăugat un comentariu pe câmpul %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "A adăugat un comentariu"
 
+msgid "Edit comment"
+msgstr "Editează comentariu"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "A editat un comentariu pe câmpul %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "A editat un comentariu"
+
+msgid "Delete comment"
+msgstr "Șterge comentariu"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -743,12 +784,18 @@ msgstr "A șters un comentariu pe câmpul %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "A șters un comentariu"
 
+msgid "Resolve comment"
+msgstr "Rezolvă comentariu"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "A rezolvat un comentariu pe câmpul %(field)s: \"%(text)s\""
 
 msgid "Resolved a comment"
 msgstr "A rezolvat un comentariu"
+
+msgid "Reply to comment"
+msgstr "Răspunde la comentariu"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -757,12 +804,18 @@ msgstr "A răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\""
 msgid "Replied to a comment"
 msgstr "A răspuns la un comentariu"
 
+msgid "Edit reply to comment"
+msgstr "Editează răspuns la comentariu"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr "A editat un răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "A editat un răspuns"
+
+msgid "Delete reply to comment"
+msgstr "Șterge răspuns la comentariu"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -771,62 +824,8 @@ msgstr "A șters un răspuns la un comentariu pe câmpul %(field)s: \"%(text)s\"
 msgid "Deleted a reply"
 msgstr "A șters un răspuns"
 
-msgid "Rename"
-msgstr "Redenumire"
-
-msgid "Revert"
-msgstr "Inversare"
-
-msgid "Copy"
-msgstr "Copiere"
-
-msgid "Create alias"
-msgstr "Creare alias"
-
-msgid "Convert alias into ordinary page"
-msgstr "A convertit un alias în pagină obișnuită"
-
-msgid "Move"
-msgstr "Mutare"
-
-msgid "Reorder"
-msgstr "Reordonare"
-
-msgid "Schedule publication"
-msgstr "Programare publicare"
-
-msgid "Unschedule publication"
-msgstr "Anulare programarii de publicare"
-
-msgid "Add view restrictions"
-msgstr "Adăugare restricții de vizualizare"
-
-msgid "Update view restrictions"
-msgstr "Actualizare restricții de vizualizare"
-
-msgid "Remove view restrictions"
-msgstr "Eliminare restricții de vizualizare"
-
-msgid "Add comment"
-msgstr "Adaugă comentariu"
-
-msgid "Edit comment"
-msgstr "Editează comentariu"
-
-msgid "Delete comment"
-msgstr "Șterge comentariu"
-
-msgid "Resolve comment"
-msgstr "Rezolvă comentariu"
-
-msgid "Reply to comment"
-msgstr "Răspunde la comentariu"
-
-msgid "Edit reply to comment"
-msgstr "Editează răspuns la comentariu"
-
-msgid "Delete reply to comment"
-msgstr "Șterge răspuns la comentariu"
+msgid "Workflow: start"
+msgstr "Flux de lucru: începere"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -834,6 +833,9 @@ msgstr "Fluxul de lucru %(workflow)s început. Sarcina următoare '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Flux de lucru început"
+
+msgid "Workflow: approve task"
+msgstr "Flux de lucru: aprobare sarcină"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -847,12 +849,18 @@ msgstr ""
 msgid "Workflow task approved"
 msgstr "Sarcina de lucru a fost aprobată"
 
+msgid "Workflow: reject task"
+msgstr "Flux de lucru: respingere sarcină"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Respins la faza '%(task)s'. Au fost solicitate modificări"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Sarcina de lucru respinsă. Flux de lucru finalizat"
+
+msgid "Workflow: resume task"
+msgstr "Flux de lucru: reluare sarcină"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -861,24 +869,12 @@ msgstr "Sarcina '%(task)s' retrimisă. Flux de lucru rezumat"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Sarcină de lucru retrimisă. Flux de lucru rezumat"
 
+msgid "Workflow: cancel"
+msgstr "Flux de lucru: anulare"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Flux de lucru '%(workflow)s' anulat la sarcina '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Flux de lucru anulat"
-
-msgid "Workflow: start"
-msgstr "Flux de lucru: începere"
-
-msgid "Workflow: approve task"
-msgstr "Flux de lucru: aprobare sarcină"
-
-msgid "Workflow: reject task"
-msgstr "Flux de lucru: respingere sarcină"
-
-msgid "Workflow: resume task"
-msgstr "Flux de lucru: reluare sarcină"
-
-msgid "Workflow: cancel"
-msgstr "Flux de lucru: anulare"

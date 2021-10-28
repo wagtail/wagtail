@@ -26,9 +26,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,14 @@ msgstr "Wagtail Kern"
 
 msgid "Add Comment"
 msgstr "Kommentar hinzufügen"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Die minimale Anzahl an Elementen ist %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Die maximale Anzahl an Elementen ist %d"
 
 msgid "Move up"
 msgstr "Nach oben"
@@ -65,16 +73,8 @@ msgstr "%(label)s: dieser Block hat keine Einstellmöglichkeiten."
 msgid "This block has no options."
 msgstr "Dieser Block hat keine Einstellmöglichkeiten."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Die minimale Anzahl an Elementen ist %d"
-
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Die maximale Anzahl an Elementen ist %d"
 
 msgid "Password"
 msgstr "Passwort"
@@ -84,10 +84,6 @@ msgstr "Das eingegebene Passwort ist falsch. Bitte versuchen Sie es erneut."
 
 msgid "Comment"
 msgstr "Kommentar"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Unbekannte %(action)s"
 
 msgid "title"
 msgstr "Titel"
@@ -395,12 +391,12 @@ msgstr "Protokolleinträge"
 msgid "The log action '{}' has not been registered."
 msgstr "Die Protokollaktion '{}' wurde nicht registriert."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "Benutzer %(id)d (gelöscht)"
-
 msgid "system"
 msgstr "System"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Unbekannte %(action)s"
 
 msgid "collection"
 msgstr "Sammlung"
@@ -573,6 +569,19 @@ msgstr "Entsperrt"
 msgid "Reject"
 msgstr "Ablehnen"
 
+msgid "Rename"
+msgstr "Umbenennen"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Von ‚%(old)s‘ nach ‚%(new)s‘ umbenannt"
+
+msgid "Renamed"
+msgstr "Umbenannt"
+
+msgid "Revert"
+msgstr "Zurückkehren"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -583,12 +592,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Zu vorheriger Revison zurückgekehrt"
 
+msgid "Copy"
+msgstr "Kopieren"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Von %(title)s kopiert"
 
 msgid "Copied"
 msgstr "Kopiert"
+
+msgid "Move"
+msgstr "Verschieben"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -597,30 +612,11 @@ msgstr "Von ‚%(old_parent)s‘ nach ‚%(new_parent)s‘ verschoben"
 msgid "Moved"
 msgstr "Verschoben"
 
-msgid "Page scheduled for publishing"
-msgstr "Seite zur Veröffentlichung eingeplant"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Von ‚%(old)s‘ nach ‚%(new)s‘ umbenannt"
-
-msgid "Renamed"
-msgstr "Umbenannt"
-
-msgid "Rename"
-msgstr "Umbenennen"
-
-msgid "Revert"
-msgstr "Zurückkehren"
-
-msgid "Copy"
-msgstr "Kopieren"
-
-msgid "Move"
-msgstr "Verschieben"
-
 msgid "Schedule publication"
 msgstr "Veröffentlichung einplanen"
+
+msgid "Page scheduled for publishing"
+msgstr "Seite zur Veröffentlichung eingeplant"
 
 msgid "Unschedule publication"
 msgstr "Geplante Veröffentlichung aufheben"
@@ -628,14 +624,11 @@ msgstr "Geplante Veröffentlichung aufheben"
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"
 
-msgid "Workflow started"
-msgstr "Arbeitsablauf gestartet"
-
-msgid "Workflow cancelled"
-msgstr "Arbeitsablauf abgebrochen"
-
 msgid "Workflow: start"
 msgstr "Arbeitsablauf: Start"
+
+msgid "Workflow started"
+msgstr "Arbeitsablauf gestartet"
 
 msgid "Workflow: approve task"
 msgstr "Arbeitsablauf: Aufgabe genehmigen"
@@ -648,3 +641,6 @@ msgstr "Arbeitsablauf: Aufgabe fortsetzen"
 
 msgid "Workflow: cancel"
 msgstr "Arbeitsablauf: Abbruch"
+
+msgid "Workflow cancelled"
+msgstr "Arbeitsablauf abgebrochen"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -22,6 +22,14 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail südamik"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimaalne üksuste arv on %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maksimaalne üksuste arv on %d"
 
 msgid "Move up"
 msgstr "Üles liikuma"
@@ -42,16 +50,8 @@ msgstr "%(label)s sellel plokil pole valikuid."
 msgid "This block has no options."
 msgstr "Sellel plokil pole valikuid."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimaalne üksuste arv on %d"
-
 msgid "This field is required."
 msgstr "Selle välja täitmine on kohustuslik."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maksimaalne üksuste arv on %d"
 
 msgid "Password"
 msgstr "Parool"
@@ -61,10 +61,6 @@ msgstr "Sisestatud parool pole õige. Palun proovi uuesti."
 
 msgid "Comment"
 msgstr "Kommentaar"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tundmatu %(action)s"
 
 msgid "title"
 msgstr "pealkiri"
@@ -390,12 +386,12 @@ msgstr "logikanne"
 msgid "log entries"
 msgstr "logikirjed"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "kasutaja %(id)d (kustutatud)"
-
 msgid "system"
 msgstr "süsteemi"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tundmatu %(action)s"
 
 msgid "collection"
 msgstr "kollektsioon"
@@ -566,6 +562,19 @@ msgstr "Lukustamata"
 msgid "Reject"
 msgstr "Keeldu"
 
+msgid "Rename"
+msgstr "Nimeta ümber"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Nimetati '%(old)s' ümber '%(new)s'"
+
+msgid "Renamed"
+msgstr "Ümbernimetatud"
+
+msgid "Revert"
+msgstr "Tagasi"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -576,6 +585,9 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Tagasi eelmise redaktsiooni juurde"
 
+msgid "Copy"
+msgstr "Kopeeri"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Kopeeritud asukohast %(title)s"
@@ -583,12 +595,18 @@ msgstr "Kopeeritud asukohast %(title)s"
 msgid "Copied"
 msgstr "Kopeeritud"
 
+msgid "Move"
+msgstr "Liiguta"
+
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Teisaldatud kaustast '%(old_parent)s' kausta '%(new_parent)s'"
 
 msgid "Moved"
 msgstr "Liigutatud"
+
+msgid "Schedule publication"
+msgstr "Ajakava avaldamine"
 
 #, python-format
 msgid ""
@@ -605,6 +623,9 @@ msgstr "Lehe avaldamine on kavandatud kell %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Lehe avaldamine on kavandatud"
 
+msgid "Unschedule publication"
+msgstr "Väljaandmise ajagraafik"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -620,12 +641,18 @@ msgstr "Lehe avaldamine on ajakavas %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Lehe avaldamine on ajastatud"
 
+msgid "Add view restrictions"
+msgstr "Lisage vaate piirangud"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Lisati vaatamise piirang '%(restriction)s'"
 
 msgid "Added view restriction"
 msgstr "Lisatud vaatamispiirang"
+
+msgid "Update view restrictions"
+msgstr "Vaate piirangute värskendamine"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -634,6 +661,9 @@ msgstr "Vaatamispiirang värskendati väärtusele '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Uuendatud vaatamispiirang"
 
+msgid "Remove view restrictions"
+msgstr "Eemaldage vaate piirangud"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Eemaldas vaatamise piirangu '%(restriction)s'"
@@ -641,39 +671,8 @@ msgstr "Eemaldas vaatamise piirangu '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Vaatamispiirang on eemaldatud"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Nimetati '%(old)s' ümber '%(new)s'"
-
-msgid "Renamed"
-msgstr "Ümbernimetatud"
-
-msgid "Rename"
-msgstr "Nimeta ümber"
-
-msgid "Revert"
-msgstr "Tagasi"
-
-msgid "Copy"
-msgstr "Kopeeri"
-
-msgid "Move"
-msgstr "Liiguta"
-
-msgid "Schedule publication"
-msgstr "Ajakava avaldamine"
-
-msgid "Unschedule publication"
-msgstr "Väljaandmise ajagraafik"
-
-msgid "Add view restrictions"
-msgstr "Lisage vaate piirangud"
-
-msgid "Update view restrictions"
-msgstr "Vaate piirangute värskendamine"
-
-msgid "Remove view restrictions"
-msgstr "Eemaldage vaate piirangud"
+msgid "Workflow: start"
+msgstr "Töövoog: algus"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -681,6 +680,9 @@ msgstr "'%(workflow)s' algas. Järgmine samm '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Töövoog algas"
+
+msgid "Workflow: approve task"
+msgstr "Töövoog: kinnitage ülesanne"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -693,12 +695,18 @@ msgstr "Kinnitatud \"%(task)s\". \"%(workflow)s\" lõpetatud."
 msgid "Workflow task approved"
 msgstr "Töövoo ülesanne on kinnitatud"
 
+msgid "Workflow: reject task"
+msgstr "Töövoog: lükake ülesanne tagasi"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Tagasi lükatud ''%(task)s\". Nõutud on muudatusi"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Töövoo ülesanne lükati tagasi. Töövoog on lõpule viidud"
+
+msgid "Workflow: resume task"
+msgstr "Töövoog: ülesande jätkamine"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -707,24 +715,12 @@ msgstr "Esitatud uuesti \"%(task)s\". Töövoo jätkamine "
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Töövoo ülesanne on uuesti esitatud. Töövoog jätkus"
 
+msgid "Workflow: cancel"
+msgstr "Töövoog: tühista"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Tühistatud \"%(workflow)s\" \"%(task)s\" "
 
 msgid "Workflow cancelled"
 msgstr "Töövoog on tühistatud"
-
-msgid "Workflow: start"
-msgstr "Töövoog: algus"
-
-msgid "Workflow: approve task"
-msgstr "Töövoog: kinnitage ülesanne"
-
-msgid "Workflow: reject task"
-msgstr "Töövoog: lükake ülesanne tagasi"
-
-msgid "Workflow: resume task"
-msgstr "Töövoog: ülesande jätkamine"
-
-msgid "Workflow: cancel"
-msgstr "Töövoog: tühista"

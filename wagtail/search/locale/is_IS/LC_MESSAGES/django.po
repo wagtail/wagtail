@@ -5,14 +5,14 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015,2018
 # saevarom <saevar@saevar.is>, 2016
-# saevarom <saevar@saevar.is>, 2016
+# saevarom <saevar@saevar.is>, 2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2018-05-07 10:23+0000\n"
-"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 09:26+0000\n"
+"Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Fjöldi daglegra leita"
+
+msgid "index entry"
+msgstr "leitarorð"
+
+msgid "index entries"
+msgstr "leitarorð"
 
 msgid "Popular search terms"
 msgstr "Vinsælir leitarfrasar"

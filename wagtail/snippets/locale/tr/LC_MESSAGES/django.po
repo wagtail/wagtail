@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -54,6 +54,9 @@ msgstr[1] ""
 "\n"
 "            %(counter)s eşleşme bulundu\n"
 "        "
+
+msgid "Title"
+msgstr "Başlık"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -129,9 +132,6 @@ msgstr "Bloklar"
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Tümünü seç %(snippet_type_name_plural)s"
 
-msgid "Title"
-msgstr "Başlık"
-
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "%(snippet)s seç"
@@ -205,6 +205,9 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s silindi."
 msgstr[1] "%(count)d %(snippet_type)s silindi."
+
+msgid "Date"
+msgstr "Tarih"
 
 #, python-format
 msgid "Edit '%(title)s'"

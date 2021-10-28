@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-09-29 16:11+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 07:30+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -65,6 +65,9 @@ msgstr[3] ""
 "            Знайдено %(counter)s збігів\n"
 "        "
 
+msgid "Title"
+msgstr "Заголовок"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -79,6 +82,12 @@ msgstr ""
 "Ви не створили жодних %(snippet_type_name)s уривків. Чому б зараз не <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">створити якийсь</a>?"
+
+msgid "Last updated"
+msgstr "Востаннє оновлено"
+
+msgid "History"
+msgstr "Історія змін"
 
 msgid "Saving…"
 msgstr "Йде зберігання..."
@@ -138,9 +147,6 @@ msgstr "Уривки"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Вибрати всі %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Заголовок"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -217,6 +223,15 @@ msgstr[0] "%(count)d %(snippet_type)s видалено."
 msgstr[1] "%(count)d %(snippet_type)s видалено."
 msgstr[2] "%(count)d %(snippet_type)s видалено."
 msgstr[3] "%(count)d %(snippet_type)s видалено."
+
+msgid "Snippet history"
+msgstr "Історія уривку"
+
+msgid "Action"
+msgstr "Дія"
+
+msgid "Date"
+msgstr "Дата"
 
 #, python-format
 msgid "Edit '%(title)s'"
