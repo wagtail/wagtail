@@ -24,9 +24,13 @@ function versionOutOfDate(latestVersion, currentVersion) {
 
 class VersionNumber {
   constructor(versionString) {
-    this.full = 1;
-    this.major = 0;
-    this.patch = 0;
+    const versionRegex =
+      /^(?<epic>\d+)\.{1}(?<major>\d+)(\.{1}(?<patch>\d+)){0,1}$/;
+    const groups = versionString.match(versionRegex).groups;
+
+    this.epic = parseInt(groups.epic);
+    this.major = parseInt(groups.major);
+    this.patch = groups.patch ? parseInt(groups.patch) : 0;
   }
 }
 
