@@ -1,2 +1,2 @@
-from wagtail.models.audit_log import (  # noqa
+from wagtail.models.logging import (  # noqa
     BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet, ModelLogEntry)

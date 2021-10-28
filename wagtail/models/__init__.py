@@ -1,11 +1,11 @@
 from .admin import UserProfile  # noqa
-from .audit_log import ModelLogEntry  # noqa
 from .collections import (  # noqa
     Collection, CollectionMember, CollectionViewRestriction, GroupCollectionPermission,
     get_root_collection_id)
 from .copying import _copy, _copy_m2m_relations  # noqa
 from .i18n import (  # noqa
     BootstrapTranslatableModel, Locale, TranslatableMixin, get_translatable_models)
+from .logging import ModelLogEntry  # noqa
 from .pages import (  # noqa
     PAGE_MODEL_CLASSES, PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, PAGE_TEMPLATE_VAR,
     WAGTAIL_APPEND_SLASH, GroupPagePermission, Orderable, Page, PageManager, PageQuerySet,

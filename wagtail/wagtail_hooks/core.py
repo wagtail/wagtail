@@ -89,7 +89,7 @@ def describe_collection_children(collection):
 
 @hooks.register('register_log_actions')
 def register_core_log_actions(actions):
-    actions.register_model(models.Model, ModelLogEntry)
+    actions.register_model(models.Model, logging.ModelLogEntry)
     actions.register_model(Page, logging.PageLogEntry)
 
     actions.register_action('wagtail.create', _('Create'), _('Created'))

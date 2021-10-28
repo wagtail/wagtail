@@ -15,7 +15,7 @@ from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import ModelLogEntry, Page
+from wagtail.models import ModelLogEntry, Page, logging
 from wagtail.test.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
 from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin
 from wagtail.test.utils import WagtailTestUtils
@@ -381,7 +381,7 @@ class TestEditView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.user = self.login()
-        ModelLogEntry.objects.create(
+        logging.ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Book),
             label="The Lord of the Rings",
             action='wagtail.create',
@@ -644,7 +644,7 @@ class TestHistoryView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.login()
-        ModelLogEntry.objects.create(
+        logging.ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Book),
             label="The Lord of the Rings",
             action='wagtail.create',
