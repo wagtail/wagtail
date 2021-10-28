@@ -26,6 +26,7 @@ Changelog
  * Change release check domain to releases.wagtail.org (Jake Howard)
  * Add the user who submitted a page for moderation to the "Awaiting your review" homepage summary panel (Tidiane Dia)
  * When moving pages, default to the current parent section (Tidjani Dia)
+ * `admin/expanding_formset.js` has been renamed to `admin/expanding-formset.js` (LB (Ben Johnston))
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
