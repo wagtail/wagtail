@@ -4,11 +4,10 @@ from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
+from wagtail.admin.forms.locales import LocaleForm
+from wagtail.admin.locales import get_locale_usage
 from wagtail.models import Locale
 from wagtail.permissions import locale_permission_policy
-
-from .forms import LocaleForm
-from .utils import get_locale_usage
 
 
 class LanguageTitleColumn(TitleColumn):

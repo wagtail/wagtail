@@ -4,9 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
+from wagtail.admin.views.locales import LocaleViewSet
 from wagtail.permissions import site_permission_policy
-
-from .views import LocaleViewSet
 
 
 @hooks.register('register_admin_viewset')
