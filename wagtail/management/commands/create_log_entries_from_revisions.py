@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from wagtail.models import PageLogEntry, PageRevision
+from wagtail.models import PageRevision, logging
 
 
 def get_comparison(page, revision_a, revision_b):
@@ -31,7 +31,7 @@ class Command(BaseCommand):
             has_content_changes = False
             current_page_id = revision.page_id
 
-            if not PageLogEntry.objects.filter(revision=revision).exists():
+            if not logging.PageLogEntry.objects.filter(revision=revision).exists():
                 try:
                     current_revision_as_page = revision.as_page_object()
                 except Exception:
@@ -84,7 +84,7 @@ class Command(BaseCommand):
             previous_revision = revision
 
     def log_page_action(self, action, revision, has_content_changes):
-        PageLogEntry.objects.log_action(
+        logging.PageLogEntry.objects.log_action(
             instance=revision.page.specific,
             action=action,
             data='',

@@ -4,7 +4,7 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import Page, logging
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -61,7 +61,7 @@ class TestConvertAlias(TestCase, WagtailTestUtils):
         self.assertEqual(self.alias_page.live_revision, revision)
 
         # Check audit log
-        log = PageLogEntry.objects.get(action='wagtail.convert_alias')
+        log = logging.PageLogEntry.objects.get(action='wagtail.convert_alias')
         self.assertFalse(log.content_changed)
         self.assertEqual(json.loads(log.data_json), {"page": {"id": self.alias_page.id, "title": self.alias_page.get_admin_display_title()}})
         self.assertEqual(log.page, self.alias_page.page_ptr)

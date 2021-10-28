@@ -7,7 +7,7 @@ from django.utils.translation import gettext as _
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import Page, logging
 
 
 def convert_alias(request, page_id):
@@ -35,7 +35,7 @@ def convert_alias(request, page_id):
                 page.save(update_fields=['live_revision'], clean=False)
 
             # Log
-            PageLogEntry.objects.log_action(
+            logging.PageLogEntry.objects.log_action(
                 instance=page,
                 revision=revision,
                 action='wagtail.convert_alias',

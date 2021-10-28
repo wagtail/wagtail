@@ -8,7 +8,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.models import Collection, Page, PageLogEntry, PageRevision, workflows
+from wagtail.models import Collection, Page, PageRevision, logging, workflows
 from wagtail.signals import page_published, page_unpublished
 from wagtail.test.testapp.models import EventPage, SimplePage
 
@@ -464,14 +464,14 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
         revision.publish()
 
         # clean up log entries
-        PageLogEntry.objects.all().delete()
+        logging.PageLogEntry.objects.all().delete()
 
     def test_log_entries_created_from_revisions(self):
         management.call_command('create_log_entries_from_revisions')
 
         # Should not create entries for empty revisions.
         self.assertListEqual(
-            list(PageLogEntry.objects.values_list("action", flat=True)),
+            list(logging.PageLogEntry.objects.values_list("action", flat=True)),
             ['wagtail.publish', 'wagtail.edit', 'wagtail.create']
         )
 
@@ -481,4 +481,4 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
             return_value=None,
         ):
             management.call_command('create_log_entries_from_revisions')
-            self.assertEqual(PageLogEntry.objects.count(), 0)
+            self.assertEqual(logging.PageLogEntry.objects.count(), 0)

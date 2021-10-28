@@ -1,11 +1,11 @@
 from wagtail.models import (  # noqa
     COMMENTS_RELATION_NAME, PAGE_MODEL_CLASSES, PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES,
     PAGE_TEMPLATE_VAR, AbstractPage, BasePageManager, Comment, CommentReply, GroupPagePermission,
-    Orderable, Page, PageBase, PageLogEntry, PageLogEntryManager, PageLogEntryQuerySet, PageManager,
-    PagePermissionTester, PageRevision, PageSubscription, PageViewRestriction,
-    ParentNotTranslatedError, SubmittedRevisionsManager, UserPagePermissionsProxy,
-    get_default_page_content_type, get_page_models, get_streamfield_names, logger,
-    reassign_root_page_locale_on_delete)
+    Orderable, Page, PageBase, PageManager, PagePermissionTester, PageRevision, PageSubscription,
+    PageViewRestriction, ParentNotTranslatedError, SubmittedRevisionsManager,
+    UserPagePermissionsProxy, get_default_page_content_type, get_page_models, get_streamfield_names,
+    logger, reassign_root_page_locale_on_delete)
+from wagtail.models.logging import PageLogEntry, PageLogEntryManager, PageLogEntryQuerySet
 from wagtail.models.workflows import (  # noqa
     GroupApprovalTask, Task, TaskManager, TaskState, TaskStateManager, Workflow, WorkflowManager,
     WorkflowPage, WorkflowState, WorkflowStateManager, WorkflowTask)
