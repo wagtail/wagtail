@@ -130,7 +130,7 @@ New code:
   api_router.register_endpoint('documents', DocumentsAPIViewSet)
 
 
-``wagtail.contrib.documents.models.get_document_model`` has moved
+``wagtail.documents.models.get_document_model`` has moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``get_document_model`` function should now be imported from ``wagtail.contrib.documents`` rather than ``wagtail.contrib.documents.models``. See :ref:`custom_document_model`.
