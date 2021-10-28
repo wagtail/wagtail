@@ -14,7 +14,6 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.log_actions import registry as log_action_registry
-from wagtail.models import Page, UserPagePermissionsProxy
 
 
 class LogEntryQuerySet(models.QuerySet):
@@ -277,12 +276,16 @@ class PageLogEntryQuerySet(LogEntryQuerySet):
     def get_content_type_ids(self):
         # for reporting purposes, pages of all types are combined under a single "Page"
         # object type
+        from wagtail.models import Page
+
         if self.exists():
             return set([ContentType.objects.get_for_model(Page).pk])
         else:
             return set()
 
     def filter_on_content_type(self, content_type):
+        from wagtail.models import Page
+
         if content_type == ContentType.objects.get_for_model(Page):
             return self
         else:
@@ -301,6 +304,8 @@ class PageLogEntryManager(BaseLogEntryManager):
         return super().log_action(instance, action, **kwargs)
 
     def viewable_by_user(self, user):
+        from wagtail.models import Page, UserPagePermissionsProxy
+
         q = Q(
             page__in=UserPagePermissionsProxy(user).explorable_pages().values_list('pk', flat=True)
         )

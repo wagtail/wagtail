@@ -3,10 +3,8 @@ import re
 
 from django import forms
 from django.apps import apps
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
-from django.core.signals import setting_changed
 from django.db.models.fields import CharField, TextField
 from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
@@ -19,15 +17,10 @@ from modelcluster.models import get_serializable_data_for_fields
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
-from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.forms.models import (
     DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
-from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.fields import RichTextField
-from wagtail.models import Page, commenting
-from wagtail.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.utils.decorators import cached_classmethod
 
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
@@ -353,8 +346,7 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
         # If a custom form class was passed to the EditHandler, use it.
         # Otherwise, use the base_form_class from the model.
         # If that is not defined, use WagtailAdminModelForm.
-        model_form_class = getattr(self.model, 'base_form_class',
-                                   WagtailAdminModelForm)
+        model_form_class = getattr(self.model, 'get_base_form_class', lambda: getattr(self.model, 'base_form_class', None) or WagtailAdminModelForm)()
         base_form_class = self.base_form_class or model_form_class
 
         return get_form_for_model(
@@ -831,6 +823,9 @@ class CommentPanel(EditHandler):
         return ['comment_notifications']
 
     def required_formsets(self):
+        from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
+        from wagtail.models import commenting
+
         # add the comments formset
         # we need to pass in the current user for validation on the formset
         # this could alternatively be done on the page form itself if we added the
@@ -866,6 +861,8 @@ class CommentPanel(EditHandler):
 
     def get_context(self):
         def user_data(user):
+            from wagtail.templatetags.wagtailadmin_tags import avatar_url, user_display_name
+
             return {
                 'name': user_display_name(user),
                 'avatar_url': avatar_url(user)
@@ -910,80 +907,6 @@ class CommentPanel(EditHandler):
     def render(self):
         panel = render_to_string(self.template, self.get_context())
         return panel
-
-
-# Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
-def set_default_page_edit_handlers(cls):
-    cls.content_panels = [
-        FieldPanel('title', classname="full title"),
-    ]
-
-    cls.promote_panels = [
-        MultiFieldPanel([
-            FieldPanel('slug'),
-            FieldPanel('seo_title'),
-            FieldPanel('search_description'),
-        ], gettext_lazy('For search engines')),
-        MultiFieldPanel([
-            FieldPanel('show_in_menus'),
-        ], gettext_lazy('For site menus')),
-    ]
-
-    cls.settings_panels = [
-        PublishingPanel(),
-        PrivacyModalPanel(),
-    ]
-
-    if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
-        cls.settings_panels.append(CommentPanel())
-
-    cls.base_form_class = WagtailAdminPageForm
-
-
-set_default_page_edit_handlers(Page)
-
-
-@cached_classmethod
-def get_edit_handler(cls):
-    """
-    Get the EditHandler to use in the Wagtail admin when editing this page type.
-    """
-    if hasattr(cls, 'edit_handler'):
-        edit_handler = cls.edit_handler
-    else:
-        # construct a TabbedInterface made up of content_panels, promote_panels
-        # and settings_panels, skipping any which are empty
-        tabs = []
-
-        if cls.content_panels:
-            tabs.append(ObjectList(cls.content_panels,
-                                   heading=gettext_lazy('Content')))
-        if cls.promote_panels:
-            tabs.append(ObjectList(cls.promote_panels,
-                                   heading=gettext_lazy('Promote')))
-        if cls.settings_panels:
-            tabs.append(ObjectList(cls.settings_panels,
-                                   heading=gettext_lazy('Settings'),
-                                   classname='settings'))
-
-        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
-
-    return edit_handler.bind_to(model=cls)
-
-
-Page.get_edit_handler = get_edit_handler
-
-
-@receiver(setting_changed)
-def reset_page_edit_handler_cache(**kwargs):
-    """
-    Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
-    """
-    if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
-        set_default_page_edit_handlers(Page)
-        for model in apps.get_models():
-            if issubclass(model, Page):
-                model.get_edit_handler.cache_clear()
 
 
 class StreamFieldPanel(FieldPanel):

@@ -33,13 +33,13 @@ def css_install_check(app_configs, **kwargs):
 
 @register(Tags.admin)
 def base_form_class_check(app_configs, **kwargs):
-    from wagtail.admin.forms import WagtailAdminPageForm
+    from wagtail.admin.forms.pages import WagtailAdminPageForm
     from wagtail.models import get_page_models
 
     errors = []
 
     for cls in get_page_models():
-        if not issubclass(cls.base_form_class, WagtailAdminPageForm):
+        if not (cls.base_form_class is None or issubclass(cls.base_form_class, WagtailAdminPageForm)):
             errors.append(Error(
                 "{}.base_form_class does not extend WagtailAdminPageForm".format(
                     cls.__name__),
@@ -54,7 +54,7 @@ def base_form_class_check(app_configs, **kwargs):
 
 @register(Tags.admin)
 def get_form_class_check(app_configs, **kwargs):
-    from wagtail.admin.forms import WagtailAdminPageForm
+    from wagtail.admin.forms.pages import WagtailAdminPageForm
     from wagtail.models import get_page_models
 
     errors = []

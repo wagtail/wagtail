@@ -13,7 +13,8 @@ from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
 
-from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
 from wagtail.edit_handlers import (

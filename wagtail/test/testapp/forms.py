@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 
-from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.widgets import AdminDateInput
 
 

@@ -19,7 +19,7 @@ from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import ItemBase, TagBase, TaggedItemBase
 
-from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
 from wagtail.blocks import (
     CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)

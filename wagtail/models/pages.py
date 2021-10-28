@@ -17,6 +17,7 @@ import uuid
 from io import StringIO
 from urllib.parse import urlparse
 
+from django.apps import apps
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
@@ -25,6 +26,7 @@ from django.core.cache import cache
 from django.core.exceptions import ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
+from django.core.signals import setting_changed
 from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.functions import Concat, Substr
@@ -45,6 +47,9 @@ from treebeard.mp_tree import MP_Node
 from wagtail.coreutils import (
     WAGTAIL_APPEND_SLASH, camelcase_to_underscore, find_available_slug,
     get_supported_content_language_variant, resolve_model_string)
+from wagtail.edit_handlers import (
+    CommentPanel, FieldPanel, MultiFieldPanel, ObjectList, PrivacyModalPanel, PublishingPanel,
+    TabbedInterface)
 from wagtail.fields import StreamField
 from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
@@ -53,6 +58,7 @@ from wagtail.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete)
 from wagtail.treebeard import TreebeardPathFixMixin
 from wagtail.url_routing import RouteResult
+from wagtail.utils.decorators import cached_classmethod
 
 from .commenting import COMMENTS_RELATION_NAME, Comment
 from .copying import _copy, _copy_m2m_relations
@@ -319,9 +325,60 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
-    content_panels = []
-    promote_panels = []
-    settings_panels = []
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+    ]
+    promote_panels = [
+        MultiFieldPanel([
+            FieldPanel('slug'),
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+        ], _('For search engines')),
+        MultiFieldPanel([
+            FieldPanel('show_in_menus'),
+        ], _('For site menus')),
+    ]
+    settings_panels = [
+        PublishingPanel(),
+        PrivacyModalPanel(),
+    ]
+
+    if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
+        settings_panels.append(CommentPanel())
+
+    base_form_class = None
+
+    @classmethod
+    def get_base_form_class(cls):
+        from wagtail.admin.forms.pages import WagtailAdminPageForm
+        return cls.base_form_class or WagtailAdminPageForm
+
+    @cached_classmethod
+    def get_edit_handler(cls):
+        """
+        Get the EditHandler to use in the Wagtail admin when editing this page type.
+        """
+        if hasattr(cls, 'edit_handler'):
+            edit_handler = cls.edit_handler
+        else:
+            # construct a TabbedInterface made up of content_panels, promote_panels
+            # and settings_panels, skipping any which are empty
+            tabs = []
+
+            if cls.content_panels:
+                tabs.append(ObjectList(cls.content_panels,
+                                    heading=_('Content')))
+            if cls.promote_panels:
+                tabs.append(ObjectList(cls.promote_panels,
+                                    heading=_('Promote')))
+            if cls.settings_panels:
+                tabs.append(ObjectList(cls.settings_panels,
+                                    heading=_('Settings'),
+                                    classname='settings'))
+
+            edit_handler = TabbedInterface(tabs, base_form_class=cls.get_base_form_class())
+
+        return edit_handler.bind_to(model=cls)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -3183,3 +3240,19 @@ class WorkflowPage(models.Model):
     class Meta:
         verbose_name = _('workflow page')
         verbose_name_plural = _('workflow pages')
+
+
+@receiver(setting_changed)
+def reset_page_edit_handler_cache(**kwargs):
+    """
+    Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
+    """
+    if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
+        if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
+            Page.settings_panels.append(CommentPanel())
+        else:
+            Page.settings_panels = [panel for panel in Page.settings_panels if not isinstance(panel, CommentPanel)]
+
+        for model in apps.get_models():
+            if issubclass(model, Page):
+                model.get_edit_handler.cache_clear()

@@ -10,9 +10,6 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
-from wagtail import edit_handlers
-from wagtail.models import Page
-
 
 def upload_avatar_to(instance, filename):
     filename, ext = os.path.splitext(filename)
@@ -90,12 +87,6 @@ class UserProfile(models.Model):
         verbose_name_plural = _('user profiles')
 
 
-# The edit_handlers module extends Page with some additional attributes required by
-# wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
-# wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
-# system checks.
-
-
 # A dummy model that exists purely to attach the access_admin permission type to, so that it
 # doesn't get identified as a stale content type and removed by the remove_stale_contenttypes
 # management command.
@@ -109,6 +100,7 @@ class Admin(Model):
 
 def get_object_usage(obj):
     """Returns a queryset of pages that link to a particular object"""
+    from wagtail.models import Page
 
     pages = Page.objects.none()
 

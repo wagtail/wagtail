@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.models import Page
 from wagtail.telepath import register
 from wagtail.utils.widgets import WidgetWithScript
 from wagtail.widget_adapters import WidgetAdapter
@@ -80,6 +79,8 @@ class AdminPageChooser(AdminChooser):
     link_to_chosen_text = _('Edit this page')
 
     def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
+        from wagtail.models import Page
+
         super().__init__(**kwargs)
 
         if target_models:
@@ -96,6 +97,8 @@ class AdminPageChooser(AdminChooser):
         Return a Page class that is an ancestor for all Page classes in
         ``target_models``, and is also a concrete Page class itself.
         """
+        from wagtail.models import Page
+
         if len(self.target_models) == 1:
             # Shortcut for a single page type
             return self.target_models[0]
@@ -120,6 +123,8 @@ class AdminPageChooser(AdminChooser):
         }
 
     def get_value_data(self, value):
+        from wagtail.models import Page
+
         if value is None:
             return None
         elif isinstance(value, Page):

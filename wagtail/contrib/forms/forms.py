@@ -6,7 +6,7 @@ from django.conf import settings
 from django.utils.html import conditional_escape
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.contrib.forms.utils import get_field_clean_name
 
 
