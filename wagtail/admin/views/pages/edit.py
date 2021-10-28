@@ -23,7 +23,7 @@ from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     COMMENTS_RELATION_NAME, Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy,
-    WorkflowState)
+    workflows)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -363,7 +363,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             workflow = self.workflow_state.workflow
             task = self.workflow_state.current_task_state.task
             if (
-                self.workflow_state.status != WorkflowState.STATUS_NEEDS_CHANGES
+                self.workflow_state.status != workflows.WorkflowState.STATUS_NEEDS_CHANGES
                 and task.specific.page_locked_for_user(self.page, self.request.user)
             ):
                 # Check for revisions still undergoing moderation and warn
@@ -581,7 +581,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.log_commenting_changes(changes, revision)
             self.send_commenting_notifications(changes)
 
-        if self.workflow_state and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES:
+        if self.workflow_state and self.workflow_state.status == workflows.WorkflowState.STATUS_NEEDS_CHANGES:
             # If the workflow was in the needs changes state, resume the existing workflow on submission
             self.workflow_state.resume(self.request.user)
         else:

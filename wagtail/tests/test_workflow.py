@@ -10,8 +10,7 @@ from django.db.utils import IntegrityError
 from django.test import TestCase, override_settings
 from freezegun import freeze_time
 
-from wagtail.models import (
-    GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
+from wagtail.models import Page, WorkflowPage, workflows
 from wagtail.test.testapp.models import SimplePage
 
 
@@ -19,11 +18,11 @@ class TestWorkflows(TestCase):
     fixtures = ['test.json']
 
     def create_workflow_and_tasks(self):
-        workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = Task.objects.create(name='test_task_1')
-        task_2 = Task.objects.create(name='test_task_2')
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
+        task_1 = workflows.Task.objects.create(name='test_task_1')
+        task_2 = workflows.Task.objects.create(name='test_task_2')
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
         return workflow, task_1, task_2
 
     def start_workflow_on_homepage(self):
@@ -36,28 +35,28 @@ class TestWorkflows(TestCase):
 
     def test_create_workflow(self):
         # test creating and retrieving an empty Workflow from the db
-        test_workflow = Workflow(name='test_workflow')
+        test_workflow = workflows.Workflow(name='test_workflow')
         test_workflow.save()
-        retrieved_workflow = Workflow.objects.get(id=test_workflow.id)
+        retrieved_workflow = workflows.Workflow.objects.get(id=test_workflow.id)
         self.assertEqual(retrieved_workflow.name, 'test_workflow')
 
     def test_create_task(self):
         # test creating and retrieving a base Task from the db
-        test_task = Task(name='test_task')
+        test_task = workflows.Task(name='test_task')
         test_task.save()
-        retrieved_task = Task.objects.get(id=test_task.id)
+        retrieved_task = workflows.Task.objects.get(id=test_task.id)
         self.assertEqual(retrieved_task.name, 'test_task')
 
     def test_add_task_to_workflow(self):
-        workflow = Workflow.objects.create(name='test_workflow')
-        task = Task.objects.create(name='test_task')
-        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
-        self.assertIn(task, Task.objects.filter(workflow_tasks__workflow=workflow))
-        self.assertIn(workflow, Workflow.objects.filter(workflow_tasks__task=task))
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
+        task = workflows.Task.objects.create(name='test_task')
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        self.assertIn(task, workflows.Task.objects.filter(workflow_tasks__workflow=workflow))
+        self.assertIn(workflow, workflows.Workflow.objects.filter(workflow_tasks__task=task))
 
     def test_add_workflow_to_page(self):
         # test adding a Workflow to a Page via WorkflowPage
-        workflow = Workflow.objects.create(name='test_workflow')
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
         homepage = Page.objects.get(url_path='/home/')
         WorkflowPage.objects.create(page=homepage, workflow=workflow)
         homepage.refresh_from_db()
@@ -65,15 +64,15 @@ class TestWorkflows(TestCase):
 
     def test_get_specific_task(self):
         # test ability to get instance of subclassed Task type using Task.specific
-        group_approval_task = GroupApprovalTask.objects.create(name='test_group_approval')
+        group_approval_task = workflows.GroupApprovalTask.objects.create(name='test_group_approval')
         group_approval_task.groups.set(Group.objects.all())
-        task = Task.objects.get(name='test_group_approval')
+        task = workflows.Task.objects.get(name='test_group_approval')
         specific_task = task.specific
-        self.assertIsInstance(specific_task, GroupApprovalTask)
+        self.assertIsInstance(specific_task, workflows.GroupApprovalTask)
 
     def test_get_workflow_from_parent(self):
         # test ability to use Page.get_workflow() to retrieve a Workflow from a parent Page if none is set directly
-        workflow = Workflow.objects.create(name='test_workflow')
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
         homepage = Page.objects.get(url_path='/home/')
         WorkflowPage.objects.create(page=homepage, workflow=workflow)
         hello_page = SimplePage(title="Hello world", slug='hello-world', content="hello")
@@ -84,8 +83,8 @@ class TestWorkflows(TestCase):
     def test_get_workflow_from_closest_ancestor(self):
         # test that using Page.get_workflow() tries to get the workflow from itself, then the closest ancestor, and does
         # not get Workflows from further up the page tree first
-        workflow_1 = Workflow.objects.create(name='test_workflow_1')
-        workflow_2 = Workflow.objects.create(name='test_workflow_2')
+        workflow_1 = workflows.Workflow.objects.create(name='test_workflow_1')
+        workflow_2 = workflows.Workflow.objects.create(name='test_workflow_2')
         homepage = Page.objects.get(url_path='/home/')
         WorkflowPage.objects.create(page=homepage, workflow=workflow_1)
         hello_page = SimplePage(title="Hello world", slug='hello-world', content="hello")
@@ -156,7 +155,7 @@ class TestWorkflows(TestCase):
         data['page'].get_latest_revision().publish()
         workflow_state = data['workflow_state']
         workflow_state.refresh_from_db()
-        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
+        self.assertEqual(workflow_state.status, workflows.WorkflowState.STATUS_CANCELLED)
 
     @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=False)
     def test_publishing_page_does_not_cancel_workflow_when_cancel_on_publish_false(self):
@@ -164,7 +163,7 @@ class TestWorkflows(TestCase):
         data['page'].get_latest_revision().publish()
         workflow_state = data['workflow_state']
         workflow_state.refresh_from_db()
-        self.assertEqual(workflow_state.status, WorkflowState.STATUS_IN_PROGRESS)
+        self.assertEqual(workflow_state.status, workflows.WorkflowState.STATUS_IN_PROGRESS)
 
     def test_error_when_starting_multiple_in_progress_workflows(self):
         # test trying to start multiple status='in_progress' workflows on a single page will trigger an IntegrityError
@@ -263,7 +262,7 @@ class TestWorkflows(TestCase):
         workflow_state = data['workflow_state']
 
         tasks = workflow_state.all_tasks_with_status()
-        self.assertEqual(tasks[0].status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(tasks[0].status, workflows.TaskState.STATUS_IN_PROGRESS)
         self.assertEqual(tasks[1].status_display, 'Not started')
 
         workflow_state.current_task_state.approve(user=None)
@@ -273,32 +272,32 @@ class TestWorkflows(TestCase):
         workflow_state.refresh_from_db()
 
         tasks = workflow_state.all_tasks_with_status()
-        self.assertEqual(tasks[0].status, TaskState.STATUS_APPROVED)
-        self.assertEqual(tasks[1].status, TaskState.STATUS_REJECTED)
+        self.assertEqual(tasks[0].status, workflows.TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].status, workflows.TaskState.STATUS_REJECTED)
 
         workflow_state.resume(user=None)
 
         tasks = workflow_state.all_tasks_with_status()
-        self.assertEqual(tasks[0].status, TaskState.STATUS_APPROVED)
-        self.assertEqual(tasks[1].status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(tasks[0].status, workflows.TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].status, workflows.TaskState.STATUS_IN_PROGRESS)
 
     def cancel_workflow(self):
         # test that cancelling a workflow state sets both current task state and its own statuses to cancelled, and cancels all in progress states
         data = self.start_workflow_on_homepage()
         workflow_state = data['workflow_state']
         workflow_state.cancel(user=None)
-        self.assertEqual(workflow_state.status, WorkflowState.STATUS_CANCELLED)
-        self.assertEqual(workflow_state.current_task_state.status, TaskState.STATUS_CANCELLED)
-        self.assertFalse(TaskState.objects.filter(workflow_state=workflow_state, status=TaskState.STATUS_IN_PROGRESS).exists())
+        self.assertEqual(workflow_state.status, workflows.WorkflowState.STATUS_CANCELLED)
+        self.assertEqual(workflow_state.current_task_state.status, workflows.TaskState.STATUS_CANCELLED)
+        self.assertFalse(workflows.TaskState.objects.filter(workflow_state=workflow_state, status=workflows.TaskState.STATUS_IN_PROGRESS).exists())
         self.assertFalse(workflow_state.is_active)
 
     def test_task_workflows(self):
-        workflow = Workflow.objects.create(name='test_workflow')
-        disabled_workflow = Workflow.objects.create(name="disabled_workflow", active=False)
-        task = Task.objects.create(name='test_task')
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
+        disabled_workflow = workflows.Workflow.objects.create(name="disabled_workflow", active=False)
+        task = workflows.Task.objects.create(name='test_task')
 
-        WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
-        WorkflowTask.objects.create(workflow=disabled_workflow, task=task, sort_order=1)
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task, sort_order=1)
+        workflows.WorkflowTask.objects.create(workflow=disabled_workflow, task=task, sort_order=1)
 
         self.assertEqual(
             list(task.workflows), [workflow, disabled_workflow]
@@ -322,7 +321,7 @@ class TestWorkflows(TestCase):
         workflow_state = data['workflow_state']
 
         tasks = workflow_state.all_tasks_with_state()
-        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(tasks[0].task_state.status, workflows.TaskState.STATUS_IN_PROGRESS)
 
         workflow_state.current_task_state.approve(user=None)
         workflow_state.refresh_from_db()
@@ -331,15 +330,15 @@ class TestWorkflows(TestCase):
         workflow_state.refresh_from_db()
 
         tasks = workflow_state.all_tasks_with_state()
-        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_APPROVED)
-        self.assertEqual(tasks[1].task_state.status, TaskState.STATUS_REJECTED)
+        self.assertEqual(tasks[0].task_state.status, workflows.TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].task_state.status, workflows.TaskState.STATUS_REJECTED)
 
         workflow_state.resume(user=None)
 
         tasks = workflow_state.all_tasks_with_state()
-        self.assertEqual(tasks[0].task_state.status, TaskState.STATUS_APPROVED)
-        self.assertEqual(tasks[1].task_state.status, TaskState.STATUS_IN_PROGRESS)
+        self.assertEqual(tasks[0].task_state.status, workflows.TaskState.STATUS_APPROVED)
+        self.assertEqual(tasks[1].task_state.status, workflows.TaskState.STATUS_IN_PROGRESS)
         self.assertEqual(
             tasks[1].task_state,
-            TaskState.objects.filter(workflow_state=workflow_state).order_by('-started_at', '-id')[0]
+            workflows.TaskState.objects.filter(workflow_state=workflow_state).order_by('-started_at', '-id')[0]
         )

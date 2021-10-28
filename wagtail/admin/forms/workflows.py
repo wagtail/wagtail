@@ -9,7 +9,7 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.coreutils import get_model_string
 from wagtail.edit_handlers import FieldPanel, InlinePanel, ObjectList
-from wagtail.models import Page, Task, Workflow, WorkflowPage
+from wagtail.models import Page, WorkflowPage, workflows
 
 
 class TaskChooserSearchForm(forms.Form):
@@ -68,10 +68,10 @@ class TaskChooserSearchForm(forms.Form):
             if model_name and model_name in self.task_type_choices:
                 return self.task_type_choices[model_name]
 
-        return Task
+        return workflows.Task
 
     def specific_task_model_selected(self):
-        return self.task_model is not Task
+        return self.task_model is not workflows.Task
 
 
 class WorkflowPageForm(forms.ModelForm):
@@ -142,7 +142,7 @@ class BaseWorkflowPagesFormSet(forms.BaseInlineFormSet):
 
 
 WorkflowPagesFormSet = forms.inlineformset_factory(
-    Workflow, WorkflowPage, form=WorkflowPageForm, formset=BaseWorkflowPagesFormSet, extra=1, can_delete=True, fields=['page']
+    workflows.Workflow, WorkflowPage, form=WorkflowPageForm, formset=BaseWorkflowPagesFormSet, extra=1, can_delete=True, fields=['page']
 )
 
 
@@ -197,4 +197,4 @@ def get_workflow_edit_handler():
         ], heading=_("Add tasks to your workflow")),
     ]
     edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)
-    return edit_handler.bind_to(model=Workflow)
+    return edit_handler.bind_to(model=workflows.Workflow)

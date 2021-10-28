@@ -10,7 +10,7 @@ from django.views.generic import View
 from wagtail.admin import messages
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.models import Page, Task, TaskState, WorkflowState
+from wagtail.models import Page, workflows
 
 
 class BaseWorkflowFormView(View):
@@ -31,7 +31,7 @@ class BaseWorkflowFormView(View):
             messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(self.page.get_admin_display_title()))
             return redirect(self.redirect_to)
 
-        self.task_state = get_object_or_404(TaskState, id=task_state_id)
+        self.task_state = get_object_or_404(workflows.TaskState, id=task_state_id)
         self.task_state = self.task_state.specific
 
         self.task = self.task_state.task.specific
@@ -131,7 +131,7 @@ def confirm_workflow_cancellation(request, page_id):
 
     return render_modal_workflow(
         request, 'wagtailadmin/pages/confirm_workflow_cancellation.html', None, {
-            'needs_changes': workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES,
+            'needs_changes': workflow_state.status == workflows.WorkflowState.STATUS_NEEDS_CHANGES,
             'task': workflow_state.current_task_state.task.name,
             'workflow': workflow_state.workflow.name,
         },
@@ -170,10 +170,10 @@ def preview_revision_for_task(request, page_id, task_id):
     to be edited and new TaskStates linked to the new revisions created, with preview links remaining valid"""
 
     page = get_object_or_404(Page, id=page_id)
-    task = get_object_or_404(Task, id=task_id).specific
+    task = get_object_or_404(workflows.Task, id=task_id).specific
     try:
-        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
-    except TaskState.DoesNotExist:
+        task_state = workflows.TaskState.objects.get(page_revision__page=page, task=task, status=workflows.TaskState.STATUS_IN_PROGRESS)
+    except workflows.TaskState.DoesNotExist:
         messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
         return redirect('wagtailadmin_home')
 

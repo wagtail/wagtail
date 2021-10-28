@@ -8,7 +8,7 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.log_actions import LogActionRegistry
-from wagtail.models import Page, PageLogEntry, PageViewRestriction, Task, Workflow, WorkflowTask
+from wagtail.models import Page, PageLogEntry, PageViewRestriction, workflows
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -233,11 +233,11 @@ class TestAuditLog(TestCase):
         )
 
     def test_workflow_actions(self):
-        workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = Task.objects.create(name='test_task_1')
-        task_2 = Task.objects.create(name='test_task_2')
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
-        WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
+        task_1 = workflows.Task.objects.create(name='test_task_1')
+        task_2 = workflows.Task.objects.create(name='test_task_2')
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task_2, sort_order=2)
 
         self.home_page.save_revision()
         user = get_user_model().objects.first()
@@ -287,9 +287,9 @@ class TestAuditLog(TestCase):
                 self.assertEqual(entry[0].comment, "This is my comment")
 
     def test_workflow_completions_logs_publishing_user(self):
-        workflow = Workflow.objects.create(name='test_workflow')
-        task_1 = Task.objects.create(name='test_task_1')
-        WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+        workflow = workflows.Workflow.objects.create(name='test_workflow')
+        task_1 = workflows.Task.objects.create(name='test_task_1')
+        workflows.WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
 
         self.assertFalse(PageLogEntry.objects.filter(action='wagtail.publish').exists())
 

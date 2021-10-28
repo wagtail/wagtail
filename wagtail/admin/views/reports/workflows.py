@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, FilteredModelChoiceFilter, WagtailFilterSet
 from wagtail.admin.widgets import ButtonSelect
-from wagtail.models import Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState
+from wagtail.models import UserPagePermissionsProxy, workflows
 
 from .base import ReportView
 
@@ -15,7 +15,7 @@ from .base import ReportView
 def get_requested_by_queryset(request):
     User = get_user_model()
     return User.objects.filter(
-        pk__in=set(WorkflowState.objects.values_list('requested_by__pk', flat=True))
+        pk__in=set(workflows.WorkflowState.objects.values_list('requested_by__pk', flat=True))
     ).order_by(User.USERNAME_FIELD)
 
 
@@ -36,11 +36,11 @@ class WorkflowReportFilterSet(WagtailFilterSet):
 
     def filter_reviewable(self, queryset, name, value):
         if value and self.request and self.request.user:
-            queryset = queryset.filter(current_task_state__in=TaskState.objects.reviewable_by(self.request.user))
+            queryset = queryset.filter(current_task_state__in=workflows.TaskState.objects.reviewable_by(self.request.user))
         return queryset
 
     class Meta:
-        model = WorkflowState
+        model = workflows.WorkflowState
         fields = ['reviewable', 'workflow', 'status', 'requested_by', 'created_at']
 
 
@@ -48,13 +48,13 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
     started_at = django_filters.DateFromToRangeFilter(label=_("Started at"), widget=DateRangePickerWidget)
     finished_at = django_filters.DateFromToRangeFilter(label=_("Completed at"), widget=DateRangePickerWidget)
     workflow = django_filters.ModelChoiceFilter(
-        field_name='workflow_state__workflow', queryset=Workflow.objects.all(), label=_("Workflow")
+        field_name='workflow_state__workflow', queryset=workflows.Workflow.objects.all(), label=_("Workflow")
     )
 
     # When a workflow is chosen in the 'id_workflow' selector, filter this list of tasks
     # to just the ones whose workflows attribute includes the selected workflow.
     task = FilteredModelChoiceFilter(
-        queryset=Task.objects.all(), filter_field='id_workflow', filter_accessor='workflows'
+        queryset=workflows.Task.objects.all(), filter_field='id_workflow', filter_accessor='workflows'
     )
 
     reviewable = django_filters.ChoiceFilter(
@@ -69,11 +69,11 @@ class WorkflowTasksReportFilterSet(WagtailFilterSet):
 
     def filter_reviewable(self, queryset, name, value):
         if value and self.request and self.request.user:
-            queryset = queryset.filter(id__in=TaskState.objects.reviewable_by(self.request.user).values_list('id', flat=True))
+            queryset = queryset.filter(id__in=workflows.TaskState.objects.reviewable_by(self.request.user).values_list('id', flat=True))
         return queryset
 
     class Meta:
-        model = TaskState
+        model = workflows.TaskState
         fields = ['reviewable', 'workflow', 'task', 'status', 'started_at', 'finished_at']
 
 
@@ -107,7 +107,7 @@ class WorkflowView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return WorkflowState.objects.filter(page__in=pages).order_by('-created_at')
+        return workflows.WorkflowState.objects.filter(page__in=pages).order_by('-created_at')
 
 
 class WorkflowTasksView(ReportView):
@@ -142,4 +142,4 @@ class WorkflowTasksView(ReportView):
 
     def get_queryset(self):
         pages = UserPagePermissionsProxy(self.request.user).editable_pages()
-        return TaskState.objects.filter(workflow_state__page__in=pages).order_by('-started_at')
+        return workflows.TaskState.objects.filter(workflow_state__page__in=pages).order_by('-started_at')

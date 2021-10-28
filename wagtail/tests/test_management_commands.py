@@ -8,7 +8,7 @@ from django.db import models
 from django.test import TestCase
 from django.utils import timezone
 
-from wagtail.models import Collection, Page, PageLogEntry, PageRevision
+from wagtail.models import Collection, Page, PageLogEntry, PageRevision, workflows
 from wagtail.signals import page_published, page_unpublished
 from wagtail.test.testapp.models import EventPage, SimplePage
 
@@ -397,10 +397,10 @@ class TestPurgeRevisionsCommand(TestCase):
 
         try:
             from wagtail.models import Task, Workflow, WorkflowTask
-            workflow = Workflow.objects.create(name='test_workflow')
-            task_1 = Task.objects.create(name='test_task_1')
+            workflow = workflows.Workflow.objects.create(name='test_workflow')
+            task_1 = workflows.Task.objects.create(name='test_task_1')
             user = get_user_model().objects.first()
-            WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
+            workflows.WorkflowTask.objects.create(workflow=workflow, task=task_1, sort_order=1)
             workflow.start(self.page, user)
             self.page.save_revision()
             self.run_command()

@@ -9,7 +9,7 @@ from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
 from wagtail.coreutils import camelcase_to_underscore
-from wagtail.models import GroupApprovalTask, TaskState, UserProfile, WorkflowState
+from wagtail.models import UserProfile, workflows
 
 
 logger = logging.getLogger('wagtail.admin')
@@ -273,7 +273,7 @@ class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
     """A base notifier to send email updates for WorkflowState events"""
 
     def __init__(self):
-        super().__init__((WorkflowState,))
+        super().__init__((workflows.WorkflowState,))
 
     def get_context(self, workflow_state, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
@@ -346,10 +346,10 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
     """A base notifier to send email updates for GroupApprovalTask events"""
 
     def __init__(self):
-        super().__init__((TaskState,))
+        super().__init__((workflows.TaskState,))
 
     def can_handle(self, instance, **kwargs):
-        if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, GroupApprovalTask):
+        if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, workflows.GroupApprovalTask):
             return True
         return False
 

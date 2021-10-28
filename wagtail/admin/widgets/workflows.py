@@ -5,9 +5,10 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.models.workflows
+
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
-from wagtail.models import Task
 
 
 class AdminTaskChooser(AdminChooser):
@@ -16,7 +17,7 @@ class AdminTaskChooser(AdminChooser):
     link_to_chosen_text = _('Edit this task')
 
     def render_html(self, name, value, attrs):
-        task, value = self.get_instance_and_id(Task, value)
+        task, value = self.get_instance_and_id(wagtail.models.workflows.Task, value)
         original_field_html = super().render_html(name, value, attrs)
 
         return render_to_string("wagtailadmin/workflows/widgets/task_chooser.html", {

@@ -41,7 +41,7 @@ from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
-from wagtail.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
+from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin, workflows
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -1546,7 +1546,7 @@ class TaggedRestaurant(ItemBase):
     )
 
 
-class SimpleTask(Task):
+class SimpleTask(workflows.Task):
     pass
 
 

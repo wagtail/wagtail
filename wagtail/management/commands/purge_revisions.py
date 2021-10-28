@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db.models import Q
 from django.utils import timezone
 
-from wagtail.models import PageRevision
+from wagtail.models import PageRevision, workflows
 
 
 try:
@@ -40,7 +40,7 @@ def purge_revisions(days=None):
     if workflow_support:
         purgeable_revisions = purgeable_revisions.exclude(
             # and exclude revisions linked to an in progress or needs changes workflow state
-            Q(task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS) | Q(task_states__workflow_state__status=WorkflowState.STATUS_NEEDS_CHANGES)
+            Q(task_states__workflow_state__status=workflows.WorkflowState.STATUS_IN_PROGRESS) | Q(task_states__workflow_state__status=workflows.WorkflowState.STATUS_NEEDS_CHANGES)
         )
 
     if days:

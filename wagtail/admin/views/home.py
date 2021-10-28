@@ -16,7 +16,7 @@ from wagtail import hooks
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
-from wagtail.models import Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState
+from wagtail.models import Page, PageRevision, UserPagePermissionsProxy, workflows
 from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 
@@ -64,7 +64,7 @@ class UserPagesInWorkflowModerationPanel(Component):
         if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             # Find in progress workflow states which are either requested by the user or on pages owned by the user
             context['workflow_states'] = (
-                WorkflowState.objects.active()
+                workflows.WorkflowState.objects.active()
                 .filter(Q(page__owner=request.user) | Q(requested_by=request.user))
                 .select_related(
                     'page', 'current_task_state', 'current_task_state__task', 'current_task_state__page_revision'
@@ -72,7 +72,7 @@ class UserPagesInWorkflowModerationPanel(Component):
                 .order_by('-current_task_state__started_at')
             )
         else:
-            context['workflow_states'] = WorkflowState.objects.none()
+            context['workflow_states'] = workflows.WorkflowState.objects.none()
         context['request'] = request
         return context
 
@@ -87,7 +87,7 @@ class WorkflowPagesToModeratePanel(Component):
         context = super().get_context_data(parent_context)
         if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             states = (
-                TaskState.objects.reviewable_by(request.user)
+                workflows.TaskState.objects.reviewable_by(request.user)
                 .select_related('page_revision', 'task', 'page_revision__page')
                 .order_by('-started_at')
             )

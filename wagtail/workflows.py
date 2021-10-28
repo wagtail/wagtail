@@ -1,4 +1,4 @@
-from wagtail.models import Task
+import wagtail.models.workflows
 
 
 TASK_TYPES = []
@@ -19,7 +19,7 @@ def get_task_types(task_class=None):
     global TASK_TYPES
     if TASK_TYPES:
         return TASK_TYPES
-    TASK_TYPES = list(get_concrete_descendants(Task, inclusive=False))
+    TASK_TYPES = list(get_concrete_descendants(wagtail.models.workflows.Task, inclusive=False))
     return TASK_TYPES
 
 
