@@ -3,11 +3,11 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 from django.test import TestCase, override_settings
 
-from wagtail.core.rich_text import expand_db_html
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.models import Embed
 from wagtail.embeds.rich_text import MediaEmbedHandler as FrontendMediaEmbedHandler
 from wagtail.embeds.rich_text.editor_html import MediaEmbedHandler as EditorHtmlMediaEmbedHandler
+from wagtail.rich_text import expand_db_html
 
 
 class TestEditorHtmlMediaEmbedHandler(TestCase):

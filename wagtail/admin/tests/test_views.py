@@ -1,7 +1,7 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 
 

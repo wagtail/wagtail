@@ -3,8 +3,8 @@
 from __future__ import unicode_literals
 
 from django.db import migrations
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -17,17 +17,17 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='addedstreamfieldwithemptylistdefaultpage',
             name='body',
-            field=wagtail.core.fields.StreamField([('title', wagtail.core.blocks.CharBlock())], default=[]),
+            field=wagtail.fields.StreamField([('title', wagtail.blocks.CharBlock())], default=[]),
         ),
         migrations.AddField(
             model_name='addedstreamfieldwithemptystringdefaultpage',
             name='body',
-            field=wagtail.core.fields.StreamField([('title', wagtail.core.blocks.CharBlock())], default=''),
+            field=wagtail.fields.StreamField([('title', wagtail.blocks.CharBlock())], default=''),
         ),
         migrations.AddField(
             model_name='addedstreamfieldwithoutdefaultpage',
             name='body',
-            field=wagtail.core.fields.StreamField([('title', wagtail.core.blocks.CharBlock())], default=''),
+            field=wagtail.fields.StreamField([('title', wagtail.blocks.CharBlock())], default=''),
             preserve_default=False,
         ),
     ]

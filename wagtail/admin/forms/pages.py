@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.models import Page, PageViewRestriction
 
 from .models import WagtailAdminModelForm
 from .view_restrictions import BaseViewRestrictionForm

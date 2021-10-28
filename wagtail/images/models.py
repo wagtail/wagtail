@@ -20,13 +20,13 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+from wagtail import hooks
 from wagtail.admin.models import get_object_usage
-from wagtail.core import hooks
-from wagtail.core.coreutils import string_to_ascii
-from wagtail.core.models import CollectionMember
+from wagtail.coreutils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.image_operations import FilterOperation, ImageTransform, TransformOperation
 from wagtail.images.rect import Rect
+from wagtail.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
 

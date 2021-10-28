@@ -1,8 +1,8 @@
 from django.core.exceptions import ObjectDoesNotExist
 
-from wagtail.core.rich_text import EmbedHandler
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
+from wagtail.rich_text import EmbedHandler
 
 
 # Front-end conversion

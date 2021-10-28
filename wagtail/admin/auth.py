@@ -14,8 +14,8 @@ from django.utils.translation import gettext as _
 from django.utils.translation import override
 
 from wagtail.admin import messages
-from wagtail.core.log_actions import LogContext
-from wagtail.core.models import GroupPagePermission
+from wagtail.log_actions import LogContext
+from wagtail.models import GroupPagePermission
 
 
 def users_with_page_permission(page, permission_type, include_superusers=True):

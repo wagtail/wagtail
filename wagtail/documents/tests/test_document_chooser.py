@@ -2,8 +2,8 @@ from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Collection, GroupCollectionPermission, Page, get_root_collection_id
 from wagtail.documents.models import Document
+from wagtail.models import Collection, GroupCollectionPermission, Page, get_root_collection_id
 from wagtail.test.utils import WagtailTestUtils
 
 

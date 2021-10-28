@@ -2,7 +2,7 @@
 Model Reference
 ===============
 
-.. automodule:: wagtail.core.models
+.. automodule:: wagtail.models
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
@@ -92,7 +92,7 @@ Database fields
 
         Toggles whether the page should be included in site-wide menus.
 
-        This is used by the :meth:`~wagtail.core.query.PageQuerySet.in_menu` QuerySet filter.
+        This is used by the :meth:`~wagtail.query.PageQuerySet.in_menu` QuerySet filter.
 
         Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
 
@@ -331,7 +331,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
-The :meth:`~wagtail.core.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
+The :meth:`~wagtail.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
 
 
 Database fields
@@ -367,7 +367,7 @@ Database fields
 
     .. attribute:: root_page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
         This is a link to the root page of the site. This page will be what appears at the ``/`` URL on the site and would usually be a homepage.
 
@@ -454,7 +454,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
     .. attribute:: locale
 
-        (Foreign Key to :class:`~wagtail.core.models.Locale`)
+        (Foreign Key to :class:`~wagtail.models.Locale`)
 
         For pages, this defaults to the locale of the parent page.
 
@@ -487,9 +487,9 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
-- Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
+- Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
 - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
-- You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+- You can retrieve a ``PageRevision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
 ~~~~~~~~~~~~~~~
@@ -498,7 +498,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: submitted_for_moderation
 
@@ -558,7 +558,7 @@ Methods and properties
 
     .. automethod:: as_page_object
 
-        This method retrieves this revision as an instance of its :class:`~wagtail.core.models.Page` subclass.
+        This method retrieves this revision as an instance of its :class:`~wagtail.models.Page` subclass.
 
     .. automethod:: approve_moderation
 
@@ -590,7 +590,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: permission_type
 
@@ -606,7 +606,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: password
 

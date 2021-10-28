@@ -11,9 +11,9 @@ from django.template.loader import render_to_string
 from django.utils.html import mark_safe
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
 from wagtail.admin.widgets import AdminPageChooser
-from wagtail.core import hooks
-from wagtail.core.models import (
+from wagtail.models import (
     PAGE_PERMISSION_TYPE_CHOICES, PAGE_PERMISSION_TYPES, GroupPagePermission, Page)
 
 

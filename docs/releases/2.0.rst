@@ -129,7 +129,7 @@ Before upgrading to Django 2.0, you are advised to review the `release notes <ht
 Wagtail module path updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Many of the module paths within Wagtail have been reorganised to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.core.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
+Many of the module paths within Wagtail have been reorganised to reduce duplication - for example, ``wagtail.wagtailcore.models`` is now ``wagtail.models``. As a result, ``import`` lines and other references to Wagtail modules will need to be updated when you upgrade to Wagtail 2.0. A new command has been added to assist with this - from the root of your project's code base:
 
 .. code-block:: console
 
@@ -154,7 +154,7 @@ The full list of modules to be renamed is as follows:
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | Old name                                | New name                          | Notes                             |
 +=========================================+===================================+===================================+
-| wagtail.wagtailcore                     | wagtail.core                      |                                   |
+| wagtail.wagtailcore                     | wagtail                      |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailadmin                    | wagtail.admin                     |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
@@ -271,8 +271,8 @@ The ``construct_whitelister_element_rules`` hook, used to specify additional HTM
 
 .. code-block:: python
 
-  from wagtail.core import hooks
-  from wagtail.core.whitelist import allow_without_attributes
+  from wagtail import hooks
+  from wagtail.whitelist import allow_without_attributes
 
   @hooks.register('construct_whitelister_element_rules')
   def whitelist_blockquote():
@@ -285,8 +285,8 @@ can be rewritten as:
 .. code-block:: python
 
   from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
-  from wagtail.core import hooks
-  from wagtail.core.whitelist import allow_without_attributes
+  from wagtail import hooks
+  from wagtail.whitelist import allow_without_attributes
 
   @hooks.register('register_rich_text_features')
   def blockquote_feature(features):

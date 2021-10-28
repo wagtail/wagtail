@@ -1,7 +1,7 @@
 from django.template import Library, Node
 from django.template.defaulttags import token_kwargs
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from ..context_processors import SettingsProxy
 

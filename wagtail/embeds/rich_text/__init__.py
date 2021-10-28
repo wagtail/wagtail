@@ -1,7 +1,7 @@
-from wagtail.core.rich_text import EmbedHandler
 from wagtail.embeds import format
 from wagtail.embeds.embeds import get_embed
 from wagtail.embeds.models import Embed
+from wagtail.rich_text import EmbedHandler
 
 
 # Front-end conversion

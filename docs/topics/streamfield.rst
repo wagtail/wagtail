@@ -19,9 +19,9 @@ Using StreamField
 
     from django.db import models
 
-    from wagtail.core.models import Page
-    from wagtail.core.fields import StreamField
-    from wagtail.core import blocks
+    from wagtail.models import Page
+    from wagtail.fields import StreamField
+    from wagtail import blocks
     from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
     from wagtail.images.blocks import ImageChooserBlock
 
@@ -551,7 +551,7 @@ If you change an existing RichTextField to a StreamField, the database migration
 
     # -*- coding: utf-8 -*-
     from django.db import models, migrations
-    from wagtail.core.rich_text import RichText
+    from wagtail.rich_text import RichText
 
 
     def convert_to_streamfield(apps, schema_editor):
@@ -586,7 +586,7 @@ If you change an existing RichTextField to a StreamField, the database migration
             migrations.AlterField(
                 model_name='BlogPage',
                 name='body',
-                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+                field=wagtail.fields.StreamField([('rich_text', wagtail.blocks.RichTextBlock())]),
             ),
 
             migrations.RunPython(
@@ -606,7 +606,7 @@ Note that the above migration will work on published Page objects only. If you a
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import migrations, models
 
-    from wagtail.core.rich_text import RichText
+    from wagtail.rich_text import RichText
 
 
     def page_to_streamfield(page):
@@ -704,7 +704,7 @@ Note that the above migration will work on published Page objects only. If you a
             migrations.AlterField(
                 model_name='BlogPage',
                 name='body',
-                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+                field=wagtail.fields.StreamField([('rich_text', wagtail.blocks.RichTextBlock())]),
             ),
 
             migrations.RunPython(

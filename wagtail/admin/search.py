@@ -5,8 +5,8 @@ from django.utils.functional import cached_property, total_ordering
 from django.utils.safestring import mark_safe
 from django.utils.text import slugify
 
+from wagtail import hooks
 from wagtail.admin.forms.search import SearchForm
-from wagtail.core import hooks
 
 
 @total_ordering

@@ -175,7 +175,7 @@ This signal handler would trigger the invalidation of the index page using the
     from django.dispatch import receiver
     from django.db.models.signals import pre_delete
 
-    from wagtail.core.signals import page_published
+    from wagtail.signals import page_published
     from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     ...

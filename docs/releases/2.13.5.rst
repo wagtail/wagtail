@@ -41,6 +41,6 @@ can find out the relation name as follows:
 .. code-block:: python
 
     try:
-        from wagtail.core.models import COMMENTS_RELATION_NAME
+        from wagtail.models import COMMENTS_RELATION_NAME
     except ImportError:
         COMMENTS_RELATION_NAME = 'comments'

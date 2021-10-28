@@ -6,7 +6,7 @@ from django.utils import formats
 from django.utils.dateparse import parse_date
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import EventPage, FormClassAdditionalFieldPage, SecretPage
 from wagtail.test.utils import WagtailTestUtils
 

@@ -4,7 +4,7 @@ from django.urls import path
 
 from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.views import generic
-from wagtail.core.permissions import ModelPermissionPolicy
+from wagtail.permissions import ModelPermissionPolicy
 
 from .base import ViewSet
 

@@ -9,7 +9,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.core.models import Locale, Page, Site
+from wagtail.models import Locale, Page, Site
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import StreamPage
 

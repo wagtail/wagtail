@@ -3,8 +3,8 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import TranslatableMixin
+from wagtail.fields import RichTextField
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 

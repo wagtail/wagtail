@@ -4,7 +4,7 @@ from django.conf import settings
 from rest_framework.authentication import SessionAuthentication
 
 from wagtail.api.v2.views import PagesAPIViewSet
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer

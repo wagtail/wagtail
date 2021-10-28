@@ -6,11 +6,11 @@ from django.db.models import Model
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from .helpers import (
     AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, ModelAdminURLFinder, PageAdminURLHelper,

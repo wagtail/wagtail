@@ -15,15 +15,15 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic.models import IndexView
-from wagtail.core import hooks
-from wagtail.core.log_actions import log
-from wagtail.core.log_actions import registry as log_registry
-from wagtail.core.models import Locale, TranslatableMixin
+from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
+from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu

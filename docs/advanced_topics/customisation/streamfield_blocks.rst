@@ -127,8 +127,8 @@ First, we define a telepath adapter for ``AddressBlock``, so that it uses our ow
 
 .. code-block:: python
 
-    from wagtail.core.blocks.struct_block import StructBlockAdapter
-    from wagtail.core.telepath import register
+    from wagtail.blocks.struct_block import StructBlockAdapter
+    from wagtail.telepath import register
     from django import forms
     from django.utils.functional import cached_property
 
@@ -177,7 +177,7 @@ Here ``'myapp.blocks.AddressBlock'`` is the identifier for our JavaScript class 
 Additional methods and properties on ``StructBlock`` values
 -----------------------------------------------------------
 
-When rendering StreamField content on a template, StructBlock values are represented as ``dict``-like objects where the keys correspond to the names of the child blocks. Specifically, these values are instances of the class ``wagtail.core.blocks.StructValue``.
+When rendering StreamField content on a template, StructBlock values are represented as ``dict``-like objects where the keys correspond to the names of the child blocks. Specifically, these values are instances of the class ``wagtail.blocks.StructValue``.
 
 Sometimes, it's desirable to make additional methods or properties available on this object. For example, given a StructBlock that represents either an internal or external link:
 
@@ -209,7 +209,7 @@ Instead, you should define a subclass of ``StructValue`` that implements your cu
 
 .. code-block:: python
 
-    from wagtail.core.blocks import StructValue
+    from wagtail.blocks import StructValue
 
 
     class LinkStructValue(StructValue):
@@ -250,7 +250,7 @@ Custom block types
 
 If you need to implement a custom UI, or handle a datatype that is not provided by Wagtail's built-in block types (and cannot be built up as a structure of existing fields), it is possible to define your own custom block types. For further guidance, refer to the source code of Wagtail's built-in block classes.
 
-For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.core.blocks.FieldBlock`` as a helper. Subclasses should set a ``field`` property that returns the form field object:
+For block types that simply wrap an existing Django form field, Wagtail provides an abstract class ``wagtail.blocks.FieldBlock`` as a helper. Subclasses should set a ``field`` property that returns the form field object:
 
 .. code-block:: python
 

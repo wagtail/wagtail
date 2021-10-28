@@ -4,10 +4,10 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 
 
 def unpublish(request, page_id):

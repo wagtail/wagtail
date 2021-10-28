@@ -1,9 +1,9 @@
 from django.db import transaction
 from django.test import TransactionTestCase, override_settings
 
-from wagtail.core.models import Collection
 from wagtail.images import get_image_model, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Collection
 
 
 class TestFilesDeletedForDefaultModels(TransactionTestCase):

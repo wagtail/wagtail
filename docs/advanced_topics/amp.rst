@@ -121,7 +121,7 @@ invokes the ``activate_amp_mode`` context manager:
     # <app>/amp_views.py
 
     from django.template.response import SimpleTemplateResponse
-    from wagtail.core.views import serve as wagtail_serve
+    from wagtail.views import serve as wagtail_serve
 
     from .amp_utils import activate_amp_mode
 
@@ -142,7 +142,7 @@ Then we need to create a ``amp_urls.py`` file in the same app:
     # <app>/amp_urls.py
 
     from django.urls import re_path
-    from wagtail.core.urls import serve_pattern
+    from wagtail.urls import serve_pattern
 
     from . import amp_views
 

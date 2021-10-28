@@ -7,8 +7,8 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page
-from wagtail.core.signals import post_page_move, pre_page_move
+from wagtail.models import Page
+from wagtail.signals import post_page_move, pre_page_move
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 

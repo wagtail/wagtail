@@ -3,10 +3,10 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
-from wagtail.core.permission_policies import ModelPermissionPolicy
+from wagtail.permission_policies import ModelPermissionPolicy
 
 from .permissions import user_can_edit_setting_type
 

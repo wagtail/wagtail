@@ -7,7 +7,7 @@ from django.views.decorators.vary import vary_on_headers
 
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.search import SearchForm
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 

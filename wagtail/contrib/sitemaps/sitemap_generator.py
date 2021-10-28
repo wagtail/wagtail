@@ -21,7 +21,7 @@ class Sitemap(DjangoSitemap):
         return (obj.last_published_at or obj.latest_revision_created_at)
 
     def get_wagtail_site(self):
-        from wagtail.core.models import Site
+        from wagtail.models import Site
         site = Site.find_for_request(self.request)
         if site is None:
             return Site.objects.select_related(

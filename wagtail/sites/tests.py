@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 from wagtail.test.utils import WagtailTestUtils
 
 

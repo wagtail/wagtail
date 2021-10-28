@@ -11,8 +11,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision
-from wagtail.core.signals import page_published
+from wagtail.models import GroupPagePermission, Locale, Page, PageRevision
+from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     BusinessChild, BusinessIndex, BusinessSubIndex, DefaultStreamPage, PersonPage, SimplePage,
     SingletonPage, SingletonPageViaMaxCount, StandardChild, StandardIndex)

@@ -24,6 +24,8 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface)
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
+from wagtail.blocks import (
+    CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
@@ -31,17 +33,15 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import (
-    CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
 from wagtail.documents import get_document_model
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
+from wagtail.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet

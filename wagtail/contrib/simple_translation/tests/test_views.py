@@ -5,12 +5,12 @@ from django.test import RequestFactory, override_settings
 from django.urls import reverse
 from django.utils.translation import gettext_lazy
 
+from wagtail import hooks
 from wagtail.contrib.simple_translation.forms import SubmitTranslationForm
 from wagtail.contrib.simple_translation.models import after_create_page
 from wagtail.contrib.simple_translation.views import (
     SubmitPageTranslationView, SubmitSnippetTranslationView, SubmitTranslationView)
-from wagtail.core import hooks
-from wagtail.core.models import Locale, Page, ParentNotTranslatedError
+from wagtail.models import Locale, Page, ParentNotTranslatedError
 from wagtail.test.i18n.models import TestPage
 from wagtail.test.snippets.models import TranslatableSnippet
 from wagtail.test.utils import TestCase, WagtailTestUtils

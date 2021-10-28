@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.contrib.settings.forms import SiteSwitchForm
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 from wagtail.test.testapp.models import TestSetting
 
 

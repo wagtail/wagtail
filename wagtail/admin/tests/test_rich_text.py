@@ -11,10 +11,10 @@ from wagtail.admin.rich_text import (
 from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
 from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.admin.rich_text.editors.hallo import HalloPlugin
-from wagtail.core.blocks import RichTextBlock
-from wagtail.core.models import Page, get_page_models
-from wagtail.core.rich_text import RichText
-from wagtail.core.rich_text import features as feature_registry
+from wagtail.blocks import RichTextBlock
+from wagtail.models import Page, get_page_models
+from wagtail.rich_text import RichText
+from wagtail.rich_text import features as feature_registry
 from wagtail.test.testapp.models import SingleEventPage
 from wagtail.test.testapp.rich_text import CustomRichTextArea
 from wagtail.test.utils import WagtailTestUtils

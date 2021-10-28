@@ -7,8 +7,8 @@ from django.utils.formats import get_format
 
 from wagtail.admin.datetimepicker import to_datetimepicker_format
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.telepath import register
-from wagtail.core.widget_adapters import WidgetAdapter
+from wagtail.telepath import register
+from wagtail.widget_adapters import WidgetAdapter
 
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'

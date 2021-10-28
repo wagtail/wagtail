@@ -14,7 +14,7 @@ Registering functions with a Wagtail hook is done through the ``@hooks.register`
 
 .. code-block:: python
 
-  from wagtail.core import hooks
+  from wagtail import hooks
 
   @hooks.register('name_of_hook')
   def my_hook_function(arg1, arg2...)
@@ -120,7 +120,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
     from django.utils.safestring import mark_safe
 
     from wagtail.admin.ui.components import Component
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     class WelcomePanel(Component):
         order = 50
@@ -166,7 +166,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('construct_main_menu')
     def hide_explorer_menu_item_from_frank(request, menu_items):
@@ -201,7 +201,7 @@ This hook can be added to a sub-class of ``BaseSettingsPanel``. For example:
   .. code-block:: python
 
     from wagtail.admin.views.account import BaseSettingsPanel
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('register_account_settings_panel')
     class CustomSettingsPanel(BaseSettingsPanel):
@@ -215,7 +215,7 @@ Alternatively, it can also be added to a function. For example, this function is
   .. code-block:: python
 
     from wagtail.admin.views.account import BaseSettingsPanel
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     class CustomSettingsPanel(BaseSettingsPanel):
         name = 'custom'
@@ -242,7 +242,7 @@ More details about the options that are available can be found at :doc:`/extendi
   .. code-block:: python
 
     from django.urls import reverse
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('register_account_menu_item')
     def register_account_delete_account(request):
@@ -275,7 +275,7 @@ More details about the options that are available can be found at :doc:`/extendi
 
     from django.urls import reverse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
     from wagtail.admin.menu import MenuItem
 
     @hooks.register('register_admin_menu_item')
@@ -295,7 +295,7 @@ More details about the options that are available can be found at :doc:`/extendi
     from django.http import HttpResponse
     from django.urls import path
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     def admin_view(request):
       return HttpResponse(
@@ -374,7 +374,7 @@ More details about the options that are available can be found at :doc:`/extendi
   .. code-block:: python
 
     from django.urls import reverse
-    from wagtail.core import hooks
+    from wagtail import hooks
     from wagtail.admin.search import SearchArea
 
     @hooks.register('register_admin_search_area')
@@ -392,7 +392,7 @@ More details about the options that are available can be found at :doc:`/extendi
   .. code-block:: python
 
       from django.contrib.auth.models import Permission
-      from wagtail.core import hooks
+      from wagtail import hooks
 
 
       @hooks.register('register_permissions')
@@ -422,7 +422,7 @@ More details about the options that are available can be found at :doc:`/extendi
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('filter_form_submissions_for_user')
@@ -459,7 +459,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.templatetags.static import static
     from django.utils.html import format_html
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('insert_editor_css')
     def editor_css():
@@ -481,7 +481,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.utils.html import format_html
     from django.templatetags.static import static
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('insert_global_admin_css')
     def global_admin_css():
@@ -501,7 +501,7 @@ Hooks for customising the editing interface for pages and snippets.
     from django.utils.safestring import mark_safe
     from django.templatetags.static import static
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('insert_editor_js')
     def editor_js():
@@ -533,7 +533,7 @@ Hooks for customising the editing interface for pages and snippets.
 
     from django.utils.html import format_html
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('insert_global_admin_js')
     def global_admin_js():
@@ -559,7 +559,7 @@ Hooks for customising the way users are directed through the process of creating
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('after_create_page')
     def do_after_page_create(request, page):
@@ -593,7 +593,7 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     from .models import AwesomePage
     from .admin_views import edit_awesome_page
@@ -627,7 +627,7 @@ Hooks for customising the way users are directed through the process of creating
     from django.utils.html import format_html
 
     from wagtail.admin import messages
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     from .models import AwesomePage
 
@@ -782,7 +782,7 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
     from wagtail.admin.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
@@ -854,7 +854,7 @@ Hooks for customising the way users are directed through the process of creating
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     class UserbarPuppyLinkItem:
         def render(self, request):
@@ -882,7 +882,7 @@ Hooks for customising the way admins are directed through the process of editing
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('after_create_user')
     def do_after_page_create(request, user):
@@ -906,7 +906,7 @@ Hooks for customising the way admins are directed through the process of editing
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     from .models import AwesomePage
     from .admin_views import edit_awesome_page
@@ -964,7 +964,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('construct_page_chooser_queryset')
     def show_my_pages_only(pages, request):
@@ -983,7 +983,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('construct_document_chooser_queryset')
     def show_my_uploaded_documents_only(documents, request):
@@ -1002,7 +1002,7 @@ Choosers
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('construct_image_chooser_queryset')
     def show_my_uploaded_images_only(images, request):
@@ -1024,7 +1024,7 @@ Page explorer
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('construct_explorer_page_queryset')
     def show_my_profile_only(parent_page, pages, request):
@@ -1151,7 +1151,7 @@ Page serving
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('before_serve_page')
     def block_googlebot(page, request, serve_args, serve_kwargs):
@@ -1186,7 +1186,7 @@ Hooks for working with registered Snippets.
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('after_edit_snippet')
     def after_snippet_update(request, instance):
@@ -1203,7 +1203,7 @@ Hooks for working with registered Snippets.
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('before_edit_snippet')
     def block_snippet_edit(request, instance):
@@ -1237,7 +1237,7 @@ Hooks for working with registered Snippets.
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('after_delete_snippet')
     def after_snippet_delete(request, instances):
@@ -1256,7 +1256,7 @@ Hooks for working with registered Snippets.
 
     from django.http import HttpResponse
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('before_delete_snippet')
     def before_snippet_delete(request, instances):
@@ -1295,7 +1295,7 @@ Hooks for working with registered Snippets.
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
     from wagtail.snippets.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
@@ -1408,7 +1408,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
   .. code-block:: python
 
     from wagtail.admin.views.bulk_action import BulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register("register_bulk_action")
@@ -1438,7 +1438,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register("before_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
@@ -1457,7 +1457,7 @@ Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_
 
   .. code-block:: python
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register("after_bulk_action")
     def hook_func(request, action_type, objects, action_class_instance):
@@ -1482,21 +1482,21 @@ Audit log
 
         from django.utils.translation import gettext_lazy as _
 
-        from wagtail.core import hooks
+        from wagtail import hooks
 
         @hooks.register('register_log_actions')
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
 
-    Alternatively, for a log message that varies according to the log entry's data, create a subclass of ``wagtail.core.log_actions.LogFormatter`` that overrides the ``format_message`` method, and use ``register_action`` as a decorator on that class:
+    Alternatively, for a log message that varies according to the log entry's data, create a subclass of ``wagtail.log_actions.LogFormatter`` that overrides the ``format_message`` method, and use ``register_action`` as a decorator on that class:
 
     .. code-block:: python
 
         from django.utils.translation import gettext_lazy as _
 
-        from wagtail.core import hooks
-        from wagtail.core.log_actions import LogFormatter
+        from wagtail import hooks
+        from wagtail.log_actions import LogFormatter
 
         @hooks.register('register_log_actions')
         def additional_log_actions(actions):

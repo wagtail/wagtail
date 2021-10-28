@@ -6,7 +6,7 @@ from django.views.decorators.http import require_GET
 
 from wagtail.admin import messages
 from wagtail.admin.mail import send_moderation_notification
-from wagtail.core.models import PageRevision
+from wagtail.models import PageRevision
 
 
 def approve_moderation(request, revision_id):

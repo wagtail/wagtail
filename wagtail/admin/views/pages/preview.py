@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.views.generic import View
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def view_draft(request, page_id):

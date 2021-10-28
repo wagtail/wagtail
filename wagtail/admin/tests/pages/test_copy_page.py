@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import GroupPagePermission, Page
+from wagtail.models import GroupPagePermission, Page
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 

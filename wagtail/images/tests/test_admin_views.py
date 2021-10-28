@@ -12,10 +12,10 @@ from django.utils.http import RFC3986_SUBDELIMS, urlquote
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core.models import Collection, GroupCollectionPermission, get_root_collection_id
 from wagtail.images import get_image_model
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
+from wagtail.models import Collection, GroupCollectionPermission, get_root_collection_id
 from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor
 from wagtail.test.utils import WagtailTestUtils
 

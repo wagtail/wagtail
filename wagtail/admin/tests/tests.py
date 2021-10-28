@@ -16,7 +16,7 @@ from taggit.models import Tag
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import RestaurantTag
 from wagtail.test.utils import WagtailTestUtils
 

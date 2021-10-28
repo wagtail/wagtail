@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations, models
 
-import wagtail.core.models
+import wagtail.models
 
 
 class Migration(migrations.Migration):
@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='image',
             name='collection',
-            field=models.ForeignKey(to='wagtailcore.Collection', verbose_name='collection', default=wagtail.core.models.get_root_collection_id, related_name='+', on_delete=models.CASCADE),
+            field=models.ForeignKey(to='wagtailcore.Collection', verbose_name='collection', default=wagtail.models.get_root_collection_id, related_name='+', on_delete=models.CASCADE),
         ),
     ]

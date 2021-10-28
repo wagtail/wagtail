@@ -2,9 +2,9 @@ from django.contrib.auth.models import Permission
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
-from wagtail.core.permissions import site_permission_policy
+from wagtail.permissions import site_permission_policy
 
 from .views import LocaleViewSet
 

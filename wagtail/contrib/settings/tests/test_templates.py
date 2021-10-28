@@ -3,7 +3,7 @@ from django.template import Context, RequestContext, Template, engines
 from django.test import TestCase
 from django.test.utils import override_settings
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail.test.utils import WagtailTestUtils
 
 from .base import SettingsTestMixin

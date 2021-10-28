@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.template import engines
 from django.test import TestCase
 
-from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, Site
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, Site
 from wagtail.test.utils import WagtailTestUtils
 
 

@@ -8,8 +8,8 @@ from draftjs_exporter.html import HTML as HTMLExporter
 
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     BLOCK_KEY_NAME, HtmlToContentStateHandler)
-from wagtail.core.rich_text import features as feature_registry
-from wagtail.core.whitelist import check_url
+from wagtail.rich_text import features as feature_registry
+from wagtail.whitelist import check_url
 
 
 def link_entity(props):

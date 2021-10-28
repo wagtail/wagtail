@@ -8,7 +8,7 @@ from django.views.generic.base import View
 
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.core.models import Locale, TranslatableMixin
+from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params

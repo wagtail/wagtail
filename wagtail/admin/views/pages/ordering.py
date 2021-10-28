@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def set_page_position(request, page_to_move_id):

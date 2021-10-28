@@ -137,11 +137,11 @@ PageChooserPanel
 
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
-    You can explicitly link :class:`~wagtail.core.models.Page`-derived models together using the :class:`~wagtail.core.models.Page` model and ``PageChooserPanel``.
+    You can explicitly link :class:`~wagtail.models.Page`-derived models together using the :class:`~wagtail.models.Page` model and ``PageChooserPanel``.
 
     .. code-block:: python
 
-        from wagtail.core.models import Page
+        from wagtail.models import Page
         from wagtail.admin.edit_handlers import PageChooserPanel
 
 
@@ -377,11 +377,11 @@ Inline Panels and Model Clusters
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
 
-Let's look at the example of adding related links to a :class:`~wagtail.core.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+Let's look at the example of adding related links to a :class:`~wagtail.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
 .. code-block:: python
 
-  from wagtail.core.models import Orderable, Page
+  from wagtail.models import Orderable, Page
   from modelcluster.fields import ParentalKey
 
   # The abstract model for related links, complete with panels

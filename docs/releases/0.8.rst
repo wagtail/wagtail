@@ -18,7 +18,7 @@ What's new
 Minor features
 ~~~~~~~~~~~~~~
 
-* Page operations (creation, publishing, copying etc) are now logged via Python's ``logging`` framework; to configure this, add a logger entry for ``'wagtail'`` or ``'wagtail.core'`` to the ``LOGGING`` setup in your settings file.
+* Page operations (creation, publishing, copying etc) are now logged via Python's ``logging`` framework; to configure this, add a logger entry for ``'wagtail'`` or ``'wagtail'`` to the ``LOGGING`` setup in your settings file.
 * The save button on the page edit page now redirects the user back to the edit page instead of the explorer
 * Signal handlers for ``wagtail.wagtailsearch`` and ``wagtail.contrib.wagtailfrontendcache`` are now automatically registered when using Django 1.7 or above.
 * Added a Django 1.7 system check to ensure that foreign keys from Page models are set to ``on_delete=SET_NULL``, to prevent inadvertent (and tree-breaking) page deletions

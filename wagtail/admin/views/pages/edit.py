@@ -20,8 +20,8 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import (
+from wagtail.exceptions import PageClassNotFoundError
+from wagtail.models import (
     COMMENTS_RELATION_NAME, Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy,
     WorkflowState)
 

@@ -12,7 +12,7 @@ from wagtail.admin import messages
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def get_submissions_list_view(request, *args, **kwargs):

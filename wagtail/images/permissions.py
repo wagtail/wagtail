@@ -1,6 +1,6 @@
-from wagtail.core.permission_policies.collections import CollectionOwnershipPermissionPolicy
 from wagtail.images import get_image_model
 from wagtail.images.models import Image
+from wagtail.permission_policies.collections import CollectionOwnershipPermissionPolicy
 
 
 permission_policy = CollectionOwnershipPermissionPolicy(

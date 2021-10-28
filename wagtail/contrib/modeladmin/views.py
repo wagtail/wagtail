@@ -33,8 +33,8 @@ from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, DateColumn, Table, UserColumn
 from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
-from wagtail.core.log_actions import log
-from wagtail.core.log_actions import registry as log_registry
+from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
 
 from .forms import ParentChooserForm
 

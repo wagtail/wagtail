@@ -6,13 +6,13 @@
 
 Provides the legacy richtext wrapper.
 
-Place `wagtail.contrib.legacy.richtext` before `wagtail.core` in  `INSTALLED_APPS`.
+Place `wagtail.contrib.legacy.richtext` before `wagtail` in  `INSTALLED_APPS`.
 
 ```python
 INSTALLED_APPS = [
     ...
     "wagtail.contrib.legacy.richtext",
-    "wagtail.core",
+    "wagtail",
     ...
 ]
 ```

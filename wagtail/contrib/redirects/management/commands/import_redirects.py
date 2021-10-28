@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 
 from wagtail.contrib.redirects.forms import RedirectForm
 from wagtail.contrib.redirects.utils import get_format_cls_by_extension, get_supported_extensions
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 
 class Command(BaseCommand):

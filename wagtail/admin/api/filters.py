@@ -1,8 +1,8 @@
 from rest_framework.filters import BaseFilterBackend
 
+from wagtail import hooks
 from wagtail.api.v2.utils import BadRequestError, parse_boolean
-from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.models import UserPagePermissionsProxy
 
 
 class HasChildrenFilter(BaseFilterBackend):

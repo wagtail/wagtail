@@ -5,9 +5,9 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.translation import gettext as _
 
+from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def move_choose_destination(request, page_to_move_id, viewed_page_id=None):

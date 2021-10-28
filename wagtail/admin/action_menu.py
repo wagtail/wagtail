@@ -10,9 +10,9 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
 from wagtail.admin.ui.components import Component
-from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.models import UserPagePermissionsProxy
 from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 

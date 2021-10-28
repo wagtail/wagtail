@@ -19,11 +19,10 @@ from wagtail.admin.forms.workflows import (
     TaskChooserSearchForm, WorkflowPagesFormSet, get_task_form_class, get_workflow_edit_handler)
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
-from wagtail.core.coreutils import resolve_model_string
-from wagtail.core.models import (
-    Page, Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState)
-from wagtail.core.permissions import task_permission_policy, workflow_permission_policy
-from wagtail.core.workflows import get_task_types
+from wagtail.coreutils import resolve_model_string
+from wagtail.models import Page, Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState
+from wagtail.permissions import task_permission_policy, workflow_permission_policy
+from wagtail.workflows import get_task_types
 
 
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)

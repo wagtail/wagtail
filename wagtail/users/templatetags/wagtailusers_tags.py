@@ -4,7 +4,7 @@ import re
 from django import VERSION as DJANGO_VERSION
 from django import template
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 register = template.Library()

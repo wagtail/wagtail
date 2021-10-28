@@ -7,7 +7,7 @@ from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.module_loading import import_string
 
-from wagtail.core.coreutils import get_content_languages
+from wagtail.coreutils import get_content_languages
 
 
 logger = logging.getLogger('wagtail.frontendcache')

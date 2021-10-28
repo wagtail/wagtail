@@ -36,7 +36,7 @@ See MDN for more information about [custom JavasScript events](https://developer
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_global_admin_js")
@@ -63,7 +63,7 @@ Using the [`insert_editor_js` hook](../../reference/hooks.html#insert-editor-js)
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_editor_js")
@@ -89,7 +89,7 @@ def get_global_admin_js():
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_global_admin_js")

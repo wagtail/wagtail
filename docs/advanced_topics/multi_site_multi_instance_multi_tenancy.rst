@@ -13,7 +13,7 @@ Multi-site is a Wagtail project configuration where content creators go into a s
 
 Multi-site configuration is a single code base, on a single server, connecting to a single database. Media is stored in a single media root directory. Content can be shared between sites.
 
-Wagtail supports multi-site out of the box: Wagtail comes with a :class:`site model <wagtail.core.models.Site>`. The site model contains a hostname, port, and root page field. When a URL is requested, the request comes in, the domain name and port are taken from the request object to look up the correct site object. The root page is used as starting point to resolve the URL and serve the correct page.
+Wagtail supports multi-site out of the box: Wagtail comes with a :class:`site model <wagtail.models.Site>`. The site model contains a hostname, port, and root page field. When a URL is requested, the request comes in, the domain name and port are taken from the request object to look up the correct site object. The root page is used as starting point to resolve the URL and serve the correct page.
 
 Wagtail also comes with :ref:`site settings <settings>`. *Site settings* are 'singletons' that let you store additional information on a site. For example, social media settings, a field to upload a logo, or a choice field to select a theme.
 

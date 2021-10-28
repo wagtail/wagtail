@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations, models
-import wagtail.core.fields
+import wagtail.fields
 import modelcluster.fields
 
 
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             name='RichTextSection',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('body', wagtail.core.fields.RichTextField()),
+                ('body', wagtail.fields.RichTextField()),
                 ('snippet', modelcluster.fields.ParentalKey(to='snippetstests.MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)),
             ],
         ),

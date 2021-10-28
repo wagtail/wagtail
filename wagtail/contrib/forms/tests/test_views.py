@@ -16,7 +16,7 @@ from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldForCustomListViewPage,
     FormFieldWithCustomSubmission, FormPage, FormPageWithCustomFormBuilder,

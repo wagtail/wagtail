@@ -12,12 +12,11 @@ from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 
+from wagtail import hooks
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
-from wagtail.core import hooks
-from wagtail.core.models import (
-    Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
+from wagtail.models import Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState
 from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 

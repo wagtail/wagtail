@@ -2,10 +2,10 @@ from django.contrib.auth.models import Group
 from django.urls import re_path
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
 from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic, mixins
 from wagtail.admin.viewsets.model import ModelViewSet
-from wagtail.core import hooks
 from wagtail.users.forms import GroupForm, GroupPagePermissionFormSet
 from wagtail.users.views.users import index
 

@@ -15,7 +15,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
+from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
 
 
 def add_subpage(request, parent_page_id):

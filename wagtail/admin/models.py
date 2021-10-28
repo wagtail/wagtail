@@ -8,7 +8,7 @@ from taggit.models import Tag
 # wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
 # system checks.
 from wagtail.admin import edit_handlers  # NOQA
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 # A dummy model that exists purely to attach the access_admin permission type to, so that it

@@ -13,7 +13,7 @@ from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 
 
 @user_passes_test(user_has_any_page_permission)

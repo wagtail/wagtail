@@ -12,10 +12,10 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core import hooks
-from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.core.models import (
+from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm

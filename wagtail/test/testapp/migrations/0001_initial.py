@@ -7,8 +7,8 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.images.models
 import wagtail.search.index
@@ -136,7 +136,7 @@ class Migration(migrations.Migration):
                 ('focal_point_height', models.PositiveIntegerField(blank=True, null=True)),
                 ('file_size', models.PositiveIntegerField(editable=False, null=True)),
                 ('caption', models.CharField(max_length=255, blank=True)),
-                ('fancy_caption', wagtail.core.fields.RichTextField(blank=True)),
+                ('fancy_caption', wagtail.fields.RichTextField(blank=True)),
                 ('not_editable_field', models.CharField(max_length=255, blank=True)),
                 ('tags', taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', to='taggit.Tag', verbose_name='tags')),
                 ('uploaded_by_user', models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user')),
@@ -182,7 +182,7 @@ class Migration(migrations.Migration):
             name='EventIndex',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('intro', wagtail.core.fields.RichTextField(blank=True)),
+                ('intro', wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 'abstract': False,
@@ -199,7 +199,7 @@ class Migration(migrations.Migration):
                 ('time_to', models.TimeField(blank=True, null=True, verbose_name='End time')),
                 ('audience', models.CharField(choices=[('public', 'Public'), ('private', 'Private')], max_length=255)),
                 ('location', models.CharField(max_length=255)),
-                ('body', wagtail.core.fields.RichTextField(blank=True)),
+                ('body', wagtail.fields.RichTextField(blank=True)),
                 ('cost', models.CharField(max_length=255)),
                 ('signup_link', models.URLField(blank=True)),
             ],
@@ -327,7 +327,7 @@ class Migration(migrations.Migration):
             name='ManyToManyBlogPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.RichTextField(blank=True)),
+                ('body', wagtail.fields.RichTextField(blank=True)),
                 ('adverts', models.ManyToManyField(blank=True, to='tests.Advert')),
                 ('blog_categories', models.ManyToManyField(blank=True, through='tests.BlogCategoryBlogPage', to='tests.BlogCategory')),
             ],
@@ -435,14 +435,14 @@ class Migration(migrations.Migration):
             name='StreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
+                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
             ],
         ),
         migrations.CreateModel(
             name='StreamPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.core.fields.StreamField((('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
+                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
             ],
             options={
                 'abstract': False,

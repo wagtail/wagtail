@@ -25,7 +25,7 @@ A plugin ``halloblockquote``, implemented in ``myapp/js/hallo-blockquote.js``, t
 .. code-block:: python
 
     from wagtail.admin.rich_text import HalloPlugin
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('register_rich_text_features')
     def register_embed_feature(features):
@@ -65,7 +65,7 @@ The following code will add the ``<blockquote>`` element to the whitelist whenev
 .. code-block:: python
 
     from wagtail.admin.rich_text.converters.editor_html import WhitelistRule
-    from wagtail.core.whitelist import allow_without_attributes
+    from wagtail.whitelist import allow_without_attributes
 
     @hooks.register('register_rich_text_features')
     def register_blockquote_feature(features):
@@ -75,4 +75,4 @@ The following code will add the ``<blockquote>`` element to the whitelist whenev
 
 ``WhitelistRule`` is passed the element name, and a callable which will perform some kind of manipulation of the element whenever it is encountered. This callable receives the element as a `BeautifulSoup <https://www.crummy.com/software/BeautifulSoup/bs4/doc/>`_ Tag object.
 
-The ``wagtail.core.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).
+The ``wagtail.whitelist`` module provides a few helper functions to assist in defining these handlers: ``allow_without_attributes``, a handler which preserves the element but strips out all of its attributes, and ``attribute_rule`` which accepts a dict specifying how to handle each attribute, and returns a handler function. This dict will map attribute names to either True (indicating that the attribute should be kept), False (indicating that it should be dropped), or a callable (which takes the initial attribute value and returns either a final value for the attribute, or None to drop the attribute).

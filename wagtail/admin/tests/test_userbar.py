@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
-from wagtail.core.models import PAGE_TEMPLATE_VAR, Page
+from wagtail.models import PAGE_TEMPLATE_VAR, Page
 from wagtail.test.testapp.models import BusinessChild, BusinessIndex
 from wagtail.test.utils import WagtailTestUtils
 

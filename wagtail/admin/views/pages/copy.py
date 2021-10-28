@@ -3,12 +3,12 @@ from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 @user_passes_test(user_has_any_page_permission)

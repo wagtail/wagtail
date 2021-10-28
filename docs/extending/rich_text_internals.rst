@@ -63,7 +63,7 @@ Any app within your project can define extensions to Wagtail's rich text handlin
 
     # my_app/wagtail_hooks.py
 
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     @hooks.register('register_rich_text_features')
     def register_my_feature(features):
@@ -79,7 +79,7 @@ Rewrite handlers are classes that know how to translate the content of rich text
 
 Rewrite handlers can also provide other useful information about rich text tags. For example, given an appropriate tag, ``PageLinkHandler`` can be used to extract which page is being referred to. This can be useful for downstream code that may want information about objects being referenced in rich text.
 
-You can create custom rewrite handlers to support your own new ``linktype`` and ``embedtype`` tags. New handlers must be Python classes that inherit from either ``wagtail.core.richtext.LinkHandler`` or ``wagtail.core.richtext.EmbedHandler``. Your new classes should override at least some of the following methods (listed here for ``LinkHandler``, although ``EmbedHandler`` has an identical signature):
+You can create custom rewrite handlers to support your own new ``linktype`` and ``embedtype`` tags. New handlers must be Python classes that inherit from either ``wagtail.richtext.LinkHandler`` or ``wagtail.richtext.EmbedHandler``. Your new classes should override at least some of the following methods (listed here for ``LinkHandler``, although ``EmbedHandler`` has an identical signature):
 
 .. class:: LinkHandler
 
@@ -116,7 +116,7 @@ Below is an example custom rewrite handler that implements these methods to add 
 .. code-block:: python
 
     from django.contrib.auth import get_user_model
-    from wagtail.core.rich_text import LinkHandler
+    from wagtail.rich_text import LinkHandler
 
     class UserLinkHandler(LinkHandler):
         identifier = 'user'
@@ -143,13 +143,13 @@ Rewrite handlers must also be registered with the feature registry via the :ref:
 
 .. method:: FeatureRegistry.register_link_type(handler)
 
-This method allows you to register a custom handler deriving from ``wagtail.core.rich_text.LinkHandler``, and adds it to the list of link handlers available during rich text conversion.
+This method allows you to register a custom handler deriving from ``wagtail.rich_text.LinkHandler``, and adds it to the list of link handlers available during rich text conversion.
 
 .. code-block:: python
 
     # my_app/wagtail_hooks.py
 
-    from wagtail.core import hooks
+    from wagtail import hooks
     from my_app.handlers import MyCustomLinkHandler
 
     @hooks.register('register_rich_text_features')
@@ -162,8 +162,8 @@ It is also possible to define link rewrite handlers for Wagtail’s built-in ``e
 .. code-block:: python
 
     from django.utils.html import escape
-    from wagtail.core import hooks
-    from wagtail.core.rich_text import LinkHandler
+    from wagtail import hooks
+    from wagtail.rich_text import LinkHandler
 
     class NoFollowExternalLinkHandler(LinkHandler):
         identifier = 'external'
@@ -182,13 +182,13 @@ Similarly you can use ``email`` linktype to add a custom rewrite handler for ema
 
 .. method:: FeatureRegistry.register_embed_type(handler)
 
-This method allows you to register a custom handler deriving from ``wagtail.core.rich_text.EmbedHandler``, and adds it to the list of embed handlers available during rich text conversion.
+This method allows you to register a custom handler deriving from ``wagtail.rich_text.EmbedHandler``, and adds it to the list of embed handlers available during rich text conversion.
 
 .. code-block:: python
 
     # my_app/wagtail_hooks.py
 
-    from wagtail.core import hooks
+    from wagtail import hooks
     from my_app.handlers import MyCustomEmbedHandler
 
     @hooks.register('register_rich_text_features')
@@ -218,12 +218,12 @@ The ``default_features`` attribute of the feature registry is a list of feature 
         features.default_features.append('h1')
 
 
-Outside of the ``register_rich_text_features`` hook - for example, inside a widget class - the feature registry can be imported as the object ``wagtail.core.rich_text.features``. A possible starting point for a rich text editor with feature support would be:
+Outside of the ``register_rich_text_features`` hook - for example, inside a widget class - the feature registry can be imported as the object ``wagtail.rich_text.features``. A possible starting point for a rich text editor with feature support would be:
 
 .. code-block:: python
 
     from django.forms import widgets
-    from wagtail.core.rich_text import features
+    from wagtail.rich_text import features
 
     class CustomRichTextArea(widgets.TextArea):
         accepts_features = True

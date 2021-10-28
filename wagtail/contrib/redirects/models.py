@@ -3,7 +3,7 @@ from urllib.parse import urlparse
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class Redirect(models.Model):

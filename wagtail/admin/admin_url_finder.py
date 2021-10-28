@@ -2,7 +2,7 @@ from django.contrib.admin.utils import quote
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
-from wagtail.core.hooks import search_for_hooks
+from wagtail.hooks import search_for_hooks
 
 
 """

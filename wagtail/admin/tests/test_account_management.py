@@ -15,8 +15,8 @@ from django.urls import reverse
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
 from wagtail.admin.views.account import account, profile_tab
-from wagtail.core.models import UserProfile
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import UserProfile
 from wagtail.test.utils import WagtailTestUtils
 
 

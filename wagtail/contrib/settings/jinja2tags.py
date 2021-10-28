@@ -6,7 +6,7 @@ from django.utils.encoding import force_str
 from jinja2.ext import Extension
 
 from wagtail.contrib.settings.registry import registry
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 
 # Settings are cached per template context, to prevent excessive database

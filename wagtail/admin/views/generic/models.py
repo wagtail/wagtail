@@ -9,7 +9,7 @@ from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Table, TitleColumn
-from wagtail.core.log_actions import log
+from wagtail.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
 from .permissions import PermissionCheckedMixin

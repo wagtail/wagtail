@@ -21,9 +21,9 @@ from taggit.managers import TaggableManager
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.core.coreutils import camelcase_to_underscore, resolve_model_string
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import COMMENTS_RELATION_NAME, Page
+from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
+from wagtail.fields import RichTextField
+from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards

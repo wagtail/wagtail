@@ -24,7 +24,7 @@ Usage
 
 ```python
 from wagtail.contrib.typed_table_block.blocks import TypedTableBlock
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.images.blocks import ImageChooserBlock
 
 class DemoStreamBlock(blocks.StreamBlock):

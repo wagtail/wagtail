@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.test.utils import WagtailTestUtils
 

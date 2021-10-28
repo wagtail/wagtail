@@ -5,10 +5,10 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.navigation import get_explorable_root_page
-from wagtail.core import hooks
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 
 
 @user_passes_test(user_has_any_page_permission)

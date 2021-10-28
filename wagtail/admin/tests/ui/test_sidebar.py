@@ -7,7 +7,7 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.sidebar import (
     CustomBrandingModule, LinkMenuItem, MainMenuModule, PageExplorerMenuItem, SearchModule,
     SubMenuItem, WagtailBrandingModule)
-from wagtail.core.telepath import JSContext
+from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
 
 

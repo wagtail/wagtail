@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, FilteredModelChoiceFilter, WagtailFilterSet
 from wagtail.admin.widgets import ButtonSelect
-from wagtail.core.models import Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState
+from wagtail.models import Task, TaskState, UserPagePermissionsProxy, Workflow, WorkflowState
 
 from .base import ReportView
 

@@ -147,7 +147,7 @@ The ``Page`` and ``Site`` models are no longer editable through the Django admin
     # my_app/admin.py
     from django.contrib import admin
 
-    from wagtail.core.models import Page, Site
+    from wagtail.models import Page, Site
 
     admin.site.register(Site)
     admin.site.register(Page)

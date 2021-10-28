@@ -34,7 +34,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
-    from wagtail.core.fields import RichTextField
+    from wagtail.fields import RichTextField
     from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 

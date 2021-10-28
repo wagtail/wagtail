@@ -143,7 +143,7 @@ This release begins the process of phasing out support for Internet Explorer. Pl
 SiteMiddleware moved to ``wagtail.contrib.legacy``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.core.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
+The SiteMiddleware class (which provides the ``request.site`` property, and has been deprecated since Wagtail 2.9) has been moved to the ``wagtail.contrib.legacy`` namespace. On projects where this is still in use, the ``'wagtail.middleware.SiteMiddleware'`` entry in ``MIDDLEWARE`` should be changed to ``'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware'``.
 
 
 Collection model enforces alphabetical ordering
@@ -158,7 +158,7 @@ However, if your project creates new collections programmatically after migratio
 
   .. code-block:: python
 
-      from wagtail.core.models import Collection
+      from wagtail.models import Collection
       Collection.fix_tree(fix_paths=True)
 
   or the management command:

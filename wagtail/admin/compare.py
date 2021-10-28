@@ -7,7 +7,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.core import blocks
+from wagtail import blocks
 
 
 def text_from_html(val):

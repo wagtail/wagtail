@@ -15,7 +15,7 @@ All of these plugins are created with a similar baseline, which we can demonstra
 
     import wagtail.admin.rich_text.editors.draftail.features as draftail_features
     from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleElementHandler
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     # 1. Use the register_rich_text_features hook.
     @hooks.register('register_rich_text_features')

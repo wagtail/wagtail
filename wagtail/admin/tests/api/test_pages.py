@@ -6,9 +6,9 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils import timezone
 
+from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.core import hooks
-from wagtail.core.models import Locale, Page, UserProfile
+from wagtail.models import Locale, Page, UserProfile
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import SimplePage, StreamPage
 

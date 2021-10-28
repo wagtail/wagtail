@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from wagtail.admin import messages
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 @require_POST

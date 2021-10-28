@@ -9,9 +9,9 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
-from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
+from wagtail.models import Collection, GroupCollectionPermission, Page
 from wagtail.test.testapp.models import EventPage, EventPageCarouselItem, ReimportedImageModel
 from wagtail.test.utils import WagtailTestUtils
 

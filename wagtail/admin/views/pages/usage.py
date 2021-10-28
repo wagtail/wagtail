@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.template.response import TemplateResponse
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def content_type_use(request, content_type_app_name, content_type_model_name):

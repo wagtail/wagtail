@@ -10,7 +10,7 @@ from django.test.utils import override_settings
 from wagtail.contrib.frontend_cache.backends import (
     BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.frontend_cache.utils import get_backends
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import EventIndex
 
 from .utils import (
