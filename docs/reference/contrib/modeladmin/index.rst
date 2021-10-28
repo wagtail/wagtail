@@ -83,7 +83,7 @@ to create, view, and edit ``Book`` entries.
 
     from django.db import models
     from wagtail.edit_handlers import FieldPanel
-    from wagtail.images.edit_handlers import ImageChooserPanel
+    from wagtail.contrib.images.edit_handlers import ImageChooserPanel
 
     class Book(models.Model):
         title = models.CharField(max_length=255)

@@ -26,7 +26,7 @@ var apps = [
     new App('wagtail', {'appName': 'wagtailadmin'}),
     new App(path.join('wagtail', 'documents'), {'appName': 'wagtaildocs'}),
     new App(path.join('wagtail', 'embeds'), {'appName': 'wagtailembeds'}),
-    new App(path.join('wagtail', 'images'), {'appName': 'wagtailimages'}),
+    new App(path.join('wagtail', 'contrib', 'images'), {'appName': 'wagtailimages'}),
     new App(path.join('wagtail', 'search'), {'appName': 'wagtailsearch'}),
     new App(path.join('wagtail', 'snippets'), {'appName': 'wagtailsnippets'}),
     new App(path.join('wagtail', 'users'), {'appName': 'wagtailusers'}),

@@ -11,10 +11,10 @@ from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.contrib.images.models import Image
+from wagtail.contrib.images.tests.utils import get_test_image_file
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.edit_handlers import FieldPanel, TabbedInterface
-from wagtail.images.models import Image
-from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import ModelLogEntry, Page, logging
 from wagtail.test.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
 from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin

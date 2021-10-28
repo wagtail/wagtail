@@ -473,7 +473,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.edit_handlers import FieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 
@@ -629,7 +629,7 @@ from taggit.models import TaggedItemBase
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
 from wagtail.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 

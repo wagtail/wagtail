@@ -2,8 +2,8 @@ from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
-from wagtail.images.models import Image
-from wagtail.images.tests.utils import get_test_image_file
+from wagtail.contrib.images.models import Image
+from wagtail.contrib.images.tests.utils import get_test_image_file
 from wagtail.permission_policies import (
     AuthenticationOnlyPermissionPolicy, BlanketPermissionPolicy, ModelPermissionPolicy,
     OwnershipPermissionPolicy)

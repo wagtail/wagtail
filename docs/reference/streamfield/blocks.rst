@@ -309,7 +309,7 @@ Field block types
    :param required: If true (the default), the field cannot be left blank.
 
 
-.. class:: wagtail.images.blocks.ImageChooserBlock
+.. class:: wagtail.contrib.images.blocks.ImageChooserBlock
 
    A control to allow the editor to select an existing image, or upload a new one. The following additional keyword argument is accepted:
 

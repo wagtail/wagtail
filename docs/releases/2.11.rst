@@ -72,7 +72,7 @@ Other features
 * Add document extension validation if ``WAGTAIL_DOCS_EXTENSIONS`` is set to a list of allowed extensions (Meghana Bhange)
 * Use ``django-admin`` command in place of ``django-admin.py`` (minusf)
 * Add ``register_snippet_action_menu_item`` and ``construct_snippet_action_menu`` hooks to modify the actions available when creating / editing a snippet (Karl Hobley)
-* Moved ``generate_signature`` and ``verify_signature`` functions into ``wagtail.images.utils`` (Noah H)
+* Moved ``generate_signature`` and ``verify_signature`` functions into ``wagtail.contrib.images.utils`` (Noah H)
 * Implement ``bulk_to_python`` on all structural StreamField block types (Matt Westcott)
 * Add natural key support to ``GroupCollectionPermission`` (Jim Jazwiecki)
 * Implement ``prepopulated_fields`` for ``wagtail.contrib.modeladmin`` (David Bramwell)

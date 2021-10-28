@@ -3,7 +3,7 @@
 from django.db import migrations, models
 import wagtail.blocks
 import wagtail.fields
-import wagtail.images.blocks
+import wagtail.contrib.images.blocks
 
 
 class Migration(migrations.Migration):
@@ -17,14 +17,14 @@ class Migration(migrations.Migration):
             name='BlockCountsStreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.fields.StreamField([('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())])),
+                ('body', wagtail.fields.StreamField([('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.contrib.images.blocks.ImageChooserBlock())])),
             ],
         ),
         migrations.CreateModel(
             name='MinMaxCountStreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.fields.StreamField([('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())])),
+                ('body', wagtail.fields.StreamField([('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.contrib.images.blocks.ImageChooserBlock())])),
             ],
         ),
     ]

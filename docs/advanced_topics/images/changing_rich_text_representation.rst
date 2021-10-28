@@ -13,7 +13,7 @@ You may then register formats of your subclass using ``register_image_format`` a
 .. code-block:: python
 
     # image_formats.py
-    from wagtail.images.formats import Format, register_image_format
+    from wagtail.contrib.images.formats import Format, register_image_format
 
 
     class SubclassedImageFormat(Format):
@@ -37,7 +37,7 @@ As an example, let's say you want the alt text to be displayed as a caption for 
 
     # image_formats.py
     from django.utils.html import format_html
-    from wagtail.images.formats import Format, register_image_format
+    from wagtail.contrib.images.formats import Format, register_image_format
 
 
     class CaptionedImageFormat(Format):

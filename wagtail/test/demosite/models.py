@@ -8,11 +8,11 @@ from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
 from wagtail.api import APIField
+from wagtail.contrib.images.api.fields import ImageRenditionField
+from wagtail.contrib.images.edit_handlers import ImageChooserPanel
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, PageChooserPanel
 from wagtail.fields import RichTextField
-from wagtail.images.api.fields import ImageRenditionField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Orderable, Page
 from wagtail.search import index
 

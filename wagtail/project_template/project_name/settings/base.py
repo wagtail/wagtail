@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
-    'wagtail.images',
+    'wagtail.contrib.images',
     'wagtail.search',
     'wagtail',
 

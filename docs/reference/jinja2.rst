@@ -25,7 +25,7 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
                 'extensions': [
                     'wagtail.jinja2tags.core',
                     'wagtail.admin.jinja2tags.userbar',
-                    'wagtail.images.jinja2tags.images',
+                    'wagtail.contrib.images.jinja2tags.images',
                 ],
             },
         }

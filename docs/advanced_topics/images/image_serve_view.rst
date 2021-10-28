@@ -23,7 +23,7 @@ Add an entry for the view into your URLs configuration:
 
 .. code-block:: python
 
-    from wagtail.images.views.serve import ServeView
+    from wagtail.contrib.images.views.serve import ServeView
 
     urlpatterns = [
         ...
@@ -57,7 +57,7 @@ client over an API or used directly in the template.
 One advantage of using dynamic image URLs in the template is that they do not
 block the initial response while rendering like the ``{% image %}`` tag does.
 
-The ``generate_image_url`` function in ``wagtail.images.views.serve`` is a convenience
+The ``generate_image_url`` function in ``wagtail.contrib.images.views.serve`` is a convenience
 method to generate a dynamic image URL.
 
 Here's an example of this being used in a view:
@@ -116,7 +116,7 @@ method in your urls configuration:
 
 .. code-block:: python
 
-   from wagtail.images.views.serve import ServeView
+   from wagtail.contrib.images.views.serve import ServeView
 
    urlpatterns = [
        ...
@@ -145,7 +145,7 @@ This view can be used out of the box:
 
 .. code-block:: python
 
-   from wagtail.images.views.serve import SendFileView
+   from wagtail.contrib.images.views.serve import SendFileView
 
    urlpatterns = [
        ...
@@ -158,7 +158,7 @@ setting:
 
 .. code-block:: python
 
-    from wagtail.images.views.serve import SendFileView
+    from wagtail.contrib.images.views.serve import SendFileView
     from project.sendfile_backends import MyCustomBackend
 
     class MySendFileView(SendFileView):
@@ -170,7 +170,7 @@ is to be authenticated (e.g. for Django >= 1.9):
 .. code-block:: python
 
     from django.contrib.auth.mixins import LoginRequiredMixin
-    from wagtail.images.views.serve import SendFileView
+    from wagtail.contrib.images.views.serve import SendFileView
 
     class PrivateSendFileView(LoginRequiredMixin, SendFileView):
         raise_exception = True

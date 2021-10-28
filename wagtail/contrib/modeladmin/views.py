@@ -889,9 +889,9 @@ class InspectView(InstanceSpecificView):
                 return ', '.join(['%s' % obj for obj in val])
             return self.model_admin.get_empty_value_display(field_name)
 
-        # wagtail.images might not be installed
+        # wagtail.contrib.images might not be installed
         try:
-            from wagtail.images.models import AbstractImage
+            from wagtail.contrib.images.models import AbstractImage
             if isinstance(val, AbstractImage):
                 # Render a rendition of the image
                 return self.get_image_field_display(field_name, field)
@@ -914,7 +914,7 @@ class InspectView(InstanceSpecificView):
 
     def get_image_field_display(self, field_name, field):
         """ Render an image """
-        from wagtail.images.shortcuts import get_rendition_or_not_found
+        from wagtail.contrib.images.shortcuts import get_rendition_or_not_found
         image = getattr(self.instance, field_name)
         if image:
             return get_rendition_or_not_found(image, 'max-400x400').img_tag

@@ -27,6 +27,10 @@ from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
 from wagtail.contrib.forms.views import SubmissionsListView
+from wagtail.contrib.images import get_image_model
+from wagtail.contrib.images.blocks import ImageChooserBlock
+from wagtail.contrib.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
@@ -37,10 +41,6 @@ from wagtail.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)
 from wagtail.fields import RichTextField, StreamField
-from wagtail.images import get_image_model
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.models import Orderable, Page, PageManager, PageQuerySet, TranslatableMixin, workflows
 from wagtail.search import index
 from wagtail.snippets.edit_handlers import SnippetChooserPanel

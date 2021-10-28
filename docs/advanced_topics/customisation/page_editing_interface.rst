@@ -110,7 +110,7 @@ As an example, add a "thumbnail" format:
 .. code-block:: python
 
     # image_formats.py
-    from wagtail.images.formats import Format, register_image_format
+    from wagtail.contrib.images.formats import Format, register_image_format
 
     register_image_format(Format('thumbnail', 'Thumbnail', 'richtext-image thumbnail', 'max-120x120'))
 

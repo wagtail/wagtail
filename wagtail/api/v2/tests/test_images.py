@@ -7,7 +7,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.images import get_image_model
+from wagtail.contrib.images import get_image_model
 
 
 class TestImageListing(TestCase):

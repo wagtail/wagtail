@@ -296,7 +296,7 @@ For example:
     from django.forms.utils import flatatt
     from django.utils.safestring import mark_safe
 
-    from wagtail.images.models import AbstractRendition
+    from wagtail.contrib.images.models import AbstractRendition
 
     ...
 
@@ -321,7 +321,7 @@ Add this anywhere in your project where it would be imported on start:
     from django.forms.utils import flatatt
     from django.utils.safestring import mark_safe
 
-    from wagtail.images.models import Rendition
+    from wagtail.contrib.images.models import Rendition
 
     def img_tag(rendition, extra_attributes={}):
         """

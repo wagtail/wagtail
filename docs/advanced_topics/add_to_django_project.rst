@@ -62,7 +62,7 @@ Apps (``settings.py``)
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
-    'wagtail.images',
+    'wagtail.contrib.images',
     'wagtail.search',
     'wagtail',
 
@@ -94,7 +94,7 @@ Wagtail Apps
 ``wagtail.users``
   User editing interface.
 
-``wagtail.images``
+``wagtail.contrib.images``
   The Wagtail image content type.
 
 ``wagtail.embeds``
@@ -194,7 +194,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.users',
       'wagtail.snippets',
       'wagtail.documents',
-      'wagtail.images',
+      'wagtail.contrib.images',
       'wagtail.search',
       'wagtail',
 

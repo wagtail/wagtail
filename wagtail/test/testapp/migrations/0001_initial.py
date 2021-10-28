@@ -9,8 +9,8 @@ from django.db import migrations, models
 
 import wagtail.blocks
 import wagtail.fields
-import wagtail.images.blocks
-import wagtail.images.models
+import wagtail.contrib.images.blocks
+import wagtail.contrib.images.models
 import wagtail.search.index
 
 
@@ -126,7 +126,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.contrib.images.models.get_upload_to, verbose_name='file', width_field='width')),
                 ('width', models.IntegerField(editable=False, verbose_name='width')),
                 ('height', models.IntegerField(editable=False, verbose_name='height')),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
@@ -151,7 +151,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.contrib.images.models.get_upload_to, verbose_name='file', width_field='width')),
                 ('width', models.IntegerField(editable=False, verbose_name='width')),
                 ('height', models.IntegerField(editable=False, verbose_name='height')),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
@@ -435,14 +435,14 @@ class Migration(migrations.Migration):
             name='StreamModel',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
+                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.contrib.images.blocks.ImageChooserBlock())))),
             ],
         ),
         migrations.CreateModel(
             name='StreamPage',
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.images.blocks.ImageChooserBlock())))),
+                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.CharBlock()), ('rich_text', wagtail.blocks.RichTextBlock()), ('image', wagtail.contrib.images.blocks.ImageChooserBlock())))),
             ],
             options={
                 'abstract': False,

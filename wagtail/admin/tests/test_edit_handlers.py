@@ -17,11 +17,11 @@ from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
+from wagtail.contrib.images.edit_handlers import ImageChooserPanel
 from wagtail.edit_handlers import (
     CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
     RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
     get_form_for_model)
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Page, Site, commenting
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (

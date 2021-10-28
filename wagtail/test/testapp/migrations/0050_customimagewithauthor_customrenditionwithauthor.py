@@ -5,7 +5,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import taggit.managers
 import wagtail.models
-import wagtail.images.models
+import wagtail.contrib.images.models
 import wagtail.search.index
 
 
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.contrib.images.models.get_upload_to, verbose_name='file', width_field='width')),
                 ('width', models.IntegerField(editable=False, verbose_name='width')),
                 ('height', models.IntegerField(editable=False, verbose_name='height')),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('filter_spec', models.CharField(db_index=True, max_length=255)),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_rendition_upload_to, width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.contrib.images.models.get_rendition_upload_to, width_field='width')),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
                 ('focal_point_key', models.CharField(blank=True, default='', editable=False, max_length=16)),

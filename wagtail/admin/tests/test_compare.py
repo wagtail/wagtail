@@ -5,8 +5,8 @@ from django.utils.safestring import SafeString
 
 from wagtail.admin import compare
 from wagtail.blocks import StreamValue
-from wagtail.images import get_image_model
-from wagtail.images.tests.utils import get_test_image_file
+from wagtail.contrib.images import get_image_model
+from wagtail.contrib.images.tests.utils import get_test_image_file
 from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey, EventCategory, EventPage, EventPageSpeaker,
     HeadCountRelatedModelUsingPK, SimplePage, SnippetChooserModelWithCustomPrimaryKey, StreamPage,

@@ -46,7 +46,7 @@ can hook into the rest of your project.
 Wagtail provides three endpoint classes you can use:
 
 - Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
-- Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
+- Images :class:`wagtail.contrib.images.api.v2.views.ImagesAPIViewSet`
 - Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customise their functionality.
@@ -62,7 +62,7 @@ types in their default configuration:
 
     from wagtail.api.v2.views import PagesAPIViewSet
     from wagtail.api.v2.router import WagtailAPIRouter
-    from wagtail.images.api.v2.views import ImagesAPIViewSet
+    from wagtail.contrib.images.api.v2.views import ImagesAPIViewSet
     from wagtail.documents.api.v2.views import DocumentsAPIViewSet
 
     # Create the router. "wagtailapi" is the URL namespace
@@ -197,7 +197,7 @@ This adds two fields to the API (other fields omitted for brevity):
 Images in the API
 -----------------
 
-The :class:`~wagtail.images.api.fields.ImageRenditionField` serialiser
+The :class:`~wagtail.contrib.images.api.fields.ImageRenditionField` serialiser
 allows you to add renditions of images into your API. It requires an image
 filter string specifying the resize operations to perform on the image. It can
 also take the ``source`` keyword argument described above.
@@ -206,7 +206,7 @@ For example:
 
 .. code-block:: python
 
-    from wagtail.images.api.fields import ImageRenditionField
+    from wagtail.contrib.images.api.fields import ImageRenditionField
 
     class BlogPage(Page):
         ...

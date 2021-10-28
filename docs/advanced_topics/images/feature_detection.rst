@@ -139,7 +139,7 @@ For example, you can manually run feature detection on all images by running the
 
 .. code-block:: python
 
-    from wagtail.images import get_image_model
+    from wagtail.contrib.images import get_image_model
 
     Image = get_image_model()
 

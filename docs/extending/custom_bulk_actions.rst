@@ -183,7 +183,7 @@ Basic example
 Adding bulk actions to the Images listing
 -----------------------------------------
 
-When creating a custom bulk action class for images, subclass from ``wagtail.images.views.bulk_actions.image_bulk_action.ImageBulkAction``
+When creating a custom bulk action class for images, subclass from ``wagtail.contrib.images.views.bulk_actions.image_bulk_action.ImageBulkAction``
 instead of ``wagtail.admin.views.bulk_action.BulkAction``
 
 Basic example
@@ -191,7 +191,7 @@ Basic example
 
 .. code-block:: python
 
-    from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
+    from wagtail.contrib.images.views.bulk_actions.image_bulk_action import ImageBulkAction
     from wagtail import hooks
 
 

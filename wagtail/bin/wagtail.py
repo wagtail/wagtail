@@ -105,7 +105,7 @@ class UpdateModulePaths(Command):
         (re.compile(r'\bwagtail\.wagtailadmin\b'), 'wagtail.admin'),
         (re.compile(r'\bwagtail\.wagtaildocs\b'), 'wagtail.documents'),
         (re.compile(r'\bwagtail\.wagtailembeds\b'), 'wagtail.embeds'),
-        (re.compile(r'\bwagtail\.wagtailimages\b'), 'wagtail.images'),
+        (re.compile(r'\bwagtail\.wagtailimages\b'), 'wagtail.contrib.images'),
         (re.compile(r'\bwagtail\.wagtailsearch\b'), 'wagtail.search'),
         (re.compile(r'\bwagtail\.wagtailsites\b'), 'wagtail.sites'),
         (re.compile(r'\bwagtail\.wagtailsnippets\b'), 'wagtail.snippets'),

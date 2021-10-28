@@ -1,8 +1,8 @@
 from django import forms
 
 from wagtail.admin.widgets import AdminDateTimeInput
+from wagtail.contrib.images.forms import BaseImageForm
 from wagtail.documents.forms import BaseDocumentForm
-from wagtail.images.forms import BaseImageForm
 
 
 class OverriddenWidget(forms.Widget):

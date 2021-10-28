@@ -23,7 +23,7 @@ Using StreamField
     from wagtail.fields import StreamField
     from wagtail import blocks
     from wagtail.edit_handlers import FieldPanel, StreamFieldPanel
-    from wagtail.images.blocks import ImageChooserBlock
+    from wagtail.contrib.images.blocks import ImageChooserBlock
 
     class BlogPage(Page):
         author = models.CharField(max_length=255)

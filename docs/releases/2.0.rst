@@ -162,7 +162,7 @@ The full list of modules to be renamed is as follows:
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailimages                   | wagtail.images                    |                                   |
+| wagtail.wagtailimages                   | wagtail.contrib.images                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailsearch                   | wagtail.search                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
@@ -302,10 +302,10 @@ can be rewritten as:
 Please note that the new Draftail rich text editor uses a different mechanism to process rich text content, and does not apply whitelist rules; they only take effect when the Hallo.js editor is in use.
 
 
-``wagtail.images.views.serve.generate_signature`` now returns a string
+``wagtail.contrib.images.views.serve.generate_signature`` now returns a string
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``generate_signature`` function in ``wagtail.images.views.serve``, used to build URLs for the :ref:`dynamic image serve view <using_images_outside_wagtail>`, now returns a string rather than a byte string. This ensures that any existing user code that builds up the final image URL with ``reverse`` will continue to work on Django 2.0 (which no longer allows byte strings to be passed to ``reverse``). Any code that expects a byte string as the return value of ``generate_string`` - for example, calling ``decode()`` on the result - will need to be updated. (Apps that need to preserve compatibility with earlier versions of Wagtail can call ``django.utils.encoding.force_text`` instead of ``decode``.)
+The ``generate_signature`` function in ``wagtail.contrib.images.views.serve``, used to build URLs for the :ref:`dynamic image serve view <using_images_outside_wagtail>`, now returns a string rather than a byte string. This ensures that any existing user code that builds up the final image URL with ``reverse`` will continue to work on Django 2.0 (which no longer allows byte strings to be passed to ``reverse``). Any code that expects a byte string as the return value of ``generate_string`` - for example, calling ``decode()`` on the result - will need to be updated. (Apps that need to preserve compatibility with earlier versions of Wagtail can call ``django.utils.encoding.force_text`` instead of ``decode``.)
 
 
 Deprecated search view

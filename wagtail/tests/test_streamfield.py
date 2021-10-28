@@ -9,9 +9,9 @@ from django.utils.safestring import SafeString
 
 from wagtail import blocks
 from wagtail.blocks import StreamBlockValidationError, StreamValue
+from wagtail.contrib.images.models import Image
+from wagtail.contrib.images.tests.utils import get_test_image_file
 from wagtail.fields import StreamField
-from wagtail.images.models import Image
-from wagtail.images.tests.utils import get_test_image_file
 from wagtail.rich_text import RichText
 from wagtail.test.testapp.models import BlockCountsStreamModel, MinMaxCountStreamModel, StreamModel
 
