@@ -1,11 +1,11 @@
 from django.utils.translation import gettext_lazy
 
 from wagtail.admin import messages
+from wagtail.admin.forms.locales import LocaleForm
+from wagtail.admin.locales import get_locale_usage
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
-from wagtail.admin.forms.locales import LocaleForm
-from wagtail.admin.locales import get_locale_usage
 from wagtail.models import Locale
 from wagtail.permissions import locale_permission_policy
 
