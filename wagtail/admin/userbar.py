@@ -14,7 +14,7 @@ class AdminItem(BaseItem):
     def render(self, request):
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm('wagtailcore.access_admin'):
             return ""
 
         return super().render(request)
@@ -33,7 +33,7 @@ class AddPageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm('wagtailcore.access_admin'):
             return ""
 
         # Don't render if user doesn't have ability to add children here
@@ -57,7 +57,7 @@ class ExplorePageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm('wagtailcore.access_admin'):
             return ""
 
         # Don't render if user doesn't have ability to edit or publish sub-pages on the parent page
@@ -80,7 +80,7 @@ class EditPageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm('wagtailcore.access_admin'):
             return ""
 
         # Don't render if the user doesn't have permission to edit this page
@@ -102,7 +102,7 @@ class ModeratePageItem(BaseItem):
         if not self.revision.submitted_for_moderation:
             return ""
 
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm('wagtailcore.access_admin'):
             return ""
 
         if not self.revision.page.permissions_for_user(request.user).can_publish():

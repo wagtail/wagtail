@@ -634,7 +634,7 @@
     "fields": {
         "name": "Event editors",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"],
+            ["access_admin", "wagtailcore", "admin"],
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]
@@ -647,7 +647,7 @@
     "fields": {
         "name": "Event moderators",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"],
+            ["access_admin", "wagtailcore", "admin"],
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]
@@ -660,7 +660,7 @@
     "fields": {
         "name": "Site-wide editors",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"],
+            ["access_admin", "wagtailcore", "admin"],
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]
@@ -673,7 +673,7 @@
     "fields": {
         "name": "Admin non-editors",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"]
+            ["access_admin", "wagtailcore", "admin"]
         ]
     }
 },
@@ -683,7 +683,7 @@
     "fields": {
         "name": "Corporate Editor",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"],
+            ["access_admin", "wagtailcore", "admin"],
             ["add_image", "wagtailimages", "image"],
             ["change_image", "wagtailimages", "image"],
             ["delete_image", "wagtailimages", "image"]

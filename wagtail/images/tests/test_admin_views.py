@@ -383,7 +383,7 @@ class TestImageAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestUtil
             content_type__app_label='wagtailimages', codename='add_image'
         )
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label='wagtailcore', codename='access_admin'
         )
 
         root_collection = Collection.get_first_root_node()
@@ -533,7 +533,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
     def test_edit_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -803,7 +803,7 @@ class TestImageDeleteView(TestCase, WagtailTestUtils):
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -841,7 +841,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
         bakers_group = Group.objects.create(name='Bakers')
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
+            content_type__app_label='wagtailcore',
             codename='access_admin'
         )
         bakers_group.permissions.add(access_admin_perm)
@@ -1223,7 +1223,7 @@ class TestImageChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestUtil
             content_type__app_label='wagtailimages', codename='add_image'
         )
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label='wagtailcore', codename='access_admin'
         )
 
         root_collection = Collection.get_first_root_node()
@@ -2020,7 +2020,7 @@ class TestURLGeneratorView(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -2074,7 +2074,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -2174,7 +2174,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
             username='changeonly', email='changeonly@example.com', password='password'
         )
         change_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='change_image')
-        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
 
         image_changers_group = Group.objects.create(name='Image changers')
         image_changers_group.permissions.add(admin_permission)
@@ -2235,7 +2235,7 @@ class TestImageAddMultipleView(TestCase, WagtailTestUtils):
         user = self.create_user(username='editor', password='password')
 
         add_permission = Permission.objects.get(content_type__app_label='wagtailimages', codename='add_image')
-        admin_permission = Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        admin_permission = Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         image_adders_group = Group.objects.create(name='Image adders')
         image_adders_group.permissions.add(admin_permission)
         GroupCollectionPermission.objects.create(group=image_adders_group, collection=Collection.get_first_root_node(), permission=add_permission)

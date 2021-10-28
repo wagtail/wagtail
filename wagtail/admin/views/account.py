@@ -303,7 +303,7 @@ class LoginView(auth_views.LoginView):
 
     def get(self, *args, **kwargs):
         # If user is already logged in, redirect them to the dashboard
-        if self.request.user.is_authenticated and self.request.user.has_perm('wagtailadmin.access_admin'):
+        if self.request.user.is_authenticated and self.request.user.has_perm('wagtailcore.access_admin'):
             return redirect(self.get_success_url())
 
         return super().get(*args, **kwargs)

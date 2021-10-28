@@ -68,7 +68,7 @@ for fn in hooks.get_hooks('register_admin_urls'):
         urlpatterns += urls
 
 
-# Add "wagtailadmin.access_admin" permission check
+# Add "wagtailcore.access_admin" permission check
 urlpatterns = decorate_urlpatterns(urlpatterns, require_admin_access)
 
 sprite_hash = None

@@ -24,7 +24,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         # Create group with access to admin
         editors_group = Group.objects.create(name='The Editors')
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
+            content_type__app_label='wagtailcore',
             codename='access_admin'
         )
         editors_group.permissions.add(access_admin_perm)
@@ -50,7 +50,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
         bakers_group = Group.objects.create(name='Bakers')
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
+            content_type__app_label='wagtailcore',
             codename='access_admin'
         )
         bakers_group.permissions.add(access_admin_perm)

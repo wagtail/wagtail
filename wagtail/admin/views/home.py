@@ -210,7 +210,7 @@ def error_test(request):
     raise Exception("This is a test of the emergency broadcast system.")
 
 
-@permission_required('wagtailadmin.access_admin', login_url='wagtailadmin_login')
+@permission_required('wagtailcore.access_admin', login_url='wagtailadmin_login')
 def default(request):
     """
     Called whenever a request comes in with the correct prefix (eg /admin/) but

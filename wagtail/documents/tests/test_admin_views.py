@@ -249,7 +249,7 @@ class TestDocumentAddViewWithLimitedCollectionPermissions(TestCase, WagtailTestU
             content_type__app_label='wagtaildocs', codename='add_document'
         )
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label='wagtailcore', codename='access_admin'
         )
 
         root_collection = Collection.get_first_root_node()
@@ -328,7 +328,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
     def test_get_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -341,7 +341,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
     def test_post_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -550,7 +550,7 @@ class TestDocumentDeleteView(TestCase, WagtailTestUtils):
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -1361,7 +1361,7 @@ class TestDocumentChooserUploadViewWithLimitedPermissions(TestCase, WagtailTestU
             content_type__app_label='wagtaildocs', codename='add_document'
         )
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label='wagtailcore', codename='access_admin'
         )
 
         root_collection = Collection.get_first_root_node()
@@ -1551,7 +1551,7 @@ class TestEditOnlyPermissions(TestCase, WagtailTestUtils):
             content_type__app_label='wagtaildocs', codename='change_document'
         )
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin', codename='access_admin'
+            content_type__app_label='wagtailcore', codename='access_admin'
         )
         self.changers_group = Group.objects.create(name='Document changers')
         GroupCollectionPermission.objects.create(

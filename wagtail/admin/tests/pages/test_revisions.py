@@ -90,7 +90,7 @@ class TestRevisions(TestCase, WagtailTestUtils):
         admin_only_user.user_permissions.add(
             Permission.objects.get_by_natural_key(
                 codename='access_admin',
-                app_label='wagtailadmin',
+                app_label='wagtailcore',
                 model='admin'
             )
         )
@@ -435,7 +435,7 @@ class TestRevisionsUnschedule(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 

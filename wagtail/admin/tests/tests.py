@@ -356,7 +356,7 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
         user = self.create_user(
             username='pleb', email='pleb@example.com', password='p')
         user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.assertFalse(user_has_any_page_permission(user))
 
@@ -400,5 +400,5 @@ class TestRemoveStaleContentTypes(TestCase):
     def test_remove_stale_content_types_preserves_access_admin_permission(self):
         call_command('remove_stale_contenttypes', interactive=False)
         self.assertTrue(
-            Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin').exists()
+            Permission.objects.filter(content_type__app_label='wagtailcore', codename='access_admin').exists()
         )

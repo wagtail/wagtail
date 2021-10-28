@@ -204,7 +204,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 
@@ -1963,7 +1963,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.groups.add(group)
         self.user.save()

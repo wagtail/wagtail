@@ -44,7 +44,7 @@ class TestModerationList(TestCase, WagtailTestUtils):
         moderators_group = Group.objects.create(name='Moderators without edit')
 
         admin_permission = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
+            content_type__app_label='wagtailcore',
             codename='access_admin'
         )
 

@@ -310,7 +310,7 @@
     "fields": {
         "name": "Group 1",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"]
+            ["access_admin", "wagtailcore", "admin"]
         ]
     }
 },
@@ -320,7 +320,7 @@
     "fields": {
         "name": "Group 2",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"]
+            ["access_admin", "wagtailcore", "admin"]
         ]
     }
 },
@@ -330,7 +330,7 @@
     "fields": {
         "name": "Group 3",
         "permissions": [
-            ["access_admin", "wagtailadmin", "admin"]
+            ["access_admin", "wagtailcore", "admin"]
         ]
     }
 },

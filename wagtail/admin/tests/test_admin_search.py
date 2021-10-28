@@ -79,7 +79,7 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
         user = super().create_test_user()
         user.is_superuser = False
         user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         user.save()
         return user

@@ -94,7 +94,7 @@ def register_settings_menu():
 
 @hooks.register('register_permissions')
 def register_permissions():
-    return Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin')
+    return Permission.objects.filter(content_type__app_label='wagtailcore', codename='access_admin')
 
 
 class PageSearchArea(SearchArea):

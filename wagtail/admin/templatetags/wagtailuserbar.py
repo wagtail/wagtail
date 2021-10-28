@@ -40,7 +40,7 @@ def wagtailuserbar(context, position='bottom-right'):
         return ''
 
     # Don't render if user doesn't have permission to access the admin area
-    if not user.has_perm('wagtailadmin.access_admin'):
+    if not user.has_perm('wagtailcore.access_admin'):
         return ''
 
     # Render the userbar using the user's preferred admin language

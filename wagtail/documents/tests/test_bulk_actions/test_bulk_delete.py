@@ -25,7 +25,7 @@ class TestDocumentBulkDeleteView(TestCase, WagtailTestUtils):
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
         self.user.save()
 

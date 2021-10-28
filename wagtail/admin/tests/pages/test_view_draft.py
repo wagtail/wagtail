@@ -30,7 +30,7 @@ class TestDraftAccess(TestCase, WagtailTestUtils):
         # create user with admin access (but not draft_view access)
         user = self.create_user(username='bob', password='password')
         user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(content_type__app_label='wagtailcore', codename='access_admin')
         )
 
     def test_draft_access_admin(self):

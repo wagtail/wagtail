@@ -160,7 +160,7 @@ def require_admin_access(view_func):
         if user.is_anonymous:
             return reject_request(request)
 
-        if user.has_perms(['wagtailadmin.access_admin']):
+        if user.has_perms(['wagtailcore.access_admin']):
             try:
                 preferred_language = None
                 if hasattr(user, 'wagtail_userprofile'):

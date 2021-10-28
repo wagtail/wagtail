@@ -21,7 +21,7 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
         user = self.create_user(
             username='test', password='password')
         user.user_permissions.add(Permission.objects.get_by_natural_key(
-            codename='access_admin', app_label='wagtailadmin', model='admin'))
+            codename='access_admin', app_label='wagtailcore', model='admin'))
         self.login(username='test', password='password')
         return user
 
