@@ -47,7 +47,7 @@ Wagtail provides three endpoint classes you can use:
 
 - Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
 - Images :class:`wagtail.contrib.images.api.v2.views.ImagesAPIViewSet`
-- Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
+- Documents :class:`wagtail.contrib.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customise their functionality.
 Additionally, there is a base endpoint class you can use for adding different
@@ -63,7 +63,7 @@ types in their default configuration:
     from wagtail.api.v2.views import PagesAPIViewSet
     from wagtail.api.v2.router import WagtailAPIRouter
     from wagtail.contrib.images.api.v2.views import ImagesAPIViewSet
-    from wagtail.documents.api.v2.views import DocumentsAPIViewSet
+    from wagtail.contrib.documents.api.v2.views import DocumentsAPIViewSet
 
     # Create the router. "wagtailapi" is the URL namespace
     api_router = WagtailAPIRouter('wagtailapi')

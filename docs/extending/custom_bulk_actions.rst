@@ -204,7 +204,7 @@ Basic example
 Adding bulk actions to the documents listing
 --------------------------------------------
 
-When creating a custom bulk action class for documents, subclass from ``wagtail.documents.views.bulk_actions.document_bulk_action.DocumentBulkAction``
+When creating a custom bulk action class for documents, subclass from ``wagtail.contrib.documents.views.bulk_actions.document_bulk_action.DocumentBulkAction``
 instead of ``wagtail.admin.views.bulk_action.BulkAction``
 
 Basic example
@@ -212,7 +212,7 @@ Basic example
 
 .. code-block:: python
 
-    from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
+    from wagtail.contrib.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
     from wagtail import hooks
 
 

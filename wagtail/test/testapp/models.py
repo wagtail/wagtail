@@ -23,6 +23,9 @@ from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
 from wagtail.blocks import (
     CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
+from wagtail.contrib.documents import get_document_model
+from wagtail.contrib.documents.edit_handlers import DocumentChooserPanel
+from wagtail.contrib.documents.models import AbstractDocument, Document
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.models import (
     FORM_FIELD_CHOICES, AbstractEmailForm, AbstractFormField, AbstractFormSubmission)
@@ -34,9 +37,6 @@ from wagtail.contrib.images.models import AbstractImage, AbstractRendition, Imag
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.documents import get_document_model
-from wagtail.documents.edit_handlers import DocumentChooserPanel
-from wagtail.documents.models import AbstractDocument, Document
 from wagtail.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, ObjectList, PageChooserPanel, StreamFieldPanel,
     TabbedInterface)

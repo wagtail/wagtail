@@ -139,7 +139,7 @@ INSTALLED_APPS = [
     'wagtail.locales',
     'wagtail.users',
     'wagtail.snippets',
-    'wagtail.documents',
+    'wagtail.contrib.documents',
     'wagtail.api.v2',
     'wagtail',
 

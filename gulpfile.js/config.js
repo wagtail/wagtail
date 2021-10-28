@@ -24,7 +24,7 @@ App.prototype.scssSources = function() {
 // All the Wagtail apps that contain static files
 var apps = [
     new App('wagtail', {'appName': 'wagtailadmin'}),
-    new App(path.join('wagtail', 'documents'), {'appName': 'wagtaildocs'}),
+    new App(path.join('wagtail', 'contrib', 'documents'), {'appName': 'wagtaildocs'}),
     new App(path.join('wagtail', 'embeds'), {'appName': 'wagtailembeds'}),
     new App(path.join('wagtail', 'contrib', 'images'), {'appName': 'wagtailimages'}),
     new App(path.join('wagtail', 'search'), {'appName': 'wagtailsearch'}),

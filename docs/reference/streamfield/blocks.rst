@@ -302,7 +302,7 @@ Field block types
    :param can_choose_root: Defaults to false. If true, the editor can choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate. For example, a block providing a feed of related articles could use a PageChooserBlock to select which subsection of the site articles will be taken from, with the root corresponding to 'everywhere'.
 
 
-.. class:: wagtail.documents.blocks.DocumentChooserBlock
+.. class:: wagtail.contrib.documents.blocks.DocumentChooserBlock
 
    A control to allow the editor to select an existing document object, or upload a new one. The following additional keyword argument is accepted:
 

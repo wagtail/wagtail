@@ -9,8 +9,8 @@ from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput,
     SwitchInput)
+from wagtail.contrib.documents.widgets import AdminDocumentChooser
 from wagtail.contrib.images.widgets import AdminImageChooser
-from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.models import Page
 from wagtail.snippets.widgets import AdminSnippetChooser
 

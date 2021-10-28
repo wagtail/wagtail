@@ -61,7 +61,7 @@ Apps (``settings.py``)
     'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
-    'wagtail.documents',
+    'wagtail.contrib.documents',
     'wagtail.contrib.images',
     'wagtail.search',
     'wagtail',
@@ -85,7 +85,7 @@ Wagtail Apps
 ``wagtail``
   The core functionality of Wagtail, such as the ``Page`` class, the Wagtail tree, and model fields.
 
-``wagtail.documents``
+``wagtail.contrib.documents``
   The Wagtail document content type.
 
 ``wagtail.snippets``
@@ -136,7 +136,7 @@ URL Patterns
 
   from wagtail import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
-  from wagtail.documents import urls as wagtaildocs_urls
+  from wagtail.contrib.documents import urls as wagtaildocs_urls
 
   urlpatterns = [
       path('django-admin/', admin.site.urls),
@@ -193,7 +193,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.sites',
       'wagtail.users',
       'wagtail.snippets',
-      'wagtail.documents',
+      'wagtail.contrib.documents',
       'wagtail.contrib.images',
       'wagtail.search',
       'wagtail',
@@ -371,7 +371,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
   from wagtail import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
-  from wagtail.documents import urls as wagtaildocs_urls
+  from wagtail.contrib.documents import urls as wagtaildocs_urls
 
 
   urlpatterns = [

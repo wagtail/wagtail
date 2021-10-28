@@ -158,7 +158,7 @@ The full list of modules to be renamed is as follows:
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailadmin                    | wagtail.admin                     |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtaildocs                     | wagtail.documents                 | 'documents' no longer abbreviated |
+| wagtail.wagtaildocs                     | wagtail.contrib.documents                 | 'documents' no longer abbreviated |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+

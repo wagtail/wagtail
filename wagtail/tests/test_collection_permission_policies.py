@@ -2,7 +2,7 @@ from django.contrib.auth.models import AnonymousUser, Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 
-from wagtail.documents.models import Document
+from wagtail.contrib.documents.models import Document
 from wagtail.models import Collection, GroupCollectionPermission
 from wagtail.permission_policies.collections import (
     CollectionMangementPermissionPolicy, CollectionOwnershipPermissionPolicy,

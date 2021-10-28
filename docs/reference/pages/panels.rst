@@ -222,16 +222,16 @@ FormSubmissionsPanel
 DocumentChooserPanel
 ~~~~~~~~~~~~~~~~~~~~
 
-.. module:: wagtail.documents.edit_handlers
+.. module:: wagtail.contrib.documents.edit_handlers
 
 .. class:: DocumentChooserPanel(field_name)
 
-    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.documents.models.Document` model:
+    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.contrib.documents.models.Document` model:
 
     .. code-block:: python
 
-      from wagtail.documents.models import Document
-      from wagtail.documents.edit_handlers import DocumentChooserPanel
+      from wagtail.contrib.documents.models import Document
+      from wagtail.contrib.documents.edit_handlers import DocumentChooserPanel
 
 
       class BookPage(Page):

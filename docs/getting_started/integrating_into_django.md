@@ -24,7 +24,7 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 'wagtail.sites',
 'wagtail.users',
 'wagtail.snippets',
-'wagtail.documents',
+'wagtail.contrib.documents',
 'wagtail.contrib.images',
 'wagtail.search',
 'wagtail',
@@ -81,7 +81,7 @@ from django.urls import path, include
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
-from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.contrib.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
     ...

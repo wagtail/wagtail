@@ -108,7 +108,7 @@ Old code:
   from wagtail.api.v2.endpoints import PagesAPIEndpoint
   from wagtail.api.v2.router import WagtailAPIRouter
   from wagtail.contrib.images.api.v2.endpoints import ImagesAPIEndpoint
-  from wagtail.documents.api.v2.endpoints import DocumentsAPIEndpoint
+  from wagtail.contrib.documents.api.v2.endpoints import DocumentsAPIEndpoint
 
   api_router = WagtailAPIRouter('wagtailapi')
   api_router.register_endpoint('pages', PagesAPIEndpoint)
@@ -122,7 +122,7 @@ New code:
   from wagtail.api.v2.views import PagesAPIViewSet
   from wagtail.api.v2.router import WagtailAPIRouter
   from wagtail.contrib.images.api.v2.views import ImagesAPIViewSet
-  from wagtail.documents.api.v2.views import DocumentsAPIViewSet
+  from wagtail.contrib.documents.api.v2.views import DocumentsAPIViewSet
 
   api_router = WagtailAPIRouter('wagtailapi')
   api_router.register_endpoint('pages', PagesAPIViewSet)
@@ -130,10 +130,10 @@ New code:
   api_router.register_endpoint('documents', DocumentsAPIViewSet)
 
 
-``wagtail.documents.models.get_document_model`` has moved
+``wagtail.contrib.documents.models.get_document_model`` has moved
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``get_document_model`` function should now be imported from ``wagtail.documents`` rather than ``wagtail.documents.models``. See :ref:`custom_document_model`.
+The ``get_document_model`` function should now be imported from ``wagtail.contrib.documents`` rather than ``wagtail.contrib.documents.models``. See :ref:`custom_document_model`.
 
 
 Removed ``Page`` and ``Site`` models from Django admin
