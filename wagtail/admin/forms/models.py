@@ -83,13 +83,7 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
 
 
 class WagtailAdminModelForm(ClusterForm, metaclass=WagtailAdminModelFormMetaclass):
-    @property
-    def media(self):
-        # Include media from formsets forms. This allow StreamField in InlinePanel for example.
-        media = super().media
-        for formset in self.formsets.values():
-            media += formset.media
-        return media
+    pass
 
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up
