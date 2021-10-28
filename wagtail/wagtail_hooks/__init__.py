@@ -5,4 +5,5 @@ Will concatenate these files later
 
 from .admin import *  # noqa
 from .core import *  # noqa
+from .users import *  # noqa
 from .utils import *  # noqa

@@ -1,3 +1,4 @@
+from bulk_actions import AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
@@ -15,8 +16,6 @@ from wagtail.admin.urls import users
 from wagtail.admin.usersutils import user_can_delete_user
 from wagtail.admin.widgets.users import UserListingButton
 from wagtail.permission_policies import ModelPermissionPolicy
-from wagtail.users.views.bulk_actions import (
-    AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction)
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 
@@ -42,7 +41,11 @@ def get_group_viewset_cls(app_config):
 
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    app_config = apps.get_app_config("wagtailusers")
+    try:
+        app_config = apps.get_app_config("wagtailusers")
+    except LookupError:
+        app_config = apps.get_app_config("wagtailcore")
+
     group_viewset_cls = get_group_viewset_cls(app_config)
     return group_viewset_cls('wagtailusers_groups', url_prefix='groups')
 

@@ -20,8 +20,8 @@ from wagtail.admin.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.models import (
     Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile, admin)
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.users.wagtail_hooks import get_group_viewset_cls
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.wagtail_hooks.users import get_group_viewset_cls
 
 
 delete_user_perm_codename = "delete_{0}".format(AUTH_USER_MODEL_NAME.lower())

@@ -7,6 +7,7 @@ class WagtailAppConfig(AppConfig):
     label = 'wagtailcore'
     verbose_name = _("Wagtail core")
     default_auto_field = 'django.db.models.AutoField'
+    group_viewset = 'wagtail.admin.views.groups.GroupViewSet'
 
     def ready(self):
         from wagtail.admin.signal_handlers import \
