@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.models import get_object_usage
+from wagtail.models.admin import get_object_usage
 
 
 SNIPPET_MODELS = []
