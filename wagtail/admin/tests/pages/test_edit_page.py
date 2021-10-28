@@ -18,7 +18,7 @@ import wagtail.admin.views.pages.edit
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.models import (
-    GroupPagePermission, Locale, Page, PageRevision, Site, UserProfile, admin, commenting, logging)
+    GroupPagePermission, Locale, Page, PageRevision, Site, UserProfile, commenting, logging)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,

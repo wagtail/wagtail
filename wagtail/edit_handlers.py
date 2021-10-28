@@ -2,11 +2,9 @@ import functools
 import re
 
 from django import forms
-from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.db.models.fields import CharField, TextField
-from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -17,15 +15,13 @@ from modelcluster.models import get_serializable_data_for_fields
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
-from wagtail.admin.forms.models import (
-    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
-from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
-from wagtail.fields import RichTextField
-
-
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
 # appending their own overrides
+from wagtail.admin.forms.models import (  # noqa
+    DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
+from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
+from wagtail.fields import RichTextField
 
 
 def widget_with_script(widget, script):

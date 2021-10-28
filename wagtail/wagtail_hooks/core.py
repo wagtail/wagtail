@@ -9,7 +9,8 @@ from django.utils.translation import ngettext
 from wagtail import hooks
 from wagtail.coreutils import get_content_languages
 from wagtail.logging import LogFormatter
-from wagtail.models import ModelLogEntry, Page, PageViewRestriction, logging
+from wagtail.models import Page, PageViewRestriction
+from wagtail.models.logging import ModelLogEntry, PageLogEntry
 from wagtail.rich_text.pages import PageLinkHandler
 
 from .utils import require_wagtail_login
@@ -89,8 +90,8 @@ def describe_collection_children(collection):
 
 @hooks.register('register_log_actions')
 def register_core_log_actions(actions):
-    actions.register_model(models.Model, logging.ModelLogEntry)
-    actions.register_model(Page, logging.PageLogEntry)
+    actions.register_model(models.Model, ModelLogEntry)
+    actions.register_model(Page, PageLogEntry)
 
     actions.register_action('wagtail.create', _('Create'), _('Created'))
     actions.register_action('wagtail.edit', _('Edit'), _('Edited'))

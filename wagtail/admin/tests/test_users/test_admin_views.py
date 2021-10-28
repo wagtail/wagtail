@@ -18,7 +18,7 @@ from wagtail.admin.forms.users import UserCreationForm, UserEditForm
 from wagtail.admin.views.groups import GroupViewSet
 from wagtail.admin.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.models import (
-    Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile, admin)
+    Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.wagtail_hooks.users import get_group_viewset_cls

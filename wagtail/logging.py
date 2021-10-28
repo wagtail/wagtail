@@ -4,8 +4,6 @@ from warnings import warn
 
 from django.utils.functional import LazyObject
 
-import wagtail.models.logging
-
 from wagtail import hooks
 from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
@@ -193,7 +191,7 @@ class LogActionRegistry:
         if log_entry_model is None:
             # this model has no logs; return an empty queryset of the basic log model
             from wagtail.models import ModelLogEntry
-            return wagtail.models.logging.ModelLogEntry.objects.none()
+            return ModelLogEntry.objects.none()
 
         return log_entry_model.objects.for_instance(instance)
 

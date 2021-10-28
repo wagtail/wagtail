@@ -29,7 +29,7 @@ from wagtail.contrib.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.contrib.snippets.widgets import (
     AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
 from wagtail.edit_handlers import FieldPanel
-from wagtail.models import Locale, ModelLogEntry, Page, logging
+from wagtail.models import Locale, ModelLogEntry, Page
 from wagtail.test.snippets.forms import FancySnippetForm
 from wagtail.test.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
@@ -531,7 +531,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
-        logging.ModelLogEntry.objects.create(
+        ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Advert),
             label="Test Advert",
             action='wagtail.create',
@@ -1080,7 +1080,7 @@ class TestSnippetHistory(TestCase, WagtailTestUtils):
     def setUp(self):
         self.user = self.login()
         self.test_snippet = Advert.objects.get(pk=1)
-        logging.ModelLogEntry.objects.create(
+        ModelLogEntry.objects.create(
             content_type=ContentType.objects.get_for_model(Advert),
             label="Test Advert",
             action='wagtail.create',

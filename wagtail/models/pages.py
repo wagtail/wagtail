@@ -70,6 +70,8 @@ from .view_restrictions import BaseViewRestriction
 logger = logging.getLogger('wagtail')
 
 PAGE_TEMPLATE_VAR = 'page'
+
+
 @receiver(pre_validate_delete, sender=Locale)
 def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
     # if we're deleting the locale used on the root page node, reassign that to a new locale first
@@ -366,15 +368,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             tabs = []
 
             if cls.content_panels:
-                tabs.append(ObjectList(cls.content_panels,
-                                    heading=_('Content')))
+                tabs.append(
+                    ObjectList(cls.content_panels, heading=_('Content'))
+                )
             if cls.promote_panels:
-                tabs.append(ObjectList(cls.promote_panels,
-                                    heading=_('Promote')))
+                tabs.append(
+                    ObjectList(cls.promote_panels, heading=_('Promote'))
+                )
             if cls.settings_panels:
-                tabs.append(ObjectList(cls.settings_panels,
-                                    heading=_('Settings'),
-                                    classname='settings'))
+                tabs.append(
+                    ObjectList(cls.settings_panels, heading=_('Settings'), classname='settings')
+                )
 
             edit_handler = TabbedInterface(tabs, base_form_class=cls.get_base_form_class())
 

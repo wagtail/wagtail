@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.admin.widgets import SwitchInput
-from wagtail.models import UserPagePermissionsProxy, UserProfile, admin
+from wagtail.models import UserPagePermissionsProxy, UserProfile
 
 
 User = get_user_model()

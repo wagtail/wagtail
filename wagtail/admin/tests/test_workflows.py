@@ -14,7 +14,7 @@ from freezegun import freeze_time
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.models import (
     GroupApprovalTask, Page, Task, TaskState, UserProfile, Workflow, WorkflowPage, WorkflowState,
-    WorkflowTask, admin)
+    WorkflowTask)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage, SimpleTask
 from wagtail.test.utils import WagtailTestUtils
