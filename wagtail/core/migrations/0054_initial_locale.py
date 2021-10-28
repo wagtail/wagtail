@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations
 
-from wagtail.core.utils import get_supported_content_language_variant
+from wagtail.core.coreutils import get_supported_content_language_variant
 
 
 def initial_locale(apps, schema_editor):

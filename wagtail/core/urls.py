@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, re_path
 
 from wagtail.core import views
-from wagtail.core.utils import WAGTAIL_APPEND_SLASH
+from wagtail.core.coreutils import WAGTAIL_APPEND_SLASH
 
 
 if WAGTAIL_APPEND_SLASH:

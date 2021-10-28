@@ -8,10 +8,10 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 from wagtail.core import hooks
+from wagtail.core.coreutils import get_content_languages
 from wagtail.core.log_actions import LogFormatter
 from wagtail.core.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.core.rich_text.pages import PageLinkHandler
-from wagtail.core.utils import get_content_languages
 
 
 def require_wagtail_login(next):

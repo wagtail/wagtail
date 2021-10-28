@@ -46,6 +46,9 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel, get_all_child_relations
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.coreutils import (
+    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, find_available_slug,
+    get_supported_content_language_variant, resolve_model_string)
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -56,9 +59,6 @@ from wagtail.core.signals import (
     workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import (
-    WAGTAIL_APPEND_SLASH, camelcase_to_underscore, find_available_slug,
-    get_supported_content_language_variant, resolve_model_string)
 from wagtail.search import index
 
 from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet, ModelLogEntry  # noqa
