@@ -85,7 +85,7 @@ In your templates:
 
 .. code-block:: html+django
 
-    {% load wagtailimages_tags %}
+    {% load wagtailimages %}
     ...
 
     <!-- Get the url for the image scaled to a width of 400 pixels: -->

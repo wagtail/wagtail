@@ -2,7 +2,7 @@ from django.template import Variable
 from django.test import TestCase
 
 from wagtail.contrib.images.models import Image, Rendition
-from wagtail.contrib.images.templatetags.wagtailimages_tags import ImageNode
+from wagtail.contrib.images.templatetags.wagtailimages import ImageNode
 from wagtail.contrib.images.tests.utils import get_test_image_file
 
 

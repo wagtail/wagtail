@@ -12,7 +12,7 @@ image formats and let the browser choose the one it prefers. For example:
 
 .. code-block:: python
 
-    {% load wagtailimages_tags %}
+    {% load wagtailimages %}
 
     <picture>
         {% image myimage width-1000 format-webp as image_webp %}

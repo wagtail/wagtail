@@ -4,7 +4,7 @@ from django import template
 from jinja2.ext import Extension
 
 from .shortcuts import get_rendition_or_not_found
-from .templatetags.wagtailimages_tags import image_url
+from .templatetags.wagtailimages import image_url
 
 
 allowed_filter_pattern = re.compile(r"^[A-Za-z0-9_\-\.\|]+$")

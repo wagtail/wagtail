@@ -405,7 +405,7 @@ Within the template, the block value is accessible as the variable ``value``:
 
 .. code-block:: html+django
 
-    {% load wagtailimages_tags %}
+    {% load wagtailimages %}
 
     <div class="person">
         {% image value.photo width-400 %}
@@ -417,7 +417,7 @@ Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as bl
 
 .. code-block:: html+django
 
-    {% load wagtail wagtailimages_tags %}
+    {% load wagtail wagtailimages %}
 
     <div class="person">
         {% image value.photo width-400 %}
@@ -429,7 +429,7 @@ Writing ``{{ my_block }}`` is roughly equivalent to ``{% include_block my_block 
 
 .. code-block:: html+django
 
-    {% load wagtailimages_tags %}
+    {% load wagtailimages %}
 
     <div class="person">
         {% image value.photo width-400 %}

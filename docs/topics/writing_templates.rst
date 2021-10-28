@@ -94,7 +94,7 @@ For example:
 
 .. code-block:: html+django
 
-    {% load wagtailimages_tags %}
+    {% load wagtailimages %}
     ...
 
     {% image page.photo width-400 %}
