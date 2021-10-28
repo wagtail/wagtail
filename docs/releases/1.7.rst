@@ -136,7 +136,7 @@ The ``embed`` template filter, used to translate the URL of a media resource (su
 
 .. code-block:: html+django
 
-    {% load wagtailembeds_tags %}
+    {% load wagtailembeds %}
     ...
     {{ my_media_url|embed }}
 
@@ -144,6 +144,6 @@ should now be rewritten as:
 
 .. code-block:: html+django
 
-    {% load wagtailembeds_tags %}
+    {% load wagtailembeds %}
     ...
     {% embed my_media_url %}

@@ -27,7 +27,7 @@ from wagtail.contrib.embeds.finders.instagram import AccessDeniedInstagramOEmbed
 from wagtail.contrib.embeds.finders.instagram import InstagramOEmbedFinder as InstagramOEmbedFinder
 from wagtail.contrib.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.contrib.embeds.models import Embed
-from wagtail.contrib.embeds.templatetags.wagtailembeds_tags import embed_tag
+from wagtail.contrib.embeds.templatetags.wagtailembeds import embed_tag
 from wagtail.test.utils import WagtailTestUtils
 
 

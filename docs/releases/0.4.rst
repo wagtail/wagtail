@@ -173,7 +173,7 @@ The following template tag libraries have been renamed:
 
 * ``pageurl`` => ``wagtail``
 * ``rich_text`` => ``wagtail``
-* ``embed_filters`` => ``wagtailembeds_tags``
+* ``embed_filters`` => ``wagtailembeds``
 * ``image_tags`` => ``wagtailimages``
 
 The old names will continue to work, but output a ``DeprecationWarning`` - you are advised to update any ``{% load %}`` tags in your templates to refer to the new names.

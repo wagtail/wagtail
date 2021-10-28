@@ -58,7 +58,7 @@ The ``max_width`` argument is sent to the provider when fetching the embed code.
 
 .. code-block:: html+Django
 
-    {% load wagtailembeds_tags %}
+    {% load wagtailembeds %}
 
     {# Embed a YouTube video #}
     {% embed 'https://www.youtube.com/watch?v=Ffu-2jEdLPw' %}
