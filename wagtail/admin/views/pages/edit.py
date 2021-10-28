@@ -20,8 +20,17 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import Page, UserPagePermissionsProxy, commenting, workflows
+
+
+class PageClassNotFoundError(ImportError):
+    """
+    Raised when a model class referenced by a page object's ``content_type``
+    value cannot be found in the codebase. Usually, this is as a result of
+    switching to a different git branch without first running/reverting
+    migrations.
+    """
+    pass
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
