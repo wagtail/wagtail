@@ -146,3 +146,4 @@ $nav-search-focus-bg: $nav-item-hover-bg;
 // Form Errors
 $color-text-error: change-color($color-red, $saturation: 69, $lightness: 52);
 $color-text-error-forced-color: change-color($color-red, $saturation: 100, $lightness: 50);
+$color-text-warning-forced-color: change-color($color-orange, $saturation: 100, $lightness: 70);

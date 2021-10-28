@@ -117,6 +117,7 @@ select::-ms-expand {
 // Other text
 .help,
 .error-message {
+    border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
     font-size: 0.85em;
     font-weight: normal;
     margin: 0.5em 0 0;

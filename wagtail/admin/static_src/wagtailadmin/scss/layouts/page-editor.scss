@@ -162,9 +162,8 @@
         z-index: 1;
         top: $object-title-height;
         margin-top: 0;
-        padding-top: 1em;
-        padding-right: $grid-gutter-width / 2;
-        padding-left: 3em;
+        margin-bottom: -1em;
+        padding: 1em ($grid-gutter-width / 2) 1em 3em;
         opacity: 1;
 
         .icon-help {
@@ -531,6 +530,7 @@ footer .preview {
         .object-help {
             padding-bottom: 40px;
             margin-left: 10px;
+            margin-bottom: 0;
             opacity: 0;
         }
 
@@ -669,5 +669,9 @@ footer .preview {
 @media (forced-colors: $media-forced-colours) {
     .object {
         border-top: 1px solid GrayText;
+
+        .object-help {
+            margin-bottom: 0;
+        }
     }
 }
