@@ -1,5 +1,3 @@
-import utils
-
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.db import models
@@ -13,6 +11,8 @@ from wagtail.coreutils import get_content_languages
 from wagtail.logging import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageViewRestriction, logging
 from wagtail.rich_text.pages import PageLinkHandler
+
+from .utils import require_wagtail_login
 
 
 @hooks.register('before_serve_page')
@@ -34,7 +34,7 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                 return page.serve_password_required_response(request, form, action_url)
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
-                return utils.require_wagtail_login(next=request.get_full_path())
+                return require_wagtail_login(next=request.get_full_path())
 
 
 @hooks.register('register_rich_text_features')

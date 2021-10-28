@@ -1,4 +1,3 @@
-from bulk_actions import AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction
 from django.apps import apps
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
@@ -12,18 +11,12 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
-from wagtail.admin.urls import users
 from wagtail.admin.usersutils import user_can_delete_user
 from wagtail.admin.widgets.users import UserListingButton
 from wagtail.permission_policies import ModelPermissionPolicy
+from wagtail.users.views.bulk_actions import (
+    AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction)
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-
-
-@hooks.register('register_admin_urls')
-def register_admin_urls():
-    return [
-        path('users/', include(users, namespace='wagtailusers_users')),
-    ]
 
 
 def get_group_viewset_cls(app_config):

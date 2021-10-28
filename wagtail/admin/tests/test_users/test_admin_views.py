@@ -1635,7 +1635,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
 
 class TestGroupViewSet(TestCase):
     def setUp(self):
-        self.app_config = apps.get_app_config('wagtailusers')
+        self.app_config = apps.get_app_config('wagtailcore')
 
     def test_get_group_viewset_cls(self):
         self.assertIs(get_group_viewset_cls(self.app_config), GroupViewSet)
