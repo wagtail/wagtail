@@ -23,10 +23,10 @@ from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.forms.models import (
     DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES, WagtailAdminModelForm, formfield_for_dbfield)
 from wagtail.admin.forms.pages import WagtailAdminPageForm
-from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.fields import RichTextField
 from wagtail.models import COMMENTS_RELATION_NAME, Page
+from wagtail.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.utils.decorators import cached_classmethod
 
 

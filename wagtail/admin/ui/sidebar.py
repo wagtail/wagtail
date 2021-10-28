@@ -155,7 +155,7 @@ class MainMenuModule:
         self.user = user
 
     def js_args(self):
-        from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url
+        from wagtail.templatetags.wagtailadmin_tags import avatar_url
 
         return [
             self.menu_items,

@@ -2,7 +2,7 @@ import jinja2
 
 from jinja2.ext import Extension
 
-from .templatetags.wagtailuserbar import wagtailuserbar
+from wagtail.templatetags.wagtailuserbar import wagtailuserbar
 
 
 class WagtailUserbarExtension(Extension):
