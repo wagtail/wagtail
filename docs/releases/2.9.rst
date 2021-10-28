@@ -118,7 +118,7 @@ For example:
 
 
     {# new version #}
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     {% wagtail_site as current_site %}
 
     <h1>Welcome to the {{ current_site.site_name }} website!</h1>

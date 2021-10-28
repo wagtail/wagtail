@@ -273,7 +273,7 @@ and two more to fetch each page):
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     {% pageurl settings.app_label.ImportantPages.donate_page %}
     {% pageurl settings.app_label.ImportantPages.sign_up_page %}
 
@@ -288,7 +288,7 @@ cleanly. For example, instead of doing the following:
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     {% pageurl settings.app_label.ImportantPages.donate_page %}
     {% pageurl settings.app_label.ImportantPages.sign_up_page %}
 

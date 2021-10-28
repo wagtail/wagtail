@@ -264,7 +264,7 @@ Your template should look like this:
 
 .. code-block:: django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     <html>
         <head>
             <title>{{ page.title }}</title>
@@ -413,7 +413,7 @@ Your template for this form page should look like this:
 
 .. code-block:: django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     <html>
         <head>
             <title>{{ page.title }}</title>
@@ -521,7 +521,7 @@ Next, you need to transform your template to display the results:
 
 .. code-block:: django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     <html>
         <head>
             <title>{{ page.title }}</title>

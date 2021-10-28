@@ -200,7 +200,7 @@ However, note that this only applies to dotted module paths beginning with ``wag
 * Foreign keys specifying a model as ``'app_name.ModelName'``, e.g. ``models.ForeignKey('wagtailimages.Image',...)``
 * App labels used in database table names, content types or permissions
 * Paths to templates and static files, e.g. when :ref:`overriding admin templates with custom branding <custom_branding>`
-* Template tag library names, e.g. ``{% load wagtailcore_tags %}``
+* Template tag library names, e.g. ``{% load wagtail %}``
 
 
 Hallo.js customisations are unavailable on the Draftail rich text editor

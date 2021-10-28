@@ -313,7 +313,7 @@ this into account.
 .. code-block:: html+Django
 
     {# make sure these are at the top of the file #}
-    {% load i18n wagtailcore_tags %}
+    {% load i18n wagtail %}
 
     {% if page %}
         {% for translation in page.get_translations.live %}

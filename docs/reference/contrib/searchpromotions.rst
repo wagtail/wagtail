@@ -41,7 +41,7 @@ To retrieve a list of promoted search results for a particular search query, you
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags wagtailsearchpromotions_tags %}
+    {% load wagtail wagtailsearchpromotions_tags %}
 
     ...
 

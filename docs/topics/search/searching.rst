@@ -409,7 +409,7 @@ And here's a template to go with it:
 .. code-block:: html+django
 
     {% extends "base.html" %}
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% block title %}Search{% endblock %}
 

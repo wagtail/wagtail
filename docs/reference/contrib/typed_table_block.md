@@ -60,7 +60,7 @@ To keep the UI as simple as possible for authors, it's generally recommended to 
 On your page template, the `{% include_block %}` tag (called on either the individual block, or the StreamField value as a whole) will render any typed table blocks as an HTML `<table>` element.
 
 ```html+django
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% include_block page.body %}
 ```
@@ -68,7 +68,7 @@ On your page template, the `{% include_block %}` tag (called on either the indiv
 Or:
 
 ```html+django
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% for block in page.body %}
     {% if block.block_type == 'table' %}

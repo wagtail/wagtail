@@ -30,7 +30,7 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% for block in page.body %}
         {% if block.block_type == 'heading' %}
@@ -60,7 +60,7 @@ In ``blocks/event.html``:
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
         {% include_block value.heading %}
@@ -71,7 +71,7 @@ In this case, ``value.heading`` returns the plain string value rather than a ``B
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
         {% include_block value.bound_blocks.heading %}
@@ -82,7 +82,7 @@ In practice, it would probably be more natural and readable to make the ``<h1>``
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     <div class="event {% if value.heading == 'Party!' %}lots-of-balloons{% endif %}">
         <h1>{{ value.heading }}</h1>

@@ -171,8 +171,8 @@ Template tag libraries renamed
 
 The following template tag libraries have been renamed:
 
-* ``pageurl`` => ``wagtailcore_tags``
-* ``rich_text`` => ``wagtailcore_tags``
+* ``pageurl`` => ``wagtail``
+* ``rich_text`` => ``wagtail``
 * ``embed_filters`` => ``wagtailembeds_tags``
 * ``image_tags`` => ``wagtailimages_tags``
 

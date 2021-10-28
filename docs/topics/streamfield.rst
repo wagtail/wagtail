@@ -58,7 +58,7 @@ StreamField provides an HTML representation for the stream content as a whole, a
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
      ...
 
@@ -69,7 +69,7 @@ In the default rendering, each block of the stream is wrapped in a ``<div class=
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
      ...
 
@@ -84,7 +84,7 @@ For more control over the rendering of specific block types, each block object p
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
      ...
 
@@ -417,7 +417,7 @@ Since ``first_name``, ``surname``, ``photo`` and ``biography`` are defined as bl
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags wagtailimages_tags %}
+    {% load wagtail wagtailimages_tags %}
 
     <div class="person">
         {% image value.photo width-400 %}

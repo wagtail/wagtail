@@ -69,7 +69,7 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     <html>
         <head>
             <title>{{ page.title }}</title>

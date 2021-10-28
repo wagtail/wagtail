@@ -8,7 +8,7 @@ from django.utils.safestring import SafeString
 
 from wagtail.coreutils import resolve_model_string
 from wagtail.models import Locale, Page, Site, SiteRootPath
-from wagtail.templatetags.wagtailcore_tags import richtext, slugurl
+from wagtail.templatetags.wagtail import richtext, slugurl
 from wagtail.test.testapp.models import SimplePage
 
 

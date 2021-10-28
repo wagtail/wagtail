@@ -174,7 +174,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 ```html+django
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -185,7 +185,7 @@ Edit `home/templates/home/home_page.html` to contain the following:
 
 `base.html` refers to a parent template and must always be the first template tag used in a template. Extending from this template saves you from rewriting code and allows pages across your app to share a similar frame (by using block tags in the child template, you are able to override specific content within the parent template).
 
-`wagtailcore_tags` must also be loaded at the top of the template and provide additional tags to those provided by Django.
+`wagtail` must also be loaded at the top of the template and provide additional tags to those provided by Django.
 
 ![](../_static/images/tutorial/tutorial_3.png)
 
@@ -193,14 +193,14 @@ Edit `home/templates/home/home_page.html` to contain the following:
 
 In addition to Django's [template tags and filters](https://docs.djangoproject.com/en/3.1/ref/templates/builtins/),
 Wagtail provides a number of its own [template tags & filters](template-tags-and-filters)
-which can be loaded by including `{% load wagtailcore_tags %}` at the top of
+which can be loaded by including `{% load wagtail %}` at the top of
 your template file.
 
 In this tutorial, we use the _richtext_ filter to escape and print the contents
 of a `RichTextField`:
 
 ```html+django
-{% load wagtailcore_tags %}
+{% load wagtail %}
 {{ page.body|richtext }}
 ```
 
@@ -212,7 +212,7 @@ Produces:
 </p>
 ```
 
-**Note:** You'll need to include `{% load wagtailcore_tags %}` in each
+**Note:** You'll need to include `{% load wagtail %}` in each
 template that uses Wagtail's tags. Django will throw a `TemplateSyntaxError`
 if the tags aren't loaded.
 
@@ -250,7 +250,7 @@ with the following content:
 ```html+django
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
@@ -317,7 +317,7 @@ Create a template at `blog/templates/blog/blog_page.html`:
 ```html+django
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
@@ -530,7 +530,7 @@ Adjust your blog page template to include the images:
 ```html+django
 {% extends "base.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtail wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
 
@@ -589,7 +589,7 @@ class BlogPage(Page):
 This method is now available from our templates. Update `blog_index_page.html` to include the main image as a thumbnail alongside each post:
 
 ```html+django
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtail wagtailimages_tags %}
 
 ...
 
@@ -727,7 +727,7 @@ you need to create a template `blog/blog_tag_index_page.html`:
 
 ```html+django
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtail %}
 
 {% block content %}
 

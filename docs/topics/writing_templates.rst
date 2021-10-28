@@ -117,7 +117,7 @@ Only fields using ``RichTextField`` need this applied in the template.
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     ...
     {{ page.body|richtext }}
 
@@ -169,7 +169,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     ...
     <a href="{% pageurl page.get_parent %}">Back to index</a>
 
@@ -178,7 +178,7 @@ A ``fallback`` keyword argument can be provided - this can be a URL string, a na
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% for publication in page.related_publications.all %}
         <li>
@@ -200,7 +200,7 @@ Like ``pageurl``, this will try to provide a relative link if possible, but will
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
     ...
     <a href="{% slugurl 'news' %}">News index</a>
 
@@ -233,7 +233,7 @@ Returns the Site object corresponding to the current request.
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% wagtail_site as current_site %}
 

@@ -39,7 +39,7 @@ Then, on your page template, the ``{% include_block %}`` tag (called on either t
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% include_block page.body %}
 
@@ -47,7 +47,7 @@ Or:
 
 .. code-block:: html+django
 
-    {% load wagtailcore_tags %}
+    {% load wagtail %}
 
     {% for block in page.body %}
         {% if block.block_type == 'table' %}
