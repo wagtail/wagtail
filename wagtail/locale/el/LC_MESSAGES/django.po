@@ -1,3 +1,13 @@
+# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# George Giannoulopoulos <vdotoree@yahoo.gr>, 2021
+#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
 # #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -44,6 +54,19 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: George Giannoulopoulos <vdotoree@yahoo.gr>, 2021\n"
+"Language-Team: Greek (https://www.transifex.com/torchbox/teams/8009/el/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -84,6 +107,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#, fuzzy
+msgid "Yes, delete"
+msgstr ""
+"#-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Ναι, να γίνει διαγραφή\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Ναι, να διαγραφεί"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -160,9 +191,6 @@ msgstr "προφίλ χρήστη"
 
 msgid "Delete"
 msgstr "Διαγραφή"
-
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
 
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"

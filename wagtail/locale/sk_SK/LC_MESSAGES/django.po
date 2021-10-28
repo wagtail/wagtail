@@ -1,3 +1,13 @@
+# #-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+# Translators:
+# Martin Janšto <mato@jansto.sk>, 2021
+#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
 # #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
@@ -35,6 +45,21 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2020-10-23 10:41+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>, 2021\n"
+"Language-Team: Slovak (Slovakia) (https://www.transifex.com/torchbox/"
+"teams/8009/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -78,6 +103,14 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+#, fuzzy
+msgid "Yes, delete"
+msgstr ""
+"#-#-#-#-#  django.po (PACKAGE VERSION)  #-#-#-#-#\n"
+"Áno, vymazať\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Áno, zmazať"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr "Povinné. 30 znakov alebo menej. Písmená, číslice a len znaky @/./+/-/_"
@@ -155,9 +188,6 @@ msgstr "používatelský profil"
 
 msgid "Delete"
 msgstr "Vymazať"
-
-msgid "Yes, delete"
-msgstr "Áno, zmazať"
 
 msgid "Delete group"
 msgstr "Vymazať skupinu"

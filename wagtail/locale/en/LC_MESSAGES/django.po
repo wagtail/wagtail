@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 19:32+0100\n"
+"POT-Creation-Date: 2021-10-28 19:34+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,8 +66,8 @@ msgstr ""
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:7
 #: templates/wagtailusers/groups/includes/formatted_permissions.html:19
 #: templates/wagtailusers/groups/includes/page_permissions_form.html:13
-#: users/views/bulk_actions/delete.py:9 users/wagtail_hooks.py:130
-#: wagtail_hooks/admin.py:258 wagtail_hooks/core.py:97
+#: users/views/bulk_actions/delete.py:9 wagtail_hooks/admin.py:258
+#: wagtail_hooks/core.py:97 wagtail_hooks/users.py:133
 msgid "Delete"
 msgstr ""
 
@@ -225,8 +225,8 @@ msgstr ""
 #: templates/wagtailadmin/home/recent_edits.html:28
 #: templates/wagtailadmin/home/workflow_pages_to_moderate.html:42
 #: templates/wagtailadmin/pages/revisions/_actions.html:7
-#: users/wagtail_hooks.py:128 wagtail_hooks/admin.py:168
-#: wagtail_hooks/core.py:96
+#: wagtail_hooks/admin.py:168 wagtail_hooks/core.py:96
+#: wagtail_hooks/users.py:131
 msgid "Edit"
 msgstr ""
 
@@ -240,6 +240,14 @@ msgstr ""
 
 #: admin/forms/comments.py:25 admin/forms/comments.py:47
 msgid "You cannot edit another user's comment."
+msgstr ""
+
+#: admin/forms/locales.py:10 admin/views/locales.py:39
+msgid "Language"
+msgstr ""
+
+#: admin/forms/locales.py:27
+msgid "Select a new language"
 msgstr ""
 
 #: admin/forms/pages.py:21
@@ -831,7 +839,7 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: admin/views/groups.py:55 users/wagtail_hooks.py:89
+#: admin/views/groups.py:55 wagtail_hooks/users.py:92
 msgid "Groups"
 msgstr ""
 
@@ -878,6 +886,59 @@ msgstr ""
 #: admin/views/groups.py:153
 #: templates/wagtailusers/groups/confirm_delete.html:23
 msgid "Are you sure you want to delete this group?"
+msgstr ""
+
+#: admin/views/locales.py:31 locales/wagtail_hooks.py:25
+msgid "Locales"
+msgstr ""
+
+#: admin/views/locales.py:32
+msgid "Add a locale"
+msgstr ""
+
+#: admin/views/locales.py:41
+msgid "Usage"
+msgstr ""
+
+#: admin/views/locales.py:46
+msgid "Add locale"
+msgstr ""
+
+#: admin/views/locales.py:47
+#, python-brace-format
+msgid "Locale '{0}' created."
+msgstr ""
+
+#: admin/views/locales.py:52
+#, python-brace-format
+msgid "Locale '{0}' updated."
+msgstr ""
+
+#: admin/views/locales.py:53
+msgid "The locale could not be saved due to errors."
+msgstr ""
+
+#: admin/views/locales.py:54 admin/views/locales.py:62
+msgid "Delete locale"
+msgstr ""
+
+#: admin/views/locales.py:61
+#, python-brace-format
+msgid "Locale '{0}' deleted."
+msgstr ""
+
+#: admin/views/locales.py:63
+msgid "Are you sure you want to delete this locale?"
+msgstr ""
+
+#: admin/views/locales.py:70
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+
+#: admin/views/locales.py:76
+msgid ""
+"This locale cannot be deleted because there are pages and/or other objects "
+"using it."
 msgstr ""
 
 #: admin/views/pages/bulk_actions/delete.py:10
@@ -1640,6 +1701,10 @@ msgstr ""
 
 #: forms.py:18
 msgid "The password you have entered is not correct. Please try again."
+msgstr ""
+
+#: locales/apps.py:8
+msgid "Wagtail locales"
 msgstr ""
 
 #: models/admin.py:29
@@ -2630,6 +2695,7 @@ msgstr ""
 #: templates/wagtailadmin/generic/confirm_delete.html:8
 #: templates/wagtailadmin/pages/bulk_actions/confirm_bulk_delete.html:42
 #: templates/wagtailadmin/workflows/confirm_delete.html:13
+#: templates/wagtaillocales/confirm_delete.html:13
 #: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:33
 #: templates/wagtailusers/groups/confirm_delete.html:26
 #: templates/wagtailusers/users/confirm_delete.html:13
@@ -4428,6 +4494,21 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
+#: templates/wagtaillocales/_language_title_cell.html:7
+msgid "This locale's language code is not supported"
+msgstr ""
+
+#: templates/wagtaillocales/confirm_delete.html:14
+#: templates/wagtaillocales/confirm_delete.html:19
+msgid "Back"
+msgstr ""
+
+#: templates/wagtaillocales/edit.html:7
+msgid ""
+"This locale's current language code is not supported. Please choose a new "
+"language or delete this locale."
+msgstr ""
+
 #: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:4
 #, python-format
 msgid "Assign role to 1 user "
@@ -4594,8 +4675,8 @@ msgid "Roles"
 msgstr ""
 
 #: templates/wagtailusers/users/index.html:3
-#: templates/wagtailusers/users/index.html:24 users/wagtail_hooks.py:70
-#: users/wagtail_hooks.py:120
+#: templates/wagtailusers/users/index.html:24 wagtail_hooks/users.py:73
+#: wagtail_hooks/users.py:123
 msgid "Users"
 msgstr ""
 
@@ -4695,11 +4776,11 @@ msgstr ""
 msgid "Wagtail search tests"
 msgstr ""
 
-#: test/settings.py:243 tests/test_locale_model.py:57 tests/test_utils.py:194
+#: test/settings.py:242 tests/test_locale_model.py:57 tests/test_utils.py:194
 msgid "English"
 msgstr ""
 
-#: test/settings.py:244 tests/test_locale_model.py:57
+#: test/settings.py:243 tests/test_locale_model.py:57
 msgid "French"
 msgstr ""
 
@@ -4766,14 +4847,6 @@ msgid "%(num_parent_objects)d user has been marked as inactive"
 msgid_plural "%(num_parent_objects)d users have been marked as inactive"
 msgstr[0] ""
 msgstr[1] ""
-
-#: users/wagtail_hooks.py:128
-msgid "Edit this user"
-msgstr ""
-
-#: users/wagtail_hooks.py:130
-msgid "Delete this user"
-msgstr ""
 
 #: wagtail_hooks/admin.py:170
 #, python-format
@@ -5255,4 +5328,12 @@ msgstr ""
 
 #: wagtail_hooks/core.py:458
 msgid "Workflow cancelled"
+msgstr ""
+
+#: wagtail_hooks/users.py:131
+msgid "Edit this user"
+msgstr ""
+
+#: wagtail_hooks/users.py:133
+msgid "Delete this user"
 msgstr ""
