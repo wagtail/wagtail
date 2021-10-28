@@ -18,7 +18,7 @@ from django.utils.timezone import make_aware
 from taggit.models import Tag
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
@@ -1343,12 +1343,14 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        result = (
-            SnippetChooserPanel("advert")
-            .bind_to(model=SnippetChooserModel)
-            .target_model
+        edit_handler = ObjectList([SnippetChooserPanel("advert")]).bind_to(
+            model=SnippetChooserModel
         )
-        self.assertEqual(result, Advert)
+        form_class = edit_handler.get_form_class()
+        form = form_class()
+        widget = form.fields["advert"].widget
+        self.assertIsInstance(widget, AdminSnippetChooser)
+        self.assertEqual(widget.target_model, Advert)
 
 
 class TestSnippetRegistering(TestCase):
@@ -2199,12 +2201,14 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        result = (
-            SnippetChooserPanel("advertwithcustomprimarykey")
-            .bind_to(model=SnippetChooserModelWithCustomPrimaryKey)
-            .target_model
-        )
-        self.assertEqual(result, AdvertWithCustomPrimaryKey)
+        edit_handler = ObjectList(
+            [SnippetChooserPanel("advertwithcustomprimarykey")]
+        ).bind_to(model=SnippetChooserModelWithCustomPrimaryKey)
+        form_class = edit_handler.get_form_class()
+        form = form_class()
+        widget = form.fields["advertwithcustomprimarykey"].widget
+        self.assertIsInstance(widget, AdminSnippetChooser)
+        self.assertEqual(widget.target_model, AdvertWithCustomPrimaryKey)
 
 
 class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):
