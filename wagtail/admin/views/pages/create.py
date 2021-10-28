@@ -15,7 +15,7 @@ from wagtail.admin import messages, signals
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.models import Locale, Page, PageSubscription, UserPagePermissionsProxy
+from wagtail.models import Locale, Page, UserPagePermissionsProxy, commenting
 
 
 def add_subpage(request, parent_page_id):
@@ -91,7 +91,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.form_class = self.edit_handler.get_form_class()
 
         # Note: Comment notifications should be enabled by default for pages that a user creates
-        self.subscription = PageSubscription(page=self.page, user=self.request.user, comment_notifications=True)
+        self.subscription = commenting.PageSubscription(page=self.page, user=self.request.user, comment_notifications=True)
 
         self.next_url = get_valid_next_url_from_request(self.request)
 

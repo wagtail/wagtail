@@ -19,7 +19,7 @@ from django.utils import timezone, translation
 from freezegun import freeze_time
 
 from wagtail.models import (
-    Comment, Locale, Page, PageManager, ParentNotTranslatedError, Site, get_page_models,
+    Locale, Page, PageManager, ParentNotTranslatedError, Site, commenting, get_page_models,
     get_translatable_models, logging)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -1149,7 +1149,7 @@ class TestCopyPage(TestCase):
     def test_copy_page_does_not_copy_comments(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
 
-        christmas_event.wagtail_admin_comments = [Comment(text='test', user=christmas_event.owner)]
+        christmas_event.wagtail_admin_comments = [commenting.Comment(text='test', user=christmas_event.owner)]
         christmas_event.save()
 
         # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields

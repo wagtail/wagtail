@@ -21,9 +21,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
-from wagtail.models import (
-    COMMENTS_RELATION_NAME, Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy,
-    workflows)
+from wagtail.models import Page, UserPagePermissionsProxy, commenting, workflows
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -134,23 +132,23 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return
 
         # Get global page comment subscribers
-        subscribers = PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
+        subscribers = commenting.PageSubscription.objects.filter(page=self.page, comment_notifications=True).select_related('user')
         global_recipient_users = [subscriber.user for subscriber in subscribers if subscriber.user != self.request.user]
 
         # Get subscribers to individual threads
-        replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
-        comments = Comment.objects.filter(id__in=relevant_comment_ids)
+        replies = commenting.CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
+        comments = commenting.Comment.objects.filter(id__in=relevant_comment_ids)
         thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
             Prefetch('comment_replies', queryset=replies),
-            Prefetch(COMMENTS_RELATION_NAME, queryset=comments)
+            Prefetch(commenting.COMMENTS_RELATION_NAME, queryset=comments)
         ).exclude(
-            Q(comment_replies__isnull=True) & Q(**{('%s__isnull' % COMMENTS_RELATION_NAME): True})
+            Q(comment_replies__isnull=True) & Q(**{('%s__isnull' % commenting.COMMENTS_RELATION_NAME): True})
         )
 
         # Skip if no recipients
         if not (global_recipient_users or thread_users):
             return
-        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(getattr(user, COMMENTS_RELATION_NAME).values_list('pk', flat=True)))) for user in thread_users]
+        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(getattr(user, commenting.COMMENTS_RELATION_NAME).values_list('pk', flat=True)))) for user in thread_users]
         mailed_users = set()
 
         for current_user, current_threads in thread_users:
@@ -305,9 +303,9 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return response
 
         try:
-            self.subscription = PageSubscription.objects.get(page=self.page, user=self.request.user)
-        except PageSubscription.DoesNotExist:
-            self.subscription = PageSubscription(page=self.page, user=self.request.user, comment_notifications=False)
+            self.subscription = commenting.PageSubscription.objects.get(page=self.page, user=self.request.user)
+        except commenting.PageSubscription.DoesNotExist:
+            self.subscription = commenting.PageSubscription(page=self.page, user=self.request.user, comment_notifications=False)
 
         self.edit_handler = self.page_class.get_edit_handler()
         self.edit_handler = self.edit_handler.bind_to(instance=self.page, request=self.request)

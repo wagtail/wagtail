@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-from wagtail.models import COMMENTS_RELATION_NAME
+import wagtail.models.commenting
 
 
 class Migration(migrations.Migration):
@@ -25,10 +25,10 @@ class Migration(migrations.Migration):
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('resolved_at', models.DateTimeField(blank=True, null=True)),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name=COMMENTS_RELATION_NAME, to='wagtailcore.Page')),
+                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name=wagtail.models.commenting.COMMENTS_RELATION_NAME, to='wagtailcore.Page')),
                 ('resolved_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='comments_resolved', to=settings.AUTH_USER_MODEL)),
                 ('revision_created', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_comments', to='wagtailcore.PageRevision')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name=COMMENTS_RELATION_NAME, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name=wagtail.models.commenting.COMMENTS_RELATION_NAME, to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'comment',

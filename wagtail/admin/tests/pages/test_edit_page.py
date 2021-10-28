@@ -17,8 +17,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
-    Comment, CommentReply, GroupPagePermission, Locale, Page, PageRevision, PageSubscription, Site,
-    UserProfile, logging)
+    GroupPagePermission, Locale, Page, PageRevision, Site, UserProfile, commenting, logging)
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES, Advert, AdvertPlacement, EventCategory, EventPage,
@@ -2004,7 +2003,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         self.assertContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications">')
 
     def test_commment_notifications_switched_on(self):
-        PageSubscription.objects.create(
+        commenting.PageSubscription.objects.create(
             page=self.child_page,
             user=self.user,
             comment_notifications=True
@@ -2034,7 +2033,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
 
     def test_post_with_comment_notifications_switched_off(self):
         # Switch on comment notifications so we can test switching them off
-        subscription = PageSubscription.objects.create(
+        subscription = commenting.PageSubscription.objects.create(
             page=self.child_page,
             user=self.user,
             comment_notifications=True
@@ -2071,7 +2070,7 @@ class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the subscription
-        self.assertFalse(PageSubscription.objects.get().comment_notifications)
+        self.assertFalse(commenting.PageSubscription.objects.get().comment_notifications)
 
 
 class TestCommenting(TestCase, WagtailTestUtils):
@@ -2100,13 +2099,13 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.non_subscriber = self.create_user('non-subscriber')
         self.non_subscriber_2 = self.create_user('non-subscriber-2')
 
-        PageSubscription.objects.create(
+        commenting.PageSubscription.objects.create(
             page=self.child_page,
             user=self.user,
             comment_notifications=True
         )
 
-        PageSubscription.objects.create(
+        commenting.PageSubscription.objects.create(
             page=self.child_page,
             user=self.subscriber,
             comment_notifications=True
@@ -2157,7 +2156,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
 
     def test_edit_comment(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.user,
             text="A test comment",
@@ -2205,7 +2204,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
 
     def test_edit_another_users_comment(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.subscriber,
             text="A test comment",
@@ -2244,7 +2243,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertFalse(logging.PageLogEntry.objects.filter(action='wagtail.comments.edit').exists())
 
     def test_resolve_comment(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.non_subscriber,
             text="A test comment",
@@ -2300,7 +2299,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
 
     def test_delete_comment(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.user,
             text="A test comment",
@@ -2350,14 +2349,14 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['comment']['text'], comment.text)
 
     def test_new_reply(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.non_subscriber,
             text="A test comment",
             contentpath="title",
         )
 
-        reply = CommentReply.objects.create(
+        reply = commenting.CommentReply.objects.create(
             comment=comment,
             user=self.non_subscriber_2,
             text='an old reply'
@@ -2421,14 +2420,14 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['reply']['text'], 'a new reply')
 
     def test_edit_reply(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.non_subscriber,
             text="A test comment",
             contentpath="title",
         )
 
-        reply = CommentReply.objects.create(
+        reply = commenting.CommentReply.objects.create(
             comment=comment,
             user=self.user,
             text='an old reply'
@@ -2479,14 +2478,14 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(log_entry.data['reply']['text'], 'an edited reply')
 
     def test_delete_reply(self):
-        comment = Comment.objects.create(
+        comment = commenting.Comment.objects.create(
             page=self.child_page,
             user=self.non_subscriber,
             text="A test comment",
             contentpath="title",
         )
 
-        reply = CommentReply.objects.create(
+        reply = commenting.CommentReply.objects.create(
             comment=comment,
             user=self.user,
             text='an old reply'

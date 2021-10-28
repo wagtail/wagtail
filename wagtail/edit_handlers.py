@@ -25,7 +25,7 @@ from wagtail.admin.forms.models import (
 from wagtail.admin.forms.pages import WagtailAdminPageForm
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.fields import RichTextField
-from wagtail.models import COMMENTS_RELATION_NAME, Page
+from wagtail.models import Page, commenting
 from wagtail.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.utils.decorators import cached_classmethod
 
@@ -851,7 +851,7 @@ class CommentPanel(EditHandler):
                 }
 
         return {
-            COMMENTS_RELATION_NAME: {
+            commenting.COMMENTS_RELATION_NAME: {
                 'form': CommentFormWithRequest,
                 'fields': ['text', 'contentpath', 'position'],
                 'formset_name': 'comments',

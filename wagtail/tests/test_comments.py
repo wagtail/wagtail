@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from wagtail.models import Comment, Page
+from wagtail.models import Page, commenting
 
 
 class CommentTestingUtils:
@@ -11,7 +11,7 @@ class CommentTestingUtils:
         self.revision_2 = self.page.save_revision()
 
     def create_comment(self, revision_created):
-        return Comment.objects.create(
+        return commenting.Comment.objects.create(
             page=self.page,
             user=get_user_model().objects.first(),
             text='test',
@@ -39,5 +39,5 @@ class TestRevisionDeletion(CommentTestingUtils, TestCase):
     def test_deleting_most_recent_revision_deletes_created_comments(self):
         # test that when the most recent revision is deleted, any comments created on it are also deleted
         self.revision_3.delete()
-        with self.assertRaises(Comment.DoesNotExist):
+        with self.assertRaises(commenting.Comment.DoesNotExist):
             self.new_comment.refresh_from_db()

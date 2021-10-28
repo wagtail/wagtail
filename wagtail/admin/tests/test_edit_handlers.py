@@ -21,7 +21,7 @@ from wagtail.edit_handlers import (
     RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
     get_form_for_model)
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.models import Comment, CommentReply, Page, Site
+from wagtail.models import Page, Site, commenting
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     DefaultStreamPage, EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
@@ -1084,9 +1084,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.tabbed_interface = TabbedInterface([self.object_list])
         self.EventPageForm = self.object_list.get_form_class()
         self.event_page = EventPage.objects.get(slug='christmas')
-        self.comment = Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
-        self.reply_1 = CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
-        self.reply_2 = CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
+        self.comment = commenting.Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
+        self.reply_1 = commenting.CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
+        self.reply_2 = commenting.CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
 
     def test_comments_toggle_enabled(self):
         """
@@ -1252,7 +1252,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         comment_form = form.formsets['comments'].forms[0]
         self.assertTrue(comment_form.is_valid())
         comment_form.save()
-        resolved_comment = Comment.objects.get(pk=self.comment.pk)
+        resolved_comment = commenting.Comment.objects.get(pk=self.comment.pk)
         self.assertEqual(resolved_comment.resolved_by, self.commenting_user)
 
         if settings.USE_TZ:
