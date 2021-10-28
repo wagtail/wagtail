@@ -80,7 +80,7 @@ jobs:
             notz: notz
             experimental: false
           - python: "3.9"
-            django: "git+https://github.com/django/django.git@stable/3.2.x#egg=Django"
+            django: "git+https://github.com/django/django.git@stable/4.0.x#egg=Django"
             experimental: true
           - python: "3.10"
             django: "git+https://github.com/django/django.git@main#egg=Django"
