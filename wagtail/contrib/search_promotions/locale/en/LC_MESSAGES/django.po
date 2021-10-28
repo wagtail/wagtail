@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2021-10-28 19:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,24 +16,39 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps.py:8
 msgid "Wagtail search promotions"
 msgstr ""
 
-#: forms.py:33
+#: forms.py:10
+msgid "Search term(s)/phrase"
+msgstr ""
+
+#: forms.py:11
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+
+#: forms.py:40
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
 
-#: models.py:9
+#: models.py:75 models.py:76
+msgid "Query Daily Hits"
+msgstr ""
+
+#: models.py:81
 msgid "page"
 msgstr ""
 
-#: models.py:11
+#: models.py:83
 msgid "description"
 msgstr ""
 
-#: models.py:21
+#: models.py:93
 msgid "search promotion"
 msgstr ""
 
@@ -190,30 +205,32 @@ msgid ""
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
 
-#: views.py:67
+#: views.py:66
 msgid "Search promoted results"
 msgstr ""
 
-#: views.py:126
+#: views.py:125
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr ""
 
-#: views.py:127 views.py:166
+#: views.py:126 views.py:165
 msgid "Edit"
 msgstr ""
 
-#: views.py:136
+#: views.py:135
 msgid "Recommendations have not been created due to errors"
 msgstr ""
 
-#: views.py:165
+#: views.py:164
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr ""
 
-#: views.py:174
+#: views.py:173
 msgid "Recommendations have not been saved due to errors"
 msgstr ""
 
-#: views.py:199
+#: views.py:198
 msgid "Editor's picks deleted."
 msgstr ""

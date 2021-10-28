@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2021-10-28 19:22+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: apps.py:8
 msgid "Wagtail users"
@@ -79,68 +80,6 @@ msgstr ""
 
 #: forms.py:315
 msgid "You cannot have multiple permission records for the same page."
-msgstr ""
-
-#: models.py:25
-msgid "submitted notifications"
-msgstr ""
-
-#: models.py:27
-msgid "Receive notification when a page is submitted for moderation"
-msgstr ""
-
-#: models.py:31
-msgid "approved notifications"
-msgstr ""
-
-#: models.py:33
-msgid "Receive notification when your page edit is approved"
-msgstr ""
-
-#: models.py:37
-msgid "rejected notifications"
-msgstr ""
-
-#: models.py:39
-msgid "Receive notification when your page edit is rejected"
-msgstr ""
-
-#: models.py:43
-msgid "updated comments notifications"
-msgstr ""
-
-#: models.py:45
-msgid ""
-"Receive notification when comments have been created, resolved, or deleted "
-"on a page that you have subscribed to receive comment notifications on"
-msgstr ""
-
-#: models.py:49
-msgid "preferred language"
-msgstr ""
-
-#: models.py:51
-msgid "Select language for the admin"
-msgstr ""
-
-#: models.py:56
-msgid "current time zone"
-msgstr ""
-
-#: models.py:58
-msgid "Select your current time zone"
-msgstr ""
-
-#: models.py:63
-msgid "profile picture"
-msgstr ""
-
-#: models.py:82
-msgid "user profile"
-msgstr ""
-
-#: models.py:83
-msgid "user profiles"
 msgstr ""
 
 #: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:4
@@ -515,10 +454,12 @@ msgid "Search groups"
 msgstr ""
 
 #: views/groups.py:77
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr ""
 
 #: views/groups.py:113
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr ""
 
@@ -527,6 +468,7 @@ msgid "The group could not be saved due to errors."
 msgstr ""
 
 #: views/groups.py:151
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr ""
 
@@ -535,6 +477,7 @@ msgid "Search users"
 msgstr ""
 
 #: views/users.py:144
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr ""
 
@@ -547,6 +490,7 @@ msgid "The user could not be created due to errors."
 msgstr ""
 
 #: views/users.py:183
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
@@ -555,6 +499,7 @@ msgid "The user could not be saved due to errors."
 msgstr ""
 
 #: views/users.py:218
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""
 
