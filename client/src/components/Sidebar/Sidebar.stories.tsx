@@ -9,7 +9,7 @@ import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { initFocusOutline } from '../../utils/focus';
 
-import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
+import '../../../../wagtail/static/wagtailadmin/css/sidebar.css';
 import { CustomBrandingModuleDefinition } from './modules/CustomBranding';
 
 export default { title: 'Sidebar/Sidebar', parameters: { layout: 'fullscreen' } };
