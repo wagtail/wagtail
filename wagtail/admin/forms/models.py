@@ -6,9 +6,26 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
+from wagtail.core.models import Page
 
 # Form field properties to override whenever we encounter a model field
 # that matches one of these types - including subclasses
+
+
+# Overrides that should take effect for foreign key fields to a given model
+FOREIGN_KEY_MODEL_OVERRIDES = {
+    Page: {"widget": widgets.AdminPageChooser},
+}
+
+
+def _get_foreign_key_overrides(db_field):
+    target_model = db_field.remote_field.model
+    for model in target_model.mro():
+        if model in FOREIGN_KEY_MODEL_OVERRIDES:
+            return FOREIGN_KEY_MODEL_OVERRIDES[model]
+
+    # no override found for the given model
+    return {}
 
 
 def _get_tag_field_overrides(db_field):
@@ -16,6 +33,7 @@ def _get_tag_field_overrides(db_field):
 
 
 FORM_FIELD_OVERRIDES = {
+    models.ForeignKey: _get_foreign_key_overrides,
     models.DateField: {"widget": widgets.AdminDateInput},
     models.TimeField: {"widget": widgets.AdminTimeInput},
     models.DateTimeField: {"widget": widgets.AdminDateTimeInput},
