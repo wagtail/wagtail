@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-28 19:34+0100\n"
+"POT-Creation-Date: 2021-10-28 19:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -347,6 +347,14 @@ msgstr ""
 
 #: admin/forms/search.py:12
 msgid "Search term"
+msgstr ""
+
+#: admin/forms/sites.py:12
+msgid "Choose a root page"
+msgstr ""
+
+#: admin/forms/sites.py:12
+msgid "Choose a different root page"
 msgstr ""
 
 #: admin/forms/users.py:42
@@ -888,7 +896,7 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr ""
 
-#: admin/views/locales.py:31 locales/wagtail_hooks.py:25
+#: admin/views/locales.py:31 wagtail_hooks/locales.py:25
 msgid "Locales"
 msgstr ""
 
@@ -1420,6 +1428,57 @@ msgstr ""
 
 #: admin/views/reports/workflows.py:124
 msgid "Requested By"
+msgstr ""
+
+#: admin/views/sites.py:12 sites/wagtail_hooks.py:25
+msgid "Sites"
+msgstr ""
+
+#: admin/views/sites.py:13
+msgid "Add a site"
+msgstr ""
+
+#: admin/views/sites.py:17
+msgid "Site"
+msgstr ""
+
+#: admin/views/sites.py:21
+msgid "Default?"
+msgstr ""
+
+#: admin/views/sites.py:21 models/pages.py:2114
+msgid "Default"
+msgstr ""
+
+#: admin/views/sites.py:26
+msgid "Add site"
+msgstr ""
+
+#: admin/views/sites.py:27
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr ""
+
+#: admin/views/sites.py:32
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr ""
+
+#: admin/views/sites.py:33
+msgid "The site could not be saved due to errors."
+msgstr ""
+
+#: admin/views/sites.py:34 admin/views/sites.py:41
+msgid "Delete site"
+msgstr ""
+
+#: admin/views/sites.py:40
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr ""
+
+#: admin/views/sites.py:42
+msgid "Are you sure you want to delete this site?"
 msgstr ""
 
 #: admin/views/users.py:85 admin/views/users.py:93
@@ -2012,10 +2071,6 @@ msgstr ""
 msgid "live + in moderation"
 msgstr ""
 
-#: models/pages.py:2114
-msgid "Default"
-msgstr ""
-
 #: models/pages.py:2440 models/pages.py:2460 models/pages.py:2738
 #: models/pages.py:3157 models/pages.py:3214 models/workflows.py:346
 msgid "page"
@@ -2367,6 +2422,10 @@ msgstr ""
 
 #: models/workflows.py:813
 msgid "Task states"
+msgstr ""
+
+#: sites/apps.py:8
+msgid "Wagtail sites"
 msgstr ""
 
 #: templates/wagtailadmin/404.html:3
@@ -4776,11 +4835,11 @@ msgstr ""
 msgid "Wagtail search tests"
 msgstr ""
 
-#: test/settings.py:242 tests/test_locale_model.py:57 tests/test_utils.py:194
+#: test/settings.py:241 tests/test_locale_model.py:57 tests/test_utils.py:194
 msgid "English"
 msgstr ""
 
-#: test/settings.py:243 tests/test_locale_model.py:57
+#: test/settings.py:242 tests/test_locale_model.py:57
 msgid "French"
 msgstr ""
 
