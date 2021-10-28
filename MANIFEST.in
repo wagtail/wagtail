@@ -1,5 +1,5 @@
 include LICENSE *.rst *.txt *.md
 graft wagtail
-prune wagtail/wagtailadmin/static_src
+prune wagtail/static_src
 global-exclude __pycache__
 global-exclude *.py[co]

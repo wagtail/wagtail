@@ -73,7 +73,7 @@ class sdist(base_sdist, assets_mixin):
 class check_bdist_egg(bdist_egg):
 
     # If this file does not exist, warn the user to compile the assets
-    sentinel_dir = 'wagtail/wagtailadmin/static/'
+    sentinel_dir = 'wagtail/static/'
 
     def run(self):
         bdist_egg.run(self)

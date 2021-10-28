@@ -9,7 +9,7 @@ def css_install_check(app_configs, **kwargs):
     errors = []
 
     css_path = os.path.join(
-        os.path.dirname(__file__), 'static', 'wagtailadmin', 'css', 'normalize.css'
+        os.path.dirname(os.path.dirname(__file__)), 'static', 'wagtailadmin', 'css', 'normalize.css'
     )
 
     if not os.path.isfile(css_path):

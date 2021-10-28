@@ -24,7 +24,7 @@
       "node"
     ],
     "moduleNameMapper": {
-      "jquery": "<rootDir>/wagtail/admin/static_src/wagtailadmin/js/vendor/jquery-3.6.0.min.js"
+      "jquery": "<rootDir>/wagtail/static_src/wagtailadmin/js/vendor/jquery-3.6.0.min.js"
     },
     "transform": {
       "^.+\\.(js|ts|tsx)$": "ts-jest"
