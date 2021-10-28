@@ -88,4 +88,44 @@ describe('version.VersionNumber', () => {
     expect(result.major).toBe(13);
     expect(result.patch).toBe(1);
   });
+
+  it('initialises prerelease 2.0a0', () => {
+    const result = new VersionNumber('2.0a0');
+
+    expect(result.epic).toBe(2);
+    expect(result.major).toBe(0);
+    expect(result.patch).toBe(0);
+    expect(result.preRelease).toBe('a');
+    expect(result.preReleaseVersion).toBe(0);
+  });
+
+  it('initialises prerelease 2.12a1', () => {
+    const result = new VersionNumber('2.12a1');
+
+    expect(result.epic).toBe(2);
+    expect(result.major).toBe(12);
+    expect(result.patch).toBe(0);
+    expect(result.preRelease).toBe('a');
+    expect(result.preReleaseVersion).toBe(1);
+  });
+
+  it('initialises prerelease 2.12b2', () => {
+    const result = new VersionNumber('2.12b2');
+
+    expect(result.epic).toBe(2);
+    expect(result.major).toBe(12);
+    expect(result.patch).toBe(0);
+    expect(result.preRelease).toBe('b');
+    expect(result.preReleaseVersion).toBe(2);
+  });
+
+  it('initialises prerelease 2.12rc23', () => {
+    const result = new VersionNumber('2.12rc23');
+
+    expect(result.epic).toBe(2);
+    expect(result.major).toBe(12);
+    expect(result.patch).toBe(0);
+    expect(result.preRelease).toBe('rc');
+    expect(result.preReleaseVersion).toBe(23);
+  });
 });
