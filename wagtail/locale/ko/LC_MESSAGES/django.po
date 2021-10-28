@@ -4,6 +4,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Jihan Chung <jihanchung20@gmail.com>, 2015
+# Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Jihan Chung <jihanchung20@gmail.com>, 2019
 # Jihan Chung <jihanchung20@gmail.com>, 2015
 # Kyungil Choi <hanpama@gmail.com>, 2015,2017-2020
@@ -20,6 +30,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
+"ko/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -47,6 +71,300 @@ msgstr ""
 "Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Wagtail users"
+msgstr "웨그테일 사용자"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "필수사항. 30자 이하. 문자, 숫자 및 @/./+/-/_ 만 가능."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "이 값에는 오직 문자, 숫자 및 @/./+/-/_ 만 포함될 수 있습니다."
+
+msgid "A user with that username already exists."
+msgstr "이 사용자명은 이미 사용되고 있습니다."
+
+msgid "The two password fields didn't match."
+msgstr "두 개의 비밀번호가 일치하지 않습니다."
+
+msgid "Email"
+msgstr "이메일"
+
+msgid "First Name"
+msgstr "이름"
+
+msgid "Last Name"
+msgstr "성"
+
+msgid "Password"
+msgstr "비밀번호"
+
+msgid "Leave blank if not changing."
+msgstr "변경되지 않았으면 빈 칸으로 남겨 두시기 바랍니다"
+
+msgid "Password confirmation"
+msgstr "비밀번호 확인"
+
+msgid "Enter the same password as above, for verification."
+msgstr "확인을 위해, 위의 비밀번호를 똑같이 적어주시기 바랍니다."
+
+msgid "Administrator"
+msgstr "관리자"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "관리자에게는 모든 객체나 설정을 관리할 수 있는 권한이 있습니다."
+
+msgid "A group with that name already exists."
+msgstr "해당 이름의 그룹은 이미 사용되고 있습니다."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "같은 페이지에 대해서 여러 개의 권한을 설정할 수는 없습니다."
+
+msgid "submitted notifications"
+msgstr "제출 알림"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "페이지가 검토를 위해 제출되었을 때 알림을 받습니다"
+
+msgid "approved notifications"
+msgstr "승인 알림"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "당신의 페이지 수정 건이 승인 되었을때 알림을 받습니다"
+
+msgid "rejected notifications"
+msgstr "거절 알림"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "당신의 페이지 수정 건이 거절되었을 때 알림을 받습니다"
+
+msgid "preferred language"
+msgstr "선호하는 언어"
+
+msgid "Select language for the admin"
+msgstr "관리자에서 사용할 언어를 선택하세요"
+
+msgid "current time zone"
+msgstr "현재 타임존"
+
+msgid "Select your current time zone"
+msgstr "현재 타임존 선택"
+
+msgid "profile picture"
+msgstr "프로필 사진"
+
+msgid "user profile"
+msgstr "사용자 프로필"
+
+msgid "user profiles"
+msgstr "사용자 프로필"
+
+msgid "Delete"
+msgstr "삭제"
+
+#, fuzzy
+msgid "Yes, delete"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"네, 지우겠습니다.\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"네, 지우겠습니다"
+
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
+msgid "Delete group"
+msgstr "그룹 삭제"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"  %(group_name)s 그룹에는 %(group_user_count)s명의 구성원이 있습니다."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "이 그룹을 지우면 그룹 안의 모든 구성원들의 권한도 없어집니다."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "이 그룹을 정말 삭제할까요?"
+
+msgid "Add group"
+msgstr "그룹 추가"
+
+#, fuzzy
+msgid "Editing"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"수정중\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"수정"
+
+msgid "Save"
+msgstr "저장"
+
+msgid "Permissions"
+msgstr "권한"
+
+msgid "Object permissions"
+msgstr "오브젝트 권한"
+
+msgid "Name"
+msgstr "이름"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Change"
+msgstr "변화"
+
+msgid "Other permissions"
+msgstr "다른 권한"
+
+msgid "Page permissions"
+msgstr "페이지 권한"
+
+msgid "Page"
+msgstr "페이지"
+
+msgid "Add a page permission"
+msgstr "페이지 권한 추가"
+
+msgid "groups"
+msgstr "그룹"
+
+msgid "Add a group"
+msgstr "그룹 추가"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "죄송합니다. \"%(query)s\"에 해당하는 그룹은 없습니다"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"그룹이 설정되어 있지 않습니다. 지금 그룹을 <a href="
+"\"%(wagtailusers_create_group_url)s\">추가 하는건 어떨까요?"
+
+msgid "Delete user"
+msgstr "사용자 삭제"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "이 사용자를 확실히 삭제하시겠습니까?"
+
+msgid "Add user"
+msgstr "사용자 추가"
+
+msgid "Account"
+msgstr "계정"
+
+msgid "Roles"
+msgstr "역할"
+
+msgid "Users"
+msgstr "사용자"
+
+msgid "Add a user"
+msgstr "사용자 추가"
+
+msgid "Username"
+msgstr "사용자명"
+
+msgid "Level"
+msgstr "레벨"
+
+msgid "Status"
+msgstr "상태"
+
+msgid "Last Login"
+msgstr "최근 로그인"
+
+msgid "Admin"
+msgstr "관리자"
+
+msgid "Active"
+msgstr "활성화"
+
+msgid "Inactive"
+msgstr "비활성화"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            일치하는 %(counter)s개의 결과가 있습니다."
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "죄송합니다. \"<em>%(query_string)s</em>\" 와 연관된 사용자가 없습니다"
+
+msgid "Groups"
+msgstr "그룹"
+
+msgid "Search groups"
+msgstr "그룹 검색"
+
+msgid "Group '{0}' created."
+msgstr "'{0}' 그룹이 생성 되었습니다."
+
+msgid "Group '{0}' updated."
+msgstr "'{0}' 그룹이 업데이트 되었습니다"
+
+msgid "The group could not be saved due to errors."
+msgstr "에러로 인해 그룹이 생성될 수 없습니다."
+
+msgid "Group '{0}' deleted."
+msgstr "'{0}' 그룹이 삭제 되었습니다."
+
+msgid "Search users"
+msgstr "사용자 검색"
+
+msgid "User '{0}' created."
+msgstr "'{0}' 사용자가 생성되었습니다"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "The user could not be created due to errors."
+msgstr "에러로 인해 사용자를 생성할 수 없습니다."
+
+msgid "User '{0}' updated."
+msgstr "'{0}' 사용자가 업데이트 되었습니다."
+
+msgid "The user could not be saved due to errors."
+msgstr "에러로 인해 사용자를 저장할 수 없습니다."
+
+msgid "User '{0}' deleted."
+msgstr "'{0}' 사용자가 삭제되었습니다."
+
+msgid "Edit this user"
+msgstr "이 사용자를 수정"
+
+msgid "Delete this user"
+msgstr "이 사용자를 삭제"
+
 msgid "Publish"
 msgstr "게시"
 
@@ -55,9 +373,6 @@ msgstr "검토를 위한 제출"
 
 msgid "Unpublish"
 msgstr "게시 해제"
-
-msgid "Delete"
-msgstr "삭제"
 
 msgid "Lock"
 msgstr "잠금"
@@ -116,15 +431,6 @@ msgstr "선호하는 언어"
 msgid "Current time zone"
 msgstr "현재 타임존"
 
-msgid "First Name"
-msgstr "이름"
-
-msgid "Last Name"
-msgstr "성"
-
-msgid "Email"
-msgstr "이메일"
-
 msgid "Upload a profile picture"
 msgstr "프로필 사진 업로드"
 
@@ -149,12 +455,6 @@ msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없�
 
 msgid "Collection"
 msgstr "모음"
-
-msgid "Add"
-msgstr "추가"
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "New title"
 msgstr "새로운 제목"
@@ -243,9 +543,6 @@ msgstr ""
 msgid "Please select at least one group."
 msgstr "적어도 한 개의 그룹을 선택해 주세요."
 
-msgid "Page"
-msgstr "페이지"
-
 msgid "Pages"
 msgstr "페이지"
 
@@ -318,9 +615,6 @@ msgstr " '{title}' 페이지의 하위 페이지 보기"
 msgid "Page explorer"
 msgstr "페이지 탐색"
 
-msgid "Save"
-msgstr "저장"
-
 msgid "Saving..."
 msgstr "저장 중..."
 
@@ -341,9 +635,6 @@ msgstr "요청한 페이지를 찾을 수 없습니다."
 
 msgid "Go to Wagtail admin"
 msgstr "웨그테일 관리자로 이동"
-
-msgid "Account"
-msgstr "계정"
 
 msgid "Change password"
 msgstr "비밀번호 변경"
@@ -501,9 +792,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "이 모음을 삭제할 수 없습니다. 모음이 비어 있지 않습니다:"
 
-msgid "Name"
-msgstr "이름"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -521,9 +809,6 @@ msgstr "위로 이동"
 
 msgid "Move down"
 msgstr "아래로 이동"
-
-msgid "Yes, delete"
-msgstr "네, 지우겠습니다"
 
 msgid "Update"
 msgstr "업데이트"
@@ -578,9 +863,6 @@ msgstr "미리보기"
 
 msgid "Your most recent edits"
 msgstr "최신 수정된 기록"
-
-msgid "Status"
-msgstr "상태"
 
 msgid "Date"
 msgstr "날짜"
@@ -708,9 +990,6 @@ msgstr "새로운 페이지를 만들기 위한 선택"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s 를 사용한 페이지들"
 
-msgid "No, don't delete"
-msgstr "아니오, 지우지 않습니다"
-
 msgid "Move"
 msgstr "이동"
 
@@ -837,10 +1116,6 @@ msgstr "라이브 버전"
 
 msgid "Current draft"
 msgstr "현재 원고"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1245,9 +1520,6 @@ msgstr "라이브 + 초안"
 msgid "Test"
 msgstr "테스트"
 
-msgid "Password"
-msgstr "비밀번호"
-
 msgid "You have been successfully logged out."
 msgstr "성공적으로 로그아웃 되었습니다."
 
@@ -1277,9 +1549,6 @@ msgstr "'{0}' 모음이 삭제됨."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "이 모음을 지우려는 것이 확실한가요?"
-
-msgid "Editing"
-msgstr "수정"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
@@ -1635,9 +1904,6 @@ msgstr "페이지 보기 제한"
 
 msgid "name"
 msgstr "이름"
-
-msgid "groups"
-msgstr "그룹"
 
 msgid "collection"
 msgstr "모음"

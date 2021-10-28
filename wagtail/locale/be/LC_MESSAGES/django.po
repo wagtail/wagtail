@@ -4,6 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 # #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
@@ -16,6 +24,22 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
+"language/be/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: be\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -47,6 +71,288 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Абавязкова. 30 сімвалаў ці менш. Толькі літары, лічбы і знакі: @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Гэта значэнне можа складацца толькі з літар, лічбаў і знакаў: @/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "Карыстальнік з такім імем ужо існуе."
+
+msgid "The two password fields didn't match."
+msgstr "Два полі паролi не супадаюць."
+
+#, fuzzy
+msgid "Email"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Электронная пошта\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Адрас электроннай пошты"
+
+msgid "First Name"
+msgstr "Імя"
+
+msgid "Last Name"
+msgstr "Прозвішча"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Leave blank if not changing."
+msgstr "Пакіньце поле пустым, калі не мяняецца."
+
+msgid "Password confirmation"
+msgstr "Зацвердзіце пароль"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Калі ласка, увядзіце для праверкі той жа пароль, як паказана вышэй."
+
+msgid "Administrator"
+msgstr "Адміністратар"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Адміністратар мае поўны доступ да кіравання любым аб'ектам або наладай."
+
+msgid "A group with that name already exists."
+msgstr "Гурт з такой назвай ужо існуе."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Вы не можаце мець некалькі запісаў з дазволамі на адну і тую ж старонку."
+
+msgid "submitted notifications"
+msgstr "Адасланыя паведамленні"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Атрымліваць паведамленні, калі старонка адпраўляецца на мадэрацыю"
+
+msgid "approved notifications"
+msgstr "Паведамленне з пацвярджэннем"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Атрымліваць паведамленні, калі пацверджана рэдактаванне вашай старонкі"
+
+msgid "rejected notifications"
+msgstr "Паведамленні пры адхіленні"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Атрымліваць паведамленне, калі адхілена рэдактаванне старонкі"
+
+msgid "preferred language"
+msgstr "Пажаданая мова"
+
+msgid "Select language for the admin"
+msgstr "Выбар мовы для адміністратара"
+
+msgid "current time zone"
+msgstr "істнуючы гадзінны пояс"
+
+msgid "Select your current time zone"
+msgstr "Выберыце гадзінны пояс"
+
+msgid "profile picture"
+msgstr "Выява профіля"
+
+msgid "user profile"
+msgstr "профіль карыстальніка"
+
+msgid "Delete"
+msgstr "Выдаліць"
+
+#, fuzzy
+msgid "Yes, delete"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Так. Выдаліць.\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Так. Выдаліць"
+
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+msgid "Delete group"
+msgstr "Выдаліць гурт"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Выдаленне гэтага гурта анулюе ўсе правы, якімі ён надзяляў ўсіх удзельнікаў "
+"гэтага гурта."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Вы сапраўды хочаце выдаліць гэты гурт?"
+
+msgid "Add group"
+msgstr "Дадаць гурт"
+
+#, fuzzy
+msgid "Editing"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Рэдактаванне\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Рэдагаванне"
+
+msgid "Save"
+msgstr "Захаваць"
+
+msgid "Object permissions"
+msgstr "Дазвол аб'ектаў"
+
+msgid "Name"
+msgstr "Імя"
+
+#, fuzzy
+msgid "Add"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Дадаць\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"дадаць"
+
+msgid "Change"
+msgstr "Змяніць"
+
+msgid "Other permissions"
+msgstr "Іншыя дазволы"
+
+msgid "Page permissions"
+msgstr "Дазвол старонкі"
+
+msgid "Page"
+msgstr "Старонка"
+
+msgid "Add a page permission"
+msgstr "Дадаць дазвол старонкі"
+
+#, fuzzy
+msgid "groups"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"гурты\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"групы"
+
+msgid "Add a group"
+msgstr "Дадаць гурт"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Нажаль, ніводны гурт не адпавядае \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Гурты не настроенныя. Давай дададзім <a href="
+"\"%(wagtailusers_create_group_url)s\">дадай трохі</a>?"
+
+msgid "Delete user"
+msgstr "Выдаліць карыстальніка"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Вы ўпэўнены, што хочаце выдаліць гэтага карыстальніка?"
+
+msgid "Add user"
+msgstr "Дадаць карыстальніка"
+
+#, fuzzy
+msgid "Account"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Уліковы запіс\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Аккаунт"
+
+msgid "Roles"
+msgstr "Ролі"
+
+msgid "Users"
+msgstr "Карыстальнікі"
+
+msgid "Add a user"
+msgstr "Дадаць карыстальніка"
+
+msgid "Username"
+msgstr "Імя карыстальніка"
+
+msgid "Level"
+msgstr "Узровень"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Admin"
+msgstr "Адміністратар"
+
+msgid "Active"
+msgstr "Актыўны"
+
+msgid "Inactive"
+msgstr "Неактыўны"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму назад"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Прабачце, не знойдзена подыходзячых карыстальнікаў \"<em>%(query_string)s</"
+"em>\""
+
+msgid "Groups"
+msgstr "Гурты"
+
+msgid "Search groups"
+msgstr "Пошук гуртоў"
+
+msgid "Group '{0}' created."
+msgstr "Створана '{0}' гуртоў."
+
+msgid "Group '{0}' updated."
+msgstr "Адноўлены '{0}' гурт."
+
+msgid "The group could not be saved due to errors."
+msgstr "Гурт не можа быць захавана з-за памылкі."
+
+msgid "Group '{0}' deleted."
+msgstr "Гурт '{0}' выдалены."
+
+msgid "Search users"
+msgstr "Пошук карыстальнікаў"
+
+msgid "User '{0}' created."
+msgstr "Створаны '{0}' карыстальнік."
+
+msgid "Edit"
+msgstr "Рэдактаванне"
+
+msgid "The user could not be created due to errors."
+msgstr "Карыстальнік не можа быць створаны з-за памылкі."
+
+msgid "User '{0}' updated."
+msgstr "Карыстальнік '{0}' адноўлены."
+
+msgid "The user could not be saved due to errors."
+msgstr "Карыстальнік не можа быць захавана з-за памылкі."
+
+msgid "User '{0}' deleted."
+msgstr "Карыстальнік '{0}' выдалены."
+
+msgid "Edit this user"
+msgstr "Рэдактаваць гэтага карыстальніка"
+
+msgid "Delete this user"
+msgstr "Выдаліць гэтага карыстальніка"
+
 #, fuzzy
 msgid "Publish"
 msgstr ""
@@ -72,9 +378,6 @@ msgstr "Адмяніць працоўны працэс"
 
 msgid "Unpublish"
 msgstr "Адмяніць публікацыю"
-
-msgid "Delete"
-msgstr "Выдаліць"
 
 msgid "Lock"
 msgstr "Заблакаваць"
@@ -137,15 +440,6 @@ msgstr "Пажаданне па мове"
 msgid "Current time zone"
 msgstr "Існуючы гадзінны пояс"
 
-msgid "First Name"
-msgstr "Імя"
-
-msgid "Last Name"
-msgstr "Прозвішча"
-
-msgid "Email"
-msgstr "Адрас электроннай пошты"
-
 msgid "Upload a profile picture"
 msgstr "Загрузіць фатаздымак"
 
@@ -170,17 +464,6 @@ msgstr "Вы не можаце мець некалькі дазволаў для
 
 msgid "Collection"
 msgstr "Калекцыя"
-
-msgid "Add"
-msgstr "дадаць"
-
-#, fuzzy
-msgid "Edit"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Рэдактаваць\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Рэдагаваць"
 
 msgid "New title"
 msgstr "Новая назва"
@@ -279,9 +562,6 @@ msgstr ""
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
 
-msgid "Page"
-msgstr "Старонка"
-
 msgid "Pages"
 msgstr "Старонкі"
 
@@ -352,9 +632,6 @@ msgstr "Прагляд даччынай старонкі «{title}»"
 msgid "Page explorer"
 msgstr "Агляд старонак"
 
-msgid "Save"
-msgstr "Захаваць"
-
 msgid "Dashboard"
 msgstr "Панэль кіравання"
 
@@ -372,9 +649,6 @@ msgstr "Старонка не можа быць знойдзена"
 
 msgid "Go to Wagtail admin"
 msgstr "Перайсці да адміністратара Wagtail"
-
-msgid "Account"
-msgstr "Аккаунт"
 
 msgid "Change password"
 msgstr "Змяніць пароль"
@@ -559,9 +833,6 @@ msgid ""
 msgstr ""
 "Гэтая калекцыя не можа быць выдалена, таму што яна не пустая. Яна змяшчае:"
 
-msgid "Name"
-msgstr "Імя"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -579,9 +850,6 @@ msgstr "Падвінуць наверх"
 
 msgid "Move down"
 msgstr "Падвінусь уніз"
-
-msgid "Yes, delete"
-msgstr "Так. Выдаліць"
 
 msgid "Update"
 msgstr "Аднаўленне"
@@ -638,9 +906,6 @@ msgstr "Папярэдні прагляд"
 
 msgid "Your most recent edits"
 msgstr "Самыя апошнія змены"
-
-msgid "Status"
-msgstr "Статус"
 
 msgid "Date"
 msgstr "Дата"
@@ -777,9 +1042,6 @@ msgstr "Выберыце, які тып старонкі вы хочаце ст�
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
-
-msgid "No, don't delete"
-msgstr "Не, не выдаляць"
 
 msgid "Move"
 msgstr "Рухайцеся"
@@ -926,10 +1188,6 @@ msgstr "Апублікаваная версія"
 
 msgid "Current draft"
 msgstr "Чарнавік"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму назад"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1353,9 +1611,6 @@ msgstr "апублікавана + чарнавік"
 msgid "Test"
 msgstr "Тэст"
 
-msgid "Password"
-msgstr "Пароль"
-
 msgid "You have been successfully logged out."
 msgstr "Вы паспяхова выйшлі"
 
@@ -1385,9 +1640,6 @@ msgstr "Калекцыя '{0}' выдаленая."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Вы ўпэўнены, што жадаеце выдаліць гэтую калекцыю?"
-
-msgid "Editing"
-msgstr "Рэдагаванне"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Старонка '{0}' і {1} падстаронак скапіравана."
@@ -1746,9 +1998,6 @@ msgstr "абмежаванні на прагляд старонак"
 
 msgid "name"
 msgstr "імя"
-
-msgid "groups"
-msgstr "групы"
 
 msgid "collection"
 msgstr "калекцыя"

@@ -4,6 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Mahmud Abdur Rahman <clanlord.ikot@gmail.com>, 2021
 # MA Rahman <ugikot@gmail.com>, 2020
 # #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
@@ -15,6 +22,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 20:01+0000\n"
+"Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>\n"
+"Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
+"bn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: bn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -42,6 +63,30 @@ msgstr ""
 "Language: bn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Email"
+msgstr "ইমেইল"
+
+msgid "First Name"
+msgstr "নামের প্রথম অংশ"
+
+msgid "Last Name"
+msgstr "নামের শেষাংশ"
+
+msgid "Delete"
+msgstr "মুছে ফেলুন "
+
+msgid "Editing"
+msgstr "সম্পাদিত হচ্ছে"
+
+msgid "Save"
+msgstr "সংরক্ষণ"
+
+msgid "Add"
+msgstr "যোগ করুন"
+
+msgid "Edit"
+msgstr "সম্পাদনা করুন"
+
 msgid "Publish"
 msgstr "প্রকাশ করুন "
 
@@ -62,9 +107,6 @@ msgstr "কর্মপ্রবাহ বাতিল করুন"
 
 msgid "Unpublish"
 msgstr "অপ্রকাশিত করুন "
-
-msgid "Delete"
-msgstr "মুছে ফেলুন "
 
 msgid "Lock"
 msgstr "লক করুন "
@@ -129,15 +171,6 @@ msgstr "পছন্দের ভাষা"
 msgid "Current time zone"
 msgstr "বর্তমান অঞ্চলের সময়"
 
-msgid "First Name"
-msgstr "নামের প্রথম অংশ"
-
-msgid "Last Name"
-msgstr "নামের শেষাংশ"
-
-msgid "Email"
-msgstr "ইমেইল"
-
 msgid "Upload a profile picture"
 msgstr "একটি প্রোফাইল ছবি আপলোড করুন"
 
@@ -169,14 +202,8 @@ msgstr "আপনার একই সংগ্রহের জন্য এক�
 msgid "Collection"
 msgstr "সংগ্রহ"
 
-msgid "Add"
-msgstr "যোগ করুন"
-
 msgid "Add collections"
 msgstr "সংগ্রহ যোগ করুন"
-
-msgid "Edit"
-msgstr "সম্পাদনা করুন"
 
 msgid "Edit collections"
 msgstr "সংগ্রহগুলি সম্পাদনা করুন"
@@ -232,14 +259,8 @@ msgstr "মেয়াদ শেষ হওয়ার তারিখ/সম�
 msgid "Search"
 msgstr "সার্চ"
 
-msgid "Save"
-msgstr "সংরক্ষণ"
-
 msgid "Saving…"
 msgstr "সংরক্ষিত হচ্ছে..."
-
-msgid "Editing"
-msgstr "সম্পাদিত হচ্ছে"
 
 msgid "default"
 msgstr "ডিফল্ট"

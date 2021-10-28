@@ -4,6 +4,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# pyzenberg <pyzenberg@gmail.com>, 2017
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Ehsan jahanbakhsh <man207ej@gmail.com>, 2020
 # Hamed NAJAND <hmd.nzhd@gmail.com>, 2020
 # Mehdi <myjahromi@gmail.com>, 2020
@@ -22,6 +31,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
+"fa/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -49,6 +72,262 @@ msgstr ""
 "Language: fa\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "لازم. 30 کاراکتر یا کمتر. تنها حروف، اعداد و @/./+/-/_ مجاز هستند."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "این مقدار تنها می‌تواند شامل حروف، اعداد و نویسه های @/./+/-/_ باشد."
+
+msgid "A user with that username already exists."
+msgstr "کاربری با این نام کاربری وجود دارد."
+
+msgid "The two password fields didn't match."
+msgstr "رمزهای عبور تطابق ندارند."
+
+msgid "Email"
+msgstr "ایمیل"
+
+msgid "First Name"
+msgstr "نام کوچک"
+
+msgid "Last Name"
+msgstr "نام خانوادگی"
+
+msgid "Password"
+msgstr "رمزعبور"
+
+msgid "Leave blank if not changing."
+msgstr "اگر تغییر نمی‌کند آن را خالی بگذارید"
+
+msgid "Password confirmation"
+msgstr "تایید رمزعبور"
+
+msgid "Enter the same password as above, for verification."
+msgstr "رمز یکسان با قبلی را برای تایید وارد کنید."
+
+msgid "Administrator"
+msgstr "راهبر"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "راهبرها دسترسی کامل برای مدیریت هر شی یا تنظیمی را دارا هستند."
+
+msgid "A group with that name already exists."
+msgstr "گروهی با این نام وجود دارد."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "نمی‌توان برای یک صفحه چند رکورد مجوز داشت."
+
+msgid "submitted notifications"
+msgstr "آگاهسازی‌های ارسال شده"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "دریافت هشدار در هنگامی که یک صفحه برای نظارت ارسال شده"
+
+msgid "approved notifications"
+msgstr "هشدارهای تایید شده"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "دریافت هشدار هنگامی که ویرایش صفحه تایید شده"
+
+msgid "rejected notifications"
+msgstr "هشدارهای رد شده"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "دریافت هشدار هنگام رد شدن ویرایش صفحه"
+
+msgid "preferred language"
+msgstr "زبان ترجیحی"
+
+msgid "Select language for the admin"
+msgstr "زبانی را برای راهبری انتخاب کنید"
+
+msgid "user profile"
+msgstr "پروفایل کاربر"
+
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
+msgid "Delete group"
+msgstr "حذف گروه"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
+msgstr[1] ""
+"\n"
+"گروه «%(group_name)s» تعداد <strong>%(group_user_count)s</strong> عضو دارد."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "حذف این گروه باعث لغو مجوزهای گروه از تمامی کاربران عضو میشود."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "آیا میخواهید این گروه را حذف کنید؟"
+
+msgid "Add group"
+msgstr "افزودن گروه"
+
+#, fuzzy
+msgid "Editing"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"در حال ویرایش\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"ویرایش"
+
+msgid "Save"
+msgstr "ذخیره"
+
+msgid "Object permissions"
+msgstr "مجوزهای شی"
+
+msgid "Name"
+msgstr "نام"
+
+msgid "Add"
+msgstr "افزودن"
+
+msgid "Change"
+msgstr "تغییر"
+
+msgid "Other permissions"
+msgstr "مجوزهای دیگر"
+
+msgid "Page permissions"
+msgstr "مجوزهای صفحه"
+
+msgid "Page"
+msgstr "صفحه"
+
+msgid "Add a page permission"
+msgstr "افزودن مجوز صفحه"
+
+msgid "groups"
+msgstr "گروه ها"
+
+msgid "Add a group"
+msgstr "افزودن گروه"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"هنوز گروهی تنظیم نشده. میتوانید یکی <a href="
+"\"%(wagtailusers_create_group_url)s\">ایجاد</a> کنید."
+
+msgid "Delete user"
+msgstr "حذف کاربر"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "آیا مطمئنید که میخواهید این کاربر حذف شود؟"
+
+msgid "Add user"
+msgstr "افزودن کاربر"
+
+#, fuzzy
+msgid "Account"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"حساب\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"حساب کاربری"
+
+msgid "Roles"
+msgstr "نقش‌ها"
+
+msgid "Users"
+msgstr "کاربران"
+
+msgid "Add a user"
+msgstr "افزودن یک کاربر"
+
+msgid "Username"
+msgstr "نام کاربری"
+
+msgid "Level"
+msgstr "سطح"
+
+msgid "Status"
+msgstr "وضعیت"
+
+msgid "Admin"
+msgstr "راهبر"
+
+msgid "Active"
+msgstr "فعال"
+
+msgid "Inactive"
+msgstr "غیرفعال"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s پیش"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "متاسفانه هیچ کاربری با «<em>%(query_string)s</em>» منطبق نبود"
+
+msgid "Groups"
+msgstr "گروه ها"
+
+msgid "Search groups"
+msgstr "جستجوی گروه‌ها"
+
+msgid "Group '{0}' created."
+msgstr "گروه '{0}' ایجاد شد."
+
+msgid "Group '{0}' updated."
+msgstr "گروه  '{0}'  بروزرسانی شد."
+
+msgid "The group could not be saved due to errors."
+msgstr "به دلیل بروز خطا گروه ذخیره نشد."
+
+msgid "Group '{0}' deleted."
+msgstr "گروه '{0}' حذف شد."
+
+msgid "Search users"
+msgstr "جستجوی کاربران"
+
+msgid "User '{0}' created."
+msgstr "کاربر '{0}' ایجاد شد."
+
+msgid "Edit"
+msgstr "ویرایش"
+
+msgid "The user could not be created due to errors."
+msgstr "به دلیل بروز خطا کاربر ایجاد نشد"
+
+msgid "User '{0}' updated."
+msgstr "کاربر  '{0}' بروزرسانی شد."
+
+msgid "The user could not be saved due to errors."
+msgstr "به دلیل بروز خطا کاربر ذخیره نشد"
+
+msgid "User '{0}' deleted."
+msgstr "کاربر '{0}' حذف شد."
+
+msgid "Edit this user"
+msgstr "ویرایش این کاربر"
+
+msgid "Delete this user"
+msgstr "حذف این کاربر"
+
 msgid "Publish"
 msgstr "انتشار"
 
@@ -63,9 +342,6 @@ msgstr "ثبت کردن در {}"
 
 msgid "Unpublish"
 msgstr "لغو انتشار"
-
-msgid "Delete"
-msgstr "حذف"
 
 msgid "Lock"
 msgstr "قفل"
@@ -118,15 +394,6 @@ msgstr "تاریخ به"
 msgid "All"
 msgstr "همه"
 
-msgid "First Name"
-msgstr "نام کوچک"
-
-msgid "Last Name"
-msgstr "نام خانوادگی"
-
-msgid "Email"
-msgstr "ایمیل"
-
 msgid "Enter password"
 msgstr "رمزعبور را وارد کنید"
 
@@ -148,17 +415,6 @@ msgstr "برای یک مجموعه نمی‌توانید چندین مجوز ا�
 
 msgid "Collection"
 msgstr "مجموعه"
-
-msgid "Add"
-msgstr "افزودن"
-
-#, fuzzy
-msgid "Edit"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"تصحیح\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"ویرایش"
 
 msgid "New title"
 msgstr "عنوان جدید"
@@ -239,9 +495,6 @@ msgstr "این فیلد لازم است."
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
 
-msgid "Page"
-msgstr "صفحه"
-
 msgid "Pages"
 msgstr "صفحه ها"
 
@@ -312,9 +565,6 @@ msgstr "دیدن صفحات فرزند {title}"
 msgid "Page explorer"
 msgstr "کاوشگر صفحه"
 
-msgid "Save"
-msgstr "ذخیره"
-
 msgid "Saving..."
 msgstr "درحال ذخیره..."
 
@@ -338,9 +588,6 @@ msgstr "صفحه‌ی مورد نظر یافت نشد."
 
 msgid "Go to Wagtail admin"
 msgstr "رفتن به صفحه ادمین وگتیل"
-
-msgid "Account"
-msgstr "حساب کاربری"
 
 msgid "Change password"
 msgstr "تغییر رمزعبور"
@@ -502,9 +749,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "بدلیل خالی نبودن، مجموعه قابل حذف نیست. حاوی موارد زیر است:"
 
-msgid "Name"
-msgstr "نام"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -522,9 +766,6 @@ msgstr "حرکت به بالا"
 
 msgid "Move down"
 msgstr "حرکت به پایین"
-
-msgid "Yes, delete"
-msgstr "بله حذف شود"
 
 msgid "Update"
 msgstr "بروزرسانی"
@@ -581,9 +822,6 @@ msgstr "نمایش"
 
 msgid "Your most recent edits"
 msgstr "ویرایش‌های اخیر شما"
-
-msgid "Status"
-msgstr "وضعیت"
 
 msgid "Date"
 msgstr "تاریخ"
@@ -860,10 +1098,6 @@ msgstr "نسخه منتشر شده"
 
 msgid "Current draft"
 msgstr "پیشنویس فعلی"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1320,9 +1554,6 @@ msgstr "زنده + پیشنویس"
 msgid "Test"
 msgstr "تست"
 
-msgid "Password"
-msgstr "رمزعبور"
-
 msgid "You have been successfully logged out."
 msgstr "با موفقیت خارج شدید."
 
@@ -1352,9 +1583,6 @@ msgstr "مجموعه  '{0}' حذف شد."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
-
-msgid "Editing"
-msgstr "ویرایش"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
@@ -1662,9 +1890,6 @@ msgstr "محدودیت های نمایش صفحه"
 
 msgid "name"
 msgstr "نام"
-
-msgid "groups"
-msgstr "گروه ها"
 
 msgid "collection"
 msgstr "مجموعه"

@@ -4,6 +4,17 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Kees Hink <keeshink@gmail.com>, 2017
+# Storm Heg <storm@stormbase.digital>, 2021
+# Thijs Kramer <thijskramer@gmail.com>, 2015
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Arne Turpyn <info@arneturpyn.com>, 2015
 # Benjamin Van Renterghem <benjaaa.vr@gmail.com>, 2020
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
@@ -41,6 +52,20 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Loic Teixeira\n"
+"Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
+"nl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: nl\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -63,6 +88,354 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail gebruikers"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Verplicht veld, maximaal 30 tekens lang. Alleen letters, cijfers en de "
+"tekens @.+-_ zijn toegestaan."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"In dit veld zijn alleen letters, cijfers en de tekens @.+-_ toegestaan."
+
+msgid "A user with that username already exists."
+msgstr "Er bestaat al een gebruiker met deze gebruikersnaam."
+
+msgid "The two password fields didn't match."
+msgstr "De beide wachtwoorden komen niet overeen."
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Voornaam"
+
+msgid "Last Name"
+msgstr "Achternaam"
+
+msgid "Password"
+msgstr "Wachtwoord"
+
+msgid "Leave blank if not changing."
+msgstr "Laat leeg indien u dit niet wilt wijzigen."
+
+msgid "Password confirmation"
+msgstr "Herhaal wachtwoord"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Voer ter bevestiging hetzelfde wachtwoord nogmaals in."
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrators hebben volledige rechten op ieder object en alle instellingen."
+
+msgid "A group with that name already exists."
+msgstr "Er bestaat al een groep met deze naam."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Het is niet mogelijk om meerdere machtigingen voor dezelfde pagina in te "
+"stellen."
+
+msgid "submitted notifications"
+msgstr "ingezonden notificaties"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Ontvang notificaties wanneer een pagina voor moderatie is aangeboden."
+
+msgid "approved notifications"
+msgstr "goedgekeurde notificaties"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Ontvang notificaties wanneer je paginawijziging is goedgekeurd."
+
+msgid "rejected notifications"
+msgstr "afgekeurde notificaties"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Ontvang notificaties wanneer uw paginawijziging is afgekeurd."
+
+msgid "updated comments notifications"
+msgstr "gewijzigde opmerkingen notificaties"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Ontvang notificaties wanneer er een opmerking is geplaatst, opgelost of "
+"verwijderd op een pagina waarvan u geabboneerd bent op activiteit omtrend "
+"opmerkingen."
+
+msgid "preferred language"
+msgstr "voorkeurstaal"
+
+msgid "Select language for the admin"
+msgstr "Selecteer de taal voor de admin"
+
+msgid "current time zone"
+msgstr "huidige tijd zone"
+
+msgid "Select your current time zone"
+msgstr "Selecteer je huidige tijd zone"
+
+msgid "profile picture"
+msgstr "profiel foto"
+
+msgid "user profile"
+msgstr "gebruikersprofiel"
+
+msgid "user profiles"
+msgstr "gebruikersprofielen"
+
+#, fuzzy
+msgid "Delete"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Mag verwijderen\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Verwijder"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijderen"
+
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
+msgid "Delete group"
+msgstr "Verwijder groep"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
+"gebruiker."
+msgstr[1] ""
+"\n"
+"De groep '%(group_name)s' heeft <strong>%(group_user_count)s</strong> "
+"gebruikers."
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Het verwijderen van deze groep zal alle groepsrechten van alle gebruikers "
+"uit deze groep laten vervallen."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Weet u zeker dat u deze groep wilt verwijderen?"
+
+msgid "Add group"
+msgstr "Groep toevoegen"
+
+msgid "Editing"
+msgstr "Wijzigen"
+
+msgid "View users in this group"
+msgstr "Bekijk gebruikers in deze groep"
+
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Permissions"
+msgstr "Machtigingen"
+
+msgid "Object permissions"
+msgstr "Machtigingen per type object"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Add"
+msgstr "Mag toevoegen"
+
+msgid "Change"
+msgstr "Mag wijzigen"
+
+msgid "Other permissions"
+msgstr "Overige machtigingen"
+
+msgid "Page permissions"
+msgstr "Pagina-machtigingen"
+
+msgid "Page"
+msgstr "Pagina"
+
+msgid "Add a page permission"
+msgstr "Voeg een paginamachtiging toe"
+
+msgid "groups"
+msgstr "groepen"
+
+msgid "Add a group"
+msgstr "Voeg een groep toe"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr ""
+"Sorry, er zijn geen groepen die overeenkomen met de zoekterm \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Er zijn nog geen groepen geconfigureerd. Waarom <a href="
+"\"%(wagtailusers_create_group_url)s\">voegt u er niet een toe</a>?"
+
+msgid "Delete user"
+msgstr "Verwijder gebruiker"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Weet u zeker dat u deze gebruiker wilt verwijderen?"
+
+msgid "Add user"
+msgstr "Voeg gebruiker toe"
+
+msgid "Account"
+msgstr "Account"
+
+msgid "Roles"
+msgstr "Rollen"
+
+msgid "Users"
+msgstr "Gebruikers"
+
+msgid "Add a user"
+msgstr "Voeg een gebruiker toe"
+
+msgid "Username"
+msgstr "Gebruikersnaam"
+
+msgid "Level"
+msgstr "Level"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Last Login"
+msgstr "Laatste login"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Inactive"
+msgstr "Inactief"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
+
+#, fuzzy, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"           Er is %(counter)s overeenkomst\n"
+"        \n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"            Er is %(counter)s resultaat\n"
+"        "
+msgstr[1] ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"           Er zijn %(counter)s overeenkomsten\n"
+"     \n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"            Er zijn %(counter)s resultaten\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Sorry, geen gebruikers gevonden \"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"De groep %(group_name)s heeft geen gebruikers. <a href="
+"\"%(wagtailusers_add_url)s\">Voeg gebruikers toe</a>."
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Er zijn geen gebruikers ingesteld. <a href=\"%(wagtailusers_add_url)s\">Voeg "
+"gebruikers toe</a>."
+
+msgid "Groups"
+msgstr "Groepen"
+
+msgid "Search groups"
+msgstr "Zoek groepen"
+
+msgid "Group '{0}' created."
+msgstr "Groep '{0}' aangemaakt."
+
+msgid "Group '{0}' updated."
+msgstr "Groep '{0}' is gewijzigd."
+
+msgid "The group could not be saved due to errors."
+msgstr "De groep kon vanwege fouten niet worden opgeslagen."
+
+msgid "Group '{0}' deleted."
+msgstr "Groep '{0}' verwijderd."
+
+msgid "Search users"
+msgstr "Zoek gebruikers"
+
+msgid "User '{0}' created."
+msgstr "Gebruiker '{0}' aangemaakt."
+
+msgid "Edit"
+msgstr "Wijzig"
+
+msgid "The user could not be created due to errors."
+msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
+
+msgid "User '{0}' updated."
+msgstr "Gebruiker '{0}' is gewijzigd."
+
+msgid "The user could not be saved due to errors."
+msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
+
+msgid "User '{0}' deleted."
+msgstr "Gebruiker '{0}' is verwijderd."
+
+msgid "Edit this user"
+msgstr "Bewerk deze gebruiker"
+
+msgid "Delete this user"
+msgstr "Verwijder deze gebruiker"
 
 #, fuzzy
 msgid "Publish"
@@ -89,9 +462,6 @@ msgstr "Workflow annuleren"
 
 msgid "Unpublish"
 msgstr "Publicatie intrekken"
-
-msgid "Delete"
-msgstr "Verwijder"
 
 #, fuzzy
 msgid "Lock"
@@ -170,15 +540,6 @@ msgstr "Voorkeurstaal"
 msgid "Current time zone"
 msgstr "Huidige tijd zone"
 
-msgid "First Name"
-msgstr "Voornaam"
-
-msgid "Last Name"
-msgstr "Achternaam"
-
-msgid "Email"
-msgstr "E-mail"
-
 msgid "Upload a profile picture"
 msgstr "Upload een profiel foto"
 
@@ -215,22 +576,6 @@ msgstr ""
 
 msgid "Collection"
 msgstr "Collectie"
-
-#, fuzzy
-msgid "Add"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Mag toevoegen\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Toevoegen"
-
-#, fuzzy
-msgid "Edit"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Wijzig\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Wijzigen"
 
 msgid "You cannot edit another user's comment."
 msgstr "Je kunt opmerkingen  van een andere gebruiker niet wijzigen."
@@ -348,9 +693,6 @@ msgstr "Geef je workflow een naam"
 msgid "Add tasks to your workflow"
 msgstr "Voeg taken aan je workflow toe"
 
-msgid "Page"
-msgstr "Pagina"
-
 msgid "Pages"
 msgstr "Pagina's"
 
@@ -426,9 +768,6 @@ msgstr "Toon onderliggende pagina's van '{title}'"
 msgid "Page explorer"
 msgstr "Paginaverkenner"
 
-msgid "Save"
-msgstr "Opslaan"
-
 msgid "Saving..."
 msgstr "Bezig met opslaan..."
 
@@ -503,9 +842,6 @@ msgstr "De pagina kon niet worden gevonden."
 
 msgid "Go to Wagtail admin"
 msgstr "Ga naar de Wagtail admin"
-
-msgid "Account"
-msgstr "Account"
 
 msgid "Save account details"
 msgstr "Account details opslaan"
@@ -698,9 +1034,6 @@ msgstr ""
 "Deze collectie kan niet verwijderd worden omdat deze niet leeg is. De "
 "collectie bevat:"
 
-msgid "Name"
-msgstr "Naam"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -743,9 +1076,6 @@ msgstr "Opmerkingen op deze pagina"
 
 msgid "Comment notifications"
 msgstr "Opmerkingen notificaties"
-
-msgid "Yes, delete"
-msgstr "Ja, verwijderen"
 
 msgid "Update"
 msgstr "Bijwerken"
@@ -811,9 +1141,6 @@ msgstr "Voorbeeld"
 
 msgid "Your most recent edits"
 msgstr "Laatste wijzigingen"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Datum"
@@ -1125,9 +1452,6 @@ msgstr "Kies wat voor type pagina u wilt maken."
 msgid "Pages using %(page_type)s"
 msgstr "Pagina's van het type '%(page_type)s'"
 
-msgid "No, don't delete"
-msgstr "Nee, niet verwijderen"
-
 msgid "Move"
 msgstr "Verplaats"
 
@@ -1341,10 +1665,6 @@ msgstr "Live versie"
 
 msgid "Current draft"
 msgstr "Huidig concept"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
 
 msgid "No log entries found."
 msgstr "Geen logboekvermeldingen gevonden."
@@ -2013,24 +2333,6 @@ msgstr "Bestaand"
 msgid "Choose a different task type"
 msgstr "Kies een ander type taak"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Er is %(counter)s resultaat\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Er zijn %(counter)s resultaten\n"
-"        "
-
 msgid "Task type"
 msgstr "Taak-type"
 
@@ -2162,9 +2464,6 @@ msgstr "Profielfoto"
 msgid "Locale"
 msgstr "Taalregio"
 
-msgid "Password"
-msgstr "Wachtwoord"
-
 msgid "Your account settings have been changed successfully!"
 msgstr "Uw accountinstellingen zijn succesvol opgeslagen!"
 
@@ -2197,9 +2496,6 @@ msgstr "Collectie '{0}' is verwijderd."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
-
-msgid "Editing"
-msgstr "Wijzigen"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Pagina '{0}' is naar een normale pagina geconverteerd."
@@ -2812,9 +3108,6 @@ msgstr ""
 
 msgid "workflows"
 msgstr "workflows"
-
-msgid "groups"
-msgstr "groepen"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "

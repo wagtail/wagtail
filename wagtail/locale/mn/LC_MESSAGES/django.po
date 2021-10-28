@@ -4,6 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Delgermurun Purevkhuuu <info@delgermurun.com>, 2014
 # Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>, 2019
@@ -18,6 +26,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
+"mn/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mn\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -45,6 +67,301 @@ msgstr ""
 "Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail users"
+msgstr "Хэрэглэгчид"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+"Заавал бөглөнө. 30-хүртлэх тэмдэгт. Үсэг, цифр болон @/./+/-/_ тэмдэгтүүд "
+"зөвшөөрнө."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr ""
+"Энэ утганд зөвхөн үсгүүд, цифрүүд болон  @/./+/-/_ тэмдэгтүүд байж болно."
+
+msgid "A user with that username already exists."
+msgstr "Ийм нэртэй хэрэглэгч бүртгэгдсэн байна."
+
+msgid "The two password fields didn't match."
+msgstr "Хоёр нууц үг хоорондоо ижил биш байна."
+
+msgid "Email"
+msgstr "Имейл"
+
+msgid "First Name"
+msgstr "Нэр"
+
+msgid "Last Name"
+msgstr "Овог"
+
+msgid "Password"
+msgstr "Нууц үг"
+
+msgid "Leave blank if not changing."
+msgstr "Өөрчлөхгүй бол хоосон орхино уу"
+
+msgid "Password confirmation"
+msgstr "Нууц үгийн баталгаажуулалт"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Дээрх оруулсантай ижил нууц үг оруулна уу"
+
+msgid "Administrator"
+msgstr "Админ"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Админууд тохиргоо болон бусад бүх зүйлийг өөрчлөх харах эртэй."
+
+msgid "A group with that name already exists."
+msgstr "Ийм нэртэй бүлэг өмнө нь оруулсан байна."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Нэг хуудсанд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
+
+msgid "submitted notifications"
+msgstr "илгээсэн мэдэгдлүүд"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Хуудас хянуулахаар илгээгдэхэд мэдэгдэл хүлээн авах"
+
+msgid "approved notifications"
+msgstr "зөвшөөрөгдсөн мэдэгдлүүд"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Таны хуудас нийтлэхээр зөвшөөрөгдөхөд мэдэгдэл хүлээн авах"
+
+msgid "rejected notifications"
+msgstr "татгалзсан мэдэгдлүүд"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Таны хуудсыг нийтлэхээс татгазахад мэдэгдэл хүлээн авах"
+
+msgid "preferred language"
+msgstr "сонгосон хэл"
+
+msgid "Select language for the admin"
+msgstr "Админ панелын хэл сонгоно уу"
+
+msgid "current time zone"
+msgstr "одоогийн цагийн бүс"
+
+msgid "Select your current time zone"
+msgstr "Өөрийн цагийн бүсийг сонгоно уу."
+
+msgid "profile picture"
+msgstr "профайл зураг"
+
+msgid "user profile"
+msgstr "хэрэглэгчийн профайл"
+
+msgid "user profiles"
+msgstr "хэрэглэгчийн профайлууд"
+
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
+msgid "Delete group"
+msgstr "Бүлэг устгах"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                '%(group_name)s' бүлэг <strong>%(group_user_count)s</strong> "
+"гишүүнтэй.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                 '%(group_name)s' бүлэг <strong>%(group_user_count)s</"
+"strong> гишүүнтэй.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Бүлгийг устгасанаар энэхүү бүлгийн бүх хандалтын эрхийг бүлгийн гишүүдээс "
+"хасах болно."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Энэ бүлгийг үнэхээр устгах уу?"
+
+msgid "Add group"
+msgstr "Бүлэг нэмэх"
+
+msgid "Editing"
+msgstr "Засч байна"
+
+msgid "Save"
+msgstr "Хадгалах"
+
+msgid "Object permissions"
+msgstr "Объектын хандах эрх"
+
+msgid "Name"
+msgstr "Нэр"
+
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Change"
+msgstr "Солих"
+
+msgid "Other permissions"
+msgstr "Бусад эрхүүд"
+
+msgid "Page permissions"
+msgstr "Хуудасны хандах эрхүүд"
+
+msgid "Page"
+msgstr "Хуудас"
+
+msgid "Add a page permission"
+msgstr "Хуудсын эрх нэмэх"
+
+msgid "groups"
+msgstr "бүлгүүд"
+
+msgid "Add a group"
+msgstr "Бүлэг нэмэх"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Уучлаарай, \"%(query)s\" хайлтаар бүлэг олдсонгүй"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Бүлэг тохируулагүй байна. <a href=\"%(wagtailusers_create_group_url)s"
+"\">Шинийг үүсгэж</a> яагаад болохгүй гэж?"
+
+msgid "Delete user"
+msgstr "Хэрэглэгч устгах"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Энэ хэрэглэгчийг үнэхээр устгах уу?"
+
+msgid "Add user"
+msgstr "Хэрэглэгч нэмэх"
+
+msgid "Account"
+msgstr "Хэрэглэгчийн эрх"
+
+msgid "Roles"
+msgstr "Дүрүүд"
+
+msgid "Users"
+msgstr "Хэрэглэгчид"
+
+msgid "Add a user"
+msgstr "Хэрэглэгч нэмэх"
+
+msgid "Username"
+msgstr "Хэрэглэгчийн нэр"
+
+msgid "Level"
+msgstr "Түвшин"
+
+msgid "Status"
+msgstr "Төлөв"
+
+msgid "Last Login"
+msgstr "Сүүлд нэвтэрсэн"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Active"
+msgstr "Идэвхитэй"
+
+msgid "Inactive"
+msgstr "Идэвхгүй"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s-н өмнө"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            %(counter)s илэрц олдлоо\n"
+"        "
+msgstr[1] ""
+"\n"
+"            %(counter)s илэрц олдлоо\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "Уучлаарай \"<em>%(query_string)s</em>\" хайлтаар хэрэглэгч олдсонгүй."
+
+msgid "Groups"
+msgstr "Бүлгүүд"
+
+msgid "Search groups"
+msgstr "Бүлэг хайх"
+
+msgid "Group '{0}' created."
+msgstr "'{0}' бүлэг үүслээ."
+
+msgid "Group '{0}' updated."
+msgstr "'{0}' бүлэг шинэчлэгдлээ."
+
+msgid "The group could not be saved due to errors."
+msgstr "Дараах алдаануудаас болж бүлэг хадгалагдсангүй."
+
+msgid "Group '{0}' deleted."
+msgstr "'{0}' бүлэг устгагдлаа."
+
+msgid "Search users"
+msgstr "Хэрэглэгч хайх"
+
+msgid "User '{0}' created."
+msgstr "'{0}' хэрэглэгч үүслээ."
+
+msgid "Edit"
+msgstr "Засах"
+
+msgid "The user could not be created due to errors."
+msgstr "Дараах алдаанаас болж хэрэглэгч үүссэнгүй."
+
+msgid "User '{0}' updated."
+msgstr "'{0}' хэрэглэгч шинэчлэгдлээ."
+
+msgid "The user could not be saved due to errors."
+msgstr "Дараах алдаануудаас болж хэрэглэгч хадгалагдсангүй."
+
+msgid "User '{0}' deleted."
+msgstr "'{0}' хэрэглэгч устгагдлаа."
+
+msgid "Edit this user"
+msgstr "Энэ хэрэглэгчийг өөрчлөх"
+
+msgid "Delete this user"
+msgstr "Энэ хэрэглэгчийг устгах"
+
 msgid "Publish"
 msgstr "Нийтлэх"
 
@@ -53,9 +370,6 @@ msgstr "Хянуулахаар илгээсэн"
 
 msgid "Unpublish"
 msgstr "Нийтлэхгүй байх"
-
-msgid "Delete"
-msgstr "Устгах"
 
 msgid "Lock"
 msgstr "Түгжих"
@@ -102,15 +416,6 @@ msgstr "Сонгосон хэл"
 msgid "Current time zone"
 msgstr "Одоогийн цагийн бүс"
 
-msgid "First Name"
-msgstr "Нэр"
-
-msgid "Last Name"
-msgstr "Овог"
-
-msgid "Email"
-msgstr "Имейл"
-
 msgid "Upload a profile picture"
 msgstr "Профайл зураг оруулах"
 
@@ -135,12 +440,6 @@ msgstr "Нэг цуглуулганд олон хандалтын эрхийн �
 
 msgid "Collection"
 msgstr "Цуглуулга"
-
-msgid "Add"
-msgstr "Нэмэх"
-
-msgid "Edit"
-msgstr "Засах"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -223,9 +522,6 @@ msgstr "Энэ талбарыг заавал бөглөх шаардлагата
 msgid "Please select at least one group."
 msgstr "Ядаж нэг бүлэг сонгоно уу."
 
-msgid "Page"
-msgstr "Хуудас"
-
 msgid "Pages"
 msgstr "Хуудсууд"
 
@@ -286,9 +582,6 @@ msgstr "Хаах"
 msgid "Edit '{title}'"
 msgstr "'{title}' засах"
 
-msgid "Save"
-msgstr "Хадгалах"
-
 msgid "Dashboard"
 msgstr "Хянах самбар"
 
@@ -306,9 +599,6 @@ msgstr "Хандахыг хүссэн хуудас олдсонгүй."
 
 msgid "Go to Wagtail admin"
 msgstr "Админ панел руу очих"
-
-msgid "Account"
-msgstr "Хэрэглэгчийн эрх"
 
 msgid "Change password"
 msgstr "Нууц үгээ солих"
@@ -424,9 +714,6 @@ msgstr "Нийтэд нээлттэй"
 msgid "Private"
 msgstr "Хувийн"
 
-msgid "Name"
-msgstr "Нэр"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "%(label)s нэмэх"
@@ -446,9 +733,6 @@ msgstr ""
 "Доош зөөх\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Доошоо зөөх"
-
-msgid "Yes, delete"
-msgstr "Тийм, устга"
 
 msgid "Update"
 msgstr "Шинэчлэх"
@@ -499,9 +783,6 @@ msgstr "Урдчилж харах"
 
 msgid "Your most recent edits"
 msgstr "Таны сүүлийн засварууд"
-
-msgid "Status"
-msgstr "Төлөв"
 
 msgid "Date"
 msgstr "Огноо"
@@ -709,10 +990,6 @@ msgstr "Нийтлэгдсэн хувилбар"
 
 msgid "Current draft"
 msgstr "Одоогийн ноорог"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -931,9 +1208,6 @@ msgstr "нийтлэгдсэн + ноорог"
 msgid "Test"
 msgstr "Тест"
 
-msgid "Password"
-msgstr "Нууц үг"
-
 msgid "You have been successfully logged out."
 msgstr "Та системээс гарлаа."
 
@@ -963,9 +1237,6 @@ msgstr "'{0}' цуглуулга устлаа."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Энэ цуглуулгыг үнэхээр устгах уу?"
-
-msgid "Editing"
-msgstr "Засч байна"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Хуудас '{0}' болон {1} дэд хуудсууд хуулагдлаа."
@@ -1196,9 +1467,6 @@ msgstr "хуудас харах хязгаарлалтууд"
 
 msgid "name"
 msgstr "нэр"
-
-msgid "groups"
-msgstr "бүлгүүд"
 
 msgid "collection"
 msgstr "цуглуулга"

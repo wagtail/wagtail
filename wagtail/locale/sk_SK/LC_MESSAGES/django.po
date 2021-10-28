@@ -4,6 +4,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# dellax <michalnebbia@gmail.com>, 2015
+# Martin Janšto <mato@jansto.sk>, 2017
+# dellax <michalnebbia@gmail.com>, 2015
+# Stevo Backor, 2016
+# Stevo Backor, 2016
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # karabellyj <jozefkarabelly@gmail.com>, 2017
 # Martin Janšto <mato@jansto.sk>, 2017
@@ -23,6 +35,21 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
+"language/sk_SK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sk_SK\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
+">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -52,6 +79,295 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Povinné. 30 znakov alebo menej. Písmená, číslice a len znaky @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Táto hodnota môže obsahovať len písmená, čísla a znaky @/./+/-/_ "
+
+msgid "A user with that username already exists."
+msgstr "Používateľ s takýmto prihlasovacím menom už existuje."
+
+msgid "The two password fields didn't match."
+msgstr "Heslá sa nezhodujú."
+
+msgid "Email"
+msgstr "Email"
+
+msgid "First Name"
+msgstr "Krstné meno"
+
+msgid "Last Name"
+msgstr "Priezvisko"
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Leave blank if not changing."
+msgstr "Nechajte prázdne ak nemeníte."
+
+msgid "Password confirmation"
+msgstr "Potvrdenie hesla"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Zadajte rovnaké heslo ako vyššie pre verifikáciu."
+
+msgid "Administrator"
+msgstr "Administrátor"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr ""
+"Administrátori majú úplný prístup k správe akéhokoľvek objektu alebo "
+"nastavení."
+
+msgid "A group with that name already exists."
+msgstr "Skupina s rovnakým názvom už existuje."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "Nemôžete mať viac prístupových záznamov pre tú istú stránku."
+
+msgid "submitted notifications"
+msgstr "odoslané notifikácie"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Dostávať notifikácie keď je stránka pridaná na moderáciu"
+
+msgid "approved notifications"
+msgstr "schválené notifikácie"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky potvrdený"
+
+msgid "rejected notifications"
+msgstr "zamietnuté notifikácie"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Dostávať notifikácie keď je váš návrh na úpravu stránky zamietnutý"
+
+msgid "preferred language"
+msgstr "preferovaný jazyk"
+
+msgid "Select language for the admin"
+msgstr "Vyberte jazyk pre admin"
+
+msgid "user profile"
+msgstr "používatelský profil"
+
+msgid "Delete"
+msgstr "Vymazať"
+
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
+msgid "Delete group"
+msgstr "Vymazať skupinu"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľa.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+msgstr[3] ""
+"\n"
+"                Skupina '%(group_name)s' má <strong>%(group_user_count)s</"
+"strong> používateľov.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Zmazanie tejto skupiny spôsobí odňatie práv skupiny všetkým jej členom."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Naozaj chcete zmazať túto skupinu?"
+
+msgid "Add group"
+msgstr "Pridať skupinu"
+
+#, fuzzy
+msgid "Editing"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Upraviť obrázok\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Editácia"
+
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Object permissions"
+msgstr "Oprávnenia objektu"
+
+#, fuzzy
+msgid "Name"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Meno\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Názov"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Change"
+msgstr "Zmeniť"
+
+msgid "Other permissions"
+msgstr "Ostátné práva"
+
+msgid "Page permissions"
+msgstr "Oprávnenia stránky"
+
+#, fuzzy
+msgid "Page"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Stránk\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Stránka"
+
+msgid "Add a page permission"
+msgstr "Pridať oprávnenia stránky"
+
+msgid "groups"
+msgstr "skupiny"
+
+msgid "Add a group"
+msgstr "Pridať skupinu"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Prepáčte, žiadne skupiny nevyhovujú hľadanému výrazu \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Zatiaľ nie sú nastavené žiadne skupiny. Prečo nenastaviť <a href="
+"\"%(wagtailusers_create_group_url)s\">jednu skupinu teraz</a>?"
+
+msgid "Delete user"
+msgstr "Zmazať používateľa"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Naozaj chcete zmazať tohto používateľa?"
+
+msgid "Add user"
+msgstr "Pridať používateľa"
+
+msgid "Account"
+msgstr "Účet"
+
+msgid "Roles"
+msgstr "Role"
+
+msgid "Users"
+msgstr "Používatelia"
+
+msgid "Add a user"
+msgstr "Pridať používateľa"
+
+msgid "Username"
+msgstr "Používateľské meno"
+
+msgid "Level"
+msgstr "Úroveň"
+
+#, fuzzy
+msgid "Status"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Postavenie\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Stav"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Active"
+msgstr "Aktívne"
+
+msgid "Inactive"
+msgstr "Neaktívne"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Prepáčte, žiadni používatelia nevyhovujú hľadanému výrazu \"<em>"
+"%(query_string)s</em>\""
+
+msgid "Groups"
+msgstr "Skupiny"
+
+msgid "Search groups"
+msgstr "Hľadať skupiny"
+
+msgid "Group '{0}' created."
+msgstr "Skupina '{0}' bola vytvorená."
+
+msgid "Group '{0}' updated."
+msgstr "Skupina '{0}' bola aktualizovaná."
+
+msgid "The group could not be saved due to errors."
+msgstr "Skupina nemôže byť uložená kvôli chybám."
+
+msgid "Group '{0}' deleted."
+msgstr "Skupina '{0}' bola vymazaná."
+
+msgid "Search users"
+msgstr "Hľadať používateľov"
+
+msgid "User '{0}' created."
+msgstr "Používateľ '{0}' bol vytvorený."
+
+msgid "Edit"
+msgstr "Upraviť"
+
+msgid "The user could not be created due to errors."
+msgstr "Používateľ nemôže byť vytvorený kvôli chybám."
+
+msgid "User '{0}' updated."
+msgstr "Používateľ '{0}' bol aktualizovaný."
+
+msgid "The user could not be saved due to errors."
+msgstr "Používateľ nemôže byť uložený kvôli chybám."
+
+msgid "User '{0}' deleted."
+msgstr "Používateľ '{0}' zmazaný."
+
+msgid "Edit this user"
+msgstr "Upraviť tohto používateľa"
+
+msgid "Delete this user"
+msgstr "Zmazať tohto používateľa"
+
 msgid "Publish"
 msgstr "Publikovať"
 
@@ -65,9 +381,6 @@ msgstr ""
 "Nezverejniť\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Odpublikovať"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Lock"
 msgstr "Zamknúť"
@@ -105,15 +418,6 @@ msgstr "Dátum od"
 msgid "Date to"
 msgstr "Dátum do"
 
-msgid "First Name"
-msgstr "Krstné meno"
-
-msgid "Last Name"
-msgstr "Priezvisko"
-
-msgid "Email"
-msgstr "Email"
-
 msgid "Enter password"
 msgstr "Zadajte heslo"
 
@@ -135,12 +439,6 @@ msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 
 msgid "Collection"
 msgstr "Kolekcie"
-
-msgid "Add"
-msgstr "Pridať"
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -230,9 +528,6 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
-msgid "Page"
-msgstr "Stránka"
-
 msgid "Pages"
 msgstr "Stránky"
 
@@ -254,9 +549,6 @@ msgstr "Zavrieť"
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
-msgid "Save"
-msgstr "Uložiť"
-
 msgid "Saving..."
 msgstr "Ukladám..."
 
@@ -277,9 +569,6 @@ msgstr "Stránka, ktorú požadujete, nebola nájdená."
 
 msgid "Go to Wagtail admin"
 msgstr "Choď do administrátorskej časti"
-
-msgid "Account"
-msgstr "Účet"
 
 msgid "Change password"
 msgstr "Zmeniť heslo"
@@ -402,9 +691,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Táto kolekcia nemôže byť zmazaná, pretože nie je prázdna. Obsahuje:"
 
-msgid "Name"
-msgstr "Názov"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -418,9 +704,6 @@ msgstr "Posunúť vyššie"
 
 msgid "Move down"
 msgstr "Posunúť nižšie"
-
-msgid "Yes, delete"
-msgstr "Áno, zmazať"
 
 msgid "Update"
 msgstr "Aktualizovať"
@@ -468,9 +751,6 @@ msgstr "Náhľad"
 
 msgid "Your most recent edits"
 msgstr "Vaše posledné úpravy"
-
-msgid "Status"
-msgstr "Stav"
 
 msgid "Date"
 msgstr "Dátum"
@@ -712,10 +992,6 @@ msgstr "Živá verzia"
 
 msgid "Current draft"
 msgstr "Aktuálny koncept"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1054,9 +1330,6 @@ msgstr "live  + koncept"
 msgid "Test"
 msgstr "Test"
 
-msgid "Password"
-msgstr "Heslo"
-
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
 
@@ -1086,9 +1359,6 @@ msgstr "Kolekcia '{0}' bola zmazaná."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Naozaj chcete zmazať túto kolekciu?"
-
-msgid "Editing"
-msgstr "Editácia"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
@@ -1324,9 +1594,6 @@ msgstr "obmedzenia zobrazenia stránky"
 
 msgid "name"
 msgstr "názov"
-
-msgid "groups"
-msgstr "skupiny"
 
 msgid "collection"
 msgstr "kolekcia"

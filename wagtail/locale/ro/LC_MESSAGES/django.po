@@ -5,6 +5,17 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
+# Dan Braghis, 2014
+# Dan Braghis, 2014-2021
+# Dan Braghis, 2014
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Bogdan Mateescu, 2019
 # Dan Braghis, 2014-2021
 # Julian C <jcuotpc@gmail.com>, 2021
 # #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
@@ -18,6 +29,21 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Bogdan Mateescu\n"
+"Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
+"ro/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ro\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -47,6 +73,361 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
 "2:1));\n"
 
+msgid "Wagtail users"
+msgstr "Utilizatori Wagtail"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "Obligatoriu. Până la 30 caractere. Numai litere, numere și @/./+/-/_"
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "Această valoare poate conține numai litere, numere și @/./+/-/_"
+
+msgid "A user with that username already exists."
+msgstr "Un utilizator cu acest nume există deja."
+
+msgid "The two password fields didn't match."
+msgstr "Câmpurile de parolă nu se potrivesc."
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "First Name"
+msgstr "Prenume"
+
+msgid "Last Name"
+msgstr "Nume"
+
+msgid "Password"
+msgstr "Parolă"
+
+msgid "Leave blank if not changing."
+msgstr "Lăsați liber dacă nu schimbați."
+
+msgid "Password confirmation"
+msgstr "Confirmare parolă"
+
+msgid "Enter the same password as above, for verification."
+msgstr "Introduceți aceeași parolă ca mai sus pentru verificare"
+
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "Administratorii pot gestiona orice obiect sau setare."
+
+msgid "A group with that name already exists."
+msgstr "Un grup cu acest nume există deja."
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr ""
+"Nu puteți avea înregistrări de permisiune multiple pentru aceeași pagină."
+
+msgid "submitted notifications"
+msgstr "notificări depuse"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "Primește o notificăre când o pagină este trimisă pentru moderare"
+
+msgid "approved notifications"
+msgstr "notificări aprobate"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "Primește o notificare când modificarea paginii este aprobată"
+
+msgid "rejected notifications"
+msgstr "notificări respinse"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "Primește o notificare când modificărea paginii este respinsă"
+
+msgid "updated comments notifications"
+msgstr "notificări actualizate de comentarii"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Primiți notificări atunci când comentariile au fost create, rezolvate sau "
+"șterse pe o pagină la care v-ați abonat la notificări de comentarii"
+
+msgid "preferred language"
+msgstr "limba preferată"
+
+msgid "Select language for the admin"
+msgstr "Selectați limba pentru interfața de administrare"
+
+msgid "current time zone"
+msgstr "fus orar curent"
+
+msgid "Select your current time zone"
+msgstr "Selectați fusul orar curent"
+
+msgid "profile picture"
+msgstr "poză profil"
+
+msgid "user profile"
+msgstr "profil utilizator"
+
+msgid "user profiles"
+msgstr "profiluri utilizatori"
+
+msgid "Delete"
+msgstr "Șterge"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
+
+msgid "Delete group"
+msgstr "Șterge grup"
+
+#, python-format
+msgid ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> member.\n"
+"            "
+msgid_plural ""
+"\n"
+"                The group '%(group_name)s' has <strong>%(group_user_count)s</"
+"strong> members.\n"
+"            "
+msgstr[0] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membru.\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong> membri.\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Grupul '%(group_name)s' are <strong>%(group_user_count)s</"
+"strong>de membri.\n"
+"            "
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr ""
+"Ștergerea acestui grup va revoca permsiunile de la toți utilizatorii membri."
+
+msgid "Are you sure you want to delete this group?"
+msgstr "Sigur doriți să ștergeți acest grup?"
+
+msgid "Add group"
+msgstr "Adaugă grup"
+
+msgid "Editing"
+msgstr "Editare"
+
+msgid "View users in this group"
+msgstr "Vezi utilizatorii în acest grup"
+
+msgid "Save"
+msgstr "Salvează"
+
+msgid "Permissions"
+msgstr "Permisiuni"
+
+msgid "Object permissions"
+msgstr "Permisiuni obiecte"
+
+msgid "Name"
+msgstr "Nume"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Change"
+msgstr "Modifică"
+
+msgid "Other permissions"
+msgstr "Alte permisiuni"
+
+msgid "Page permissions"
+msgstr "Permisiuni pagină"
+
+msgid "Page"
+msgstr "Pagină"
+
+msgid "Add a page permission"
+msgstr "Adaugă permisiune de pagină"
+
+msgid "groups"
+msgstr "grupuri"
+
+msgid "Add a group"
+msgstr "Adaugă un grup"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "Ne pare rău, \"%(query)s\" nu se potrivește cu nici un grup"
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"Nu există nici un grup configurat. De ce să nu <a href="
+"\"%(wagtailusers_create_group_url)s\">adăugați câțiva</a>?"
+
+msgid "Delete user"
+msgstr "Șterge utilizator"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Sigur doriți să ștergeți acest utilizator?"
+
+msgid "Add user"
+msgstr "Adaugă utilizator"
+
+msgid "Account"
+msgstr "Cont"
+
+msgid "Roles"
+msgstr "Roluri"
+
+msgid "Users"
+msgstr "Utilizatori"
+
+msgid "Add a user"
+msgstr "Adaugă un utilizator"
+
+msgid "Username"
+msgstr "Nume utlizator"
+
+msgid "Level"
+msgstr "Nivel"
+
+#, fuzzy
+msgid "Status"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Stare\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Status"
+
+msgid "Last Login"
+msgstr "Ultima logare"
+
+msgid "Admin"
+msgstr "Administrator"
+
+msgid "Active"
+msgstr "Activ"
+
+msgid "Inactive"
+msgstr "Inactiv"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
+
+#, fuzzy, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"Sunt %(counter)s potriviri\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+msgstr[1] ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"Sunt %(counter)s potriviri\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+msgstr[2] ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"Sunt %(counter)s potriviri\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"\n"
+"            Sunt %(counter)s potriviri\n"
+"        "
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Ne pare rău, \"<em>%(query_string)s</em>\" nu se potrivește cu nici un "
+"utilizator"
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Grupul %(group_name)s nu conține nici un utilizator. De ce să nu <a href="
+"\"%(wagtailusers_add_url)s\">adăugați câțiva</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
+"\">adăugați câțiva</a>?"
+
+msgid "Groups"
+msgstr "Grupuri"
+
+msgid "Search groups"
+msgstr "Caută grupuri"
+
+msgid "Group '{0}' created."
+msgstr "Grupul '{0}' a fost creat."
+
+msgid "Group '{0}' updated."
+msgstr "Grupul '{0}' a fost actualizat."
+
+msgid "The group could not be saved due to errors."
+msgstr "Grupul nu a fost salvat din cauza erorilor."
+
+msgid "Group '{0}' deleted."
+msgstr "Grupul '{0}' a fost șters."
+
+msgid "Search users"
+msgstr "Caută utilizatori"
+
+msgid "User '{0}' created."
+msgstr "Utilizatorul '{0}' a fost creat."
+
+msgid "Edit"
+msgstr "Editează"
+
+msgid "The user could not be created due to errors."
+msgstr "Utilizatorul nu a fost creat din cauza erorilor."
+
+msgid "User '{0}' updated."
+msgstr "Utilizatorul '{0}' a fost actualizat."
+
+msgid "The user could not be saved due to errors."
+msgstr "Utilizatorul nu a fost salvat din cauza erorilor."
+
+msgid "User '{0}' deleted."
+msgstr "Utilizatorul '{0}' a fost șters."
+
+msgid "Edit this user"
+msgstr "Editează acest utlizator"
+
+msgid "Delete this user"
+msgstr "Șterge acest utlizator"
+
 msgid "Publish"
 msgstr "Publică"
 
@@ -72,9 +453,6 @@ msgstr ""
 "Anulează publicarea\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Anulare publicare"
-
-msgid "Delete"
-msgstr "Șterge"
 
 #, fuzzy
 msgid "Lock"
@@ -148,15 +526,6 @@ msgstr "Limba preferată"
 msgid "Current time zone"
 msgstr "Fus orar curent"
 
-msgid "First Name"
-msgstr "Prenume"
-
-msgid "Last Name"
-msgstr "Nume"
-
-msgid "Email"
-msgstr "E-mail"
-
 msgid "Upload a profile picture"
 msgstr "Încarcă poza profil"
 
@@ -192,12 +561,6 @@ msgstr ""
 
 msgid "Collection"
 msgstr "Colecție"
-
-msgid "Add"
-msgstr "Adaugă"
-
-msgid "Edit"
-msgstr "Editează"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nu puteți edita comentariile altui utilizator"
@@ -315,9 +678,6 @@ msgstr "Dați un nume fluxului de lucru"
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
 
-msgid "Page"
-msgstr "Pagină"
-
 msgid "Pages"
 msgstr "Pagini"
 
@@ -390,9 +750,6 @@ msgstr "Vezi paginile dependente de '{title}'"
 
 msgid "Page explorer"
 msgstr "Explorator de pagini"
-
-msgid "Save"
-msgstr "Salvează"
 
 msgid "Saving..."
 msgstr "În curs de salvare..."
@@ -468,9 +825,6 @@ msgstr "Pagina solicitată nu a fost găsită."
 
 msgid "Go to Wagtail admin"
 msgstr "Spre interfața de administrare Wagtail"
-
-msgid "Account"
-msgstr "Cont"
 
 msgid "Save account details"
 msgstr "Salvează detaliile contului"
@@ -664,9 +1018,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "Această colecție nu poate fi ștearsă pentru că nu este goală. Conține:"
 
-msgid "Name"
-msgstr "Nume"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -700,9 +1051,6 @@ msgstr "Comentarii la această pagină"
 
 msgid "Comment notifications"
 msgstr "Notificări comentarii"
-
-msgid "Yes, delete"
-msgstr "Da, șterge"
 
 msgid "Update"
 msgstr "Actualizează"
@@ -766,9 +1114,6 @@ msgstr "Examinare"
 
 msgid "Your most recent edits"
 msgstr "Modificările cele mai recente"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Dată"
@@ -1093,9 +1438,6 @@ msgstr "Alegeți tipul de pagină pe care doriți să creați."
 msgid "Pages using %(page_type)s"
 msgstr "Pagini de tip %(page_type)s"
 
-msgid "No, don't delete"
-msgstr "Nu, nu șterge"
-
 #, fuzzy
 msgid "Move"
 msgstr ""
@@ -1325,10 +1667,6 @@ msgstr "Versiune live"
 
 msgid "Current draft"
 msgstr "Ciornă curentă"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
 
 msgid "No log entries found."
 msgstr "Nu s-au găsit intrări de jurnal."
@@ -2028,28 +2366,6 @@ msgstr "Existente"
 msgid "Choose a different task type"
 msgstr "Alege un alt tip de sarcină"
 
-#, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
-msgstr[0] ""
-"\n"
-"            Sunt %(counter)s potriviri\n"
-"        "
-msgstr[1] ""
-"\n"
-"            Sunt %(counter)s potriviri\n"
-"        "
-msgstr[2] ""
-"\n"
-"            Sunt %(counter)s potriviri\n"
-"        "
-
 msgid "Task type"
 msgstr "Tip sarcină"
 
@@ -2182,14 +2498,6 @@ msgstr "Poza de profil"
 msgid "Locale"
 msgstr "Localizare"
 
-#, fuzzy
-msgid "Password"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Parola\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"Parolă"
-
 msgid "Your account settings have been changed successfully!"
 msgstr "Setările contului tău au fost schimbate!"
 
@@ -2222,9 +2530,6 @@ msgstr "Colecția '{0}' a fost ștearsă."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "Sigur doriți să ștergeți această colecție?"
-
-msgid "Editing"
-msgstr "Editare"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Pagina '{0}' a fost convertită în pagină obișnuită."
@@ -2841,9 +3146,6 @@ msgstr ""
 
 msgid "workflows"
 msgstr "fluxuri de lucru"
-
-msgid "groups"
-msgstr "grupuri"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "

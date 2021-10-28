@@ -6,6 +6,17 @@
 # Translators:
 # abdulaziz alfuhigi <abajall@gmail.com>, 2018
 # Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
+# ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>, 2015
+# ultraify media <ultraify@gmail.com>, 2018
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# abdulaziz alfuhigi <abajall@gmail.com>, 2018
+# Ahmad Kiswani <kiswani.ahmad@gmail.com>, 2016
 # Ahmed Miske Sidi Med <boutien321@gmail.com>, 2020
 # abdulaziz alfuhigi <abajall@gmail.com>, 2016
 # Amr Awad <amro.khir@gmail.com>, 2020
@@ -27,6 +38,21 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
+"Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
+"ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -56,6 +82,271 @@ msgstr ""
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
+msgid "Wagtail users"
+msgstr "مستخدمي wagtail"
+
+msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr "مطلوب. 30 حرفًا أو أقل. الحروف والأرقام و @ /. / + / - / _ فقط."
+
+msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
+msgstr "قد تحتوي هذه القيمة على أحرف وأرقام و @ /. / + / - / _ حرف فقط."
+
+msgid "A user with that username already exists."
+msgstr "يوجد مستعمل لنفس الاسم"
+
+msgid "The two password fields didn't match."
+msgstr "حقلا كلمة السر لا يتوافقان."
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "First Name"
+msgstr "الاسم الأول"
+
+msgid "Last Name"
+msgstr "اسم العائلة"
+
+msgid "Password"
+msgstr "كلمة السر"
+
+msgid "Leave blank if not changing."
+msgstr "أترك فارغا في حالة عدم التغير."
+
+msgid "Password confirmation"
+msgstr "تأكيد كلمة السر"
+
+msgid "Enter the same password as above, for verification."
+msgstr "أدخل كلمة السر نفسها للتحقيق"
+
+msgid "Administrator"
+msgstr "مدير"
+
+msgid "Administrators have full access to manage any object or setting."
+msgstr "يمتلك المسؤولون حق الوصول الكامل لإدارة أي كائن أو إعداد."
+
+msgid "A group with that name already exists."
+msgstr "توجد مجموعة بهذا الإسم"
+
+msgid "You cannot have multiple permission records for the same page."
+msgstr "لا يمكن أن يكون لديك سجلات أذونات متعددة لنفس الصفحة."
+
+msgid "submitted notifications"
+msgstr "بلاغات مقدمة"
+
+msgid "Receive notification when a page is submitted for moderation"
+msgstr "استلم إبلاغا إذا قدمت صفحة للمراجعة"
+
+msgid "approved notifications"
+msgstr "بلاغات موافق عليها"
+
+msgid "Receive notification when your page edit is approved"
+msgstr "استلم إبلاغا في حالة استحسان تنقيح صفحتك"
+
+msgid "rejected notifications"
+msgstr "بلاغات مرفوضة"
+
+msgid "Receive notification when your page edit is rejected"
+msgstr "استلم بلاغا في حالة رفض تنقيح صفحتك"
+
+msgid "preferred language"
+msgstr "اللغة المفضلة"
+
+msgid "Select language for the admin"
+msgstr "اختر لغة للمشرف"
+
+msgid "current time zone"
+msgstr "المنطقة الزمنية الحالية"
+
+msgid "Select your current time zone"
+msgstr "اختر منطقتك الزمنية الحالية"
+
+msgid "profile picture"
+msgstr "الصوره الشخصيه"
+
+msgid "user profile"
+msgstr "ملف تعريفي للمستخدم"
+
+msgid "user profiles"
+msgstr "ملف تعريفي للمستخدم"
+
+msgid "Delete"
+msgstr "احذف"
+
+#, fuzzy
+msgid "Yes, delete"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"نعم, احذف\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"نعم احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
+msgid "Delete group"
+msgstr "احذف المجموعة"
+
+msgid ""
+"Deleting this group will revoke this group's permissions from all member "
+"users."
+msgstr "حذف هذه المجموعة سوف يلغي تصريحات المجموعة لكل أعضائها"
+
+msgid "Are you sure you want to delete this group?"
+msgstr "هل تريد فعلا حذف هذه الجماعة؟"
+
+msgid "Add group"
+msgstr "أضف جماعة"
+
+#, fuzzy
+msgid "Editing"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"تحرير\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"جاري التعديل"
+
+msgid "Save"
+msgstr "احفظ"
+
+msgid "Object permissions"
+msgstr "أذونات الكائن"
+
+msgid "Name"
+msgstr "اسم"
+
+msgid "Add"
+msgstr "أضف"
+
+msgid "Change"
+msgstr "غيّر"
+
+msgid "Other permissions"
+msgstr "تصريحات أخرى"
+
+msgid "Page permissions"
+msgstr "تصريحات لصفحة"
+
+msgid "Page"
+msgstr "صفحة"
+
+msgid "Add a page permission"
+msgstr "أضف تصريحا لصفحة"
+
+msgid "groups"
+msgstr "مجموعات"
+
+msgid "Add a group"
+msgstr "أضف مجموعة"
+
+#, python-format
+msgid "Sorry, no groups match \"%(query)s\""
+msgstr "عذرًا ، لا توجد مجموعات تطابق \"%(query)s\""
+
+#, python-format
+msgid ""
+"There are no groups configured. Why not <a href="
+"\"%(wagtailusers_create_group_url)s\">add some</a>?"
+msgstr ""
+"لا توجد مجموعات تم تكوينها. لماذا لا <a href="
+"\"%(wagtailusers_create_group_url)s\">تضيف بعض</a>؟"
+
+msgid "Delete user"
+msgstr "إحذف المستخدم"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "هل أنت متأكد من حذف هذا المستخدم؟ "
+
+msgid "Add user"
+msgstr "أضف مستخدم"
+
+msgid "Account"
+msgstr "حساب"
+
+msgid "Roles"
+msgstr "الأدوار"
+
+msgid "Users"
+msgstr "مستخدمين"
+
+msgid "Add a user"
+msgstr "أضف مستخدم"
+
+msgid "Username"
+msgstr "إسم المستخدم"
+
+msgid "Level"
+msgstr "مستوى"
+
+#, fuzzy
+msgid "Status"
+msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"الحالة\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"رتبة"
+
+msgid "Admin"
+msgstr "إدارة"
+
+msgid "Active"
+msgstr "نشيط"
+
+msgid "Inactive"
+msgstr "غير نشط"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
+
+#, python-format
+msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
+msgstr "عذرًا ، لا يوجد مستخدمون يتطابقون مع \"<em>%(query_string)s</em>\""
+
+msgid "Groups"
+msgstr "مجموعات"
+
+msgid "Search groups"
+msgstr "مجموعات البحث"
+
+msgid "Group '{0}' created."
+msgstr "تم إنشاء المجموعة '{0}'."
+
+msgid "Group '{0}' updated."
+msgstr "تم تعديل المجموعة '{0}'."
+
+msgid "The group could not be saved due to errors."
+msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
+
+msgid "Group '{0}' deleted."
+msgstr "تم حذف المجموعة '{0}'."
+
+msgid "Search users"
+msgstr "ابحث عن المستخدمين"
+
+msgid "User '{0}' created."
+msgstr "تم إنشاء المستخدم '{0}'."
+
+msgid "Edit"
+msgstr "تحرير"
+
+msgid "The user could not be created due to errors."
+msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
+
+msgid "User '{0}' updated."
+msgstr "تم تحديث المستخدم '{0}'."
+
+msgid "The user could not be saved due to errors."
+msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
+
+msgid "User '{0}' deleted."
+msgstr "تم حذف المستخدم '{0}'."
+
+msgid "Edit this user"
+msgstr "تحرير هذا المستخدم"
+
+msgid "Delete this user"
+msgstr "إحذف هذا المستخدم"
+
 msgid "Publish"
 msgstr "انشر"
 
@@ -67,14 +358,6 @@ msgstr "إعادة اﻹدخال إلي {}"
 
 msgid "Unpublish"
 msgstr "غير منشور"
-
-#, fuzzy
-msgid "Delete"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"احذف\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"حذف"
 
 #, fuzzy
 msgid "Lock"
@@ -136,15 +419,6 @@ msgstr "اللغة المفضلة"
 msgid "Current time zone"
 msgstr "المنطقة الزمنية الحالية"
 
-msgid "First Name"
-msgstr "الاسم الأول"
-
-msgid "Last Name"
-msgstr "اسم العائلة"
-
-msgid "Email"
-msgstr "البريد الإلكتروني"
-
 msgid "Upload a profile picture"
 msgstr "تحميل صورة ملف شخصي"
 
@@ -169,22 +443,6 @@ msgstr "لا يوجد لديك العديد من الصلاحيات المسجل
 
 msgid "Collection"
 msgstr "مجموعة"
-
-#, fuzzy
-msgid "Add"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"اضف\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"أضف"
-
-#, fuzzy
-msgid "Edit"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"تحرير\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"تعديل"
 
 msgid "New title"
 msgstr "عنوان جديد"
@@ -280,9 +538,6 @@ msgstr ""
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
 
-msgid "Page"
-msgstr "صفحة"
-
 msgid "Pages"
 msgstr "صفحات"
 
@@ -353,9 +608,6 @@ msgstr "أعرض الصفحات التابعة ل '{title}'"
 msgid "Page explorer"
 msgstr "مستكشف الصفحة"
 
-msgid "Save"
-msgstr "احفظ"
-
 msgid "Saving..."
 msgstr "يتم الحفظ..."
 
@@ -376,9 +628,6 @@ msgstr "الصفحة المطلوبة لم تعد متوفرة"
 
 msgid "Go to Wagtail admin"
 msgstr "اذهب الى لوحة تحكم Wagtail"
-
-msgid "Account"
-msgstr "حساب"
 
 msgid "Change password"
 msgstr "غير كلمة السر"
@@ -522,9 +771,6 @@ msgid ""
 "This collection cannot be deleted, because it is not empty. It contains:"
 msgstr "المجموعة لايمكن حذفها. بسبب احتوائها على محتويات:"
 
-msgid "Name"
-msgstr "اسم"
-
 #, python-format
 msgid ""
 "No collections have been created. Why not <a href=\"%(add_collection_url)s"
@@ -542,9 +788,6 @@ msgstr "تقدم إلى فوق "
 
 msgid "Move down"
 msgstr "تقدم إلى تحت"
-
-msgid "Yes, delete"
-msgstr "نعم احذف"
 
 msgid "Update"
 msgstr "حدث"
@@ -595,9 +838,6 @@ msgstr "نظر مقدم"
 
 msgid "Your most recent edits"
 msgstr "أحدث تعديلاتك"
-
-msgid "Status"
-msgstr "رتبة"
 
 msgid "Date"
 msgstr "تاريخ"
@@ -693,9 +933,6 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "صفحات مستخدمة %(page_type)s"
-
-msgid "No, don't delete"
-msgstr "لا, لا تذف"
 
 msgid "Move"
 msgstr "انقل"
@@ -794,10 +1031,6 @@ msgstr "نسخة حية"
 
 msgid "Current draft"
 msgstr "المسودة الحالية"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -1075,14 +1308,6 @@ msgstr "حي + مسودة"
 msgid "Test"
 msgstr "اختبار"
 
-#, fuzzy
-msgid "Password"
-msgstr ""
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"كلمة السر\n"
-"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
-"كلمة سر"
-
 msgid "You have been successfully logged out."
 msgstr "لقد تم تسجيل بنجاح."
 
@@ -1112,9 +1337,6 @@ msgstr "المجموعة '{0}' محذوفة."
 
 msgid "Are you sure you want to delete this collection?"
 msgstr "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
-
-msgid "Editing"
-msgstr "جاري التعديل"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "تم نسخ الصفحة '{0}' و {1} الصفحات الفرعية."
@@ -1383,9 +1605,6 @@ msgstr "قيود عرض الصفحة"
 
 msgid "name"
 msgstr "اسم"
-
-msgid "groups"
-msgstr "مجموعات"
 
 msgid "collection"
 msgstr "مجموعة"

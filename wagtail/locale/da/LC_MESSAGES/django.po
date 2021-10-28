@@ -4,6 +4,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# #-#-#-#-#  django.po (Wagtail)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
 # Asger Sørensen <asger.soerensen@live.com>, 2016
 # Mads Kronborg <madskronborg99@gmail.com>, 2018
 # MRostgaard <Mrostgaard@gmail.com>, 2019
@@ -16,6 +23,20 @@
 #, fuzzy
 msgid ""
 msgstr ""
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "#-#-#-#-#  django.po (Wagtail)  #-#-#-#-#\n"
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
@@ -43,6 +64,40 @@ msgstr ""
 "Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Edit"
+msgstr "Rediger"
+
 msgid "Publish"
 msgstr "Udgiv"
 
@@ -51,9 +106,6 @@ msgstr "Indsend til moderation"
 
 msgid "Unpublish"
 msgstr "Afpublicer"
-
-msgid "Delete"
-msgstr "Slet"
 
 msgid "Page locked"
 msgstr "Siden er låst"
@@ -101,12 +153,6 @@ msgstr "Forældre"
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Du har ikke mulighed for at have flere tilladelser på den samme samling."
-
-msgid "Add"
-msgstr "Tilføj"
-
-msgid "Edit"
-msgstr "Rediger"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -187,9 +233,6 @@ msgstr "Dette felt er påkrævet."
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
 
-msgid "Page"
-msgstr "Side"
-
 msgid "Pages"
 msgstr "Sider"
 
@@ -250,9 +293,6 @@ msgstr "Luk"
 msgid "Edit '{title}'"
 msgstr "Rediger '{title}'"
 
-msgid "Save"
-msgstr "Gem"
-
 msgid "Saving..."
 msgstr "Gemmer..."
 
@@ -273,9 +313,6 @@ msgstr "Den anmodede side kunne ikke findes."
 
 msgid "Go to Wagtail admin"
 msgstr "Gå til Wagtail admin"
-
-msgid "Account"
-msgstr "Konto"
 
 msgid "Change password"
 msgstr "Skift adgangskode"
@@ -420,9 +457,6 @@ msgstr "Offentlig"
 msgid "Private"
 msgstr "Privat"
 
-msgid "Name"
-msgstr "Navn"
-
 #, python-format
 msgid "Add %(label)s"
 msgstr "Tilføj %(label)s"
@@ -432,9 +466,6 @@ msgstr "Bevæg op"
 
 msgid "Move down"
 msgstr "Bevæg ned"
-
-msgid "Yes, delete"
-msgstr "Ja, slet"
 
 msgid "Update"
 msgstr "Opdater"
@@ -472,9 +503,6 @@ msgstr "Forhåndsvis"
 
 msgid "Your most recent edits"
 msgstr "Dine seneste redigeringer"
-
-msgid "Status"
-msgstr "Status"
 
 msgid "Date"
 msgstr "Dato"
@@ -671,10 +699,6 @@ msgid "Current draft"
 msgstr "Nuværende skitse"
 
 #, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
-
-#, python-format
 msgid "Exploring %(title)s"
 msgstr "Udforsker %(title)s"
 
@@ -845,9 +869,6 @@ msgstr "Mere"
 
 msgid "Test"
 msgstr "Test"
-
-msgid "Editing"
-msgstr "Redigerer"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "SIde '{0}' og {1} undersider blev kopieret."
