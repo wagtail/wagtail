@@ -92,7 +92,7 @@ class WelcomePanel(Component):
 
 ## Using components on your own templates
 
-The `wagtailadmin_tags` tag library provides a `{% component %}` tag for including components on a template. This takes care of passing context variables from the calling template to the component (which would not be the case for a basic `{{ ... }}` variable tag). For example, given the view:
+The `wagtailadmin` tag library provides a `{% component %}` tag for including components on a template. This takes care of passing context variables from the calling template to the component (which would not be the case for a basic `{{ ... }}` variable tag). For example, given the view:
 
 ```python
 from django.shortcuts import render
@@ -110,7 +110,7 @@ def welcome_page(request):
 the `my_app/welcome.html` template could render the panels as follows:
 
 ```html+django
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 {% for panel in panels %}
     {% component panel %}
 {% endfor %}
@@ -141,7 +141,7 @@ def welcome_page(request):
 
 ```html+django
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 
 {% block extra_js %}
     {{ block.super }}

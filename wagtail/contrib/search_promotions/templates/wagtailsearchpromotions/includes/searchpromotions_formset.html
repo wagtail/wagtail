@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {{ formset.management_form }}
 <ul class="multiple" id="id_{{ formset.prefix }}-FORMS">
     {% for form in formset.forms %}

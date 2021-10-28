@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {% block titletag %}{% blocktrans with title=page_to_move.specific_deferred.get_admin_display_title %}Select a new parent page for {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     <header class="nice-padding">

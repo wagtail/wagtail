@@ -69,7 +69,7 @@ A form template for a StructBlock must include the output of ``render_form`` for
 
 .. code-block:: html+django
 
-    {% load wagtailadmin_tags  %}
+    {% load wagtailadmin  %}
 
     <div class="{{ classname }}">
         {% if help_text %}

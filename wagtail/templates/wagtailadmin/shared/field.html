@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags i18n %}
+{% load wagtailadmin i18n %}
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}" {% if include_contentpath|default_if_none:True %}data-contentpath="{{ field.name }}"{% endif %}>
     {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">

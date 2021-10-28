@@ -366,7 +366,7 @@ More details about the options that are available can be found at :doc:`/extendi
 
   Setting the URL can be achieved using reverse() on the target search page. The GET parameter 'q' will be appended to the given URL.
 
-  A template tag, ``search_other`` is provided by the ``wagtailadmin_tags`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
+  A template tag, ``search_other`` is provided by the ``wagtailadmin`` template module. This tag takes a single, optional parameter, ``current``, which allows you to specify the ``name`` of the search option currently active. If the parameter is not given, the hook defaults to a reverse lookup of the page's URL for comparison against the ``url`` parameter.
 
 
   ``SearchArea`` can be subclassed to customise the HTML output, specify JavaScript files required by the option, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/search.py``) for details.

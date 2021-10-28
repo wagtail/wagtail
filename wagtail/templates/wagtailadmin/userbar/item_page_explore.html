@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/userbar/item_base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 
 {% block item_content %}
     <a href="{% url 'wagtailadmin_explore' self.parent_page.id %}" target="_parent" role="menuitem">

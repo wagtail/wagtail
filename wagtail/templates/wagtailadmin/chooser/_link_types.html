@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {% if allow_external_link or allow_email_link or allow_phone_link or allow_anchor_link or current == 'external' or current == 'email' or current == 'phone' or current == 'anchor' %}
     <p class="link-types">
         {% if current == 'internal' %}

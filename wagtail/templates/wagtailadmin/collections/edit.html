@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/generic/edit.html" %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 
 {% block before_form %}
     {% include "wagtailadmin/collections/_privacy_switch.html" with collection=object collection_perms=collection_perms only %}

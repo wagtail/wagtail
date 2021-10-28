@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load l10n %}
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 <table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
     {% if show_ordering_column or not hide_bulk_actions %}
         <col width="10px" />

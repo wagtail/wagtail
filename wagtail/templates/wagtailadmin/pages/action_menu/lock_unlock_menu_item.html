@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 <button class="button{% if classname %} {{ classname }}{% endif %}" data-locking-action="{{ url }}" aria-label="{{ aria_label }}">
     {% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}
 </button>

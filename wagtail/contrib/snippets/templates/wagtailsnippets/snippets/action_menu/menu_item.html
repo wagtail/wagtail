@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags %}
+{% load wagtailadmin %}
 {% if url %}
     <a class="button{% if classname %} {{ classname }}{% endif %}" href="{{ url }}">{% if icon_name %}{% icon name=icon_name %}{% endif %}{{ label }}</a>
 {% else %}

@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/userbar/item_base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 
 {% block item_content %}
     <form action="{% url 'wagtailadmin_pages:approve_moderation' self.revision.id %}" target="_parent" method="post">

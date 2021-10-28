@@ -1,6 +1,6 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
-{% load wagtailimages_tags wagtailadmin_tags %}
+{% load wagtailimages_tags wagtailadmin %}
 {% block titletag %}{% blocktrans count counter=items|length %}Add 1 document to new collection {% plural %}Add {{ counter }} documents to new collection{% endblocktrans %}{% endblock %}
 
 {% block header %}

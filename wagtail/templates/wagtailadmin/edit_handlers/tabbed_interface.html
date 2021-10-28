@@ -1,4 +1,4 @@
-{% load wagtailadmin_tags i18n %}
+{% load wagtailadmin i18n %}
 <div class="tab-nav merged">
     <ul data-tab-nav role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
         {% for child in self.children %}

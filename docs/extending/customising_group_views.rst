@@ -84,7 +84,7 @@ Add the field to the group 'edit'/'create' templates:
 .. code-block:: html+Django
 
   {% extends "wagtailusers/groups/edit.html" %}
-  {% load wagtailusers_tags wagtailadmin_tags i18n %}
+  {% load wagtailusers_tags wagtailadmin i18n %}
 
   {% block extra_fields %}
       {% include "wagtailadmin/shared/field_as_li.html" with field=form.adgroups %}

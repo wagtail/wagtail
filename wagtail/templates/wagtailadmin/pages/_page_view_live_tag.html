@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {% if page.live and page.url is not None %}
     {% test_page_is_public page as is_public %}
     <a href="{{ page.url }}" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="{% trans 'Visit the live page' %}">

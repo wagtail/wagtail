@@ -1,5 +1,5 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
-{% load wagtailadmin_tags i18n %}
+{% load wagtailadmin i18n %}
 {% block titletag %}{% blocktrans count counter=items|length %}Delete 1 document {% plural %}Delete {{ counter }} documents{% endblocktrans %}{% endblock %}
 
 {% block header %}

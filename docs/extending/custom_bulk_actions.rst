@@ -46,7 +46,7 @@ An example for a confirmation template is as follows:
   <!-- /path/to/confirm_bulk_delete.html -->
 
   {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
-  {% load i18n wagtailadmin_tags %}
+  {% load i18n wagtailadmin %}
 
   {% block titletag %}{% blocktrans count counter=items|length %}Delete 1 item{% plural %}Delete {{ counter }} items{% endblocktrans %}{% endblock %}
 

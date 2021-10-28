@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags i18n %}
+{% load wagtailadmin i18n %}
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}

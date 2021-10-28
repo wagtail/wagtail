@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 <td>
     <input type="checkbox"
     {% if obj_type == 'page' %}data-page-status="{% if obj.live %}live{% else %}draft{% endif %}"{% endif %}

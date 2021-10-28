@@ -13,7 +13,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.ui.components import Component
 from wagtail.contrib.images.tests.utils import get_test_image_file
 from wagtail.models import UserProfile, admin
-from wagtail.templatetags.wagtailadmin_tags import (
+from wagtail.templatetags.wagtailadmin import (
     avatar_url, notification_static, timesince_last_update, timesince_simple)
 from wagtail.test.utils import WagtailTestUtils
 

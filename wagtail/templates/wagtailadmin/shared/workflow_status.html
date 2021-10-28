@@ -1,4 +1,4 @@
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {% if workflow_state %}
 <li>
     <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}"

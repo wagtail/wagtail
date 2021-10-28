@@ -861,7 +861,7 @@ class CommentPanel(EditHandler):
 
     def get_context(self):
         def user_data(user):
-            from wagtail.templatetags.wagtailadmin_tags import avatar_url, user_display_name
+            from wagtail.templatetags.wagtailadmin import avatar_url, user_display_name
 
             return {
                 'name': user_display_name(user),

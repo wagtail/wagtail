@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n wagtailadmin_tags %}
+{% load i18n wagtailadmin %}
 {% block titletag %}{% blocktrans with query=query.query_string %}Editing {{ query }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
