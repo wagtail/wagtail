@@ -6,7 +6,6 @@ from io import StringIO
 from django.core import management
 from django.test import SimpleTestCase, TestCase
 
-from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.search import models
 from wagtail.search.query import And, Or, Phrase, PlainText
 from wagtail.search.utils import (
@@ -134,14 +133,6 @@ class TestGarbageCollectCommand(TestCase):
             q.add_hit(date=recent_hit_date)
             recent_querie_ids.append(q.id)
 
-        # Add 10 queries that are promoted. These ones should not be deleted.
-        promoted_querie_ids = []
-        for i in range(10):
-            q = models.Query.get("Foo bar {}".format(i))
-            q.add_hit(date=old_hit_date)
-            SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
-            promoted_querie_ids.append(q.id)
-
         management.call_command('search_garbage_collect', stdout=StringIO())
 
         self.assertFalse(models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists())
@@ -151,10 +142,6 @@ class TestGarbageCollectCommand(TestCase):
         self.assertEqual(models.Query.objects.filter(id__in=recent_querie_ids).count(), 10)
         self.assertEqual(models.QueryDailyHits.objects.filter(
             date=recent_hit_date, query_id__in=recent_querie_ids).count(), 10)
-
-        self.assertEqual(models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10)
-        self.assertEqual(models.QueryDailyHits.objects.filter(
-            date=recent_hit_date, query_id__in=promoted_querie_ids).count(), 0)
 
 
 class TestQueryChooserView(TestCase, WagtailTestUtils):

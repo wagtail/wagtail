@@ -1,11 +1,14 @@
+from datetime import date, datetime, timedelta
+from io import StringIO
+
+from django.core import management
 from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.contrib.search_promotions.models import SearchPromotion
+from wagtail.contrib.search_promotions.models import Query, QueryDailyHits, SearchPromotion
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
     get_search_promotions)
-from wagtail.search.models import Query
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -429,3 +432,76 @@ class TestSearchPromotionsDeleteView(TestCase, WagtailTestUtils):
 
         # The other recommendation should still exist
         self.assertFalse(SearchPromotion.objects.filter(id=self.search_pick.id).exists())
+
+
+class TestGarbageCollectManagementCommand(TestCase):
+    def test_garbage_collect_command(self):
+        nowdt = datetime.now()
+        old_hit_date = (nowdt - timedelta(days=14)).date()
+        recent_hit_date = (nowdt - timedelta(days=1)).date()
+
+        # Add 10 hits that are more than one week old ; the related queries and the daily hits
+        # should be deleted bu the search_garbage_collect command.
+        query_ids_to_be_deleted = []
+        for i in range(10):
+            q = Query.get("Hello {}".format(i))
+            q.add_hit(date=old_hit_date)
+            query_ids_to_be_deleted.append(q.id)
+
+        # Add 10 hits that are less than one week old ; these ones should not be deleted.
+        recent_query_ids = []
+        for i in range(10):
+            q = Query.get("World {}".format(i))
+            q.add_hit(date=recent_hit_date)
+            recent_query_ids.append(q.id)
+
+        # Add 10 queries that are promoted. These ones should not be deleted.
+        promoted_query_ids = []
+        for i in range(10):
+            q = Query.get("Foo bar {}".format(i))
+            q.add_hit(date=old_hit_date)
+            SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
+            promoted_query_ids.append(q.id)
+
+        management.call_command('searchpromotions_garbage_collect', stdout=StringIO())
+
+        self.assertFalse(Query.objects.filter(id__in=query_ids_to_be_deleted).exists())
+        self.assertFalse(QueryDailyHits.objects.filter(
+            date=old_hit_date, query_id__in=query_ids_to_be_deleted).exists())
+
+        self.assertEqual(Query.objects.filter(id__in=recent_query_ids).count(), 10)
+        self.assertEqual(QueryDailyHits.objects.filter(
+            date=recent_hit_date, query_id__in=recent_query_ids).count(), 10)
+
+        self.assertEqual(Query.objects.filter(id__in=promoted_query_ids).count(), 10)
+        self.assertEqual(QueryDailyHits.objects.filter(
+            date=recent_hit_date, query_id__in=promoted_query_ids).count(), 0)
+
+
+class TestCopyDailyHitsFromWagtailSearchManagementCommand(TestCase):
+    def run_command(self, **options):
+        output = StringIO()
+        management.call_command('copy_daily_hits_from_wagtailsearch', stdout=output, **options)
+        output.seek(0)
+        return output
+
+    def test_copy(self):
+        # Create some daily hits in the wagtailsearch.{Query,QueryDailyHits} models
+        from wagtail.search.models import Query as WSQuery
+        query = WSQuery.get("test query")
+        query.add_hit(date(2021, 8, 24))
+        query.add_hit(date(2021, 8, 24))
+        query.add_hit(date(2021, 7, 1))
+
+        # Check that nothing magically got inserted into the new query model
+        self.assertFalse(Query.objects.exists())
+
+        # Run the management command
+        self.run_command()
+
+        # Check that the query now exists in the new model
+        new_query = Query.objects.get()
+        self.assertEqual(new_query.query_string, "test query")
+
+        # Check daily hits
+        self.assertEqual(new_query.hits, 3)

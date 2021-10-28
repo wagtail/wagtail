@@ -1,4 +1,5 @@
 import datetime
+import warnings
 
 from django.apps import apps
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.utils import MAX_QUERY_STRING_LENGTH, normalise_query_string
+from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 from .index import class_is_indexed
 from .utils import get_descendants_content_types_pks
@@ -27,6 +29,12 @@ class Query(models.Model):
         super().save(*args, **kwargs)
 
     def add_hit(self, date=None):
+        warnings.warn(
+            "The wagtailsearch.Query model has been moved to wagtail.contrib.search_promotions. "
+            "Please update your code to use the Query model from that app instead.",
+            RemovedInWagtail217Warning,
+            stacklevel=2
+        )
         if date is None:
             date = timezone.now().date()
         daily_hits, created = QueryDailyHits.objects.get_or_create(

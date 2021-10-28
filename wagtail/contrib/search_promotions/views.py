@@ -11,9 +11,8 @@ from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
+from wagtail.contrib.search_promotions.models import Query
 from wagtail.core.log_actions import log
-from wagtail.search import forms as search_forms
-from wagtail.search.models import Query
 
 
 @any_permission_required(
@@ -114,7 +113,7 @@ def save_searchpicks(query, new_query, searchpicks_formset):
 def add(request):
     if request.method == 'POST':
         # Get query
-        query_form = search_forms.QueryForm(request.POST)
+        query_form = forms.QueryForm(request.POST)
         if query_form.is_valid():
             query = Query.get(query_form['query_string'].value())
 
@@ -137,7 +136,7 @@ def add(request):
         else:
             searchpicks_formset = forms.SearchPromotionsFormSet()
     else:
-        query_form = search_forms.QueryForm()
+        query_form = forms.QueryForm()
         searchpicks_formset = forms.SearchPromotionsFormSet()
 
     return TemplateResponse(request, 'wagtailsearchpromotions/add.html', {
@@ -153,7 +152,7 @@ def edit(request, query_id):
 
     if request.method == 'POST':
         # Get query
-        query_form = search_forms.QueryForm(request.POST)
+        query_form = forms.QueryForm(request.POST)
         # and the recommendations
         searchpicks_formset = forms.SearchPromotionsFormSet(request.POST, instance=query)
 
@@ -175,7 +174,7 @@ def edit(request, query_id):
                     # specific errors will be displayed within form fields
 
     else:
-        query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
+        query_form = forms.QueryForm(initial=dict(query_string=query.query_string))
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
     return TemplateResponse(request, 'wagtailsearchpromotions/edit.html', {
