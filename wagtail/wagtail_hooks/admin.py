@@ -33,7 +33,7 @@ from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListin
 from wagtail.models import Collection, Page, UserPagePermissionsProxy, workflows
 from wagtail.permissions import (
     collection_permission_policy, task_permission_policy, workflow_permission_policy)
-from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
+from wagtail.utils.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 class ExplorerMenuItem(MenuItem):

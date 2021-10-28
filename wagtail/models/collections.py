@@ -7,7 +7,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.query import TreeQuerySet
 from wagtail.search import index
-from wagtail.treebeard import TreebeardPathFixMixin
+from wagtail.utils.treebeard import TreebeardPathFixMixin
 
 from .view_restrictions import BaseViewRestriction
 

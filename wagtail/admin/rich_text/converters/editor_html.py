@@ -4,7 +4,7 @@ from django.utils.html import escape
 from wagtail.models import Page
 from wagtail.rich_text import features as feature_registry
 from wagtail.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-from wagtail.whitelist import Whitelister, allow_without_attributes
+from wagtail.utils.whitelist import Whitelister, allow_without_attributes
 
 
 class WhitelistRule:

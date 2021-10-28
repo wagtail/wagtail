@@ -41,8 +41,8 @@ from wagtail.coreutils import escape_script, get_content_type_label
 from wagtail.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
     UserPagePermissionsProxy)
-from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.telepath import JSContext
 
 
 register = template.Library()

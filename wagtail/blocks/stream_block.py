@@ -12,7 +12,7 @@ from django.utils.html import format_html_join
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.utils.telepath import Adapter, register
 
 from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 

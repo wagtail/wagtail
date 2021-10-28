@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.utils.telepath import Adapter, register
 
 
 class WidgetAdapter(Adapter):

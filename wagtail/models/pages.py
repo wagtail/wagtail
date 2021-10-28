@@ -56,9 +56,9 @@ from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete)
-from wagtail.treebeard import TreebeardPathFixMixin
-from wagtail.url_routing import RouteResult
 from wagtail.utils.decorators import cached_classmethod
+from wagtail.utils.treebeard import TreebeardPathFixMixin
+from wagtail.utils.url_routing import RouteResult
 
 from .commenting import COMMENTS_RELATION_NAME, Comment
 from .copying import _copy, _copy_m2m_relations

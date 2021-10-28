@@ -8,7 +8,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.blocks import FieldBlock
-from wagtail.telepath import register
+from wagtail.utils.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 

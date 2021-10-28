@@ -10,7 +10,7 @@ from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.images import get_image_model
 from wagtail.images.shortcuts import get_rendition_or_not_found
-from wagtail.telepath import register
+from wagtail.utils.telepath import register
 from wagtail.widget_adapters import WidgetAdapter
 
 

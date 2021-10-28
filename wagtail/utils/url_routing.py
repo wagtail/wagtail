@@ -1,4 +1,3 @@
-
 class RouteResult:
     """
     An object to be returned from Page.route, which encapsulates

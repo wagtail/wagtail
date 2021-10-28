@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.whitelist import Whitelister, allow_without_attributes, attribute_rule, check_url
+from wagtail.utils.whitelist import Whitelister, allow_without_attributes, attribute_rule, check_url
 
 
 class TestCheckUrl(TestCase):

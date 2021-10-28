@@ -13,7 +13,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.coreutils import camelcase_to_underscore, resolve_model_string
 from wagtail.rich_text import RichText, get_text_for_indexing
-from wagtail.telepath import Adapter, register
+from wagtail.utils.telepath import Adapter, register
 
 from .base import Block
 
