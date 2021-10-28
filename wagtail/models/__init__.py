@@ -1,3 +1,4 @@
+from .admin import UserProfile  # noqa
 from .audit_log import ModelLogEntry  # noqa
 from .collections import (  # noqa
     Collection, CollectionMember, CollectionViewRestriction, GroupCollectionPermission,
@@ -11,7 +12,6 @@ from .pages import (  # noqa
     PageRevision, PageViewRestriction, ParentNotTranslatedError, UserPagePermissionsProxy,
     WorkflowPage, get_default_page_content_type, get_page_models)
 from .sites import Site, SiteRootPath  # noqa
-from .user_profile import UserProfile  # noqa
 from .view_restrictions import BaseViewRestriction  # noqa
 from .workflows import (  # noqa
     GroupApprovalTask, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)

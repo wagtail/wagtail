@@ -3,7 +3,7 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.models.user_profile
+import wagtail.models.admin
 
 
 class Migration(migrations.Migration):
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('updated_comments_notifications', models.BooleanField(default=True, help_text='Receive notification when comments have been created, resolved, or deleted on a page that you have subscribed to receive comment notifications on', verbose_name='updated comments notifications')),
                 ('preferred_language', models.CharField(default='', help_text='Select language for the admin', max_length=10, verbose_name='preferred language')),
                 ('current_time_zone', models.CharField(default='', help_text='Select your current time zone', max_length=40, verbose_name='current time zone')),
-                ('avatar', models.ImageField(blank=True, upload_to=wagtail.models.user_profile.upload_avatar_to, verbose_name='profile picture')),
+                ('avatar', models.ImageField(blank=True, upload_to=wagtail.models.admin.upload_avatar_to, verbose_name='profile picture')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='wagtail_userprofile', to=settings.AUTH_USER_MODEL)),
             ],
             options={

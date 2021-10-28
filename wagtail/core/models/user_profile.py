@@ -1,1 +1,1 @@
-from wagtail.models.user_profile import UserProfile  # noqa
+from wagtail.models.admin import UserProfile  # noqa

@@ -6,7 +6,7 @@ from wagtail import hooks
 from wagtail.admin.userbar import (
     AddPageItem, AdminItem, ApproveModerationEditPageItem, EditPageItem, ExplorePageItem,
     RejectModerationEditPageItem)
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision, UserProfile
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision, UserProfile, admin
 
 
 register = template.Library()

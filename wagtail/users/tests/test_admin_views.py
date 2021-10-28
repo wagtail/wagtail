@@ -16,7 +16,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.models import (
-    Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile)
+    Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile, admin)
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.views.groups import GroupViewSet

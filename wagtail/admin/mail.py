@@ -9,7 +9,7 @@ from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
 from wagtail.coreutils import camelcase_to_underscore
-from wagtail.models import UserProfile, workflows
+from wagtail.models import UserProfile, admin, workflows
 
 
 logger = logging.getLogger('wagtail.admin')
