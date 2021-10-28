@@ -9,7 +9,11 @@ class WagtailAppConfig(AppConfig):
     default_auto_field = 'django.db.models.AutoField'
 
     def ready(self):
+        from wagtail.admin.signal_handlers import \
+            register_signal_handlers as register_admin_signal_handlers
         from wagtail.signal_handlers import register_signal_handlers
+
         register_signal_handlers()
+        register_admin_signal_handlers()
 
         from wagtail import widget_adapters  # noqa
