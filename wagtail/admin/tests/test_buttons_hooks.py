@@ -4,7 +4,7 @@ from django.utils.http import urlencode
 
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
-from wagtail.admin.wagtail_hooks import page_listing_more_buttons
+from wagtail.wagtail_hooks.admin import page_listing_more_buttons
 from wagtail.models import Page
 from wagtail.test.utils import WagtailTestUtils
 

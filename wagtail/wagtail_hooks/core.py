@@ -1,22 +1,16 @@
 from django.conf import settings
 from django.contrib.auth.models import Permission
-from django.contrib.auth.views import redirect_to_login
 from django.db import models
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ngettext
+from django.utils.translation import gettext_lazy as _, ngettext
 
 from wagtail import hooks
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
-
-
-def require_wagtail_login(next):
-    login_url = getattr(settings, 'WAGTAIL_FRONTEND_LOGIN_URL', reverse('wagtailcore_login'))
-    return redirect_to_login(next, login_url)
+import utils
 
 
 @hooks.register('before_serve_page')
@@ -38,7 +32,7 @@ def check_view_restrictions(page, request, serve_args, serve_kwargs):
                 return page.serve_password_required_response(request, form, action_url)
 
             elif restriction.restriction_type in [PageViewRestriction.LOGIN, PageViewRestriction.GROUPS]:
-                return require_wagtail_login(next=request.get_full_path())
+                return utils.require_wagtail_login(next=request.get_full_path())
 
 
 @hooks.register('register_rich_text_features')
