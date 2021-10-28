@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-16 17:04+0000\n"
-"Last-Translator: Favo Yang <favoyang@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,14 @@ msgstr "Wagtail 核心组件"
 
 msgid "Add Comment"
 msgstr "添加评论"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "条目的最小数是%d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "条目的最大数是%d"
 
 msgid "Move up"
 msgstr "上移"
@@ -58,16 +66,8 @@ msgstr "%(label)s：这个区块没有选项。"
 msgid "This block has no options."
 msgstr "这个区块没有选项"
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "条目的最小数是%d"
-
 msgid "This field is required."
 msgstr "这个字段是必需的。"
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "条目的最大数是%d"
 
 msgid "Password"
 msgstr "密码"
@@ -77,10 +77,6 @@ msgstr "密码错误，请重新输入"
 
 msgid "Comment"
 msgstr "评论"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知的 %(action)s"
 
 msgid "title"
 msgstr "标题"
@@ -429,12 +425,12 @@ msgstr "日志条目"
 msgid "The log action '{}' has not been registered."
 msgstr "日志动作“{}”未被注册"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "用户 %(id)d (已删除)"
-
 msgid "system"
 msgstr "系统"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "未知的 %(action)s"
 
 msgid "collection"
 msgstr "集合"
@@ -605,6 +601,19 @@ msgstr "已解锁"
 msgid "Reject"
 msgstr "拒绝"
 
+msgid "Rename"
+msgstr "重命名"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "已从“%(old)s”重命名为“%(new)s”"
+
+msgid "Renamed"
+msgstr "已重命名"
+
+msgid "Revert"
+msgstr "还原"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -613,12 +622,18 @@ msgstr "已还原为上一版本，id为%(revision_id)s创建时间为%(created_
 msgid "Reverted to previous revision"
 msgstr "已还原为上一版本"
 
+msgid "Copy"
+msgstr "复制"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "已复制自%(title)s"
 
 msgid "Copied"
 msgstr "已复制"
+
+msgid "Create alias"
+msgstr "创建别名"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -627,12 +642,18 @@ msgstr "为%(title)s创建一个别名"
 msgid "Created an alias"
 msgstr "已创建别名"
 
+msgid "Convert alias into ordinary page"
+msgstr "将别名转换成常规页面"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "已将别名%(title)s转换为常规页面"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "将这个别名转换成常规页面"
+
+msgid "Move"
+msgstr "移动"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -641,12 +662,18 @@ msgstr "已从“%(old_parent)s”移动到“%(new_parent)s”"
 msgid "Moved"
 msgstr "已移动"
 
+msgid "Reorder"
+msgstr "重新排序"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "已在%(parent)s下重新排序"
 
 msgid "Reordered"
 msgstr "已重新排序"
+
+msgid "Schedule publication"
+msgstr "计划发布"
 
 #, python-format
 msgid ""
@@ -662,6 +689,9 @@ msgstr "页面已计划在%(go_live_at)s发布"
 msgid "Page scheduled for publishing"
 msgstr "页面已计划发布"
 
+msgid "Unschedule publication"
+msgstr "取消计划发布"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -676,12 +706,18 @@ msgstr "页面已取消计划在%(go_live_at)s发布"
 msgid "Page unscheduled from publishing"
 msgstr "页面已取消计划发布"
 
+msgid "Add view restrictions"
+msgstr "添加查看限制"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "已添加“%(restriction)s”查看限制"
 
 msgid "Added view restriction"
 msgstr "已添加查看限制"
+
+msgid "Update view restrictions"
+msgstr "更新查看限制"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -690,6 +726,9 @@ msgstr "已更新查看限制为“%(restriction)s”"
 msgid "Updated view restriction"
 msgstr "已更新查看限制"
 
+msgid "Remove view restrictions"
+msgstr "移除查看限制"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "已移除“%(restriction)s”查看限制"
@@ -697,12 +736,8 @@ msgstr "已移除“%(restriction)s”查看限制"
 msgid "Removed view restriction"
 msgstr "已移除查看限制"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "已从“%(old)s”重命名为“%(new)s”"
-
-msgid "Renamed"
-msgstr "已重命名"
+msgid "Add comment"
+msgstr "添加评论"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -711,12 +746,18 @@ msgstr "为字段%(field)s添加评论：%(text)s"
 msgid "Added a comment"
 msgstr "添加一个评论"
 
+msgid "Edit comment"
+msgstr "编辑评论"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "为字段%(field)s编辑了评论：%(text)s"
 
 msgid "Edited a comment"
 msgstr "已编辑了一个评论"
+
+msgid "Delete comment"
+msgstr "删除评论"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -725,12 +766,18 @@ msgstr "为字段%(field)s删除评论：%(text)s"
 msgid "Deleted a comment"
 msgstr "已删除了一个评论"
 
+msgid "Resolve comment"
+msgstr "解决评论"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "为字段%(field)s解决了评论：%(text)s"
 
 msgid "Resolved a comment"
 msgstr "已解决一个评论"
+
+msgid "Reply to comment"
+msgstr "回复评论"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -739,12 +786,18 @@ msgstr "为字段%(field)s回复了评论：%(text)s"
 msgid "Replied to a comment"
 msgstr "已回复了一个评论。"
 
+msgid "Edit reply to comment"
+msgstr "编辑评论回复"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr "为字段%(field)s编辑了评论回复：%(text)s"
 
 msgid "Edited a reply"
 msgstr "已编辑一个回复"
+
+msgid "Delete reply to comment"
+msgstr "删除评论回复"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -753,62 +806,8 @@ msgstr "为字段%(field)s删除了评论回复：%(text)s"
 msgid "Deleted a reply"
 msgstr "已删除一个评论"
 
-msgid "Rename"
-msgstr "重命名"
-
-msgid "Revert"
-msgstr "还原"
-
-msgid "Copy"
-msgstr "复制"
-
-msgid "Create alias"
-msgstr "创建别名"
-
-msgid "Convert alias into ordinary page"
-msgstr "将别名转换成常规页面"
-
-msgid "Move"
-msgstr "移动"
-
-msgid "Reorder"
-msgstr "重新排序"
-
-msgid "Schedule publication"
-msgstr "计划发布"
-
-msgid "Unschedule publication"
-msgstr "取消计划发布"
-
-msgid "Add view restrictions"
-msgstr "添加查看限制"
-
-msgid "Update view restrictions"
-msgstr "更新查看限制"
-
-msgid "Remove view restrictions"
-msgstr "移除查看限制"
-
-msgid "Add comment"
-msgstr "添加评论"
-
-msgid "Edit comment"
-msgstr "编辑评论"
-
-msgid "Delete comment"
-msgstr "删除评论"
-
-msgid "Resolve comment"
-msgstr "解决评论"
-
-msgid "Reply to comment"
-msgstr "回复评论"
-
-msgid "Edit reply to comment"
-msgstr "编辑评论回复"
-
-msgid "Delete reply to comment"
-msgstr "删除评论回复"
+msgid "Workflow: start"
+msgstr "工作流：启动"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -816,6 +815,9 @@ msgstr "“%(workflow)s”已启动，下一步是“%(task)s”"
 
 msgid "Workflow started"
 msgstr "工作流已启动"
+
+msgid "Workflow: approve task"
+msgstr "工作流：批准任务"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -828,12 +830,18 @@ msgstr "“%(task)s”已批准，“%(workflow)s”已完成"
 msgid "Workflow task approved"
 msgstr "工作流任务已批准"
 
+msgid "Workflow: reject task"
+msgstr "工作流：拒绝任务"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "“%(task)s”已拒绝，已请求变更"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "工作流任务已拒绝，工作流完成"
+
+msgid "Workflow: resume task"
+msgstr "工作流：恢复任务"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -842,24 +850,12 @@ msgstr "重新提交“%(task)s”，工作流已恢复"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "工作流任务已重新提交，工作流已恢复"
 
+msgid "Workflow: cancel"
+msgstr "工作流：取消"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "“%(workflow)s”已在“%(task)s”取消"
 
 msgid "Workflow cancelled"
 msgstr "工作流已取消"
-
-msgid "Workflow: start"
-msgstr "工作流：启动"
-
-msgid "Workflow: approve task"
-msgstr "工作流：批准任务"
-
-msgid "Workflow: reject task"
-msgstr "工作流：拒绝任务"
-
-msgid "Workflow: resume task"
-msgstr "工作流：恢复任务"
-
-msgid "Workflow: cancel"
-msgstr "工作流：取消"

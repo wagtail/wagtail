@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -22,6 +22,14 @@ msgstr ""
 "Language: sk_SK\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimálne množstvo je %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maximálne množstvo je %d"
 
 msgid "Move up"
 msgstr "Posunúť vyššie"
@@ -38,16 +46,8 @@ msgstr "Pridať"
 msgid "This block has no options."
 msgstr "Tento odstavec nemá žiadne voľby."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimálne množstvo je %d"
-
 msgid "This field is required."
 msgstr "Toto pole je povinné."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maximálne množstvo je %d"
 
 msgid "Password"
 msgstr "Heslo"

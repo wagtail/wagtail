@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -125,6 +125,12 @@ msgstr "같은 모음에 대해서 여러 개의 권한을 설정할 수는 없�
 msgid "Collection"
 msgstr "모음"
 
+msgid "Add"
+msgstr "추가"
+
+msgid "Edit"
+msgstr "수정"
+
 msgid "New title"
 msgstr "새로운 제목"
 
@@ -201,9 +207,6 @@ msgstr "필수 작성 항목입니다"
 
 msgid "Please select at least one group."
 msgstr "적어도 한 개의 그룹을 선택해 주세요."
-
-msgid "Edit"
-msgstr "수정"
 
 msgid "Page"
 msgstr "페이지"
@@ -670,6 +673,15 @@ msgstr "새로운 페이지를 만들기 위한 선택"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s 를 사용한 페이지들"
 
+msgid "No, don't delete"
+msgstr "아니오, 지우지 않습니다"
+
+msgid "Move"
+msgstr "이동"
+
+msgid "No, don't unpublish"
+msgstr "아니요, 게시를 해제하지 않습니다"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "%(title)s 삭제"
@@ -711,9 +723,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s 이동"
 
-msgid "Move"
-msgstr "이동"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "이 페이지를 '%(title)s' 으로 이동하겠습니까?"
@@ -750,9 +759,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "네, 게시를 해제합니다"
-
-msgid "No, don't unpublish"
-msgstr "아니요, 게시를 해제하지 않습니다"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1115,6 +1121,9 @@ msgstr "잠김"
 msgid "No locked pages found."
 msgstr "잠긴 페이지가 없음."
 
+msgid "Edit this item"
+msgstr "이 아이템 수정"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "%(total_pages)s 중의 %(page_num)s 페이지"
@@ -1181,14 +1190,17 @@ msgstr ""
 "'%(parent)s' 페이지의 하위 페이지의 순서를  %(label)s'에 대해 내림차순으로 정"
 "렬합니다."
 
+msgid "More"
+msgstr "더 보기"
+
 msgid "live"
 msgstr "라이브"
 
-msgid "live + draft"
-msgstr "라이브 + 초안"
-
 msgid "draft"
 msgstr "초안"
+
+msgid "live + draft"
+msgstr "라이브 + 초안"
 
 msgid "Test"
 msgstr "테스트"
@@ -1351,9 +1363,6 @@ msgstr "'%(title)s'의 라이브 버전 보기"
 msgid "Add a child page to '%(title)s' "
 msgstr "'%(title)s' 페이지에 하위 페이지 추가"
 
-msgid "More"
-msgstr "더 보기"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr " '%(title)s'에 대한 옵션 더 보기"
@@ -1422,9 +1431,6 @@ msgstr "다른 아이템 선택"
 
 msgid "Clear choice"
 msgstr "선택 초기화"
-
-msgid "Edit this item"
-msgstr "이 아이템 수정"
 
 msgid "Choose another page"
 msgstr "다른 페이지 선택"

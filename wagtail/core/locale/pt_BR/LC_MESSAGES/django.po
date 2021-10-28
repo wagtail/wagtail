@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-09-27 00:43+0000\n"
-"Last-Translator: Éder Brito <britoederr@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,14 @@ msgstr "Núcleo de Wagtail"
 
 msgid "Add Comment"
 msgstr "Adicionar comentário"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O número máximo de itens é %d"
 
 msgid "Move up"
 msgstr "Mover para cima"
@@ -56,16 +64,8 @@ msgstr "%(label)s: este bloco não tem opções."
 msgid "This block has no options."
 msgstr "Este bloco não possui opções."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "O número mínimo de itens é %d"
-
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "O número máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"
@@ -75,10 +75,6 @@ msgstr "A senha que você digitou não está correta. Por favor, tente novamente
 
 msgid "Comment"
 msgstr "Comentário"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s desconhecida"
 
 msgid "title"
 msgstr "título"
@@ -442,12 +438,12 @@ msgstr "entradas de log"
 msgid "The log action '{}' has not been registered."
 msgstr "A ação de log '{}' não foi registrada."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "usuário %(id)d (excluído)"
-
 msgid "system"
 msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s desconhecida"
 
 msgid "collection"
 msgstr "coleção"
@@ -625,6 +621,19 @@ msgstr "Desbloqueado"
 msgid "Reject"
 msgstr "Rejeitar"
 
+msgid "Rename"
+msgstr "Renomear"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renomeado de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renomeado"
+
+msgid "Revert"
+msgstr "Reverter"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -634,12 +643,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Revertido para a revisão anterior"
 
+msgid "Copy"
+msgstr "Copiar"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Copiado de %(title)s"
 
 msgid "Copied"
 msgstr "Copiado"
+
+msgid "Create alias"
+msgstr "Criar alias"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -655,6 +670,9 @@ msgstr "Converteu o alias '%(title)s' em uma página comum"
 msgid "Converted an alias into an ordinary page"
 msgstr "Converteu o alias em uma página comum"
 
+msgid "Move"
+msgstr "Mover"
+
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
@@ -662,12 +680,18 @@ msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
 msgid "Moved"
 msgstr "Movido"
 
+msgid "Reorder"
+msgstr "Reordenar"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Reordenado em '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Reordenado"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"
 
 #, python-format
 msgid ""
@@ -706,43 +730,15 @@ msgstr "Adicionada a visualização de restrição '%(restriction)s'"
 msgid "Added view restriction"
 msgstr "Adicionada restrição de visualização"
 
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Removida a restrição de visualização de '%(restriction)s' "
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Renomeado de '%(old)s' para '%(new)s'"
-
-msgid "Renamed"
-msgstr "Renomeado"
-
-msgid "Rename"
-msgstr "Renomear"
-
-msgid "Revert"
-msgstr "Reverter"
-
-msgid "Copy"
-msgstr "Copiar"
-
-msgid "Create alias"
-msgstr "Criar alias"
-
-msgid "Move"
-msgstr "Mover"
-
-msgid "Reorder"
-msgstr "Reordenar"
-
-msgid "Schedule publication"
-msgstr "Agendar publicação"
-
 msgid "Update view restrictions"
 msgstr "Atualizar restrições de visualização"
 
 msgid "Remove view restrictions"
 msgstr "Remover restrições de visualização"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Removida a restrição de visualização de '%(restriction)s' "
 
 msgid "Add comment"
 msgstr "Adicionar comentário"

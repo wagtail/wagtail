@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -124,6 +124,15 @@ msgstr "зураг"
 msgid "images"
 msgstr "зургууд"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
 msgid "Choose an image"
 msgstr "Зургаа сонгоно уу"
 
@@ -135,9 +144,6 @@ msgstr "Хуулах"
 
 msgid "Popular tags"
 msgstr "Түгээмэл шошгууд"
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
 
 #, python-format
 msgid ""
@@ -165,6 +171,9 @@ msgstr "Форматаа сонгоно уу"
 msgid "Insert image"
 msgstr "Зураг оруулах"
 
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
 msgid "Change image file:"
 msgstr "Зургийн файл солих:"
 
@@ -179,18 +188,6 @@ msgstr "Хадгалах"
 
 msgid "Delete image"
 msgstr "Зургийг устгах"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашигласан"
-msgstr[1] "Used %(usage_count)s times"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Энэ зургийг үнэхээр устгах уу?"
-
-msgid "Yes, delete"
-msgstr "Тийм, устга"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -303,6 +300,9 @@ msgstr "Зургийн хандалтын эрх"
 msgid "Add an image permission"
 msgstr "Зургийн хандах эрх нэмэх"
 
+msgid "Delete"
+msgstr "Устгах"
+
 msgid "Search images"
 msgstr "Зураг хайх"
 
@@ -319,9 +319,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
-
-msgid "Delete"
-msgstr "Устгах"
 
 msgid "Image '{0}' deleted."
 msgstr "'{0}' зураг устлаа."

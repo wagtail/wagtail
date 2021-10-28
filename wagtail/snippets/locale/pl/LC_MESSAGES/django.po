@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Matt Westcott <matthew@torchbox.com>, 2019
 # Miłosz Miśkiewicz, 2016-2017
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-12-18 11:12+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 09:53+0000\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys)\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +68,9 @@ msgstr[3] ""
 "Znaleziono %(counter)s dopasowań\n"
 "        "
 
+msgid "Title"
+msgstr "Tytuł"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Żaden snippet nie spełnia pasuje do \"<em>%(query_string)s</em>\""
@@ -80,6 +84,9 @@ msgstr ""
 "Nie utworzyłeś jeszcze ani jednego snippetu %(snippet_type_name)s. Dlaczego "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">nie utworzyć jednego teraz</a>?"
+
+msgid "History"
+msgstr "Historia"
 
 msgid "Saving…"
 msgstr "Zapisywanie…"
@@ -139,9 +146,6 @@ msgstr "Snippety"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Zaznacz wszystkie %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Tytuł"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -218,6 +222,15 @@ msgstr[0] "%(count)d %(snippet_type)s usunięty."
 msgstr[1] "%(count)d %(snippet_type)s usunięte."
 msgstr[2] "%(count)d %(snippet_type)s usunięte."
 msgstr[3] "%(count)d %(snippet_type)s usunięte."
+
+msgid "Snippet history"
+msgstr "Historia snippetu"
+
+msgid "Action"
+msgstr "Akcja"
+
+msgid "Date"
+msgstr "Data"
 
 #, python-format
 msgid "Edit '%(title)s'"

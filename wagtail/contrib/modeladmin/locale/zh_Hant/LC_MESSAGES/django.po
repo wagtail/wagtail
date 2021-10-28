@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ongchi <ihcgno@icloud.com>, 2020
+# ongchi <ihcgno@icloud.com>, 2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 13:08+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -120,6 +120,12 @@ msgstr "主頁"
 msgid " By %(filter_title)s "
 msgstr "按  %(filter_title)s "
 
+msgid "Last updated"
+msgstr "最近更新"
+
+msgid "History"
+msgstr "歷史"
+
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "對不起，沒有找到與搜索條件匹配的 %(name)s。"
@@ -218,3 +224,9 @@ msgstr "正在檢查"
 #, python-format
 msgid "Inspecting %s"
 msgstr "正在檢查%s"
+
+msgid "Action"
+msgstr "操作"
+
+msgid "Date"
+msgstr "日期"

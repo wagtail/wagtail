@@ -7,7 +7,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2018,2020
+# Loic Teixeira, 2018,2020-2021
 # Loic Teixeira, 2018
 # nahuel, 2014
 # nahuel, 2014
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-10-23 12:33+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 06:14+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -58,6 +58,9 @@ msgstr[1] ""
 "\n"
 "        Il y a %(counter)s correspondances"
 
+msgid "Title"
+msgstr "Titre"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun bloc ne correspond à « <em>%(query_string)s</em> »"
@@ -71,6 +74,12 @@ msgstr ""
 "Vous n’avez pas encore créé d’objet %(snippet_type_name)s. Pourquoi ne pas "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">en créer un maintenant</a> ?"
+
+msgid "Last updated"
+msgstr "Dernière mise à jour"
+
+msgid "History"
+msgstr "Historique"
 
 msgid "Saving…"
 msgstr "Enregistrement…"
@@ -128,9 +137,6 @@ msgstr "Blocs"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Sélectionner tous les %(snippet_type_name_plural)s "
-
-msgid "Title"
-msgstr "Titre"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -205,6 +211,15 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s supprimé(e)"
 msgstr[1] "%(count)d %(snippet_type)s supprimé(e)s"
+
+msgid "Snippet history"
+msgstr "Historique du snippet"
+
+msgid "Action"
+msgstr "Action"
+
+msgid "Date"
+msgstr "Date"
 
 #, python-format
 msgid "Edit '%(title)s'"

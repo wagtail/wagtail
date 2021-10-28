@@ -4,13 +4,15 @@
 #
 # Translators:
 # Luiz Boaretto <lboaretto@gmail.com>, 2016,2019-2020
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-21 15:02+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-21 13:43+0000\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail ModelAdmin"
+msgstr "Wagtail ModelAdmin"
 
 msgid "Parent page"
 msgstr "Página raíz"
@@ -118,6 +123,16 @@ msgstr "Página inicial"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Por %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Última atualização"
+
+msgid "History"
+msgstr "Histórico"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s fora de %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -233,3 +248,9 @@ msgstr "Inspecionando"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Inspecionando %s"
+
+msgid "Action"
+msgstr "Ação"
+
+msgid "Date"
+msgstr "Data"

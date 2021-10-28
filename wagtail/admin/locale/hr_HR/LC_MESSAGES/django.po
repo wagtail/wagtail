@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-14 14:22+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -141,11 +141,20 @@ msgstr ""
 "Odaberite hijerarhisku poziciju. Napomena: zbirka ne može postati dijete "
 "same sebe ili svojih potomaka."
 
+msgid "Please select another parent"
+msgstr "Molimo odaberite drugog roditelja"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nije moguće dodati više skupova dozvola za istu zbirku."
 
 msgid "Collection"
 msgstr "Zbirka"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "New title"
 msgstr "Novi naslov"
@@ -251,9 +260,6 @@ msgstr "Nazovite vaš tijek rada"
 
 msgid "Add tasks to your workflow"
 msgstr "Dodajte zadatke u vaš tijek rada"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Page"
 msgstr "Stranica"
@@ -837,6 +843,15 @@ msgstr "Odaberite koju vrstu stranice želite stvoriti."
 msgid "Pages using %(page_type)s"
 msgstr "Stranice koje koriste %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
+msgid "Move"
+msgstr "Premjesti"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nemoj odjaviti"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Pretvori alias %(title)s"
@@ -897,9 +912,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Premjesti %(title)s"
 
-msgid "Move"
-msgstr "Premjesti"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Jeste li sigurni da želite premjestiti stranicu u '%(title)s'?"
@@ -944,9 +956,6 @@ msgstr[2] ""
 
 msgid "Yes, unpublish it"
 msgstr "Da, odjavi"
-
-msgid "No, don't unpublish"
-msgstr "Ne, nemoj odjaviti"
 
 msgid "Publish page"
 msgstr "Objavi stranicu"
@@ -1409,6 +1418,9 @@ msgstr "Zaključano"
 msgid "No locked pages found."
 msgstr "Nema zaključanih stranica."
 
+msgid "Edit this item"
+msgstr "Uredi ovu stavku"
+
 msgid "By Task"
 msgstr "Po zadatku"
 
@@ -1483,16 +1495,6 @@ msgstr ""
 "Ovdje se nalaze <a href=\"https://www.enable-javascript.com/\" target="
 "\"_blank\" rel=\"noopener noreferrer\">upute kako uključiti JavaScript u "
 "vašem web pregledniku</a>."
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail postepeno uklanja podršku za IE11 što može utjecati na vas ili vašu "
-"organizaciju. <a href=\"%(url)s\">Saznajte više o planovima za IE11 podršku</"
-"a>."
 
 msgid "Show in Explorer"
 msgstr "Prikaži u pretraživaču"
@@ -1709,6 +1711,9 @@ msgid ""
 msgstr ""
 "Sortiranje djece unutar '%(parent)s' po '%(label)s' u silaznom poretku."
 
+msgid "More"
+msgstr "Više"
+
 msgid "0 minutes"
 msgstr "0 minuta"
 
@@ -1718,11 +1723,11 @@ msgstr "Upravo sada"
 msgid "live"
 msgstr "uživo"
 
-msgid "live + draft"
-msgstr "uživo + skica"
-
 msgid "draft"
 msgstr "skica"
+
+msgid "live + draft"
+msgstr "uživo + skica"
 
 msgid "Test"
 msgstr "Test"
@@ -1753,9 +1758,6 @@ msgstr "Nije moguće sačuvati zbirku zbog grešaka."
 
 msgid "Delete collection"
 msgstr "Izbriši zbirku"
-
-msgid "Please select another parent"
-msgstr "Molimo odaberite drugog roditelja"
 
 msgid "Collection '{0}' deleted."
 msgstr "Zbirka '{0}' je izbrisana."
@@ -1975,23 +1977,6 @@ msgstr "Onemogući zadatak"
 msgid "Task '{0}' disabled."
 msgstr "Zadatak '{0}' je onemogućen."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Zadatak je u tijeku na %(states_in_progress)d stranici. Onemogućivanje ovog "
-"zadatka će rezultirati njegovim preskakanjem u tijeku rada moderacije."
-msgstr[1] ""
-"Zadatak je u tijeku na %(states_in_progress)d stranica. Onemogućivanje ovog "
-"zadatka će rezultirati njegovim preskakanjem u tijeku rada moderacije."
-msgstr[2] ""
-"Zadatak je u tijeku na %(states_in_progress)d stranica. Onemogućivanje ovog "
-"zadatka će rezultirati njegovim preskakanjem u tijeku rada moderacije."
-
 msgid "Task '{0}' enabled."
 msgstr "Zadatak '{0}' je omogućen."
 
@@ -2009,9 +1994,6 @@ msgstr "Pregledajte skicu od '%(title)s'"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Pogledajte verziju uživo od '%(title)s'"
-
-msgid "More"
-msgstr "Više"
 
 #, python-format
 msgid "Move page '%(title)s'"
@@ -2087,9 +2069,6 @@ msgstr "Odaberi drugu stavku"
 
 msgid "Clear choice"
 msgstr "Poništi odabir"
-
-msgid "Edit this item"
-msgstr "Uredi ovu stavku"
 
 msgid "Choose another page"
 msgstr "Odaberi drugu stranicu"

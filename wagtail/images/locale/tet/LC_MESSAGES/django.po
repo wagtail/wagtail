@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,12 @@ msgstr "imagen"
 msgid "images"
 msgstr "imagen sira"
 
+msgid "Yes, delete"
+msgstr "Loos, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
 msgid "Choose an image"
 msgstr "Hili imagen ida"
 
@@ -156,12 +162,6 @@ msgstr "Rai"
 
 msgid "Delete image"
 msgstr "Hamoos imagen"
-
-msgid "Yes, delete"
-msgstr "Loos, hamoos"
-
-msgid "No, don't delete"
-msgstr "Lae, Labele hamoos"
 
 msgid "Editing"
 msgstr "Hadia hela"
@@ -217,6 +217,9 @@ msgstr "Permisaun imajen"
 msgid "Add an image permission"
 msgstr "Hatama permisaun imajen"
 
+msgid "Delete"
+msgstr "hamoos"
+
 msgid "Search images"
 msgstr "Buka imajen"
 
@@ -232,9 +235,6 @@ msgid ""
 msgstr ""
 "Fonte  dokumentus imajen lahetan. Favor troka nia fonte ou hamoos imajen "
 "ne'e."
-
-msgid "Delete"
-msgstr "hamoos"
 
 msgid "Image '{0}' deleted."
 msgstr "Imajen '{0}' hamoos ona."

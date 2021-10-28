@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Peter Coward <peter@catalpa.io>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -52,8 +52,26 @@ msgstr "hatama ona husi uzuariu"
 msgid "tags"
 msgstr "tag sira"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Uza dala %(usage_count)s"
+
+msgid "Yes, delete"
+msgstr "Sim, hamoos"
+
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
 msgid "Search"
 msgstr "Buka"
+
+msgid "Title"
+msgstr "Titlu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s liuba"
 
 msgid "Change document:"
 msgstr "Troka dokumentu"
@@ -72,17 +90,6 @@ msgid "Delete document"
 msgstr "Hamoos dokumentu"
 
 #, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Uza dala %(usage_count)s"
-
-msgid "Yes, delete"
-msgstr "Sim, hamoos"
-
-msgid "No, don't delete"
-msgstr "Lae, Labele hamoos"
-
-#, python-format
 msgid "Editing %(title)s"
 msgstr "Hadia hela %(title)s"
 
@@ -97,13 +104,6 @@ msgstr "Uza"
 
 msgid "Documents"
 msgstr "Dokumentu sira"
-
-msgid "Title"
-msgstr "Titlu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "1%(time_period)s liuba"
 
 #, python-format
 msgid "Usage of %(title)s"
@@ -124,6 +124,9 @@ msgstr "Status"
 msgid "Edit this page"
 msgstr "Hadia pajina nee"
 
+msgid "Delete"
+msgstr "Hamoos"
+
 msgid "Server Error"
 msgstr "Servidor erru"
 
@@ -132,9 +135,6 @@ msgstr "Buka documentu"
 
 msgid "Document '{0}' added."
 msgstr "Dkumentu '{0}' hatama ona"
-
-msgid "Delete"
-msgstr "Hamoos"
 
 msgid "Document"
 msgstr "Dokumentu"

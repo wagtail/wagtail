@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,9 @@ msgstr "Labot"
 msgid "Choose"
 msgstr "Izvēlēties"
 
+msgid "Yes, delete"
+msgstr "Dzēst"
+
 msgid "Choose an image"
 msgstr "Izvēlēties attēlu"
 
@@ -106,12 +109,6 @@ msgstr "Saglabāt"
 
 msgid "Delete image"
 msgstr "Dzēst attēlu"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Dzēst attēlu?"
-
-msgid "Yes, delete"
-msgstr "Dzēst"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -190,6 +187,9 @@ msgstr "Augšupielāde neizdevās."
 msgid "Server Error"
 msgstr "Servera kļūda"
 
+msgid "Delete"
+msgstr "Dzēst"
+
 msgid "Search images"
 msgstr "Meklēt attēlus"
 
@@ -201,9 +201,6 @@ msgstr "Labot vēlreiz"
 
 msgid "The image could not be saved due to errors."
 msgstr "Attēlu nevarēja saglabāt kļūdu dēļ."
-
-msgid "Delete"
-msgstr "Dzēst"
 
 msgid "Image '{0}' deleted."
 msgstr "Attēls '{0}' dzēsts."

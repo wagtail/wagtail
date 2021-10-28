@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,12 @@ msgstr "Du kan ikke ha flere tillatelsesoppføringer for samme samling."
 msgid "Collection"
 msgstr "Samling"
 
+msgid "Add"
+msgstr "Legg til"
+
+msgid "Edit"
+msgstr "Redigér"
+
 msgid "New title"
 msgstr "Ny tittel"
 
@@ -205,9 +211,6 @@ msgstr "Dette feltet er påkrevet."
 
 msgid "Please select at least one group."
 msgstr "Velg minst en gruppe."
-
-msgid "Edit"
-msgstr "Redigér"
 
 msgid "Page"
 msgstr "Side"
@@ -693,6 +696,15 @@ msgstr "Velg hvilken sidetype du vil opprette."
 msgid "Pages using %(page_type)s"
 msgstr "Sider som bruker %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
+msgid "Move"
+msgstr "Flytt"
+
+msgid "No, don't unpublish"
+msgstr "Nei, ikke avpubliser"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Slett %(title)s"
@@ -739,9 +751,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Flytt %(title)s"
 
-msgid "Move"
-msgstr "Flytt"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Er du sikker på at du vil flytte denne siden under \"%(title)s\"?"
@@ -785,9 +794,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, avpubliser den"
-
-msgid "No, don't unpublish"
-msgstr "Nei, ikke avpubliser"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1174,6 +1180,9 @@ msgstr "Låst"
 msgid "No locked pages found."
 msgstr "Ingen låste sider funnet."
 
+msgid "Edit this item"
+msgstr "Endre dette elementet"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Side %(page_num)s av %(total_pages)s."
@@ -1239,14 +1248,17 @@ msgstr ""
 "Sorter rekkefølgen av undersidene under «%(parent)s» på «%(label)s» i "
 "synkende rekkefølge."
 
+msgid "More"
+msgstr "Mer"
+
 msgid "live"
 msgstr "publisert"
 
-msgid "live + draft"
-msgstr "publisert + kladd"
-
 msgid "draft"
 msgstr "kladd"
+
+msgid "live + draft"
+msgstr "publisert + kladd"
 
 msgid "Test"
 msgstr "Test"
@@ -1409,9 +1421,6 @@ msgstr "Vis publisert versjon av  «%(title)s»"
 msgid "Add a child page to '%(title)s' "
 msgstr "Legg en underside til «%(title)s»"
 
-msgid "More"
-msgstr "Mer"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "Vis flere valgmuligheter for «%(title)s»"
@@ -1480,9 +1489,6 @@ msgstr "Velg et annet element"
 
 msgid "Clear choice"
 msgstr "Nullstill valg"
-
-msgid "Edit this item"
-msgstr "Endre dette elementet"
 
 msgid "Choose another page"
 msgstr "Velg en annen side"

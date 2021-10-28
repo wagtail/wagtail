@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-03 04:18+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -161,6 +161,17 @@ msgstr "图片"
 msgid "images"
 msgstr "图片"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Yes, delete"
+msgstr "是的，删除吧。"
+
+msgid "No, don't delete"
+msgstr "否，不删除"
+
 msgid "Choose an image"
 msgstr "选择一个图片"
 
@@ -172,9 +183,6 @@ msgstr "上传"
 
 msgid "Popular tags"
 msgstr "热门标签"
-
-msgid "Uploading…"
-msgstr "正在上传…"
 
 #, python-format
 msgid ""
@@ -198,6 +206,9 @@ msgstr "选择格式"
 
 msgid "Insert image"
 msgstr "插入图片"
+
+msgid "Uploading…"
+msgstr "正在上传…"
 
 #, python-format
 msgid ""
@@ -229,20 +240,6 @@ msgstr "保存"
 
 msgid "Delete image"
 msgstr "删除图片"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "确认删除此图片？"
-
-msgid "Yes, delete"
-msgstr "是的，删除吧。"
-
-msgid "No, don't delete"
-msgstr "否，不删除"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -392,6 +389,9 @@ msgstr "图片权限"
 msgid "Add an image permission"
 msgstr "添加一个图片权限"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Search images"
 msgstr "搜索图片"
 
@@ -408,9 +408,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "无法找到图片源文件。请修改源文件或者删除图片。"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Image '{0}' deleted."
 msgstr "图片'{0}' 已删除。"

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -101,6 +101,12 @@ msgstr "Λήψη ειδοποίησης όταν σελίδα επεξεργασ
 msgid "user profile"
 msgstr "προφίλ χρήστη"
 
+msgid "Delete"
+msgstr "Διαγραφή"
+
+msgid "Yes, delete"
+msgstr "Ναι, να διαγραφεί"
+
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"
 
@@ -136,9 +142,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Είστε σίγουροι ότι θέλετε να διαγράψετε αυτή την ομάδα;"
 
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
-
 msgid "Add group"
 msgstr "Προσθήκη ομαδας"
 
@@ -159,9 +162,6 @@ msgstr "Προσθήκη"
 
 msgid "Change"
 msgstr "Αλλαγή"
-
-msgid "Delete"
-msgstr "Διαγραφή"
 
 msgid "Other permissions"
 msgstr "Άλλα δικαιώματα"

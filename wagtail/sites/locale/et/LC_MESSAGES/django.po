@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-09-02 08:42+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -28,29 +28,20 @@ msgstr " Valige juurleht"
 msgid "Choose a different root page"
 msgstr "Valige teine ​​juurleht"
 
+msgid "Sites"
+msgstr "Saidid"
+
+msgid "Add a site"
+msgstr "Lisa sait"
+
 msgid "Site"
 msgstr "Sait"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Saidi nimi"
-
-msgid "Root page"
-msgstr "Juurleht"
 
 msgid "Default?"
 msgstr " Vaikimisi?"
 
 msgid "Default"
 msgstr " Vaikimisi"
-
-msgid "Sites"
-msgstr "Saidid"
-
-msgid "Add a site"
-msgstr "Lisa sait"
 
 msgid "Add site"
 msgstr "Lisa sait"

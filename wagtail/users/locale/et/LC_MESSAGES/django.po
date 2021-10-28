@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,15 @@ msgstr "Kasutajaprofiil"
 msgid "user profiles"
 msgstr "kasutajaprofiilid"
 
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
 msgid "Delete group"
 msgstr "Kustuta grupp"
 
@@ -138,9 +147,6 @@ msgstr "Selle grupi kustutamine tühistab selle grupi kõik kasutajate õigused.
 msgid "Are you sure you want to delete this group?"
 msgstr "Kas soovite kindlasti selle grupi kustutada?"
 
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
 msgid "Add group"
 msgstr "Lisa rühm"
 
@@ -167,9 +173,6 @@ msgstr "Lisama"
 
 msgid "Change"
 msgstr "Muuda"
-
-msgid "Delete"
-msgstr "Kustuta"
 
 msgid "Other permissions"
 msgstr "Muud load"

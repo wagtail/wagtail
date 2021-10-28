@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -104,6 +104,12 @@ msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 msgid "Collection"
 msgstr "Kolekcie"
 
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Edit"
+msgstr "Upraviť"
+
 msgid "New title"
 msgstr "Nový titulok"
 
@@ -191,9 +197,6 @@ msgstr "Toto pole je povinné."
 
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
-
-msgid "Edit"
-msgstr "Upraviť"
 
 msgid "Page"
 msgstr "Stránka"
@@ -525,6 +528,12 @@ msgstr "Zvoľte typ stránky ktorý chcete vytvoriť"
 msgid "Pages using %(page_type)s"
 msgstr "Stránky používajúce %(page_type)s"
 
+msgid "Move"
+msgstr "Presunúť"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Zmazať %(title)s"
@@ -574,9 +583,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Presunúť %(title)s"
-
-msgid "Move"
-msgstr "Presunúť"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -631,9 +637,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
-
-msgid "No, don't unpublish"
-msgstr "Nie, nepublikovať"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -966,6 +969,9 @@ msgstr "Filter"
 msgid "Locked"
 msgstr "Zamknuté"
 
+msgid "Edit this item"
+msgstr "Upraviť položku"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
@@ -1001,14 +1007,17 @@ msgstr "od %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Porovnaj s live verziou"
 
+msgid "More"
+msgstr "Viac"
+
 msgid "live"
 msgstr "live"
 
-msgid "live + draft"
-msgstr "live  + koncept"
-
 msgid "draft"
 msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
 
 msgid "Test"
 msgstr "Test"
@@ -1133,9 +1142,6 @@ msgstr "Stránka '{0}' bola odpublikovaná."
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
 
-msgid "More"
-msgstr "Viac"
-
 msgid "Choose an item"
 msgstr "Zvoľte položku"
 
@@ -1144,9 +1150,6 @@ msgstr "Zvoliť daľšiu položku"
 
 msgid "Clear choice"
 msgstr "Zmazať voľbu"
-
-msgid "Edit this item"
-msgstr "Upraviť položku"
 
 msgid "Choose another page"
 msgstr "Zvoliť ďalšiu stránku"

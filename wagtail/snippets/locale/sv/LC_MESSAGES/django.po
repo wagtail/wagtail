@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-11-18 18:16+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -57,6 +57,9 @@ msgstr[1] ""
 "            Det finns %(counter)s matchningar\n"
 "        "
 
+msgid "Title"
+msgstr "Rubrik"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, men inga snuttar matchade \"<em>%(query_string)s</em>\""
@@ -70,6 +73,9 @@ msgstr ""
 "Du har inte skapat några %(snippet_type_name)s snuttar. Varför inte <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">skapa en nu</a>?"
+
+msgid "History"
+msgstr "Historik"
 
 msgid "Saving…"
 msgstr "Sparar…"
@@ -127,9 +133,6 @@ msgstr "Snutt"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Markera alla %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Rubrik"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -204,6 +207,12 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s raderad."
 msgstr[1] "%(count)d %(snippet_type)s raderade."
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "Date"
+msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"

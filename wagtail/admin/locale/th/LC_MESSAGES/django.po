@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Jon Combe <jon@naremit.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +112,12 @@ msgstr "คุณไม่สามารถมีใบอนุญาติท
 msgid "Collection"
 msgstr "ชุด"
 
+msgid "Add"
+msgstr "เพิ่ม,เติม"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
 msgid "New title"
 msgstr "หัวข้อใหม่"
 
@@ -185,9 +191,6 @@ msgstr "ต้องระบุข้อมูลในเนื้อหาน
 
 msgid "Please select at least one group."
 msgstr "โปรดเลือกอย่างน้อยหนึ่งกลุ่ม"
-
-msgid "Edit"
-msgstr "แก้ไข"
 
 msgid "Page"
 msgstr "หน้า"
@@ -577,6 +580,12 @@ msgstr "เลือกรูปแบบหน้าที่คุณอยา
 msgid "Pages using %(page_type)s"
 msgstr "หน้านี้กำลังถูกใช้ %(page_type)s"
 
+msgid "Move"
+msgstr "เคลื่อนย้าย"
+
+msgid "No, don't unpublish"
+msgstr "ไม่,ไม่ต้องยกเลิก"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "ลบ %(title)s"
@@ -622,9 +631,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "เคลื่อนย้าย %(title)s"
 
-msgid "Move"
-msgstr "เคลื่อนย้าย"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "คุณแน่ใจว่าคุณต้องการจะเคลื่อนย้ายหน้านี้ไปยัง '%(title)s'?"
@@ -662,9 +668,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "ใช่,ยกเลิกการพิมพ์"
-
-msgid "No, don't unpublish"
-msgstr "ไม่,ไม่ต้องยกเลิก"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -973,6 +976,9 @@ msgstr "คัดกรอง"
 msgid "Locked"
 msgstr "ล็อกเรียบร้อยแล้ว"
 
+msgid "Edit this item"
+msgstr "แก้ไขชิ้นนี้"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "หน้า %(page_num)s ของ%(total_pages)s."
@@ -1008,14 +1014,17 @@ msgstr "โดย %(modified_by)s"
 msgid "Compare with live version"
 msgstr "เปรียบเทียบกับรุ่นถ่ายทอดสด"
 
+msgid "More"
+msgstr "เพิ่ม"
+
 msgid "live"
 msgstr "ถ่ายทอดสด"
 
-msgid "live + draft"
-msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
-
 msgid "draft"
 msgstr "ร่าง"
+
+msgid "live + draft"
+msgstr "ถ่ายทอดสด +ร่าง,ข้อความที่ต้องการเก็บเอาไว้ใช้ใหม่"
 
 msgid "Test"
 msgstr "ทดสอบ"
@@ -1147,9 +1156,6 @@ msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
 msgid "Report this error to your webmaster with the following information:"
 msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์ดยให้ทำตามข้อมูลนี้"
 
-msgid "More"
-msgstr "เพิ่ม"
-
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"
 
@@ -1173,9 +1179,6 @@ msgstr "เลือกอีกชิ้นหนึ่ง"
 
 msgid "Clear choice"
 msgstr "ทางเลือกที่ชัดเจน"
-
-msgid "Edit this item"
-msgstr "แก้ไขชิ้นนี้"
 
 msgid "Choose another page"
 msgstr "เลือกหน้าอื่น"

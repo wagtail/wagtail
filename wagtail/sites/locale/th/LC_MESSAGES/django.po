@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2019-02-16 17:12+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -28,29 +28,20 @@ msgstr "เลือกหน้าต้นฉบับ"
 msgid "Choose a different root page"
 msgstr "เลือกหน้าต้นฉบับอื่น"
 
+msgid "Sites"
+msgstr "หลายเว็บไซด์"
+
+msgid "Add a site"
+msgstr "เพิ่มเว็บไซด์"
+
 msgid "Site"
 msgstr "เว็บไซด์"
-
-msgid "Port"
-msgstr "พอร์ท,รหัสเครื่องคอมพิวเตอร์"
-
-msgid "Site name"
-msgstr "ชื่อเว็บไซด์"
-
-msgid "Root page"
-msgstr "ต้นฉบับ"
 
 msgid "Default?"
 msgstr "ต้นแบบ?"
 
 msgid "Default"
 msgstr "ต้นแบบ"
-
-msgid "Sites"
-msgstr "หลายเว็บไซด์"
-
-msgid "Add a site"
-msgstr "เพิ่มเว็บไซด์"
 
 msgid "Add site"
 msgstr "เพิ่มเว็บไซด์"

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-09-20 20:46+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
@@ -126,6 +126,15 @@ msgstr "gebruikersprofiel"
 msgid "user profiles"
 msgstr "gebruikersprofielen"
 
+msgid "Delete"
+msgstr "Mag verwijderen"
+
+msgid "Yes, delete"
+msgstr "Ja, verwijderen"
+
+msgid "No, don't delete"
+msgstr "Nee, niet verwijderen"
+
 msgid "Delete group"
 msgstr "Verwijder groep"
 
@@ -159,9 +168,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Weet u zeker dat u deze groep wilt verwijderen?"
 
-msgid "Yes, delete"
-msgstr "Ja, verwijderen"
-
 msgid "Add group"
 msgstr "Groep toevoegen"
 
@@ -188,9 +194,6 @@ msgstr "Mag toevoegen"
 
 msgid "Change"
 msgstr "Mag wijzigen"
-
-msgid "Delete"
-msgstr "Mag verwijderen"
 
 msgid "Other permissions"
 msgstr "Overige machtigingen"

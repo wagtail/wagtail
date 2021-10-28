@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: ultraify media <ultraify@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -133,6 +133,12 @@ msgstr "لا يوجد لديك العديد من الصلاحيات المسجل
 msgid "Collection"
 msgstr "مجموعة"
 
+msgid "Add"
+msgstr "اضف"
+
+msgid "Edit"
+msgstr "تحرير"
+
 msgid "New title"
 msgstr "عنوان جديد"
 
@@ -216,9 +222,6 @@ msgstr "هذا الحقل مقتضى"
 
 msgid "Please select at least one group."
 msgstr "نرجوا اختيار على الاقل مجموعة واحدة"
-
-msgid "Edit"
-msgstr "تحرير"
 
 msgid "Page"
 msgstr "صفحة"
@@ -629,6 +632,15 @@ msgstr "اختر نوع الصفحة التي تريد إنشائها"
 msgid "Pages using %(page_type)s"
 msgstr "صفحات مستخدمة %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
+msgid "Move"
+msgstr "انقل"
+
+msgid "No, don't unpublish"
+msgstr "لا ,ألغ النشر"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "حذف %(title)s"
@@ -655,9 +667,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "نقل %(title)s"
 
-msgid "Move"
-msgstr "انقل"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "هل أنت متأكد من أنك تريد نقل هذه الصفحة إلى ' %(title)s' ؟"
@@ -680,9 +689,6 @@ msgstr "هل تريد فعلا إلغاء نشر هذه الصفحة؟"
 
 msgid "Yes, unpublish it"
 msgstr "نعك ألغ نشره"
-
-msgid "No, don't unpublish"
-msgstr "لا ,ألغ النشر"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -954,6 +960,9 @@ msgstr "فلتر"
 msgid "Locked"
 msgstr "مغلق"
 
+msgid "Edit this item"
+msgstr "تحرير هذا العنصر"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "صفحة %(page_num)s من %(total_pages)s"
@@ -989,14 +998,17 @@ msgstr "بواسطة %(modified_by)s"
 msgid "Compare with live version"
 msgstr "مقارنة مع النسخة الحية"
 
+msgid "More"
+msgstr "المزيد"
+
 msgid "live"
 msgstr "حي"
 
-msgid "live + draft"
-msgstr "حي + مسودة"
-
 msgid "draft"
 msgstr "مسود"
+
+msgid "live + draft"
+msgstr "حي + مسودة"
 
 msgid "Test"
 msgstr "اختبار"
@@ -1124,9 +1136,6 @@ msgstr "الصفحة '{0}' غير منشورة."
 msgid "Report this error to your webmaster with the following information:"
 msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
 
-msgid "More"
-msgstr "المزيد"
-
 #, python-format
 msgid "Delete page '%(title)s'"
 msgstr "حذف الصفحة '%(title)s'"
@@ -1160,9 +1169,6 @@ msgstr "اختيار عنصر آخر"
 
 msgid "Clear choice"
 msgstr "محو الاختيار"
-
-msgid "Edit this item"
-msgstr "تحرير هذا العنصر"
 
 msgid "Choose another page"
 msgstr "إختر صفحة أخرى"

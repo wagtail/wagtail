@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: kojikojikojikoji\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,14 @@ msgstr "Wagtail コア"
 
 msgid "Add Comment"
 msgstr "コメントを追加"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "項目の最小数は%dです。"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "項目の最大数は%dです。"
 
 msgid "Move up"
 msgstr "上に移動"
@@ -50,16 +58,8 @@ msgstr "追加"
 msgid "This block has no options."
 msgstr "このブロックはオプションがありません。"
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "項目の最小数は%dです。"
-
 msgid "This field is required."
 msgstr "この項目は必須です。"
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "項目の最大数は%dです。"
 
 msgid "Password"
 msgstr "パスワード"

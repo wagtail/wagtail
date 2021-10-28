@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-15 06:08+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 12:57+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -150,11 +150,29 @@ msgstr ""
 "Válassza ki a kívánt helyet a fastruktúrában. Megjegyzés: a gyűjtemény nem "
 "lehet saját maga, vagy egy saját gyermekének a gyermeke."
 
+msgid "Please select another parent"
+msgstr "Kérjül válasszon másik szülőt"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nem lehet több engedély bejegyzés ugyanahhoz az oldalhoz."
 
 msgid "Collection"
 msgstr "Gyűjtemény"
+
+msgid "Add"
+msgstr "Hozzáadás"
+
+msgid "Add collections"
+msgstr "Gyűjtemények hozzáadása"
+
+msgid "Edit"
+msgstr "Szerkeszt"
+
+msgid "Edit collections"
+msgstr "Gyűjtemények szerkesztése"
+
+msgid "Delete collections"
+msgstr "Gyűjtemények törlése"
 
 msgid "You cannot edit another user's comment."
 msgstr "Másik felhasználó megjegyzését nem lehet szerkeszteni."
@@ -261,9 +279,6 @@ msgstr "Munkafolyamat elnevezése"
 
 msgid "Add tasks to your workflow"
 msgstr "Feladatok hozzáadása a munkafolyamathoz"
-
-msgid "Edit"
-msgstr "Szerkeszt"
 
 msgid "Page"
 msgstr "Oldal"
@@ -409,6 +424,66 @@ msgstr "Műszerfal"
 msgid "Edit your account"
 msgstr "Fiók szerkesztése"
 
+msgid "1 page selected"
+msgstr "1 oldal kiválasztva"
+
+msgid "{0} pages selected"
+msgstr "{0} oldal kiválasztva"
+
+msgid "All {0} pages on this screen selected"
+msgstr "Mind a(z) {0} oldal ezen a képernyőn kiválasztva"
+
+msgid "All pages in listing selected"
+msgstr "Összes oldal a listában kiválasztva"
+
+msgid "1 document selected"
+msgstr "1 dokumentum kiválasztva"
+
+msgid "{0} documents selected"
+msgstr "{0} dokumentum kiválasztva"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Mint a(z) {0} dokumentum kiválasztva ezen a képernyőn"
+
+msgid "All documents in listing selected"
+msgstr "Összes dokumentum kiválasztva a listában"
+
+msgid "1 image selected"
+msgstr "1 kép kiválasztva"
+
+msgid "{0} images selected"
+msgstr "{0} kép kiválasztva"
+
+msgid "All {0} images on this screen selected"
+msgstr "Mint a(z) {0} kép kiválasztva ezen a képernyőn"
+
+msgid "All images in listing selected"
+msgstr "Minden kép kiválasztva a listában"
+
+msgid "1 user selected"
+msgstr "1 felhasználó kiválasztva"
+
+msgid "{0} users selected"
+msgstr "{0} felhasználó kiválasztva"
+
+msgid "All {0} users on this screen selected"
+msgstr "Mind a(z) {0} felhasználó kiválasztva ezen a képernyőn"
+
+msgid "All users in listing selected"
+msgstr "Minden felhasználó kiválasztva a listában"
+
+msgid "1 item selected"
+msgstr "1 elem kiválasztva"
+
+msgid "{0} items selected"
+msgstr "{0} elem kiválasztva"
+
+msgid "All {0} items on this screen selected"
+msgstr "Mind a(z) {0} elem kiválasztva ezen a képernyőn"
+
+msgid "All items in listing selected"
+msgstr "Minden elem kiválasztva a listában"
+
 msgid "Error 404: Page not found"
 msgstr "404-es hiba: az oldal nem található"
 
@@ -490,6 +565,18 @@ msgstr "Visszaállítás alapértelmezettre"
 msgid "Menu"
 msgstr "Menü"
 
+msgid "Go back"
+msgstr "Vissza"
+
+msgid "Bulk actions"
+msgstr "Tömeges akciók"
+
+msgid "Select row"
+msgstr "Sor kiválasztása"
+
+msgid "Select all"
+msgstr "Összes kiválasztása"
+
 msgid "Explorer"
 msgstr "Intéző"
 
@@ -555,6 +642,42 @@ msgstr[1] ""
 "\n"
 "Csak a %(type)s típusú oldalak választhatóak ki ennél a mezőnél. A keresés "
 "átugorja majd a többi oldaltípust."
+
+msgid "Convert to internal link"
+msgstr "Átalakítás belső linkké"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"A beírt <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a> URL úgy néz ki, hogy egyezik "
+"ezzel az oldallal: %(page)s, amelynek az URL-je <a target=\"_blank\" rel="
+"\"noreferrer noopener\" href=\"%(internal_url)s\">%(internal_url)s</a>."
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"Ha ezt belső linkké alakítja, amely a(z) %(page)s oldalra mutat, azzal a "
+"link sokkal megbízhatóbb lesz. \n"
+"Szeretné ezt megtenni?"
+
+msgid "Use external link"
+msgstr "Külső link használata"
 
 msgid "Add an email link"
 msgstr "Email link hozzáadása"
@@ -1019,6 +1142,166 @@ msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s típusú oldalak"
 
 #, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "1 oldal törlése"
+msgstr[1] "%(counter)s oldal törlése"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Biztosan törölni szeretné ezeket az oldalakat?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"Ezzel egy további aloldal is törölve lesz."
+msgstr[1] ""
+"\n"
+"Ezzel további %(counter)s aloldal is törölve lesz."
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Nincs jogosultsági törölni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága törölni ezeket az oldalakat"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "1 oldal mozgatása"
+msgstr[1] "%(counter)s oldal mozgatása"
+
+msgid "Move"
+msgstr "Mozgatás"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Biztosan mozgatni szeretné ezeket az oldalakat?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"Ehhez az oldalhoz nem tartozik aloldal"
+msgstr[1] ""
+"\n"
+"Ehhez az oldalhoz %(counter)s aloldal tartozik"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Nincs jogosultsága átmozgatni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága átmozgatni ezeket az oldalakat"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "A következő oldalt nem lehetett átmozgatni ide: %(dest_title)s"
+msgstr[1] "A követkető oldalakat nem lehetett átmozgatni ide: %(dest_title)s"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"A következő oldalt nem lehetett mozgatni megegyeztő domain-darabka miatt"
+msgstr[1] ""
+"A következő oldalakat nem lehetett mozgatni megegyeztő domain-darabka miatt"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Ezeknek az oldalaknak nincs érvényes cél oldaluk"
+
+msgid "Yes, move these pages"
+msgstr "Igen, átmozgatom az oldalakat"
+
+msgid "No, don't move"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "1 oldal közzététele"
+msgstr[1] "%(counter)s oldal közzététele"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Biztosan közzé szeretné tenni ezeket az oldalakat?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"Ennek az oldalnak 1 közzé nem tett aloldala van."
+msgstr[1] ""
+"\n"
+"Ennek az oldalnak %(counter)s közzé nem tett aloldala van."
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Nincs jogosultsága közzétenni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága közzétenni ezeket az oldalakat"
+
+msgid "Yes, publish"
+msgstr "Igen, közzéteszem"
+
+msgid "No, don't publish"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "1 oldal visszavonása"
+msgstr[1] "%(counter)s oldal visszavonása"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Biztosan vissza szeretné vonni ezeket az oldalakat?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"Ehhez az oldalhoz 1 aloldal tartozik"
+msgstr[1] ""
+"\n"
+"Ehhez az oldalhoz %(counter)s aloldal tartozik."
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Nincs jogosultsága visszavonni ezt az oldalt"
+msgstr[1] "Nincs jogosultsága visszavonni ezeket az oldalakat"
+
+msgid "Yes, unpublish"
+msgstr "Igen, visszavonom"
+
+msgid "No, don't unpublish"
+msgstr "Nem, mégsem vonom vissza"
+
+#, python-format
 msgid "Convert alias %(title)s"
 msgstr "%(title)s kapcsolt példány konvertálása"
 
@@ -1081,9 +1364,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s mozgatása"
 
-msgid "Move"
-msgstr "Mozgatás"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Biztosan átmozgatja ezt az oldalt ide: '%(title)s'?"
@@ -1126,9 +1406,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Igen, visszavonom"
-
-msgid "No, don't unpublish"
-msgstr "Nem, mégsem vonom vissza"
 
 msgid "Publish page"
 msgstr "Oldal közzététele"
@@ -1240,6 +1517,12 @@ msgstr "Nincs naplóbejegyzés."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s tallózása"
+
+msgid "Select all pages in listing"
+msgstr "Összes oldal kiválasztása a listában"
+
+msgid "Select page"
+msgstr "Oldal kiválasztása"
 
 msgid "Drag"
 msgstr "Megragadás"
@@ -1624,6 +1907,12 @@ msgstr "Befejezetlen feladat"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Az oldal még nem lett moderálásra küldve"
 
+msgid "Collection management permissions"
+msgstr "Gyűjtemény kezelői jogosultságok"
+
+msgid "Add a collection permission"
+msgstr "Gyűjtemény jogosultság hozzáadása"
+
 msgid "No pages match this report's criteria."
 msgstr "Egyetlen oldal sem felel meg a feltételeknek."
 
@@ -1679,6 +1968,9 @@ msgstr "Zárolt"
 
 msgid "No locked pages found."
 msgstr "Nincs zárolt oldal."
+
+msgid "Edit this item"
+msgstr "Elem szerkesztése"
 
 msgid "By Task"
 msgstr "Feladat szerint"
@@ -1761,13 +2053,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
 msgstr ""
-"A Wagtail CMS megszünteti az IE11 támogatását, amely hatással lehet a "
-"munkára. <a href=\"%(url)s\">Tudjon meg többet az IE11 támogatási "
-"terveinkről</a>."
+"Ez a CMS máér nem támogatja az Internet Explorer 11-et. <a href=\"%(url)s"
+"\">Tudjon meg többet az alternatívákról</a>."
 
 msgid "Skip to main content"
 msgstr "Előre a fő tartalomig"
@@ -1998,6 +2288,12 @@ msgstr ""
 "A(z) '%(parent)s' oldal alá tartozó gyermekoldalak sorbarendezése "
 "'%(label)s' alapján csökkenő sorrendbe."
 
+msgid "More"
+msgstr "Tovább"
+
+msgid "View more bulk actions"
+msgstr "További tömeges akciók"
+
 msgid "0 minutes"
 msgstr "0 perc"
 
@@ -2007,11 +2303,11 @@ msgstr "Most"
 msgid "live"
 msgstr "élő"
 
-msgid "live + draft"
-msgstr "élő + vázlat"
-
 msgid "draft"
 msgstr "vázlat"
+
+msgid "live + draft"
+msgstr "élő + vázlat"
 
 msgid "Test"
 msgstr "Teszt"
@@ -2061,9 +2357,6 @@ msgstr "Hiba történt a gyűjtemény mentése során."
 msgid "Delete collection"
 msgstr "Gyűjtemény törlése"
 
-msgid "Please select another parent"
-msgstr "Kérjül válasszon másik szülőt"
-
 msgid "Collection '{0}' deleted."
 msgstr "Gyűjtemény törölve: '{0}'."
 
@@ -2072,6 +2365,103 @@ msgstr "Biztosan törli a gyűjteményt?"
 
 msgid "Editing"
 msgstr "Szerkesztés"
+
+msgid "Delete selected pages"
+msgstr "Kiválasztott oldalak törlése"
+
+msgid "1 page has been deleted"
+msgstr "1 oldal törölve lett"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldala törölve lett"
+msgstr[1] "1 oldal és %(num_child_objects)daloldala törölve lett"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d oldal törölve lett"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
+msgstr[1] ""
+"%(num_parent_objects)d oldal, és %(num_child_objects)d aloldal törölve lett"
+
+msgid "Select a new parent page"
+msgstr "Új szülő oldal kiválasztása"
+
+msgid "Move selected pages"
+msgstr "Kiválasztott oldalak átmozgatása"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d oldal átmozgatva"
+msgstr[1] "%(num_pages)d oldal átmozgatva"
+
+msgid "Publish selected pages"
+msgstr "Kiválasztott oldalak közzététele"
+
+msgid "1 page has been published"
+msgstr "1 oldal közzétéve"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldal közzétéve"
+msgstr[1] "1 oldal és %(num_child_objects)d aloldal közzétéve"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d oldal közzétéve"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
+msgstr[1] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal közzétéve"
+
+msgid "Unpublish selected pages"
+msgstr "Kiválasztott oldalak visszavonása"
+
+msgid "1 page has been unpublished"
+msgstr "1 oldal visszavonva"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] "1 oldal és %(num_child_objects)d aloldal visszavonva"
+msgstr[1] "1 oldal és %(num_child_objects)d aloldal visszavonva"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d oldal visszavonva"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
+msgstr[1] ""
+"%(num_parent_objects)d oldal és %(num_child_objects)d aloldal visszavonva"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "A(z) '{0}' oldal hagyományos oldallá lett konvertálva."
@@ -2338,16 +2728,20 @@ msgstr "'{0}' feladat kikapcsolva."
 #, python-format
 msgid ""
 "This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
 msgstr[0] ""
 "Ez a feladat épp folyamatban van %(states_in_progress)d oldalon. A feladat "
-"kikapcsolása esetén a munkafolyamatban ez át lesz lépve."
+"kikapcsolása esetén a munkafolyamatben ez át lesz lépve, és a munkamenet "
+"szerkesztésekor sem lesz kiválasztható."
 msgstr[1] ""
 "Ez a feladat épp folyamatban van %(states_in_progress)d oldalon. A feladat "
-"kikapcsolása esetén a munkafolyamatban ez át lesz lépve."
+"kikapcsolása esetén a munkafolyamatben ez át lesz lépve, és a munkamenet "
+"szerkesztésekor sem lesz kiválasztható."
 
 msgid "Task '{0}' enabled."
 msgstr "'{0}' feladat bekapcsolva."
@@ -2373,9 +2767,6 @@ msgstr "'%(title)s' élő változatának előnézete"
 msgid "Add a child page to '%(title)s' "
 msgstr "Gyermekoldal hozzáadása ehhez: '%(title)s'"
 
-msgid "More"
-msgstr "Tovább"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "'%(title)s' oldal további lehetőségei"
@@ -2399,6 +2790,13 @@ msgstr "'%(title)s' oldal visszavonása"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "'%(title)s' oldal története"
+
+msgid "Sort menu order"
+msgstr "Menü sorrend rendezése"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "'%(title)s' aloldalak sorrendjének megváltoztatása"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -2454,9 +2852,6 @@ msgstr "Másik elem kiválasztása"
 
 msgid "Clear choice"
 msgstr "Kiválasztás törlése"
-
-msgid "Edit this item"
-msgstr "Elem szerkesztése"
 
 msgid "Choose another page"
 msgstr "Másik oldal választása"

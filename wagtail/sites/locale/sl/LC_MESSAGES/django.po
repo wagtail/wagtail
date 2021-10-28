@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -26,23 +26,14 @@ msgstr "Izberite začetno stran"
 msgid "Choose a different root page"
 msgstr "Izberite drugo začetno stran"
 
+msgid "Sites"
+msgstr "Spletna mesta"
+
 msgid "Site"
 msgstr "Spletno mesto"
-
-msgid "Port"
-msgstr "Vrata"
-
-msgid "Site name"
-msgstr "Ime spletnega mesta"
-
-msgid "Root page"
-msgstr "Začetna stran"
 
 msgid "Default?"
 msgstr "Privzeta?"
 
 msgid "Default"
 msgstr "Privzeta"
-
-msgid "Sites"
-msgstr "Spletna mesta"

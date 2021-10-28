@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-11-02 19:47+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 13:27+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -50,6 +50,9 @@ msgstr[1] ""
 "\n"
 "%(counter)s találat"
 
+msgid "Title"
+msgstr "Cím"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -65,6 +68,12 @@ msgstr ""
 "Még egyetlen %(snippet_type_name)s típusú elem sincs létrehozva. Miért nem "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
 "\"noopener noreferrer\">hoz létre egy újat most</a>?"
+
+msgid "Last updated"
+msgstr "Utolsó frissítés"
+
+msgid "History"
+msgstr "Történet"
 
 msgid "Saving…"
 msgstr "Mentés folyamatban..."
@@ -122,9 +131,6 @@ msgstr "Elemek"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Összes %(snippet_type_name_plural)s kiválasztása"
-
-msgid "Title"
-msgstr "Cím"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -199,6 +205,15 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s törölve."
 msgstr[1] "%(count)d %(snippet_type)s törölve."
+
+msgid "Snippet history"
+msgstr "Elem történet"
+
+msgid "Action"
+msgstr "Akció"
+
+msgid "Date"
+msgstr "Dátum"
 
 #, python-format
 msgid "Edit '%(title)s'"

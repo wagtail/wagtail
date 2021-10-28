@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ongchi <ihcgno@icloud.com>, 2020
+# ongchi <ihcgno@icloud.com>, 2020-2021
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 13:06+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -60,6 +60,9 @@ msgstr "右對齊"
 
 msgid "Collection"
 msgstr "集合"
+
+msgid "Format"
+msgstr "格式"
 
 msgid "Alt text"
 msgstr "替代文字"
@@ -136,6 +139,20 @@ msgstr "圖片"
 msgid "images"
 msgstr "圖片"
 
+msgid "Delete images"
+msgstr "刪除圖片"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Yes, delete"
+msgstr "是的，刪除吧。"
+
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
 msgid "Choose an image"
 msgstr "選擇一個圖片"
 
@@ -147,9 +164,6 @@ msgstr "上傳"
 
 msgid "Popular tags"
 msgstr "熱門標籤"
-
-msgid "Uploading…"
-msgstr "正在上傳…"
 
 #, python-format
 msgid ""
@@ -173,6 +187,9 @@ msgstr "選擇格式"
 msgid "Insert image"
 msgstr "插入圖片"
 
+msgid "Uploading…"
+msgstr "正在上傳…"
+
 msgid "Change image file:"
 msgstr "修改圖片文件："
 
@@ -187,20 +204,6 @@ msgstr "儲存"
 
 msgid "Delete image"
 msgstr "刪除圖片"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "確認刪除此圖片？"
-
-msgid "Yes, delete"
-msgstr "是的，刪除吧。"
-
-msgid "No, don't delete"
-msgstr "否，不刪除"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -345,6 +348,21 @@ msgstr "圖片權限"
 msgid "Add an image permission"
 msgstr "新增一個圖片權限"
 
+msgid "Tag"
+msgstr "標籤"
+
+msgid "Add to collection"
+msgstr "加入至集合"
+
+msgid "Add selected images to collection"
+msgstr "將選擇的圖片加入至集合"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Delete selected images"
+msgstr "刪除選擇的圖片"
+
 msgid "Search images"
 msgstr "搜索圖片"
 
@@ -361,9 +379,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "無法找到圖片來源文件。請修改來源文件或者刪除圖片。"
-
-msgid "Delete"
-msgstr "刪除"
 
 msgid "Image '{0}' deleted."
 msgstr "圖片'{0}' 已刪除。"

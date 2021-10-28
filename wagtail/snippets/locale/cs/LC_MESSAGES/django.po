@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-11-20 16:25+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Ivan Pomykacz <mist@alastify.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,9 @@ msgstr[3] ""
 "Je/jsou %(counter)s shoda/y\n"
 "        "
 
+msgid "Title"
+msgstr "Název"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Bohužel, žádný úryvek neodpovídá \"<em>%(query_string)s</em>\""
@@ -77,6 +80,9 @@ msgstr ""
 "Nevytvořil(a) jste žádný %(snippet_type_name)s úryvek. Pojďme <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">nějaký vytvořit</a>."
+
+msgid "History"
+msgstr "Historie"
 
 msgid "Saving…"
 msgstr "Ukládá se..."
@@ -136,9 +142,6 @@ msgstr "Úryvky"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Vybrat všechny %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Název"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -215,6 +218,12 @@ msgstr[0] "%(count)d %(snippet_type)s zrušen."
 msgstr[1] "%(count)d %(snippet_type)s zrušeny."
 msgstr[2] "%(count)d %(snippet_type)s zrušeno."
 msgstr[3] "%(count)d %(snippet_type)s zrušeno."
+
+msgid "Action"
+msgstr "Akce"
+
+msgid "Date"
+msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"

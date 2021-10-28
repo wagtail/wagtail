@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-07 13:29+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 17:54+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -155,12 +155,30 @@ msgstr ""
 "Виберіть положення в ієрархії. Примітка: колекція не може стати дочірнім "
 "елементом самої себе або одного зі своїх нащадків."
 
+msgid "Please select another parent"
+msgstr "Будь ласка, виберіть іншого предка"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Ви не можете мати декілька записів дозволів для однієї і тієї ж колекції."
 
 msgid "Collection"
 msgstr "Колекція"
+
+msgid "Add"
+msgstr "Додати"
+
+msgid "Add collections"
+msgstr "Додати колекції"
+
+msgid "Edit"
+msgstr "Редагування"
+
+msgid "Edit collections"
+msgstr "Редагувати колекції"
+
+msgid "Delete collections"
+msgstr "Видалити колекції"
 
 msgid "You cannot edit another user's comment."
 msgstr "Ви не можете проредагувати коментар іншого користувача."
@@ -276,9 +294,6 @@ msgstr "Дайте назву робочому процесу"
 
 msgid "Add tasks to your workflow"
 msgstr "Додати завдання до робочого процесу"
-
-msgid "Edit"
-msgstr "Редагування"
 
 msgid "Page"
 msgstr "Сторінка"
@@ -423,6 +438,66 @@ msgstr "Панель"
 msgid "Edit your account"
 msgstr "Редагувати ваш аккаунт"
 
+msgid "1 page selected"
+msgstr "Обрано 1 сторінку"
+
+msgid "{0} pages selected"
+msgstr "Обрано {0} сторінок"
+
+msgid "All {0} pages on this screen selected"
+msgstr "Обрано всі {0} сторінок на цьому екрані"
+
+msgid "All pages in listing selected"
+msgstr "Обрано всі сторінки у списку"
+
+msgid "1 document selected"
+msgstr "Обрано 1 документ"
+
+msgid "{0} documents selected"
+msgstr "Обрано {0} документів"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Обрано всі {0} документів на цьому екрані"
+
+msgid "All documents in listing selected"
+msgstr "Обрано всі документи у списку"
+
+msgid "1 image selected"
+msgstr "Обрано 1 зображення"
+
+msgid "{0} images selected"
+msgstr "Обрано {0} зображень"
+
+msgid "All {0} images on this screen selected"
+msgstr "Обрано всі {0} зображень на цьому екрані"
+
+msgid "All images in listing selected"
+msgstr "Обрано всі зображення у списку"
+
+msgid "1 user selected"
+msgstr "Обрано 1 користувача"
+
+msgid "{0} users selected"
+msgstr "Обрано {0} користувачів"
+
+msgid "All {0} users on this screen selected"
+msgstr "Обрано всі {0} користувачів на цьому екрані"
+
+msgid "All users in listing selected"
+msgstr "Обрано всіх користувачів у списку"
+
+msgid "1 item selected"
+msgstr "Обрано 1 об'єкт"
+
+msgid "{0} items selected"
+msgstr "Обрано {0} об'єктів"
+
+msgid "All {0} items on this screen selected"
+msgstr "Обрано всі {0} об'єктів на цьому екрані"
+
+msgid "All items in listing selected"
+msgstr "Обрано всі об'єкти у списку"
+
 msgid "Error 404: Page not found"
 msgstr "Помилка 404: сторінку не знайдено"
 
@@ -504,6 +579,18 @@ msgstr "Скинути значення за умовчанням "
 
 msgid "Menu"
 msgstr "Меню"
+
+msgid "Go back"
+msgstr "Повернутися назад"
+
+msgid "Bulk actions"
+msgstr "Групові дії"
+
+msgid "Select row"
+msgstr "Вибрати рядок"
+
+msgid "Select all"
+msgstr "Обрати все"
 
 msgid "Explorer"
 msgstr "Управління файлами"
@@ -595,6 +682,45 @@ msgstr[3] ""
 "типів: %(type)s. Інші типи сторінок не будуть включені до результатів "
 "пошуку.\n"
 "            "
+
+msgid "Convert to internal link"
+msgstr "Конвертувати у внутрішнє посилання"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"               Посилання, яке ви ввели, <a target=\"_blank\" rel="
+"\"noreferrer noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"               схоже на посилання <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(internal_url)s\">%(internal_url)s</a>, яке відповідає "
+"внутрішній сторінці %(page)s.\n"
+" "
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                 Конвертування цього внутрішнього посилання на %(page)s "
+"зробить посилання більш надійним.\n"
+"                Чи хотіли б ви це зробити?\n"
+" "
+
+msgid "Use external link"
+msgstr "Використовувати зовнішнє посилання"
 
 msgid "Add an email link"
 msgstr "Додати посилання на email "
@@ -1066,6 +1192,228 @@ msgid "Pages using %(page_type)s"
 msgstr "Сторінка використовує %(page_type)s"
 
 #, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Видалити 1 сторінку"
+msgstr[1] "Видалити %(counter)s сторінок"
+msgstr[2] "Видалити %(counter)s сторінок"
+msgstr[3] "Видалити %(counter)s сторінок"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Ви впевнені, що ви бажаєте видалити ці сторінки?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Цим ви видалите також одну дочірню сторінку.\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
+"                "
+msgstr[2] ""
+"\n"
+"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
+"                "
+msgstr[3] ""
+"\n"
+"                    Цим ви видалите також %(counter)s дочірніх сторінок.\n"
+"                "
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Вам не дозволено видаляти цю сторінку"
+msgstr[1] "Вам не дозволено видаляти ці сторінки"
+msgstr[2] "Вам не дозволено видаляти ці сторінки"
+msgstr[3] "Вам не дозволено видаляти ці сторінки"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Перемістити 1 сторінку"
+msgstr[1] "Перемістити %(counter)s сторінок"
+msgstr[2] "Перемістити %(counter)s сторінок"
+msgstr[3] "Перемістити %(counter)s сторінок"
+
+msgid "Move"
+msgstr "Перемістити"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Ви впевнені, що ви бажаєте перемістити ці сторінки?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                   Ця сторінка має одну дочірню сторінку\n"
+" "
+msgstr[1] ""
+"\n"
+"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
+" "
+msgstr[2] ""
+"\n"
+"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
+" "
+msgstr[3] ""
+"\n"
+"                   Ця сторінка має %(counter)s дочірніх сторінок\n"
+" "
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Вам не дозволено переміщувати цю сторінку"
+msgstr[1] "Вам не дозволено переміщувати ці сторінки"
+msgstr[2] "Вам не дозволено переміщувати ці сторінки"
+msgstr[3] "Вам не дозволено переміщувати ці сторінки"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Наступна сторінка не може бути переміщена до %(dest_title)s"
+msgstr[1] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
+msgstr[2] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
+msgstr[3] "Наступні сторінки не можуть бути переміщені до %(dest_title)s"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"Наступна сторінка не може бути переміщена через дублікат коротких назв"
+msgstr[1] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+msgstr[2] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+msgstr[3] ""
+"Наступні сторінки не можуть бути переміщені через дублікат коротких назв"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Немає правильної сторінки призначення для цих сторінок"
+
+msgid "Yes, move these pages"
+msgstr "Так, перемістити цю сторінку"
+
+msgid "No, don't move"
+msgstr "Ні, не переміщувати"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Опублікувати 1 сторінку"
+msgstr[1] "Опублікувати %(counter)s сторінок"
+msgstr[2] "Опублікувати %(counter)s сторінок"
+msgstr[3] "Опублікувати %(counter)s сторінок"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Ви впевнені, що хочете опублікувати ці сторінки?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                Ця сторінка має одну неопубліковану підсторінку\n"
+"   "
+msgstr[1] ""
+"\n"
+"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
+"    "
+msgstr[2] ""
+"\n"
+"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
+"    "
+msgstr[3] ""
+"\n"
+"                Ця сторінка має %(counter)s неопублікованих підсторінок\n"
+"    "
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Вам не дозволено публікувати цю сторінку"
+msgstr[1] "Вам не дозволено публікувати ці сторінки"
+msgstr[2] "Вам не дозволено публікувати ці сторінки"
+msgstr[3] "Вам не дозволено публікувати ці сторінки"
+
+msgid "Yes, publish"
+msgstr "Так, опублікувати"
+
+msgid "No, don't publish"
+msgstr "Ні, не опубліковувати"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Зняти з публікації 1 сторінку"
+msgstr[1] "Зняти з публікації %(counter)s сторінок"
+msgstr[2] "Зняти з публікації %(counter)s сторінок"
+msgstr[3] "Зняти з публікації %(counter)s сторінок"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Ви впевнені, що хочете зняти з публікації ці сторінки?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                   Ця сторінка має одну підсторінку\n"
+" "
+msgstr[1] ""
+"\n"
+"                   Ця сторінка має %(counter)s підсторінок\n"
+" "
+msgstr[2] ""
+"\n"
+"                   Ця сторінка має %(counter)s підсторінок\n"
+" "
+msgstr[3] ""
+"\n"
+"                   Ця сторінка має %(counter)s підсторінок\n"
+" "
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Вам не дозволено знімати з публікації цю сторінку"
+msgstr[1] "Вам не дозволено знімати з публікації ці сторінки"
+msgstr[2] "Вам не дозволено знімати з публікації ці сторінки"
+msgstr[3] "Вам не дозволено знімати з публікації ці сторінки"
+
+msgid "Yes, unpublish"
+msgstr "Так, зняти з публікації"
+
+msgid "No, don't unpublish"
+msgstr "Ні, не знімати з публікації"
+
+#, python-format
 msgid "Convert alias %(title)s"
 msgstr "Конвертувати псевдонім %(title)s"
 
@@ -1142,9 +1490,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Перемістити %(title)s"
 
-msgid "Move"
-msgstr "Перемістити"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Ви впевнені, що хочете перемістити цю сторінку до '%(title)s'?"
@@ -1200,9 +1545,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Так, зняти з публікації"
-
-msgid "No, don't unpublish"
-msgstr "Ні, не знімати з публікації"
 
 msgid "Publish page"
 msgstr "Опублікувати сторінку"
@@ -1316,6 +1658,12 @@ msgstr "Записи в журналі не знайдені. "
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Перегляд %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Обрати всі сторінки у списку"
+
+msgid "Select page"
+msgstr "Обрати сторінку"
 
 msgid "Drag"
 msgstr "Перетягнути"
@@ -1750,6 +2098,12 @@ msgstr "Незавершене завдання"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Цю сторінку ще не надіслано на модерацію "
 
+msgid "Collection management permissions"
+msgstr "Дозволи на керування колекцією"
+
+msgid "Add a collection permission"
+msgstr "Додати дозвіл для колекції"
+
 msgid "No pages match this report's criteria."
 msgstr "Жодна сторінка не відповідає критеріям цього звіту. "
 
@@ -1810,6 +2164,9 @@ msgstr "Заблоковано"
 
 msgid "No locked pages found."
 msgstr "Заблокованих сторінок немає."
+
+msgid "Edit this item"
+msgstr "Редагувати цей елемент"
 
 msgid "By Task"
 msgstr "За завданням"
@@ -1894,13 +2251,11 @@ msgstr ""
 
 #, python-format
 msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
 msgstr ""
-"Wagtail поступово скасовує підтримку IE11, що може вплинути на вас або вашу "
-"організацію. <a href=\"%(url)s\">Дізнайтеся більше про наші плани підтримки "
-"IE11</a>. "
+"Wagtail вилучив підтримку IE11. <a href=\"%(url)s\">Дізнайтеся більше про "
+"альтернативи IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Перейти до основного вмісту "
@@ -2151,6 +2506,12 @@ msgstr ""
 "Сортувати порядок дочірніх сторінок в межах '%(parent)s' за '%(label)s' у "
 "порядку зменшення."
 
+msgid "More"
+msgstr "Більше"
+
+msgid "View more bulk actions"
+msgstr "Переглянути більше групових дій"
+
 msgid "0 minutes"
 msgstr "0 хвилин"
 
@@ -2160,11 +2521,11 @@ msgstr "Щойно"
 msgid "live"
 msgstr "наживо"
 
-msgid "live + draft"
-msgstr "наживо + чернетка"
-
 msgid "draft"
 msgstr "чернетка"
+
+msgid "live + draft"
+msgstr "наживо + чернетка"
 
 msgid "Test"
 msgstr "Тест"
@@ -2214,9 +2575,6 @@ msgstr "Ця колекція не може бути збережена чере
 msgid "Delete collection"
 msgstr "Видалили колекцію"
 
-msgid "Please select another parent"
-msgstr "Будь ласка, виберіть іншого предка"
-
 msgid "Collection '{0}' deleted."
 msgstr "Колекцію '{0}' видалено."
 
@@ -2225,6 +2583,139 @@ msgstr "Ви впевнені, що хочете видалили цю коле�
 
 msgid "Editing"
 msgstr "Редагування"
+
+msgid "Delete selected pages"
+msgstr "Видалити обрані сторінки"
+
+msgid "1 page has been deleted"
+msgstr "1 сторінка було видалено"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "Видалено 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] "Видалено 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d сторінок було видалено"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірню "
+"сторінку"
+msgstr[1] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+msgstr[2] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+msgstr[3] ""
+"Видалено %(num_parent_objects)d сторінку і %(num_child_objects)d дочірніх "
+"сторінок"
+
+msgid "Select a new parent page"
+msgstr "Обрати нову батьківську сторінку"
+
+msgid "Move selected pages"
+msgstr "Перенести обрані сторінки"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d сторінка була перенесена"
+msgstr[1] "%(num_pages)d сторінок було перенесено"
+msgstr[2] "%(num_pages)d сторінок було перенесено"
+msgstr[3] "%(num_pages)d сторінок було перенесено"
+
+msgid "Publish selected pages"
+msgstr "Опублікувати обрані сторінки"
+
+msgid "1 page has been published"
+msgstr "1 сторінку було опубліковано"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "Опубліковано 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] "Опубліковано 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d сторінок було знято з публікації"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d дочірня "
+"сторінка"
+msgstr[1] ""
+"Опубліковано %(num_parent_objects)d сторінку і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[2] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[3] ""
+"Опубліковано %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+
+msgid "Unpublish selected pages"
+msgstr "Зняти з публікації обрані сторінки"
+
+msgid "1 page has been unpublished"
+msgstr "1 сторінку було знято з публікації"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірню сторінку"
+msgstr[1] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[2] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+msgstr[3] ""
+"Знято з публікації 1 сторінку і %(num_child_objects)d дочірніх сторінок"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d сторінок було знято з публікації"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірня сторінка"
+msgstr[1] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[2] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
+msgstr[3] ""
+"Знято з публікації %(num_parent_objects)d сторінок і %(num_child_objects)d "
+"дочірніх сторінок"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Сторінку '{0}' було конвертовано в звичайну сторінку."
@@ -2345,7 +2836,7 @@ msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
 msgstr ""
-"Коротка назва '{0}' вже використовується у вибраних батьківських сторінка. "
+"Коротка назва '{0}' вже використовується у обраних батьківських сторінках. "
 "Переконайтеся, що коротка назва унікальна і спробуйте ще раз."
 
 msgid "Page '{0}' moved."
@@ -2494,22 +2985,28 @@ msgstr "Завдання '{0}' вимкнено."
 #, python-format
 msgid ""
 "This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
 msgid_plural ""
 "This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
 msgstr[0] ""
 "Це завдання виконується на %(states_in_progress)d сторінці. Вимкнення цього "
-"завдання скасує процес модерації на цій сторінці."
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[1] ""
 "Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
-"завдання скасує процес модерації на цих сторінках."
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[2] ""
 "Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
-"завдання скасує процес модерації на цих сторінках."
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 msgstr[3] ""
 "Це завдання виконується на %(states_in_progress)d сторінках. Вимкнення цього "
-"завдання скасує процес модерації на цих сторінках."
+"завдання скасує процес модерації на цих сторінках і не відображатиметься для "
+"вибору під час редагування робочого процесу."
 
 msgid "Task '{0}' enabled."
 msgstr "Завдання \"{0}\" увімкнено."
@@ -2534,9 +3031,6 @@ msgstr "Переглянути живу версію для '%(title)s'"
 msgid "Add a child page to '%(title)s' "
 msgstr "Додати дочірню сторінку для'%(title)s'"
 
-msgid "More"
-msgstr "Більше"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "Показати більше опцій для '%(title)s'"
@@ -2560,6 +3054,13 @@ msgstr "Зняти з публікації сторінку '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Переглянути історію змін для '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Сортувати порядок меню"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "Змінити порядок дочірніх сторінок у '%(title)s'"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -2615,9 +3116,6 @@ msgstr "Оберіть інший елемент"
 
 msgid "Clear choice"
 msgstr "Очистити вибір"
-
-msgid "Edit this item"
-msgstr "Редагувати цей елемент"
 
 msgid "Choose another page"
 msgstr "Оберіть іншу сторінку"

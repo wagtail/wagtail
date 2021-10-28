@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-10-01 15:54+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Daniel Wohlgemuth <daniel.wohlgemuth.epp@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,9 @@ msgstr "Hogar"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Por %(filter_title)s "
+
+msgid "History"
+msgstr "Historial"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -240,3 +243,9 @@ msgstr "Inspeccionar"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Inspeccionar %s"
+
+msgid "Action"
+msgstr "Acción"
+
+msgid "Date"
+msgstr "Fecha"

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-07 13:21+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 07:35+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -31,6 +31,14 @@ msgstr "Ядро Wagtail "
 
 msgid "Add Comment"
 msgstr "Додати коментар"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Мінімальна кількість елементів: %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максимальна кількість елементів: %d"
 
 msgid "Move up"
 msgstr "Перемістити нагору"
@@ -54,16 +62,8 @@ msgstr "%(label)s: для цього блоку немає опцій."
 msgid "This block has no options."
 msgstr "Для цього блоку немає опцій."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Мінімальна кількість елементів: %d"
-
 msgid "This field is required."
 msgstr "Це поле необхідно заповнити."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максимальна кількість елементів: %d"
 
 msgid "Password"
 msgstr "Пароль"
@@ -73,10 +73,6 @@ msgstr "Пароль. який ви ввели, не є коректним. Бу
 
 msgid "Comment"
 msgstr "Коментар"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Невідомо %(action)s"
 
 msgid "title"
 msgstr "заголовок"
@@ -441,11 +437,21 @@ msgid "The log action '{}' has not been registered."
 msgstr "Дію журналу \"{}\" не зареєстровано."
 
 #, python-format
-msgid "user %(id)d (deleted)"
-msgstr "користувач %(id)d (видалений)"
+msgid "user %(id)s (deleted)"
+msgstr "користувач %(id)s (видалено)"
 
 msgid "system"
 msgstr "система"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Невідомо %(action)s"
+
+msgid "model log entry"
+msgstr "запис журналу моделі"
+
+msgid "model log entries"
+msgstr "записи журналу моделі"
 
 msgid "collection"
 msgstr "колекція"
@@ -626,6 +632,19 @@ msgstr "Розблоковано"
 msgid "Reject"
 msgstr "Відхилити"
 
+msgid "Rename"
+msgstr "Перейменувати"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Перейменовано з '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Перейменовано"
+
+msgid "Revert"
+msgstr "Повернути"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -636,12 +655,28 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Повернуто до попередньої ревізії"
 
+msgid "Copy"
+msgstr "Копіювати"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Скопійовано з %(title)s"
 
 msgid "Copied"
 msgstr "Скопійовано"
+
+msgid "Copy for translation"
+msgstr "Скопіювати для перекладу"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Скопіювано для перекладу з %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Скопійовано для перекладу"
+
+msgid "Create alias"
+msgstr "Створити псевдонім"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -650,12 +685,18 @@ msgstr "Створено псевдонім %(title)s"
 msgid "Created an alias"
 msgstr "Створено псевдонім"
 
+msgid "Convert alias into ordinary page"
+msgstr "Конвертувати псевдонім на звичайну сторінку"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "Конвертовано псевдонім '%(title)s' на звичайну сторінку"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Конвертовано псевдонім на звичайну сторінку"
+
+msgid "Move"
+msgstr "Перемістити"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -664,12 +705,18 @@ msgstr "Переміщено з '%(old_parent)s' до '%(new_parent)s'"
 msgid "Moved"
 msgstr "Переміщено"
 
+msgid "Reorder"
+msgstr "Змінити порядок"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Порядок змінено під '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Порядок змінено"
+
+msgid "Schedule publication"
+msgstr "Запланована публікація "
 
 #, python-format
 msgid ""
@@ -686,6 +733,9 @@ msgstr "Сторінку заплановано для публікації о %
 msgid "Page scheduled for publishing"
 msgstr "Сторінку заплановано для публікації"
 
+msgid "Unschedule publication"
+msgstr "Не запланована публікація"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -701,12 +751,18 @@ msgstr "Сторінку знято з розкладу для публікац�
 msgid "Page unscheduled from publishing"
 msgstr "Сторінку знято з розкладу для публікації"
 
+msgid "Add view restrictions"
+msgstr "Додати обмеження показу"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Додано обмеження показу '%(restriction)s'"
 
 msgid "Added view restriction"
 msgstr "Додано обмеження показу"
+
+msgid "Update view restrictions"
+msgstr "Оновити обмеження показу"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -715,6 +771,9 @@ msgstr "Оновлено обмеження показу до '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Оновлено обмеження показу"
 
+msgid "Remove view restrictions"
+msgstr "Видалити обмеження показу"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Видалено обмеження показу '%(restriction)s'"
@@ -722,12 +781,8 @@ msgstr "Видалено обмеження показу '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Видалено обмеження показу"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Перейменовано з '%(old)s' в '%(new)s'"
-
-msgid "Renamed"
-msgstr "Перейменовано"
+msgid "Add comment"
+msgstr "Додати коментар"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -736,12 +791,18 @@ msgstr "Додано коментар у полі %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Додано коментар"
 
+msgid "Edit comment"
+msgstr "Оновити коментар"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "Відредаговано коментар у полі %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "Відредаговано коментар"
+
+msgid "Delete comment"
+msgstr "Видалити коментар"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -750,12 +811,18 @@ msgstr "Видалено коментар у полі %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Видалено коментар"
 
+msgid "Resolve comment"
+msgstr "Вирішити коментар"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "Вирішено коментар у полі %(field)s: \"%(text)s\""
 
 msgid "Resolved a comment"
 msgstr "Вирішено коментар"
+
+msgid "Reply to comment"
+msgstr "Відповісти на коментар"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -764,12 +831,18 @@ msgstr "Дано відповідь на коментар у полі %(field)s:
 msgid "Replied to a comment"
 msgstr "Дано відповідь на коментар"
 
+msgid "Edit reply to comment"
+msgstr "Редагувати відповідь на коментар"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr "Відредаговано відповідь на коментар у полі %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "Відредаговано відповідь"
+
+msgid "Delete reply to comment"
+msgstr "Видалити відповідь на коментар"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -778,62 +851,8 @@ msgstr "Видалено відповідь на коментар у полі %(
 msgid "Deleted a reply"
 msgstr "Видалено відповідь"
 
-msgid "Rename"
-msgstr "Перейменувати"
-
-msgid "Revert"
-msgstr "Повернути"
-
-msgid "Copy"
-msgstr "Копіювати"
-
-msgid "Create alias"
-msgstr "Створити псевдонім"
-
-msgid "Convert alias into ordinary page"
-msgstr "Конвертувати псевдонім на звичайну сторінку"
-
-msgid "Move"
-msgstr "Перемістити"
-
-msgid "Reorder"
-msgstr "Змінити порядок"
-
-msgid "Schedule publication"
-msgstr "Запланована публікація "
-
-msgid "Unschedule publication"
-msgstr "Не запланована публікація"
-
-msgid "Add view restrictions"
-msgstr "Додати обмеження показу"
-
-msgid "Update view restrictions"
-msgstr "Оновити обмеження показу"
-
-msgid "Remove view restrictions"
-msgstr "Видалити обмеження показу"
-
-msgid "Add comment"
-msgstr "Додати коментар"
-
-msgid "Edit comment"
-msgstr "Оновити коментар"
-
-msgid "Delete comment"
-msgstr "Видалити коментар"
-
-msgid "Resolve comment"
-msgstr "Вирішити коментар"
-
-msgid "Reply to comment"
-msgstr "Відповісти на коментар"
-
-msgid "Edit reply to comment"
-msgstr "Редагувати відповідь на коментар"
-
-msgid "Delete reply to comment"
-msgstr "Видалити відповідь на коментар"
+msgid "Workflow: start"
+msgstr "Робочий процес: запустити"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -841,6 +860,9 @@ msgstr "'%(workflow)s' запущено. Наступний крок '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Робочий процес запущений"
+
+msgid "Workflow: approve task"
+msgstr "Робочий процес: схвалити завдання"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -853,12 +875,18 @@ msgstr "Схвалено о '%(task)s'. '%(workflow)s' завершено"
 msgid "Workflow task approved"
 msgstr "Завдання робочого процесу схвалено"
 
+msgid "Workflow: reject task"
+msgstr "Робочий процес: відхилити завдання"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Відхилено на '%(task)s'. Вимагаються зміни"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Завдання робочого процесу відхилено. Процес завершено"
+
+msgid "Workflow: resume task"
+msgstr "Робочий процес: відновити завдання"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -867,24 +895,12 @@ msgstr "Завдання '%(task)s' виконано ще раз. Робочий
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Завдання виконано ще раз. Робочий процес відновлено"
 
+msgid "Workflow: cancel"
+msgstr "Робочий процес: скасувати"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Скасовано '%(workflow)s' в '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Робочий процес скасовано"
-
-msgid "Workflow: start"
-msgstr "Робочий процес: запустити"
-
-msgid "Workflow: approve task"
-msgstr "Робочий процес: схвалити завдання"
-
-msgid "Workflow: reject task"
-msgstr "Робочий процес: відхилити завдання"
-
-msgid "Workflow: resume task"
-msgstr "Робочий процес: відновити завдання"
-
-msgid "Workflow: cancel"
-msgstr "Робочий процес: скасувати"

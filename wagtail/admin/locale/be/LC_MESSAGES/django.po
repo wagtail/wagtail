@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -141,6 +141,12 @@ msgstr "Вы не можаце мець некалькі дазволаў для
 msgid "Collection"
 msgstr "Калекцыя"
 
+msgid "Add"
+msgstr "дадаць"
+
+msgid "Edit"
+msgstr "Рэдактаваць"
+
 msgid "New title"
 msgstr "Новая назва"
 
@@ -227,9 +233,6 @@ msgstr "Гэта поле з'яўляецца абавязковым."
 
 msgid "Please select at least one group."
 msgstr "Калі ласка, выберыце мінімум 1 гурт."
-
-msgid "Edit"
-msgstr "Рэдактаваць"
 
 msgid "Page"
 msgstr "Старонка"
@@ -730,6 +733,15 @@ msgstr "Выберыце, які тып старонкі вы хочаце ст�
 msgid "Pages using %(page_type)s"
 msgstr "Старонкі, якія выкарыстоўваюць %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
+msgid "Move"
+msgstr "Рухайцеся"
+
+msgid "No, don't unpublish"
+msgstr "Не, не публікаваць"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Выдаліць %(title)s"
@@ -780,9 +792,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Рухайцеся %(title)s"
 
-msgid "Move"
-msgstr "Рухайцеся"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Вы ўпэўнены, што хочаце перанесці старонку ў «%(title)s»?"
@@ -832,9 +841,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Так, апублікаваць"
-
-msgid "No, don't unpublish"
-msgstr "Не, не публікаваць"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1219,6 +1225,9 @@ msgstr "Заблакавана"
 msgid "No locked pages found."
 msgstr "Не знойдзены заблякаваныя старонкі."
 
+msgid "Edit this item"
+msgstr "Рэдагаваць гэты элемент"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Старонка %(page_num)s з %(total_pages)s."
@@ -1284,14 +1293,17 @@ msgstr ""
 "Адсартаваць даччыныя старонкі з '%(parent)s' у '%(label)s у парадку "
 "змяншэння."
 
+msgid "More"
+msgstr "Больш"
+
 msgid "live"
 msgstr "апублікавана"
 
-msgid "live + draft"
-msgstr "апублікавана + чарнавік"
-
 msgid "draft"
 msgstr "чарнавік"
+
+msgid "live + draft"
+msgstr "апублікавана + чарнавік"
 
 msgid "Test"
 msgstr "Тэст"
@@ -1455,9 +1467,6 @@ msgstr "Паглядзець апублікаваную версію '%(title)s'
 msgid "Add a child page to '%(title)s' "
 msgstr "Дадаць даччыную старонку '%(title)s'"
 
-msgid "More"
-msgstr "Больш"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "Паглядзець больш налад для '%(title)s'"
@@ -1526,9 +1535,6 @@ msgstr "Выбраць іншы элемент"
 
 msgid "Clear choice"
 msgstr "Ачысціць выбар"
-
-msgid "Edit this item"
-msgstr "Рэдагаваць гэты элемент"
 
 msgid "Choose another page"
 msgstr "Выбраць іншую старонку"

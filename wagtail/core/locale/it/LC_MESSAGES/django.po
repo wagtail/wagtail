@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-19 14:45+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-25 19:35+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -30,6 +30,14 @@ msgstr "Base Wagtail"
 
 msgid "Add Comment"
 msgstr "Aggiungi un commento"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Il numero minimo di elementi è %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Il numero massimo di elementi è %d"
 
 msgid "Move up"
 msgstr "Sposta su"
@@ -53,16 +61,8 @@ msgstr "%(label)s: questo blocco non ha opzioni."
 msgid "This block has no options."
 msgstr "Questo blocco non ha opzioni"
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Il numero minimo di elementi è %d"
-
 msgid "This field is required."
 msgstr "Questo campo è obbligatorio."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Il numero massimo di elementi è %d"
 
 msgid "Password"
 msgstr "Password"
@@ -72,10 +72,6 @@ msgstr "La password inserita non è corretta. Riprovare."
 
 msgid "Comment"
 msgstr "Commenta"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s sconosciuta"
 
 msgid "title"
 msgstr "titolo"
@@ -439,11 +435,21 @@ msgid "The log action '{}' has not been registered."
 msgstr "L'azione del log  '{}' non è stata registrata."
 
 #, python-format
-msgid "user %(id)d (deleted)"
-msgstr "utente %(id)d (eliminato)"
+msgid "user %(id)s (deleted)"
+msgstr "utente %(id)s (eliminato)"
 
 msgid "system"
 msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s sconosciuta"
+
+msgid "model log entry"
+msgstr "record del log del modello"
+
+msgid "model log entries"
+msgstr "log del modello"
 
 msgid "collection"
 msgstr "raccolta"
@@ -461,10 +467,10 @@ msgid "permission"
 msgstr "permesso"
 
 msgid "group collection permission"
-msgstr "permesso della collezione del gruppo"
+msgstr "permesso di gruppo nella raccolta"
 
 msgid "group collection permissions"
-msgstr "Permessi gruppo raccolta"
+msgstr "Permessi di gruppo nella raccolta"
 
 msgid "hostname"
 msgstr "hostname"
@@ -617,6 +623,19 @@ msgstr "Sbloccata"
 msgid "Reject"
 msgstr "Rifiuta"
 
+msgid "Rename"
+msgstr "Rinomina"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Rinominata da '%(old)s' a '%(new)s'"
+
+msgid "Renamed"
+msgstr "Rinominata"
+
+msgid "Revert"
+msgstr "Ripristina"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -627,12 +646,28 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Ripristinata alla revisione precedente"
 
+msgid "Copy"
+msgstr "Copia"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Copiata da%(title)s"
 
 msgid "Copied"
 msgstr "Copiata"
+
+msgid "Copy for translation"
+msgstr "Copia per la traduzione"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiata per la traduzione da %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Copiata per la traduzione"
+
+msgid "Create alias"
+msgstr "Crea un alias"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -641,12 +676,18 @@ msgstr "Creato un alias da %(title)s"
 msgid "Created an alias"
 msgstr "Creato un alias"
 
+msgid "Convert alias into ordinary page"
+msgstr "Converti un alias in una pagina ordinaria"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "Convertito l'alias '%(title)s' in una pagina ordinaria"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Convertito un alias in una pagina ordinaria"
+
+msgid "Move"
+msgstr "Sposta"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -655,12 +696,18 @@ msgstr "Spostata da '%(old_parent)s' a '%(new_parent)s'"
 msgid "Moved"
 msgstr "Spostata"
 
+msgid "Reorder"
+msgstr "Riordina"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Riordinata sotto '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Riordinata"
+
+msgid "Schedule publication"
+msgstr "Programma pubblicazione"
 
 #, python-format
 msgid ""
@@ -677,6 +724,9 @@ msgstr "Pagina programmata per la pubblicazione %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Pagina programmata per la pubblicazione."
 
+msgid "Unschedule publication"
+msgstr "Annulla pubblicazione programmata"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -692,12 +742,18 @@ msgstr "Pagina rimossa dalla pubblicazione programmata %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Pagina rimossa dalla pubblicazione programmata"
 
+msgid "Add view restrictions"
+msgstr "Aggiungi restrizioni alla visualizzazione"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Aggiunta la restrizione alla visualizzazione '%(restriction)s'"
 
 msgid "Added view restriction"
 msgstr "Aggiunta restrizione alla visualizzazione"
+
+msgid "Update view restrictions"
+msgstr "Aggiorna restrizioni alla visualizzazione"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -706,6 +762,9 @@ msgstr "Aggiorna restrizione alla visualizzazione '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Aggiornata restrizione alla visualizzazione"
 
+msgid "Remove view restrictions"
+msgstr "Rimuovi restrizioni alla visualizzazione"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Rimossa restrizione alla visualizzazione '%(restriction)s'"
@@ -713,12 +772,8 @@ msgstr "Rimossa restrizione alla visualizzazione '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Rimossa restrizione alla visualizzazione"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Rinominata da '%(old)s' a '%(new)s'"
-
-msgid "Renamed"
-msgstr "Rinominata"
+msgid "Add comment"
+msgstr "Aggiungi commento"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -727,12 +782,18 @@ msgstr "Aggiunto commento sul campo %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Aggiunto un commento"
 
+msgid "Edit comment"
+msgstr "Modifica commento"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "Modificato un commento sul campo %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "Modificato un commento"
+
+msgid "Delete comment"
+msgstr "Elimina commento"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -741,6 +802,9 @@ msgstr "Eliminato un commento sul campo %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Eliminato un commento"
 
+msgid "Resolve comment"
+msgstr "Risolvi commento"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "Risolto un commento sul campo %(field)s: \"%(text)s\""
@@ -748,12 +812,18 @@ msgstr "Risolto un commento sul campo %(field)s: \"%(text)s\""
 msgid "Resolved a comment"
 msgstr "Risolto un commento"
 
+msgid "Reply to comment"
+msgstr "Rispondi al commento"
+
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
 msgstr "Risolto un commento sul campo %(field)s: \"%(text)s\""
 
 msgid "Replied to a comment"
 msgstr "Risposto ad un commento"
+
+msgid "Edit reply to comment"
+msgstr "Modifica risposta al commento"
 
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
@@ -763,6 +833,9 @@ msgstr ""
 msgid "Edited a reply"
 msgstr "Modificato una risposta"
 
+msgid "Delete reply to comment"
+msgstr "Elimina risposta al commento"
+
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr ""
@@ -771,62 +844,8 @@ msgstr ""
 msgid "Deleted a reply"
 msgstr "Eliminata una risposta"
 
-msgid "Rename"
-msgstr "Rinomina"
-
-msgid "Revert"
-msgstr "Ripristina"
-
-msgid "Copy"
-msgstr "Copia"
-
-msgid "Create alias"
-msgstr "Crea un alias"
-
-msgid "Convert alias into ordinary page"
-msgstr "Converti un alias in una pagina ordinaria"
-
-msgid "Move"
-msgstr "Sposta"
-
-msgid "Reorder"
-msgstr "Riordina"
-
-msgid "Schedule publication"
-msgstr "Programma pubblicazione"
-
-msgid "Unschedule publication"
-msgstr "Annulla pubblicazione programmata"
-
-msgid "Add view restrictions"
-msgstr "Aggiungi restrizioni alla visualizzazione"
-
-msgid "Update view restrictions"
-msgstr "Aggiorna restrizioni alla visualizzazione"
-
-msgid "Remove view restrictions"
-msgstr "Rimuovi restrizioni alla visualizzazione"
-
-msgid "Add comment"
-msgstr "Aggiungi commento"
-
-msgid "Edit comment"
-msgstr "Modifica commento"
-
-msgid "Delete comment"
-msgstr "Elimina commento"
-
-msgid "Resolve comment"
-msgstr "Risolvi commento"
-
-msgid "Reply to comment"
-msgstr "Rispondi al commento"
-
-msgid "Edit reply to comment"
-msgstr "Modifica risposta al commento"
-
-msgid "Delete reply to comment"
-msgstr "Elimina risposta al commento"
+msgid "Workflow: start"
+msgstr "Flusso di lavoro: inizio"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -834,6 +853,9 @@ msgstr "'%(workflow)s' iniziato. Prossimo passo '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Flusso di lavoro iniziato"
+
+msgid "Workflow: approve task"
+msgstr "Flusso di lavoro: approva attività"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -846,12 +868,18 @@ msgstr "Approvata durante '%(task)s'. '%(workflow)s' completato"
 msgid "Workflow task approved"
 msgstr "Attività approvata nel flusso di lavoro"
 
+msgid "Workflow: reject task"
+msgstr "Flusso di lavoro: rifiuta attività"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Rifiutata durante '%(task)s'. Modifiche richieste"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Attività rifiutata nel flusso di lavoro. Flusso di lavoro completato"
+
+msgid "Workflow: resume task"
+msgstr "Flusso di lavoro: riprendi attività"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -860,24 +888,12 @@ msgstr "Reinviata '%(task)s'. Flusso di lavoro ripreso'"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Attività reinviata nel flusso di lavoro. Flusso di lavoro ripreso"
 
+msgid "Workflow: cancel"
+msgstr "Flusso di lavoro: annulla"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Annullato '%(workflow)s' durante '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Flusso di lavoro anullato"
-
-msgid "Workflow: start"
-msgstr "Flusso di lavoro: inizio"
-
-msgid "Workflow: approve task"
-msgstr "Flusso di lavoro: approva attività"
-
-msgid "Workflow: reject task"
-msgstr "Flusso di lavoro: rifiuta attività"
-
-msgid "Workflow: resume task"
-msgstr "Flusso di lavoro: riprendi attività"
-
-msgid "Workflow: cancel"
-msgstr "Flusso di lavoro: annulla"

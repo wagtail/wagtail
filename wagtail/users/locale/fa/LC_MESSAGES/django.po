@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -92,6 +92,12 @@ msgstr "زبانی را برای راهبری انتخاب کنید"
 msgid "user profile"
 msgstr "پروفایل کاربر"
 
+msgid "Delete"
+msgstr "حذف"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
 msgid "Delete group"
 msgstr "حذف گروه"
 
@@ -121,9 +127,6 @@ msgstr "حذف این گروه باعث لغو مجوزهای گروه از تم
 msgid "Are you sure you want to delete this group?"
 msgstr "آیا میخواهید این گروه را حذف کنید؟"
 
-msgid "Yes, delete"
-msgstr "بله حذف شود"
-
 msgid "Add group"
 msgstr "افزودن گروه"
 
@@ -144,9 +147,6 @@ msgstr "افزودن"
 
 msgid "Change"
 msgstr "تغییر"
-
-msgid "Delete"
-msgstr "حذف"
 
 msgid "Other permissions"
 msgstr "مجوزهای دیگر"

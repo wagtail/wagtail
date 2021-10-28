@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (https://www.transifex.com/torchbox/teams/8009/mi/)\n"
@@ -30,6 +30,9 @@ msgstr "Reo"
 msgid "Select a new language"
 msgstr "Kōwhiri he reo hou"
 
+msgid "This locale's language code is not supported"
+msgstr "Ehara tēnei reo uhingaro e taupuhipuhi"
+
 msgid "Yes, delete"
 msgstr "Ae, muku"
 
@@ -43,17 +46,14 @@ msgstr ""
 "Ehara te reo uhingaro nei e taupuhipuhi. Kōwhiri koa he reo hou, kē atu me "
 "muku ī tēnei rohe."
 
-msgid "Usage"
-msgstr "Whakamahi"
-
-msgid "This locale's language code is not supported"
-msgstr "Ehara tēnei reo uhingaro e taupuhipuhi"
-
 msgid "Locales"
 msgstr "Rohe"
 
 msgid "Add a locale"
 msgstr "Tāpiri he rohe"
+
+msgid "Usage"
+msgstr "Whakamahi"
 
 msgid "Add locale"
 msgstr "Tāpiri rohe"

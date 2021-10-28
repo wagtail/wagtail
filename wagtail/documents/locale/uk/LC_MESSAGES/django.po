@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-10-06 18:40+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-18 10:32+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
@@ -68,6 +68,105 @@ msgstr "документ"
 msgid "documents"
 msgstr "документи"
 
+#, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Додати тег до 1 документа"
+msgstr[1] "Додати тег до %(counter)s документів"
+msgstr[2] "Додати тег до %(counter)s документів"
+msgstr[3] "Додати тег до %(counter)s документів"
+
+msgid "Add tags to documents"
+msgstr "Додати теги до документів"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Ви певні що маєте додати тег до наступного документа?"
+msgstr[1] "Ви певні що маєте додати тег до наступних документів?"
+msgstr[2] "Ви певні що маєте додати тег до наступних документів?"
+msgstr[3] "Ви певні що маєте додати тег до наступних документів?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Вам не дозволено додавати теги до цього документа"
+msgstr[1] "Вам не дозволено додавати теги до цих документів"
+msgstr[2] "Вам не дозволено додавати теги до цих документів"
+msgstr[3] "Вам не дозволено додавати теги до цих документів"
+
+msgid "Yes, add"
+msgstr "Так, додати"
+
+msgid "No, don't add"
+msgstr "Ні, не додавати"
+
+#, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Додати 1 документ до колекції"
+msgstr[1] "Додати %(counter)s документів до колекції"
+msgstr[2] "Додати %(counter)s документів до колекції"
+msgstr[3] "Додати %(counter)s документів до колекції"
+
+msgid "Add documents to collection"
+msgstr "Додати документи до колекції"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "Ви певні, що бажаєте додати наступні документ до колекції?"
+msgstr[1] "Ви певні, що бажаєте додати наступні документи до колекції?"
+msgstr[2] "Ви певні, що бажаєте додати наступні документи до колекції?"
+msgstr[3] "Ви певні, що бажаєте додати наступні документи до колекції?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Вам не дозволено додавати цей документ до колекції"
+msgstr[1] "Вам не дозволено додавати ці документи до колекції"
+msgstr[2] "Вам не дозволено додавати ці документи до колекції"
+msgstr[3] "Вам не дозволено додавати ці документи до колекції"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Видалити 1 документ"
+msgstr[1] "Видалити %(counter)s документів"
+msgstr[2] "Видалити %(counter)s документів"
+msgstr[3] "Видалити %(counter)s документів"
+
+msgid "Delete documents"
+msgstr "Видалити документи"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Ви впевнені, що хочете видалити цей документ?"
+msgstr[1] "Ви впевнені, що хочете видалити ці документи?"
+msgstr[2] "Ви впевнені, що хочете видалити ці документи?"
+msgstr[3] "Ви впевнені, що хочете видалити ці документи?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Використано %(usage_count)s раз"
+msgstr[1] "Викорнистано %(usage_count)s рази"
+msgstr[2] "Використано %(usage_count)s разів"
+msgstr[3] "Використано %(usage_count)s разів"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Вам не дозволено видаляти цей документ"
+msgstr[1] "Вам не дозволено видаляти ці документи"
+msgstr[2] "Вам не дозволено видаляти ці документи"
+msgstr[3] "Вам не дозволено видаляти ці документи"
+
+msgid "Yes, delete"
+msgstr "Так, видалити"
+
+msgid "No, don't delete"
+msgstr "Ні, не видаляти"
+
 msgid "Choose a document"
 msgstr "Обрати документ"
 
@@ -76,9 +175,6 @@ msgstr "Пошук"
 
 msgid "Upload"
 msgstr "Надіслати"
-
-msgid "Uploading…"
-msgstr "Йде надсилання..."
 
 #, python-format
 msgid ""
@@ -109,6 +205,19 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Останні документи"
 
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Створено"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s тому"
+
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Вибачте, жоден документ не відповідає \"<em>%(query_string)s</em>\""
@@ -131,6 +240,9 @@ msgstr ""
 "\">не завантажити зараз</a>?\n"
 " "
 
+msgid "Uploading…"
+msgstr "Йде надсилання..."
+
 msgid "Change document:"
 msgstr "Змінити документ:"
 
@@ -146,23 +258,6 @@ msgstr "Видалити %(title)s"
 
 msgid "Delete document"
 msgstr "Видалити документ"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Використано %(usage_count)s раз"
-msgstr[1] "Викорнистано %(usage_count)s рази"
-msgstr[2] "Використано %(usage_count)s разів"
-msgstr[3] "Використано %(usage_count)s разів"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Ви впевнені, що хочете видалити цей документ?"
-
-msgid "Yes, delete"
-msgstr "Так, видалити"
-
-msgid "No, don't delete"
-msgstr "Ні, не видаляти"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -186,18 +281,11 @@ msgstr "Використання"
 msgid "Documents"
 msgstr "Документи"
 
-msgid "Title"
-msgstr "Заголовок"
+msgid "Select all documents in listing"
+msgstr "Обрати всі документи у списку"
 
-msgid "File"
-msgstr "Файл"
-
-msgid "Created"
-msgstr "Створено"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s тому"
+msgid "Select document"
+msgstr "Вибрати документ"
 
 #, python-format
 msgid ""
@@ -306,6 +394,49 @@ msgstr "Дозволи для документа"
 msgid "Add a document permission"
 msgstr "Додати дозвіл для документа"
 
+msgid "Tag"
+msgstr "Тег"
+
+msgid "Add tags to the selected documents"
+msgstr "Додати теги до обраних документів"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Нові теги були закріплено за %(num_parent_objects)d документом"
+msgstr[1] "Нові теги були закріплено за %(num_parent_objects)d документами"
+msgstr[2] "Нові теги були закріплено за %(num_parent_objects)d документами"
+msgstr[3] "Нові теги були закріплено за %(num_parent_objects)d документами"
+
+msgid "Add to collection"
+msgstr "Додати до коллекції"
+
+msgid "Add selected documents to collection"
+msgstr "Додати документи до колекції"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d документ був доданий до %(collection)s"
+msgstr[1] "%(num_parent_objects)d документів було додано до %(collection)s"
+msgstr[2] "%(num_parent_objects)d документів було додано до %(collection)s"
+msgstr[3] "%(num_parent_objects)d документів було додано до %(collection)s"
+
+msgid "Delete"
+msgstr "Видалити"
+
+msgid "Delete selected documents"
+msgstr "Видалити обрані документи"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d документ було видалено"
+msgstr[1] "%(num_parent_objects)d документів було видалено"
+msgstr[2] "%(num_parent_objects)d документів було видалено"
+msgstr[3] "%(num_parent_objects)d документів було видалено"
+
 msgid "Server Error"
 msgstr "Помилка сервера"
 
@@ -327,9 +458,6 @@ msgstr "Документ '{0}' оновлено"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знайдено. Будь ласка, змініть джерело чи видаліть документ"
-
-msgid "Delete"
-msgstr "Видалити"
 
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' видалено."

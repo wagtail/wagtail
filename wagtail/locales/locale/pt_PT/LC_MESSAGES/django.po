@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Luís Tiago Favas <al62006@utad.eu>, 2020\n"
 "Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/"
@@ -31,6 +31,9 @@ msgstr "Linguagem"
 msgid "Select a new language"
 msgstr "Selecione uma nova linguagem"
 
+msgid "This locale's language code is not supported"
+msgstr "O código de linguagem deste dialeto não é suportado"
+
 msgid "Yes, delete"
 msgstr "Sim, apagar"
 
@@ -44,17 +47,14 @@ msgstr ""
 "O código de linguagem deste dialeto não é suportado. Por favor escolha uma "
 "nova linguagem ou apague este dialeto."
 
-msgid "Usage"
-msgstr "Utilização"
-
-msgid "This locale's language code is not supported"
-msgstr "O código de linguagem deste dialeto não é suportado"
-
 msgid "Locales"
 msgstr "Dialetos"
 
 msgid "Add a locale"
 msgstr "Adicionar um dialeto"
+
+msgid "Usage"
+msgstr "Utilização"
 
 msgid "Add locale"
 msgstr "Adicionar dialeto"

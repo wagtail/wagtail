@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -124,6 +124,12 @@ msgstr "برای یک مجموعه نمی‌توانید چندین مجوز ا�
 msgid "Collection"
 msgstr "مجموعه"
 
+msgid "Add"
+msgstr "افزودن"
+
+msgid "Edit"
+msgstr "تصحیح"
+
 msgid "New title"
 msgstr "عنوان جدید"
 
@@ -202,9 +208,6 @@ msgstr "این فیلد لازم است."
 
 msgid "Please select at least one group."
 msgstr "لطفا دست کم یک گروه را انتخاب نمایید."
-
-msgid "Edit"
-msgstr "تصحیح"
 
 msgid "Page"
 msgstr "صفحه"
@@ -691,6 +694,12 @@ msgstr "نوع صفحه ای را که میخواهید بسازید مشخص ک
 msgid "Pages using %(page_type)s"
 msgstr "صفحه هایی که %(page_type)s هستند"
 
+msgid "Move"
+msgstr "انتقال"
+
+msgid "No, don't unpublish"
+msgstr "نه لغو انتشار نشود"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "حذف %(title)s"
@@ -735,9 +744,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "انتقال %(title)s"
 
-msgid "Move"
-msgstr "انتقال"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "آیا میخواهید این صفحه را به «%(title)s» انتقال دهید؟"
@@ -778,9 +784,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "بله لغو انتشار شود"
-
-msgid "No, don't unpublish"
-msgstr "نه لغو انتشار نشود"
 
 msgid "Publish page"
 msgstr "انتشار صفحه"
@@ -1183,6 +1186,9 @@ msgstr "قفل شده"
 msgid "No locked pages found."
 msgstr "صفحه‌ی قفل شده‌ای یافت نشد"
 
+msgid "Edit this item"
+msgstr "ویرایش این آیتم"
+
 msgid "Completed at"
 msgstr "پایان یافته در"
 
@@ -1263,6 +1269,9 @@ msgid ""
 "descending order."
 msgstr "صفحه‌های فرزند درون %(parent)s توسط %(label)s به ترتیب نزولی مرتب کن."
 
+msgid "More"
+msgstr "بیشتر"
+
 msgid "0 minutes"
 msgstr "0 دقیقه"
 
@@ -1272,11 +1281,11 @@ msgstr "هم‌اکنون"
 msgid "live"
 msgstr "زنده"
 
-msgid "live + draft"
-msgstr "زنده + پیشنویس"
-
 msgid "draft"
 msgstr "پیشنویس"
+
+msgid "live + draft"
+msgstr "زنده + پیشنویس"
 
 msgid "Test"
 msgstr "تست"
@@ -1445,9 +1454,6 @@ msgstr "دیدن نسخه منتشر شده‌ی %(title)s"
 msgid "Add a child page to '%(title)s' "
 msgstr "افزودن صفحه‌ی فرزند به «%(title)s»"
 
-msgid "More"
-msgstr "بیشتر"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "دیدن گزینه های بیشتر برای %(title)s"
@@ -1491,9 +1497,6 @@ msgstr "آیتم دیگری را انتخاب کنید"
 
 msgid "Clear choice"
 msgstr "پاک کردن انتخاب"
-
-msgid "Edit this item"
-msgstr "ویرایش این آیتم"
 
 msgid "Choose another page"
 msgstr "انتخاب صفحه دیگر"

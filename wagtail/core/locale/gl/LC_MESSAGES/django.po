@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -284,13 +284,6 @@ msgstr "Copiar"
 msgid "Move"
 msgstr "Mover"
 
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "'%(workflow)s' en '%(task)s' cancelado"
-
-msgid "Workflow cancelled"
-msgstr "Fluxo de traballo cancelado"
-
 msgid "Workflow: start"
 msgstr "Fluxo de traballo: comezar"
 
@@ -305,3 +298,10 @@ msgstr "Fluxo de traballo: renovar tarefa"
 
 msgid "Workflow: cancel"
 msgstr "Fluxo de traballo: cancelar"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' en '%(task)s' cancelado"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de traballo cancelado"

@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018
-# saevarom <saevar@saevar.is>, 2015-2016,2018-2020
+# saevarom <saevar@saevar.is>, 2015-2016,2018-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-10-27 11:10+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 11:31+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -52,6 +52,9 @@ msgstr[1] ""
 "\n"
 "Það eru %(counter)s niðurstöður        "
 
+msgid "Title"
+msgstr "Titill"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -66,6 +69,12 @@ msgstr ""
 "Þú hefur ekki búið til nein %(snippet_type_name)s snifsi. Er ekki málið að  "
 "<a href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">búa til "
 "eitt núna</a>?"
+
+msgid "Last updated"
+msgstr "Síðast uppfært"
+
+msgid "History"
+msgstr "Saga"
 
 msgid "Saving…"
 msgstr "Vista..."
@@ -123,9 +132,6 @@ msgstr "Snifsi"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Velja allt %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titill"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -200,6 +206,15 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s eytt."
 msgstr[1] "%(count)d %(snippet_type)s eytt."
+
+msgid "Snippet history"
+msgstr "Saga snifsis"
+
+msgid "Action"
+msgstr "Aðgerð"
+
+msgid "Date"
+msgstr "Dagsetning"
 
 #, python-format
 msgid "Edit '%(title)s'"

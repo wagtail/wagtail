@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: IT Management <hudan@itmanagement.cz>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -157,11 +157,20 @@ msgstr ""
 "Nastavte umístění. Poznámka: Kolekce nemůže být potomkem sebe sama nebo "
 "některého z vlastních potomků."
 
+msgid "Please select another parent"
+msgstr "Prosím, zvolte jiného předka"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Oprávnění pro stejnou kolekci nemůže být nastaveno vícekrát."
 
 msgid "Collection"
 msgstr "Kolekce"
+
+msgid "Add"
+msgstr "Přidat"
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nemůžete změnit komentář jiného uživatele."
@@ -275,9 +284,6 @@ msgstr "Pojmenujte tento postup"
 
 msgid "Add tasks to your workflow"
 msgstr "Přidejte úlohy do tohoto postupu"
-
-msgid "Edit"
-msgstr "Upravit"
 
 msgid "Page"
 msgstr "Stránka"
@@ -492,6 +498,12 @@ msgstr "Zpět na původní hodnoty"
 
 msgid "Menu"
 msgstr "Menu"
+
+msgid "Go back"
+msgstr "Zpět"
+
+msgid "Select all"
+msgstr "Vybrat vše"
 
 msgid "Explorer"
 msgstr "Obsah"
@@ -1017,6 +1029,15 @@ msgstr "Zvolit typ stránky, který chcete vytvořit."
 msgid "Pages using %(page_type)s"
 msgstr "Stránky typu %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
+msgid "Move"
+msgstr "Přesunout"
+
+msgid "No, don't unpublish"
+msgstr "Ne, nerušit publikaci"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Změnit alias %(title)s"
@@ -1083,9 +1104,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Přesunout %(title)s"
 
-msgid "Move"
-msgstr "Přesunout"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Opravdu chcete přesunout tuto stránku pod \"%(title)s\"?"
@@ -1136,9 +1154,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ano, zrušit publikaci"
-
-msgid "No, don't unpublish"
-msgstr "Ne, nerušit publikaci"
 
 msgid "Publish page"
 msgstr "Publikovat stránku"
@@ -1716,6 +1731,9 @@ msgstr "Uzamčeno"
 msgid "No locked pages found."
 msgstr "Nebyly nalezeny žádné uzamčené stránky"
 
+msgid "Edit this item"
+msgstr "Upravit tuto položku"
+
 msgid "By Task"
 msgstr "Úlohou"
 
@@ -1796,15 +1814,6 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">pokyny, jak povolíte JavaScript ve "
 "vašem prohlížeči</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail postupně odstraňuje podporu IE11, což může ovlivnit vaše řešení. <a "
-"href=\"%(url)s\">Zjistěte více o našich plánech s omezením podpory IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Přeskočit na hlavní obsah"
@@ -2046,6 +2055,9 @@ msgid ""
 msgstr ""
 "Seřadit podstránky z '%(parent)s' podle '%(label)s' v sestupném pořadí."
 
+msgid "More"
+msgstr "Více"
+
 msgid "0 minutes"
 msgstr "0 minut"
 
@@ -2055,11 +2067,11 @@ msgstr "Právě teď"
 msgid "live"
 msgstr "zveřejněno"
 
-msgid "live + draft"
-msgstr "zveřejněno + návrh"
-
 msgid "draft"
 msgstr "návrh"
+
+msgid "live + draft"
+msgstr "zveřejněno + návrh"
 
 msgid "Test"
 msgstr "Test"
@@ -2108,9 +2120,6 @@ msgstr "Kolekci nelze uložit, zkontrolujte správné vyplnění polí."
 
 msgid "Delete collection"
 msgstr "Smazat kolekci"
-
-msgid "Please select another parent"
-msgstr "Prosím, zvolte jiného předka"
 
 msgid "Collection '{0}' deleted."
 msgstr "Kolekce '{0}' byla smazána."
@@ -2379,26 +2388,6 @@ msgstr "Zakázat úlohu"
 msgid "Task '{0}' disabled."
 msgstr "Úloha '{0}' byla zakázána."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Tato úloha se týká %(states_in_progress)d stránky. Zakázání této úlohy "
-"způsobí že bude ignorována v postupu posouzení."
-msgstr[1] ""
-"Tato úloha se týká %(states_in_progress)d stránek. Zakázání této úlohy "
-"způsobí že bude ignorována v postupu posouzení."
-msgstr[2] ""
-"Tato úloha se týká %(states_in_progress)d stránek. Zakázání této úlohy "
-"způsobí že bude ignorována v postupu posouzení."
-msgstr[3] ""
-"Tato úloha se týká %(states_in_progress)d stránek. Zakázání této úlohy "
-"způsobí že bude ignorována v postupu posouzení."
-
 msgid "Task '{0}' enabled."
 msgstr "Úloha '{0}' byla povolena."
 
@@ -2421,9 +2410,6 @@ msgstr "Zobrazit publikovanou verzi '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Přidat podstránku k '%(title)s' "
-
-msgid "More"
-msgstr "Více"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2503,9 +2489,6 @@ msgstr "Zvolit jinou položku"
 
 msgid "Clear choice"
 msgstr "Zrušit výběr"
-
-msgid "Edit this item"
-msgstr "Upravit tuto položku"
 
 msgid "Choose another page"
 msgstr "Zvolit jinou stránku"

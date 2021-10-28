@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-15 06:16+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 12:59+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -27,6 +27,14 @@ msgstr "Alapok"
 
 msgid "Add Comment"
 msgstr "Megjegyzés hozzáadása"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Az elemek minimális száma %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Az elemek maximális száma %d"
 
 msgid "Move up"
 msgstr "Mozgatás fel"
@@ -50,16 +58,8 @@ msgstr "%(label)s: ehhez a blokkhoz nincsenek beállítások."
 msgid "This block has no options."
 msgstr "Ehhez az elemhez nincsenek beállítások."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Az elemek minimális száma %d"
-
 msgid "This field is required."
 msgstr "Ennek a mezőnek a megadása kötelező."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Az elemek maximális száma %d"
 
 msgid "Password"
 msgstr "Jelszó"
@@ -69,10 +69,6 @@ msgstr "A megadott jelszó érvénytelen. Kérjük próbálja újra."
 
 msgid "Comment"
 msgstr "Megjegyzés"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Ismeretlen %(action)s"
 
 msgid "title"
 msgstr "cím"
@@ -432,11 +428,21 @@ msgid "The log action '{}' has not been registered."
 msgstr "A '{}' napló akció nincs regisztrálva."
 
 #, python-format
-msgid "user %(id)d (deleted)"
-msgstr "%(id)d felhasználó (törölt)"
+msgid "user %(id)s (deleted)"
+msgstr "%(id)s felhasználó (törölt)"
 
 msgid "system"
 msgstr "rendszer"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Ismeretlen %(action)s"
+
+msgid "model log entry"
+msgstr "adatmodell naplóbejegyzés"
+
+msgid "model log entries"
+msgstr "adatmodell naplóbejegyzések"
 
 msgid "collection"
 msgstr "gyűjtemény"
@@ -613,6 +619,19 @@ msgstr "Megnyitott"
 msgid "Reject"
 msgstr "Visszautasít"
 
+msgid "Rename"
+msgstr "Átnevezés"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Átnevezve erről: '%(old)s' erre: '%(new)s'"
+
+msgid "Renamed"
+msgstr "Átnevezve"
+
+msgid "Revert"
+msgstr "Visszaállítás"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -623,12 +642,28 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Korábbi verzió visszaállítva"
 
+msgid "Copy"
+msgstr "Másolás"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Másolva innét: %(title)s"
 
 msgid "Copied"
 msgstr "Másolva"
+
+msgid "Copy for translation"
+msgstr "Másolás fordításhoz"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "%(title)s fordításhoz átmásolva (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Fordításhoz átmásolva"
+
+msgid "Create alias"
+msgstr "Kapcsolt példény létrehozása"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -637,12 +672,18 @@ msgstr "Kapcsolt példány létrehozva: %(title)s"
 msgid "Created an alias"
 msgstr "Kapcsolt példány létrehozva"
 
+msgid "Convert alias into ordinary page"
+msgstr "Kpacsolt példány rendes oldallá alakítása"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "'%(title)s' kapcsolt példány konvertálva rendes oldallá"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Kapcsolt példány rendes oldallá konvertálva"
+
+msgid "Move"
+msgstr "Mozgatás"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -651,12 +692,18 @@ msgstr "Átmozgatva innét: '%(old_parent)s' ide: '%(new_parent)s'"
 msgid "Moved"
 msgstr "Átmozgatva"
 
+msgid "Reorder"
+msgstr "Átrendezés"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Újrasorrendezve ez alatt: '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Újrasorrendezve"
+
+msgid "Schedule publication"
+msgstr "Közzététel időzítése"
 
 #, python-format
 msgid ""
@@ -673,6 +720,9 @@ msgstr "Oldal közzététele időzítve ekkorra: %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Oldal közzétételre időzítve"
 
+msgid "Unschedule publication"
+msgstr "Közzététel időzítésének visszavonása"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -688,12 +738,18 @@ msgstr "Oldal visszavonása időzítve ekkorra: %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Oldal visszavonása időzítve"
 
+msgid "Add view restrictions"
+msgstr "Elérési korlátozás hozzáadása"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "A(z) '%(restriction)s' elérési korlátozás hozzáadva."
 
 msgid "Added view restriction"
 msgstr "Elérési korlátozás hozzáadva"
+
+msgid "Update view restrictions"
+msgstr "Elérési korlátozás frissítése"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -702,6 +758,9 @@ msgstr "Elérési korlátozás frissítve erre: '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Elérési korlátozás frissítve"
 
+msgid "Remove view restrictions"
+msgstr "Elérési korlátozás eltávolítása"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "A(z) '%(restriction)s' elérési korlátozás el lett távolítva"
@@ -709,12 +768,8 @@ msgstr "A(z) '%(restriction)s' elérési korlátozás el lett távolítva"
 msgid "Removed view restriction"
 msgstr "Elérési korlátozás eltávolítva"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Átnevezve erről: '%(old)s' erre: '%(new)s'"
-
-msgid "Renamed"
-msgstr "Átnevezve"
+msgid "Add comment"
+msgstr "Megjegyzés hozzáadása"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -723,12 +778,18 @@ msgstr "%(field)s mezőhöz megjegyzés hozzáadva: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Megjegyzés hozzáadva"
 
+msgid "Edit comment"
+msgstr "Megjegyzés szerkesztése"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "%(field)s mező megjegyzése módosítva: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "Megjegyzés módosítva"
+
+msgid "Delete comment"
+msgstr "Megjegyzés törlése"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -737,12 +798,18 @@ msgstr "%(field)s mező megjegyzése törölve: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Megjegyzés törölve"
 
+msgid "Resolve comment"
+msgstr "Megjegyzés készre jelölése"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "%(field)s mező megjegyzése készre jelölve: \"%(text)s\""
 
 msgid "Resolved a comment"
 msgstr "Megjegyzés készre jelölve"
+
+msgid "Reply to comment"
+msgstr "Válasz a megjegyzésre"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -751,12 +818,18 @@ msgstr "%(field)s mező megjegyzésére válasz: \"%(text)s\""
 msgid "Replied to a comment"
 msgstr "Válasz megjegyzésre"
 
+msgid "Edit reply to comment"
+msgstr "Válasz szerkesztése"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr "%(field)s mező megjegyzés válasz módosítva: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "Válasz módosítva"
+
+msgid "Delete reply to comment"
+msgstr "Válasz törlése"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -765,62 +838,8 @@ msgstr "%(field)s mező megjegyzés válasz törölve: \"%(text)s\""
 msgid "Deleted a reply"
 msgstr "Vákasz törölve"
 
-msgid "Rename"
-msgstr "Átnevezés"
-
-msgid "Revert"
-msgstr "Visszaállítás"
-
-msgid "Copy"
-msgstr "Másolás"
-
-msgid "Create alias"
-msgstr "Kapcsolt példény létrehozása"
-
-msgid "Convert alias into ordinary page"
-msgstr "Kpacsolt példány rendes oldallá alakítása"
-
-msgid "Move"
-msgstr "Mozgatás"
-
-msgid "Reorder"
-msgstr "Átrendezés"
-
-msgid "Schedule publication"
-msgstr "Közzététel időzítése"
-
-msgid "Unschedule publication"
-msgstr "Közzététel időzítésének visszavonása"
-
-msgid "Add view restrictions"
-msgstr "Elérési korlátozás hozzáadása"
-
-msgid "Update view restrictions"
-msgstr "Elérési korlátozás frissítése"
-
-msgid "Remove view restrictions"
-msgstr "Elérési korlátozás eltávolítása"
-
-msgid "Add comment"
-msgstr "Megjegyzés hozzáadása"
-
-msgid "Edit comment"
-msgstr "Megjegyzés szerkesztése"
-
-msgid "Delete comment"
-msgstr "Megjegyzés törlése"
-
-msgid "Resolve comment"
-msgstr "Megjegyzés készre jelölése"
-
-msgid "Reply to comment"
-msgstr "Válasz a megjegyzésre"
-
-msgid "Edit reply to comment"
-msgstr "Válasz szerkesztése"
-
-msgid "Delete reply to comment"
-msgstr "Válasz törlése"
+msgid "Workflow: start"
+msgstr "Munkafolyamat: indítás"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -828,6 +847,9 @@ msgstr "'%(workflow)s' elindítva. Következő lépés: '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Munkafolyamat elindítva"
+
+msgid "Workflow: approve task"
+msgstr "Munkafolyamat: lépés jóváhagyása"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -841,12 +863,18 @@ msgstr ""
 msgid "Workflow task approved"
 msgstr "Munkafolyamat lépés jóváhagyva"
 
+msgid "Workflow: reject task"
+msgstr "Munkafolyamat: lépés elutasítása"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "'%(task)s' lépésben elutasítve. Változtatások szükségesek"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Munkafolyamat lépés elutasítva. Munkafolyamat befejeződött"
+
+msgid "Workflow: resume task"
+msgstr "Munkafolyamat: lépés folytatása"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -855,24 +883,12 @@ msgstr "'%(task)s' lépés újrakezdve. Munkafolyamat folytatódik"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Munkafolyamat lépés újrakezdve. A munkafolyamat folytatódik"
 
+msgid "Workflow: cancel"
+msgstr "Munkafolyamat: megállítás"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "'%(workflow)s' munkamenet megállítva a(z) '%(task)s' lépésnél"
 
 msgid "Workflow cancelled"
 msgstr "Munkafolyamat megállítva"
-
-msgid "Workflow: start"
-msgstr "Munkafolyamat: indítás"
-
-msgid "Workflow: approve task"
-msgstr "Munkafolyamat: lépés jóváhagyása"
-
-msgid "Workflow: reject task"
-msgstr "Munkafolyamat: lépés elutasítása"
-
-msgid "Workflow: resume task"
-msgstr "Munkafolyamat: lépés folytatása"
-
-msgid "Workflow: cancel"
-msgstr "Munkafolyamat: megállítás"

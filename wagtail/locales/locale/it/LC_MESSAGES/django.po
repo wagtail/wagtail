@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
@@ -31,6 +31,9 @@ msgstr "Lingua"
 msgid "Select a new language"
 msgstr "Seleziona una nuova lingua"
 
+msgid "This locale's language code is not supported"
+msgstr "Il codice lingua di questa localizzazione non è supportato"
+
 msgid "Yes, delete"
 msgstr "Si, elimina"
 
@@ -44,17 +47,14 @@ msgstr ""
 "La localizzazione del codice lingua attuale non è supportata. Scegli "
 "un'altra lingua o elimina questa localizzazione."
 
-msgid "Usage"
-msgstr "Utilizzo"
-
-msgid "This locale's language code is not supported"
-msgstr "Il codice lingua di questa localizzazione non è supportato"
-
 msgid "Locales"
 msgstr "Lingue"
 
 msgid "Add a locale"
 msgstr "Aggiungi una localizzazione"
+
+msgid "Usage"
+msgstr "Utilizzo"
 
 msgid "Add locale"
 msgstr "Aggiungi localizzazione"

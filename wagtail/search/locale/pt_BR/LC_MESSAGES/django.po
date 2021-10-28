@@ -8,13 +8,15 @@
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Rodrigo de Almeida Sottomaior Macedo <rmsolucoeseminformatica@protonmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2019-11-16 04:10+0000\n"
-"Last-Translator: Daniel Carvalho <dnc331@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-21 13:41+0000\n"
+"Last-Translator: Rodrigo de Almeida Sottomaior Macedo "
+"<rmsolucoeseminformatica@protonmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -39,6 +41,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Acessos diários da query"
+
+msgid "index entry"
+msgstr "índice de entrada"
+
+msgid "index entries"
+msgstr "índice de entradas"
 
 msgid "Popular search terms"
 msgstr "Termos populares de pesquisa"

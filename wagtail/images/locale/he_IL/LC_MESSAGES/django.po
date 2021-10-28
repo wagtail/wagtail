@@ -8,10 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 "
-"<5628a6f4d3ab86b48aef276247790766_814>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -68,6 +67,9 @@ msgstr "ערוך"
 msgid "Choose"
 msgstr "בחרו"
 
+msgid "Yes, delete"
+msgstr "כן, מחק"
+
 msgid "Choose an image"
 msgstr "בחרו תמונה"
 
@@ -103,12 +105,6 @@ msgstr "שמור"
 
 msgid "Delete image"
 msgstr "מחק תמונה"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "אתם בטוחים כי ברצונכם למחוק את התמונה?"
-
-msgid "Yes, delete"
-msgstr "כן, מחק"
 
 msgid "Editing"
 msgstr "עריכה"
@@ -191,6 +187,9 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "סליחה, ההעלאה נכשלה."
 
+msgid "Delete"
+msgstr "מחק"
+
 msgid "Search images"
 msgstr "חיפוש תמונות "
 
@@ -207,9 +206,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "קובץ תמונת המקור לא ניתן למציאה. אנא שנו את המקור או מחקו את התמונה."
-
-msgid "Delete"
-msgstr "מחק"
 
 msgid "Image '{0}' deleted."
 msgstr "תמונה '{0}' נמחקה "

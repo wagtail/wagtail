@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Ragıp Ünal <ragip@ragipunal.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,12 @@ msgstr "Aynı kolleksiyon için birden fazla yetkiye sahip olamazsınız."
 msgid "Collection"
 msgstr "Koleksiyon"
 
+msgid "Add"
+msgstr "Ekle"
+
+msgid "Edit"
+msgstr "Düzenle"
+
 msgid "New title"
 msgstr "Yeni başlık"
 
@@ -216,9 +222,6 @@ msgstr "Bu alan zorunludur."
 
 msgid "Please select at least one group."
 msgstr "Lütfen en az bir grup seçin."
-
-msgid "Edit"
-msgstr "Düzenle"
 
 msgid "Page"
 msgstr "Sayfa"
@@ -704,6 +707,15 @@ msgstr "Hangi sayfa türünü oluşturmak istediğinizi seçin."
 msgid "Pages using %(page_type)s"
 msgstr "Sayfaların kullandığı türler %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Hayır, silme"
+
+msgid "Move"
+msgstr "Taşı"
+
+msgid "No, don't unpublish"
+msgstr "Hayır, yayından kaldırma"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "%(title)s sil"
@@ -751,9 +763,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s taşı"
 
-msgid "Move"
-msgstr "Taşı"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Bu sayfayı '%(title)s' içine taşımak istediğinize emin misiniz?"
@@ -799,9 +808,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Evet, yayından kaldır"
-
-msgid "No, don't unpublish"
-msgstr "Hayır, yayından kaldırma"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1161,6 +1167,9 @@ msgstr "Kilitli durum"
 msgid "Locked"
 msgstr "Kilitlendi"
 
+msgid "Edit this item"
+msgstr "Bu elemanı düzenle"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Sayfa %(page_num)s / %(total_pages)s."
@@ -1245,14 +1254,17 @@ msgstr ""
 "'%(parent)s' sayfasına ait olan alt sayfaları '%(label)s' göre azalan "
 "şekilde sırala."
 
+msgid "More"
+msgstr "Daha fazla"
+
 msgid "live"
 msgstr "canlı"
 
-msgid "live + draft"
-msgstr "canlı + taslak"
-
 msgid "draft"
 msgstr "taslak"
+
+msgid "live + draft"
+msgstr "canlı + taslak"
 
 msgid "Test"
 msgstr "Test"
@@ -1406,9 +1418,6 @@ msgstr "'%(title)s' sayfasının canlı sürümünü gör"
 msgid "Add a child page to '%(title)s' "
 msgstr "'%(title)s' sayfasına alt sayfalar ekle "
 
-msgid "More"
-msgstr "Daha fazla"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "'%(title)s' için daha fazla seçenek gör"
@@ -1477,9 +1486,6 @@ msgstr "Başka bir eleman seçiniz"
 
 msgid "Clear choice"
 msgstr "Seçimi temizle"
-
-msgid "Edit this item"
-msgstr "Bu elemanı düzenle"
 
 msgid "Choose another page"
 msgstr "Başka sayfa seç"

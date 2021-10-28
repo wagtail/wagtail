@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -28,29 +28,20 @@ msgstr "Επιλέξτε μια κεντρική σελίδα"
 msgid "Choose a different root page"
 msgstr "Επιλέξτε μια διαφορετική κεντρική σελίδα"
 
+msgid "Sites"
+msgstr "Σελιδες"
+
+msgid "Add a site"
+msgstr "Προσθήκη δικτυακού τόπου"
+
 msgid "Site"
 msgstr "Σελιδα"
-
-msgid "Port"
-msgstr "Θυρα"
-
-msgid "Site name"
-msgstr "Όνομα δικτυακού τόπου"
-
-msgid "Root page"
-msgstr "Κεντρική σελίδα"
 
 msgid "Default?"
 msgstr "Προεπιλογή;"
 
 msgid "Default"
 msgstr "Προεπιλογή"
-
-msgid "Sites"
-msgstr "Σελιδες"
-
-msgid "Add a site"
-msgstr "Προσθήκη δικτυακού τόπου"
 
 msgid "Add site"
 msgstr "Προσθήκη δικτυακού τόπου"

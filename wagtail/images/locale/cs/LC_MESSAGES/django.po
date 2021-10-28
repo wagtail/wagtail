@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-21 13:16+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -163,6 +163,20 @@ msgstr "obrázek"
 msgid "images"
 msgstr "obrázky"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Použito %(usage_count)sx"
+msgstr[1] "Použito %(usage_count)sx"
+msgstr[2] "Použito %(usage_count)sx"
+msgstr[3] "Použito %(usage_count)sx"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 msgid "Choose an image"
 msgstr "Zvolit obrázek"
 
@@ -174,9 +188,6 @@ msgstr "Nahrát"
 
 msgid "Popular tags"
 msgstr "Oblíbené štítky"
-
-msgid "Uploading…"
-msgstr "Nahrávání…"
 
 #, python-format
 msgid ""
@@ -208,6 +219,9 @@ msgstr "Zvolte formát"
 
 msgid "Insert image"
 msgstr "Vložit obrázek"
+
+msgid "Uploading…"
+msgstr "Nahrávání…"
 
 #, python-format
 msgid ""
@@ -255,23 +269,6 @@ msgstr "Uložit"
 
 msgid "Delete image"
 msgstr "Smazat obrázek"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Použito %(usage_count)sx"
-msgstr[1] "Použito %(usage_count)sx"
-msgstr[2] "Použito %(usage_count)sx"
-msgstr[3] "Použito %(usage_count)sx"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Opravdu chcete smazat tento obrázek?"
-
-msgid "Yes, delete"
-msgstr "Ano, smazat"
-
-msgid "No, don't delete"
-msgstr "Ne, nemazat"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -426,6 +423,9 @@ msgstr "Oprávnění obrázku"
 msgid "Add an image permission"
 msgstr "Přidat oprávnění obrázku"
 
+msgid "Delete"
+msgstr "Smazat"
+
 msgid "Search images"
 msgstr "Hledat obrázky"
 
@@ -444,9 +444,6 @@ msgid ""
 msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo obrázek "
 "smažte."
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."

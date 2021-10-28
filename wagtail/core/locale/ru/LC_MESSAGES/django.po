@@ -22,8 +22,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-13 09:19+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -40,6 +40,14 @@ msgstr "Ядро Wagtail"
 
 msgid "Add Comment"
 msgstr "Добавить комментарий"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Минимальное количество элементов: %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Максимальное количество элементов: %d"
 
 msgid "Move up"
 msgstr "Двигать вверх"
@@ -63,16 +71,8 @@ msgstr "%(label)s: у этого блока нет опций."
 msgid "This block has no options."
 msgstr "Этот блок не имеет опций."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Минимальное количество элементов: %d"
-
 msgid "This field is required."
 msgstr "Требуется заполнить это поле."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Максимальное количество элементов: %d"
 
 msgid "Password"
 msgstr "Пароль"
@@ -82,10 +82,6 @@ msgstr "Введённый вами пароль неверный. Попроб�
 
 msgid "Comment"
 msgstr "Комментарий"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Неизвестное %(action)s"
 
 msgid "title"
 msgstr "заголовок"
@@ -442,12 +438,12 @@ msgstr "запись в журнале"
 msgid "log entries"
 msgstr "записи в журнале"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "пользователь %(id)d (удаленный)"
-
 msgid "system"
 msgstr "система"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Неизвестное %(action)s"
 
 msgid "collection"
 msgstr "коллекция"
@@ -627,6 +623,19 @@ msgstr "Разблокировано"
 msgid "Reject"
 msgstr "Отклонить"
 
+msgid "Rename"
+msgstr "Переименовать"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Переименован из '%(old)s' в '%(new)s'"
+
+msgid "Renamed"
+msgstr "Переименован"
+
+msgid "Revert"
+msgstr "Вернуть назад"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -635,12 +644,18 @@ msgstr "Возвращен к версии %(revision_id)s от %(created_at)s"
 msgid "Reverted to previous revision"
 msgstr "Возвращен к предыдущей версии"
 
+msgid "Copy"
+msgstr "Копировать"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Скопирован с %(title)s"
 
 msgid "Copied"
 msgstr "Скопирован"
+
+msgid "Create alias"
+msgstr "Создать псевдоним"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -649,12 +664,18 @@ msgstr "Создан псевдоним %(title)s"
 msgid "Created an alias"
 msgstr "Создан псевдоним"
 
+msgid "Move"
+msgstr "Переместить"
+
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
 
 msgid "Moved"
 msgstr "Перемещен"
+
+msgid "Schedule publication"
+msgstr "Запланированная публикация"
 
 #, python-format
 msgid ""
@@ -671,6 +692,9 @@ msgstr "Страница запланирована к публикации %(go
 msgid "Page scheduled for publishing"
 msgstr "Страница запланирована к публикации"
 
+msgid "Unschedule publication"
+msgstr "Внеплановая публикация "
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -686,12 +710,18 @@ msgstr "Страница снята с расписания публикации
 msgid "Page unscheduled from publishing"
 msgstr "Страница снята с расписания публикации"
 
+msgid "Add view restrictions"
+msgstr "Добавить ограничение просмотра"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Добавлено '%(restriction)s' ограничение на просмотр"
 
 msgid "Added view restriction"
 msgstr "Добавленно ограничение просмотра"
+
+msgid "Update view restrictions"
+msgstr "Обновить ограничения просмотра"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -700,6 +730,9 @@ msgstr "Обновлены ограничение просмотра в '%(restr
 msgid "Updated view restriction"
 msgstr "Обновлены ограничение просмотра"
 
+msgid "Remove view restrictions"
+msgstr "Убрать ограничения просмотра"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Удалено '%(restriction)s' запрет просмотра"
@@ -707,45 +740,11 @@ msgstr "Удалено '%(restriction)s' запрет просмотра"
 msgid "Removed view restriction"
 msgstr "Удалено ограничение просмотра"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Переименован из '%(old)s' в '%(new)s'"
-
-msgid "Renamed"
-msgstr "Переименован"
-
-msgid "Rename"
-msgstr "Переименовать"
-
-msgid "Revert"
-msgstr "Вернуть назад"
-
-msgid "Copy"
-msgstr "Копировать"
-
-msgid "Create alias"
-msgstr "Создать псевдоним"
-
-msgid "Move"
-msgstr "Переместить"
-
-msgid "Schedule publication"
-msgstr "Запланированная публикация"
-
-msgid "Unschedule publication"
-msgstr "Внеплановая публикация "
-
-msgid "Add view restrictions"
-msgstr "Добавить ограничение просмотра"
-
-msgid "Update view restrictions"
-msgstr "Обновить ограничения просмотра"
-
-msgid "Remove view restrictions"
-msgstr "Убрать ограничения просмотра"
-
 msgid "Add comment"
 msgstr "Добавить комментарий"
+
+msgid "Workflow: start"
+msgstr "Рабочий процесс: запустить"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -753,6 +752,9 @@ msgstr "'%(workflow)s' запущен. Следующий шаг '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Рабочий процесс запущен"
+
+msgid "Workflow: approve task"
+msgstr "Рабочий процесс: утвердить задачу"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -765,12 +767,18 @@ msgstr "Утверждено на шаге %(task)s. Рабочий процес
 msgid "Workflow task approved"
 msgstr "Задача рабочего процесса"
 
+msgid "Workflow: reject task"
+msgstr "Рабочий процесс: отклонить задачу"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Отклонено на задаче '%(task)s'. Запрошены изменения"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Задача рабочего процесса отклонена. Процесс завершен."
+
+msgid "Workflow: resume task"
+msgstr "Рабочий процесс: возобновить задачу"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -779,24 +787,12 @@ msgstr "Задача '%(task)s' выполнена еще раз. Рабочий
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."
 
+msgid "Workflow: cancel"
+msgstr "Рабочий процесс: отменен"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Отменен '%(workflow)s' в '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Рабочий процесс отменен."
-
-msgid "Workflow: start"
-msgstr "Рабочий процесс: запустить"
-
-msgid "Workflow: approve task"
-msgstr "Рабочий процесс: утвердить задачу"
-
-msgid "Workflow: reject task"
-msgstr "Рабочий процесс: отклонить задачу"
-
-msgid "Workflow: resume task"
-msgstr "Рабочий процесс: возобновить задачу"
-
-msgid "Workflow: cancel"
-msgstr "Рабочий процесс: отменен"

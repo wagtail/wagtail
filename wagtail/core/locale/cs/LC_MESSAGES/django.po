@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -30,6 +30,14 @@ msgstr "Wagtail jádro"
 
 msgid "Add Comment"
 msgstr "Přidat komentář"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimální počet položek je %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maximální počet položek je %d"
 
 msgid "Move up"
 msgstr "Posunout nahoru"
@@ -53,16 +61,8 @@ msgstr "%(label)s: tento blok nemá žádné volby."
 msgid "This block has no options."
 msgstr "Tento blok nemá žádné volby."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimální počet položek je %d"
-
 msgid "This field is required."
 msgstr "Toto pole je vyžadováno."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maximální počet položek je %d"
 
 msgid "Password"
 msgstr "Heslo"
@@ -72,10 +72,6 @@ msgstr "Zadané heslo není správné. Prosím, zkuste to znovu."
 
 msgid "Comment"
 msgstr "Komentář"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Neznámé %(action)s"
 
 msgid "title"
 msgstr "titulek"
@@ -433,12 +429,12 @@ msgstr "položky logu"
 msgid "The log action '{}' has not been registered."
 msgstr "Akce logu '{}' není registrována."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "uživatel %(id)d (zrušený)"
-
 msgid "system"
 msgstr "systém"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznámé %(action)s"
 
 msgid "collection"
 msgstr "kolekce"
@@ -617,6 +613,19 @@ msgstr "Odemčeno"
 msgid "Reject"
 msgstr "Odmítnout"
 
+msgid "Rename"
+msgstr "Přejmenovat"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Přejmenováno z '%(old)s' na '%(new)s'"
+
+msgid "Renamed"
+msgstr "Přejmenováno"
+
+msgid "Revert"
+msgstr "Vrátit"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -625,12 +634,18 @@ msgstr "Bylo vráceno na předchozí verzi s id %(revision_id)s z %(created_at)s
 msgid "Reverted to previous revision"
 msgstr "Bylo vráceno na předchozí verzi"
 
+msgid "Copy"
+msgstr "Zkopírovat"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Zkopírováno z %(title)s"
 
 msgid "Copied"
 msgstr "Zkopírováno"
+
+msgid "Create alias"
+msgstr "Vytvořit zástupce"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -639,6 +654,9 @@ msgstr "Byl vytvořen zástupce pro %(title)s"
 msgid "Created an alias"
 msgstr "Byl vytvořen zástupce"
 
+msgid "Move"
+msgstr "Přesunout"
+
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Přesunuto z '%(old_parent)s' do '%(new_parent)s'"
@@ -646,12 +664,18 @@ msgstr "Přesunuto z '%(old_parent)s' do '%(new_parent)s'"
 msgid "Moved"
 msgstr "Přesunuto"
 
+msgid "Reorder"
+msgstr "Setřídit"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Setříděno pod '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Setříděno"
+
+msgid "Schedule publication"
+msgstr "Naplánovat zveřejnění"
 
 #, python-format
 msgid ""
@@ -668,6 +692,9 @@ msgstr "Stránka byla naplánována ke ke zveřejnění na %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Stránka byla naplánována ke ke zveřejnění"
 
+msgid "Unschedule publication"
+msgstr "Odvolat plánované zveřejnění"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -683,12 +710,18 @@ msgstr "Stránce bylo zrušeno plánované zveřejnění v %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Stránce bylo zrušeno plánované zveřejnění"
 
+msgid "Add view restrictions"
+msgstr "Přidat omezení zobrazení"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Bylo přidáno '%(restriction)s' omezení zobrazení"
 
 msgid "Added view restriction"
 msgstr "Bylo přidáno omezení zobrazení"
+
+msgid "Update view restrictions"
+msgstr "Změnit omezení zobrazení"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -697,6 +730,9 @@ msgstr "Aktualizováno omezení zobrazení na '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Aktualizováno omezení zobrazení"
 
+msgid "Remove view restrictions"
+msgstr "Zrušit omezení zobrazení"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Zrušeno omezení zobrazení '%(restriction)s'"
@@ -704,48 +740,11 @@ msgstr "Zrušeno omezení zobrazení '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Zrušeno omezení zobrazení"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Přejmenováno z '%(old)s' na '%(new)s'"
-
-msgid "Renamed"
-msgstr "Přejmenováno"
-
-msgid "Rename"
-msgstr "Přejmenovat"
-
-msgid "Revert"
-msgstr "Vrátit"
-
-msgid "Copy"
-msgstr "Zkopírovat"
-
-msgid "Create alias"
-msgstr "Vytvořit zástupce"
-
-msgid "Move"
-msgstr "Přesunout"
-
-msgid "Reorder"
-msgstr "Setřídit"
-
-msgid "Schedule publication"
-msgstr "Naplánovat zveřejnění"
-
-msgid "Unschedule publication"
-msgstr "Odvolat plánované zveřejnění"
-
-msgid "Add view restrictions"
-msgstr "Přidat omezení zobrazení"
-
-msgid "Update view restrictions"
-msgstr "Změnit omezení zobrazení"
-
-msgid "Remove view restrictions"
-msgstr "Zrušit omezení zobrazení"
-
 msgid "Add comment"
 msgstr "Přidat komentář"
+
+msgid "Workflow: start"
+msgstr "Postup: start"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -753,6 +752,9 @@ msgstr "'%(workflow)s' zahájen. Další krok '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Postup byl zahájen"
+
+msgid "Workflow: approve task"
+msgstr "Postup: schválit úlohu"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -765,12 +767,18 @@ msgstr "Schváleno '%(task)s'. '%(workflow)s' dokončen."
 msgid "Workflow task approved"
 msgstr "Úkol postupu byl schválen."
 
+msgid "Workflow: reject task"
+msgstr "Postup: odmítnout úlohu"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Odmítnuto '%(task)s'. Jsou požadovány změny"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Úkol postupu byl zamítnut. Postup dokončen"
+
+msgid "Workflow: resume task"
+msgstr "Postup: obnovit úlohu"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -779,24 +787,12 @@ msgstr "Znovu potvrzeno '%(task)s'. Postup byl obnoven"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Úkol postupu byl potvrzen. Postup byl obnoven"
 
+msgid "Workflow: cancel"
+msgstr "Postup: přerušit"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Zrušen '%(workflow)s' na úkolu '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Postup byl zrušen"
-
-msgid "Workflow: start"
-msgstr "Postup: start"
-
-msgid "Workflow: approve task"
-msgstr "Postup: schválit úlohu"
-
-msgid "Workflow: reject task"
-msgstr "Postup: odmítnout úlohu"
-
-msgid "Workflow: resume task"
-msgstr "Postup: obnovit úlohu"
-
-msgid "Workflow: cancel"
-msgstr "Postup: přerušit"

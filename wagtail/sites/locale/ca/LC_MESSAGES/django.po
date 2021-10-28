@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-07-29 09:31+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -29,29 +29,20 @@ msgstr "Seleccioni una plana arrel"
 msgid "Choose a different root page"
 msgstr "Seleccioni una plana arrel diferent"
 
+msgid "Sites"
+msgstr "Llocs"
+
+msgid "Add a site"
+msgstr "Afegir un lloc"
+
 msgid "Site"
 msgstr "Lloc"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Nom del lloc"
-
-msgid "Root page"
-msgstr "Plana arrel"
 
 msgid "Default?"
 msgstr "Per defecte?"
 
 msgid "Default"
 msgstr "Per defecte"
-
-msgid "Sites"
-msgstr "Llocs"
-
-msgid "Add a site"
-msgstr "Afegir un lloc"
 
 msgid "Add site"
 msgstr "Afegir lloc"

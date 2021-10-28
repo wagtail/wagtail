@@ -5,13 +5,14 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
+# Urban Prevc, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-28 05:16+0000\n"
+"Last-Translator: Urban Prevc\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +58,12 @@ msgstr "Načrtovanje objave"
 msgid "Privacy"
 msgstr "Zasebnost"
 
+msgid "For search engines"
+msgstr "Za iskalnike"
+
+msgid "For site menus"
+msgstr "Za menije strani"
+
 msgid "Content"
 msgstr "Vsebina"
 
@@ -96,6 +103,12 @@ msgstr "Za isto zbirko ne morate imeti več kot enega zapisa dovoljenj."
 
 msgid "Collection"
 msgstr "Zbirka"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Edit"
+msgstr "Uredi"
 
 msgid "New title"
 msgstr "Nov naziv"
@@ -181,9 +194,6 @@ msgstr "Polje je obvezno."
 
 msgid "Please select at least one group."
 msgstr "Izberite vsaj eno skupino"
-
-msgid "Edit"
-msgstr "Uredi"
 
 msgid "Page"
 msgstr "Stran"
@@ -343,6 +353,10 @@ msgstr ""
 "Dodana ni še nobena zbirka. Zakaj je ne bi <a href=\"%(add_collection_url)s"
 "\">dodali</a>?"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Dodaj %(label)s"
+
 msgid "Move up"
 msgstr "Premakni navzgor"
 
@@ -468,6 +482,21 @@ msgstr "Stran je zasebna, ker je kot zasebna označena nadrejena stran."
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Nastavitve zasebnosti veljajo tudi za vse podrejene strani."
 
+msgid "Set page privacy. Current status: Public"
+msgstr "Nastavi zasebnost objave. Trenutni status: Javno"
+
+msgid "Set page privacy. Current status: Private"
+msgstr "Nastavi zasebnost objave. Trenutni status: Zasebno"
+
+msgid "You have <span>unsaved edits</span>"
+msgstr "Imate <span>neshranjene spremembe</span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr "Imate <span>neshranjene spremembe</span> in <span>komentarje</span>"
+
+msgid "Save the page before leaving"
+msgstr "Pred odhodom shranite stran"
+
 msgid "Saving…"
 msgstr "Shranjevanje ..."
 
@@ -491,6 +520,12 @@ msgstr "Izberite kateri tip strani želite ustvariti."
 msgid "Pages using %(page_type)s"
 msgstr "Strani tipa %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ne, ne izbriši"
+
+msgid "Move"
+msgstr "Premakni"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Izbriši %(title)s"
@@ -498,12 +533,12 @@ msgstr "Izbriši %(title)s"
 msgid "Are you sure you want to delete this page?"
 msgstr "Ali ste prepričani, da želite stran izbrisati?"
 
+msgid "No, don't delete it"
+msgstr "Ne, ne izbriši"
+
 #, python-format
 msgid "Move %(title)s"
 msgstr "Premakni %(title)s"
-
-msgid "Move"
-msgstr "Premakni"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -562,6 +597,10 @@ msgstr "Urejanje %(page_type)s: %(title)s"
 
 msgid "Current draft"
 msgstr "Trenutni osnutek"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s nazaj"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -648,6 +687,18 @@ msgstr "Dodaj podrejeno stran v '%(title)s'"
 msgid "Add child page"
 msgstr "Dodaj podrejeno stran"
 
+msgid "Sites menu"
+msgstr "Meniji strani"
+
+#, python-format
+msgid ""
+"\n"
+"        Page %(page_number)s of %(num_pages)s.\n"
+"    "
+msgstr ""
+"\n"
+"Stran %(page_number)s od %(num_pages)s."
+
 msgid "Previous"
 msgstr "Prejšnja"
 
@@ -671,6 +722,12 @@ msgstr "Izberite novo nadrejeno stran za %(title)s"
 msgid "Select a new parent page for <span>%(title)s</span>"
 msgstr "Izberite novo nadrejeno stran za <span>%(title)s</span>"
 
+msgid "Current status:"
+msgstr "Trenutni status:"
+
+msgid "Set page privacy"
+msgstr "Nastavi zasebnost objave"
+
 #, python-format
 msgid "Revisions of %(title)s"
 msgstr "Različice od %(title)s"
@@ -693,8 +750,14 @@ msgstr "Prenesi CSV"
 msgid "Filter"
 msgstr "Filter"
 
+msgid "Apply filters"
+msgstr "Uporabi filter"
+
 msgid "Locked"
 msgstr "Zaklenjeno"
+
+msgid "Edit this item"
+msgstr "Uredi element"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -712,6 +775,9 @@ msgstr "Odjava"
 msgid "Other searches"
 msgstr "Ostala iskanja"
 
+msgid "Published"
+msgstr "Objavljeno"
+
 msgid "Add a child page"
 msgstr "Dodaj podrejeno stran"
 
@@ -722,14 +788,17 @@ msgstr "Prikaži v Raziskovalcu"
 msgid "by %(modified_by)s"
 msgstr "avtor %(modified_by)s"
 
+msgid "More"
+msgstr "Več"
+
 msgid "live"
 msgstr "v živo"
 
-msgid "live + draft"
-msgstr "objavljeno + osnutek"
-
 msgid "draft"
 msgstr "osnutek"
+
+msgid "live + draft"
+msgstr "objavljeno + osnutek"
 
 msgid "Test"
 msgstr "Test"
@@ -815,6 +884,9 @@ msgstr "Stran '{0}' umaknjena iz objave."
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
 
+msgid "Reports"
+msgstr "Poročila"
+
 msgid "Choose an item"
 msgstr "Izberite element"
 
@@ -823,9 +895,6 @@ msgstr "Izberite drug element"
 
 msgid "Clear choice"
 msgstr "Počisti izbiro"
-
-msgid "Edit this item"
-msgstr "Uredi element"
 
 msgid "Choose another page"
 msgstr "Izberite drugo stran"

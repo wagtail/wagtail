@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-06-09 19:02+0000\n"
-"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -30,29 +30,20 @@ msgstr "Выберыце каранёвую старонку"
 msgid "Choose a different root page"
 msgstr "Выберыце іншую каранёвую старонку"
 
+msgid "Sites"
+msgstr "Сайты"
+
+msgid "Add a site"
+msgstr "Дадаць сайт"
+
 msgid "Site"
 msgstr "Сайт"
-
-msgid "Port"
-msgstr "Порт"
-
-msgid "Site name"
-msgstr "Імя сайта"
-
-msgid "Root page"
-msgstr "Каранёвая старонка"
 
 msgid "Default?"
 msgstr "Па змоўчванні? "
 
 msgid "Default"
 msgstr "Па змоўчванні"
-
-msgid "Sites"
-msgstr "Сайты"
-
-msgid "Add a site"
-msgstr "Дадаць сайт"
 
 msgid "Add site"
 msgstr "Дадаць сайт"

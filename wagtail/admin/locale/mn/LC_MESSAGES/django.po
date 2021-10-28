@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -112,6 +112,12 @@ msgstr "Нэг цуглуулганд олон хандалтын эрхийн �
 msgid "Collection"
 msgstr "Цуглуулга"
 
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Edit"
+msgstr "Засах"
+
 msgid "New title"
 msgstr "Шинэ гарчиг"
 
@@ -192,9 +198,6 @@ msgstr "Энэ талбарыг заавал бөглөх шаардлагата
 
 msgid "Please select at least one group."
 msgstr "Ядаж нэг бүлэг сонгоно уу."
-
-msgid "Edit"
-msgstr "Засах"
 
 msgid "Page"
 msgstr "Хуудас"
@@ -560,6 +563,12 @@ msgstr "Үүсгэх хуудасныхаа төрлийг сонгоно уу."
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s-г ашиглаж буй хуудсууд"
 
+msgid "Move"
+msgstr "Зөөх"
+
+msgid "No, don't unpublish"
+msgstr "Үгүй"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "%(title)s-г устгах"
@@ -607,9 +616,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s-г зөөх"
 
-msgid "Move"
-msgstr "Зөөх"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Энэ хуудсыг үнэхээр '%(title)s'-руу зөөх үү?"
@@ -632,9 +638,6 @@ msgstr "Энэ хуудсыг үнэхээр хандах боломжгүй б�
 
 msgid "Yes, unpublish it"
 msgstr "Тийм, Нийтлэхгүй болго"
-
-msgid "No, don't unpublish"
-msgstr "Үгүй"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -848,6 +851,9 @@ msgstr "Шүүлтүүр"
 msgid "Locked"
 msgstr "Түгжигдсэн"
 
+msgid "Edit this item"
+msgstr "Энэ зүйлийг засах"
+
 msgid "Root"
 msgstr "Үндэс"
 
@@ -876,14 +882,17 @@ msgstr "%(modified_by)s-р"
 msgid "Compare with live version"
 msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
+msgid "More"
+msgstr "Дэлгэрэнгүй"
+
 msgid "live"
 msgstr "нийтлэгдсэн"
 
-msgid "live + draft"
-msgstr "нийтлэгдсэн + ноорог"
-
 msgid "draft"
 msgstr "ноорог"
+
+msgid "live + draft"
+msgstr "нийтлэгдсэн + ноорог"
 
 msgid "Test"
 msgstr "Тест"
@@ -1002,9 +1011,6 @@ msgstr "\"{1}\"-с {0} дэх хувилбар"
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' хуудсыг хаалаа."
 
-msgid "More"
-msgstr "Дэлгэрэнгүй"
-
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"
 
@@ -1028,9 +1034,6 @@ msgstr "Өөр зүйл сонгох"
 
 msgid "Clear choice"
 msgstr "Сонголтыг цэвэрлэх"
-
-msgid "Edit this item"
-msgstr "Энэ зүйлийг засах"
 
 msgid "Choose another page"
 msgstr "Өөр хуудас сонгох"

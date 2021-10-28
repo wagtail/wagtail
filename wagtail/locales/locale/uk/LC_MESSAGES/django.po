@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/torchbox/teams/8009/"
@@ -36,6 +36,9 @@ msgstr "Мова"
 msgid "Select a new language"
 msgstr "Оберіть нову мову"
 
+msgid "This locale's language code is not supported"
+msgstr "Поточний код мови цієї локалі не підтримується"
+
 msgid "Yes, delete"
 msgstr "Так, видалити"
 
@@ -49,17 +52,14 @@ msgstr ""
 "Поточний код мови цієї локалі не підтримується. Будь ласка, виберіть іншу "
 "мову або видаліть цю локаль."
 
-msgid "Usage"
-msgstr "Використання"
-
-msgid "This locale's language code is not supported"
-msgstr "Поточний код мови цієї локалі не підтримується"
-
 msgid "Locales"
 msgstr "Локалі"
 
 msgid "Add a locale"
 msgstr "Додати локаль"
+
+msgid "Usage"
+msgstr "Використання"
 
 msgid "Add locale"
 msgstr "Додати локаль"

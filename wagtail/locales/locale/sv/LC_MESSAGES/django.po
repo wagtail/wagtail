@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
@@ -30,6 +30,9 @@ msgstr "Språk"
 msgid "Select a new language"
 msgstr "Välj ett nytt språk"
 
+msgid "This locale's language code is not supported"
+msgstr "Denna översättnings språkkod stöds inte"
+
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
@@ -43,17 +46,14 @@ msgstr ""
 "Denna översättning har en språkkod som inte stöds. Vänligen välj ett nytt "
 "språk eller ta bort denna översättning."
 
-msgid "Usage"
-msgstr "Användning"
-
-msgid "This locale's language code is not supported"
-msgstr "Denna översättnings språkkod stöds inte"
-
 msgid "Locales"
 msgstr "Översättningar"
 
 msgid "Add a locale"
 msgstr "Lägg till en översättning"
+
+msgid "Usage"
+msgstr "Användning"
 
 msgid "Add locale"
 msgstr "Lägg till översättning"

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: IT Management <hudan@itmanagement.cz>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,15 @@ msgstr "uživatelský profile"
 msgid "user profiles"
 msgstr "uživatelské profily"
 
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Yes, delete"
+msgstr "Ano, smazat"
+
+msgid "No, don't delete"
+msgstr "Ne, nemazat"
+
 msgid "Delete group"
 msgstr "Smazat skupinu"
 
@@ -166,9 +175,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Opravdu chcete smazat tuto skupinu?"
 
-msgid "Yes, delete"
-msgstr "Ano, smazat"
-
 msgid "Add group"
 msgstr "Přidat skupinu"
 
@@ -195,9 +201,6 @@ msgstr "Přidat"
 
 msgid "Change"
 msgstr "Upravit"
-
-msgid "Delete"
-msgstr "Smazat"
 
 msgid "Other permissions"
 msgstr "Ostatní oprávnění"

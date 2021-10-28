@@ -5,13 +5,13 @@
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2016
 # saevarom <saevar@saevar.is>, 2016
-# saevarom <saevar@saevar.is>, 2016,2018,2020
+# saevarom <saevar@saevar.is>, 2016,2018,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-22 10:32+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 11:31+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -122,6 +122,16 @@ msgstr "Heim"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Eftir %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Síðast uppfært"
+
+msgid "History"
+msgstr "Saga"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s af %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -236,3 +246,9 @@ msgstr "Skoða"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Skoða %s"
+
+msgid "Action"
+msgstr "Aðgerð"
+
+msgid "Date"
+msgstr "Dagsetning"

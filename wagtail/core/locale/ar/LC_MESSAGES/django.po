@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -25,6 +25,14 @@ msgstr ""
 
 msgid "Wagtail core"
 msgstr "Wagtail core"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "الحد الأدنى لعدد العناصر هو %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "الحد الأقصى لعدد العناصر هو %d"
 
 msgid "Move up"
 msgstr "تقدم إلى فوق "
@@ -41,16 +49,8 @@ msgstr "أضف"
 msgid "This block has no options."
 msgstr "هذه الكتلة لا يوجد لديه خيارات."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "الحد الأدنى لعدد العناصر هو %d"
-
 msgid "This field is required."
 msgstr "هذه الخانة مطلوبه."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "الحد الأقصى لعدد العناصر هو %d"
 
 msgid "Password"
 msgstr "كلمة سر"

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -50,6 +50,9 @@ msgstr[1] ""
 "\n"
 "On %(counter)s vastet."
 
+msgid "Title"
+msgstr "Pealkiri"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski jupp ei sobi \"<em>%(query_string)s</em>\""
@@ -63,6 +66,9 @@ msgstr ""
 "Sa pole ühtegi loonud %(snippet_type_name)s juppi. Miks mitte lisada <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">üks nüüd</a>?"
+
+msgid "History"
+msgstr "Ajalugu"
 
 msgid "Saving…"
 msgstr "Salvestan..."
@@ -120,9 +126,6 @@ msgstr "Jupid"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Vali kõik %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Pealkiri"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -197,6 +200,12 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d%(snippet_type)s kustutatud."
 msgstr[1] "%(count)d%(snippet_type)s kustutatud."
+
+msgid "Action"
+msgstr "Tegevus"
+
+msgid "Date"
+msgstr "Kuupäev"
 
 #, python-format
 msgid "Edit '%(title)s'"

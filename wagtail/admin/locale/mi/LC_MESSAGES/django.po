@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-10-14 14:21+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Kohikohinga"
 
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
 msgid "New title"
 msgstr "Taitara hou"
 
@@ -255,9 +261,6 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
-
-msgid "Edit"
-msgstr "Whakarerekē"
 
 msgid "Page"
 msgstr "Whārangi"
@@ -624,6 +627,9 @@ msgstr "Hangaia he whārangi ki "
 msgid "Choose which type of page you'd like to create."
 msgstr "Kōwhiri he whārangi kei te pirangi koe ki te hanga."
 
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Muku %(title)s"
@@ -662,11 +668,11 @@ msgstr "Kāhore ē timata"
 msgid "live"
 msgstr "mataora"
 
-msgid "live + draft"
-msgstr "mataora + hukihuki"
-
 msgid "draft"
 msgstr "hukihuki"
+
+msgid "live + draft"
+msgstr "mataora + hukihuki"
 
 msgid "Password"
 msgstr "Kupu muna"

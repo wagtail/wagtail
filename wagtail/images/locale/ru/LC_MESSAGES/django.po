@@ -21,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-06-22 21:53+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -172,6 +172,20 @@ msgstr "Изображение"
 msgid "images"
 msgstr "Изображения"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использовано %(usage_count)sраз"
+msgstr[1] "Использовано %(usage_count)s раз"
+msgstr[2] "Использовано %(usage_count)s раз"
+msgstr[3] "Использовано%(usage_count)s раз"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
 msgid "Choose an image"
 msgstr "Выберите изображение"
 
@@ -183,9 +197,6 @@ msgstr "Загрузка"
 
 msgid "Popular tags"
 msgstr "Популярные теги"
-
-msgid "Uploading…"
-msgstr "Загрузка..."
 
 #, python-format
 msgid ""
@@ -217,6 +228,9 @@ msgstr "Выберите формат"
 
 msgid "Insert image"
 msgstr "Вставить изображение"
+
+msgid "Uploading…"
+msgstr "Загрузка..."
 
 #, python-format
 msgid ""
@@ -264,23 +278,6 @@ msgstr "Сохранить"
 
 msgid "Delete image"
 msgstr "Удалить изображение"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использовано %(usage_count)sраз"
-msgstr[1] "Использовано %(usage_count)s раз"
-msgstr[2] "Использовано %(usage_count)s раз"
-msgstr[3] "Использовано%(usage_count)s раз"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Вы уверены, что хотите удалить изображение?"
-
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
-msgid "No, don't delete"
-msgstr "Нет, не удалять"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -436,6 +433,9 @@ msgstr "Права доступа к изображению"
 msgid "Add an image permission"
 msgstr "Добавить права доступа к изображению"
 
+msgid "Delete"
+msgstr "Удалить"
+
 msgid "Search images"
 msgstr "Поиск изображений"
 
@@ -454,9 +454,6 @@ msgid ""
 msgstr ""
 "Файл исходного изображения не найден. Пожалуйста, измените или удалите "
 "изображение."
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Image '{0}' deleted."
 msgstr "Изображение '{0}' удалено."

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
@@ -27,20 +27,14 @@ msgstr "Izvēlēties 'root' lapu"
 msgid "Choose a different root page"
 msgstr "Izvēlēties citu 'root' lapu"
 
+msgid "Sites"
+msgstr "Vietnes"
+
 msgid "Site"
 msgstr "Vietne"
-
-msgid "Port"
-msgstr "Ports"
-
-msgid "Root page"
-msgstr "Saknes lapa"
 
 msgid "Default?"
 msgstr "Pēc noklusējuma?"
 
 msgid "Default"
 msgstr "Noklusējums"
-
-msgid "Sites"
-msgstr "Vietnes"

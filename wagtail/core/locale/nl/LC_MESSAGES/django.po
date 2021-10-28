@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-09-20 20:45+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,14 @@ msgstr "Wagtail core"
 
 msgid "Add Comment"
 msgstr "Commentaar toevoegen"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Het minimale aantal items is %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Het maximale aantal items is %d"
 
 msgid "Move up"
 msgstr "Omhoog"
@@ -51,16 +59,8 @@ msgstr "%(label)s: dit blok heeft geen opties."
 msgid "This block has no options."
 msgstr "Dit blok heeft geen opties."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Het minimale aantal items is %d"
-
 msgid "This field is required."
 msgstr "Dit veld is verplicht."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Het maximale aantal items is %d"
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -70,10 +70,6 @@ msgstr "Het wachtwoord dat u heeft ingevuld is niet juist. Probeer opnieuw."
 
 msgid "Comment"
 msgstr "Opmerking"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Onbekend %(action)s"
 
 msgid "title"
 msgstr "titel"
@@ -437,12 +433,12 @@ msgstr "logboekvermeldingen"
 msgid "The log action '{}' has not been registered."
 msgstr "De logboek actie '{}' is niet geregistreerd."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "gebruiker %(id)d (verwijderd)"
-
 msgid "system"
 msgstr "systeem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Onbekend %(action)s"
 
 msgid "collection"
 msgstr "collectie"
@@ -620,6 +616,19 @@ msgstr "Gedeblokkeerd"
 msgid "Reject"
 msgstr "Keur af"
 
+msgid "Rename"
+msgstr "Hernoem"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Hernoemd van '%(old)s' naar '%(new)s'"
+
+msgid "Renamed"
+msgstr "Hernoemd"
+
+msgid "Revert"
+msgstr "Ongedaan maken"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -629,12 +638,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Ga terug naar vorige versie"
 
+msgid "Copy"
+msgstr "Kopiëren"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Gekopieerd van %(title)s"
 
 msgid "Copied"
 msgstr "Gekopieerd"
+
+msgid "Create alias"
+msgstr "Alias aanmaken"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -643,12 +658,18 @@ msgstr "Een alias naar %(title)s is aangemaakt"
 msgid "Created an alias"
 msgstr "Een alias is aangemaakt"
 
+msgid "Convert alias into ordinary page"
+msgstr "Converteer alias naar een normale pagina"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "De alias '%(title)s' is naar een normale pagina geconverteerd"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Een alias naar een normale pagina geconverteerd"
+
+msgid "Move"
+msgstr "Verplaats"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -657,12 +678,18 @@ msgstr "Verplaatst van '%(old_parent)s' naar '%(new_parent)s'"
 msgid "Moved"
 msgstr "Verplaatst"
 
+msgid "Reorder"
+msgstr "Volgorde gewijzigd"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Volgorde gewijzigd onder '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Volgorde gewijzigd"
+
+msgid "Schedule publication"
+msgstr "Publicatie plannen"
 
 #, python-format
 msgid ""
@@ -679,6 +706,9 @@ msgstr "Pagina ingepland voor publicatie op %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Pagina is ingepland voor publicatie"
 
+msgid "Unschedule publication"
+msgstr "Publicatie planning verwijderen"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -694,12 +724,18 @@ msgstr "Pagina niet meer ingepland voor publicatie op %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Pagina niet meer ingepland voor publicatie"
 
+msgid "Add view restrictions"
+msgstr "Voeg weergavebeperkingen toe"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Weergavebeperking '%(restriction)s' toegevoegd"
 
 msgid "Added view restriction"
 msgstr "Weergavebeperking toegevoegd"
+
+msgid "Update view restrictions"
+msgstr "Wijzig weergavebeperkingen"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -708,6 +744,9 @@ msgstr "Wijzig de weergavebeperking in '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Weergavebeperking is gewijzigd"
 
+msgid "Remove view restrictions"
+msgstr "Verwijder weergavebeperkingen"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
@@ -715,12 +754,8 @@ msgstr "De weergavebeperking '%(restriction)s' is verwijderd"
 msgid "Removed view restriction"
 msgstr "Verwijderde weergavebeperking"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Hernoemd van '%(old)s' naar '%(new)s'"
-
-msgid "Renamed"
-msgstr "Hernoemd"
+msgid "Add comment"
+msgstr "Voeg opmerking toe"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -729,12 +764,18 @@ msgstr "Een opmerking is toegevoegd op veld %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Opmerking toegevoegd"
 
+msgid "Edit comment"
+msgstr "Wijzig opmerking"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "Een opmerking is gewijzigd op veld %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "Opmerking gewijzigd"
+
+msgid "Delete comment"
+msgstr "Verwijder opmerking"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -743,12 +784,18 @@ msgstr "Een opmerking is verwijderd op veld %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Opmerking verwijderd"
 
+msgid "Resolve comment"
+msgstr "Los opmerking op"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "Een opmerking is opgelost op veld %(field)s: \"%(text)s\""
 
 msgid "Resolved a comment"
 msgstr "Opmerking opgelost"
+
+msgid "Reply to comment"
+msgstr "Geef reactie op opmerking"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -758,6 +805,9 @@ msgstr ""
 msgid "Replied to a comment"
 msgstr "Reactie op opmerking gemaakt"
 
+msgid "Edit reply to comment"
+msgstr "Wijzig reactie op opmerking"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr ""
@@ -765,6 +815,9 @@ msgstr ""
 
 msgid "Edited a reply"
 msgstr "Reactie gewijzigd"
+
+msgid "Delete reply to comment"
+msgstr "Verwijder reactie op opmerking"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -774,62 +827,8 @@ msgstr ""
 msgid "Deleted a reply"
 msgstr "Verwijder reactie"
 
-msgid "Rename"
-msgstr "Hernoem"
-
-msgid "Revert"
-msgstr "Ongedaan maken"
-
-msgid "Copy"
-msgstr "Kopiëren"
-
-msgid "Create alias"
-msgstr "Alias aanmaken"
-
-msgid "Convert alias into ordinary page"
-msgstr "Converteer alias naar een normale pagina"
-
-msgid "Move"
-msgstr "Verplaats"
-
-msgid "Reorder"
-msgstr "Volgorde gewijzigd"
-
-msgid "Schedule publication"
-msgstr "Publicatie plannen"
-
-msgid "Unschedule publication"
-msgstr "Publicatie planning verwijderen"
-
-msgid "Add view restrictions"
-msgstr "Voeg weergavebeperkingen toe"
-
-msgid "Update view restrictions"
-msgstr "Wijzig weergavebeperkingen"
-
-msgid "Remove view restrictions"
-msgstr "Verwijder weergavebeperkingen"
-
-msgid "Add comment"
-msgstr "Voeg opmerking toe"
-
-msgid "Edit comment"
-msgstr "Wijzig opmerking"
-
-msgid "Delete comment"
-msgstr "Verwijder opmerking"
-
-msgid "Resolve comment"
-msgstr "Los opmerking op"
-
-msgid "Reply to comment"
-msgstr "Geef reactie op opmerking"
-
-msgid "Edit reply to comment"
-msgstr "Wijzig reactie op opmerking"
-
-msgid "Delete reply to comment"
-msgstr "Verwijder reactie op opmerking"
+msgid "Workflow: start"
+msgstr "Workflow: start"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -837,6 +836,9 @@ msgstr "'%(workflow)s' gestart. Volgende stap '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Workflow gestart"
+
+msgid "Workflow: approve task"
+msgstr "Workflow: taak goedkeuren"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -849,12 +851,18 @@ msgstr "Goedgekeurd op '%(task)s'. '%(workflow)s' afgerond"
 msgid "Workflow task approved"
 msgstr "Workflow-taak goedgekeurd"
 
+msgid "Workflow: reject task"
+msgstr "Workflow: taak afkeuren"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Afgekeurd op '%(task)s'. Wijziging verzocht"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Workflow-taak afgekeurd. Workflow complete"
+
+msgid "Workflow: resume task"
+msgstr "Workflow: taak hervatten"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -863,24 +871,12 @@ msgstr "Opnieuw ingediend '%(task)s'. Workflow hervat'"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Workflow-taak opnieuw ingediend. Workflow hervat"
 
+msgid "Workflow: cancel"
+msgstr "Workflow: annuleren"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Geannuleerd '%(workflow)s' op '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Workflow geannuleerd"
-
-msgid "Workflow: start"
-msgstr "Workflow: start"
-
-msgid "Workflow: approve task"
-msgstr "Workflow: taak goedkeuren"
-
-msgid "Workflow: reject task"
-msgstr "Workflow: taak afkeuren"
-
-msgid "Workflow: resume task"
-msgstr "Workflow: taak hervatten"
-
-msgid "Workflow: cancel"
-msgstr "Workflow: annuleren"

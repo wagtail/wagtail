@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-16 11:59+0000\n"
-"Last-Translator: kojikojikojikoji\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -154,6 +154,12 @@ msgstr "同一コレクション内で複数の権限を持つことはできま
 msgid "Collection"
 msgstr "コレクション"
 
+msgid "Add"
+msgstr "追加"
+
+msgid "Edit"
+msgstr "編集"
+
 msgid "You cannot edit another user's comment."
 msgstr "他ユーザーのコメントは編集できません。"
 
@@ -250,9 +256,6 @@ msgstr "ワークフローに名前をつけてください"
 
 msgid "Add tasks to your workflow"
 msgstr "ワークフローにタスクを追加"
-
-msgid "Edit"
-msgstr "編集"
 
 msgid "Page"
 msgstr "ページ"
@@ -847,6 +850,15 @@ msgstr "作成するページのタイプを選択"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)sを使用するページ"
 
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "No, don't unpublish"
+msgstr "いいえ、非公開にしません"
+
 msgid "This action cannot be undone."
 msgstr "このアクションは元に戻せません。"
 
@@ -894,9 +906,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)sを移動"
 
-msgid "Move"
-msgstr "移動"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "%(title)sを移動してよろしいですか？"
@@ -935,9 +944,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "はい、非公開に設定します。"
-
-msgid "No, don't unpublish"
-msgstr "いいえ、非公開にしません"
 
 msgid "Publish page"
 msgstr "公開する"
@@ -1269,6 +1275,9 @@ msgstr "フィルター"
 msgid "Locked"
 msgstr "ロックあり"
 
+msgid "Edit this item"
+msgstr "アイテムを編集"
+
 msgid "Workflow"
 msgstr "ワークフロー"
 
@@ -1331,14 +1340,17 @@ msgid ""
 "descending order."
 msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ替えます。"
 
+msgid "More"
+msgstr "詳細表示"
+
 msgid "live"
 msgstr "公開"
 
-msgid "live + draft"
-msgstr "公開 + 下書き"
-
 msgid "draft"
 msgstr "下書き"
+
+msgid "live + draft"
+msgstr "公開 + 下書き"
 
 msgid "Test"
 msgstr "テスト"
@@ -1508,9 +1520,6 @@ msgstr "ワークフローのタスクを編集"
 msgid "Report this error to your webmaster with the following information:"
 msgstr "次の情報を添えて、このエラーを管理者に報告してください:"
 
-msgid "More"
-msgstr "詳細表示"
-
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"
 
@@ -1549,9 +1558,6 @@ msgstr "別のアイテムを選択"
 
 msgid "Clear choice"
 msgstr "選択を解除"
-
-msgid "Edit this item"
-msgstr "アイテムを編集"
 
 msgid "Choose another page"
 msgstr "別のページを選択"

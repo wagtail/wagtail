@@ -25,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-23 09:39+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -160,11 +160,20 @@ msgid ""
 "itself or one of its descendants."
 msgstr "选择层级位置。注意：一个集合不能成为它自己或它的一个后代的子节点。"
 
+msgid "Please select another parent"
+msgstr "请选择另一个父结点"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "对于同一个集合你不能设置多重权限"
 
 msgid "Collection"
 msgstr "集合"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "You cannot edit another user's comment."
 msgstr "你不能编辑另一个用户的评论。"
@@ -263,9 +272,6 @@ msgstr "请给你的工作流一个名称"
 
 msgid "Add tasks to your workflow"
 msgstr "增加任务到你的工作流"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Page"
 msgstr "页面"
@@ -485,6 +491,12 @@ msgstr "重置为默认值"
 
 msgid "Menu"
 msgstr "菜单"
+
+msgid "Go back"
+msgstr "返回"
+
+msgid "Select all"
+msgstr "全选"
 
 msgid "Explorer"
 msgstr "资源管理"
@@ -971,6 +983,15 @@ msgstr "选择创建的页面类型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s类型的页面"
 
+msgid "No, don't delete"
+msgstr "否，不删除"
+
+msgid "Move"
+msgstr "移动"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消发布"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "转换别名%(title)s"
@@ -1030,9 +1051,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "移动%(title)s"
 
-msgid "Move"
-msgstr "移动"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "确认将此页面移到'%(title)s'？"
@@ -1071,9 +1089,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "是，取消发布"
-
-msgid "No, don't unpublish"
-msgstr "否，不取消发布"
 
 msgid "Publish page"
 msgstr "发布页面"
@@ -1622,6 +1637,9 @@ msgstr "已锁定"
 msgid "No locked pages found."
 msgstr "找不到已锁定的页面。"
 
+msgid "Edit this item"
+msgstr "编辑此项"
+
 msgid "By Task"
 msgstr "按任务"
 
@@ -1700,15 +1718,6 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
 "JavaScript</a>。\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail 正在逐步移除对 IE11 的支持，这可能影响您或您的组织。<a href=\"%(url)s"
-"\">了解更多关于我们的 IE11 支持计划</a>。"
 
 msgid "Skip to main content"
 msgstr "跳到主要内容"
@@ -1919,6 +1928,9 @@ msgid ""
 "descending order."
 msgstr "以'%(label)s'倒序排列'%(parent)s'的子页面"
 
+msgid "More"
+msgstr "更多"
+
 msgid "0 minutes"
 msgstr "0 分钟"
 
@@ -1928,11 +1940,11 @@ msgstr "刚刚"
 msgid "live"
 msgstr "发布"
 
-msgid "live + draft"
-msgstr "发布+草稿"
-
 msgid "draft"
 msgstr "草稿"
+
+msgid "live + draft"
+msgstr "发布+草稿"
 
 msgid "Test"
 msgstr "测试"
@@ -1981,9 +1993,6 @@ msgstr "无法保存集合，出现错误。"
 
 msgid "Delete collection"
 msgstr "删除集合"
-
-msgid "Please select another parent"
-msgstr "请选择另一个父结点"
 
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已删除"
@@ -2246,17 +2255,6 @@ msgstr "禁用任务"
 msgid "Task '{0}' disabled."
 msgstr "任务 '{0}' 已禁用。"
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"此任务正在页面%(states_in_progress)d上进行。禁用此任务将导致在审核工作流中跳"
-"过该任务。"
-
 msgid "Task '{0}' enabled."
 msgstr "任务 '{0}' 已启用。"
 
@@ -2278,9 +2276,6 @@ msgstr "查看 '%(title)s' 的发布版本"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "添加“%(title)s”的子页面"
-
-msgid "More"
-msgstr "更多"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2360,9 +2355,6 @@ msgstr "选择其它项"
 
 msgid "Clear choice"
 msgstr "清除选择"
-
-msgid "Edit this item"
-msgstr "编辑此项"
 
 msgid "Choose another page"
 msgstr "选择其它页面"
