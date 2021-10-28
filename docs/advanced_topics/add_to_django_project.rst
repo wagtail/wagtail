@@ -59,7 +59,6 @@ Apps (``settings.py``)
     'wagtail.contrib.redirects',
     'wagtail.contrib.embeds',
     'wagtail.sites',
-    'wagtail.users',
     'wagtail.contrib.snippets',
     'wagtail.contrib.documents',
     'wagtail.contrib.images',
@@ -90,9 +89,6 @@ Wagtail Apps
 
 ``wagtail.contrib.snippets``
   Editing interface for non-Page models and objects. See :ref:`Snippets`.
-
-``wagtail.users``
-  User editing interface.
 
 ``wagtail.contrib.images``
   The Wagtail image content type.
@@ -191,7 +187,6 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.contrib.redirects',
       'wagtail.contrib.embeds',
       'wagtail.sites',
-      'wagtail.users',
       'wagtail.contrib.snippets',
       'wagtail.contrib.documents',
       'wagtail.contrib.images',

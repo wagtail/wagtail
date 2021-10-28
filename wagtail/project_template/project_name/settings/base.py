@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.redirects',
     'wagtail.contrib.embeds',
     'wagtail.sites',
-    'wagtail.users',
     'wagtail.contrib.snippets',
     'wagtail.contrib.documents',
     'wagtail.contrib.images',
