@@ -1,4 +1,9 @@
-import { compareVersion, versionOutOfDate, VersionNumber } from './version';
+import {
+  compareVersion,
+  versionOutOfDate,
+  VersionNumberFormatError,
+  VersionNumber,
+} from './version';
 
 describe.skip('version.compareVersion', () => {
   it('compares 1.12 and 1.11 correctly', () => {
@@ -127,5 +132,29 @@ describe('version.VersionNumber', () => {
     expect(result.patch).toBe(0);
     expect(result.preRelease).toBe('rc');
     expect(result.preReleaseVersion).toBe(23);
+  });
+
+  it('initialisation throws error for 1', () => {
+    expect(() => new VersionNumber('1')).toThrow(VersionNumberFormatError);
+  });
+
+  it('initialisation throws error for 1a', () => {
+    expect(() => new VersionNumber('1a')).toThrow(VersionNumberFormatError);
+  });
+
+  it('initialisation throws error for 1a0', () => {
+    expect(() => new VersionNumber('1a0')).toThrow(VersionNumberFormatError);
+  });
+
+  it('initialisation throws error for 1.0.0a0', () => {
+    expect(() => new VersionNumber('1.0.0a0')).toThrow(
+      VersionNumberFormatError,
+    );
+  });
+
+  it('initialisation throws error for text string', () => {
+    expect(() => new VersionNumber('not a number')).toThrow(
+      VersionNumberFormatError,
+    );
   });
 });

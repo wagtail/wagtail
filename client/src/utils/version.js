@@ -22,12 +22,21 @@ function versionOutOfDate(latestVersion, currentVersion) {
   return compareVersion(latestVersion, currentVersion) > 0;
 }
 
+class VersionNumberFormatError extends Error {
+  constructor(versionString) {
+    this.message = `Version number '${versionString}' is not formatted correctly.`;
+  }
+}
+
 class VersionNumber {
   constructor(versionString) {
     const versionRegex =
       /^(?<epic>\d+)\.{1}(?<major>\d+)((\.{1}(?<patch>\d+))|(?<preRelease>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
-    const groups = versionString.match(versionRegex).groups;
-    // TODO: Handle failing regex
+    const matches = versionString.match(versionRegex);
+    if (matches === null) {
+      throw new VersionNumberFormatError(versionString);
+    }
+    const groups = matches.groups;
 
     this.epic = parseInt(groups.epic);
     this.major = parseInt(groups.major);
@@ -40,4 +49,9 @@ class VersionNumber {
   }
 }
 
-export { compareVersion, versionOutOfDate, VersionNumber };
+export {
+  compareVersion,
+  versionOutOfDate,
+  VersionNumberFormatError,
+  VersionNumber,
+};
