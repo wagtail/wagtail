@@ -58,7 +58,6 @@ Apps (``settings.py``)
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.embeds',
-    'wagtail.sites',
     'wagtail.contrib.snippets',
     'wagtail.contrib.documents',
     'wagtail.contrib.images',
@@ -98,9 +97,6 @@ Wagtail Apps
 
 ``wagtail.search``
   Search framework for Page content. See :ref:`wagtailsearch`.
-
-``wagtail.sites``
-  Management UI for Wagtail sites.
 
 ``wagtail.contrib.redirects``
   Admin interface for creating arbitrary redirects on your site.
@@ -186,7 +182,6 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.contrib.forms',
       'wagtail.contrib.redirects',
       'wagtail.contrib.embeds',
-      'wagtail.sites',
       'wagtail.contrib.snippets',
       'wagtail.contrib.documents',
       'wagtail.contrib.images',
