@@ -140,7 +140,6 @@ INSTALLED_APPS = [
     'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
-    'wagtail.admin',
     'wagtail.api.v2',
     'wagtail',
 

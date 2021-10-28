@@ -64,7 +64,6 @@ Apps (``settings.py``)
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
-    'wagtail.admin',
     'wagtail',
 
     'taggit',
@@ -85,9 +84,6 @@ Wagtail Apps
 
 ``wagtail``
   The core functionality of Wagtail, such as the ``Page`` class, the Wagtail tree, and model fields.
-
-``wagtail.admin``
-  The administration interface for Wagtail, including page edit handlers.
 
 ``wagtail.documents``
   The Wagtail document content type.
@@ -200,7 +196,6 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.documents',
       'wagtail.images',
       'wagtail.search',
-      'wagtail.admin',
       'wagtail',
 
       'taggit',

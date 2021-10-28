@@ -1,16 +1,18 @@
+import utils
+
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.db import models
 from django.urls import reverse
 from django.utils.text import capfirst
-from django.utils.translation import gettext_lazy as _, ngettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext
 
 from wagtail import hooks
 from wagtail.coreutils import get_content_languages
 from wagtail.log_actions import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
-import utils
 
 
 @hooks.register('before_serve_page')
