@@ -1,7 +1,7 @@
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
-from wagtail.admin.edit_handlers import BaseChooserPanel
+from wagtail.edit_handlers import BaseChooserPanel
 
 from .widgets import AdminSnippetChooser
 

@@ -1,8 +1,8 @@
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
+from wagtail.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.models import Page
 from wagtail.test.testapp.models import BusinessChild, EventPage, SingleEventPage
 

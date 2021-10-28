@@ -13,13 +13,13 @@ from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
 
-from wagtail.admin.edit_handlers import (
-    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
-    RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
-    get_form_for_model)
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
+from wagtail.edit_handlers import (
+    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
+    RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
+    get_form_for_model)
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm

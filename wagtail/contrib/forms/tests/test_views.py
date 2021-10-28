@@ -11,11 +11,11 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from openpyxl import load_workbook
 
-from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
+from wagtail.edit_handlers import get_form_for_model
 from wagtail.models import Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldForCustomListViewPage,

@@ -158,7 +158,7 @@ change here) and want to use the new commenting system, your list of edit handle
     from django.db import models
 
     from wagtail.models import Page
-    from wagtail.admin.edit_handlers import CommentPanel
+    from wagtail.edit_handlers import CommentPanel
 
 
     class HomePage(Page):

@@ -5,9 +5,9 @@ from collections import OrderedDict
 from django.forms import Media, widgets
 from django.utils.functional import cached_property
 
-from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.edit_handlers import RichTextFieldPanel
 from wagtail.rich_text import features
 from wagtail.telepath import register
 from wagtail.widget_adapters import WidgetAdapter

@@ -30,7 +30,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
     from django.db import models
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )

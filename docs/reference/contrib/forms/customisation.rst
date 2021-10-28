@@ -14,7 +14,7 @@ You can do this as shown below.
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -65,7 +65,7 @@ Example:
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import models
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -126,7 +126,7 @@ The following example shows how to add a username to the CSV export:
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import models
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -204,7 +204,7 @@ Example:
     from django.db import models
     from django.shortcuts import render
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -300,7 +300,7 @@ The following example shows how to create a multi-step form.
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     from django.shortcuts import render
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -446,7 +446,7 @@ First, you need to collect results as shown below:
 .. code-block:: python
 
     from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel,
         InlinePanel, MultiFieldPanel
     )
@@ -563,7 +563,7 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
 .. code-block:: python
 
     from django.shortcuts import redirect
-    from wagtail.admin.edit_handlers import (
+    from wagtail.edit_handlers import (
         FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel, PageChooserPanel)
     from wagtail.contrib.forms.models import AbstractEmailForm
 

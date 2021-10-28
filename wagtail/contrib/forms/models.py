@@ -12,9 +12,9 @@ from django.utils.formats import date_format
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.mail import send_mail
 from wagtail.contrib.forms.utils import get_field_clean_name
+from wagtail.edit_handlers import FieldPanel
 from wagtail.models import Orderable, Page
 
 from .forms import FormBuilder, WagtailAdminFormPageForm

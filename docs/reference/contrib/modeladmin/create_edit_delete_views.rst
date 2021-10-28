@@ -231,7 +231,7 @@ and ManyToManyField fields.
 ``ModelAdmin.get_edit_handler()``
 -----------------------------------
 
-**Must return**: An instance of ``wagtail.admin.edit_handlers.ObjectList``
+**Must return**: An instance of ``wagtail.edit_handlers.ObjectList``
 
 Returns the appropriate ``edit_handler`` for the modeladmin class.
 ``edit_handlers`` can be defined either on the model itself or on the

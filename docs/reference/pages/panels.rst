@@ -6,11 +6,11 @@ Panel types
 Built-in Fields and Choosers
 ----------------------------
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
-.. module:: wagtail.admin.edit_handlers
+.. module:: wagtail.edit_handlers
 
 FieldPanel
 ~~~~~~~~~~
@@ -65,7 +65,7 @@ MultiFieldPanel
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several :class:`~wagtail.admin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
@@ -142,7 +142,7 @@ PageChooserPanel
     .. code-block:: python
 
         from wagtail.models import Page
-        from wagtail.admin.edit_handlers import PageChooserPanel
+        from wagtail.edit_handlers import PageChooserPanel
 
 
         class BookPage(Page):
@@ -286,7 +286,7 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Full-Width Input
 ~~~~~~~~~~~~~~~~
 
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
+Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
 
 
 Titles
@@ -410,7 +410,7 @@ Let's look at the example of adding related links to a :class:`~wagtail.models.P
       InlinePanel('related_links', label="Related Links"),
     ]
 
-The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.admin.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.admin.edit_handlers.InlinePanel` accepts:
+The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.edit_handlers.InlinePanel` accepts:
 
 .. code-block:: python
 

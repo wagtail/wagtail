@@ -2,7 +2,7 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from wagtail.admin.edit_handlers import EditHandler
+from wagtail.edit_handlers import EditHandler
 
 
 class FormSubmissionsPanel(EditHandler):

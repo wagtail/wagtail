@@ -90,7 +90,7 @@ class StreamField(models.Field):
         return 'TextField'
 
     def get_panel(self):
-        from wagtail.admin.edit_handlers import StreamFieldPanel
+        from wagtail.edit_handlers import StreamFieldPanel
         return StreamFieldPanel
 
     def deconstruct(self):

@@ -1,13 +1,15 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 
+from wagtail.admin.auth import permission_denied  # noqa
+from wagtail.edit_handlers import FieldPanel
+
+from .fields import ConvertedValueField
+
+
 # make sure we can import wagtail.admin.auth here without triggering a circular import
 # (which is easily done because it's dealing with django.contrib.auth views which depend
 # on the user model)
-from wagtail.admin.auth import permission_denied  # noqa
-from wagtail.admin.edit_handlers import FieldPanel
-
-from .fields import ConvertedValueField
 
 
 class CustomUserManager(BaseUserManager):

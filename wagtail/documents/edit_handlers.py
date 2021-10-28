@@ -1,4 +1,4 @@
-from wagtail.admin.edit_handlers import BaseChooserPanel
+from wagtail.edit_handlers import BaseChooserPanel
 
 from .widgets import AdminDocumentChooser
 

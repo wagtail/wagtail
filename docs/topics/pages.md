@@ -26,7 +26,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
@@ -137,8 +137,8 @@ Here's a summary of the `EditHandler` classes that Wagtail provides out of the b
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, though `StreamField` fields need to use a specialised panel class.
 
 ```eval_rst
--   :class:`~wagtail.admin.edit_handlers.FieldPanel`
--   :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
+-   :class:`~wagtail.edit_handlers.FieldPanel`
+-   :class:`~wagtail.edit_handlers.StreamFieldPanel`
 ```
 
 **Structural**
@@ -146,9 +146,9 @@ These allow editing of model fields. The `FieldPanel` class will choose the corr
 These are used for structuring fields in the interface.
 
 ```eval_rst
--   :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`
--   :class:`~wagtail.admin.edit_handlers.InlinePanel`
--   :class:`~wagtail.admin.edit_handlers.FieldRowPanel`
+-   :class:`~wagtail.edit_handlers.MultiFieldPanel`
+-   :class:`~wagtail.edit_handlers.InlinePanel`
+-   :class:`~wagtail.edit_handlers.FieldRowPanel`
 ```
 
 **Chooser**
@@ -156,7 +156,7 @@ These are used for structuring fields in the interface.
 `ForeignKey` fields to certain models can use one of the below `ChooserPanel` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
 
 ```eval_rst
--   :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
+-   :class:`~wagtail.edit_handlers.PageChooserPanel`
 -   :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
 -   :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
 -   :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
@@ -393,7 +393,7 @@ class BlogPageRelatedLink(Orderable):
 ```
 
 ```eval_rst
-To add this to the admin interface, use the :class:`~wagtail.admin.edit_handlers.InlinePanel` edit panel class:
+To add this to the admin interface, use the :class:`~wagtail.edit_handlers.InlinePanel` edit panel class:
 ```
 
 ```python

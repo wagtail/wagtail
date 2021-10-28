@@ -3,12 +3,14 @@ from django.db.models import Count, Model
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
+from wagtail import edit_handlers
+from wagtail.models import Page
+
+
 # The edit_handlers module extends Page with some additional attributes required by
 # wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
 # wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
 # system checks.
-from wagtail.admin import edit_handlers  # NOQA
-from wagtail.models import Page
 
 
 # A dummy model that exists purely to attach the access_admin permission type to, so that it

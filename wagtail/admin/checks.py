@@ -93,7 +93,7 @@ def inline_panel_model_panels_check(app_configs, **kwargs):
 
 def check_panels_in_model(cls, context='model'):
     """Check panels configuration uses `panels` when `edit_handler` not in use."""
-    from wagtail.admin.edit_handlers import BaseCompositeEditHandler, InlinePanel
+    from wagtail.edit_handlers import BaseCompositeEditHandler, InlinePanel
     from wagtail.models import Page
 
     errors = []
@@ -181,7 +181,7 @@ def traverse_edit_handlers(edit_handler):
 
 
 def check_stream_field_panel_type(edit_handler):
-    from wagtail.admin.edit_handlers import StreamFieldPanel
+    from wagtail.edit_handlers import StreamFieldPanel
     from wagtail.fields import StreamField
 
     try:
