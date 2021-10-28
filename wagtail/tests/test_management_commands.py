@@ -477,7 +477,7 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):
         with mock.patch(
-            'wagtail.models.ContentType.model_class',
+            'wagtail.models.pages.ContentType.model_class',
             return_value=None,
         ):
             management.call_command('create_log_entries_from_revisions')

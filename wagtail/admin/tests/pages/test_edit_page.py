@@ -141,7 +141,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
 
-    @mock.patch('wagtail.models.ContentType.model_class', return_value=None)
+    @mock.patch('wagtail.models.pages.ContentType.model_class', return_value=None)
     def test_edit_when_specific_class_cannot_be_found(self, mocked_method):
         with self.assertRaises(PageClassNotFoundError):
             self.client.get(reverse('wagtailadmin_pages:edit', args=(self.event_page.id, )))
