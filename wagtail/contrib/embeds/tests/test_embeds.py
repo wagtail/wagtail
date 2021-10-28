@@ -13,20 +13,21 @@ from django.urls import reverse
 from django.utils.timezone import make_aware, now
 
 from wagtail import blocks
-from wagtail.embeds import oembed_providers
-from wagtail.embeds.blocks import EmbedBlock, EmbedValue
-from wagtail.embeds.embeds import get_embed, get_embed_hash
-from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
-from wagtail.embeds.finders import get_finders
-from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
-from wagtail.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
-from wagtail.embeds.finders.facebook import AccessDeniedFacebookOEmbedException
-from wagtail.embeds.finders.facebook import FacebookOEmbedFinder as FacebookOEmbedFinder
-from wagtail.embeds.finders.instagram import AccessDeniedInstagramOEmbedException
-from wagtail.embeds.finders.instagram import InstagramOEmbedFinder as InstagramOEmbedFinder
-from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
-from wagtail.embeds.models import Embed
-from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
+from wagtail.contrib.embeds import oembed_providers
+from wagtail.contrib.embeds.blocks import EmbedBlock, EmbedValue
+from wagtail.contrib.embeds.embeds import get_embed, get_embed_hash
+from wagtail.contrib.embeds.exceptions import (
+    EmbedNotFoundException, EmbedUnsupportedProviderException)
+from wagtail.contrib.embeds.finders import get_finders
+from wagtail.contrib.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
+from wagtail.contrib.embeds.finders.embedly import EmbedlyFinder as EmbedlyFinder
+from wagtail.contrib.embeds.finders.facebook import AccessDeniedFacebookOEmbedException
+from wagtail.contrib.embeds.finders.facebook import FacebookOEmbedFinder as FacebookOEmbedFinder
+from wagtail.contrib.embeds.finders.instagram import AccessDeniedInstagramOEmbedException
+from wagtail.contrib.embeds.finders.instagram import InstagramOEmbedFinder as InstagramOEmbedFinder
+from wagtail.contrib.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
+from wagtail.contrib.embeds.models import Embed
+from wagtail.contrib.embeds.templatetags.wagtailembeds_tags import embed_tag
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -48,7 +49,7 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
-            'class': 'wagtail.embeds.finders.oembed'
+            'class': 'wagtail.contrib.embeds.finders.oembed'
         }
     ])
     def test_new_find_oembed(self):
@@ -59,7 +60,7 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
-            'class': 'wagtail.embeds.finders.embedly',
+            'class': 'wagtail.contrib.embeds.finders.embedly',
             'key': 'foo',
         }
     ])
@@ -72,7 +73,7 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
-            'class': 'wagtail.embeds.finders.oembed',
+            'class': 'wagtail.contrib.embeds.finders.oembed',
             'options': {'foo': 'bar'}
         }
     ])
@@ -85,7 +86,7 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
-            'class': 'wagtail.embeds.finders.instagram',
+            'class': 'wagtail.contrib.embeds.finders.instagram',
             'app_id': '1234567890',
             'app_secret': 'abcdefghijklmnop',
         },
@@ -102,7 +103,7 @@ class TestGetFinders(TestCase):
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
-            'class': 'wagtail.embeds.finders.facebook',
+            'class': 'wagtail.contrib.embeds.finders.facebook',
             'app_id': '1234567890',
             'app_secret': 'abcdefghijklmnop',
         },
@@ -270,7 +271,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'chooser')
         self.assertIn('value="http://example2.com"', response_json['html'])
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_submit_valid_embed(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />', title="An example embed")
 
@@ -282,7 +283,7 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'embed_chosen')
         self.assertEqual(response_json['embed_data']['title'], "An example embed")
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_submit_unrecognised_embed(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
@@ -673,7 +674,7 @@ class TestFacebookOEmbed(TestCase):
 
 
 class TestEmbedTag(TestCase):
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_direct_call(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
@@ -681,7 +682,7 @@ class TestEmbedTag(TestCase):
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_call_from_template(self, get_embed):
         get_embed.return_value = Embed(html='<img src="http://www.example.com" />')
 
@@ -690,7 +691,7 @@ class TestEmbedTag(TestCase):
 
         self.assertEqual(result, '<img src="http://www.example.com" />')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 
@@ -726,7 +727,7 @@ class TestEmbedBlock(TestCase):
         serialized_empty_val = block.get_prep_value(None)
         self.assertEqual(serialized_empty_val, '')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_render(self, get_embed):
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
@@ -743,7 +744,7 @@ class TestEmbedBlock(TestCase):
         # Check that get_embed was called correctly
         get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_render_within_structblock(self, get_embed):
         """
         When rendering the value of an EmbedBlock directly in a template
@@ -801,7 +802,7 @@ class TestEmbedBlock(TestCase):
         self.assertIsInstance(block5.get_default(), EmbedValue)
         self.assertEqual(block5.get_default().url, 'http://www.example.com/foo')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_clean_required(self, get_embed):
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
@@ -816,7 +817,7 @@ class TestEmbedBlock(TestCase):
         with self.assertRaisesMessage(ValidationError, ''):
             block.clean(None)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_clean_non_required(self, get_embed):
         get_embed.return_value = Embed(html='<h1>Hello world!</h1>')
 
@@ -831,7 +832,7 @@ class TestEmbedBlock(TestCase):
         cleaned_value = block.clean(None)
         self.assertIsNone(cleaned_value)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_clean_invalid_url(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
 

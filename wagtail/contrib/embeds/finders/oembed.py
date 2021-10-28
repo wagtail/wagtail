@@ -9,8 +9,8 @@ from urllib.request import Request
 
 from django.utils import timezone
 
-from wagtail.embeds.exceptions import EmbedNotFoundException
-from wagtail.embeds.oembed_providers import all_providers
+from wagtail.contrib.embeds.exceptions import EmbedNotFoundException
+from wagtail.contrib.embeds.oembed_providers import all_providers
 
 from .base import EmbedFinder
 

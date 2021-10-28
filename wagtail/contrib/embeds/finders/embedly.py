@@ -1,4 +1,4 @@
-from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
+from wagtail.contrib.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
 

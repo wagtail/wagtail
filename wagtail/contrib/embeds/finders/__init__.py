@@ -29,7 +29,7 @@ def _get_config_from_settings():
         # Default to the oembed backend
         return [
             {
-                'class': 'wagtail.embeds.finders.oembed',
+                'class': 'wagtail.contrib.embeds.finders.oembed',
             }
         ]
 

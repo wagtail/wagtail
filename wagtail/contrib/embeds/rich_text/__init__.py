@@ -1,6 +1,6 @@
-from wagtail.embeds import format
-from wagtail.embeds.embeds import get_embed
-from wagtail.embeds.models import Embed
+from wagtail.contrib.embeds import format
+from wagtail.contrib.embeds.embeds import get_embed
+from wagtail.contrib.embeds.models import Embed
 from wagtail.rich_text import EmbedHandler
 
 

@@ -1,7 +1,7 @@
 from django.db import migrations
 from django.db.models import Count, Min
 
-from wagtail.embeds.embeds import get_embed_hash
+from wagtail.contrib.embeds.embeds import get_embed_hash
 
 
 def migrate_forwards(apps, schema_editor):

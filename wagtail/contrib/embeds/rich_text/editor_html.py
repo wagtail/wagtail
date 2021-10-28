@@ -1,6 +1,6 @@
 from wagtail.admin.rich_text.converters import editor_html
-from wagtail.embeds import format
-from wagtail.embeds.exceptions import EmbedException
+from wagtail.contrib.embeds import format
+from wagtail.contrib.embeds.exceptions import EmbedException
 
 
 # hallo.js / editor-html conversion

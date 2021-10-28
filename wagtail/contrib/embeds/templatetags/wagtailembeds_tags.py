@@ -1,8 +1,8 @@
 from django import template
 from django.utils.safestring import mark_safe
 
-from wagtail.embeds import embeds
-from wagtail.embeds.exceptions import EmbedException
+from wagtail.contrib.embeds import embeds
+from wagtail.contrib.embeds.exceptions import EmbedException
 
 
 register = template.Library()

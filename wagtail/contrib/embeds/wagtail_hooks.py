@@ -6,10 +6,10 @@ import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
 from wagtail import hooks
 from wagtail.admin.rich_text import HalloPlugin
-from wagtail.embeds import urls
-from wagtail.embeds.rich_text import MediaEmbedHandler
-from wagtail.embeds.rich_text.contentstate import ContentstateMediaConversionRule
-from wagtail.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
+from wagtail.contrib.embeds import urls
+from wagtail.contrib.embeds.rich_text import MediaEmbedHandler
+from wagtail.contrib.embeds.rich_text.contentstate import ContentstateMediaConversionRule
+from wagtail.contrib.embeds.rich_text.editor_html import EditorHTMLEmbedConversionRule
 
 
 @hooks.register('register_admin_urls')

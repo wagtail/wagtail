@@ -1,7 +1,7 @@
 from django.template.loader import render_to_string
 
-from wagtail.embeds import embeds
-from wagtail.embeds.exceptions import EmbedException
+from wagtail.contrib.embeds import embeds
+from wagtail.contrib.embeds.exceptions import EmbedException
 
 
 def embed_to_frontend_html(url, max_width=None, max_height=None):

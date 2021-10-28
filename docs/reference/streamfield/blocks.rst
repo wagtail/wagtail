@@ -323,7 +323,7 @@ Field block types
    :param required: If true (the default), the field cannot be left blank.
 
 
-.. class:: wagtail.embeds.blocks.EmbedBlock
+.. class:: wagtail.contrib.embeds.blocks.EmbedBlock
 
    A field for the editor to enter a URL to a media item (such as a YouTube video) to appear as embedded media on the page. The following keyword arguments are accepted in addition to the standard ones:
 

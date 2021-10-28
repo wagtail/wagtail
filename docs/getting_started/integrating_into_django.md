@@ -20,7 +20,7 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 ```python
 'wagtail.contrib.forms',
 'wagtail.contrib.redirects',
-'wagtail.embeds',
+'wagtail.contrib.embeds',
 'wagtail.sites',
 'wagtail.users',
 'wagtail.snippets',

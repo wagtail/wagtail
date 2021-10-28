@@ -160,7 +160,7 @@ The full list of modules to be renamed is as follows:
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtaildocs                     | wagtail.contrib.documents                 | 'documents' no longer abbreviated |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
-| wagtail.wagtailembeds                   | wagtail.embeds                    |                                   |
+| wagtail.wagtailembeds                   | wagtail.contrib.embeds                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+
 | wagtail.wagtailimages                   | wagtail.contrib.images                    |                                   |
 +-----------------------------------------+-----------------------------------+-----------------------------------+

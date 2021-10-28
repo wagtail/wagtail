@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.embeds.views import chooser
+from wagtail.contrib.embeds.views import chooser
 
 
 app_name = 'wagtailembeds'

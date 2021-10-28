@@ -85,9 +85,9 @@ class TestExpandDbHtml(TestCase):
         result = expand_db_html(html)
         self.assertEqual(result, '<a id="1">foo</a>')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_html_with_embed(self, get_embed):
-        from wagtail.embeds.models import Embed
+        from wagtail.contrib.embeds.models import Embed
         get_embed.return_value = Embed(html='test html')
         html = '<embed embedtype="media" url="http://www.youtube.com/watch" />'
         result = expand_db_html(html)

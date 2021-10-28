@@ -6,7 +6,7 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
 from urllib.request import Request
 
-from wagtail.embeds.exceptions import EmbedException, EmbedNotFoundException
+from wagtail.contrib.embeds.exceptions import EmbedException, EmbedNotFoundException
 
 from .base import EmbedFinder
 

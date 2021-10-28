@@ -3,10 +3,11 @@ from unittest.mock import patch
 from bs4 import BeautifulSoup
 from django.test import TestCase, override_settings
 
-from wagtail.embeds.exceptions import EmbedNotFoundException
-from wagtail.embeds.models import Embed
-from wagtail.embeds.rich_text import MediaEmbedHandler as FrontendMediaEmbedHandler
-from wagtail.embeds.rich_text.editor_html import MediaEmbedHandler as EditorHtmlMediaEmbedHandler
+from wagtail.contrib.embeds.exceptions import EmbedNotFoundException
+from wagtail.contrib.embeds.models import Embed
+from wagtail.contrib.embeds.rich_text import MediaEmbedHandler as FrontendMediaEmbedHandler
+from wagtail.contrib.embeds.rich_text.editor_html import \
+    MediaEmbedHandler as EditorHtmlMediaEmbedHandler
 from wagtail.rich_text import expand_db_html
 
 
@@ -20,7 +21,7 @@ class TestEditorHtmlMediaEmbedHandler(TestCase):
             {'url': 'test-url'}
         )
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_attributes_for_editor(self, get_embed):
         get_embed.return_value = Embed(
             url='http://www.youtube.com/watch/',
@@ -51,7 +52,7 @@ class TestEditorHtmlMediaEmbedHandler(TestCase):
         self.assertIn('<p>Author: test author name</p>', result)
         self.assertIn('<img src="http://test/thumbnail.url" alt="test title">', result)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_attributes_for_editor_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
         result = EditorHtmlMediaEmbedHandler.expand_db_attributes({
@@ -62,7 +63,7 @@ class TestEditorHtmlMediaEmbedHandler(TestCase):
 
 class TestFrontendMediaEmbedHandler(TestCase):
     @override_settings(WAGTAILEMBEDS_RESPONSIVE_HTML=True)
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_attributes_for_frontend_responsive(self, get_embed):
         get_embed.return_value = Embed(
             url='http://www.youtube.com/watch/',
@@ -83,7 +84,7 @@ class TestFrontendMediaEmbedHandler(TestCase):
         self.assertIn('test html', result)
         self.assertIn('class="responsive-object"', result)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_attributes_for_frontend_nonresponsive(self, get_embed):
         get_embed.return_value = Embed(
             url='http://www.youtube.com/watch/',
@@ -104,7 +105,7 @@ class TestFrontendMediaEmbedHandler(TestCase):
         self.assertIn('test html', result)
         self.assertNotIn('class="responsive-object"', result)
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_db_attributes_for_frontend_catches_embed_not_found(self, get_embed):
         get_embed.side_effect = EmbedNotFoundException
         result = FrontendMediaEmbedHandler.expand_db_attributes({
@@ -112,7 +113,7 @@ class TestFrontendMediaEmbedHandler(TestCase):
         })
         self.assertEqual(result, '')
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_expand_html_escaping_end_to_end(self, get_embed):
         get_embed.return_value = Embed(
             url='http://www.youtube.com/watch/',

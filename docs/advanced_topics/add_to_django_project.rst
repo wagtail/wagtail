@@ -57,7 +57,7 @@ Apps (``settings.py``)
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
-    'wagtail.embeds',
+    'wagtail.contrib.embeds',
     'wagtail.sites',
     'wagtail.users',
     'wagtail.snippets',
@@ -97,7 +97,7 @@ Wagtail Apps
 ``wagtail.contrib.images``
   The Wagtail image content type.
 
-``wagtail.embeds``
+``wagtail.contrib.embeds``
   Module governing oEmbed and Embedly content in Wagtail rich text fields. See :ref:`inserting_videos`.
 
 ``wagtail.search``
@@ -189,7 +189,7 @@ These two files should reside in your project directory (``myproject/myproject/`
 
       'wagtail.contrib.forms',
       'wagtail.contrib.redirects',
-      'wagtail.embeds',
+      'wagtail.contrib.embeds',
       'wagtail.sites',
       'wagtail.users',
       'wagtail.snippets',

@@ -2,11 +2,12 @@ from django.forms.utils import ErrorList
 from django.utils.translation import gettext as _
 
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.embeds import embeds
-from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
-from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
-from wagtail.embeds.format import embed_to_editor_html
-from wagtail.embeds.forms import EmbedForm
+from wagtail.contrib.embeds import embeds
+from wagtail.contrib.embeds.exceptions import (
+    EmbedNotFoundException, EmbedUnsupportedProviderException)
+from wagtail.contrib.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
+from wagtail.contrib.embeds.format import embed_to_editor_html
+from wagtail.contrib.embeds.forms import EmbedForm
 
 
 def chooser(request):

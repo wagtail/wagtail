@@ -8,7 +8,7 @@ from draftjs_exporter.html import HTML as HTMLExporter
 
 from wagtail.admin.rich_text.converters.contentstate import (
     ContentstateConverter, persist_key_for_block)
-from wagtail.embeds.models import Embed
+from wagtail.contrib.embeds.models import Embed
 
 
 def content_state_equal(v1, v2, match_keys=False):
@@ -519,7 +519,7 @@ class TestHtmlToContentState(TestCase):
             ]
         })
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_media_embed(self, get_embed):
         get_embed.return_value = Embed(
             url='https://www.youtube.com/watch?v=Kh0Y2hVe_bw',
@@ -563,7 +563,7 @@ class TestHtmlToContentState(TestCase):
             }
         })
 
-    @patch('wagtail.embeds.embeds.get_embed')
+    @patch('wagtail.contrib.embeds.embeds.get_embed')
     def test_add_spacer_paras_between_media_embeds(self, get_embed):
         get_embed.return_value = Embed(
             url='https://www.youtube.com/watch?v=Kh0Y2hVe_bw',
