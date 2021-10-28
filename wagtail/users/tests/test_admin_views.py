@@ -15,10 +15,10 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
-from wagtail.core.models import Collection, GroupCollectionPermission, GroupPagePermission, Page
+from wagtail.core.models import (
+    Collection, GroupCollectionPermission, GroupPagePermission, Page, UserProfile)
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
-from wagtail.users.models import UserProfile
 from wagtail.users.views.groups import GroupViewSet
 from wagtail.users.views.users import get_user_creation_form, get_user_edit_form
 from wagtail.users.wagtail_hooks import get_group_viewset_cls

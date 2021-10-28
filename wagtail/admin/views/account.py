@@ -21,8 +21,7 @@ from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordRese
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.core import hooks
 from wagtail.core.log_actions import log
-from wagtail.core.models import UserPagePermissionsProxy
-from wagtail.users.models import UserProfile
+from wagtail.core.models import UserPagePermissionsProxy, UserProfile
 from wagtail.utils.loading import get_custom_form
 
 

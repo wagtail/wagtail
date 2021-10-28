@@ -8,7 +8,7 @@ Adding new panels
 -----------------
 
 Each panel on this form is a separate model form which can operate on an instance of either the user model, or the
-:class:`~wagtail.users.models.UserProfile` model.
+:class:`~wagtail.core.models.UserProfile` model.
 
 Basic example
 ~~~~~~~~~~~~~
@@ -58,7 +58,7 @@ The attributes are as follows:
 Operating on the ``UserProfile`` model
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To add a panel that alters data on the user's :class:`~wagtail.users.models.UserProfile` instance, set ``form_object`` to ``'profile'``:
+To add a panel that alters data on the user's :class:`~wagtail.core.models.UserProfile` instance, set ``form_object`` to ``'profile'``:
 
 
   .. code-block:: python
@@ -66,7 +66,7 @@ To add a panel that alters data on the user's :class:`~wagtail.users.models.User
     # forms.py
 
     from django import forms
-    from wagtail.users.models import UserProfile
+    from wagtail.core.models import UserProfile
 
     class CustomProfileSettingsForm(forms.ModelForm):
 

@@ -8,9 +8,8 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import GroupApprovalTask, TaskState, WorkflowState
+from wagtail.core.models import GroupApprovalTask, TaskState, UserProfile, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
-from wagtail.users.models import UserProfile
 
 
 logger = logging.getLogger('wagtail.admin')

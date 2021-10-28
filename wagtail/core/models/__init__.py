@@ -71,6 +71,7 @@ from .i18n import (  # noqa
     BootstrapTranslatableMixin, BootstrapTranslatableModel, Locale, LocaleManager,
     TranslatableMixin, bootstrap_translatable_model, get_translatable_models)
 from .sites import Site, SiteManager, SiteRootPath  # noqa
+from .user_profile import UserProfile  # noqa
 from .view_restrictions import BaseViewRestriction
 
 

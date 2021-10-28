@@ -13,11 +13,11 @@ from freezegun import freeze_time
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import (
-    GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
+    GroupApprovalTask, Page, Task, TaskState, UserProfile, Workflow, WorkflowPage, WorkflowState,
+    WorkflowTask)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import SimplePage, SimpleTask
 from wagtail.tests.utils import WagtailTestUtils
-from wagtail.users.models import UserProfile
 
 
 def delete_existing_workflows():
