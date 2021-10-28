@@ -487,7 +487,7 @@ For example:
     from django.db import models
 
     from wagtail.models import TranslatableMixin
-    from wagtail.snippets.models import register_snippet
+    from wagtail.contrib.snippets.models import register_snippet
 
 
     @register_snippet
@@ -523,7 +523,7 @@ This will add the two fields without any constraints:
     from django.db import models
 
     from wagtail.models import BootstrapTranslatableMixin
-    from wagtail.snippets.models import register_snippet
+    from wagtail.contrib.snippets.models import register_snippet
 
 
     @register_snippet

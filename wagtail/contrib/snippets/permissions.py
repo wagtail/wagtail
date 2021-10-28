@@ -1,6 +1,6 @@
 from django.contrib.auth import get_permission_codename
 
-from wagtail.snippets.models import get_snippet_models
+from wagtail.contrib.snippets.models import get_snippet_models
 
 
 def get_permission_name(action, model):

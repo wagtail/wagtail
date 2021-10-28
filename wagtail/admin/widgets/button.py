@@ -46,7 +46,7 @@ class Button:
 
 
 # Base class for all listing buttons
-# This is also used by SnippetListingButton defined in wagtail.snippets.widgets
+# This is also used by SnippetListingButton defined in wagtail.contrib.snippets.widgets
 class ListingButton(Button):
     def __init__(self, label, url, classes=set(), **kwargs):
         classes = {'button', 'button-small', 'button-secondary'} | set(classes)

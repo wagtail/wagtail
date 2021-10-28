@@ -316,7 +316,7 @@ Field block types
    :param required: If true (the default), the field cannot be left blank.
 
 
-.. class:: wagtail.snippets.blocks.SnippetChooserBlock
+.. class:: wagtail.contrib.snippets.blocks.SnippetChooserBlock
 
    A control to allow the editor to select a snippet object. Requires one positional argument: the snippet class to choose from. The following additional keyword argument is accepted:
 

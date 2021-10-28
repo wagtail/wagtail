@@ -774,7 +774,7 @@ Let's add a category system to our blog. Unlike tags, where a page author can br
 First, we define a `BlogCategory` model. A category is not a page in its own right, and so we define it as a standard Django `models.Model` rather than inheriting from `Page`. Wagtail introduces the concept of "snippets" for reusable pieces of content that need to be managed through the admin interface, but do not exist as part of the page tree themselves; a model can be registered as a snippet by adding the `@register_snippet` decorator. All the field types we've used so far on pages can be used on snippets too - here we'll give each category an icon image as well as a name. Add to `blog/models.py`:
 
 ```python
-from wagtail.snippets.models import register_snippet
+from wagtail.contrib.snippets.models import register_snippet
 
 
 @register_snippet

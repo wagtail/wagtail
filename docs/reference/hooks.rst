@@ -1276,7 +1276,7 @@ Hooks for working with registered Snippets.
 
   Add an item to the popup menu of actions on the snippet creation and edit views.
   The callable passed to this hook must return an instance of
-  ``wagtail.snippets.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
+  ``wagtail.contrib.snippets.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -1296,7 +1296,7 @@ Hooks for working with registered Snippets.
   .. code-block:: python
 
     from wagtail import hooks
-    from wagtail.snippets.action_menu import ActionMenuItem
+    from wagtail.contrib.snippets.action_menu import ActionMenuItem
 
     class GuacamoleMenuItem(ActionMenuItem):
         name = 'action-guacamole'
@@ -1355,7 +1355,7 @@ Hooks for working with registered Snippets.
 
   .. code-block:: python
 
-    from wagtail.snippets import widgets as wagtailsnippets_widgets
+    from wagtail.contrib.snippets import widgets as wagtailsnippets_widgets
 
     @hooks.register('register_snippet_listing_buttons')
     def snippet_listing_buttons(snippet, user, next_url=None):

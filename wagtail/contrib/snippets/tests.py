@@ -21,15 +21,15 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.blocks.field_block import FieldBlockAdapter
+from wagtail.contrib.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
+from wagtail.contrib.snippets.blocks import SnippetChooserBlock
+from wagtail.contrib.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.contrib.snippets.models import SNIPPET_MODELS, register_snippet
+from wagtail.contrib.snippets.views.snippets import get_snippet_edit_handler
+from wagtail.contrib.snippets.widgets import (
+    AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
 from wagtail.edit_handlers import FieldPanel
 from wagtail.models import Locale, ModelLogEntry, Page, logging
-from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
-from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
-from wagtail.snippets.views.snippets import get_snippet_edit_handler
-from wagtail.snippets.widgets import (
-    AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
 from wagtail.test.snippets.forms import FancySnippetForm
 from wagtail.test.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,

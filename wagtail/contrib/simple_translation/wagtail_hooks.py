@@ -5,8 +5,8 @@ from django.utils.translation import gettext as _
 
 from wagtail import hooks
 from wagtail.admin import widgets as wagtailadmin_widgets
+from wagtail.contrib.snippets.widgets import SnippetListingButton
 from wagtail.models import Locale, TranslatableMixin
-from wagtail.snippets.widgets import SnippetListingButton
 
 from .views import SubmitPageTranslationView, SubmitSnippetTranslationView
 

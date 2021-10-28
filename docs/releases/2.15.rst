@@ -210,7 +210,7 @@ User code that creates these objects should be updated to follow the component A
    * Any place where the ``render(self)`` method is overridden should be changed to ``render_html(self, parent_context)``;
    * Any place where the ``get_context(self)`` method is overridden should be changed to ``get_context_data(self, parent_context)``.
 
- * Action menu items for pages and snippets can continue to inherit from ``wagtail.admin.action_menu.ActionMenuItem`` and ``wagtail.snippets.action_menu.ActionMenuItem`` respectively - these are now subclasses of ``Component`` - but:
+ * Action menu items for pages and snippets can continue to inherit from ``wagtail.admin.action_menu.ActionMenuItem`` and ``wagtail.contrib.snippets.action_menu.ActionMenuItem`` respectively - these are now subclasses of ``Component`` - but:
 
    * Any ``template`` attribute should be changed to ``template_name``;
    * Any ``get_context`` method should be renamed to ``get_context_data``;

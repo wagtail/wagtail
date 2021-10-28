@@ -6,11 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.snippets import urls
-from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import (
+from wagtail.contrib.snippets import urls
+from wagtail.contrib.snippets.models import get_snippet_models
+from wagtail.contrib.snippets.permissions import (
     get_permission_name, user_can_edit_snippet_type, user_can_edit_snippets)
-from wagtail.snippets.widgets import SnippetListingButton
+from wagtail.contrib.snippets.widgets import SnippetListingButton
 
 
 @hooks.register('register_admin_urls')

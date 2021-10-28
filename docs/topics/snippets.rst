@@ -18,7 +18,7 @@ Here's an example snippet model:
   from django.db import models
 
   from wagtail.edit_handlers import FieldPanel
-  from wagtail.snippets.models import register_snippet
+  from wagtail.contrib.snippets.models import register_snippet
 
   ...
 
@@ -101,7 +101,7 @@ In the above example, the list of adverts is a fixed list that is displayed via 
 
 .. code-block:: python
 
-  from wagtail.snippets.edit_handlers import SnippetChooserPanel
+  from wagtail.contrib.snippets.edit_handlers import SnippetChooserPanel
   # ...
   class BookPage(Page):
       advert = models.ForeignKey(
@@ -128,7 +128,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   from django.db import models
 
   from wagtail.models import Page, Orderable
-  from wagtail.snippets.edit_handlers import SnippetChooserPanel
+  from wagtail.contrib.snippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
 

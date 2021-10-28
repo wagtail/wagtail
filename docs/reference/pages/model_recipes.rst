@@ -244,7 +244,7 @@ By default, tag fields work on a "free tagging" basis: editors can enter anythin
 .. code-block:: python
 
     from taggit.models import TagBase
-    from wagtail.snippets.models import register_snippet
+    from wagtail.contrib.snippets.models import register_snippet
 
     @register_snippet
     class BlogTag(TagBase):

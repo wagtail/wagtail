@@ -23,7 +23,7 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 'wagtail.contrib.embeds',
 'wagtail.sites',
 'wagtail.users',
-'wagtail.snippets',
+'wagtail.contrib.snippets',
 'wagtail.contrib.documents',
 'wagtail.contrib.images',
 'wagtail.search',

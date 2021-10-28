@@ -20,15 +20,15 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic.models import IndexView
+from wagtail.contrib.snippets.action_menu import SnippetActionMenu
+from wagtail.contrib.snippets.models import get_snippet_models
+from wagtail.contrib.snippets.permissions import get_permission_name, user_can_edit_snippet_type
 from wagtail.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.logging import log
 from wagtail.logging import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
-from wagtail.snippets.action_menu import SnippetActionMenu
-from wagtail.snippets.models import get_snippet_models
-from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
 
 
 # == Helper functions ==

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from wagtail.snippets.views import chooser, snippets
+from wagtail.contrib.snippets.views import chooser, snippets
 
 
 app_name = 'wagtailsnippets'

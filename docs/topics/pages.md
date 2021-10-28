@@ -159,7 +159,7 @@ These are used for structuring fields in the interface.
 -   :class:`~wagtail.edit_handlers.PageChooserPanel`
 -   :class:`~wagtail.contrib.images.edit_handlers.ImageChooserPanel`
 -   :class:`~wagtail.contrib.documents.edit_handlers.DocumentChooserPanel`
--   :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
+-   :class:`~wagtail.contrib.snippets.edit_handlers.SnippetChooserPanel`
 
 .. note::
 

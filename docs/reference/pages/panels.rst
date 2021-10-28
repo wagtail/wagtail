@@ -252,7 +252,7 @@ DocumentChooserPanel
 SnippetChooserPanel
 ~~~~~~~~~~~~~~~~~~~
 
-.. module:: wagtail.snippets.edit_handlers
+.. module:: wagtail.contrib.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
@@ -260,7 +260,7 @@ SnippetChooserPanel
 
     .. code-block:: python
 
-      from wagtail.snippets.edit_handlers import SnippetChooserPanel
+      from wagtail.contrib.snippets.edit_handlers import SnippetChooserPanel
 
       class BookPage(Page):
           advert = models.ForeignKey(

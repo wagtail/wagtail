@@ -60,7 +60,7 @@ Apps (``settings.py``)
     'wagtail.contrib.embeds',
     'wagtail.sites',
     'wagtail.users',
-    'wagtail.snippets',
+    'wagtail.contrib.snippets',
     'wagtail.contrib.documents',
     'wagtail.contrib.images',
     'wagtail.search',
@@ -88,7 +88,7 @@ Wagtail Apps
 ``wagtail.contrib.documents``
   The Wagtail document content type.
 
-``wagtail.snippets``
+``wagtail.contrib.snippets``
   Editing interface for non-Page models and objects. See :ref:`Snippets`.
 
 ``wagtail.users``
@@ -192,7 +192,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.contrib.embeds',
       'wagtail.sites',
       'wagtail.users',
-      'wagtail.snippets',
+      'wagtail.contrib.snippets',
       'wagtail.contrib.documents',
       'wagtail.contrib.images',
       'wagtail.search',

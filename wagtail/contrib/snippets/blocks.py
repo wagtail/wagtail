@@ -15,7 +15,7 @@ class SnippetChooserBlock(ChooserBlock):
 
     @cached_property
     def widget(self):
-        from wagtail.snippets.widgets import AdminSnippetChooser
+        from wagtail.contrib.snippets.widgets import AdminSnippetChooser
         return AdminSnippetChooser(self.target_model)
 
     def get_form_state(self, value):

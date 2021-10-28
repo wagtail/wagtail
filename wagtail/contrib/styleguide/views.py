@@ -11,8 +11,8 @@ from wagtail.admin.widgets import (
     SwitchInput)
 from wagtail.contrib.documents.widgets import AdminDocumentChooser
 from wagtail.contrib.images.widgets import AdminImageChooser
+from wagtail.contrib.snippets.widgets import AdminSnippetChooser
 from wagtail.models import Page
-from wagtail.snippets.widgets import AdminSnippetChooser
 
 
 class ExampleForm(forms.Form):
