@@ -105,7 +105,7 @@ The locales that are enabled on a site are recorded in the ``Locale`` model in
 stores the `BCP-47 language tag <https://en.wikipedia.org/wiki/IETF_language_tag>`_
 that represents this locale.
 
-The locale records can be set up with an :ref:`optional management UI <enabling_locale_management>` or created
+The locale records can be set up with the management UI under Settings -> Locales in the admin or created
 in the shell. The possible values of the ``language_code`` field are controlled
 by the ``WAGTAIL_CONTENT_LANGUAGES`` setting.
 
@@ -213,26 +213,6 @@ All the ``en-`` locales will use the "English" language tree, and the ``fr-``
 locales will use the "French" language tree. The differences between each locale
 in a language would be programmatic. For example: which date/number format to
 use, and what currency to display prices in.
-
-.. _enabling_locale_management:
-
-Enabling the locale management UI (optional)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-An optional locale management app exists to allow a Wagtail administrator to
-set up the locales from the Wagtail admin interface.
-
-To enable it, add ``wagtail.locales`` into ``INSTALLED_APPS``:
-
-.. code-block:: python
-
-    # my_project/settings.py
-
-    INSTALLED_APPS = [
-        # ...
-        'wagtail.locales',
-        # ...
-    ]
 
 Adding a language prefix to URLs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
