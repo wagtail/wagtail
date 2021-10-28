@@ -14,7 +14,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import override
 
 from wagtail.admin import messages
-from wagtail.log_actions import LogContext
+from wagtail.logging import LogContext
 from wagtail.models import GroupPagePermission
 
 

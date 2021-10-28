@@ -20,7 +20,7 @@ from wagtail.admin.forms.account import (
     AvatarPreferencesForm, LocalePreferencesForm, NameEmailForm, NotificationPreferencesForm)
 from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
-from wagtail.log_actions import log
+from wagtail.logging import log
 from wagtail.models import UserPagePermissionsProxy, UserProfile, admin
 from wagtail.utils.loading import get_custom_form
 

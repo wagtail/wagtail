@@ -12,7 +12,7 @@ from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
 from wagtail.contrib.search_promotions.models import Query
-from wagtail.log_actions import log
+from wagtail.logging import log
 
 
 @any_permission_required(

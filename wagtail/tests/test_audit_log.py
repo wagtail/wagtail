@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.log_actions import LogActionRegistry
+from wagtail.logging import LogActionRegistry
 from wagtail.models import Page, PageViewRestriction, logging, workflows
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils

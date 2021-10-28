@@ -51,7 +51,7 @@ from wagtail.edit_handlers import (
     CommentPanel, FieldPanel, MultiFieldPanel, ObjectList, PrivacyModalPanel, PublishingPanel,
     TabbedInterface)
 from wagtail.fields import StreamField
-from wagtail.log_actions import log
+from wagtail.logging import log
 from wagtail.models.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (

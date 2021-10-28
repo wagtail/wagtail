@@ -15,7 +15,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
 from wagtail.forms import TaskStateCommentForm
-from wagtail.log_actions import log
+from wagtail.logging import log
 from wagtail.models import Orderable, Page, PageRevision, WorkflowPage
 from wagtail.models.copying import _copy, _copy_m2m_relations
 from wagtail.signals import (

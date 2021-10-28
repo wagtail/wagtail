@@ -15,7 +15,7 @@ from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
-from wagtail.log_actions import log
+from wagtail.logging import log
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME

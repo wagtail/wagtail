@@ -10,7 +10,7 @@ from django.utils.translation import ngettext
 
 from wagtail import hooks
 from wagtail.coreutils import get_content_languages
-from wagtail.log_actions import LogFormatter
+from wagtail.logging import LogFormatter
 from wagtail.models import ModelLogEntry, Page, PageViewRestriction, logging
 from wagtail.rich_text.pages import PageLinkHandler
 

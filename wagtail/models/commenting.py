@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 
-from wagtail.log_actions import log
+from wagtail.logging import log
 
 
 COMMENTS_RELATION_NAME = getattr(settings, 'WAGTAIL_COMMENTS_RELATION_NAME', 'wagtail_admin_comments')
