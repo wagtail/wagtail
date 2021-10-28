@@ -17,8 +17,8 @@ from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.mail import send_mail
 from wagtail.admin.menu import MenuItem
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import RestaurantTag
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import RestaurantTag
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestHome(TestCase, WagtailTestUtils):

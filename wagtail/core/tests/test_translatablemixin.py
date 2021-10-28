@@ -5,7 +5,7 @@ from django.core import checks
 from django.test import TestCase
 
 from wagtail.core.models import Locale
-from wagtail.tests.i18n.models import (
+from wagtail.test.i18n.models import (
     ClusterableTestModel, ClusterableTestModelChild, ClusterableTestModelTranslatableChild,
     InheritedTestModel, TestModel)
 

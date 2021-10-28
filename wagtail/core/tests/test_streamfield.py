@@ -13,7 +13,7 @@ from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import RichText
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import BlockCountsStreamModel, MinMaxCountStreamModel, StreamModel
+from wagtail.test.testapp.models import BlockCountsStreamModel, MinMaxCountStreamModel, StreamModel
 
 
 class TestLazyStreamField(TestCase):

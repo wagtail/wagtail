@@ -7,8 +7,8 @@ from django.utils import timezone
 from freezegun import freeze_time
 
 from wagtail.core.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAuditLogAdmin(TestCase, WagtailTestUtils):

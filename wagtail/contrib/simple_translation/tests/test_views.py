@@ -11,9 +11,9 @@ from wagtail.contrib.simple_translation.views import (
     SubmitPageTranslationView, SubmitSnippetTranslationView, SubmitTranslationView)
 from wagtail.core import hooks
 from wagtail.core.models import Locale, Page, ParentNotTranslatedError
-from wagtail.tests.i18n.models import TestPage
-from wagtail.tests.snippets.models import TranslatableSnippet
-from wagtail.tests.utils import TestCase, WagtailTestUtils
+from wagtail.test.i18n.models import TestPage
+from wagtail.test.snippets.models import TranslatableSnippet
+from wagtail.test.utils import TestCase, WagtailTestUtils
 
 
 @override_settings(

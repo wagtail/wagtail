@@ -12,8 +12,8 @@ from django.urls import reverse
 
 from wagtail.core.models import Page, PageRevision, UserProfile
 from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):

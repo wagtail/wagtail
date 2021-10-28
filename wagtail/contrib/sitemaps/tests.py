@@ -9,7 +9,7 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.core.models import Page, PageViewRestriction, Site
-from wagtail.tests.testapp.models import EventIndex, SimplePage
+from wagtail.test.testapp.models import EventIndex, SimplePage
 
 from .sitemap_generator import Sitemap
 

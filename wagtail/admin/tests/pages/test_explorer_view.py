@@ -7,8 +7,8 @@ from django.urls import reverse
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page
-from wagtail.tests.testapp.models import SimplePage, SingleEventPage, StandardIndex
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage, SingleEventPage, StandardIndex
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageExplorer(TestCase, WagtailTestUtils):

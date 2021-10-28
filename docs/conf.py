@@ -43,7 +43,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # Autodoc may need to import some models modules which require django settings
 # be configured
-os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.test.settings'
 django.setup()
 
 # Use SQLite3 database engine so it doesn't attempt to use psycopg2 on RTD

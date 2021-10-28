@@ -205,7 +205,7 @@ class TestDirectDocumentUrls(TestCase):
 
 @override_settings(
     WAGTAILDOCS_SERVE_METHOD=None,
-    DEFAULT_FILE_STORAGE='wagtail.tests.dummy_external_storage.DummyExternalStorage'
+    DEFAULT_FILE_STORAGE='wagtail.test.dummy_external_storage.DummyExternalStorage'
 )
 class TestServeWithExternalStorage(TestCase):
     """

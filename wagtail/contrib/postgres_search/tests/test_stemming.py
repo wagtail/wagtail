@@ -5,7 +5,7 @@ from django.db import connection
 from django.test import TestCase
 
 from wagtail.search.backends import get_search_backend
-from wagtail.tests.search import models
+from wagtail.test.search import models
 
 
 class TestPostgresStemming(TestCase):

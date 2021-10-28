@@ -10,8 +10,8 @@ from freezegun import freeze_time
 from wagtail.core.log_actions import LogActionRegistry
 from wagtail.core.models import (
     Page, PageLogEntry, PageViewRestriction, Task, Workflow, WorkflowTask)
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAuditLogManager(TestCase, WagtailTestUtils):

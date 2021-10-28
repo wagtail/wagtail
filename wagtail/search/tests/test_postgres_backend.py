@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.search.tests.test_backends import BackendTests
-from wagtail.tests.search import models
+from wagtail.test.search import models
 
 
 @unittest.skipUnless(connection.vendor == 'postgresql', "The current database is not PostgreSQL")

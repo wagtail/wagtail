@@ -7,7 +7,7 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail.admin.auth import user_has_any_page_permission
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):

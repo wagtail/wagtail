@@ -17,7 +17,7 @@ from wagtail.admin.localization import (
 from wagtail.admin.views.account import account, profile_tab
 from wagtail.core.models import UserProfile
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAuthentication(TestCase, WagtailTestUtils):

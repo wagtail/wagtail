@@ -5,9 +5,9 @@ from django.test import TestCase, override_settings
 
 from wagtail.core.models import Page
 from wagtail.search import index
-from wagtail.tests.search import models
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.search import models
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestGetIndexedInstance(TestCase):

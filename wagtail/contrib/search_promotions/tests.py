@@ -9,7 +9,7 @@ from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.search_promotions.models import Query, QueryDailyHits, SearchPromotion
 from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags import (
     get_search_promotions)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSearchPromotions(TestCase):

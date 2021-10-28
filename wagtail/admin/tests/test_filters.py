@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.admin.filters import FilteredModelChoiceField
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 User = get_user_model()

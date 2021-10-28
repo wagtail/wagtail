@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from wagtail.tests.testapp.models import EventPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import EventPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestContentTypeUse(TestCase, WagtailTestUtils):

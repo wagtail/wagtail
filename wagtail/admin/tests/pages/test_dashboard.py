@@ -4,8 +4,8 @@ from django.urls import reverse
 
 from wagtail.admin.views.home import RecentEditsPanel
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestRecentEditsPanel(TestCase, WagtailTestUtils):

@@ -198,5 +198,5 @@ def check_stream_field_panel_type(edit_handler):
             )
     except FieldDoesNotExist:
         # Doesn't check any fields not on the model, such as in
-        # wagtail.tests.testapp.modelsFormClassAdditionalFieldPage
+        # wagtail.test.testapp.modelsFormClassAdditionalFieldPage
         pass

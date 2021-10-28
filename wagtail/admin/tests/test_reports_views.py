@@ -12,7 +12,7 @@ from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
 from wagtail.core.models import Page, PageLogEntry
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestLockedPagesView(TestCase, WagtailTestUtils):

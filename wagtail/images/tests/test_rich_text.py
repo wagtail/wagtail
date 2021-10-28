@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from wagtail.images.rich_text import ImageEmbedHandler as FrontendImageEmbedHandler
 from wagtail.images.rich_text.editor_html import ImageEmbedHandler as EditorHtmlImageEmbedHandler
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 

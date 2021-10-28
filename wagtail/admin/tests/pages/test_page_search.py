@@ -5,8 +5,8 @@ from django.urls import reverse
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.core.models import Page
 from wagtail.search.index import SearchField
-from wagtail.tests.testapp.models import SimplePage, SingleEventPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage, SingleEventPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageSearch(TestCase, WagtailTestUtils):

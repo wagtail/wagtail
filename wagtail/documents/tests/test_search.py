@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.documents import models
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 @override_settings(_WAGTAILSEARCH_FORCE_AUTO_UPDATE=['elasticsearch'])

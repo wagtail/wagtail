@@ -2,7 +2,7 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 
 from wagtail.core.models import Page, PageViewRestriction
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPagePrivacy(TestCase, WagtailTestUtils):

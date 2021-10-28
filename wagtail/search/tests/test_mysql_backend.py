@@ -8,7 +8,7 @@ from django.test.utils import override_settings
 
 from wagtail.search.query import Not, PlainText
 from wagtail.search.tests.test_backends import BackendTests
-from wagtail.tests.search import models
+from wagtail.test.search import models
 
 
 @unittest.skipUnless(connection.vendor == 'mysql', "The current database is not MySQL")

@@ -10,7 +10,7 @@ from elasticsearch.serializer import JSONSerializer
 
 from wagtail.search.backends.elasticsearch7 import Elasticsearch7SearchBackend
 from wagtail.search.query import MATCH_ALL, Phrase
-from wagtail.tests.search import models
+from wagtail.test.search import models
 
 from .elasticsearch_common_tests import ElasticsearchCommonSearchBackendTests
 

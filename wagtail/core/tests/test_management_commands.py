@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from wagtail.core.models import Collection, Page, PageLogEntry, PageRevision
 from wagtail.core.signals import page_published, page_unpublished
-from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.test.testapp.models import EventPage, SimplePage
 
 
 class TestFixTreeCommand(TestCase):

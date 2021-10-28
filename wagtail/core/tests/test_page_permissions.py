@@ -8,7 +8,7 @@ from django.utils import timezone
 from wagtail.core.models import (
     GroupApprovalTask, GroupPagePermission, Locale, Page, UserPagePermissionsProxy, Workflow,
     WorkflowTask)
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     BusinessSubIndex, EventIndex, EventPage, SingletonPageViaMaxCount)
 
 

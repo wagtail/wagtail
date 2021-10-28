@@ -4,7 +4,7 @@ from django.urls import reverse
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.ui import sidebar
 from wagtail.core import hooks
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 def menu_item_hook(*args, cls=MenuItem, **kwargs):

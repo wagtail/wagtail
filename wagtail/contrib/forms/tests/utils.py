@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     FormField, FormFieldWithCustomSubmission, FormPage, FormPageWithCustomSubmission,
     FormPageWithRedirect, RedirectFormField)
 

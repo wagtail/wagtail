@@ -9,9 +9,9 @@ from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     FileUploadSetting, IconSetting, PanelSettings, TabbedSettings, TestSetting)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSettingMenu(TestCase, WagtailTestUtils):

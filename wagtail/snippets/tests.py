@@ -30,15 +30,15 @@ from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
     AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
-from wagtail.tests.snippets.forms import FancySnippetForm
-from wagtail.tests.snippets.models import (
+from wagtail.test.snippets.forms import FancySnippetForm
+from wagtail.test.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
     SearchableSnippet, StandardSnippet, StandardSnippetWithCustomPrimaryKey, TranslatableSnippet,
     ZuluSnippet)
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     Advert, AdvertWithCustomPrimaryKey, AdvertWithCustomUUIDPrimaryKey, AdvertWithTabbedInterface,
     SnippetChooserModel, SnippetChooserModelWithCustomPrimaryKey)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):

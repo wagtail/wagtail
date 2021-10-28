@@ -20,8 +20,8 @@ from wagtail.search.backends.base import BaseSearchBackend, FieldError, FilterFi
 from wagtail.search.backends.database.fallback import DatabaseSearchBackend
 from wagtail.search.models import IndexEntry
 from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
-from wagtail.tests.search import models
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.search import models
+from wagtail.test.utils import WagtailTestUtils
 
 
 class BackendTests(WagtailTestUtils):

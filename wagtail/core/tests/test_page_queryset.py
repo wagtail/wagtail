@@ -7,7 +7,7 @@ from django.test import TestCase
 from wagtail.core.models import Locale, Page, PageViewRestriction, Site
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
-from wagtail.tests.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
+from wagtail.test.testapp.models import EventPage, SimplePage, SingleEventPage, StreamPage
 
 
 class TestPageQuerySet(TestCase):

@@ -9,8 +9,8 @@ from django.test.utils import override_settings
 from wagtail.core.models import Collection, GroupCollectionPermission
 from wagtail.documents import get_document_model, get_document_model_string, models, signal_handlers
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import CustomDocument, ReimportedDocumentModel
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestDocumentQuerySet(TestCase):

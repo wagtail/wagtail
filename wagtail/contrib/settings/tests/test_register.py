@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.contrib.settings.registry import Registry
-from wagtail.tests.testapp.models import NotYetRegisteredSetting
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import NotYetRegisteredSetting
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestRegister(TestCase, WagtailTestUtils):

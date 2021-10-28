@@ -4,11 +4,11 @@ from django.test import TestCase
 
 from wagtail.admin.tests.test_contentstate import content_state_equal
 from wagtail.core.models import PAGE_MODEL_CLASSES, Page, Site
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     BusinessChild, BusinessIndex, BusinessNowherePage, BusinessSubIndex, EventIndex, EventPage,
     SectionedRichTextPage, SimplePage, StreamPage)
-from wagtail.tests.utils import WagtailPageTests, WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
+from wagtail.test.utils import WagtailPageTests, WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data, rich_text, streamfield
 
 
 class TestAssertTagInHTML(WagtailTestUtils, TestCase):
@@ -131,7 +131,7 @@ class TestWagtailPageTests(WagtailPageTests):
         })
 
     def test_assert_can_create_with_form_helpers(self):
-        # same as test_assert_can_create, but using the helpers from wagtail.tests.utils.form_data
+        # same as test_assert_can_create, but using the helpers from wagtail.test.utils.form_data
         # as an end-to-end test
         self.assertFalse(EventIndex.objects.exists())
         self.assertCanCreate(self.root, EventIndex, nested_form_data({

@@ -8,7 +8,7 @@ from wagtail.admin.ui.sidebar import (
     CustomBrandingModule, LinkMenuItem, MainMenuModule, PageExplorerMenuItem, SearchModule,
     SubMenuItem, WagtailBrandingModule)
 from wagtail.core.telepath import JSContext
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAdaptLinkMenuItem(TestCase):

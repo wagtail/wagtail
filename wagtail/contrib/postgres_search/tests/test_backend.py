@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.search.tests.test_backends import BackendTests
-from wagtail.tests.search import models
+from wagtail.test.search import models
 
 from ..utils import BOOSTS_WEIGHTS, WEIGHTS_VALUES, determine_boosts_weights, get_weight
 

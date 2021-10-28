@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from wagtail.core.models import Collection, CollectionViewRestriction
 from wagtail.documents.models import Document
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 try:

@@ -7,7 +7,7 @@ from wagtail.admin import compare
 from wagtail.core.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     AdvertWithCustomPrimaryKey, EventCategory, EventPage, EventPageSpeaker,
     HeadCountRelatedModelUsingPK, SimplePage, SnippetChooserModelWithCustomPrimaryKey, StreamPage,
     TaggedPage)

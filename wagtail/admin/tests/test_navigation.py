@@ -5,7 +5,7 @@ from django.test import TestCase
 
 from wagtail.admin.navigation import (
     get_explorable_root_page, get_pages_with_direct_explore_permission)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestExplorablePages(TestCase, WagtailTestUtils):

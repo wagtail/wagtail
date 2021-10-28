@@ -10,7 +10,7 @@ from wagtail.search import models
 from wagtail.search.query import And, Or, Phrase, PlainText
 from wagtail.search.utils import (
     balanced_reduce, normalise_query_string, parse_query_string, separate_filters_from_query)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestHitCounter(TestCase):

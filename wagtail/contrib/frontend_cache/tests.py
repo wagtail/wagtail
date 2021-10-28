@@ -11,7 +11,7 @@ from wagtail.contrib.frontend_cache.backends import (
     BaseBackend, CloudflareBackend, CloudfrontBackend, HTTPBackend)
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex
 
 from .utils import (
     PurgeBatch, purge_page_from_cache, purge_pages_from_cache, purge_url_from_cache,
@@ -299,7 +299,7 @@ class TestCachePurgingSignals(TestCase):
         page.save_revision().publish()
         self.assertEqual(PURGED_URLS, [])
 
-    @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
+    @override_settings(ROOT_URLCONF='wagtail.test.urls_multilang',
                        LANGUAGE_CODE='en',
                        WAGTAILFRONTENDCACHE_LANGUAGES=['en', 'fr', 'pt-br'])
     def test_purge_on_publish_in_multilang_env(self):
@@ -316,7 +316,7 @@ class TestCachePurgingSignals(TestCase):
             'http://localhost/pt-br/events/past/',
         ])
 
-    @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
+    @override_settings(ROOT_URLCONF='wagtail.test.urls_multilang',
                        LANGUAGE_CODE='en',
                        WAGTAIL_I18N_ENABLED=True,
                        WAGTAIL_CONTENT_LANGUAGES=[('en', 'English'), ('fr', 'French')])
@@ -332,7 +332,7 @@ class TestCachePurgingSignals(TestCase):
             'http://localhost/fr/events/past/',
         ])
 
-    @override_settings(ROOT_URLCONF='wagtail.tests.urls_multilang',
+    @override_settings(ROOT_URLCONF='wagtail.test.urls_multilang',
                        LANGUAGE_CODE='en',
                        WAGTAIL_CONTENT_LANGUAGES=[('en', 'English'), ('fr', 'French')])
     def test_purge_on_publish_without_i18n_enabled(self):

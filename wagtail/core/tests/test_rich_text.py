@@ -8,7 +8,7 @@ from wagtail.core.rich_text import RichText, expand_db_html
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
 from wagtail.core.rich_text.pages import PageLinkHandler
 from wagtail.core.rich_text.rewriters import LinkRewriter, extract_attrs
-from wagtail.tests.testapp.models import EventPage
+from wagtail.test.testapp.models import EventPage
 
 
 class TestPageLinktypeHandler(TestCase):
@@ -33,7 +33,7 @@ class TestPageLinktypeHandler(TestCase):
         ('en', 'English'),
         ('fr', 'French'),
     ],
-    ROOT_URLCONF='wagtail.tests.urls_multilang'
+    ROOT_URLCONF='wagtail.test.urls_multilang'
 )
 class TestPageLinktypeHandlerWithI18N(TestCase):
     fixtures = ['test.json']
