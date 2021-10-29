@@ -1,4 +1,4 @@
-from ..apps import WagtailCoreAppConfig as WagtailCoreAppConfig  # noqa
+from ..apps import WagtailCoreConfig as WagtailCoreAppConfig  # noqa
 
 
 # TODO: Deprecation warning

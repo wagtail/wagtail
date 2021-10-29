@@ -70,7 +70,7 @@ class AdminImageChooser(AdminChooser):
 
 
 class ImageChooserAdapter(WidgetAdapter):
-    js_constructor = 'wagtail.contrib.images.widgets.ImageChooser'
+    js_constructor = 'wagtail.images.widgets.ImageChooser'
 
     def js_args(self, widget):
         return [

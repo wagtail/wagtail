@@ -61,7 +61,7 @@ class AdminDocumentChooser(AdminChooser):
 
 
 class DocumentChooserAdapter(WidgetAdapter):
-    js_constructor = 'wagtail.contrib.documents.widgets.DocumentChooser'
+    js_constructor = 'wagtail.documents.widgets.DocumentChooser'
 
     def js_args(self, widget):
         return [
