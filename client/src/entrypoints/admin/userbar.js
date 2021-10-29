@@ -2,6 +2,9 @@
 // Please stick to old JS APIs and avoid importing anything that might require a vendored module
 // More background can be found in webpack.config.js
 
+// This component implements a roving tab index for keyboard navigation
+// Learn more about roving tabIndex: https://w3c.github.io/aria-practices/#kbd_roving_tabindex
+
 document.addEventListener('DOMContentLoaded', () => {
   const userbar = document.querySelector('[data-wagtail-userbar]');
   const trigger = userbar.querySelector('[data-wagtail-userbar-trigger]');
@@ -9,12 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const listItems = list.querySelectorAll('li');
   const isActiveClass = 'is-active';
 
-  // querySelector for all items that can be focused.
+  // querySelector for all items that can be focused
+  // tabIndex has been removed for roving tabindex compatibility
   // source: https://stackoverflow.com/questions/1599660/which-html-elements-can-receive-focus
-  const focusableItemSelector = `a[href]:not([tabindex='-1']),
-    button:not([disabled]):not([tabindex='-1']),
-    input:not([disabled]):not([tabindex='-1']),
-    [tabindex]:not([tabindex='-1'])`;
+  const focusableItemSelector = `a[href],
+    button:not([disabled]),
+    input:not([disabled])`;
 
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   trigger.addEventListener('click', toggleUserbar, false);
@@ -26,7 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle keyboard events on the trigger
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   userbar.addEventListener('keydown', handleTriggerKeyDown);
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  list.addEventListener('focusout', handleFocusChange);
 
+
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  resetItemsTabIndex(); // On initialisation, all menu items should be disabled for roving tab index
 
   function showUserbar(shouldFocus) {
     userbar.classList.add(isActiveClass);
@@ -76,27 +84,42 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function setFocusToTrigger() {
-    setTimeout(() => trigger.focus(), 300);
-  }
-
   function isFocusOnItems() {
     return document.activeElement && !!document.activeElement.closest('.wagtail-userbar-items');
   }
 
+  /** Reset all focusable menu items to `tabIndex = -1` */
+  function resetItemsTabIndex() {
+    listItems.forEach(listItem => {
+      // eslint-disable-next-line no-param-reassign
+      listItem.firstElementChild.tabIndex = -1;
+    });
+  }
+
+  /** Focus element using a roving tab index */
+  function focusElement(el) {
+    resetItemsTabIndex();
+    // eslint-disable-next-line no-param-reassign
+    el.tabIndex = 0;
+    setTimeout(() => {
+      el.focus();
+    }, 100); // Workaround, changing focus only works after a timeout
+  }
+
+  function setFocusToTrigger() {
+    setTimeout(() => trigger.focus(), 300);
+    resetItemsTabIndex();
+  }
+
   function setFocusToFirstItem() {
     if (listItems.length > 0) {
-      setTimeout(() => {
-        listItems[0].firstElementChild.focus();
-      }, 100); // Workaround for focus bug
+      focusElement(listItems[0].firstElementChild);
     }
   }
 
   function setFocusToLastItem() {
     if (listItems.length > 0) {
-      setTimeout(() => {
-        listItems[listItems.length - 1].firstElementChild.focus();
-      }, 100); // Workaround for focus bug
+      focusElement(listItems[listItems.length - 1].firstElementChild);
     }
   }
 
@@ -104,30 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
     listItems.forEach((element, idx) => {
       // Check which item is currently focused
       if (element.firstElementChild === document.activeElement) {
-        setTimeout(() => {
-          if (idx + 1 < listItems.length) {
-            // Focus the next item
-            listItems[idx + 1].firstElementChild.focus();
-          } else {
-            setFocusToFirstItem();
-          }
-        }, 100); // Workaround for focus bug
+        if (idx + 1 < listItems.length) {
+          focusElement(listItems[idx + 1].firstElementChild);
+        } else { // Loop around
+          setFocusToFirstItem();
+        }
       }
     });
   }
 
   function setFocusToPreviousItem() {
-    // Check which item is currently focused
     listItems.forEach((element, idx) => {
+      // Check which item is currently focused
       if (element.firstElementChild === document.activeElement) {
-        setTimeout(() => {
-          if (idx > 0) {
-            // Focus the previous item
-            listItems[idx - 1].firstElementChild.focus();
-          } else {
-            setFocusToLastItem();
-          }
-        }, 100); // Workaround for focus bug
+        if (idx > 0) {
+          focusElement(listItems[idx - 1].firstElementChild);
+        } else {
+          setFocusToLastItem();
+        }
       }
     });
   }
@@ -146,33 +163,44 @@ document.addEventListener('DOMContentLoaded', () => {
       if (event.key === 'Escape') {
         hideUserbar();
         setFocusToTrigger();
-        return;
+        return false;
       }
 
+      // List items are in focus, move focus if needed
       if (isFocusOnItems()) {
         switch (event.key) {
         case 'ArrowDown':
           event.preventDefault();
           setFocusToNextItem();
-          break;
+          return false;
         case 'ArrowUp':
           event.preventDefault();
           setFocusToPreviousItem();
-          break;
+          return false;
         case 'Home':
           event.preventDefault();
           setFocusToFirstItem();
-          break;
+          return false;
         case 'End':
           event.preventDefault();
           setFocusToLastItem();
-          break;
+          return false;
         default:
           break;
         }
       }
+    }
+    return true;
+  }
+
+  function handleFocusChange(event) {
+    // Is the focus is still in the menu? If so, don't to anything
+    if (event.relatedTarget == null || (event.relatedTarget && event.relatedTarget.closest('.wagtail-userbar-items'))) {
       return;
     }
+    // List items not in focus - the menu should close
+    resetItemsTabIndex();
+    hideUserbar();
   }
 
   /**

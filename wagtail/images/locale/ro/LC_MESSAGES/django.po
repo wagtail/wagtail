@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-21 21:05+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -157,6 +157,19 @@ msgstr "imagine"
 msgid "images"
 msgstr "imagini"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s utilizare"
+msgstr[1] "%(usage_count)s utilizări"
+msgstr[2] "%(usage_count)s de utilizări"
+
+msgid "Yes, delete"
+msgstr "Da, șterge"
+
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
+
 msgid "Choose an image"
 msgstr "Alege imagine"
 
@@ -168,9 +181,6 @@ msgstr "Încărcare"
 
 msgid "Popular tags"
 msgstr "Etichete populare"
-
-msgid "Uploading…"
-msgstr "În curs de încărcare…"
 
 #, python-format
 msgid ""
@@ -202,6 +212,9 @@ msgstr "Alege un format"
 
 msgid "Insert image"
 msgstr "Inserează imagine"
+
+msgid "Uploading…"
+msgstr "În curs de încărcare…"
 
 #, python-format
 msgid ""
@@ -244,22 +257,6 @@ msgstr "Salvează"
 
 msgid "Delete image"
 msgstr "Șterge imagine"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s utilizare"
-msgstr[1] "%(usage_count)s utilizări"
-msgstr[2] "%(usage_count)s de utilizări"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Sigur doriți să ștergeți această imagine?"
-
-msgid "Yes, delete"
-msgstr "Da, șterge"
-
-msgid "No, don't delete"
-msgstr "Nu, nu șterge"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -417,6 +414,9 @@ msgstr "Permisiuni imagine"
 msgid "Add an image permission"
 msgstr "Adaugă o permisiune imagine"
 
+msgid "Delete"
+msgstr "Șterge"
+
 msgid "Search images"
 msgstr "Caută imagini"
 
@@ -435,9 +435,6 @@ msgid ""
 msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
-
-msgid "Delete"
-msgstr "Șterge"
 
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."

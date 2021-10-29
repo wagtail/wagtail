@@ -20,6 +20,7 @@ from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
 from django.utils.html import avoid_wrapping, format_html, format_html_join
+from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
@@ -30,6 +31,9 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.views.bulk_action.registry import bulk_action_registry
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import (
     Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
@@ -37,7 +41,7 @@ from wagtail.core.models import (
 from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import escape_script
+from wagtail.core.utils import escape_script, get_content_type_label
 from wagtail.users.utils import get_gravatar_url
 
 
@@ -486,6 +490,54 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def bulk_action_choices(context, app_label, model_name):
+
+    bulk_actions_list = list(bulk_action_registry.get_bulk_actions_for_model(app_label, model_name))
+    bulk_actions_list.sort(key=lambda x: x.action_priority)
+
+    bulk_action_more_list = []
+    if len(bulk_actions_list) > 4:
+        bulk_action_more_list = bulk_actions_list[4:]
+        bulk_actions_list = bulk_actions_list[:4]
+
+    next_url = get_valid_next_url_from_request(context['request'])
+    if not next_url:
+        next_url = context['request'].path
+
+    bulk_action_buttons = [
+        PageListingButton(
+            action.display_name,
+            reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': action.aria_label},
+            priority=action.action_priority,
+            classes=action.classes | {'bulk-action-btn'},
+        ) for action in bulk_actions_list
+    ]
+
+    if bulk_action_more_list:
+        more_button = ButtonWithDropdown(
+            label=_("More"),
+            attrs={
+                'title': _("View more bulk actions")
+            },
+            classes={'bulk-actions-more', 'dropup'},
+            button_classes={'button', 'button-small'},
+            buttons_data=[{
+                'label': action.display_name,
+                'url': reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
+                'attrs': {'aria-label': action.aria_label},
+                'priority': action.action_priority,
+                'classes': {'bulk-action-btn'},
+            } for action in bulk_action_more_list]
+        )
+        more_button.is_parent = True
+        bulk_action_buttons.append(more_button)
+
+    return {'buttons': bulk_action_buttons}
+
+
 @register.simple_tag
 def message_tags(message):
     level_tag = MESSAGE_TAGS.get(message.level)
@@ -659,6 +711,11 @@ def user_display_name(user):
         return ''
 
 
+@register.filter
+def format_content_type(content_type):
+    return get_content_type_label(content_type)
+
+
 @register.simple_tag
 def i18n_enabled():
     return getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
@@ -725,6 +782,9 @@ def resolve_url(url):
     # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
     # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
     # an empty / None value), return empty string
+    if not url:
+        return ''
+
     try:
         return resolve_url_func(url)
     except NoReverseMatch:

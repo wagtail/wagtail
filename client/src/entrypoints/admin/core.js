@@ -295,6 +295,16 @@ $(() => {
     $(this).closest('li').removeClass('focused');
   });
 
+  /* Functions that need to run/rerun when active tabs are changed */
+  $(document).on('shown.bs.tab', () => {
+    // Resize autosize textareas
+    // eslint-disable-next-line func-names
+    $('textarea[data-autosize-on]').each(function () {
+      // eslint-disable-next-line no-undef
+      autosize.update($(this).get());
+    });
+  });
+
   /* tabs */
   const showTab = (tabButtonElem) => {
     $(tabButtonElem).tab('show');
@@ -399,6 +409,7 @@ $(() => {
               searchCurrentIndex = index;
               $(window.headerSearch.targetOutput).html(data).slideDown(800);
               window.history.replaceState(null, null, '?q=' + newQuery);
+              $input[0].dispatchEvent(new Event('search-success'));
             }
           },
           complete() {
@@ -418,16 +429,6 @@ $(() => {
       return '';
     };
   }
-
-  /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('shown.bs.tab', () => {
-    // Resize autosize textareas
-    // eslint-disable-next-line func-names
-    $('textarea[data-autosize-on]').each(function () {
-      // eslint-disable-next-line no-undef
-      autosize.update($(this).get());
-    });
-  });
 
   /* Debounce submission of long-running forms and add spinner to give sense of activity */
   // eslint-disable-next-line func-names

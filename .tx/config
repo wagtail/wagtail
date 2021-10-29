@@ -109,3 +109,9 @@ file_filter = wagtail/contrib/simple_translation/locale/<lang>/LC_MESSAGES/djang
 source_file = wagtail/contrib/simple_translation/locale/en/LC_MESSAGES/django.po
 source_lang = en
 type = PO
+
+[wagtail.wagtailtypedtableblock]
+file_filter = wagtail/contrib/typed_table_block/locale/<lang>/LC_MESSAGES/django.po
+source_file = wagtail/contrib/typed_table_block/locale/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO

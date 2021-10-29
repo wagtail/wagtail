@@ -84,7 +84,7 @@ def send_notification(recipient_users, notification, extra_context):
     # Get list of email addresses
     email_recipients = [
         recipient for recipient in recipient_users
-        if recipient.email and getattr(
+        if recipient.is_active and recipient.email and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -206,11 +206,13 @@ class EmailNotificationMixin:
     def get_valid_recipients(self, instance, **kwargs):
         """Filters notification recipients to those allowing the notification type on their UserProfile, and those
         with an email address"""
-
-        return {recipient for recipient in self.get_recipient_users(instance, **kwargs) if recipient.email and getattr(
-            UserProfile.get_for_user(recipient),
-            self.notification + '_notifications'
-        )}
+        return {
+            recipient for recipient in self.get_recipient_users(instance, **kwargs)
+            if recipient.is_active and recipient.email and getattr(
+                UserProfile.get_for_user(recipient),
+                self.notification + '_notifications'
+            )
+        }
 
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates for the email subject and the text and html

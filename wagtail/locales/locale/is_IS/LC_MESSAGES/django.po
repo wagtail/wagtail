@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2021\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
@@ -31,6 +31,9 @@ msgstr "Tungumál"
 msgid "Select a new language"
 msgstr "Veldu nýtt tungumál"
 
+msgid "This locale's language code is not supported"
+msgstr "Tungumálakóði þessarar þýðingar er ekki studdur"
+
 msgid "Yes, delete"
 msgstr "Já, eyða"
 
@@ -44,17 +47,14 @@ msgstr ""
 "Tungumálakóði þessarar þýðingar er ekki studdur. Vinsamlegast veldu annað "
 "tungumál eða eyddu þessari þýðingu."
 
-msgid "Usage"
-msgstr "Notkun"
-
-msgid "This locale's language code is not supported"
-msgstr "Tungumálakóði þessarar þýðingar er ekki studdur"
-
 msgid "Locales"
 msgstr "Þýðingar"
 
 msgid "Add a locale"
 msgstr "Bæta við þýðingu"
+
+msgid "Usage"
+msgstr "Notkun"
 
 msgid "Add locale"
 msgstr "Bæta við þýðingu"

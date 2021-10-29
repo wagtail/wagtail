@@ -19,6 +19,10 @@
             })
         });
     </script>
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -64,6 +68,8 @@
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}
         </div>
+        {% trans "Select all images in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=images parent=current_collection.id %}
     </div>
 
 {% endblock %}

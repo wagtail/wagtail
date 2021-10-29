@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-09-18 08:03+0000\n"
-"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -30,29 +30,20 @@ msgstr "Pilih halaman utama"
 msgid "Choose a different root page"
 msgstr "Pilih halaman utama lain"
 
+msgid "Sites"
+msgstr "Daftar Situs"
+
+msgid "Add a site"
+msgstr "Menambahkan situs"
+
 msgid "Site"
 msgstr "Situs"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Nama Situs"
-
-msgid "Root page"
-msgstr "Halaman Utama"
 
 msgid "Default?"
 msgstr "Default?"
 
 msgid "Default"
 msgstr "Default"
-
-msgid "Sites"
-msgstr "Daftar Situs"
-
-msgid "Add a site"
-msgstr "Menambahkan situs"
 
 msgid "Add site"
 msgstr "Menambahkan daftar situs"

@@ -4,13 +4,14 @@
 #
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
+# Urban Prevc, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-22 09:42+0000\n"
+"Last-Translator: Urban Prevc\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +48,13 @@ msgstr "Naziv strani, kot želite da jo vidijo obiskovalci"
 msgid "slug"
 msgstr "ključ"
 
+msgid ""
+"The name of the page as it will appear in URLs e.g http://domain.com/blog/"
+"[my-slug]/"
+msgstr ""
+"Ime strani, kot se bo pojavilo v URL-ju, npr. e.g http://domain.com/blog/"
+"[moj-kljuc]/"
+
 msgid "content type"
 msgstr "tip vsebine"
 
@@ -62,12 +70,32 @@ msgstr "URL pot"
 msgid "owner"
 msgstr "lastnik"
 
+msgid "title tag"
+msgstr "oznaka naslova"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Ime strani, ki bo prikazano kot klikabilen naslov v rezultatih iskanja "
+"spletnih iskalnikov."
+
 msgid "show in menus"
 msgstr "prikazuj v meniju"
 
 msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr "Določa, ali bo stran vidna v avtomatskih menijih"
+
+msgid "meta description"
+msgstr "meta opis"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Besedilni opis strani, ki bo prikazan pod naslovom rezultata iskanja "
+"spletnih iskalnikov."
 
 msgid "go live date/time"
 msgstr "datum začetka objave"
@@ -206,14 +234,23 @@ msgstr ""
 msgid "Public"
 msgstr "Javno"
 
+msgid "Private, accessible to logged-in users"
+msgstr "Zasebno, dostopno prijavljenim uporabnikom"
+
 msgid "Private, accessible with the following password"
 msgstr "Privatno, dostopno z sledečim geslom"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Zasebno, dostopno uporabnikom iz določenih skupin"
 
 msgid "password"
 msgstr "geslo"
 
 msgid "Save draft"
 msgstr "Shrani osnutek"
+
+msgid "Published"
+msgstr "Objavljeno"
 
 msgid "Unpublish"
 msgstr "Umakni iz objave"

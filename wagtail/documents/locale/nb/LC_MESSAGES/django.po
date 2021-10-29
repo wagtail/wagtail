@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -63,6 +63,18 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumenter"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Brukt %(usage_count)s gang"
+msgstr[1] "Brukt %(usage_count)s ganger"
+
+msgid "Yes, delete"
+msgstr "Ja, slett"
+
+msgid "No, don't delete"
+msgstr "Nei, ikke slett"
+
 msgid "Choose a document"
 msgstr "Velg et dokument"
 
@@ -71,9 +83,6 @@ msgstr "Søk"
 
 msgid "Upload"
 msgstr "Last opp"
-
-msgid "Uploading…"
-msgstr "Laster opp…"
 
 #, python-format
 msgid ""
@@ -93,6 +102,19 @@ msgstr[1] ""
 
 msgid "Latest documents"
 msgstr "Siste dokumenter"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Opprettet"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -116,6 +138,9 @@ msgstr ""
 "\"%(wagtaildocs_add_document_url)s\">laste opp et nå?\n"
 "            "
 
+msgid "Uploading…"
+msgstr "Laster opp…"
+
 msgid "Change document:"
 msgstr "Bytt ut dokument:"
 
@@ -131,21 +156,6 @@ msgstr "Slett %(title)s"
 
 msgid "Delete document"
 msgstr "Slett dokument"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Brukt %(usage_count)s gang"
-msgstr[1] "Brukt %(usage_count)s ganger"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Er du sikker på at du vil slette dette dokumentet?"
-
-msgid "Yes, delete"
-msgstr "Ja, slett"
-
-msgid "No, don't delete"
-msgstr "Nei, ikke slett"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -168,19 +178,6 @@ msgstr "Bruk"
 
 msgid "Documents"
 msgstr "Dokumenter"
-
-msgid "Title"
-msgstr "Tittel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created"
-msgstr "Opprettet"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
 
 #, python-format
 msgid ""
@@ -275,6 +272,9 @@ msgstr "Dokumenttillatelser"
 msgid "Add a document permission"
 msgstr "Legg til dokumenttillatelse"
 
+msgid "Delete"
+msgstr "Slett"
+
 msgid "Server Error"
 msgstr "Serverfeil"
 
@@ -296,9 +296,6 @@ msgstr "Dokumentet \"{0}\" er oppdatert"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
-
-msgid "Delete"
-msgstr "Slett"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."

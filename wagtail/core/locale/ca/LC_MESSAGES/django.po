@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -50,10 +50,6 @@ msgstr "La contrasenya que heu introduït no és correcta. Torneu a provar."
 
 msgid "Comment"
 msgstr "Commentari"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Desconegut/da %(action)s"
 
 msgid "title"
 msgstr "títol"
@@ -346,12 +342,12 @@ msgstr "entrada de registre"
 msgid "log entries"
 msgstr "entrades de registre"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "usuari %(id)d (suprimit)"
-
 msgid "system"
 msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Desconegut/da %(action)s"
 
 msgid "collection"
 msgstr "col·lecció"
@@ -504,6 +500,9 @@ msgstr "Rebutjar"
 msgid "Reverted to previous revision"
 msgstr "S'ha revertit a la revisió anterior"
 
+msgid "Copy"
+msgstr "Copiar"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "S'ha copiat de %(title)s"
@@ -511,20 +510,14 @@ msgstr "S'ha copiat de %(title)s"
 msgid "Copied"
 msgstr "Copiat"
 
-msgid "Added view restriction"
-msgstr "S'ha afegit una restricció de visualització"
-
-msgid "Copy"
-msgstr "Copiar"
-
 msgid "Move"
 msgstr "Mou"
 
 msgid "Add view restrictions"
 msgstr "Afegir restriccions de visualització"
 
-msgid "Workflow cancelled"
-msgstr "El fluxe de treballa està cancel·lat"
+msgid "Added view restriction"
+msgstr "S'ha afegit una restricció de visualització"
 
 msgid "Workflow: start"
 msgstr "Fluxe de treball: inicia"
@@ -540,3 +533,6 @@ msgstr "Fluxe de treball: reprèn la tasca"
 
 msgid "Workflow: cancel"
 msgstr "Fluxe de treball: cancel·la"
+
+msgid "Workflow cancelled"
+msgstr "El fluxe de treballa està cancel·lat"

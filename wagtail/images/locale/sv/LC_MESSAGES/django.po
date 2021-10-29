@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-30 05:35+0000\n"
-"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,18 @@ msgstr "bild"
 msgid "images"
 msgstr "bilder"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Använd %(usage_count)s gång"
+msgstr[1] "Använd %(usage_count)s gånger"
+
+msgid "Yes, delete"
+msgstr "Ja, radera"
+
+msgid "No, don't delete"
+msgstr "Nej, radera inte"
+
 msgid "Choose an image"
 msgstr "Välj en bild"
 
@@ -173,9 +185,6 @@ msgstr "Ladda upp"
 
 msgid "Popular tags"
 msgstr "Populära taggar"
-
-msgid "Uploading…"
-msgstr "Laddar upp…"
 
 #, python-format
 msgid ""
@@ -203,6 +212,9 @@ msgstr "Välj ett format"
 
 msgid "Insert image"
 msgstr "Lägg in bild"
+
+msgid "Uploading…"
+msgstr "Laddar upp…"
 
 #, python-format
 msgid ""
@@ -238,21 +250,6 @@ msgstr "Spara"
 
 msgid "Delete image"
 msgstr "Radera bild"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Använd %(usage_count)s gång"
-msgstr[1] "Använd %(usage_count)s gånger"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Är du säker på att du vill radera den här bilden?"
-
-msgid "Yes, delete"
-msgstr "Ja, radera"
-
-msgid "No, don't delete"
-msgstr "Nej, radera inte"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -408,6 +405,9 @@ msgstr "Bildrättigheter"
 msgid "Add an image permission"
 msgstr "Lägg till en bildrättighet"
 
+msgid "Delete"
+msgstr "Radera"
+
 msgid "Search images"
 msgstr "Sök bilder"
 
@@ -426,9 +426,6 @@ msgid ""
 msgstr ""
 "Filen för originalbilden kunde inte hittas. Vänligen ändra filen eller ta "
 "bort bilden."
-
-msgid "Delete"
-msgstr "Radera"
 
 msgid "Image '{0}' deleted."
 msgstr "Bild '{0}' raderad."

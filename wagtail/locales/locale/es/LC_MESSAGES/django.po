@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2020\n"
 "Language-Team: Spanish (https://www.transifex.com/torchbox/teams/8009/es/)\n"
@@ -31,6 +31,9 @@ msgstr "Idioma"
 msgid "Select a new language"
 msgstr "Selecciona un nuevo idioma"
 
+msgid "This locale's language code is not supported"
+msgstr "Este código de idioma de la región no está soportado"
+
 msgid "Yes, delete"
 msgstr "Sí, eliminar"
 
@@ -44,17 +47,14 @@ msgstr ""
 "Este código de idioma actual de la región no está soportado. Por favor "
 "selecciona un nuevo idioma o elimina esta región."
 
-msgid "Usage"
-msgstr "Uso"
-
-msgid "This locale's language code is not supported"
-msgstr "Este código de idioma de la región no está soportado"
-
 msgid "Locales"
 msgstr "Regiones"
 
 msgid "Add a locale"
 msgstr "Añadir una región"
+
+msgid "Usage"
+msgstr "Uso"
 
 msgid "Add locale"
 msgstr "Añadir región"

@@ -1,4 +1,5 @@
 @use './scss/index' with (
     $teal: $color-teal,
     $error-color: $color-red,
+    $font-sans: $font-sans,
 );

@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
@@ -107,6 +108,11 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(
             response, '<button type="submit" name="action-submit" value="Submit to Moderators approval" class="button">'
         )
+
+        # test that AdminURLFinder returns the edit view for the page
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/pages/%d/edit/' % self.event_page.id
+        self.assertEqual(url_finder.get_edit_url(self.event_page), expected_url)
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_buttons_not_shown_when_workflow_disabled(self):
@@ -208,6 +214,9 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # Check that the user received a 302 redirected response
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.event_page), None)
 
     def test_page_edit_post(self):
         # Tests simple editing
@@ -2130,7 +2139,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was added
-        comment = self.child_page.comments.get()
+        comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, 'A test comment')
 
         # Check notification email
@@ -2324,7 +2333,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was deleted
-        self.assertFalse(self.child_page.comments.exists())
+        self.assertFalse(self.child_page.wagtail_admin_comments.exists())
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 1)
@@ -2559,8 +2568,44 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
 
         # Check the comment was added
-        comment = self.child_page.comments.get()
+        comment = self.child_page.wagtail_admin_comments.get()
         self.assertEqual(comment.text, 'A test comment')
 
         # This time, no emails should be submitted because the only subscriber has disabled these emails globally
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_updated_comments_notifications_active_users_only(self):
+        # subscriber is inactive
+        self.subscriber.is_active = False
+        self.subscriber.save()
+
+        post_data = {
+            'title': "I've been edited!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comments-TOTAL_FORMS': '1',
+            'comments-INITIAL_FORMS': '0',
+            'comments-MIN_NUM_FORMS': '0',
+            'comments-MAX_NUM_FORMS': '',
+            'comments-0-DELETE': '',
+            'comments-0-resolved': '',
+            'comments-0-id': '',
+            'comments-0-contentpath': 'title',
+            'comments-0-text': 'A test comment',
+            'comments-0-position': '',
+            'comments-0-replies-TOTAL_FORMS': '0',
+            'comments-0-replies-INITIAL_FORMS': '0',
+            'comments-0-replies-MIN_NUM_FORMS': '0',
+            'comments-0-replies-MAX_NUM_FORMS': '0'
+        }
+
+        response = self.client.post(reverse('wagtailadmin_pages:edit', args=[self.child_page.id]), post_data)
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[self.child_page.id]))
+
+        # Check the comment was added
+        comment = self.child_page.wagtail_admin_comments.get()
+        self.assertEqual(comment.text, 'A test comment')
+
+        # No emails should be submitted because subscriber is inactive
         self.assertEqual(len(mail.outbox), 0)

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: ime11 <pmh.yourworstnightmare@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
 "MIME-Version: 1.0\n"
@@ -24,17 +24,11 @@ msgstr "ထည့်ပါ"
 msgid "Edit"
 msgstr "ပြင်ဆင်ပါ"
 
-msgid "Search"
-msgstr "ရှာဖွေရေး"
-
 msgid "Yes, delete"
 msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
 
-msgid "Editing"
-msgstr "ပြင်ဆင်နေသည်"
-
-msgid "Save"
-msgstr "သိမ်းဆည်းပါ"
+msgid "Search"
+msgstr "ရှာဖွေရေး"
 
 msgid "Title"
 msgstr "ခေါင်းစဥ်"
@@ -42,6 +36,12 @@ msgstr "ခေါင်းစဥ်"
 #, python-format
 msgid "%(time_period)s ago"
 msgstr "လွန်ခဲ့သော %(time_period)sက"
+
+msgid "Editing"
+msgstr "ပြင်ဆင်နေသည်"
+
+msgid "Save"
+msgstr "သိမ်းဆည်းပါ"
 
 msgid "Status"
 msgstr "အခြေအနေ"

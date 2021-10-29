@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-06-30 00:26+0000\n"
-"Last-Translator: Ed <724195301@qq.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -32,29 +32,20 @@ msgstr "选择根页面"
 msgid "Choose a different root page"
 msgstr "选择另外一个根页面"
 
-msgid "Site"
+msgid "Sites"
 msgstr "站点"
 
-msgid "Port"
-msgstr "端口"
+msgid "Add a site"
+msgstr "增加一个站点"
 
-msgid "Site name"
-msgstr "站点名称"
-
-msgid "Root page"
-msgstr "根页面"
+msgid "Site"
+msgstr "站点"
 
 msgid "Default?"
 msgstr "默认？"
 
 msgid "Default"
 msgstr "默认"
-
-msgid "Sites"
-msgstr "站点"
-
-msgid "Add a site"
-msgstr "增加一个站点"
 
 msgid "Add site"
 msgstr "增加站点"

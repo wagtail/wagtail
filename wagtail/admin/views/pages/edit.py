@@ -1,5 +1,7 @@
 import json
 
+from urllib.parse import quote
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
@@ -9,7 +11,6 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
-from django.utils.http import urlquote
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
@@ -21,7 +22,8 @@ from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
-    Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy, WorkflowState)
+    COMMENTS_RELATION_NAME, Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy,
+    WorkflowState)
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -140,15 +142,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         comments = Comment.objects.filter(id__in=relevant_comment_ids)
         thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
             Prefetch('comment_replies', queryset=replies),
-            Prefetch('comments', queryset=comments)
+            Prefetch(COMMENTS_RELATION_NAME, queryset=comments)
         ).exclude(
-            Q(comment_replies__isnull=True) & Q(comments__isnull=True)
+            Q(comment_replies__isnull=True) & Q(**{('%s__isnull' % COMMENTS_RELATION_NAME): True})
         )
 
         # Skip if no recipients
         if not (global_recipient_users or thread_users):
             return
-        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(user.comments.values_list('pk', flat=True)))) for user in thread_users]
+        thread_users = [(user, set(list(user.comment_replies.values_list('comment_id', flat=True)) + list(getattr(user, COMMENTS_RELATION_NAME).values_list('pk', flat=True)))) for user in thread_users]
         mailed_users = set()
 
         for current_user, current_threads in thread_users:
@@ -252,11 +254,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return messages.button(
             reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)),
             _('View draft'),
-            new_window=True
+            new_window=False
         )
 
     def get_view_live_message_button(self):
-        return messages.button(self.page.url, _('View live'), new_window=True)
+        return messages.button(self.page.url, _('View live'), new_window=False)
 
     def get_compare_with_live_message_button(self):
         return messages.button(
@@ -714,7 +716,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
         if self.next_url:
             # Ensure the 'next' url is passed through again if present
-            target_url += '?next=%s' % urlquote(self.next_url)
+            target_url += '?next=%s' % quote(self.next_url)
         return redirect(target_url)
 
     def form_invalid(self, form):

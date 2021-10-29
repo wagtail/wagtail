@@ -244,14 +244,14 @@ As an example, we'll add email notifications for when our new task is started.
 
     # <project>/mail.py
 
-    from wagtail.admin.mail import EmailNotifier
+    from wagtail.admin.mail import EmailNotificationMixin, Notifier
     from wagtail.core.models import TaskState
 
     from .models import UserApprovalTaskState
 
 
-    class BaseUserApprovalTaskStateEmailNotifier(EmailNotifier):
-        """A base EmailNotifier to send updates for UserApprovalTask events"""
+    class BaseUserApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
+        """A base notifier to send updates for UserApprovalTask events"""
 
         def __init__(self):
             # Allow UserApprovalTaskState and TaskState to send notifications
@@ -278,13 +278,9 @@ As an example, we'll add email notifications for when our new task is started.
 
             return recipients
 
-        def get_template_base_prefix(self, instance, **kwargs):
-            # Get the template base prefix for TaskState, so use the ``wagtailadmin/notifications/task_state_`` set of notification templates
-            return super().get_template_base_prefix(self, instance.task_state_ptr, **kwargs)
-
 
     class UserApprovalTaskStateSubmissionEmailNotifier(BaseUserApprovalTaskStateEmailNotifier):
-        """An EmailNotifier to send updates for UserApprovalTask submission events"""
+        """A notifier to send updates for UserApprovalTask submission events"""
 
         notification = 'submitted'
 

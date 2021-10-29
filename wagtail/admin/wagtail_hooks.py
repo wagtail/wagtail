@@ -9,7 +9,9 @@ from draftjs_exporter.dom import DOM
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
 from wagtail import __version__
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.auth import user_has_any_page_permission
+from wagtail.admin.forms.collections import GroupCollectionManagementPermissionFormSet
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.rich_text import (
@@ -24,10 +26,12 @@ from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.admin.ui.sidebar import PageExplorerMenuItem as PageExplorerMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
+from wagtail.admin.views.pages.bulk_actions import (
+    DeleteBulkAction, MoveBulkAction, PublishBulkAction, UnpublishBulkAction)
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
 from wagtail.core import hooks
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.core.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
 from wagtail.core.permissions import (
     collection_permission_policy, task_permission_policy, workflow_permission_policy)
 from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
@@ -111,6 +115,11 @@ def register_pages_search_area():
     return PageSearchArea()
 
 
+@hooks.register('register_group_permission_panel')
+def register_collection_permissions_panel():
+    return GroupCollectionManagementPermissionFormSet
+
+
 class CollectionsMenuItem(MenuItem):
     def is_shown(self, request):
         return collection_permission_policy.user_has_any_permission(
@@ -168,7 +177,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             reverse('wagtailadmin_pages:view_draft', args=[page.id]),
             attrs={
                 'aria-label': _("Preview draft version of '%(title)s'") % {'title': page.get_admin_display_title()},
-                'target': '_blank', 'rel': 'noopener noreferrer'
+                'rel': 'noopener noreferrer'
             },
             priority=20
         )
@@ -177,7 +186,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             _('View live'),
             page.url,
             attrs={
-                'target': "_blank", 'rel': 'noopener noreferrer',
+                'rel': 'noopener noreferrer',
                 'aria-label': _("View live version of '%(title)s'") % {'title': page.get_admin_display_title()},
             },
             priority=30
@@ -269,6 +278,14 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
             reverse('wagtailadmin_pages:history', args=[page.id]),
             attrs={'title': _("View page history for '%(title)s'") % {'title': page.get_admin_display_title()}},
             priority=50
+        )
+
+    if is_parent:
+        yield Button(
+            _('Sort menu order'),
+            '?ordering=ord',
+            attrs={'title': _("Change ordering of child pages of '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=60
         )
 
 
@@ -678,6 +695,7 @@ def register_icons(icons):
         'arrow-up-big.svg',
         'arrow-up.svg',
         'arrows-up-down.svg',
+        'bars.svg',
         'bin.svg',
         'bold.svg',
         'chain-broken.svg',
@@ -781,3 +799,45 @@ def register_icons(icons):
 @hooks.register('construct_homepage_summary_items')
 def add_pages_summary_item(request, items):
     items.insert(0, PagesSummaryItem(request))
+
+
+class PageAdminURLFinder:
+    def __init__(self, user):
+        self.page_perms = user and UserPagePermissionsProxy(user)
+
+    def get_edit_url(self, instance):
+        if self.page_perms and not self.page_perms.for_page(instance).can_edit():
+            return None
+        else:
+            return reverse('wagtailadmin_pages:edit', args=(instance.pk, ))
+
+
+register_admin_url_finder(Page, PageAdminURLFinder)
+
+
+class CollectionAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = collection_permission_policy
+    edit_url_name = 'wagtailadmin_collections:edit'
+
+
+register_admin_url_finder(Collection, CollectionAdminURLFinder)
+
+
+class WorkflowAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = workflow_permission_policy
+    edit_url_name = 'wagtailadmin_workflows:edit'
+
+
+register_admin_url_finder(Workflow, WorkflowAdminURLFinder)
+
+
+class WorkflowTaskAdminURLFinder(ModelAdminURLFinder):
+    permission_policy = task_permission_policy
+    edit_url_name = 'wagtailadmin_workflows:edit_task'
+
+
+register_admin_url_finder(Task, WorkflowTaskAdminURLFinder)
+
+
+for action_class in [DeleteBulkAction, MoveBulkAction, PublishBulkAction, UnpublishBulkAction]:
+    hooks.register('register_bulk_action', action_class)

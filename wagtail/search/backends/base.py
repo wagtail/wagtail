@@ -362,14 +362,14 @@ class BaseSearchBackend:
             return EmptySearchResults()
 
         # Search
-        search_query = query_compiler_class(
+        search_query_compiler = query_compiler_class(
             queryset, query, **kwargs
         )
 
         # Check the query
-        search_query.check()
+        search_query_compiler.check()
 
-        return self.results_class(self, search_query)
+        return self.results_class(self, search_query_compiler)
 
     def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True):
         return self._search(

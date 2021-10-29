@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
 from wagtail.admin.widgets import AdminDateInput, BooleanButtonSelect, ButtonSelect, FilteredSelect
+from wagtail.core.utils import get_content_type_label
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
@@ -99,3 +100,16 @@ class WagtailFilterSet(django_filters.FilterSet):
             params.setdefault('widget', BooleanButtonSelect)
 
         return filter_class, params
+
+
+class ContentTypeModelChoiceField(django_filters.fields.ModelChoiceField):
+    """
+    Custom ModelChoiceField for ContentType, to show the model verbose name as the label rather
+    than the default 'wagtailcore | page' representation of a ContentType
+    """
+    def label_from_instance(self, obj):
+        return get_content_type_label(obj)
+
+
+class ContentTypeFilter(django_filters.ModelChoiceFilter):
+    field_class = ContentTypeModelChoiceField

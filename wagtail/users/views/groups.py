@@ -1,7 +1,8 @@
 from django.contrib.auth.models import Group
 from django.urls import re_path
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.ui.tables import TitleColumn
 from wagtail.admin.views import generic, mixins
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail.core import hooks
@@ -57,11 +58,15 @@ class IndexView(mixins.SearchableListMixin, generic.IndexView):
     search_fields = ['name']
     context_object_name = 'groups'
     paginate_by = 20
-    page_kwarg = 'p'
     ordering = ['name']
+    default_ordering = 'name'
+
+    columns = [
+        TitleColumn('name', label=_("Name"), sort_key='name', url_name='wagtailusers_groups:edit'),
+    ]
 
     def get_template_names(self):
-        if self.request.is_ajax():
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return ['wagtailusers/groups/results.html']
         else:
             return ['wagtailusers/groups/index.html']

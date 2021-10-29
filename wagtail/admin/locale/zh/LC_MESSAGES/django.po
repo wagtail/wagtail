@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: shengsheng gz <gzshengsheng@139.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,12 @@ msgstr "URL"
 msgid "Parent"
 msgstr "上一级"
 
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
 msgid "New title"
 msgstr "新标题"
 
@@ -77,9 +83,6 @@ msgstr "搜索"
 
 msgid "Search term"
 msgstr "搜索词"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Server Error"
 msgstr "服务错误"
@@ -282,6 +285,9 @@ msgstr "选择你希望创建哪个类型的页面。"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s 类的页面"
 
+msgid "Move"
+msgstr "移动"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "删除%(title)s"
@@ -292,9 +298,6 @@ msgstr "你确定你要删除此页吗？"
 #, python-format
 msgid "Move %(title)s"
 msgstr "移动 %(title)s"
-
-msgid "Move"
-msgstr "移动"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -389,6 +392,9 @@ msgstr "登出"
 msgid "by %(modified_by)s"
 msgstr "作者%(modified_by)s"
 
+msgid "More"
+msgstr "更多"
+
 msgid "Password"
 msgstr "密码"
 
@@ -427,9 +433,6 @@ msgstr "第 '{0}' 页已移动。"
 
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
-
-msgid "More"
-msgstr "更多"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

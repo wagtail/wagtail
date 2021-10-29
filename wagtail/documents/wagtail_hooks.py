@@ -8,6 +8,7 @@ from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
@@ -23,6 +24,8 @@ from wagtail.documents.permissions import permission_policy
 from wagtail.documents.rich_text import DocumentLinkHandler
 from wagtail.documents.rich_text.contentstate import ContentstateDocumentLinkConversionRule
 from wagtail.documents.rich_text.editor_html import EditorHTMLDocumentLinkConversionRule
+from wagtail.documents.views.bulk_actions import (
+    AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction)
 
 
 @hooks.register('register_admin_urls')
@@ -186,3 +189,15 @@ def check_view_restrictions(document, request):
 
             elif restriction.restriction_type in [BaseViewRestriction.LOGIN, BaseViewRestriction.GROUPS]:
                 return require_wagtail_login(next=request.get_full_path())
+
+
+class DocumentAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtaildocs:edit'
+    permission_policy = permission_policy
+
+
+register_admin_url_finder(get_document_model(), DocumentAdminURLFinder)
+
+
+for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
+    hooks.register('register_bulk_action', action_class)

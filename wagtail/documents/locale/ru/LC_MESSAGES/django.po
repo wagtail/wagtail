@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-01-22 14:37+0000\n"
-"Last-Translator: Sergey Mazanov <mvver@outlook.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,20 @@ msgstr "документ"
 msgid "documents"
 msgstr "документы"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Использован %(usage_count)s раз."
+msgstr[1] "Использован %(usage_count)s раз."
+msgstr[2] "Использован %(usage_count)s раз."
+msgstr[3] "Использован %(usage_count)s раз."
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
 msgid "Choose a document"
 msgstr "Выберите документ"
 
@@ -85,9 +99,6 @@ msgstr "Поиск"
 
 msgid "Upload"
 msgstr "Загрузка"
-
-msgid "Uploading…"
-msgstr "Загрузка..."
 
 #, python-format
 msgid ""
@@ -114,6 +125,19 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Последние документы"
 
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Создан"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
+
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -136,6 +160,9 @@ msgstr ""
 "Почему бы не <a class=\"upload-one-now\" href="
 "\"%(wagtaildocs_add_document_url)s\">загрузить сейчас</a>? "
 
+msgid "Uploading…"
+msgstr "Загрузка..."
+
 msgid "Change document:"
 msgstr "Изменить документ:"
 
@@ -151,23 +178,6 @@ msgstr "Удалить %(title)s"
 
 msgid "Delete document"
 msgstr "Удалить документ"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Использован %(usage_count)s раз."
-msgstr[1] "Использован %(usage_count)s раз."
-msgstr[2] "Использован %(usage_count)s раз."
-msgstr[3] "Использован %(usage_count)s раз."
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Вы уверены, что хотите удалить этот документ?"
-
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
-msgid "No, don't delete"
-msgstr "Нет, не удалять"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -190,19 +200,6 @@ msgstr "Использование"
 
 msgid "Documents"
 msgstr "Документы"
-
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "File"
-msgstr "Файл"
-
-msgid "Created"
-msgstr "Создан"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s назад"
 
 #, python-format
 msgid ""
@@ -310,6 +307,9 @@ msgstr "Доступ к документу"
 msgid "Add a document permission"
 msgstr "Добавить права доступа к документу"
 
+msgid "Delete"
+msgstr "Удалить"
+
 msgid "Server Error"
 msgstr "Ошибка Сервера"
 
@@ -333,9 +333,6 @@ msgid ""
 msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."

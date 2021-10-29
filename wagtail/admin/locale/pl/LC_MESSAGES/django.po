@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 14:09+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -155,11 +155,20 @@ msgstr ""
 "Wybierz pozycję w hierarchii. Pamiętaj: kolekcja nie może zostać podkolekcją "
 "swoją lub swoich podkolekcji."
 
+msgid "Please select another parent"
+msgstr "Proszę wybierz innego rodzica"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
 msgid "Collection"
 msgstr "Kolekcja"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nie możesz zmieniać komentarza innego użytkownika."
@@ -273,9 +282,6 @@ msgstr "Nadaj nazwę swojemu workflow"
 
 msgid "Add tasks to your workflow"
 msgstr "Dodaj zadania do swojego workflow"
-
-msgid "Edit"
-msgstr "Edytuj"
 
 msgid "Page"
 msgstr "Strona"
@@ -406,6 +412,15 @@ msgstr "Komentarz"
 msgid "More actions"
 msgstr "Więcej akcji"
 
+msgid "Save the page to add this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this reply"
+msgstr "Zapisz stronę aby zapisać odpowiedź"
+
 msgid "Dashboard"
 msgstr "Kokpit"
 
@@ -494,6 +509,9 @@ msgstr "Przywróć domyślne"
 
 msgid "Menu"
 msgstr "Menu"
+
+msgid "Go back"
+msgstr "Wróć"
 
 msgid "Explorer"
 msgstr "Przeglądarka"
@@ -646,6 +664,12 @@ msgstr "Przesuń w dół"
 msgid "Add comment"
 msgstr "Dodaj komentarz"
 
+msgid "Comments"
+msgstr "Komentarze"
+
+msgid "Commenting on this page"
+msgstr "Komentowanie na tej stronie"
+
 msgid "Comment notifications"
 msgstr "Powiadomienia komentarza"
 
@@ -786,6 +810,9 @@ msgstr "Zaloguj się do Wagtaila"
 
 msgid "Signing in…"
 msgstr "Logowanie..."
+
+msgid "Forgotten password?"
+msgstr "Zapomniane hasło?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -960,12 +987,24 @@ msgstr "Wybierz typ strony, którą chcesz stworzyć."
 msgid "Pages using %(page_type)s"
 msgstr "Strony używające %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
+
+msgid "Move"
+msgstr "Przesuń"
+
+msgid "No, don't unpublish"
+msgstr "Anuluj publikację"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Konwertuj alias %(title)s"
 
 msgid "Convert alias"
 msgstr "Konwertuj alias"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Czy na pewno chcesz przekształcić ten alias w normalną stronę?"
 
 msgid "This action cannot be undone."
 msgstr "Ta akcja nie może zostać cofnięta."
@@ -1033,9 +1072,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Przesuń %(title)s"
 
-msgid "Move"
-msgstr "Przesuń"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Czy na pewno chcesz przesunąć tę stronę do '%(title)s'?"
@@ -1087,9 +1123,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Tak, cofnij publikację"
-
-msgid "No, don't unpublish"
-msgstr "Anuluj publikację"
 
 msgid "Publish page"
 msgstr "Opublikuj stronę"
@@ -1146,6 +1179,9 @@ msgstr "Ta strona jest aliasem innej strony."
 
 msgid "Edit original page"
 msgstr "Edytuj oryginalną stronę"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Przekształć ten alias w normalną stronę"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1647,6 +1683,9 @@ msgstr "Zablokowany"
 msgid "No locked pages found."
 msgstr "Nie znaleziono zablokowanych stron."
 
+msgid "Edit this item"
+msgstr "Edytuj element"
+
 msgid "By Task"
 msgstr "Wg. zadania"
 
@@ -1728,17 +1767,11 @@ msgstr ""
 "a>.\n"
 "        "
 
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail stopniowo wycofuje wsparcie dla IE11, co może wpłynąć na Twoją "
-"pracę. <a href=\"%(url)s\">Dowiedz się więcej o planach wsparcia</a>."
-
 msgid "Skip to main content"
 msgstr "Pomiń do głównej zawartości"
+
+msgid "View Wagtail quick actions"
+msgstr "Wyświetl szybkie akcje Wagtail"
 
 msgid "Add a child page"
 msgstr "Dodaj podstronę"
@@ -1983,6 +2016,9 @@ msgid ""
 "descending order."
 msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
 
+msgid "More"
+msgstr "Więcej"
+
 msgid "0 minutes"
 msgstr "0 minut"
 
@@ -1992,11 +2028,11 @@ msgstr "W tej chwili"
 msgid "live"
 msgstr "opublikowana"
 
-msgid "live + draft"
-msgstr "opublikuj + szkic"
-
 msgid "draft"
 msgstr "szkic"
+
+msgid "live + draft"
+msgstr "opublikuj + szkic"
 
 msgid "Test"
 msgstr "Test"
@@ -2046,9 +2082,6 @@ msgstr "Kolekcja nie mogła zostać zapisana z powodu błędów."
 msgid "Delete collection"
 msgstr "Usuń kolekcję."
 
-msgid "Please select another parent"
-msgstr "Proszę wybierz innego rodzica"
-
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcja '{0}' usunięta."
 
@@ -2057,6 +2090,9 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 
 msgid "Editing"
 msgstr "Edytowanie"
+
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Strona '{0}' została przekształcona w normalną stronę."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
@@ -2149,6 +2185,9 @@ msgstr "Nie można zapisać zmian zablokownej strony"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
+
+msgid "Hide commenting actions"
+msgstr "Ukryj akcje komentowania"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Strona '{0}' jest teraz odblokowana."
@@ -2340,9 +2379,6 @@ msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
 msgid "Add a child page to '%(title)s' "
 msgstr "Dodaj podstronę dla '%(title)s' "
 
-msgid "More"
-msgstr "Więcej"
-
 #, python-format
 msgid "View more options for '%(title)s'"
 msgstr "Wyświetl więcej opcji dla '%(title)s'"
@@ -2421,9 +2457,6 @@ msgstr "Wybierz inną rzecz"
 
 msgid "Clear choice"
 msgstr "Wyczyść wybór"
-
-msgid "Edit this item"
-msgstr "Edytuj element"
 
 msgid "Choose another page"
 msgstr "Wybierz inną stronę"

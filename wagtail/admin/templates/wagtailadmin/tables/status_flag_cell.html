@@ -1,0 +1,7 @@
+<td {% if column.classname %}class="{{ column.classname }}"{% endif %}>
+    {% if value %}
+        {% if column.true_label %}<div class="status-tag primary">{{ column.true_label }}</div>{% endif %}
+    {% else %}
+        {% if column.false_label %}<div class="status-tag primary">{{ column.false_label }}</div>{% endif %}
+    {% endif %}
+</td>

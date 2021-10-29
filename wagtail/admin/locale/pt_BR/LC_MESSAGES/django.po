@@ -6,6 +6,7 @@
 # Bruno Bertoldi <bruno.bertoldi@gmail.com>, 2017
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014-2015
+# Éder Brito <britoederr@gmail.com>, 2021
 # Ed Wurch <ewurch@gmail.com>, 2021
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
@@ -19,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -156,11 +157,20 @@ msgstr ""
 "Selecione a posição hierárquica. Nota: uma coleção não pode se tornar filha "
 "de si mesma ou de seus descendentes."
 
+msgid "Please select another parent"
+msgstr "Selecione outro pai"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Você não pode ter vários registros de permissão para a mesma coleção."
 
 msgid "Collection"
 msgstr "Coleção"
+
+msgid "Add"
+msgstr "Adicionar"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "You cannot edit another user's comment."
 msgstr "Você não pode editar o comentário de outro usuário."
@@ -266,9 +276,6 @@ msgstr "Dê um nome ao seu fluxo de trabalho"
 
 msgid "Add tasks to your workflow"
 msgstr "Adicione tarefas ao seu fluxo de trabalho"
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Page"
 msgstr "Página"
@@ -399,6 +406,15 @@ msgstr "Comentário"
 msgid "More actions"
 msgstr "Mais ações"
 
+msgid "Save the page to add this comment"
+msgstr "Salve a página para adicionar este comentário"
+
+msgid "Save the page to save this comment"
+msgstr "Salve a página para salvar este comentário"
+
+msgid "Save the page to save this reply"
+msgstr "Salve a página para salvar esta resposta"
+
 msgid "Dashboard"
 msgstr "Painel"
 
@@ -484,6 +500,9 @@ msgstr "Restaurar ao padrão"
 
 msgid "Menu"
 msgstr "Menu"
+
+msgid "Select all"
+msgstr "Selecionar todos"
 
 msgid "Explorer"
 msgstr "Explorador"
@@ -623,6 +642,15 @@ msgstr "Mover para baixo"
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
+msgid "Comments"
+msgstr "Comentários"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr "Alternar a visibilidade da lista de notificações de comentários"
+
+msgid "Commenting on this page"
+msgstr "Comentando nesta página"
+
 msgid "Comment notifications"
 msgstr "Notificações de comentários"
 
@@ -754,6 +782,9 @@ msgstr "Entrar no Wagtail"
 
 msgid "Signing in…"
 msgstr "Entrando..."
+
+msgid "Forgotten password?"
+msgstr "Esqueceu a senha?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1000,12 +1031,24 @@ msgstr "Escolhe o tipo de página gostaria de criar."
 msgid "Pages using %(page_type)s"
 msgstr "Páginas usando %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Não, não apague"
+
+msgid "Move"
+msgstr "Mover"
+
+msgid "No, don't unpublish"
+msgstr "Não despublicar"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Converter alias %(title)s"
 
 msgid "Convert alias"
 msgstr "Converter alias"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Tem certeza de que deseja converter este alias em uma página comum?"
 
 msgid "This action cannot be undone."
 msgstr "Essa ação não pode ser desfeita."
@@ -1063,9 +1106,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Mover %(title)s"
 
-msgid "Move"
-msgstr "Mover"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Tem certeza que deseja mover a página dentro de '%(title)s'?"
@@ -1109,9 +1149,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Sim, quero despublicar"
-
-msgid "No, don't unpublish"
-msgstr "Não despublicar"
 
 msgid "Publish page"
 msgstr "Publicar página"
@@ -1192,6 +1229,9 @@ msgstr "Esta página é um alias de outra página."
 
 msgid "Edit original page"
 msgstr "Editar página original"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Converter este alias em uma página comum"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1687,6 +1727,9 @@ msgstr "Bloqueado"
 msgid "No locked pages found."
 msgstr "Nenhuma página bloqueada encontrada."
 
+msgid "Edit this item"
+msgstr "Edite este item"
+
 msgid "By Task"
 msgstr "Por tarefa"
 
@@ -1751,8 +1794,28 @@ msgstr ""
 "por este software. Por favor <a href=\"https://browsehappy.com/\">atualize o "
 "seu navegador</a>."
 
+msgid ""
+"\n"
+"            JavaScript is required to use Wagtail, but it is currently "
+"disabled.<br />\n"
+"            Here are the <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instructions how to enable "
+"JavaScript in your web browser</a>.\n"
+"        "
+msgstr ""
+"\n"
+"            O JavaScript é necessário para usar o Wagtail, mas está "
+"desativado no momento.<br />\n"
+"            Aqui estão as <a href=\"https://www.enable-javascript.com/\" "
+"target=\"_blank\" rel=\"noopener noreferrer\">instruções sobre como "
+"habilitar o JavaScript em seu navegador</a>.\n"
+"        "
+
 msgid "Skip to main content"
 msgstr "Ir para o conteúdo principal"
+
+msgid "View Wagtail quick actions"
+msgstr "Veja as ações rápidas do Wagtail"
 
 msgid "Add a child page"
 msgstr "Adicionar subpágina"
@@ -1777,6 +1840,17 @@ msgstr "Criando…"
 
 msgid "Create"
 msgstr "Criar"
+
+#, python-format
+msgid ""
+"Workflows apply to child pages too. If you select a parent page here, its "
+"child pages will also use this workflow. See <a href=\"%(workflow_pages_url)s"
+"\">the list of the pages</a> your workflow applies to."
+msgstr ""
+"Os workflows também se aplicam a sub-páginas. Se você selecionar a página "
+"pai aqui, todas as suas sub-páginas herdarão o mesmo workflow. Veja <a href="
+"\"%(workflow_pages_url)s\">a lista de páginas</a> que contêm o seu fluxo de "
+"trabalho  atribuído."
 
 msgid "This workflow is disabled so it cannot be assigned to any pages."
 msgstr ""
@@ -1971,6 +2045,9 @@ msgstr ""
 "Classifique a ordem das páginas filhas em '%(parent)s' por '%(label)s' em "
 "ordem decrescente."
 
+msgid "More"
+msgstr "Mais"
+
 msgid "0 minutes"
 msgstr "0 minutos"
 
@@ -1980,11 +2057,11 @@ msgstr "Agora mesmo"
 msgid "live"
 msgstr "online"
 
-msgid "live + draft"
-msgstr "online + rascunho"
-
 msgid "draft"
 msgstr "rascunho"
+
+msgid "live + draft"
+msgstr "online + rascunho"
 
 msgid "Test"
 msgstr "Teste"
@@ -2034,9 +2111,6 @@ msgstr "A coleção não pôde ser salvo devido a erros."
 msgid "Delete collection"
 msgstr "Remover coleção"
 
-msgid "Please select another parent"
-msgstr "Selecione outro pai"
-
 msgid "Collection '{0}' deleted."
 msgstr "Coleção '{0}' excluída."
 
@@ -2045,6 +2119,9 @@ msgstr "Tem certeza de que deseja excluir esta coleção?"
 
 msgid "Editing"
 msgstr "Editando"
+
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "A página '{0}' foi convertida em uma página comum."
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Página '{0}' e {1} subpáginas copiadas."
@@ -2136,6 +2213,9 @@ msgstr "Esta página não pode ser salva já que está bloqueada"
 
 msgid "The page could not be saved due to validation errors"
 msgstr "A página não pode ser salva devido a erros de validação"
+
+msgid "Hide commenting actions"
+msgstr "Ocultar ações de comentários"
 
 msgid "Page '{0}' is now unlocked."
 msgstr "Agora a página '{0}' está desbloqueada."
@@ -2299,20 +2379,6 @@ msgstr "Desativar tarefa"
 msgid "Task '{0}' disabled."
 msgstr "Tarefa '{0}' desativada."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Esta tarefa está em andamento em %(states_in_progress)d página. Desativar "
-"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação."
-msgstr[1] ""
-"Esta tarefa está em andamento em %(states_in_progress)d páginas. Desativar "
-"esta tarefa fará com que ela seja ignorada no fluxo de trabalho de moderação."
-
 msgid "Task '{0}' enabled."
 msgstr "Tarefa '{0}' habilitada."
 
@@ -2334,9 +2400,6 @@ msgstr "Ver versão ao vivo de '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Adicionar uma página filha a '%(title)s' "
-
-msgid "More"
-msgstr "Mais"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2416,9 +2479,6 @@ msgstr "Escolha outro item"
 
 msgid "Clear choice"
 msgstr "Limpar escolha"
-
-msgid "Edit this item"
-msgstr "Edite este item"
 
 msgid "Choose another page"
 msgstr "Escolher outra página"

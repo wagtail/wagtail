@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-04-27 16:58+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -171,6 +171,18 @@ msgstr "Imagen"
 msgid "images"
 msgstr "Imágenes"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Usado %(usage_count)s vez"
+msgstr[1] "Usado %(usage_count)s veces"
+
+msgid "Yes, delete"
+msgstr "Sí, eliminar"
+
+msgid "No, don't delete"
+msgstr "No, no eliminar"
+
 msgid "Choose an image"
 msgstr "Seleccionar una imagen"
 
@@ -182,9 +194,6 @@ msgstr "Subir"
 
 msgid "Popular tags"
 msgstr "Etiquetas populares"
-
-msgid "Uploading…"
-msgstr "Subiendo..."
 
 #, python-format
 msgid ""
@@ -212,6 +221,9 @@ msgstr "Selecciona un formato"
 
 msgid "Insert image"
 msgstr "Insertar imagen"
+
+msgid "Uploading…"
+msgstr "Subiendo..."
 
 #, python-format
 msgid ""
@@ -249,21 +261,6 @@ msgstr "Guardar"
 
 msgid "Delete image"
 msgstr "Eliminar imagen"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Usado %(usage_count)s vez"
-msgstr[1] "Usado %(usage_count)s veces"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "¿Seguro que quieres eliminar esta imagen?"
-
-msgid "Yes, delete"
-msgstr "Sí, eliminar"
-
-msgid "No, don't delete"
-msgstr "No, no eliminar"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -424,6 +421,9 @@ msgstr "Permisos de imagen"
 msgid "Add an image permission"
 msgstr "Añadir un permiso de imagen"
 
+msgid "Delete"
+msgstr "Eliminar"
+
 msgid "Search images"
 msgstr "Buscar imágenes"
 
@@ -442,9 +442,6 @@ msgid ""
 msgstr ""
 "El archivo origen de la imagen no pudo ser encontrado. Por favor, cambia el "
 "origen o elimina esta imagen."
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Image '{0}' deleted."
 msgstr "Imagen '{0}' eliminada."

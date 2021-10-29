@@ -1,0 +1,9 @@
+{% load i18n wagtailadmin_tags %}
+<td>
+    <input type="checkbox"
+    {% if obj_type == 'page' %}data-page-status="{% if obj.live %}live{% else %}draft{% endif %}"{% endif %}
+    data-object-id="{{obj.id}}" data-bulk-action-checkbox class="bulk-action-checkbox"
+    {% if checbox_aria_label %}aria-label="{{checkbox_aria_label}}"{% endif %}
+    {% if aria_labelledby %}aria-labelledby="{{ aria_labelledby_prefix }}{{ aria_labelledby }}{{ aria_labelledby_suffix }}"{% endif %}
+    />
+</td>

@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -15,6 +16,7 @@ from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.core.log_actions import log
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.loading import get_custom_form
@@ -46,6 +48,25 @@ def get_user_edit_form():
         return UserEditForm
 
 
+def get_users_filter_query(q, model_fields):
+    conditions = Q()
+
+    for term in q.split():
+        if 'username' in model_fields:
+            conditions |= Q(username__icontains=term)
+
+        if 'first_name' in model_fields:
+            conditions |= Q(first_name__icontains=term)
+
+        if 'last_name' in model_fields:
+            conditions |= Q(last_name__icontains=term)
+
+        if 'email' in model_fields:
+            conditions |= Q(email__icontains=term)
+
+    return conditions
+
+
 @any_permission_required(add_user_perm, change_user_perm, delete_user_perm)
 @vary_on_headers('X-Requested-With')
 def index(request, *args):
@@ -65,20 +86,7 @@ def index(request, *args):
         if form.is_valid():
             q = form.cleaned_data['q']
             is_searching = True
-            conditions = Q()
-
-            for term in q.split():
-                if 'username' in model_fields:
-                    conditions |= Q(username__icontains=term)
-
-                if 'first_name' in model_fields:
-                    conditions |= Q(first_name__icontains=term)
-
-                if 'last_name' in model_fields:
-                    conditions |= Q(last_name__icontains=term)
-
-                if 'email' in model_fields:
-                    conditions |= Q(email__icontains=term)
+            conditions = get_users_filter_query(q, model_fields)
 
             users = User.objects.filter(group_filter & conditions)
     else:
@@ -101,7 +109,7 @@ def index(request, *args):
     paginator = Paginator(users.select_related('wagtail_userprofile'), per_page=20)
     users = paginator.get_page(request.GET.get('p'))
 
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailusers/users/results.html", {
             'users': users,
             'is_searching': is_searching,
@@ -116,6 +124,8 @@ def index(request, *args):
             'is_searching': is_searching,
             'ordering': ordering,
             'query_string': q,
+            'app_label': User._meta.app_label,
+            'model_name': User._meta.model_name,
         })
 
 
@@ -128,7 +138,9 @@ def create(request):
     if request.method == 'POST':
         form = get_user_creation_form()(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
+            with transaction.atomic():
+                user = form.save()
+                log(user, 'wagtail.create')
             messages.success(request, _("User '{0}' created.").format(user), buttons=[
                 messages.button(reverse('wagtailusers_users:edit', args=(user.pk,)), _('Edit'))
             ])
@@ -160,7 +172,9 @@ def edit(request, user_id):
     if request.method == 'POST':
         form = get_user_edit_form()(request.POST, request.FILES, instance=user, editing_self=editing_self)
         if form.is_valid():
-            user = form.save()
+            with transaction.atomic():
+                user = form.save()
+                log(user, 'wagtail.edit')
 
             if user == request.user and 'password1' in form.changed_data:
                 # User is changing their own password; need to update their session hash
@@ -198,7 +212,9 @@ def delete(request, user_id):
         if hasattr(result, 'status_code'):
             return result
     if request.method == 'POST':
-        user.delete()
+        with transaction.atomic():
+            log(user, 'wagtail.delete')
+            user.delete()
         messages.success(request, _("User '{0}' deleted.").format(user))
         for fn in hooks.get_hooks('after_delete_user'):
             result = fn(request, user)

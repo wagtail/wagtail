@@ -20,6 +20,7 @@ from wagtail.admin.forms.account import (
 from wagtail.admin.forms.auth import LoginForm, PasswordChangeForm, PasswordResetForm
 from wagtail.admin.localization import get_available_admin_languages, get_available_admin_time_zones
 from wagtail.core import hooks
+from wagtail.core.log_actions import log
 from wagtail.core.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
@@ -229,6 +230,8 @@ def account(request):
                 for form in panel_forms:
                     if form.is_bound:
                         form.save()
+
+            log(user, 'wagtail.edit')
 
             # Prevent a password change from logging this user out
             update_session_auth_hash(request, user)

@@ -308,7 +308,7 @@ Using the ``page_url`` shortcut has a few of advantages over using the tag:
     in more than one place (e.g. in a form and in footer navigation), using
     the ``page_url`` shortcut will be more efficient.
 3.  It's more concise, and the syntax is the same whether using it in templates
-    or views (or other Python code), allowing you to write more more consistent
+    or views (or other Python code), allowing you to write more consistent
     code.
 
 When using the ``page_url`` shortcut, there are a couple of points worth noting:

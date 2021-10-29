@@ -3,7 +3,7 @@ version: 2
 jobs:
   backend:
     docker:
-      - image: circleci/python:3.7.3
+      - image: cimg/python:3.8.11
     steps:
       - checkout
       - restore_cache:
@@ -50,7 +50,7 @@ jobs:
 
   nightly-build:
     docker:
-      - image: circleci/python:3.7.3
+      - image: cimg/python:3.8.11
     steps:
       - checkout
       - run: cd ~ && wget https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.gz

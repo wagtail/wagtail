@@ -21,6 +21,7 @@ urlpatterns = [
     path('<slug:app_label>/<slug:model_name>/multiple/delete/', snippets.delete, name='delete-multiple'),
     path('<slug:app_label>/<slug:model_name>/delete/<str:pk>/', snippets.delete, name='delete'),
     path('<slug:app_label>/<slug:model_name>/usage/<str:pk>/', snippets.usage, name='usage'),
+    path('<slug:app_label>/<slug:model_name>/history/<str:pk>/', snippets.HistoryView.as_view(), name='history'),
 
     # legacy URLs that could potentially collide if the pk matches one of the reserved names above
     # ('add', 'edit' etc) - redirect to the unambiguous version

@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-03 04:15+0000\n"
-"Last-Translator: Yin Guanhao <sopium@mysterious.site>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -72,6 +72,17 @@ msgstr "文档"
 msgid "documents"
 msgstr "文档"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Yes, delete"
+msgstr "是，删除"
+
+msgid "No, don't delete"
+msgstr "否，不删除"
+
 msgid "Choose a document"
 msgstr "选择一个文档"
 
@@ -80,9 +91,6 @@ msgstr "搜索"
 
 msgid "Upload"
 msgstr "上传"
-
-msgid "Uploading…"
-msgstr "正在上传…"
 
 #, python-format
 msgid ""
@@ -100,6 +108,19 @@ msgstr[0] ""
 
 msgid "Latest documents"
 msgstr "最新文档"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Created"
+msgstr "创建时间"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -122,6 +143,9 @@ msgstr ""
 "    现在<a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
 "\">上传一个文档</a>吗？"
 
+msgid "Uploading…"
+msgstr "正在上传…"
+
 msgid "Change document:"
 msgstr "修改文档："
 
@@ -137,20 +161,6 @@ msgstr "删除 %(title)s"
 
 msgid "Delete document"
 msgstr "删除文档"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "确定删除此文档？"
-
-msgid "Yes, delete"
-msgstr "是，删除"
-
-msgid "No, don't delete"
-msgstr "否，不删除"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -173,19 +183,6 @@ msgstr "使用情况"
 
 msgid "Documents"
 msgstr "文档"
-
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Created"
-msgstr "创建时间"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid ""
@@ -276,6 +273,9 @@ msgstr "文档权限"
 msgid "Add a document permission"
 msgstr "添加一个文档权限"
 
+msgid "Delete"
+msgstr "删除"
+
 msgid "Server Error"
 msgstr "服务器错误"
 
@@ -297,9 +297,6 @@ msgstr "文档'{0}' 已更新"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "无法找到文件。请修改源或者删除文档。"
-
-msgid "Delete"
-msgstr "删除"
 
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"

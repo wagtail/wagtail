@@ -457,6 +457,7 @@ class TestFieldPanel(TestCase):
         end_date_panel_with_overridden_heading = (FieldPanel('date_to', classname='full-width', heading="New heading")
                                                   .bind_to(model=EventPage, request=self.request, form=self.EventPageForm()))
         self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
+        self.assertEqual(end_date_panel_with_overridden_heading.bound_field.label, "New heading")
 
     def test_render_as_object(self):
         form = self.EventPageForm(
@@ -557,7 +558,7 @@ class TestFieldRowPanel(TestCase):
                                date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
         self.dates_panel = FieldRowPanel([
-            FieldPanel('date_from', classname='col4'),
+            FieldPanel('date_from', classname='col4', heading="Start"),
             FieldPanel('date_to', classname='coltwo'),
         ]).bind_to(model=EventPage, request=self.request)
 
@@ -596,6 +597,9 @@ class TestFieldRowPanel(TestCase):
         # check that label is output in the 'field' style
         self.assertIn('<label for="id_date_to">End date:</label>', result)
         self.assertNotIn('<legend>End date</legend>', result)
+
+        # check that label is overridden with the 'heading' argument
+        self.assertIn('<label for="id_date_from">Start:</label>', result)
 
         # check that help text is included
         self.assertIn('Not required if event is on a single day', result)

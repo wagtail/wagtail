@@ -125,7 +125,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
         # Build a form for validation
         upload_form_class = self.get_upload_form_class()
         form = upload_form_class({
-            'title': request.FILES['files[]'].name,
+            'title': request.POST.get('title', request.FILES['files[]'].name),
             'collection': request.POST.get('collection'),
         }, {
             'file': request.FILES['files[]'],

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -52,6 +52,9 @@ msgstr[1] ""
 "\n"
 "            Det er %(counter)s treff\n"
 "        "
+
+msgid "Title"
+msgstr "Tittel"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -123,9 +126,6 @@ msgstr "Snutter"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Velg alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Tittel"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -200,6 +200,9 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s slettet."
 msgstr[1] "%(count)d %(snippet_type)s slettet."
+
+msgid "Date"
+msgstr "Dato"
 
 #, python-format
 msgid "Edit '%(title)s'"

@@ -3,17 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018,2020
+# Miłosz Miśkiewicz, 2018,2020-2021
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 09:39+0000\n"
 "Last-Translator: Łukasz Bołdys (Lukasz Boldys)\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -34,14 +35,17 @@ msgstr "Typ"
 msgid "Permanent"
 msgstr "Stałe"
 
+msgid "Temporary"
+msgstr "Czasowe"
+
 msgid "All"
 msgstr "Wszystkie"
 
 msgid "From site"
-msgstr "Strona źródłowa"
+msgstr "Serwis źródłowy"
 
 msgid "All sites"
-msgstr "Wszystkie strony"
+msgstr "Wszystkie serwisy"
 
 msgid "A redirect with this path already exists."
 msgstr "Przekierowanie z tym adresem już istnieje."
@@ -63,7 +67,7 @@ msgid "redirect from"
 msgstr "przekierowanie z"
 
 msgid "site"
-msgstr "strona"
+msgstr "serwis"
 
 msgid "permanent"
 msgstr "stałe"
@@ -176,11 +180,17 @@ msgstr "Błąd"
 msgid "Continue"
 msgstr "Kontynuuj"
 
+msgid "Export redirects"
+msgstr "Eksport przekierowań"
+
 msgid "Site"
-msgstr "Strona"
+msgstr "Serwis"
 
 msgid "Edit this redirect"
 msgstr "Edytuj to przekierowanie"
+
+msgid "No redirects found."
+msgstr "Nie znaleziono przekierowań."
 
 #, python-format
 msgid ""
@@ -262,3 +272,6 @@ msgstr[0] "Zaimportowano %(total)d przekierowanie"
 msgstr[1] "Zaimportowano %(total)d przekierowań"
 msgstr[2] "Zaimportowano %(total)d przekierowań"
 msgstr[3] "Zaimportowano %(total)d przekierowań"
+
+msgid "Export Redirects"
+msgstr "Eksport Przekierowań"

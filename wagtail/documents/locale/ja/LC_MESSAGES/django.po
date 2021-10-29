@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: 石田秀 <ishidashu@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,17 @@ msgstr "ドキュメント"
 msgid "documents"
 msgstr "ドキュメント"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s回使用"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
 msgid "Choose a document"
 msgstr "ドキュメントを選択"
 
@@ -74,9 +85,6 @@ msgstr "検索"
 
 msgid "Upload"
 msgstr "アップロード"
-
-msgid "Uploading…"
-msgstr "アップロード中…"
 
 #, python-format
 msgid ""
@@ -93,6 +101,19 @@ msgstr[0] ""
 
 msgid "Latest documents"
 msgstr "最新のドキュメント"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "File"
+msgstr "ファイル"
+
+msgid "Created"
+msgstr "作成"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s前"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -116,6 +137,9 @@ msgstr ""
 "メントを追加</a>しますか？\n"
 "            "
 
+msgid "Uploading…"
+msgstr "アップロード中…"
+
 msgid "Change document:"
 msgstr "ドキュメントを変更"
 
@@ -131,20 +155,6 @@ msgstr "%(title)s を削除"
 
 msgid "Delete document"
 msgstr "ドキュメントを削除"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s回使用"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "このドキュメントを削除しますか？"
-
-msgid "Yes, delete"
-msgstr "はい、削除します"
-
-msgid "No, don't delete"
-msgstr "いいえ、削除しません"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -167,19 +177,6 @@ msgstr "使用法"
 
 msgid "Documents"
 msgstr "ドキュメント"
-
-msgid "Title"
-msgstr "タイトル"
-
-msgid "File"
-msgstr "ファイル"
-
-msgid "Created"
-msgstr "作成"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s前"
 
 #, python-format
 msgid ""
@@ -269,6 +266,9 @@ msgstr "ドキュメント権限"
 msgid "Add a document permission"
 msgstr "ドキュメント権限を追加"
 
+msgid "Delete"
+msgstr "削除"
+
 msgid "Server Error"
 msgstr "サーバーエラー"
 
@@ -292,9 +292,6 @@ msgid ""
 msgstr ""
 "ファイルが見つかりませんでした。ソースを変更するかドキュメントを削除してくだ"
 "さい。"
-
-msgid "Delete"
-msgstr "削除"
 
 msgid "Document '{0}' deleted."
 msgstr "'{0}'のドキュメントを削除しました。"

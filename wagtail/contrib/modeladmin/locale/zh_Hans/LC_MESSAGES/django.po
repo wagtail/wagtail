@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-21 15:58+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +123,9 @@ msgstr "主页"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "按  %(filter_title)s "
+
+msgid "History"
+msgstr "历史"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -234,3 +237,9 @@ msgstr "正在检查"
 #, python-format
 msgid "Inspecting %s"
 msgstr "正在检查%s"
+
+msgid "Action"
+msgstr "行为"
+
+msgid "Date"
+msgstr "日期"

@@ -55,6 +55,7 @@ class AddView(BaseAddView):
 
         context.update({
             'max_filesize': self.form.fields['file'].max_upload_size,
+            'max_title_length': self.form.fields['title'].max_length,
             'allowed_extensions': ALLOWED_EXTENSIONS,
             'error_max_file_size': self.form.fields['file'].error_messages['file_too_large_unknown_size'],
             'error_accepted_file_types': self.form.fields['file'].error_messages['invalid_image_extension'],

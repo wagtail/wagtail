@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Ronggo Radityo <radityo3000@yahoo.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -138,6 +138,14 @@ msgstr "gambar"
 msgid "images"
 msgstr "gambar-gambar"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
 msgid "Choose an image"
 msgstr "Pilih sebuah gambar"
 
@@ -149,9 +157,6 @@ msgstr "Unggah"
 
 msgid "Popular tags"
 msgstr "Tag Populer"
-
-msgid "Uploading…"
-msgstr "Mengunggah..."
 
 #, python-format
 msgid ""
@@ -175,6 +180,9 @@ msgstr "Pilih format"
 msgid "Insert image"
 msgstr "Masukkan gambar"
 
+msgid "Uploading…"
+msgstr "Mengunggah..."
+
 msgid "Change image file:"
 msgstr "Ubah berkas gambar:"
 
@@ -189,17 +197,6 @@ msgstr "Simpan"
 
 msgid "Delete image"
 msgstr "Hapus gambar"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)s kali"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Apakah Anda yakin untuk menghapus gambar ini?"
-
-msgid "Yes, delete"
-msgstr "Ya, hapus"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -336,6 +333,9 @@ msgstr "Izin gambar"
 msgid "Add an image permission"
 msgstr "Tambahkan izin gambar"
 
+msgid "Delete"
+msgstr "Hapus"
+
 msgid "Search images"
 msgstr "Cari gambar"
 
@@ -354,9 +354,6 @@ msgid ""
 msgstr ""
 "Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
 "hapus gambar."
-
-msgid "Delete"
-msgstr "Hapus"
 
 msgid "Image '{0}' deleted."
 msgstr "Gambar '{0}' dihapus."

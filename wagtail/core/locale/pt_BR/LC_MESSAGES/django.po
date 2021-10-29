@@ -5,6 +5,7 @@
 # Translators:
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
+# Éder Brito <britoederr@gmail.com>, 2021
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:38+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +33,14 @@ msgstr "Núcleo de Wagtail"
 
 msgid "Add Comment"
 msgstr "Adicionar comentário"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "O número mínimo de itens é %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "O número máximo de itens é %d"
 
 msgid "Move up"
 msgstr "Mover para cima"
@@ -55,16 +64,8 @@ msgstr "%(label)s: este bloco não tem opções."
 msgid "This block has no options."
 msgstr "Este bloco não possui opções."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "O número mínimo de itens é %d"
-
 msgid "This field is required."
 msgstr "Este campo é obrigatório."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "O número máximo de itens é %d"
 
 msgid "Password"
 msgstr "Senha"
@@ -74,10 +75,6 @@ msgstr "A senha que você digitou não está correta. Por favor, tente novamente
 
 msgid "Comment"
 msgstr "Comentário"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "%(action)s desconhecida"
 
 msgid "title"
 msgstr "título"
@@ -279,8 +276,17 @@ msgstr "página de fluxo de trabalho"
 msgid "workflow pages"
 msgstr "páginas de fluxo de trabalho"
 
+msgid "workflow_tasks"
+msgstr "workflow_tasks"
+
 msgid "task"
 msgstr "tarefa"
+
+msgid "workflow task order"
+msgstr "pedido de tarefa de workflow"
+
+msgid "workflow task orders"
+msgstr "pedidos de tarefa de workflow"
 
 msgid "name"
 msgstr "nome"
@@ -288,14 +294,35 @@ msgstr "nome"
 msgid "active"
 msgstr "ativo"
 
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Tarefas ativas podem ser adicionadas a workflows. Desativar uma tarefa não a "
+"remove dos workflows existentes."
+
 msgid "tasks"
 msgstr "tarefas"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Workflows ativos podem ser adicionados às páginas. Desativar um workflow não "
+"o remove das páginas existentes."
 
 msgid "workflows"
 msgstr "fluxos de trabalho"
 
 msgid "groups"
 msgstr "grupos"
+
+msgid ""
+"Pages at this step in a workflow will be moderated or approved by these "
+"groups of users"
+msgstr ""
+"As páginas nesta etapa de um workflow serão moderadas ou aprovadas por esses "
+"grupos de usuários"
 
 msgid "Request changes"
 msgstr "Solicitar mudanças"
@@ -308,6 +335,12 @@ msgstr "Aprovar com comentário"
 
 msgid "Members of the chosen Wagtail Groups can approve this task"
 msgstr "Membros dos grupos de Wagtail escolhidos podem aprovar esta tarefa"
+
+msgid "Group approval task"
+msgstr "Tarefa de aprovação de grupo"
+
+msgid "Group approval tasks"
+msgstr "Tarefas de aprovação de grupo"
 
 msgid "In progress"
 msgstr "Em progresso"
@@ -330,14 +363,32 @@ msgstr "solicitado por"
 msgid "current task state"
 msgstr "estado atual da tarefa"
 
+msgid ""
+"There may only be one in progress or needs changes workflow state per page."
+msgstr ""
+"Pode haver apenas um em andamento ou precisa alterar o estado do workflow "
+"por página."
+
+msgid "Workflow '{0}' on Page '{1}': {2}"
+msgstr "O Workflow '{0}' na Página '{1}': {2}"
+
 msgid "Not started"
 msgstr "Não foi iniciado"
+
+msgid "Workflow state"
+msgstr "Situação do workflow"
+
+msgid "Workflow states"
+msgstr "Situações do workflow"
 
 msgid "Rejected"
 msgstr "Rejeitado"
 
 msgid "Skipped"
 msgstr "Ignorado"
+
+msgid "workflow state"
+msgstr "situação do workflow"
 
 msgid "started at"
 msgstr "começou às"
@@ -347,6 +398,21 @@ msgstr "terminou às"
 
 msgid "finished by"
 msgstr "terminado por"
+
+msgid "Task '{0}' on Page Revision '{1}': {2}"
+msgstr "A tarefa '{0}' na Revisão de Página '{1}': {2}"
+
+msgid "Task state"
+msgstr "Situação da tarefa"
+
+msgid "Task states"
+msgstr "Situações da tarefa"
+
+msgid "page log entry"
+msgstr "entrada de log de página"
+
+msgid "page log entries"
+msgstr "entradas de log de página"
 
 msgid "comment"
 msgstr "comentário"
@@ -360,8 +426,24 @@ msgstr "resposta de comentário"
 msgid "comment replies"
 msgstr "respostas de comentários"
 
+msgid "timestamp (UTC)"
+msgstr "fuso horário (UTC)"
+
+msgid "log entry"
+msgstr "entrada de log"
+
+msgid "log entries"
+msgstr "entradas de log"
+
+msgid "The log action '{}' has not been registered."
+msgstr "A ação de log '{}' não foi registrada."
+
 msgid "system"
 msgstr "sistema"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "%(action)s desconhecida"
 
 msgid "collection"
 msgstr "coleção"
@@ -488,6 +570,12 @@ msgstr "Francês"
 msgid "German"
 msgstr "Alemão"
 
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s coleções descendentes"
+msgstr[1] "%(count)s coleções descendentes"
+
 msgid "Create"
 msgstr "Criar"
 
@@ -533,6 +621,19 @@ msgstr "Desbloqueado"
 msgid "Reject"
 msgstr "Rejeitar"
 
+msgid "Rename"
+msgstr "Renomear"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Renomeado de '%(old)s' para '%(new)s'"
+
+msgid "Renamed"
+msgstr "Renomeado"
+
+msgid "Revert"
+msgstr "Reverter"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -542,12 +643,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Revertido para a revisão anterior"
 
+msgid "Copy"
+msgstr "Copiar"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Copiado de %(title)s"
 
 msgid "Copied"
 msgstr "Copiado"
+
+msgid "Create alias"
+msgstr "Criar alias"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -557,11 +664,24 @@ msgid "Created an alias"
 msgstr "Criado um alias"
 
 #, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Converteu o alias '%(title)s' em uma página comum"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Converteu o alias em uma página comum"
+
+msgid "Move"
+msgstr "Mover"
+
+#, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
 msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
 
 msgid "Moved"
 msgstr "Movido"
+
+msgid "Reorder"
+msgstr "Reordenar"
 
 #, python-format
 msgid "Reordered under '%(parent)s'"
@@ -569,6 +689,9 @@ msgstr "Reordenado em '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Reordenado"
+
+msgid "Schedule publication"
+msgstr "Agendar publicação"
 
 #, python-format
 msgid ""
@@ -585,46 +708,37 @@ msgstr "Página agendada para publicação em %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Página agendada para publicação"
 
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revisão %(revision_id)s a partir de %(created_at)s não programado para "
+"publicação em %(go_live_at)s."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Página não agendada para publicação em %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Página não agendada para publicação"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Adicionada a visualização de restrição '%(restriction)s'"
+
 msgid "Added view restriction"
 msgstr "Adicionada restrição de visualização"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Removida a restrição de visualização de '%(restriction)s' "
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Renomeado de '%(old)s' para '%(new)s'"
-
-msgid "Renamed"
-msgstr "Renomeado"
-
-msgid "Rename"
-msgstr "Renomear"
-
-msgid "Revert"
-msgstr "Reverter"
-
-msgid "Copy"
-msgstr "Copiar"
-
-msgid "Create alias"
-msgstr "Criar alias"
-
-msgid "Move"
-msgstr "Mover"
-
-msgid "Reorder"
-msgstr "Reordenar"
-
-msgid "Schedule publication"
-msgstr "Agendar publicação"
 
 msgid "Update view restrictions"
 msgstr "Atualizar restrições de visualização"
 
 msgid "Remove view restrictions"
 msgstr "Remover restrições de visualização"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Removida a restrição de visualização de '%(restriction)s' "
 
 msgid "Add comment"
 msgstr "Adicionar comentário"

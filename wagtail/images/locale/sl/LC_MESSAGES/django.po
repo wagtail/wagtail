@@ -4,13 +4,14 @@
 #
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
+# Urban Prevc, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Matej Stavanja <matej.stavanja@zfm.si>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-27 07:32+0000\n"
+"Last-Translator: Urban Prevc\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -117,6 +118,12 @@ msgstr "naložil uporabnik"
 msgid "tags"
 msgstr "oznaka"
 
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, ne izbriši"
+
 msgid "Choose an image"
 msgstr "Izberi sliko"
 
@@ -153,12 +160,6 @@ msgstr "Shrani"
 msgid "Delete image"
 msgstr "Izbriši sliko"
 
-msgid "Are you sure you want to delete this image?"
-msgstr "Ali ste prepričani, da želite izbrisati sliko?"
-
-msgid "Yes, delete"
-msgstr "Da, izbriši"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Urejanje slike %(title)s"
@@ -169,8 +170,24 @@ msgstr "Urejanje"
 msgid "URL Generator"
 msgstr "Generator URL"
 
+msgid "Focal point"
+msgstr "Fokalna točka"
+
+msgid "(optional)"
+msgstr "(neobvezno)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Da označiš najbolj pomemben del slike, z miško povleci polje čez zgornjo "
+"sliko."
+
 msgid "Current focal point shown"
 msgstr "Prikazana trenutna fokalna točka"
+
+msgid "Remove focal area"
+msgstr "Odstrani fokalno točko"
 
 msgid "Max dimensions"
 msgstr "Največje dimenzije"
@@ -271,6 +288,9 @@ msgstr "Dovoljenja slike"
 msgid "Add an image permission"
 msgstr "Dodaj dovoljenje slike"
 
+msgid "Delete"
+msgstr "Izbriši"
+
 msgid "Search images"
 msgstr "Iskanje po slikah"
 
@@ -290,9 +310,6 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvorno datoteko, ali izbrišite "
 "sliko"
 
-msgid "Delete"
-msgstr "Izbriši"
-
 msgid "Image '{0}' deleted."
 msgstr "Slike '{0}' izbrisana."
 
@@ -309,6 +326,9 @@ msgstr[0] "%(count)s slika"
 msgstr[1] "%(count)s sliki"
 msgstr[2] "%(count)s slike"
 msgstr[3] "%(count)s slik"
+
+msgid "Change image"
+msgstr "Spremeni sliko"
 
 msgid "Edit this image"
 msgstr "Uredi sliko"

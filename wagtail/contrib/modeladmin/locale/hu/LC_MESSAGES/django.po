@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Kornel Novak Mergulhão <nkornel@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2019
@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-04-21 15:34+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 13:26+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -123,6 +123,16 @@ msgstr "Kezdőlap"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "ez alapján: %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Utolsó frissítés"
+
+msgid "History"
+msgstr "Történet"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s / %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -236,3 +246,9 @@ msgstr "Vizsgálat"
 #, python-format
 msgid "Inspecting %s"
 msgstr "%s vizsgálata"
+
+msgid "Action"
+msgstr "Akció"
+
+msgid "Date"
+msgstr "Dátum"

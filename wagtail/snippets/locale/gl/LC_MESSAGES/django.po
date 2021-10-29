@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -32,6 +32,9 @@ msgstr "Seleccionar"
 
 msgid "Search"
 msgstr "Porcurar"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -66,9 +69,6 @@ msgstr "Editando"
 
 msgid "Snippets"
 msgstr "Fragmentos"
-
-msgid "Title"
-msgstr "Título"
 
 #, python-format
 msgid ""
@@ -121,6 +121,9 @@ msgstr "O fragmento non puido ser creado debido a errores."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O fragmento non puido ser gardado debido a erros."
+
+msgid "Date"
+msgstr "Data"
 
 #, python-format
 msgid "Choose %s"

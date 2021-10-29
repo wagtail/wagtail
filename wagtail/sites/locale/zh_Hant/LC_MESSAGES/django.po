@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2019-02-05 06:38+0000\n"
-"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -27,29 +27,20 @@ msgstr "選擇根頁面"
 msgid "Choose a different root page"
 msgstr "選擇另外一個根頁面"
 
-msgid "Site"
+msgid "Sites"
 msgstr "站點"
 
-msgid "Port"
-msgstr "埠"
+msgid "Add a site"
+msgstr "新增一個站點"
 
-msgid "Site name"
-msgstr "站點名稱"
-
-msgid "Root page"
-msgstr "根頁面"
+msgid "Site"
+msgstr "站點"
 
 msgid "Default?"
 msgstr "預設？"
 
 msgid "Default"
 msgstr "預設"
-
-msgid "Sites"
-msgstr "站點"
-
-msgid "Add a site"
-msgstr "新增一個站點"
 
 msgid "Add site"
 msgstr "新增站點"

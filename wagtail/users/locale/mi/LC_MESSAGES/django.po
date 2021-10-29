@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -112,11 +112,17 @@ msgstr "Kōtaha ō te kai-whakamahi"
 msgid "user profiles"
 msgstr "Ngā kōtaha ō te kai-whakamahi"
 
-msgid "Delete group"
-msgstr "Mukuhia te rōpu"
+msgid "Delete"
+msgstr "Muku"
 
 msgid "Yes, delete"
 msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Delete group"
+msgstr "Mukuhia te rōpu"
 
 msgid "Add group"
 msgstr "Tāpiri he rōpū"
@@ -144,9 +150,6 @@ msgstr "Tāpiri"
 
 msgid "Change"
 msgstr "Panoni"
-
-msgid "Delete"
-msgstr "Muku"
 
 msgid "Other permissions"
 msgstr "Ē rā atu ahanoa"

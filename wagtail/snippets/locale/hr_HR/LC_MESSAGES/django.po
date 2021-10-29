@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-11-01 20:01+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -54,6 +54,9 @@ msgstr[2] ""
 "\n"
 "Pronađeno je %(counter)s rezultata"
 
+msgid "Title"
+msgstr "Naslov"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -68,6 +71,9 @@ msgstr ""
 "Nemate %(snippet_type_name)s izrezaka. Zašto ne biste <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">stvorili jedan</a>?"
+
+msgid "History"
+msgstr "Povijest"
 
 msgid "Saving…"
 msgstr "Spremanje..."
@@ -126,9 +132,6 @@ msgstr "Izresci"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Označi sve %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Naslov"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -204,6 +207,9 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s je izbrisan."
 msgstr[1] "%(count)d %(snippet_type)s je izbrisano."
 msgstr[2] "%(count)d %(snippet_type)s je izbrisano."
+
+msgid "Date"
+msgstr "Datum"
 
 #, python-format
 msgid "Edit '%(title)s'"

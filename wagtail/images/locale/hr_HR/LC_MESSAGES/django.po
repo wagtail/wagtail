@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 08:26+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -156,6 +156,19 @@ msgstr "slika"
 msgid "images"
 msgstr "slike"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Korišteno %(usage_count)s put "
+msgstr[1] "Korišteno %(usage_count)s puta"
+msgstr[2] "Korišteno %(usage_count)s puta"
+
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
 msgid "Choose an image"
 msgstr "Odaberi sliku"
 
@@ -167,9 +180,6 @@ msgstr "Prijenos"
 
 msgid "Popular tags"
 msgstr "Popularne oznake"
-
-msgid "Uploading…"
-msgstr "Prijenos u tijeku..."
 
 #, python-format
 msgid ""
@@ -198,6 +208,9 @@ msgstr "Odaberi format"
 
 msgid "Insert image"
 msgstr "Umetni sliku"
+
+msgid "Uploading…"
+msgstr "Prijenos u tijeku..."
 
 #, python-format
 msgid ""
@@ -237,22 +250,6 @@ msgstr "Spremi"
 
 msgid "Delete image"
 msgstr "Izbriši sliku"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Korišteno %(usage_count)s put "
-msgstr[1] "Korišteno %(usage_count)s puta"
-msgstr[2] "Korišteno %(usage_count)s puta"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Jeste li sigurni da želite izbrisati sliku?"
-
-msgid "Yes, delete"
-msgstr "Da, izbriši"
-
-msgid "No, don't delete"
-msgstr "Ne, nemoj izbrisati"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -406,6 +403,9 @@ msgstr "Dozvole slike"
 msgid "Add an image permission"
 msgstr "Dodaj dozvolu slike"
 
+msgid "Delete"
+msgstr "Izbriši"
+
 msgid "Search images"
 msgstr "Pretraži slike"
 
@@ -423,9 +423,6 @@ msgid ""
 "the image."
 msgstr ""
 "Izvorna slika nije pronađena. Molimo promijenite izvor ili izbrišite sliku."
-
-msgid "Delete"
-msgstr "Izbriši"
 
 msgid "Image '{0}' deleted."
 msgstr "Slika '{0}' je izbrisana."

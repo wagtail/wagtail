@@ -2,6 +2,7 @@ from django.contrib.messages import get_messages
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Locale, Page
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -16,7 +17,7 @@ class TestLocaleIndexView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaillocales/index.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/index.html')
 
 
 class TestLocaleCreateView(TestCase, WagtailTestUtils):
@@ -76,7 +77,7 @@ class TestLocaleCreateView(TestCase, WagtailTestUtils):
 
 class TestLocaleEditView(TestCase, WagtailTestUtils):
     def setUp(self):
-        self.login()
+        self.user = self.login()
         self.english = Locale.objects.get()
 
     def get(self, params=None, locale=None):
@@ -98,6 +99,10 @@ class TestLocaleEditView(TestCase, WagtailTestUtils):
             ('en', 'English'),  # Note: Current value is displayed even though it's in use
             ('fr', 'French')
         ])
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/locales/%d/' % self.english.id
+        self.assertEqual(url_finder.get_edit_url(self.english), expected_url)
 
     def test_invalid_language(self):
         invalid = Locale.objects.create(language_code='foo')

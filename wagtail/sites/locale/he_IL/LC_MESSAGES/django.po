@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -26,26 +26,20 @@ msgstr "בחרו עמוד מקור"
 msgid "Choose a different root page"
 msgstr "בחרו עמוד מקור שונה"
 
+msgid "Sites"
+msgstr "אתרים"
+
+msgid "Add a site"
+msgstr "הוספת אתר"
+
 msgid "Site"
 msgstr "אתר"
-
-msgid "Port"
-msgstr "מעגן"
-
-msgid "Root page"
-msgstr "עמוד מקור"
 
 msgid "Default?"
 msgstr "ברירת מחדל?"
 
 msgid "Default"
 msgstr "ברירת מחדל"
-
-msgid "Sites"
-msgstr "אתרים"
-
-msgid "Add a site"
-msgstr "הוספת אתר"
 
 msgid "Add site"
 msgstr "הוספת אתר"

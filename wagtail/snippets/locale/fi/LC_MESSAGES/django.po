@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-16 07:28+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 12:17+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -54,6 +54,9 @@ msgstr[1] ""
 "\n"
 "Löytyi %(counter)s osumaa"
 
+msgid "Title"
+msgstr "Otsikko"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -68,6 +71,12 @@ msgstr ""
 "Et ole luonut yhtään %(snippet_type_name)s-pätkää. <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">Luo nyt</a>!"
+
+msgid "Last updated"
+msgstr "Viimeksi päivitetty"
+
+msgid "History"
+msgstr "Historia"
 
 msgid "Saving…"
 msgstr "Tallennetaan…"
@@ -125,9 +134,6 @@ msgstr "Pätkät"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Valitse kaikki %(snippet_type_name_plural)s-pätkät"
-
-msgid "Title"
-msgstr "Otsikko"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -202,6 +208,15 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s-pätkä poistettu."
 msgstr[1] "%(count)d %(snippet_type)s-pätkää poistettu."
+
+msgid "Snippet history"
+msgstr "Pätkän historia"
+
+msgid "Action"
+msgstr "Toiminto"
+
+msgid "Date"
+msgstr "Pvm"
 
 #, python-format
 msgid "Edit '%(title)s'"

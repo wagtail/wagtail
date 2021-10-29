@@ -15,7 +15,9 @@ class ActionButton {
 
     this.dom = $(`
       <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
-        <i class="icon icon-${h(this.icon)}" aria-hidden="true"></i>
+        <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
+          <use href="#icon-${h(this.icon)}"></use>
+        </svg>
       </button>
     `);
 
@@ -119,9 +121,9 @@ export class BaseSequenceChild extends EventEmitter {
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
               <div data-block-header class="c-sf-block__header c-sf-block__header--collapsible">
-                <span class="c-sf-block__header__icon">
-                  <i class="icon icon-${h(this.blockDef.meta.icon)}"></i>
-                </span>
+                <svg class="icon icon-${h(this.blockDef.meta.icon)} c-sf-block__header__icon" aria-hidden="true">
+                  <use href="#icon-${h(this.blockDef.meta.icon)}"></use>
+                </svg>
                 <h3 data-block-title class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions" data-block-actions>
                   <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>

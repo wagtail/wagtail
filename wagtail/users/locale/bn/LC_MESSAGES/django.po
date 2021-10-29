@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 20:01+0000\n"
+"Last-Translator: Mahmud Abdur Rahman <clanlord.ikot@gmail.com>\n"
 "Language-Team: Bengali (http://www.transifex.com/torchbox/wagtail/language/"
 "bn/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +18,26 @@ msgstr ""
 "Language: bn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Email"
+msgstr "ইমেইল"
+
+msgid "First Name"
+msgstr "নামের প্রথম অংশ"
+
+msgid "Last Name"
+msgstr "নামের শেষাংশ"
+
+msgid "Delete"
+msgstr "মুছে ফেলুন "
+
 msgid "Editing"
 msgstr "সম্পাদিত হচ্ছে"
 
 msgid "Save"
 msgstr "সংরক্ষণ"
 
-msgid "Delete"
-msgstr "মুছে ফেলুন "
+msgid "Add"
+msgstr "যোগ করুন"
+
+msgid "Edit"
+msgstr "সম্পাদনা করুন"

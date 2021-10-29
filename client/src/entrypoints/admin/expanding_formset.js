@@ -23,7 +23,7 @@ function buildExpandingFormset(prefix, opts = {}) {
   addButton.on('click', () => {
     if (addButton.hasClass('disabled')) return false;
     const newFormHtml = emptyFormTemplate
-      .replace(/__prefix__/g, formCount)
+      .replace(/__prefix__(.*?['"])/g, formCount + '$1')
       .replace(/<-(-*)\/script>/g, '<$1/script>');
     formContainer.append(newFormHtml);
     if (opts.onAdd) opts.onAdd(formCount);

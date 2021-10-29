@@ -48,7 +48,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
-from wagtail.core.log_actions import page_log_action_registry
+from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
     page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
@@ -61,7 +61,7 @@ from wagtail.core.utils import (
     get_supported_content_language_variant, resolve_model_string)
 from wagtail.search import index
 
-from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet  # noqa
+from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet, ModelLogEntry  # noqa
 from .collections import (  # noqa
     BaseCollectionManager, Collection, CollectionManager, CollectionMember,
     CollectionViewRestriction, GroupCollectionPermission, GroupCollectionPermissionManager,
@@ -77,6 +77,7 @@ from .view_restrictions import BaseViewRestriction
 logger = logging.getLogger('wagtail.core')
 
 PAGE_TEMPLATE_VAR = 'page'
+COMMENTS_RELATION_NAME = getattr(settings, 'WAGTAIL_COMMENTS_RELATION_NAME', 'wagtail_admin_comments')
 
 
 @receiver(pre_validate_delete, sender=Locale)
@@ -330,7 +331,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     # An array of additional field names that will not be included when a Page is copied.
     exclude_fields_in_copy = []
-    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'comments']
+    default_exclude_fields_in_copy = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'postgres_index_entries', 'index_entries', COMMENTS_RELATION_NAME]
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
     # The canonical definition is in wagtailadmin.edit_handlers.
@@ -529,14 +530,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Page creation is a special case that we want logged by default, but allow skipping it
             # explicitly by passing log_action=None
             if is_new:
-                PageLogEntry.objects.log_action(
+                log(
                     instance=self,
                     action='wagtail.create',
                     user=user or self.owner,
                     content_changed=True,
                 )
             elif log_action:
-                PageLogEntry.objects.log_action(
+                log(
                     instance=self,
                     action=log_action,
                     user=user
@@ -552,7 +553,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             user = kwargs.pop('user', None)
 
             def log_deletion(page, user):
-                PageLogEntry.objects.log_action(
+                log(
                     instance=page,
                     action='wagtail.delete',
                     user=user,
@@ -863,7 +864,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
-        new_comments = self.comments.filter(pk__isnull=True)
+        new_comments = getattr(self, COMMENTS_RELATION_NAME).filter(pk__isnull=True)
         for comment in new_comments:
             # We need to ensure comments have an id in the revision, so positions can be identified correctly
             comment.save()
@@ -879,7 +880,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for comment in new_comments:
             comment.revision_created = revision
 
-        update_fields = ['comments']
+        update_fields = [COMMENTS_RELATION_NAME]
 
         self.latest_revision_created_at = revision.created_at
         update_fields.append('latest_revision_created_at')
@@ -899,7 +900,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         logger.info("Page edited: \"%s\" id=%d revision_id=%d", self.title, self.id, revision.id)
         if log_action:
             if not previous_revision:
-                PageLogEntry.objects.log_action(
+                log(
                     instance=self,
                     action=log_action if isinstance(log_action, str) else 'wagtail.edit',
                     user=user,
@@ -907,7 +908,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     content_changed=changed,
                 )
             else:
-                PageLogEntry.objects.log_action(
+                log(
                     instance=self,
                     action=log_action if isinstance(log_action, str) else 'wagtail.revert',
                     user=user,
@@ -970,7 +971,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         for alias in self.specific_class.objects.filter(alias_of=self).exclude(id__in=_updated_ids):
             # FIXME: Switch to the same fields that are excluded from copy
             # We can't do this right now because we can't exclude fields from with_content_json
-            exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+            exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'postgres_index_entries']
 
             # Copy field content
             alias_updated = alias.with_content_json(_content_json)
@@ -1027,7 +1028,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             page_published.send(sender=alias_updated.specific_class, instance=alias_updated, revision=revision, alias=True)
 
             # Log the publish of the alias
-            PageLogEntry.objects.log_action(
+            log(
                 instance=alias_updated,
                 action='wagtail.publish',
                 user=user,
@@ -1073,7 +1074,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             page_unpublished.send(sender=self.specific_class, instance=self.specific)
 
             if log_action:
-                PageLogEntry.objects.log_action(
+                log(
                     instance=self,
                     action=log_action if isinstance(log_action, str) else 'wagtail.unpublish',
                     user=user,
@@ -1102,7 +1103,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return context
 
     def get_template(self, request, *args, **kwargs):
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return self.ajax_template or self.template
         else:
             return self.template
@@ -1527,7 +1528,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
         # Log
-        PageLogEntry.objects.log_action(
+        log(
             instance=self,
             # Check if page was reordered (reordering doesn't change the parent)
             action='wagtail.reorder' if parent_before.id == target.id else 'wagtail.move',
@@ -1674,7 +1675,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         if log_action:
             parent = specific_self.get_parent()
-            PageLogEntry.objects.log_action(
+            log(
                 instance=page_copy,
                 action=log_action,
                 user=user,
@@ -1698,7 +1699,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
             if page_copy.live and keep_live:
                 # Log the publish if the use chose to keep the copied page live
-                PageLogEntry.objects.log_action(
+                log(
                     instance=page_copy,
                     action='wagtail.publish',
                     user=user,
@@ -1765,7 +1766,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # FIXME: Switch to the same fields that are excluded from copy
         # We can't do this right now because we can't exclude fields from with_content_json
         # which we use for updating aliases
-        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries']
+        exclude_fields = ['id', 'path', 'depth', 'numchild', 'url_path', 'path', 'index_entries', 'postgres_index_entries']
 
         update_attrs = {
             'alias_of': self,
@@ -1824,7 +1825,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         # Log
         if log_action:
             source_parent = specific_self.get_parent()
-            PageLogEntry.objects.log_action(
+            log(
                 instance=alias,
                 action=log_action,
                 user=user,
@@ -1839,7 +1840,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             )
             if alias.live:
                 # Log the publish
-                PageLogEntry.objects.log_action(
+                log(
                     instance=alias,
                     action='wagtail.publish',
                     user=user,
@@ -2130,6 +2131,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         the wagtail user bar to be displayed. This request will always be a GET.
         """
         request.is_preview = True
+        request.preview_mode = mode_name
 
         response = self.serve(request)
         patch_cache_control(response, private=True)
@@ -2255,10 +2257,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``latest_revision_created_at``
         * ``first_published_at``
         * ``alias_of``
-        * ``comments``
+        * ``wagtail_admin_comments`` (COMMENTS_RELATION_NAME)
         """
 
-        obj = self.specific_class.from_json(content_json)
+        data = json.loads(content_json)
+
+        # Old revisions (pre Wagtail 2.15) may have saved comment data under the name 'comments'
+        # rather than the current relation name as set by COMMENTS_RELATION_NAME;
+        # if a 'comments' field exists and looks like our comments model, alter the data to use
+        # COMMENTS_RELATION_NAME before restoring
+        if (
+            COMMENTS_RELATION_NAME not in data and 'comments' in data
+            and isinstance(data['comments'], list) and len(data['comments'])
+            and isinstance(data['comments'][0], dict) and 'contentpath' in data['comments'][0]
+        ):
+            data[COMMENTS_RELATION_NAME] = data['comments']
+            del data['comments']
+
+        obj = self.specific_class.from_serializable_data(data)
 
         # These should definitely never change between revisions
         obj.id = self.id
@@ -2288,8 +2304,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         obj.translation_key = self.translation_key
         obj.locale = self.locale
         obj.alias_of_id = self.alias_of_id
-        revision_comments = obj.comments
-        page_comments = self.comments.filter(resolved_at__isnull=True)
+        revision_comments = getattr(obj, COMMENTS_RELATION_NAME)
+        page_comments = getattr(self, COMMENTS_RELATION_NAME).filter(resolved_at__isnull=True)
         for comment in page_comments:
             # attempt to retrieve the comment position from the revision's stored version
             # of the comment
@@ -2298,7 +2314,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 comment.position = revision_comment.position
             except Comment.DoesNotExist:
                 pass
-        obj.comments = page_comments
+        setattr(obj, COMMENTS_RELATION_NAME, page_comments)
 
         return obj
 
@@ -2435,7 +2451,7 @@ class PageRevision(models.Model):
             # Log scheduled revision publish cancellation
             page = self.as_page_object()
             # go_live_at = kwargs['update_fields'][]
-            PageLogEntry.objects.log_action(
+            log(
                 instance=page,
                 action='wagtail.schedule.cancel',
                 data={
@@ -2455,7 +2471,7 @@ class PageRevision(models.Model):
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info("Page moderation approved: \"%s\" id=%d revision_id=%d", self.page.title, self.page.id, self.id)
-            PageLogEntry.objects.log_action(
+            log(
                 instance=self.as_page_object(),
                 action='wagtail.moderation.approve',
                 user=user,
@@ -2466,7 +2482,7 @@ class PageRevision(models.Model):
     def reject_moderation(self, user=None):
         if self.submitted_for_moderation:
             logger.info("Page moderation rejected: \"%s\" id=%d revision_id=%d", self.page.title, self.page.id, self.id)
-            PageLogEntry.objects.log_action(
+            log(
                 instance=self.as_page_object(),
                 action='wagtail.moderation.reject',
                 user=user,
@@ -2513,7 +2529,7 @@ class PageRevision(models.Model):
         page = self.as_page_object()
 
         def log_scheduling_action(revision, user=None, changed=changed):
-            PageLogEntry.objects.log_action(
+            log(
                 instance=page,
                 action='wagtail.publish.schedule',
                 user=user,
@@ -2578,7 +2594,7 @@ class PageRevision(models.Model):
 
         page.save()
 
-        for comment in page.comments.all().only('position'):
+        for comment in getattr(page, COMMENTS_RELATION_NAME).all().only('position'):
             comment.save(update_fields=['position'])
 
         self.submitted_for_moderation = False
@@ -2611,7 +2627,7 @@ class PageRevision(models.Model):
                         'new': page.title,
                     }
 
-                    PageLogEntry.objects.log_action(
+                    log(
                         instance=page,
                         action='wagtail.rename',
                         user=user,
@@ -2619,7 +2635,7 @@ class PageRevision(models.Model):
                         revision=self,
                     )
 
-                PageLogEntry.objects.log_action(
+                log(
                     instance=page,
                     action=log_action if isinstance(log_action, str) else 'wagtail.publish',
                     user=user,
@@ -3111,7 +3127,7 @@ class PageViewRestriction(BaseViewRestriction):
         super().save(**kwargs)
 
         if specific_instance:
-            PageLogEntry.objects.log_action(
+            log(
                 instance=specific_instance,
                 action='wagtail.view_restriction.create' if is_new else 'wagtail.view_restriction.edit',
                 user=user,
@@ -3131,7 +3147,7 @@ class PageViewRestriction(BaseViewRestriction):
         """
         specific_instance = self.page.specific
         if specific_instance:
-            PageLogEntry.objects.log_action(
+            log(
                 instance=specific_instance,
                 action='wagtail.view_restriction.delete',
                 user=user,
@@ -3378,7 +3394,7 @@ class Workflow(ClusterableModel):
                 'id': state.current_task_state.task.id,
                 'title': state.current_task_state.task.name,
             }
-        PageLogEntry.objects.log_action(
+        log(
             instance=page,
             action='wagtail.workflow.start',
             data={
@@ -3543,7 +3559,7 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_IN_PROGRESS
         self.save()
 
-        PageLogEntry.objects.log_action(
+        log(
             instance=self.page.specific,
             action='wagtail.workflow.resume',
             data={
@@ -3626,7 +3642,7 @@ class WorkflowState(models.Model):
         self.status = self.STATUS_CANCELLED
         self.save()
 
-        PageLogEntry.objects.log_action(
+        log(
             instance=self.page.specific,
             action='wagtail.workflow.cancel',
             data={
@@ -3943,7 +3959,7 @@ class TaskState(models.Model):
                 'id': next_task.id,
                 'title': next_task.name
             }
-        PageLogEntry.objects.log_action(
+        log(
             instance=page,
             action='wagtail.workflow.{}'.format(action),
             user=user,
@@ -3969,7 +3985,25 @@ class TaskState(models.Model):
         verbose_name_plural = _('Task states')
 
 
+class PageLogEntryQuerySet(LogEntryQuerySet):
+    def get_content_type_ids(self):
+        # for reporting purposes, pages of all types are combined under a single "Page"
+        # object type
+        if self.exists():
+            return set([ContentType.objects.get_for_model(Page).pk])
+        else:
+            return set()
+
+    def filter_on_content_type(self, content_type):
+        if content_type == ContentType.objects.get_for_model(Page):
+            return self
+        else:
+            return self.none()
+
+
 class PageLogEntryManager(BaseLogEntryManager):
+    def get_queryset(self):
+        return PageLogEntryQuerySet(self.model, using=self._db)
 
     def get_instance_title(self, instance):
         return instance.specific_deferred.get_admin_display_title()
@@ -3977,6 +4011,23 @@ class PageLogEntryManager(BaseLogEntryManager):
     def log_action(self, instance, action, **kwargs):
         kwargs.update(page=instance)
         return super().log_action(instance, action, **kwargs)
+
+    def viewable_by_user(self, user):
+        q = Q(
+            page__in=UserPagePermissionsProxy(user).explorable_pages().values_list('pk', flat=True)
+        )
+
+        root_page_permissions = Page.get_first_root_node().permissions_for_user(user)
+        if (
+            user.is_superuser
+            or root_page_permissions.can_add_subpage() or root_page_permissions.can_edit()
+        ):
+            # Include deleted entries
+            q = q | Q(page_id__in=Subquery(
+                PageLogEntry.objects.filter(deleted=True).values('page_id')
+            ))
+
+        return PageLogEntry.objects.filter(q)
 
 
 class PageLogEntry(BaseLogEntry):
@@ -3998,8 +4049,6 @@ class PageLogEntry(BaseLogEntry):
 
     objects = PageLogEntryManager()
 
-    action_registry = page_log_action_registry
-
     class Meta:
         ordering = ['-timestamp', '-id']
         verbose_name = _('page log entry')
@@ -4014,13 +4063,21 @@ class PageLogEntry(BaseLogEntry):
     def object_id(self):
         return self.page_id
 
+    @cached_property
+    def message(self):
+        # for page log entries, the 'edit' action should show as 'Draft saved'
+        if self.action == 'wagtail.edit':
+            return _("Draft saved")
+        else:
+            return super().message
+
 
 class Comment(ClusterableModel):
     """
     A comment on a field, or a field within a streamfield block
     """
-    page = ParentalKey(Page, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+    page = ParentalKey(Page, on_delete=models.CASCADE, related_name=COMMENTS_RELATION_NAME)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name=COMMENTS_RELATION_NAME)
     text = models.TextField()
 
     contentpath = models.TextField()
@@ -4068,7 +4125,7 @@ class Comment(ClusterableModel):
         return super().save(update_fields=update_fields, **kwargs)
 
     def _log(self, action, page_revision=None, user=None):
-        PageLogEntry.objects.log_action(
+        log(
             instance=self.page,
             action=action,
             user=user,
@@ -4110,7 +4167,7 @@ class CommentReply(models.Model):
         return "CommentReply left by '{0}': '{1}'".format(self.user, self.text)
 
     def _log(self, action, page_revision=None, user=None):
-        PageLogEntry.objects.log_action(
+        log(
             instance=self.comment.page,
             action=action,
             user=user,

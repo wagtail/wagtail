@@ -18,12 +18,21 @@ from wagtail.search.backends.base import (
 from wagtail.search.index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import ADD, MUL, OR
+from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 from .models import IndexEntry
 from .query import Lexeme, RawSearchQuery
 from .utils import (
     get_content_type_pk, get_descendants_content_types_pks, get_postgresql_connections,
     get_sql_weights, get_weight)
+
+
+warnings.warn(
+    "The wagtail.contrib.postgres_search backend is deprecated and has been replaced by "
+    "wagtail.search.backends.database. "
+    "See https://docs.wagtail.io/en/stable/releases/2.15.html#database-search-backends-replaced",
+    category=RemovedInWagtail217Warning
+)
 
 
 EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
@@ -469,8 +478,8 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
     def get_index_vectors(self, search_query):
         return [
-            (F('index_entries__title'), F('index_entries__title_norm')),
-            (F('index_entries__body'), 1.0),
+            (F('postgres_index_entries__title'), F('postgres_index_entries__title_norm')),
+            (F('postgres_index_entries__body'), 1.0),
         ]
 
     def get_fields_vectors(self, search_query):
@@ -563,7 +572,7 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('index_entries__autocomplete'), 1.0)]
+        return [(F('postgres_index_entries__autocomplete'), 1.0)]
 
     def get_fields_vectors(self, search_query):
         return [

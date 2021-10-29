@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-18 06:35+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 11:57+0000\n"
 "Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
@@ -30,6 +30,14 @@ msgstr "Wagtailin ydinominaisuudet"
 
 msgid "Add Comment"
 msgstr "Lisää kommentti"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Kohtia on oltava vähintään %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Kohtia voi olla enintään %d"
 
 msgid "Move up"
 msgstr "Siirrä ylös"
@@ -50,16 +58,8 @@ msgstr "%(label)s: tällä lohkolla ei ole valintoja"
 msgid "This block has no options."
 msgstr "Tällä lohkolla ei ole valintoja."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Kohtia on oltava vähintään %d"
-
 msgid "This field is required."
 msgstr "Tämä kenttä on pakollinen."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Kohtia voi olla enintään %d"
 
 msgid "Password"
 msgstr "Salasana"
@@ -69,10 +69,6 @@ msgstr "Antamasi salasana ei ole oikein. Koeta uudestaan."
 
 msgid "Comment"
 msgstr "Kommentti"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tuntematon %(action)s"
 
 msgid "title"
 msgstr "otsikko"
@@ -347,12 +343,19 @@ msgstr "kommentti"
 msgid "timestamp (UTC)"
 msgstr "aikaleima (UTC)"
 
+msgid "The log action '{}' has not been registered."
+msgstr "Lokitoimintoa '{}' ei ole rekisteröity."
+
 #, python-format
-msgid "user %(id)d (deleted)"
-msgstr "käyttäjä %(id)d (poistettu)"
+msgid "user %(id)s (deleted)"
+msgstr "käyttäjä %(id)s (poistettu)"
 
 msgid "system"
 msgstr "järjestelmä"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Tuntematon %(action)s"
 
 msgid "collection"
 msgstr "kokoelma"
@@ -522,14 +525,35 @@ msgstr "Ei lukittu"
 msgid "Reject"
 msgstr "Hylkää"
 
+msgid "Rename"
+msgstr "Nimeä uudelleen"
+
+msgid "Renamed"
+msgstr "Nimetty uudelleen"
+
 msgid "Reverted to previous revision"
 msgstr "Palautettu aiempaan versioon"
+
+msgid "Copy"
+msgstr "Kopioi"
 
 msgid "Copied"
 msgstr "Kopioitu"
 
+msgid "Copy for translation"
+msgstr "Kopioi käännettäväksi"
+
+msgid "Copied for translation"
+msgstr "Kopioitu käännettäväksi"
+
+msgid "Create alias"
+msgstr "Luo alias"
+
 msgid "Created an alias"
 msgstr "Luotu alias"
+
+msgid "Convert alias into ordinary page"
+msgstr "Muunna alias tavalliseksi sivuksi"
 
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
@@ -537,6 +561,9 @@ msgstr "Muunna alias '%(title)s' tavalliseksi sivuksi"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Muunnettu alias tavalliseksi sivuksi"
+
+msgid "Move"
+msgstr "SIirrä"
 
 msgid "Moved"
 msgstr "Siirretty"
@@ -551,83 +578,72 @@ msgstr "Sivu ajastettu julkaistavaksi"
 msgid "Page unscheduled from publishing"
 msgstr "Sivun ajastettu julkaisu peruttu"
 
-msgid "Added view restriction"
-msgstr "Lisätty katselurajoitus"
-
-msgid "Updated view restriction"
-msgstr "Päivitetty katselurajoitus"
-
-msgid "Removed view restriction"
-msgstr "Poistettu katselurajoitus"
-
-msgid "Renamed"
-msgstr "Nimetty uudelleen"
-
-msgid "Added a comment"
-msgstr "Lisätty kommentti"
-
-msgid "Edited a comment"
-msgstr "Muokattu kommenttia"
-
-msgid "Deleted a comment"
-msgstr "Poistettu kommentti"
-
-msgid "Resolved a comment"
-msgstr "Selvitetty kommentti"
-
-msgid "Replied to a comment"
-msgstr "Vastattu kommenttiin"
-
-msgid "Edited a reply"
-msgstr "Muokattu vastausta"
-
-msgid "Deleted a reply"
-msgstr "Poistettu vastaus"
-
-msgid "Rename"
-msgstr "Nimeä uudelleen"
-
-msgid "Copy"
-msgstr "Kopioi"
-
-msgid "Create alias"
-msgstr "Luo alias"
-
-msgid "Convert alias into ordinary page"
-msgstr "Muunna alias tavalliseksi sivuksi"
-
-msgid "Move"
-msgstr "SIirrä"
-
 msgid "Add view restrictions"
 msgstr "Lisää katselurajoituksia"
+
+msgid "Added view restriction"
+msgstr "Lisätty katselurajoitus"
 
 msgid "Update view restrictions"
 msgstr "Päivitä katselurajoitukset"
 
+msgid "Updated view restriction"
+msgstr "Päivitetty katselurajoitus"
+
 msgid "Remove view restrictions"
 msgstr "Poista katselurajoitukset"
+
+msgid "Removed view restriction"
+msgstr "Poistettu katselurajoitus"
 
 msgid "Add comment"
 msgstr "Lisää kommentti"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Lisätty kommentti kenttään %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Lisätty kommentti"
+
 msgid "Edit comment"
 msgstr "Muokkaa kommenttia"
+
+msgid "Edited a comment"
+msgstr "Muokattu kommenttia"
 
 msgid "Delete comment"
 msgstr "Poista kommentti"
 
+msgid "Deleted a comment"
+msgstr "Poistettu kommentti"
+
 msgid "Resolve comment"
 msgstr "Selvitä kommentti"
+
+msgid "Resolved a comment"
+msgstr "Selvitetty kommentti"
 
 msgid "Reply to comment"
 msgstr "Vastaa kommenttiin"
 
+msgid "Replied to a comment"
+msgstr "Vastattu kommenttiin"
+
 msgid "Edit reply to comment"
 msgstr "Muokkaa vastausta kommenttiin"
 
+msgid "Edited a reply"
+msgstr "Muokattu vastausta"
+
 msgid "Delete reply to comment"
 msgstr "Poista vastaus kommenttiin"
+
+msgid "Deleted a reply"
+msgstr "Poistettu vastaus"
+
+msgid "Workflow: start"
+msgstr "Työnkulku: aloitettu"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -635,6 +651,9 @@ msgstr "'%(workflow)s' käynnistetty. Seuraava vaihe '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Työnkulku aloitettu"
+
+msgid "Workflow: approve task"
+msgstr "Työnkulku: hyväksy tehtävä"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -647,14 +666,8 @@ msgstr "Hyväksytty tehtävässä '%(task)s'. '%(workflow)s' valmistui"
 msgid "Workflow task approved"
 msgstr "Työnkulun tehtävä hyväksytty"
 
-msgid "Workflow cancelled"
-msgstr "Työnkulku peruttu"
-
-msgid "Workflow: start"
-msgstr "Työnkulku: aloitettu"
-
-msgid "Workflow: approve task"
-msgstr "Työnkulku: hyväksy tehtävä"
-
 msgid "Workflow: cancel"
 msgstr "Työnkulku: peruttu"
+
+msgid "Workflow cancelled"
+msgstr "Työnkulku peruttu"

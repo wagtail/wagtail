@@ -117,3 +117,6 @@ class BaseSetting(models.Model):
 
         self._page_url_cache[attribute_name] = url
         return url
+
+    def __str__(self):
+        return "%s for %s" % (self._meta.verbose_name.capitalize(), self.site)

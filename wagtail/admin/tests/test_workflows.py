@@ -11,6 +11,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from freezegun import freeze_time
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import (
     GroupApprovalTask, Page, Task, TaskState, Workflow, WorkflowPage, WorkflowState, WorkflowTask)
 from wagtail.core.signals import page_published
@@ -353,6 +354,13 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
 
+    def test_admin_url_finder(self):
+        editor_url_finder = AdminURLFinder(self.editor)
+        self.assertEqual(editor_url_finder.get_edit_url(self.workflow), None)
+        moderator_url_finder = AdminURLFinder(self.moderator)
+        expected_url = '/admin/workflows/edit/%d/' % self.workflow.pk
+        self.assertEqual(moderator_url_finder.get_edit_url(self.workflow), expected_url)
+
     def test_duplicate_page_check(self):
         response = self.post({
             'name': [str(self.workflow.name)],
@@ -688,6 +696,13 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
         self.login(user=self.moderator)
         response = self.get()
         self.assertEqual(response.status_code, 200)
+
+    def test_admin_url_finder(self):
+        editor_url_finder = AdminURLFinder(self.editor)
+        self.assertEqual(editor_url_finder.get_edit_url(self.task), None)
+        moderator_url_finder = AdminURLFinder(self.moderator)
+        expected_url = '/admin/workflows/tasks/edit/%d/' % self.task.pk
+        self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
 
 
 class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
@@ -1318,6 +1333,33 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertNotIn(self.superuser.email, workflow_submission_emailed_addresses)
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
+    def test_submit_notification_active_users_only(self):
+        # moderator2 is inactive
+        self.moderator2.is_active = False
+        self.moderator2.save()
+
+        # superuser is inactive
+        self.superuser.is_active = False
+        self.superuser.save()
+
+        # Submit
+        self.login(self.submitter)
+        self.submit()
+
+        workflow_submission_emails = [email for email in mail.outbox if "workflow" in email.subject]
+        workflow_submission_emailed_addresses = [address for email in workflow_submission_emails for address in
+                                                 email.to]
+        task_submission_emails = [email for email in mail.outbox if "task" in email.subject]
+        task_submission_emailed_addresses = [address for email in task_submission_emails for address in email.to]
+
+        # Check that moderator2 didn't receive a task submitted email
+        self.assertNotIn(self.moderator2.email, task_submission_emailed_addresses)
+
+        # Check that the superuser didn't receive a workflow or task email
+        self.assertNotIn(self.superuser.email, task_submission_emailed_addresses)
+        self.assertNotIn(self.superuser.email, workflow_submission_emailed_addresses)
+
+    @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
     def test_submit_notification_preferences_respected(self):
         # moderator2 doesn't want emails
         self.moderator2_profile.submitted_notifications = False
@@ -1481,6 +1523,27 @@ class TestDisableViews(TestCase, WagtailTestUtils):
 
         self.assertEqual(TaskState.objects.filter(workflow_state__workflow=self.workflow, status=TaskState.STATUS_IN_PROGRESS).count(), 0)
 
+    def test_disable_task_view(self):
+        """Test that a view is shown before disabling a task that shows a warning"""
+        self.login(self.submitter)
+        self.submit()
+        self.login(self.superuser)
+
+        response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(self.task_1.pk,)))
+
+        self.assertTemplateUsed(response, "wagtailadmin/workflows/confirm_disable_task.html")
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 1 page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.")
+
+        # create a new, unused, task and check the warning message is accurate
+        unused_task = GroupApprovalTask.objects.create(name='unused_task_3')
+        unused_task.groups.set(Group.objects.filter(name='Moderators'))
+
+        response = self.client.get(reverse('wagtailadmin_workflows:disable_task', args=(unused_task.pk,)))
+
+        self.assertEqual(response.context['warning_message'], "This task is in progress on 0 pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.")
+
+        unused_task.delete()  # clean up
+
     def test_disable_task(self):
         """Test that deactivating a task sets it to inactive and cancels in progress states"""
         self.login(self.submitter)
@@ -1523,6 +1586,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+        self.task_enabled = GroupApprovalTask.objects.create(name='Enabled foo')
+        self.task_disabled = GroupApprovalTask.objects.create(name='Disabled foo', active=False)
+
     def test_get(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser'))
 
@@ -1535,6 +1601,8 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/includes/create_form.html")
         self.assertFalse(response.context['searchform'].is_searching())
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo', 'Moderators approval'])
 
     def test_search(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?q=foo')
@@ -1544,6 +1612,9 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
         self.assertTrue(response.context['searchform'].is_searching())
+        self.assertEqual(response.context['query_string'], 'foo')
+        # check that only active (non-disabled) tasks are listed
+        self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo'])
 
     def test_pagination(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser') + '?p=2')

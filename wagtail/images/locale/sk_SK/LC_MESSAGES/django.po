@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Stevo Backor\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +132,9 @@ msgstr "tagy"
 msgid "image"
 msgstr "obrázok"
 
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
 msgid "Choose an image"
 msgstr "Vybrať obrázok"
 
@@ -144,9 +147,6 @@ msgstr "Nahrať"
 msgid "Popular tags"
 msgstr "Populárne tagy"
 
-msgid "Uploading…"
-msgstr "Odosielam…"
-
 msgid "Latest images"
 msgstr "Posledné obrázky"
 
@@ -155,6 +155,9 @@ msgstr "Zvoľte formát"
 
 msgid "Insert image"
 msgstr "Vložiť obrázok"
+
+msgid "Uploading…"
+msgstr "Odosielam…"
 
 msgid "Change image file:"
 msgstr "Zmeniť obrázok:"
@@ -170,12 +173,6 @@ msgstr "Uložiť"
 
 msgid "Delete image"
 msgstr "Zmazať obrázok"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Naozaj chcete zmazať tento obrázok?"
-
-msgid "Yes, delete"
-msgstr "Áno, zmazať"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -310,6 +307,9 @@ msgstr "Oprávnenia obrázku"
 msgid "Add an image permission"
 msgstr "Pridať oprávnenia obrázku"
 
+msgid "Delete"
+msgstr "Vymazať"
+
 msgid "Search images"
 msgstr "Hľadat obrázky"
 
@@ -327,9 +327,6 @@ msgid ""
 "the image."
 msgstr ""
 "Zdroj obrázku nebol nájdený. Prosím aktualizujte zdroj alebo zmažte obrázok."
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Image '{0}' deleted."
 msgstr "Obrázok '{0}' bol zmazaný."

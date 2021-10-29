@@ -12,9 +12,10 @@ class ViewSetRegistry:
             viewset = fn()
             self.register(viewset)
 
-    def register(self, viewset_cls):
-        self.viewsets.append(viewset_cls)
-        return viewset_cls
+    def register(self, viewset):
+        self.viewsets.append(viewset)
+        viewset.on_register()
+        return viewset
 
     def get_urlpatterns(self):
         urlpatterns = []

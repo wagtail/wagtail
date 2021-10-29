@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-08-02 08:32+0000\n"
-"Last-Translator: Dan Braghis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Bogdan Mateescu\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -148,12 +148,21 @@ msgstr ""
 "Selectați poziție ierarhică. Notă: o colecție nu poate deveni un descendent "
 "al său."
 
+msgid "Please select another parent"
+msgstr "Selectați un alt părinte"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Nu puteți avea înregistrări de permisiune multiple pentru aceeași colecție."
 
 msgid "Collection"
 msgstr "Colecție"
+
+msgid "Add"
+msgstr "Adaugă"
+
+msgid "Edit"
+msgstr "Editează"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nu puteți edita comentariile altui utilizator"
@@ -265,9 +274,6 @@ msgstr "Dați un nume fluxului de lucru"
 
 msgid "Add tasks to your workflow"
 msgstr "Adăugați sarcini la fluxul de lucru"
-
-msgid "Edit"
-msgstr "Editează"
 
 msgid "Page"
 msgstr "Pagină"
@@ -492,6 +498,12 @@ msgstr "Resetează la starea implicită"
 
 msgid "Menu"
 msgstr "Meniu"
+
+msgid "Go back"
+msgstr "Înapoi"
+
+msgid "Select all"
+msgstr "Seleactază toate"
 
 msgid "Explorer"
 msgstr "Explorator"
@@ -1031,6 +1043,15 @@ msgstr "Alegeți tipul de pagină pe care doriți să creați."
 msgid "Pages using %(page_type)s"
 msgstr "Pagini de tip %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Nu, nu șterge"
+
+msgid "Move"
+msgstr "Mută"
+
+msgid "No, don't unpublish"
+msgstr "Nu, nu anulează publicarea"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Convertează aliasul %(title)s"
@@ -1097,9 +1118,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Mută %(title)s"
 
-msgid "Move"
-msgstr "Mută"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Sigur doriți să mutați această pagină în '%(title)s'?"
@@ -1145,9 +1163,6 @@ msgstr[2] ""
 
 msgid "Yes, unpublish it"
 msgstr "Da, anulează publicarea"
-
-msgid "No, don't unpublish"
-msgstr "Nu, nu anulează publicarea"
 
 msgid "Publish page"
 msgstr "Publică pagina"
@@ -1734,6 +1749,9 @@ msgstr "Blocat"
 msgid "No locked pages found."
 msgstr "Nu s-au găsit pagini blocate."
 
+msgid "Edit this item"
+msgstr "Editează acest element"
+
 msgid "By Task"
 msgstr "După sarcină"
 
@@ -1814,16 +1832,6 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instrucțiuni despre cum să activați "
 "JavaScript în browserul dvs. web</a>.\n"
 "        "
-
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail va elimina treptat suportul pentru IE11. Acest fapt vă poate afecta "
-"pe dvs. sau pe organizația dvs. <a href=\"%(url)s\">Aflați mai multe despre "
-"planurile noastre de support pentru IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Săriți la conținutul principal"
@@ -2068,6 +2076,9 @@ msgstr ""
 "Sortează paginile descente din '%(parent)s' după '%(label)s' în ordine "
 "decrescătoare."
 
+msgid "More"
+msgstr "Mai mult"
+
 msgid "0 minutes"
 msgstr "0 minute"
 
@@ -2077,11 +2088,11 @@ msgstr "Acum"
 msgid "live"
 msgstr "live"
 
-msgid "live + draft"
-msgstr "live + ciornă"
-
 msgid "draft"
 msgstr "ciornă"
+
+msgid "live + draft"
+msgstr "live + ciornă"
 
 msgid "Test"
 msgstr "Test"
@@ -2130,9 +2141,6 @@ msgstr "Colecția nu a putut fi salvată din cauza erorilor."
 
 msgid "Delete collection"
 msgstr "Șterge colecția"
-
-msgid "Please select another parent"
-msgstr "Selectați un alt părinte"
 
 msgid "Collection '{0}' deleted."
 msgstr "Colecția '{0}' a fost ștearsă."
@@ -2408,23 +2416,6 @@ msgstr "Dezactivează sarcină"
 msgid "Task '{0}' disabled."
 msgstr "Sarcina '{0}' a fost dezactivată."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Această sarcină este în progress pentru %(states_in_progress)d pagină. "
-"Dezactivarea acestei sarcini va rezulta în omisia ei din fluxul de lucru."
-msgstr[1] ""
-"Această sarcină este în progress pentru %(states_in_progress)d pagini. "
-"Dezactivarea acestei sarcini va rezulta în omisia ei din fluxul de lucru."
-msgstr[2] ""
-"Această sarcină este în progress pentru %(states_in_progress)d pagini. "
-"Dezactivarea acestei sarcini va rezulta în omisia ei din fluxul de lucru."
-
 msgid "Task '{0}' enabled."
 msgstr "Sarcina '{0}' a fost activată."
 
@@ -2446,9 +2437,6 @@ msgstr "Vezi versiunea live a '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Adaugă o pagină dependentă de '%(title)s'"
-
-msgid "More"
-msgstr "Mai mult"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2528,9 +2516,6 @@ msgstr "Alege un alt element"
 
 msgid "Clear choice"
 msgstr "Curăță selecție"
-
-msgid "Edit this item"
-msgstr "Editează acest element"
 
 msgid "Choose another page"
 msgstr "Alege altă pagină"

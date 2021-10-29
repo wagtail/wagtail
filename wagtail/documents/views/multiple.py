@@ -54,6 +54,15 @@ class AddView(BaseAddView):
 
         return doc
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context.update({
+            'max_title_length': self.form.fields['title'].max_length,
+        })
+
+        return context
+
 
 class EditView(BaseEditView):
     permission_policy = permission_policy

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,18 @@ msgstr "pilt"
 msgid "images"
 msgstr "pilte"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
 msgid "Choose an image"
 msgstr "Valige pilt"
 
@@ -156,9 +168,6 @@ msgstr "Laadi üles"
 
 msgid "Popular tags"
 msgstr "Populaarsed sildid"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
 
 #, python-format
 msgid ""
@@ -184,6 +193,9 @@ msgstr "Valige vorming"
 
 msgid "Insert image"
 msgstr "Sisesta pilt"
+
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
 
 #, python-format
 msgid ""
@@ -219,21 +231,6 @@ msgstr "Salvesta"
 
 msgid "Delete image"
 msgstr "Kustuta pilt"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Kasutatud %(usage_count)s korda"
-msgstr[1] "Kasutatud %(usage_count)s korda"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Kas soovite selle pildi kindlasti kustutada?"
-
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
-msgid "No, don't delete"
-msgstr "Ei, ära kustuta"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -388,6 +385,9 @@ msgstr "Pildi load"
 msgid "Add an image permission"
 msgstr "Lisage pildiluba"
 
+msgid "Delete"
+msgstr "Kustuta"
+
 msgid "Search images"
 msgstr "Piltide otsimine"
 
@@ -404,9 +404,6 @@ msgid ""
 "The source image file could not be found. Please change the source or delete "
 "the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
-
-msgid "Delete"
-msgstr "Kustuta"
 
 msgid "Image '{0}' deleted."
 msgstr "Pilt '{0}' on kustutatud."

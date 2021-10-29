@@ -10,8 +10,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var size = require('gulp-size');
 var config = require('../config');
 var simpleCopyTask = require('../lib/simplyCopy');
-var normalizePath = require('../lib/normalize-path');
 var renameSrcToDest = require('../lib/rename-src-to-dest');
+var renameSrcToDestScss = require('../lib/rename-src-to-dest-scss');
 var gutil = require('gulp-util');
 
 var flatten = function(arrOfArr) {
@@ -61,7 +61,7 @@ gulp.task('styles:sass', function () {
     // its own Sass files that need to be compiled.
     var sources = flatten(config.apps.map(function(app) { return app.scssSources(); }));
 
-    return gulp.src(sources)
+    return gulp.src(sources, {base: '.'})
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.init())
         .pipe(sass({
             errLogToConsole: true,
@@ -76,16 +76,8 @@ gulp.task('styles:sass', function () {
         ]))
         .pipe(size({ title: 'Wagtail CSS' }))
         .pipe(config.isProduction ? gutil.noop() : sourcemaps.write())
-        .pipe(gulp.dest(function (file) {
-            // e.g. wagtailadmin/scss/core.scss -> wagtailadmin/css/core.css
-            // Changing the suffix is done by Sass automatically
-            return normalizePath(file.base)
-                .replace(
-                    '/' + config.srcDir + '/',
-                    '/' + config.destDir + '/'
-                )
-                .replace('/scss', '/css');
-        }))
+        .pipe(renameSrcToDestScss())
+        .pipe(gulp.dest("."))
         .on('error', gutil.log);
 });
 

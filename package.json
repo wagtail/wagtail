@@ -8,7 +8,6 @@
   },
   "browserslist": [
     "Firefox ESR",
-    "ie 11",
     "last 2 Chrome versions",
     "last 2 ChromeAndroid versions",
     "last 2 Edge versions",
@@ -25,7 +24,7 @@
       "node"
     ],
     "moduleNameMapper": {
-      "jquery": "<rootDir>/wagtail/admin/static_src/wagtailadmin/js/vendor/jquery-3.5.1.min.js"
+      "jquery": "<rootDir>/wagtail/admin/static_src/wagtailadmin/js/vendor/jquery-3.6.0.min.js"
     },
     "transform": {
       "^.+\\.(js|ts|tsx)$": "ts-jest"
@@ -85,7 +84,7 @@
     "gulp-sourcemaps": "~2.6.1",
     "gulp-util": "~3.0.8",
     "html-webpack-plugin": "^5.3.1",
-    "jest": "^26.6.0",
+    "jest": "^26.6.3",
     "npm-run-all": "^4.1.5",
     "postcss-custom-properties": "^10.0.0",
     "react-axe": "^3.1.0",

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -59,6 +59,9 @@ msgstr "tagy"
 msgid "document"
 msgstr "dokument"
 
+msgid "Yes, delete"
+msgstr "Áno, zmazať"
+
 msgid "Choose a document"
 msgstr "Zvoliť dokument"
 
@@ -68,17 +71,27 @@ msgstr "Hľadať"
 msgid "Upload"
 msgstr "Nahrať"
 
-msgid "Uploading…"
-msgstr "Odosielam…"
-
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "File"
+msgstr "Súbor"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Prepáčte, žiadne dokumenty nezodpovedajú hľadanému výrazu \"<em>"
 "%(query_string)s</em>\""
+
+msgid "Uploading…"
+msgstr "Odosielam…"
 
 msgid "Change document:"
 msgstr "Zmeniť dokument"
@@ -95,12 +108,6 @@ msgstr "Zmazať %(title)s"
 
 msgid "Delete document"
 msgstr "Zmazať dokument"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Naozaj chcete zmazať tento dokument?"
-
-msgid "Yes, delete"
-msgstr "Áno, zmazať"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -120,16 +127,6 @@ msgstr "Súbor nebol nájdený"
 
 msgid "Documents"
 msgstr "Dokumenty"
-
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
 
 #, python-format
 msgid ""
@@ -194,6 +191,9 @@ msgstr "Oprávnenia dokumentu"
 msgid "Add a document permission"
 msgstr "Pridať oprávnenia dokumentu"
 
+msgid "Delete"
+msgstr "Vymazať"
+
 msgid "Server Error"
 msgstr "Chyba servera"
 
@@ -215,9 +215,6 @@ msgstr "Dokument '{0}' bol aktualizovaný"
 msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
-
-msgid "Delete"
-msgstr "Vymazať"
 
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' bol zmazaný."

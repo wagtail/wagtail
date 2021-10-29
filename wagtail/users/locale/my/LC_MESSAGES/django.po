@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
 "my/)\n"
@@ -74,14 +74,17 @@ msgstr "အသုံးပြုသူပရိုဖိုင်း"
 msgid "user profiles"
 msgstr "အသုံးပြုသူပရိုဖိုင်းများ"
 
+msgid "Delete"
+msgstr "ဖျက်သိမ်းပါ"
+
+msgid "Yes, delete"
+msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
+
 msgid "Delete group"
 msgstr "အဖွဲ့ဖျက်သိမ်းပါ"
 
 msgid "Are you sure you want to delete this group?"
 msgstr "ဤအဖွဲ့ကို ဖျက်သိမ်းဖို့ သေချာပါပြီလား။"
-
-msgid "Yes, delete"
-msgstr "ဟုတ်ပြီ၊ ဖျက်သိမ်းပါ"
 
 msgid "Add group"
 msgstr "အဖွဲ့ထည့်ပါ"
@@ -100,9 +103,6 @@ msgstr "ထည့်ပါ"
 
 msgid "Change"
 msgstr "ပြောင်းလဲပါ"
-
-msgid "Delete"
-msgstr "ဖျက်သိမ်းပါ"
 
 msgid "Page"
 msgstr "စာမျက်နှာ"

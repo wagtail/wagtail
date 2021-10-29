@@ -141,16 +141,16 @@ Overriding templates
 --------------------
 
 For all modeladmin views, Wagtail looks for templates in the following folders
-within your project, before resorting to the defaults:
+within your project or app, before resorting to the defaults:
 
-1. ``/modeladmin/app-name/model-name/``
-2. ``/modeladmin/app-name/``
-3. ``/modeladmin/``
+1. ``templates/modeladmin/app-name/model-name/``
+2. ``templates/modeladmin/app-name/``
+3. ``templates/modeladmin/``
 
 So, to override the template used by ``IndexView`` for example, you'd create a
 new ``index.html`` template and put it in one of those locations.  For example,
 if you wanted to do this for an ``ArticlePage`` model in a ``news`` app, you'd
-add your custom template as ``modeladmin/news/articlepage/index.html``.
+add your custom template as ``news/templates/modeladmin/news/articlepage/index.html``.
 
 For reference, ``modeladmin`` looks for templates with the following names for
 each view:

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
@@ -32,6 +32,9 @@ msgstr "Jezik"
 msgid "Select a new language"
 msgstr "Odaberite novi jezik"
 
+msgid "This locale's language code is not supported"
+msgstr "Jezična oznaka lokaliteta nije podržana"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -45,17 +48,14 @@ msgstr ""
 "Jezična oznaka lokaliteta nije podržana. Molimo odaberite novi jezik ili "
 "izbrišite ovaj lokalitet."
 
-msgid "Usage"
-msgstr "Upotreba"
-
-msgid "This locale's language code is not supported"
-msgstr "Jezična oznaka lokaliteta nije podržana"
-
 msgid "Locales"
 msgstr "Lokaliteti"
 
 msgid "Add a locale"
 msgstr "Dodaj lokalitet"
+
+msgid "Usage"
+msgstr "Upotreba"
 
 msgid "Add locale"
 msgstr "Dodaj lokalitet"

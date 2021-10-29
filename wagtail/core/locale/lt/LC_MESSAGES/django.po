@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 12:24+0000\n"
-"Last-Translator: Naglis Jonaitis\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,14 @@ msgstr ""
 
 msgid "Add Comment"
 msgstr "Pridėti komentarą"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Mažiausias vienetų kiekis %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Didžiausias vienetų kiekis %d"
 
 msgid "Move up"
 msgstr "Perkelti aukštyn"
@@ -40,16 +48,8 @@ msgstr "Pridėti"
 msgid "This block has no options."
 msgstr "Šis blokas neturi jokių nustatymų."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Mažiausias vienetų kiekis %d"
-
 msgid "This field is required."
 msgstr "Šis laukas yra privalomas."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Didžiausias vienetų kiekis %d"
 
 msgid "Password"
 msgstr "Slaptažodis"
@@ -228,10 +228,6 @@ msgstr "komentaras"
 msgid "comments"
 msgstr "komentarai"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "vartotojas %(id)d (ištrintas)"
-
 msgid "collection"
 msgstr "kolekcija"
 
@@ -372,13 +368,6 @@ msgstr "Atrakinta"
 msgid "Reject"
 msgstr "Atmesti"
 
-#, python-format
-msgid "Resolved a comment on field %(field)s: \"%(text)s\""
-msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
-
-msgid "Resolved a comment"
-msgstr "Išsprendė komentarą"
-
 msgid "Copy"
 msgstr "Kopijuoti"
 
@@ -390,3 +379,10 @@ msgstr "Pridėti komentarą"
 
 msgid "Resolve comment"
 msgstr "Išspręsti komentarą"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Išsprendė „%(field)s“ laukelio komentarą: „%(text)s“"
+
+msgid "Resolved a comment"
+msgstr "Išsprendė komentarą"

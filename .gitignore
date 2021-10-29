@@ -8,6 +8,7 @@
 /wagtail.egg-info/
 /docs/_build/
 /.tox/
+/.venv
 /venv
 /node_modules/
 npm-debug.log*

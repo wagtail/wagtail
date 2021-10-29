@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -145,6 +145,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Koleksi"
 
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Edit"
+msgstr "Ubah"
+
 msgid "New title"
 msgstr "Judul baru"
 
@@ -229,9 +235,6 @@ msgstr "Harap memilih minimal satu grup."
 
 msgid "All types"
 msgstr "Semua tipe"
-
-msgid "Edit"
-msgstr "Ubah"
 
 msgid "Page"
 msgstr "Halaman"
@@ -651,6 +654,12 @@ msgstr "Pilih jenis halaman yang akan anda buat."
 msgid "Pages using %(page_type)s"
 msgstr "Halaman yang menggunakan %(page_type)s"
 
+msgid "Move"
+msgstr "Pindahkan"
+
+msgid "No, don't unpublish"
+msgstr "Tidak, jangan tarik publikasi"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hapus %(title)s"
@@ -693,9 +702,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Pindahkan %(title)s"
 
-msgid "Move"
-msgstr "Pindahkan"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Apakah anda yakin ingin memindahkan halaman ini ke dalam '%(title)s'?"
@@ -736,9 +742,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ya, tarik publikasi"
-
-msgid "No, don't unpublish"
-msgstr "Tidak, jangan tarik publikasi"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1063,6 +1066,9 @@ msgstr "Saring"
 msgid "Locked"
 msgstr "Terkunci"
 
+msgid "Edit this item"
+msgstr "Ubah ini"
+
 msgid "Workflow"
 msgstr "Alur Kerja"
 
@@ -1104,14 +1110,17 @@ msgstr "oleh %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Bandingkan dengan versi aktif"
 
+msgid "More"
+msgstr "Lainnya"
+
 msgid "live"
 msgstr "aktif"
 
-msgid "live + draft"
-msgstr "aktif + konsep"
-
 msgid "draft"
 msgstr "konsep"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
 
 msgid "Test"
 msgstr "Uji"
@@ -1245,9 +1254,6 @@ msgstr "Menunggu ulasan saya"
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
 
-msgid "More"
-msgstr "Lainnya"
-
 msgid "Bulleted list"
 msgstr "Daftar Bullet"
 
@@ -1271,9 +1277,6 @@ msgstr "Pilih yang lain"
 
 msgid "Clear choice"
 msgstr "Kosongkan pilihan"
-
-msgid "Edit this item"
-msgstr "Ubah ini"
 
 msgid "Choose another page"
 msgstr "Pilih halaman lain"

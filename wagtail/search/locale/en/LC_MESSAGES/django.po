@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: apps.py:10
+#: apps.py:12
 msgid "Wagtail search"
 msgstr ""
 
@@ -31,8 +31,16 @@ msgid ""
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: models.py:75 models.py:76
+#: models.py:98 models.py:99
 msgid "Query Daily Hits"
+msgstr ""
+
+#: models.py:150
+msgid "index entry"
+msgstr ""
+
+#: models.py:151
+msgid "index entries"
 msgstr ""
 
 #: templates/wagtailsearch/queries/chooser/chooser.html:2

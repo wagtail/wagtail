@@ -10,9 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 "
+"<5628a6f4d3ab86b48aef276247790766_814>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +86,12 @@ msgstr "כתובת "
 
 msgid "Parent"
 msgstr "הורה"
+
+msgid "Add"
+msgstr "הוספה"
+
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -159,9 +166,6 @@ msgstr "ערך לחיפוש"
 
 msgid "This field is required."
 msgstr "שדה חובה"
-
-msgid "Edit"
-msgstr "עריכה"
 
 msgid "Page"
 msgstr "עמוד"
@@ -395,6 +399,9 @@ msgstr "בחרו איזה סוג עמוד תרצו ליצור"
 msgid "Pages using %(page_type)s"
 msgstr "עמודים מסוג %(page_type)s"
 
+msgid "Move"
+msgstr "העברה"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "מחיקת %(title)s"
@@ -428,9 +435,6 @@ msgstr[3] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "הזזת %(title)s"
-
-msgid "Move"
-msgstr "העברה"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -551,6 +555,9 @@ msgstr "מסנן"
 msgid "Locked"
 msgstr "נעול"
 
+msgid "Edit this item"
+msgstr "ערוך פריט זה"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
@@ -574,11 +581,11 @@ msgstr "מאת %(modified_by)s"
 msgid "live"
 msgstr "לייב"
 
-msgid "live + draft"
-msgstr "לייב + טיוטה"
-
 msgid "draft"
 msgstr "טיוטה"
+
+msgid "live + draft"
+msgstr "לייב + טיוטה"
 
 msgid "Password"
 msgstr "סיסמא"
@@ -648,9 +655,6 @@ msgstr "בחרו פריט נוסף"
 
 msgid "Clear choice"
 msgstr "נקה בחירה"
-
-msgid "Edit this item"
-msgstr "ערוך פריט זה"
 
 msgid "Choose another page"
 msgstr "בחרו עמוד נוסף"

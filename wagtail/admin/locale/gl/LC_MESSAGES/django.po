@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -138,6 +138,12 @@ msgstr "Non podes ter múltiples rexistros de permisos para a mesma colección."
 msgid "Collection"
 msgstr "Colección"
 
+msgid "Add"
+msgstr "Engadir"
+
+msgid "Edit"
+msgstr "Editar"
+
 msgid "New title"
 msgstr "Novo título"
 
@@ -231,9 +237,6 @@ msgstr "Todos os tipos"
 
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Esta páxina xa ten o fluxo de traballo '{0}' asignado."
-
-msgid "Edit"
-msgstr "Editar"
 
 msgid "Page"
 msgstr "Páxina"
@@ -525,6 +528,9 @@ msgstr "Selecciona qué tipo de páxina desexas crear."
 msgid "Pages using %(page_type)s"
 msgstr "Páxinas usando %(page_type)s"
 
+msgid "Move"
+msgstr "Mover"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Eliminar %(title)s"
@@ -555,9 +561,6 @@ msgstr[1] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Mover %(title)s"
-
-msgid "Move"
-msgstr "Mover"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -808,6 +811,9 @@ msgstr "Filtro"
 msgid "Locked"
 msgstr "Bloqueada"
 
+msgid "Edit this item"
+msgstr "Editar este ítem"
+
 msgid "Workflow"
 msgstr "Fluxo de traballo"
 
@@ -843,14 +849,17 @@ msgstr "Mostrar no Navegador"
 msgid "by %(modified_by)s"
 msgstr "por %(modified_by)s"
 
+msgid "More"
+msgstr "Máis"
+
 msgid "live"
 msgstr "en vivo"
 
-msgid "live + draft"
-msgstr "en vivo + borrador"
-
 msgid "draft"
 msgstr "borrador"
+
+msgid "live + draft"
+msgstr "en vivo + borrador"
 
 msgid "Test"
 msgstr "Test"
@@ -976,9 +985,6 @@ msgid "Report this error to your webmaster with the following information:"
 msgstr ""
 "Informar deste erro ao teu administrador da web coa seguinte información:"
 
-msgid "More"
-msgstr "Máis"
-
 msgid "Yes"
 msgstr "Si"
 
@@ -993,9 +999,6 @@ msgstr "Seleccionar outro elemento"
 
 msgid "Clear choice"
 msgstr "Borrar selección"
-
-msgid "Edit this item"
-msgstr "Editar este ítem"
 
 msgid "Choose another page"
 msgstr "Seleccionar outra páxina"

@@ -1,3 +1,5 @@
+from django.db import transaction
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
@@ -6,6 +8,8 @@ from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdate
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Table, TitleColumn
+from wagtail.core.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
 from .permissions import PermissionCheckedMixin
@@ -16,15 +20,65 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     index_url_name = None
     add_url_name = None
     edit_url_name = None
+    template_name = 'wagtailadmin/generic/index.html'
     context_object_name = None
     any_permission_required = ['add', 'change', 'delete']
+    page_kwarg = 'p'
+    default_ordering = None
+
+    def get(self, request, *args, **kwargs):
+        if not hasattr(self, 'columns'):
+            self.columns = self.get_columns()
+
+        return super().get(request, *args, **kwargs)
+
+    def get_columns(self):
+        try:
+            return self.columns
+        except AttributeError:
+            return [
+                TitleColumn(
+                    'name', label=gettext_lazy("Name"), accessor=str, get_url=lambda obj: self.get_edit_url(obj)
+                ),
+            ]
+
+    def get_index_url(self):
+        if self.index_url_name:
+            return reverse(self.index_url_name)
+
+    def get_edit_url(self, instance):
+        if self.edit_url_name:
+            return reverse(self.edit_url_name, args=(instance.pk,))
+
+    def get_valid_orderings(self):
+        orderings = []
+        for col in self.columns:
+            if col.sort_key:
+                orderings.append(col.sort_key)
+                orderings.append('-%s' % col.sort_key)
+        return orderings
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', self.default_ordering)
+        if ordering not in self.get_valid_orderings():
+            ordering = self.default_ordering
+        return ordering
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        index_url = self.get_index_url()
+        table = Table(
+            self.columns, context['object_list'], base_url=index_url, ordering=self.get_ordering()
+        )
+
         context['can_add'] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
+        context['table'] = table
+        context['media'] = table.media
+        context['index_url'] = index_url
+        context['is_paginated'] = bool(self.paginate_by)
         return context
 
 
@@ -69,7 +123,9 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
 
     def form_valid(self, form):
         self.form = form
-        self.object = self.save_instance()
+        with transaction.atomic():
+            self.object = self.save_instance()
+            log(instance=self.object, action='wagtail.create')
         success_message = self.get_success_message(self.object)
         if success_message is not None:
             messages.success(self.request, success_message, buttons=[
@@ -135,7 +191,9 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
 
     def form_valid(self, form):
         self.form = form
-        self.object = self.save_instance()
+        with transaction.atomic():
+            self.object = self.save_instance()
+            log(instance=self.object, action='wagtail.edit')
         success_message = self.get_success_message()
         if success_message is not None:
             messages.success(self.request, success_message, buttons=[
@@ -191,6 +249,10 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
         return self.success_message.format(self.object)
 
     def delete(self, request, *args, **kwargs):
-        response = super().delete(request, *args, **kwargs)
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        with transaction.atomic():
+            log(instance=self.object, action='wagtail.delete')
+            self.object.delete()
         messages.success(request, self.get_success_message())
-        return response
+        return HttpResponseRedirect(success_url)

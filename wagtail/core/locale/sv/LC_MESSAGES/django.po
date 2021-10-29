@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-15 19:58+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,14 @@ msgstr "Wagtail kärna"
 
 msgid "Add Comment"
 msgstr "Lägg till kommentar"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Det minsta antalet block är %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Det maximala antalet block är %d"
 
 msgid "Move up"
 msgstr "Flytta upp"
@@ -50,16 +58,8 @@ msgstr "%(label)s: det här blocket har inga inställningar."
 msgid "This block has no options."
 msgstr "Detta block har inga inställningar."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Det minsta antalet block är %d"
-
 msgid "This field is required."
 msgstr "Det här fältet är obligatoriskt."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Det maximala antalet block är %d"
 
 msgid "Password"
 msgstr "Lösenord"
@@ -69,10 +69,6 @@ msgstr "Lösenordet du angav är inte korrekt. Vänligen försök igen."
 
 msgid "Comment"
 msgstr "Kommentar"
-
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Okänt %(action)s"
 
 msgid "title"
 msgstr "titel"
@@ -435,12 +431,12 @@ msgstr "loggposter"
 msgid "The log action '{}' has not been registered."
 msgstr "Loggningen '{}' har inte blivit registrerad."
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "användare %(id)d (raderad)"
-
 msgid "system"
 msgstr "system"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Okänt %(action)s"
 
 msgid "collection"
 msgstr "samling"
@@ -618,6 +614,19 @@ msgstr "Olåst"
 msgid "Reject"
 msgstr "Avvisa"
 
+msgid "Rename"
+msgstr "Byt namn"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Bytte namn från '%(old)s' till '%(new)s'"
+
+msgid "Renamed"
+msgstr "Namnbytt"
+
+msgid "Revert"
+msgstr "Återställ"
+
 #, python-format
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
@@ -627,12 +636,18 @@ msgstr ""
 msgid "Reverted to previous revision"
 msgstr "Återställd till tidigare revision"
 
+msgid "Copy"
+msgstr "Kopiera"
+
 #, python-format
 msgid "Copied from %(title)s"
 msgstr "Kopierad från %(title)s"
 
 msgid "Copied"
 msgstr "Kopierad"
+
+msgid "Create alias"
+msgstr "Skapa alias"
 
 #, python-format
 msgid "Created an alias of %(title)s"
@@ -641,12 +656,18 @@ msgstr "Skapade ett alias av %(title)s"
 msgid "Created an alias"
 msgstr "Skapade ett alias"
 
+msgid "Convert alias into ordinary page"
+msgstr "Konvertera alias till en vanlig sida"
+
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
 msgstr "Konverterade aliaset '%(title)s' till en vanlig sida"
 
 msgid "Converted an alias into an ordinary page"
 msgstr "Konverterade ett alias till en vanlig sida"
+
+msgid "Move"
+msgstr "Flytta"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
@@ -655,12 +676,18 @@ msgstr "Flyttade från '%(old_parent)s' till '%(new_parent)s'"
 msgid "Moved"
 msgstr "Flyttad"
 
+msgid "Reorder"
+msgstr "Omsortera"
+
 #, python-format
 msgid "Reordered under '%(parent)s'"
 msgstr "Omsorterad under '%(parent)s'"
 
 msgid "Reordered"
 msgstr "Omsorterad"
+
+msgid "Schedule publication"
+msgstr "Schemalägg publicering"
 
 #, python-format
 msgid ""
@@ -677,6 +704,9 @@ msgstr "Sida schemalagd för publicering vid %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Sida schemalagd för publicering"
 
+msgid "Unschedule publication"
+msgstr "Avschemalägg publicering"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -692,12 +722,18 @@ msgstr "Sida avschemalagd för publicering vid %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Sida avschemalagd för publicering"
 
+msgid "Add view restrictions"
+msgstr "Lägg till vyrestriktioner"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Lade till vyrestriktionen '%(restriction)s'"
 
 msgid "Added view restriction"
 msgstr "Lade till vyrestriktion"
+
+msgid "Update view restrictions"
+msgstr "Uppdatera vyrestriktioner"
 
 #, python-format
 msgid "Updated the view restriction to '%(restriction)s'"
@@ -706,6 +742,9 @@ msgstr "Uppdaterade vyrestriktionen till '%(restriction)s'"
 msgid "Updated view restriction"
 msgstr "Uppdaterade vyrestriktionen"
 
+msgid "Remove view restrictions"
+msgstr "Radera vyrestriktioner"
+
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Raderade vyrestriktionen '%(restriction)s'"
@@ -713,12 +752,8 @@ msgstr "Raderade vyrestriktionen '%(restriction)s'"
 msgid "Removed view restriction"
 msgstr "Raderade vyrestriktionen"
 
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Bytte namn från '%(old)s' till '%(new)s'"
-
-msgid "Renamed"
-msgstr "Namnbytt"
+msgid "Add comment"
+msgstr "Lägg till kommentar"
 
 #, python-format
 msgid "Added a comment on field %(field)s: \"%(text)s\""
@@ -727,12 +762,18 @@ msgstr "Lade till en kommentar på fältet %(field)s: \"%(text)s\""
 msgid "Added a comment"
 msgstr "Lade till en kommentar"
 
+msgid "Edit comment"
+msgstr "Editera kommentar"
+
 #, python-format
 msgid "Edited a comment on field %(field)s: \"%(text)s\""
 msgstr "Editerade en kommentar på fältet %(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
 msgstr "Editerade en kommentar"
+
+msgid "Delete comment"
+msgstr "Radera kommentar"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
@@ -741,12 +782,18 @@ msgstr "Raderade en kommentar på fältet %(field)s: \"%(text)s\""
 msgid "Deleted a comment"
 msgstr "Raderade en kommentar"
 
+msgid "Resolve comment"
+msgstr "Lös kommentar"
+
 #, python-format
 msgid "Resolved a comment on field %(field)s: \"%(text)s\""
 msgstr "Löste en kommentar på fältet %(field)s: \"%(text)s\""
 
 msgid "Resolved a comment"
 msgstr "Löste en kommentar"
+
+msgid "Reply to comment"
+msgstr "Svara på kommentar"
 
 #, python-format
 msgid "Replied to comment on field %(field)s: \"%(text)s\""
@@ -755,12 +802,18 @@ msgstr "Svarade kommentaren på fältet %(field)s: \"%(text)s\""
 msgid "Replied to a comment"
 msgstr "Svarade på en kommentar"
 
+msgid "Edit reply to comment"
+msgstr "Editera svar till kommentar"
+
 #, python-format
 msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
 msgstr "Editerade ett svar till en kommentar på fältet %(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
 msgstr "Editerade ett svar"
+
+msgid "Delete reply to comment"
+msgstr "Radera svar på kommentar"
 
 #, python-format
 msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
@@ -769,62 +822,8 @@ msgstr "Raderade ett svar till kommentaren på fältet %(field)s: \"%(text)s\""
 msgid "Deleted a reply"
 msgstr "Raderade ett svar"
 
-msgid "Rename"
-msgstr "Byt namn"
-
-msgid "Revert"
-msgstr "Återställ"
-
-msgid "Copy"
-msgstr "Kopiera"
-
-msgid "Create alias"
-msgstr "Skapa alias"
-
-msgid "Convert alias into ordinary page"
-msgstr "Konvertera alias till en vanlig sida"
-
-msgid "Move"
-msgstr "Flytta"
-
-msgid "Reorder"
-msgstr "Omsortera"
-
-msgid "Schedule publication"
-msgstr "Schemalägg publicering"
-
-msgid "Unschedule publication"
-msgstr "Avschemalägg publicering"
-
-msgid "Add view restrictions"
-msgstr "Lägg till vyrestriktioner"
-
-msgid "Update view restrictions"
-msgstr "Uppdatera vyrestriktioner"
-
-msgid "Remove view restrictions"
-msgstr "Radera vyrestriktioner"
-
-msgid "Add comment"
-msgstr "Lägg till kommentar"
-
-msgid "Edit comment"
-msgstr "Editera kommentar"
-
-msgid "Delete comment"
-msgstr "Radera kommentar"
-
-msgid "Resolve comment"
-msgstr "Lös kommentar"
-
-msgid "Reply to comment"
-msgstr "Svara på kommentar"
-
-msgid "Edit reply to comment"
-msgstr "Editera svar till kommentar"
-
-msgid "Delete reply to comment"
-msgstr "Radera svar på kommentar"
+msgid "Workflow: start"
+msgstr "Arbetsflöde: start"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -832,6 +831,9 @@ msgstr "'%(workflow)s' startad. Nästa steg '%(task)s'"
 
 msgid "Workflow started"
 msgstr "Arbetsflöde startad"
+
+msgid "Workflow: approve task"
+msgstr "Arbetsflöde: godkänn uppgift"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
@@ -844,12 +846,18 @@ msgstr "Godkänd vid '%(task)s'. '%(workflow)s' klart"
 msgid "Workflow task approved"
 msgstr "Arbetsflödets uppgift godkänd"
 
+msgid "Workflow: reject task"
+msgstr "Arbetsflöde: avvisa uppgift"
+
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
 msgstr "Avvisad vid '%(task)s'. Ändringar begärda"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr "Arbetsflödesuppgift avvisad. Arbetsflöde komplett"
+
+msgid "Workflow: resume task"
+msgstr "Arbetsflöde: återuppta uppgift"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
@@ -858,24 +866,12 @@ msgstr "Återinskickade '%(task)s'. Arbetsflöde återupptagen'"
 msgid "Workflow task resubmitted. Workflow resumed"
 msgstr "Arbetsflödesuppgift återinskickad. Arbetsflöde återupptagen"
 
+msgid "Workflow: cancel"
+msgstr "Arbetsflöde: avbryt"
+
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
 msgstr "Inställt '%(workflow)s' vid '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Arbetsflöde inställt"
-
-msgid "Workflow: start"
-msgstr "Arbetsflöde: start"
-
-msgid "Workflow: approve task"
-msgstr "Arbetsflöde: godkänn uppgift"
-
-msgid "Workflow: reject task"
-msgstr "Arbetsflöde: avvisa uppgift"
-
-msgid "Workflow: resume task"
-msgstr "Arbetsflöde: återuppta uppgift"
-
-msgid "Workflow: cancel"
-msgstr "Arbetsflöde: avbryt"

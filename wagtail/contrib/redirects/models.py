@@ -32,6 +32,9 @@ class Redirect(models.Model):
     def title(self):
         return self.old_path
 
+    def __str__(self):
+        return self.title
+
     @property
     def link(self):
         if self.redirect_page:
