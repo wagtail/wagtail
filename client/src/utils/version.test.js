@@ -49,56 +49,56 @@ describe('version.VersionNumber', () => {
   it('initialises 1.0', () => {
     const result = new VersionNumber('1.0');
 
-    expect(result.epic).toBe(1);
-    expect(result.major).toBe(0);
+    expect(result.major).toBe(1);
+    expect(result.minor).toBe(0);
     expect(result.patch).toBe(0);
   });
 
   it('initialises 12.0', () => {
     const result = new VersionNumber('12.0');
 
-    expect(result.epic).toBe(12);
-    expect(result.major).toBe(0);
+    expect(result.major).toBe(12);
+    expect(result.minor).toBe(0);
     expect(result.patch).toBe(0);
   });
 
   it('initialises 2.1', () => {
     const result = new VersionNumber('2.1');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(1);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(1);
     expect(result.patch).toBe(0);
   });
 
   it('initialises 2.13', () => {
     const result = new VersionNumber('2.13');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(13);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(13);
     expect(result.patch).toBe(0);
   });
 
   it('initialises 2.13.0', () => {
     const result = new VersionNumber('2.13.0');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(13);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(13);
     expect(result.patch).toBe(0);
   });
 
   it('initialises 2.13.1', () => {
     const result = new VersionNumber('2.13.1');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(13);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(13);
     expect(result.patch).toBe(1);
   });
 
   it('initialises prerelease 2.0a0', () => {
     const result = new VersionNumber('2.0a0');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(0);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(0);
     expect(result.patch).toBe(0);
     expect(result.preRelease).toBe('a');
     expect(result.preReleaseVersion).toBe(0);
@@ -107,8 +107,8 @@ describe('version.VersionNumber', () => {
   it('initialises prerelease 2.12a1', () => {
     const result = new VersionNumber('2.12a1');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(12);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(12);
     expect(result.patch).toBe(0);
     expect(result.preRelease).toBe('a');
     expect(result.preReleaseVersion).toBe(1);
@@ -117,8 +117,8 @@ describe('version.VersionNumber', () => {
   it('initialises prerelease 2.12b2', () => {
     const result = new VersionNumber('2.12b2');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(12);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(12);
     expect(result.patch).toBe(0);
     expect(result.preRelease).toBe('b');
     expect(result.preReleaseVersion).toBe(2);
@@ -127,8 +127,8 @@ describe('version.VersionNumber', () => {
   it('initialises prerelease 2.12rc23', () => {
     const result = new VersionNumber('2.12rc23');
 
-    expect(result.epic).toBe(2);
-    expect(result.major).toBe(12);
+    expect(result.major).toBe(2);
+    expect(result.minor).toBe(12);
     expect(result.patch).toBe(0);
     expect(result.preRelease).toBe('rc');
     expect(result.preReleaseVersion).toBe(23);

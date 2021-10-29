@@ -31,15 +31,15 @@ class VersionNumberFormatError extends Error {
 class VersionNumber {
   constructor(versionString) {
     const versionRegex =
-      /^(?<epic>\d+)\.{1}(?<major>\d+)((\.{1}(?<patch>\d+))|(?<preRelease>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
+      /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preRelease>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);
     if (matches === null) {
       throw new VersionNumberFormatError(versionString);
     }
     const groups = matches.groups;
 
-    this.epic = parseInt(groups.epic);
     this.major = parseInt(groups.major);
+    this.minor = parseInt(groups.minor);
     this.patch = groups.patch ? parseInt(groups.patch) : 0;
 
     this.preRelease = groups.preRelease ? groups.preRelease : null;
