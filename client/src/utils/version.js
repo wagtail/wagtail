@@ -18,7 +18,7 @@ function compareVersion(versionA, versionB) {
 }
 
 function versionOutOfDate(latestVersion, currentVersion) {
-  //return true;
+  // return true;
   return compareVersion(latestVersion, currentVersion) > 0;
 }
 
@@ -30,6 +30,7 @@ class VersionNumberFormatError extends Error {
 
 class VersionNumber {
   constructor(versionString) {
+    /* eslint-disable-next-line max-len */
     const versionRegex =
       /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preRelease>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);
@@ -38,13 +39,13 @@ class VersionNumber {
     }
     const groups = matches.groups;
 
-    this.major = parseInt(groups.major);
-    this.minor = parseInt(groups.minor);
-    this.patch = groups.patch ? parseInt(groups.patch) : 0;
+    this.major = parseInt(groups.major, 10);
+    this.minor = parseInt(groups.minor, 10);
+    this.patch = groups.patch ? parseInt(groups.patch, 10) : 0;
 
     this.preRelease = groups.preRelease ? groups.preRelease : null;
     this.preReleaseVersion = groups.preReleaseVersion
-      ? parseInt(groups.preReleaseVersion)
+      ? parseInt(groups.preReleaseVersion, 10)
       : null;
   }
 }
