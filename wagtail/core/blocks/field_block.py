@@ -11,7 +11,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.rich_text import RichText, get_text_for_indexing
+from wagtail.core.rich_text import RichText, get_text_for_indexing, expand_db_html
 from wagtail.core.telepath import Adapter, register
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 
@@ -586,7 +586,7 @@ class RichTextBlock(FieldBlock):
     def get_prep_value(self, value):
         # convert a RichText object back to a source-HTML string to go into
         # the JSONish representation
-        return value.source
+        return expand_db_html(value.source)
 
     @cached_property
     def field(self):
