@@ -585,6 +585,10 @@ Pages
         Nests some information about the parent page (only available on detail
         views)
 
+    ``meta.alias_of`` (dictionary)
+
+        If the page marked as an alias return original page id and full url
+
 Images
 ------
 
