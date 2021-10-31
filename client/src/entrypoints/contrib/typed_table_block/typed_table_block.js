@@ -141,6 +141,7 @@ export class TypedTableBlock {
   showAddColumnMenu(baseElement, callback) {
     this.addColumnMenuBaseElement = baseElement;
     baseElement.after(this.addColumnMenu);
+    baseElement.attr('aria-expanded', 'true');
     this.addColumnMenu.show();
     this.addColumnCallback = callback;
   }
@@ -221,7 +222,8 @@ export class TypedTableBlock {
     const prependColumnButton = $(`<button type="button"
       class="button button-secondary button-small button--icon text-replace prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
-      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">
+      title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
+      aria-expanded="false">
         <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
       </button>`);
     $(newHeaderCell).append(prependColumnButton);
