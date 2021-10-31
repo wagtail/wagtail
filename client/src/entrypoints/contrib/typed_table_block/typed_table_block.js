@@ -235,7 +235,9 @@ export class TypedTableBlock {
     column.headingInput.name = this.prefix + '-column-' + column.id + '-heading';
     column.headingInput.className = 'column-heading';
     column.headingInput.placeholder = this.blockDef.meta.strings.COLUMN_HEADING;
-    column.headingInput.setAttribute('aria-label', `${h(this.blockDef.meta.strings.COLUMN_HEADING)} for ${h(blockDef.meta.label)} column`);
+    column.headingInput.setAttribute(
+      'aria-label', `${h(this.blockDef.meta.strings.COLUMN_HEADING)} for ${h(blockDef.meta.label)} column`
+    );
     newHeaderCell.appendChild(column.headingInput);
 
     const deleteColumnButton = $(`<button type="button"
