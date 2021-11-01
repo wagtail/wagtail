@@ -50,9 +50,20 @@ class VersionNumber {
   }
 }
 
+class VersionDeltaType {
+  static MAJOR = new VersionDeltaType('Major');
+  static MINOR = new VersionDeltaType('Minor');
+  static PATCH = new VersionDeltaType('Patch');
+
+  constructor(name) {
+    this.name = name;
+  }
+}
+
 export {
   compareVersion,
   versionOutOfDate,
   VersionNumberFormatError,
   VersionNumber,
+  VersionDeltaType,
 };

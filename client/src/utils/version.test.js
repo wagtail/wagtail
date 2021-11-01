@@ -3,6 +3,7 @@ import {
   versionOutOfDate,
   VersionNumberFormatError,
   VersionNumber,
+  VersionDeltaType,
 } from './version';
 
 describe.skip('version.compareVersion', () => {
@@ -45,7 +46,7 @@ describe.skip('version.versionOutOfDate', () => {
   });
 });
 
-describe('version.VersionNumber', () => {
+describe('version.VersionNumber initialisation', () => {
   it('initialises 1.0', () => {
     const result = new VersionNumber('1.0');
 
@@ -156,5 +157,38 @@ describe('version.VersionNumber', () => {
     expect(() => new VersionNumber('not a number')).toThrow(
       VersionNumberFormatError,
     );
+  });
+});
+
+describe('version.VersionDeltaType', () => {
+  it('types equal themselves', () => {
+    expect(VersionDeltaType.MAJOR).toBe(VersionDeltaType.MAJOR);
+    expect(VersionDeltaType.MINOR).toBe(VersionDeltaType.MINOR);
+    expect(VersionDeltaType.PATCH).toBe(VersionDeltaType.PATCH);
+  });
+
+  it('types do not equal others', () => {
+    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.MINOR);
+    expect(VersionDeltaType.MAJOR).not.toBe(VersionDeltaType.PATCH);
+    expect(VersionDeltaType.MAJOR).not.toBe(new VersionDeltaType('Other'));
+
+    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.MAJOR);
+    expect(VersionDeltaType.MINOR).not.toBe(VersionDeltaType.PATCH);
+    expect(VersionDeltaType.MINOR).not.toBe(new VersionDeltaType('Other'));
+
+    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MAJOR);
+    expect(VersionDeltaType.PATCH).not.toBe(VersionDeltaType.MINOR);
+    expect(VersionDeltaType.PATCH).not.toBe(new VersionDeltaType('Other'));
+  });
+});
+
+describe('version.VersionNumber.howMuchBehind', () => {
+  it.skip('correctly compares 1.0 to 2.0', () => {
+    const thisVersion = new VersionNumber('1.0');
+    const thatVersion = new VersionNumber('2.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MAJOR);
   });
 });
