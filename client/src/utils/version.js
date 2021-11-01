@@ -28,6 +28,16 @@ class VersionNumberFormatError extends Error {
   }
 }
 
+class VersionDeltaType {
+  static MAJOR = new VersionDeltaType('Major');
+  static MINOR = new VersionDeltaType('Minor');
+  static PATCH = new VersionDeltaType('Patch');
+
+  constructor(name) {
+    this.name = name;
+  }
+}
+
 class VersionNumber {
   constructor(versionString) {
     /* eslint-disable-next-line max-len */
@@ -48,15 +58,16 @@ class VersionNumber {
       ? parseInt(groups.preReleaseVersion, 10)
       : null;
   }
-}
 
-class VersionDeltaType {
-  static MAJOR = new VersionDeltaType('Major');
-  static MINOR = new VersionDeltaType('Minor');
-  static PATCH = new VersionDeltaType('Patch');
-
-  constructor(name) {
-    this.name = name;
+  /*
+   * Get VersionDeltaType that this version is behind the other version passed in.
+   */
+  howMuchBehind(that) {
+    if (this.major < that.major) {
+      return VersionDeltaType.MAJOR;
+    } else {
+      return null;
+    }
   }
 }
 
@@ -64,6 +75,6 @@ export {
   compareVersion,
   versionOutOfDate,
   VersionNumberFormatError,
-  VersionNumber,
   VersionDeltaType,
+  VersionNumber,
 };
