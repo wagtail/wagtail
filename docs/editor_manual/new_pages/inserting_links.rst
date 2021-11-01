@@ -16,6 +16,7 @@ Whichever way you insert a link, you will be presented with the form displayed b
   * External link: A link to a page on another website.
   * Email link: A link that will open the user's default email client with the email address prepopulated.
   * Phone link: A link that will open the user's default client for initiating audio calls, with the phone number prepopulated.
+  * Anchor link: A link that will scroll to a given hash id elsewhere on the same page.
 
 * You can also navigate through the website to find an internal link via the explorer.
 
