@@ -178,7 +178,7 @@ to add API fields that have a different field name or no underlying field at all
             APIField('published_date'),
 
             # A separate published_date_display field with a different format
-            APIField('published_date_display', serializer=DateField(format='%A $d %B %Y', source='published_date')),
+            APIField('published_date_display', serializer=DateField(format='%A %d %B %Y', source='published_date')),
             ...
         ]
 

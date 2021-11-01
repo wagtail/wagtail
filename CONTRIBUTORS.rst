@@ -550,6 +550,7 @@ Contributors
 * Anirudh V S
 * Shariq Jamil
 * Kyle Bayliss
+* John Simms
 
 Translators
 ===========
