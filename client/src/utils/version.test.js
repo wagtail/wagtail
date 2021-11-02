@@ -274,4 +274,12 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(null);
   });
+  it('correctly compares 1.1a1 to 1.1a1', () => {
+    const thisVersion = new VersionNumber('1.1a1');
+    const thatVersion = new VersionNumber('1.1a1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
 });

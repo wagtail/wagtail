@@ -71,6 +71,12 @@ class VersionNumber {
       return VersionDeltaType.MAJOR;
     } else if (this.minor < that.minor) {
       return VersionDeltaType.MINOR;
+    } else if (
+      this.minor === that.minor &&
+      this.isPreRelease() &&
+      !that.isPreRelease()
+    ) {
+      return VersionDeltaType.MINOR;
     } else {
       return null;
     }
