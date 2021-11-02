@@ -11,6 +11,7 @@ This section describes the various mechanisms that can be used to integrate your
 
     admin_views
     template_components
+    forms
     adding_reports
     custom_tasks
     audit_log

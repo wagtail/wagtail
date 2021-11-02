@@ -1,14 +1,14 @@
 from django.contrib.admin.utils import quote
 from django.core import checks
+from django.db.models import ForeignKey
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
-from wagtail.admin.forms.models import FOREIGN_KEY_MODEL_OVERRIDES
+from wagtail.admin.forms.models import register_form_field_override
 from wagtail.admin.models import get_object_usage
 
 from .widgets import AdminSnippetChooser
-
 
 SNIPPET_MODELS = []
 
@@ -60,9 +60,9 @@ def register_snippet(model):
             return errors
 
         # Set up admin model forms to use AdminSnippetChooser for any ForeignKey to this model
-        FOREIGN_KEY_MODEL_OVERRIDES[model] = {
-            "widget": AdminSnippetChooser(model=model)
-        }
+        register_form_field_override(
+            ForeignKey, to=model, override={"widget": AdminSnippetChooser(model=model)}
+        )
 
     return model
 

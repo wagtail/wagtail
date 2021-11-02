@@ -1,5 +1,6 @@
 import copy
 
+from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 from modelcluster.forms import ClusterForm, ClusterFormMetaclass
 from taggit.managers import TaggableManager
@@ -47,6 +48,32 @@ FORM_FIELD_OVERRIDES = {
 DIRECT_FORM_FIELD_OVERRIDES = {
     models.TextField: {"widget": widgets.AdminAutoHeightTextInput},
 }
+
+
+def register_form_field_override(
+    db_field_class, to=None, override=None, exact_class=False
+):
+    """
+    Define parameters for form fields to be used by WagtailAdminModelForm for a given
+    database field.
+    """
+
+    if override is None:
+        raise ImproperlyConfigured(
+            "register_form_field_override must be passed an 'override' keyword argument"
+        )
+
+    if to:
+        if db_field_class == models.ForeignKey:
+            FOREIGN_KEY_MODEL_OVERRIDES[to] = override
+        else:
+            raise ImproperlyConfigured(
+                "The 'to' argument on register_form_field_override is only valid for ForeignKey fields"
+            )
+    elif exact_class:
+        DIRECT_FORM_FIELD_OVERRIDES[db_field_class] = override
+    else:
+        FORM_FIELD_OVERRIDES[db_field_class] = override
 
 
 # Callback to allow us to override the default form fields provided for each model field.
