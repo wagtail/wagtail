@@ -84,9 +84,8 @@ class VersionNumber {
       this.patch < that.patch
     ) {
       return VersionDeltaType.PATCH;
-    } else {
-      return null;
     }
+    return null;
   }
 }
 
