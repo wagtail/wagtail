@@ -218,6 +218,22 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(VersionDeltaType.MINOR);
   });
+  it('correctly compares 2.13.5 to 2.14.2', () => {
+    const thisVersion = new VersionNumber('2.13.5');
+    const thatVersion = new VersionNumber('2.14.2');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
+  it('correctly compares 3.0a0 to 3.0', () => {
+    const thisVersion = new VersionNumber('3.0a0');
+    const thatVersion = new VersionNumber('3.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
 
   // null
   it('correctly compares 1.0 to 1.0', () => {
