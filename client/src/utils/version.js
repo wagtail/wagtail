@@ -65,6 +65,8 @@ class VersionNumber {
   howMuchBehind(that) {
     if (this.major < that.major) {
       return VersionDeltaType.MAJOR;
+    } else if (this.minor < that.minor) {
+      return VersionDeltaType.MINOR;
     } else {
       return null;
     }
