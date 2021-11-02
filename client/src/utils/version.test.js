@@ -182,6 +182,28 @@ describe('version.VersionNumber initialisation', () => {
   });
 });
 
+describe('version.VersionNumber.isPreRelease', () => {
+  it('responds correctly for 1.0a0', () => {
+    const versionNumber = new VersionNumber('1.0a0');
+    expect(versionNumber.isPreRelease()).toBe(true);
+  });
+
+  it('responds correctly for 1.1a1', () => {
+    const versionNumber = new VersionNumber('1.1a1');
+    expect(versionNumber.isPreRelease()).toBe(true);
+  });
+
+  it('responds correctly for 1.1', () => {
+    const versionNumber = new VersionNumber('1.1');
+    expect(versionNumber.isPreRelease()).toBe(false);
+  });
+
+  it('responds correctly for 1.1.1', () => {
+    const versionNumber = new VersionNumber('1.1.1');
+    expect(versionNumber.isPreRelease()).toBe(false);
+  });
+});
+
 describe('version.VersionNumber.howMuchBehind', () => {
   // MAJOR
   it('correctly compares 1.0 to 2.0', () => {

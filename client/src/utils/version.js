@@ -59,6 +59,10 @@ class VersionNumber {
       : null;
   }
 
+  isPreRelease() {
+    return this.preRelease !== null;
+  }
+
   /*
    * Get VersionDeltaType that this version is behind the other version passed in.
    */
