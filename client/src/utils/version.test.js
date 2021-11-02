@@ -308,8 +308,32 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(null);
   });
+  it('correctly compares 2.0 to 1.0', () => {
+    const thisVersion = new VersionNumber('2.0');
+    const thatVersion = new VersionNumber('1.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
   it('correctly compares 1.1 to 1.1', () => {
     const thisVersion = new VersionNumber('1.1');
+    const thatVersion = new VersionNumber('1.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
+  it('correctly compares 1.2 to 1.1', () => {
+    const thisVersion = new VersionNumber('1.2');
+    const thatVersion = new VersionNumber('1.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
+  it('correctly compares 2.0 to 1.1', () => {
+    const thisVersion = new VersionNumber('2.0');
     const thatVersion = new VersionNumber('1.1');
 
     const result = thisVersion.howMuchBehind(thatVersion);
@@ -324,9 +348,33 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(null);
   });
+  it('correctly compares 1.1.2 to 1.1.1', () => {
+    const thisVersion = new VersionNumber('1.1.2');
+    const thatVersion = new VersionNumber('1.1.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
+  it('correctly compares 1.2.1 to 1.1.2', () => {
+    const thisVersion = new VersionNumber('1.2.1');
+    const thatVersion = new VersionNumber('1.1.2');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
   it('correctly compares 1.1a1 to 1.1a1', () => {
     const thisVersion = new VersionNumber('1.1a1');
     const thatVersion = new VersionNumber('1.1a1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
+  it('correctly compares 2.0a0 to 1.0', () => {
+    const thisVersion = new VersionNumber('2.0a0');
+    const thatVersion = new VersionNumber('1.0');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
