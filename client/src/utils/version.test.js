@@ -281,6 +281,24 @@ describe('version.VersionNumber.howMuchBehind', () => {
     expect(result).toBe(VersionDeltaType.MINOR);
   });
 
+  // PATCH
+  it('correctly compares 1.0.0 to 1.0.1', () => {
+    const thisVersion = new VersionNumber('1.0.0');
+    const thatVersion = new VersionNumber('1.0.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.PATCH);
+  });
+  it('correctly compares 1.0.0 to 1.0.2', () => {
+    const thisVersion = new VersionNumber('1.0.0');
+    const thatVersion = new VersionNumber('1.0.2');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.PATCH);
+  });
+
   // null
   it('correctly compares 1.0 to 1.0', () => {
     const thisVersion = new VersionNumber('1.0');
