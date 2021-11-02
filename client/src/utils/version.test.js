@@ -214,17 +214,17 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(VersionDeltaType.MAJOR);
   });
-  it('correctly compares 1.3 to 2.1', () => {
-    const thisVersion = new VersionNumber('1.3');
+  it('correctly compares 1.2 to 2.1', () => {
+    const thisVersion = new VersionNumber('1.2');
     const thatVersion = new VersionNumber('2.1');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
     expect(result).toBe(VersionDeltaType.MAJOR);
   });
-  it('correctly compares 3.15rc0 to 4.0', () => {
-    const thisVersion = new VersionNumber('3.15rc0');
-    const thatVersion = new VersionNumber('4.0');
+  it('correctly compares 1.0rc0 to 2.0', () => {
+    const thisVersion = new VersionNumber('1.0rc0');
+    const thatVersion = new VersionNumber('2.0');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
@@ -240,17 +240,41 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(VersionDeltaType.MINOR);
   });
-  it('correctly compares 2.13.5 to 2.14.2', () => {
-    const thisVersion = new VersionNumber('2.13.5');
-    const thatVersion = new VersionNumber('2.14.2');
+  it('correctly compares 1.1.0 to 1.2.0', () => {
+    const thisVersion = new VersionNumber('1.1.0');
+    const thatVersion = new VersionNumber('1.2.0');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
     expect(result).toBe(VersionDeltaType.MINOR);
   });
-  it('correctly compares 3.0a0 to 3.0', () => {
-    const thisVersion = new VersionNumber('3.0a0');
-    const thatVersion = new VersionNumber('3.0');
+  it('correctly compares 1.0a0 to 1.0', () => {
+    const thisVersion = new VersionNumber('1.0a0');
+    const thatVersion = new VersionNumber('1.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
+  it('correctly compares 1.0a1 to 1.0', () => {
+    const thisVersion = new VersionNumber('1.0a1');
+    const thatVersion = new VersionNumber('1.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
+  it('correctly compares 1.0a0 to 1.1', () => {
+    const thisVersion = new VersionNumber('1.0a0');
+    const thatVersion = new VersionNumber('1.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
+  it('correctly compares 1.0a0 to 1.1a0', () => {
+    const thisVersion = new VersionNumber('1.0a0');
+    const thatVersion = new VersionNumber('1.1a0');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
@@ -261,6 +285,14 @@ describe('version.VersionNumber.howMuchBehind', () => {
   it('correctly compares 1.0 to 1.0', () => {
     const thisVersion = new VersionNumber('1.0');
     const thatVersion = new VersionNumber('1.0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(null);
+  });
+  it('correctly compares 1.1 to 1.1', () => {
+    const thisVersion = new VersionNumber('1.1');
+    const thatVersion = new VersionNumber('1.1');
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
