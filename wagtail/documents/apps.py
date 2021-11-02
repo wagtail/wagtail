@@ -1,5 +1,8 @@
 from django.apps import AppConfig
+from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
+
+from . import get_document_model
 
 
 class WagtailDocsAppConfig(AppConfig):
@@ -14,11 +17,11 @@ class WagtailDocsAppConfig(AppConfig):
         register_signal_handlers()
 
         # Set up model forms to use AdminDocumentChooser for any ForeignKey to the document model
-        from wagtail.admin.forms.models import FOREIGN_KEY_MODEL_OVERRIDES
+        from wagtail.admin.forms.models import register_form_field_override
 
-        from . import get_document_model
         from .widgets import AdminDocumentChooser
 
-        FOREIGN_KEY_MODEL_OVERRIDES[get_document_model()] = {
-            "widget": AdminDocumentChooser
-        }
+        Document = get_document_model()
+        register_form_field_override(
+            ForeignKey, to=Document, override={"widget": AdminDocumentChooser}
+        )

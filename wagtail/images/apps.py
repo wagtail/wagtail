@@ -1,7 +1,9 @@
 from django.apps import AppConfig
+from django.db.models import ForeignKey
 from django.utils.translation import gettext_lazy as _
 
-from . import checks  # NOQA
+from . import checks, get_image_model  # NOQA
+from .signal_handlers import register_signal_handlers
 
 
 class WagtailImagesAppConfig(AppConfig):
@@ -11,14 +13,14 @@ class WagtailImagesAppConfig(AppConfig):
     default_auto_field = "django.db.models.AutoField"
 
     def ready(self):
-        from wagtail.images.signal_handlers import register_signal_handlers
-
         register_signal_handlers()
 
         # Set up model forms to use AdminImageChooser for any ForeignKey to the image model
-        from wagtail.admin.forms.models import FOREIGN_KEY_MODEL_OVERRIDES
+        from wagtail.admin.forms.models import register_form_field_override
 
-        from . import get_image_model
         from .widgets import AdminImageChooser
 
-        FOREIGN_KEY_MODEL_OVERRIDES[get_image_model()] = {"widget": AdminImageChooser}
+        Image = get_image_model()
+        register_form_field_override(
+            ForeignKey, to=Image, override={"widget": AdminImageChooser}
+        )
