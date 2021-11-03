@@ -28,10 +28,14 @@ class VersionNumberFormatError extends Error {
   }
 }
 
+class NotPreReleaseVersionError extends Error {}
+
 class VersionDeltaType {
   static MAJOR = new VersionDeltaType('Major');
   static MINOR = new VersionDeltaType('Minor');
   static PATCH = new VersionDeltaType('Patch');
+  static PRE_RELEASE_STEP = new VersionDeltaType('PreReleaseStep');
+  static PRE_RELEASE_VERSION = new VersionDeltaType('PreReleaseVersion');
 
   constructor(name) {
     this.name = name;
@@ -42,7 +46,7 @@ class VersionNumber {
   constructor(versionString) {
     /* eslint-disable-next-line max-len */
     const versionRegex =
-      /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preRelease>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
+      /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preReleaseStep>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);
     if (matches === null) {
       throw new VersionNumberFormatError(versionString);
@@ -53,14 +57,35 @@ class VersionNumber {
     this.minor = parseInt(groups.minor, 10);
     this.patch = groups.patch ? parseInt(groups.patch, 10) : 0;
 
-    this.preRelease = groups.preRelease ? groups.preRelease : null;
+    this.preReleaseStep = groups.preReleaseStep ? groups.preReleaseStep : null;
     this.preReleaseVersion = groups.preReleaseVersion
       ? parseInt(groups.preReleaseVersion, 10)
       : null;
   }
 
   isPreRelease() {
-    return this.preRelease !== null;
+    return this.preReleaseStep !== null;
+  }
+
+  /*
+   * Check if preReleaseStep of this versionNumber is behind another versionNumber's.
+   */
+  isPreReleaseStepBehind(that) {
+    if (!this.isPreRelease() || !that.isPreRelease()) {
+      throw new NotPreReleaseVersionError(
+        'Can only compare prerelease versions',
+      );
+    }
+
+    if (
+      this.preReleaseStep === 'a' &&
+      (that.preReleaseStep === 'b' || that.preReleaseStep === 'rc')
+    ) {
+      return true;
+    } else if (this.preReleaseStep === 'b' && that.preReleaseStep === 'rc') {
+      return true;
+    }
+    return false;
   }
 
   /*
