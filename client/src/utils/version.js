@@ -99,16 +99,19 @@ class VersionNumber {
     } else if (
       this.major === that.major &&
       this.minor === that.minor &&
-      this.isPreRelease() &&
-      !that.isPreRelease()
-    ) {
-      return VersionDeltaType.MINOR;
-    } else if (
-      this.major === that.major &&
-      this.minor === that.minor &&
       this.patch < that.patch
     ) {
       return VersionDeltaType.PATCH;
+    } else if (
+      this.major === that.major &&
+      this.minor === that.minor &&
+      this.isPreRelease()
+    ) {
+      if (!that.isPreRelease()) {
+        return VersionDeltaType.MINOR;
+      } else if (this.isPreReleaseStepBehind(that)) {
+        return VersionDeltaType.PRE_RELEASE_STEP;
+      }
     }
     return null;
   }

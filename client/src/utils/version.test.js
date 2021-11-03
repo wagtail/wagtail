@@ -370,7 +370,23 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     const result = thisVersion.howMuchBehind(thatVersion);
 
-    expect(result).toBe(VersionDeltaType.PATCH);
+    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
+  });
+  it('correctly compares 1.0a0 to 1.0rc0', () => {
+    const thisVersion = new VersionNumber('1.0a0');
+    const thatVersion = new VersionNumber('1.0rc0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
+  });
+  it('correctly compares 1.0b0 to 1.0rc0', () => {
+    const thisVersion = new VersionNumber('1.0b0');
+    const thatVersion = new VersionNumber('1.0rc0');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.PRE_RELEASE_STEP);
   });
 
   // null
