@@ -113,6 +113,8 @@ We thank the following organisations for their services used in Wagtail's develo
 [![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/squash-logo.svg)](https://www.squash.io/)<br>
 [Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
+[![Assistiv Labs](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/assistivlabs-logo.png)](https://assistivlabs.com/)<br>
+[Assistiv Labs](https://assistivlabs.com/) provides the project with unlimited access to their remote testing with assistive technologies.
 
 [![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
