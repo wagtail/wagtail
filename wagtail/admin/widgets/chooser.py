@@ -1,6 +1,7 @@
 import json
 
 from django import forms
+from django.core.exceptions import ImproperlyConfigured
 from django.forms import widgets
 from django.template.loader import render_to_string
 from django.urls import reverse
@@ -9,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.models import Page
 from wagtail.core.telepath import register
+from wagtail.core.utils import resolve_model_string
 from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.utils.widgets import WidgetWithScript
 
@@ -85,16 +87,30 @@ class AdminPageChooser(AdminChooser):
         super().__init__(**kwargs)
 
         if target_models:
-            model_names = [
-                model._meta.verbose_name.title()
-                for model in target_models
-                if model is not Page
-            ]
-            if len(model_names) == 1:
-                self.choose_one_text += " (" + model_names[0] + ")"
+            if not isinstance(target_models, (set, list, tuple)):
+                # assume we've been passed a single instance; wrap it as a list
+                target_models = [target_models]
+
+            # normalise the list of target models to a list of page classes
+            cleaned_target_models = []
+            for model in target_models:
+                try:
+                    cleaned_target_models.append(resolve_model_string(model))
+                except (ValueError, LookupError):
+                    raise ImproperlyConfigured(
+                        "Could not resolve %r into a model. "
+                        "Model names should be in the form app_label.model_name"
+                        % (model,)
+                    )
+        else:
+            cleaned_target_models = [Page]
+
+        if len(cleaned_target_models) == 1 and cleaned_target_models[0] is not Page:
+            model_name = cleaned_target_models[0]._meta.verbose_name.title()
+            self.choose_one_text += " (" + model_name + ")"
 
         self.user_perms = user_perms
-        self.target_models = list(target_models or [Page])
+        self.target_models = cleaned_target_models
         self.can_choose_root = bool(can_choose_root)
 
     def _get_lowest_common_page_class(self):

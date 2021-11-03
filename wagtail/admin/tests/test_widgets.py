@@ -116,8 +116,32 @@ class TestAdminPageChooserWidget(TestCase):
         html = widget.render("test", self.child_page, {"id": "test-id"})
         self.assertIn(">Choose a page (Simple Page)<", html)
 
+    def test_render_with_target_model_as_single_instance(self):
+        widget = widgets.AdminPageChooser(target_models=SimplePage)
+
+        html = widget.render("test", None, {"id": "test-id"})
+        self.assertIn(
+            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
+            html,
+        )
+
+        html = widget.render("test", self.child_page, {"id": "test-id"})
+        self.assertIn(">Choose a page (Simple Page)<", html)
+
+    def test_render_with_target_model_as_single_string(self):
+        widget = widgets.AdminPageChooser(target_models="tests.SimplePage")
+
+        html = widget.render("test", None, {"id": "test-id"})
+        self.assertIn(
+            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});',
+            html,
+        )
+
+        html = widget.render("test", self.child_page, {"id": "test-id"})
+        self.assertIn(">Choose a page (Simple Page)<", html)
+
     def test_render_with_multiple_target_models(self):
-        target_models = [SimplePage, EventPage]
+        target_models = [SimplePage, "tests.eventpage"]
         widget = widgets.AdminPageChooser(target_models=target_models)
 
         html = widget.render("test", None, {"id": "test-id"})
