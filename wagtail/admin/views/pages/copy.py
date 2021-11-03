@@ -8,6 +8,7 @@ from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
+from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.models import Page
 
 
@@ -48,29 +49,21 @@ def copy(request, page_id):
 
             # Re-check if the user has permission to publish subpages on the new parent
             can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
-            keep_live = can_publish and form.cleaned_data.get('publish_copies')
+            alias = can_publish and form.cleaned_data.get('alias')
+            keep_live = alias or (can_publish and form.cleaned_data.get('publish_copies'))
 
             # Copy the page
-            # Note that only users who can publish in the new parent page can create an alias.
-            # This is because alias pages must always match their original page's state.
-            if can_publish and form.cleaned_data.get('alias'):
-                new_page = page.specific.create_alias(
-                    recursive=form.cleaned_data.get('copy_subpages'),
-                    parent=parent_page,
-                    update_slug=form.cleaned_data['new_slug'],
-                    user=request.user,
-                )
-            else:
-                new_page = page.specific.copy(
-                    recursive=form.cleaned_data.get('copy_subpages'),
-                    to=parent_page,
-                    update_attrs={
-                        'title': form.cleaned_data['new_title'],
-                        'slug': form.cleaned_data['new_slug'],
-                    },
-                    keep_live=keep_live,
-                    user=request.user,
-                )
+            action = CopyPageAction(
+                user=request.user,
+                page=page,
+                destination=parent_page,
+                recursive=form.cleaned_data.get('copy_subpages'),
+                keep_live=keep_live or alias,
+                alias=alias,
+                slug=form.cleaned_data['new_slug'],
+                title=form.cleaned_data['new_title'],
+            )
+            new_page = action.execute()
 
             # Give a success message back to the user
             if form.cleaned_data.get('copy_subpages'):
