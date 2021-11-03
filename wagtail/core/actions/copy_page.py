@@ -91,7 +91,7 @@ class CopyPageAction:
             raise AliasPagesMustBeKeptLive
 
         # recursive can't copy to the same tree otherwise it will be on infinite loop
-        if self.recursive and (self.page == self.destination or self.destination.is_descendant_of(self.page)):
+        if self.recursive and (self.page.id == self.destination.id or self.destination.is_descendant_of(self.page)):
             raise CannotRecursivelyCopyIntoSelf
 
         # reject inactive users early
