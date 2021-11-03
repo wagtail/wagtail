@@ -111,6 +111,11 @@ class VersionNumber {
         return VersionDeltaType.MINOR;
       } else if (this.isPreReleaseStepBehind(that)) {
         return VersionDeltaType.PRE_RELEASE_STEP;
+      } else if (
+        this.preReleaseStep === that.preReleaseStep &&
+        this.preReleaseVersion < that.preReleaseVersion
+      ) {
+        return VersionDeltaType.PRE_RELEASE_VERSION;
       }
     }
     return null;
