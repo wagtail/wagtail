@@ -14,8 +14,14 @@ from wagtail.core.models import Page
 
 
 # Overrides that should take effect for foreign key fields to a given model
+def _get_page_chooser_overrides(db_field):
+    return {
+        "widget": widgets.AdminPageChooser(target_models=[db_field.remote_field.model])
+    }
+
+
 FOREIGN_KEY_MODEL_OVERRIDES = {
-    Page: {"widget": widgets.AdminPageChooser},
+    Page: _get_page_chooser_overrides,
 }
 
 
@@ -23,7 +29,10 @@ def _get_foreign_key_overrides(db_field):
     target_model = db_field.remote_field.model
     for model in target_model.mro():
         if model in FOREIGN_KEY_MODEL_OVERRIDES:
-            return FOREIGN_KEY_MODEL_OVERRIDES[model]
+            overrides = FOREIGN_KEY_MODEL_OVERRIDES[model]
+            if callable(overrides):
+                overrides = overrides(db_field)
+            return overrides
 
     # no override found for the given model
     return {}
