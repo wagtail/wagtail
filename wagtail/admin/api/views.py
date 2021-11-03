@@ -1,11 +1,14 @@
 from collections import OrderedDict
 
 from django.conf import settings
+from django.http import Http404
+from django.urls import path
 from rest_framework.authentication import SessionAuthentication
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
+from .actions.copy import CopyPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -13,6 +16,10 @@ from .serializers import AdminPageSerializer
 class PagesAdminAPIViewSet(PagesAPIViewSet):
     base_serializer_class = AdminPageSerializer
     authentication_classes = [SessionAuthentication]
+
+    actions = {
+        'copy': CopyPageAPIAction,
+    }
 
     # Add has_children and for_explorer filters
     filter_backends = PagesAPIViewSet.filter_backends + [
@@ -103,3 +110,26 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         response = super().detail_view(request, pk)
         response.data['__types'] = self.get_type_info()
         return response
+
+    def action_view(self, request, pk, action_name):
+        instance = self.get_object()
+
+        if action_name not in self.actions:
+            raise Http404(f"unrecognised action '{action_name}'")
+
+        action = self.actions[action_name](self, request)
+        action_data = action.serializer(data=request.data)
+        action_data.is_valid()
+
+        return action.execute(instance, action_data.data)
+
+    @classmethod
+    def get_urlpatterns(cls):
+        """
+        This returns a list of URL patterns for the endpoint
+        """
+        urlpatterns = super().get_urlpatterns()
+        urlpatterns.extend([
+            path('<int:pk>/action/<str:action_name>/', cls.as_view({'post': 'action_view'}), name='action'),
+        ])
+        return urlpatterns

@@ -3,12 +3,13 @@ import datetime
 import json
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core import hooks
-from wagtail.core.models import Locale, Page
+from wagtail.core.models import GroupPagePermission, Locale, Page
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import SimplePage, StreamPage
 from wagtail.users.models import UserProfile
@@ -805,6 +806,182 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         self.assertEqual(1, len(matching_items))
         self.assertEqual(matching_items[0]['title'], "Saint Patrick")
         self.assertEqual(matching_items[0]['admin_display_title'], "Saint Patrick (single event)")
+
+
+class TestCopyPageAction(AdminAPITestCase):
+    fixtures = ['test.json']
+
+    def get_response(self, page_id, data):
+        return self.client.post(reverse('wagtailadmin_api:pages:action', args=[page_id, 'copy']), data)
+
+    def test_copy_page(self):
+        response = self.get_response(3, {})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertEqual(new_page.slug, 'events-1')
+        self.assertTrue(new_page.live)
+        self.assertFalse(new_page.get_children().exists())
+
+    def test_copy_page_change_title(self):
+        response = self.get_response(3, {
+            'title': "New title"
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "New title")
+        self.assertEqual(new_page.slug, 'events-1')
+
+    def test_copy_page_change_slug(self):
+        response = self.get_response(3, {
+            'slug': "new-slug"
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.slug, 'new-slug')
+
+    def test_copy_page_destination(self):
+        response = self.get_response(3, {
+            'destination_page_id': 3
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertTrue(new_page.live)
+        self.assertFalse(new_page.get_children().exists())
+
+    def test_copy_page_recursive(self):
+        response = self.get_response(3, {
+            'recursive': True,
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertTrue(new_page.get_children().exists())
+
+    def test_copy_page_in_draft(self):
+        response = self.get_response(3, {
+            'keep_live': False,
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertFalse(new_page.live)
+
+    # Check errors
+
+    def test_without_publish_permissions_at_destination_with_keep_live_false(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(
+            Group.objects.get(name="Editors")
+        )
+        self.user.save()
+
+        response = self.get_response(3, {
+            'destination_page_id': 1,
+            'keep_live': False,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_recursively_copy_into_self(self):
+        response = self.get_response(3, {
+            'destination_page_id': 3,
+            'recursive': True,
+        })
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'message': "You cannot copy a tree branch recursively into itself"
+        })
+
+    def test_without_create_permissions_at_destination(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get_response(3, {
+            'destination_page_id': 2,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_without_publish_permissions_at_destination_with_keep_live(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(
+            Group.objects.get(name="Editors")
+        )
+        self.user.save()
+
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Editors"),
+            page_id=2,
+            permission_type='add'
+        )
+
+        response = self.get_response(3, {
+            'destination_page_id': 2,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_respects_page_creation_rules(self):
+        # Only one homepage may exist
+        response = self.get_response(2, {})
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_copy_page_slug_in_use(self):
+        response = self.get_response(3, {
+            'slug': 'events',
+        })
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {'slug': ['This slug is already in use']})
 
 
 # Overwrite imported test cases do Django doesn't run them
