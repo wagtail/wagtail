@@ -46,6 +46,10 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         if self.index_url_name:
             return reverse(self.index_url_name)
 
+    def get_add_url(self):
+        if self.add_url_name:
+            return reverse(self.add_url_name)
+
     def get_edit_url(self, instance):
         if self.edit_url_name:
             return reverse(self.edit_url_name, args=(instance.pk,))
@@ -75,6 +79,7 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, 'add')
         )
+        context['add_url'] = self.get_add_url()
         context['table'] = table
         context['media'] = table.media
         context['index_url'] = index_url
