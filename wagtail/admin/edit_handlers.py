@@ -23,7 +23,7 @@ from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import COMMENTS_RELATION_NAME, Page
-from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.core.utils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
@@ -624,13 +624,6 @@ class PageChooserPanel(BaseChooserPanel):
     def __init__(self, field_name, page_type=None, can_choose_root=False):
         super().__init__(field_name=field_name)
 
-        if page_type:
-            # Convert single string/model into list
-            if not isinstance(page_type, (list, tuple)):
-                page_type = [page_type]
-        else:
-            page_type = []
-
         self.page_type = page_type
         self.can_choose_root = can_choose_root
 
@@ -642,34 +635,14 @@ class PageChooserPanel(BaseChooserPanel):
         }
 
     def widget_overrides(self):
-        return {
-            self.field_name: widgets.AdminPageChooser(
-                target_models=self.target_models(), can_choose_root=self.can_choose_root
-            )
-        }
-
-    def target_models(self):
-        if self.page_type:
-            target_models = []
-
-            for page_type in self.page_type:
-                try:
-                    target_models.append(resolve_model_string(page_type))
-                except LookupError:
-                    raise ImproperlyConfigured(
-                        "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                            self.__class__.__name__, page_type
-                        )
-                    )
-                except ValueError:
-                    raise ImproperlyConfigured(
-                        "{0}.page_type refers to model {1!r} that has not been installed".format(
-                            self.__class__.__name__, page_type
-                        )
-                    )
-
-            return target_models
-        return [self.db_field.remote_field.model]
+        if self.page_type or self.can_choose_root:
+            return {
+                self.field_name: widgets.AdminPageChooser(
+                    target_models=self.page_type, can_choose_root=self.can_choose_root
+                )
+            }
+        else:
+            return {}
 
 
 class InlinePanel(EditHandler):

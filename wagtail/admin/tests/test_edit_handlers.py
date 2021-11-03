@@ -979,22 +979,21 @@ class TestPageChooserPanel(TestCase):
         self.assertIn(expected_js, result)
 
     def test_target_models(self):
-        result = (
-            PageChooserPanel("page", "wagtailcore.site")
-            .bind_to(model=PageChooserModel)
-            .target_models()
-        )
-        self.assertEqual(result, [Site])
-
-    def test_target_models_malformed_type(self):
-        result = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
-        self.assertRaises(ImproperlyConfigured, result.target_models)
-
-    def test_target_models_nonexistent_type(self):
-        result = PageChooserPanel("page", "snowman.lorry").bind_to(
+        panel = PageChooserPanel("page", "wagtailcore.site").bind_to(
             model=PageChooserModel
         )
-        self.assertRaises(ImproperlyConfigured, result.target_models)
+        widget = panel.widget_overrides()["page"]
+        self.assertEqual(widget.target_models, [Site])
+
+    def test_target_models_malformed_type(self):
+        panel = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
+        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+
+    def test_target_models_nonexistent_type(self):
+        panel = PageChooserPanel("page", "snowman.lorry").bind_to(
+            model=PageChooserModel
+        )
+        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
