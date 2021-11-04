@@ -28,7 +28,6 @@ from wagtail.snippets.action_menu import (
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
@@ -1310,9 +1309,6 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-    def test_create_snippet_chooser_panel_class(self):
-        self.assertIsInstance(self.snippet_chooser_panel, SnippetChooserPanel)
-
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
         self.assertIn(self.advert_text, field_html)
@@ -1343,7 +1339,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList([SnippetChooserPanel("advert")]).bind_to(
+        edit_handler = ObjectList([FieldPanel("advert")]).bind_to(
             model=SnippetChooserModel
         )
         form_class = edit_handler.get_form_class()
@@ -2168,9 +2164,6 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-    def test_create_snippet_chooser_panel_class(self):
-        self.assertIsInstance(self.snippet_chooser_panel, SnippetChooserPanel)
-
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
         self.assertIn(self.advert_text, field_html)
@@ -2201,9 +2194,9 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList(
-            [SnippetChooserPanel("advertwithcustomprimarykey")]
-        ).bind_to(model=SnippetChooserModelWithCustomPrimaryKey)
+        edit_handler = ObjectList([FieldPanel("advertwithcustomprimarykey")]).bind_to(
+            model=SnippetChooserModelWithCustomPrimaryKey
+        )
         form_class = edit_handler.get_form_class()
         form = form_class()
         widget = form.fields["advertwithcustomprimarykey"].widget

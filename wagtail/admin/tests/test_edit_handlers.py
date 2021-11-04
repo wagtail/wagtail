@@ -18,6 +18,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
+    MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
     TabbedInterface,
@@ -32,7 +33,6 @@ from wagtail.admin.widgets import (
     AdminPageChooser,
 )
 from wagtail.core.models import Comment, CommentReply, Page, Site
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
     DefaultStreamPage,
@@ -317,7 +317,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         # A class with a 'panels' property defined should return that list
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
         self.assertEqual(len(result), 5)
-        self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
+        self.assertTrue(any([isinstance(panel, MultiFieldPanel) for panel in result]))
 
     def test_exclude(self):
         panels = extract_panel_definitions_from_model_class(Site, exclude=["hostname"])
@@ -804,7 +804,7 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.dates_panel = FieldRowPanel(
             [
                 FieldPanel("date_from"),
-                ImageChooserPanel("feed_image"),
+                FieldPanel("feed_image"),
             ]
         ).bind_to(model=EventPage, request=self.request)
 
@@ -1063,7 +1063,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
                     label="Speakers",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
-                        ImageChooserPanel("image"),
+                        FieldPanel("image"),
                     ],
                 ),
             ]
@@ -1141,7 +1141,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
                     label="Speakers",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
-                        ImageChooserPanel("image"),
+                        FieldPanel("image"),
                     ],
                 ),
             ]
