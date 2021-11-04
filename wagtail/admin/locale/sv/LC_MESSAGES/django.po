@@ -8,7 +8,7 @@
 # Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020-2021
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2021
@@ -18,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"PO-Revision-Date: 2021-10-28 18:24+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -166,8 +166,17 @@ msgstr "Samling"
 msgid "Add"
 msgstr "Lägg till"
 
+msgid "Add collections"
+msgstr "Lägg till samling"
+
 msgid "Edit"
 msgstr "Redigera"
+
+msgid "Edit collections"
+msgstr "Redigera samlingar"
+
+msgid "Delete collections"
+msgstr "Radera samlingar"
 
 msgid "You cannot edit another user's comment."
 msgstr "Du kan inte editera andra användares kommentarer"
@@ -246,7 +255,7 @@ msgid "Search"
 msgstr "Sök"
 
 msgid "Search term"
-msgstr "Sökord"
+msgstr "Sökterm"
 
 msgid "Visibility"
 msgstr "Synlighet"
@@ -416,6 +425,66 @@ msgstr "Instrumentpanel"
 msgid "Edit your account"
 msgstr "Redigera ditt konto"
 
+msgid "1 page selected"
+msgstr "1 sida vald"
+
+msgid "{0} pages selected"
+msgstr "{0} sidor valda"
+
+msgid "All {0} pages on this screen selected"
+msgstr "Alla {0} sidor i denna vy är valda"
+
+msgid "All pages in listing selected"
+msgstr "Alla sidor i listan är valda"
+
+msgid "1 document selected"
+msgstr "1 dokument har valts"
+
+msgid "{0} documents selected"
+msgstr "{0} dokument har valts"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Alla {0} dokument i denna vy har valts"
+
+msgid "All documents in listing selected"
+msgstr "Alla dokument i listan valda"
+
+msgid "1 image selected"
+msgstr "1 bild har valts"
+
+msgid "{0} images selected"
+msgstr "{0} bilder valda"
+
+msgid "All {0} images on this screen selected"
+msgstr "Alla {0} bilder i denna vy har valts"
+
+msgid "All images in listing selected"
+msgstr "Alla bilder i lista valda"
+
+msgid "1 user selected"
+msgstr "1 användare har valts"
+
+msgid "{0} users selected"
+msgstr "{0} användare valda"
+
+msgid "All {0} users on this screen selected"
+msgstr "Alla {0} användare i denna vy valda"
+
+msgid "All users in listing selected"
+msgstr "Alla användare i lista valda"
+
+msgid "1 item selected"
+msgstr "1 objekt har valts"
+
+msgid "{0} items selected"
+msgstr "{0} objekt valda"
+
+msgid "All {0} items on this screen selected"
+msgstr "Alla {0} objekt i denna vy är valda"
+
+msgid "All items in listing selected"
+msgstr "Alla objekt i lista valda"
+
 msgid "Error 404: Page not found"
 msgstr "Sidfel 404: Sidan kunde inte hittas"
 
@@ -501,6 +570,12 @@ msgstr "Meny"
 msgid "Go back"
 msgstr "Gå tillbaka"
 
+msgid "Bulk actions"
+msgstr "Massåtgärder"
+
+msgid "Select row"
+msgstr "Välj rad"
+
 msgid "Select all"
 msgstr "Välj alla"
 
@@ -571,6 +646,45 @@ msgstr[1] ""
 "\n"
 "Bara följande sidtyper kan väljas för detta fält: %(type)s. Sökresultat "
 "kommer exludera sidor av andra typer."
+
+msgid "Convert to internal link"
+msgstr "Konvertera till intern länk"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"                Den URL du angett, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                ser ut att matcha den interna sidan %(page)s, som har URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                Att konvertera detta till en internlänk mot %(page)s skulle "
+"göra denna länk mer robust.\n"
+"                Utför?\n"
+"            "
+
+msgid "Use external link"
+msgstr "Använd extern länk"
 
 msgid "Add an email link"
 msgstr "Lägg till e-postlänk"
@@ -1026,11 +1140,168 @@ msgstr "Välj vilken typ av sida du skulle vilja skapa"
 msgid "Pages using %(page_type)s"
 msgstr "Sidor som använder %(page_type)s"
 
+#, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Radera 1 sida"
+msgstr[1] "Radera %(counter)s sidor"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Är du säker på att du vill radera dessa sidor?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Detta kommer radera en till undersida.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Detta kommer radera %(counter)s fler undersidor.\n"
+"                    "
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Du har inte rättigheter att radera denna sida"
+msgstr[1] "Du har inte rättigheter att radera dessa sidor"
+
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Flytta 1 sida"
+msgstr[1] "Flytta %(counter)s sidor"
+
 msgid "Move"
 msgstr "Flytta"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Är du säker på att du vill flytta dessa sidor?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Denna sida har en undersida\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Denna sida har %(counter)s undersidor\n"
+"                    "
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "Du saknar rättigheter att flytta denna sida"
+msgstr[1] "Du saknar rättigheter att flytta dessa sidor"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Följande sida kan inte flyttas till %(dest_title)s "
+msgstr[1] "Följande sidor kan inte flyttas till %(dest_title)s"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] "Följande sida kan inte raderas på grund av dubblett av slugg"
+msgstr[1] "Följande sidor kan inte raderas på grund av dubbletter av sluggar"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Det finns ingen giltig målsida för dessa sidor"
+
+msgid "Yes, move these pages"
+msgstr "Ja, flytta dessa sidor"
+
+msgid "No, don't move"
+msgstr "Nej, flytta inte"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Publicera 1 sida"
+msgstr[1] "Publicera %(counter)s sidor"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Är du säker på att du vill publicera dessa sidor?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                Denna sida har en opublicerad undersida\n"
+"                "
+msgstr[1] ""
+"\n"
+"                Denna sida har %(counter)s opublicerade undersidor\n"
+"                "
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Du saknar rättigheter att publicera denna sida"
+msgstr[1] "Du saknar rättigheter att publicera dessa sidor"
+
+msgid "Yes, publish"
+msgstr "Ja, publicera"
+
+msgid "No, don't publish"
+msgstr "Nej, publicera inte"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Avpublicera 1 sida"
+msgstr[1] "Avpublicera %(counter)s sidor"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Är du säker på att du vill avpublicera dessa sidor?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Denna sida har en undersida\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Denna sida har %(counter)s undersidor\n"
+"                    "
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Du saknar rättigheter att avpublicera denna sida"
+msgstr[1] "Du saknar rättigheter att avpublicera dessa sidor"
+
+msgid "Yes, unpublish"
+msgstr "Ja, avpublicera"
 
 msgid "No, don't unpublish"
 msgstr "Nej, avpublicera inte"
@@ -1258,6 +1529,12 @@ msgstr "Inga loggposter funna"
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Utforskar %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Välj alla sidor i listan"
+
+msgid "Select page"
+msgstr "Välj sida"
 
 msgid "Drag"
 msgstr "Dra"
@@ -1661,6 +1938,12 @@ msgstr "Ej slutförd uppgift"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Denna sida här ännu inte lämnats in för moderering"
 
+msgid "Collection management permissions"
+msgstr "Samling hantering rättigheter"
+
+msgid "Add a collection permission"
+msgstr "Lägg till rättighet för samling"
+
 msgid "No pages match this report's criteria."
 msgstr "Inga sidor matchade kriterierna för denna rapport."
 
@@ -1800,6 +2083,14 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">instruktioner om hur du aktiverar "
 "JavaScript i din webbläsare</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"Wagtail har tagit bort stödet för IE11. <a href=\"%(url)s\">Läs mer om "
+"alternativ till IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Hoppa till huvudinnehåll"
@@ -2034,6 +2325,9 @@ msgstr ""
 msgid "More"
 msgstr "Mer"
 
+msgid "View more bulk actions"
+msgstr "Visa fler massåtgärder"
+
 msgid "0 minutes"
 msgstr "0 minuter"
 
@@ -2105,6 +2399,109 @@ msgstr "Är du säker på att du vill radera denna samling?"
 
 msgid "Editing"
 msgstr "Redigerar"
+
+msgid "Delete selected pages"
+msgstr "Radera valda sidor"
+
+msgid "1 page has been deleted"
+msgstr "1 sida har raderats"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 sida och %(num_child_objects)d undersida har raderats"
+msgstr[1] "1 sida och %(num_child_objects)d undersidor har raderats"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d sidor har raderats"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har raderats"
+msgstr[1] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har "
+"raderats"
+
+msgid "Select a new parent page"
+msgstr "Välj ny föräldersida"
+
+msgid "Move selected pages"
+msgstr "Flytta valda sidor"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d sida har flyttats"
+msgstr[1] "%(num_pages)d sidor har flyttats"
+
+msgid "Publish selected pages"
+msgstr "Publicera valda sidor"
+
+msgid "1 page has been published"
+msgstr "1 sida har blivit publicerad"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "1 sida och %(num_child_objects)d undersida har publicerats"
+msgstr[1] "1 sida och %(num_child_objects)d undersidor har publicerats"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d sidor har publicerats"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har "
+"publicerats"
+msgstr[1] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har "
+"publicerats"
+
+msgid "Unpublish selected pages"
+msgstr "Avpublicera valda sidor"
+
+msgid "1 page has been unpublished"
+msgstr "1 sida har blivit avpublicerad"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] "1 sida och %(num_child_objects)d undersida har blivit avpublicerad"
+msgstr[1] ""
+"1 sida och %(num_child_objects)d undersidor har blivit avpublicerade"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d sidor har blivit avpublicerade"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersida har blivit "
+"avpublicerad"
+msgstr[1] ""
+"%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har blivit "
+"avpublicerade"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Sida '{0}' har blivit konverterad till en vanlig sida."
@@ -2367,6 +2764,24 @@ msgstr "Inaktivera uppgift"
 msgid "Task '{0}' disabled."
 msgstr "Uppgift '{0}' inaktiverad.."
 
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Denna uppgift är pågående på %(states_in_progress)d sida. Att inaktivera "
+"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
+"kommer inte längre bli valbar när arbetsflöde redigeras."
+msgstr[1] ""
+"Denna uppgift är pågående på %(states_in_progress)d sidor. Att inaktivera "
+"denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
+"kommer inte längre bli valbar när arbetsflöde redigeras."
+
 msgid "Task '{0}' enabled."
 msgstr "Uppgift '{0}' aktiverad."
 
@@ -2413,6 +2828,13 @@ msgstr "Avpublicera sidan '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Visa sidohistorik för '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Sortera menyordning"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "Ändra sortering på undersidor till '%(title)s'"
 
 #, python-format
 msgid "Heading %(level)d"

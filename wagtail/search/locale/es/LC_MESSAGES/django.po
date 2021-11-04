@@ -16,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-29 16:01+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Consultas de acceso diarias"
+
+msgid "index entry"
+msgstr "entrada de índice"
+
+msgid "index entries"
+msgstr "entradas de índice"
 
 msgid "Popular search terms"
 msgstr "Términos de búsqueda popular"

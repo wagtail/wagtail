@@ -19,15 +19,15 @@
 # yi huang <yi.codeplayer@gmail.com>, 2018
 # Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017,2020
-# 汇民 王 <whuim@qq.com>, 2017-2020
+# 汇民 王 <whuim@qq.com>, 2017-2021
 # 飘 赵 <275980464@qq.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Vincent Zhao <zhaopu2008@gmail.com>\n"
+"PO-Revision-Date: 2021-11-03 11:00+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -172,8 +172,17 @@ msgstr "集合"
 msgid "Add"
 msgstr "新增"
 
+msgid "Add collections"
+msgstr "添加集合"
+
 msgid "Edit"
 msgstr "编辑"
+
+msgid "Edit collections"
+msgstr "编辑集合"
+
+msgid "Delete collections"
+msgstr "删除集合"
 
 msgid "You cannot edit another user's comment."
 msgstr "你不能编辑另一个用户的评论。"
@@ -415,6 +424,66 @@ msgstr "控制面板"
 msgid "Edit your account"
 msgstr "编辑账户"
 
+msgid "1 page selected"
+msgstr "已选择1个页面"
+
+msgid "{0} pages selected"
+msgstr "已选择{0} 个页面"
+
+msgid "All {0} pages on this screen selected"
+msgstr "已选择本屏幕的所有{0} 个页面"
+
+msgid "All pages in listing selected"
+msgstr "已选择列表中的所有页面"
+
+msgid "1 document selected"
+msgstr "已选择1个文档"
+
+msgid "{0} documents selected"
+msgstr "已选择{0} 个文档"
+
+msgid "All {0} documents on this screen selected"
+msgstr "已选择本屏幕的所有{0} 个文档"
+
+msgid "All documents in listing selected"
+msgstr "已选择列表中的所有文档"
+
+msgid "1 image selected"
+msgstr "已选择1个图片"
+
+msgid "{0} images selected"
+msgstr "已选择{0} 个图片"
+
+msgid "All {0} images on this screen selected"
+msgstr "已选择本屏幕的所有{0} 个图片"
+
+msgid "All images in listing selected"
+msgstr "已选择列表中的所有图片"
+
+msgid "1 user selected"
+msgstr "已选择1个用户"
+
+msgid "{0} users selected"
+msgstr "已选择{0} 个用户"
+
+msgid "All {0} users on this screen selected"
+msgstr "已选择本屏幕的所有{0} 个用户"
+
+msgid "All users in listing selected"
+msgstr "已选择列表中的所有用户"
+
+msgid "1 item selected"
+msgstr "已选择1个条目"
+
+msgid "{0} items selected"
+msgstr "已选择{0} 个条目"
+
+msgid "All {0} items on this screen selected"
+msgstr "已选择本屏幕的所有{0} 个条目"
+
+msgid "All items in listing selected"
+msgstr "已选择列表中的所有条目"
+
 msgid "Error 404: Page not found"
 msgstr "404错误：没有找到页面"
 
@@ -495,6 +564,12 @@ msgstr "菜单"
 msgid "Go back"
 msgstr "返回"
 
+msgid "Bulk actions"
+msgstr "批量动作"
+
+msgid "Select row"
+msgstr "选择行"
+
 msgid "Select all"
 msgstr "全选"
 
@@ -556,6 +631,44 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "这里只能选择 \"%(type)s\"类型的页面。搜索结果会过滤掉其它类型。"
+
+msgid "Convert to internal link"
+msgstr "转换为内部链接"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"                你输入的URL：<a target=\"_blank\" rel=\"noreferrer noopener"
+"\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                看起来与内部页面 %(page)s的URL相匹配\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>。\n"
+"            "
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                将其转换为指向 %(page)s的内部链接将使链接更加可靠。\n"
+"                你想这样做吗？\n"
+"            "
+
+msgid "Use external link"
+msgstr "使用外部链接"
 
 msgid "Add an email link"
 msgstr "添加一个电子邮件链接"
@@ -983,11 +1096,142 @@ msgstr "选择创建的页面类型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s类型的页面"
 
+#, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "删除%(counter)s个页面"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "你确实要删除这些页面吗？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    这还会删除 %(counter)s 个子页面。\n"
+"                    "
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "您没有删除这些页面的权限"
+
 msgid "No, don't delete"
 msgstr "否，不删除"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "移动%(counter)s个页面"
+
 msgid "Move"
 msgstr "移动"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "你确实要移动这些页面吗？"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    此页面有 %(counter)s 个子页面\n"
+"                    "
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "您没有移动这些页面的权限"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] " 无法将以下页面移动到%(dest_title)s"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"由于slug重复，无法移动以下页面\n"
+" "
+
+msgid "There is no valid destination page for these pages"
+msgstr "这些页面没有有效的目标页面"
+
+msgid "Yes, move these pages"
+msgstr "æ¯çï¼ç§»å¨è¿äºé¡µé¢"
+
+msgid "No, don't move"
+msgstr "å¦ï¼ä¸ç§»å¨"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "åå¸%(counter)sä¸ªé¡µé¢"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "ä½ ç¡®å®è¦åå¸è¿äºé¡µé¢åï¼"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    æ­¤é¡µé¢æ %(counter)s ä¸ªæªåå¸çå­é¡µé¢"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "æ¨æ²¡æåå¸è¿äºé¡µé¢çæé"
+
+msgid "Yes, publish"
+msgstr "æ¯ï¼åå¸"
+
+msgid "No, don't publish"
+msgstr "å¦ï¼ä¸åå¸"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "åæ¶åå¸%(counter)sä¸ªé¡µé¢"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "ä½ ç¡®å®è¦åæ¶åå¸è¿äºé¡µé¢åï¼"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    æ­¤é¡µé¢æ %(counter)s ä¸ªå­é¡µé¢"
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "您没有取消发布这些页面的权限"
+
+msgid "Yes, unpublish"
+msgstr "是的，取消发布"
 
 msgid "No, don't unpublish"
 msgstr "否，不取消发布"
@@ -1202,6 +1446,12 @@ msgstr "未找到日志记录"
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "浏览 %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "选择列表中的所有页面"
+
+msgid "Select page"
+msgstr "选择页面"
 
 msgid "Drag"
 msgstr "拖曳"
@@ -1577,6 +1827,12 @@ msgstr "未完成的任务"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "此页面尚未提交审核"
 
+msgid "Collection management permissions"
+msgstr "集合管理权限"
+
+msgid "Add a collection permission"
+msgstr "添加一个集合权限"
+
 msgid "No pages match this report's criteria."
 msgstr "没有页面符合此报告的条件。"
 
@@ -1718,6 +1974,14 @@ msgstr ""
 "\"_blank\" rel=\"noopener noreferrer\">操作指导：如何在你的浏览器中启用 "
 "JavaScript</a>。\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"Wagtail已经移除了对IE11的支持。<a href=\"%(url)s\">了解更多关于IE11替代方案的"
+"信息</a>。"
 
 msgid "Skip to main content"
 msgstr "跳到主要内容"
@@ -1931,6 +2195,9 @@ msgstr "以'%(label)s'倒序排列'%(parent)s'的子页面"
 msgid "More"
 msgstr "更多"
 
+msgid "View more bulk actions"
+msgstr "查看更多的批量动作"
+
 msgid "0 minutes"
 msgstr "0 分钟"
 
@@ -2002,6 +2269,91 @@ msgstr "确定删除此集合？"
 
 msgid "Editing"
 msgstr "正在编辑"
+
+msgid "Delete selected pages"
+msgstr "删除选择的页面"
+
+msgid "1 page has been deleted"
+msgstr "已删除1个页面"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "已删除1个页面和%(num_child_objects)d个子页面"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "已删除%(num_parent_objects)d个页面"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] "已删除%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
+
+msgid "Select a new parent page"
+msgstr "选择一个新的父页面"
+
+msgid "Move selected pages"
+msgstr "移动选择的页面"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "已移动%(num_pages)d个页面"
+
+msgid "Publish selected pages"
+msgstr "发布选择的页面"
+
+msgid "1 page has been published"
+msgstr "已发布1个页面"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] "已发布1个页面和%(num_child_objects)d个子页面"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "已发布%(num_parent_objects)d个页面"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] "已发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
+
+msgid "Unpublish selected pages"
+msgstr "取消发布选择的页面"
+
+msgid "1 page has been unpublished"
+msgstr "已取消发布1个页面"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] "已取消发布1个页面和%(num_child_objects)d个子页面"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "已取消发布%(num_parent_objects)d个页面"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"已取消发布%(num_parent_objects)d个页面和%(num_child_objects)d个子页面"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "页面“{0}”已经被转换成一个常规页面。"
@@ -2255,6 +2607,19 @@ msgstr "禁用任务"
 msgid "Task '{0}' disabled."
 msgstr "任务 '{0}' 已禁用。"
 
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"此任务正在进行中，共%(states_in_progress)d个页面。禁用此任务将导致在审核工作"
+"流中跳过该任务，并且在编辑工作流时不会将其列出以供选择。"
+
 msgid "Task '{0}' enabled."
 msgstr "任务 '{0}' 已启用。"
 
@@ -2300,6 +2665,13 @@ msgstr "取消发布页面“%(title)s”"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "查看“%(title)s”的页面历史"
+
+msgid "Sort menu order"
+msgstr "排序菜单顺序"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "更改“%(title)s”的子页面顺序"
 
 #, python-format
 msgid "Heading %(level)d"

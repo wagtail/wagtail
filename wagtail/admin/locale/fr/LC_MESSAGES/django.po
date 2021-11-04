@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-27 06:21+0000\n"
+"PO-Revision-Date: 2021-11-01 15:04+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -444,11 +444,23 @@ msgstr "1 page sélectionnée"
 msgid "{0} pages selected"
 msgstr "{0} pages sélectionnées"
 
+msgid "All {0} pages on this screen selected"
+msgstr "Les {0} pages sur cet écran"
+
+msgid "All pages in listing selected"
+msgstr "Toutes les pages dans la liste"
+
 msgid "1 document selected"
 msgstr "1 document sélectionné"
 
 msgid "{0} documents selected"
 msgstr "{0} documents sélectionnés"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Les {0} documents sur cet écran"
+
+msgid "All documents in listing selected"
+msgstr "Tous les documents dans la liste"
 
 msgid "1 image selected"
 msgstr "1 image sélectionnée"
@@ -456,17 +468,35 @@ msgstr "1 image sélectionnée"
 msgid "{0} images selected"
 msgstr "{0} images sélectionnées"
 
+msgid "All {0} images on this screen selected"
+msgstr "Les {0} images sur cet écran"
+
+msgid "All images in listing selected"
+msgstr "Toutes les images dans la liste"
+
 msgid "1 user selected"
 msgstr "1 utilisateur sélectionné"
 
 msgid "{0} users selected"
 msgstr "{0} utilisateurs sélectionnés"
 
+msgid "All {0} users on this screen selected"
+msgstr "Les {0} utilisateurs sur cet écran"
+
+msgid "All users in listing selected"
+msgstr "Tous les utilisateurs dans la liste"
+
 msgid "1 item selected"
 msgstr "1 élément sélectionné"
 
 msgid "{0} items selected"
 msgstr "{0} éléments sélectionnés"
+
+msgid "All {0} items on this screen selected"
+msgstr "Les {0} éléments sur cet écran"
+
+msgid "All items in listing selected"
+msgstr "Tous les éléments dans la liste"
 
 msgid "Error 404: Page not found"
 msgstr "Erreur 404 : Page introuvable"
@@ -631,6 +661,38 @@ msgstr[1] ""
 
 msgid "Convert to internal link"
 msgstr "Convertir en un lien interne"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"L'URL <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(submitted_url)s\">%(submitted_url)s</a> que vous avez saisi semble "
+"correspondre à la page interne « %(page)s » dont l'URL est <a target=\"_blank"
+"\" rel=\"noreferrer noopener\" href=\"%(internal_url)s\">%(internal_url)s</"
+"a>."
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                La convertir en lien interne vers la page « %(page)s » "
+"rendrait le lien plus résilient.\n"
+"                Voulez-vous effectuer cette conversion ?\n"
+"            "
 
 msgid "Use external link"
 msgstr "Utiliser un lien externe"
@@ -1105,6 +1167,24 @@ msgstr[1] "Supprimer %(counter)s pages"
 msgid "Are you sure you want to delete these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ces pages ?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Cela supprimera également une sous-page.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Cela supprimera également %(counter)s sous-pages.\n"
+"                    "
+
 msgid "You don't have permission to delete this page"
 msgid_plural "You don't have permission to delete these pages"
 msgstr[0] "Vous n’avez pas l’autorisation de supprimer cette page"
@@ -1125,6 +1205,24 @@ msgstr "Déplacer"
 msgid "Are you sure you want to move these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir déplacer ces pages ?"
 
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Cette page a une sous-page\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Cette page a %(counter)s sous-pages\n"
+"                    "
+
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
 msgstr[0] "Vous n’avez pas l’autorisation de déplacer cette page"
@@ -1136,6 +1234,17 @@ msgid_plural "The following pages cannot be moved to %(dest_title)s"
 msgstr[0] "La page suivante ne peut pas être déplacée vers « %(dest_title)s »"
 msgstr[1] ""
 "Les pages suivantes ne peuvent pas être déplacées vers « %(dest_title)s »"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"La page suivante ne peut pas être déplacée en raison de slug dupliqué"
+msgstr[1] ""
+"Les pages suivantes ne peuvent pas être déplacées en raison de slugs "
+"dupliqués"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Il n'y a aucune page de destination valide pour ces pages"
 
 msgid "Yes, move these pages"
 msgstr "Oui, déplacer ces pages"
@@ -1152,6 +1261,29 @@ msgstr[1] "Publier %(counter)s pages"
 msgid "Are you sure you want to publish these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir publier ces pages ?"
 
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                Cette page a une sous-page non publiée\n"
+"                "
+msgstr[1] ""
+"\n"
+"                Cette page a %(counter)ssous-pages non publiées\n"
+"                "
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Vous n’avez pas l’autorisation de publier cette page"
+msgstr[1] "Vous n’avez pas l’autorisation de publier ces pages"
+
 msgid "Yes, publish"
 msgstr "Oui, publier"
 
@@ -1166,6 +1298,29 @@ msgstr[1] "Dépublier %(counter)s pages"
 
 msgid "Are you sure you want to unpublish these pages?"
 msgstr "Êtes-vous sûr(e) de vouloir dépublier ces pages ?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Cette page a une sous-page\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Cette page a %(counter)s sous-pages\n"
+"                    "
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "Vous n’avez pas l’autorisation de dépublier cette page"
+msgstr[1] "Vous n’avez pas l’autorisation de dépublier ces pages"
 
 msgid "Yes, unpublish"
 msgstr "Oui, dépublier"
@@ -1398,6 +1553,9 @@ msgstr "Aucune entrée de journal trouvée."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Explorer %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Sélectionner toutes les pages dans la liste"
 
 msgid "Select page"
 msgstr "Sélectionner la page"
@@ -1941,6 +2099,14 @@ msgstr ""
 "JavaScript dans votre navigateur</a>.\n"
 "        "
 
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"La compatibilité avec IE11 a été supprimée. <a href=\"%(url)s\">En apprendre "
+"davantage sur les alternatives à IE11</a>."
+
 msgid "Skip to main content"
 msgstr "Aller à contenu principal"
 
@@ -2248,6 +2414,36 @@ msgstr "Êtes-vous sûr(e) de vouloir supprimer cette collection ?"
 
 msgid "Editing"
 msgstr "Modification"
+
+msgid "Delete selected pages"
+msgstr "Supprimer les pages sélectionnées"
+
+msgid "1 page has been deleted"
+msgstr "1 page a été supprimée"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] "1 page et %(num_child_objects)d sous-page ont été supprimées"
+msgstr[1] "1 page et %(num_child_objects)d sous-pages ont été supprimées"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d pages ont été supprimées"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d pages et %(num_child_objects)d sous-page ont été "
+"supprimées"
+msgstr[1] ""
+"%(num_parent_objects)d pages et %(num_child_objects)d sous-pages ont été "
+"supprimées"
 
 msgid "Select a new parent page"
 msgstr "Sélectionner une nouvelle page parente"
@@ -2586,6 +2782,25 @@ msgstr "Désactiver la tâche"
 msgid "Task '{0}' disabled."
 msgstr "La tâche « {0} » a été désactivée."
 
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Cette tâche est en cours sur %(states_in_progress)d page. En la désactivant, "
+"elle sera ignorée dans le workflow de modération et ne sera plus disponible "
+"à la sélection lors de la création ou modification d'un workflow."
+msgstr[1] ""
+"Cette tâche est en cours sur %(states_in_progress)d pages. En la "
+"désactivant, elle sera ignorée dans le workflow de modération et ne sera "
+"plus disponible à la sélection lors de la création ou modification d'un "
+"workflow."
+
 msgid "Task '{0}' enabled."
 msgstr "La tâche « {0} » a été activée."
 
@@ -2632,6 +2847,9 @@ msgstr "Dépublier la page '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Voir l'historique de la page pour « %(title)s »"
+
+msgid "Sort menu order"
+msgstr "Ordre de tri des sous-pages"
 
 #, python-format
 msgid "Change ordering of child pages of '%(title)s'"

@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-03 20:00+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -431,12 +431,22 @@ msgstr "intrări jurnal"
 msgid "The log action '{}' has not been registered."
 msgstr "Acțiunea de jurnal '{}' a fost înregistrată."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "utilizator %(id)s (șters)"
+
 msgid "system"
 msgstr "sistem"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Acțiune necunoscută %(action)s"
+
+msgid "model log entry"
+msgstr "intrare jurnal pentru model"
+
+msgid "model log entries"
+msgstr "intrări jurnal pentru model"
 
 msgid "collection"
 msgstr "colecție"
@@ -647,6 +657,16 @@ msgstr "A fost copiată de la %(title)s"
 
 msgid "Copied"
 msgstr "A fost copiată"
+
+msgid "Copy for translation"
+msgstr "Copie pentru traducere"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "A copiat pentru traducere de la %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "A copiat pentru traducere"
 
 msgid "Create alias"
 msgstr "Creare alias"

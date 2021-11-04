@@ -4,7 +4,7 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020-2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
 msgid ""
@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"PO-Revision-Date: 2021-10-28 18:15+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -121,14 +121,72 @@ msgstr "användarprofil"
 msgid "user profiles"
 msgstr "användarprofiler"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Tilldela roll till 1 användare"
+msgstr[1] "Tilldela roll till %(counter)s användare"
+
+msgid "Assign role"
+msgstr "Tilldela roll"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Är du säker på att du vill tilldela denna roll till dessa användare?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Du saknar rättigheter att editera denna användare"
+msgstr[1] "Du saknar rättigheter att editera dessa användare"
+
+msgid "Yes, assign"
+msgstr "Ja, tilldela"
+
+msgid "No, don't assign"
+msgstr "Nej, tilldela inte"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Radera 1 användare"
+msgstr[1] "Radera %(counter)s användare"
+
 msgid "Delete"
 msgstr "Radera"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Är du säker på att du vill radera dessa användare?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Du saknar rättigheter att radera denna användare"
+msgstr[1] "Du saknar rättigheter att radera dessa användare"
 
 msgid "Yes, delete"
 msgstr "Ja, radera"
 
 msgid "No, don't delete"
 msgstr "Nej, radera inte"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Ändra aktiv status för 1 användare"
+msgstr[1] "Ändra aktiv status fö %(counter)s användare"
+
+msgid "Set active state"
+msgstr "Sätt aktiv status"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Är du säker på att du vill ändra aktiv status för dessa användare?"
+
+msgid "You cannot change your own active status"
+msgstr "Du kan inte ändra din egna aktiva status"
+
+msgid "Yes, change state"
+msgstr "Ja, ändra status"
+
+msgid "No, don't change state"
+msgstr "Nej, ändra inte status"
 
 msgid "Delete group"
 msgstr "Radera grupp"
@@ -192,6 +250,9 @@ msgstr "Lägg till"
 msgid "Change"
 msgstr "Ändra"
 
+msgid "Custom permissions"
+msgstr "Anpassade rättigheter"
+
 msgid "Other permissions"
 msgstr "Andra rättigheter"
 
@@ -242,6 +303,9 @@ msgstr "Användare"
 
 msgid "Add a user"
 msgstr "Lägg till en användare"
+
+msgid "Select all users in listing"
+msgstr "Välj alla användare i lista"
 
 msgid "Username"
 msgstr "Användarnamn"
@@ -305,6 +369,39 @@ msgid ""
 msgstr ""
 "Det finns inga användare konfigurerade. Varför inte <a href="
 "\"%(wagtailusers_add_url)s\">skapa några</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Tilldela roll på valda användare"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d användare har tilldelats som %(role)s"
+msgstr[1] "%(num_parent_objects)d användare har tilldelats som %(role)s"
+
+msgid "Delete selected users"
+msgstr "Radera valda användare"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d användare har raderats"
+msgstr[1] "%(num_parent_objects)d användare har raderats"
+
+msgid "Change the active state for selected users"
+msgstr "Ändra aktiv status för valda användare"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d användare har blivit markerad som aktiv"
+msgstr[1] "%(num_parent_objects)d användare har blivit markerade som aktiva"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d användare har markerats som inaktiv"
+msgstr[1] "%(num_parent_objects)d användare har markerats som inaktiva"
 
 msgid "Groups"
 msgstr "Grupper"

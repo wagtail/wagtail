@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-29 16:05+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
 "MIME-Version: 1.0\n"
@@ -442,12 +442,22 @@ msgstr "entradas de registro"
 msgid "The log action '{}' has not been registered."
 msgstr "La acción de log '{}' no ha sido registrado."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "usuario %(id)s (eliminado)"
+
 msgid "system"
 msgstr "sistema"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Desconocido %(action)s"
+
+msgid "model log entry"
+msgstr "entrada de registro modelo"
+
+msgid "model log entries"
+msgstr "entradas de registro modelo"
 
 msgid "collection"
 msgstr "colección"
@@ -656,6 +666,16 @@ msgstr "Copiado de %(title)s"
 
 msgid "Copied"
 msgstr "Copiado"
+
+msgid "Copy for translation"
+msgstr "Copiar para traducción"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiado para tranducción de %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Copiado para traducción"
 
 msgid "Create alias"
 msgstr "Crear alias"

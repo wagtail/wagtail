@@ -4,6 +4,7 @@
 #
 # Translators:
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
+# Martin Sandström <martin@marteinn.se>, 2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2017
 msgid ""
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-28 17:16+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,19 +26,19 @@ msgid "Wagtail sites"
 msgstr "Wagtail webbplatser "
 
 msgid "Choose a root page"
-msgstr "Välj en topp-sida"
+msgstr "Välj en rotsida"
 
 msgid "Choose a different root page"
-msgstr "Välj en annan topp-sida"
+msgstr "Välj en annan rotsida"
 
 msgid "Sites"
-msgstr "Webbplatser"
+msgstr "Sajter"
 
 msgid "Add a site"
 msgstr "Lägg till en sajt"
 
 msgid "Site"
-msgstr "Webbplats"
+msgstr "Sajt"
 
 msgid "Default?"
 msgstr "Standardwebbplats?"

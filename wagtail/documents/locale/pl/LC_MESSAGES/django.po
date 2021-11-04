@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-03 15:51+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -67,6 +67,12 @@ msgstr "dokument"
 
 msgid "documents"
 msgstr "dokumenty"
+
+msgid "Yes, add"
+msgstr "Tak, dodaj"
+
+msgid "No, don't add"
+msgstr "Nie, nie dodawaj"
 
 #, python-format
 msgid "Used %(usage_count)s time"

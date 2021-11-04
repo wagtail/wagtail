@@ -11,14 +11,14 @@
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017-2020
+# 汇民 王 <whuim@qq.com>, 2017-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-04 01:43+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -73,9 +73,67 @@ msgid "documents"
 msgstr "文档"
 
 #, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "给%(counter)s个文档添加标签"
+
+msgid "Add tags to documents"
+msgstr "给文档添加标签"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "你确实要给以下文档添加标签吗？"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "您没有给这些文档添加标签的权限"
+
+msgid "Yes, add"
+msgstr "是的，添加"
+
+msgid "No, don't add"
+msgstr "否，不添加"
+
+#, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "将%(counter)s个文档添加到新集合"
+
+msgid "Add documents to collection"
+msgstr "将文档添加到集合"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "是否确实要将以下文档添加到所选集合？"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "您没有将这些文档添加到集合的权限"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "删除%(counter)s个文档"
+
+msgid "Delete documents"
+msgstr "删除文档"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "你确定要删除这些文档吗？"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "已使用%(usage_count)s次"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "您没有删除这些文档的权限"
 
 msgid "Yes, delete"
 msgstr "是，删除"
@@ -184,6 +242,12 @@ msgstr "使用情况"
 msgid "Documents"
 msgstr "文档"
 
+msgid "Select all documents in listing"
+msgstr "选择列表中的所有文档"
+
+msgid "Select document"
+msgstr "选择文档"
+
 #, python-format
 msgid ""
 "You haven't uploaded any documents in this collection. Why not <a href="
@@ -273,8 +337,39 @@ msgstr "文档权限"
 msgid "Add a document permission"
 msgstr "添加一个文档权限"
 
+msgid "Tag"
+msgstr "标签"
+
+msgid "Add tags to the selected documents"
+msgstr "给所选文档添加标签"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "新标签已添加到%(num_parent_objects)d个文档"
+
+msgid "Add to collection"
+msgstr "添加到集合"
+
+msgid "Add selected documents to collection"
+msgstr "将所选文档添加到集合"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "已将%(num_parent_objects)d个文档添加到集合%(collection)s"
+
 msgid "Delete"
 msgstr "删除"
+
+msgid "Delete selected documents"
+msgstr "删除选择的文档"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "已删除%(num_parent_objects)d个文档"
 
 msgid "Server Error"
 msgstr "服务器错误"

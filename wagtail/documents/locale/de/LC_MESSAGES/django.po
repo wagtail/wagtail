@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-03 15:55+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -77,6 +77,12 @@ msgstr "Dokument"
 
 msgid "documents"
 msgstr "Dokumente"
+
+msgid "Yes, add"
+msgstr "Ja, hinzufügen"
+
+msgid "No, don't add"
+msgstr "Nein, nicht hinzufügen"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -288,6 +294,9 @@ msgstr "Dokumenten-Berechtigungen"
 
 msgid "Add a document permission"
 msgstr "Einfügen einer Dokumenten-Berechtigung"
+
+msgid "Add to collection"
+msgstr "Zur Sammlung hinzufügen"
 
 msgid "Delete"
 msgstr "Löschen"

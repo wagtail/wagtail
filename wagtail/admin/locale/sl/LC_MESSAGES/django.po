@@ -5,14 +5,15 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
-# Urban Prevc, 2021
+# UP, 2021
+# UP, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 05:16+0000\n"
-"Last-Translator: Urban Prevc\n"
+"PO-Revision-Date: 2021-11-04 09:37+0000\n"
+"Last-Translator: UP\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,9 @@ msgstr "Izbriši"
 
 msgid "Lock"
 msgstr "Zakleni"
+
+msgid "Save Draft"
+msgstr "Shrani osnutek"
 
 msgid "Page locked"
 msgstr "Stran je zaklenjena"
@@ -73,6 +77,12 @@ msgstr "Promocija"
 msgid "Settings"
 msgstr "Nastavitve"
 
+msgid "Preferred language"
+msgstr "Želeni jezik"
+
+msgid "Current time zone"
+msgstr "Trenutni časovni pas"
+
 msgid "First Name"
 msgstr "Ime"
 
@@ -82,12 +92,15 @@ msgstr "Priimek"
 msgid "Email"
 msgstr "E-pošta"
 
+msgid "Upload a profile picture"
+msgstr "Naloži profilno sliko"
+
 msgid "Enter password"
 msgstr "Vnesite geslo"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Vnesite vaše %s"
+msgstr "Vnesite %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
@@ -243,6 +256,9 @@ msgstr "Pojdite v Wagtail admin"
 msgid "Account"
 msgstr "Račun"
 
+msgid "Save account details"
+msgstr "Shrani podrobnosti računa"
+
 msgid "Change password"
 msgstr "Spremeni geslo"
 
@@ -299,6 +315,9 @@ msgstr "Geslo ponastavljeno"
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
 
+msgid "Upload a profile picture:"
+msgstr "Naloži profilno sliko:"
+
 msgid "Menu"
 msgstr "Meni"
 
@@ -313,6 +332,15 @@ msgstr "Zunanja povezava"
 
 msgid "Email link"
 msgstr "Povezava na e-naslov"
+
+msgid "Phone link"
+msgstr "Povezava na telefon"
+
+msgid "Anchor link"
+msgstr "Povezava na element"
+
+msgid "Add an anchor link"
+msgstr "Dodaj povezavo na element"
 
 msgid "Choose"
 msgstr "Izberite"
@@ -363,6 +391,9 @@ msgstr "Premakni navzgor"
 msgid "Move down"
 msgstr "Premakni navzdol"
 
+msgid "Comment notifications"
+msgstr "Obvestila o komentarjih"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -379,6 +410,9 @@ msgid ""
 msgstr ""
 "To je vaša nadzorna plošča, kjer boste našli prikazane koristne informacije "
 "o vaših vsebinah."
+
+msgid "Your locked pages"
+msgstr "Vaše zaklenjene strani"
 
 msgid "Title"
 msgstr "Naziv"
@@ -432,6 +466,9 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Prijava v Wagtail"
+
+msgid "Forgotten password?"
+msgstr "Ste pozabili geslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -756,6 +793,9 @@ msgstr "Uporabi filter"
 msgid "Locked"
 msgstr "Zaklenjeno"
 
+msgid "No locked pages found."
+msgstr "Zaklenjene strani niso bile najdene."
+
 msgid "Edit this item"
 msgstr "Uredi element"
 
@@ -803,8 +843,26 @@ msgstr "objavljeno + osnutek"
 msgid "Test"
 msgstr "Test"
 
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Notifications"
+msgstr "Obvestila"
+
+msgid "Name and Email"
+msgstr "Ime in elektronski naslov"
+
+msgid "Profile picture"
+msgstr "Profilna slika"
+
+msgid "Locale"
+msgstr "Jezik in območje"
+
 msgid "Password"
 msgstr "Geslo"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Vaše nastavitve računa so bile uspešno spremenjene!"
 
 msgid "Collections"
 msgstr "Zbirke"
@@ -881,8 +939,17 @@ msgstr "Stran '{0}' premaknjena."
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
+msgid "Site history"
+msgstr "Zgodovina mesta"
+
+msgid "Locked pages"
+msgstr "Zaklenjene strani"
+
 msgid "Report this error to your webmaster with the following information:"
 msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
+
+msgid "Locked Pages"
+msgstr "Zaklenjene strani"
 
 msgid "Reports"
 msgstr "Poročila"

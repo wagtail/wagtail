@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"PO-Revision-Date: 2021-10-28 16:43+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -177,8 +177,17 @@ msgstr "Collectie"
 msgid "Add"
 msgstr "Mag toevoegen"
 
+msgid "Add collections"
+msgstr "Voeg collecties toe"
+
 msgid "Edit"
 msgstr "Wijzig"
+
+msgid "Edit collections"
+msgstr "Bewerk collecties"
+
+msgid "Delete collections"
+msgstr "Verwijder collecties"
 
 msgid "You cannot edit another user's comment."
 msgstr "Je kunt opmerkingen  van een andere gebruiker niet wijzigen."
@@ -435,6 +444,66 @@ msgstr "Dashboard"
 msgid "Edit your account"
 msgstr "Wijzig uw account"
 
+msgid "1 page selected"
+msgstr "1 pagina geselecteerd"
+
+msgid "{0} pages selected"
+msgstr "{0} pagina's geselecteerd"
+
+msgid "All {0} pages on this screen selected"
+msgstr "Alle {0} pagina's op dit scherm geselecteerd"
+
+msgid "All pages in listing selected"
+msgstr "Alle pagina's in lijst geselecteerd"
+
+msgid "1 document selected"
+msgstr "1 document geselecteerd"
+
+msgid "{0} documents selected"
+msgstr "{0} documenten geselecteerd"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Alle {0} documenten op dit scherm geselecteerd"
+
+msgid "All documents in listing selected"
+msgstr "Alle documenten in lijst geselecteerd"
+
+msgid "1 image selected"
+msgstr "1 afbeelding geselecteerd"
+
+msgid "{0} images selected"
+msgstr "{0} afbeeldingen geselecteerd"
+
+msgid "All {0} images on this screen selected"
+msgstr "Alle {0} afbeeldingen op dit scherm geselecteerd"
+
+msgid "All images in listing selected"
+msgstr "Alle afbeeldingen in lijst geselecteerd"
+
+msgid "1 user selected"
+msgstr "1 gebruiker geselecteerd"
+
+msgid "{0} users selected"
+msgstr "{0} gebruikers geselecteerd"
+
+msgid "All {0} users on this screen selected"
+msgstr "Alle {0} gebruikers op dit scherm geselecteerd"
+
+msgid "All users in listing selected"
+msgstr "Alle gebruikers in lijst geselecteerd"
+
+msgid "1 item selected"
+msgstr "1 item geselecteerd"
+
+msgid "{0} items selected"
+msgstr "{0} items geselecteerd"
+
+msgid "All {0} items on this screen selected"
+msgstr "Alle {0} items op dit scherm geselecteerd"
+
+msgid "All items in listing selected"
+msgstr "Alle items in lijst geselecteerd"
+
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pagina niet gevonden"
 
@@ -520,6 +589,12 @@ msgstr "Menu"
 msgid "Go back"
 msgstr "Ga terug"
 
+msgid "Bulk actions"
+msgstr "Bulk acties"
+
+msgid "Select row"
+msgstr "Selecteer rij"
+
 msgid "Select all"
 msgstr "Selecteer alles"
 
@@ -590,6 +665,45 @@ msgstr[1] ""
 "Alleen de volgende paginatypes mogen gekozen worden voor dit veld: %(type)s. "
 "Resultaten van andere soorten pagina's zullen uitgesloten worden uit de "
 "zoekresultaten."
+
+msgid "Convert to internal link"
+msgstr "Converteer naar interne link"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"                De URL die u heeft ingevoerd, <a target=\"_blank\" rel="
+"\"noreferrer noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                lijkt op de interne pagina %(page)s, met URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                Dit converteren naar een interne link naar %(page)s zal deze "
+"link meer robust maken.\n"
+"                Wilt u dit doen?\n"
+"            "
+
+msgid "Use external link"
+msgstr "Gebruik externe link"
 
 msgid "Add an email link"
 msgstr "Voeg een e-mail link toe"
@@ -1048,11 +1162,173 @@ msgstr "Kies wat voor type pagina u wilt maken."
 msgid "Pages using %(page_type)s"
 msgstr "Pagina's van het type '%(page_type)s'"
 
+#, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Verwijder 1 pagina"
+msgstr[1] "Verwijder %(counter)s pagina's"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Weet u zeker dat u deze pagina's wilt verwijderen?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This will also delete one more subpage.\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This will also delete %(counter)s more subpages.\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Dit zal ook één subpagina verwijderen.\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Dit zal ook %(counter)s onderliggende pagina's "
+"verwijderen.\n"
+"                    "
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "U heeft niet de juiste rechten om deze pagina te verwijderen"
+msgstr[1] "U heeft niet de juiste rechten om deze pagina's te verwijderen"
+
 msgid "No, don't delete"
 msgstr "Nee, niet verwijderen"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Verplaats 1 pagina"
+msgstr[1] "Verplaats %(counter)s pagina's"
+
 msgid "Move"
 msgstr "Verplaats"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Weet u zeker dat u deze pagina's wilt verplaatsen?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Deze pagina heeft één onderliggende pagina\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Deze pagina heeft %(counter)s onderliggende pagina's\n"
+"                    "
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "U heeft niet de juiste rechten om deze pagina te verplaatsen"
+msgstr[1] "U heeft niet de juiste rechten om deze pagina's te verplaatsen"
+
+#, python-format
+msgid "The following page cannot be moved to %(dest_title)s "
+msgid_plural "The following pages cannot be moved to %(dest_title)s"
+msgstr[0] "Deze pagina kan niet verplaatst worden naar %(dest_title)s"
+msgstr[1] "Deze pagina's kunnen niet verplaatst worden naar %(dest_title)s"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] "Deze pagina kan niet verplaatst worden vanwege een dubbele slug"
+msgstr[1] ""
+"Deze pagina's kunnen niet verplaatst worden vanwege een dubbele slug"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Er bestaat geen geldige bestemmingspagina voor deze pagina's"
+
+msgid "Yes, move these pages"
+msgstr "Ja, verplaats deze pagina's"
+
+msgid "No, don't move"
+msgstr "Nee, niet verplaatsen"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Publiceer 1 pagina "
+msgstr[1] "Publiceer %(counter)s pagina's"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Weet u zeker dat u deze pagina's wilt publiceren?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"Deze pagina heeft één niet-gepubliceerde onderliggende pagina"
+msgstr[1] ""
+"\n"
+"                    Deze pagina heeft %(counter)s niet-gepubliceerde "
+"onderliggende pagina's"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "U heeft niet de juiste rechten om deze pagina te publiceren"
+msgstr[1] "U heeft niet de juiste rechten om deze pagina's te publiceren"
+
+msgid "Yes, publish"
+msgstr "Ja, publiceer"
+
+msgid "No, don't publish"
+msgstr "Nee, niet publiceren"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Publicatie van 1 pagina intrekken"
+msgstr[1] "Publicatie van %(counter)s pagina's intrekken"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Weet u zeker dat u de publicatie van deze pagina's ongedaan wil maken?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Deze pagina heeft één onderliggende pagina\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Deze pagina heeft %(counter)s onderliggende pagina's\n"
+"                    "
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] ""
+"U heeft niet de juiste rechten om de publicatie van deze pagina ongedaan te "
+"maken"
+msgstr[1] ""
+"U heeft niet de juiste rechten om de publicatie van deze pagina's ongedaan "
+"te maken"
+
+msgid "Yes, unpublish"
+msgstr "Ja, trek de publicatie in"
 
 msgid "No, don't unpublish"
 msgstr "Nee, niet de publicatie intrekken"
@@ -1275,6 +1551,12 @@ msgstr "Geen logboekvermeldingen gevonden."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s aan het bekijken"
+
+msgid "Select all pages in listing"
+msgstr "Selecteer alle pagina's in lijst"
+
+msgid "Select page"
+msgstr "Selecteer pagina"
 
 msgid "Drag"
 msgstr "Sleep"
@@ -1668,6 +1950,12 @@ msgstr "Incomplete taak"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Deze pagina is nog niet ingediend voor beoordeling"
 
+msgid "Collection management permissions"
+msgstr "Collectie beheer machtigingen"
+
+msgid "Add a collection permission"
+msgstr "Voeg een collectie-machtiging toe"
+
 msgid "No pages match this report's criteria."
 msgstr "Geen pagina's komen overeen met de rapport-criteria."
 
@@ -1812,6 +2100,14 @@ msgstr ""
 "\" rel=\"noopener noreferrer\">instructies om om Javascript in te schakelen "
 "zijn hier te vinden</a>.\n"
 "        "
+
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"Wagtail heeft de ondersteuning voor IE11 laten vervallen. <a href=\"%(url)s"
+"\">Lees meer over alternatieven voor IE11</a>."
 
 msgid "Skip to main content"
 msgstr "Ga naar de inhoud"
@@ -2047,6 +2343,9 @@ msgstr ""
 msgid "More"
 msgstr "Meer"
 
+msgid "View more bulk actions"
+msgstr "Bekijk meer bulk acties"
+
 msgid "0 minutes"
 msgstr "0 minuten"
 
@@ -2118,6 +2417,117 @@ msgstr "Weet u zeker dat u deze collectie wilt verwijderen?"
 
 msgid "Editing"
 msgstr "Wijzigen"
+
+msgid "Delete selected pages"
+msgstr "Verwijder geselecteerde pagina's"
+
+msgid "1 page has been deleted"
+msgstr "1 pagina verwijderd"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been deleted"
+msgid_plural "1 page and %(num_child_objects)d child pages have been deleted"
+msgstr[0] ""
+"1 pagina en %(num_child_objects)d onderliggende pagina zijn verwijderd"
+msgstr[1] ""
+"1 pagina en %(num_child_objects)d onderliggende pagina's zijn verwijderd"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d pagina's zijn verwijderd"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"deleted"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"deleted"
+msgstr[0] ""
+"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
+"pagina zijn verwijderd"
+msgstr[1] ""
+"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
+"pagina's zijn verwijderd"
+
+msgid "Select a new parent page"
+msgstr "Kies een nieuwe bovenliggende pagina"
+
+msgid "Move selected pages"
+msgstr "Verplaats geselecteerde pagina's"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d pagina is verplaatst"
+msgstr[1] "%(num_pages)d pagina's zijn verplaatst"
+
+msgid "Publish selected pages"
+msgstr "Publiceer geselecteerde pagina's"
+
+msgid "1 page has been published"
+msgstr "1 pagina is gepubliceerd"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been published"
+msgid_plural "1 page and %(num_child_objects)d child pages have been published"
+msgstr[0] ""
+"1 pagina en %(num_child_objects)d onderliggende pagina zijn gepubliceerd"
+msgstr[1] ""
+"1 pagina en %(num_child_objects)d onderliggende pagina's zijn gepubliceerd"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d pagina's zijn gepubliceerd"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"published"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"published"
+msgstr[0] ""
+"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
+"pagina zijn gepubliceerd"
+msgstr[1] ""
+"%(num_parent_objects)d pagina's en %(num_child_objects)d onderliggende "
+"pagina's zijn gepubliceerd"
+
+msgid "Unpublish selected pages"
+msgstr "Publicatie van geselecteerd pagina's intrekken"
+
+msgid "1 page has been unpublished"
+msgstr "Publicatie van 1 pagina ongedaan gemaakt"
+
+#, python-format
+msgid "1 page and %(num_child_objects)d child page have been unpublished"
+msgid_plural ""
+"1 page and %(num_child_objects)d child pages have been unpublished"
+msgstr[0] ""
+"Publicatie van 1 pagina en %(num_child_objects)d onderliggende pagina is "
+"ongedaan gemaakt"
+msgstr[1] ""
+"Publicatie van 1 pagina en %(num_child_objects)d onderliggende pagina's zijn "
+"ongedaan gemaakt"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "Publicatie van %(num_parent_objects)d pagina's ongedaan gemaakt"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
+"onderliggende pagina ongedaan gemaakt"
+msgstr[1] ""
+"Publicatie van %(num_parent_objects)d pagina's en %(num_child_objects)d "
+"onderliggende pagina's ongedaan gemaakt"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Pagina '{0}' is naar een normale pagina geconverteerd."
@@ -2379,6 +2789,26 @@ msgstr "Schakel taak uit"
 msgid "Task '{0}' disabled."
 msgstr "Taak '{0}' uitgeschakeld."
 
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Deze taak is in gebruik bij %(states_in_progress)d pagina's. Deze taak "
+"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
+"werkstroom moderatie en dat deze niet geselecteerd kan worden als u een "
+"werkstroom aanpast."
+msgstr[1] ""
+"Deze taak is in gebruik bij %(states_in_progress)d pagina's. Deze taak "
+"uitschakelen zal er voor zorgen dat de taak wordt overgeslagen in de "
+"werkstroom moderatie en dat deze niet geselecteerd kan worden als u een "
+"werkstroom aanpast."
+
 msgid "Task '{0}' enabled."
 msgstr "Taak '{0}' ingeschakeld."
 
@@ -2425,6 +2855,13 @@ msgstr "Trek publicatie van pagina '%(title)s' in."
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Bekijk de versiegeschiedenis voor '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Sorteer menu volgorde"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "Verander volgorde van onderliggende pagina's van '%(title)s'"
 
 #, python-format
 msgid "Heading %(level)d"

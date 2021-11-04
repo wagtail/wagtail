@@ -19,6 +19,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Martin Löhle <martin.loehle@web-forest.de>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2015
@@ -43,8 +44,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-18 11:11+0000\n"
-"Last-Translator: th3hamm0r <stefan@hammerworxx.com>\n"
+"PO-Revision-Date: 2021-11-03 15:32+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -468,11 +469,23 @@ msgstr "1 Seite ausgewählt"
 msgid "{0} pages selected"
 msgstr "{0} Seiten ausgewählt"
 
+msgid "All {0} pages on this screen selected"
+msgstr "Alle {0} Seiten auf dem Bildschirm ausgewählt"
+
+msgid "All pages in listing selected"
+msgstr "Alle Seiten der Auflistung ausgewählt"
+
 msgid "1 document selected"
 msgstr "1 Dokument ausgewählt"
 
 msgid "{0} documents selected"
 msgstr "{0} Dokumente ausgewählt"
+
+msgid "All {0} documents on this screen selected"
+msgstr "Alle {0} Dokumente auf dem Bildschirm ausgewählt"
+
+msgid "All documents in listing selected"
+msgstr "Alle Dokumente der Auflistung ausgewählt"
 
 msgid "1 image selected"
 msgstr "1 Bild ausgewählt"
@@ -480,11 +493,35 @@ msgstr "1 Bild ausgewählt"
 msgid "{0} images selected"
 msgstr "{0} Bilder ausgewählt"
 
+msgid "All {0} images on this screen selected"
+msgstr "Alle {0} Bilder auf dem Bildschirm ausgewählt"
+
+msgid "All images in listing selected"
+msgstr "Alle Bilder der Auflistung ausgewählt"
+
 msgid "1 user selected"
 msgstr "1 Benutzer ausgewählt"
 
 msgid "{0} users selected"
 msgstr "{0} Benutzer ausgewählt"
+
+msgid "All {0} users on this screen selected"
+msgstr "Alle {0} Benutzer auf dem Bildschirm ausgewählt"
+
+msgid "All users in listing selected"
+msgstr "Alle Benutzer der Auflistung ausgewählt"
+
+msgid "1 item selected"
+msgstr "1 Element ausgewählt"
+
+msgid "{0} items selected"
+msgstr "{0} Elemente ausgewählt"
+
+msgid "All {0} items on this screen selected"
+msgstr "Alle {0} Elemente auf dem Bildschirm ausgewählt"
+
+msgid "All items in listing selected"
+msgstr "Alle Elemente der Auflistung ausgewählt"
 
 msgid "Error 404: Page not found"
 msgstr "Fehler 404: Seite nicht gefunden"
@@ -572,6 +609,12 @@ msgstr "Menü"
 
 msgid "Go back"
 msgstr "Zurückgehen"
+
+msgid "Bulk actions"
+msgstr "Massenaktionen"
+
+msgid "Select row"
+msgstr "Zeile auswählen"
 
 msgid "Select all"
 msgstr "Alles auswählen"
@@ -1746,6 +1789,9 @@ msgstr "Unvollständige Aufgabe"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Diese Seite wurde noch nicht zur Moderation eingereicht"
+
+msgid "Add a collection permission"
+msgstr "Eine Sammlung-Berechtigung hinzufügen"
 
 msgid "No pages match this report's criteria."
 msgstr "Es gibt keine Seiten welche den Kriterien dieses Reports entsprechen"
