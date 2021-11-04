@@ -17,7 +17,13 @@ class CopyPageAction:
     """
     Copies pages and page trees.
     """
-    def __init__(self, recursive=False, copy_revisions=True, keep_live=True, user=None, process_child_object=None, log_action='wagtail.copy', reset_translation_key=True):
+    def __init__(self, page, to=None, update_attrs=None, exclude_fields=None, recursive=False, copy_revisions=True, keep_live=True, user=None, process_child_object=None, log_action='wagtail.copy', reset_translation_key=True):
+        # Note: These four parameters don't apply to any copied children
+        self.page = page
+        self.to = to
+        self.update_attrs = update_attrs
+        self.exclude_fields = exclude_fields
+
         self.recursive = recursive
         self.copy_revisions = copy_revisions
         self.keep_live = keep_live
@@ -26,7 +32,7 @@ class CopyPageAction:
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
 
-    def copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
+    def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
         if page._state.adding:
             raise RuntimeError('Page.copy() called on an unsaved page')
 
@@ -193,7 +199,7 @@ class CopyPageAction:
                     newdepth
                 )
                 numchild += 1
-                self.copy_page(
+                self._copy_page(
                     child_page,
                     to=page_copy,
                     _mpnode_attrs=child_mpnode_attrs
@@ -204,3 +210,11 @@ class CopyPageAction:
                 page_copy.save(clean=False, update_fields=['numchild'])
 
         return page_copy
+
+    def execute(self):
+        return self._copy_page(
+            self.page,
+            to=self.to,
+            update_attrs=self.update_attrs,
+            exclude_fields=self.exclude_fields
+        )

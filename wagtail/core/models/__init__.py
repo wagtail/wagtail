@@ -1555,6 +1555,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
         return CopyPageAction(
+            self,
+            to=to,
+            update_attrs=update_attrs,
+            exclude_fields=exclude_fields,
             recursive=recursive,
             copy_revisions=copy_revisions,
             keep_live=keep_live,
@@ -1562,7 +1566,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             process_child_object=process_child_object,
             log_action=log_action,
             reset_translation_key=reset_translation_key,
-        ).copy_page(self, to=to, update_attrs=update_attrs, exclude_fields=exclude_fields)
+        ).execute()
 
     copy.alters_data = True
 
