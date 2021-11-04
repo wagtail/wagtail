@@ -603,8 +603,7 @@ class FieldPanel(EditHandler):
 
 
 class RichTextFieldPanel(FieldPanel):
-    def get_comparison_class(self):
-        return compare.RichTextFieldComparison
+    pass
 
 
 class BaseChooserPanel(FieldPanel):
@@ -1011,9 +1010,6 @@ class StreamFieldPanel(FieldPanel):
             classes.remove("error")
 
         return classes
-
-    def get_comparison_class(self):
-        return compare.StreamFieldComparison
 
     def id_for_label(self):
         # a StreamField may consist of many input fields, so it's not meaningful to
