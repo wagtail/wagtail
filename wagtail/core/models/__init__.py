@@ -46,7 +46,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
-from wagtail.core.actions.copy_page import copy_page
+from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -1554,19 +1554,15 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         :param log_action flag for logging the action. Pass None to skip logging.
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
-        return copy_page(
-            self,
+        return CopyPageAction(
             recursive=recursive,
-            to=to,
-            update_attrs=update_attrs,
             copy_revisions=copy_revisions,
             keep_live=keep_live,
             user=user,
             process_child_object=process_child_object,
-            exclude_fields=exclude_fields,
             log_action=log_action,
             reset_translation_key=reset_translation_key,
-        )
+        ).copy_page(self, to=to, update_attrs=update_attrs, exclude_fields=exclude_fields)
 
     copy.alters_data = True
 
