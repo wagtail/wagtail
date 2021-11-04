@@ -484,7 +484,13 @@ class FieldPanel(EditHandler):
 
         if self.bound_field.field.required:
             classes.append("required")
-        if self.bound_field.errors:
+
+        # If field has any errors, add the classname 'error' to enable error styling
+        # (e.g. red background), unless the widget has its own mechanism for rendering errors
+        # via the render_with_errors mechanism (as StreamField does).
+        if self.bound_field.errors and not hasattr(
+            self.bound_field.field.widget, "render_with_errors"
+        ):
             classes.append("error")
 
         classes.append(self.field_type())
@@ -1003,11 +1009,6 @@ class StreamFieldPanel(FieldPanel):
     def classes(self):
         classes = super().classes()
         classes.append("stream-field")
-
-        # In case of a validation error, BlockWidget will take care of outputting the error on the
-        # relevant sub-block, so we don't want the stream block as a whole to be wrapped in an 'error' class.
-        if "error" in classes:
-            classes.remove("error")
 
         return classes
 
