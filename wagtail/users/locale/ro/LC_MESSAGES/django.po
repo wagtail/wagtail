@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Bogdan Mateescu\n"
+"PO-Revision-Date: 2021-11-03 20:35+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -121,14 +121,77 @@ msgstr "profil utilizator"
 msgid "user profiles"
 msgstr "profiluri utilizatori"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Adaugă rol la 1 utilizator"
+msgstr[1] "Adaugă rol la %(counter)s utilizatori"
+msgstr[2] "Adaugă rol la %(counter)s utilizatori"
+
+msgid "Assign role"
+msgstr "Adaugă rol"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Sigur doriți să atribuiți acest rol acestor utilizatori?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Nu aveți permisiunea de a edita acest utilizator"
+msgstr[1] "Nu aveți permisiunea de a edita acești utilizatori"
+msgstr[2] "Nu aveți permisiunea de a edita acești utilizatori"
+
+msgid "Yes, assign"
+msgstr "Da, atribuie"
+
+msgid "No, don't assign"
+msgstr "Nu, nu atribuie"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Șterge 1 utlizator"
+msgstr[1] "Șterge %(counter)s utilizatori"
+msgstr[2] "Șterge %(counter)s utilizatori"
+
 msgid "Delete"
 msgstr "Șterge"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Sigur doriți să ștergeți acești utilizatori?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Nu aveți permisiunea de a șterge acest utilizator"
+msgstr[1] "Nu aveți permisiunea de a șterge acești utilizatori"
+msgstr[2] "Nu aveți permisiunea de a șterge acești utilizatori"
 
 msgid "Yes, delete"
 msgstr "Da, șterge"
 
 msgid "No, don't delete"
 msgstr "Nu, nu șterge"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Schimbă starea activă pentru 1 utilizator"
+msgstr[1] "Schimbă starea activă pentru %(counter)s utilizatori"
+msgstr[2] "Schimbă starea activă pentru %(counter)s utilizatori"
+
+msgid "Set active state"
+msgstr "Setează stare activă"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Sigur doriți să shimbați starea activă pentru acești utilizatori?"
+
+msgid "You cannot change your own active status"
+msgstr "Nu vă puteți schimba propriul statut activ"
+
+msgid "Yes, change state"
+msgstr "Da, schimbă stare"
+
+msgid "No, don't change state"
+msgstr "Nu, nu schimba stare"
 
 msgid "Delete group"
 msgstr "Șterge grup"
@@ -196,6 +259,9 @@ msgstr "Adaugă"
 msgid "Change"
 msgstr "Modifică"
 
+msgid "Custom permissions"
+msgstr "Permisiuni personalizate"
+
 msgid "Other permissions"
 msgstr "Alte permisiuni"
 
@@ -246,6 +312,9 @@ msgstr "Utilizatori"
 
 msgid "Add a user"
 msgstr "Adaugă un utilizator"
+
+msgid "Select all users in listing"
+msgstr "Selectează toți utilizatorii din listă"
 
 msgid "Username"
 msgstr "Nume utlizator"
@@ -312,6 +381,43 @@ msgid ""
 msgstr ""
 "Nu există nici un utilizator. De ce să nu <a href=\"%(wagtailusers_add_url)s"
 "\">adăugați câțiva</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Adaugă rol la utilizatorii selectați"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d utilizator a primit rolul %(role)s"
+msgstr[1] "%(num_parent_objects)d utilizatori au primit rolul %(role)s"
+msgstr[2] "%(num_parent_objects)d utilizatori au primit rolul %(role)s"
+
+msgid "Delete selected users"
+msgstr "Șterge utilizatorii selectați"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d utilizator a fost șters"
+msgstr[1] "%(num_parent_objects)d utilizatori au fost șterși"
+msgstr[2] "%(num_parent_objects)d utilizatori au fost șterși"
+
+msgid "Change the active state for selected users"
+msgstr "Schimbă starea activă pentru utilizatorii selectați"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d utilizator a fost marcat ca activ"
+msgstr[1] "%(num_parent_objects)d utilizatori au fost marcați ca activi"
+msgstr[2] "%(num_parent_objects)d utilizatori au fost marcați ca activi"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d utilizator a fost marcat ca inactiv"
+msgstr[1] "%(num_parent_objects)d utilizatori au fost marcați ca inactivi"
+msgstr[2] "%(num_parent_objects)d utilizatori au fost marcați ca inactivi"
 
 msgid "Groups"
 msgstr "Grupuri"

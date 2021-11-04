@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-28 16:48+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -433,12 +433,22 @@ msgstr "logboekvermeldingen"
 msgid "The log action '{}' has not been registered."
 msgstr "De logboek actie '{}' is niet geregistreerd."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "gebruiker %(id)s (verwijderd)"
+
 msgid "system"
 msgstr "systeem"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Onbekend %(action)s"
+
+msgid "model log entry"
+msgstr "logboekvermelding"
+
+msgid "model log entries"
+msgstr "logboekvermeldingen"
 
 msgid "collection"
 msgstr "collectie"
@@ -647,6 +657,16 @@ msgstr "Gekopieerd van %(title)s"
 
 msgid "Copied"
 msgstr "Gekopieerd"
+
+msgid "Copy for translation"
+msgstr "Kopiëren voor vertaling"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Gekopiëerd voor vertaling van %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Gekopiëerd voor vertaling"
 
 msgid "Create alias"
 msgstr "Alias aanmaken"

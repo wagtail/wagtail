@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-10-28 18:25+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -431,12 +431,22 @@ msgstr "loggposter"
 msgid "The log action '{}' has not been registered."
 msgstr "Loggningen '{}' har inte blivit registrerad."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "användare %(id)s (raderad)"
+
 msgid "system"
 msgstr "system"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Okänt %(action)s"
+
+msgid "model log entry"
+msgstr "modelllogpost"
+
+msgid "model log entries"
+msgstr "modellloggposter"
 
 msgid "collection"
 msgstr "samling"
@@ -645,6 +655,16 @@ msgstr "Kopierad från %(title)s"
 
 msgid "Copied"
 msgstr "Kopierad"
+
+msgid "Copy for translation"
+msgstr "Kopiera för översättning"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Kopierad för översättning från %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Kopierad för översättning"
 
 msgid "Create alias"
 msgstr "Skapa alias"

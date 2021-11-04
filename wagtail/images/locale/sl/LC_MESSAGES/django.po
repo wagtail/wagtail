@@ -4,14 +4,14 @@
 #
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
-# Urban Prevc, 2021
+# UP, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2021-10-27 07:32+0000\n"
-"Last-Translator: Urban Prevc\n"
+"Last-Translator: UP\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"

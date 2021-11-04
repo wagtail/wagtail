@@ -12,14 +12,14 @@
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
 # Yin Guanhao <sopium@mysterious.site>, 2021
 # 祝沙军 <zhushajun@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2018-2019
+# 汇民 王 <whuim@qq.com>, 2018-2019,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
+"PO-Revision-Date: 2021-11-04 02:03+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +73,9 @@ msgstr ""
 "还没有创建 %(snippet_type_name)s 片段。现在 <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">创建一个</a>吗？"
+
+msgid "Last updated"
+msgstr "最后更新"
 
 msgid "History"
 msgstr "历史"
@@ -205,6 +208,9 @@ msgstr "%(snippet_type)s '%(instance)s' 已删除。"
 msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d 个 %(snippet_type)s 已删除。"
+
+msgid "Snippet history"
+msgstr "片段历史记录"
 
 msgid "Action"
 msgstr "行为"

@@ -10,6 +10,7 @@
 # Bohreromir, 2020
 # Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
@@ -25,8 +26,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-03 16:02+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -173,6 +174,15 @@ msgstr "Bild"
 
 msgid "images"
 msgstr "Bilder"
+
+msgid "Yes, add"
+msgstr "Ja, hinzufügen"
+
+msgid "No, don't add"
+msgstr "Nein, nicht hinzufügen"
+
+msgid "Add images to collection"
+msgstr "Der Sammlung hinzufügen"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -389,7 +399,7 @@ msgid "Or choose from your computer"
 msgstr "Oder wählen Sie es von Ihrem Computer aus"
 
 msgid "Add to collection:"
-msgstr "Zu Sammlung hinzufügen:"
+msgstr "Der Sammlung hinzufügen:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -419,8 +429,17 @@ msgstr "Bild-Berechtigungen"
 msgid "Add an image permission"
 msgstr "Eine Bild-Berechtigung hinzufügen"
 
+msgid "Add to collection"
+msgstr "Der Sammlung hinzufügen"
+
+msgid "Add selected images to collection"
+msgstr "Die markierten Bilder der Sammlung hinzufügen"
+
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "Delete selected images"
+msgstr "Ausgewählte Bilder löschen"
 
 msgid "Search images"
 msgstr "Nach Bildern suchen"

@@ -4,15 +4,15 @@
 #
 # Translators:
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2015,2019
+# Dan Braghis, 2014-2015,2019,2021
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-03 20:21+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Interogări zilnice"
+
+msgid "index entry"
+msgstr "intrare de index"
+
+msgid "index entries"
+msgstr "Intrări de index"
 
 msgid "Popular search terms"
 msgstr "Termeni populari de căutare"

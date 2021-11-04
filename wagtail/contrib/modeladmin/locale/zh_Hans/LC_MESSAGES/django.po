@@ -7,14 +7,14 @@
 # First Last <abc+github@mynook.info>, 2019
 # Fred Zeng <979738295@qq.com>, 2016
 # Vincent Zhao <zhaopu2008@gmail.com>, 2017
-# 汇民 王 <whuim@qq.com>, 2017,2020
+# 汇民 王 <whuim@qq.com>, 2017,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Ford Guo <agile.guo@gmail.com>\n"
+"PO-Revision-Date: 2021-11-04 02:02+0000\n"
+"Last-Translator: 汇民 王 <whuim@qq.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -124,8 +124,15 @@ msgstr "主页"
 msgid " By %(filter_title)s "
 msgstr "按  %(filter_title)s "
 
+msgid "Last updated"
+msgstr "最近更新"
+
 msgid "History"
 msgstr "历史"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s / %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."

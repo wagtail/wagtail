@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016,2020-2021
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"PO-Revision-Date: 2021-10-29 16:17+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -320,7 +320,7 @@ msgid "Choose"
 msgstr "Seleccionar"
 
 msgid "Choose a page"
-msgstr "Selecciona unha páxina"
+msgstr "Seleccionar unha páxina"
 
 #, python-format
 msgid ""
@@ -345,13 +345,13 @@ msgstr[1] ""
 "            "
 
 msgid "Add an email link"
-msgstr "Engade unha ligazón de correo electrónico"
+msgstr "Engadir unha ligazón de correo electrónico"
 
 msgid "Insert link"
-msgstr "Inserta unha ligazón"
+msgstr "Insertar unha ligazón"
 
 msgid "Add an external link"
-msgstr "Engade unha ligazón externa"
+msgstr "Engadir unha ligazón externa"
 
 msgid "You can edit the privacy settings on:"
 msgstr "Podes editar a configuración de privacidade en:"
@@ -383,6 +383,9 @@ msgstr "Subir"
 
 msgid "Move down"
 msgstr "Baixar"
+
+msgid "Add comment"
+msgstr "Engadir comentario"
 
 msgid "Yes, delete"
 msgstr "Si, eliminar"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"PO-Revision-Date: 2021-11-03 20:20+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -126,8 +126,15 @@ msgstr "Acasă"
 msgid " By %(filter_title)s "
 msgstr " După %(filter_title)s "
 
+msgid "Last updated"
+msgstr "Ultima actualizare"
+
 msgid "History"
 msgstr "Istorie"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s din %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
