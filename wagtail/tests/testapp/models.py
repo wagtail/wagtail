@@ -24,7 +24,6 @@ from wagtail.admin.edit_handlers import (
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    PageChooserPanel,
     StreamFieldPanel,
     TabbedInterface,
 )
@@ -59,14 +58,11 @@ from wagtail.core.models import (
     TranslatableMixin,
 )
 from wagtail.documents import get_document_model
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
 from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.utils.decorators import cached_classmethod
 
@@ -117,8 +113,8 @@ class LinkFields(models.Model):
 
     panels = [
         FieldPanel("link_external"),
-        PageChooserPanel("link_page"),
-        DocumentChooserPanel("link_document"),
+        FieldPanel("link_page"),
+        FieldPanel("link_document"),
     ]
 
     class Meta:
@@ -140,7 +136,7 @@ class CarouselItem(LinkFields):
     caption = models.CharField(max_length=255, blank=True)
 
     panels = [
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("embed_url"),
         FieldPanel("caption"),
         MultiFieldPanel(LinkFields.panels, "Link"),
@@ -278,7 +274,7 @@ class EventPageSpeaker(TranslatableMixin, Orderable, LinkFields, ClusterableMode
     panels = [
         FieldPanel("first_name"),
         FieldPanel("last_name"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         MultiFieldPanel(LinkFields.panels, "Link"),
         InlinePanel("awards", label="Awards"),
     ]
@@ -366,7 +362,7 @@ class EventPage(Page):
 
     promote_panels = [
         MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-        ImageChooserPanel("feed_image"),
+        FieldPanel("feed_image"),
     ]
 
 
@@ -592,7 +588,7 @@ class FormPageWithRedirect(AbstractEmailForm):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
-        PageChooserPanel("thank_you_redirect_page"),
+        FieldPanel("thank_you_redirect_page"),
         InlinePanel("form_fields", label="Form fields"),
         MultiFieldPanel(
             [
@@ -1031,7 +1027,7 @@ class SnippetChooserModel(models.Model):
     advert = models.ForeignKey(Advert, help_text="help text", on_delete=models.CASCADE)
 
     panels = [
-        SnippetChooserPanel("advert"),
+        FieldPanel("advert"),
     ]
 
 
@@ -1041,7 +1037,7 @@ class SnippetChooserModelWithCustomPrimaryKey(models.Model):
     )
 
     panels = [
-        SnippetChooserPanel("advertwithcustomprimarykey"),
+        FieldPanel("advertwithcustomprimarykey"),
     ]
 
 

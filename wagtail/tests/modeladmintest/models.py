@@ -4,7 +4,6 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     MultiFieldPanel,
     ObjectList,
-    PageChooserPanel,
     TabbedInterface,
 )
 from wagtail.core.models import Page
@@ -150,7 +149,7 @@ class RelatedLink(models.Model):
         MultiFieldPanel(
             [
                 FieldPanel("title"),
-                PageChooserPanel("link"),
+                FieldPanel("link"),
             ],
             heading="Related Link",
         ),

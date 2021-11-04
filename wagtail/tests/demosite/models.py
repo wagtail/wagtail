@@ -7,18 +7,11 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from taggit.models import TaggedItemBase
 
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    PageChooserPanel,
-)
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, Page
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.images.api.fields import ImageRenditionField
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 # ABSTRACT MODELS
@@ -65,8 +58,8 @@ class AbstractLinkFields(models.Model):
 
     panels = [
         FieldPanel("link_external"),
-        PageChooserPanel("link_page"),
-        DocumentChooserPanel("link_document"),
+        FieldPanel("link_page"),
+        FieldPanel("link_document"),
     ]
 
     class Meta:
@@ -105,7 +98,7 @@ class AbstractCarouselItem(AbstractLinkFields):
     ) + AbstractLinkFields.api_fields
 
     panels = [
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         FieldPanel("embed_url"),
         FieldPanel("caption"),
         MultiFieldPanel(AbstractLinkFields.panels, "Link"),
@@ -246,7 +239,7 @@ StandardPage.content_panels = Page.content_panels + [
 
 StandardPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
 
 
@@ -288,7 +281,7 @@ StandardIndexPage.content_panels = Page.content_panels + [
 
 StandardIndexPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
 
 
@@ -360,7 +353,7 @@ BlogEntryPage.content_panels = Page.content_panels + [
 
 BlogEntryPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
     FieldPanel("tags"),
 ]
 
@@ -513,7 +506,7 @@ class EventPageSpeaker(Orderable, AbstractLinkFields):
     panels = [
         FieldPanel("first_name"),
         FieldPanel("last_name"),
-        ImageChooserPanel("image"),
+        FieldPanel("image"),
         MultiFieldPanel(AbstractLinkFields.panels, "Link"),
     ]
 
@@ -536,7 +529,7 @@ EventPage.content_panels = Page.content_panels + [
 
 EventPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
 
 
@@ -636,7 +629,7 @@ PersonPage.content_panels = Page.content_panels + [
     FieldPanel("last_name"),
     FieldPanel("intro", classname="full"),
     FieldPanel("biography", classname="full"),
-    ImageChooserPanel("image"),
+    FieldPanel("image"),
     MultiFieldPanel(ContactFieldsMixin.panels, "Contact"),
     InlinePanel("related_links", label="Related links"),
 ]
@@ -644,7 +637,7 @@ PersonPage.content_panels = Page.content_panels + [
 
 PersonPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
 
 
@@ -682,5 +675,5 @@ ContactPage.content_panels = Page.content_panels + [
 
 ContactPage.promote_panels = [
     MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-    ImageChooserPanel("feed_image"),
+    FieldPanel("feed_image"),
 ]
