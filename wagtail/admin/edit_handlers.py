@@ -7,7 +7,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.signals import setting_changed
-from django.db.models.fields import CharField, TextField
 from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
@@ -16,12 +15,10 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
-from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.core.fields import RichTextField
 from wagtail.core.models import COMMENTS_RELATION_NAME, Page
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
@@ -550,19 +547,15 @@ class FieldPanel(EditHandler):
             if field.choices:
                 return compare.ChoiceFieldComparison
 
+            comparison_class = compare.comparison_class_registry.get(field)
+            if comparison_class:
+                return comparison_class
+
             if field.is_relation:
-                if isinstance(field, TaggableManager):
-                    return compare.TagsFieldComparison
-                elif field.many_to_many:
+                if field.many_to_many:
                     return compare.M2MFieldComparison
 
                 return compare.ForeignObjectComparison
-
-            if isinstance(field, RichTextField):
-                return compare.RichTextFieldComparison
-
-            if isinstance(field, (CharField, TextField)):
-                return compare.TextFieldComparison
 
         except FieldDoesNotExist:
             pass

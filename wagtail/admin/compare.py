@@ -1,18 +1,49 @@
 import difflib
 
 from bs4 import BeautifulSoup
+from django.core.exceptions import ImproperlyConfigured
+from django.db import models
 from django.utils.encoding import force_str
 from django.utils.html import escape, format_html, format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
+from taggit.managers import TaggableManager
 
 from wagtail.core import blocks
+from wagtail.core.fields import RichTextField
+from wagtail.utils.registry import ModelFieldRegistry
 
 
 def text_from_html(val):
     # Return the unescaped text content of an HTML string
     return BeautifulSoup(force_str(val), "html5lib").getText()
+
+
+comparison_class_registry = ModelFieldRegistry()
+
+
+def register_comparison_class(
+    field_class, to=None, comparison_class=None, exact_class=False
+):
+    """
+    Define parameters for form fields to be used by WagtailAdminModelForm for a given
+    database field.
+    """
+
+    if comparison_class is None:
+        raise ImproperlyConfigured(
+            "register_comparison_class must be passed a 'comparison_class' keyword argument"
+        )
+
+    if to and field_class != models.ForeignKey:
+        raise ImproperlyConfigured(
+            "The 'to' argument on register_comparison_class is only valid for ForeignKey fields"
+        )
+
+    comparison_class_registry.register(
+        field_class, to=to, value=comparison_class, exact_class=exact_class
+    )
 
 
 class FieldComparison:
@@ -56,11 +87,18 @@ class TextFieldComparison(FieldComparison):
         return diff_text(self.val_a, self.val_b).to_html()
 
 
+register_comparison_class(models.CharField, comparison_class=TextFieldComparison)
+register_comparison_class(models.TextField, comparison_class=TextFieldComparison)
+
+
 class RichTextFieldComparison(TextFieldComparison):
     def htmldiff(self):
         return diff_text(
             text_from_html(self.val_a), text_from_html(self.val_b)
         ).to_html()
+
+
+register_comparison_class(RichTextField, comparison_class=RichTextFieldComparison)
 
 
 def get_comparison_class_for_block(block):
@@ -344,6 +382,9 @@ class M2MFieldComparison(FieldComparison):
 class TagsFieldComparison(M2MFieldComparison):
     def get_item_display(self, tag):
         return tag.slug
+
+
+register_comparison_class(TaggableManager, comparison_class=TagsFieldComparison)
 
 
 class ForeignObjectComparison(FieldComparison):
