@@ -5,8 +5,7 @@ from wagtail.admin.edit_handlers import BaseChooserPanel
 
 
 class ImageChooserPanel(BaseChooserPanel):
-    def get_comparison_class(self):
-        return ImageFieldComparison
+    pass
 
 
 class ImageFieldComparison(ForeignObjectComparison):

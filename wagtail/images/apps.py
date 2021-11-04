@@ -24,3 +24,13 @@ class WagtailImagesAppConfig(AppConfig):
         register_form_field_override(
             ForeignKey, to=Image, override={"widget": AdminImageChooser}
         )
+
+        # Set up image ForeignKeys to use ImageFieldComparison as the comparison class
+        # when comparing page revisions
+        from wagtail.admin.compare import register_comparison_class
+
+        from .edit_handlers import ImageFieldComparison
+
+        register_comparison_class(
+            ForeignKey, to=Image, comparison_class=ImageFieldComparison
+        )

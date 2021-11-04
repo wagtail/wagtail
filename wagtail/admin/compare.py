@@ -11,7 +11,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
 from wagtail.core import blocks
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.utils.registry import ModelFieldRegistry
 
 
@@ -317,6 +317,9 @@ class StreamFieldComparison(FieldComparison):
             return diff_text(
                 text_from_html(self.val_a), text_from_html(self.val_b)
             ).to_html()
+
+
+register_comparison_class(StreamField, comparison_class=StreamFieldComparison)
 
 
 class ChoiceFieldComparison(FieldComparison):
