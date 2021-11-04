@@ -20,7 +20,6 @@ from wagtail.admin.edit_handlers import (
     InlinePanel,
     ObjectList,
     PageChooserPanel,
-    RichTextFieldPanel,
     TabbedInterface,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
@@ -333,16 +332,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
             any(
                 [
                     isinstance(panel, FieldPanel) and panel.field_name == "date_from"
-                    for panel in panels
-                ]
-            )
-        )
-
-        # returned panel types should respect modelfield.get_panel() - used on RichTextField
-        self.assertTrue(
-            any(
-                [
-                    isinstance(panel, RichTextFieldPanel) and panel.field_name == "body"
                     for panel in panels
                 ]
             )
