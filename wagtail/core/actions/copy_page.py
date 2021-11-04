@@ -13,6 +13,10 @@ from wagtail.core.signals import page_published
 logger = logging.getLogger('wagtail.core')
 
 
+class CopyPageError(RuntimeError):
+    pass
+
+
 class CopyPageAction:
     """
     Copies pages and page trees.
@@ -32,10 +36,14 @@ class CopyPageAction:
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
 
-    def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
-        if page._state.adding:
-            raise RuntimeError('Page.copy() called on an unsaved page')
+    def check(self):
+        if self.page._state.adding:
+            raise CopyPageError('Page.copy() called on an unsaved page')
 
+        if self.to and self.recursive and (self.to.id == self.page.id or self.to.is_descendant_of(self.page)):
+            raise CopyPageError("You cannot copy a tree branch recursively into itself")
+
+    def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
         exclude_fields = page.default_exclude_fields_in_copy + page.exclude_fields_in_copy + (exclude_fields or [])
         specific_page = page.specific
         if self.keep_live:
@@ -82,8 +90,6 @@ class CopyPageAction:
 
         else:
             if to:
-                if self.recursive and (to == page or to.is_descendant_of(page)):
-                    raise Exception("You cannot copy a tree branch recursively into itself")
                 page_copy = to.add_child(instance=page_copy)
             else:
                 page_copy = page.add_sibling(instance=page_copy)
@@ -212,6 +218,8 @@ class CopyPageAction:
         return page_copy
 
     def execute(self):
+        self.check()
+
         return self._copy_page(
             self.page,
             to=self.to,
