@@ -279,7 +279,7 @@
   }
 
   // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
-  &.stream-field {
+  &.block_field {
     padding-left: 20px;
     padding-right: 20px;
 
@@ -523,7 +523,7 @@ footer .preview {
       opacity: 0;
     }
 
-    &.stream-field {
+    &.block_field {
       .object-help {
         padding-left: 6.4em;
       }

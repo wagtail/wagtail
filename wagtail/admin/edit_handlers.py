@@ -1006,12 +1006,6 @@ class StreamFieldPanel(FieldPanel):
         disable_comments = kwargs.pop("disable_comments", True)
         super().__init__(*args, **kwargs, disable_comments=disable_comments)
 
-    def classes(self):
-        classes = super().classes()
-        classes.append("stream-field")
-
-        return classes
-
     def id_for_label(self):
         # a StreamField may consist of many input fields, so it's not meaningful to
         # attach the label to any specific one
