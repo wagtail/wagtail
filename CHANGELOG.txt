@@ -7,7 +7,7 @@ Changelog
  * ...
 
 
-2.15 LTS (xx.xx.xxxx) - IN DEVELOPMENT
+2.15 LTS (04.11.2021)
 ~~~~~~~~~~~~~~~~~~~~~
 
  * Implemented a new database search backend that supports the FTS features of the database in use (Developed by Aldán Creo. Mentored by Karl Hobley and Cynthia Kiser. Funded by Google Summer of Code)
