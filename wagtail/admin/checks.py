@@ -1,7 +1,6 @@
 import os
 
 from django.core.checks import Error, Tags, Warning, register
-from django.core.exceptions import FieldDoesNotExist
 
 
 @register("staticfiles")
@@ -165,54 +164,3 @@ There are no default tabs on non-Page models so there will be no \
         errors.append(error)
 
     return errors
-
-
-@register("panels")
-def panel_type_check(app_configs, **kwargs):
-    from wagtail.core.models import get_page_models
-
-    errors = []
-
-    for cls in get_page_models():
-        errors += traverse_edit_handlers(cls.get_edit_handler())
-
-    return errors
-
-
-def traverse_edit_handlers(edit_handler):
-    errors = []
-
-    try:
-        for child in edit_handler.children:
-            errors += traverse_edit_handlers(child)
-    except AttributeError:
-        error = check_stream_field_panel_type(edit_handler)
-        if error:
-            errors.append(error)
-
-    return errors
-
-
-def check_stream_field_panel_type(edit_handler):
-    from wagtail.admin.edit_handlers import StreamFieldPanel
-    from wagtail.core.fields import StreamField
-
-    try:
-        db_field = getattr(edit_handler, "db_field", None)
-        if isinstance(db_field, StreamField) and not isinstance(
-            edit_handler, StreamFieldPanel
-        ):
-            return Warning(
-                "{model}.{field_name} is a StreamField, but uses {edit_handler}".format(
-                    model=edit_handler.model.__name__,
-                    field_name=edit_handler.field_name,
-                    edit_handler=edit_handler.__class__.__name__,
-                ),
-                hint="Ensure that it uses a StreamFieldPanel, or change the field type",
-                obj=edit_handler.model,
-                id="wagtailadmin.W003",
-            )
-    except FieldDoesNotExist:
-        # Doesn't check any fields not on the model, such as in
-        # wagtail.tests.testapp.modelsFormClassAdditionalFieldPage
-        pass

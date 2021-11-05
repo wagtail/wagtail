@@ -24,7 +24,6 @@ from wagtail.admin.edit_handlers import (
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
-    StreamFieldPanel,
     TabbedInterface,
 )
 from wagtail.admin.forms import WagtailAdminPageForm
@@ -1184,7 +1183,7 @@ class StreamPage(Page):
 
     content_panels = [
         FieldPanel("title"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     preview_modes = []
@@ -1202,7 +1201,7 @@ class DefaultStreamPage(Page):
 
     content_panels = [
         FieldPanel("title"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
 
@@ -1400,7 +1399,7 @@ class DefaultRichBlockFieldPage(Page):
         ]
     )
 
-    content_panels = Page.content_panels + [StreamFieldPanel("body")]
+    content_panels = Page.content_panels + [FieldPanel("body")]
 
 
 class CustomRichTextFieldPage(Page):
@@ -1421,7 +1420,7 @@ class CustomRichBlockFieldPage(Page):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
 
@@ -1463,7 +1462,7 @@ class InlineStreamPageSection(Orderable):
             ("image", ImageChooserBlock()),
         ]
     )
-    panels = [StreamFieldPanel("body")]
+    panels = [FieldPanel("body")]
 
 
 class InlineStreamPage(Page):
@@ -1476,7 +1475,7 @@ class InlineStreamPage(Page):
 class TableBlockStreamPage(Page):
     table = StreamField([("table", TableBlock())])
 
-    content_panels = [StreamFieldPanel("table")]
+    content_panels = [FieldPanel("table")]
 
 
 class UserProfile(models.Model):
@@ -1701,7 +1700,7 @@ class DeadlyStreamPage(Page):
         ]
     )
     content_panels = Page.content_panels + [
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
 
