@@ -27,7 +27,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 
@@ -64,7 +63,7 @@ class BlogPage(Page):
 
     promote_panels = [
         MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ImageChooserPanel('feed_image'),
+        FieldPanel('feed_image'),
     ]
 
 
@@ -134,12 +133,17 @@ Here's a summary of the `EditHandler` classes that Wagtail provides out of the b
 
 **Basic**
 
-These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, though `StreamField` fields need to use a specialised panel class.
+These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, such as a rich text editor for `RichTextField`, or an image chooser for a `ForeignKey` to an image model. `FieldPanel` also provides a page chooser interface for `ForeignKey`s to page models, but for more fine-grained control over which page types can be chosen, `PageChooserPanel` provides additional configuration options.
 
 ```eval_rst
 -   :class:`~wagtail.admin.edit_handlers.FieldPanel`
--   :class:`~wagtail.admin.edit_handlers.StreamFieldPanel`
+-   :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
+
+.. versionchanged:: 2.17
+
+   Previously, certain field types required special-purpose panels: ``StreamFieldPanel``, ``ImageChooserPanel``, ``DocumentChooserPanel`` and ``SnippetChooserPanel``. These are now all handled by ``FieldPanel``.
 ```
+
 
 **Structural**
 
@@ -149,23 +153,6 @@ These are used for structuring fields in the interface.
 -   :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`
 -   :class:`~wagtail.admin.edit_handlers.InlinePanel`
 -   :class:`~wagtail.admin.edit_handlers.FieldRowPanel`
-```
-
-**Chooser**
-
-`ForeignKey` fields to certain models can use one of the below `ChooserPanel` classes. These add a nice modal chooser interface, and the image/document choosers also allow uploading new files without leaving the page editor.
-
-```eval_rst
--   :class:`~wagtail.admin.edit_handlers.PageChooserPanel`
--   :class:`~wagtail.images.edit_handlers.ImageChooserPanel`
--   :class:`~wagtail.documents.edit_handlers.DocumentChooserPanel`
--   :class:`~wagtail.snippets.edit_handlers.SnippetChooserPanel`
-
-.. note::
-
-    In order to use one of these choosers, the model being linked to must either be a page, image, document or snippet.
-
-    Linking to any other model type is currently unsupported, you will need to use ``FieldPanel`` which will create a dropdown box.
 ```
 
 

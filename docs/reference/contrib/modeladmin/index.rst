@@ -83,7 +83,6 @@ to create, view, and edit ``Book`` entries.
 
     from django.db import models
     from wagtail.admin.edit_handlers import FieldPanel
-    from wagtail.images.edit_handlers import ImageChooserPanel
 
     class Book(models.Model):
         title = models.CharField(max_length=255)
@@ -98,15 +97,13 @@ to create, view, and edit ``Book`` entries.
         panels = [
             FieldPanel('title'),
             FieldPanel('author'),
-            ImageChooserPanel('cover_photo')
+            FieldPanel('cover_photo')
         ]
 
 .. tip::
 
-    You can specify ``FieldPanels`` like ``ImageChooserPanel``, ``PageChooserPanel``,
-    and ``DocumentChooserPanel`` within the ``panels`` attribute of the model.
-    This lets you use Wagtail-specific features in an otherwise traditional
-    Django model.
+    You can specify panels like ``MultiFieldPanel`` within the ``panels`` attribute of the model.
+    This lets you use Wagtail-specific layouts in an otherwise traditional Django model.
 
 
 ``wagtail_hooks.py`` in your app directory would look something like this:

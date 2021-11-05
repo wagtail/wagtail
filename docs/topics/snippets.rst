@@ -97,11 +97,10 @@ Then, in your own page templates, you can include your snippet template tag with
 Binding Pages to Snippets
 -------------------------
 
-In the above example, the list of adverts is a fixed list that is displayed via the custom template tag independent of any other content on the page. This might be what you want for a common panel in a sidebar, but, in another scenario, you might wish to display just one specific instance of a snippet on a particular page. This can be accomplished by defining a foreign key to the snippet model within your page model and adding a ``SnippetChooserPanel`` to the page's ``content_panels`` list. For example, if you wanted to display a specific advert on a  ``BookPage`` instance:
+In the above example, the list of adverts is a fixed list that is displayed via the custom template tag independent of any other content on the page. This might be what you want for a common panel in a sidebar, but, in another scenario, you might wish to display just one specific instance of a snippet on a particular page. This can be accomplished by defining a foreign key to the snippet model within your page model and adding a ``FieldPanel`` to the page's ``content_panels`` list. For example, if you wanted to display a specific advert on a  ``BookPage`` instance:
 
 .. code-block:: python
 
-  from wagtail.snippets.edit_handlers import SnippetChooserPanel
   # ...
   class BookPage(Page):
       advert = models.ForeignKey(
@@ -113,14 +112,14 @@ In the above example, the list of adverts is a fixed list that is displayed via 
       )
 
       content_panels = Page.content_panels + [
-          SnippetChooserPanel('advert'),
+          FieldPanel('advert'),
           # ...
       ]
 
 
 The snippet could then be accessed within your template as ``page.advert``.
 
-To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed on an inline child object of ``BookPage`` rather than on ``BookPage`` itself. Here, this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
+To attach multiple adverts to a page, the ``FieldPanel`` can be placed on an inline child object of ``BookPage`` rather than on ``BookPage`` itself. Here, this child model is named ``BookPageAdvertPlacement`` (so called because there is one such object for each time that an advert is placed on a BookPage):
 
 
 .. code-block:: python
@@ -128,7 +127,6 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
   from django.db import models
 
   from wagtail.core.models import Page, Orderable
-  from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
   from modelcluster.fields import ParentalKey
 
@@ -143,7 +141,7 @@ To attach multiple adverts to a page, the ``SnippetChooserPanel`` can be placed 
           verbose_name_plural = "advert placements"
 
       panels = [
-          SnippetChooserPanel('advert'),
+          FieldPanel('advert'),
       ]
 
       def __str__(self):
