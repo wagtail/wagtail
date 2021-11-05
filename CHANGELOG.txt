@@ -7,6 +7,7 @@ Changelog
  * Added Aging Pages report (Tidjani Dia)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
+ * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
 
 
 2.15.1 (11.11.2021)
