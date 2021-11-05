@@ -1566,7 +1566,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             process_child_object=process_child_object,
             log_action=log_action,
             reset_translation_key=reset_translation_key,
-        ).execute()
+        ).execute(skip_permission_checks=True)
 
     copy.alters_data = True
 

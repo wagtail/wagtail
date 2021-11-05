@@ -1,4 +1,3 @@
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
@@ -8,6 +7,7 @@ from wagtail.admin.auth import user_has_any_page_permission, user_passes_test
 from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
+from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.models import Page
 
 
@@ -42,10 +42,6 @@ def copy(request, page_id):
             if form.cleaned_data['new_parent_page']:
                 parent_page = form.cleaned_data['new_parent_page']
 
-            if not page.permissions_for_user(request.user).can_copy_to(parent_page,
-                                                                       form.cleaned_data.get('copy_subpages')):
-                raise PermissionDenied
-
             # Re-check if the user has permission to publish subpages on the new parent
             can_publish = parent_page.permissions_for_user(request.user).can_publish_subpage()
             keep_live = can_publish and form.cleaned_data.get('publish_copies')
@@ -61,7 +57,8 @@ def copy(request, page_id):
                     user=request.user,
                 )
             else:
-                new_page = page.specific.copy(
+                action = CopyPageAction(
+                    page=page,
                     recursive=form.cleaned_data.get('copy_subpages'),
                     to=parent_page,
                     update_attrs={
@@ -71,6 +68,7 @@ def copy(request, page_id):
                     keep_live=keep_live,
                     user=request.user,
                 )
+                new_page = action.execute()
 
             # Give a success message back to the user
             if form.cleaned_data.get('copy_subpages'):

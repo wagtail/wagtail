@@ -2,6 +2,7 @@ import json
 import logging
 import uuid
 
+from django.core.exceptions import PermissionDenied
 from modelcluster.models import get_all_child_relations
 
 from wagtail.core.log_actions import log
@@ -13,7 +14,17 @@ from wagtail.core.signals import page_published
 logger = logging.getLogger('wagtail.core')
 
 
-class CopyPageError(RuntimeError):
+class CopyPageIntegrityError(RuntimeError):
+    """
+    Raised when the page copy cannot be performed for data integrity reasons.
+    """
+    pass
+
+
+class CopyPagePermissionError(PermissionDenied):
+    """
+    Raised when the page copy cannot be performed due to insufficient permissions.
+    """
     pass
 
 
@@ -36,12 +47,30 @@ class CopyPageAction:
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
 
-    def check(self):
+    def check(self, skip_permission_checks=False):
+        from wagtail.core.models import UserPagePermissionsProxy
+
+        # Essential data model checks
         if self.page._state.adding:
-            raise CopyPageError('Page.copy() called on an unsaved page')
+            raise CopyPageIntegrityError('Page.copy() called on an unsaved page')
 
         if self.to and self.recursive and (self.to.id == self.page.id or self.to.is_descendant_of(self.page)):
-            raise CopyPageError("You cannot copy a tree branch recursively into itself")
+            raise CopyPageIntegrityError("You cannot copy a tree branch recursively into itself")
+
+        # Permission checks
+        if self.user and not skip_permission_checks:
+            to = self.to
+            if to is None:
+                to = self.page.get_parent()
+
+            if not self.page.permissions_for_user(self.user).can_copy_to(to, self.recursive):
+                raise CopyPagePermissionError("You do not have permission to copy this page")
+
+            if self.keep_live:
+                destination_perms = UserPagePermissionsProxy(self.user).for_page(self.to)
+
+                if not destination_perms.can_publish_subpage():
+                    raise CopyPagePermissionError("You do not have permission publish a page at the destination")
 
     def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
         exclude_fields = page.default_exclude_fields_in_copy + page.exclude_fields_in_copy + (exclude_fields or [])
@@ -217,8 +246,8 @@ class CopyPageAction:
 
         return page_copy
 
-    def execute(self):
-        self.check()
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
 
         return self._copy_page(
             self.page,
