@@ -48,17 +48,12 @@ StreamFieldPanel
 
 .. class:: StreamFieldPanel(field_name, classname=None, widget=None)
 
-    This is the panel used for Wagtail's StreamField type (see :ref:`streamfield`).
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. attribute:: FieldPanel.field_name
+    .. versionchanged:: 2.17
 
-        This is the name of the class property used in your model definition.
+       ``StreamFieldPanel`` is no longer required for ``StreamField``.
 
-    .. attribute:: FieldPanel.classname (optional)
-
-        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
-
-        The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
 
 MultiFieldPanel
 ~~~~~~~~~~~~~~~
@@ -166,6 +161,10 @@ PageChooserPanel
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
+    .. versionchanged:: 2.17
+
+       ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
+
 
 ImageChooserPanel
 ~~~~~~~~~~~~~~~~~
@@ -174,30 +173,12 @@ ImageChooserPanel
 
 .. class:: ImageChooserPanel(field_name)
 
-    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.images.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.images.models import Image
-      from wagtail.images.edit_handlers import ImageChooserPanel
+       ``ImageChooserPanel`` is no longer required to obtain an image chooser interface.
 
-
-      class BookPage(Page):
-          cover = models.ForeignKey(
-              'wagtailimages.Image',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              ImageChooserPanel('cover'),
-          ]
-
-    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the :attr:`~django.db.models.Field.null`, :attr:`~django.db.models.Field.blank`, and :attr:`~django.db.models.ForeignKey.on_delete` parameters should be set to allow for an empty field. ``ImageChooserPanel`` takes only one argument: the name of the field.
-
-    Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
 FormSubmissionsPanel
 ~~~~~~~~~~~~~~~~~~~~
@@ -226,28 +207,12 @@ DocumentChooserPanel
 
 .. class:: DocumentChooserPanel(field_name)
 
-    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.documents.models.Document` model:
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.documents.models import Document
-      from wagtail.documents.edit_handlers import DocumentChooserPanel
+       ``DocumentChooserPanel`` is no longer required to obtain a document chooser interface.
 
-
-      class BookPage(Page):
-          book_file = models.ForeignKey(
-              'wagtaildocs.Document',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              DocumentChooserPanel('book_file'),
-          ]
-
-    As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
 SnippetChooserPanel
 ~~~~~~~~~~~~~~~~~~~
@@ -256,26 +221,12 @@ SnippetChooserPanel
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
-    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. A chooser, ``SnippetChooserPanel``, is provided which takes the field name as an argument.
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.snippets.edit_handlers import SnippetChooserPanel
+       ``SnippetChooserPanel`` is no longer required to obtain a document chooser interface.
 
-      class BookPage(Page):
-          advert = models.ForeignKey(
-              'demo.Advert',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              SnippetChooserPanel('advert'),
-          ]
-
-    See :ref:`snippets` for more information.
 
 Field Customisation
 -------------------

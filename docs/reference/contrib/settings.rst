@@ -56,8 +56,8 @@ Settings use edit handlers much like the rest of Wagtail.  Add a ``panels`` sett
             'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
 
         panels = [
-            PageChooserPanel('donate_page'),
-            PageChooserPanel('sign_up_page'),
+            FieldPanel('donate_page'),
+            FieldPanel('sign_up_page'),
         ]
 
 You can also customize the editor handlers :ref:`like you would do for Page model <customising_the_tabbed_interface>`
@@ -263,8 +263,8 @@ following shows how ``select_related`` can be set to improve efficiency:
             'wagtailcore.Page', null=True, on_delete=models.SET_NULL, related_name='+')
 
         panels = [
-            PageChooserPanel('donate_page'),
-            PageChooserPanel('sign_up_page'),
+            FieldPanel('donate_page'),
+            FieldPanel('sign_up_page'),
         ]
 
 With these additions, the following template code will now trigger
