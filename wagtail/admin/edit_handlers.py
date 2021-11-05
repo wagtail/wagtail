@@ -19,6 +19,7 @@ from modelcluster.models import get_serializable_data_for_fields
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
+from wagtail.core.blocks import BlockField
 from wagtail.core.models import COMMENTS_RELATION_NAME, Page
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
@@ -461,7 +462,7 @@ class FieldPanel(EditHandler):
         widget = kwargs.pop("widget", None)
         if widget is not None:
             self.widget = widget
-        self.comments_enabled = not kwargs.pop("disable_comments", False)
+        self.disable_comments = kwargs.pop("disable_comments", None)
         super().__init__(*args, **kwargs)
         self.field_name = field_name
 
@@ -502,6 +503,14 @@ class FieldPanel(EditHandler):
 
     def id_for_label(self):
         return self.bound_field.id_for_label
+
+    @property
+    def comments_enabled(self):
+        if self.disable_comments is None:
+            # by default, enable comments on all fields except StreamField (which has its own comment handling)
+            return not isinstance(self.bound_field.field, BlockField)
+        else:
+            return not self.disable_comments
 
     object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
@@ -1002,6 +1011,4 @@ def reset_page_edit_handler_cache(**kwargs):
 
 
 class StreamFieldPanel(FieldPanel):
-    def __init__(self, *args, **kwargs):
-        disable_comments = kwargs.pop("disable_comments", True)
-        super().__init__(*args, **kwargs, disable_comments=disable_comments)
+    pass
