@@ -51,6 +51,7 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMi
         context["title"] = self.title
         context["header_icon"] = self.header_icon
         context["filters"] = self.filters
+        context["hide_bulk_actions"] = True
         return context
 
 
