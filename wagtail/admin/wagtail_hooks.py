@@ -657,6 +657,11 @@ class SiteHistoryReportMenuItem(MenuItem):
         return UserPagePermissionsProxy(request.user).explorable_pages().exists()
 
 
+class AgingPagesReportMenuItem(MenuItem):
+    def is_shown(self, request):
+        return getattr(settings, 'WAGTAIL_AGING_PAGES_ENABLED', True)
+
+
 @hooks.register('register_reports_menu_item')
 def register_locked_pages_menu_item():
     return LockedPagesMenuItem(_('Locked Pages'), reverse('wagtailadmin_reports:locked_pages'), icon_name='lock', order=700)
@@ -675,6 +680,11 @@ def register_workflow_tasks_report_menu_item():
 @hooks.register('register_reports_menu_item')
 def register_site_history_report_menu_item():
     return SiteHistoryReportMenuItem(_('Site history'), reverse('wagtailadmin_reports:site_history'), icon_name='history', order=1000)
+
+
+@hooks.register('register_reports_menu_item')
+def register_aging_pages_report_menu_item():
+    return AgingPagesReportMenuItem(_('Aging pages'), reverse('wagtailadmin_reports:aging_pages'), icon_name="time", order=1100)
 
 
 @hooks.register('register_admin_menu_item')
