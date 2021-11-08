@@ -6,7 +6,7 @@
         <div id="page-results">
             {% if pages %}
                 {% block listing %}
-                    {% include "wagtailadmin/reports/listing/_list_page_report.html" with hide_bulk_actions=1 %}
+                    {% include "wagtailadmin/reports/listing/_list_page_report.html" %}
                 {% endblock %}
             {% else %}
                 {% block no_results %}
