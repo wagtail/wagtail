@@ -7,6 +7,12 @@ Changelog
  * ...
 
 
+2.15.1 (xx.xx.20xx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix syntax when logging image rendition generation (Jake Howard)
+
+
 2.15 LTS (04.11.2021)
 ~~~~~~~~~~~~~~~~~~~~~
 
