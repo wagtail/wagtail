@@ -25,7 +25,7 @@ install_requires = [
     "django-taggit>=1.0,<2.0",
     "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
-    "django-filter>=2.2,<3.0",
+    "django-filter>=2.2,<22",
     "draftjs_exporter>=2.1.5,<3.0",
     "Pillow>=4.0.0,<9.0.0",
     "beautifulsoup4>=4.8,<4.10",
