@@ -327,7 +327,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                     (time.time() - start_time) * 1000
                 )
             except:  # noqa:B901,E722
-                logger.debug("Failed to generate '%s' rendition for image %d: %s", filter.spec, self.pk)
+                logger.debug("Failed to generate '%s' rendition for image %d", filter.spec, self.pk)
                 raise
 
             # Generate filename
