@@ -83,6 +83,9 @@ class TestModerationList(TestCase, WagtailTestUtils):
         # Check response
         self.assertContains(response, self.edit_page_url, count=2)
 
+        # page should contain Approve and Reject forms including a valid CSRF token
+        self.assertRegex(response.content.decode('utf-8'), r'<input type="hidden" name="csrfmiddlewaretoken" value="\w+">')
+
     def test_preview_for_moderation(self):
         # Login as moderator without edit permissions
         self.login_as_moderator_without_edit()

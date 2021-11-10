@@ -1018,6 +1018,12 @@ class TestApproveRejectWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(mock_call['instance'], self.page)
         self.assertIsInstance(mock_call['instance'], self.page.specific_class)
 
+    def test_workflow_dashboard_panel(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertContains(response, "Awaiting your review")
+        # check that ActivateWorkflowActionsForDashboard is present and passes a valid csrf token
+        self.assertRegex(response.content.decode('utf-8'), r"ActivateWorkflowActionsForDashboard\(\'\w+\'\)")
+
     def test_workflow_action_get(self):
         """
         This tests that a GET request to the workflow action view (for the approve action) returns a modal with a form for extra data entry:
