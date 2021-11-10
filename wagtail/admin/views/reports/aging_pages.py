@@ -1,19 +1,28 @@
 import django_filters
 
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import OuterRef, Subquery
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.filters import WagtailFilterSet
+from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
-from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy
+from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy, get_page_models
 
 from .base import PageReportView
+
+
+def get_content_types_for_filter():
+    models = [model.__name__.lower() for model in get_page_models()]
+    return ContentType.objects.filter(model__in=models).order_by("model")
 
 
 class AgingPagesReportFilterSet(WagtailFilterSet):
     last_published_at = django_filters.DateTimeFilter(
         label=_("Last published before"), lookup_expr="lte", widget=AdminDateInput
+    )
+    content_type = ContentTypeFilter(
+        label=_("Type"), queryset=lambda request: get_content_types_for_filter()
     )
 
     class Meta:
