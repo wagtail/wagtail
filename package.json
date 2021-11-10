@@ -105,7 +105,7 @@
     "element-closest": "^2.0.2",
     "focus-trap-react": "^8.4.2",
     "formdata-polyfill": "^3.0.20",
-    "immer": "^9.0.1",
+    "immer": "^9.0.6",
     "js-cookie": "^2.2.1",
     "postcss-calc": "^7.0.5",
     "prop-types": "^15.6.2",
