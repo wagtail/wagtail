@@ -11,6 +11,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Fix syntax when logging image rendition generation (Jake Howard)
+ * Fix: Increase version range for django-filter dependency (Serafeim Papastefanos)
 
 
 2.15 LTS (04.11.2021)
