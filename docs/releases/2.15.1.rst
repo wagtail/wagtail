@@ -15,3 +15,4 @@ Bug fixes
 
  * Fix syntax when logging image rendition generation (Jake Howard)
  * Increase version range for django-filter dependency (Serafeim Papastefanos)
+ * Prevent bulk action checkboxes from displaying on page reports and other non-explorer listings (Matt Westcott)
