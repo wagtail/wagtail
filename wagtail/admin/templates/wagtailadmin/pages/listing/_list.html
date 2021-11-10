@@ -2,7 +2,7 @@
 {% load l10n %}
 {% load wagtailadmin_tags %}
 <table class="listing {% if full_width %}full-width{% endif %} {% block table_classname %}{% endblock %}">
-    {% if show_ordering_column or not hide_bulk_actions %}
+    {% if show_ordering_column or show_bulk_actions %}
         <col width="10px" />
     {% endif %}
     <col />
@@ -20,7 +20,7 @@
         {% if parent_page %}
             {% page_permissions parent_page as parent_page_perms %}
             <tr class="index {% if not parent_page.live %} unpublished{% endif %} {% block parent_page_row_classname %}{% endblock %}">
-                <td class="title"{% if show_ordering_column or not hide_bulk_actions %} colspan="2"{% endif %}>
+                <td class="title"{% if show_ordering_column or show_bulk_actions %} colspan="2"{% endif %}>
                     {% block parent_page_title %}
                     {% endblock %}
                 </td>
@@ -50,7 +50,7 @@
                 <tr {% if ordering == "ord" %}id="page_{{ page.id|unlocalize }}" data-page-title="{{ page.get_admin_display_title }}"{% endif %} class="{% if not page.live %}unpublished{% endif %} {% block page_row_classname %}{% endblock %}">
                     {% if show_ordering_column %}
                         <td class="ord">{% if orderable and ordering == "ord" %}<div class="handle icon icon-grip text-replace">{% trans 'Drag' %}</div>{% endif %}</td>
-                    {% elif not hide_bulk_actions %}
+                    {% elif show_bulk_actions %}
                         {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="page" obj=page aria_labelledby_prefix="page_" aria_labelledby=page.pk|unlocalize aria_labelledby_suffix="_title" %}
                     {% endif %}
                     <td id="page_{{ page.pk|unlocalize }}_title" class="title" valign="top" data-listing-page-title>
