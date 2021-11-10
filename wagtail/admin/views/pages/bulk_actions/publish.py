@@ -34,6 +34,7 @@ class PublishBulkAction(PageBulkAction):
     def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
         num_parent_objects, num_child_objects = 0, 0
         for page in objects:
+            page = page.specific
             revision = page.save_revision(user=user)
             revision.publish(user=user)
             num_parent_objects += 1

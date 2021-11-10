@@ -9,6 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
 from wagtail.core.models import Page
 from wagtail.core.signals import page_published
+from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -18,7 +19,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         # Add child pages
         self.child_pages = [
-            Page(title=f"Hello world!-{i}", slug=f"hello-world-{i}", live=False)
+            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"Hello world {i}!", live=False)
             for i in range(1, 5)
         ]
         self.pages_to_be_published = self.child_pages[:3]
@@ -168,7 +169,7 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Add child pages
         self.child_pages = [
-            Page(title=f"Hello world!-{i}", slug=f"hello-world-{i}", live=False)
+            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"Hello world {i}!", live=False)
             for i in range(1, 5)
         ]
         self.pages_to_be_published = self.child_pages[:3]
@@ -179,10 +180,11 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
-            self.pages_to_be_published[0]: [Page(title="Hello world!-a", slug="hello-world-a", live=False)],
+            self.pages_to_be_published[0]: [
+                SimplePage(title="Hello world!-a", slug="hello-world-a", content="Hello world a!", live=False)],
             self.pages_to_be_published[1]: [
-                Page(title="Hello world!-b", slug="hello-world-b", live=False),
-                Page(title="Hello world!-c", slug="hello-world-c", live=False)
+                SimplePage(title="Hello world!-b", slug="hello-world-b", content="Hello world b!", live=False),
+                SimplePage(title="Hello world!-c", slug="hello-world-c", content="Hello world c!", live=False)
             ]
         }
         for child_page, grandchild_pages in self.grandchildren_pages.items():
