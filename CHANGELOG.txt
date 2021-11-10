@@ -13,6 +13,7 @@ Changelog
  * Fix: Fix syntax when logging image rendition generation (Jake Howard)
  * Fix: Increase version range for django-filter dependency (Serafeim Papastefanos)
  * Fix: Prevent bulk action checkboxes from displaying on page reports and other non-explorer listings (Matt Westcott)
+ * Fix: Fix errors on publishing pages via bulk actions (Matt Westcott)
 
 
 2.15 LTS (04.11.2021)
