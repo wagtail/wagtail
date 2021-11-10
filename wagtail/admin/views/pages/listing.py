@@ -95,6 +95,8 @@ def index(request, parent_page_id=None):
         paginator = Paginator(pages, per_page=50)
         pages = paginator.get_page(request.GET.get('p'))
 
+    show_ordering_column = request.GET.get('ordering') == 'ord'
+
     context = {
         'parent_page': parent_page.specific,
         'ordering': ordering,
@@ -103,7 +105,8 @@ def index(request, parent_page_id=None):
         'do_paginate': do_paginate,
         'locale': None,
         'translations': [],
-        'show_ordering_column': request.GET.get('ordering') == 'ord'
+        'show_ordering_column': show_ordering_column,
+        'show_bulk_actions': not show_ordering_column,
     }
 
     if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
