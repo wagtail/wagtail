@@ -51,6 +51,7 @@ class PagesForModerationPanel(Component):
             user_perms.revisions_for_moderation().select_related('page', 'user').order_by('-created_at')
         )
         context['request'] = request
+        context['csrf_token'] = parent_context['csrf_token']
         return context
 
 
@@ -99,6 +100,7 @@ class WorkflowPagesToModeratePanel(Component):
         else:
             context['states'] = []
         context['request'] = request
+        context['csrf_token'] = parent_context['csrf_token']
         return context
 
 
@@ -117,6 +119,7 @@ class LockedPagesPanel(Component):
             ),
             'can_remove_locks': UserPagePermissionsProxy(request.user).can_remove_locks(),
             'request': request,
+            'csrf_token': parent_context['csrf_token'],
         })
         return context
 
