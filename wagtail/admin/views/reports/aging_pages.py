@@ -63,6 +63,7 @@ class AgingPagesView(PageReportView):
             .prefetch_workflow_states()
             .select_related("content_type")
             .annotate_approved_schedule()
+            .order_by("last_published_at")
             .annotate(
                 last_published_by=Subquery(latest_publishing_log.values("user")[:1])
             )
