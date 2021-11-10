@@ -684,7 +684,7 @@ def register_site_history_report_menu_item():
 
 @hooks.register('register_reports_menu_item')
 def register_aging_pages_report_menu_item():
-    return AgingPagesReportMenuItem(_('Aging pages'), reverse('wagtailadmin_reports:aging_pages'), order=1100)
+    return AgingPagesReportMenuItem(_('Aging pages'), reverse('wagtailadmin_reports:aging_pages'), icon_name="time", order=1100)
 
 
 @hooks.register('register_admin_menu_item')
