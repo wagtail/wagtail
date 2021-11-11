@@ -450,7 +450,7 @@ class Filter:
             if isinstance(operation, FilterOperation)
         ]
 
-    def get_transform(self, image):
+    def get_transform(self, image, transform_width=None, transform_height=None):
         """
         Returns an ImageTransform with all the transforms in this filter applied.
 
@@ -459,7 +459,10 @@ class Filter:
          - .matrix - An affine transformation matrix that combines any
            transform/scale/rotation operations that need to be applied to the image
         """
-        transform = ImageTransform((image.width, image.height))
+        if transform_height is None or transform_width is None:
+            transform_width, transform_height = image.width, image.height
+
+        transform = ImageTransform((transform_width, transform_height))
         for operation in self.transform_operations:
             transform = operation.run(transform, image)
         return transform
@@ -472,7 +475,7 @@ class Filter:
             willow = willow.auto_orient()
 
             # Transform the image
-            transform = self.get_transform(image)
+            transform = self.get_transform(image, transform_width=willow.image.width, transform_height=willow.image.height)
             willow = willow.crop(transform.get_rect().round())
             willow = willow.resize(transform.size)
 
