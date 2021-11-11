@@ -1437,7 +1437,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Extension to the treebeard 'move' method to ensure that url_path is updated,
         and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
-        return MovePageAction(user=user).move_page(self, target, pos)
+        return MovePageAction(self, target, pos=pos, user=user).execute()
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
              process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):

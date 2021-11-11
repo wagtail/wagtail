@@ -10,10 +10,13 @@ logger = logging.getLogger("wagtail.core")
 
 
 class MovePageAction:
-    def __init__(self, user=None):
+    def __init__(self, page, target, pos=None, user=None):
+        self.page = page
+        self.target = target
+        self.pos = pos
         self.user = user
 
-    def move_page(self, page, target, pos):
+    def _move_page(self, page, target, pos=None):
         from wagtail.core.models import Page
 
         # Determine old and new parents
@@ -82,3 +85,6 @@ class MovePageAction:
             },
         )
         logger.info('Page moved: "%s" id=%d path=%s', page.title, page.id, new_url_path)
+
+    def execute(self):
+        return self._move_page(self.page, self.target, pos=self.pos)
