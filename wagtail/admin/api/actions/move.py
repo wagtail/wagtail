@@ -28,11 +28,7 @@ class MovePageAPIAction(APIAction):
         )
 
     def execute(self, instance, data):
-        serializer = self.serializer(data=data)
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=400)
-
-        action = self._action_from_data(instance, serializer.data)
+        action = self._action_from_data(instance, data)
 
         try:
             action.execute()
