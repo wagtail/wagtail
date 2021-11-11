@@ -13,6 +13,7 @@ from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
 from .actions.publish import PublishPageAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
+from .actions.move import MovePageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -27,6 +28,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'delete': DeletePageAPIAction,
         'publish': PublishPageAPIAction,
         'unpublish': UnpublishPageAPIAction,
+        'move': MovePageAPIAction,
     }
 
     # Add has_children and for_explorer filters
