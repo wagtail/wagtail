@@ -1,5 +1,6 @@
 import logging
 
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 
 from wagtail.core.log_actions import log
@@ -9,12 +10,27 @@ from wagtail.core.signals import post_page_move, pre_page_move
 logger = logging.getLogger("wagtail.core")
 
 
+class MovePagePermissionError(PermissionDenied):
+    """
+    Raised when the page move cannot be performed due to insufficient permissions.
+    """
+
+    pass
+
+
 class MovePageAction:
     def __init__(self, page, target, pos=None, user=None):
         self.page = page
         self.target = target
         self.pos = pos
         self.user = user
+
+    def check(self, skip_permission_checks=False):
+        if self.user and not skip_permission_checks:
+            if not self.page.permissions_for_user(self.user).can_move_to(self.target):
+                raise MovePagePermissionError(
+                    "You do not have permission to move the page to the target specified."
+                )
 
     def _move_page(self, page, target, pos=None):
         from wagtail.core.models import Page
@@ -86,5 +102,7 @@ class MovePageAction:
         )
         logger.info('Page moved: "%s" id=%d path=%s', page.title, page.id, new_url_path)
 
-    def execute(self):
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
+
         return self._move_page(self.page, self.target, pos=self.pos)
