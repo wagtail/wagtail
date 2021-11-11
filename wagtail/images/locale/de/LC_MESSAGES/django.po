@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 16:02+0000\n"
+"PO-Revision-Date: 2021-11-04 13:34+0000\n"
 "Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -183,6 +183,9 @@ msgstr "Nein, nicht hinzufügen"
 
 msgid "Add images to collection"
 msgstr "Der Sammlung hinzufügen"
+
+msgid "Delete images"
+msgstr "Bilder löschen"
 
 #, python-format
 msgid "Used %(usage_count)s time"

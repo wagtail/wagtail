@@ -10,7 +10,7 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Matt Westcott <matthew@torchbox.com>, 2021
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
-# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-08 18:56+0000\n"
+"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -113,6 +113,9 @@ msgstr "Путь URL"
 
 msgid "owner"
 msgstr "владелец"
+
+msgid "title tag"
+msgstr "тег заголовка"
 
 msgid ""
 "The name of the page displayed on search engine results as the clickable "
@@ -438,12 +441,25 @@ msgstr "запись в журнале"
 msgid "log entries"
 msgstr "записи в журнале"
 
+msgid "The log action '{}' has not been registered."
+msgstr "Действие лога '{}' не зарегистрировано."
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "пользователь 1%(id)s (удален)"
+
 msgid "system"
 msgstr "система"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Неизвестное %(action)s"
+
+msgid "model log entry"
+msgstr "запись модели лога"
+
+msgid "model log entries"
+msgstr "записи модели лога"
 
 msgid "collection"
 msgstr "коллекция"
@@ -654,6 +670,16 @@ msgstr "Скопирован с %(title)s"
 msgid "Copied"
 msgstr "Скопирован"
 
+msgid "Copy for translation"
+msgstr "Скопировать перевод"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Скопирован перевод из %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Скопированный перевод"
+
 msgid "Create alias"
 msgstr "Создать псевдоним"
 
@@ -664,6 +690,16 @@ msgstr "Создан псевдоним %(title)s"
 msgid "Created an alias"
 msgstr "Создан псевдоним"
 
+msgid "Convert alias into ordinary page"
+msgstr "Сконвертировать псевдоним в обычную страницу"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Сконвертирован псевдоним '%(title)s' в обычную страницу"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Сконвертирован псевдоним в обычную страницу"
+
 msgid "Move"
 msgstr "Переместить"
 
@@ -673,6 +709,16 @@ msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
 
 msgid "Moved"
 msgstr "Перемещен"
+
+msgid "Reorder"
+msgstr "Переупорядочить"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Переупорядочить '%(parent)s'"
+
+msgid "Reordered"
+msgstr "Переупорядоченный"
 
 msgid "Schedule publication"
 msgstr "Запланированная публикация"
@@ -742,6 +788,73 @@ msgstr "Удалено ограничение просмотра"
 
 msgid "Add comment"
 msgstr "Добавить комментарий"
+
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Добавлен комментарий к полю %(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Добавлен комментарий"
+
+msgid "Edit comment"
+msgstr "Редактировать комментарий"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Изменен комментарий у поля %(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Изменен комментарий"
+
+msgid "Delete comment"
+msgstr "Удалить комментарий"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Удален комментарий у поля %(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Удален комментарий"
+
+msgid "Resolve comment"
+msgstr "Разрешить комментарий "
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Разрешен комментарий у поля %(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Разрешен комментарий"
+
+msgid "Reply to comment"
+msgstr "Ответить на комментарий"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Ответил на комментарий в поле %(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Ответил на комментарий"
+
+msgid "Edit reply to comment"
+msgstr "Редактировать ответ на комментарий"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Отредактирован ответ на комментарий в поле %(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Отредактированный ответ"
+
+msgid "Delete reply to comment"
+msgstr "Удалить ответ на комментарий"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Удаленный ответ на комментарий в поле %(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Удален ответ"
 
 msgid "Workflow: start"
 msgstr "Рабочий процесс: запустить"

@@ -4,6 +4,7 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# Hiroki Sawano, 2021
 # shuhei hirota, 2019
 # Kinoshita Shinji <shinji.kino@gmail.com>, 2020
 # kojikojikojikoji, 2021
@@ -19,8 +20,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
+"PO-Revision-Date: 2021-11-04 15:28+0000\n"
+"Last-Translator: Hiroki Sawano\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -157,8 +158,17 @@ msgstr "コレクション"
 msgid "Add"
 msgstr "追加"
 
+msgid "Add collections"
+msgstr "コレクションを追加"
+
 msgid "Edit"
 msgstr "編集"
+
+msgid "Edit collections"
+msgstr "コレクションを編集"
+
+msgid "Delete collections"
+msgstr "コレクションを削除"
 
 msgid "You cannot edit another user's comment."
 msgstr "他ユーザーのコメントは編集できません。"
@@ -601,6 +611,12 @@ msgstr "下に移動"
 msgid "Add comment"
 msgstr "コメントを追加"
 
+msgid "Comments"
+msgstr "コメント"
+
+msgid "Commenting on this page"
+msgstr "このページへのコメント"
+
 msgid "Comment notifications"
 msgstr "コメント通知"
 
@@ -723,6 +739,9 @@ msgstr "Wagtailへサインイン"
 
 msgid "Signing in…"
 msgstr "サインイン中..."
+
+msgid "Forgotten password?"
+msgstr "パスワードをお忘れですか？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -988,6 +1007,13 @@ msgstr "履歴"
 msgid "Edit original page"
 msgstr "元ページを編集"
 
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "%(subtitle)sのページ履歴"
+
+msgid "Action"
+msgstr "アクション"
+
 msgid "User"
 msgstr "ユーザー"
 
@@ -1166,6 +1192,9 @@ msgstr "%(title)sを比較"
 msgid "Comparing"
 msgstr "比較"
 
+msgid "Page history"
+msgstr "ページの履歴"
+
 msgid "Fields"
 msgstr "フィールド"
 
@@ -1263,8 +1292,27 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
+msgid "Workflow history"
+msgstr "ワークフローの履歴"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)sのワークフロー履歴"
+
+msgid "Edit page"
+msgstr "ページを編集"
+
+msgid "Requested by"
+msgstr "リクエストしたユーザ"
+
 msgid "Started at"
 msgstr "開始時刻"
+
+msgid "Add a collection permission"
+msgstr "コレクションの権限を追加"
+
+msgid "Download XLSX"
+msgstr "XLSXファイルをダウンロード"
 
 msgid "Download CSV"
 msgstr "CSVをダウンロードする"
@@ -1272,14 +1320,23 @@ msgstr "CSVをダウンロードする"
 msgid "Filter"
 msgstr "フィルター"
 
+msgid "Apply filters"
+msgstr "フィルターを適用"
+
 msgid "Locked"
 msgstr "ロックあり"
+
+msgid "No locked pages found."
+msgstr "ロックされたページは見つかりませんでした。"
 
 msgid "Edit this item"
 msgstr "アイテムを編集"
 
 msgid "Workflow"
 msgstr "ワークフロー"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "承認が必要なページはありません。"
 
 msgid "Completed at"
 msgstr "完了時刻"
@@ -1484,6 +1541,12 @@ msgstr "\"{1}\"のリビジョン{0}"
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
+msgid "Site history"
+msgstr "サイトの履歴"
+
+msgid "Locked pages"
+msgstr "ロックされたページ"
+
 msgid "Show"
 msgstr "表示"
 
@@ -1493,8 +1556,14 @@ msgstr "自分のレビュー待ち"
 msgid "Workflows"
 msgstr "ワークフロー"
 
+msgid "Page Title"
+msgstr "ページタイトル"
+
 msgid "Workflow tasks"
 msgstr "ワークフローのタスク"
+
+msgid "Requested By"
+msgstr "リクエストしたユーザ"
 
 msgid "Add a workflow"
 msgstr "ワークフローを追加"
@@ -1549,6 +1618,12 @@ msgstr "取り消し線"
 
 msgid "Code"
 msgstr "コード"
+
+msgid "Locked Pages"
+msgstr "ロックされたページ"
+
+msgid "Reports"
+msgstr "レポート"
 
 msgid "Choose an item"
 msgstr "アイテムを選択"

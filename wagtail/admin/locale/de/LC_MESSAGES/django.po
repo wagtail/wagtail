@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Alexander Weiß, 2021
 # benebun <benedikt.breinbauer@gmail.com>, 2021
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Kaspar <bennykaspar@gmail.com>, 2021
@@ -44,8 +45,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 15:32+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
+"PO-Revision-Date: 2021-11-09 11:00+0000\n"
+"Last-Translator: Alexander Weiß\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -206,7 +207,7 @@ msgid "Delete collections"
 msgstr "Sammlungen löschen"
 
 msgid "You cannot edit another user's comment."
-msgstr "Sie können ein Kommentar eines anderen Benutzers nicht bearbeiten."
+msgstr "Sie können einen Kommentar eines anderen Benutzers nicht bearbeiten."
 
 msgid "New title"
 msgstr "Neuer Titel"
@@ -687,6 +688,12 @@ msgstr[1] ""
 "Es können nur folgende Seitentypen für dieses Feld ausgewählt werden: "
 "%(type)s. Andere Seitentypen werden nicht in den Suchergebnissen aufgeführt."
 
+msgid "Convert to internal link"
+msgstr "in internen Link umwandeln"
+
+msgid "Use external link"
+msgstr "Externen Link benutzen"
+
 msgid "Add an email link"
 msgstr "E-Mail-Link hinzufügen"
 
@@ -1151,11 +1158,46 @@ msgstr "Wählen Sie den Typ der Seite die Sie erstellen möchten."
 msgid "Pages using %(page_type)s"
 msgstr "Seiten, die %(page_type)s verwenden"
 
+#, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "1 Seite löschen"
+msgstr[1] " %(counter)s Seiten löschen"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Sind Sie sicher, dass Sie diese Seiten löschen möchten?"
+
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
 msgid "Move"
 msgstr "Verschieben"
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] ""
+"Sie verfügen nicht über die erforderliche Berechtigung diese Seite zu "
+"verschieben"
+msgstr[1] ""
+"Sie verfügen nicht über die erforderliche Berechtigung diese Seiten zu "
+"verschieben"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Es existiert kein gültiges Ziel für diese Seiten"
+
+msgid "No, don't move"
+msgstr "Nein, nicht verschieben"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Wollen Sie diese Seiten veröffentlichen?"
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "Sie haben nicht die Berechtigung diese Seite zu veröffentlichen"
+msgstr[1] "Sie haben nicht die Berechtigung diese Seiten zu veröffentlichen"
+
+msgid "Yes, publish"
+msgstr "Ja, veröffentlichen"
 
 msgid "No, don't unpublish"
 msgstr "Nein, veröffentlicht belassen"
@@ -1387,6 +1429,9 @@ msgstr "Keine Protokoll-Einträge gefunden."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "%(title)s durchstöbern"
+
+msgid "Select page"
+msgstr "Seite auswählen"
 
 msgid "Drag"
 msgstr "Ziehen"
@@ -2242,6 +2287,15 @@ msgstr "Sind Sie sicher, dass Sie diese Sammlung löschen möchten?"
 
 msgid "Editing"
 msgstr "Bearbeiten"
+
+msgid "Delete selected pages"
+msgstr "Gewählte Seiten löschen"
+
+msgid "1 page has been deleted"
+msgstr "1 Seite wurde gelöscht"
+
+msgid "Move selected pages"
+msgstr "Ausgewählte Seiten verschieben"
 
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Die Seite '{0}' wurde in eine reguläre Seite umgewandelt."

@@ -7,14 +7,15 @@
 # Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2018
 # Bohreromir, 2019
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e\n"
+"PO-Revision-Date: 2021-11-04 11:35+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -127,8 +128,15 @@ msgstr "Home"
 msgid " By %(filter_title)s "
 msgstr " Nach %(filter_title)s "
 
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
 msgid "History"
 msgstr "Historie"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s von %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
