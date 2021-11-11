@@ -50,7 +50,7 @@ from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
-from wagtail.core.actions.move_page import move_page
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -1437,7 +1437,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Extension to the treebeard 'move' method to ensure that url_path is updated,
         and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
-        return move_page(self, target, pos, user)
+        return MovePageAction(user=user).move_page(self, target, pos)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
              process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
