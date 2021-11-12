@@ -60,7 +60,7 @@ Any Wagtail sites you start up in this virtualenv will now run against this deve
 Testing
 ~~~~~~~
 
-From the root of the Wagtail codebase, run the following command to run all the tests:
+From the root of the Wagtail codebase, run the following command to run all the Python tests:
 
 .. code-block:: console
 
@@ -172,6 +172,26 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
     $ ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
+Unit tests for JavaScript
+-------------------------
+
+We use `Jest <https://jestjs.io/>`_ for unit tests of client-side business logic or UI components. From the root of the Wagtail codebase, run the following command to run all the front-end unit tests:
+
+.. code-block:: console
+
+    $ npm run test:unit
+
+Integration tests
+-----------------
+
+Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, combined with `Puppeteer <https://pptr.dev/>`_. We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. Install the dependencies and run the tests with:
+
+.. code-block:: console
+
+    $ npm --prefix client/tests/integration install
+    $ npm run test:integration
+
+
 Browser and device support
 --------------------------
 
@@ -224,6 +244,7 @@ We want to make Wagtail accessible for users of a wide variety of assistive tech
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
 * `react-axe <https://github.com/dequelabs/react-axe>`_ integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
+* `@wordpress/jest-puppeteer-axe <https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe>`_ running Axe checks as part of integration tests.
 * `Axe <https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd>`_ Chrome extension for more comprehensive automated tests of a given page.
 * `Accessibility Insights for Web <https://accessibilityinsights.io/docs/en/web/overview>`_ Chrome extension for semi-automated tests, and manual audits.
 
