@@ -2,6 +2,7 @@ import logging
 
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
+from treebeard.mp_tree import MP_MoveHandler
 
 from wagtail.core.log_actions import log
 from wagtail.core.signals import post_page_move, pre_page_move
@@ -61,7 +62,7 @@ class MovePageAction:
         # Only commit when all descendants are properly updated
         with transaction.atomic():
             # Allow treebeard to update `path` values
-            super(Page, page).move(target, pos=pos)
+            MP_MoveHandler(page, target, pos).process()
 
             # Treebeard's move method doesn't actually update the in-memory instance,
             # so we need to work with a freshly loaded one now
