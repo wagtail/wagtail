@@ -47,10 +47,65 @@ jobs:
             - node_modules
           key: frontend-v1-{{ checksum "package-lock.json" }}
       - run: npm run dist
+      # Save static files for subsequent jobs.
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - wagtail
       - run: npm run lint:js
       - run: npm run lint:css
       - run: npm run test:unit:coverage -- --runInBand
       - run: bash <(curl -s https://codecov.io/bash) -F frontend
+
+  ui_tests:
+    docker:
+      - image: cimg/python:3.8.11-browsers
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
+      DJANGO_SETTINGS_MODULE: wagtail.tests.settings_ui
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - restore_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
+      # Only install if .venv wasn’t cached.
+      - run: |
+            if [[ ! -e ".venv" ]]; then
+                pipenv install -e .[testing]
+            fi
+      - save_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
+          paths:
+            - .venv
+      - restore_cache:
+          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+      # Only install if node_modules wasn’t cached.
+      - run: |
+            if [[ ! -e "client/tests/integration/node_modules" ]]; then
+                npm --prefix ./client/tests/integration install --no-save --no-optional --no-audit --no-fund --progress=false
+            fi
+      - save_cache:
+          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          paths:
+            - client/tests/integration/node_modules
+      - run: pipenv run ./wagtail/tests/manage.py migrate
+      - run:
+          command: pipenv run ./wagtail/tests/manage.py runserver 0:8000
+          background: true
+      - run: pipenv run ./wagtail/tests/manage.py createcachetable
+      - run:
+          command: pipenv run ./wagtail/tests/manage.py createsuperuser --noinput
+          environment:
+            DJANGO_SUPERUSER_EMAIL: admin@example.com
+            DJANGO_SUPERUSER_USERNAME: admin
+            DJANGO_SUPERUSER_PASSWORD: changeme
+      - run:
+          command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - store_test_results:
+          path: ./reports/jest
 
   nightly-build:
     docker:
@@ -73,6 +128,9 @@ workflows:
       jobs:
         - backend
         - frontend
+        - ui_tests:
+            requires:
+              - frontend
 
     nightly:
       jobs:

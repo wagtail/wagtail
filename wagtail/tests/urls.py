@@ -1,3 +1,4 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse
 from django.urls import include, path
 
@@ -40,7 +41,11 @@ urlpatterns = [
     path('testapp/', include(testapp_urls)),
 
     path('fallback/', lambda: HttpResponse('ok'), name='fallback'),
+]
 
+urlpatterns += staticfiles_urlpatterns()
+
+urlpatterns += [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
     path('', include(wagtail_urls)),
