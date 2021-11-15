@@ -75,6 +75,8 @@ class VersionNumber {
     } else if (
       this.major === that.major &&
       this.minor === that.minor &&
+      !this.isPreRelease() &&
+      !that.isPreRelease() &&
       this.patch < that.patch
     ) {
       return VersionDeltaType.PATCH;
