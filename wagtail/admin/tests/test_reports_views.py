@@ -263,19 +263,29 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
 
     def test_csv_export(self):
         self.publish_home_page()
-        response = self.get(params={"export": "csv"})
+        if settings.USE_TZ:
+            self.home.last_published_at = "2013-01-01T12:00:00.000Z"
+        else:
+            self.home.last_published_at = "2013-01-01T12:00:00"
+        self.home.save()
 
+        response = self.get(params={"export": "csv"})
         self.assertEqual(response.status_code, 200)
 
-        self.home.refresh_from_db()
         data_lines = response.getvalue().decode().split("\n")
         self.assertEqual(
             data_lines[0], "Title,Status,Last published at,Last published by,Type\r"
         )
-        self.assertEqual(
-            data_lines[1],
-            f"Welcome to your new Wagtail site!,live,{self.home.last_published_at},test@email.com,wagtailcore | page\r",
-        )
+        if settings.USE_TZ:
+            self.assertEqual(
+                data_lines[1],
+                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00+00:00,test@email.com,wagtailcore | page\r",
+            )
+        else:
+            self.assertEqual(
+                data_lines[1],
+                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00,test@email.com,wagtailcore | page\r",
+            )
 
     def test_xlsx_export(self):
         self.publish_home_page()
