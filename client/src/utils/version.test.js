@@ -286,6 +286,14 @@ describe('version.VersionNumber.howMuchBehind', () => {
 
     expect(result).toBe(VersionDeltaType.MINOR);
   });
+  it('correctly compares 1.0a1 to 1.0.1', () => {
+    const thisVersion = new VersionNumber('1.0a1');
+    const thatVersion = new VersionNumber('1.0.1');
+
+    const result = thisVersion.howMuchBehind(thatVersion);
+
+    expect(result).toBe(VersionDeltaType.MINOR);
+  });
   it('correctly compares 1.0a0 to 1.1', () => {
     const thisVersion = new VersionNumber('1.0a0');
     const thatVersion = new VersionNumber('1.1');
