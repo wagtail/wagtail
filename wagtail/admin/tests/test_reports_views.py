@@ -4,6 +4,7 @@ from io import BytesIO
 
 from django.conf import settings
 from django.conf.locale import LANG_INFO
+from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
@@ -209,3 +210,101 @@ class TestExcelDateFormatter(TestCase):
         for lang in LANG_INFO.keys():
             with self.subTest(lang), translation.override(lang):
                 self.assertNotEqual(formatter.get(), "")
+
+
+class TestAgingPagesView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.user = self.login()
+        self.root = Page.objects.first()
+        self.home = Page.objects.get(slug="home")
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
+
+    def publish_home_page(self):
+        self.home.save_revision().publish(user=self.user)
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "wagtailadmin/reports/aging_pages.html")
+
+    def test_displays_only_published_pages(self):
+        response = self.get()
+        self.assertContains(response, "No pages found.")
+
+        self.publish_home_page()
+        response = self.get()
+
+        # Home Page should be listed
+        self.assertContains(response, self.home.title)
+        # Last published by user is set
+        self.assertContains(response, self.user.get_username())
+
+        self.assertNotContains(response, self.root.title)
+        self.assertNotContains(response, "No pages found.")
+
+    def test_permissions(self):
+        # Publish home page
+        self.publish_home_page()
+
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get()
+        self.assertContains(response, "No pages found.")
+        self.assertNotContains(response, self.home.title)
+
+    def test_csv_export(self):
+        self.publish_home_page()
+        response = self.get(params={"export": "csv"})
+
+        self.assertEqual(response.status_code, 200)
+
+        self.home.refresh_from_db()
+        data_lines = response.getvalue().decode().split("\n")
+        self.assertEqual(
+            data_lines[0], "Title,Status,Last published at,Last published by,Type\r"
+        )
+        self.assertEqual(
+            data_lines[1],
+            f"Welcome to your new Wagtail site!,live,{self.home.last_published_at},test@email.com,wagtailcore | page\r",
+        )
+
+    def test_xlsx_export(self):
+        self.publish_home_page()
+
+        if settings.USE_TZ:
+            self.home.last_published_at = "2013-01-01T12:00:00.000Z"
+        else:
+            self.home.last_published_at = "2013-01-01T12:00:00"
+        self.home.save()
+
+        response = self.get(params={"export": "xlsx"})
+        self.assertEqual(response.status_code, 200)
+
+        workbook_data = response.getvalue()
+        worksheet = load_workbook(filename=BytesIO(workbook_data))["Sheet1"]
+        cell_array = [[cell.value for cell in row] for row in worksheet.rows]
+
+        self.assertEqual(
+            cell_array[0],
+            ["Title", "Status", "Last published at", "Last published by", "Type"],
+        )
+        self.assertEqual(
+            cell_array[1],
+            [
+                "Welcome to your new Wagtail site!",
+                "live + draft",
+                datetime.datetime(2013, 1, 1, 12, 0),
+                "test@email.com",
+                "wagtailcore | page",
+            ],
+        )
+        self.assertEqual(len(cell_array), 2)
