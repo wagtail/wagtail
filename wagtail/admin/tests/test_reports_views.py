@@ -308,3 +308,47 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
             ],
         )
         self.assertEqual(len(cell_array), 2)
+
+
+class TestFilteredAgingPagesView(TestCase, WagtailTestUtils):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        self.user = self.login()
+        self.home_page = Page.objects.get(slug="home")
+        self.aboutus_page = Page.objects.get(slug="about-us")
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailadmin_reports:aging_pages"), params)
+
+    def test_filter_by_live(self):
+        response = self.get(params={"live": "true"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.home_page.title)
+        self.assertContains(response, self.aboutus_page.title)
+
+        response = self.get(params={"live": "false"})
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, self.home_page.title)
+        self.assertNotContains(response, self.aboutus_page.title)
+
+    def test_filter_by_content_type(self):
+        response = self.get(
+            params={"content_type": self.home_page.specific.content_type.pk}
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.home_page.title)
+        self.assertNotContains(response, self.aboutus_page.title)
+
+    def test_filter_by_last_published_at(self):
+        self.home_page.last_published_at = timezone.now()
+        self.home_page.save()
+
+        response = self.get(
+            params={"last_published_at": self.aboutus_page.last_published_at}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.aboutus_page.title)
+        self.assertNotContains(response, self.home_page.title)
