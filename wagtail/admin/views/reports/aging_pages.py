@@ -37,14 +37,14 @@ class AgingPagesView(PageReportView):
     export_headings = {
         "status_string": _("Status"),
         "last_published_at": _("Last published at"),
-        "last_published_by": _("Last published by"),
+        "last_published_by_user": _("Last published by"),
         "content_type": _("Type"),
     }
     list_export = [
         "title",
         "status_string",
         "last_published_at",
-        "last_published_by",
+        "last_published_by_user",
         "content_type",
     ]
 
@@ -53,11 +53,12 @@ class AgingPagesView(PageReportView):
         user_ids = set(queryset.values_list("last_published_by", flat=True))
 
         username_mapping = {
-            user.id: user.get_username()
+            user.pk: user.get_username()
             for user in User.objects.filter(pk__in=user_ids)
         }
         for page in queryset:
-            page.last_published_by_user = username_mapping[page.last_published_by]
+            if page.last_published_by:
+                page.last_published_by_user = username_mapping[page.last_published_by]
 
         return queryset
 
