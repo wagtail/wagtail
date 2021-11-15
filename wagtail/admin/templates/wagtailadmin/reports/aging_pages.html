@@ -25,7 +25,9 @@
                 {% for page in object_list %}
                     <tr>
                         <td class="title" valign="top">
-                            {{ page.title }}
+                            <a href="{% url 'wagtailadmin_pages:edit' page.id %}">
+                                {{ page.specific_deferred.get_admin_display_title }}
+                            </a>
                         </td>
                         <td class="status" valign="top">
                             {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
