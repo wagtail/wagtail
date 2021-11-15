@@ -1,5 +1,6 @@
 import jinja2
 import jinja2.nodes
+import markupsafe
 
 from jinja2.ext import Extension
 
@@ -61,7 +62,7 @@ class WagtailCoreExtension(Extension):
             result = value
 
         if context.eval_ctx.autoescape:
-            return jinja2.escape(result)
+            return markupsafe.escape(result)
         else:
             return jinja2.Markup(result)
 
