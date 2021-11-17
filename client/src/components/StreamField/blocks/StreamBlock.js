@@ -290,7 +290,7 @@ export class StreamBlock extends BaseSequenceBlock {
   _removeIdsFromChildState(childState) {
     const newChildState = { ...childState };
     Object.keys(childState).forEach(key => {
-      const value = childState[key]
+      const value = childState[key];
       if (Array.isArray(value)) {
         // The value can contain a list of blocks in which we need to set id to null.
         newChildState[key] = value.map(item => this._removeIdsFromChildState(item));
