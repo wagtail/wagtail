@@ -79,7 +79,7 @@ an argument to ``runtests.py`` or ``tox``:
     $ python runtests.py wagtail.core
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.core
 
     $ # See a list of available Tox environments
     $ tox -l
@@ -93,7 +93,7 @@ an argument to ``runtests.py``
     $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
 
 Running migrations for the test app models
 ------------------------------------------
