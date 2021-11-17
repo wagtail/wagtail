@@ -287,11 +287,36 @@ export class StreamBlock extends BaseSequenceBlock {
     return [blockDef, initialState, uuidv4()];
   }
 
+  removeIdsFromChildState(childState) {
+    console.log("Initial childState :", childState)
+    for (var i in childState) {
+      // In case the child is an array, like a list of blocks
+      if (Array.isArray(childState[i])) {
+        childState[i] = childState[i].map(item => this.removeIdsFromChildState(item))
+      }
+
+      // In case the child is an object, like a structblock
+      if (typeof childState[i] === "object" && childState[i] !== null) {
+        childState[i] = this.removeIdsFromChildState(childState[i])
+      }
+
+      // In case the key is not an object, and not id, we do nothing
+      if (!childState.hasOwnProperty("id")) continue;
+
+      // In case the key is "id", we remove it
+      if (i == "id" && !!childState[i]) {
+        childState[i] = null;
+      }
+    }
+    console.log("Remove ids :", childState)
+    return childState
+  }
+
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    const childState = child.getState();
+    const childState = this.removeIdsFromChildState(child.getState());
     const animate = opts && opts.animate;
-    childState.id = null;
+
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
