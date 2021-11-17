@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.core.models import Page, PageLogEntry, UserPagePermissionsProxy, get_page_models
+from wagtail.core.utils import get_content_type_label
 
 from .base import PageReportView
 
@@ -47,6 +48,15 @@ class AgingPagesView(PageReportView):
         "last_published_by_user",
         "content_type",
     ]
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        self.custom_field_preprocess = self.custom_field_preprocess.copy()
+        self.custom_field_preprocess["content_type"] = {
+            self.FORMAT_CSV: get_content_type_label,
+            self.FORMAT_XLSX: get_content_type_label,
+        }
 
     def decorate_paginated_queryset(self, queryset):
         User = get_user_model()

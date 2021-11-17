@@ -279,12 +279,12 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
         if settings.USE_TZ:
             self.assertEqual(
                 data_lines[1],
-                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00+00:00,test@email.com,wagtailcore | page\r",
+                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00+00:00,test@email.com,Page\r",
             )
         else:
             self.assertEqual(
                 data_lines[1],
-                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00,test@email.com,wagtailcore | page\r",
+                "Welcome to your new Wagtail site!,live + draft,2013-01-01 12:00:00,test@email.com,Page\r",
             )
 
     def test_xlsx_export(self):
@@ -314,7 +314,7 @@ class TestAgingPagesView(TestCase, WagtailTestUtils):
                 "live + draft",
                 datetime.datetime(2013, 1, 1, 12, 0),
                 "test@email.com",
-                "wagtailcore | page",
+                "Page",
             ],
         )
         self.assertEqual(len(cell_array), 2)
