@@ -292,13 +292,12 @@ export class StreamBlock extends BaseSequenceBlock {
     Object.keys(childState).forEach(key => {
       const value = childState[key]
       if (Array.isArray(value)) {
-        // In case the child is an array, like a list of blocks
+        // The value can contain a list of blocks in which we need to set id to null.
         newChildState[key] = value.map(item => this._removeIdsFromChildState(item));
       } else if (typeof value === 'object' && value !== null) {
-        // In case the child is an object, like a structblock
+        // The value can be an object, a StructBlock for example.
         newChildState[key] = this._removeIdsFromChildState(childState[key]);
       } else if (key === 'id' && !!childState[key]) {
-        // In case the key is "id", we remove it
         newChildState[key] = null;
       }
     });
