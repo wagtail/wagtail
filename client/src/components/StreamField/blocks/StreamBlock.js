@@ -287,34 +287,27 @@ export class StreamBlock extends BaseSequenceBlock {
     return [blockDef, initialState, uuidv4()];
   }
 
-  removeIdsFromChildState(childState) {
-    console.log("Initial childState :", childState)
-    for (var i in childState) {
-      // In case the child is an array, like a list of blocks
+  _removeIdsFromChildState(childState) {
+    const newChildState = { ...childState };
+    Object.keys(childState).forEach(i => {
       if (Array.isArray(childState[i])) {
-        childState[i] = childState[i].map(item => this.removeIdsFromChildState(item))
+        // In case the child is an array, like a list of blocks
+        newChildState[i] = childState[i].map(item => this._removeIdsFromChildState(item));
+      } else if (typeof childState[i] === 'object' && childState[i] !== null) {
+        // In case the child is an object, like a structblock
+        newChildState[i] = this._removeIdsFromChildState(childState[i]);
+      } else if (i === 'id' && !!childState[i]) {
+        // In case the key is "id", we remove it
+        newChildState[i] = null;
       }
+    });
 
-      // In case the child is an object, like a structblock
-      if (typeof childState[i] === "object" && childState[i] !== null) {
-        childState[i] = this.removeIdsFromChildState(childState[i])
-      }
-
-      // In case the key is not an object, and not id, we do nothing
-      if (!childState.hasOwnProperty("id")) continue;
-
-      // In case the key is "id", we remove it
-      if (i == "id" && !!childState[i]) {
-        childState[i] = null;
-      }
-    }
-    console.log("Remove ids :", childState)
-    return childState
+    return newChildState;
   }
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    const childState = this.removeIdsFromChildState(child.getState());
+    const childState = this._removeIdsFromChildState(child.getState());
     const animate = opts && opts.animate;
 
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
