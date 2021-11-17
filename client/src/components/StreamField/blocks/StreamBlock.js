@@ -289,16 +289,17 @@ export class StreamBlock extends BaseSequenceBlock {
 
   _removeIdsFromChildState(childState) {
     const newChildState = { ...childState };
-    Object.keys(childState).forEach(i => {
-      if (Array.isArray(childState[i])) {
+    Object.keys(childState).forEach(key => {
+      const value = childState[key]
+      if (Array.isArray(value)) {
         // In case the child is an array, like a list of blocks
-        newChildState[i] = childState[i].map(item => this._removeIdsFromChildState(item));
-      } else if (typeof childState[i] === 'object' && childState[i] !== null) {
+        newChildState[key] = value.map(item => this._removeIdsFromChildState(item));
+      } else if (typeof value === 'object' && value !== null) {
         // In case the child is an object, like a structblock
-        newChildState[i] = this._removeIdsFromChildState(childState[i]);
-      } else if (i === 'id' && !!childState[i]) {
+        newChildState[key] = this._removeIdsFromChildState(childState[key]);
+      } else if (key === 'id' && !!childState[key]) {
         // In case the key is "id", we remove it
-        newChildState[i] = null;
+        newChildState[key] = null;
       }
     });
 
