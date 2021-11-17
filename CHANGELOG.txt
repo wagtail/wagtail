@@ -4,7 +4,7 @@ Changelog
 2.16 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
- * ...
+ * Added Aging Pages report (Tidjani Dia)
 
 
 2.15.1 (11.11.2021)
