@@ -1,4 +1,5 @@
 import django
+
 # Imported for historical reasons
 from wagtail import __semver__, __version__  # noqa
 
