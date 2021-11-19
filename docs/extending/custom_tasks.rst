@@ -302,8 +302,7 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
     def register_signal_handlers():
         task_submitted.connect(user_approval_task_submission_email_notifier, dispatch_uid='user_approval_task_submitted_email_notification')
 
-``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig``
-(and making sure this config is set as ``default_app_config`` in ``<project>/__init__.py``).
+``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig``.
 
 .. code-block:: python
 
@@ -319,3 +318,8 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
         def ready(self):
             from .signal_handlers import register_signal_handlers
             register_signal_handlers()
+
+.. note::
+   In Django versions before 3.2 your ``AppConfig`` subclass needs to be set as ``default_app_config`` in ``<project>/__init__.py``.
+   See the `relevant section in the Django docs <https://docs.djangoproject.com/en/3.1/ref/applications/#for-application-authors>`_ for the version you are using.
+
