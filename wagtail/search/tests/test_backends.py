@@ -82,7 +82,7 @@ class BackendTests(WagtailTestUtils):
 
     def test_ranking(self):
         # Note: also tests the "or" operator
-        results = list(self.backend.search("JavaScript The Definitive", models.Book, operator='or'))
+        results = list(self.backend.search("JavaScript Definitive", models.Book, operator='or'))
         self.assertUnsortedListEqual([r.title for r in results], [
             "JavaScript: The good parts",
             "JavaScript: The Definitive Guide"
