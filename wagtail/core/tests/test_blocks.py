@@ -1823,9 +1823,9 @@ class TestStructBlock(SimpleTestCase):
         ])
 
         shopping_lists[0]['items'].append('cake')
-        self.assertEqual(shopping_lists[0]['items'], ['chocolate', 'cake'])
+        self.assertEqual(list(shopping_lists[0]['items']), ['chocolate', 'cake'])
         # shopping_lists[1] should not be updated
-        self.assertEqual(shopping_lists[1]['items'], ['chocolate'])
+        self.assertEqual(list(shopping_lists[1]['items']), ['chocolate'])
 
     def test_clean(self):
         block = blocks.StructBlock([
@@ -2272,7 +2272,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
     def test_can_specify_default(self):
         block = blocks.ListBlock(blocks.CharBlock(), default=['peas', 'beans', 'carrots'])
 
-        self.assertEqual(block.get_default(), ['peas', 'beans', 'carrots'])
+        self.assertEqual(list(block.get_default()), ['peas', 'beans', 'carrots'])
 
     def test_default_default(self):
         """
@@ -2281,7 +2281,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         """
         block = blocks.ListBlock(blocks.CharBlock(default='chocolate'))
 
-        self.assertEqual(block.get_default(), ['chocolate'])
+        self.assertEqual(list(block.get_default()), ['chocolate'])
 
         block.set_name('test_shoppinglistblock')
         js_args = ListBlockAdapter().js_args(block)
@@ -2303,9 +2303,9 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         asda_shopping = block.to_python({'shop': 'Asda'})  # 'items' will default to ['chocolate'], but a distinct instance
 
         tesco_shopping['items'].append('cake')
-        self.assertEqual(tesco_shopping['items'], ['chocolate', 'cake'])
+        self.assertEqual(list(tesco_shopping['items']), ['chocolate', 'cake'])
         # asda_shopping should not be modified
-        self.assertEqual(asda_shopping['items'], ['chocolate'])
+        self.assertEqual(list(asda_shopping['items']), ['chocolate'])
 
     def test_adapt_with_classname_via_kwarg(self):
         """form_classname from kwargs to be used as an additional class when rendering list block"""
@@ -2409,8 +2409,10 @@ class TestListBlockWithFixtures(TestCase):
 
         with self.assertNumQueries(1):
             result = block.bulk_to_python([[4, 5], [], [2]])
+            # result will be a list of ListValues - convert to lists for equality check
+            clean_result = [list(val) for val in result]
 
-        self.assertEqual(result, [
+        self.assertEqual(clean_result, [
             [Page.objects.get(id=4), Page.objects.get(id=5)],
             [],
             [Page.objects.get(id=2)],
