@@ -548,7 +548,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return result
 
     def delete(self, *args, **kwargs):
-        return DeletePageAction(self).execute(*args, **kwargs)
+        user = kwargs.pop("user", None)
+        return DeletePageAction(self, user=user).execute(*args, **kwargs)
 
     @classmethod
     def check(cls, **kwargs):
