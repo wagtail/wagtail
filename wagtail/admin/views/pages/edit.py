@@ -495,7 +495,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             changed=self.has_content_changes,
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
-        action.execute()
+        action.execute(skip_permission_checks=True)
 
         if self.has_content_changes and 'comments' in self.form.formsets:
             changes = self.get_commenting_changes()
