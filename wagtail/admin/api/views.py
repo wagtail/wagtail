@@ -9,6 +9,7 @@ from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
 from .actions.copy import CopyPageAPIAction
+from .actions.delete import DeletePageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -19,6 +20,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
 
     actions = {
         'copy': CopyPageAPIAction,
+        'delete': DeletePageAPIAction,
     }
 
     # Add has_children and for_explorer filters
