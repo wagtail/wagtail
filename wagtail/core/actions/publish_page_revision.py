@@ -1,6 +1,7 @@
 import logging
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
 from wagtail.core.log_actions import log
@@ -8,6 +9,14 @@ from wagtail.core.signals import page_published
 
 
 logger = logging.getLogger("wagtail.core")
+
+
+class PublishPagePermissionError(PermissionDenied):
+    """
+    Raised when the page publish cannot be performed due to insufficient permissions.
+    """
+
+    pass
 
 
 class PublishPageRevisionAction:
@@ -27,32 +36,41 @@ class PublishPageRevisionAction:
 
     def __init__(self, revision, user=None, changed=True, log_action=True, previous_revision=None):
         self.revision = revision
+        self.page = self.revision.as_page_object()
         self.user = user
         self.changed = changed
         self.log_action = log_action
         self.previous_revision = previous_revision
 
-    def log_scheduling_action(self, page):
+    def check(self, skip_permission_checks=False):
+        if (
+            self.user
+            and not skip_permission_checks
+            and not self.page.permissions_for_user(self.user).can_publish()
+        ):
+            raise PublishPagePermissionError(
+                "You do not have permission to publish this page"
+            )
+
+    def log_scheduling_action(self):
         log(
-            instance=page,
+            instance=self.page,
             action="wagtail.publish.schedule",
             user=self.user,
             data={
                 "revision": {
                     "id": self.revision.id,
                     "created": self.revision.created_at.strftime("%d %b %Y %H:%M"),
-                    "go_live_at": page.go_live_at.strftime("%d %b %Y %H:%M"),
-                    "has_live_version": page.live,
+                    "go_live_at": self.page.go_live_at.strftime("%d %b %Y %H:%M"),
+                    "has_live_version": self.page.live,
                 }
             },
             revision=self.revision,
             content_changed=self.changed,
         )
 
-    def _publish_page_revision(self, revision, user, changed, log_action, previous_revision):
+    def _publish_page_revision(self, revision, page, user, changed, log_action, previous_revision):
         from wagtail.core.models import COMMENTS_RELATION_NAME, PageRevision
-
-        page = revision.as_page_object()
 
         if page.go_live_at and page.go_live_at > timezone.now():
             page.has_unpublished_changes = True
@@ -65,7 +83,7 @@ class PublishPageRevisionAction:
             if page.live_revision:
                 # Log scheduled publishing
                 if log_action:
-                    self.log_scheduling_action(page)
+                    self.log_scheduling_action()
 
                 return
             # if we have a go_live in the future don't make the page live
@@ -179,11 +197,14 @@ class PublishPageRevisionAction:
             )
 
             if log_action:
-                self.log_scheduling_action(page)
+                self.log_scheduling_action()
 
-    def execute(self):
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
+
         return self._publish_page_revision(
             self.revision,
+            self.page,
             user=self.user,
             changed=self.changed,
             log_action=self.log_action,
