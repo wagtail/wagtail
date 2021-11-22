@@ -20,6 +20,7 @@ from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
     COMMENTS_RELATION_NAME, Comment, CommentReply, Page, PageSubscription, UserPagePermissionsProxy,
@@ -488,11 +489,13 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if response:
             return response
 
-        revision.publish(
+        action = PublishPageRevisionAction(
+            revision,
             user=self.request.user,
             changed=self.has_content_changes,
             previous_revision=(self.previous_revision if self.is_reverting else None)
         )
+        action.execute()
 
         if self.has_content_changes and 'comments' in self.form.formsets:
             changes = self.get_commenting_changes()
