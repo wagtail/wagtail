@@ -47,7 +47,7 @@ from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.actions.copy_page import CopyPageAction
-from wagtail.core.actions.delete_page import delete_page
+from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -548,7 +548,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return result
 
     def delete(self, *args, **kwargs):
-        return delete_page(self, *args, **kwargs)
+        return DeletePageAction(self).execute(*args, **kwargs)
 
     @classmethod
     def check(cls, **kwargs):
