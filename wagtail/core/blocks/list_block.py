@@ -1,4 +1,5 @@
 import itertools
+from collections.abc import MutableSequence
 
 from django import forms
 from django.core.exceptions import ValidationError
@@ -48,6 +49,32 @@ class ListBlockValidationErrorAdapter(Adapter):
 register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
 
 
+class ListValue(MutableSequence):
+    def __init__(self, values=None):
+        if values is None:
+            self.values = []
+        else:
+            self.values = values
+
+    def __getitem__(self, i):
+        return self.values[i]
+
+    def __setitem__(self, i, val):
+        self.values[i] = val
+
+    def __delitem__(self, i):
+        del self.values[i]
+
+    def __len__(self):
+        return len(self.values)
+
+    def insert(self, i, item):
+        self.values.insert(i, item)
+
+    def __repr__(self):
+        return "<ListValue: %r>" % (self.values, )
+
+
 class ListBlock(Block):
 
     def __init__(self, child_block, **kwargs):
@@ -65,7 +92,7 @@ class ListBlock(Block):
 
     def get_default(self):
         # wrap with list() so that each invocation of get_default returns a distinct instance
-        return list(self.meta.default)
+        return ListValue(values=list(self.meta.default))
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
@@ -111,11 +138,11 @@ class ListBlock(Block):
         if any(errors) or non_block_errors:
             raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
-        return result
+        return ListValue(values=result)
 
     def to_python(self, value):
         # 'value' is a list of child block values; use bulk_to_python to convert them all in one go
-        return self.child_block.bulk_to_python(value)
+        return ListValue(values=self.child_block.bulk_to_python(value))
 
     def bulk_to_python(self, values):
         # 'values' is a list of lists of child block values; concatenate them into one list so that
@@ -128,7 +155,7 @@ class ListBlock(Block):
         result = []
         offset = 0
         for sublist_len in lengths:
-            result.append(converted_values[offset:offset + sublist_len])
+            result.append(ListValue(values=converted_values[offset:offset + sublist_len]))
             offset += sublist_len
 
         return result
