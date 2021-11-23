@@ -11,6 +11,7 @@ from django.db.models.sql.compiler import SQLCompiler
 class LexemeCombinable(Expression):
     BITAND = '+'
     BITOR = ''
+    invert = False  # By default, it is not inverted
 
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
