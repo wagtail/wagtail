@@ -1095,6 +1095,69 @@ class TestDeletePageAction(AdminAPITestCase):
         self.assertTrue(Page.objects.filter(id=4).exists())
 
 
+class TestPublishPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "publish"])
+        )
+
+    def test_publish_page(self):
+        unpublished_page = Page.objects.get(slug="tentative-unpublished-event")
+        self.assertEqual(unpublished_page.first_published_at, None)
+        self.assertEqual(
+            unpublished_page.first_published_at, unpublished_page.last_published_at
+        )
+        self.assertEqual(unpublished_page.live, False)
+
+        response = self.get_response(unpublished_page.id)
+        self.assertEqual(response.status_code, 200)
+
+        unpublished_page.refresh_from_db()
+        self.assertNotEqual(unpublished_page.first_published_at, None)
+        self.assertEqual(
+            unpublished_page.first_published_at, unpublished_page.last_published_at
+        )
+        self.assertEqual(unpublished_page.live, True)
+
+    def test_publish_insufficient_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.groups.add(Group.objects.get(name="Editors"))
+        self.user.save()
+
+        response = self.get_response(4)
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_publish_alias_page(self):
+        home = Page.objects.get(slug="home")
+        alias_page = home.create_alias(update_slug="new-home-page")
+
+        response = self.get_response(alias_page.id)
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content,
+            {
+                "message": (
+                    "save_revision() was called on an alias page. "
+                    "Revisions are not required for alias pages as they are an exact copy of another page."
+                )
+            },
+        )
+
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None
