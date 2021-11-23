@@ -63,13 +63,21 @@ class TestDuplicateQueries(TestCase, WagtailTestUtils):
             ("wagtailadmin_pages:move", (self.events_index.id,)),
             ("wagtailadmin_pages:search", {}),
             ("wagtailadmin_pages:revisions_index", (self.christmas_page.id,)),
+            ("wagtailadmin_pages:type_use", ("tests", "eventpage")),
+            ("wagtailadmin_pages:copy", (self.events_index.id,)),
+            ("wagtailadmin_pages:add_subpage", (self.root_page.id,)),
+            ("wagtailadmin_home", ()),
+            ("wagtailadmin_pages:move", (self.events_index.id,)),
+            ("wagtailadmin_choose_page", {}),
             ("wagtailadmin_pages:delete", (self.events_index.id,)),
         )
         for name, args in views:
             with self.subTest(name=name):
                 self.assertNumDuplicateQueries(0, self.get, name=name, args=args)
 
-    def assertNumDuplicateQueries(self, num=0, func=None, *args, using=DEFAULT_DB_ALIAS, **kwargs):
+    def assertNumDuplicateQueries(
+        self, num=0, func=None, *args, using=DEFAULT_DB_ALIAS, **kwargs
+    ):
         conn = connections[using]
 
         context = _AssertNumDuplicateQueriesContext(self, num, conn)
