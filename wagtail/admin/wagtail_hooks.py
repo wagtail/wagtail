@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from django.conf import settings
 from django.contrib.auth.models import Permission
 from django.urls import reverse
@@ -653,6 +655,7 @@ class WorkflowReportMenuItem(MenuItem):
 
 
 class SiteHistoryReportMenuItem(MenuItem):
+    @lru_cache(maxsize=None)
     def is_shown(self, request):
         return UserPagePermissionsProxy(request.user).explorable_pages().exists()
 
