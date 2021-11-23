@@ -1,3 +1,5 @@
+from functools import lru_cache
+
 from django.conf import settings
 
 from wagtail.core.models import Page
@@ -15,6 +17,7 @@ def get_pages_with_direct_explore_permission(user):
         )
 
 
+@lru_cache(maxsize=None)
 def get_explorable_root_page(user):
     # Get the highest common explorable ancestor for the given user. If the user
     # has no permissions over any pages, this method will return None.
