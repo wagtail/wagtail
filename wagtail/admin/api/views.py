@@ -11,6 +11,7 @@ from wagtail.core.models import Page
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
+from .actions.publish import PublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -23,6 +24,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'convert_alias': ConvertAliasPageAPIAction,
         'copy': CopyPageAPIAction,
         'delete': DeletePageAPIAction,
+        'publish': PublishPageAPIAction,
     }
 
     # Add has_children and for_explorer filters
