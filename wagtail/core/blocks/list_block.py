@@ -1,4 +1,6 @@
 import itertools
+import uuid
+
 from collections.abc import MutableSequence
 
 from django import forms
@@ -11,7 +13,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.telepath import Adapter, register
 
-from .base import Block, get_help_icon
+from .base import Block, BoundBlock, get_help_icon
 
 
 __all__ = ['ListBlock', 'ListBlockValidationError']
@@ -50,29 +52,46 @@ register(ListBlockValidationErrorAdapter(), ListBlockValidationError)
 
 
 class ListValue(MutableSequence):
-    def __init__(self, values=None):
-        if values is None:
-            self.values = []
+    """
+    The native data type used by ListBlock. Behaves as a list of values, but also provides
+    a bound_blocks property giving access to block IDs
+    """
+
+    class ListChild(BoundBlock):
+        # a wrapper for list values that keeps track of the associated block type and ID
+        def __init__(self, *args, **kwargs):
+            self.id = kwargs.pop('id', None) or str(uuid.uuid4())
+            super().__init__(*args, **kwargs)
+
+    def __init__(self, list_block, values=None, bound_blocks=None):
+        self.list_block = list_block
+
+        if bound_blocks is not None:
+            self.bound_blocks = bound_blocks
+        elif values is not None:
+            self.bound_blocks = [
+                ListValue.ListChild(self.list_block.child_block, value) for value in values
+            ]
         else:
-            self.values = values
+            self.bound_blocks = []
 
     def __getitem__(self, i):
-        return self.values[i]
+        return self.bound_blocks[i].value
 
-    def __setitem__(self, i, val):
-        self.values[i] = val
+    def __setitem__(self, i, item):
+        self.bound_blocks[i] = ListValue.ListChild(self.list_block.child_block, item)
 
     def __delitem__(self, i):
-        del self.values[i]
+        del self.bound_blocks[i]
 
     def __len__(self):
-        return len(self.values)
+        return len(self.bound_blocks)
 
     def insert(self, i, item):
-        self.values.insert(i, item)
+        self.bound_blocks.insert(i, ListValue.ListChild(self.list_block.child_block, item))
 
     def __repr__(self):
-        return "<ListValue: %r>" % (self.values, )
+        return "<ListValue: %r>" % ([bb.value for bb in self.bound_blocks], )
 
 
 class ListBlock(Block):
@@ -92,7 +111,7 @@ class ListBlock(Block):
 
     def get_default(self):
         # wrap with list() so that each invocation of get_default returns a distinct instance
-        return ListValue(values=list(self.meta.default))
+        return ListValue(self, values=list(self.meta.default))
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
@@ -138,11 +157,11 @@ class ListBlock(Block):
         if any(errors) or non_block_errors:
             raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
-        return ListValue(values=result)
+        return ListValue(self, values=result)
 
     def to_python(self, value):
         # 'value' is a list of child block values; use bulk_to_python to convert them all in one go
-        return ListValue(values=self.child_block.bulk_to_python(value))
+        return ListValue(self, values=self.child_block.bulk_to_python(value))
 
     def bulk_to_python(self, values):
         # 'values' is a list of lists of child block values; concatenate them into one list so that
@@ -155,7 +174,7 @@ class ListBlock(Block):
         result = []
         offset = 0
         for sublist_len in lengths:
-            result.append(ListValue(values=converted_values[offset:offset + sublist_len]))
+            result.append(ListValue(self, values=converted_values[offset:offset + sublist_len]))
             offset += sublist_len
 
         return result

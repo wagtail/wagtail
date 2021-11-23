@@ -2390,6 +2390,21 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         # a value with <= 2 blocks should pass validation
         self.assertTrue(block.clean(['foo', 'bar']))
 
+    def test_blocks_are_assigned_ids(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        list_val = block.to_python(['foo', 'bar'])
+
+        # list_val should behave as a list
+        self.assertEqual(len(list_val), 2)
+        self.assertEqual(list_val[0], 'foo')
+
+        # but also provide a bound_blocks property
+        self.assertEqual(len(list_val.bound_blocks), 2)
+        self.assertEqual(list_val.bound_blocks[0].value, 'foo')
+
+        # Bound blocks should be assigned UUIDs
+        self.assertRegex(list_val.bound_blocks[0].id, r'[0-9a-f-]+')
+
 
 class TestListBlockWithFixtures(TestCase):
     fixtures = ['test.json']
