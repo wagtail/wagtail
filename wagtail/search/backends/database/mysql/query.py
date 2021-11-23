@@ -103,7 +103,7 @@ class CombinedLexeme(LexemeCombinable):
             rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = '{}{} {}{}'.format(lhs_connector, lsql, rhs_connector, rsql)  # if self.connector is '+' (AND), then both terms will be ANDed together. We need to repeat the connector to make that work.
+        combined_sql = '({}{} {}{})'.format(lhs_connector, lsql, rhs_connector, rsql)  # if self.connector is '+' (AND), then both terms will be ANDed together. We need to repeat the connector to make that work.
         combined_value = combined_sql % tuple(value_params)
         return '%s', [combined_value]
 
