@@ -154,7 +154,12 @@ class RecentEditsPanel(Component):
             last_edits = PageRevision.objects.filter(created_at__in=last_edits_dates).order_by('-created_at')
 
         page_keys = [pr.page_id for pr in last_edits]
-        pages = Page.objects.specific().in_bulk(page_keys)
+        pages = (
+            Page.objects.prefetch_workflow_states()
+            .annotate_approved_schedule()
+            .specific()
+            .in_bulk(page_keys)
+        )
         context['last_edits'] = [
             [revision, pages.get(revision.page_id)] for revision in last_edits
         ]
