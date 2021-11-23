@@ -544,7 +544,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         from wagtail.snippets.models import SNIPPET_MODELS
         if not self.is_pagemodel and self.model not in SNIPPET_MODELS:
-            return self.permission_helper.get_all_model_permissions()
+            return self.permission_helper.model_permissions
         return Permission.objects.none()
 
     def get_admin_urls_for_registration(self):

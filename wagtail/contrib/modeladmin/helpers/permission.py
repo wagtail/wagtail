@@ -1,3 +1,5 @@
+from functools import cached_property
+
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
@@ -17,7 +19,8 @@ class PermissionHelper:
         self.opts = model._meta
         self.inspect_view_enabled = inspect_view_enabled
 
-    def get_all_model_permissions(self):
+    @cached_property
+    def model_permissions(self):
         """
         Return a queryset of all Permission objects pertaining to the `model`
         specified at initialisation.
@@ -26,7 +29,7 @@ class PermissionHelper:
         return Permission.objects.filter(
             content_type__app_label=self.opts.app_label,
             content_type__model=self.opts.model_name,
-        )
+        ).values('codename')
 
     def get_perm_codename(self, action):
         return get_permission_codename(action, self.opts)
@@ -44,7 +47,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` has any model-wide
         permissions
         """
-        for perm in self.get_all_model_permissions().values('codename'):
+        for perm in self.model_permissions:
             if self.user_has_specific_permission(user, perm['codename']):
                 return True
         return False
