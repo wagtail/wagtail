@@ -1098,8 +1098,16 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def clean(self):
         super().clean()
-        if not Page._slug_is_available(self.slug, self.get_parent(), self):
-            raise ValidationError({"slug": _("This slug is already in use")})
+        parent_page = self.get_parent()
+        if not Page._slug_is_available(self.slug, parent_page, self):
+            raise ValidationError(
+                {
+                    "slug": _(
+                        "The slug '%(page_slug)s' is already in use in use within the parent page at '%(parent_url_path)s'"
+                    )
+                    % {"page_slug": self.slug, "parent_url_path": parent_page.url}
+                }
+            )
 
     def is_site_root(self):
         """
