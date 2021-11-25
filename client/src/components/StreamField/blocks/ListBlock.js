@@ -1,5 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { BaseSequenceBlock, BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
@@ -17,7 +19,10 @@ class ListChild extends BaseSequenceChild {
   wrapper for an item inside a ListBlock
   */
   getState() {
-    return this.block.getState();
+    return {
+      id: this.id,
+      value: this.block.getState(),
+    };
   }
 
   getValue() {
@@ -109,6 +114,15 @@ export class ListBlock extends BaseSequenceBlock {
     }
   }
 
+  setState(blocks) {
+    // State for a ListBlock is a list of {id, value} objects, but
+    // ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
+    this.clear();
+    blocks.forEach(({ value, id }, i) => {
+      this.insert(value, i, { id: id || uuidv4() });
+    });
+  }
+
   _getChildDataForInsertion() {
     /* Called when an 'insert new block' action is triggered: given a dict of data from the insertion control,
     return the block definition and initial state to be used for the new block.
@@ -157,12 +171,14 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
-    return this._insert(this.blockDef.childBlockDef, value, null, index, opts);
+    return this._insert(this.blockDef.childBlockDef, value, opts?.id, index, opts);
   }
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    const childState = child.getState();
+    // child.getState() is the state of the ListChild, which is a dict of value and id;
+    // for inserting a new child block, we just want the value (and will assign a new id).
+    const childState = child.getState().value;
     const animate = opts && opts.animate;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     this.children[index + 1].focus({ soft: true });
