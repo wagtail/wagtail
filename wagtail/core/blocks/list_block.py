@@ -188,8 +188,11 @@ class ListBlock(Block):
 
     def get_form_state(self, value):
         return [
-            self.child_block.get_form_state(item)
-            for item in value
+            {
+                'value': self.child_block.get_form_state(block.value),
+                'id': block.id,
+            }
+            for block in value.bound_blocks
         ]
 
     def get_api_representation(self, value, context=None):

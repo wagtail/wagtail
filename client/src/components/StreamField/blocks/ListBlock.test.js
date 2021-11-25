@@ -107,8 +107,8 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
     boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      'First value',
-      'Second value'
+      {'value': 'First value', 'id': '11111111-1111-1111-1111-111111111111'},
+      {'value': 'Second value', 'id': '22222222-2222-2222-2222-222222222222'},
     ]);
   });
 
@@ -147,16 +147,16 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundBlock.getState();
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual([
-      'state: The widget - the-prefix-0-value',
-      'state: The widget - the-prefix-1-value'
+      {value: 'state: The widget - the-prefix-0-value', id: '11111111-1111-1111-1111-111111111111'},
+      {value: 'state: The widget - the-prefix-1-value', id: '22222222-2222-2222-2222-222222222222'},
     ]);
   });
 
   test('setState() creates new widgets', () => {
     boundBlock.setState([
-      'Changed first value',
-      'Changed second value',
-      'Third value'
+      {value: 'Changed first value', id: '11111111-1111-1111-1111-111111111111'},
+      {value: 'Changed second value', id: '22222222-2222-2222-2222-222222222222'},
+      {value: 'Third value', id: '33333333-3333-3333-3333-333333333333'},
     ]);
 
     // Includes the two initial calls, plus the three new ones
@@ -187,9 +187,9 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundBlock.getState();
     expect(getState.mock.calls.length).toBe(3);
     expect(state).toEqual([
-      'state: The widget - the-prefix-0-value',
-      'state: The widget - the-prefix-1-value',
-      'state: The widget - the-prefix-2-value'
+      {value: 'state: The widget - the-prefix-0-value', id: '11111111-1111-1111-1111-111111111111'},
+      {value: 'state: The widget - the-prefix-1-value', id: '22222222-2222-2222-2222-222222222222'},
+      {value: 'state: The widget - the-prefix-2-value', id: '33333333-3333-3333-3333-333333333333'},
     ]);
   });
 
@@ -308,8 +308,8 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   test('test can add block when under limit', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      'First value',
-      'Second value',
+      {'value': 'First value', 'id': '11111111-1111-1111-1111-111111111111'},
+      {'value': 'Second value', 'id': '22222222-2222-2222-2222-222222222222'},
     ]);
 
     assertCanAddBlock();
@@ -318,9 +318,9 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   test('initialising at maxNum disables adding new block and duplication', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      'First value',
-      'Second value',
-      'Third value',
+      {'value': 'First value', 'id': '11111111-1111-1111-1111-111111111111'},
+      {'value': 'Second value', 'id': '22222222-2222-2222-2222-222222222222'},
+      {'value': 'Third value', 'id': '33333333-3333-3333-3333-333333333333'},
     ]);
 
     assertCannotAddBlock();
@@ -329,8 +329,8 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   test('insert disables new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      'First value',
-      'Second value',
+      {'value': 'First value', 'id': '11111111-1111-1111-1111-111111111111'},
+      {'value': 'Second value', 'id': '22222222-2222-2222-2222-222222222222'},
     ]);
 
     assertCanAddBlock();
@@ -343,9 +343,9 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
   test('delete enables new block', () => {
     document.body.innerHTML = '<div id="placeholder"></div>';
     const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
-      'First value',
-      'Second value',
-      'Third value',
+      {'value': 'First value', 'id': '11111111-1111-1111-1111-111111111111'},
+      {'value': 'Second value', 'id': '22222222-2222-2222-2222-222222222222'},
+      {'value': 'Third value', 'id': '33333333-3333-3333-3333-333333333333'},
     ]);
 
     assertCannotAddBlock();
