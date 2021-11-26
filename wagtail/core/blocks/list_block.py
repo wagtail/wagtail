@@ -1,4 +1,3 @@
-import itertools
 import uuid
 
 from collections.abc import MutableSequence
@@ -173,15 +172,35 @@ class ListBlock(Block):
     def bulk_to_python(self, values):
         # 'values' is a list of lists of child block values; concatenate them into one list so that
         # we can make a single call to child_block.bulk_to_python
-        lengths = [len(val) for val in values]
-        raw_values = list(itertools.chain.from_iterable(values))
+
+        lengths = []
+        raw_values = []
+        for list_stream in values:
+            lengths.append(len(list_stream))
+            for list_child in list_stream:
+                try:
+                    raw_values.append(list_child["value"])
+                except TypeError:
+                    raw_values.append(list_child)
+
         converted_values = self.child_block.bulk_to_python(raw_values)
 
         # split converted_values back into sub-lists of the original lengths
         result = []
         offset = 0
-        for sublist_len in lengths:
-            result.append(ListValue(self, values=converted_values[offset:offset + sublist_len]))
+        values = list(values)
+        for i, sublist_len in enumerate(lengths):
+            bound_blocks = []
+            for j in range(sublist_len):
+                try:
+                    list_item_id = values[i][j].get("id")
+                except AttributeError:
+                    list_item_id = None
+                bound_blocks.append(
+                    ListValue.ListChild(self.child_block, converted_values[offset + j], id=list_item_id)
+                )
+
+            result.append(ListValue(self, bound_blocks=bound_blocks))
             offset += sublist_len
 
         return result
