@@ -63,6 +63,13 @@ class ListValue(MutableSequence):
             self.id = kwargs.pop('id', None) or str(uuid.uuid4())
             super().__init__(*args, **kwargs)
 
+        def get_prep_value(self):
+            return {
+                'type': 'item',
+                'value': self.block.get_prep_value(self.value),
+                'id': self.id,
+            }
+
     def __init__(self, list_block, values=None, bound_blocks=None):
         self.list_block = list_block
 
@@ -127,7 +134,7 @@ class ListBlock(Block):
             )
 
         values_with_indexes.sort()
-        return [v for (i, v) in values_with_indexes]
+        return ListValue(self, values=[v for (i, v) in values_with_indexes])
 
     def value_omitted_from_data(self, data, files, prefix):
         return ('%s-count' % prefix) not in data
@@ -180,11 +187,14 @@ class ListBlock(Block):
         return result
 
     def get_prep_value(self, value):
-        # recursively call get_prep_value on children and return as a list
-        return [
-            self.child_block.get_prep_value(item)
-            for item in value
-        ]
+        prep_value = []
+
+        for item in value.bound_blocks:
+            # Convert the native value back into raw JSONish data
+            if not item.id:
+                item.id = str(uuid.uuid4())
+            prep_value.append(item.get_prep_value())
+        return prep_value
 
     def get_form_state(self, value):
         return [
