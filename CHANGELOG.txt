@@ -6,6 +6,7 @@ Changelog
 
  * Added Aging Pages report (Tidjani Dia)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
+ * Add collapse option to `StreamField`, `StreamBlock`, and `ListBlock` which will load all sub-blocks initially collapsed (Matt Westcott)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
 

@@ -184,6 +184,7 @@ class ListBlock(Block):
         form_classname = None
         min_num = None
         max_num = None
+        collapsed = False
 
     MUTABLE_META_ATTRIBUTES = ['min_num', 'max_num']
 
@@ -194,6 +195,7 @@ class ListBlockAdapter(Adapter):
     def js_args(self, block):
         meta = {
             'label': block.label, 'icon': block.meta.icon, 'classname': block.meta.form_classname,
+            'collapsed': block.meta.collapsed,
             'strings': {
                 'MOVE_UP': _("Move up"),
                 'MOVE_DOWN': _("Move down"),

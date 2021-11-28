@@ -326,8 +326,9 @@ class BaseStreamBlock(Block):
         min_num = None
         max_num = None
         block_counts = {}
+        collapsed = False
 
-    MUTABLE_META_ATTRIBUTES = ['required', 'min_num', 'max_num', 'block_counts']
+    MUTABLE_META_ATTRIBUTES = ['required', 'min_num', 'max_num', 'block_counts', 'collapsed']
 
 
 class StreamBlock(BaseStreamBlock, metaclass=DeclarativeSubBlocksMetaclass):
@@ -590,6 +591,7 @@ class StreamBlockAdapter(Adapter):
             'classname': block.meta.form_classname,
             'maxNum': block.meta.max_num, 'minNum': block.meta.min_num,
             'blockCounts': block.meta.block_counts,
+            'collapsed': block.meta.collapsed,
             'strings': {
                 'MOVE_UP': _("Move up"),
                 'MOVE_DOWN': _("Move down"),

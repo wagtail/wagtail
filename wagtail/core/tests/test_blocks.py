@@ -2170,6 +2170,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test listblock',
             'icon': 'placeholder',
             'classname': None,
+            'collapsed': False,
             'strings': {
                 'DELETE': 'Delete',
                 'DUPLICATE': 'Duplicate',
@@ -2196,6 +2197,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test listblock',
             'icon': 'placeholder',
             'classname': None,
+            'collapsed': False,
             'minNum': 2,
             'maxNum': 5,
             'strings': {
@@ -2321,6 +2323,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test listblock',
             'icon': 'placeholder',
             'classname': 'special-list-class',
+            'collapsed': False,
             'strings': {
                 'DELETE': 'Delete',
                 'DUPLICATE': 'Duplicate',
@@ -2351,6 +2354,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test listblock',
             'icon': 'placeholder',
             'classname': 'custom-list-class',
+            'collapsed': False,
             'strings': {
                 'DELETE': 'Delete',
                 'DUPLICATE': 'Duplicate',
@@ -2726,6 +2730,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'label': 'Test streamblock',
             'icon': 'placeholder',
             'classname': None,
+            'collapsed': False,
             'maxNum': None,
             'minNum': None,
             'blockCounts': {},
@@ -3329,6 +3334,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'minNum': None,
             'maxNum': None,
             'blockCounts': {},
+            'collapsed': False,
             'required': True,
             'classname': 'rocket-section',
             'strings': {
@@ -3360,6 +3366,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
             'minNum': None,
             'maxNum': None,
             'blockCounts': {},
+            'collapsed': False,
             'required': True,
             'classname': 'profile-block-large',
             'strings': {

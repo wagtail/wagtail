@@ -98,6 +98,11 @@ export class ListBlock extends BaseSequenceBlock {
     this.sequenceContainer = dom.find('[data-streamfield-list-container]');
     this.container = dom;
     this.setState(initialState || []);
+    if (this.blockDef.meta.collapsed) {
+      this.children.forEach(block => {
+        block.collapse();
+      });
+    }
 
     if (initialError) {
       this.setError(initialError);

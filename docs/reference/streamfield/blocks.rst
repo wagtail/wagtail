@@ -15,6 +15,7 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+   :param collapsed: When true, all blocks are initially collapsed.
 
    .. code-block:: python
 
@@ -447,6 +448,7 @@ Structural block types
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
    :param min_num: Minimum number of sub-blocks that the list must have.
    :param max_num: Maximum number of sub-blocks that the list may have.
+   :param collapsed: When true, all sub-blocks are initially collapsed.
 
 
 .. class:: wagtail.core.blocks.StreamBlock
@@ -501,6 +503,7 @@ Structural block types
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+   :param collapsed: When true, all sub-blocks are initially collapsed.
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
 
     .. code-block:: python
