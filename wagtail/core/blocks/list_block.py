@@ -204,9 +204,9 @@ class ListBlock(Block):
         for list_stream in values:
             lengths.append(len(list_stream))
             for list_child in list_stream:
-                try:
+                if self._item_is_in_block_format(list_child):
                     raw_values.append(list_child["value"])
-                except TypeError:
+                else:
                     raw_values.append(list_child)
 
         converted_values = self.child_block.bulk_to_python(raw_values)
@@ -218,9 +218,9 @@ class ListBlock(Block):
         for i, sublist_len in enumerate(lengths):
             bound_blocks = []
             for j in range(sublist_len):
-                try:
-                    list_item_id = values[i][j].get("id")
-                except AttributeError:
+                if self._item_is_in_block_format(values[i][j]):
+                    list_item_id = values[i][j]["id"]
+                else:
                     list_item_id = None
                 bound_blocks.append(
                     ListValue.ListChild(self.child_block, converted_values[offset + j], id=list_item_id)
