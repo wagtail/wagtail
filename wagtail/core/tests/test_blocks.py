@@ -2390,7 +2390,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         # a value with <= 2 blocks should pass validation
         self.assertTrue(block.clean(['foo', 'bar']))
 
-    def test_blocks_are_assigned_ids(self):
+    def test_unpack_old_database_format(self):
         block = blocks.ListBlock(blocks.CharBlock())
         list_val = block.to_python(['foo', 'bar'])
 
@@ -2404,6 +2404,60 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
 
         # Bound blocks should be assigned UUIDs
         self.assertRegex(list_val.bound_blocks[0].id, r'[0-9a-f-]+')
+
+    def test_bulk_unpack_old_database_format(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        [list_1, list_2] = block.bulk_to_python([['foo', 'bar'], ['xxx', 'yyy', 'zzz']])
+
+        self.assertEqual(len(list_1), 2)
+        self.assertEqual(len(list_2), 3)
+        self.assertEqual(list_1[0], 'foo')
+        self.assertEqual(list_2[0], 'xxx')
+
+        # lists also provide a bound_blocks property
+        self.assertEqual(len(list_1.bound_blocks), 2)
+        self.assertEqual(list_1.bound_blocks[0].value, 'foo')
+
+        # Bound blocks should be assigned UUIDs
+        self.assertRegex(list_1.bound_blocks[0].id, r'[0-9a-f-]+')
+
+    def test_unpack_new_database_format(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        list_val = block.to_python([
+            {'type': 'item', 'value': 'foo', 'id': '11111111-1111-1111-1111-111111111111'},
+            {'type': 'item', 'value': 'bar', 'id': '22222222-2222-2222-2222-222222222222'},
+        ])
+
+        # list_val should behave as a list
+        self.assertEqual(len(list_val), 2)
+        self.assertEqual(list_val[0], 'foo')
+
+        # but also provide a bound_blocks property
+        self.assertEqual(len(list_val.bound_blocks), 2)
+        self.assertEqual(list_val.bound_blocks[0].value, 'foo')
+        self.assertEqual(list_val.bound_blocks[0].id, '11111111-1111-1111-1111-111111111111')
+
+    def test_bulk_unpack_new_database_format(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        [list_1, list_2] = block.bulk_to_python([
+            [
+                {'type': 'item', 'value': 'foo', 'id': '11111111-1111-1111-1111-111111111111'},
+                {'type': 'item', 'value': 'bar', 'id': '22222222-2222-2222-2222-222222222222'},
+            ],
+            [
+                {'type': 'item', 'value': 'baz', 'id': '33333333-3333-3333-3333-333333333333'},
+            ],
+        ])
+
+        self.assertEqual(len(list_1), 2)
+        self.assertEqual(len(list_2), 1)
+        self.assertEqual(list_1[0], 'foo')
+        self.assertEqual(list_2[0], 'baz')
+
+        # lists also provide a bound_blocks property
+        self.assertEqual(len(list_1.bound_blocks), 2)
+        self.assertEqual(list_1.bound_blocks[0].value, 'foo')
+        self.assertEqual(list_1.bound_blocks[0].id, '11111111-1111-1111-1111-111111111111')
 
 
 class TestListBlockWithFixtures(TestCase):
