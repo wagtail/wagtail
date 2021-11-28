@@ -165,9 +165,35 @@ class ListBlock(Block):
 
         return ListValue(self, values=result)
 
+    def _item_is_in_block_format(self, item):
+        # check a list item retrieved from the database JSON representation to see whether it follows
+        # the new format (https://github.com/wagtail/rfcs/blob/main/text/065-listblock.md) for a list item
+        return (
+            isinstance(item, dict)
+            and 'id' in item and 'value' in item
+            and item.get('type') == 'item'
+        )
+
     def to_python(self, value):
         # 'value' is a list of child block values; use bulk_to_python to convert them all in one go
-        return ListValue(self, values=self.child_block.bulk_to_python(value))
+
+        # get a list of the child block values; this will be the 'value' item of the dict if the list item
+        # is in the new block format, or the list item itself if in the old format
+        raw_values = [
+            item['value'] if self._item_is_in_block_format(item) else item
+            for item in value
+        ]
+        converted_values = self.child_block.bulk_to_python(raw_values)
+        bound_blocks = []
+        for i, item in enumerate(value):
+            if self._item_is_in_block_format(item):
+                list_item_id = item['id']
+            else:
+                list_item_id = None
+            bound_blocks.append(
+                ListValue.ListChild(self.child_block, converted_values[i], id=list_item_id)
+            )
+        return ListValue(self, bound_blocks=bound_blocks)
 
     def bulk_to_python(self, values):
         # 'values' is a list of lists of child block values; concatenate them into one list so that
