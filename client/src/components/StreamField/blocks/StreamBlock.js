@@ -209,6 +209,11 @@ export class StreamBlock extends BaseSequenceBlock {
     // server-side form handler knows to skip it)
     this.sequenceContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
+    if (this.blockDef.meta.collapsed) {
+      this.children.forEach(block => {
+        block.collapse();
+      });
+    }
     this.container = dom;
 
     if (initialError) {
