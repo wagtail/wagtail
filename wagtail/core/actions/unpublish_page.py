@@ -18,7 +18,7 @@ class UnpublishPagePermissionError(PermissionDenied):
 
 
 class UnpublishPageAction:
-    def __init__(self, page, set_expired, commit, user, log_action):
+    def __init__(self, page, set_expired=False, commit=True, user=None, log_action=True):
         self.page = page
         self.set_expired = set_expired
         self.commit = commit
