@@ -18,12 +18,21 @@ class UnpublishPagePermissionError(PermissionDenied):
 
 
 class UnpublishPageAction:
-    def __init__(self, page, set_expired=False, commit=True, user=None, log_action=True):
+    def __init__(
+        self,
+        page,
+        set_expired=False,
+        commit=True,
+        user=None,
+        log_action=True,
+        include_descendants=False,
+    ):
         self.page = page
         self.set_expired = set_expired
         self.commit = commit
         self.user = user
         self.log_action = log_action
+        self.include_descendants = include_descendants
 
     def check(self, skip_permission_checks=False):
         if (
@@ -73,10 +82,21 @@ class UnpublishPageAction:
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
-        return self._unpublish_page(
+        self._unpublish_page(
             self.page,
             set_expired=self.set_expired,
             commit=self.commit,
             user=self.user,
             log_action=self.log_action,
         )
+
+        if self.include_descendants:
+            from wagtail.core.models import UserPagePermissionsProxy
+
+            user_perms = UserPagePermissionsProxy(self.user)
+            for live_descendant_page in (
+                self.page.get_descendants().live().defer_streamfields().specific()
+            ):
+                action = UnpublishPageAction(live_descendant_page)
+                if user_perms.for_page(live_descendant_page).can_unpublish():
+                    action.execute(skip_permission_checks=True)
