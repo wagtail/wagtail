@@ -1158,6 +1158,78 @@ class TestPublishPageAction(AdminAPITestCase):
         )
 
 
+class TestUnpublishPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "unpublish"]), data
+        )
+
+    def test_unpublish_page(self):
+        self.assertTrue(Page.objects.get(id=3).live)
+
+        response = self.get_response(3, {})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page was unpublished
+        self.assertFalse(Page.objects.get(id=3).live)
+
+    def test_unpublish_page_include_descendants(self):
+        page = Page.objects.get(slug="home")
+        # Check that the page has live descendants that aren't locked.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+        response = self.get_response(page.id, {"recursive": True})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page is unpublished
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+
+        # Check that the descendant pages that weren't locked are unpublished as well
+        descendant_pages = page.get_descendants().filter(locked=False)
+        self.assertTrue(descendant_pages.exists())
+        for descendant_page in descendant_pages:
+            self.assertFalse(descendant_page.live)
+
+    def test_unpublish_page_without_including_descendants(self):
+        page = Page.objects.get(slug="secret-plans")
+        # Check that the page has live descendants that aren't locked.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+        response = self.get_response(page.id, {"recursive": False})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page is unpublished
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+
+        # Check that the descendant pages that weren't locked aren't unpublished.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+    def test_unpublish_invalid_page_id(self):
+        response = self.get_response(12345, {})
+        self.assertEqual(response.status_code, 404)
+
+    def test_unpublish_page_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(3, {})
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None

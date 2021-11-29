@@ -12,6 +12,7 @@ from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
 from .actions.publish import PublishPageAPIAction
+from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -25,6 +26,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'copy': CopyPageAPIAction,
         'delete': DeletePageAPIAction,
         'publish': PublishPageAPIAction,
+        'unpublish': UnpublishPageAPIAction,
     }
 
     # Add has_children and for_explorer filters
