@@ -28,14 +28,8 @@ def unpublish(request, page_id):
             if hasattr(result, 'status_code'):
                 return result
 
-        action = UnpublishPageAction(page, user=request.user)
+        action = UnpublishPageAction(page, user=request.user, include_descendants=include_descendants)
         action.execute(skip_permission_checks=True)
-
-        if include_descendants:
-            for live_descendant_page in page.get_descendants().live().defer_streamfields().specific():
-                action = UnpublishPageAction(live_descendant_page)
-                if user_perms.for_page(live_descendant_page).can_unpublish():
-                    action.execute(skip_permission_checks=True)
 
         for fn in hooks.get_hooks('after_unpublish_page'):
             result = fn(request, page)

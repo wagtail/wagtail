@@ -10,8 +10,7 @@ from .base import APIAction
 
 
 class UnpublishPageAPIActionSerializer(Serializer):
-    set_expired = fields.BooleanField(default=False, required=False)
-    log_action = fields.BooleanField(default=True, required=False)
+    recursive = fields.BooleanField(default=False, required=False)
 
 
 class UnpublishPageAPIAction(APIAction):
@@ -20,9 +19,8 @@ class UnpublishPageAPIAction(APIAction):
     def _action_from_data(self, instance, data):
         return UnpublishPageAction(
             page=instance,
-            set_expired=data["set_expired"],
-            log_action=data["log_action"],
             user=self.request.user,
+            include_descendants=data["recursive"],
         )
 
     def execute(self, instance, data):
