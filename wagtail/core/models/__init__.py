@@ -49,14 +49,15 @@ from treebeard.mp_tree import MP_Node
 from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
+from wagtail.core.actions.unpublish_page import UnpublishPageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
-    task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved,
-    workflow_cancelled, workflow_rejected, workflow_submitted)
+    page_published, post_page_move, pre_page_move, pre_validate_delete, task_approved,
+    task_cancelled, task_rejected, task_submitted, workflow_approved, workflow_cancelled,
+    workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
@@ -1036,39 +1037,13 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     update_aliases.alters_data = True
 
     def unpublish(self, set_expired=False, commit=True, user=None, log_action=True):
-        """
-        Unpublish the page by setting ``live`` to ``False``. Does nothing if ``live`` is already ``False``
-        :param log_action: flag for logging the action. Pass False to skip logging. Can be passed an action string.
-            Defaults to 'wagtail.unpublish'
-        """
-        if self.live:
-            self.live = False
-            self.has_unpublished_changes = True
-            self.live_revision = None
-
-            if set_expired:
-                self.expired = True
-
-            if commit:
-                # using clean=False to bypass validation
-                self.save(clean=False)
-
-            page_unpublished.send(sender=self.specific_class, instance=self.specific)
-
-            if log_action:
-                log(
-                    instance=self,
-                    action=log_action if isinstance(log_action, str) else 'wagtail.unpublish',
-                    user=user,
-                )
-
-            logger.info("Page unpublished: \"%s\" id=%d", self.title, self.id)
-
-            self.revisions.update(approved_go_live_at=None)
-
-            # Unpublish aliases
-            for alias in self.aliases.all():
-                alias.unpublish()
+        return UnpublishPageAction(
+            self,
+            set_expired=set_expired,
+            commit=commit,
+            user=user,
+            log_action=log_action
+        ).execute()
 
     context_object_name = None
 
