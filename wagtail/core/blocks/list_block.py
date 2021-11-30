@@ -121,19 +121,23 @@ class ListBlock(Block):
 
     def value_from_datadict(self, data, files, prefix):
         count = int(data['%s-count' % prefix])
-        values_with_indexes = []
+        child_blocks_with_indexes = []
         for i in range(0, count):
             if data['%s-%d-deleted' % (prefix, i)]:
                 continue
-            values_with_indexes.append(
+            child_blocks_with_indexes.append(
                 (
                     int(data['%s-%d-order' % (prefix, i)]),
-                    self.child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i))
+                    ListValue.ListChild(
+                        self.child_block,
+                        self.child_block.value_from_datadict(data, files, '%s-%d-value' % (prefix, i)),
+                        id=data.get('%s-%d-id' % (prefix, i)),
+                    )
                 )
             )
 
-        values_with_indexes.sort()
-        return ListValue(self, values=[v for (i, v) in values_with_indexes])
+        child_blocks_with_indexes.sort()
+        return ListValue(self, bound_blocks=[b for (i, b) in child_blocks_with_indexes])
 
     def value_omitted_from_data(self, data, files, prefix):
         return ('%s-count' % prefix) not in data

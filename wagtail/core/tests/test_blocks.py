@@ -2239,6 +2239,22 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         }, {}, 'mylist'))
         self.assertTrue(block.value_omitted_from_data({'nothing-here': 'nope'}, {}, 'mylist'))
 
+    def test_id_from_form_submission_is_preserved(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+
+        post_data = {'shoppinglist-count': '3'}
+        for i in range(0, 3):
+            post_data.update({
+                'shoppinglist-%d-deleted' % i: '',
+                'shoppinglist-%d-order' % i: str(i),
+                'shoppinglist-%d-value' % i: "item %d" % i,
+                'shoppinglist-%d-id' % i: "0000000%d" % i,
+            })
+
+        block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
+        self.assertEqual(block_value.bound_blocks[1].value, "item 1")
+        self.assertEqual(block_value.bound_blocks[1].id, "00000001")
+
     def test_ordering_in_form_submission_uses_order_field(self):
         block = blocks.ListBlock(blocks.CharBlock())
 
@@ -2248,7 +2264,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             post_data.update({
                 'shoppinglist-%d-deleted' % i: '',
                 'shoppinglist-%d-order' % i: str(2 - i),
-                'shoppinglist-%d-value' % i: "item %d" % i
+                'shoppinglist-%d-value' % i: "item %d" % i,
+                'shoppinglist-%d-id' % i: "0000000%d" % i,
             })
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
@@ -2263,7 +2280,8 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             post_data.update({
                 'shoppinglist-%d-deleted' % i: '',
                 'shoppinglist-%d-order' % i: str(i),
-                'shoppinglist-%d-value' % i: "item %d" % i
+                'shoppinglist-%d-value' % i: "item %d" % i,
+                'shoppinglist-%d-id' % i: "0000000%d" % i,
             })
 
         block_value = block.value_from_datadict(post_data, {}, 'shoppinglist')
