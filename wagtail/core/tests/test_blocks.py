@@ -2382,31 +2382,44 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
             },
         })
 
+    def test_clean_preserves_block_ids(self):
+        block = blocks.ListBlock(blocks.CharBlock())
+        block_val = block.to_python([
+            {'type': 'item', 'value': 'foo', 'id': '11111111-1111-1111-1111-111111111111'},
+            {'type': 'item', 'value': 'bar', 'id': '22222222-2222-2222-2222-222222222222'},
+        ])
+        cleaned_block_val = block.clean(block_val)
+        self.assertEqual(cleaned_block_val.bound_blocks[0].id, '11111111-1111-1111-1111-111111111111')
+
     def test_min_num_validation_errors(self):
         block = blocks.ListBlock(blocks.CharBlock(), min_num=2)
+        block_val = block.to_python(['foo'])
 
         with self.assertRaises(ValidationError) as catcher:
-            block.clean(['foo'])
+            block.clean(block_val)
         self.assertEqual(catcher.exception.params, {
             'block_errors': [None],
             'non_block_errors': ['The minimum number of items is 2']
         })
 
         # a value with >= 2 blocks should pass validation
-        self.assertTrue(block.clean(['foo', 'bar']))
+        block_val = block.to_python(['foo', 'bar'])
+        self.assertTrue(block.clean(block_val))
 
     def test_max_num_validation_errors(self):
         block = blocks.ListBlock(blocks.CharBlock(), max_num=2)
+        block_val = block.to_python(['foo', 'bar', 'baz'])
 
         with self.assertRaises(ValidationError) as catcher:
-            block.clean(['foo', 'bar', 'baz'])
+            block.clean(block_val)
         self.assertEqual(catcher.exception.params, {
             'block_errors': [None, None, None],
             'non_block_errors': ['The maximum number of items is 2']
         })
 
         # a value with <= 2 blocks should pass validation
-        self.assertTrue(block.clean(['foo', 'bar']))
+        block_val = block.to_python(['foo', 'bar'])
+        self.assertTrue(block.clean(block_val))
 
     def test_unpack_old_database_format(self):
         block = blocks.ListBlock(blocks.CharBlock())

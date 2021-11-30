@@ -146,9 +146,11 @@ class ListBlock(Block):
         result = []
         errors = []
         non_block_errors = ErrorList()
-        for child_val in value:
+        for bound_block in value.bound_blocks:
             try:
-                result.append(self.child_block.clean(child_val))
+                result.append(ListValue.ListChild(
+                    self.child_block, self.child_block.clean(bound_block.value), id=bound_block.id
+                ))
             except ValidationError as e:
                 errors.append(ErrorList([e]))
             else:
@@ -167,7 +169,7 @@ class ListBlock(Block):
         if any(errors) or non_block_errors:
             raise ListBlockValidationError(block_errors=errors, non_block_errors=non_block_errors)
 
-        return ListValue(self, values=result)
+        return ListValue(self, bound_blocks=result)
 
     def _item_is_in_block_format(self, item):
         # check a list item retrieved from the database JSON representation to see whether it follows
