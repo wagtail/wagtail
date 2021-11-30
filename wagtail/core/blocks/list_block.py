@@ -143,6 +143,11 @@ class ListBlock(Block):
         return ('%s-count' % prefix) not in data
 
     def clean(self, value):
+        # value is expected to be a ListValue, but if it's been assigned through external code it might
+        # be a plain list; normalise it to a ListValue
+        if not isinstance(value, ListValue):
+            value = ListValue(self, values=value)
+
         result = []
         errors = []
         non_block_errors = ErrorList()
@@ -238,6 +243,11 @@ class ListBlock(Block):
         return result
 
     def get_prep_value(self, value):
+        # value is expected to be a ListValue, but if it's been assigned through external code it might
+        # be a plain list; normalise it to a ListValue
+        if not isinstance(value, ListValue):
+            value = ListValue(self, values=value)
+
         prep_value = []
 
         for item in value.bound_blocks:
@@ -248,6 +258,11 @@ class ListBlock(Block):
         return prep_value
 
     def get_form_state(self, value):
+        # value is expected to be a ListValue, but if it's been assigned through external code it might
+        # be a plain list; normalise it to a ListValue
+        if not isinstance(value, ListValue):
+            value = ListValue(self, values=value)
+
         return [
             {
                 'value': self.child_block.get_form_state(block.value),
