@@ -2490,6 +2490,19 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(list_1.bound_blocks[0].value, 'foo')
         self.assertEqual(list_1.bound_blocks[0].id, '11111111-1111-1111-1111-111111111111')
 
+    def test_assign_listblock_with_list(self):
+        stream_block = blocks.StreamBlock([
+            ('bullet_list', blocks.ListBlock(blocks.CharBlock())),
+        ])
+        stream_value = stream_block.to_python([])
+        stream_value.append(('bullet_list', ['foo', 'bar']))
+
+        clean_stream_value = stream_block.clean(stream_value)
+        result = stream_block.get_prep_value(clean_stream_value)
+        self.assertEqual(result[0]['type'], 'bullet_list')
+        self.assertEqual(len(result[0]['value']), 2)
+        self.assertEqual(result[0]['value'][0]['value'], 'foo')
+
 
 class TestListBlockWithFixtures(TestCase):
     fixtures = ['test.json']
