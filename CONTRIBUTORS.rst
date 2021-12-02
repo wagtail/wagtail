@@ -551,6 +551,8 @@ Contributors
 * Shariq Jamil
 * Kyle Bayliss
 * John Simms
+* Justin Michalicek
+* Nabil Khalil
 
 Translators
 ===========
