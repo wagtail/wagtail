@@ -3,15 +3,18 @@ import json
 
 from unittest import mock
 
+from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.core.models import Locale, Page, Site
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
+from wagtail.tests.utils import WagtailTestUtils
 
 
 def get_total_page_count():
@@ -19,7 +22,7 @@ def get_total_page_count():
     return Page.objects.live().public().count() - 1
 
 
-class TestPageListing(TestCase):
+class TestPageListing(TestCase, WagtailTestUtils):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
@@ -80,6 +83,35 @@ class TestPageListing(TestCase):
         response = self.get_response()
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
+
+    def test_private_pages_with_user_login(self):
+        client = APIClient()
+        user = self.create_user(username='alice', password='password')
+        old_total_count = get_total_page_count()
+        page = models.BlogIndexPage.objects.get(id=5)
+        page.view_restrictions.create(restriction_type='login')
+        # authenticate user
+        client.force_authenticate(user)
+        # getting number of pages after authenticating user
+        response = client.get(reverse('wagtailapi_v2:pages:listing'))
+        new_total_count = json.loads(response.content.decode('UTF-8'))['meta']['total_count']
+        self.assertEqual(new_total_count, old_total_count)
+
+    def test_private_pages_with_user_groups(self):
+        client = APIClient()
+        user = self.create_user(username='alice', password='password')
+        old_total_count = get_total_page_count()
+        page = models.BlogIndexPage.objects.get(id=5)
+        editors_group = Group.objects.get(name='Editors')
+        page_restriction_instance = page.view_restrictions.create(restriction_type='groups')
+        page_restriction_instance.groups.add(editors_group)
+        # add self.user to editors group and authenticate user
+        user.groups.add(editors_group)
+        client.force_authenticate(user)
+        # getting number of pages after authenticating user
+        response = client.get(reverse('wagtailapi_v2:pages:listing'))
+        new_total_count = json.loads(response.content.decode('UTF-8'))['meta']['total_count']
+        self.assertEqual(new_total_count, old_total_count)
 
     def test_page_listing_with_missing_page_model(self):
         # Create a ContentType that doesn't correspond to a real model
