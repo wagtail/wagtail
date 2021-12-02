@@ -43,9 +43,10 @@ from django.utils.module_loading import import_string
 from django.utils.text import capfirst, slugify
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
-from modelcluster.models import ClusterableModel, get_all_child_relations
+from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
+from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -1547,192 +1548,25 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
-             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True, _mpnode_attrs=None):
+             process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
         """
         Copies a given page
         :param log_action flag for logging the action. Pass None to skip logging.
             Can be passed an action string. Defaults to 'wagtail.copy'
         """
-
-        if self._state.adding:
-            raise RuntimeError('Page.copy() called on an unsaved page')
-
-        exclude_fields = self.default_exclude_fields_in_copy + self.exclude_fields_in_copy + (exclude_fields or [])
-        specific_self = self.specific
-        if keep_live:
-            base_update_attrs = {
-                'alias_of': None,
-            }
-        else:
-            base_update_attrs = {
-                'live': False,
-                'has_unpublished_changes': True,
-                'live_revision': None,
-                'first_published_at': None,
-                'last_published_at': None,
-                'alias_of': None,
-            }
-
-        if user:
-            base_update_attrs['owner'] = user
-
-        # When we're not copying for translation, we should give the translation_key a new value
-        if reset_translation_key:
-            base_update_attrs['translation_key'] = uuid.uuid4()
-
-        if update_attrs:
-            base_update_attrs.update(update_attrs)
-
-        page_copy, child_object_map = _copy(specific_self, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
-
-        # Save copied child objects and run process_child_object on them if we need to
-        for (child_relation, old_pk), child_object in child_object_map.items():
-            if process_child_object:
-                process_child_object(specific_self, page_copy, child_relation, child_object)
-
-            # When we're not copying for translation, we should give the translation_key a new value for each child object as well
-            if reset_translation_key and isinstance(child_object, TranslatableMixin):
-                child_object.translation_key = uuid.uuid4()
-
-        # Save the new page
-        if _mpnode_attrs:
-            # We've got a tree position already reserved. Perform a quick save
-            page_copy.path = _mpnode_attrs[0]
-            page_copy.depth = _mpnode_attrs[1]
-            page_copy.save(clean=False)
-
-        else:
-            if to:
-                if recursive and (to == self or to.is_descendant_of(self)):
-                    raise Exception("You cannot copy a tree branch recursively into itself")
-                page_copy = to.add_child(instance=page_copy)
-            else:
-                page_copy = self.add_sibling(instance=page_copy)
-
-            _mpnode_attrs = (page_copy.path, page_copy.depth)
-
-        _copy_m2m_relations(specific_self, page_copy, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
-
-        # Copy revisions
-        if copy_revisions:
-            for revision in self.revisions.all():
-                revision.pk = None
-                revision.submitted_for_moderation = False
-                revision.approved_go_live_at = None
-                revision.page = page_copy
-
-                # Update ID fields in content
-                revision_content = json.loads(revision.content_json)
-                revision_content['pk'] = page_copy.pk
-
-                for child_relation in get_all_child_relations(specific_self):
-                    accessor_name = child_relation.get_accessor_name()
-                    try:
-                        child_objects = revision_content[accessor_name]
-                    except KeyError:
-                        # KeyErrors are possible if the revision was created
-                        # before this child relation was added to the database
-                        continue
-
-                    for child_object in child_objects:
-                        child_object[child_relation.field.name] = page_copy.pk
-
-                        # Remap primary key to copied versions
-                        # If the primary key is not recognised (eg, the child object has been deleted from the database)
-                        # set the primary key to None
-                        copied_child_object = child_object_map.get((child_relation, child_object['pk']))
-                        child_object['pk'] = copied_child_object.pk if copied_child_object else None
-
-                revision.content_json = json.dumps(revision_content)
-
-                # Save
-                revision.save()
-
-        # Create a new revision
-        # This code serves a few purposes:
-        # * It makes sure update_attrs gets applied to the latest revision
-        # * It bumps the last_revision_created_at value so the new page gets ordered as if it was just created
-        # * It sets the user of the new revision so it's possible to see who copied the page by looking at its history
-        latest_revision = page_copy.get_latest_revision_as_page()
-
-        if update_attrs:
-            for field, value in update_attrs.items():
-                setattr(latest_revision, field, value)
-
-        latest_revision_as_page_revision = latest_revision.save_revision(user=user, changed=False, clean=False)
-        if keep_live:
-            page_copy.live_revision = latest_revision_as_page_revision
-            page_copy.last_published_at = latest_revision_as_page_revision.created_at
-            page_copy.first_published_at = latest_revision_as_page_revision.created_at
-            page_copy.save(clean=False)
-
-        if page_copy.live:
-            page_published.send(
-                sender=page_copy.specific_class, instance=page_copy,
-                revision=latest_revision_as_page_revision
-            )
-
-        # Log
-        if log_action:
-            parent = specific_self.get_parent()
-            log(
-                instance=page_copy,
-                action=log_action,
-                user=user,
-                data={
-                    'page': {
-                        'id': page_copy.id,
-                        'title': page_copy.get_admin_display_title(),
-                        'locale': {
-                            'id': page_copy.locale_id,
-                            'language_code': page_copy.locale.language_code
-                        }
-                    },
-                    'source': {'id': parent.id, 'title': parent.specific_deferred.get_admin_display_title()} if parent else None,
-                    'destination': {'id': to.id, 'title': to.specific_deferred.get_admin_display_title()} if to else None,
-                    'keep_live': page_copy.live and keep_live,
-                    'source_locale': {
-                        'id': self.locale_id,
-                        'language_code': self.locale.language_code
-                    }
-                },
-            )
-            if page_copy.live and keep_live:
-                # Log the publish if the use chose to keep the copied page live
-                log(
-                    instance=page_copy,
-                    action='wagtail.publish',
-                    user=user,
-                    revision=latest_revision_as_page_revision,
-                )
-        logger.info("Page copied: \"%s\" id=%d from=%d", page_copy.title, page_copy.id, self.id)
-
-        # Copy child pages
-        if recursive:
-            numchild = 0
-
-            for child_page in self.get_children().specific():
-                newdepth = _mpnode_attrs[1] + 1
-                child_mpnode_attrs = (
-                    Page._get_path(_mpnode_attrs[0], newdepth, numchild),
-                    newdepth
-                )
-                numchild += 1
-                child_page.copy(
-                    recursive=True,
-                    to=page_copy,
-                    copy_revisions=copy_revisions,
-                    keep_live=keep_live,
-                    user=user,
-                    process_child_object=process_child_object,
-                    _mpnode_attrs=child_mpnode_attrs
-                )
-
-            if numchild > 0:
-                page_copy.numchild = numchild
-                page_copy.save(clean=False, update_fields=['numchild'])
-
-        return page_copy
+        return CopyPageAction(
+            self,
+            to=to,
+            update_attrs=update_attrs,
+            exclude_fields=exclude_fields,
+            recursive=recursive,
+            copy_revisions=copy_revisions,
+            keep_live=keep_live,
+            user=user,
+            process_child_object=process_child_object,
+            log_action=log_action,
+            reset_translation_key=reset_translation_key,
+        ).execute(skip_permission_checks=True)
 
     copy.alters_data = True
 
