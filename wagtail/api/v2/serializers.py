@@ -141,6 +141,23 @@ class PageParentField(relations.RelatedField):
         return serializer.to_representation(value)
 
 
+class PageAliasOfField(relations.RelatedField):
+    """
+    Serializes the "alias_of" field on Page objects.
+    """
+    def get_attribute(self, instance):
+        return instance
+
+    def to_representation(self, page):
+        if page.alias_of is None:
+            return None
+        data = OrderedDict()
+        data['id'] = page.alias_of.id
+        data['full_url'] = page.alias_of.full_url
+
+        return data
+
+
 class ChildRelationField(Field):
     """
     Serializes child relations.
@@ -327,6 +344,7 @@ class PageSerializer(BaseSerializer):
     locale = PageLocaleField(read_only=True)
     html_url = PageHtmlUrlField(read_only=True)
     parent = PageParentField(read_only=True)
+    alias_of = PageAliasOfField(read_only=True)
 
     def build_relational_field(self, field_name, relation_info):
         # Find all relation fields that point to child class and make them use

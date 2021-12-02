@@ -391,6 +391,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         'seo_title',
         'search_description',
         'first_published_at',
+        'alias_of',
         'parent',
         'locale',
     ]
