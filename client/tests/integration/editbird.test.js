@@ -1,4 +1,4 @@
-describe('Editbird', () => {
+describe.skip('Editbird', () => {
   beforeAll(async () => {
     await page.goto('http://localhost:8000/');
   });
