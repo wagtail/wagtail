@@ -4,17 +4,21 @@ jobs:
   backend:
     docker:
       - image: cimg/python:3.8.11
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - pip-packages-v1-{{ .Branch }}
-            - pip-packages-v1-
-      - run: pipenv install -e .[testing]
+          key: pipenv-v1-{{ checksum "setup.py" }}
+      # Only install if .venv wasn’t cached.
+      - run: |
+            if [[ ! -e ".venv" ]]; then
+                pipenv install -e .[testing]
+            fi
       - save_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
-            - ~/.local/
-          key: pip-package-v1-{{ .Branch }}
+            - .venv
       - run: pipenv run flake8
       - run: pipenv run isort --check-only --diff .
       # Filter out known false positives, while preserving normal output and error codes.
