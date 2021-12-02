@@ -2,6 +2,7 @@ import unittest
 
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
+from django.core.files import File
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.test import TestCase
@@ -605,3 +606,156 @@ class TestFilenameReduction(TestCase):
 
         image.save()
         self.assertEqual("original_images/thisisaverylongfilename-abcdefghijklmnopqrstuvwxyz-supercalifragilisticexp.png", image.file.name)
+
+
+class TestRenditionOrientation(TestCase):
+    """
+    This tests for a bug where images with exif orientations which
+    required rotation for display were cropped and sized based on the
+    unrotated image dimensions.
+
+    For example images with specified dimensions of 640x450 but an exif orientation of 6
+    should appear as a 450x640 portrait, but instead were still cropped to 640x450.
+
+    Actual image files are used so that exif orientation data will exist for the rotation to function correctly.
+    """
+
+    def assert_orientation_landscape_image_is_correct(self, rendition):
+        """
+        Check that the image has the correct colored pixels in the right places
+        so that we know the image did not physically rotate.
+        """
+
+        from willow.plugins.pillow import PillowImage
+
+        with rendition.get_willow_image() as willow_image:
+            image = PillowImage.open(willow_image)
+        # Check that the image is the correct size (and not rotated)
+        self.assertEqual(image.get_size(), (600, 450))
+        # Check that the red flower is in the bottom left
+        # The JPEGs have compressed slightly differently so the colours won't be spot on
+        colour = image.image.convert('RGB').getpixel((155, 282))
+        self.assertAlmostEqual(colour[0], 217, delta=25)
+        self.assertAlmostEqual(colour[1], 38, delta=25)
+        self.assertAlmostEqual(colour[2], 46, delta=25)
+
+        # Check that the water is at the bottom
+        colour = image.image.convert('RGB').getpixel((377, 434))
+        self.assertAlmostEqual(colour[0], 85, delta=25)
+        self.assertAlmostEqual(colour[1], 93, delta=25)
+        self.assertAlmostEqual(colour[2], 65, delta=25)
+
+    def test_jpeg_with_orientation_1(self):
+        with open('wagtail/images/tests/image_files/landscape_1.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 600)
+        self.assertEqual(image.height, 450)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_2(self):
+        with open('wagtail/images/tests/image_files/landscape_2.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 600)
+        self.assertEqual(image.height, 450)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_3(self):
+        with open('wagtail/images/tests/image_files/landscape_3.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 600)
+        self.assertEqual(image.height, 450)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_4(self):
+        with open('wagtail/images/tests/image_files/landscape_4.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 600)
+        self.assertEqual(image.height, 450)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    # tests below here have a specified width x height in portrait but
+    # an orientation specified of landscape, so the original shows a height > width
+    # but the rendition is corrected to height < width.
+    def test_jpeg_with_orientation_5(self):
+        with open('wagtail/images/tests/image_files/landscape_6.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 450)
+        self.assertEqual(image.height, 600)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_6(self):
+        with open('wagtail/images/tests/image_files/landscape_6.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 450)
+        self.assertEqual(image.height, 600)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_7(self):
+        with open('wagtail/images/tests/image_files/landscape_7.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 450)
+        self.assertEqual(image.height, 600)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
+
+    def test_jpeg_with_orientation_8(self):
+        with open('wagtail/images/tests/image_files/landscape_8.jpg', 'rb') as f:
+            image = Image.objects.create(title="Test image", file=File(f))
+
+        # check preconditions
+        self.assertEqual(image.width, 450)
+        self.assertEqual(image.height, 600)
+        rendition = image.get_rendition('original')
+        # Check dimensions stored on the model
+        self.assertEqual(rendition.width, 600)
+        self.assertEqual(rendition.height, 450)
+        # Check actual image dimensions and orientation
+        self.assert_orientation_landscape_image_is_correct(rendition)
