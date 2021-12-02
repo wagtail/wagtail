@@ -17,7 +17,7 @@ assignees: ''
   Copy the section link here.
 -->
 
-(Insert the permalink of the section heading in the Wagtail docs. Choose the most specific section / lowest-level heading to which your suggested change would apply. (In the docs, hover over the the heading to see the permalink icon.))
+(Insert the permalink of the section heading in the Wagtail docs. Choose the most specific section / lowest-level heading to which your suggested change would apply. (In the docs, hover over the heading to see the permalink icon.))
 
 ### Details
 
