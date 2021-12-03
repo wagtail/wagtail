@@ -823,6 +823,17 @@ class TestMultipleDocumentUploader(WagtailTestUtils, TestCase):
         self.assertContains(response, "id_adddocument_collection")
         self.assertContains(response, "Evil plans")
 
+    def test_add_with_selected_collection(self):
+        root_collection = Collection.get_first_root_node()
+        collection = root_collection.add_child(name="Evil plans")
+
+        response = self.client.get(
+            reverse("wagtaildocs:add_multiple") + f"?collection_id={collection.pk}"
+        )
+        self.assertEqual(response.status_code, 200)
+        # collection chooser should have selected collection passed with parameter
+        self.assertContains(response, f'<option value="{collection.pk}" selected>')
+
     def test_add_post(self):
         """
         This tests that a POST request to the add view saves the document and returns an edit form
