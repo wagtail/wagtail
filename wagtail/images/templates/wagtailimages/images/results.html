@@ -44,11 +44,14 @@
 
         {% search_other %}
     {% else %}
-        {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url %}
-        {% if current_collection %}
-            <p>{% blocktrans %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
-        {% else %}
-            <p>{% blocktrans %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
-        {% endif %}
+        {% url 'wagtailimages:add_multiple' as wagtailimages_add_image_url_base %}
+        {% querystring as querystring %}
+        {% with wagtailimages_add_image_url=wagtailimages_add_image_url_base|add:querystring %}
+          {% if current_collection %}
+              <p>{% blocktrans %}You haven't uploaded any images in this collection. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+          {% else %}
+              <p>{% blocktrans %}You haven't uploaded any images. Why not <a href="{{ wagtailimages_add_image_url }}">upload one now</a>?{% endblocktrans %}</p>
+          {% endif %}
+        {% endwith %}
     {% endif %}
 {% endif %}

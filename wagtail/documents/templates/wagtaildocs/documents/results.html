@@ -21,11 +21,14 @@
 
          {% search_other %}
     {% else %}
-        {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
-        {% if current_collection %}
-            <p>{% blocktrans %}You haven't uploaded any documents in this collection. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
-        {% else %}
-            <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
-        {% endif %}
+        {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url_base %}
+        {% querystring as querystring %}
+        {% with wagtaildocs_add_document_url=wagtaildocs_add_document_url_base|add:querystring %}
+          {% if current_collection %}
+              <p>{% blocktrans %}You haven't uploaded any documents in this collection. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+          {% else %}
+              <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+          {% endif %}
+        {% endwith %}
     {% endif %}
 {% endif %}

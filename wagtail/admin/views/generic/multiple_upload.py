@@ -171,6 +171,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
             'help_text': self.form.fields['file'].help_text,
             'collections': collections,
             'form_media': self.form.media,
+            'collection_id': self.request.GET.get('collection_id', None),
         })
 
         return context
