@@ -50,19 +50,19 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
                     if isinstance(self.object, Page):
-                        self.object.copy_for_translation(locale)
+                        self.object.get_latest_revision_as_page().copy_for_translation(locale)
                         if form.cleaned_data["include_subtree"]:
 
                             def _walk(current_page):
                                 for child_page in current_page.get_children():
-                                    child_page.copy_for_translation(locale)
+                                    child_page.get_latest_revision_as_page().copy_for_translation(locale)
 
                                     if child_page.numchild:
                                         _walk(child_page)
 
                             _walk(self.object)
                     else:
-                        self.object.copy_for_translation(
+                        self.object.get_latest_revision_as_page().copy_for_translation(
                             locale
                         ).save()  # pragma: no cover
 
