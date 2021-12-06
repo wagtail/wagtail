@@ -91,7 +91,7 @@ class CopyForTranslationAction:
                 translated_parent = parent.get_translation(locale)
             except parent.__class__.DoesNotExist:
                 if not copy_parents:
-                    raise ParentNotTranslatedError
+                    raise ParentNotTranslatedError("Parent page is not translated.")
 
                 translated_parent = parent.copy_for_translation(
                     locale, copy_parents=True, alias=True

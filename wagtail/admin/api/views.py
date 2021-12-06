@@ -15,6 +15,7 @@ from .actions.delete import DeletePageAPIAction
 from .actions.move import MovePageAPIAction
 from .actions.publish import PublishPageAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
+from .actions.copy_for_translation import CopyForTranslationAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -30,6 +31,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'publish': PublishPageAPIAction,
         'unpublish': UnpublishPageAPIAction,
         'move': MovePageAPIAction,
+        'translate': CopyForTranslationAPIAction,
     }
 
     # Add has_children and for_explorer filters
@@ -130,7 +132,10 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
 
         action = self.actions[action_name](self, request)
         action_data = action.serializer(data=request.data)
+<<<<<<< HEAD
 
+=======
+>>>>>>> Add Admin API for submitting page translations
         if not action_data.is_valid():
             return Response(action_data.errors, status=400)
 
