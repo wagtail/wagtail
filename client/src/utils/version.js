@@ -100,10 +100,4 @@ class VersionNumber {
   }
 }
 
-export {
-  compareVersion,
-  versionOutOfDate,
-  VersionNumberFormatError,
-  VersionDeltaType,
-  VersionNumber,
-};
+export { VersionNumberFormatError, VersionDeltaType, VersionNumber };
