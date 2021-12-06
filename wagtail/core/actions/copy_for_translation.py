@@ -1,3 +1,4 @@
+from django.core.exceptions import PermissionDenied
 from django.db import transaction
 
 from wagtail.core.utils import find_available_slug
@@ -7,6 +8,14 @@ class ParentNotTranslatedError(Exception):
     """
     Raised when a call to Page.copy_for_translation is made but the
     parent page is not translated and copy_parents is False.
+    """
+
+    pass
+
+
+class CopyForTranslationPermissionError(PermissionDenied):
+    """
+    Raised when the page translation copy cannot be performed due to insufficient permissions.
     """
 
     pass
@@ -35,13 +44,31 @@ class CopyForTranslationAction:
     """
 
     def __init__(
-        self, page, locale, copy_parents=False, alias=False, exclude_fields=None
+        self,
+        page,
+        locale,
+        copy_parents=False,
+        alias=False,
+        exclude_fields=None,
+        user=None,
     ):
         self.page = page
         self.locale = locale
         self.copy_parents = copy_parents
         self.alias = alias
         self.exclude_fields = exclude_fields
+        self.user = user
+
+    def check(self, skip_permission_checks=False):
+        # Permission checks
+        if (
+            self.user
+            and not skip_permission_checks
+            and not self.user.has_perms(["simple_translation.submit_translation"])
+        ):
+            raise CopyForTranslationPermissionError(
+                "You do not have permission to submit a translation for this page."
+            )
 
     @transaction.atomic
     def _copy_for_translation(self, page, locale, copy_parents, alias, exclude_fields):
@@ -102,7 +129,9 @@ class CopyForTranslationAction:
                 log_action="wagtail.copy_for_translation",
             )
 
-    def execute(self):
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
+
         return self._copy_for_translation(
             self.page, self.locale, self.copy_parents, self.alias, self.exclude_fields
         )
