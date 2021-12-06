@@ -51,6 +51,7 @@ class CopyForTranslationAction:
         alias=False,
         exclude_fields=None,
         user=None,
+        include_subtree=False,
     ):
         self.page = page
         self.locale = locale
@@ -58,6 +59,7 @@ class CopyForTranslationAction:
         self.alias = alias
         self.exclude_fields = exclude_fields
         self.user = user
+        self.include_subtree = include_subtree
 
     def check(self, skip_permission_checks=False):
         # Permission checks
@@ -69,6 +71,14 @@ class CopyForTranslationAction:
             raise CopyForTranslationPermissionError(
                 "You do not have permission to submit a translation for this page."
             )
+
+    def walk(self, current_page):
+        for child_page in current_page.get_children():
+            action = CopyForTranslationAction(page=child_page, locale=self.locale)
+            action.execute(skip_permission_checks=True)
+
+            if child_page.numchild:
+                self.walk(child_page)
 
     @transaction.atomic
     def _copy_for_translation(self, page, locale, copy_parents, alias, exclude_fields):
@@ -132,6 +142,11 @@ class CopyForTranslationAction:
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
-        return self._copy_for_translation(
+        translated_page = self._copy_for_translation(
             self.page, self.locale, self.copy_parents, self.alias, self.exclude_fields
         )
+
+        if self.include_subtree:
+            self.walk(self.page)
+
+        return translated_page
