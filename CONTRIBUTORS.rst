@@ -553,7 +553,7 @@ Contributors
 * John Simms
 * Justin Michalicek
 * Nabil Khalil
-* Fahim Bin Amin
+* Md. Fahim Bin Amin
 
 Translators
 ===========
