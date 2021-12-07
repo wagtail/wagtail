@@ -629,16 +629,11 @@ class TaskChooserCreateView(BaseTaskChooserView):
             return self.render_to_response()
 
     def render_to_response(self):
-        if self.create_form:
-            tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/create_form.html", {
-                'create_form': self.create_form,
-                'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
-                'task_types': self.get_task_type_options(),
-            }, self.request)
-        else:
-            tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/select_task_type.html", {
-                'task_types': self.get_task_type_options(),
-            }, self.request)
+        tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/create_tab.html", {
+            'create_form': self.create_form,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
+            'task_types': self.get_task_type_options(),
+        }, self.request)
 
         js_context = self.get_form_js_context()
         js_context['step'] = 'reshow_create_tab'

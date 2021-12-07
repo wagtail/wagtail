@@ -12,11 +12,7 @@
 <div class="tab-content">
     {% if can_create %}
     <section id="new" class="active nice-padding">
-        {% if create_form %}
-            {% include "wagtailadmin/workflows/task_chooser/includes/create_form.html" %}
-        {% else %}
-            {% include "wagtailadmin/workflows/task_chooser/includes/select_task_type.html" %}
-        {% endif %}
+        {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
     </section>
     {% endif %}
     <section id="existing" class="nice-padding{% if not can_create %} active{% endif %}">
