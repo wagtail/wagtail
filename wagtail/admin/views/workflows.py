@@ -572,28 +572,28 @@ class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
         create_form_class = self.get_create_form_class()
         if create_form_class:
-            self.createform = create_form_class(prefix='create-task')
+            self.create_form = create_form_class(prefix='create-task')
         else:
-            self.createform = None
+            self.create_form = None
 
         return self.render_to_response()
 
     def render_to_response(self):
-        searchform = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
-        tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
+        search_form = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
+        tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
 
         paginator = Paginator(tasks, per_page=10)
         tasks = paginator.get_page(self.request.GET.get('p'))
 
         chooser_html_context = {
             'tasks': tasks,
-            'searchform': searchform,
-            'createform': self.createform,
+            'search_form': search_form,
+            'create_form': self.create_form,
             'can_create': self.can_create,
             'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None
         }
 
-        if not self.createform:
+        if not self.create_form:
             chooser_html_context['task_types'] = self.get_task_type_options()
 
         js_context = self.get_form_js_context()
@@ -609,9 +609,9 @@ class TaskChooserCreateView(BaseTaskChooserView):
     def get(self, request):
         create_form_class = self.get_create_form_class()
         if create_form_class:
-            self.createform = create_form_class(prefix='create-task')
+            self.create_form = create_form_class(prefix='create-task')
         else:
-            self.createform = None
+            self.create_form = None
 
         return self.render_to_response()
 
@@ -620,18 +620,18 @@ class TaskChooserCreateView(BaseTaskChooserView):
         if not create_form_class:
             return HttpResponseBadRequest()
 
-        self.createform = create_form_class(request.POST, request.FILES, prefix='create-task')
+        self.create_form = create_form_class(request.POST, request.FILES, prefix='create-task')
 
-        if self.createform.is_valid():
-            task = self.createform.save()
+        if self.create_form.is_valid():
+            task = self.create_form.save()
             return get_task_chosen_response(request, task)
         else:
             return self.render_to_response()
 
     def render_to_response(self):
-        if self.createform:
+        if self.create_form:
             tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/create_form.html", {
-                'form': self.createform,
+                'create_form': self.create_form,
                 'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
                 'task_types': self.get_task_type_options(),
             }, self.request)
@@ -652,17 +652,17 @@ class TaskChooserCreateView(BaseTaskChooserView):
 
 class TaskChooserResultsView(BaseTaskChooserView):
     def get(self, request):
-        searchform = TaskChooserSearchForm(request.GET, task_type_choices=self.get_task_type_filter_choices())
-        tasks = all_tasks = searchform.task_model.objects.filter(active=True).order_by(Lower('name'))
+        search_form = TaskChooserSearchForm(request.GET, task_type_choices=self.get_task_type_filter_choices())
+        tasks = all_tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
         q = ''
 
-        if searchform.is_searching():
+        if search_form.is_searching():
             # Note: I decided not to use wagtailsearch here. This is because
             # wagtailsearch creates a new index for each model you make
             # searchable and this might affect someone's quota. I doubt there
             # would ever be enough tasks to require using anything more than
             # an icontains anyway.
-            q = searchform.cleaned_data['q']
+            q = search_form.cleaned_data['q']
             tasks = tasks.filter(name__icontains=q)
 
         # Pagination
@@ -670,7 +670,7 @@ class TaskChooserResultsView(BaseTaskChooserView):
         tasks = paginator.get_page(request.GET.get('p'))
 
         return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
-            'searchform': searchform,
+            'search_form': search_form,
             'tasks': tasks,
             'all_tasks': all_tasks,
             'query_string': q,

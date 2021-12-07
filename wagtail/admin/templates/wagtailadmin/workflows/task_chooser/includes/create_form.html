@@ -1,7 +1,7 @@
 {% load i18n wagtailadmin_tags %}
 
-{{ form.media.css }}
-{{ form.media.js }}
+{{ create_form.media.css }}
+{{ create_form.media.js }}
 
 {% if task_types|length > 1 %}
     <a href="{% url 'wagtailadmin_workflows:task_chooser_create' %}" class="choose-different-task-type">{% trans "Choose a different task type" %}</a>
@@ -11,7 +11,7 @@
     {% csrf_token %}
 
     <ul class="fields">
-        {% for field in form %}
+        {% for field in create_form %}
             {% if field.is_hidden %}
                 {{ field }}
             {% else %}
