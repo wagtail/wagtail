@@ -52,7 +52,7 @@ from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
-from wagtail.core.actions.create_alias import create_alias as _create_alias
+from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -1467,7 +1467,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         reset_translation_key=True,
         _mpnode_attrs=None
     ):
-        return _create_alias(
+        return CreatePageAliasAction(
             self,
             recursive=recursive,
             parent=parent,
@@ -1477,7 +1477,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             log_action=log_action,
             reset_translation_key=reset_translation_key,
             _mpnode_attrs=_mpnode_attrs,
-        )
+        ).execute()
 
     create_alias.alters_data = True
 
