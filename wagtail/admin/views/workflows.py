@@ -537,6 +537,14 @@ class BaseTaskChooserView(View):
         else:
             return None
 
+    def get_create_form(self):
+        """
+        To be called after dispatch(); returns a blank create form, or None if not available
+        """
+        create_form_class = self.get_create_form_class()
+        if create_form_class:
+            return create_form_class(prefix='create-task')
+
     def get_task_type_options(self):
         """
         To be called after dispatch(); returns the task types list for the "select task type" view
@@ -603,12 +611,7 @@ class BaseTaskChooserView(View):
 
 class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
-        create_form_class = self.get_create_form_class()
-        if create_form_class:
-            self.create_form = create_form_class(prefix='create-task')
-        else:
-            self.create_form = None
-
+        self.create_form = self.get_create_form()
         context = self.get_context_data()
         return self.render_to_response(context)
 
@@ -632,12 +635,7 @@ class TaskChooserView(BaseTaskChooserView):
 
 class TaskChooserCreateView(BaseTaskChooserView):
     def get(self, request):
-        create_form_class = self.get_create_form_class()
-        if create_form_class:
-            self.create_form = create_form_class(prefix='create-task')
-        else:
-            self.create_form = None
-
+        self.create_form = self.get_create_form()
         context = self.get_context_data()
         return self.render_to_response(context)
 
