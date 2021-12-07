@@ -1606,7 +1606,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/select_task_type.html")
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/includes/create_form.html")
-        self.assertFalse(response.context['searchform'].is_searching())
+        self.assertFalse(response.context['search_form'].is_searching())
         # check that only active (non-disabled) tasks are listed
         self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo', 'Moderators approval'])
 
@@ -1617,7 +1617,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
 
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
-        self.assertTrue(response.context['searchform'].is_searching())
+        self.assertTrue(response.context['search_form'].is_searching())
         self.assertEqual(response.context['query_string'], 'foo')
         # check that only active (non-disabled) tasks are listed
         self.assertEqual([task.name for task in response.context['tasks'].object_list], ['Enabled foo'])
@@ -1630,7 +1630,7 @@ class TestTaskChooserView(TestCase, WagtailTestUtils):
         # When pagination is used, only the results template should be rendered
         self.assertTemplateUsed(response, "wagtailadmin/workflows/task_chooser/includes/results.html")
         self.assertTemplateNotUsed(response, "wagtailadmin/workflows/task_chooser/chooser.html")
-        self.assertFalse(response.context['searchform'].is_searching())
+        self.assertFalse(response.context['search_form'].is_searching())
 
     def test_get_with_create_model_selected(self):
         response = self.client.get(reverse('wagtailadmin_workflows:task_chooser_create') + '?create_model=wagtailcore.GroupApprovalTask')
