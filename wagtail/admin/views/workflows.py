@@ -6,14 +6,13 @@ from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
-from django.views.generic.base import View
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -501,7 +500,7 @@ def get_task_chosen_response(request, task):
     )
 
 
-class BaseTaskChooserView(View):
+class BaseTaskChooserView(TemplateView):
     def dispatch(self, request):
         self.task_models = get_task_types()
         self.can_create = (
@@ -612,10 +611,9 @@ class BaseTaskChooserView(View):
 class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
         self.create_form = self.get_create_form()
-        context = self.get_context_data()
-        return self.render_to_response(context)
+        return super().get(request)
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context = {
             'can_create': self.can_create,
         }
@@ -636,8 +634,7 @@ class TaskChooserView(BaseTaskChooserView):
 class TaskChooserCreateView(BaseTaskChooserView):
     def get(self, request):
         self.create_form = self.get_create_form()
-        context = self.get_context_data()
-        return self.render_to_response(context)
+        return super().get(request)
 
     def post(self, request):
         create_form_class = self.get_create_form_class()
@@ -653,7 +650,7 @@ class TaskChooserCreateView(BaseTaskChooserView):
             context = self.get_context_data()
             return self.render_to_response(context)
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         return self.get_create_tab_context_data()
 
     def render_to_response(self, context):
@@ -673,18 +670,10 @@ class TaskChooserCreateView(BaseTaskChooserView):
 
 
 class TaskChooserResultsView(BaseTaskChooserView):
-    def get_context_data(self):
+    template_name = "wagtailadmin/workflows/task_chooser/includes/results.html"
+
+    def get_context_data(self, **kwargs):
         return self.get_task_listing_context_data()
-
-    def get(self, request):
-        context = self.get_context_data()
-        return self.render_to_response(context)
-
-    def render_to_response(self, context):
-        return TemplateResponse(
-            self.request, "wagtailadmin/workflows/task_chooser/includes/results.html",
-            context
-        )
 
 
 def task_chosen(request, task_id):
