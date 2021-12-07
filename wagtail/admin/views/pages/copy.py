@@ -8,6 +8,7 @@ from wagtail.admin.forms.pages import CopyForm
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
 from wagtail.core.actions.copy_page import CopyPageAction
+from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.models import Page
 
 
@@ -50,12 +51,14 @@ def copy(request, page_id):
             # Note that only users who can publish in the new parent page can create an alias.
             # This is because alias pages must always match their original page's state.
             if can_publish and form.cleaned_data.get('alias'):
-                new_page = page.specific.create_alias(
+                action = CreatePageAliasAction(
+                    page.specific,
                     recursive=form.cleaned_data.get('copy_subpages'),
                     parent=parent_page,
                     update_slug=form.cleaned_data['new_slug'],
                     user=request.user,
                 )
+                new_page = action.execute(skip_permission_checks=True)
             else:
                 action = CopyPageAction(
                     page=page,

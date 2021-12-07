@@ -219,9 +219,11 @@ class CreatePageAliasAction:
                     newdepth,
                 )
                 numchild += 1
-                child_page.create_alias(
+                self._create_alias(
+                    child_page,
                     recursive=True,
                     parent=alias,
+                    update_slug=None,
                     update_locale=update_locale,
                     user=user,
                     log_action=log_action,
