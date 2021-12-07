@@ -154,17 +154,17 @@ Here ``'myapp.blocks.AddressBlock'`` is the identifier for our JavaScript class 
         render(placeholder, prefix, initialState, initialError) {
             const block = super.render(placeholder, prefix, initialState, initialError);
 
-            const stateField = $(document).find('#' + prefix + '-state');
-            const countryField = $(document).find('#' + prefix + '-country');
+            const stateField = document.getElementById(prefix + '-state');
+            const countryField = document.getElementById(prefix + '-country');
             const updateStateInput = () => {
-                if (countryField.val() == 'us') {
-                    stateField.removeAttr('disabled');
+                if (countryField.value == 'us') {
+                    stateField.removeAttribute('disabled');
                 } else {
-                    stateField.attr('disabled', true);
+                    stateField.setAttribute('disabled', true);
                 }
             }
             updateStateInput();
-            countryField.on('change', updateStateInput);
+            countryField.addEventListener('change', updateStateInput);
 
             return block;
         }
