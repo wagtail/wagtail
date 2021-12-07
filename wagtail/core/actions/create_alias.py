@@ -1,12 +1,30 @@
 import logging
 import uuid
 
+from django.core.exceptions import PermissionDenied
+
 from wagtail.core.log_actions import log
 from wagtail.core.models.copying import _copy, _copy_m2m_relations
 from wagtail.core.models.i18n import TranslatableMixin
 
 
 logger = logging.getLogger("wagtail.core")
+
+
+class CreatePageAliasIntegrityError(RuntimeError):
+    """
+    Raised when creating an alias of a page cannot be performed for data integrity reasons.
+    """
+
+    pass
+
+
+class CreatePageAliasPermissionError(PermissionDenied):
+    """
+    Raised when creating an alias of a page cannot be performed due to insufficient permissions.
+    """
+
+    pass
 
 
 class CreatePageAliasAction:
@@ -57,6 +75,22 @@ class CreatePageAliasAction:
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
         self._mpnode_attrs = _mpnode_attrs
+
+    def check(self, skip_permission_checks=False):
+        if self.recursive and self.parent and (self.parent == self.page or self.parent.is_descendant_of(self.page)):
+            raise CreatePageAliasIntegrityError(
+                "You cannot copy a tree branch recursively into itself"
+            )
+
+        if (
+            self.user
+            and not skip_permission_checks
+            and self.parent
+            and not self.parent.permissions_for_user(self.user).can_publish_subpage()
+        ):
+            raise CreatePageAliasPermissionError(
+                "You do not have permission to publish a page at the destination"
+            )
 
     def _create_alias(
         self,
@@ -133,10 +167,6 @@ class CreatePageAliasAction:
 
         else:
             if parent:
-                if recursive and (parent == page or parent.is_descendant_of(page)):
-                    raise Exception(
-                        "You cannot copy a tree branch recursively into itself"
-                    )
                 alias = parent.add_child(instance=alias)
             else:
                 alias = page.add_sibling(instance=alias)
@@ -205,7 +235,9 @@ class CreatePageAliasAction:
 
         return alias
 
-    def execute(self):
+    def execute(self, skip_permission_checks=False):
+        self.check(skip_permission_checks=skip_permission_checks)
+
         return self._create_alias(
             self.page,
             recursive=self.recursive,
