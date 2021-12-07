@@ -578,30 +578,29 @@ class TaskChooserView(BaseTaskChooserView):
 
         return self.render_to_response()
 
-    def render_to_response(self):
+    def get_context_data(self):
         search_form = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
         tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
 
         paginator = Paginator(tasks, per_page=10)
         tasks = paginator.get_page(self.request.GET.get('p'))
 
-        chooser_html_context = {
+        return {
             'tasks': tasks,
             'search_form': search_form,
             'create_form': self.create_form,
             'can_create': self.can_create,
-            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None
+            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
+            'task_types': self.get_task_type_options(),
         }
 
-        if not self.create_form:
-            chooser_html_context['task_types'] = self.get_task_type_options()
-
+    def render_to_response(self):
         js_context = self.get_form_js_context()
         js_context['step'] = 'chooser'
 
         return render_modal_workflow(
             self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
-            chooser_html_context, json_data=js_context
+            self.get_context_data(), json_data=js_context
         )
 
 
@@ -628,12 +627,18 @@ class TaskChooserCreateView(BaseTaskChooserView):
         else:
             return self.render_to_response()
 
-    def render_to_response(self):
-        tab_html = render_to_string("wagtailadmin/workflows/task_chooser/includes/create_tab.html", {
+    def get_context_data(self):
+        return {
             'create_form': self.create_form,
             'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
             'task_types': self.get_task_type_options(),
-        }, self.request)
+        }
+
+    def render_to_response(self):
+        tab_html = render_to_string(
+            "wagtailadmin/workflows/task_chooser/includes/create_tab.html",
+            self.get_context_data(), self.request
+        )
 
         js_context = self.get_form_js_context()
         js_context['step'] = 'reshow_create_tab'
@@ -646,8 +651,8 @@ class TaskChooserCreateView(BaseTaskChooserView):
 
 
 class TaskChooserResultsView(BaseTaskChooserView):
-    def get(self, request):
-        search_form = TaskChooserSearchForm(request.GET, task_type_choices=self.get_task_type_filter_choices())
+    def get_context_data(self):
+        search_form = TaskChooserSearchForm(self.request.GET, task_type_choices=self.get_task_type_filter_choices())
         tasks = all_tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
         q = ''
 
@@ -662,15 +667,21 @@ class TaskChooserResultsView(BaseTaskChooserView):
 
         # Pagination
         paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(request.GET.get('p'))
+        tasks = paginator.get_page(self.request.GET.get('p'))
 
-        return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
+        return {
             'search_form': search_form,
             'tasks': tasks,
             'all_tasks': all_tasks,
             'query_string': q,
             'can_create': self.can_create,
-        })
+        }
+
+    def get(self, request):
+        return TemplateResponse(
+            request, "wagtailadmin/workflows/task_chooser/includes/results.html",
+            self.get_context_data()
+        )
 
 
 def task_chosen(request, task_id):
