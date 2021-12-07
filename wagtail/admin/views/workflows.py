@@ -609,7 +609,8 @@ class TaskChooserView(BaseTaskChooserView):
         else:
             self.create_form = None
 
-        return self.render_to_response()
+        context = self.get_context_data()
+        return self.render_to_response(context)
 
     def get_context_data(self):
         context = {
@@ -619,13 +620,13 @@ class TaskChooserView(BaseTaskChooserView):
         context.update(self.get_create_tab_context_data())
         return context
 
-    def render_to_response(self):
+    def render_to_response(self, context):
         js_context = self.get_form_js_context()
         js_context['step'] = 'chooser'
 
         return render_modal_workflow(
             self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
-            self.get_context_data(), json_data=js_context
+            context, json_data=js_context
         )
 
 
@@ -637,7 +638,8 @@ class TaskChooserCreateView(BaseTaskChooserView):
         else:
             self.create_form = None
 
-        return self.render_to_response()
+        context = self.get_context_data()
+        return self.render_to_response(context)
 
     def post(self, request):
         create_form_class = self.get_create_form_class()
@@ -650,15 +652,16 @@ class TaskChooserCreateView(BaseTaskChooserView):
             task = self.create_form.save()
             return get_task_chosen_response(request, task)
         else:
-            return self.render_to_response()
+            context = self.get_context_data()
+            return self.render_to_response(context)
 
     def get_context_data(self):
         return self.get_create_tab_context_data()
 
-    def render_to_response(self):
+    def render_to_response(self, context):
         tab_html = render_to_string(
             "wagtailadmin/workflows/task_chooser/includes/create_tab.html",
-            self.get_context_data(), self.request
+            context, self.request
         )
 
         js_context = self.get_form_js_context()
@@ -676,9 +679,13 @@ class TaskChooserResultsView(BaseTaskChooserView):
         return self.get_task_listing_context_data()
 
     def get(self, request):
+        context = self.get_context_data()
+        return self.render_to_response(context)
+
+    def render_to_response(self, context):
         return TemplateResponse(
-            request, "wagtailadmin/workflows/task_chooser/includes/results.html",
-            self.get_context_data()
+            self.request, "wagtailadmin/workflows/task_chooser/includes/results.html",
+            context
         )
 
 
