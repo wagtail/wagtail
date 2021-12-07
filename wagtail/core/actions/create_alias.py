@@ -9,18 +9,7 @@ from wagtail.core.models.i18n import TranslatableMixin
 logger = logging.getLogger("wagtail.core")
 
 
-def create_alias(
-    page,
-    *,
-    recursive=False,
-    parent=None,
-    update_slug=None,
-    update_locale=None,
-    user=None,
-    log_action="wagtail.create_alias",
-    reset_translation_key=True,
-    _mpnode_attrs=None
-):
+class CreatePageAliasAction:
     """
     Creates an alias of the given page.
 
@@ -46,133 +35,185 @@ def create_alias(
     :type reset_translation_key: boolean, optional
     """
 
-    specific_page = page.specific
+    def __init__(
+        self,
+        page,
+        *,
+        recursive=False,
+        parent=None,
+        update_slug=None,
+        update_locale=None,
+        user=None,
+        log_action="wagtail.create_alias",
+        reset_translation_key=True,
+        _mpnode_attrs=None
+    ):
+        self.page = page
+        self.recursive = recursive
+        self.parent = parent
+        self.update_slug = update_slug
+        self.update_locale = update_locale
+        self.user = user
+        self.log_action = log_action
+        self.reset_translation_key = reset_translation_key
+        self._mpnode_attrs = _mpnode_attrs
 
-    # FIXME: Switch to the same fields that are excluded from copy
-    # We can't do this right now because we can't exclude fields from with_content_json
-    # which we use for updating aliases
-    exclude_fields = [
-        "id",
-        "path",
-        "depth",
-        "numchild",
-        "url_path",
-        "path",
-        "index_entries",
-        "postgres_index_entries",
-    ]
+    def _create_alias(
+        self,
+        page,
+        *,
+        recursive,
+        parent,
+        update_slug,
+        update_locale,
+        user,
+        log_action,
+        reset_translation_key,
+        _mpnode_attrs
+    ):
 
-    update_attrs = {
-        "alias_of": page,
-        # Aliases don't have revisions so the draft title should always match the live title
-        "draft_title": page.title,
-        # Likewise, an alias page can't have unpublished changes if it's live
-        "has_unpublished_changes": not page.live,
-    }
+        specific_page = page.specific
 
-    if update_slug:
-        update_attrs["slug"] = update_slug
+        # FIXME: Switch to the same fields that are excluded from copy
+        # We can't do this right now because we can't exclude fields from with_content_json
+        # which we use for updating aliases
+        exclude_fields = [
+            "id",
+            "path",
+            "depth",
+            "numchild",
+            "url_path",
+            "path",
+            "index_entries",
+            "postgres_index_entries",
+        ]
 
-    if update_locale:
-        update_attrs["locale"] = update_locale
+        update_attrs = {
+            "alias_of": page,
+            # Aliases don't have revisions so the draft title should always match the live title
+            "draft_title": page.title,
+            # Likewise, an alias page can't have unpublished changes if it's live
+            "has_unpublished_changes": not page.live,
+        }
 
-    if user:
-        update_attrs["owner"] = user
+        if update_slug:
+            update_attrs["slug"] = update_slug
 
-    # When we're not copying for translation, we should give the translation_key a new value
-    if reset_translation_key:
-        update_attrs["translation_key"] = uuid.uuid4()
+        if update_locale:
+            update_attrs["locale"] = update_locale
 
-    alias, child_object_map = _copy(
-        specific_page, update_attrs=update_attrs, exclude_fields=exclude_fields
-    )
+        if user:
+            update_attrs["owner"] = user
 
-    # Update any translatable child objects
-    for (child_relation, old_pk), child_object in child_object_map.items():
-        if isinstance(child_object, TranslatableMixin):
-            if update_locale:
-                child_object.locale = update_locale
+        # When we're not copying for translation, we should give the translation_key a new value
+        if reset_translation_key:
+            update_attrs["translation_key"] = uuid.uuid4()
 
-            # When we're not copying for translation,
-            # we should give the translation_key a new value for each child object as well.
-            if reset_translation_key:
-                child_object.translation_key = uuid.uuid4()
-
-    # Save the new page
-    if _mpnode_attrs:
-        # We've got a tree position already reserved. Perform a quick save.
-        alias.path = _mpnode_attrs[0]
-        alias.depth = _mpnode_attrs[1]
-        alias.save(clean=False)
-
-    else:
-        if parent:
-            if recursive and (parent == page or parent.is_descendant_of(page)):
-                raise Exception("You cannot copy a tree branch recursively into itself")
-            alias = parent.add_child(instance=alias)
-        else:
-            alias = page.add_sibling(instance=alias)
-
-        _mpnode_attrs = (alias.path, alias.depth)
-
-    _copy_m2m_relations(specific_page, alias, exclude_fields=exclude_fields)
-
-    # Log
-    if log_action:
-        source_parent = specific_page.get_parent()
-        log(
-            instance=alias,
-            action=log_action,
-            user=user,
-            data={
-                "page": {"id": alias.id, "title": alias.get_admin_display_title()},
-                "source": {
-                    "id": source_parent.id,
-                    "title": source_parent.specific_deferred.get_admin_display_title(),
-                } if source_parent else None,
-                "destination": {
-                    "id": parent.id,
-                    "title": parent.specific_deferred.get_admin_display_title(),
-                } if parent else None,
-            },
+        alias, child_object_map = _copy(
+            specific_page, update_attrs=update_attrs, exclude_fields=exclude_fields
         )
-        if alias.live:
-            # Log the publish
+
+        # Update any translatable child objects
+        for (child_relation, old_pk), child_object in child_object_map.items():
+            if isinstance(child_object, TranslatableMixin):
+                if update_locale:
+                    child_object.locale = update_locale
+
+                # When we're not copying for translation,
+                # we should give the translation_key a new value for each child object as well.
+                if reset_translation_key:
+                    child_object.translation_key = uuid.uuid4()
+
+        # Save the new page
+        if _mpnode_attrs:
+            # We've got a tree position already reserved. Perform a quick save.
+            alias.path = _mpnode_attrs[0]
+            alias.depth = _mpnode_attrs[1]
+            alias.save(clean=False)
+
+        else:
+            if parent:
+                if recursive and (parent == page or parent.is_descendant_of(page)):
+                    raise Exception(
+                        "You cannot copy a tree branch recursively into itself"
+                    )
+                alias = parent.add_child(instance=alias)
+            else:
+                alias = page.add_sibling(instance=alias)
+
+            _mpnode_attrs = (alias.path, alias.depth)
+
+        _copy_m2m_relations(specific_page, alias, exclude_fields=exclude_fields)
+
+        # Log
+        if log_action:
+            source_parent = specific_page.get_parent()
             log(
                 instance=alias,
-                action="wagtail.publish",
+                action=log_action,
                 user=user,
+                data={
+                    "page": {"id": alias.id, "title": alias.get_admin_display_title()},
+                    "source": {
+                        "id": source_parent.id,
+                        "title": source_parent.specific_deferred.get_admin_display_title(),
+                    } if source_parent else None,
+                    "destination": {
+                        "id": parent.id,
+                        "title": parent.specific_deferred.get_admin_display_title(),
+                    } if parent else None,
+                },
             )
+            if alias.live:
+                # Log the publish
+                log(
+                    instance=alias,
+                    action="wagtail.publish",
+                    user=user,
+                )
 
-    logger.info(
-        'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
-    )
+        logger.info(
+            'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
+        )
 
-    # Copy child pages
-    if recursive:
-        from wagtail.core.models import Page
+        # Copy child pages
+        if recursive:
+            from wagtail.core.models import Page
 
-        numchild = 0
+            numchild = 0
 
-        for child_page in page.get_children().specific():
-            newdepth = _mpnode_attrs[1] + 1
-            child_mpnode_attrs = (
-                Page._get_path(_mpnode_attrs[0], newdepth, numchild),
-                newdepth,
-            )
-            numchild += 1
-            child_page.create_alias(
-                recursive=True,
-                parent=alias,
-                update_locale=update_locale,
-                user=user,
-                log_action=log_action,
-                reset_translation_key=reset_translation_key,
-                _mpnode_attrs=child_mpnode_attrs,
-            )
+            for child_page in page.get_children().specific():
+                newdepth = _mpnode_attrs[1] + 1
+                child_mpnode_attrs = (
+                    Page._get_path(_mpnode_attrs[0], newdepth, numchild),
+                    newdepth,
+                )
+                numchild += 1
+                child_page.create_alias(
+                    recursive=True,
+                    parent=alias,
+                    update_locale=update_locale,
+                    user=user,
+                    log_action=log_action,
+                    reset_translation_key=reset_translation_key,
+                    _mpnode_attrs=child_mpnode_attrs,
+                )
 
-        if numchild > 0:
-            alias.numchild = numchild
-            alias.save(clean=False, update_fields=["numchild"])
+            if numchild > 0:
+                alias.numchild = numchild
+                alias.save(clean=False, update_fields=["numchild"])
 
-    return alias
+        return alias
+
+    def execute(self):
+        return self._create_alias(
+            self.page,
+            recursive=self.recursive,
+            parent=self.parent,
+            update_slug=self.update_slug,
+            update_locale=self.update_locale,
+            user=self.user,
+            log_action=self.log_action,
+            reset_translation_key=self.reset_translation_key,
+            _mpnode_attrs=self._mpnode_attrs,
+        )
