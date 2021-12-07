@@ -567,6 +567,39 @@ class BaseTaskChooserView(View):
             'error_message': _("Report this error to your webmaster with the following information:"),
         }
 
+    def get_task_listing_context_data(self):
+        search_form = TaskChooserSearchForm(self.request.GET, task_type_choices=self.get_task_type_filter_choices())
+        tasks = all_tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
+        q = ''
+
+        if search_form.is_searching():
+            # Note: I decided not to use wagtailsearch here. This is because
+            # wagtailsearch creates a new index for each model you make
+            # searchable and this might affect someone's quota. I doubt there
+            # would ever be enough tasks to require using anything more than
+            # an icontains anyway.
+            q = search_form.cleaned_data['q']
+            tasks = tasks.filter(name__icontains=q)
+
+        # Pagination
+        paginator = Paginator(tasks, per_page=10)
+        tasks = paginator.get_page(self.request.GET.get('p'))
+
+        return {
+            'search_form': search_form,
+            'tasks': tasks,
+            'all_tasks': all_tasks,
+            'query_string': q,
+            'can_create': self.can_create,
+        }
+
+    def get_create_tab_context_data(self):
+        return {
+            'create_form': self.create_form,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
+            'task_types': self.get_task_type_options(),
+        }
+
 
 class TaskChooserView(BaseTaskChooserView):
     def get(self, request):
@@ -579,20 +612,12 @@ class TaskChooserView(BaseTaskChooserView):
         return self.render_to_response()
 
     def get_context_data(self):
-        search_form = TaskChooserSearchForm(task_type_choices=self.get_task_type_filter_choices())
-        tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
-
-        paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(self.request.GET.get('p'))
-
-        return {
-            'tasks': tasks,
-            'search_form': search_form,
-            'create_form': self.create_form,
+        context = {
             'can_create': self.can_create,
-            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
-            'task_types': self.get_task_type_options(),
         }
+        context.update(self.get_task_listing_context_data())
+        context.update(self.get_create_tab_context_data())
+        return context
 
     def render_to_response(self):
         js_context = self.get_form_js_context()
@@ -628,11 +653,7 @@ class TaskChooserCreateView(BaseTaskChooserView):
             return self.render_to_response()
 
     def get_context_data(self):
-        return {
-            'create_form': self.create_form,
-            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
-            'task_types': self.get_task_type_options(),
-        }
+        return self.get_create_tab_context_data()
 
     def render_to_response(self):
         tab_html = render_to_string(
@@ -652,30 +673,7 @@ class TaskChooserCreateView(BaseTaskChooserView):
 
 class TaskChooserResultsView(BaseTaskChooserView):
     def get_context_data(self):
-        search_form = TaskChooserSearchForm(self.request.GET, task_type_choices=self.get_task_type_filter_choices())
-        tasks = all_tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
-        q = ''
-
-        if search_form.is_searching():
-            # Note: I decided not to use wagtailsearch here. This is because
-            # wagtailsearch creates a new index for each model you make
-            # searchable and this might affect someone's quota. I doubt there
-            # would ever be enough tasks to require using anything more than
-            # an icontains anyway.
-            q = search_form.cleaned_data['q']
-            tasks = tasks.filter(name__icontains=q)
-
-        # Pagination
-        paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(self.request.GET.get('p'))
-
-        return {
-            'search_form': search_form,
-            'tasks': tasks,
-            'all_tasks': all_tasks,
-            'query_string': q,
-            'can_create': self.can_create,
-        }
+        return self.get_task_listing_context_data()
 
     def get(self, request):
         return TemplateResponse(
