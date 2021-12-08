@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.15.2 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Fixed transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
