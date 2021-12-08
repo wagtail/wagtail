@@ -10,10 +10,14 @@ Changelog
  * Private pages can now be fetched over the API (Nabil Khalil)
  * Added `alias_of` field to the pages API (Dmitrii Faiazov)
  * Add support for Azure CDN and Front Door front-end cache invalidation (Tomasz Knapik)
- * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
 
+
+2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
 
 
 2.15.1 (11.11.2021)
