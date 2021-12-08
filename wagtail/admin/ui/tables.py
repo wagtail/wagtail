@@ -179,6 +179,7 @@ class UserColumn(Column):
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
     classname = 'listing'
+    header_row_classname = ''
 
     def __init__(self, columns, data, template_name=None, base_url=None, ordering=None):
         self.columns = OrderedDict([
