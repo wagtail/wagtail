@@ -9,6 +9,7 @@ from django.views.generic.base import View
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.ui.tables import Column, DateColumn, Table, TitleColumn
 from wagtail.core import hooks
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
@@ -34,6 +35,19 @@ def get_document_chosen_response(request, document):
             'edit_link': reverse('wagtaildocs:edit', args=(document.id,)),
         }}
     )
+
+
+class DownloadColumn(Column):
+    cell_template_name = "wagtaildocs/tables/download_cell.html"
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context['download_url'] = instance.url
+        return context
+
+
+class ResultsTable(Table):
+    header_row_classname = 'table-headers'
 
 
 class BaseChooseView(View):
@@ -84,12 +98,26 @@ class BaseChooseView(View):
         if len(self.collections) < 2:
             self.collections = None
 
+        columns = [
+            TitleColumn(
+                'title', label=_("Title"), url_name='wagtaildocs:document_chosen', link_classname='document-choice'
+            ),
+            DownloadColumn('filename', label=_("File")),
+            DateColumn('created_at', label=_("Created"), width='16%'),
+        ]
+
+        if self.collections:
+            columns.insert(2, Column('collection', label=_("Collection")))
+
+        self.table = ResultsTable(columns, self.documents)
+
         return self.render_to_response()
 
     def get_context_data(self):
         return {
             'documents': self.documents,
             'documents_exist': self.documents_exist,
+            'table': self.table,
             'uploadform': self.uploadform,
             'query_string': self.q,
             'searchform': self.searchform,

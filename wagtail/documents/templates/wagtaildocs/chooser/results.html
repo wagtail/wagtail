@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if documents %}
     {% if is_searching %}
         <h2 role="alert">
@@ -12,43 +12,7 @@
         <h2>{% trans "Latest documents" %}</h2>
     {% endif %}
 
-    <table class="listing">
-        <col />
-        <col  />
-        {% if collections %}
-            <col />
-        {% endif %}
-        <col width="16%" />
-        <thead>
-            <tr class="table-headers">
-                <th>{% trans "Title" %}</th>
-                <th>{% trans "File" %}</th>
-                {% if collections %}
-                    <th>{% trans "Collection" %}</th>
-                {% endif %}
-                <th>{% trans "Created" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for doc in documents %}
-                <tr>
-                    <td class="title">
-                        <div class="title-wrapper"><a href="{% url 'wagtaildocs:document_chosen' doc.id %}" class="document-choice">{{ doc.title }}</a></div>
-                    </td>
-                    <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>
-                    {% if collections %}
-                        <td>{{ doc.collection.name }}</td>
-                    {% endif %}
-                    <td>
-                        <div class="human-readable-date" title="{{ doc.created_at|date:"DATETIME_FORMAT" }}">
-                            {% blocktrans with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
-                        </div>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+    {% component table %}
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents linkurl='wagtaildocs:chooser_results' %}
 {% else %}
     {% if documents_exist %}
