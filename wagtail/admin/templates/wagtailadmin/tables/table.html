@@ -7,7 +7,7 @@
         {% endfor %}
     {% endif %}
     <thead>
-        <tr>
+        <tr {% if table.header_row_classname %}class="{{ table.header_row_classname }}"{% endif %}>
             {% for column in table.columns.values %}
                 {% component column.header %}
             {% endfor %}
