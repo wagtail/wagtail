@@ -58,7 +58,7 @@
         </tbody>
     </table>
 
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=tasks %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=tasks linkurl='wagtailadmin_workflows:task_chooser_results' %}
 {% else %}
     {% if all_tasks.exists %}
         <p role="alert">{% blocktrans %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
