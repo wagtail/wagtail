@@ -19,7 +19,7 @@
         </thead>
         <tbody>
             {% for snippet in items %}
-                <tr id="snippet-row-{{ snippet.pk }}">
+                <tr>
                     <td class="title">
                         <div class="title-wrapper"><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
                     </td>
