@@ -55,7 +55,8 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
     }
 
-    const searchUrl = $('form.task-search', modal.body).attr('action');
+    const searchForm = $('form.task-search', modal.body);
+    const searchUrl = searchForm.attr('action');
     let request;
 
     function fetchResults(url, requestData) {
@@ -77,11 +78,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     }
 
     function search() {
-      fetchResults(searchUrl, {
-        // eslint-disable-next-line id-length
-        q: $('#id_q').val(),
-        task_type: $('#id_task_type').val(),
-      });
+      fetchResults(searchUrl, searchForm.serialize());
       return false;
     }
 
