@@ -130,6 +130,7 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
     permission_required = 'add'
     success_message = None
     error_message = None
+    submit_button_label = gettext_lazy("Create")
 
     def get_add_url(self):
         return reverse(self.add_url_name)
@@ -150,6 +151,7 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['action_url'] = self.get_add_url()
+        context['submit_button_label'] = self.submit_button_label
         return context
 
     def save_instance(self):
@@ -192,6 +194,7 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
     delete_item_label = gettext_lazy("Delete")
     success_message = None
     error_message = None
+    submit_button_label = gettext_lazy("Save")
 
     def get_object(self, queryset=None):
         if 'pk' not in self.kwargs:
@@ -249,6 +252,7 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['action_url'] = self.get_edit_url()
+        context['submit_button_label'] = self.submit_button_label
         context['delete_url'] = self.get_delete_url()
         context['delete_item_label'] = self.delete_item_label
         context['can_delete'] = (
