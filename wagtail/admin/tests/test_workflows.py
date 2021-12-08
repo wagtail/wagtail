@@ -580,7 +580,7 @@ class TestCreateTaskView(TestCase, WagtailTestUtils):
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/workflows/create_task.html')
+        self.assertTemplateUsed(response, 'wagtailadmin/generic/create.html')
 
     def test_get_with_non_task_model(self):
         response = self.get(url_kwargs={'app_label': 'wagtailcore', 'model_name': 'Site'})

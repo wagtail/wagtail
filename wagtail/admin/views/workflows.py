@@ -356,7 +356,6 @@ class CreateTask(CreateView):
     permission_policy = task_permission_policy
     model = None
     page_title = _("New workflow task")
-    template_name = 'wagtailadmin/workflows/create_task.html'
     success_message = _("Task '{0}' created.")
     add_url_name = 'wagtailadmin_workflows:add_task'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
