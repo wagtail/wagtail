@@ -1,6 +1,11 @@
 {% load wagtailadmin_tags %}
 
 <table {% if table.classname %}class="{{ table.classname }}"{% endif %}>
+    {% if table.has_column_widths %}
+        {% for column in table.columns.values %}
+            <col {% if column.width %}width="{{ column.width }}"{% endif %} />
+        {% endfor %}
+    {% endif %}
     <thead>
         <tr>
             {% for column in table.columns.values %}

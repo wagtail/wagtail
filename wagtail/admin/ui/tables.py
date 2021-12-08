@@ -39,13 +39,14 @@ class Column(metaclass=MediaDefiningClass):
     header_template_name = "wagtailadmin/tables/column_header.html"
     cell_template_name = "wagtailadmin/tables/cell.html"
 
-    def __init__(self, name, label=None, accessor=None, classname=None, sort_key=None):
+    def __init__(self, name, label=None, accessor=None, classname=None, sort_key=None, width=None):
         self.name = name
         self.accessor = accessor or name
         self.label = label or capfirst(name.replace('_', ' '))
         self.classname = classname
         self.sort_key = sort_key
         self.header = Column.Header(self)
+        self.width = width
 
     def get_header_context_data(self, parent_context):
         """
@@ -207,6 +208,9 @@ class Table(Component):
     def rows(self):
         for instance in self.data:
             yield Table.Row(self.columns, instance)
+
+    def has_column_widths(self):
+        return any(column.width for column in self.columns.values())
 
     class Row(Mapping):
         # behaves as an OrderedDict whose items are the rendered results of
