@@ -15,10 +15,6 @@ from wagtail.search.index import class_is_indexed
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 
-class ResultsTable(Table):
-    header_row_classname = 'table-headers'
-
-
 class SnippetTitleColumn(TitleColumn):
     def __init__(self, name, model, **kwargs):
         self.model_opts = model._meta
@@ -87,7 +83,7 @@ class BaseChooseView(View):
         paginator = Paginator(items, per_page=25)
         self.paginated_items = paginator.get_page(request.GET.get('p'))
 
-        self.table = ResultsTable([
+        self.table = Table([
             SnippetTitleColumn('title', self.model, label=_('Title'), link_classname='snippet-choice'),
         ], self.paginated_items)
 

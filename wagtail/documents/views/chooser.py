@@ -46,10 +46,6 @@ class DownloadColumn(Column):
         return context
 
 
-class ResultsTable(Table):
-    header_row_classname = 'table-headers'
-
-
 class BaseChooseView(View):
     def get(self, request):
         Document = get_document_model()
@@ -109,7 +105,7 @@ class BaseChooseView(View):
         if self.collections:
             columns.insert(2, Column('collection', label=_("Collection")))
 
-        self.table = ResultsTable(columns, self.documents)
+        self.table = Table(columns, self.documents)
 
         return self.render_to_response()
 
