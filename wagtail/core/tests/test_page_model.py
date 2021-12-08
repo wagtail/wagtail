@@ -22,6 +22,7 @@ from wagtail.core.models import (
     Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
     get_page_models, get_translatable_models)
 from wagtail.core.signals import page_published
+from wagtail.core.utils import get_dummy_request
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,
     BusinessIndex, BusinessNowherePage, BusinessSubIndex, CustomManager, CustomManagerPage,
@@ -252,6 +253,7 @@ class TestRouting(TestCase):
             homepage.get_url_parts(),
             (default_site.id, 'http://localhost', '/')
         )
+        self.assertEqual(homepage.get_root_relative_url(default_site.root_path), "/")
         self.assertEqual(homepage.full_url, 'http://localhost/')
         self.assertEqual(homepage.url, '/')
         self.assertEqual(homepage.relative_url(default_site), '/')
@@ -264,17 +266,18 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.full_url, 'http://localhost/events/christmas/')
         self.assertEqual(christmas_page.url, '/events/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), '/events/christmas/')
+        self.assertEqual(christmas_page.get_root_relative_url(default_site.root_path), '/events/christmas/')
         self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_page_with_no_url(self):
         root = Page.objects.get(url_path='/')
         default_site = Site.objects.get(is_default_site=True)
 
-        self.assertEqual(root.get_url_parts(), None)
-        self.assertEqual(root.full_url, None)
-        self.assertEqual(root.url, None)
-        self.assertEqual(root.relative_url(default_site), None)
-        self.assertEqual(root.get_site(), None)
+        self.assertIsNone(root.get_url_parts())
+        self.assertIsNone(root.full_url)
+        self.assertIsNone(root.url)
+        self.assertIsNone(root.relative_url(default_site))
+        self.assertIsNone(root.get_site())
 
     @override_settings(ALLOWED_HOSTS=['localhost', 'testserver', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
@@ -300,6 +303,7 @@ class TestRouting(TestCase):
         self.assertEqual(homepage.url, 'http://localhost/')
         self.assertEqual(homepage.relative_url(default_site), '/')
         self.assertEqual(homepage.relative_url(events_site), 'http://localhost/')
+        self.assertEqual(homepage.get_root_relative_url(default_site.root_path), '/')
         self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(
@@ -310,23 +314,81 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
+        self.assertEqual(christmas_page.get_root_relative_url(default_site.root_path), "/events/christmas/")
+        self.assertEqual(christmas_page.get_root_relative_url(events_site.root_path), "/christmas/")
+        self.assertEqual(christmas_page.get_root_relative_url(second_events_site.root_path), "/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
 
-        request = HttpRequest()
-        request.META['HTTP_HOST'] = events_site.hostname
-        request.META['SERVER_PORT'] = events_site.port
-
+        # `site` can be used to influence the return value of `get_url_parts()`
+        events_site_parts = christmas_page.get_url_parts(site=events_site)
         self.assertEqual(
-            christmas_page.get_url_parts(request=request),
+            events_site_parts,
             (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
-        request2 = HttpRequest()
-        request2.META['HTTP_HOST'] = second_events_site.hostname
-        request2.META['SERVER_PORT'] = second_events_site.port
+        second_event_site_parts = christmas_page.get_url_parts(site=second_events_site)
         self.assertEqual(
-            christmas_page.get_url_parts(request=request2),
+            second_event_site_parts,
             (second_events_site.id, 'http://second-events.example.com', '/christmas/')
+        )
+
+        # we get the same results when providing just the site pk
+        self.assertEqual(
+            christmas_page.get_url_parts(site=events_site.pk),
+            events_site_parts
+        )
+        self.assertEqual(
+            christmas_page.get_url_parts(site=second_events_site.pk),
+            second_event_site_parts
+        )
+
+        # if the page isn't 'in' the provided site, an error will be raised
+        with self.assertRaises(ValueError):
+            homepage.get_url_parts(site=events_site)
+
+        # non `HttpRequest` values are acceptable for `request`, and
+        # do not affect the result
+        for request_value in (events_page, default_site, events_site):
+            self.assertEqual(
+                christmas_page.get_url_parts(request=request_value),
+                (events_site.id, 'http://events.example.com', '/christmas/')
+            )
+
+        # When `request` is a `HttpRequest` from a site, the result is flavoured to
+        # the relevant site
+        default_site_request = get_dummy_request(site=default_site)
+        events_site_request = get_dummy_request(site=events_site)
+        second_events_site_request = get_dummy_request(site=second_events_site)
+
+        self.assertEqual(
+            christmas_page.get_url_parts(request=default_site_request),
+            (default_site.id, 'http://localhost', '/events/christmas/')
+        )
+        self.assertEqual(
+            christmas_page.get_url_parts(request=events_site_request),
+            (events_site.id, 'http://events.example.com', '/christmas/')
+        )
+        self.assertEqual(
+            christmas_page.get_url_parts(request=second_events_site_request),
+            (second_events_site.id, 'http://second-events.example.com', '/christmas/')
+        )
+
+        # When `request` is a `HttpRequest` from some other domain, details for the
+        # 'default' site root path are returned
+        request = HttpRequest()
+        request.META['HTTP_HOST'] = 'testserver'
+        request.META['SERVER_PORT'] = 80
+
+        self.assertEqual(
+            christmas_page.get_url_parts(request=request),
+            (default_site.id, 'http://localhost', '/events/christmas/')
+        )
+
+        # When `site` and `request` are both used, the influence of
+        # the `site` over the return value is greater
+        self.assertEqual(
+            christmas_page.get_url_parts(request=second_events_site_request, site=events_site.pk),
+            (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
@@ -365,8 +427,8 @@ class TestRouting(TestCase):
             homepage.get_url_parts(),
             (default_site.id, None, None)
         )
-        self.assertEqual(homepage.full_url, None)
-        self.assertEqual(homepage.url, None)
+        self.assertIsNone(homepage.full_url)
+        self.assertIsNone(homepage.url)
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')

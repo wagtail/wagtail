@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Locale, Page, Site, SiteRootPath
 
 
 class TestSiteNaturalKey(TestCase):
@@ -158,6 +158,42 @@ class TestDefaultSite(TestCase):
         with self.assertRaises(Site.MultipleObjectsReturned):
             # If there already are multiple default sites, you're in trouble
             site.clean_fields()
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestSiteInstanceRootPaths(TestCase):
+
+    def setUp(self):
+        self.no_content_language_code = "ja"
+        self.site = Site.objects.select_related("root_page", "root_page__locale").first()
+        self.root_page = Page.objects.get(depth=1)
+        self.english_root_path = SiteRootPath(self.site.id, '/home/', 'http://localhost', 'en')
+
+    def test_without_alternative_languages_roots(self):
+        self.assertEqual(self.site.root_paths, [self.english_root_path])
+        self.assertEqual(self.site.get_root_path(), self.english_root_path)
+        self.assertEqual(self.site.get_root_path(self.no_content_language_code), self.english_root_path)
+        self.assertEqual(self.site.root_path, self.english_root_path)
+
+    def test_with_alternative_language_roots(self):
+        # set up some alternative locales
+        french_locale = Locale.objects.create(language_code="fr")
+        dutch_locale = Locale.objects.create(language_code="nl")
+
+        # create some translations of the root page
+        self.site.root_page.copy_for_translation(french_locale)
+        self.site.root_page.copy_for_translation(dutch_locale)
+
+        # define some root paths to use in equality checks below
+        french_root_path = SiteRootPath(self.site.pk, "/home-fr/", "http://localhost", "fr")
+        dutch_root_path = SiteRootPath(self.site.pk, "/home-nl/", "http://localhost", "nl")
+
+        self.assertEqual(self.site.root_paths, [self.english_root_path, french_root_path, dutch_root_path])
+        self.assertEqual(self.site.get_root_path(), self.english_root_path)
+        self.assertEqual(self.site.get_root_path("fr"), french_root_path)
+        self.assertEqual(self.site.get_root_path("nl"), dutch_root_path)
+        self.assertEqual(self.site.get_root_path(self.no_content_language_code), self.english_root_path)
+        self.assertEqual(self.site.root_path, self.english_root_path)
 
 
 class TestGetSiteRootPaths(TestCase):
