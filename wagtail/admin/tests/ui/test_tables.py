@@ -40,6 +40,32 @@ class TestTable(TestCase):
             </table>
         ''')
 
+    def test_table_render_with_width(self):
+        data = [
+            {'first_name': 'Paul', 'last_name': 'Simon'},
+            {'first_name': 'Art', 'last_name': 'Garfunkel'},
+        ]
+
+        table = Table([
+            Column('first_name'),
+            Column('last_name', width='75%'),
+        ], data)
+
+        html = self.render_component(table)
+        self.assertHTMLEqual(html, '''
+            <table class="listing">
+                <col />
+                <col width="75%" />
+                <thead>
+                    <tr><th>First name</th><th>Last name</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Paul</td><td>Simon</td></tr>
+                    <tr><td>Art</td><td>Garfunkel</td></tr>
+                </tbody>
+            </table>
+        ''')
+
     def test_title_column(self):
         root_page = Page.objects.filter(depth=2).first()
         blog = Site.objects.create(hostname='blog.example.com', site_name='My blog', root_page=root_page)
