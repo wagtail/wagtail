@@ -556,6 +556,7 @@ Contributors
 * Md. Fahim Bin Amin
 * Michael Karamuth
 * Vu Pham
+* Khanh Hoang
 
 Translators
 ===========
