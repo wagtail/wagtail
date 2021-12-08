@@ -14,3 +14,4 @@ Bug fixes
 ~~~~~~~~~
 
  * Fixed transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
+ * Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
