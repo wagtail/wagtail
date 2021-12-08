@@ -1523,8 +1523,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Treebeard's move method doesn't actually update the in-memory instance,
             # so we need to work with a freshly loaded one now
             new_self = Page.objects.get(id=self.id)
+
+            # Update url_path without triggering slug-change handling in save()
             new_self.url_path = new_url_path
-            new_self.save()
+            new_self.save(update_fields=["url_path"])
 
             # Update descendant paths if url_path has changed
             if url_path_changed:
