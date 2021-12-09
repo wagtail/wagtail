@@ -141,11 +141,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         # Get subscribers to individual threads
         replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
         comments = Comment.objects.filter(id__in=relevant_comment_ids)
-        thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).prefetch_related(
+        thread_users = get_user_model().objects.exclude(pk=self.request.user.pk).exclude(pk__in=subscribers.values_list('user_id', flat=True)).filter(
+            Q(comment_replies__comment_id__in=relevant_comment_ids) | Q(**{('%s__pk__in' % COMMENTS_RELATION_NAME): relevant_comment_ids})
+        ).prefetch_related(
             Prefetch('comment_replies', queryset=replies),
             Prefetch(COMMENTS_RELATION_NAME, queryset=comments)
-        ).exclude(
-            Q(comment_replies__isnull=True) & Q(**{('%s__isnull' % COMMENTS_RELATION_NAME): True})
         )
 
         # Skip if no recipients

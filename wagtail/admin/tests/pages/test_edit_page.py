@@ -2100,6 +2100,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.subscriber = self.create_user('subscriber')
         self.non_subscriber = self.create_user('non-subscriber')
         self.non_subscriber_2 = self.create_user('non-subscriber-2')
+        self.never_emailed_user = self.create_user('never-emailed')
 
         PageSubscription.objects.create(
             page=self.child_page,
@@ -2112,6 +2113,23 @@ class TestCommenting(TestCase, WagtailTestUtils):
             user=self.subscriber,
             comment_notifications=True
         )
+
+        # Add comment and reply on a different page for the never_emailed_user
+        # They should never be notified
+        comment_on_other_page = Comment.objects.create(
+            page=self.root_page,
+            user=self.never_emailed_user,
+            text='a comment'
+        )
+
+        CommentReply.objects.create(
+            user=self.never_emailed_user,
+            comment=comment_on_other_page,
+            text='a reply'
+        )
+
+    def assertNeverEmailedWrongUser(self):
+        self.assertNotIn(self.never_emailed_user.email, [to for email in mail.outbox for to in email.to])
 
     def test_new_comment(self):
         post_data = {
@@ -2144,6 +2162,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 1)
+        self.assertNeverEmailedWrongUser()
         self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
         self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('New comments:\n - "A test comment"\n\n', mail.outbox[0].body)
@@ -2283,6 +2302,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 2)
+        self.assertNeverEmailedWrongUser()
         # The non subscriber created the comment, so should also get an email
         self.assertEqual(mail.outbox[0].to, [self.non_subscriber.email])
         self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
@@ -2337,6 +2357,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 1)
+        self.assertNeverEmailedWrongUser()
         self.assertEqual(mail.outbox[0].to, [self.subscriber.email])
         self.assertEqual(mail.outbox[0].subject, 'test@email.com has updated comments on "I\'ve been edited! (simple page)"')
         self.assertIn('Deleted comments:\n - "A test comment"\n\n', mail.outbox[0].body)
@@ -2398,6 +2419,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         # Check notification email
         self.assertEqual(len(mail.outbox), 3)
+        self.assertNeverEmailedWrongUser()
 
         recipients = [mail.to for mail in mail.outbox]
         # The other non subscriber replied in the thread, so should get an email
