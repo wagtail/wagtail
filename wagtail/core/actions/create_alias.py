@@ -77,7 +77,8 @@ class CreatePageAliasAction:
         self._mpnode_attrs = _mpnode_attrs
 
     def check(self, skip_permission_checks=False):
-        if self.recursive and self.parent and (self.parent == self.page or self.parent.is_descendant_of(self.page)):
+        parent = self.parent or self.page.get_parent()
+        if self.recursive and (parent == self.page or parent.is_descendant_of(self.page)):
             raise CreatePageAliasIntegrityError(
                 "You cannot copy a tree branch recursively into itself"
             )
@@ -85,8 +86,7 @@ class CreatePageAliasAction:
         if (
             self.user
             and not skip_permission_checks
-            and self.parent
-            and not self.parent.permissions_for_user(self.user).can_publish_subpage()
+            and not parent.permissions_for_user(self.user).can_publish_subpage()
         ):
             raise CreatePageAliasPermissionError(
                 "You do not have permission to publish a page at the destination"
