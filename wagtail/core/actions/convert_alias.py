@@ -61,6 +61,8 @@ class ConvertAliasPageAction:
                 },
             )
 
+        return page
+
     def execute(self, skip_permission_checks=False):
         self.check(skip_permission_checks=skip_permission_checks)
 
