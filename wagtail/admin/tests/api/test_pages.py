@@ -11,7 +11,11 @@ from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.tests.demosite import models
+<<<<<<< HEAD
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
+=======
+from wagtail.tests.testapp.models import EventIndex, SimplePage, StreamPage
+>>>>>>> Add create page alias admin API
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -1379,6 +1383,118 @@ class TestCopyForTranslationAction(AdminAPITestCase):
         self.assertEqual(response.status_code, 404)
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(content, {"message": "No Locale matches the given query."})
+
+
+class TestCreatePageAliasAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.events_index = EventIndex.objects.get(url_path="/home/events/")
+        self.about_us = SimplePage.objects.get(url_path="/home/about-us/")
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "create_alias"]),
+            data,
+        )
+
+    def test_create_alias(self):
+        # Set a different draft title, aliases are not supposed to
+        # have a different draft_title because they don't have revisions.
+        # This should be corrected when copying
+        self.about_us.draft_title = "Draft title"
+        self.about_us.save(update_fields=["draft_title"])
+
+        response = self.get_response(
+            self.about_us.id, data={"update_slug": "new-about-us"}
+        )
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        new_about_us = Page.objects.get(id=content["id"])
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us.specific, SimplePage)
+        self.assertEqual(new_about_us.slug, "new-about-us")
+        # Draft title should be changed to match the live title
+        self.assertEqual(new_about_us.draft_title, "About us")
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(self.about_us.id, new_about_us.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, "/home/new-about-us/")
+
+        # Check that the alias_of field was filled in
+        self.assertEqual(new_about_us.alias_of.specific, self.about_us)
+
+    def test_create_alias_recursive(self):
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "update_slug": "new-events-index"},
+        )
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        new_events_index = Page.objects.get(id=content["id"])
+
+        # Get christmas event
+        old_christmas_event = (
+            self.events_index.get_children().filter(slug="christmas").first()
+        )
+        new_christmas_event = (
+            new_events_index.get_children().filter(slug="christmas").first()
+        )
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(
+            old_christmas_event, None, "Child pages were removed from original page"
+        )
+
+        # Check that the url path was updated
+        self.assertEqual(
+            new_christmas_event.url_path, "/home/new-events-index/christmas/"
+        )
+
+        # Check that the children were also created as aliases
+        self.assertEqual(new_christmas_event.alias_of, old_christmas_event)
+
+    def test_create_alias_doesnt_copy_recursively_to_the_same_tree(self):
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "destination_page_id": self.events_index.id},
+        )
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content,
+            {"message": "You cannot copy a tree branch recursively into itself"},
+        )
+
+    def test_create_alias_without_publish_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "update_slug": "new-events-index"},
+        )
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
 
 
 # Overwrite imported test cases do Django doesn't run them
