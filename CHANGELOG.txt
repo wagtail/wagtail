@@ -4,6 +4,7 @@ Changelog
 2.16 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Removed support for Python 3.6
  * Added Aging Pages report (Tidjani Dia)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
  * Add collapse option to `StreamField`, `StreamBlock`, and `ListBlock` which will load all sub-blocks initially collapsed (Matt Westcott)
