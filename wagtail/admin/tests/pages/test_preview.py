@@ -325,20 +325,20 @@ class TestDisablePreviewButton(TestCase, WagtailTestUtils):
     def test_disable_preview_on_revisions_list(self):
         simple_page = SimplePage(title='simple page', content="hello")
         self.root_page.add_child(instance=simple_page)
-        simple_page.save_revision()
+        simple_page.save_revision(log_action=True)
 
         # check preview shows up by default
-        response = self.client.get(reverse('wagtailadmin_pages:revisions_index', args=(simple_page.id,)))
+        response = self.client.get(reverse('wagtailadmin_pages:history', args=(simple_page.id,)))
         preview_url = reverse('wagtailadmin_pages:revisions_view', args=(simple_page.id, simple_page.get_latest_revision().id))
         self.assertContains(response, 'Preview')
         self.assertContains(response, preview_url)
 
         stream_page = StreamPage(title='stream page', body=[('text', 'hello')])
         self.root_page.add_child(instance=stream_page)
-        latest_revision = stream_page.save_revision()
+        latest_revision = stream_page.save_revision(log_action=True)
 
         # StreamPage has preview_modes = []
-        response = self.client.get(reverse('wagtailadmin_pages:revisions_index', args=(stream_page.id,)))
+        response = self.client.get(reverse('wagtailadmin_pages:history', args=(stream_page.id,)))
         preview_url = reverse('wagtailadmin_pages:revisions_view', args=(stream_page.id, latest_revision.id))
         self.assertNotContains(response, 'Preview')
         self.assertNotContains(response, preview_url)
