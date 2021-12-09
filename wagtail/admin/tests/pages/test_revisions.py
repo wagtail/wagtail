@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
-from django.utils import formats
-from django.utils.dateparse import parse_date
 from freezegun import freeze_time
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
@@ -44,31 +42,8 @@ class TestRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
         )
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(response, formats.localize(parse_date('2013-12-25')))
-        last_christmas_preview_url = reverse(
-            'wagtailadmin_pages:revisions_view',
-            args=(self.christmas_event.id, self.last_christmas_revision.id)
-        )
-        last_christmas_revert_url = reverse(
-            'wagtailadmin_pages:revisions_revert',
-            args=(self.christmas_event.id, self.last_christmas_revision.id)
-        )
-        self.assertContains(response, last_christmas_preview_url)
-        self.assertContains(response, last_christmas_revert_url)
-
-        self.assertContains(response, formats.localize(local_datetime(2014, 12, 25)))
-        this_christmas_preview_url = reverse(
-            'wagtailadmin_pages:revisions_view',
-            args=(self.christmas_event.id, self.this_christmas_revision.id)
-        )
-        this_christmas_revert_url = reverse(
-            'wagtailadmin_pages:revisions_revert',
-            args=(self.christmas_event.id, self.this_christmas_revision.id)
-        )
-        self.assertContains(response, this_christmas_preview_url)
-        self.assertContains(response, this_christmas_revert_url)
+        history_url = reverse('wagtailadmin_pages:history', args=(self.christmas_event.id, ))
+        self.assertRedirects(response, history_url)
 
     def request_preview_revision(self):
         last_christmas_preview_url = reverse(
