@@ -40,6 +40,25 @@ Page model recipe of to have redirects created automatically when changing a pag
 
 For an editor's guide to the interface, see :ref:`managing_redirects`.
 
+Automatic redirect creation
+===========================
+
+.. versionadded:: 2.16
+
+Wagtail comes with an option to automatically create permanent redirects for pages (and their descendants) when they are moved or have their slug changed. This feature is disabled by default, but you can enable it for your project by adding the following to your settings:
+
+.. code-block:: python
+
+  WAGTAILREDIRECTS_AUTOCREATE = True
+
+Enabling this feature will help protect SEO rankings for your pages as they are moved or renamed, and can also be benefitial for sites that do some form of content caching, because site visitors clicking on page links in stale content should end up at the correct URL.
+
+Is this right for my project?
+-----------------------------
+
+Wagtail's default implementation works best for small or medium-sized projects (5000 pages or fewer) that mostly use Wagtail's built-in methods for URL generation (Overrides to `Page.get_url_parts()` will be respected, but require additional database queries for each item where custom model fields are used to generate the return value).
+
+If your project does a lot of overriding of URL-related methods, or has sections with tens or hundreds of thousands of pages that you want to be able to move freely - the default implementation might not work so well.
 
 Management commands
 ===================
