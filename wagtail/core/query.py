@@ -164,6 +164,23 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.live_q())
 
+    def ever_live_q(self):
+        return Q(Q(last_published_at__isnull=False) | Q(live=True))
+
+    def ever_live(self):
+        """
+        This filters the QuerySet to only contain pages that have at some
+        point in their history been published.
+        """
+        return self.filter(self.ever_live_q())
+
+    def never_live(self):
+        """
+        This filters the QuerySet to only contain pages that have never
+        been published before (have always been drafts).
+        """
+        return self.exclude(self.ever_live_q())
+
     def in_menu_q(self):
         return Q(show_in_menus=True)
 
