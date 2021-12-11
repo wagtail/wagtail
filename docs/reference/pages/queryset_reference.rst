@@ -50,6 +50,22 @@ Reference
 
             unpublished_pages = Page.objects.not_live()
 
+    .. automethod:: ever_live
+
+        Example:
+
+        .. code-block:: python
+
+            published_or_once_published_pages = Page.objects.ever_live()
+
+    .. automethod:: never_live
+
+        Example:
+
+        .. code-block:: python
+
+            never_published_pages = Page.objects.never_live()
+
     .. automethod:: in_menu
 
         Example:
