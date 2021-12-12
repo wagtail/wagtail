@@ -406,6 +406,8 @@
 
     &.button-small {
         line-height: 1.7rem;
+        height: 1.8rem;
+        width: 1.8rem;
 
         .icon {
             padding: 0.25em;
@@ -415,11 +417,6 @@
     @include media-breakpoint-up(sm) {
         width: 2.2rem;
         height: 2.2rem;
-
-        &.button-small {
-            height: 1.8rem;
-            width: 1.8rem;
-        }
     }
 }
 
