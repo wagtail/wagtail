@@ -12,7 +12,7 @@ function createPageChooser(id, openAtParentId, options) {
   createPageChooser. State is either null (= no page chosen) or a dict of id, parentId,
   adminTitle (the admin display title) and editUrl.
   The result returned from the page chooser modal (which is ultimately built from the data
-  attributes in wagtailadmin/pages/listing/_page_title_choose.html) is a superset of this, and
+  attributes on the link in wagtailadmin/pages/listing/_list_choose.html) is a superset of this, and
   can therefore be passed directly to chooser.setState.
   */
   let state = null;
