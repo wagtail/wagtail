@@ -83,7 +83,7 @@ jobs:
       # Only install if node_modules wasn’t cached.
       - run: |
             if [[ ! -e "client/tests/integration/node_modules" ]]; then
-                npm --prefix ./client/tests/integration install --no-save --no-optional --no-audit --no-fund --progress=false
+                npm --prefix ./client/tests/integration ci
             fi
       - save_cache:
           key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
