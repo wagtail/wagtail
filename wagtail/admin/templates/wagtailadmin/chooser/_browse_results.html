@@ -3,9 +3,9 @@
 <h2>{% trans "Explorer" %}</h2>
 {% include "wagtailadmin/shared/chooser_breadcrumb.html" with page=parent_page %}
 
-{% if pages %}
-    {% include "wagtailadmin/pages/listing/_list_choose.html" with allow_navigation=1 pages=pages parent_page=parent_page %}
+{% if results %}
+    {% include "wagtailadmin/pages/listing/_list_choose.html" with allow_navigation=1 pages=results %}
 
     {% url 'wagtailadmin_choose_page_child' parent_page.id as pagination_base_url %}
-    {% paginate pages base_url=pagination_base_url classnames="navigate-pages" %}
+    {% paginate pagination_page base_url=pagination_base_url classnames="navigate-pages" %}
 {% endif %}

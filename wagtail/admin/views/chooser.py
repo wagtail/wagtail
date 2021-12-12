@@ -128,6 +128,8 @@ def browse(request, parent_page_id=None):
     # Parent page can be chosen if it is a instance of desired_classes
     parent_page.can_choose = can_choose_page(
         parent_page, permission_proxy, desired_classes, can_choose_root, user_perm, target_pages=target_pages, match_subclass=match_subclass)
+    parent_page.is_parent_page = True
+    parent_page.can_descend = False
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -139,12 +141,14 @@ def browse(request, parent_page_id=None):
     for page in pages:
         page.can_choose = can_choose_page(page, permission_proxy, desired_classes, can_choose_root, user_perm, target_pages=target_pages, match_subclass=match_subclass)
         page.can_descend = page.get_children_count()
+        page.is_parent_page = False
 
     # Render
     context = shared_context(request, {
         'parent_page': parent_page,
         'parent_page_id': parent_page.pk,
-        'pages': pages,
+        'results': [parent_page] + list(pages),
+        'pagination_page': pages,
         'search_form': SearchForm(),
         'page_type_string': page_type_string,
         'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
@@ -189,6 +193,7 @@ def search(request, parent_page_id=None):
 
     for page in pages:
         page.can_choose = True
+        page.is_parent_page = False
 
     return TemplateResponse(
         request, 'wagtailadmin/chooser/_search_results.html',
