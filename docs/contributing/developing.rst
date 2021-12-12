@@ -184,10 +184,16 @@ We use `Jest <https://jestjs.io/>`_ for unit tests of client-side business logic
 Integration tests
 -----------------
 
-Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, combined with `Puppeteer <https://pptr.dev/>`_. We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. Install the dependencies and run the tests with:
+Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, combined with `Puppeteer <https://pptr.dev/>`_. We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and run the test suite’s Django development server:
 
 .. code-block:: console
 
+    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ # Assumes the current environment contains a valid installation of Wagtail for local development.
+    $ ./wagtail/tests/manage.py migrate
+    $ ./wagtail/tests/manage.py createcachetable
+    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/tests/manage.py createsuperuser --noinput
+    $ ./wagtail/tests/manage.py runserver 0:8000
     $ npm --prefix client/tests/integration install
     $ npm run test:integration
 
