@@ -6,11 +6,13 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls.base import reverse
+from django.utils.translation import gettext as _
 
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
+from wagtail.admin.ui.tables import Column, DateColumn, Table
 from wagtail.core import hooks
 from wagtail.core.models import Page, Site, UserPagePermissionsProxy
 from wagtail.core.utils import resolve_model_string
@@ -73,6 +75,47 @@ def can_choose_page(page, permission_proxy, desired_classes, can_choose_root=Tru
         return permission_proxy.for_page(page).can_add_subpage()
 
     return True
+
+
+class PageChooserTable(Table):
+    classname = 'listing chooser'
+
+    def get_row_classname(self, page):
+        classnames = []
+        if page.is_parent_page:
+            classnames.append('parent-page')
+        if not page.live:
+            classnames.append('unpublished')
+        if not page.can_choose:
+            classnames.append('disabled')
+
+        return ' '.join(classnames)
+
+
+class PageTitleColumn(Column):
+    cell_template_name = 'wagtailadmin/chooser/tables/page_title_cell.html'
+
+    def get_value(self, instance):
+        return instance.get_admin_display_title()
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context['page'] = instance
+        return context
+
+
+class ParentPageColumn(Column):
+    cell_template_name = 'wagtailadmin/chooser/tables/parent_page_cell.html'
+
+    def get_value(self, instance):
+        return instance.get_parent()
+
+
+class PageStatusColumn(Column):
+    cell_template_name = 'wagtailadmin/chooser/tables/page_status_cell.html'
+
+    def get_value(self, instance):
+        return instance
 
 
 def browse(request, parent_page_id=None):
@@ -195,10 +238,19 @@ def search(request, parent_page_id=None):
         page.can_choose = True
         page.is_parent_page = False
 
+    table = PageChooserTable([
+        PageTitleColumn('title', label=_("Title")),
+        ParentPageColumn('parent', label=_("Parent")),
+        DateColumn('updated', label=_("Updated"), width='12%', accessor='latest_revision_created_at'),
+        Column('type', label=_("Type"), width='12%', accessor='content_type.model_class.get_verbose_name'),
+        PageStatusColumn('status', label=_("Status"), width='12%'),
+    ], pages)
+
     return TemplateResponse(
         request, 'wagtailadmin/chooser/_search_results.html',
         shared_context(request, {
             'searchform': search_form,
+            'table': table,
             'pages': pages,
             'page_type_string': page_type_string,
         })
