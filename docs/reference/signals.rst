@@ -127,6 +127,24 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the ``u
     # Register a receiver
     pre_page_move.connect(clear_old_page_urls_from_cache)
 
+``page_url_path_changed``
+-------------------------
+
+This signal is emitted from a ``Page`` after its ``url_path`` value has changed as a result of:
+
+- The publishing of a change to it's `slug`.
+- A page being moved to a different part of the tree.
+
+If you rely on Wagtail's built-in methods for URL generation and routing, a change to the ``url_path`` value
+is essentially the best indicator that the URL of a page (and most likely all of its descendants) has changed.
+
+The following arguments are emitted by this signal:
+
+:sender: The page ``class``.
+:instance: The generic ``Page`` instance.
+:url_path_before: The value of ``instance.url_path`` **before** the change.
+:url_path_after: The value of ``instance.url_path`` **after** the change.
+:log_entry: A ``PageLogEntry`` instance detailing the action that triggered the signal to be emitted. This value could be `None` if the action was unclear.
 
 workflow_submitted
 ------------------
