@@ -3,7 +3,7 @@ describe('Editor', () => {
     '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar, li[aria-controls^="tab-"]';
   beforeAll(async () => {
     await page.goto(
-      'http://localhost:8000/admin/pages/add/demosite/standardpage/2/'
+      `${TEST_ORIGIN}/admin/pages/add/demosite/standardpage/2/`
     );
   });
 

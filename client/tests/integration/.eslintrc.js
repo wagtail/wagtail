@@ -15,7 +15,8 @@ module.exports = {
     node: true
   },
   globals: {
-    page: 'readonly'
+    page: 'readonly',
+    TEST_ORIGIN: 'readonly'
   },
   settings: {
     'import/resolver': {

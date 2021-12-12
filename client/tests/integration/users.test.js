@@ -1,6 +1,6 @@
 describe('Users', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8000/admin/users/', { waitUntil: 'load' });
+    await page.goto(`${TEST_ORIGIN}/admin/users/`);
   });
 
   it('axe', async () => {
