@@ -1,6 +1,6 @@
 describe('Groups', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8000/admin/groups/2/');
+    await page.goto(`${TEST_ORIGIN}/admin/groups/2/`);
   }, 10000);
 
   it('has the right heading', async () => {

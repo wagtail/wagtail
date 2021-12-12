@@ -1,6 +1,6 @@
 describe('Homepage', () => {
   beforeAll(async () => {
-    await page.goto('http://localhost:8000/admin/', {
+    await page.goto(`${TEST_ORIGIN}/admin/`, {
       waitUntil: 'domcontentloaded',
     });
   });
