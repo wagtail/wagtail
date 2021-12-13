@@ -42,7 +42,10 @@ class Column(metaclass=MediaDefiningClass):
     def __init__(self, name, label=None, accessor=None, classname=None, sort_key=None, width=None):
         self.name = name
         self.accessor = accessor or name
-        self.label = label or capfirst(name.replace('_', ' '))
+        if label is None:
+            self.label = capfirst(name.replace('_', ' '))
+        else:
+            self.label = label
         self.classname = classname
         self.sort_key = sort_key
         self.header = Column.Header(self)

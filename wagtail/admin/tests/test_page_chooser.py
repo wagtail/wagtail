@@ -41,9 +41,9 @@ class TestChooserBrowse(TestCase, WagtailTestUtils):
 
         with self.register_hook('construct_page_chooser_queryset', filter_pages):
             response = self.get()
-        # 'results' in the template context consists of the parent page followed by the queryset
-        self.assertEqual(len(response.context['results']), 2)
-        self.assertEqual(response.context['results'][1].specific, page)
+        # table data in the template context consists of the parent page followed by the queryset
+        self.assertEqual(len(response.context['table'].data), 2)
+        self.assertEqual(response.context['table'].data[1].specific, page)
 
 
 class TestCanChooseRootFlag(TestCase, WagtailTestUtils):
@@ -116,7 +116,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         pages = {
             page.id: page
-            for page in response.context['results']
+            for page in response.context['table'].data
         }
 
         # Child page is a simple page directly underneath root
@@ -151,7 +151,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         page_urls = [
             page.url
-            for page in response.context['pages']
+            for page in response.context['table'].data
         ]
 
         self.assertIn('/foo/pointless-suffix/', page_urls)
@@ -180,7 +180,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
 
         pages = {
             page.id: page
-            for page in response.context['results']
+            for page in response.context['table'].data
         }
 
         # Simple page in results, as before

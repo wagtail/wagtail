@@ -118,6 +118,18 @@ class PageStatusColumn(Column):
         return instance
 
 
+class PageNavigateToChildrenColumn(Column):
+    cell_template_name = 'wagtailadmin/chooser/tables/page_navigate_to_children_cell.html'
+
+    def get_value(self, instance):
+        return instance
+
+    def get_cell_context_data(self, instance, parent_context):
+        context = super().get_cell_context_data(instance, parent_context)
+        context['page'] = instance
+        return context
+
+
 def browse(request, parent_page_id=None):
     # A missing or empty page_type parameter indicates 'all page types'
     # (i.e. descendants of wagtailcore.page)
@@ -186,11 +198,19 @@ def browse(request, parent_page_id=None):
         page.can_descend = page.get_children_count()
         page.is_parent_page = False
 
+    table = PageChooserTable([
+        PageTitleColumn('title', label=_("Title")),
+        DateColumn('updated', label=_("Updated"), width='12%', accessor='latest_revision_created_at'),
+        Column('type', label=_("Type"), width='12%', accessor='content_type.model_class.get_verbose_name'),
+        PageStatusColumn('status', label=_("Status"), width='12%'),
+        PageNavigateToChildrenColumn('children', label='', width='10%')
+    ], [parent_page] + list(pages))
+
     # Render
     context = shared_context(request, {
         'parent_page': parent_page,
         'parent_page_id': parent_page.pk,
-        'results': [parent_page] + list(pages),
+        'table': table,
         'pagination_page': pages,
         'search_form': SearchForm(),
         'page_type_string': page_type_string,
