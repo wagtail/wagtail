@@ -16,6 +16,7 @@ from .actions.create_alias import CreatePageAliasAPIAction
 from .actions.delete import DeletePageAPIAction
 from .actions.move import MovePageAPIAction
 from .actions.publish import PublishPageAPIAction
+from .actions.revert_to_page_revision import RevertToPageRevisionAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
@@ -34,6 +35,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'move': MovePageAPIAction,
         'copy_for_translation': CopyForTranslationAPIAction,
         'create_alias': CreatePageAliasAPIAction,
+        'revert_to_page_revision': RevertToPageRevisionAPIAction,
     }
 
     # Add has_children and for_explorer filters
