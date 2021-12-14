@@ -6,19 +6,24 @@
             {% if page.is_root %}
                 {# Root section is shown as a 'site' icon in place of the title #}
                 {% trans "Root" as root %}
-                <li class="home"><a href="{% url 'wagtailadmin_explore_root' %}">{% icon name="site" class_name="home_icon" title=root %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="home breadcrumb-item"><a class="breadcrumb-link" href="{% url 'wagtailadmin_explore_root' %}">{% icon name="site" class_name="home_icon" title=root %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             {% elif forloop.first %}
                 {# For limited-permission users whose breadcrumb starts further down from the root, the first item displays as a 'home' icon in place of the title #}
                 {% trans 'Home' as home %}
-                <li class="home"><a href="{% url 'wagtailadmin_explore' page.id %}">{% icon name="site" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon"%}</a></li>
+                <li class="home breadcrumb-item"><a class="breadcrumb-link" href="{% url 'wagtailadmin_explore' page.id %}">{% icon name="site" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon"%}</a></li>
             {% elif forloop.last %}
-                <li><a href="{% url 'wagtailadmin_explore' page.id %}"><span class="title">{{ page.get_admin_display_title }}</span>
-                {% if trailing_arrow %}
-                    {% icon name="arrow-right" class_name="arrow_right_icon" %}
-                {% endif %}
-                </a></li>
+                <li class="breadcrumb-item">
+                    <a class="breadcrumb-link" href="{% url 'wagtailadmin_explore' page.id %}"><span class="title">{{ page.get_admin_display_title }}</span>
+                    {% if trailing_arrow %}
+                        {% icon name="arrow-right" class_name="arrow_right_icon" %}
+                    {% endif %}
+                    </a>
+                    {% if show_header_buttons %}
+                        {% page_header_buttons current_page page_perms %}
+                    {% endif %}
+                </li>
             {% else %}
-                <li><a href="{% url 'wagtailadmin_explore' page.id %}"><span class="title">{{ page.get_admin_display_title }}</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item"><a class="breadcrumb-link" href="{% url 'wagtailadmin_explore' page.id %}"><span class="title">{{ page.get_admin_display_title }}</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
