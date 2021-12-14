@@ -490,6 +490,20 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
+@register.inclusion_tag("wagtailadmin/pages/listing/_button_with_dropdown.html",
+                        takes_context=True)
+def page_header_buttons(context, page, page_perms, is_parent=False):
+    next_url = context.request.path
+    button_hooks = hooks.get_hooks('register_page_header_buttons')
+
+    buttons = []
+    for hook in button_hooks:
+        buttons.extend(hook(page, page_perms, is_parent, next_url))
+
+    buttons.sort()
+    return {'page': page, 'buttons': buttons}
+
+
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
                         takes_context=True)
 def bulk_action_choices(context, app_label, model_name):

@@ -289,6 +289,54 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
         )
 
 
+@hooks.register('register_page_header_buttons')
+def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
+    if page_perms.can_move():
+        yield Button(
+            _('Move'),
+            reverse('wagtailadmin_pages:move', args=[page.id]),
+            attrs={"title": _("Move page '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=10
+        )
+    if page_perms.can_copy():
+        url = reverse('wagtailadmin_pages:copy', args=[page.id])
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
+        yield Button(
+            _('Copy'),
+            url,
+            attrs={'title': _("Copy page '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=20
+        )
+    if page_perms.can_add_subpage():
+        yield Button(
+            _('Add child page'),
+            reverse('wagtailadmin_pages:add_subpage', args=[page.id]),
+            attrs={
+                'aria-label': _("Add a child page to '%(title)s' ") % {'title': page.get_admin_display_title()},
+            },
+            priority=30
+        )
+
+    if page_perms.can_delete():
+        url = reverse('wagtailadmin_pages:delete', args=[page.id])
+
+        # After deleting the page, it is impossible to redirect to it.
+        if next_url == reverse('wagtailadmin_explore', args=[page.id]):
+            next_url = None
+
+        if next_url:
+            url += '?' + urlencode({'next': next_url})
+
+        yield Button(
+            _('Delete'),
+            url,
+            attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
+            priority=40
+        )
+
+
 @hooks.register('register_admin_urls')
 def register_viewsets_urls():
     viewsets.populate()
