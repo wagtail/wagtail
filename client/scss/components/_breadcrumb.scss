@@ -1,14 +1,13 @@
 .breadcrumb {
     @include unlist();
     @include clearfix();
-    overflow: hidden;
     padding-top: 1.4em;
     font-size: 0.85em;
     line-height: 1.5em;
     margin-left: 2em;
     background: $color-teal;
 
-    li {
+    .breadcrumb-item {
         display: block;
         float: left;
         position: relative;
@@ -20,9 +19,22 @@
             background: $color-teal-dark;
         }
 
+        &:last-child {
+            display: flex;
+        }
+
+        .t-default .u-btn-current {
+            color: inherit;
+            padding: calc(0.5em - 6px) 1em;
+        }
+
+        .t-dark {
+            font-size: 0.8rem;
+        }
+
     }
 
-    a {
+    .breadcrumb-link {
         color: $color-white;
         display: block;
         padding: calc(0.5em - 4px) 1em;
