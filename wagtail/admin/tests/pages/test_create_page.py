@@ -656,6 +656,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(page, SimplePage)
 
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
             return HttpResponse("Overridden!")
 
         with self.register_hook('after_create_page', hook_func):
@@ -675,10 +679,41 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
+    def test_after_create_page_hook_with_page_publish(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            self.assertIsNotNone(page.first_published_at)
+            self.assertIsNotNone(page.last_published_at)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_create_page', hook_func):
+            post_data = {
+                'title': "New page!",
+                'content': "Some content",
+                'slug': 'hello-world',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
+
     def test_after_publish_page(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(page.title, "New page!")
+
+            self.assertIsNotNone(page.first_published_at)
+            self.assertIsNotNone(page.last_published_at)
 
             return HttpResponse("Overridden!")
 
@@ -703,6 +738,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(page.title, "New page!")
+
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
 
             return HttpResponse("Overridden!")
 
