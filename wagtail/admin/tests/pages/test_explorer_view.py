@@ -307,8 +307,8 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
         expected_url = reverse('wagtailadmin_explore', args=(Page.objects.get(url_path='/home/secret-plans/').id, ))
         expected = """
-            <li>
-                <a href="%s"><span class="title">Secret plans (simple page)</span>
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="%s"><span class="title">Secret plans (simple page)</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
                     </svg>
@@ -515,8 +515,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
         self.assertEqual(response.status_code, 200)
         expected = """
-            <li class="home">
-                <a href="/admin/pages/">
+            <li class="home breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/">
                     <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-site"></use>
                     </svg>
@@ -529,8 +529,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/4/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/4/">
                     <span class="title">Welcome to example.com!</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -540,8 +540,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/5/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -558,8 +558,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
         expected = """
-            <li class="home">
-                <a href="/admin/pages/4/">
+            <li class="home breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/4/">
                     <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-site"></use>
                     </svg>
@@ -572,8 +572,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/5/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -598,7 +598,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # Since Mary has no page permissions, she should not see the breadcrumb
-        self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
+        self.assertNotContains(response, """<li class="home breadcrumb-item"><a class="breadcrumb-link" href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
