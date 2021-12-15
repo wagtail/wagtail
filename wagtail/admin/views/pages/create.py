@@ -170,6 +170,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         revision.publish(user=self.request.user)
 
+        # get a fresh copy so that any changes coming from revision.publish() are passed on
+        self.page.refresh_from_db()
+
         response = self.run_hook('after_publish_page', self.request, self.page)
         if response:
             return response
