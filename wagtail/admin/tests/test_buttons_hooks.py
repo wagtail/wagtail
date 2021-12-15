@@ -102,7 +102,7 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Another useless dropdown button in &quot;One more more button&quot; dropdown')
 
     def test_register_page_header_buttons(self):
-        def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
+        def page_header_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.Button(
                 'Another useless header button',
                 '/custom-url',
