@@ -290,7 +290,7 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
 
 
 @hooks.register('register_page_header_buttons')
-def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
+def page_header_buttons(page, page_perms, next_url=None):
     if page_perms.can_move():
         yield Button(
             _('Move'),
