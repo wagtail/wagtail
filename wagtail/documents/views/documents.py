@@ -179,7 +179,8 @@ def edit(request, document_id):
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
                 messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
             ])
-            return redirect('wagtaildocs:index')
+            success_url = reverse('wagtaildocs:index') + "?" + request.GET.urlencode()
+            return redirect(success_url)
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:

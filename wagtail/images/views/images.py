@@ -155,7 +155,8 @@ def edit(request, image_id):
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
             ])
-            return redirect('wagtailimages:index')
+            success_url = reverse('wagtailimages:index') + "?" + request.GET.urlencode()
+            return redirect(success_url)
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
