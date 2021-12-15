@@ -548,6 +548,36 @@ Hooks for customising the editing interface for pages and snippets.
         )
 
 
+.. register_page_header_buttons:
+
+``register_page_header_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the secondary dropdown menu in the page edit view. This works similarly to the ``register_page_listing_buttons`` hook.
+
+  This example will add a simple button to the secondary dropdown menu:
+
+  .. code-block:: python
+
+    from wagtail.admin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_header_buttons')
+    def page_header_buttons(page, page_perms, next_url=None):
+        yield wagtailadmin_widgets.Button(
+            'A dropdown button',
+            '/goes/to/a/url/',
+            priority=60
+        )
+
+  The arguments passed to the hook are as follows:
+
+  * ``page`` - the page object to generate the button for
+  * ``page_perms`` - a ``PagePermissionTester`` object that can be queried to determine the current user's permissions on the given page
+  * ``next_url`` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=60``.
+
+
 Editor workflow
 ---------------
 
