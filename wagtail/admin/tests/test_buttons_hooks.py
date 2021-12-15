@@ -101,6 +101,24 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
         self.assertContains(response, 'One more more button')
         self.assertContains(response, 'Another useless dropdown button in &quot;One more more button&quot; dropdown')
 
+    def test_register_page_header_buttons(self):
+        def page_header_buttons(page, page_perms, is_parent=False, next_url=None):
+            yield wagtailadmin_widgets.Button(
+                'Another useless header button',
+                '/custom-url',
+                priority=10
+            )
+
+        with hooks.register_temporarily('register_page_header_buttons', page_header_buttons):
+            response = self.client.get(
+                reverse('wagtailadmin_pages:edit', args=(self.root_page.id, ))
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailadmin/pages/listing/_button_with_dropdown.html')
+
+        self.assertContains(response, 'Another useless header button')
+
     def test_delete_button_next_url(self):
         page_perms = PagePerms()
         page = self.root_page
