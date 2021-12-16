@@ -504,7 +504,12 @@ def page_header_buttons(context, page, page_perms):
         buttons.extend(hook(page, page_perms, next_url))
 
     buttons.sort()
-    return {'page': page, 'buttons': buttons, 'button_classes': ['c-dropdown__icon']}
+    return {
+        'page': page,
+        'buttons': buttons,
+        'title': 'Secondary actions menu',
+        'button_classes': ['c-dropdown__icon'],
+    }
 
 
 @register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
