@@ -35,6 +35,28 @@ class TestPageQuerySet(TestCase):
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
         self.assertTrue(pages.filter(id=event.id).exists())
 
+    def test_ever_live(self):
+        results = Page.objects.ever_live()
+
+        # Check for inclusions:
+        self.assertIn(Page.objects.get(slug="secret-plans", live=True), results)
+        self.assertIn(Page.objects.get(slug="businessy-events", live=False, first_published_at__isnull=True, last_published_at__isnull=False), results)
+
+        # Check for exclusions:
+        self.assertNotIn(Page.objects.get(slug="board-meetings", live=False, last_published_at__isnull=True), results)
+        self.assertNotIn(Page.objects.get(slug="tentative-unpublished-event", live=False, last_published_at__isnull=True), results)
+
+    def test_never_live(self):
+        results = Page.objects.never_live()
+
+        # Check for inclusions:
+        self.assertIn(Page.objects.get(slug="board-meetings", live=False, last_published_at__isnull=True), results)
+        self.assertIn(Page.objects.get(slug="tentative-unpublished-event", live=False, last_published_at__isnull=True), results)
+
+        # Check for exclusions:
+        self.assertNotIn(Page.objects.get(slug="secret-plans", live=True), results)
+        self.assertNotIn(Page.objects.get(slug="businessy-events", live=False, first_published_at__isnull=True, last_published_at__isnull=False), results)
+
     def test_in_menu(self):
         pages = Page.objects.in_menu()
 
