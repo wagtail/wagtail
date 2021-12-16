@@ -10,6 +10,7 @@ Here is how you can access the edit screen of an existing page:
 .. image:: ../_static/images/screen12_edit_screen_overview.png
 
 * When editing an existing page the title of the page being edited is displayed at the top of the page.
+* You can perform various actions (such as copy, move or delete a page) by opening the secondary menu at the right of the top breadcrumb.
 * Underneath the title, you can find the page type and a link to the page history.
 * If published, a link to the live version of the page is shown on the top right.
 * You can toggle commenting mode by clicking the icon in the top right, which also shows the number of comments.
