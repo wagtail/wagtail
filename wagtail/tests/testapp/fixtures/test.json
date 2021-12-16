@@ -429,7 +429,8 @@
         "path": "0001000100010006",
         "url_path": "/home/events/businessy-events/",
         "slug": "businessy-events",
-        "owner": 2
+        "owner": 2,
+        "last_published_at": "2014-01-31T12:00:00.000Z"
     }
 },
 {
