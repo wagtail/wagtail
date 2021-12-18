@@ -16,7 +16,6 @@ Changelog
  * Add `page_url_path_changed` signal for pages (Andy Babic)
  * Fix: 'Page move' actions being incorrectly logged as 'Page reorder' under some circumstances (Andy Babic)
  * Add `ever_live()` and `never_live()` filters to `PageQuerySet` (Andy Babic)
- * Add automatic redirect creation (Andy Babic, with sponsorship from [The National Archives](https://www.nationalarchives.gov.uk))
 
 
 2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
