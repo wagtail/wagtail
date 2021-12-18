@@ -209,10 +209,7 @@ class TestAuditLog(TestCase):
             instance=SimplePage(title="About us", slug="about", content="hello")
         )
         user = get_user_model().objects.first()
-        # move() interprets `target` as an intended 'sibling' by default, so
-        # we must use `pos` to indicate that `self.home_page` should be the
-        # new 'parent'
-        section.move(self.home_page, pos="last-child", user=user)
+        section.move(self.home_page, user=user)
 
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.move', user=user).count(), 1)
         self.assertEqual(PageLogEntry.objects.filter(action='wagtail.reorder', user=user).count(), 0)

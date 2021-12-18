@@ -52,9 +52,9 @@ from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, page_url_path_changed, post_page_move, pre_page_move,
-    pre_validate_delete, task_approved, task_cancelled, task_rejected, task_submitted,
-    workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
+    page_published, page_unpublished, post_page_move, pre_page_move, pre_validate_delete,
+    task_approved, task_cancelled, task_rejected, task_submitted, workflow_approved,
+    workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
@@ -482,8 +482,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
+        update_descendant_url_paths = False
         is_new = self.id is None
-        slug_changed = False
 
         if is_new:
             # we are creating a record. If we're doing things properly, this should happen
@@ -499,18 +499,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 old_record = Page.objects.get(id=self.id)
                 if old_record.slug != self.slug:
                     self.set_url_path(self.get_parent())
-                    slug_changed = True
+                    update_descendant_url_paths = True
                     old_url_path = old_record.url_path
                     new_url_path = self.url_path
 
         result = super().save(**kwargs)
 
-        if slug_changed:
+        if not is_new and update_descendant_url_paths:
             self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
         # Note: New translations of existing site roots are considered site roots as well, so we must
-        # always check if this page is a site root, even if it's new.
+        #       always check if this page is a site root, even if it's new.
         if self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
@@ -526,34 +526,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 self.url_path
             )
 
-        log_entry = None
         if log_action is not None:
             # The default for log_action is False. i.e. don't log unless specifically instructed
             # Page creation is a special case that we want logged by default, but allow skipping it
             # explicitly by passing log_action=None
             if is_new:
-                log_entry = log(
+                log(
                     instance=self,
                     action='wagtail.create',
                     user=user or self.owner,
                     content_changed=True,
                 )
             elif log_action:
-                log_entry = log(
+                log(
                     instance=self,
                     action=log_action,
                     user=user
                 )
-
-        if slug_changed:
-            # Emit page_url_path_changed signal only on successful commit
-            transaction.on_commit(lambda: page_url_path_changed.send(
-                sender=self.specific_class or self.__class__,
-                instance=self,
-                url_path_before=old_url_path,
-                url_path_after=new_url_path,
-                log_entry=log_entry,
-            ))
 
         return result
 
@@ -1503,7 +1492,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         old_self = Page.objects.get(id=self.id)
         old_url_path = old_self.url_path
         new_url_path = old_self.set_url_path(parent=parent_after)
-        url_path_changed = old_url_path != new_url_path
 
         # Emit pre_page_move signal
         pre_page_move.send(
@@ -1523,13 +1511,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Treebeard's move method doesn't actually update the in-memory instance,
             # so we need to work with a freshly loaded one now
             new_self = Page.objects.get(id=self.id)
-
-            # Update url_path without triggering slug-change handling in save()
             new_self.url_path = new_url_path
-            new_self.save(update_fields=["url_path"])
+            new_self.save()
 
             # Update descendant paths if url_path has changed
-            if url_path_changed:
+            if old_url_path != new_url_path:
                 new_self._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Emit post_page_move signal
@@ -1543,10 +1529,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         )
 
         # Log
-        log_entry = log(
+        log(
             instance=self,
             # Check if page was reordered (reordering doesn't change the parent)
-            action='wagtail.move' if parent_before.id != parent_after.id else 'wagtail.reorder',
+            action='wagtail.reorder' if parent_before.id == target.id else 'wagtail.move',
             user=user,
             data={
                 'source': {
@@ -1560,16 +1546,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             }
         )
         logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
-
-        if url_path_changed:
-            # Emit page_url_path_changed signal
-            page_url_path_changed.send(
-                sender=self.specific_class or self.__class__,
-                instance=self,
-                url_path_before=old_url_path,
-                url_path_after=new_url_path,
-                log_entry=log_entry,
-            )
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
              process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):
@@ -1997,10 +1973,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def get_cached_paths(self):
         """
-        This returns a list of paths to invalidate in a frontend cache, or when
-        create redirects when the page's URL changes as a result of a slug
-        change or move. These values are automatically added to the page's
-        default URL to create full URLs.
+        This returns a list of paths to invalidate in a frontend cache
         """
         return ['/']
 
