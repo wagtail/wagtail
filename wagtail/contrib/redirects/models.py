@@ -1,7 +1,5 @@
 from urllib.parse import urlparse
 
-from django.contrib.contenttypes.fields import GenericForeignKey
-from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -29,25 +27,6 @@ class Redirect(models.Model):
         on_delete=models.CASCADE
     )
     redirect_link = models.URLField(verbose_name=_("redirect to any URL"), blank=True, max_length=255)
-    automatically_created = models.BooleanField(
-        verbose_name=_("automatically created"),
-        default=False,
-        editable=False,
-    )
-    created_at = models.DateTimeField(verbose_name=_("created at"), auto_now=True, null=True)
-    trigger_content_type = models.ForeignKey(
-        ContentType,
-        models.SET_NULL,
-        blank=True,
-        null=True,
-        related_name='+',
-    )
-    trigger_id = models.PositiveIntegerField(
-        blank=True,
-        null=True,
-        db_index=True,
-    )
-    trigger = GenericForeignKey("trigger_content_type", "trigger_id")
 
     @property
     def title(self):
@@ -79,12 +58,11 @@ class Redirect(models.Model):
             return cls.objects.all()
 
     @staticmethod
-    def add_redirect(old_path, redirect_to=None, is_permanent=True, site=None, automatically_created=False):
+    def add_redirect(old_path, redirect_to=None, is_permanent=True):
         """
         Create and save a Redirect instance with a single method.
 
         :param old_path: the path you wish to redirect
-        :param site: the Site (instance) the redirect is applicable to (if not all sites)
         :param redirect_to: a Page (instance) or path (string) where the redirect should point
         :param is_permanent: whether the redirect should be indicated as permanent (i.e. 301 redirect)
         :return: Redirect instance
@@ -93,7 +71,6 @@ class Redirect(models.Model):
 
         # Set redirect properties from input parameters
         redirect.old_path = Redirect.normalise_path(old_path)
-        redirect.site = site
 
         # Check whether redirect to is string or Page
         if isinstance(redirect_to, Page):
@@ -104,7 +81,6 @@ class Redirect(models.Model):
             redirect.redirect_link = redirect_to
 
         redirect.is_permanent = is_permanent
-        redirect.automatically_created = automatically_created
 
         redirect.save()
 
