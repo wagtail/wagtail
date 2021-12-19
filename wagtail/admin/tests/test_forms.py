@@ -14,5 +14,5 @@ class TestLoginForm(TestCase):
     def test_extra_fields(self):
         form = CustomLoginForm()
         self.assertEqual(list(form.extra_fields), [
-            ('captcha', form.fields['captcha'])
+            ('captcha', form['captcha'])
         ])

@@ -60,3 +60,11 @@ class TestLoginView(TestCase, WagtailTestUtils):
     def test_bidi_language_changes_dir_attribute(self):
         response = self.client.get(reverse('wagtailadmin_login'))
         self.assertContains(response, '<html class="no-js" lang="he" dir="rtl">')
+
+    @override_settings(WAGTAILADMIN_USER_LOGIN_FORM="wagtail.admin.tests.test_forms.CustomLoginForm")
+    def test_login_page_renders_extra_fields(self):
+
+        response = self.client.get(reverse('wagtailadmin_login'))
+        form = response.context['form']
+        expected_widget = str(form['captcha'])
+        self.assertInHTML(expected_widget, str(response.content))
