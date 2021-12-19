@@ -51,6 +51,22 @@ class TestLoginView(TestCase, WagtailTestUtils):
         response = self.client.get(login_url)
         self.assertRedirects(response, homepage_admin_url)
 
+    def test_session_expire_on_browser_close(self):
+        self.client.post(reverse('wagtailadmin_login'), {
+            'username': 'test@email.com',
+            'password': 'password',
+        })
+        self.assertTrue(self.client.session.get_expire_at_browser_close())
+
+    @override_settings(SESSION_COOKIE_AGE=7)
+    def test_session_expiry_remember(self):
+        self.client.post(reverse('wagtailadmin_login'), {
+            'username': 'test@email.com',
+            'password': 'password',
+            'remember': True
+        })
+        self.assertEqual(self.client.session.get_expiry_age(), 7)
+
     @override_settings(LANGUAGE_CODE='de')
     def test_language_code(self):
         response = self.client.get(reverse('wagtailadmin_login'))

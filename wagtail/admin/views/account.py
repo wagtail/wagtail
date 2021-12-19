@@ -2,11 +2,11 @@ from collections import OrderedDict
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth import update_session_auth_hash, login
 from django.contrib.auth import views as auth_views
 from django.db import transaction
 from django.forms import Media
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
@@ -311,6 +311,16 @@ class LoginView(auth_views.LoginView):
 
     def get_form_class(self):
         return get_user_login_form()
+
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        remember = form.cleaned_data.get('remember')
+        if remember:
+            self.request.session.set_expiry(settings.SESSION_COOKIE_AGE)
+        else:
+            self.request.session.set_expiry(0)
+
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

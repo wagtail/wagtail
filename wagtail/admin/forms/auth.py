@@ -14,6 +14,8 @@ class LoginForm(AuthenticationForm):
             'placeholder': gettext_lazy("Enter password"),
         }))
 
+    remember = forms.BooleanField(required=False)
+
     def __init__(self, request=None, *args, **kwargs):
         super().__init__(request=request, *args, **kwargs)
         self.fields['username'].widget.attrs['placeholder'] = (
@@ -22,7 +24,7 @@ class LoginForm(AuthenticationForm):
     @property
     def extra_fields(self):
         for field_name, field in self.fields.items():
-            if field_name not in ['username', 'password']:
+            if field_name not in ['username', 'password', 'remember']:
                 yield field_name, field
 
 
