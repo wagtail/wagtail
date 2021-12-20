@@ -19,12 +19,17 @@
             background: $color-teal-dark;
         }
 
-        &:last-child {
-            display: flex;
+        &.breadcrumb-dropdown {
+            padding: 0;
+            font-size: initial;
         }
 
         .t-default .u-btn-current {
             color: inherit;
+            background: rgba(0, 91, 94, 0.6);
+            font-size: 1.15em;
+            border: 0;
+            line-height: 1.6;
         }
     }
 
