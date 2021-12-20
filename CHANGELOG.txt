@@ -17,6 +17,7 @@ Changelog
  * Removed WOFF fonts
  * Add system check for missing core Page fields in `search_fields` (LB (Ben Johnston))
  * Improve CircleCI frontend & backend build caches (Thibaud Colas)
+ * Add a 'remember me' checkbox to the admin sign in form, if unticked (default) the auth session will expire if the browser is closed (Michael Karamuth, Jake Howard)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
