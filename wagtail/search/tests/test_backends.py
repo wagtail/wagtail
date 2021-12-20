@@ -560,7 +560,7 @@ class BackendTests(WagtailTestUtils):
                              'JavaScript: The good parts'})
 
     def test_plain_text_multiple_words_and(self):
-        results = self.backend.search(PlainText('JavaScript Definitive',
+        results = self.backend.search(PlainText('JavaScript Definitive Guide',
                                                 operator='and'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
