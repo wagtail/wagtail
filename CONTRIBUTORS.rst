@@ -551,6 +551,7 @@ Contributors
 * Shariq Jamil
 * Kyle Bayliss
 * Justin Michalicek
+* Vu Pham
 
 Translators
 ===========
