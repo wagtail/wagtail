@@ -20,7 +20,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     if viewed_page_id:
         viewed_page = get_object_or_404(Page, id=viewed_page_id)
     else:
-        viewed_page = Page.get_first_root_node()
+        viewed_page = page_to_move.get_parent()
 
     viewed_page.can_choose = page_perms.can_move_to(viewed_page)
 
