@@ -59,6 +59,15 @@ header {
         }
     }
 
+    &.header-with-breadcrumb {
+        padding-top: 0;
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            padding-left: revert;
+        }
+    }
+
     &.tab-merged,
     &.no-border {
         border: 0;
