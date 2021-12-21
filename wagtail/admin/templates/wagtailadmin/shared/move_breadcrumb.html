@@ -1,0 +1,14 @@
+{% load i18n wagtailadmin_tags %}
+
+<nav aria-label="{% trans 'Breadcrumb' %}">
+    <ul class="breadcrumb">
+        {% for page in pages %}
+            <li>
+                <a href="{% url 'wagtailadmin_pages:move_choose_destination' page_to_move_id page.id %}">
+                    <span class="title">{{ page.get_admin_display_title }}</span>
+                    {% icon name="arrow-right" class_name="arrow_right_icon" %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
