@@ -1,5 +1,7 @@
 import json
 
+from urllib.parse import quote
+
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -8,7 +10,7 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.html import escapejs
-from django.utils.http import RFC3986_SUBDELIMS, urlquote
+from django.utils.http import RFC3986_SUBDELIMS, urlencode, urlquote
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -101,6 +103,23 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
+
+    def test_edit_image_link_contains_next_url(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(size=(1, 1)),
+            collection=evil_plans_collection
+        )
+
+        response = self.get({'collection_id': evil_plans_collection.id})
+        self.assertEqual(response.status_code, 200)
+
+        edit_url = reverse('wagtailimages:edit', args=(image.id,))
+        next_url = quote(response._request.get_full_path())
+        self.assertContains(response, '%s?next=%s' % (edit_url, next_url))
 
     def test_tags(self):
         image_two_tags = Image.objects.create(
@@ -493,6 +512,20 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
 
+    def test_next_url_is_present_in_edit_form(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(size=(1, 1)),
+            collection=evil_plans_collection
+        )
+        expected_next_url = reverse('wagtailimages:index') + "?" + urlencode({"collection_id": evil_plans_collection.id})
+
+        response = self.client.get(reverse('wagtailimages:edit', args=(image.id,)), {"next": expected_next_url})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f'<input type="hidden" value="{expected_next_url}" name="next">')
+
     @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
     def test_with_usage_count(self):
         response = self.get()
@@ -529,6 +562,33 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         url_finder = AdminURLFinder(self.user)
         expected_url = '/admin/images/%d/' % self.image.id
         self.assertEqual(url_finder.get_edit_url(self.image), expected_url)
+
+    def test_edit_with_next_url(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        image = Image.objects.create(
+            title="Test image",
+            file=get_test_image_file(size=(1, 1)),
+            collection=evil_plans_collection
+        )
+        expected_next_url = (
+            reverse('wagtailimages:index')
+            + "?"
+            + urlencode({"collection_id": evil_plans_collection.id})
+        )
+
+        response = self.client.post(
+            reverse('wagtailimages:edit', args=(image.id,)),
+            {
+                "title": "Edited",
+                "collection": evil_plans_collection.id,
+                "next": expected_next_url,
+            }
+        )
+        self.assertRedirects(response, expected_next_url)
+
+        image.refresh_from_db()
+        self.assertEqual(image.title, "Edited")
 
     def test_edit_with_limited_permissions(self):
         self.user.is_superuser = False

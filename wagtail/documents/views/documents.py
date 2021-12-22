@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.decorators import method_decorator
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
@@ -13,6 +14,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
@@ -72,6 +74,7 @@ class BaseListingView(TemplateView):
             'documents': documents,
             'query_string': query_string,
             'is_searching': bool(query_string),
+            'next': self.request.get_full_path(),
         })
         return context
 
@@ -151,6 +154,8 @@ def edit(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
@@ -176,10 +181,16 @@ def edit(request, document_id):
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)
 
+            edit_url = reverse('wagtaildocs:edit', args=(doc.id,))
+            redirect_url = 'wagtaildocs:index'
+            if next_url:
+                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
+                redirect_url = next_url
+
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
+                messages.button(edit_url, _('Edit'))
             ])
-            return redirect('wagtaildocs:index')
+            return redirect(redirect_url)
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
@@ -207,6 +218,7 @@ def edit(request, document_id):
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', doc
         ),
+        'next': next_url,
     })
 
 
@@ -218,13 +230,16 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
-        return redirect('wagtaildocs:index')
+        return redirect(next_url) if next_url else redirect('wagtaildocs:index')
 
     return TemplateResponse(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+        'next': next_url,
     })
 
 

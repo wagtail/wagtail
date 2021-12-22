@@ -38,6 +38,7 @@
 
     <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+        <input type="hidden" value="{{ next }}" name="next">
         <div class="row row-flush nice-padding">
             <div class="col6">
                 <ul class="fields">
@@ -54,7 +55,7 @@
                 <div class="u-hidden@xs">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if user_can_delete %}
-                        <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
+                        <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
                     {% endif %}
                 </div>
             </div>
@@ -111,7 +112,7 @@
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}
-                    <a href="{% url 'wagtailimages:delete' image.id %}" class="button button-secondary no">{% trans "Delete image" %}</a>
+                    <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
                 {% endif %}
             </div>
         </div>

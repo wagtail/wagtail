@@ -1,12 +1,14 @@
 import json
 
 from unittest import mock
+from urllib.parse import quote
 
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.http import urlencode
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
@@ -21,14 +23,17 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
 
+    def get(self, params={}):
+        return self.client.get(reverse('wagtaildocs:index'), params)
+
     def test_simple(self):
-        response = self.client.get(reverse('wagtaildocs:index'))
+        response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtaildocs/documents/index.html')
         self.assertContains(response, "Add a document")
 
     def test_search(self):
-        response = self.client.get(reverse('wagtaildocs:index'), {'q': "Hello"})
+        response = self.get({'q': "Hello"})
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context['query_string'], "Hello")
 
@@ -52,7 +57,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_invalid(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:index'), {'p': 'Hello World!'})
+        response = self.get({'p': 'Hello World!'})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -64,7 +69,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_pagination_out_of_range(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:index'), {'p': 99999})
+        response = self.get({'p': 99999})
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -76,13 +81,13 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
     def test_ordering(self):
         orderings = ['title', '-created_at']
         for ordering in orderings:
-            response = self.client.get(reverse('wagtaildocs:index'), {'ordering': ordering})
+            response = self.get({'ordering': ordering})
             self.assertEqual(response.status_code, 200)
 
     def test_index_without_collections(self):
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:index'))
+        response = self.get()
         self.assertNotContains(response, '<th>Collection</th>')
         self.assertNotContains(response, '<td>Root</td>')
 
@@ -93,7 +98,7 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
 
         self.make_docs()
 
-        response = self.client.get(reverse('wagtaildocs:index'))
+        response = self.get()
         self.assertContains(response, '<th>Collection</th>')
         self.assertContains(response, '<td>Root</td>')
         self.assertEqual(
@@ -105,9 +110,25 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         evil_plans = root_collection.add_child(name="Evil plans")
         evil_plans.add_child(name="Eviler plans")
 
-        response = self.client.get(reverse('wagtaildocs:index'))
+        response = self.get()
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
+
+    def test_edit_document_link_contains_next_url(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+
+        doc = models.Document.objects.create(
+            title="Test doc",
+            collection=evil_plans_collection
+        )
+
+        response = self.get({'collection_id': evil_plans_collection.id})
+        self.assertEqual(response.status_code, 200)
+
+        edit_url = reverse('wagtaildocs:edit', args=(doc.id,))
+        next_url = quote(response._request.get_full_path())
+        self.assertContains(response, '%s?next=%s' % (edit_url, next_url))
 
 
 class TestDocumentAddView(TestCase, WagtailTestUtils):
@@ -380,6 +401,27 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         # "Eviler Plans" should be prefixed with &#x21b3 (↳) and 4 non-breaking spaces.
         self.assertContains(response, '&nbsp;&nbsp;&nbsp;&nbsp;&#x21b3 Eviler plans')
 
+    def test_next_url_is_present_in_edit_form(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        doc = models.Document.objects.create(
+            title="Test doc",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+        expected_next_url = (
+            reverse('wagtaildocs:index')
+            + "?"
+            + urlencode({"collection_id": evil_plans_collection.id})
+        )
+
+        response = self.client.get(
+            reverse('wagtaildocs:edit', args=(doc.id,)),
+            {"next": expected_next_url}
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, f'<input type="hidden" value="{expected_next_url}" name="next">')
+
     def test_post(self):
         # Build a fake file
         fake_file = get_test_document_file()
@@ -396,6 +438,33 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
 
         # Document title should be changed
         self.assertEqual(models.Document.objects.get(id=self.document.id).title, "Test document changed!")
+
+    def test_edit_with_next_url(self):
+        root_collection = Collection.get_first_root_node()
+        evil_plans_collection = root_collection.add_child(name="Evil plans")
+        doc = models.Document.objects.create(
+            title="Test doc",
+            file=get_test_document_file(),
+            collection=evil_plans_collection
+        )
+        expected_next_url = (
+            reverse('wagtaildocs:index')
+            + "?"
+            + urlencode({"collection_id": evil_plans_collection.id})
+        )
+
+        response = self.client.post(
+            reverse('wagtaildocs:edit', args=(doc.id,)),
+            {
+                "title": "Edited",
+                "collection": evil_plans_collection.id,
+                "next": expected_next_url,
+            }
+        )
+        self.assertRedirects(response, expected_next_url)
+
+        doc.refresh_from_db()
+        self.assertEqual(doc.title, "Edited")
 
     def test_with_missing_source_file(self):
         # Build a fake file

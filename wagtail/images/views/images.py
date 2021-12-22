@@ -9,6 +9,7 @@ from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils.decorators import method_decorator
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
@@ -16,6 +17,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -81,6 +83,7 @@ class BaseListingView(TemplateView):
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
+            'next': self.request.get_full_path(),
         })
 
         return context
@@ -127,6 +130,8 @@ def edit(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
@@ -152,10 +157,16 @@ def edit(request, image_id):
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
+            edit_url = reverse('wagtailimages:edit', args=(image.id,))
+            redirect_url = 'wagtailimages:index'
+            if next_url:
+                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
+                redirect_url = next_url
+
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
+                messages.button(edit_url, _('Edit again'))
             ])
-            return redirect('wagtailimages:index')
+            return redirect(redirect_url)
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
@@ -190,6 +201,7 @@ def edit(request, image_id):
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', image
         ),
+        'next': next_url,
     })
 
 
@@ -270,13 +282,16 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect('wagtailimages:index')
+        return redirect(next_url) if next_url else redirect('wagtailimages:index')
 
     return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
+        'next': next_url,
     })
 
 

@@ -22,7 +22,7 @@
         {% for image in images %}
             <li>
                 {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="image" obj=image aria_labelledby_prefix="select-image-label image_" aria_labelledby=image.pk|unlocalize aria_labelledby_suffix="_title" %}
-                <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}">
+                <a class="image-choice" title="{% if collections %}{{ image.collection.name }} » {% endif %}{{ image.title }}" href="{% url 'wagtailimages:edit' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">
                     <figure>
                         {% include "wagtailimages/images/results_image.html" %}
                         {% trans "pixels" as translated_pixels %}
