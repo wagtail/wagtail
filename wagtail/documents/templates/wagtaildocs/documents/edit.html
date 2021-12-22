@@ -33,6 +33,7 @@
         <div class="col10 divider-after">
             <form action="{% url 'wagtaildocs:edit' document.id %}" method="POST" enctype="multipart/form-data" novalidate>
                 {% csrf_token %}
+                <input type="hidden" value="{{ next }}" name="next">
                 <ul class="fields">
                     {% for field in form %}
                         {% if field.name == 'file' %}

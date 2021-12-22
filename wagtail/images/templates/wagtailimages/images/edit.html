@@ -38,6 +38,7 @@
 
     <form action="{% url 'wagtailimages:edit' image.id %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
+        <input type="hidden" value="{{ next }}" name="next">
         <div class="row row-flush nice-padding">
             <div class="col6">
                 <ul class="fields">
