@@ -268,7 +268,7 @@ The audit also states which parts of Wagtail have and haven’t been tested, how
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``gulp``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
+All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``webpack``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
 
 To compile the assets, run:
 

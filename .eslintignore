@@ -3,9 +3,7 @@ node_modules
 **/lib/
 public/
 coverage/
-gulp/
 **/vendor/
-gulpfile.js
 docs/_build
 wagtail/admin/static
 wagtail/documents/static

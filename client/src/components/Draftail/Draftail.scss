@@ -12,7 +12,7 @@ $draftail-editor-background: transparent;
 $draftail-toolbar-radius: 3px;
 $draftail-toolbar-icon-size: 1em;
 
-$draftail-editor-font-family: $font-serif;
+$draftail-editor-font-family: $font-sans;
 
 @import '../../../../node_modules/draft-js/dist/Draft';
 @import '../../../../node_modules/draftail/lib/index';

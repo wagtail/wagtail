@@ -1,13 +1,6 @@
-@include webfont(Open Sans, opensans-light, 300, normal);
-@include webfont(Open Sans, opensans-regular, 400, normal);
-@include webfont(Open Sans, opensans-semibold, 600, normal);
-@include webfont(Open Sans, opensans-bold, 700, normal);
-@include webfont(Roboto Slab, robotoslab-regular, 400, normal);
-@include webfont(Roboto Slab, robotoslab-bold, 700, normal);
-
 body {
     -webkit-font-smoothing: antialiased; // Do not remove!
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: $font-sans;
     font-size: 85%;
     line-height: 1.5em;
     color: $color-text-base;
@@ -38,7 +31,7 @@ h1 {
 h2 {
     text-transform: uppercase;
     font-size: 1.3em;
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: $font-sans;
     font-weight: 600;
     color: $color-grey-2;
 }
@@ -65,7 +58,7 @@ code {
 
 kbd {
     border-radius: 3px;
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: $font-sans;
     border: 1px solid $color-grey-2;
     border-color: rgba(0, 0, 0, 0.2);
     padding: 0.3em 0.5em;
