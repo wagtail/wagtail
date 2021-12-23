@@ -1,8 +1,8 @@
 @use "sass:string";
-// The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin.
+
 @font-face {
     font-family: 'wagtail';
-    src: url('#{$font-root}wagtail.woff') format('woff');
+    src: url('../fonts/wagtail.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
@@ -89,7 +89,7 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
 }
 
 .icon-horizontalrule:before {
-    font-family: Open Sans, Arial, sans-serif;
+    font-family: $font-sans;
 }
 
 

@@ -1,6 +1,7 @@
 @use "sass:color";
 
-@import 'wagtailadmin/scss/helpers';
+@import '../../../../../client/scss/settings';
+@import '../../../../../client/scss/tools';
 
 .replace-file-input {
     display: inline-block;

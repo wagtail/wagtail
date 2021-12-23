@@ -40,7 +40,7 @@ $box-padding: 10px;
     }
 
     textarea {
-        font-family: 'Open Sans', sans-serif;
+        font-family: $font-sans;
         margin: 0;
         padding: 10px;
         width: 100%;
@@ -140,7 +140,7 @@ $box-padding: 10px;
     top: 30px;
     right: 30px;
     z-index: 50;
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font-sans;
     pointer-events: none;
 }
 

@@ -2,7 +2,8 @@
 @use "sass:map";
 @use "sass:math";
 
-@import 'wagtailadmin/scss/helpers';
+@import '../../../../../../client/scss/settings';
+@import '../../../../../../client/scss/tools';
 
 .page-editor {
     .content-wrapper {
@@ -448,7 +449,7 @@
     textarea,
     .halloeditor {
         font-size: 2em;
-        font-family: $font-serif;
+        font-family: $font-sans;
     }
 }
 

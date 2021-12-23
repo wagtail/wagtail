@@ -46,7 +46,7 @@ jobs:
           paths:
             - node_modules
           key: frontend-v1-{{ checksum "package-lock.json" }}
-      - run: npm run dist
+      - run: npm run build
       # Save static files for subsequent jobs.
       - persist_to_workspace:
           root: ~/project
@@ -116,7 +116,7 @@ jobs:
       - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v14.17.5-linux-x64.tar.gz
       - run: pip install --user wheel boto3
       - run: npm install
-      - run: npm run dist
+      - run: npm run build
       - run: PYTHONPATH=. python scripts/nightly/get_version.py > __init__.py
       - run: mv __init__.py wagtail/__init__.py
       - run: python setup.py bdist_wheel

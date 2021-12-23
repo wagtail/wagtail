@@ -6,9 +6,7 @@
 // compiled CSS files are used.
 // */
 
-$static-root: '../../';
-$images-root: $static-root + 'wagtailadmin/images/';
-$font-root: '../../wagtailadmin/fonts/';
+$images-root: '../images/';
 
 // grid settings
 $grid-columns: 12;
@@ -97,8 +95,7 @@ $system-color-link-text: LinkText;
 $system-color-button-text: ButtonText;
 
 // Fonts
-$font-sans: Open Sans, Arial, sans-serif;
-$font-serif: Roboto Slab, Georgia, serif;
+$font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 // Legacy icon font, to be removed in the near future.
 $font-wagtail-icons: wagtail;
 

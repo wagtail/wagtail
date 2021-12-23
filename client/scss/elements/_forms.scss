@@ -81,7 +81,7 @@ select,
     box-sizing: border-box;
     border-radius: 6px;
     width: 100%;
-    font-family: Open Sans,Arial,sans-serif;
+    font-family: $font-sans;
     border: 1px solid $color-input-border;
     padding: 0.9em 1.2em;
     background-color: $color-fieldset-hover;

@@ -9,7 +9,7 @@ deployments:
       - cd /code
     post_build_steps:
       - npm install --no-save --no-audit --progress=false
-      - npm run dist
+      - npm run build
       - pip install /code
       - mkdir /myproject
       - cd /myproject

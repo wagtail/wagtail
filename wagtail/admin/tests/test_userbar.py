@@ -146,7 +146,7 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
         expected_approve_html = """
             <form action="/admin/pages/moderation/{}/approve/" target="_parent" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="wagtail-action wagtail-icon wagtail-icon-tick">
+                <div class="wagtail-action">
                     <input type="submit" value="Approve" class="button" />
                 </div>
             </form>
@@ -156,7 +156,7 @@ class TestUserbarModeration(TestCase, WagtailTestUtils):
         expected_reject_html = """
             <form action="/admin/pages/moderation/{}/reject/" target="_parent" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken">
-                <div class="wagtail-action wagtail-icon wagtail-icon-cross">
+                <div class="wagtail-action">
                     <input type="submit" value="Reject" class="button" />
                 </div>
             </form>

@@ -1,19 +1,20 @@
 const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // Generates a path to the output bundle to be loaded in the browser.
-const getOutputPath = (app, filename) => {
-  let appLabel = `wagtail${app}`;
-
-  // Exceptions
-  if (app === 'documents') {
-    appLabel = 'wagtaildocs';
-  } else if (app === 'contrib/table_block') {
-    appLabel = 'table_block';
-  } else if (app === 'contrib/typed_table_block') {
-    appLabel = 'typed_table_block';
+const getOutputPath = (app, folder, filename) => {
+  const exceptions = {
+    'documents': 'wagtaildocs',
+    'contrib/table_block': 'table_block',
+    'contrib/typed_table_block': 'typed_table_block',
+    'contrib/styleguide': 'wagtailstyleguide',
+    'contrib/modeladmin': 'wagtailmodeladmin',
   }
 
-  return path.join('wagtail', app, 'static', appLabel, 'js', filename);
+  const appLabel = exceptions[app] || `wagtail${app}`;
+
+  return path.join('wagtail', app, 'static', appLabel, folder, filename);
 };
 
 // Mapping from package name to exposed global variable.
@@ -25,7 +26,9 @@ const exposedDependencies = {
   'draft-js': 'DraftJS',
 };
 
-module.exports = function exports() {
+module.exports = function exports(env, argv) {
+  const isProduction = argv.mode === 'production';
+
   const entrypoints = {
     'admin': [
       'collapsible',
@@ -83,7 +86,7 @@ module.exports = function exports() {
     moduleNames.forEach(moduleName => {
       entry[moduleName] = {
         import: [`./client/src/entrypoints/${appName}/${moduleName}.js`],
-        filename: getOutputPath(appName, moduleName) + '.js',
+        filename: getOutputPath(appName, 'js', moduleName) + '.js',
       };
 
       // Add polyfills to all bundles except userbar
@@ -96,11 +99,41 @@ module.exports = function exports() {
     });
   }
 
+  const sassEntry = {};
+  sassEntry[getOutputPath('admin', 'css', 'core')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'core.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/404')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', '404.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/account')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'account.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/compare-revisions')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'compare-revisions.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/home')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'home.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/login')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'login.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/page-editor')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'page-editor.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/report')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'report.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-edit')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'workflow-edit.scss');
+  sassEntry[getOutputPath('admin', 'css', 'layouts/workflow-progress')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'layouts', 'workflow-progress.scss');
+  // sassEntry[getOutputPath('admin', 'css', 'normalize')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'css', 'normalize.css');
+  sassEntry[getOutputPath('admin', 'css', 'panels/draftail')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'panels', 'draftail.scss');
+  sassEntry[getOutputPath('admin', 'css', 'panels/hallo')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'panels', 'hallo.scss');
+  sassEntry[getOutputPath('admin', 'css', 'panels/streamfield')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'panels', 'streamfield.scss');
+  sassEntry[getOutputPath('admin', 'css', 'sidebar')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'sidebar.scss');
+  sassEntry[getOutputPath('admin', 'css', 'userbar')] = path.resolve('wagtail', 'admin', 'static_src', 'wagtailadmin', 'scss', 'userbar.scss');
+  sassEntry[getOutputPath('documents', 'css', 'add-multiple')] = path.resolve('wagtail', 'documents', 'static_src', 'wagtaildocs', 'scss', 'add-multiple.scss');
+  sassEntry[getOutputPath('images', 'css', 'add-multiple')] = path.resolve('wagtail', 'images', 'static_src', 'wagtailimages', 'scss', 'add-multiple.scss');
+  sassEntry[getOutputPath('images', 'css', 'focal-point-chooser')] = path.resolve('wagtail', 'images', 'static_src', 'wagtailimages', 'scss', 'focal-point-chooser.scss');
+  sassEntry[getOutputPath('users', 'css', 'groups_edit')] = path.resolve('wagtail', 'users', 'static_src', 'wagtailusers', 'scss', 'groups_edit.scss');
+  sassEntry[getOutputPath('contrib/styleguide', 'css', 'styleguide')] = path.resolve('wagtail', 'contrib', 'styleguide', 'static_src', 'wagtailstyleguide', 'scss', 'styleguide.scss');
+  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'index')] = path.resolve('wagtail', 'contrib', 'modeladmin', 'static_src', 'wagtailmodeladmin', 'scss', 'index.scss');
+  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'breadcrumbs_page')] = path.resolve('wagtail', 'contrib', 'modeladmin', 'static_src', 'wagtailmodeladmin', 'scss', 'breadcrumbs_page.scss');
+  sassEntry[getOutputPath('contrib/modeladmin', 'css', 'choose_parent_page')] = path.resolve('wagtail', 'contrib', 'modeladmin', 'static_src', 'wagtailmodeladmin', 'scss', 'choose_parent_page.scss');
+  sassEntry[getOutputPath('contrib/typed_table_block', 'css', 'typed_table_block')] = path.resolve('wagtail', 'contrib', 'typed_table_block', 'static_src', 'typed_table_block', 'scss', 'typed_table_block.scss');
+
   return {
-    entry: entry,
+    entry: {
+      ...entry,
+      ...sassEntry,
+    },
     output: {
       path: path.resolve('.'),
-      publicPath: '/static/js/'
+      publicPath: '/static/',
     },
     resolve: {
       extensions: ['.ts', '.tsx', '.js'],
@@ -116,12 +149,63 @@ module.exports = function exports() {
     externals: {
       jquery: 'jQuery',
     },
+
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+      }),
+      new CopyPlugin({
+        patterns: [
+          { from: 'wagtail/admin/static_src/', to: 'wagtail/admin/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/documents/static_src/', to: 'wagtail/documents/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/embeds/static_src/', to: 'wagtail/embeds/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/images/static_src/', to: 'wagtail/images/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/search/static_src/', to: 'wagtail/search/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/snippets/static_src/', to: 'wagtail/snippets/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/users/static_src/', to: 'wagtail/users/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/contrib/settings/static_src/', to: 'wagtail/contrib/settings/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+          { from: 'wagtail/contrib/modeladmin/static_src/', to: 'wagtail/contrib/modeladmin/static/', globOptions: { ignore: ['**/{app,scss}/**', '*.{css,txt}'] } },
+        ],
+      }),
+    ],
+
     module: {
       rules: [
         {
           test: /\.(js|ts)x?$/,
           loader: 'ts-loader',
           exclude: /node_modules/,
+        },
+        {
+          // Legacy support for font icon loading, to be removed.
+          test: /\.(woff)$/i,
+          generator: {
+            emit: false,
+            filename: 'wagtailadmin/fonts/[name][ext]',
+          },
+        },
+        {
+          test: /\.(svg)$/i,
+          type: 'asset/inline',
+        },
+        {
+          test: /\.(scss|css)$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css-loader',
+            {
+              loader: 'postcss-loader',
+              options: {
+                postcssOptions: {
+                  plugins: [
+                    "autoprefixer",
+                    "cssnano",
+                  ]
+                }
+              },
+            },
+            'sass-loader'
+          ],
         },
       ].concat(Object.keys(exposedDependencies).map((name) => {
         const globalName = exposedDependencies[name];
@@ -148,7 +232,7 @@ module.exports = function exports() {
       splitChunks: {
         cacheGroups: {
           vendor: {
-            name: getOutputPath('admin', 'vendor'),
+            name: getOutputPath('admin', 'js', 'vendor'),
             chunks: 'initial',
             minChunks: 2,
             reuseExistingChunk: true,
@@ -158,7 +242,7 @@ module.exports = function exports() {
     },
 
     // See https://webpack.js.org/configuration/devtool/.
-    devtool: 'source-map',
+    devtool: isProduction ? false : 'eval-cheap-module-source-map',
 
     // For development mode only.
     watchOptions: {
