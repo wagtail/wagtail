@@ -18,9 +18,4 @@ module.exports = {
     page: 'readonly',
     TEST_ORIGIN: 'readonly'
   },
-  settings: {
-    'import/resolver': {
-      webpack: null,
-    }
-  },
 };

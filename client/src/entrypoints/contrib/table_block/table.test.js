@@ -37,7 +37,7 @@ const TEST_STRINGS = {
   'Column header': 'Column header',
   'Display the first column as a header.': 'Display the first column as a header.',
   'Table caption': 'Table caption',
-  // eslint-disable-next-line max-len
+   
   'A heading that identifies the overall topic of the table, and is useful for screen reader users': 'A heading that identifies the overall topic of the table, and is useful for screen reader users',
   'Table': 'Table'
 };
@@ -127,7 +127,7 @@ describe('telepath: wagtail.widgets.TableInput', () => {
       'Column header': 'En-tête de colonne',
       'Display the first column as a header.': 'Affichez la première colonne sous forme d\'en-tête.',
       'Table caption': 'Légende du tableau',
-      // eslint-disable-next-line max-len
+       
       'A heading that identifies the overall topic of the table, and is useful for screen reader users': 'Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d\'écran',
       'Table': 'Tableau'
     };

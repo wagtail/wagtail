@@ -237,7 +237,7 @@ export class StreamBlock extends BaseSequenceBlock {
     // If we can add blocks, check if there are any block types that have count limits
     this.disabledBlockTypes = new Set();
     if (this.canAddBlock) {
-      // eslint-disable-next-line no-restricted-syntax
+       
       for (const blockType in this.blockDef.meta.blockCounts) {
         if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
           const counts = this.blockDef.meta.blockCounts[blockType];
@@ -332,7 +332,7 @@ export class StreamBlock extends BaseSequenceBlock {
     }
 
     // Block errors
-    // eslint-disable-next-line no-restricted-syntax
+     
     for (const blockIndex in error.blockErrors) {
       if (error.blockErrors.hasOwnProperty(blockIndex)) {
         this.children[blockIndex].setError(error.blockErrors[blockIndex]);

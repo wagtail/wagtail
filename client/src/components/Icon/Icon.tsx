@@ -12,7 +12,7 @@ export interface IconProps {
 const Icon: React.FunctionComponent<IconProps> = ({ name, className, title }) => (
   <>
     <svg className={`icon icon-${name} ${className || ''}`} aria-hidden="true">
-      <use href={`#icon-${name}`}></use>
+      <use href={`#icon-${name}`} />
     </svg>
     {title &&
       <span className="visuallyhidden">

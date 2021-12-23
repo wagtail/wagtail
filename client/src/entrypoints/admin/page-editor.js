@@ -233,7 +233,7 @@ function initErrorDetection() {
   });
 
   // now identify them on each tab
-  // eslint-disable-next-line no-restricted-syntax, guard-for-in
+  // eslint-disable-next-line guard-for-in
   for (const index in errorSections) {
     $('[data-tab-nav] a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
   }
@@ -296,7 +296,7 @@ $(() => {
       // and deleted (DOMSubtreeModified event), and we need to delay
       // setPreviewData when typing to avoid useless extra AJAX requests
       // (so we postpone setPreviewData when keyup occurs).
-      // eslint-disable-next-line no-warning-comments
+       
       // TODO: Replace DOMSubtreeModified with a MutationObserver.
       $form.on('change keyup DOMSubtreeModified', () => {
         clearTimeout(autoUpdatePreviewDataTimeout);
@@ -321,7 +321,7 @@ $(() => {
       } else {
         window.focus();
         previewWindow.close();
-        // eslint-disable-next-line no-warning-comments
+         
         // TODO: Stop sending the form, as it removes file data.
         $form.trigger('submit');
       }

@@ -23,7 +23,7 @@ declare global {
         I18N_ENABLED: boolean;
         LOCALES: {
             code: string;
-            /* eslint-disable-next-line camelcase */
+             
             display_name: string;
         }[];
         STRINGS: any;

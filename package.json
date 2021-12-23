@@ -95,6 +95,7 @@
   },
   "dependencies": {
     "core-js": "^2.5.3",
+    "dateformat": "^2.2.0",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
     "draftjs-filters": "^2.5.0",
@@ -126,8 +127,8 @@
     "gulp:prod:build": "gulp build",
     "webpack:dev:watch": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "webpack:prod:build": "webpack --config ./client/webpack.config.js --mode production",
-    "fix:js": "eslint --fix ./",
-    "lint:js": "eslint --report-unused-disable-directives ./",
+    "fix:js": "eslint --ext .js,.ts,.tsx --fix ./",
+    "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives ./",
     "lint:css": "stylelint **/*.scss",
     "lint": "npm run lint:js && npm run lint:css",
     "test": "npm run test:unit",

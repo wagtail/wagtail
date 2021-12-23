@@ -8,7 +8,7 @@ export interface WagtailPageAPI {
     status: {
       status: string;
       live: boolean;
-      /* eslint-disable-next-line camelcase */
+       
       has_unpublished_changes: boolean;
     }
     children: any;
@@ -18,13 +18,13 @@ export interface WagtailPageAPI {
     locale?: string;
     translations?: any;
   };
-  /* eslint-disable-next-line camelcase */
+   
   admin_display_title?: string;
 }
 
 interface WagtailPageListAPI {
   meta: {
-    /* eslint-disable-next-line camelcase */
+     
     total_count: number;
   };
   items: WagtailPageAPI[];

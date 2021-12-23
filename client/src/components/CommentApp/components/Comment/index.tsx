@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -639,6 +639,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/no-find-dom-node
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement) {
@@ -658,6 +659,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentDidUpdate() {
+    // eslint-disable-next-line react/no-find-dom-node
     const element = ReactDOM.findDOMNode(this);
 
     // Keep height up to date so that other comments will be moved out of the way
