@@ -1,9 +1,11 @@
+@use "sass:math";
+
 $switch-width: 40px;
 $switch-height: 20px;
 $switch-border: 2px;
 $switch-outline: 3px;
 
-$switch-border-radius: ($switch-height + $switch-border * 2) / 2;
+$switch-border-radius: math.div(($switch-height + $switch-border * 2), 2);
 $switch-outline-radius: $switch-border-radius + $switch-outline;
 
 // All the greys in Wagtail are really dark or really bright
@@ -67,9 +69,6 @@ $switch-color-middle-grey: #777;
 
     [type=checkbox]:disabled + &__toggle::after {
         opacity: 0.5;
-    }
-
-    [type=checkbox]:disabled + &__toggle::after {
         box-shadow: none;
     }
 

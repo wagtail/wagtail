@@ -1,3 +1,4 @@
+@use "sass:map";
 $icons: (
     'arrow-down-big': '\e030',
     'arrow-down': '\e01a',
@@ -84,7 +85,7 @@ $icons: (
 );
 
 $icons-after: (
-    'arrow-down-after': map-get($icons, 'arrow-down'),
-    'arrow-right-after': map-get($icons, 'arrow-right'),
-    'arrow-up-after': map-get($icons, 'arrow-up'),
+    'arrow-down-after': map.get($icons, 'arrow-down'),
+    'arrow-right-after': map.get($icons, 'arrow-right'),
+    'arrow-up-after': map.get($icons, 'arrow-up'),
 );

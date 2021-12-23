@@ -1,3 +1,5 @@
+@use "sass:color";
+
 @import 'wagtailadmin/scss/helpers';
 
 .replace-file-input {
@@ -94,7 +96,7 @@
         width: 1em;
         font-size: 10em;
         line-height: 1.4em;
-        color: lighten($color-grey-4, 4%);
+        color: color.adjust($color-grey-4, $lightness: 4%);
     }
 
     canvas,

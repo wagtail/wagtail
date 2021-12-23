@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .c-sf-container {
     position: relative;
     display: flex;
@@ -26,7 +28,7 @@
             .c-sf-add-button {
                 width: $add-button-size;
                 height: 0;
-                transform: translate(-100%, -$add-button-size / 2);
+                transform: translate(-100%, math.div(-$add-button-size, 2));
                 overflow: visible;
             }
         }
@@ -36,7 +38,7 @@
     // opportunity for this is probably as part of Wagtails general CSS overhaul. -@jonnyscholes
     .field {
         + .field {
-            padding-top: $grid-gutter-width / 2;
+            padding-top: math.div($grid-gutter-width, 2);
         }
 
         // TODO: #CSSoverhaul global label styles need to be removed. These styles come from global
@@ -65,7 +67,7 @@
         &__label {
             display: block;
             font-weight: bold;
-            margin-bottom: $grid-gutter-width / 4;
+            margin-bottom: $grid-gutter-width * 0.25;
         }
 
         &.required > label::after {

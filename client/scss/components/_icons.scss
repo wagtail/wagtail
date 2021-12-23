@@ -1,3 +1,4 @@
+@use "sass:string";
 // The wagtail font isn't available in WOFF2, so a @font-face is set here without a mixin.
 @font-face {
     font-family: 'wagtail';
@@ -29,12 +30,14 @@
     @include icon(); // from _mixins.scss
 }
 
+// stylelint-disable-next-line no-duplicate-selectors
 .icon:after,
 .hallotoolbar [class^='icon-']:after,
 .hallotoolbar [class^='icon-']:after {
     text-align: right;
 }
 
+// stylelint-disable-next-line no-duplicate-selectors
 .hallotoolbar [class^='icon-'],
 .hallotoolbar [class*=' icon-']:before,
 .hallotoolbar [class*=' icon-']:before,
@@ -50,13 +53,13 @@
 
 @each $icon, $content in $icons {
     .icon-#{$icon}:before {
-        content: quote(#{$content});
+        content: string.quote(#{$content});
     }
 }
 
 @each $icon, $content in $icons-after {
     .icon-#{$icon}:after {
-        content: quote(#{$content});
+        content: string.quote(#{$content});
     }
 }
 
@@ -155,6 +158,7 @@ svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
     }
 }
 
+// stylelint-disable-next-line no-duplicate-selectors
 .icon {
     &.initial {
         @include svg-icon(1em);

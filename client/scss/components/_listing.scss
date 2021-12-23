@@ -253,6 +253,7 @@ ul.listing {
         }
     }
 
+    // stylelint-disable-next-line no-duplicate-selectors
     .button-secondary {
         background-color: $color-white;
     }
@@ -450,6 +451,7 @@ ul.listing {
     word-wrap: break-word;
 }
 
+// stylelint-disable-next-line no-duplicate-selectors
 ul.listing {
     border-top: 1px dashed $color-input-border;
     margin-bottom: 2em;
@@ -534,9 +536,6 @@ table.listing {
 
     ul {
         @include unlist();
-    }
-
-    ul {
         margin-top: -1.7em;
     }
 
@@ -739,6 +738,7 @@ table.listing {
     }
 }
 
+// stylelint-disable no-duplicate-selectors
 
 // Transitions
 .listing {

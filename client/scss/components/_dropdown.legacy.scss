@@ -329,6 +329,7 @@
 }
 
 // Transitions
+// stylelint-disable-next-line no-duplicate-selectors
 .dropdown ul {
     @include transition(opacity 0.2s linear);
 }

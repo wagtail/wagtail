@@ -1,18 +1,18 @@
+@use "sass:map";
 // free tagging tags from taggit
 .tag {
     border-radius: 2px;
     background-color: $color-teal;
-    padding-right: 0.5em;
     padding: 0.2em 0.5em;
     color: $color-white;
     line-height: 2em;
     white-space: nowrap;
 
     &:before {
-        font-family: wagtail;
+        font-family: $font-wagtail-icons;
         display: inline-block;
         color: $color-white;
-        content: map-get($icons, 'tag');
+        content: map.get($icons, 'tag');
         padding-right: 0.5em;
     }
 

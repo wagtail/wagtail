@@ -87,7 +87,7 @@
 
 @mixin icon () {
     @include font-smoothing;
-    font-family: 'wagtail';
+    font-family: $font-wagtail-icons;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -99,12 +99,6 @@
     text-align: left;
     vertical-align: middle;
     margin-right: 0.2em;
-}
-
-@mixin svg-icon ($size: 1.5em, $position: text-top) {
-    width: $size;
-    height: $size;
-    vertical-align: $position;
 }
 
 // Applies given rules on hover, except for touch screens.

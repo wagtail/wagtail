@@ -1,3 +1,6 @@
+@use "sass:map";
+@use "sass:math";
+// stylelint-disable scss/comment-no-empty
 // These are the generic stylings for forms of any type.
 // If you're styling something specific to the page editing interface,
 // it probably ought to go in layouts/page-editor.scss
@@ -92,8 +95,8 @@ select::-ms-expand {
         top: 1px;
         bottom: 0;
         width: 1.5em;
-        font-family: wagtail;
-        content: map-get($icons, 'arrow-down');
+        font-family: $font-wagtail-icons;
+        content: map.get($icons, 'arrow-down');
         border: 1px solid $color-input-border;
         border-width: 0 0 0 1px;
         text-align: center;
@@ -134,9 +137,9 @@ select::-ms-expand {
     }
 
     &::before {
-        font-family: wagtail;
+        font-family: $font-wagtail-icons;
         vertical-align: -10%;
-        content: map-get($icons, 'cross');
+        content: map.get($icons, 'cross');
     }
 }
 
@@ -191,7 +194,7 @@ label.required:after {
 
         &:before,
         &:after {
-            font-family: wagtail;
+            font-family: $font-wagtail-icons;
             position: absolute;
             top: 0.5em;
             line-height: 100%;
@@ -246,19 +249,19 @@ label.required:after {
 .date_field,
 .date_time_field {
     .input:before {
-        content: map-get($icons, 'date');
+        content: map.get($icons, 'date');
     }
 }
 
 .time_field {
     .input:before {
-        content: map-get($icons, 'time');
+        content: map.get($icons, 'time');
     }
 }
 
 .url_field {
     .input:before {
-        content: map-get($icons, 'link');
+        content: map.get($icons, 'link');
     }
 }
 
@@ -345,7 +348,7 @@ li.inline .field {
 // solve gutter issues of inline fields
 ul.inline li:first-child,
 li.inline:first-child {
-    margin-left: -$grid-gutter-width / 2;
+    margin-left: math.div(-$grid-gutter-width, 2);
 }
 
 // search-bars
@@ -380,6 +383,7 @@ li.inline:first-child {
 }
 
 // Transitions
+// stylelint-disable-next-line no-duplicate-selectors
 .help {
     @include transition(opacity 0.2s ease);
 }
