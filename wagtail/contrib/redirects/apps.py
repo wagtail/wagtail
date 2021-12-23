@@ -7,3 +7,9 @@ class WagtailRedirectsAppConfig(AppConfig):
     label = 'wagtailredirects'
     verbose_name = _("Wagtail redirects")
     default_auto_field = 'django.db.models.AutoField'
+
+    def ready(self):
+        from wagtail.core.signals import page_url_path_changed
+
+        from .signal_handlers import autocreate_redirects
+        page_url_path_changed.connect(autocreate_redirects)
