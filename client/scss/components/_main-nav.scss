@@ -1,3 +1,5 @@
+@use "sass:map";
+
 .nav-wrapper {
     position: relative;
     margin-left: -$menu-width;
@@ -257,10 +259,10 @@
         }
 
         &:before {
-            font-family: wagtail;
+            font-family: $font-wagtail-icons;
             font-weight: 200;
             text-transform: none;
-            content: map-get($icons, 'search');
+            content: map.get($icons, 'search');
             display: block;
             height: 100%;
             line-height: 3.3em;
@@ -508,6 +510,7 @@ body.explorer-open {
     z-index: 5;
 }
 
+// stylelint-disable-next-line no-duplicate-selectors
 .nav-wrapper {
     z-index: 2;
 }
@@ -520,6 +523,7 @@ body.explorer-open {
 // .content-wrapper {
 // z-index: 3;
 // }
+// stylelint-disable-next-line no-duplicate-selectors
 .nav-submenu {
     z-index: 6;
 }

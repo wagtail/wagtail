@@ -36,7 +36,7 @@ overridden here? hmm.
         // TODO: [icon-font] remove when the Wagtail icon font is removed
         &:before {
             vertical-align: middle;
-            font-family: wagtail;
+            font-family: $font-wagtail-icons;
             content: '';
             // position: relative
             display: inline-block;

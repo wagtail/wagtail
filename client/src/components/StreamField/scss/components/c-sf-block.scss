@@ -1,11 +1,11 @@
 // TODO: Reduce nesting further by splitting out more components.
-//
+// ---
 // There's quite a lot of nesting in here which makes parsing some segments difficult.
 // Some of this is to deal with the fact that .c-sf-block can contain many .c-sf-block's and so is
 // legitimate. A lot of these would ideally be their own components (eg the actions) however there
 // is a lot of interdependency of the elements which makes this hard
 // without fairly intensive rethinking of the HTML.
-//
+// ---
 // However, the new classes adequately sanitise streamfield only CSS so am leaving this for
 // now to avoid blocking the release of the new Streamfield. -@jonnyscholes
 .c-sf-block {

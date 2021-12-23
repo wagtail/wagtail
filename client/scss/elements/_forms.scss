@@ -1,3 +1,4 @@
+@use "sass:map";
 // These are the generic stylings for forms of any type.
 // If you're styling something specific to the page editing interface,
 // it probably ought to go in layouts/page-editor.scss
@@ -168,7 +169,7 @@ input[type=radio] {
 
 input[type=radio]:before {
     border-radius: 100%;
-    font-family: wagtail;
+    font-family: $font-wagtail-icons;
     font-style: normal;
     text-align: center;
     position: absolute;
@@ -176,7 +177,7 @@ input[type=radio]:before {
     left: -2px;
     cursor: pointer;
     display: block;
-    content: map-get($icons, 'radio-full');
+    content: map.get($icons, 'radio-full');
     width: 1em;
     height: 1em;
     line-height: 1.1em;
@@ -187,7 +188,7 @@ input[type=radio]:before {
 }
 
 input[type=radio]:checked:before {
-    content: map-get($icons, 'radio-full');
+    content: map.get($icons, 'radio-full');
     color: $color-teal;
 }
 
@@ -199,7 +200,7 @@ input[type=checkbox] {
 }
 
 input[type=checkbox]:before {
-    font-family: wagtail;
+    font-family: $font-wagtail-icons;
     font-style: normal;
     text-align: center;
     position: absolute;
@@ -216,7 +217,7 @@ input[type=checkbox]:before {
 }
 
 input[type=checkbox]:checked:before {
-    content: map-get($icons, 'tick');
+    content: map.get($icons, 'tick');
 }
 
 input[type=checkbox][disabled]:before {

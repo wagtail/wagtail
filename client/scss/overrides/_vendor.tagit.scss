@@ -1,3 +1,4 @@
+@use "sass:map";
 // taggit tagging
 .tagit {
     padding: 0.6em 1.2em;
@@ -31,10 +32,10 @@
     }
 
     .ui-icon-close:before {
-        font-family: wagtail;
+        font-family: $font-wagtail-icons;
         display: block;
         color: $color-grey-3;
-        content: map-get($icons, 'cross');
+        content: map.get($icons, 'cross');
     }
 
     .ui-icon-close:hover:before {

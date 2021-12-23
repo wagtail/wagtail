@@ -1,3 +1,4 @@
+@use "sass:map";
 // Loading mask: overlays a certain area with a loading spinner and a faded out cover to prevent interaction
 .loading-mask {
     &.loading {
@@ -26,9 +27,9 @@
             left: 50%;
             top: 50%;
             margin: -15px 0 0 -15px;
-            font-family: wagtail;
+            font-family: $font-wagtail-icons;
             animation: spin-wag 0.5s infinite linear;
-            content: map-get($icons, 'spinner');
+            content: map.get($icons, 'spinner');
             z-index: 2;
             color: $color-teal;
         }

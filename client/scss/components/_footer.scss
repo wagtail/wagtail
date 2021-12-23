@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .footer {
     $border-curvature: 3px;
     @include transition(bottom 0.5s ease 1s);
@@ -82,7 +84,7 @@
     .meta {
         float: right;
         text-align: right;
-        padding: 7px $grid-gutter-width / 2;
+        padding: 7px math.div($grid-gutter-width, 2);
         font-size: 0.85em;
 
         p {

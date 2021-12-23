@@ -1,11 +1,13 @@
+@use "sass:color";
+
 .status-tag {
     border-radius: 2px;
     text-align: center;
     display: inline-block;
     text-transform: uppercase;
     padding: 0 0.5em;
-    border: 1px solid lighten($color-grey-2, 30%);
-    color: lighten($color-grey-2, 30%);
+    border: 1px solid color.adjust($color-grey-2, $lightness: 30%);
+    color: color.adjust($color-grey-2, $lightness: 30%);
     -webkit-font-smoothing: auto;
     line-height: 19px;
     font-size: 0.8em;
