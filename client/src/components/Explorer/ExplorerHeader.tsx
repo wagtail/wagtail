@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+ 
 
 import React from 'react';
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
@@ -30,7 +30,7 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({ locale, tran
   return (
     <div className="c-explorer__header__select">
       <select value={locale} onChange={onChange} disabled={options.length < 2}>{options}</select>
-      <span></span>
+      <span />
     </div>
   );
 };

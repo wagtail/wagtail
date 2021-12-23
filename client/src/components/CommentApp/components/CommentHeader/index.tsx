@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+ 
 
 import dateFormat from 'dateformat';
 import React, { FunctionComponent, useState, useEffect, useRef } from 'react';

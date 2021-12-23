@@ -66,7 +66,7 @@ interface GetChildrenSuccess {
   payload: {
     id: number;
     meta: {
-      /* eslint-disable-next-line camelcase */
+       
       total_count: number;
     };
     items: WagtailPageAPI[];
@@ -87,7 +87,7 @@ interface GetTranslationsSuccess {
   payload: {
     id: number;
     meta: {
-      /* eslint-disable-next-line camelcase */
+       
       total_count: number;
     };
     items: WagtailPageAPI[];

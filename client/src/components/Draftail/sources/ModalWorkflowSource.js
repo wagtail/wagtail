@@ -46,7 +46,7 @@ class ModalWorkflowSource extends Component {
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
-    // eslint-disable-next-line new-cap
+     
     this.workflow = global.ModalWorkflow({
       url,
       urlParams,

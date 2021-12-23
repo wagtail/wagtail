@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+ 
 
 import * as React from 'react';
 import { ModuleDefinition, Strings } from '../Sidebar';

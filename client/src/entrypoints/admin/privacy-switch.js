@@ -4,7 +4,7 @@ $(() => {
   /* Interface to set permissions from the explorer / editor */
   // eslint-disable-next-line func-names
   $('button.action-set-privacy').on('click', function () {
-    // eslint-disable-next-line no-undef, new-cap
+    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: this.getAttribute('data-url'),
       onload: {

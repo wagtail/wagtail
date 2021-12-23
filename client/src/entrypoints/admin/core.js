@@ -571,7 +571,7 @@ const DropDownController = {
 function DropDown(el, registry) {
   if (!el || !registry) {
     if ('error' in console) {
-      // eslint-disable-next-line max-len, no-console
+      // eslint-disable-next-line no-console
       console.error('A dropdown was created without an element or the DropDownController.\nMake sure to pass both to your component.');
       return;
     }

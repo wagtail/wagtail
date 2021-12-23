@@ -209,7 +209,7 @@ class TableInput {
             <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" />
           </div>
           <p class="help">
-            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users'] /* eslint-disable-line max-len */}
+            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']  }
           </p>
         </div>
       </div>

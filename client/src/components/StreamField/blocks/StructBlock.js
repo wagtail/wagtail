@@ -75,7 +75,7 @@ export class StructBlock {
   }
 
   setState(state) {
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    // eslint-disable-next-line guard-for-in
     for (const name in state) {
       this.childBlocks[name].setState(state[name]);
     }
@@ -87,7 +87,7 @@ export class StructBlock {
     }
     const error = errorList[0];
 
-    // eslint-disable-next-line no-restricted-syntax
+     
     for (const blockName in error.blockErrors) {
       if (error.blockErrors.hasOwnProperty(blockName)) {
         this.childBlocks[blockName].setError(error.blockErrors[blockName]);
@@ -97,7 +97,7 @@ export class StructBlock {
 
   getState() {
     const state = {};
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    // eslint-disable-next-line guard-for-in
     for (const name in this.childBlocks) {
       state[name] = this.childBlocks[name].getState();
     }
@@ -106,7 +106,7 @@ export class StructBlock {
 
   getValue() {
     const value = {};
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    // eslint-disable-next-line guard-for-in
     for (const name in this.childBlocks) {
       value[name] = this.childBlocks[name].getValue();
     }

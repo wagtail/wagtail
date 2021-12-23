@@ -66,7 +66,7 @@ function createImageChooser(id) {
     },
 
     openChooserModal: () => {
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       ModalWorkflow({
         url: chooserBaseUrl,
         // eslint-disable-next-line no-undef

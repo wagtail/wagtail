@@ -72,7 +72,7 @@ function createPageChooser(id, openAtParentId, options) {
       if (options.user_perms) {
         urlParams.user_perms = options.user_perms;
       }
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       ModalWorkflow({
         url: url,
         urlParams: urlParams,

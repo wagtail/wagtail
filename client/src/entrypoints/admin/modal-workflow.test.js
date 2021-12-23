@@ -24,7 +24,6 @@ describe('modal-workflow', () => {
     let modalWorkflow;
 
     const openModal = () => {
-      // eslint-disable-next-line new-cap
       modalWorkflow = window.ModalWorkflow({ url: 'path/to/endpoint' });
     };
 
@@ -53,7 +52,6 @@ describe('modal-workflow', () => {
     let modalWorkflow;
 
     const openModal = () => {
-      // eslint-disable-next-line new-cap
       modalWorkflow = window.ModalWorkflow({ url: 'path/to/endpoint' });
     };
 
@@ -81,7 +79,6 @@ describe('modal-workflow', () => {
     let modalWorkflow;
 
     const openModal = () => {
-      // eslint-disable-next-line new-cap
       modalWorkflow = window.ModalWorkflow({ url: 'path/to/endpoint' });
     };
 
@@ -109,7 +106,6 @@ describe('modal-workflow', () => {
     let modalWorkflow;
 
     const openModal = () => {
-      // eslint-disable-next-line new-cap
       modalWorkflow = window.ModalWorkflow({
         url: 'path/to/endpoint',
         urlParams,

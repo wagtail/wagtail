@@ -73,7 +73,7 @@ $.widget('IKS.hallowagtaillink', {
         urlParams.link_text = lastSelection.toString();
       }
 
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       return ModalWorkflow({
         url: url,
         urlParams: urlParams,
