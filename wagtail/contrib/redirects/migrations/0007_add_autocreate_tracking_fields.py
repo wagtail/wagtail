@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='redirect',
             name='created_at',
-            field=models.DateTimeField(auto_now=True, null=True, verbose_name='created at'),
+            field=models.DateTimeField(auto_now_add=True, null=True, verbose_name='created at'),
         ),
         migrations.AddField(
             model_name='redirect',

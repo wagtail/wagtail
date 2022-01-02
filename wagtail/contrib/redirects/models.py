@@ -34,7 +34,7 @@ class Redirect(models.Model):
         default=False,
         editable=False,
     )
-    created_at = models.DateTimeField(verbose_name=_("created at"), auto_now=True, null=True)
+    created_at = models.DateTimeField(verbose_name=_("created at"), auto_now_add=True, null=True)
     trigger_content_type = models.ForeignKey(
         ContentType,
         models.SET_NULL,
