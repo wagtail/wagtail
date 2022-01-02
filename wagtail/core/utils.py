@@ -386,7 +386,7 @@ def get_dummy_request(path: str = "/", site: 'Site' = None) -> HttpRequest:
         if site.port not in [80, 443]:
             SERVER_NAME += f":{site.port}"
         SERVER_PORT = site.port
-    if settings.ALLOWED_HOSTS == ["*"]:
+    elif settings.ALLOWED_HOSTS == ["*"]:
         SERVER_NAME = "example.com"
     else:
         SERVER_NAME = settings.ALLOWED_HOSTS[0]

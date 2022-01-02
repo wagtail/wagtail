@@ -1,12 +1,12 @@
 import logging
 
-from typing import Optional
+from typing import Iterable, Set, Tuple
 
 from django.conf import settings
 from django.db.models import Q
 
-from wagtail.core.models import BaseLogEntry, Page, PageBase
-from wagtail.core.utils import BatchCreator, get_dummy_request
+from wagtail.core.models import Page, Site
+from wagtail.core.utils import BatchCreator, accepts_kwarg, get_dummy_request
 
 from .models import Redirect
 
@@ -21,11 +21,6 @@ class BatchRedirectCreator(BatchCreator):
 
     model = Redirect
 
-    def initialize_instance(self, kwargs):
-        # Automatically normalise paths when creating instances from kwargs
-        kwargs["old_path"] = Redirect.normalise_path(kwargs["old_path"])
-        return super().initialize_instance(kwargs)
-
     def pre_process(self):
         # delete any existing automatically-created redirects that might clash
         # with the items in `self.items`
@@ -35,58 +30,146 @@ class BatchRedirectCreator(BatchCreator):
         Redirect.objects.filter(automatically_created=True).filter(clashes_q).delete()
 
 
-def autocreate_redirects(
-    sender: PageBase,
+def autocreate_redirects_on_slug_change(
+    instance_before: Page,
     instance: Page,
-    url_path_before: str,
-    url_path_after: str,
-    log_entry: Optional[BaseLogEntry] = None,
-    **kwargs,
-) -> None:
-    if (
-        not getattr(settings, "WAGTAILREDIRECTS_AUTOCREATE", True)
-        or instance.is_site_root()
-    ):
+    **kwargs
+):
+    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
         return None
 
-    logger.info(f"Creating redirects for page: '{instance}' id={instance.id}")
-    batch = BatchRedirectCreator(max_size=2000, ignore_conflicts=True)
-    request = get_dummy_request()
+    # Determine sites to create redirects for
+    sites = Site.objects.exclude(root_page=instance).filter(id__in=[
+        option.site_id for option in instance._get_site_root_paths(request=instance)
+        if instance.url_path.startswith(option.root_path)
+    ])
 
-    for page in (
-        instance.get_descendants(inclusive=True).live().specific(defer=True).iterator()
+    _create_redirects(page=instance, page_old=instance_before, sites=sites)
+
+
+def autocreate_redirects_on_page_move(
+    instance: Page,
+    url_path_after: str,
+    url_path_before: str,
+    **kwargs,
+) -> None:
+    if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
+        return None
+
+    if url_path_after == url_path_before:
+        # Redirects are not needed for a page 'reorder'
+        return None
+
+    # _create_redirects expects specific instances
+    instance = instance.specific
+
+    # Simulate an 'old_page' by copying the specific instance and resetting
+    # the in-memory `url_path` value to what it was before the move
+    page_old = type(instance)()
+    page_old.__dict__.update(instance.__dict__)
+    page_old.url_path = url_path_before
+
+    # This value is used to prevent creation redirects that link
+    # from one site to another
+
+    new_site_ids = set(
+        item.site_id for item in instance._get_relevant_site_root_paths(cache_object=instance)
+    )
+
+    # Determine sites to create redirects for
+    sites = Site.objects.exclude(root_page=instance).filter(id__in=[
+        item.site_id for item in page_old._get_site_root_paths(request=instance)
+        if(
+            page_old.url_path.startswith(item.root_path)
+            and item.site_id in new_site_ids
+        )
+    ])
+
+    _create_redirects(page=instance, page_old=page_old, sites=sites)
+
+
+def _page_urls_for_sites(page: Page, sites: Tuple[Site], cache_target: Page) -> Set[Tuple[Site, str, str]]:
+    urls = set()
+    for site in sites:
+
+        # account for legacy get_url_parts() overrides
+        if accepts_kwarg(page.get_url_parts, "site"):
+            kwargs = {'request': cache_target, "site": site}
+        else:
+            # use a `HttpRequest` to influence the return value instead
+            request = get_dummy_request(site=site)
+            # resuse cached site root paths if available
+            if hasattr(cache_target, '_wagtail_cached_site_root_paths'):
+                request._wagtail_cached_site_root_paths = cache_target._wagtail_cached_site_root_paths
+            kwargs = {"request": request}
+
+        site_id, root_url, page_path = page.get_url_parts(**kwargs)
+
+        if page_path:
+            for route_path in page.get_route_paths():
+                urls.add((site, Redirect.normalise_path(page_path), Redirect.normalise_page_route_path(route_path)))
+
+        if not accepts_kwarg(page.get_url_parts, 'site'):
+            # copy cached site root paths to `cache_target` to retain benefits
+            cache_target._wagtail_cached_site_root_paths = request._wagtail_cached_site_root_paths
+
+    return urls
+
+
+def _create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
+    url_path_length = len(page.url_path)
+    sites = tuple(sites)
+
+    if not sites:
+        return None
+
+    logger.info(f"Creating redirects for page: '{page}' id={page.id}")
+
+    # For bulk-creating redirects in batches
+    batch = BatchRedirectCreator(max_size=2000, ignore_conflicts=True)
+
+    # Treat the page that was updated / moved separately to it's decendants,
+    # because there may have been changes to fields other than `slug` or
+    # `url_path` that impact the page's URL.
+
+    old_urls = _page_urls_for_sites(page_old, sites, cache_target=page)
+    new_urls = _page_urls_for_sites(page, sites, cache_target=page)
+
+    # Add redirects for urls that have changed
+    changed_urls = old_urls - new_urls
+    for site, page_path, route_path in changed_urls:
+        batch.add(
+            old_path=page_path,
+            site=site,
+            redirect_page=page,
+            redirect_page_route_path=route_path,
+            automatically_created=True,
+        )
+
+    # Now, repeat the process for each descendant page.
+    # Only the `url_path` value of descendants should have been affected by the
+    # change, so we can use in-memory manipulation of `url_path` to figure out what
+    # the old URLS were
+
+    for descendant in (
+        page.get_descendants().live().specific(defer=True).iterator()
     ):
-        try:
-            new_site_id, _, new_url = page.get_url_parts(request)
-        except TypeError:
-            continue
+        new_urls = _page_urls_for_sites(descendant, sites, cache_target=page)
 
         # Restore old 'url_path' value on in-memory instance
-        new_path_length = len(url_path_after)
-        original_url_path = page.url_path
-        page.url_path = url_path_before + original_url_path[new_path_length:]
-        try:
-            # Use modified page to retrieve old site and url
-            old_site_id, _, old_url = page.get_url_parts(request)
-        except TypeError:
-            continue
+        descendant.url_path = page_old.url_path + descendant.url_path[url_path_length:]
 
-        if (old_site_id, old_url) != (new_site_id, new_url):
-            page_paths = [old_url]
-            page_paths.extend(
-                old_url.rstrip("/") + path
-                for path in page.get_cached_paths()
-                if path != "/"
-            )
-            batch.extend(
-                dict(
-                    old_path=path,
-                    site_id=old_site_id,
-                    redirect_page=page,
-                    automatically_created=True,
-                    trigger=log_entry,
-                )
-                for path in page_paths
+        old_urls = _page_urls_for_sites(descendant, sites, cache_target=page)
+
+        # Add redirects for urls that have changed
+        changed_urls = old_urls - new_urls
+        for site, page_path, route_path in changed_urls:
+            batch.add(
+                old_path=page_path,
+                site=site,
+                redirect_page=descendant,
+                redirect_page_route_path=route_path,
+                automatically_created=True,
             )
 
     # Process the final batch
