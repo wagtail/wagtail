@@ -32,6 +32,7 @@ from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
+from django.http.request import HttpRequest
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -105,6 +106,15 @@ class ParentNotTranslatedError(Exception):
     """
     Raised when a call to Page.copy_for_translation is made but the
     parent page is not translated and copy_parents is False.
+    """
+    pass
+
+
+class WagtailServeURLNotConfigured(NoReverseMatch):
+    """
+    Raised by Page.get_root_relative_url when the 'wagtail_serve'
+    URL hasn't been added to the Django projects URLConf, which
+    is often the case for headless sites.
     """
     pass
 
@@ -1130,44 +1140,109 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
 
-    def get_url_parts(self, request=None):
+    def _get_relevant_site_root_paths(self, cache_object=None):
+        """
+        .. versionadded::2.16
+
+        Returns a tuple of root paths for all sites this page belongs to.
+        """
+        return tuple(
+            srp
+            for srp in self._get_site_root_paths(cache_object)
+            if self.url_path.startswith(srp.root_path)
+        )
+
+    def _get_best_site_root_path(self, site=None, request=None):
+        """
+        .. versionadded::2.16
+
+        Returns the most relevant `SiteRootPath` named tuple for this page,
+        based on the supplied ``site`` and ``request`` values.
+        """
+        cache_object = request
+        if request is None and isinstance(site, Site):
+            cache_object = site
+        options = self._get_relevant_site_root_paths(cache_object)
+
+        if site:
+            # find an exact match for `site`, or error
+            if isinstance(site, int):
+                site_pk = site
+            else:
+                site_pk = site.pk
+            for option in options:
+                if option.site_id == site_pk:
+                    return option
+            raise ValueError(f"Page '{self}' does not belong to site '{site}'.")
+
+        if not options:
+            # the page does not belong to any sites
+            return None
+
+        if len(options) > 1 and isinstance(request, HttpRequest):
+            # attempt to return a more relevant option by deriving ``Site``
+            # from the request, but do not error if unsuccessful
+            site = Site.find_for_request(request)
+            if site:
+                for option in options:
+                    if option.site_id == site.pk:
+                        return option
+
+        # fallback to the first item
+        return options[0]
+
+    def get_url_parts(self, request=None, site=None):
         """
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return None if the page is not routable.
+        Returns ``None`` if the page is not routable.
 
-        This is used internally by the ``full_url``, ``url``, ``relative_url``
-        and ``get_site`` properties and methods; pages with custom URL routing
-        should override this method in order to have those operations return
-        the custom URLs.
+        .. versionchanged:: 2.16:
+            Added the ``site`` keyword argument and documented the role of
+            ``request`` in determining the return value.
 
-        Accepts an optional keyword argument ``request``, which may be used
-        to avoid repeated database / cache lookups. Typically, a page model
-        that overrides ``get_url_parts`` should not need to deal with
-        ``request`` directly, and should just pass it to the original method
-        when calling ``super``.
+        For pages the appear on multiple sites, the ``site`` keyword argument
+        can optionally be used to request values for a specific site.
+        ``site`` can be a fully-flegded ``Site`` object, or the just the
+        ``id`` value of one. A ``ValueError`` will be raised if the page does
+        not fall within the site's page tree.
+
+        The optional keyword argument ``request`` may also be used
+        to avoid repeated database / cache lookups. If no ``site`` value is
+        provided, and ``request`` is a ``HttpRequest`` instance, the method
+        will attempt to derive a ``Site`` from ``request`` in order to
+        return the most relvant value.
         """
-
-        possible_sites = [
-            (pk, path, url, language_code)
-            for pk, path, url, language_code in self._get_site_root_paths(request)
-            if self.url_path.startswith(path)
-        ]
-
-        if not possible_sites:
+        site_root_path = self._get_best_site_root_path(site, request)
+        if not site_root_path:
             return None
 
-        site_id, root_path, root_url, language_code = possible_sites[0]
+        try:
+            page_path = self.get_root_relative_url(site_root_path)
+        except WagtailServeURLNotConfigured:
+            return (site_root_path.site_id, None, None)
 
-        site = Site.find_for_request(request)
-        if site:
-            for site_id, root_path, root_url, language_code in possible_sites:
-                if site_id == site.pk:
-                    break
-            else:
-                site_id, root_path, root_url, language_code = possible_sites[0]
+        return (site_root_path.site_id, site_root_path.root_url, page_path)
 
+    def get_root_relative_url(self, site_root_path):
+        """
+        .. versionadded:: 2.16
+
+        Return the URL of this page relative to the supplied ``site_root_path``
+        (a ``SiteRootPath`` namedtuple instance), and factoring in where page
+        URLs 'start' for this project (according to the ``URLconf``).
+
+        This method is used internally by ``full_url``, ``url``,  and
+        ``relative_url`` properties/methods, and returns a single string value,
+        making it the most convenient method to override in order to implement
+        custom URL logic.
+
+        Raises ``WagtailServeURLNotConfigured`` if the ``wagtail_serve`` named
+        url has not been added to the project's ``URLConf``; which is often the
+        case for headless projects.
+        """
         use_wagtail_i18n = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+        language_code = site_root_path.language_code
 
         if use_wagtail_i18n:
             # If the active language code is a variant of the page's language, then
@@ -1178,29 +1253,27 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     language_code = translation.get_language()
             except LookupError:
                 # active language code is not a recognised content language, so leave
-                # page's language code unchanged
+                # language code unchanged
                 pass
 
-        # The page may not be routable because wagtail_serve is not registered
-        # This may be the case if Wagtail is used headless
+        relative_url_path = self.url_path[len(site_root_path.root_path):]
+
         try:
             if use_wagtail_i18n:
                 with translation.override(language_code):
                     page_path = reverse(
-                        'wagtail_serve', args=(self.url_path[len(root_path):],))
+                        'wagtail_serve', args=(relative_url_path,))
             else:
                 page_path = reverse(
-                    'wagtail_serve', args=(self.url_path[len(root_path):],))
+                    'wagtail_serve', args=(relative_url_path,))
         except NoReverseMatch:
-            return (site_id, None, None)
+            raise WagtailServeURLNotConfigured
 
-        # Remove the trailing slash from the URL reverse generates if
-        # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-        # the root path
+        # Remove the trailing slash if WAGTAIL_APPEND_SLASH
+        # is False and we're not trying to serve the root path
         if not WAGTAIL_APPEND_SLASH and page_path != '/':
-            page_path = page_path.rstrip('/')
-
-        return (site_id, root_url, page_path)
+            return page_path.rstrip('/')
+        return page_path
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
