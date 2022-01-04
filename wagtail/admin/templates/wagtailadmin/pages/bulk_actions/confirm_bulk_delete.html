@@ -14,7 +14,7 @@
         <ul>
             {% for page in items %}
             <li>
-                <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noopener noreferrer">{{page.item.title }}</a>
+                <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noopener noreferrer">{{ page.item.get_admin_display_title }}</a>
                 {% if page.descendant_count %}
                 <p>
                     {% blocktrans count counter=page.descendant_count %}
