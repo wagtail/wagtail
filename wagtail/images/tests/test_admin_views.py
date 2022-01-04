@@ -185,8 +185,8 @@ class TestImageAddView(TestCase, WagtailTestUtils):
     def get(self, params={}):
         return self.client.get(reverse('wagtailimages:add'), params)
 
-    def post(self, post_data={}):
-        return self.client.post(reverse('wagtailimages:add'), post_data)
+    def post(self, post_data={}, follow=False):
+        return self.client.post(reverse('wagtailimages:add'), post_data, follow=follow)
 
     def test_get(self):
         response = self.get()
@@ -350,6 +350,26 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         # Test that it was placed in the Evil Plans collection
         image = images.first()
         self.assertEqual(image.collection, evil_plans_collection)
+
+    def test_add_duplicate(self):
+        # Upload image
+        self.post({
+            'title': "Test image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Upload duplicate
+        response = self.post({
+            'title': "Test duplicate image",
+            'file': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        }, follow=True)
+
+        # Duplicate image warning message is present.
+        self.assertContains(response, "However it seems to be a duplicate.")
+
+        # Delete button is shown
+        image = Image.objects.get(title="Test duplicate image")
+        self.assertContains(response, reverse('wagtailimages:delete', args=(image.id,)))
 
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
     def test_unique_together_validation_error(self):
@@ -1496,6 +1516,26 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertEqual(
             response_json['error_message'], 'Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.'
         )
+
+    def test_add_duplicate_post(self):
+        # Upload image
+        self.client.post(reverse('wagtailimages:add_multiple'), {
+            'title': 'test title',
+            'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Upload duplicate
+        response = self.client.post(reverse('wagtailimages:add_multiple'), {
+            'title': 'test duplicate title',
+            'files[]': SimpleUploadedFile('test.png', get_test_image_file().file.getvalue()),
+        })
+
+        # Check duplicate
+        response_json = json.loads(response.content.decode())
+        self.assertIn('success', response_json)
+        self.assertIn('duplicate', response_json)
+        self.assertTrue(response_json['success'])
+        self.assertTrue(response_json['duplicate'])
 
     def test_edit_get(self):
         """
