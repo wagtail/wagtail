@@ -47,6 +47,7 @@ from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
 from wagtail.core.actions.copy_page import CopyPageAction
+from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -547,29 +548,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         return result
 
     def delete(self, *args, **kwargs):
-        # Ensure that deletion always happens on an instance of Page, not a specific subclass. This
-        # works around a bug in treebeard <= 3.0 where calling SpecificPage.delete() fails to delete
-        # child pages that are not instances of SpecificPage
-        if type(self) is Page:
-            user = kwargs.pop('user', None)
-
-            def log_deletion(page, user):
-                log(
-                    instance=page,
-                    action='wagtail.delete',
-                    user=user,
-                    deleted=True,
-                )
-            if self.get_children().exists():
-                for child in self.get_children():
-                    log_deletion(child.specific, user)
-            log_deletion(self.specific, user)
-
-            # this is a Page instance, so carry on as we were
-            return super().delete(*args, **kwargs)
-        else:
-            # retrieve an actual Page instance and delete that instead of self
-            return Page.objects.get(id=self.id).delete(*args, **kwargs)
+        user = kwargs.pop("user", None)
+        return DeletePageAction(self, user=user).execute(*args, **kwargs)
 
     @classmethod
     def check(cls, **kwargs):

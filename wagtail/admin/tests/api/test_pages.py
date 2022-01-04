@@ -984,6 +984,44 @@ class TestCopyPageAction(AdminAPITestCase):
         self.assertEqual(content, {'slug': ['This slug is already in use']})
 
 
+class TestDeletePageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "delete"])
+        )
+
+    def test_delete_page(self):
+        response = self.get_response(4)
+
+        # Page is deleted
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Page.objects.filter(id=4).exists())
+
+    def test_delete_page_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # delete
+        response = self.get_response(4)
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+        # Page is still here
+        self.assertTrue(Page.objects.filter(id=4).exists())
+
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None
