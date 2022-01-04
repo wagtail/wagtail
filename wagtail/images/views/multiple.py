@@ -40,6 +40,11 @@ class AddView(BaseAddView):
     def get_edit_form_class(self):
         return get_image_multi_form(self.model)
 
+    def get_edit_object_response_data(self):
+        data = super().get_edit_object_response_data()
+        data["duplicate"] = self.is_duplicate
+        return data
+
     def save_object(self, form):
         image = form.save(commit=False)
         image.uploaded_by_user = self.request.user
@@ -47,6 +52,9 @@ class AddView(BaseAddView):
         image.file.seek(0)
         image._set_file_hash(image.file.read())
         image.file.seek(0)
+        self.is_duplicate = (
+            self.get_model().objects.filter(file_hash=image.file_hash).exists()
+        )
         image.save()
         return image
 
