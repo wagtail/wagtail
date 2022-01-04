@@ -1,6 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -16,26 +15,8 @@ from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
-@user_passes_test(user_has_any_page_permission)
 def revisions_index(request, page_id):
-    page = get_object_or_404(Page, id=page_id).specific
-
-    # Get page ordering
-    ordering = request.GET.get('ordering', '-created_at')
-    if ordering not in ['created_at', '-created_at', ]:
-        ordering = '-created_at'
-
-    revisions = page.revisions.order_by(ordering)
-
-    paginator = Paginator(revisions, per_page=20)
-    revisions = paginator.get_page(request.GET.get('p'))
-
-    return TemplateResponse(request, 'wagtailadmin/pages/revisions/index.html', {
-        'page': page,
-        'ordering': ordering,
-        'pagination_query_params': "ordering=%s" % ordering,
-        'revisions': revisions,
-    })
+    return redirect('wagtailadmin_pages:history', page_id)
 
 
 def revisions_revert(request, page_id, revision_id):

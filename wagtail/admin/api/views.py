@@ -10,6 +10,7 @@ from wagtail.core.models import Page
 
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
+from .actions.delete import DeletePageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 
@@ -19,8 +20,9 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     authentication_classes = [SessionAuthentication]
 
     actions = {
-        'copy': CopyPageAPIAction,
         'convert_alias': ConvertAliasPageAPIAction,
+        'copy': CopyPageAPIAction,
+        'delete': DeletePageAPIAction,
     }
 
     # Add has_children and for_explorer filters
