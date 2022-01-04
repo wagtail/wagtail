@@ -296,15 +296,26 @@ def add(request):
             image.file.seek(0)
             image._set_file_hash(image.file.read())
             image.file.seek(0)
+            is_duplicate = (
+                ImageModel.objects.filter(file_hash=image.file_hash).exists()
+            )
 
             form.save()
 
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
-            messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
+            message = _("Image '{0}' added.").format(image.title)
+            buttons = [
                 messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
-            ])
+            ]
+            messages_handler = messages.success
+            if is_duplicate:
+                message += _(" However it seems to be a duplicate.")
+                buttons.append(messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete')))
+                messages_handler = messages.warning
+
+            messages_handler(request, message, buttons=buttons)
             return redirect('wagtailimages:index')
         else:
             messages.error(request, _("The image could not be created due to errors."))
