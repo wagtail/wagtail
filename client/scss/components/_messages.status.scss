@@ -3,6 +3,10 @@
         color: $color-green-dark;
     }
 
+    &.duplicate {
+        color: $color-orange;
+    }
+
     &.failure {
         color: $color-red-dark;
     }

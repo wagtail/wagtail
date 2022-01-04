@@ -131,7 +131,11 @@ $(function() {
             var response = JSON.parse(data.result);
 
             if (response.success) {
-                itemElement.addClass('upload-success')
+                if (response.duplicate) {
+                    itemElement.addClass('upload-duplicate')
+                } else {
+                    itemElement.addClass('upload-success')
+                }
 
                 $('.right', itemElement).append(response.form);
             } else {

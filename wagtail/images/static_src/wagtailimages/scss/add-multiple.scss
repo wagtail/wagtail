@@ -124,6 +124,12 @@
         }
     }
 
+    .upload-duplicate {
+        .status-msg.duplicate {
+            display: block;
+        }
+    }
+
     .upload-failure {
         border-color: $color-red;
 
