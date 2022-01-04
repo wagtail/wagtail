@@ -1094,6 +1094,7 @@ class TestDeletePageAction(AdminAPITestCase):
         # Page is still there
         self.assertTrue(Page.objects.filter(id=4).exists())
 
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None
