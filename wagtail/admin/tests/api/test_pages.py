@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core import hooks
-from wagtail.core.models import GroupPagePermission, Locale, Page
+from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import SimplePage, StreamPage
 from wagtail.users.models import UserProfile
@@ -984,6 +984,79 @@ class TestCopyPageAction(AdminAPITestCase):
         self.assertEqual(content, {'slug': ['This slug is already in use']})
 
 
+class TestConvertAliasPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
+        self.root_page.add_child(instance=self.child_page)
+
+        # Add alias page
+        self.alias_page = self.child_page.create_alias(update_slug="alias-page")
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "convert_alias"])
+        )
+
+    def test_convert_alias(self):
+        response = self.get_response(self.alias_page.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the page was converted
+        self.alias_page.refresh_from_db()
+        self.assertIsNone(self.alias_page.alias_of)
+
+        # Check that a revision was created
+        revision = self.alias_page.revisions.get()
+        self.assertEqual(revision.user, self.user)
+        self.assertEqual(self.alias_page.live_revision, revision)
+
+        # Check audit log
+        log = PageLogEntry.objects.get(action="wagtail.convert_alias")
+        self.assertFalse(log.content_changed)
+        self.assertEqual(
+            json.loads(log.data_json),
+            {
+                "page": {
+                    "id": self.alias_page.id,
+                    "title": self.alias_page.get_admin_display_title(),
+                }
+            },
+        )
+        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.revision, revision)
+        self.assertEqual(log.user, self.user)
+
+    def test_convert_alias_not_alias(self):
+        response = self.get_response(self.child_page.id)
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {'message': 'Page must be an alias to be converted.'}
+        )
+
+    def test_convert_alias_bad_permission(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(self.alias_page.id)
+        self.assertEqual(response.status_code, 403)
+
+
 class TestDeletePageAction(AdminAPITestCase):
     fixtures = ["test.json"]
 
@@ -1018,7 +1091,7 @@ class TestDeletePageAction(AdminAPITestCase):
             content, {"detail": "You do not have permission to perform this action."}
         )
 
-        # Page is still here
+        # Page is still there
         self.assertTrue(Page.objects.filter(id=4).exists())
 
 

@@ -8,6 +8,7 @@ from rest_framework.authentication import SessionAuthentication
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
 
+from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
@@ -19,6 +20,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     authentication_classes = [SessionAuthentication]
 
     actions = {
+        'convert_alias': ConvertAliasPageAPIAction,
         'copy': CopyPageAPIAction,
         'delete': DeletePageAPIAction,
     }
