@@ -28,6 +28,10 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         for child_page in self.child_pages:
             self.root_page.add_child(instance=child_page)
 
+        for i, child_page in enumerate(self.child_pages):
+            child_page.content = f"Hello updated world {i}!"
+            child_page.save_revision()
+
         self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'publish', )) + '?'
         for child_page in self.pages_to_be_published:
             self.url += f'id={child_page.id}&'
@@ -96,7 +100,9 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         # Check that the child pages were published
         for child_page in self.pages_to_be_published:
-            self.assertTrue(Page.objects.get(id=child_page.id).live)
+            published_page = SimplePage.objects.get(id=child_page.id)
+            self.assertTrue(published_page.live)
+            self.assertIn("Hello updated", published_page.content)
 
         # Check that the child pages not to be published remain
         for child_page in self.pages_not_to_be_published:
@@ -178,6 +184,10 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
         for child_page in self.child_pages:
             self.root_page.add_child(instance=child_page)
 
+        for i, child_page in enumerate(self.child_pages):
+            child_page.content = f"Hello updated world {i}!"
+            child_page.save_revision()
+
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
             self.pages_to_be_published[0]: [
@@ -190,6 +200,11 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
         for child_page, grandchild_pages in self.grandchildren_pages.items():
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
+
+        for child_page, grandchild_pages in self.grandchildren_pages.items():
+            for grandchild_page in grandchild_pages:
+                grandchild_page.content = grandchild_page.content.replace("Hello world", "Hello grandchild")
+                grandchild_page.save_revision()
 
         self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'publish', )) + '?'
         for child_page in self.pages_to_be_published:
@@ -222,7 +237,9 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Check that the child pages were published
         for child_page in self.pages_to_be_published:
-            self.assertTrue(Page.objects.get(id=child_page.id).live)
+            published_child_page = SimplePage.objects.get(id=child_page.id)
+            self.assertTrue(published_child_page.live)
+            self.assertIn("Hello updated", published_child_page.content)
 
         # Check that the child pages not to be published remain
         for child_page in self.pages_not_to_be_published:
@@ -230,7 +247,9 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
-                self.assertTrue(Page.objects.get(id=grandchild_page.id).live)
+                published_grandchild_page = SimplePage.objects.get(id=grandchild_page.id)
+                self.assertTrue(published_grandchild_page.live)
+                self.assertIn("Hello grandchild", published_grandchild_page.content)
 
     def test_publish_not_include_children_view_post(self):
         """
@@ -244,7 +263,9 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Check that the child pages were published
         for child_page in self.pages_to_be_published:
-            self.assertTrue(Page.objects.get(id=child_page.id).live)
+            published_child_page = SimplePage.objects.get(id=child_page.id)
+            self.assertTrue(published_child_page.live)
+            self.assertIn("Hello updated", published_child_page.content)
 
         # Check that the descendant pages were not published
         for grandchild_pages in self.grandchildren_pages.values():
