@@ -755,6 +755,24 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return ContentType.objects.get_for_id(self.content_type_id)
 
+    def requires_specific(fn):
+        """
+        A decorator that ensures the given method is being called with a specific page object.
+
+        This can only be used on methods of the Page model, hence why it itself is a method on Page.
+        """
+        @functools.wraps(fn)
+        def wrapper(self, *args, **kwargs):
+            if (
+                self.specific_class is not None
+                and not isinstance(self, self.specific_class)
+            ):
+                raise Exception(f"Page.{fn.__name__}() must be called with a specific page object")
+
+            return fn(self, *args, **kwargs)
+
+        return wrapper
+
     @property
     def localized_draft(self):
         """
