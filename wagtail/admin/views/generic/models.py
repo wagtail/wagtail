@@ -1,10 +1,15 @@
+from django import VERSION as DJANGO_VERSION
 from django.db import transaction
+from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import BaseCreateView
+from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
+from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
@@ -13,6 +18,39 @@ from wagtail.core.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
 from .permissions import PermissionCheckedMixin
+
+
+if DJANGO_VERSION >= (4, 0):
+    BaseDeleteView = DjangoBaseDeleteView
+else:
+    # As of Django 4.0 BaseDeleteView has switched to a new implementation based on FormMixin
+    # where custom deletion logic now lives in form_valid:
+    # https://docs.djangoproject.com/en/4.0/releases/4.0/#deleteview-changes
+    # Here we define BaseDeleteView to match the Django 4.0 implementation to keep it consistent
+    # across all versions.
+    class BaseDeleteView(DeletionMixin, FormMixin, BaseDetailView):
+        """
+        Base view for deleting an object.
+        Using this base class requires subclassing to provide a response mixin.
+        """
+        form_class = Form
+
+        def post(self, request, *args, **kwargs):
+            # Set self.object before the usual form processing flow.
+            # Inlined because having DeletionMixin as the first base, for
+            # get_success_url(), makes leveraging super() with ProcessFormView
+            # overly complex.
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+
+        def form_valid(self, form):
+            success_url = self.get_success_url()
+            self.object.delete()
+            return HttpResponseRedirect(success_url)
 
 
 class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView):
@@ -248,11 +286,13 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
             return None
         return self.success_message.format(self.object)
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
+    def delete_action(self):
         with transaction.atomic():
             log(instance=self.object, action='wagtail.delete')
             self.object.delete()
-        messages.success(request, self.get_success_message())
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.delete_action()
+        messages.success(self.request, self.get_success_message())
         return HttpResponseRedirect(success_url)
