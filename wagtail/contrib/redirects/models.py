@@ -38,7 +38,7 @@ class Redirect(models.Model):
     @property
     def link(self):
         if self.redirect_page:
-            return self.redirect_page.url
+            return self.redirect_page.specific_deferred.url
         elif self.redirect_link:
             return self.redirect_link
 

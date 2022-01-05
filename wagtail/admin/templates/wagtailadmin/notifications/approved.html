@@ -3,5 +3,5 @@
 
 {% block content %}
     <p>{% blocktrans with title=revision.page.specific_deferred.get_admin_display_title|safe %}The page "{{ title }}" has been approved.{% endblocktrans %}</p>
-    <p>{% trans "You can view the page here:" %} <a href="{{ revision.page.full_url }}">{{ revision.page.full_url }}</a></p>
+    <p>{% trans "You can view the page here:" %} <a href="{{ revision.page.specific_deferred.full_url }}">{{ revision.page.specific_deferred.full_url }}</a></p>
 {% endblock %}

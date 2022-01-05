@@ -3,5 +3,5 @@
 
 {% block content %}
 {% blocktrans with title=page.get_admin_display_title|safe workflow=workflow.name|safe %}The page "{{ title }}" has been approved in workflow "{{ workflow }}".{% endblocktrans %}
-{% trans "You can view the page here:" %} {{ page.full_url }}
+{% trans "You can view the page here:" %} {{ page.specific_deferred.full_url }}
 {% endblock %}

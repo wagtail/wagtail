@@ -1145,6 +1145,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
 
+    @overridable
     def get_url_parts(self, request=None):
         """
         Determine the URL for this page and return it as a tuple of

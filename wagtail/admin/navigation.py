@@ -33,7 +33,7 @@ def get_explorable_root_page(user):
 def get_site_for_user(user):
     root_page = get_explorable_root_page(user)
     if root_page:
-        root_site = root_page.get_site()
+        root_site = root_page.specific_deferred.get_site()
     else:
         root_site = None
     real_site_name = None

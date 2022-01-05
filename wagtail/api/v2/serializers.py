@@ -59,7 +59,7 @@ class PageHtmlUrlField(Field):
 
     def to_representation(self, page):
         try:
-            return page.full_url
+            return page.specific_deferred.full_url
         except NoReverseMatch:
             return None
 

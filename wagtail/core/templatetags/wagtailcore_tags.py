@@ -32,17 +32,17 @@ def pageurl(context, page, fallback=None):
         current_site = site
     except KeyError:
         # request not available in the current context; fall back on page.url
-        return page.url
+        return page.specific_deferred.url
 
     if current_site is None:
         # request does not correspond to a recognised site; fall back on page.url
-        return page.url
+        return page.specific_deferred.url
 
     # Pass page.relative_url the request object, which may contain a cached copy of
     # Site.get_site_root_paths()
     # This avoids page.relative_url having to make a database/cache fetch for this list
     # each time it's called.
-    return page.relative_url(current_site, request=context.get('request'))
+    return page.specific_deferred.relative_url(current_site, request=context.get('request'))
 
 
 @register.simple_tag(takes_context=True)
