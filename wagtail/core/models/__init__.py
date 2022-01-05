@@ -2048,12 +2048,40 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         patch_cache_control(response, private=True)
         return response
 
+    def get_route_paths(self):
+        """
+        .. versionadded:: 2.16
+
+        Returns a list of paths that this page can be viewed at.
+
+        These values are combined with the dynamic portion of the page URL to
+        automatically create redirects when the page's URL changes.
+
+        .. note::
+
+            If using ``RoutablePageMixin``, you may want to override this method
+            to include the paths of popualar routes.
+
+        .. note::
+
+            Redirect paths are 'normalized' to apply consistant ordering to GET parameters,
+            so you don't need to include every variation. Fragment identifiers are discarded
+            too, so should be avoided.
+        """
+        return ['/']
+
     def get_cached_paths(self):
         """
-        This returns a list of paths to invalidate in a frontend cache, or when
-        create redirects when the page's URL changes as a result of a slug
-        change or move. These values are automatically added to the page's
-        default URL to create full URLs.
+        Returns a list of paths to invalidate for this page in a
+        frontend cache.
+
+        These values are combined with the dynamic portion of the page URL to
+        create full URLs for purging.
+
+        .. note::
+
+            If using ``RoutablePageMixin``, you may want to override this method
+            to include the paths of popualar routes.
         """
         return ['/']
 
