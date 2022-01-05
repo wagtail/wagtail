@@ -319,7 +319,7 @@ def add(request):
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
+    paginator = Paginator(image.get_usage().specific(defer=True), per_page=USAGE_PAGE_SIZE)
     used_by = paginator.get_page(request.GET.get('p'))
 
     return TemplateResponse(request, "wagtailimages/images/usage.html", {

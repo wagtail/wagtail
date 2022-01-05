@@ -23,12 +23,14 @@
                 {% for page in used_by %}
                     <tr>
                         <td class="title" valign="top">
-                            <div class="title-wrapper"><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.title }}</a></div>
+                            <div class="title-wrapper"><a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a></div>
                         </td>
                         <td>
-                            {% if page.get_parent %}
-                                <a href="{% url 'wagtailadmin_explore' page.get_parent.id %}">{{ page.get_parent.title }}</a>
+                            {% with page.get_parent.specific_deferred as parent %}
+                            {% if parent %}
+                                <a href="{% url 'wagtailadmin_explore' parent.id %}">{{ parent.get_admin_display_title }}</a>
                             {% endif %}
+                            {% endwith %}
                         </td>
                         <td>
                             {{ page.content_type.model_class.get_verbose_name }}

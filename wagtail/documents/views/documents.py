@@ -232,7 +232,7 @@ def usage(request, document_id):
     Document = get_document_model()
     doc = get_object_or_404(Document, id=document_id)
 
-    paginator = Paginator(doc.get_usage(), per_page=20)
+    paginator = Paginator(doc.get_usage().specific(defer=True), per_page=20)
     used_by = paginator.get_page(request.GET.get('p'))
 
     return TemplateResponse(request, "wagtaildocs/documents/usage.html", {

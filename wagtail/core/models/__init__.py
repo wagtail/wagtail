@@ -830,6 +830,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             else:
                 raise Http404
 
+    @requires_specific
     def get_admin_display_title(self):
         """
         Return the title for this page as it should appear in the admin backend;

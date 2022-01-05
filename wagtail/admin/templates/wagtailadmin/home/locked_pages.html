@@ -21,7 +21,7 @@
                     <tr>
                         <td class="title" valign="top">
                             <div class="title-wrapper">
-                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.get_admin_display_title }}</a>
+                                <a href="{% url 'wagtailadmin_pages:edit' page.id %}" title="{% trans 'Edit this page' %}">{{ page.specific_deferred.get_admin_display_title }}</a>
                                 {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=page %}
                                 {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=page %}
                             </div>
