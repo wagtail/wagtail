@@ -50,6 +50,9 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html')
 
+        # Page titles shown on the confirmation page should use SimplePage's custom get_admin_display_title method
+        self.assertContains(response, "Hello world!-1 (simple page)")
+
     def test_publish_view_invalid_page_id(self):
         """
         This tests that the publish view returns an error if the page id is invalid

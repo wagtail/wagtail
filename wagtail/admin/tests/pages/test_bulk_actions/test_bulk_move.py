@@ -71,11 +71,9 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         self.assertInHTML('<p>Are you sure you want to move these pages?</p>', html)
 
-        for child_page in self.pages_to_be_moved:
-            self.assertInHTML('<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
-                edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
-                page_title=child_page.title
-            ), html)
+        self.assertInHTML('<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">Hello world! (simple page)</a></li>'.format(
+            edit_page_url=reverse('wagtailadmin_pages:edit', args=[self.test_page_b.id]),
+        ), html)
 
     def test_bulk_move_bad_permissions(self):
         # Remove privileges from user
