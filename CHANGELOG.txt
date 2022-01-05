@@ -23,6 +23,7 @@ Changelog
 
  * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
  * Fix: Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
+ * Fix: Ensure that bulk publish actions pick up the latest draft revision (Matt Westcott)
 
 
 2.15.1 (11.11.2021)
