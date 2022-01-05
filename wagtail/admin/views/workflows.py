@@ -231,11 +231,8 @@ class Disable(DeleteView):
         }
         return context
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.deactivate(user=request.user)
-        messages.success(request, self.get_success_message())
-        return redirect(reverse(self.index_url_name))
+    def delete_action(self):
+        self.object.deactivate(user=self.request.user)
 
 
 def usage(request, pk):
@@ -460,11 +457,8 @@ class DisableTask(DeleteView):
     def get_edit_url(self):
         return reverse(self.edit_url_name, args=(self.kwargs['pk'],))
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.deactivate(user=request.user)
-        messages.success(request, self.get_success_message())
-        return redirect(reverse(self.index_url_name))
+    def delete_action(self):
+        self.object.deactivate(user=self.request.user)
 
 
 @require_POST

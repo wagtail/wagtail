@@ -85,12 +85,12 @@ class DeleteView(generic.DeleteView):
         context['can_delete'] = self.can_delete(object)
         return context
 
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         if self.can_delete(self.get_object()):
-            return super().delete(request, *args, **kwargs)
+            return super().form_valid(form)
         else:
-            messages.error(request, self.cannot_delete_message)
-            return super().get(request)
+            messages.error(self.request, self.cannot_delete_message)
+            return super().get(self.request)
 
 
 class LocaleViewSet(ModelViewSet):
