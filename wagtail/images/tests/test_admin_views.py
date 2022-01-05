@@ -1,6 +1,5 @@
 import json
-
-from urllib.parse import quote
+import urllib
 
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -10,7 +9,7 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from django.utils.encoding import force_str
 from django.utils.html import escapejs
-from django.utils.http import RFC3986_SUBDELIMS, urlencode, urlquote
+from django.utils.http import RFC3986_SUBDELIMS, urlencode
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
@@ -118,7 +117,7 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         edit_url = reverse('wagtailimages:edit', args=(image.id,))
-        next_url = quote(response._request.get_full_path())
+        next_url = urllib.parse.quote(response._request.get_full_path())
         self.assertContains(response, '%s?next=%s' % (edit_url, next_url))
 
     def test_tags(self):
@@ -2119,7 +2118,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         self.assertEqual(set(content_json.keys()), set(['url', 'preview_url']))
 
         expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
-            'signature': urlquote(generate_signature(self.image.id, 'fill-800x600'), safe=urlquote_safechars),
+            'signature': urllib.parse.quote(generate_signature(self.image.id, 'fill-800x600'), safe=urlquote_safechars),
             'image_id': self.image.id,
         }
         self.assertEqual(content_json['url'], expected_url)
