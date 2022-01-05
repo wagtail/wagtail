@@ -239,7 +239,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         # Submitter must receive an approved email
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world! (simple page)" has been approved')
 
     def test_approved_notifications_preferences_respected(self):
         # Submitter doesn't want 'approved' emails
@@ -263,7 +263,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         # Submitter must receive a rejected email
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
+        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world! (simple page)" has been rejected')
 
     def test_rejected_notification_preferences_respected(self):
         # Submitter doesn't want 'rejected' emails
