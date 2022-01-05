@@ -5,6 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Removed support for Python 3.6
+ * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia)
  * Added Aging Pages report (Tidjani Dia)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
  * Add collapse option to `StreamField`, `StreamBlock`, and `ListBlock` which will load all sub-blocks initially collapsed (Matt Westcott)
