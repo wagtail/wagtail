@@ -809,6 +809,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return localized
 
+    @requires_specific
     def route(self, request, path_components):
         if path_components:
             # request is for a child of this page
@@ -1089,6 +1090,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     context_object_name = None
 
+    @requires_specific
     def get_context(self, request, *args, **kwargs):
         context = {
             PAGE_TEMPLATE_VAR: self,
@@ -1101,12 +1103,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return context
 
+    @requires_specific
     def get_template(self, request, *args, **kwargs):
         if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return self.ajax_template or self.template
         else:
             return self.template
 
+    @requires_specific
     def serve(self, request, *args, **kwargs):
         request.is_preview = getattr(request, 'is_preview', False)
 
