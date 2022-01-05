@@ -28,6 +28,12 @@ class PageBulkAction(BulkAction):
 
         return listing_objects
 
+    def object_context(self, obj):
+        context = super().object_context(obj)
+        # Make 'item' into the specific instance, so that custom get_admin_display_title methods are respected
+        context['item'] = context['item'].specific_deferred
+        return context
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['items_with_no_access'] = [
