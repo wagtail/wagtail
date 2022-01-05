@@ -2,10 +2,16 @@ import operator
 
 from functools import reduce
 
-from django.contrib.admin.utils import lookup_needs_distinct
 from django.db.models import Q
 
 from wagtail.search.backends import get_search_backend
+
+
+try:
+    from django.contrib.admin.utils import lookup_spawns_duplicates
+except ImportError:
+    # fallback for Django <4.0
+    from django.contrib.admin.utils import lookup_needs_distinct as lookup_spawns_duplicates
 
 
 class BaseSearchHandler:
@@ -41,7 +47,7 @@ class DjangoORMSearchHandler(BaseSearchHandler):
             queryset = queryset.filter(reduce(operator.or_, or_queries))
         opts = queryset.model._meta
         for search_spec in orm_lookups:
-            if lookup_needs_distinct(opts, search_spec):
+            if lookup_spawns_duplicates(opts, search_spec):
                 return queryset.distinct()
         return queryset
 

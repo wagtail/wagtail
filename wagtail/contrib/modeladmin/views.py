@@ -6,8 +6,7 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct,
-    prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
     FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied,
@@ -37,6 +36,13 @@ from wagtail.core.log_actions import log
 from wagtail.core.log_actions import registry as log_registry
 
 from .forms import ParentChooserForm
+
+
+try:
+    from django.contrib.admin.utils import lookup_spawns_duplicates
+except ImportError:
+    # fallback for Django <4.0
+    from django.contrib.admin.utils import lookup_needs_distinct as lookup_spawns_duplicates
 
 
 QUERY_TERMS = {
@@ -390,8 +396,8 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
                     # Check if we need to use distinct()
                     use_distinct = (
-                        use_distinct or lookup_needs_distinct(self.opts,
-                                                              field_path))
+                        use_distinct or lookup_spawns_duplicates(self.opts, field_path)
+                    )
                 if spec and spec.has_output():
                     filter_specs.append(spec)
 
@@ -405,7 +411,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             for key, value in lookup_params.items():
                 lookup_params[key] = prepare_lookup_value(key, value)
                 use_distinct = (
-                    use_distinct or lookup_needs_distinct(self.opts, key))
+                    use_distinct or lookup_spawns_duplicates(self.opts, key))
             return (
                 filter_specs, bool(filter_specs), lookup_params, use_distinct
             )
