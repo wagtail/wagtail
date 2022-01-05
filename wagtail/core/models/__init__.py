@@ -1142,6 +1142,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
 
+    @requires_specific
     def get_url_parts(self, request=None):
         """
         Determine the URL for this page and return it as a tuple of
@@ -1214,6 +1215,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return (site_id, root_url, page_path)
 
+    @requires_specific
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
         url_parts = self.get_url_parts(request=request)
@@ -1228,6 +1230,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     full_url = property(get_full_url)
 
+    @requires_specific
     def get_url(self, request=None, current_site=None):
         """
         Return the 'most appropriate' URL for referring to this page from the pages we serve,
@@ -1268,6 +1271,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     url = property(get_url)
 
+    @requires_specific
     def relative_url(self, current_site, request=None):
         """
         Return the 'most appropriate' URL for this page taking into account the site we're currently on;
@@ -1280,6 +1284,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         return self.get_url(request=request, current_site=current_site)
 
+    @requires_specific
     def get_site(self):
         """
         Return the Site object that this page belongs to.
@@ -1800,6 +1805,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         user_perms = UserPagePermissionsProxy(user)
         return user_perms.for_page(self)
 
+    @requires_specific  # needs specific as this method calls get_url_parts
     def make_preview_request(self, original_request=None, preview_mode=None, extra_request_attrs=None):
         """
         Simulate a request to this page, by constructing a fake HttpRequest object that is (as far

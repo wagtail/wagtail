@@ -245,7 +245,7 @@ class TestRouting(TestCase):
     def test_urls(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         # Basic installation only has one site configured, so page.url will return local URLs
         self.assertEqual(
@@ -288,7 +288,7 @@ class TestRouting(TestCase):
 
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         # with multiple sites, page.url will return full URLs to ensure that
         # they work across sites
@@ -333,7 +333,7 @@ class TestRouting(TestCase):
     def test_urls_with_non_root_urlconf(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         # Basic installation only has one site configured, so page.url will return local URLs
         self.assertEqual(
@@ -451,7 +451,7 @@ class TestRoutingWithI18N(TestRouting):
     def test_urls(self, expected_language_code='en'):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         # Basic installation only has one site configured, so page.url will return local URLs
         # self.assertEqual(
@@ -508,11 +508,11 @@ class TestRoutingWithI18N(TestRouting):
     def test_urls_with_different_language_tree(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         fr_locale = Locale.objects.create(language_code="fr")
-        fr_homepage = homepage.copy_for_translation(fr_locale)
-        fr_christmas_page = christmas_page.copy_for_translation(fr_locale, copy_parents=True)
+        fr_homepage = homepage.copy_for_translation(fr_locale).specific
+        fr_christmas_page = christmas_page.copy_for_translation(fr_locale, copy_parents=True).specific
         fr_christmas_page.slug = 'noel'
         fr_christmas_page.save(update_fields=['slug'])
 
@@ -547,7 +547,7 @@ class TestRoutingWithI18N(TestRouting):
 
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
-        christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        christmas_page = Page.objects.get(url_path='/home/events/christmas/').specific
 
         # with multiple sites, page.url will return full URLs to ensure that
         # they work across sites
@@ -2628,7 +2628,7 @@ class TestMakePreviewRequest(TestCase):
 
     def test_make_preview_request_for_accessible_page(self):
         event_index = Page.objects.get(url_path='/home/events/')
-        response = event_index.make_preview_request()
+        response = event_index.specific.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 
@@ -2655,7 +2655,7 @@ class TestMakePreviewRequest(TestCase):
         Site.objects.update(port=443)
 
         event_index = Page.objects.get(url_path='/home/events/')
-        response = event_index.make_preview_request()
+        response = event_index.specific.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 
@@ -2682,7 +2682,7 @@ class TestMakePreviewRequest(TestCase):
         Site.objects.update(port=8888)
 
         event_index = Page.objects.get(url_path='/home/events/')
-        response = event_index.make_preview_request()
+        response = event_index.specific.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 
@@ -2716,7 +2716,7 @@ class TestMakePreviewRequest(TestCase):
         }
         factory = RequestFactory(**original_headers)
         original_request = factory.get('/home/events/')
-        response = event_index.make_preview_request(original_request)
+        response = event_index.specific.make_preview_request(original_request)
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 
@@ -2745,7 +2745,7 @@ class TestMakePreviewRequest(TestCase):
     @override_settings(ALLOWED_HOSTS=['production.example.com'])
     def test_make_preview_request_for_inaccessible_page_should_use_valid_host(self):
         root_page = Page.objects.get(url_path='/')
-        response = root_page.make_preview_request()
+        response = root_page.specific.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 
@@ -2757,7 +2757,7 @@ class TestMakePreviewRequest(TestCase):
     @override_settings(ALLOWED_HOSTS=['*'])
     def test_make_preview_request_for_inaccessible_page_with_wildcard_allowed_hosts(self):
         root_page = Page.objects.get(url_path='/')
-        response = root_page.make_preview_request()
+        response = root_page.specific.make_preview_request()
         self.assertEqual(response.status_code, 200)
         request = response.context_data['request']
 

@@ -10,7 +10,7 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
     def setUp(self):
         self.user = self.create_test_user()
-        self.events_index = Page.objects.get(url_path='/home/events/')
+        self.events_index = Page.objects.get(url_path='/home/events/').specific
 
     def test_get(self):
         response = self.client.get(reverse('wagtailcore_login'))
