@@ -1,5 +1,6 @@
 import datetime
 
+from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -8,6 +9,7 @@ from django.db import connection, models
 from django.db.models.fields import TextField
 from django.db.models.fields.related import OneToOneField
 from django.db.models.functions import Cast
+from django.db.models.sql.where import WhereNode
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -115,11 +117,18 @@ class TextIDGenericRelation(GenericRelation):
             from_field.get_col(remote_alias), Cast(to_field.get_col(alias), from_field)
         )
 
-    def get_extra_restriction(self, where_class, alias, remote_alias):
-        cond = where_class()
-        cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
-        cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
-        return cond
+    if DJANGO_VERSION >= (4, 0):
+        def get_extra_restriction(self, alias, remote_alias):
+            cond = WhereNode()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
+            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
+            return cond
+    else:
+        def get_extra_restriction(self, where_class, alias, remote_alias):
+            cond = where_class()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
+            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
+            return cond
 
     def resolve_related_fields(self):
         return []
