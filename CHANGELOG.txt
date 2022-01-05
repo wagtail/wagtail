@@ -16,6 +16,7 @@ Changelog
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
  * Removed WOFF fonts
  * Fix: Refresh page from database on create before passing to hooks. Page aliases get correct `first_published_date` and `last_published_date` (Dan Braghis)
+ * Fix: Additional login form fields from `WAGTAILADMIN_USER_LOGIN_FORM` are now rendered correctly (Michael Karamuth)
 
 
 2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT

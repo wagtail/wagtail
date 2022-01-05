@@ -63,8 +63,5 @@ class TestLoginView(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILADMIN_USER_LOGIN_FORM="wagtail.admin.tests.test_forms.CustomLoginForm")
     def test_login_page_renders_extra_fields(self):
-
         response = self.client.get(reverse('wagtailadmin_login'))
-        form = response.context['form']
-        expected_widget = str(form['captcha'])
-        self.assertInHTML(expected_widget, str(response.content))
+        self.assertContains(response, '<input type="text" name="captcha" required id="id_captcha">')

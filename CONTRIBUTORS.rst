@@ -554,6 +554,7 @@ Contributors
 * Justin Michalicek
 * Nabil Khalil
 * Md. Fahim Bin Amin
+* Michael Karamuth
 
 Translators
 ===========
