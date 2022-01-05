@@ -1423,6 +1423,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return can_create
 
+    @requires_specific
     def can_move_to(self, parent):
         """
         Checks if this page instance can be moved to be a subpage of a parent
