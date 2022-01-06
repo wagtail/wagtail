@@ -62,7 +62,9 @@ class Command(BaseCommand):
             self.stdout.write("Backend '%s' doesn't require rebuilding" % backend_name)
             return
 
-        models_grouped_by_index = group_models_by_index(backend, get_indexed_models()).items()
+        indexed_models = getattr(self, 'only_models', get_indexed_models())
+
+        models_grouped_by_index = group_models_by_index(backend, indexed_models).items()
         if not models_grouped_by_index:
             self.stdout.write(backend_name + ": No indices to rebuild")
 
@@ -106,6 +108,10 @@ class Command(BaseCommand):
         parser.add_argument(
             '--chunk_size', action='store', dest='chunk_size', default=DEFAULT_CHUNK_SIZE, type=int,
             help="Set number of records to be fetched at once for inserting into the index")
+        parser.add_argument(
+            '--only', action='store', dest='only_models', default=None, type=str,
+            help="Only update indexes on certain models. (comma separated, '?' to get list of options)"
+        )
 
     def handle(self, **options):
         # Get list of backends to index
@@ -118,6 +124,20 @@ class Command(BaseCommand):
         else:
             # index the 'default' backend only
             backend_names = ['default']
+
+        if options['only_models']:
+            all_models = {model._meta.label: model for model in get_indexed_models()}
+            if options['only_models'] == '?':
+                self.stdout.write(','.join(all_models.keys()))
+                return
+            self.only_models = []
+            for model_label in options['only_models'].split(','):
+                model = all_models.get(model_label, None)
+                if model:
+                    self.only_models.append(model)
+                else:
+                    self.stderr.write(f"{model_label} is not a valid model name")
+                    return
 
         # Update backends
         for backend_name in backend_names:

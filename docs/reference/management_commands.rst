@@ -69,7 +69,7 @@ update_index
 
 .. code-block:: console
 
-    $ ./manage.py update_index [--backend <backend name>]
+    $ ./manage.py update_index [--backend <backend name>] [--only <model labels>]
 
 This command rebuilds the search index from scratch.
 
@@ -105,6 +105,19 @@ You can prevent the ``update_index`` command from indexing any data by using the
 .. code-block:: console
 
     $ python manage.py update_index --schema-only
+
+Updating only certain models
+````````````````````````````
+
+By default, ``update_index`` will rebuild all indexes of all indexable models.  During development for large
+sites it may be helpful to update indexes only for specific models, so you can use the ``--only``
+option to limit which models you want to update. Use ``--only '?'`` to get a list of all available models.
+
+For example, to update just the wagtail core pages:
+
+.. code-block:: console
+
+    $ python manage.py update_index --only wagtailcore.Page
 
 
 .. _wagtail_update_index:
