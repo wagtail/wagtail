@@ -180,6 +180,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_url_parts
 
+    .. automethod:: get_root_relative_url
+
     .. automethod:: route
 
     .. automethod:: serve
@@ -268,6 +270,10 @@ In addition to the model fields provided, ``Page`` has many properties and metho
     .. automethod:: can_create_at
 
     .. automethod:: can_move_to
+
+    .. automethod:: get_route_paths
+
+    .. automethod:: get_cached_paths
 
     .. attribute:: password_required_template
 
@@ -396,6 +402,14 @@ Methods and properties
         - 80 = ``http://``
         - 443 = ``https://``
         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
+
+    .. autoattribute:: root_paths
+
+    .. automethod:: get_root_path
+
+    .. autoattribute:: root_path
+
+        A shortcut that returns the same value as :meth:`~Site.get_root_path()` when no ``language_code`` argument value is supplied. For single-language projects, or projects without Wagtail's built-in internationalisation features enabled, this will always give you the correct value.
 
     .. automethod:: get_site_root_paths
 

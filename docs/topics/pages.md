@@ -200,25 +200,26 @@ Page models also include several low-level methods for overriding or accessing p
 
 #### Customising URL patterns for a page model
 
-The `Page.get_url_parts(request)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. It should return a tuple of `(site_id, root_url, page_path)`, which are used by `get_url` and `get_full_url` (see below) to construct the given type of page URL.
+The `Page.get_root_relative_url(site_root_path)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. The method must simply return the page's URL relative to the root of the site
 
-When overriding `get_url_parts()`, you should accept `*args, **kwargs`:
-
-```python
-def get_url_parts(self, *args, **kwargs):
-```
-
-and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), e.g.:
+When overriding `get_root_relative_url()`, be sure to accept the `site_root_path` argument, as well as `*args` and `**kwargs`. For example:
 
 ```python
-super().get_url_parts(*args, **kwargs)
+def get_root_relative_url(self, site_root_path, *args, **kwargs):
+    ...
 ```
 
-While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
-future changes to these method signatures.
+If calling ``super`` within your override, you should pass along all arguments too. For example:
+
+```python
+return super().get_root_relative_url(site_root_path, *args, **kwargs)
+```
+
+While you could pass only the `site_root_path` argument, passing  `*args` and `**kwargs` will ensure compatibility with any future changes to original method signature.
+
 
 ```eval_rst
-For more information, please see :meth:`wagtail.core.models.Page.get_url_parts`.
+For more information, please see :meth:`wagtail.core.models.Page.get_root_relative_url`.
 ```
 
 #### Obtaining URLs for page instances
