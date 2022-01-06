@@ -139,14 +139,8 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
     def is_valid(self):
         comments = self.formsets.get('comments')
         # Remove the comments formset if the management form is invalid
-        if comments:
-            try:
-                # As of Django 3.2, this no longer raises an error
-                has_form = comments.management_form.is_valid()
-            except forms.ValidationError:
-                has_form = False
-            if not has_form:
-                del self.formsets['comments']
+        if comments and not comments.management_form.is_valid():
+            del self.formsets['comments']
         return super().is_valid()
 
     def clean(self):

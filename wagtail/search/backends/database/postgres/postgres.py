@@ -3,7 +3,6 @@ import warnings
 from collections import OrderedDict
 from functools import reduce
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
 from django.db.models import Avg, Count, F, Manager, Q, TextField, Value
@@ -18,7 +17,7 @@ from ....models import IndexEntry
 from ....query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from ....utils import ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks
 from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
-from .query import Lexeme, RawSearchQuery
+from .query import Lexeme
 from .weights import get_sql_weights, get_weight
 
 
@@ -375,10 +374,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 else:
                     lexemes |= new_lexeme
 
-            if DJANGO_VERSION >= (3, 1):
-                return SearchQuery(lexemes, search_type='raw', config=config)
-            else:
-                return RawSearchQuery(lexemes, config=config)
+            return SearchQuery(lexemes, search_type='raw', config=config)
 
         elif isinstance(query, Phrase):
             return SearchQuery(query.query_string, search_type='phrase')
