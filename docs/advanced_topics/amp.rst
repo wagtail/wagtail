@@ -71,10 +71,11 @@ set a thread-local to indicate to all downstream code that AMP mode is active.
     Django uses thread-locals internally to track the currently active language
     for the request.
 
-    Please be aware though: In Django 3.x and above, you will need to use an
-    ``asgiref.Local`` instead.
-    This is because Django 3.x handles multiple requests in a single thread
-    so thread-locals will no longer be unique to a single request.
+    Python implements thread-local data through the ``threading.local`` class,
+    but as of Django 3.x, multiple requests can be handled in a single thread
+    and so thread-locals will no longer be unique to a single request. Django
+    therefore provides ``asgiref.Local`` as a drop-in replacement.
+
 
 Now let's create that thread-local and some utility functions to interact with it,
 save this module as ``amp_utils.py`` in an app in your project:
@@ -84,10 +85,9 @@ save this module as ``amp_utils.py`` in an app in your project:
     # <app>/amp_utils.py
 
     from contextlib import contextmanager
-    from threading import local
+    from asgiref.local import Local
 
-    # FIXME: For Django 3.0 support, replace this with asgiref.Local
-    _amp_mode_active = local()
+    _amp_mode_active = Local()
 
     @contextmanager
     def activate_amp_mode():

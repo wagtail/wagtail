@@ -3,7 +3,6 @@
 import json
 import unittest
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
@@ -35,18 +34,11 @@ class TestHome(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # check that media attached to menu items is correctly pulled in
-        if DJANGO_VERSION >= (3, 1):
-            self.assertContains(
-                response,
-                '<script src="/static/testapp/js/kittens.js"></script>',
-                html=True
-            )
-        else:
-            self.assertContains(
-                response,
-                '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>',
-                html=True
-            )
+        self.assertContains(
+            response,
+            '<script src="/static/testapp/js/kittens.js"></script>',
+            html=True
+        )
 
         # check that custom menu items (including classname / attrs parameters) are pulled in
         self.assertContains(
@@ -74,18 +66,11 @@ class TestHome(TestCase, WagtailTestUtils):
         self.assertContains(response, "<p>It looks like you're making a website. Would you like some help?</p>")
 
         # check that media attached to dashboard panels is correctly pulled in
-        if DJANGO_VERSION >= (3, 1):
-            self.assertContains(
-                response,
-                '<script src="/static/testapp/js/clippy.js"></script>',
-                html=True
-            )
-        else:
-            self.assertContains(
-                response,
-                '<script type="text/javascript" src="/static/testapp/js/clippy.js"></script>',
-                html=True
-            )
+        self.assertContains(
+            response,
+            '<script src="/static/testapp/js/clippy.js"></script>',
+            html=True
+        )
 
     def test_summary_items(self):
         response = self.client.get(reverse('wagtailadmin_home'))

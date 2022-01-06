@@ -2,12 +2,7 @@ import uuid
 
 from warnings import warn
 
-
-try:
-    from asgiref.local import Local
-except ImportError:  # fallback for Django <3.0
-    from threading import local as Local
-
+from asgiref.local import Local
 from django.utils.functional import LazyObject
 
 from wagtail.core import hooks

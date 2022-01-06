@@ -1,7 +1,6 @@
 import itertools
 import re
 
-from django import VERSION as DJANGO_VERSION
 from django import template
 
 from wagtail.core import hooks
@@ -44,18 +43,11 @@ def format_permissions(permission_bound_field):
 
     # iterate over permission_bound_field to build a lookup of individual renderable
     # checkbox objects
-    if DJANGO_VERSION < (3, 1):
-        # checkbox.data['value'] gives the ID
-        checkboxes_by_id = {
-            int(checkbox.data['value']): checkbox
-            for checkbox in permission_bound_field
-        }
-    else:
-        # checkbox.data['value'] gives a ModelChoiceIteratorValue
-        checkboxes_by_id = {
-            int(checkbox.data['value'].value): checkbox
-            for checkbox in permission_bound_field
-        }
+    # checkbox.data['value'] gives a ModelChoiceIteratorValue
+    checkboxes_by_id = {
+        int(checkbox.data['value'].value): checkbox
+        for checkbox in permission_bound_field
+    }
 
     object_perms = []
     other_perms = []
