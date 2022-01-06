@@ -71,3 +71,4 @@ panel, where you can enable or disable email notifications for other users' comm
 
 .. note:: You will always receive email notifications for threads you are part of, unless you opt out of all comment notifications in your
         account settings.
+        All participants in a thread will receive email notifications for new replies, even if they no longer have permission to edit the page.
