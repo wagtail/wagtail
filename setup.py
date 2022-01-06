@@ -22,7 +22,7 @@ except ImportError:
 install_requires = [
     "Django>=3.2,<4.0",
     "django-modelcluster>=5.2,<6.0",
-    "django-taggit>=1.0,<2.0",
+    "django-taggit>=2.0,<3.0",
     "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
     "django-filter>=2.2,<22",
@@ -66,10 +66,6 @@ testing_extras = [
 
     # Pipenv hack to fix broken dependency causing CircleCI failures
     'docutils==0.15',
-
-    # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
-    # the test suite migrations correspond to >=1.3.0
-    'django-taggit>=1.3.0,<2.0',
 
     # for validating string formats in .po translation files
     'polib>=1.1,<2.0',
