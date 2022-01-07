@@ -248,13 +248,14 @@ class TestRouting(TestCase):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
+        default_site_root_path = Site.get_site_root_paths()[0]
 
         # Basic installation only has one site configured, so page.url will return local URLs
         self.assertEqual(
             homepage.get_url_parts(),
             (default_site.id, 'http://localhost', '/')
         )
-        self.assertEqual(homepage.get_root_relative_url(default_site.root_path), "/")
+        self.assertEqual(homepage.get_root_relative_url(default_site_root_path), "/")
         self.assertEqual(homepage.full_url, 'http://localhost/')
         self.assertEqual(homepage.url, '/')
         self.assertEqual(homepage.relative_url(default_site), '/')
@@ -267,7 +268,7 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.full_url, 'http://localhost/events/christmas/')
         self.assertEqual(christmas_page.url, '/events/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), '/events/christmas/')
-        self.assertEqual(christmas_page.get_root_relative_url(default_site.root_path), '/events/christmas/')
+        self.assertEqual(christmas_page.get_root_relative_url(default_site_root_path), '/events/christmas/')
         self.assertEqual(christmas_page.get_site(), default_site)
 
     def test_page_with_no_url(self):
@@ -294,6 +295,15 @@ class TestRouting(TestCase):
         homepage = Page.objects.get(url_path='/home/')
         christmas_page = Page.objects.get(url_path='/home/events/christmas/')
 
+        site_root_paths = Site.get_site_root_paths()
+        for item in site_root_paths:
+            if item.site_id == default_site.pk:
+                default_site_root_path = item
+            elif item.site_id == events_site.pk:
+                events_site_root_path = item
+            elif item.site_id == second_events_site.pk:
+                second_events_site_root_path = item
+
         # with multiple sites, page.url will return full URLs to ensure that
         # they work across sites
         self.assertEqual(
@@ -304,7 +314,7 @@ class TestRouting(TestCase):
         self.assertEqual(homepage.url, 'http://localhost/')
         self.assertEqual(homepage.relative_url(default_site), '/')
         self.assertEqual(homepage.relative_url(events_site), 'http://localhost/')
-        self.assertEqual(homepage.get_root_relative_url(default_site.root_path), '/')
+        self.assertEqual(homepage.get_root_relative_url(default_site_root_path), '/')
         self.assertEqual(homepage.get_site(), default_site)
 
         self.assertEqual(
@@ -315,37 +325,10 @@ class TestRouting(TestCase):
         self.assertEqual(christmas_page.url, 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(default_site), 'http://events.example.com/christmas/')
         self.assertEqual(christmas_page.relative_url(events_site), '/christmas/')
-        self.assertEqual(christmas_page.get_root_relative_url(default_site.root_path), "/events/christmas/")
-        self.assertEqual(christmas_page.get_root_relative_url(events_site.root_path), "/christmas/")
-        self.assertEqual(christmas_page.get_root_relative_url(second_events_site.root_path), "/christmas/")
+        self.assertEqual(christmas_page.get_root_relative_url(default_site_root_path), "/events/christmas/")
+        self.assertEqual(christmas_page.get_root_relative_url(events_site_root_path), "/christmas/")
+        self.assertEqual(christmas_page.get_root_relative_url(second_events_site_root_path), "/christmas/")
         self.assertEqual(christmas_page.get_site(), events_site)
-
-        # `site` can be used to influence the return value of `get_url_parts()`
-        events_site_parts = christmas_page.get_url_parts(site=events_site)
-        self.assertEqual(
-            events_site_parts,
-            (events_site.id, 'http://events.example.com', '/christmas/')
-        )
-
-        second_event_site_parts = christmas_page.get_url_parts(site=second_events_site)
-        self.assertEqual(
-            second_event_site_parts,
-            (second_events_site.id, 'http://second-events.example.com', '/christmas/')
-        )
-
-        # we get the same results when providing just the site pk
-        self.assertEqual(
-            christmas_page.get_url_parts(site=events_site.pk),
-            events_site_parts
-        )
-        self.assertEqual(
-            christmas_page.get_url_parts(site=second_events_site.pk),
-            second_event_site_parts
-        )
-
-        # if the page isn't 'in' the provided site, an error will be raised
-        with self.assertRaises(ValueError):
-            homepage.get_url_parts(site=events_site)
 
         # non `HttpRequest` values are acceptable for `request`, and
         # do not affect the result
@@ -355,22 +338,21 @@ class TestRouting(TestCase):
                 (events_site.id, 'http://events.example.com', '/christmas/')
             )
 
-        # When `request` is a `HttpRequest` from a site, the result is flavoured to
-        # the relevant site
+        # When `request` is a `HttpRequest`, the result is flavoured to the relevant site
         default_site_request = get_dummy_request(site=default_site)
         events_site_request = get_dummy_request(site=events_site)
         second_events_site_request = get_dummy_request(site=second_events_site)
 
         self.assertEqual(
-            christmas_page.get_url_parts(request=default_site_request),
+            christmas_page.get_url_parts(default_site_request),
             (default_site.id, 'http://localhost', '/events/christmas/')
         )
         self.assertEqual(
-            christmas_page.get_url_parts(request=events_site_request),
+            christmas_page.get_url_parts(events_site_request),
             (events_site.id, 'http://events.example.com', '/christmas/')
         )
         self.assertEqual(
-            christmas_page.get_url_parts(request=second_events_site_request),
+            christmas_page.get_url_parts(second_events_site_request),
             (second_events_site.id, 'http://second-events.example.com', '/christmas/')
         )
 
@@ -381,15 +363,8 @@ class TestRouting(TestCase):
         request.META['SERVER_PORT'] = 80
 
         self.assertEqual(
-            christmas_page.get_url_parts(request=request),
+            christmas_page.get_url_parts(request),
             (default_site.id, 'http://localhost', '/events/christmas/')
-        )
-
-        # When `site` and `request` are both used, the influence of
-        # the `site` over the return value is greater
-        self.assertEqual(
-            christmas_page.get_url_parts(request=second_events_site_request, site=events_site.pk),
-            (events_site.id, 'http://events.example.com', '/christmas/')
         )
 
     @override_settings(ROOT_URLCONF='wagtail.tests.non_root_urls')
