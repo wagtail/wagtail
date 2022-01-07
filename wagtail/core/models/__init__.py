@@ -1217,6 +1217,11 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         except WagtailServeURLNotConfigured:
             return (site_root_path.site_id, None, None)
 
+        # Remove the trailing slash if WAGTAIL_APPEND_SLASH
+        # is False and we're not trying to serve the root path
+        if not WAGTAIL_APPEND_SLASH and page_path != '/':
+            page_path = page_path.rstrip('/')
+
         return (site_root_path.site_id, site_root_path.root_url, page_path)
 
     def get_root_relative_url(self, site_root_path):
@@ -1232,9 +1237,22 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         making it the most convenient method to override in order to implement
         custom URL logic.
 
-        Raises ``WagtailServeURLNotConfigured`` if the ``wagtail_serve`` named
-        url has not been added to the project's ``URLConf``; which is often the
-        case for headless projects.
+        The return value should always include a trailing slash, regardless of
+        whether they are used for the project. The trailing slash will be
+        removed automatically when not needed (according to the project
+        configruration).
+
+        For reference, the ``SiteRootPath`` named tuple has the following
+        attributes:
+
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
+
+        This default implementation will raise ``WagtailServeURLNotConfigured`` if the
+        ``wagtail_serve`` named url has not been added to the project's ``URLConf``;
+        which is often the case for headless projects.
         """
         use_wagtail_i18n = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
         language_code = site_root_path.language_code
@@ -1264,10 +1282,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         except NoReverseMatch:
             raise WagtailServeURLNotConfigured
 
-        # Remove the trailing slash if WAGTAIL_APPEND_SLASH
-        # is False and we're not trying to serve the root path
-        if not WAGTAIL_APPEND_SLASH and page_path != '/':
-            return page_path.rstrip('/')
         return page_path
 
     def get_full_url(self, request=None):
