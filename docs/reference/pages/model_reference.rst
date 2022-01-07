@@ -180,6 +180,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: get_url_parts
 
+    .. automethod:: get_root_relative_url
+
     .. automethod:: route
 
     .. automethod:: serve

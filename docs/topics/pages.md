@@ -200,25 +200,26 @@ Page models also include several low-level methods for overriding or accessing p
 
 #### Customising URL patterns for a page model
 
-The `Page.get_url_parts(request)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. It should return a tuple of `(site_id, root_url, page_path)`, which are used by `get_url` and `get_full_url` (see below) to construct the given type of page URL.
+The `Page.get_root_relative_url(site_root_path)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model.
 
-When overriding `get_url_parts()`, you should accept `*args, **kwargs`:
+The method receives a `SiteRootPath` named tuple instance, and should return the page's URL relative to this.
 
-```python
-def get_url_parts(self, *args, **kwargs):
-```
-
-and pass those through at the point where you are calling `get_url_parts` on `super` (if applicable), e.g.:
+When overriding, you only really need to worry about the `site_root_path` value for projects where you have 'overlapping' sites that feature the same pages at different URLs (e.g. a main site, and a sub-site that are viewed at separate domains). If this does not apply, you can get away with just returning a path that is always relative to the site root. e.g.:
 
 ```python
-super().get_url_parts(*args, **kwargs)
+def get_root_relative_url(self, site_root_path, *args, **kwargs):
+    return "/custom-path/"
 ```
 
-While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
-future changes to these method signatures.
+As suggested in the above example, you should include `*args` and `**kwargs` in your overriding method, and pass all values on to `super` where relevant. This will help to ensure your customisations remain compatible with future changes to original method signature. For example:
+
+```python
+def get_root_relative_url(self, site_root_path, *args, **kwargs):
+    return super().get_root_relative_url(site_root_path, *args, **kwargs) + "/custom-addition/"
+```
 
 ```eval_rst
-For more information, please see :meth:`wagtail.core.models.Page.get_url_parts`.
+For more information, please see :meth:`wagtail.core.models.Page.get_root_relative_url`.
 ```
 
 #### Obtaining URLs for page instances
