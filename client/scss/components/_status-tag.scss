@@ -21,6 +21,13 @@
     &.disabled {
         pointer-events: none;
     }
+
+    &--label {
+        color: $color-grey-2;
+        background: $color-grey-4;
+        border: $color-grey-4;
+        font-weight: 500;
+    }
 }
 
 button.status-tag:hover,
