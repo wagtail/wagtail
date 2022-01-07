@@ -14,10 +14,10 @@ Changelog
  * Add support for Azure CDN and Front Door front-end cache invalidation (Tomasz Knapik)
  * Improved styling of workflow timeline modal view (Tidjani Dia)
  * Add secondary actions menu in edit page headers (Tidjani Dia)
+ * Removed WOFF fonts
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
- * Removed WOFF fonts
  * Fix: Refresh page from database on create before passing to hooks. Page aliases get correct `first_published_date` and `last_published_date` (Dan Braghis)
  * Fix: Additional login form fields from `WAGTAILADMIN_USER_LOGIN_FORM` are now rendered correctly (Michael Karamuth)
 
