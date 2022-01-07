@@ -82,6 +82,10 @@ class CreatePageAliasAction:
             raise CreatePageAliasIntegrityError(
                 "You cannot copy a tree branch recursively into itself"
             )
+        if not parent.is_root() and self.update_locale is not None:
+            raise CreatePageAliasIntegrityError(
+                "You cannot manually set locale of a page that's not at the root of the tree."
+            )
 
         if (
             self.user
