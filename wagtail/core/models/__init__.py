@@ -32,6 +32,7 @@ from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
 from django.http import Http404
+from django.http.request import HttpRequest
 from django.template.response import TemplateResponse
 from django.urls import NoReverseMatch, reverse
 from django.utils import timezone
@@ -104,6 +105,15 @@ def reassign_root_page_locale_on_delete(sender, instance, **kwargs):
             new_locale = Locale.all_objects.exclude(pk=instance.pk).first()
 
         root_page_with_this_locale.update(locale=new_locale)
+
+
+class WagtailServeURLNotConfigured(NoReverseMatch):
+    """
+    Raised by Page.get_root_relative_url when the 'wagtail_serve'
+    URL hasn't been added to the Django projects URLConf, which
+    is often the case for headless sites.
+    """
+    pass
 
 
 PAGE_MODEL_CLASSES = []
@@ -1111,38 +1121,89 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def get_url_parts(self, request=None):
         """
+        .. versionchanged:: 2.16:
+            Documented the role of ``request`` in influencing the return value,
+            and removed the requirement for ``request`` to be a ``HttpRequest``
+            instance.
+
         Determine the URL for this page and return it as a tuple of
         ``(site_id, site_root_url, page_url_relative_to_site_root)``.
-        Return None if the page is not routable.
 
-        This is used internally by the ``full_url``, ``url``, ``relative_url``
-        and ``get_site`` properties and methods; pages with custom URL routing
-        should override this method in order to have those operations return
-        the custom URLs.
+        Returns ``None`` if the page is not routable.
 
-        Accepts an optional keyword argument ``request``, which may be used
-        to avoid repeated database / cache lookups. Typically, a page model
-        that overrides ``get_url_parts`` should not need to deal with
-        ``request`` directly, and should just pass it to the original method
-        when calling ``super``.
+        Accepts an optional keyword argument ``request`` which may be used
+        to avoid repeated database / cache lookups for site root path data. If
+        a ``HttpRequest`` instance is provided, and the page is featured on
+        more than one site, the method will attempt to return a value for the
+        same site as that indicated by the ``HttpRequest``.
+
+        From Wagtail version 2.16, :meth:`Page.get_root_relative_url()` is
+        recommended as the method to override when custom URL routing is required.
         """
-
         possible_sites = self._get_relevant_site_root_paths(request)
-
         if not possible_sites:
             return None
 
-        site_id, root_path, root_url, language_code = possible_sites[0]
+        site_root_path = possible_sites[0]
 
-        site = Site.find_for_request(request)
-        if site:
-            for site_id, root_path, root_url, language_code in possible_sites:
-                if site_id == site.pk:
-                    break
-            else:
-                site_id, root_path, root_url, language_code = possible_sites[0]
+        # Avoid breaking if `request` is not a `HttpRequest`, and avoid a
+        # database query to identify `site` if it will not make a difference
+        if len(possible_sites) > 1 and isinstance(request, HttpRequest):
+            site = Site.find_for_request(request)
+            if site:
+                for option in possible_sites:
+                    if option.site_id == site.pk:
+                        site_root_path = option
+                        break
 
+        # Using a custom exception here to avoid capture of
+        # `NoReverseMatch`` for different urls
+        try:
+            page_path = self.get_root_relative_url(site_root_path)
+        except WagtailServeURLNotConfigured:
+            return (site_root_path.site_id, None, None)
+
+        # Remove the trailing slash if WAGTAIL_APPEND_SLASH
+        # is False and we're not trying to serve the root path
+        if not WAGTAIL_APPEND_SLASH and page_path != '/':
+            page_path = page_path.rstrip('/')
+
+        return (site_root_path.site_id, site_root_path.root_url, page_path)
+
+    def get_root_relative_url(self, site_root_path: SiteRootPath) -> str:
+        """
+        .. versionadded:: 2.16
+
+        Return the URL of this page relative to ``site_root_path`` (a
+        ``SiteRootPath`` named tuple), and factoring in where page URLs 'start'
+        for a project (according to its ``URLconf``).
+
+        This method is used indirectly by ``get_url``, ``full_url``, ``url``,
+        ``relative_url`` properties/methods, and simply returns the page path
+        relative to the provided ``site_root_path``, making it more convenient
+        to override than ``get_url_parts()`` in most cases.
+
+        For reference, the ``SiteRootPath`` named tuple has the following
+        attributes:
+
+        - `site_id` - The ID of the Site record
+        - `root_path` - The internal URL path of the site's home page (for example '/home/')
+        - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
+        - `language_code` - The language code of the site (for example 'en')
+
+        The default implementation raises ``WagtailServeURLNotConfigured`` if
+        the ``wagtail_serve`` named url has not been added to the project's
+        ``URLConf`` (which is often the case for headless projects).
+
+        .. note :: Customisation tip:
+
+            Always include a trailing "/" on the return value, regardless of
+            whether ``WAGTAIL_APPEND_SLASH`` is set to ``True`` or ``False``.
+            ``Page.get_url_parts()`` will remove it automatically when it
+            is not needed.
+        """
         use_wagtail_i18n = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+        language_code = site_root_path.language_code
 
         if use_wagtail_i18n:
             # If the active language code is a variant of the page's language, then
@@ -1153,29 +1214,23 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     language_code = translation.get_language()
             except LookupError:
                 # active language code is not a recognised content language, so leave
-                # page's language code unchanged
+                # language code unchanged
                 pass
 
-        # The page may not be routable because wagtail_serve is not registered
-        # This may be the case if Wagtail is used headless
+        relative_url_path = self.url_path[len(site_root_path.root_path):]
+
         try:
             if use_wagtail_i18n:
                 with translation.override(language_code):
                     page_path = reverse(
-                        'wagtail_serve', args=(self.url_path[len(root_path):],))
+                        'wagtail_serve', args=(relative_url_path,))
             else:
                 page_path = reverse(
-                    'wagtail_serve', args=(self.url_path[len(root_path):],))
+                    'wagtail_serve', args=(relative_url_path,))
         except NoReverseMatch:
-            return (site_id, None, None)
+            raise WagtailServeURLNotConfigured
 
-        # Remove the trailing slash from the URL reverse generates if
-        # WAGTAIL_APPEND_SLASH is False and we're not trying to serve
-        # the root path
-        if not WAGTAIL_APPEND_SLASH and page_path != '/':
-            page_path = page_path.rstrip('/')
-
-        return (site_id, root_url, page_path)
+        return page_path
 
     def get_full_url(self, request=None):
         """Return the full URL (including protocol / domain) to this page, or None if it is not routable"""
