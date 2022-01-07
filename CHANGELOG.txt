@@ -4,6 +4,7 @@ Changelog
 2.16 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Added support for Django 4.0
  * Removed support for Django 3.0 and 3.1
  * Removed support for Python 3.6
  * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia, with sponsorship from [NHS](https://www.nhs.uk/))
