@@ -1274,7 +1274,7 @@ class TestCopyForTranslationAction(AdminAPITestCase):
 
     def get_response(self, page_id, data):
         return self.client.post(
-            reverse("wagtailadmin_api:pages:action", args=[page_id, "translate"]), data
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "copy_for_translation"]), data
         )
 
     def setUp(self):
