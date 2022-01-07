@@ -13,7 +13,7 @@ from .base import APIAction
 
 
 class CreatePageAliasAPIActionSerializer(Serializer):
-    parent_page_id = fields.IntegerField(required=False)
+    destination_page_id = fields.IntegerField(required=False)
     recursive = fields.BooleanField(default=False, required=False)
     update_slug = fields.CharField(required=False)
     update_locale = fields.CharField(required=False)
@@ -24,9 +24,9 @@ class CreatePageAliasAPIAction(APIAction):
     serializer = CreatePageAliasAPIActionSerializer
 
     def _action_from_data(self, instance, data):
-        parent, parent_page_id = None, data.get("parent_page_id")
-        if parent_page_id:
-            parent = get_object_or_404(Page, id=parent_page_id).specific
+        parent, destination_page_id = None, data.get("destination_page_id")
+        if destination_page_id:
+            parent = get_object_or_404(Page, id=destination_page_id).specific
 
         return CreatePageAliasAction(
             page=instance,
