@@ -12,9 +12,9 @@ from wagtail.core.models import Page
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
+from .actions.move import MovePageAPIAction
 from .actions.publish import PublishPageAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
-from .actions.move import MovePageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
 from .serializers import AdminPageSerializer
 

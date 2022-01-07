@@ -48,17 +48,16 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.actions.delete_page import DeletePageAction
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
-from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, page_unpublished, pre_validate_delete, task_approved, task_cancelled,
-    task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected,
-    workflow_submitted)
+    page_published, pre_validate_delete, task_approved, task_cancelled, task_rejected,
+    task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
