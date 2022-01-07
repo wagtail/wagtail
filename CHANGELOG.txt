@@ -8,6 +8,8 @@ Changelog
  * Removed support for Python 3.6
  * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia)
  * Added Aging Pages report (Tidjani Dia)
+ * Added automatic redirect creation feature (Andy Babic, with sponsorship from [The National Archives](https://www.nationalarchives.gov.uk))
+ * Added `page_slug_changed` signal for pages (Andy Babic)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
  * Add collapse option to `StreamField`, `StreamBlock`, and `ListBlock` which will load all sub-blocks initially collapsed (Matt Westcott)
  * Private pages can now be fetched over the API (Nabil Khalil)
