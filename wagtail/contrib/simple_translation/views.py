@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
-from wagtail.core.actions.copy_for_translation import CopyForTranslationAction
+from wagtail.core.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.core.models import Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
@@ -54,7 +54,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
                     if isinstance(self.object, Page):
-                        action = CopyForTranslationAction(
+                        action = CopyPageForTranslationAction(
                             page=self.object,
                             locale=locale,
                             include_subtree=include_subtree,

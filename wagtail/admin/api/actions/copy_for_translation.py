@@ -7,7 +7,7 @@ from rest_framework.serializers import Serializer
 
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.core.actions.copy_for_translation import (
-    CopyForTranslationAction, ParentNotTranslatedError)
+    CopyPageForTranslationAction, ParentNotTranslatedError)
 from wagtail.core.models.i18n import Locale
 
 from .base import APIAction
@@ -26,7 +26,7 @@ class CopyForTranslationAPIAction(APIAction):
     def _action_from_data(self, instance, data):
         locale = get_object_or_404(Locale, language_code=data["locale"])
 
-        return CopyForTranslationAction(
+        return CopyPageForTranslationAction(
             page=instance,
             locale=locale,
             copy_parents=data["copy_parents"],

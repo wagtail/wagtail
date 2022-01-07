@@ -46,7 +46,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
-from wagtail.core.actions.copy_for_translation import CopyForTranslationAction
+from wagtail.core.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.move_page import MovePageAction
@@ -1598,7 +1598,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     def copy_for_translation(self, locale, copy_parents=False, alias=False, exclude_fields=None):
         """Creates a copy of this page in the specified locale."""
 
-        return CopyForTranslationAction(
+        return CopyPageForTranslationAction(
             self, locale, copy_parents=copy_parents, alias=alias, exclude_fields=exclude_fields
         ).execute()
 
