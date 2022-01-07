@@ -56,7 +56,7 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
-* Django 3.2.x
+* Django 3.2.x and 4.0.x
 * Python 3.7, 3.8, 3.9 and 3.10
 * PostgreSQL, MySQL and SQLite as database backends
 
