@@ -17,7 +17,7 @@ class CopyForTranslationAPIActionSerializer(Serializer):
     locale = fields.CharField(max_length=100)
     copy_parents = fields.BooleanField(default=False, required=False)
     alias = fields.BooleanField(default=False, required=False)
-    include_subtree = fields.BooleanField(default=False, required=False)
+    recursive = fields.BooleanField(default=False, required=False)
 
 
 class CopyForTranslationAPIAction(APIAction):
@@ -32,7 +32,7 @@ class CopyForTranslationAPIAction(APIAction):
             copy_parents=data["copy_parents"],
             alias=data["alias"],
             user=self.request.user,
-            include_subtree=data["include_subtree"],
+            include_subtree=data["recursive"],
         )
 
     def execute(self, instance, data):
