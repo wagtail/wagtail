@@ -13,7 +13,7 @@ class ParentNotTranslatedError(Exception):
     pass
 
 
-class CopyForTranslationPermissionError(PermissionDenied):
+class CopyPageForTranslationPermissionError(PermissionDenied):
     """
     Raised when the page translation copy cannot be performed due to insufficient permissions.
     """
@@ -21,7 +21,7 @@ class CopyForTranslationPermissionError(PermissionDenied):
     pass
 
 
-class CopyForTranslationAction:
+class CopyPageForTranslationAction:
     """
     Creates a copy of this page in the specified locale.
 
@@ -68,7 +68,7 @@ class CopyForTranslationAction:
             and not skip_permission_checks
             and not self.user.has_perms(["simple_translation.submit_translation"])
         ):
-            raise CopyForTranslationPermissionError(
+            raise CopyPageForTranslationPermissionError(
                 "You do not have permission to submit a translation for this page."
             )
 
