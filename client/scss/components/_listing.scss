@@ -600,19 +600,19 @@ table.listing {
 
 @include media-breakpoint-up(sm) {
     .listing {
-        &.horiz > li {
-            float: left;
+        &.horiz {
+            display: flex;
+            flex-wrap: wrap;
         }
 
         &.images {
-            @include clearfix();
             border: 1px solid $color-grey-4;
             border-width: 0 0 0 1px;
 
             > li {
                 padding: 1.5em;
                 width: 200px;
-                height: 220px;
+                height: auto;
                 text-align: center;
                 margin-top: -1px;
                 border: 1px solid $color-grey-4;

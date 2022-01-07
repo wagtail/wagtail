@@ -31,6 +31,7 @@ Changelog
  * Update links to wagtail.io to point to new domain wagtail.org (Jake Howard)
  * Add borders to TypedTableBlock to help visualize rows and columns (Scott Cranfill)
  * Set default submit button label on generic create views to 'Create' instead of 'Save' (Matt Westcott)
+ * Improve display of image listing for long image titles (Krzysztof Jeziorny)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
