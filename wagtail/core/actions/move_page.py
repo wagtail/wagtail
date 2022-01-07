@@ -48,6 +48,7 @@ class MovePageAction:
         old_page = Page.objects.get(id=page.id)
         old_url_path = old_page.url_path
         new_url_path = old_page.set_url_path(parent=parent_after)
+        url_path_changed = old_url_path != new_url_path
 
         # Emit pre_page_move signal
         pre_page_move.send(
@@ -71,7 +72,7 @@ class MovePageAction:
             new_page.save()
 
             # Update descendant paths if url_path has changed
-            if old_url_path != new_url_path:
+            if url_path_changed:
                 new_page._update_descendant_url_paths(old_url_path, new_url_path)
 
         # Emit post_page_move signal
@@ -87,8 +88,7 @@ class MovePageAction:
         # Log
         log(
             instance=page,
-            # Check if page was reordered (reordering doesn't change the parent)
-            action="wagtail.reorder" if parent_before.id == target.id else "wagtail.move",
+            action='wagtail.move' if url_path_changed else 'wagtail.reorder',
             user=self.user,
             data={
                 "source": {
