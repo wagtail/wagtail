@@ -74,8 +74,9 @@ class CopyPageForTranslationAction:
 
     def walk(self, current_page):
         for child_page in current_page.get_children():
-            action = CopyForTranslationAction(page=child_page, locale=self.locale)
-            action.execute(skip_permission_checks=True)
+            self._copy_for_translation(
+                child_page, self.locale, self.copy_parents, self.alias, self.exclude_fields
+            )
 
             if child_page.numchild:
                 self.walk(child_page)
