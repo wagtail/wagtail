@@ -9,6 +9,9 @@ page_published = Signal()
 # provides args: instance
 page_unpublished = Signal()
 
+# provides args: instance, instance_before
+page_slug_changed = Signal()
+
 # provides args: instance, parent_page_before, parent_page_after, url_path_before, url_path_after
 pre_page_move = Signal()
 
