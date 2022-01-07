@@ -269,6 +269,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: can_move_to
 
+    .. automethod:: get_route_paths
+
     .. attribute:: password_required_template
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
