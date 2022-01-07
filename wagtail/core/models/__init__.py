@@ -1096,6 +1096,18 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             cache_object._wagtail_cached_site_root_paths = Site.get_site_root_paths()
             return cache_object._wagtail_cached_site_root_paths
 
+    def _get_relevant_site_root_paths(self, cache_object=None):
+        """
+        .. versionadded::2.16
+
+        Returns a tuple of root paths for all sites this page belongs to.
+        """
+        return tuple(
+            srp
+            for srp in self._get_site_root_paths(cache_object)
+            if self.url_path.startswith(srp.root_path)
+        )
+
     def get_url_parts(self, request=None):
         """
         Determine the URL for this page and return it as a tuple of
@@ -1114,11 +1126,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         when calling ``super``.
         """
 
-        possible_sites = [
-            (pk, path, url, language_code)
-            for pk, path, url, language_code in self._get_site_root_paths(request)
-            if self.url_path.startswith(path)
-        ]
+        possible_sites = self._get_relevant_site_root_paths(request)
 
         if not possible_sites:
             return None
