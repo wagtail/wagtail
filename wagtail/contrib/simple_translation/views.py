@@ -49,6 +49,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
 
         if form.is_valid():
             include_subtree = form.cleaned_data["include_subtree"]
+            user = request.user
 
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
@@ -57,6 +58,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
                             page=self.object,
                             locale=locale,
                             include_subtree=include_subtree,
+                            user=user,
                         )
                         action.execute(skip_permission_checks=True)
 
