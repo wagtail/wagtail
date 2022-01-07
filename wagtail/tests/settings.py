@@ -255,3 +255,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ]
 }
+
+# Disable redirect autocreation for the majority of tests (to improve efficiency)
+WAGTAILREDIRECTS_AUTO_CREATE = False
