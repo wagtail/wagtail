@@ -200,23 +200,25 @@ Page models also include several low-level methods for overriding or accessing p
 
 #### Customising URL patterns for a page model
 
-The `Page.get_root_relative_url(site_root_path)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model. The method must simply return the page's URL relative to the root of the site
+The `Page.get_root_relative_url(site_root_path)` method will not typically be called directly, but may be overridden to define custom URL routing for a given page model.
 
-When overriding `get_root_relative_url()`, be sure to accept the `site_root_path` argument, as well as `*args` and `**kwargs`. For example:
+The method receives a `SiteRootPath` named tuple instance, and should return the page's URL relative to this.
+
+If pages in your project only ever belong to a single `Site`, and you are not using Wagtail's built-in internationalisation options, you can mostly ignore this value and just return a path that is always relative to the site root. e.g.:
 
 ```python
 def get_root_relative_url(self, site_root_path, *args, **kwargs):
-    ...
+    return "/custom-path/"
 ```
 
-If calling ``super`` within your override, you should pass along all arguments too. For example:
+As in the above example, you should include `*args` and `**kwargs` in your overriding method. If calling `super` within the method, you should pass along all arguments too. For example:
 
 ```python
-return super().get_root_relative_url(site_root_path, *args, **kwargs)
+def get_root_relative_url(self, site_root_path, *args, **kwargs):
+    return super().get_root_relative_url(site_root_path, *args, **kwargs) + "/custom-addition"
 ```
 
 While you could pass only the `site_root_path` argument, passing  `*args` and `**kwargs` will ensure compatibility with any future changes to original method signature.
-
 
 ```eval_rst
 For more information, please see :meth:`wagtail.core.models.Page.get_root_relative_url`.
