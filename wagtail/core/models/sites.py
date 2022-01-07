@@ -170,7 +170,7 @@ class Site(models.Model):
         .. versionadded:: 2.16
 
         Returns the most appropriate ``SiteRootPath`` instance for this site.
-        If ``language_code`` is supplied, the ``SiteRootPage`` for that
+        If ``language_code`` is supplied, the ``SiteRootPath`` for that
         language will be returned (if it exists). Otherwise, the first item
         from ``self.root_paths`` is returned.
         """
