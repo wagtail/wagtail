@@ -129,6 +129,10 @@ def browse(request, parent_page_id=None):
     parent_page.can_choose = can_choose_page(
         parent_page, permission_proxy, desired_classes, can_choose_root, user_perm, target_pages=target_pages, match_subclass=match_subclass)
 
+    show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    if show_locale_labels:
+        pages = pages.select_related('locale')
+
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
     # in the block below
@@ -148,7 +152,8 @@ def browse(request, parent_page_id=None):
         'search_form': SearchForm(),
         'page_type_string': page_type_string,
         'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
-        'page_types_restricted': (page_type_string != 'wagtailcore.page')
+        'page_types_restricted': (page_type_string != 'wagtailcore.page'),
+        'show_locale_labels': show_locale_labels,
     })
 
     return render_modal_workflow(
@@ -169,6 +174,10 @@ def search(request, parent_page_id=None):
         raise Http404
 
     pages = Page.objects.all()
+    show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    if show_locale_labels:
+        pages = pages.select_related('locale')
+
     # allow hooks to modify the queryset
     for hook in hooks.get_hooks('construct_page_chooser_queryset'):
         pages = hook(pages, request)
@@ -196,6 +205,7 @@ def search(request, parent_page_id=None):
             'searchform': search_form,
             'pages': pages,
             'page_type_string': page_type_string,
+            'show_locale_labels': show_locale_labels,
         })
     )
 
