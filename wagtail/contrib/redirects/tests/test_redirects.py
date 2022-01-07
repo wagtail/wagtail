@@ -98,6 +98,20 @@ class TestRedirects(TestCase):
             normalise_path('/here/tésting-ünicode')
         )
 
+    def test_route_path_normalisation(self):
+        normalise_path = models.Redirect.normalise_page_route_path
+
+        # "/" should be normalized to a blank string
+        self.assertEqual("", normalise_path("/"))
+
+        # leading slashes should always be added
+        self.assertEqual("/test/", normalise_path("test/"))
+
+        # but trailing slashes are not enforced either way
+        # (that may cause regex matching for routes to fail)
+        self.assertEqual("/multiple/segment/test", normalise_path("/multiple/segment/test"))
+        self.assertEqual("/multiple/segment/test/", normalise_path("/multiple/segment/test/"))
+
     def test_basic_redirect(self):
         # Create a redirect
         redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto')

@@ -43,7 +43,7 @@ class RedirectForm(forms.ModelForm):
 
     class Meta:
         model = Redirect
-        fields = ('old_path', 'site', 'is_permanent', 'redirect_page', 'redirect_link')
+        fields = ('old_path', 'site', 'is_permanent', 'redirect_page', 'redirect_page_route_path', 'redirect_link')
 
 
 class ImportForm(forms.Form):
