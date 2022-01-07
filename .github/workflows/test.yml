@@ -19,16 +19,16 @@ on:
 # Current configuration:
 # - django 3.2, python 3.7, postgres
 # - django 3.2, python 3.8, mysql
-# - django 3.2, python 3.9, sqlite
-# - django 4.0, python 3.9, mysql (allow failures)
-# - django 3.2, python 3.10, postgres, USE_EMAIL_USER_MODEL=yes
-# - django 3.2, python 3.10, postgres, DISABLE_TIMEZONE=yes
+# - django 4.0, python 3.9, sqlite
+# - django 4.0, python 3.9, mysql
+# - django 4.0, python 3.10, postgres, USE_EMAIL_USER_MODEL=yes
+# - django 4.0, python 3.10, postgres, DISABLE_TIMEZONE=yes
 # - django stable/4.0.x, python 3.10, postgres (allow failures)
 # - django main, python 3.10, postgres (allow failures)
 # - elasticsearch 5, django 3.2, python 3.7, sqlite
 # - elasticsearch 6, django 3.2, python 3.7, postgres
-# - elasticsearch 7, django 4.0, python 3.8, postgres (allow failures)
-# - elasticsearch 7, django 3.2, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
+# - elasticsearch 7, django 4.0, python 3.8, postgres
+# - elasticsearch 7, django 4.0, python 3.9, sqlite, USE_EMAIL_USER_MODEL=yes
 
 jobs:
   test-sqlite:
@@ -37,7 +37,7 @@ jobs:
       matrix:
         include:
           - python: "3.9"
-            django: "Django>=3.2,<3.3"
+            django: "Django>=4.0,<4.1"
 
     steps:
       - uses: actions/checkout@v2
@@ -66,11 +66,11 @@ jobs:
             django: "Django>=3.2,<3.3"
             experimental: false
           - python: "3.10"
-            django: "Django>=3.2,<3.3"
+            django: "Django>=4.0,<4.1"
             notz: notz
             experimental: false
           - python: "3.10"
-            django: "Django>=3.2,<3.3"
+            django: "Django>=4.0,<4.1"
             experimental: false
             emailuser: emailuser
           - python: "3.10"
@@ -121,7 +121,7 @@ jobs:
             experimental: false
           - python: "3.9"
             django: "Django>=4.0,<4.1"
-            experimental: true
+            experimental: false
 
     services:
       mysql:
@@ -201,7 +201,7 @@ jobs:
       matrix:
         include:
           - python: "3.9"
-            django: "Django>=3.2,<3.3"
+            django: "Django>=4.0,<4.1"
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -295,7 +295,7 @@ jobs:
         include:
           - python: "3.8"
             django: "Django>=4.0,<4.1"
-            experimental: true
+            experimental: false
 
     services:
       postgres:
