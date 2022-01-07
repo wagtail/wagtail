@@ -58,8 +58,9 @@ from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, pre_validate_delete, task_approved, task_cancelled, task_rejected,
-    task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
+    page_published, page_slug_changed, pre_validate_delete, task_approved, task_cancelled,
+    task_rejected, task_submitted, workflow_approved, workflow_cancelled, workflow_rejected,
+    workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
@@ -479,7 +480,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         if clean:
             self.full_clean()
 
-        update_descendant_url_paths = False
+        slug_changed = False
         is_new = self.id is None
 
         if is_new:
@@ -493,21 +494,27 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             if not ('update_fields' in kwargs and 'slug' not in kwargs['update_fields']):
                 # see if the slug has changed from the record in the db, in which case we need to
                 # update url_path of self and all descendants
-                old_record = Page.objects.get(id=self.id)
+                old_record = Page.objects.get(id=self.id).specific
                 if old_record.slug != self.slug:
                     self.set_url_path(self.get_parent())
-                    update_descendant_url_paths = True
+                    slug_changed = True
                     old_url_path = old_record.url_path
                     new_url_path = self.url_path
 
         result = super().save(**kwargs)
 
-        if not is_new and update_descendant_url_paths:
+        if slug_changed:
             self._update_descendant_url_paths(old_url_path, new_url_path)
+            # Emit page_slug_changed signal on successful db commit
+            transaction.on_commit(lambda: page_slug_changed.send(
+                sender=self.specific_class or self.__class__,
+                instance=self.specific,
+                instance_before=old_record,
+            ))
 
         # Check if this is a root page of any sites and clear the 'wagtail_site_root_paths' key if so
         # Note: New translations of existing site roots are considered site roots as well, so we must
-        #       always check if this page is a site root, even if it's new.
+        # always check if this page is a site root, even if it's new.
         if self.is_site_root():
             cache.delete('wagtail_site_root_paths')
 
