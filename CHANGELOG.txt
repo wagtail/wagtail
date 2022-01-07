@@ -42,6 +42,7 @@ Changelog
  * Fix: Ensure the `checkbox_aria_label` is used correctly in the Bulk Actions checkboxes (Vu Pham)
  * Fix: Prevent error on MySQL search backend when searching three or more terms (Aldán Creo)
  * Fix: Allow wagtail.search app migrations to complete on versions of SQLite without full-text search support (Matt Westcott)
+ * Fix: Update Pillow dependency to allow 9.x (Matt Westcott)
 
 
 2.15.1 (11.11.2021)
