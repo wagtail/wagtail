@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -41,6 +42,11 @@ def page_filter_search(q, pages, all_pages=None, ordering=None):
 @user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = all_pages = Page.objects.all().prefetch_related('content_type').specific()
+    show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    if show_locale_labels:
+        pages = pages.select_related('locale')
+        all_pages = all_pages.select_related('locale')
+
     q = MATCH_ALL
     content_types = []
     pagination_query_params = QueryDict({}, mutable=True)
@@ -113,6 +119,7 @@ def search(request):
             'selected_content_type': selected_content_type,
             'ordering': ordering,
             'pagination_query_params': pagination_query_params.urlencode(),
+            'show_locale_labels': show_locale_labels,
         })
     else:
         return TemplateResponse(request, "wagtailadmin/pages/search.html", {
@@ -124,4 +131,5 @@ def search(request):
             'selected_content_type': selected_content_type,
             'ordering': ordering,
             'pagination_query_params': pagination_query_params.urlencode(),
+            'show_locale_labels': show_locale_labels,
         })
