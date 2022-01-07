@@ -162,7 +162,7 @@ def edit(request, image_id):
             edit_url = reverse('wagtailimages:edit', args=(image.id,))
             redirect_url = 'wagtailimages:index'
             if next_url:
-                edit_url += "?" + urlencode({"next": next_url})
+                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
                 redirect_url = next_url
 
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
