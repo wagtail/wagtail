@@ -31,7 +31,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'publish': PublishPageAPIAction,
         'unpublish': UnpublishPageAPIAction,
         'move': MovePageAPIAction,
-        'translate': CopyForTranslationAPIAction,
+        'copy_for_translation': CopyForTranslationAPIAction,
     }
 
     # Add has_children and for_explorer filters
