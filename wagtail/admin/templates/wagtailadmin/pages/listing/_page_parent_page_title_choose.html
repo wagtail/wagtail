@@ -7,5 +7,6 @@ Expects a variable 'page', the page instance.
 {% with page.get_parent as parent %}
     {% if parent %}
         <a href="{% url 'wagtailadmin_choose_page_child' parent.id %}" class="navigate-parent">{{ parent.get_admin_display_title }}</a>
+        {% if show_locale_labels %}<span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>{% endif %}
     {% endif %}
 {% endwith %}

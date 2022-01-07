@@ -3,6 +3,7 @@
 <ul class="breadcrumb">
     {% for page in page.get_ancestors.specific %}
         {% if page.is_root %}
+            {% if show_locale_labels %}<li><span class="status-tag primary">{{ page.locale.get_display_name }}</span></li>{% endif %}
             <li class="home"><a href="{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}" class="navigate-pages icon icon-home text-replace">{% trans 'Home' %}</a></li>
         {% else %}
             <li><a href="{% url 'wagtailadmin_choose_page_child' page.id %}{% querystring p=None %}" class="navigate-pages">{{ page.get_admin_display_title }}</a></li>
