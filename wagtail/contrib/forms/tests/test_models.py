@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
+import unittest
 
+from django import VERSION as DJANGO_VERSION
 from django.core import mail
 from django.core.checks import Info
 from django.test import TestCase, override_settings
@@ -35,6 +37,10 @@ class TestFormSubmission(TestCase):
         # check that variables defined in get_context are passed through to the template (#1429)
         self.assertContains(response, "<p>hello world</p>")
 
+    @unittest.skipIf(
+        (4, 0) <= DJANGO_VERSION < (4, 0, 2),
+        "help_text is erroneously escaped in Django 4.0 - 4.0.1: https://code.djangoproject.com/ticket/33419"
+    )
     @override_settings(WAGTAILFORMS_HELP_TEXT_ALLOW_HTML=True)
     def test_get_form_without_help_text_escaping(self):
         response = self.client.get('/contact-us/')
