@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
-from wagtail.models import Page, Site
+from wagtail.models import Locale, Page, Site, SiteRootPath
 
 
 class TestSiteNaturalKey(TestCase):
@@ -184,6 +184,142 @@ class TestDefaultSite(TestCase):
         with self.assertRaises(Site.MultipleObjectsReturned):
             # If there already are multiple default sites, you're in trouble
             site.clean_fields()
+
+
+class TestRootPathMethods(TestCase):
+    def setUp(self):
+        self.no_content_language_code = "ja"
+        self.site = Site.objects.select_related(
+            "root_page", "root_page__locale"
+        ).first()
+        self.english_root_path = SiteRootPath(
+            self.site.id, "/home/", "http://localhost", "en"
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_with_wagtail_i18n_disabled(self):
+        # If 'root_page' and 'root_page__locale' are prefetched with `select_related`,
+        # using any of the root path methods should not result in further queries
+        with self.assertNumQueries(0):
+            self.assertEqual(self.site.default_root_path, self.english_root_path)
+            self.assertEqual(self.site.root_paths, [self.english_root_path])
+            self.assertEqual(self.site.root_paths(), [self.english_root_path])
+            # Tests for get_root_path()
+            for value in (
+                None,
+                "",
+                self.no_content_language_code,
+                "en",
+                "fr",
+            ):
+                with self.subTest(value):
+                    self.assertEqual(
+                        self.site.get_root_path(value), self.english_root_path
+                    )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_without_alternative_languages_roots(self):
+
+        # If 'root_page' and 'root_page__locale' are prefetched with `select_related`,
+        # getting the default root path shouldn't require a database query
+        with self.assertNumQueries(0):
+            self.assertEqual(self.site.default_root_path, self.english_root_path)
+
+        # But, getting all potential root paths will trigger a lookup for
+        # translated root pages
+        with self.assertNumQueries(1):
+            self.assertEqual(self.site.root_paths, [self.english_root_path])
+
+        # get_root_path() should reuse the value returned by the `root_paths`
+        # cached_property above
+        with self.assertNumQueries(0):
+            for value in (
+                None,
+                "",
+                self.no_content_language_code,
+                "en",
+                "fr",
+            ):
+                with self.subTest(value):
+                    self.assertEqual(
+                        self.site.get_root_path(value), self.english_root_path
+                    )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_with_alternative_language_roots(self):
+        # set up some alternative locales
+        french_locale = Locale.objects.create(language_code="fr")
+        thai_locale = Locale.objects.create(language_code="th")
+        bengali_locale = Locale.objects.create(language_code="bn")
+
+        # create some translated versions of the site root
+        # These are deliberately created in non-alphabetical order to demonstrate
+        # that translated site root paths are returned in `Page.path` order
+        self.site.root_page.copy_for_translation(french_locale)
+        self.site.root_page.copy_for_translation(thai_locale)
+        bengali_version = self.site.root_page.copy_for_translation(bengali_locale)
+
+        # these are for use in equality checks below
+        french_root_path = SiteRootPath(
+            self.site.pk, "/home-fr/", "http://localhost", "fr"
+        )
+        bengali_root_path = SiteRootPath(
+            self.site.pk, "/home-bn/", "http://localhost", "bn"
+        )
+        thai_root_path = SiteRootPath(
+            self.site.pk, "/home-th/", "http://localhost", "th"
+        )
+
+        # the 'default' root path should be for the Site's `root_page`,
+        # and retrieving it shouldn't require a database query if
+        # 'root_page' and 'root_page__locale' have been prefetched
+        with self.assertNumQueries(0):
+            default_root_path = self.site.default_root_path
+            self.assertEqual(default_root_path, self.english_root_path)
+
+        # When using 'root_paths', the 'default' root path
+        # should come first, followed by the translated versions in 'path' order
+        with self.assertNumQueries(1):
+            self.assertEqual(
+                self.site.root_paths,
+                [
+                    default_root_path,
+                    french_root_path,
+                    thai_root_path,
+                    bengali_root_path,
+                ],
+            )
+
+        # if we move the original site root to last place,
+        # it will still appear first, because it's the site root
+        original_version = self.site.root_page
+        parent_page = original_version.get_parent()
+        original_version.move(parent_page, pos="last-child")
+        self.assertEqual(
+            self.site.root_paths(),
+            [default_root_path, french_root_path, thai_root_path, bengali_root_path],
+        )
+
+        # if we move the bengali version page to first place,
+        # it should appear after the default, but before the other
+        # translated versions
+        bengali_version.move(parent_page, pos="first-child")
+        self.assertEqual(
+            self.site.root_paths(),
+            [default_root_path, bengali_root_path, french_root_path, thai_root_path],
+        )
+
+        # Tests for get_root_path()
+        for value, expected_result in (
+            (None, default_root_path),
+            ("", default_root_path),
+            (self.no_content_language_code, default_root_path),
+            ("en", default_root_path),
+            ("fr", french_root_path),
+            ("bn", bengali_root_path),
+        ):
+            with self.subTest(value):
+                self.assertEqual(self.site.get_root_path(value), expected_result)
 
 
 class TestGetSiteRootPaths(TestCase):
