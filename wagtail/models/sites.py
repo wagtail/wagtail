@@ -1,4 +1,5 @@
 from collections import namedtuple
+from typing import List
 
 from django.apps import apps
 from django.conf import settings
@@ -8,6 +9,7 @@ from django.db import models
 from django.db.models import Case, IntegerField, Q, When
 from django.db.models.functions import Lower
 from django.http.request import split_domain_port
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 MATCH_HOSTNAME_PORT = 0
@@ -195,19 +197,80 @@ class Site(models.Model):
                     }
                 )
 
-    @staticmethod
-    def get_site_root_paths():
+    @cached_property
+    def default_root_path(self) -> SiteRootPath:
         """
-        Return a list of `SiteRootPath` instances, most specific path
-        first - used to translate url_paths into actual URLs with hostnames
+        .. versionadded:: 5.0
 
-        Each root path is an instance of the `SiteRootPath` named tuple,
-        and have the following attributes:
+        Returns the 'default' root path for this site, indicating where
+        URLs 'start' for the selected ``root_page``.
+
+        Root paths are used in page routing and URL generation logic, and are
+        provided as ``SiteRootPath`` named tuple instance, which have the
+        following attributes:
 
         - `site_id` - The ID of the Site record
         - `root_path` - The internal URL path of the site's home page (for example '/home/')
         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - `language_code` - The language code of the site (for example 'en')
+        """
+        return SiteRootPath(
+            self.id,
+            self.root_page.url_path,
+            self.root_url,
+            self.root_page.locale.language_code,
+        )
+
+    @cached_property
+    def root_paths(self) -> List[SiteRootPath]:
+        """
+        .. versionadded:: 5.0
+
+        Returns a list of all known root paths for this site.
+
+        If using Wagtail's built-in internationalisation features, a
+        root path will be included for every known translation of the
+        the site's ``root_page``.
+        """
+        values = [self.default_root_path]
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            for root_page in (
+                self.root_page.get_translations()
+                .select_related("locale")
+                .order_by("path")
+            ):
+                values.append(
+                    SiteRootPath(
+                        self.id,
+                        root_page.url_path,
+                        self.root_url,
+                        root_page.locale.language_code,
+                    )
+                )
+        return values
+
+    def get_root_path(self, language_code: str) -> SiteRootPath:
+        """
+        .. versionadded:: 5.0
+
+        Returns a root path for this site matching the supplied
+        ``language_code`` or, if no such root path is available, the site's
+        'default' root path.
+        """
+        if language_code in ("", None, self.root_page.locale.language_code):
+            return self.default_root_path
+
+        for option in self.root_paths:
+            if option.language_code == language_code:
+                return option
+
+        return self.default_root_path
+
+    @staticmethod
+    def get_site_root_paths():
+        """
+        Return a list of ``SiteRootPath`` instances, most specific path
+        first - used to translate url_paths into actual URLs with hostname.
         """
         result = cache.get("wagtail_site_root_paths")
 
@@ -218,32 +281,12 @@ class Site(models.Model):
         if result is None or any(len(site_record) == 3 for site_record in result):
             result = []
 
-            for site in Site.objects.select_related(
-                "root_page", "root_page__locale"
-            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
-                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-                    result.extend(
-                        [
-                            SiteRootPath(
-                                site.id,
-                                root_page.url_path,
-                                site.root_url,
-                                root_page.locale.language_code,
-                            )
-                            for root_page in site.root_page.get_translations(
-                                inclusive=True
-                            ).select_related("locale")
-                        ]
-                    )
-                else:
-                    result.append(
-                        SiteRootPath(
-                            site.id,
-                            site.root_page.url_path,
-                            site.root_url,
-                            site.root_page.locale.language_code,
-                        )
-                    )
+            for site in (
+                Site.objects.select_related("root_page", "root_page__locale")
+                .order_by("-root_page__url_path", "-is_default_site", "hostname")
+                .iterator()
+            ):
+                result.extend(site.root_paths)
 
             cache.set("wagtail_site_root_paths", result, 3600)
 
