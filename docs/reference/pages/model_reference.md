@@ -401,6 +401,12 @@ The {meth}`~wagtail.models.Site.find_for_request` function returns the Site obje
         - 443 = ``https://``
         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (for example ``http://mysite.com:8000/``)
 
+    .. autoattribute:: root_paths
+
+    .. autoattribute:: default_root_path
+
+    .. automethod:: get_root_path
+
     .. automethod:: get_site_root_paths
 ```
 
