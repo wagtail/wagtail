@@ -23,9 +23,9 @@ class LoginForm(AuthenticationForm):
 
     @property
     def extra_fields(self):
-        for field_name, field in self.fields.items():
+        for field_name in self.fields.keys():
             if field_name not in ['username', 'password', 'remember']:
-                yield field_name, field
+                yield field_name, self[field_name]
 
 
 class PasswordResetForm(DjangoPasswordResetForm):
