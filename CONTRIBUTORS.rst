@@ -555,6 +555,7 @@ Contributors
 * Nabil Khalil
 * Md. Fahim Bin Amin
 * Michael Karamuth
+* Vu Pham
 
 Translators
 ===========
