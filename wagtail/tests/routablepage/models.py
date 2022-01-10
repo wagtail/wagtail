@@ -47,6 +47,13 @@ class RoutablePageTest(RoutablePage):
             template="routablepagetests/routable_page_test_alternate.html"
         )
 
+    def get_route_paths(self):
+        return [
+            "/",
+            "/render-method-test/",
+            "not-a-valid-route",
+        ]
+
 
 class RoutablePageWithOverriddenIndexRouteTest(RoutablePage):
     @route(r'^$')
