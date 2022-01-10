@@ -766,6 +766,24 @@ def locales():
     ])
 
 
+@register.simple_tag(takes_context=True)
+def locale_label_from_id(context, locale_id):
+    """
+    Returns the Locale display name given its id.
+    """
+    request = context['request']
+
+    # Cache the locale id -> locale display name mapping on the request
+    if not hasattr(request, '_wagtail_locales'):
+        locales_map = {}
+        for locale in Locale.objects.all():
+            locales_map[locale.pk] = locale.get_display_name()
+        setattr(request, '_wagtail_locales', locales_map)
+        context['request'] = request
+
+    return context['request']._wagtail_locales.get(locale_id)
+
+
 @register.simple_tag()
 def slim_sidebar_enabled():
     return getattr(settings, 'WAGTAIL_SLIM_SIDEBAR', True)

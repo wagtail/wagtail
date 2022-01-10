@@ -1,7 +1,10 @@
+import json
+
 from datetime import timedelta
 from unittest import mock
 
 from django.conf import settings
+from django.http import HttpRequest
 from django.template import Context, Template
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -11,8 +14,12 @@ from freezegun import freeze_time
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
-    avatar_url, notification_static, timesince_last_update, timesince_simple)
+    avatar_url, i18n_enabled, locale_label_from_id)
+from wagtail.admin.templatetags.wagtailadmin_tags import locales as locales_tag
+from wagtail.admin.templatetags.wagtailadmin_tags import (
+    notification_static, timesince_last_update, timesince_simple)
 from wagtail.admin.ui.components import Component
+from wagtail.core.models import Locale
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
@@ -158,3 +165,47 @@ class TestComponentTag(TestCase):
         with self.assertRaises(ValueError) as cm:
             template.render(Context({'my_component': "hello"}))
         self.assertEqual(str(cm.exception), "Cannot render 'hello' as a component")
+
+
+@override_settings(WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French"), ("ro", "Romanian"), ("ru", "Russian")])
+class TestInternationalisationTags(TestCase):
+    def setUp(self):
+        self.locale_ids = []
+        for language_code in ['en', 'fr', 'ro', 'ru']:
+            locale, _ = Locale.objects.get_or_create(language_code=language_code)
+            self.locale_ids.append(locale.pk)
+
+    def test_i18n_enabled(self):
+        with override_settings(WAGTAIL_I18N_ENABLED=False):
+            self.assertFalse(i18n_enabled())
+
+        with override_settings(WAGTAIL_I18N_ENABLED=True):
+            self.assertTrue(i18n_enabled())
+
+    def test_locales(self):
+        locales_output = locales_tag()
+        self.assertTrue(isinstance(locales_output, str))
+        self.assertEqual(
+            json.loads(locales_output),
+            [
+                {"code": "en", "display_name": "English"},
+                {"code": "fr", "display_name": "French"},
+                {"code": "ro", "display_name": "Romanian"},
+                {"code": "ru", "display_name": "Russian"}
+            ]
+        )
+
+    def test_locale_label_from_id(self):
+        context = {
+            "request": HttpRequest()
+        }
+
+        with self.assertNumQueries(1):
+            self.assertEqual(locale_label_from_id(context, self.locale_ids[0]), "English")
+
+        with self.assertNumQueries(0):
+            self.assertEqual(locale_label_from_id(context, self.locale_ids[1]), "French")
+
+        # check with an invalid id
+        with self.assertNumQueries(0):
+            self.assertIsNone(locale_label_from_id(context, self.locale_ids[-1] + 100), None)
