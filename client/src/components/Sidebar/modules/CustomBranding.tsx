@@ -12,6 +12,16 @@ interface CustomBrandingProps {
 
 const CustomBranding: React.FunctionComponent<CustomBrandingProps> = ({ homeUrl, html, strings, navigate }) => {
   const onClick = (e: React.MouseEvent) => {
+    // Do not capture click events with modifier keys or non-main buttons.
+    if (
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.metaKey ||
+      (e.button && e.button !== 0)
+    ) {
+      return;
+    }
+
     e.preventDefault();
     navigate(homeUrl);
   };
@@ -19,7 +29,7 @@ const CustomBranding: React.FunctionComponent<CustomBrandingProps> = ({ homeUrl,
   return (
     <a
       className="sidebar-custom-branding"
-      href="#"
+      href={homeUrl}
       onClick={onClick}
       aria-label={strings.DASHBOARD}
       dangerouslySetInnerHTML={{ __html: html }}
