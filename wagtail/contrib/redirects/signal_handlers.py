@@ -39,10 +39,9 @@ def autocreate_redirects_on_slug_change(
         return None
 
     # Determine sites to create redirects for
-    sites = Site.objects.exclude(root_page=instance).filter(id__in=[
-        option.site_id for option in instance._get_site_root_paths(request=instance)
-        if instance.url_path.startswith(option.root_path)
-    ])
+    sites = Site.objects.filter(id__in=[
+        option.site_id for option in instance._get_relevant_site_root_paths(cache_object=instance)
+    ]).exclude(root_page=instance)
 
     create_redirects(page=instance, page_old=instance_before, sites=sites)
 
