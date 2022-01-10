@@ -34,6 +34,7 @@ Changelog
  * Fix: Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
  * Fix: Ensure that bulk publish actions pick up the latest draft revision (Matt Westcott)
  * Fix: Ensure the `checkbox_aria_label` is used correctly in the Bulk Actions checkboxes (Vu Pham)
+ * Fix: Prevent error on MySQL search backend when searching three or more terms (Aldán Creo)
 
 
 2.15.1 (11.11.2021)
