@@ -133,37 +133,4 @@ describe('PageExplorerPanel', () => {
       expect(wrapper.setProps({ depth: 0 }).state('transition')).toBe('pop');
     });
   });
-
-  describe('clickOutside', () => {
-    afterEach(() => {
-      mockProps.onClose.mockReset();
-    });
-
-    it('triggers onClose when click is outside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu></div><div id="t"></div>';
-      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
-      wrapper.instance().clickOutside({
-        target: document.querySelector('#t'),
-      });
-      expect(mockProps.onClose).toHaveBeenCalled();
-    });
-
-    it('does not trigger onClose when click is inside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu><div id="t"></div></div>';
-      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
-      wrapper.instance().clickOutside({
-        target: document.querySelector('#t'),
-      });
-      expect(mockProps.onClose).not.toHaveBeenCalled();
-    });
-
-    it('pauses focus trap inside toggle', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item><div id="t"></div></div><div data-explorer-menu></div>';
-      const wrapper = shallow(<PageExplorerPanel {...mockProps} />);
-      wrapper.instance().clickOutside({
-        target: document.querySelector('#t'),
-      });
-      expect(wrapper.state('paused')).toEqual(true);
-    });
-  });
 });

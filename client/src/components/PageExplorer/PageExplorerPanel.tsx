@@ -22,7 +22,6 @@ interface PageExplorerPanelProps {
 
 interface PageExplorerPanelState {
   transition: typeof PUSH | typeof POP;
-  paused: boolean;
 }
 
 /**
@@ -35,12 +34,10 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
 
     this.state = {
       transition: PUSH,
-      paused: false,
     };
 
     this.onItemClick = this.onItemClick.bind(this);
     this.onHeaderClick = this.onHeaderClick.bind(this);
-    this.clickOutside = this.clickOutside.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -50,27 +47,6 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     this.setState({
       transition: isPush ? PUSH : POP,
     });
-  }
-
-  clickOutside(e) {
-    const { onClose } = this.props;
-    const explorer = document.querySelector('[data-explorer-menu]');
-    const toggle = document.querySelector('[data-explorer-menu-item]');
-
-    if (!explorer || !toggle) {
-      return;
-    }
-
-    const isInside = explorer.contains(e.target) || toggle.contains(e.target);
-    if (!isInside) {
-      onClose();
-    }
-
-    if (toggle.contains(e.target)) {
-      this.setState({
-        paused: true,
-      });
-    }
   }
 
   onItemClick(id, e) {
