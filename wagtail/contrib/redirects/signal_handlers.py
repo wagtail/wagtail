@@ -97,7 +97,9 @@ def _page_urls_for_sites(page: Page, sites: Tuple[Site], cache_target: Page) -> 
 
         if page_path:
             for route_path in page.get_route_paths():
-                urls.add((site, Redirect.normalise_path(page_path), Redirect.normalise_page_route_path(route_path)))
+                normalized_route_path = Redirect.normalise_page_route_path(route_path)
+                old_path = Redirect.normalise_path(page_path.rstrip("/") + (normalized_route_path or "/"))
+                urls.add((site, old_path, normalized_route_path))
 
         # copy cached site root paths to `cache_target` to retain benefits
         cache_target._wagtail_cached_site_root_paths = request._wagtail_cached_site_root_paths
@@ -125,9 +127,9 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
 
     # Add redirects for urls that have changed
     changed_urls = old_urls - new_urls
-    for site, page_path, route_path in changed_urls:
+    for site, old_path, route_path in changed_urls:
         batch.add(
-            old_path=page_path,
+            old_path=old_path,
             site=site,
             redirect_page=page,
             redirect_page_route_path=route_path,
@@ -151,9 +153,9 @@ def create_redirects(page: Page, page_old: Page, sites: Iterable[Site]) -> None:
 
         # Add redirects for urls that have changed
         changed_urls = old_urls - new_urls
-        for site, page_path, route_path in changed_urls:
+        for site, old_path, route_path in changed_urls:
             batch.add(
-                old_path=page_path,
+                old_path=old_path,
                 site=site,
                 redirect_page=descendant,
                 redirect_page_route_path=route_path,
