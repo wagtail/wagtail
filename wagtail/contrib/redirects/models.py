@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
 
 from django.db import models
-from django.urls import NoReverseMatch
+from django.urls import Resolver404
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Page
@@ -60,7 +60,7 @@ class Redirect(models.Model):
                 return base_url
             try:
                 page.resolve_subpage(self.redirect_page_route_path)
-            except NoReverseMatch:
+            except Resolver404:
                 return base_url
             return base_url + self.redirect_page_route_path
         elif self.redirect_link:
