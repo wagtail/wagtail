@@ -45,39 +45,8 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
     + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '')
   );
 
-  const [peeking, setPeeking] = React.useState(false);
-  const wrapperRef = React.useRef<HTMLLIElement | null>(null);
-  React.useEffect(() => {
-    if (!wrapperRef.current) {
-      return;
-    }
-
-    const element = wrapperRef.current;
-    let startPeekingTimeout;
-    let stopPeekingTimeout;
-
-    const onMouseEnterHandler = () => {
-      clearTimeout(startPeekingTimeout);
-      clearTimeout(stopPeekingTimeout);
-      startPeekingTimeout = setTimeout(() => {
-        setPeeking(true);
-      }, 250);
-    };
-
-    const onMouseLeaveHandler = () => {
-      clearTimeout(startPeekingTimeout);
-      clearTimeout(stopPeekingTimeout);
-      stopPeekingTimeout = setTimeout(() => {
-        setPeeking(false);
-      }, 250);
-    };
-
-    element.addEventListener('mouseenter', onMouseEnterHandler);
-    element.addEventListener('mouseleave', onMouseLeaveHandler);
-  }, []);
-
   return (
-    <li className={className} ref={wrapperRef}>
+    <li className={className}>
       <a
         href={item.url}
         aria-current={isCurrent ? 'page' : undefined}
@@ -86,11 +55,6 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
       >
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>
-        <div className={'menuitem-tooltip' + (peeking ? ' menuitem-tooltip--visible' : '')}>
-          <div className="menuitem-tooltip__inner">
-            {item.label}
-          </div>
-        </div>
       </a>
     </li>
   );
