@@ -96,6 +96,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
     };
 
     walkMenu('', menuItems);
+    walkMenu('', accountMenuItems);
 
     let bestMatch: [string, string] | null = null;
     urlPathsToNavigationPaths.forEach(([urlPath, navPath]) => {
