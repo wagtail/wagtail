@@ -175,7 +175,7 @@ class LogEntriesView(ReportView):
             for log_entry, instance in log_entries:
                 # annotate log entry with an 'edit_url' property
                 log_entry.edit_url = url_finder.get_edit_url(instance)
-                object_lookup[(log_model_index, log_entry.pk)] = log_entry
+                object_lookup[(log_model_index, log_entry.pk)] = (log_entry, instance)
 
         # return items from our lookup table in the order of the original queryset
         return [

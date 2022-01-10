@@ -12,7 +12,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.core.models import Page, PageLogEntry
+from wagtail.core.models import Locale, Page, PageLogEntry
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -171,33 +171,54 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(response, [
-            self.create_log,
-            self.edit_log_1,
-            self.edit_log_2,
-            self.edit_log_3,
-            self.create_comment_log,
-            self.edit_comment_log,
-            self.create_reply_log,
+            (self.create_log, self.home_page),
+            (self.edit_log_1, self.home_page),
+            (self.edit_log_2, self.home_page),
+            (self.edit_log_3, self.home_page),
+            (self.create_comment_log, self.home_page),
+            (self.edit_comment_log, self.home_page),
+            (self.create_reply_log, self.home_page),
         ])
 
     def test_filter_by_action(self):
         response = self.get(params={'action': 'wagtail.edit'})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(response, [
-            self.edit_log_1,
-            self.edit_log_2,
-            self.edit_log_3,
+            (self.edit_log_1, self.home_page),
+            (self.edit_log_2, self.home_page),
+            (self.edit_log_3, self.home_page),
         ])
 
     def test_hide_commenting_actions(self):
         response = self.get(params={'hide_commenting_actions': 'on'})
         self.assertEqual(response.status_code, 200)
         self.assert_log_entries(response, [
-            self.create_log,
-            self.edit_log_1,
-            self.edit_log_2,
-            self.edit_log_3,
+            (self.create_log, self.home_page),
+            (self.edit_log_1, self.home_page),
+            (self.edit_log_2, self.home_page),
+            (self.edit_log_3, self.home_page),
         ])
+
+    @override_settings(
+        WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
+        WAGTAIL_I18N_ENABLED=True
+    )
+    def test_locale_label(self):
+        en_locale, _ = Locale.objects.get_or_create(language_code="en")
+        fr_locale, _ = Locale.objects.get_or_create(language_code="fr")
+
+        self.home_page.locale = en_locale
+        self.home_page.save()
+
+        root_page = Page.objects.get(id=1)
+        fr_home_page = root_page.add_child(instance=Page(title="Maison", locale=fr_locale))
+        fr_home_page.save()
+
+        PageLogEntry.objects.log_action(fr_home_page, 'wagtail.create')
+
+        response = self.get(params={'action': 'wagtail.create'})
+        self.assertContains(response, '<span class="status-tag status-tag--label">English</span>')
+        self.assertContains(response, '<span class="status-tag status-tag--label">French</span>')
 
 
 @override_settings(

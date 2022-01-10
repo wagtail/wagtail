@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for entry in object_list %}
+                {% for entry, instance in object_list %}
                     <tr>
                         <td class="title">
                             {% if entry.edit_url %}
@@ -32,6 +32,12 @@
                             {% else %}
                                 {{ entry.label }}
                             {% endif %}
+
+                        {% i18n_enabled as show_locale_labels %}
+                        {% if show_locale_labels and instance.locale_id %}
+                            {% locale_label_from_id instance.locale_id as locale_label %}
+                            {% if locale_label %}<span class="status-tag status-tag--label">{{ locale_label }}</span>{% endif %}
+                        {% endif %}
                         </td>
                         <td>
                             {{ entry.content_type|format_content_type }}
