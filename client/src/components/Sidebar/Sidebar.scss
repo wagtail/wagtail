@@ -2,11 +2,11 @@
     @include transition(background-color $menu-transition-duration ease);
 
     position: absolute;
-    top: 12px;
-    left: 12px;
+    top: $sidebar-toggle-spacing;
+    left: $sidebar-toggle-spacing;
     color: $color-white;
-    width: 35px;
-    height: 35px;
+    width: $sidebar-toggle-size;
+    height: $sidebar-toggle-size;
     background: transparent;
     border: 0;
     place-items: center;
@@ -67,7 +67,7 @@
     // This element should cover all the area beneath the collapse toggle
     // It's only used to attach mouse enter/exit event handlers to control peeking
     &__peek-hover-area {
-        margin-top: 35px;  // Match height of __collapse-toggle
+        margin-top: $sidebar-toggle-size;
         display: grid;
         grid-template-columns: 1fr;
         overflow-y: scroll;
