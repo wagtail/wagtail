@@ -18,18 +18,34 @@
 
     .modal .breadcrumb {
         margin: 0;
+        padding-left: 0.5em;
         background-color: transparent;
+
+        .breadcrumb-item {
+            padding-left: 0;
+            padding-right: 0;
+        }
 
         a {
             color: $color-grey-2;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+
+            &:hover {
+                color: $color-white;
+            }
         }
 
         li:hover {
-            background-color: $color-grey-4;
+            background-color: transparent;
         }
 
-        .home {
-            padding-left: 0;
+        .home_icon {
+            margin-left: 0;
+        }
+
+        .status-tag {
+            margin-bottom: 0;
         }
     }
 
