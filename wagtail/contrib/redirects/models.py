@@ -62,7 +62,7 @@ class Redirect(models.Model):
                 page.resolve_subpage(self.redirect_page_route_path)
             except Resolver404:
                 return base_url
-            return base_url + self.redirect_page_route_path
+            return base_url.rstrip("/") + self.redirect_page_route_path
         elif self.redirect_link:
             return self.redirect_link
         return None
