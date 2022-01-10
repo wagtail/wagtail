@@ -7,10 +7,17 @@ interface CustomBrandingProps {
   homeUrl: string;
   html: string;
   strings;
+  currentPath: string;
   navigate(url: string): void;
 }
 
-const CustomBranding: React.FunctionComponent<CustomBrandingProps> = ({ homeUrl, html, strings, navigate }) => {
+const CustomBranding: React.FunctionComponent<CustomBrandingProps> = ({
+  homeUrl,
+  html,
+  strings,
+  currentPath,
+  navigate,
+}) => {
   const onClick = (e: React.MouseEvent) => {
     // Do not capture click events with modifier keys or non-main buttons.
     if (
@@ -32,6 +39,7 @@ const CustomBranding: React.FunctionComponent<CustomBrandingProps> = ({ homeUrl,
       href={homeUrl}
       onClick={onClick}
       aria-label={strings.DASHBOARD}
+      aria-current={currentPath === homeUrl ? 'page' : undefined}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
@@ -46,7 +54,14 @@ export class CustomBrandingModuleDefinition implements ModuleDefinition {
     this.html = html;
   }
 
-  render({ strings, navigate, key }) {
-    return <CustomBranding key={key} homeUrl={this.homeUrl} html={this.html} strings={strings} navigate={navigate} />;
+  render({ strings, currentPath, navigate, key }) {
+    return (<CustomBranding
+      key={key}
+      homeUrl={this.homeUrl}
+      html={this.html}
+      strings={strings}
+      currentPath={currentPath}
+      navigate={navigate}
+    />);
   }
 }

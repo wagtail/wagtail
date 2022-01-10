@@ -15,10 +15,17 @@ interface WagtailBrandingProps {
   homeUrl: string;
   images: LogoImages;
   strings: Strings;
+  currentPath: string;
   navigate(url: string): void;
 }
 
-const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({ homeUrl, images, strings, navigate }) => {
+const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
+  homeUrl,
+  images,
+  strings,
+  currentPath,
+  navigate,
+}) => {
   // Tail wagging
   // If the pointer changes direction 8 or more times without leaving, wag the tail!
   const lastMouseX = React.useRef(0);
@@ -71,6 +78,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({ homeUr
   return (
     <a
       className={desktopClassName} href={homeUrl} aria-label={strings.DASHBOARD}
+      aria-current={currentPath === homeUrl ? 'page' : undefined}
       onClick={onClick} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
     >
       <div className="sidebar-wagtail-branding__icon-wrapper">
@@ -95,10 +103,10 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.images = images;
   }
 
-  render({ strings, key, navigate }) {
+  render({ strings, key, navigate, currentPath }) {
     return (<WagtailBranding
       key={key} homeUrl={this.homeUrl} images={this.images}
-      strings={strings} navigate={navigate}
+      strings={strings} navigate={navigate} currentPath={currentPath}
     />);
   }
 }
