@@ -2,6 +2,7 @@ import datetime
 
 import django_filters
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 
@@ -39,6 +40,10 @@ class LockedPagesView(PageReportView):
             UserPagePermissionsProxy(self.request.user).editable_pages()
             | Page.objects.filter(locked_by=self.request.user)
         ).filter(locked=True).specific(defer=True)
+
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            pages = pages.select_related('locale')
+
         self.queryset = pages
         return super().get_queryset()
 
