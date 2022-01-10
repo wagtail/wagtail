@@ -103,7 +103,7 @@ class Redirect(models.Model):
             redirect.redirect_page = redirect_to
             # Set redirect page route
             if isinstance(page_route_path, str):
-                redirect.redirect_page_route_path = Redirect.normalise_page_route(page_route_path)
+                redirect.redirect_page_route_path = Redirect.normalise_page_route_path(page_route_path)
         elif isinstance(redirect_to, str):
             # Set redirect link string
             redirect.redirect_link = redirect_to
