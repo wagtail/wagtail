@@ -245,11 +245,20 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
         # Look for a link element in the breadcrumbs with the admin title
+        expected = """
+            <li class="breadcrumb-item">
+                <a href="/admin/choose-page/{page_id}/?" class="breadcrumb-link navigate-pages">{page_title}
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """.format(
+            page_id=self.child_page.id,
+            page_title="foobarbaz (simple page)",
+        )
         self.assertTagInHTML(
-            '<li><a href="/admin/choose-page/{page_id}/?" class="navigate-pages">{page_title}</a></li>'.format(
-                page_id=self.child_page.id,
-                page_title="foobarbaz (simple page)",
-            ),
+            expected,
             response.json().get('html')
         )
 
