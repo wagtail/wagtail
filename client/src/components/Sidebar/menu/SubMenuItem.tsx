@@ -65,8 +65,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
 
   return (
     <li className={className}>
-      <a
-        href="#"
+      <button
         onClick={onClick}
         className={`sidebar-menu-item__link ${item.classNames}`}
         aria-haspopup="true"
@@ -75,7 +74,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
-      </a>
+      </button>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
           <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>

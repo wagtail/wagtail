@@ -8,11 +8,14 @@
         @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
         position: relative;
         display: block;
+        width: 100%;
         white-space: nowrap;
         border-left: 3px solid transparent;
 
         -webkit-font-smoothing: auto;
-        text-decoration: none;
+        border: 0;
+        background: transparent;
+        text-align: left;
         color: $color-menu-text;
         padding: 11px 20px;
         font-size: 13px;
