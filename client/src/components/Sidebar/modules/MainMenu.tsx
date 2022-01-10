@@ -168,7 +168,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
 
   return (
     <>
-      <nav className={className}>
+      <nav className={className} aria-label={strings.MAIN_MENU}>
         <ul className="sidebar-main-menu__list">
           {renderMenu('', menuItems, slim, state, dispatch, navigate)}
         </ul>

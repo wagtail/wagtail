@@ -9,6 +9,8 @@ export interface Strings {
   DASHBOARD: string;
   EDIT_YOUR_ACCOUNT: string,
   SEARCH: string,
+  TOGGLE_SIDEBAR: string,
+  MAIN_MENU: string,
 }
 
 export interface ModuleRenderContext {
@@ -166,7 +168,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
 
   return (
     <>
-      <aside
+      <div
         className={
           'sidebar'
           + (slim ? ' sidebar--slim' : '')
@@ -175,7 +177,12 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
         }
       >
         <div className="sidebar__inner">
-          <button onClick={onClickCollapseToggle} className="button sidebar__collapse-toggle">
+          <button
+            onClick={onClickCollapseToggle}
+            aria-label={strings.TOGGLE_SIDEBAR}
+            aria-expanded={!slim}
+            className="button sidebar__collapse-toggle"
+          >
             {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
           </button>
 
@@ -189,9 +196,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
             {renderedModules}
           </div>
         </div>
-      </aside>
+      </div>
       <button
         onClick={onClickOpenCloseToggle}
+        aria-label={strings.TOGGLE_SIDEBAR}
+        aria-expanded={visibleOnMobile}
         className={
           'button sidebar-nav-toggle'
           + (isMobile ? ' sidebar-nav-toggle--mobile' : '')

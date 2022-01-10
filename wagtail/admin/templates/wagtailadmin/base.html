@@ -4,7 +4,7 @@
 {% block furniture %}
     {% slim_sidebar_enabled as slim_sidebar_enabled %}
     {% if slim_sidebar_enabled %}
-    <aside id="wagtail-sidebar" data-props="{% menu_props %}"></aside>
+    <aside id="wagtail-sidebar" data-wagtail-sidebar data-props="{% menu_props %}"></aside>
     {% else %}
     <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
         <div class="inner">
