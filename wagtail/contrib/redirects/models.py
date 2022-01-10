@@ -150,6 +150,7 @@ class Redirect(models.Model):
 
         return path
 
+    @staticmethod
     def normalise_page_route_path(url):
         # Strip whitespace
         url = url.strip()
