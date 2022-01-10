@@ -22,6 +22,14 @@
         width: 15px;
         height: 16px;
     }
+
+    .has-messages & {
+        top: $sidebar-toggle-spacing + 70px;
+
+        @include media-breakpoint-up(sm) {
+            top: $sidebar-toggle-spacing;
+        }
+    }
 }
 
 .sidebar {
