@@ -62,7 +62,9 @@ $menu-footer-height: 50px;
 }
 
 .c-page-explorer__header {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     background-color: $c-page-explorer-bg-dark;
     border-bottom: 1px solid $c-page-explorer-bg-dark;
     color: $color-white;
@@ -87,8 +89,6 @@ $menu-footer-height: 50px;
 }
 
 .c-page-explorer__header__title__inner {
-    width: 70%;
-    float: left;
     padding: 1em 0.75em;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -115,16 +115,11 @@ $menu-footer-height: 50px;
 
 .c-page-explorer__header__select {
     $margin: 10px;
-    position: relative;
 
     > select {
-        width: calc(30% - #{$margin * 2});
-        height: calc(100% - #{$margin * 2});
-        margin-top: $margin;
-        margin-right: $margin;
-        float: right;
         padding: 0;
         padding-left: 10px;
+        padding-right: 30px;
 
         background-color: $c-page-explorer-bg-dark;
         border-radius: 0;
