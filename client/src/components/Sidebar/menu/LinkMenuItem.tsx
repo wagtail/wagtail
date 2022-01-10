@@ -11,6 +11,16 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
   const isInSubMenu = path.split('.').length > 2;
 
   const onClick = (e: React.MouseEvent) => {
+    // Do not capture click events with modifier keys or non-main buttons.
+    if (
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.metaKey ||
+      (e.button && e.button !== 0)
+    ) {
+      return;
+    }
+
     e.preventDefault();
 
     navigate(item.url).then(() => {
@@ -67,7 +77,11 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
 
   return (
     <li className={className} ref={wrapperRef}>
-      <a href="#" onClick={onClick} className={`sidebar-menu-item__link ${item.classNames}`}>
+      <a
+        href={item.url}
+        onClick={onClick}
+        className={`sidebar-menu-item__link ${item.classNames}`}
+      >
         {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
         <span className="menuitem-label">{item.label}</span>
         <div className={'menuitem-tooltip' + (peeking ? ' menuitem-tooltip--visible' : '')}>
