@@ -157,11 +157,16 @@ class MainMenuModule:
     def js_args(self):
         from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url
 
+        try:
+            first_name = self.user.first_name
+        except AttributeError:
+            first_name = None
+
         return [
             self.menu_items,
             self.account_menu_items,
             {
-                'name': self.user.first_name or self.user.get_username(),
+                'name': first_name or self.user.get_username(),
                 'avatarUrl': avatar_url(self.user, size=50),
             }
         ]
