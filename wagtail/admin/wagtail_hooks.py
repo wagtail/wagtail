@@ -319,23 +319,6 @@ def page_header_buttons(page, page_perms, next_url=None):
             priority=30
         )
 
-    if page_perms.can_delete():
-        url = reverse('wagtailadmin_pages:delete', args=[page.id])
-
-        # After deleting the page, it is impossible to redirect to it.
-        if next_url == reverse('wagtailadmin_explore', args=[page.id]):
-            next_url = None
-
-        if next_url:
-            url += '?' + urlencode({'next': next_url})
-
-        yield Button(
-            _('Delete'),
-            url,
-            attrs={'title': _("Delete page '%(title)s'") % {'title': page.get_admin_display_title()}},
-            priority=40
-        )
-
 
 @hooks.register('register_admin_urls')
 def register_viewsets_urls():
