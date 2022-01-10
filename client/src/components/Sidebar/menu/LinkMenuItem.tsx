@@ -7,6 +7,7 @@ import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
 export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDefinition>> = (
   { item, path, state, dispatch, navigate }) => {
+  const isCurrent = state.activePath === path;
   const isActive = state.activePath.startsWith(path);
   const isInSubMenu = path.split('.').length > 2;
 
@@ -79,6 +80,7 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
     <li className={className} ref={wrapperRef}>
       <a
         href={item.url}
+        aria-current={isCurrent ? 'page' : undefined}
         onClick={onClick}
         className={`sidebar-menu-item__link ${item.classNames}`}
       >
