@@ -284,13 +284,16 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect('wagtailimages:index')
+        return redirect(next_url) if next_url else redirect('wagtailimages:index')
 
     return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
+        'next': next_url,
     })
 
 

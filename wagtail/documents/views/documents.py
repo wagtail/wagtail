@@ -232,13 +232,16 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
-        return redirect('wagtaildocs:index')
+        return redirect(next_url) if next_url else redirect('wagtaildocs:index')
 
     return TemplateResponse(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+        'next': next_url,
     })
 
 

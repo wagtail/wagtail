@@ -17,6 +17,7 @@
         <p>{% trans "Are you sure you want to delete this document?" %}</p>
         <form action="{% url 'wagtaildocs:delete' document.id %}" method="POST">
             {% csrf_token %}
+            <input type="hidden" value="{{ next }}" name="next">
             <input type="submit" value='{% trans "Yes, delete" %}' class="button serious" />
             <a href="{% url 'wagtaildocs:index' %}" class="button button-secondary">{% trans "No, don't delete" %}</a>
         </form>
