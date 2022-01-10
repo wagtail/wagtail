@@ -5,6 +5,7 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
 from wagtail.core.models import Page, Site
+from wagtail.tests.routablepage.models import RoutablePageTest
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -162,6 +163,23 @@ class TestRedirects(TestCase):
         # Only one site defined, so redirect should return a local URL
         # (to keep things working if Site records haven't been configured correctly)
         self.assertRedirects(response, '/events/christmas/', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_to_specific_page_route(self):
+        homepage = Page.objects.get(id=2)
+        routable_page = homepage.add_child(instance=RoutablePageTest(
+            title="Routable Page",
+            live=True,
+        ))
+
+        # test redirect with a VALID route path
+        models.Redirect.add_redirect(old_path='/old-path-one', redirect_to=routable_page, page_route_path='/render-method-test-custom-template/')
+        response = self.client.get('/old-path-one/', HTTP_HOST='test.example.com')
+        self.assertRedirects(response, '/routable-page/render-method-test-custom-template/', status_code=301, fetch_redirect_response=False)
+
+        # test redirect with an INVALID route path
+        models.Redirect.add_redirect(old_path='/old-path-two', redirect_to=routable_page, page_route_path='/invalid-route/')
+        response = self.client.get('/old-path-two/', HTTP_HOST='test.example.com')
+        self.assertRedirects(response, '/routable-page/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
