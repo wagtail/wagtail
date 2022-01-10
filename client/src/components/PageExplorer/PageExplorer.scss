@@ -8,7 +8,8 @@ $menu-footer-height: 50px;
 @import 'PageExplorerItem';
 
 .c-page-explorer {
-    width: 485px;
+    max-width: 485px;
+    width: 90vw;
     height: 100vh;
     background: $c-page-explorer-bg;
     overflow: hidden;
@@ -20,6 +21,7 @@ $menu-footer-height: 50px;
 
 
     @include media-breakpoint-up(sm) {
+        width: 485px;
         box-shadow: 2px 2px 5px $c-page-explorer-bg-active;
     }
 }
@@ -31,35 +33,13 @@ $menu-footer-height: 50px;
     z-index: 350;
 }
 
-.c-page-explorer__close {
-    padding: 1em;
-    color: $c-page-explorer-secondary;
-    border-bottom: 1px solid rgba(200, 200, 200, 0.1);
-    cursor: pointer;
-    display: none;
-
-    &:focus {
-        background-color: $c-page-explorer-bg-active;
-        color: $color-white;
-    }
-
-    // Overrides for default link hover.
-    &:hover {
-        color: $c-page-explorer-secondary;
-    }
-
-    @include media-breakpoint-down(xs) {
-        .explorer-open & {
-            display: block;
-        }
-    }
-}
-
 .c-page-explorer__drawer {
     flex: 1;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+$explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
     display: grid;
@@ -68,6 +48,13 @@ $menu-footer-height: 50px;
     background-color: $c-page-explorer-bg-dark;
     border-bottom: 1px solid $c-page-explorer-bg-dark;
     color: $color-white;
+    margin-inline-start: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
+    height: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
+
+    @include media-breakpoint-up(sm) {
+        margin-inline-start: initial;
+        height: initial;
+    }
 }
 
 .c-page-explorer__header__title {
@@ -89,7 +76,7 @@ $menu-footer-height: 50px;
 }
 
 .c-page-explorer__header__title__inner {
-    padding: 1em 0.75em;
+    padding: 1em $explorer-header-horizontal-padding;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
