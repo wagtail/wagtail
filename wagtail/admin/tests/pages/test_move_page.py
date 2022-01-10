@@ -7,6 +7,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
+from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core.models import Page
 from wagtail.core.signals import post_page_move, pre_page_move
 from wagtail.tests.testapp.models import SimplePage
@@ -54,6 +55,23 @@ class TestPageMove(TestCase, WagtailTestUtils):
     def test_page_move(self):
         response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page_a.id, )))
         self.assertEqual(response.status_code, 200)
+
+    def test_page_move_default_destination(self):
+        response = self.client.get(reverse('wagtailadmin_pages:move', args=(self.test_page_b.id, )))
+        self.assertEqual(response.status_code, 200)
+        # The default destination is the parent of the page being moved
+        self.assertEqual(response.context["viewed_page"].specific, self.section_c)
+
+        cca = get_explorable_root_page(self.user)
+        destinations = self.section_c.get_ancestors().descendant_of(cca)
+        self.assertTrue(destinations.exists())
+
+        for destination_page in destinations:
+            move_url = reverse(
+                'wagtailadmin_pages:move_choose_destination',
+                args=(self.test_page_b.id, destination_page.id)
+            )
+            self.assertContains(response, move_url)
 
     def test_page_move_bad_permissions(self):
         # Remove privileges from user
