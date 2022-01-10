@@ -5,6 +5,7 @@ from django.test import TestCase, override_settings
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.core.models import Page, Site
 from wagtail.core.utils import get_dummy_request
+from wagtail.tests.routablepage.models import RoutablePageTest
 from wagtail.tests.testapp.models import EventIndex
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -132,6 +133,27 @@ class TestAutocreateRedirects(TestCase, WagtailTestUtils):
                 old_path=redirect2.old_path,
                 site_id=redirect2.site_id,
             ).exists()
+        )
+
+    def test_redirect_creation_for_custom_route_paths(self):
+        # Add a page that has overridden get_route_paths()
+        homepage = Page.objects.get(id=2)
+        routable_page = homepage.add_child(instance=RoutablePageTest(
+            title="Routable Page",
+            live=True,
+        ))
+
+        # Move from below the homepage to below the event index
+        routable_page.move(self.event_index, pos="last-child")
+
+        # Redirects should have been created for each path returned by get_route_paths()
+        self.assertEqual(
+            list(Redirect.objects.all().values_list("old_path", "redirect_page", "redirect_page_route_path").order_by("redirect_page_route_path")),
+            [
+                ("/routable-page", routable_page.id, ""),
+                ("/routable-page/not-a-valid-route", routable_page.id, "/not-a-valid-route"),
+                ("/routable-page/render-method-test", routable_page.id, "/render-method-test/"),
+            ]
         )
 
     def test_no_redirects_created_when_pages_are_moved_to_a_different_site(self):
