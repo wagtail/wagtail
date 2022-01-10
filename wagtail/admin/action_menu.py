@@ -292,6 +292,24 @@ class UnpublishMenuItem(ActionMenuItem):
         return reverse('wagtailadmin_pages:unpublish', args=(context['page'].id,))
 
 
+class DeleteMenuItem(ActionMenuItem):
+    name = 'action-delete'
+    label = _("Delete")
+    icon_name = 'bin'
+    classname = 'action-secondary'
+
+    def is_shown(self, context):
+        if context['view'] == 'edit':
+            perms_tester = self.get_user_page_permissions_tester(context)
+            return (
+                not perms_tester.page_locked()
+                and perms_tester.can_delete()
+            )
+
+    def get_url(self, context):
+        return reverse('wagtailadmin_pages:delete', args=(context['page'].id,))
+
+
 class LockMenuItem(ActionMenuItem):
     name = 'action-lock'
     label = _("Lock")
@@ -374,6 +392,7 @@ def _get_base_page_action_menu_items():
     if BASE_PAGE_ACTION_MENU_ITEMS is None:
         BASE_PAGE_ACTION_MENU_ITEMS = [
             SaveDraftMenuItem(order=0),
+            DeleteMenuItem(order=10),
             LockMenuItem(order=15),
             UnlockMenuItem(order=15),
             UnpublishMenuItem(order=20),
