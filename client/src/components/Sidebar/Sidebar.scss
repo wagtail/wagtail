@@ -33,7 +33,7 @@
     flex-direction: column;
     height: 100%;
     background: $nav-grey-3;
-    z-index: 3;
+    z-index: 300;
 
     @include transition(width $menu-transition-duration ease, left $menu-transition-duration ease);
 
@@ -78,7 +78,7 @@
 .sidebar-nav-toggle {
     @include sidebar-toggle;
     display: none;  // Nav toggle is for mobile only
-    z-index: 5;
+    z-index: 305;
 
     &:hover {
         background: var(--color-primary-dark);
