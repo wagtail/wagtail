@@ -65,6 +65,8 @@ global.wagtailConfig = {
     SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
     SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
     SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
+    TOGGLE_SIDEBAR: 'Toggle sidebar',
+    MAIN_MENU: 'Main menu',
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [
