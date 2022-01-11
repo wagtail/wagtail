@@ -30,5 +30,5 @@ class WagtailSearchAppConfig(AppConfig):
         if connection.vendor == 'sqlite':
             import sqlite3
             if sqlite3.sqlite_version_info < (3, 19, 0):
-                return [Warning('Your SQLite version is older than 3.19.0. A fallback search backend will be used instead.', hint='Upgrade your SQLite version to at least 3.19.0', id='wagtailsearch.W001', obj=WagtailSearchAppConfig)]
+                return [Warning('Your SQLite version is older than 3.19.0. A fallback search backend will be used instead.', hint='Upgrade your SQLite version to at least 3.19.0', id='wagtailsearch.W002', obj=WagtailSearchAppConfig)]
         return []
