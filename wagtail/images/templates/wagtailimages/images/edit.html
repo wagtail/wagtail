@@ -55,7 +55,7 @@
                 <div class="u-hidden@xs">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if user_can_delete %}
-                        <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
+                        <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
                     {% endif %}
                 </div>
             </div>

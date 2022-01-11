@@ -47,13 +47,11 @@ class BaseListingView(TemplateView):
 
         # Filter by collection
         self.current_collection = None
-        next_url = None
         collection_id = self.request.GET.get('collection_id')
         if collection_id:
             try:
                 self.current_collection = Collection.objects.get(id=collection_id)
                 documents = documents.filter(collection=self.current_collection)
-                next_url = reverse('wagtaildocs:index') + "?" + urlencode({"collection_id": collection_id})
             except (ValueError, Collection.DoesNotExist):
                 pass
 
@@ -76,7 +74,7 @@ class BaseListingView(TemplateView):
             'documents': documents,
             'query_string': query_string,
             'is_searching': bool(query_string),
-            'next': next_url,
+            'next': self.request.get_full_path(),
         })
         return context
 
