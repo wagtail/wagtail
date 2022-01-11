@@ -11,7 +11,7 @@ const initUpgradeNotification = () => {
   *   Expected JSON payload:
   *   {
   *       "version" : "1.2.3",    // Version number. Can only contain numbers and decimal point.
-  *       "url" : "https://wagtail.io"  // Absolute URL to page/file containing release notes or actual package. It's up to you.
+  *       "url" : "https://wagtail.org"  // Absolute URL to page/file containing release notes or actual package. It's up to you.
   *   }
   */
   const releasesUrl = 'https://releases.wagtail.org/latest.txt';

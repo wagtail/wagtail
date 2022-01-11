@@ -21,11 +21,11 @@ const STRINGS: Strings = {
 
 function wagtailBrandingModule(): WagtailBrandingModuleDefinition {
   return new WagtailBrandingModuleDefinition('/admin/', {
-    mobileLogo: 'https://wagtail.io/static/wagtailadmin/images/wagtail-logo.svg',
-    desktopLogoBody: 'https://wagtail.io/static/wagtailadmin/images/logo-body.svg',
-    desktopLogoTail: 'https://wagtail.io/static/wagtailadmin/images/logo-tail.svg',
-    desktopLogoEyeOpen: 'https://wagtail.io/static/wagtailadmin/images/logo-eyeopen.svg',
-    desktopLogoEyeClosed: 'https://wagtail.io/static/wagtailadmin/images/logo-eyeclosed.svg'
+    mobileLogo: 'https://wagtail.org/static/wagtailadmin/images/wagtail-logo.svg',
+    desktopLogoBody: 'https://wagtail.org/static/wagtailadmin/images/logo-body.svg',
+    desktopLogoTail: 'https://wagtail.org/static/wagtailadmin/images/logo-tail.svg',
+    desktopLogoEyeOpen: 'https://wagtail.org/static/wagtailadmin/images/logo-eyeopen.svg',
+    desktopLogoEyeClosed: 'https://wagtail.org/static/wagtailadmin/images/logo-eyeclosed.svg'
   });
 }
 

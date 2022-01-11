@@ -124,7 +124,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
         'cloudfront': {
             'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': {
-                'www.wagtail.io': 'your-distribution-id',
+                'www.wagtail.org': 'your-distribution-id',
                 'www.madewithwagtail.org': 'your-distribution-id',
             },
         },

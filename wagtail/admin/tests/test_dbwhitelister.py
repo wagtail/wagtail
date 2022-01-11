@@ -55,12 +55,12 @@ class TestDbWhitelister(TestCase):
     def test_page_link_is_rewritten(self):
         input_html = (
             '<p>Look at the <a data-linktype="page" data-id="2" href="/">lovely homepage</a>'
-            ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
+            ' of my <a href="http://wagtail.org/">Wagtail</a> site</p>'
         )
         output_html = self.whitelister.clean(input_html)
         expected = (
             '<p>Look at the <a linktype="page" id="2">lovely homepage</a>'
-            ' of my <a href="http://wagtail.io/">Wagtail</a> site</p>'
+            ' of my <a href="http://wagtail.org/">Wagtail</a> site</p>'
         )
         self.assertHtmlEqual(expected, output_html)
 

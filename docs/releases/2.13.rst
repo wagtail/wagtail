@@ -13,7 +13,7 @@ What's new
 StreamField performance and functionality updates
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The StreamField editing interface has been rebuilt on a client-side rendering model, powered by the `telepath <https://wagtail.github.io/telepath/>`_ library. This provides better performance, increased customisability and UI enhancements including the ability to duplicate blocks. For further background, see the blog post `Telepath - the next evolution of StreamField <https://wagtail.io/blog/telepath/>`_.
+The StreamField editing interface has been rebuilt on a client-side rendering model, powered by the `telepath <https://wagtail.github.io/telepath/>`_ library. This provides better performance, increased customisability and UI enhancements including the ability to duplicate blocks. For further background, see the blog post `Telepath - the next evolution of StreamField <https://wagtail.org/blog/telepath/>`_.
 
 This feature was developed by Matt Westcott and Karl Hobley and sponsored by `YouGov <https://yougov.co.uk/>`_, inspired by earlier work on `react-streamfield <https://github.com/wagtail/wagtail-react-streamfield>`_ completed by Bertrand Bordage through the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunder.
 

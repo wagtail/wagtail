@@ -219,7 +219,7 @@ class TestBackendConfiguration(TestCase):
             self._test_http_with_side_effect(urlopen_side_effect=http_error)
 
         self.assertIn(
-            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. HTTPError: 500 Internal Server Error",
+            "Couldn't purge 'http://www.wagtail.org/home/events/christmas/' from HTTP cache. HTTPError: 500 Internal Server Error",
             log_output.output[0]
         )
 
@@ -229,7 +229,7 @@ class TestBackendConfiguration(TestCase):
         with self.assertLogs(level='ERROR') as log_output:
             self._test_http_with_side_effect(urlopen_side_effect=url_error)
         self.assertIn(
-            "Couldn't purge 'http://www.wagtail.io/home/events/christmas/' from HTTP cache. URLError: just for tests",
+            "Couldn't purge 'http://www.wagtail.org/home/events/christmas/' from HTTP cache. URLError: just for tests",
             log_output.output[0]
         )
 
@@ -248,7 +248,7 @@ class TestBackendConfiguration(TestCase):
         urlopen_mock.side_effect = urlopen_side_effect
 
         # when making a purge request
-        backends.get('varnish').purge('http://www.wagtail.io/home/events/christmas/')
+        backends.get('varnish').purge('http://www.wagtail.org/home/events/christmas/')
 
         # then no exception is raised
         # and mocked urlopen is called with a proper purge request
@@ -270,11 +270,11 @@ class TestBackendConfiguration(TestCase):
             'cloudfront': {
                 'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
                 'DISTRIBUTION_ID': {
-                    'www.wagtail.io': 'frontend',
+                    'www.wagtail.org': 'frontend',
                 }
             },
         })
-        backends.get('cloudfront').purge('http://www.wagtail.io/home/events/christmas/')
+        backends.get('cloudfront').purge('http://www.wagtail.org/home/events/christmas/')
         backends.get('cloudfront').purge('http://torchbox.com/blog/')
 
         _create_invalidation.assert_called_once_with('frontend', ['/home/events/christmas/'])
