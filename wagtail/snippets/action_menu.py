@@ -64,7 +64,7 @@ class ActionMenuItem(Component):
         if len(args) == 2:
             warn(
                 "ActionMenuItem.is_shown no longer takes a 'request' argument. "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15",
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15",
                 category=RemovedInWagtail217Warning, stacklevel=2
             )
         return True
@@ -83,7 +83,7 @@ class ActionMenuItem(Component):
         if requires_request_arg(self.get_url):
             warn(
                 "%s.get_url should no longer take a 'request' argument. "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
                 category=RemovedInWagtail217Warning
             )
             url = self.get_url(parent_context['request'], parent_context)
@@ -116,7 +116,7 @@ class ActionMenuItem(Component):
         if len(args) == 2:
             warn(
                 "ActionMenuItem.render_html no longer takes a 'request' argument. "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15",
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15",
                 category=RemovedInWagtail217Warning, stacklevel=2
             )
             request, parent_context = args
@@ -127,7 +127,7 @@ class ActionMenuItem(Component):
             # get_context has been overridden, so call it instead of get_context_data
             warn(
                 "%s should define get_context_data(self, parent_context) instead of get_context(self, request, get_context_data). "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
                 category=RemovedInWagtail217Warning
             )
             context_data = self.get_context(parent_context['request'], parent_context)
@@ -137,7 +137,7 @@ class ActionMenuItem(Component):
         if self.template:
             warn(
                 "%s should define template_name instead of template."
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
                 category=RemovedInWagtail217Warning
             )
             template_name = self.template
@@ -211,7 +211,7 @@ class SnippetActionMenu:
             if requires_request_arg(menu_item.is_shown):
                 warn(
                     "%s.is_shown should no longer take a 'request' argument. "
-                    "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(menu_item).__name__,
+                    "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(menu_item).__name__,
                     category=RemovedInWagtail217Warning
                 )
                 is_shown = menu_item.is_shown(self.request, self.context)
@@ -237,7 +237,7 @@ class SnippetActionMenu:
             if requires_request_arg(menu_item.render_html):
                 warn(
                     "%s.render_html should no longer take a 'request' argument. "
-                    "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(menu_item).__name__,
+                    "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(menu_item).__name__,
                     category=RemovedInWagtail217Warning
                 )
                 rendered_menu_items.append(menu_item.render_html(self.request, self.context))
@@ -247,7 +247,7 @@ class SnippetActionMenu:
         if requires_request_arg(self.default_item.render_html):
             warn(
                 "%s.render_html should no longer take a 'request' argument. "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self.default_item).__name__,
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(self.default_item).__name__,
                 category=RemovedInWagtail217Warning
             )
             rendered_default_item = self.default_item.render_html(self.request, self.context)

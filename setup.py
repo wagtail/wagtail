@@ -86,7 +86,7 @@ setup(
     version=__version__,
     description='A Django content management system.',
     author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.io/en/stable/support.html
+    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url='https://wagtail.io/',
     packages=find_packages(),
     include_package_data=True,
@@ -95,7 +95,7 @@ setup(
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
 designers and developers.\n\n\
-For more details, see https://wagtail.io, https://docs.wagtail.io and \
+For more details, see https://wagtail.io, https://docs.wagtail.org and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',

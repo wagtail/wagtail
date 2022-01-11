@@ -29,7 +29,7 @@ from .utils import (
 warnings.warn(
     "The wagtail.contrib.postgres_search backend is deprecated and has been replaced by "
     "wagtail.search.backends.database. "
-    "See https://docs.wagtail.io/en/stable/releases/2.15.html#database-search-backends-replaced",
+    "See https://docs.wagtail.org/en/stable/releases/2.15.html#database-search-backends-replaced",
     category=RemovedInWagtail217Warning
 )
 

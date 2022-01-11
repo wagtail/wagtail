@@ -37,7 +37,7 @@ class SummaryItem(Component):
             # preference to following the Component.render_html path
             message = (
                 "Summary item %r should provide render_html(self, parent_context) rather than render(self). "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15"
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15"
                 % self
             )
             warn(message, category=RemovedInWagtail217Warning)
@@ -47,7 +47,7 @@ class SummaryItem(Component):
             # preference to Component.get_context_data
             message = (
                 "Summary item %r should provide get_context_data(self, parent_context) rather than get_context(self). "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15"
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15"
                 % self
             )
             warn(message, category=RemovedInWagtail217Warning)
@@ -58,7 +58,7 @@ class SummaryItem(Component):
         if self.template is not None:
             warn(
                 "%s should define template_name instead of template. "
-                "See https://docs.wagtail.io/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
+                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15" % type(self).__name__,
                 category=RemovedInWagtail217Warning
             )
             template_name = self.template
