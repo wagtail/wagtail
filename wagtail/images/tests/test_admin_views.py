@@ -1,5 +1,7 @@
 import json
 
+from urllib.parse import quote
+
 from django.contrib.auth.models import Group, Permission
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
@@ -116,8 +118,8 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         edit_url = reverse('wagtailimages:edit', args=(image.id,))
-        edit_next_url = reverse('wagtailimages:index') + "?" + urlencode({"collection_id": evil_plans_collection.id})
-        self.assertContains(response, '%s?next=%s' % (edit_url, edit_next_url))
+        next_url = quote(response._request.get_full_path())
+        self.assertContains(response, '%s?next=%s' % (edit_url, next_url))
 
     def test_tags(self):
         image_two_tags = Image.objects.create(
