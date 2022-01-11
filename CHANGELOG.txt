@@ -23,6 +23,7 @@ Changelog
  * Improve implementations of visually-hidden text in explorer and main menu toggle (Martin Coote)
  * Add locale labels to page listings (Dan Braghis)
  * Change release check domain to releases.wagtail.org (Jake Howard)
+ * Add the user who submitted a page for moderation to the "Awaiting your review" homepage summary panel (Tidiane Dia)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)

@@ -90,7 +90,7 @@ class WorkflowPagesToModeratePanel(Component):
         if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
             states = (
                 TaskState.objects.reviewable_by(request.user)
-                .select_related('page_revision', 'task', 'page_revision__page')
+                .select_related('page_revision', 'task', 'page_revision__page', 'page_revision__user')
                 .order_by('-started_at')
             )
             context['states'] = [

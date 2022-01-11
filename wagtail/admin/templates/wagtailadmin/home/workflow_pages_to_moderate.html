@@ -5,12 +5,14 @@
         <div class="object-layout">
             <table class="listing">
                 <col />
-                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
                 <col width="15%"/>
                 <thead>{# Note: the header is visually hidden behind .title-wrapper #}
                     <tr>
                         <th class="title">{% trans "Title" %}</th>
                         <th>{% trans "Tasks" %}</th>
+                        <th>{% trans "Task submitted by" %}</th>
                         <th>{% trans "Task started" %}</th>
                     </tr>
                 </thead>
@@ -62,6 +64,9 @@
                                         {% endif %}
                                     </span>
                                 {% endfor %}
+                            </td>
+                            <td valign="top">
+                                {% if revision.user %}{{ revision.user|user_display_name }}{% endif %}
                             </td>
                             <td valign="top">
                                 <div class="human-readable-date" title="{{ task_state.started_at|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
