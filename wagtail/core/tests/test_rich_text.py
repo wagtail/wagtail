@@ -158,8 +158,8 @@ class TestLinkRewriterTagReplacing(TestCase):
         # link types (email, external, anchor) even if no rules is provided
         external_type_link = rewriter('<a href="https://wagtail.org/">')
         self.assertEqual(external_type_link, '<a href="https://wagtail.org/">')
-        email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
-        self.assertEqual(email_type_link, '<a href="mailto:test@wagtail.io">')
+        email_type_link = rewriter('<a href="mailto:test@wagtail.org">')
+        self.assertEqual(email_type_link, '<a href="mailto:test@wagtail.org">')
         anchor_type_link = rewriter('<a href="#test">')
         self.assertEqual(anchor_type_link, '<a href="#test">')
 
@@ -193,8 +193,8 @@ class TestLinkRewriterTagReplacing(TestCase):
         self.assertEqual(external_type_link, '<a rel="nofollow" href="https://wagtail.org/">')
         external_type_link_http = rewriter('<a href="http://wagtail.org/">')
         self.assertEqual(external_type_link_http, '<a rel="nofollow" href="http://wagtail.org/">')
-        email_type_link = rewriter('<a href="mailto:test@wagtail.io">')
-        self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.io">')
+        email_type_link = rewriter('<a href="mailto:test@wagtail.org">')
+        self.assertEqual(email_type_link, '<a data-email="true" href="mailto:test@wagtail.org">')
         anchor_type_link = rewriter('<a href="#test">')
         self.assertEqual(anchor_type_link, '<a data-anchor="true" href="#test">')
 

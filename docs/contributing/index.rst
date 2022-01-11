@@ -16,7 +16,7 @@ If your bug report is a security issue, **do not** report it with an issue. Plea
 Pull requests
 ~~~~~~~~~~~~~
 
-If you're a Python or Django developer, `fork it <https://github.com/wagtail/wagtail/>`_ and read the :ref:`developing docs <developing>` to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the `issue list <https://github.com/wagtail/wagtail/issues?state=open>`_, or email us directly on `hello@wagtail.io <mailto:hello@wagtail.io>`_ if you'd like us to suggest something!
+If you're a Python or Django developer, `fork it <https://github.com/wagtail/wagtail/>`_ and read the :ref:`developing docs <developing>` to get stuck in! We welcome all contributions, whether they solve problems which are specific to you or they address existing issues. If you're stuck for ideas, pick something from the `issue list <https://github.com/wagtail/wagtail/issues?state=open>`_, or email us directly on `hello@wagtail.org <mailto:hello@wagtail.org>`_ if you'd like us to suggest something!
 
 For large-scale changes, we'd generally recommend breaking them down into smaller pull requests that achieve a single well-defined task and can be reviewed individually. If this isn't possible, we recommend opening a pull request on the `Wagtail RFCs <https://github.com/wagtail/rfcs/>`_ repository, so that there's a chance for the community to discuss the change before it gets implemented.
 
@@ -38,7 +38,7 @@ Translation work should be submitted through `Transifex <https://www.transifex.c
 Other contributions
 ~~~~~~~~~~~~~~~~~~~
 
-We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. If you're not familiar with Github or pull requests, `contact us directly <mailto:hello@wagtail.io>`_ and we'll work something out.
+We welcome contributions to all aspects of Wagtail. If you would like to improve the design of the user interface, or extend the documentation, please submit a pull request as above. If you're not familiar with Github or pull requests, `contact us directly <mailto:hello@wagtail.org>`_ and we'll work something out.
 
 
 

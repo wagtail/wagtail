@@ -86,7 +86,7 @@ setup(
     version=__version__,
     description='A Django content management system.',
     author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
+    author_email='hello@wagtail.org',  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url='https://wagtail.org/',
     packages=find_packages(),
     include_package_data=True,
