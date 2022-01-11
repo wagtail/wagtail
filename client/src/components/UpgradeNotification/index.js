@@ -14,7 +14,7 @@ const initUpgradeNotification = () => {
   *       "url" : "https://wagtail.io"  // Absolute URL to page/file containing release notes or actual package. It's up to you.
   *   }
   */
-  const releasesUrl = 'https://releases.wagtail.io/latest.txt';
+  const releasesUrl = 'https://releases.wagtail.org/latest.txt';
   const currentVersion = container.dataset.wagtailVersion;
 
   fetch(releasesUrl).then(response => {
