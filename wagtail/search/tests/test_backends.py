@@ -1,5 +1,4 @@
 # coding: utf-8
-import sqlite3
 import unittest
 
 from collections import OrderedDict
@@ -18,6 +17,7 @@ from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
 from wagtail.search.backends.base import BaseSearchBackend, FieldError, FilterFieldError
 from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+from wagtail.search.backends.database.sqlite.utils import fts5_available
 from wagtail.search.models import IndexEntry
 from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
@@ -755,7 +755,7 @@ class TestBackendLoader(TestCase):
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_name_sqlite_db_vendor(self):
         # This should return the fallback backend, because the SQLite backend doesn't support versions less than 3.19.0
-        if sqlite3.sqlite_version_info < (3, 19, 0):
+        if not fts5_available():
             from wagtail.search.backends.database.fallback import DatabaseSearchBackend
             db = get_search_backend(backend='default')
             self.assertIsInstance(db, DatabaseSearchBackend)
@@ -767,7 +767,7 @@ class TestBackendLoader(TestCase):
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_path_sqlite_db_vendor(self):
         # Same as above
-        if sqlite3.sqlite_version_info < (3, 19, 0):
+        if not fts5_available():
             from wagtail.search.backends.database.fallback import DatabaseSearchBackend
             db = get_search_backend(backend='wagtail.search.backends.database')
             self.assertIsInstance(db, DatabaseSearchBackend)
@@ -779,7 +779,7 @@ class TestBackendLoader(TestCase):
     @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
     def test_import_by_full_path_sqlite_db_vendor(self):
         # Same as above
-        if sqlite3.sqlite_version_info < (3, 19, 0):
+        if not fts5_available():
             from wagtail.search.backends.database.fallback import DatabaseSearchBackend
             db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
             self.assertIsInstance(db, DatabaseSearchBackend)
