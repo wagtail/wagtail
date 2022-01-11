@@ -7,11 +7,13 @@ from django.db import connection
 from django.test.testcases import TestCase
 from django.test.utils import override_settings
 
+from wagtail.search.backends.database.sqlite.utils import fts5_available
 from wagtail.search.tests.test_backends import BackendTests
 
 
 @unittest.skipUnless(connection.vendor == 'sqlite', "The current database is not SQLite")
 @unittest.skipIf(sqlite3.sqlite_version_info < (3, 19, 0), "This SQLite version is not supported")
+@unittest.skipUnless(fts5_available(), "The SQLite fts5 extension is not available")
 @override_settings(WAGTAILSEARCH_BACKENDS={
     'default': {
         'BACKEND': 'wagtail.search.backends.database.sqlite.sqlite',
