@@ -47,6 +47,8 @@ class Migration(migrations.Migration):
         ]
 
     elif connection.vendor == 'sqlite':
+        from wagtail.search.backends.database.sqlite.utils import fts5_available
+
         operations = [
             migrations.AddField(
                 model_name='indexentry',
@@ -63,24 +65,28 @@ class Migration(migrations.Migration):
                 name='title',
                 field=models.TextField(),
             ),
-            migrations.SeparateDatabaseAndState(state_operations=[
-                migrations.CreateModel(
-                    name='sqliteftsindexentry',
-                    fields=[
-                        ('index_entry', models.OneToOneField(primary_key=True, serialize=False, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')),
-                        ('title', models.TextField()),
-                        ('body', models.TextField(null=True)),
-                        ('autocomplete', models.TextField(null=True)),
-                    ],
-                    options={'db_table': '%s_fts' % IndexEntry._meta.db_table},
-                ),
-            ], database_operations=[
-                migrations.RunSQL(sql=('CREATE VIRTUAL TABLE %s_fts USING fts5(autocomplete, body, title)' % IndexEntry._meta.db_table), reverse_sql=('DROP TABLE %s_fts' % IndexEntry._meta.db_table)),
-                migrations.RunSQL(sql=('CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON %s BEGIN INSERT INTO %s_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER insert_wagtailsearch_indexentry_fts')),
-                migrations.RunSQL(sql=('CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON %s BEGIN UPDATE %s_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER update_wagtailsearch_indexentry_fts')),
-                migrations.RunSQL(sql=('CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON %s BEGIN DELETE FROM %s_fts WHERE rowid=OLD.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER delete_wagtailsearch_indexentry_fts'))
-            ])
         ]
+
+        if fts5_available():
+            operations.append(
+                migrations.SeparateDatabaseAndState(state_operations=[
+                    migrations.CreateModel(
+                        name='sqliteftsindexentry',
+                        fields=[
+                            ('index_entry', models.OneToOneField(primary_key=True, serialize=False, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')),
+                            ('title', models.TextField()),
+                            ('body', models.TextField(null=True)),
+                            ('autocomplete', models.TextField(null=True)),
+                        ],
+                        options={'db_table': '%s_fts' % IndexEntry._meta.db_table},
+                    ),
+                ], database_operations=[
+                    migrations.RunSQL(sql=('CREATE VIRTUAL TABLE %s_fts USING fts5(autocomplete, body, title)' % IndexEntry._meta.db_table), reverse_sql=('DROP TABLE %s_fts' % IndexEntry._meta.db_table)),
+                    migrations.RunSQL(sql=('CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON %s BEGIN INSERT INTO %s_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER insert_wagtailsearch_indexentry_fts')),
+                    migrations.RunSQL(sql=('CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON %s BEGIN UPDATE %s_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER update_wagtailsearch_indexentry_fts')),
+                    migrations.RunSQL(sql=('CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON %s BEGIN DELETE FROM %s_fts WHERE rowid=OLD.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER delete_wagtailsearch_indexentry_fts'))
+                ])
+            )
 
     elif connection.vendor == 'mysql':
         operations = [
