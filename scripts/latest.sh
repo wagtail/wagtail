@@ -1,7 +1,7 @@
 #! /bin/sh
 # vim:sw=4 ts=4 et:
 
-BUCKET=releases.wagtail.io
+BUCKET=releases.wagtail.org
 REGION=eu-west-1
 CF_DISTRIBUTION=E283SZ5CB4MDM0
 
@@ -107,7 +107,7 @@ elif [ "$1" = "edit" -o "$1" = "vi" ]; then
     if ! _get "${LTMP}"; then
         exit 1
     fi
-    
+
     cp "${LTMP}" "${LTMP2}"
 
     if [ ! -z "${VISUAL}" ]; then

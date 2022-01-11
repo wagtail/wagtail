@@ -15,7 +15,7 @@ Wagtail is an open source content management system built on Django, with a stro
 * Scales to millions of pages and thousands of editors
 * Fast out of the box, cache-friendly when you need it
 * Content API for 'headless' sites with de-coupled front-end
-* Runs on a Raspberry Pi or a multi-datacenter cloud platform 
+* Runs on a Raspberry Pi or a multi-datacenter cloud platform
 * StreamField encourages flexible content without compromising structure
 * Powerful, integrated search, using Elasticsearch or PostgreSQL
 * Excellent support for images and embedded content
@@ -70,7 +70,7 @@ There is an active community of Wagtail users and developers responding to quest
 
 For topics and discussions that do not fit Stack Overflow's question and answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) and a [Wagtail Support mailing list](https://groups.google.com/forum/#!forum/wagtail). Please respect the time and effort of volunteers by not asking the same question in multiple places.
 
-Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project. 
+Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
@@ -90,7 +90,7 @@ Feature releases of Wagtail are released every three months. Selected releases a
 
 #### Nightly releases
 
-To try out the latest features before a release, we also create builds from `main` every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+To try out the latest features before a release, we also create builds from `main` every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.org/nightly/index.html
 
 ### Contributing
 
@@ -118,7 +118,7 @@ We thank the following organisations for their services used in Wagtail's develo
 
 [![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
+[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
