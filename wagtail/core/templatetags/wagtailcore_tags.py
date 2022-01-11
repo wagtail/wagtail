@@ -84,9 +84,9 @@ def wagtail_version():
 def wagtail_documentation_path():
     major, minor, patch, release, num = VERSION
     if release == 'final':
-        return 'https://docs.wagtail.io/en/v%s' % __version__
+        return 'https://docs.wagtail.org/en/v%s' % __version__
     else:
-        return 'https://docs.wagtail.io/en/latest'
+        return 'https://docs.wagtail.org/en/latest'
 
 
 @register.simple_tag

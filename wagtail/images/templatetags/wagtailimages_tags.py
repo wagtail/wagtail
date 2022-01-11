@@ -125,5 +125,5 @@ def image_url(image, filter_spec, viewname='wagtailimages_serve'):
     except NoReverseMatch:
         raise ImproperlyConfigured(
             "'image_url' tag requires the " + viewname + " view to be configured. Please see "
-            "https://docs.wagtail.io/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
+            "https://docs.wagtail.org/en/stable/advanced_topics/images/image_serve_view.html#setup for instructions."
         )

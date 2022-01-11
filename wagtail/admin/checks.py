@@ -16,7 +16,7 @@ def css_install_check(app_configs, **kwargs):
         error_hint = """
             Most likely you are running a development (non-packaged) copy of
             Wagtail and have not built the static assets -
-            see https://docs.wagtail.io/en/latest/contributing/developing.html
+            see https://docs.wagtail.org/en/latest/contributing/developing.html
 
             File not found: %s
         """ % css_path

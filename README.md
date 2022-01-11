@@ -40,7 +40,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-For detailed installation and setup docs, see [docs.wagtail.io](https://docs.wagtail.io/).
+For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
 
 ### Who’s using it?
 
@@ -48,11 +48,11 @@ Wagtail is used by [NASA](https://www.nasa.gov/), [Google](https://www.google.co
 
 ### Documentation
 
-[docs.wagtail.io](https://docs.wagtail.io/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
+[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
 
 ### Compatibility
 
-_(If you are reading this on GitHub, the details here may not be indicative of the current released version - please see [Compatible Django / Python versions](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) in the Wagtail documentation.)_
+_(If you are reading this on GitHub, the details here may not be indicative of the current released version - please see [Compatible Django / Python versions](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) in the Wagtail documentation.)_
 
 Wagtail supports:
 
@@ -60,7 +60,7 @@ Wagtail supports:
 * Python 3.7, 3.8, 3.9 and 3.10
 * PostgreSQL, MySQL and SQLite as database backends
 
-[Previous versions of Wagtail](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
+[Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
 
 ---
 
@@ -96,7 +96,7 @@ To try out the latest features before a release, we also create builds from `mai
 
 If you're a Python or Django developer, fork the repo and get stuck in! We have several developer focused channels on the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack).
 
-You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
+You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
