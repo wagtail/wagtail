@@ -247,12 +247,12 @@ class TestHtmlToContentState(TestCase):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
             '''
-            <p>an <a href="http://wagtail.io">external</a> link</p>
+            <p>an <a href="http://wagtail.org">external</a> link</p>
             '''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
             },
             'blocks': [
                 {
@@ -265,11 +265,11 @@ class TestHtmlToContentState(TestCase):
     def test_link_in_bare_text(self):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
-            '''an <a href="http://wagtail.io">external</a> link'''
+            '''an <a href="http://wagtail.org">external</a> link'''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
             },
             'blocks': [
                 {
@@ -282,11 +282,11 @@ class TestHtmlToContentState(TestCase):
     def test_link_at_start_of_bare_text(self):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
-            '''<a href="http://wagtail.io">an external link</a> and <a href="http://torchbox.com">another</a>'''
+            '''<a href="http://wagtail.org">an external link</a> and <a href="http://torchbox.com">another</a>'''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}},
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}},
                 '1': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://torchbox.com'}},
             },
             'blocks': [
@@ -894,8 +894,8 @@ class TestHtmlToContentState(TestCase):
         converter = ContentstateConverter(features=['image', 'link'])
         result = json.loads(converter.from_database_format(
             '''
-            <p><a href="https://wagtail.io">before <embed embedtype="image" alt="an image" id="1" format="left" /> after</a></p>
-            <p><a href="https://wagtail.io"><embed embedtype="image" alt="an image" id="1" format="left" /></a></p>
+            <p><a href="https://wagtail.org">before <embed embedtype="image" alt="an image" id="1" format="left" /> after</a></p>
+            <p><a href="https://wagtail.org"><embed embedtype="image" alt="an image" id="1" format="left" /></a></p>
             '''
         ))
         self.assertContentStateEqual(result, {
@@ -908,12 +908,12 @@ class TestHtmlToContentState(TestCase):
                 {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 2, 'offset': 0, 'length': 0}], 'depth': 0, 'text': '', 'type': 'unstyled'},
             ],
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.io'}},
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.org'}},
                 '1': {
                     'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
                     'mutability': 'IMMUTABLE', 'type': 'IMAGE'
                 },
-                '2': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.io'}},
+                '2': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.org'}},
                 '3': {
                     'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
                     'mutability': 'IMMUTABLE', 'type': 'IMAGE'
@@ -927,7 +927,7 @@ class TestContentStateToHtml(TestCase):
         converter = ContentstateConverter(features=['link'])
         contentstate_json = json.dumps({
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
             },
             'blocks': [
                 {
@@ -938,7 +938,7 @@ class TestContentStateToHtml(TestCase):
         })
 
         result = converter.to_database_format(contentstate_json)
-        self.assertEqual(result, '<p data-block-key="00000">an <a href="http://wagtail.io">external</a> link</p>')
+        self.assertEqual(result, '<p data-block-key="00000">an <a href="http://wagtail.org">external</a> link</p>')
 
     def test_local_link(self):
         converter = ContentstateConverter(features=['link'])

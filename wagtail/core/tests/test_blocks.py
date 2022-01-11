@@ -1499,14 +1499,14 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         html = block.render(block.to_python({
             'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
+            'link': 'http://www.wagtail.org',
         }))
         expected_html = '\n'.join([
             '<dl>',
             '<dt>title</dt>',
             '<dd>Wagtail site</dd>',
             '<dt>link</dt>',
-            '<dd>http://www.wagtail.io</dd>',
+            '<dd>http://www.wagtail.org</dd>',
             '</dl>',
         ])
 
@@ -1553,14 +1553,14 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         html = block.render(block.to_python({
             'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
+            'link': 'http://www.wagtail.org',
             'image': 10,
         }))
 
         self.assertIn('<dt>title</dt>', html)
         self.assertIn('<dd>Wagtail site</dd>', html)
         self.assertIn('<dt>link</dt>', html)
-        self.assertIn('<dd>http://www.wagtail.io</dd>', html)
+        self.assertIn('<dd>http://www.wagtail.org</dd>', html)
 
         # Don't render the extra item
         self.assertNotIn('<dt>image</dt>', html)
@@ -1589,7 +1589,7 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         context = block.get_form_context(block.to_python({
             'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
+            'link': 'http://www.wagtail.org',
         }), prefix='mylink')
 
         self.assertTrue(isinstance(context['children'], collections.OrderedDict))
@@ -1597,7 +1597,7 @@ class TestStructBlock(SimpleTestCase):
         self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
         self.assertEqual(context['children']['title'].value, "Wagtail site")
         self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
-        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.io')
+        self.assertEqual(context['children']['link'].value, 'http://www.wagtail.org')
         self.assertEqual(context['block_definition'], block)
         self.assertEqual(context['prefix'], 'mylink')
 
@@ -1731,7 +1731,7 @@ class TestStructBlock(SimpleTestCase):
         block = LinkBlock()
         content = block.get_searchable_content(block.to_python({
             'title': "Wagtail site",
-            'link': 'http://www.wagtail.io',
+            'link': 'http://www.wagtail.org',
         }))
 
         self.assertEqual(content, ["Wagtail site"])
@@ -2083,7 +2083,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         return block.render([
             {
                 'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
+                'link': 'http://www.wagtail.org',
             },
             {
                 'title': "Django",
@@ -2218,7 +2218,7 @@ class TestListBlock(WagtailTestUtils, SimpleTestCase):
         content = block.get_searchable_content([
             {
                 'title': "Wagtail",
-                'link': 'http://www.wagtail.io',
+                'link': 'http://www.wagtail.org',
             },
             {
                 'title': "Django",
