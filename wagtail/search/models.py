@@ -195,6 +195,7 @@ if connection.vendor == 'postgresql':
     AbstractIndexEntry = AbstractPostgresIndexEntry
 
 elif connection.vendor == 'sqlite':
+    from wagtail.search.backends.database.sqlite.utils import fts5_available
 
     class AbstractSQLiteIndexEntry(BaseIndexEntry):
         """
@@ -210,14 +211,15 @@ elif connection.vendor == 'sqlite':
 
     AbstractIndexEntry = AbstractSQLiteIndexEntry
 
-    class SQLiteFTSIndexEntry(models.Model):
-        autocomplete = TextField(null=True)
-        title = TextField(null=False)
-        body = TextField(null=True)
-        index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
+    if fts5_available():
+        class SQLiteFTSIndexEntry(models.Model):
+            autocomplete = TextField(null=True)
+            title = TextField(null=False)
+            body = TextField(null=True)
+            index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
 
-        class Meta:
-            db_table = "wagtailsearch_indexentry_fts"
+            class Meta:
+                db_table = "wagtailsearch_indexentry_fts"
 
 elif connection.vendor == 'mysql':
 
