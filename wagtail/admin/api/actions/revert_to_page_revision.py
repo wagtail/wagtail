@@ -13,19 +13,17 @@ from .base import APIAction
 
 
 class RevertToPageRevisionAPIActionSerializer(Serializer):
-    previous_revision_id = fields.IntegerField()
+    revision_id = fields.IntegerField()
 
 
 class RevertToPageRevisionAPIAction(APIAction):
     serializer = RevertToPageRevisionAPIActionSerializer
 
     def _action_from_data(self, instance, data):
-        previous_revision = get_object_or_404(
-            instance.revisions, id=data["previous_revision_id"]
-        )
+        revision = get_object_or_404(instance.revisions, id=data["revision_id"])
 
         return RevertToPageRevisionAction(
-            page=instance, previous_revision=previous_revision, user=self.request.user
+            page=instance, revision=revision, user=self.request.user
         )
 
     def execute(self, instance, data):

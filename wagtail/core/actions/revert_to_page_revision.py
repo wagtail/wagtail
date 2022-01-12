@@ -21,7 +21,7 @@ class RevertToPageRevisionAction:
     def __init__(
         self,
         page,
-        previous_revision,
+        revision,
         user=None,
         log_action="wagtail.revert",
         submitted_for_moderation=False,
@@ -30,7 +30,7 @@ class RevertToPageRevisionAction:
         clean=True,
     ):
         self.page = page
-        self.previous_revision = previous_revision
+        self.revision = revision
         self.user = user
         self.log_action = log_action
         self.submitted_for_moderation = submitted_for_moderation
@@ -58,7 +58,7 @@ class RevertToPageRevisionAction:
         self.check(skip_permission_checks=skip_permission_checks)
 
         return self.page.save_revision(
-            previous_revision=self.previous_revision,
+            previous_revision=self.revision,
             user=self.user,
             log_action=self.log_action,
             submitted_for_moderation=self.submitted_for_moderation,
