@@ -469,8 +469,8 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 
         try:
             obj_ids = [obj.index_entry.object_id for obj in objs]  # Get the IDs of the objects that matched. They're stored in the IndexEntry model, so we need to get that first.
-        except OperationalError:
-            raise OperationalError('The original query was' + compiler.compile(objs.query)[0] + str(compiler.compile(objs.query)[1]))
+        except OperationalError as e:
+            raise OperationalError(str(e) + ' The original query was: ' + compiler.compile(objs.query)[0] + str(compiler.compile(objs.query)[1])) from e
 
         if not negated:
             queryset = self.queryset.filter(id__in=obj_ids)  # We need to filter the source queryset to get the objects that matched the search query.
