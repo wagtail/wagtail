@@ -20,3 +20,16 @@ def fts5_available():
         tmp_db.close()
 
     return True
+
+
+def fts_table_exists():
+    from wagtail.search.models import SQLiteFTSIndexEntry
+
+    try:
+        # ignore result of query; we are only interested in the query failing,
+        # not the presence of index entries
+        SQLiteFTSIndexEntry.objects.exists()
+    except OperationalError:
+        return False
+
+    return True
