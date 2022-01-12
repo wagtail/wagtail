@@ -81,10 +81,10 @@ class Migration(migrations.Migration):
                         options={'db_table': '%s_fts' % IndexEntry._meta.db_table},
                     ),
                 ], database_operations=[
-                    migrations.RunSQL(sql=('CREATE VIRTUAL TABLE %s_fts USING fts5(autocomplete, body, title)' % IndexEntry._meta.db_table), reverse_sql=('DROP TABLE %s_fts' % IndexEntry._meta.db_table)),
-                    migrations.RunSQL(sql=('CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON %s BEGIN INSERT INTO %s_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER insert_wagtailsearch_indexentry_fts')),
-                    migrations.RunSQL(sql=('CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON %s BEGIN UPDATE %s_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER update_wagtailsearch_indexentry_fts')),
-                    migrations.RunSQL(sql=('CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON %s BEGIN DELETE FROM %s_fts WHERE rowid=OLD.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER delete_wagtailsearch_indexentry_fts'))
+                    migrations.RunSQL(sql=('CREATE VIRTUAL TABLE %s_fts USING fts5(autocomplete, body, title)' % IndexEntry._meta.db_table), reverse_sql=('DROP TABLE IF EXISTS %s_fts' % IndexEntry._meta.db_table)),
+                    migrations.RunSQL(sql=('CREATE TRIGGER insert_wagtailsearch_indexentry_fts AFTER INSERT ON %s BEGIN INSERT INTO %s_fts(title, body, autocomplete, rowid) VALUES (NEW.title, NEW.body, NEW.autocomplete, NEW.id); END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER IF EXISTS insert_wagtailsearch_indexentry_fts')),
+                    migrations.RunSQL(sql=('CREATE TRIGGER update_wagtailsearch_indexentry_fts AFTER UPDATE ON %s BEGIN UPDATE %s_fts SET title=NEW.title, body=NEW.body, autocomplete=NEW.autocomplete WHERE rowid=NEW.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER IF EXISTS update_wagtailsearch_indexentry_fts')),
+                    migrations.RunSQL(sql=('CREATE TRIGGER delete_wagtailsearch_indexentry_fts AFTER DELETE ON %s BEGIN DELETE FROM %s_fts WHERE rowid=OLD.id; END' % (IndexEntry._meta.db_table, IndexEntry._meta.db_table)), reverse_sql=('DROP TRIGGER IF EXISTS delete_wagtailsearch_indexentry_fts'))
                 ])
             )
 
