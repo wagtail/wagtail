@@ -4,6 +4,7 @@ from django.conf import settings
 from django.http import Http404
 from django.urls import path
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.response import Response
 
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Page
@@ -11,6 +12,7 @@ from wagtail.core.models import Page
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
 from .actions.delete import DeletePageAPIAction
+from .actions.move import MovePageAPIAction
 from .actions.publish import PublishPageAPIAction
 from .actions.unpublish import UnpublishPageAPIAction
 from .filters import ForExplorerFilter, HasChildrenFilter
@@ -27,6 +29,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'delete': DeletePageAPIAction,
         'publish': PublishPageAPIAction,
         'unpublish': UnpublishPageAPIAction,
+        'move': MovePageAPIAction,
     }
 
     # Add has_children and for_explorer filters
@@ -127,7 +130,9 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
 
         action = self.actions[action_name](self, request)
         action_data = action.serializer(data=request.data)
-        action_data.is_valid()
+
+        if not action_data.is_valid():
+            return Response(action_data.errors, status=400)
 
         return action.execute(instance, action_data.data)
 

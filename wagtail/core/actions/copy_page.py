@@ -70,7 +70,7 @@ class CopyPageAction:
                 destination_perms = UserPagePermissionsProxy(self.user).for_page(self.to)
 
                 if not destination_perms.can_publish_subpage():
-                    raise CopyPagePermissionError("You do not have permission publish a page at the destination")
+                    raise CopyPagePermissionError("You do not have permission to publish a page at the destination")
 
     def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
         exclude_fields = page.default_exclude_fields_in_copy + page.exclude_fields_in_copy + (exclude_fields or [])

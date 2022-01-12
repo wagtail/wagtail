@@ -48,6 +48,7 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.actions.copy_page import CopyPageAction
 from wagtail.core.actions.delete_page import DeletePageAction
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
 from wagtail.core.fields import StreamField
@@ -55,9 +56,8 @@ from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
 from wagtail.core.query import PageQuerySet
 from wagtail.core.signals import (
-    page_published, post_page_move, pre_page_move, pre_validate_delete, task_approved,
-    task_cancelled, task_rejected, task_submitted, workflow_approved, workflow_cancelled,
-    workflow_rejected, workflow_submitted)
+    page_published, pre_validate_delete, task_approved, task_cancelled, task_rejected,
+    task_submitted, workflow_approved, workflow_cancelled, workflow_rejected, workflow_submitted)
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
 from wagtail.core.utils import (
@@ -1436,72 +1436,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         Extension to the treebeard 'move' method to ensure that url_path is updated,
         and to emit a 'pre_page_move' and 'post_page_move' signals.
         """
-        # Determine old and new parents
-        parent_before = self.get_parent()
-        if pos in ('first-child', 'last-child', 'sorted-child'):
-            parent_after = target
-        else:
-            parent_after = target.get_parent()
-
-        # Determine old and new url_paths
-        # Fetching new object to avoid affecting `self`
-        old_self = Page.objects.get(id=self.id)
-        old_url_path = old_self.url_path
-        new_url_path = old_self.set_url_path(parent=parent_after)
-
-        # Emit pre_page_move signal
-        pre_page_move.send(
-            sender=self.specific_class or self.__class__,
-            instance=self,
-            parent_page_before=parent_before,
-            parent_page_after=parent_after,
-            url_path_before=old_url_path,
-            url_path_after=new_url_path,
-        )
-
-        # Only commit when all descendants are properly updated
-        with transaction.atomic():
-            # Allow treebeard to update `path` values
-            super().move(target, pos=pos)
-
-            # Treebeard's move method doesn't actually update the in-memory instance,
-            # so we need to work with a freshly loaded one now
-            new_self = Page.objects.get(id=self.id)
-            new_self.url_path = new_url_path
-            new_self.save()
-
-            # Update descendant paths if url_path has changed
-            if old_url_path != new_url_path:
-                new_self._update_descendant_url_paths(old_url_path, new_url_path)
-
-        # Emit post_page_move signal
-        post_page_move.send(
-            sender=self.specific_class or self.__class__,
-            instance=new_self,
-            parent_page_before=parent_before,
-            parent_page_after=parent_after,
-            url_path_before=old_url_path,
-            url_path_after=new_url_path,
-        )
-
-        # Log
-        log(
-            instance=self,
-            # Check if page was reordered (reordering doesn't change the parent)
-            action='wagtail.reorder' if parent_before.id == target.id else 'wagtail.move',
-            user=user,
-            data={
-                'source': {
-                    'id': parent_before.id,
-                    'title': parent_before.specific_deferred.get_admin_display_title()
-                },
-                'destination': {
-                    'id': parent_after.id,
-                    'title': parent_after.specific_deferred.get_admin_display_title()
-                }
-            }
-        )
-        logger.info("Page moved: \"%s\" id=%d path=%s", self.title, self.id, new_url_path)
+        return MovePageAction(self, target, pos=pos, user=user).execute()
 
     def copy(self, recursive=False, to=None, update_attrs=None, copy_revisions=True, keep_live=True, user=None,
              process_child_object=None, exclude_fields=None, log_action='wagtail.copy', reset_translation_key=True):

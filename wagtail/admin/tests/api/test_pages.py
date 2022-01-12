@@ -1230,6 +1230,45 @@ class TestUnpublishPageAction(AdminAPITestCase):
         )
 
 
+class TestMovePageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "move"]), data
+        )
+
+    def test_move_page(self):
+        response = self.get_response(4, {"destination_page_id": 3})
+        self.assertEqual(response.status_code, 200)
+
+    def test_move_page_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # Move
+        response = self.get_response(4, {"destination_page_id": 3})
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_move_page_without_destination_page_id(self):
+        response = self.get_response(4, {})
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"destination_page_id": ["This field is required."]})
+
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None
