@@ -33,6 +33,10 @@
             wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
             wagtailConfig.LOCALES = {{ locales|safe }};
 
+            {% if locale %}
+                wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code }}'
+            {% endif %}
+
             wagtailConfig.STRINGS = {% js_translation_strings %};
 
             wagtailConfig.ADMIN_URLS = {
