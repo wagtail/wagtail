@@ -5,7 +5,15 @@ import React from 'react';
 import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
-  constructor(blockDef, placeholder, prefix, initialState, initialError) {
+  constructor(
+    blockDef,
+    placeholder,
+    prefix,
+    initialState,
+    initialError,
+    parent,
+    parentCapabilities,
+  ) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -23,12 +31,28 @@ export class FieldBlock {
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
 
+    this.parentCapabilities = new Map();
+
+    const capabilities = parentCapabilities || new Map();
+    capabilities.forEach(
+      ({ enabled, enableEvent, disableEvent, fn }, capability) => {
+        this.parentCapabilities.set(capability, { enabled, fn });
+        parent.on(enableEvent, () =>
+          this.setCapabilityEnabled(capability, true),
+        );
+        parent.on(disableEvent, () =>
+          this.setCapabilityEnabled(capability, false),
+        );
+      },
+    );
+
     try {
       this.widget = this.blockDef.widget.render(
         widgetElement,
         prefix,
         prefix,
         initialState,
+        this.parentCapabilities,
       );
     } catch (e) {
       // eslint-disable-next-line no-console
@@ -82,6 +106,13 @@ export class FieldBlock {
 
     if (initialError) {
       this.setError(initialError);
+    }
+  }
+
+  setCapabilityEnabled(capability, enabled) {
+    this.parentCapabilities.get(capability).enabled = enabled;
+    if (this.widget && this.widget.setCapabilityEnabled) {
+      this.widget.setCapabilityEnabled(capability, enabled);
     }
   }
 
@@ -139,13 +170,22 @@ export class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState, initialError) {
+  render(
+    placeholder,
+    prefix,
+    initialState,
+    initialError,
+    parent,
+    parentCapabilities,
+  ) {
     return new FieldBlock(
       this,
       placeholder,
       prefix,
       initialState,
       initialError,
+      parent,
+      parentCapabilities,
     );
   }
 }
