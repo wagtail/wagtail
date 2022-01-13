@@ -78,7 +78,8 @@
         margin-top: $sidebar-toggle-size;
         display: grid;
         grid-template-columns: 1fr;
-        overflow-y: scroll;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 }
 
