@@ -4,7 +4,6 @@ from datetime import timedelta
 from unittest import mock
 
 from django.conf import settings
-from django.http import HttpRequest
 from django.template import Context, Template
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -196,16 +195,12 @@ class TestInternationalisationTags(TestCase):
         )
 
     def test_locale_label_from_id(self):
-        context = {
-            "request": HttpRequest()
-        }
-
         with self.assertNumQueries(1):
-            self.assertEqual(locale_label_from_id(context, self.locale_ids[0]), "English")
+            self.assertEqual(locale_label_from_id(self.locale_ids[0]), "English")
 
         with self.assertNumQueries(0):
-            self.assertEqual(locale_label_from_id(context, self.locale_ids[1]), "French")
+            self.assertEqual(locale_label_from_id(self.locale_ids[1]), "French")
 
         # check with an invalid id
         with self.assertNumQueries(0):
-            self.assertIsNone(locale_label_from_id(context, self.locale_ids[-1] + 100), None)
+            self.assertIsNone(locale_label_from_id(self.locale_ids[-1] + 100), None)

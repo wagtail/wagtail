@@ -3,7 +3,8 @@ import logging
 from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save, pre_delete
 
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Locale, Page, Site
+from wagtail.core.utils import get_locales_display_names
 
 
 logger = logging.getLogger('wagtail.core')
@@ -29,9 +30,16 @@ def post_delete_page_log_deletion(sender, instance, **kwargs):
     logger.info("Page deleted: \"%s\" id=%d", instance.title, instance.id)
 
 
+def reset_locales_display_names_cache(sender, instance, **kwargs):
+    get_locales_display_names.cache_clear()
+
+
 def register_signal_handlers():
     post_save.connect(post_save_site_signal_handler, sender=Site)
     post_delete.connect(post_delete_site_signal_handler, sender=Site)
 
     pre_delete.connect(pre_delete_page_unpublish, sender=Page)
     post_delete.connect(post_delete_page_log_deletion, sender=Page)
+
+    post_save.connect(reset_locales_display_names_cache, sender=Locale)
+    post_delete.connect(reset_locales_display_names_cache, sender=Locale)
