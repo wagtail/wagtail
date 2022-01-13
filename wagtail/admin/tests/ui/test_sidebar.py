@@ -5,8 +5,8 @@ from django.urls import reverse
 
 from wagtail.admin.search import SearchArea
 from wagtail.admin.ui.sidebar import (
-    CustomBrandingModule, LinkMenuItem, MainMenuModule, PageExplorerMenuItem, SearchModule,
-    SubMenuItem, WagtailBrandingModule)
+    LinkMenuItem, MainMenuModule, PageExplorerMenuItem, SearchModule, SubMenuItem,
+    WagtailBrandingModule)
 from wagtail.core.telepath import JSContext
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -147,30 +147,6 @@ class TestAdaptWagtailBrandingModule(TestCase):
             'desktopLogoEyeOpen',
             'desktopLogoTail',
             'mobileLogo'
-        })
-
-
-class TestAdaptCustomBrandingModule(TestCase):
-    def test_adapt(self):
-        packed = JSContext().pack(CustomBrandingModule('<h1>My custom branding</h1>'))
-
-        self.assertEqual(packed, {
-            '_type': 'wagtail.sidebar.CustomBrandingModule',
-            '_args': [
-                '<h1>My custom branding</h1>',
-                False
-            ]
-        })
-
-    def test_collapsible(self):
-        packed = JSContext().pack(CustomBrandingModule('<h1>My custom branding</h1>', collapsible=True))
-
-        self.assertEqual(packed, {
-            '_type': 'wagtail.sidebar.CustomBrandingModule',
-            '_args': [
-                '<h1>My custom branding</h1>',
-                True
-            ]
         })
 
 

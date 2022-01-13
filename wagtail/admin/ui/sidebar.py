@@ -123,19 +123,6 @@ class WagtailBrandingModule:
         ]
 
 
-@adapter('wagtail.sidebar.CustomBrandingModule', base=BaseSidebarAdapter)
-class CustomBrandingModule:
-    def __init__(self, html, collapsible=False):
-        self.html = html
-        self.collapsible = collapsible
-
-    def js_args(self):
-        return [
-            self.html,
-            self.collapsible,
-        ]
-
-
 @adapter('wagtail.sidebar.SearchModule', base=BaseSidebarAdapter)
 class SearchModule:
     def __init__(self, search_area):

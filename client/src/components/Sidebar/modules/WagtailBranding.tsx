@@ -26,13 +26,14 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   currentPath,
   navigate,
 }) => {
-  // Tail wagging
-  // If the pointer changes direction 8 or more times without leaving, wag the tail!
-  const lastMouseX = React.useRef(0);
-  const lastDir = React.useRef<'r' | 'l'>('r');
-  const dirChangeCount = React.useRef(0);
-  const [isWagging, setIsWagging] = React.useState(false);
-
+  const brandingLogo = React.useMemo(
+    () =>
+      document.querySelector<HTMLTemplateElement>(
+        '[data-wagtail-sidebar-branding-logo]'
+      ),
+    []
+  );
+  const hasCustomBranding = brandingLogo && brandingLogo.innerHTML !== '';
 
   const onClick = (e: React.MouseEvent) => {
     // Do not capture click events with modifier keys or non-main buttons.
@@ -48,6 +49,27 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
     e.preventDefault();
     navigate(homeUrl);
   };
+
+  // Render differently if custom branding is provided.
+  // This will only ever render once, so rendering before hooks is ok.
+  if (hasCustomBranding) {
+    return (
+      <a
+        className="sidebar-custom-branding"
+        href={homeUrl}
+        aria-label={strings.DASHBOARD}
+        aria-current={currentPath === homeUrl ? 'page' : undefined}
+        dangerouslySetInnerHTML={{ __html: brandingLogo ? brandingLogo.innerHTML : '' }}
+      />
+    );
+  }
+
+  // Tail wagging
+  // If the pointer changes direction 8 or more times without leaving, wag the tail!
+  const lastMouseX = React.useRef(0);
+  const lastDir = React.useRef<'r' | 'l'>('r');
+  const dirChangeCount = React.useRef(0);
+  const [isWagging, setIsWagging] = React.useState(false);
 
   const onMouseMove = (e: React.MouseEvent) => {
     const mouseX = e.pageX;
