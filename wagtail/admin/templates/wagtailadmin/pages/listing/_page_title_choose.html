@@ -12,7 +12,7 @@ Expects a variable 'page', the page instance.
     {% else %}
         {{ page.get_admin_display_title }}
     {% endif %}
-    {% if show_locale_labels and parent_page.is_root and not page.is_root %}
+    {% if show_locale_labels and page.depth == 2 %}
         <span class="status-tag status-tag--label">{{ page.locale.get_display_name }}</span>
     {% endif %}
 
