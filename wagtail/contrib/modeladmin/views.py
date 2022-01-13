@@ -43,6 +43,7 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.core.log_actions import log
 from wagtail.core.log_actions import registry as log_registry
+from wagtail.core.models import TranslatableMixin, Locale
 
 from .forms import ParentChooserForm
 
@@ -147,6 +148,9 @@ class WMABaseView(TemplateView):
         context = {
             "view": self,
             "model_admin": self.model_admin,
+            "locales": Locale.objects.all()
+            if issubclass(self.model, TranslatableMixin)
+            else [],
         }
         context.update(kwargs)
         return super().get_context_data(**context)
