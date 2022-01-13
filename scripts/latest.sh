@@ -1,7 +1,7 @@
 #! /bin/sh
 # vim:sw=4 ts=4 et:
 
-BUCKET=releases.wagtail.org
+BUCKET=releases.wagtail.io
 REGION=eu-west-1
 CF_DISTRIBUTION=E283SZ5CB4MDM0
 
