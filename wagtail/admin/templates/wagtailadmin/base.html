@@ -54,7 +54,7 @@
             </div>
 
             {% if not slim_sidebar_enabled %}
-            <button type="button" id="nav-toggle" class="nav-toggle icon text-replace">{% trans "Menu" %}</button>
+            <button type="button" id="nav-toggle" class="nav-toggle icon button unbutton" ><span class="visuallyhidden">{% trans "Toggle sidebar" %}</span></button>
             {% endif %}
             {% block content %}{% endblock %}
         </div>
