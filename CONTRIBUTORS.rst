@@ -557,6 +557,7 @@ Contributors
 * Michael Karamuth
 * Vu Pham
 * Khanh Hoang
+* Jason Attwood
 
 Translators
 ===========
