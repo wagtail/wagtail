@@ -45,7 +45,6 @@ def search(request):
     show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
     if show_locale_labels:
         pages = pages.select_related('locale')
-        all_pages = all_pages.select_related('locale')
 
     q = MATCH_ALL
     content_types = []

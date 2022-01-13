@@ -30,7 +30,7 @@
 {% block page_row_classname %}{% if not page.can_choose %}disabled{% endif %}{% endblock %}
 
 {% block page_title %}
-    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page parent_page=parent_page show_locale_labels=show_locale_labels %}
+    {% include "wagtailadmin/pages/listing/_page_title_choose.html" with page=page show_locale_labels=show_locale_labels %}
 {% endblock %}
 
 {% block page_parent_page_title %}
