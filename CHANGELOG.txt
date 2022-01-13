@@ -21,6 +21,7 @@ Changelog
  * When returning to image or document listing views after editing, filters (collection or tag) are now remembered (Tidjani Dia)
  * Improve the visibility of field error messages, in Windows high-contrast mode and out (Jason Attwood)
  * Improve implementations of visually-hidden text in explorer and main menu toggle (Martin Coote)
+ * Add locale labels to page listings (Dan Braghis)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
