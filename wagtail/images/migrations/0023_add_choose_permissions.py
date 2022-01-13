@@ -62,7 +62,9 @@ def copy_choose_permission_to_collections(apps, _schema_editor):
     Group = apps.get_model('auth.Group')
     GroupCollectionPermission = apps.get_model('wagtailcore.GroupCollectionPermission')
 
-    root_collection = Collection.objects.get(depth=1)
+    root_collection = Collection.objects.filter(depth=1).first()
+    if not root_collection:
+        return
 
     permission = get_choose_permission(apps)
     if permission:
