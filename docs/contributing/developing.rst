@@ -184,10 +184,10 @@ Mobile Safari  iOS Phone      Last 2
 Mobile Safari  iOS Tablet     Last 2
 Chrome         Android        Last 2
 Chrome         Desktop        Last 2
-MS Edge        Desktop        Last 2
+MS Edge        Windows        Last 2
 Firefox        Desktop        Latest
 Firefox ESR    Desktop        Latest
-Safari         macOS          Last 2
+Safari         macOS          Last 3
 =============  =============  =============
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
