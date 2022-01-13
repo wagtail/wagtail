@@ -40,7 +40,7 @@ from wagtail.core.models import (
 from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import escape_script, get_content_type_label
+from wagtail.core.utils import escape_script, get_content_type_label, get_locales_display_names
 from wagtail.users.utils import get_gravatar_url
 
 
@@ -766,22 +766,12 @@ def locales():
     ])
 
 
-@register.simple_tag(takes_context=True)
-def locale_label_from_id(context, locale_id):
+@register.simple_tag
+def locale_label_from_id(locale_id):
     """
     Returns the Locale display name given its id.
     """
-    request = context['request']
-
-    # Cache the locale id -> locale display name mapping on the request
-    if not hasattr(request, '_wagtail_locales'):
-        locales_map = {}
-        for locale in Locale.objects.all():
-            locales_map[locale.pk] = locale.get_display_name()
-        setattr(request, '_wagtail_locales', locales_map)
-        context['request'] = request
-
-    return context['request']._wagtail_locales.get(locale_id)
+    return get_locales_display_names().get(locale_id)
 
 
 @register.simple_tag()
