@@ -526,6 +526,11 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/main/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
+        # Check the alias_of field
+        # See test_alias_page for a test on an alias page
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsNone(content['meta']['alias_of'])
+
         # Check that the custom fields are included
         self.assertIn('date', content)
         self.assertIn('body', content)
@@ -696,6 +701,32 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['meta']['ancestors'][0]['title'], 'Root')
         self.assertEqual(content['meta']['ancestors'][1]['title'], 'Home page')
         self.assertEqual(content['meta']['ancestors'][2]['title'], 'Blog index')
+
+    def test_alias_page(self):
+        original = Page.objects.get(id=16).specific
+        alias = original.create_alias(update_slug='new-slug')
+
+        response = self.get_response(alias.id)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/new-slug/')
+
+        # Check alias_of field
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsInstance(content['meta']['alias_of'], dict)
+        self.assertEqual(set(content['meta']['alias_of'].keys()), {'id', 'meta', 'title'})
+        self.assertEqual(content['meta']['alias_of']['id'], 16)
+        self.assertIsInstance(content['meta']['alias_of']['meta'], dict)
+        self.assertEqual(set(content['meta']['alias_of']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['alias_of']['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['alias_of']['meta']['detail_url'], 'http://localhost/admin/api/main/pages/16/')
+        self.assertEqual(content['meta']['alias_of']['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
 
     # FIELDS
 

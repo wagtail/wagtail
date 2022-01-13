@@ -146,16 +146,12 @@ class PageAliasOfField(relations.RelatedField):
     Serializes the "alias_of" field on Page objects.
     """
     def get_attribute(self, instance):
-        return instance
+        return instance.alias_of
 
-    def to_representation(self, page):
-        if page.alias_of is None:
-            return None
-        data = OrderedDict()
-        data['id'] = page.alias_of.id
-        data['full_url'] = page.alias_of.full_url
-
-        return data
+    def to_representation(self, value):
+        serializer_class = get_serializer_class(value.__class__, ['id', 'type', 'detail_url', 'html_url', 'title'], meta_fields=['type', 'detail_url', 'html_url'], base=PageSerializer)
+        serializer = serializer_class(context=self.context)
+        return serializer.to_representation(value)
 
 
 class ChildRelationField(Field):
