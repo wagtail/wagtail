@@ -101,7 +101,7 @@ def move_breadcrumb(context, page_to_move, viewed_page):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': viewed_page.get_ancestors(inclusive=False).descendant_of(cca).specific(),
+        'pages': viewed_page.get_ancestors(inclusive=True).descendant_of(cca, inclusive=True).specific(),
         'page_to_move_id': page_to_move.id,
     }
 
