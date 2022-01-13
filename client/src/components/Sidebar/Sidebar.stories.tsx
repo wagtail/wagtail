@@ -10,7 +10,6 @@ import { SubMenuItemDefinition } from './menu/SubMenuItem';
 import { initFocusOutline } from '../../utils/focus';
 
 import '../../../../wagtail/admin/static/wagtailadmin/css/sidebar.css';
-import { CustomBrandingModuleDefinition } from './modules/CustomBranding';
 
 export default { title: 'Sidebar/Sidebar', parameters: { layout: 'fullscreen' } };
 
@@ -256,14 +255,6 @@ function renderSidebarStory(
 export function standard() {
   return renderSidebarStory([
     wagtailBrandingModule(),
-    searchModule(),
-    bogStandardMenuModule(),
-  ]);
-}
-
-export function withCustomBranding() {
-  return renderSidebarStory([
-    new CustomBrandingModuleDefinition('/admin/', '<p>Custom branding (todo)</p>'),
     searchModule(),
     bogStandardMenuModule(),
   ]);
