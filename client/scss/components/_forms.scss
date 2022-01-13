@@ -123,7 +123,20 @@ select::-ms-expand {
 }
 
 .error-message {
-    color: $color-red;
+    font-size: 1em;
+    font-weight: bold;
+    color: $color-text-error;
+
+    @media (forced-colors: $media-forced-colours) {
+        forced-color-adjust: none;
+        color: $color-text-error-forced-color;
+    }
+
+    &::before {
+        font-family: wagtail;
+        vertical-align: -10%;
+        content: map-get($icons, 'cross');
+    }
 }
 
 .help {

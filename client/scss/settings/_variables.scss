@@ -142,3 +142,7 @@ $nav-search-bg: $nav-grey-1;
 $nav-search-hover-bg: $nav-item-hover-bg;
 $nav-search-focus-color: $color-white;
 $nav-search-focus-bg: $nav-item-hover-bg;
+
+// Form Errors
+$color-text-error: change-color($color-red, $saturation: 69, $lightness: 52);
+$color-text-error-forced-color: change-color($color-red, $saturation: 100, $lightness: 50);
