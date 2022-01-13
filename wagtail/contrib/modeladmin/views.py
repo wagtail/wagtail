@@ -302,7 +302,8 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
     SEARCH_VAR = "q"
     ERROR_FLAG = "e"
     EXPORT_VAR = "export"
-    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
+    LANG_VAR = "lang"
+    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR, LANG_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
     # template tag - see https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
