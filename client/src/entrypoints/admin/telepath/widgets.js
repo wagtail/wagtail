@@ -1,11 +1,13 @@
 /* global $ */
 
 class BoundWidget {
-  constructor(element, name, idForLabel, initialState) {
+  constructor(element, name, idForLabel, initialState, parentCapabilities) {
     var selector = ':input[name="' + name + '"]';
     this.input = element.find(selector).addBack(selector); // find, including element itself
     this.idForLabel = idForLabel;
     this.setState(initialState);
+    this.parentCapabilities = parentCapabilities || new Map();
+    console.log(this);
   }
   getValue() {
     return this.input.val();
@@ -28,6 +30,9 @@ class BoundWidget {
   focus() {
     this.input.focus();
   }
+  setCapabilityEnabled(capability, enabled) {
+    this.parentCapabilities.get(capability).enabled = enabled;
+  }
 }
 
 class Widget {
@@ -38,13 +43,19 @@ class Widget {
 
   boundWidgetClass = BoundWidget;
 
-  render(placeholder, name, id, initialState) {
+  render(placeholder, name, id, initialState, parentCapabilities) {
     var html = this.html.replace(/__NAME__/g, name).replace(/__ID__/g, id);
     var idForLabel = this.idPattern.replace(/__ID__/g, id);
     var dom = $(html);
     $(placeholder).replaceWith(dom);
     // eslint-disable-next-line new-cap
-    return new this.boundWidgetClass(dom, name, idForLabel, initialState);
+    return new this.boundWidgetClass(
+      dom,
+      name,
+      idForLabel,
+      initialState,
+      parentCapabilities,
+    );
   }
 }
 window.telepath.register('wagtail.widgets.Widget', Widget);
@@ -126,8 +137,14 @@ class PageChooser {
 window.telepath.register('wagtail.widgets.PageChooser', PageChooser);
 
 class AdminAutoHeightTextInput extends Widget {
-  render(placeholder, name, id, initialState) {
-    const boundWidget = super.render(placeholder, name, id, initialState);
+  render(placeholder, name, id, initialState, parentCapabilities) {
+    const boundWidget = super.render(
+      placeholder,
+      name,
+      id,
+      initialState,
+      parentCapabilities,
+    );
     window.autosize($('#' + id));
     return boundWidget;
   }

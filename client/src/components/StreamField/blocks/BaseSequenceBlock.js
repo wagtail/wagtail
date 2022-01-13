@@ -182,10 +182,21 @@ export class BaseSequenceChild extends EventEmitter {
     this.addActionButton(new DuplicateButton(this));
     this.addActionButton(new DeleteButton(this));
 
+    const capabilities = new Map();
+    capabilities.set('duplicate', {
+      enabled: true,
+      fn: this.duplicate,
+      enableEvent: 'enableDuplication',
+      disableEvent: 'disableDuplication',
+    });
+
     this.block = this.blockDef.render(
       blockElement,
       this.prefix + '-value',
       initialState,
+      undefined,
+      this,
+      capabilities,
     );
 
     if (this.collapsed) {
