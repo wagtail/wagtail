@@ -2,9 +2,11 @@ import datetime
 
 from collections import OrderedDict
 
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import InvalidPage
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.translation import ngettext
 from django.views.generic import ListView, TemplateView
 
@@ -12,7 +14,7 @@ from wagtail.admin import messages
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.contrib.forms.forms import SelectDateForm
 from wagtail.contrib.forms.utils import get_forms_for_user
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 
 
 def get_submissions_list_view(request, *args, **kwargs):
@@ -64,12 +66,49 @@ class FormPagesListView(SafePaginateListView):
     def get_queryset(self):
         """ Return the queryset of form pages for this view """
         queryset = get_forms_for_user(self.request.user)
+        if self.locale:
+            queryset = queryset.filter(locale=self.locale)
         ordering = self.get_ordering()
         if ordering:
             if isinstance(ordering, str):
                 ordering = (ordering,)
             queryset = queryset.order_by(*ordering)
         return queryset
+
+    def get(self, request, *args, **kwargs):
+        self.locale = None
+        enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+        if enable_locale_filter:
+            if request.GET.get('locale'):
+                self.locale = get_object_or_404(Locale, language_code=request.GET['locale'])
+            else:
+                self.locale = Locale.get_default()
+
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        locale_context = {
+            'locale': None,
+            'translations': []
+        }
+
+        if self.locale:
+            url = reverse('wagtailforms:index')
+            locale_context = {
+                'locale': self.locale,
+                'translations': [
+                    {
+                        'locale': locale,
+                        'url': url + '?locale=' + locale.language_code
+                    }
+                    for locale in Locale.objects.all().exclude(pk=self.locale.pk)
+                ]
+            }
+
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context.update(locale_context)
+
+        return context
 
 
 class DeleteSubmissionsView(TemplateView):

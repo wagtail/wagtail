@@ -7,7 +7,7 @@ from io import BytesIO
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
 from django.core.checks import Info
-from django.test import RequestFactory, TestCase
+from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
 
@@ -16,7 +16,7 @@ from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import make_form_page, make_form_page_with_custom_submission
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 from wagtail.tests.testapp.models import (
     CustomFormPageSubmission, ExtendedFormField, FormField, FormFieldForCustomListViewPage,
     FormFieldWithCustomSubmission, FormPage, FormPageWithCustomFormBuilder,
@@ -209,6 +209,88 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
 
         # Check that an user can't see the form page
         self.assertNotIn(self.form_page, response.context['form_pages'])
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestFormsIndexWithLocalisationEnabled(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.login(username='superuser', password='password')
+        self.form_page = Page.objects.get(url_path='/home/contact-us/')
+        self.en_locale = Locale.get_default()
+
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.fr_form_page = self.form_page.copy_for_translation(self.fr_locale, copy_parents=True)
+        self.fr_form_page.save()
+
+        self.forms_index_url = reverse('wagtailforms:index')
+
+    def make_form_pages(self, num=100, parent=None):
+        """
+        This makes 100 form pages and adds them as children to 'contact-us'
+        This is used to test pagination on the forms index
+        """
+        if parent is None:
+            parent = self.form_page
+
+        for i in range(num):
+            suffix = f'{i} [{parent.locale.get_display_name()}]'
+            parent.add_child(instance=FormPage(
+                title=f'Form {suffix}',
+                slug=f'form-{i}-{parent.locale_id}',
+                live=True,
+                locale_id=parent.locale_id,
+            ))
+
+    def get_switch_current_locale_markup(self, locale):
+        return f'<a href="javascript:void(0)" aria-label="{locale.get_display_name()}" class="c-dropdown__button  u-btn-current">'
+
+    def get_switch_link_markup(self, locale):
+        return f'<a href="{self.forms_index_url}?locale={locale.language_code}" aria-label="{locale.get_display_name()}" class="u-link is-live">'
+
+    def test_forms_index(self):
+        response = self.client.get(self.forms_index_url)
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(response, self.get_switch_current_locale_markup(self.en_locale))
+        self.assertContains(response, self.get_switch_link_markup(self.fr_locale))
+
+        response = self.client.get(self.forms_index_url, {'locale': self.fr_locale.language_code})
+        self.assertContains(response, self.get_switch_current_locale_markup(self.fr_locale))
+        self.assertContains(response, self.get_switch_link_markup(self.en_locale))
+
+    def test_forms_index_pagination(self):
+        # Create some more form pages to make pagination kick in
+        self.make_form_pages(parent=self.form_page, num=20)
+        self.make_form_pages(parent=self.fr_form_page, num=20)
+
+        # Get page two
+        response = self.client.get(self.forms_index_url, {'p': 2})
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'wagtailforms/index.html')
+
+        # Check that we got the correct page
+        self.assertEqual(response.context['page_obj'].number, 2)
+
+        response = self.client.get(self.forms_index_url, {'p': 3})
+        self.assertEqual(response.context['page_obj'].number, 2)
+
+        # now check the French pages.
+        response = self.client.get(self.forms_index_url, {'p': 2, 'locale': self.fr_locale.language_code})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context['page_obj'].number, 2)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_switcher_doesnt_show_with_i18n_disabled(self):
+        response = self.client.get(self.forms_index_url)
+
+        self.assertNotContains(response, self.get_switch_current_locale_markup(self.en_locale))
+        self.assertNotContains(response, self.get_switch_link_markup(self.fr_locale))
 
 
 class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
