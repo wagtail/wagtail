@@ -16,7 +16,6 @@ class CreatePageAliasAPIActionSerializer(Serializer):
     destination_page_id = fields.IntegerField(required=False)
     recursive = fields.BooleanField(default=False, required=False)
     update_slug = fields.CharField(required=False)
-    update_locale = fields.CharField(required=False)
 
 
 class CreatePageAliasAPIAction(APIAction):
@@ -32,7 +31,6 @@ class CreatePageAliasAPIAction(APIAction):
             recursive=data["recursive"],
             parent=parent,
             update_slug=data.get("update_slug"),
-            update_locale=data.get("update_locale"),
             user=self.request.user,
         )
 
