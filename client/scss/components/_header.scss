@@ -57,6 +57,19 @@ header {
         .right:last-child {
             padding-right: 0;
         }
+
+        @include media-breakpoint-down(xs) {
+            .breadcrumb {
+                padding-left: calc(#{$desktop-nice-padding} - 8px);
+            }
+        }
+        @include media-breakpoint-up(sm) {
+            .breadcrumb {
+                margin-left: -$desktop-nice-padding;
+                margin-right: -$desktop-nice-padding;
+                padding-left: $desktop-nice-padding / 2;
+            }
+        }
     }
 
     &.header-with-breadcrumb {
