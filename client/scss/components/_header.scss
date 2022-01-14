@@ -77,7 +77,7 @@ header {
 
         .breadcrumb {
             margin-bottom: 1rem;
-            padding-left: revert;
+            padding-left: $desktop-nice-padding / 2; // rather than padding-left: revert;
         }
     }
 
