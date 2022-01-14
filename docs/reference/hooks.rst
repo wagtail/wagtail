@@ -162,7 +162,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_main_menu``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated JavaScript includes, and their ``is_shown`` check will not be applied.
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will not have their ``is_shown`` check applied.
 
   .. code-block:: python
 
@@ -262,14 +262,13 @@ More details about the options that are available can be found at :doc:`/extendi
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.admin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
   :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
-  :icon_name: icon to display against the menu item
+  :icon_name: icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
   :classnames: additional classnames applied to the link
-  :attrs: additional HTML attributes to apply to the link
   :order: an integer which determines the item's position in the menu
 
   For menu items that are only available to superusers, the subclass ``wagtail.admin.menu.AdminOnlyMenuItem`` can be used in place of ``MenuItem``.
 
-  ``MenuItem`` can be further subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
+  ``MenuItem`` can be further subclassed to customise its initialisation or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
