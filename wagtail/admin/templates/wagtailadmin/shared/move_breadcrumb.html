@@ -3,8 +3,8 @@
 <nav aria-label="{% trans 'Breadcrumb' %}">
     <ul class="breadcrumb">
         {% for page in pages %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:move_choose_destination' page_to_move_id page.id %}">
+            <li class="breadcrumb-item">
+                <a href="{% url 'wagtailadmin_pages:move_choose_destination' page_to_move_id page.id %}" class="breadcrumb-link">
                     {% if forloop.first %}
                         {% if page.is_root %}{% trans "Root" as label %}{% else %}{% trans 'Home' as label %}{% endif %}
                         {% icon name="site" class_name="home_icon" title=label %}
