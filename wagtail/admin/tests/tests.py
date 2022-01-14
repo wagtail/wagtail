@@ -33,31 +33,23 @@ class TestHome(TestCase, WagtailTestUtils):
     def test_admin_menu(self):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
-        # check that media attached to menu items is correctly pulled in
+        # check that custom menu items (including classname / icon_name) are pulled in
         self.assertContains(
             response,
-            '<script src="/static/testapp/js/kittens.js"></script>',
-            html=True
-        )
-
-        # check that custom menu items (including classname / attrs parameters) are pulled in
-        self.assertContains(
-            response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>',
-            html=True
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
         # Check that the explorer menu item is here, with the right start page.
         self.assertContains(
             response,
-            'data-explorer-start-page="1"'
+            '{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "url": "/admin/pages/"}, 1]'
         )
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse('wagtailadmin_home') + '?hide-kittens=true')
         self.assertNotContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/"}'
         )
 
     def test_dashboard_panels(self):

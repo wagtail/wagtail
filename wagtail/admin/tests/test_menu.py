@@ -20,7 +20,6 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         self.request.user = self.create_superuser(username='admin')
         self.user = self.login()
 
-    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={"slim-sidebar"})
     def test_remember_collapsed(self):
         '''Sidebar should render with collapsed class applied.'''
         # Sidebar should not be collapsed
@@ -33,9 +32,9 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertContains(response, 'sidebar-collapsed')
 
-    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={})
-    def test_collapsed_only_with_feature_flag(self):
-        '''Sidebar should only remember its collapsed state with the right feature flag set.'''
+    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={'legacy-sidebar'})
+    def test_not_collapsed_with_legacy(self):
+        '''Sidebar should only remember its collapsed state with the slim implementation.'''
         # Sidebar should not be collapsed because the feature flag is not enabled
         self.client.cookies['wagtail_sidebar_collapsed'] = '1'
         response = self.client.get(reverse('wagtailadmin_home'))

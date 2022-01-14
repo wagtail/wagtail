@@ -41,26 +41,26 @@ class TestWorkflowMenus(TestCase, WagtailTestUtils):
 
     def test_workflow_settings_and_reports_menus_are_shown_to_admin(self):
         response = self.client.get('/admin/')
-        self.assertContains(response, 'href="/admin/workflows/list/"')
-        self.assertContains(response, 'href="/admin/workflows/tasks/index/"')
-        self.assertContains(response, 'href="/admin/reports/workflow/"')
-        self.assertContains(response, 'href="/admin/reports/workflow_tasks/"')
+        self.assertContains(response, '"url": "/admin/workflows/list/"')
+        self.assertContains(response, '"url": "/admin/workflows/tasks/index/"')
+        self.assertContains(response, '"url": "/admin/reports/workflow/"')
+        self.assertContains(response, '"url": "/admin/reports/workflow_tasks/"')
 
     def test_workflow_settings_menus_are_not_shown_to_editor(self):
         self.login(user=self.editor)
         response = self.client.get('/admin/')
-        self.assertNotContains(response, 'href="/admin/workflows/list/"')
-        self.assertNotContains(response, 'href="/admin/workflows/tasks/index/"')
-        self.assertContains(response, 'href="/admin/reports/workflow/"')
-        self.assertContains(response, 'href="/admin/reports/workflow_tasks/"')
+        self.assertNotContains(response, '"url": "/admin/workflows/list/"')
+        self.assertNotContains(response, '"url": "/admin/workflows/tasks/index/"')
+        self.assertContains(response, '"url": "/admin/reports/workflow/"')
+        self.assertContains(response, '"url": "/admin/reports/workflow_tasks/"')
 
     @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
     def test_workflow_menus_are_hidden_when_workflows_are_disabled(self):
         response = self.client.get('/admin/')
-        self.assertNotContains(response, 'href="/admin/workflows/list/"')
-        self.assertNotContains(response, 'href="/admin/workflows/tasks/index/"')
-        self.assertNotContains(response, 'href="/admin/reports/workflow/"')
-        self.assertNotContains(response, 'href="/admin/reports/workflow_tasks/"')
+        self.assertNotContains(response, '"url": "/admin/workflows/list/"')
+        self.assertNotContains(response, '"url": "/admin/workflows/tasks/index/"')
+        self.assertNotContains(response, '"url": "/admin/reports/workflow/"')
+        self.assertNotContains(response, '"url": "/admin/reports/workflow_tasks/"')
 
 
 class TestWorkflowsIndexView(TestCase, WagtailTestUtils):
