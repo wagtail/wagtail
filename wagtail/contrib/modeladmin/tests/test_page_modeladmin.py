@@ -345,8 +345,8 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that home breadcrumb link exists
         expected = """
-            <li class="home">
-                <a href="/admin/">
+            <li class="breadcrumb-item home">
+                <a href="/admin/" class="breadcrumb-link">
                     <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-home"></use>
                     </svg>
@@ -374,8 +374,8 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that home breadcrumb link exists
         expected = """
-            <li class="home">
-                <a href="/admin/">
+            <li class="breadcrumb-item home">
+                <a href="/admin/" class="breadcrumb-link">
                     <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-home"></use>
                     </svg>
