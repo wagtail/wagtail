@@ -769,7 +769,7 @@ def locales():
 
 @register.simple_tag()
 def slim_sidebar_enabled():
-    return 'slim-sidebar' in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', [])
+    return 'legacy-sidebar' not in getattr(settings, 'WAGTAIL_EXPERIMENTAL_FEATURES', [])
 
 
 @register.simple_tag(takes_context=True)
