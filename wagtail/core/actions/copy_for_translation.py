@@ -77,9 +77,7 @@ class CopyPageForTranslationAction:
             self._copy_for_translation(
                 child_page, self.locale, self.copy_parents, self.alias, self.exclude_fields
             )
-
-            if child_page.numchild:
-                self.walk(child_page)
+            self.walk(child_page)
 
     @transaction.atomic
     def _copy_for_translation(self, page, locale, copy_parents, alias, exclude_fields):
