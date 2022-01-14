@@ -217,6 +217,15 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
+``WAGTAIL_SLIM_SIDEBAR``
+------------------------
+
+.. code-block:: python
+
+  WAGTAIL_SLIM_SIDEBAR = False
+
+Disables Wagtail’s slim sidebar to use the legacy sidebar instead.
+
 Comments
 ========
 
