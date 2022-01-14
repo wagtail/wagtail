@@ -32,7 +32,7 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertContains(response, 'sidebar-collapsed')
 
-    @override_settings(WAGTAIL_EXPERIMENTAL_FEATURES={'legacy-sidebar'})
+    @override_settings(WAGTAIL_SLIM_SIDEBAR=False)
     def test_not_collapsed_with_legacy(self):
         '''Sidebar should only remember its collapsed state with the slim implementation.'''
         # Sidebar should not be collapsed because the feature flag is not enabled
