@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 <ul class="breadcrumb">
     {% trans 'Home' as home %}
-    <li class="home"><a href="{% url 'wagtailadmin_home' %}">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-    <li><a href="{{ view.index_url }}">{{ view.verbose_name_plural|capfirst }}</a></li>
+    <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+    <li class="breadcrumb-item"><a href="{{ view.index_url }}" class="breadcrumb-link">{{ view.verbose_name_plural|capfirst }}</a></li>
 </ul>
