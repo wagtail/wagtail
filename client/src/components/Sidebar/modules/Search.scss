@@ -19,6 +19,7 @@
 
     // Beat specificity
     input:not([type='submit']) {
+        @include show-focus-outline-inside();
         position: absolute;
         left: 0;
         top: 0;
@@ -28,6 +29,7 @@
         font-weight: 400;
         background-color: transparent;
         border: 0;
+        border-radius: 0;
         color: $color-menu-text;
         -webkit-font-smoothing: auto;
 
@@ -41,11 +43,12 @@
     }
 
     &__submit {
+        @include show-focus-outline-inside();
         position: absolute;
         right: 0;
-        top: 0;
         background-color: transparent;
         border: 0;
+        border-radius: 0;
         color: #ccc;
         padding: 0;
         width: 35px;
