@@ -44,8 +44,21 @@
             margin-left: 0;
         }
 
+        div.c-dropdown__button.u-btn-current {
+            color: $color-grey-2;
+
+            &:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+        }
+
         .status-tag {
             margin-bottom: 0;
+        }
+
+        .u-link {
+            color: $color-white;
         }
     }
 

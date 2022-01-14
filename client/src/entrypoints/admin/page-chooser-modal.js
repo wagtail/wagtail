@@ -1,10 +1,21 @@
 import $ from 'jquery';
 
+/* global wagtail */
+
 const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   browse(modal, jsonData) {
     /* Set up link-types links to open in the modal */
     // eslint-disable-next-line func-names
     $('.link-types a', modal.body).on('click', function () {
+      modal.loadUrl(this.href);
+      return false;
+    });
+
+    /* Initialize dropdowns */
+    wagtail.ui.initDropDowns();
+    /* Set up dropdown links to open in the modal */
+    // eslint-disable-next-line func-names
+    $('.c-dropdown__item .u-link', modal.body).on('click', function () {
       modal.loadUrl(this.href);
       return false;
     });
@@ -113,6 +124,13 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
 
         return false;
       });
+      // eslint-disable-next-line func-names
+      $('.c-dropdown__item .u-link', modal.body).on('click', function () {
+        modal.loadUrl(this.href);
+        return false;
+      });
+
+      wagtail.ui.initDropDowns();
     }
     ajaxifyBrowseResults();
 

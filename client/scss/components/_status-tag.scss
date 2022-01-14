@@ -30,6 +30,10 @@
     }
 }
 
+.listing .index .status-tag--label {
+    border: 1px solid;
+}
+
 button.status-tag:hover,
 a.status-tag:hover,
 a.status-tag.primary:hover {
