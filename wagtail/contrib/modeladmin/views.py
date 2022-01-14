@@ -2,6 +2,7 @@ import warnings
 from collections import OrderedDict
 
 from django import forms
+from django.conf import settings
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
@@ -43,7 +44,7 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.core.log_actions import log
 from wagtail.core.log_actions import registry as log_registry
-from wagtail.core.models import TranslatableMixin, Locale
+from wagtail.core.models import Locale, TranslatableMixin
 
 from .forms import ParentChooserForm
 
@@ -148,9 +149,6 @@ class WMABaseView(TemplateView):
         context = {
             "view": self,
             "model_admin": self.model_admin,
-            "locales": Locale.objects.all()
-            if issubclass(self.model, TranslatableMixin)
-            else [],
         }
         context.update(kwargs)
         return super().get_context_data(**context)
@@ -306,8 +304,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
     SEARCH_VAR = "q"
     ERROR_FLAG = "e"
     EXPORT_VAR = "export"
-    LANG_VAR = "lang"
-    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR, LANG_VAR)
+    IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
     # template tag - see https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
@@ -743,6 +740,29 @@ class CreateView(ModelFormView):
             # The page can be added in multiple places, so redirect to the
             # choose_parent view so that the parent can be specified
             return redirect(self.url_helper.get_action_url("choose_parent"))
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                locale = get_object_or_404(Locale, language_code=selected_locale)
+            else:
+                locale = Locale.get_default()
+
+            kwargs.update(
+                {
+                    "locale": locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": self.create_url + "?locale=" + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(id=locale.id)
+                    ],
+                }
+            )
+
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
@@ -758,6 +778,20 @@ class CreateView(ModelFormView):
 
     def get_template_names(self):
         return self.model_admin.get_create_template()
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                kwargs["instance"].locale = get_object_or_404(
+                    Locale, language_code=selected_locale
+                )
+
+        return kwargs
 
 
 class EditView(ModelFormView, InstanceSpecificView):
