@@ -92,7 +92,7 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
         response = self.client.get('/admin/')
         # The menu search bar should go to /customsearch/, not /admin/pages/search/
         self.assertNotContains(response, reverse('wagtailadmin_pages:search'))
-        self.assertContains(response, 'action="/customsearch/"')
+        self.assertContains(response, '{"_type": "wagtail.sidebar.SearchModule", "_args": ["/customsearch/"]}')
 
     def test_menu_search(self):
         """

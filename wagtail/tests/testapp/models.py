@@ -1124,7 +1124,7 @@ class ImportantPages(BaseSetting):
         'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
 
 
-@register_setting(icon="tag")
+@register_setting(icon="icon-setting-tag")
 class IconSetting(BaseSetting):
     pass
 

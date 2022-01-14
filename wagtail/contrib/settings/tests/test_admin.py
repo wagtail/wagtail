@@ -71,8 +71,6 @@ class TestSettingCreateView(BaseTestSettingView):
     def test_get_edit(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        # there should be a menu item highlighted as active
-        self.assertContains(response, "menu-active")
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -116,8 +114,6 @@ class TestSettingEditView(BaseTestSettingView):
     def test_get_edit(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        # there should be a menu item highlighted as active
-        self.assertContains(response, "menu-active")
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsettings:edit', args=['test', 'foo', 1]))

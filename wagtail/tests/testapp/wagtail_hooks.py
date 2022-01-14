@@ -1,6 +1,4 @@
-from django import forms
 from django.http import HttpResponse
-from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
@@ -42,10 +40,6 @@ hooks.register('before_serve_page', block_googlebot)
 
 
 class KittensMenuItem(MenuItem):
-    @property
-    def media(self):
-        return forms.Media(js=[static('testapp/js/kittens.js')])
-
     def is_shown(self, request):
         return not request.GET.get('hide-kittens', False)
 
@@ -55,8 +49,8 @@ def register_kittens_menu_item():
     return KittensMenuItem(
         'Kittens!',
         'http://www.tomroyal.com/teaandkittens/',
-        classnames='icon icon-kitten',
-        attrs={'data-fluffy': 'yes'},
+        classnames='kitten--test',
+        icon_name='kitten',
         order=10000
     )
 
