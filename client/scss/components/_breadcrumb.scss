@@ -7,6 +7,7 @@
     margin-left: 2em;
     background: $color-teal;
 
+    li,
     .breadcrumb-item {
         display: block;
         float: left;
@@ -33,6 +34,7 @@
         }
     }
 
+    li > a,
     .breadcrumb-link {
         color: $color-white;
         display: block;
