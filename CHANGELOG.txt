@@ -46,6 +46,7 @@ Changelog
  * Added documentation for creating custom submenus in the admin menu (Sævar Öfjörð Magnússon)
  * Choice blocks in StreamField now show label rather than value when collapsed (Jérôme Lebleu)
  * Added documentation to clarify configuration of user-uploaded files (Cynthia Kiser)
+ * Change security contact address to security@wagtail.org (Jake Howard)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast, help/error/warning blocks for fields and general content, side comment buttons within the page editor, dropdown buttons (Sakshi Uppoor, Shariq Jamil, LB (Ben Johnston), Jason Attwood)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
