@@ -48,11 +48,11 @@ from treebeard.mp_tree import MP_Node
 
 from wagtail.core.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.core.actions.copy_page import CopyPageAction
+from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
-from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
