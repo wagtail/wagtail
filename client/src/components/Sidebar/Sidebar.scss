@@ -7,11 +7,12 @@
     color: $color-white;
     width: $sidebar-toggle-size;
     height: $sidebar-toggle-size;
+    box-sizing: border-box;
     background: transparent;
-    border: 0;
     place-items: center;
     padding: 0;
     border-radius: 50%;
+    border: 1px solid transparent;
 
     &:hover {
         background-color: #3a3a3a;
@@ -44,6 +45,10 @@
     z-index: 300;
 
     @include transition(width $menu-transition-duration ease, left $menu-transition-duration ease);
+
+    @media (forced-colors: $media-forced-colours) {
+        border-inline-end: 1px solid transparent;
+    }
 
     &--slim {
         width: $menu-width-slim;

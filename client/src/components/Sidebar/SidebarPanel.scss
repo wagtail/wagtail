@@ -22,6 +22,11 @@
         left: calc(#{$menu-width} - var(--width));
     }
 
+    @media (forced-colors: $media-forced-colours) {
+        border-inline-start: 1px solid transparent;
+        border-inline-end: 1px solid transparent;
+    }
+
     &--visible {
         visibility: visible;
         box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
