@@ -8,6 +8,7 @@ export const SIDEBAR_COLLAPSED_COOKIE_NAME = 'wagtail_sidebar_collapsed';
 
 export function initSidebar() {
   const element = document.getElementById('wagtail-sidebar');
+  const rawProps = document.getElementById('wagtail-sidebar-props');
 
   const navigate = (url: string) => {
     window.location.href = url;
@@ -20,8 +21,8 @@ export function initSidebar() {
     return new Promise<void>(() => {});
   };
 
-  if (element instanceof HTMLElement && element.dataset.props) {
-    const props = window.telepath.unpack(JSON.parse(element.dataset.props));
+  if (element && rawProps?.textContent) {
+    const props = window.telepath.unpack(JSON.parse(rawProps.textContent));
 
     const collapsedCookie: any = Cookies.get(SIDEBAR_COLLAPSED_COOKIE_NAME);
     // Cast to boolean
