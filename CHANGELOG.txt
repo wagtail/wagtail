@@ -33,6 +33,7 @@ Changelog
  * Fix: Additional login form fields from `WAGTAILADMIN_USER_LOGIN_FORM` are now rendered correctly (Michael Karamuth)
  * Fix: Icon only button styling issue on small devices where height would not be set correctly (Vu Pham)
  * Fix: Add padding to the Draftail editor to ensure `ol` items are not cut off (Khanh Hoang)
+ * Fix: Prevent opening choosers multiple times for Image, Page, Document, Snippet (LB (Ben Johnston))
 
 
 2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
