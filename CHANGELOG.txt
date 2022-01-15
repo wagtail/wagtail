@@ -17,7 +17,7 @@ Changelog
  * Add secondary actions menu in edit page headers (Tidjani Dia)
  * Removed WOFF fonts
  * Add system check for missing core Page fields in `search_fields` (LB (Ben Johnston))
- * Improve CircleCI frontend & backend build caches (Thibaud Colas)
+ * Improve CircleCI frontend & backend build caches, add automated browser accessibility test suite in CircleCI (Thibaud Colas)
  * Add a 'remember me' checkbox to the admin sign in form, if unticked (default) the auth session will expire if the browser is closed (Michael Karamuth, Jake Howard)
  * When returning to image or document listing views after editing, filters (collection or tag) are now remembered (Tidjani Dia)
  * Improve the visibility of field error messages, in Windows high-contrast mode and out (Jason Attwood)
