@@ -2,7 +2,7 @@
 import $ from 'jquery';
 window.$ = $;
 
-import './expanding_formset';
+import './expanding-formset';
 
 describe('buildExpandingFormset', () => {
   it('exposes module as global', () => {
