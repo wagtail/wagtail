@@ -804,6 +804,28 @@ class EditView(ModelFormView, InstanceSpecificView):
     def dispatch(self, request, *args, **kwargs):
         if self.is_pagemodel:
             return redirect(self.url_helper.get_action_url("edit", self.pk_quoted))
+
+        if self.locale:
+            translations = []
+            for translation in self.instance.get_translations().select_related(
+                "locale"
+            ):
+                locale = translation.locale
+                url = (
+                    self.url_helper.get_action_url("edit", translation.pk)
+                    + "?locale="
+                    + locale.language_code
+                )
+                translations.append({"locale": locale, "url": url})
+
+            if translations:
+                kwargs.update(
+                    {
+                        "locale": self.locale,
+                        "translations": translations,
+                    }
+                )
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_meta_title(self):
