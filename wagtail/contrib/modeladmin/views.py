@@ -279,6 +279,11 @@ class InstanceSpecificView(WMABaseView):
         )
         self.instance = get_object_or_404(object_qs)
 
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model_admin.model, TranslatableMixin
+        ):
+            self.locale = self.instance.locale
+
     def get_page_subtitle(self):
         return self.instance
 
@@ -984,6 +989,30 @@ class InspectView(InstanceSpecificView):
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.locale:
+            translations = []
+            for translation in self.instance.get_translations().select_related(
+                "locale"
+            ):
+                locale = translation.locale
+                url = (
+                    self.url_helper.get_action_url("inspect", translation.pk)
+                    + "?locale="
+                    + locale.language_code
+                )
+                translations.append({"locale": locale, "url": url})
+
+            if translations:
+                kwargs.update(
+                    {
+                        "locale": self.locale,
+                        "translations": translations,
+                    }
+                )
+
+        return super().dispatch(request, *args, **kwargs)
 
     @property
     def media(self):
