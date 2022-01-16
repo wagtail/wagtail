@@ -22,7 +22,7 @@ jobs:
       - checkout
       - run:
           name: Trigger workflows
-          command: chmod +x .circleci/conditional-builds.sh && .circleci/conditional-builds.sh
+          command: .circleci/conditional-builds.sh
 
   backend:
     docker:
