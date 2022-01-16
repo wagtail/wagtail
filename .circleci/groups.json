@@ -1,6 +1,22 @@
 {
   "groups": {
-    "backend": ["wagtail/", ":!wagtail/**/static_src/"],
-    "frontend": ["client/", "gulpfile.js/", "wagtail/**/static_src/"]
+    "backend": [
+        "wagtail/",
+        ":!wagtail/**/static_src/",
+        "setup.py",
+        "setup.cfg"
+    ],
+    "frontend": [
+        "client/",
+        "docs/_static/",
+        "gulpfile.js/",
+        "wagtail/**/static_src/",
+        ".eslintrc",
+        ".nvmrc",
+        ".stylelintrc.yaml",
+        "package.json",
+        "package-lock.json",
+        "tsconfig.json"
+    ]
   }
 }

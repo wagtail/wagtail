@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# This script is copied from
+# https://github.com/labs42io/circleci-monorepo/blob/v2/.circleci/monorepo.sh
+
 set -e
 
 readonly REPO_TYPE=$( echo "${CIRCLE_REPOSITORY_URL}" | awk '{ match($0,/@github/) ? r="github" : r="bitbucket"; print r }' )
