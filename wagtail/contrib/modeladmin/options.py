@@ -255,7 +255,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         list_filter = self.list_filter
 
-        if issubclass(self.model, TranslatableMixin):
+        if issubclass(self.model, TranslatableMixin) and "locale" not in list_filter:
             list_filter += ("locale",)
 
         return list_filter
