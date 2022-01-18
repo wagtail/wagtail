@@ -10,6 +10,13 @@ Wagtail 2.15.2 release notes - IN DEVELOPMENT
 What's new
 ==========
 
+CVE-2022-21683: Comment reply notifications sent to incorrect users
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This release addresses an information disclosure issue in Wagtail's commenting feature. Previously, when notifications for new replies in comment threads were sent, they were sent to all users who had replied or commented anywhere on the site, rather than only in the relevant threads. This meant that a user could listen in to new comment replies on pages they did not have editing access to, as long as they had left a comment or reply somewhere on the site.
+
+Many thanks to Ihor Marhitych for reporting this issue. For further details, please see `the CVE-2022-21683 security advisory <https://github.com/wagtail/wagtail/security/advisories/GHSA-xqxm-2rpm-3889>`_.
+
 Bug fixes
 ~~~~~~~~~
 
