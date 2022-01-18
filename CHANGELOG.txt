@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
+2.15.2 (18.01.2022)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: CVE-2022-21683 - Comment reply notifications sent to incorrect users (Ihor Marhitych, Jacob Topp-Mugglestone)
