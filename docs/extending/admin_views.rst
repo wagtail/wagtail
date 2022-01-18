@@ -147,3 +147,100 @@ A 'Calendar' item will now appear in the menu.
 
 .. figure:: ../_static/images/adminviews_menu.png
    :alt: Wagtail admin sidebar menu, showing a "Calendar" menu item with a date icon
+
+
+Adding a group of menu items
+----------------------------
+
+Sometimes you want to group custom views together in a single menu item in the sidebar. Let's create another view to display only the current calendar month:
+
+
+.. code-block:: python
+  :emphasize-lines: 13-18
+
+  import calendar
+
+  from django.http import HttpResponse
+  from django.utils import timezone
+
+
+  def index(request):
+      current_year = timezone.now().year
+      calendar_html = calendar.HTMLCalendar().formatyear(current_year)
+
+      return HttpResponse(calendar_html)
+
+  def month(request):
+      current_year = timezone.now().year
+      current_month = timezone.now().month
+      calendar_html = calendar.HTMLCalendar().format_month(current_year, current_month)
+
+      return HttpResponse(calendar_html)
+
+We also need to update ``wagtail_hooks.py`` to register our URL in the admin interface:
+
+
+.. code-block:: python
+  :emphasize-lines: 11
+
+  from django.urls import path
+  from wagtail.core import hooks
+
+  from .views import index, month
+
+
+  @hooks.register('register_admin_urls')
+  def register_calendar_url():
+      return [
+          path('calendar/', index, name='calendar'),
+          path('calendar/month/', month, name='calendar-month'),
+      ]
+
+The calendar will now be visible at the URL ``/admin/calendar/month/``.
+
+.. figure:: ../_static/images/adminviews_calendarmonth.png
+   :alt: A single calendar month
+
+
+Finally we can alter our ``wagtail_hooks.py`` to include a group of custom menu items. This is similar to adding a single item but involves importing two more classes, ``SubMenu`` and ``SubmenuMenuItem``.
+
+.. code-block:: python
+  :emphasize-lines: 3-4,21-26
+
+  from django.urls import path, reverse
+
+  from wagtail.admin.menu import MenuItem, SubmenuMenuItem
+  from wagtail.contrib.modeladmin.menus import SubMenu
+  from wagtail.core import hooks
+
+
+  from .views import index, month
+
+
+  @hooks.register('register_admin_urls')
+  def register_calendar_url():
+      return [
+          path('calendar/', index, name='calendar'),
+          path('calendar/month/', month, name='calendar-month'),
+      ]
+
+
+  @hooks.register('register_admin_menu_item')
+  def register_calendar_menu_item():
+      menu_items = [
+          MenuItem('Calendar', reverse('calendar'), icon_name='date'),
+          MenuItem('Current month', reverse('calendar-month'), icon_name='date'),
+      ]
+
+      return SubmenuMenuItem('Calendar', SubMenu(menu_items), classnames='icon icon-date')
+
+
+The 'Calendar' item will now appear as a group of menu items.
+
+.. figure:: ../_static/images/adminviews_menu_group.png
+   :alt: Wagtail admin sidebar menu, showing a "Calendar" group menu item with a date icon
+
+When expanded, the 'Calendar' item will now show our two custom menu items.
+
+.. figure:: ../_static/images/adminviews_menu_group_expanded.png
+   :alt: Wagtail admin sidebar 'Calendar' menu expaned, showing two child menu items, 'Calendar' and 'Month'.
