@@ -50,6 +50,7 @@ Changelog
 2.15.2 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
 
+ * Fix: CVE-2022-21683 - Comment reply notifications sent to incorrect users (Ihor Marhitych, Jacob Topp-Mugglestone)
  * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
  * Fix: Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
  * Fix: Ensure that bulk publish actions pick up the latest draft revision (Matt Westcott)
