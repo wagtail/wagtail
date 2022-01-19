@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -255,7 +256,11 @@ class ModelAdmin(WagtailRegisterable):
         """
         list_filter = self.list_filter
 
-        if issubclass(self.model, TranslatableMixin) and "locale" not in list_filter:
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and issubclass(self.model, TranslatableMixin)
+            and "locale" not in list_filter
+        ):
             list_filter += ("locale",)
 
         return list_filter
