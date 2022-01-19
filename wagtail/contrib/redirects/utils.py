@@ -38,15 +38,15 @@ def get_import_formats():
 
 def get_file_storage():
     file_storage = getattr(
-        settings, 'WAGTAIL_REDIRECTS_FILE_STORAGE', 'tmp_file'
+        settings, 'WAGTAIL_REDIRECTS_FILE_STORAGE', 'cache'
     )
-    if file_storage == 'tmp_file':
-        return TempFolderStorage
     if file_storage == 'cache':
         return RedirectsCacheStorage
+    if file_storage == 'tmp_file':
+        return TempFolderStorage
 
     raise Exception(
-        "Invalid file storage, must be either 'tmp_file' or 'cache'"
+        "Invalid file storage, must be either 'cache' or 'tmp_file'"
     )
 
 
