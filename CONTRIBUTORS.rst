@@ -489,6 +489,7 @@ Contributors
 * Kristin Riebe
 * Helder Correia
 * Kevin Breen
+* Rizwan Mansuri
 
 Translators
 ===========
