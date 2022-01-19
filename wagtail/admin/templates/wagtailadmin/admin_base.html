@@ -35,8 +35,6 @@
             wagtailConfig.I18N_ENABLED = {% if i18n_enabled %}true{% else %}false{% endif %};
             wagtailConfig.LOCALES = {{ locales|safe }};
 
-            // The locale of the current page/snippet being edited
-            wagtailConfig.ACTIVE_CONTENT_LOCALE = null;
             {% if locale %}
                 wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code }}'
             {% endif %}
