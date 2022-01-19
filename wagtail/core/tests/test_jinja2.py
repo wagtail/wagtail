@@ -52,6 +52,11 @@ class TestCoreGlobalsAndFilters(TestCase):
         self.assertEqual(
             self.render('{{ slugurl("bad-slug-doesnt-exist") }}', {}), 'None')
 
+    def test_wagtail_site(self):
+        self.assertEqual(
+            self.render('{{ wagtail_site().hostname }}'),
+            'localhost')
+
     def test_wagtail_version(self):
         self.assertEqual(
             self.render('{{ wagtail_version() }}'),
