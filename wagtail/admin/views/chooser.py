@@ -6,13 +6,14 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.urls.base import reverse
+from django.utils.http import urlencode
 
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm, EmailLinkChooserForm, ExternalLinkChooserForm, PhoneLinkChooserForm)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.core import hooks
-from wagtail.core.models import Page, Site, UserPagePermissionsProxy
+from wagtail.core.models import Locale, Page, Site, UserPagePermissionsProxy
 from wagtail.core.utils import resolve_model_string
 
 
@@ -129,9 +130,52 @@ def browse(request, parent_page_id=None):
     parent_page.can_choose = can_choose_page(
         parent_page, permission_proxy, desired_classes, can_choose_root, user_perm, target_pages=target_pages, match_subclass=match_subclass)
 
+    selected_locale = None
+    locale_options = []
     show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
     if show_locale_labels:
         pages = pages.select_related('locale')
+
+        if parent_page_id is None:
+            # 'locale' is the current value of the "Locale" selector in the UI
+            if request.GET.get('locale'):
+                selected_locale = get_object_or_404(Locale, language_code=request.GET['locale'])
+                active_locale_id = selected_locale.pk
+            else:
+                active_locale_id = Locale.get_active().pk
+
+            # we are at the Root level, so get the locales from the current pages
+            choose_url = reverse('wagtailadmin_choose_page')
+            locale_options = [
+                {
+                    'locale': locale,
+                    'url': choose_url + '?' + urlencode({
+                        'page_type': page_type_string,
+                        'locale': locale.language_code
+                    })
+                }
+                for locale in Locale.objects.filter(pk__in=pages.values_list('locale_id')).exclude(pk=active_locale_id)
+            ]
+        else:
+            # We have a parent page (that is not the root page). Use its locale as the selected localer
+            selected_locale = parent_page.locale
+            # and get the locales based on its available translations
+            locales_and_parent_pages = {
+                item['locale']: item['pk']
+                for item in Page.objects.translation_of(parent_page).values('locale', 'pk')
+            }
+            locales_and_parent_pages[selected_locale.pk] = parent_page.pk
+            for locale in Locale.objects.filter(pk__in=list(locales_and_parent_pages.keys())).exclude(pk=selected_locale.pk):
+                choose_child_url = reverse('wagtailadmin_choose_page_child', args=[locales_and_parent_pages[locale.pk]])
+
+                locale_options.append({
+                    'locale': locale,
+                    'url': choose_child_url + '?' + urlencode({'page_type': page_type_string})
+                })
+
+        # finally, filter the browseable pages on the selected locale
+        if selected_locale:
+            pages = pages.filter(locale=selected_locale)
 
     # Pagination
     # We apply pagination first so we don't need to walk the entire list
@@ -154,6 +198,8 @@ def browse(request, parent_page_id=None):
         'page_type_names': [desired_class.get_verbose_name() for desired_class in desired_classes],
         'page_types_restricted': (page_type_string != 'wagtailcore.page'),
         'show_locale_labels': show_locale_labels,
+        'locale_options': locale_options,
+        'selected_locale': selected_locale,
     })
 
     return render_modal_workflow(

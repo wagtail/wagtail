@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Locale, Page, UserPagePermissionsProxy
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -862,3 +862,98 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
         root = Page.objects.get(url_path='/')
         result = can_choose_page(root, self.permission_proxy, self.desired_classes, can_choose_root=False)
         self.assertFalse(result)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
+        self.root_page.add_child(instance=self.child_page)
+
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.root_page_fr = self.root_page.copy_for_translation(self.fr_locale)
+        self.root_page_fr.title = "Bienvenue"
+        self.root_page_fr.save()
+        self.child_page_fr = self.child_page.copy_for_translation(self.fr_locale)
+        self.child_page_fr.save()
+
+        switch_to_french_url = self.get_choose_page_url(self.fr_locale, parent_page_id=self.child_page_fr.pk)
+        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+
+        self.login()
+
+    def get(self, parent_page_id):
+        return self.client.get(reverse('wagtailadmin_choose_page_child', args=[parent_page_id]))
+
+    def get_choose_page_url(self, locale=None, parent_page_id=None, html=True):
+        if parent_page_id is not None:
+            url = reverse('wagtailadmin_choose_page_child', args=[parent_page_id])
+        else:
+            url = reverse('wagtailadmin_choose_page')
+
+        suffix = ''
+        if parent_page_id is None:
+            # the locale param should only be appended at the root level
+            if locale is None:
+                locale = self.fr_locale
+            separator = '&amp;' if html else '&'
+            suffix = f'{separator}locale={locale.language_code}'
+        return f"{url}?page_type=wagtailcore.page{suffix}"
+
+    def test_locale_selector_present_in_root_view(self):
+        response = self.client.get(reverse('wagtailadmin_choose_page'))
+        html = response.json().get("html")
+
+        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+
+        switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
+        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        self.assertIn(fr_selector, html)
+
+    def test_locale_selector(self):
+        response = self.get(self.child_page.pk)
+
+        html = response.json().get("html")
+        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertIn(self.LOCALE_SELECTOR_HTML_FR, html)
+
+    def test_locale_selector_without_translation(self):
+        self.child_page_fr.delete()
+
+        response = self.get(self.child_page.pk)
+        html = response.json().get("html")
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+
+    def test_locale_selector_with_active_locale(self):
+        switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale, html=False)
+        response = self.client.get(switch_to_french_url)
+        html = response.json().get("html")
+
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(f'data-title="{self.root_page.title}"', html)
+        self.assertIn(self.root_page_fr.title, html)
+        self.assertIn(
+            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">',
+            html
+        )
+        switch_to_english_url = self.get_choose_page_url(locale=Locale.objects.get(language_code='en'))
+        self.assertIn(
+            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live">',
+            html
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.get(self.child_page.pk)
+        html = response.json().get("html")
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
