@@ -899,10 +899,14 @@ class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
         else:
             url = reverse('wagtailadmin_choose_page')
 
-        if locale is None:
-            locale = self.fr_locale
-        separator = '&amp;' if html else '&'
-        return f"{url}?page_type=wagtailcore.page{separator}locale={locale.language_code}"
+        suffix = ''
+        if parent_page_id is None:
+            # the locale param should only be appended at the root level
+            if locale is None:
+                locale = self.fr_locale
+            separator = '&amp;' if html else '&'
+            suffix = f'{separator}locale={locale.language_code}'
+        return f"{url}?page_type=wagtailcore.page{suffix}"
 
     def test_locale_selector_present_in_root_view(self):
         response = self.client.get(reverse('wagtailadmin_choose_page'))
