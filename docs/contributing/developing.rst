@@ -197,7 +197,7 @@ Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, com
     $ npm --prefix client/tests/integration install
     $ npm run test:integration
 
-Integration tests target ``http://localhost:8000` by default. Use the ``TEST_ORIGIN`` environment variable to use a different port, or test a remote Wagtail instance: ``TEST_ORIGIN=http://localhost:9000 npm run test:integration``.
+Integration tests target ``http://localhost:8000`` by default. Use the ``TEST_ORIGIN`` environment variable to use a different port, or test a remote Wagtail instance: ``TEST_ORIGIN=http://localhost:9000 npm run test:integration``.
 
 Browser and device support
 --------------------------
