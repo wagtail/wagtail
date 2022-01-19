@@ -108,6 +108,7 @@ class WMABaseView(TemplateView):
         self.is_pagemodel = model_admin.is_pagemodel
         self.permission_helper = model_admin.permission_helper
         self.url_helper = model_admin.url_helper
+        self.locale = None
 
     def check_action_permitted(self, user):
         return True
