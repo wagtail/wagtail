@@ -92,6 +92,17 @@ Transform Wagtail's internal HTML representation, expanding internal references 
 
 See :ref:`rich-text-filter` for more information
 
+``wagtail_site``
+~~~~~~~~~~~~~~~~
+
+Returns the Site object corresponding to the current request.
+
+.. code-block:: html+jinja
+
+    {{ wagtail_site().site_name }}
+
+See :ref:`wagtile_site` for more information
+
 ``wagtailuserbar()``
 ~~~~~~~~~~~~~~~~~~~~
 

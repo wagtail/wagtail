@@ -3,7 +3,7 @@ import jinja2.nodes
 
 from jinja2.ext import Extension
 
-from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version
+from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_site, wagtail_version
 
 
 class WagtailCoreExtension(Extension):
@@ -15,6 +15,7 @@ class WagtailCoreExtension(Extension):
         self.environment.globals.update({
             'pageurl': jinja2.contextfunction(pageurl),
             'slugurl': jinja2.contextfunction(slugurl),
+            'wagtail_site': jinja2.contextfunction(wagtail_site),
             'wagtail_version': wagtail_version,
         })
         self.environment.filters.update({
