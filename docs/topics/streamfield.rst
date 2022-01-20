@@ -300,7 +300,7 @@ When reading back the content of a StreamField, the value of a StreamBlock is a 
                         {% if slide.block_type == 'image' %}
                             <li class="image">{% image slide.value width-200 %}</li>
                         {% else %}
-                            <li> class="video">{% include_block slide %}</li>
+                            <li class="video">{% include_block slide %}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
