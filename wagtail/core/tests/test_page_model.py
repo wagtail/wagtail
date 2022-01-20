@@ -18,9 +18,10 @@ from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
+from wagtail.core.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.core.models import (
-    Comment, Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site,
-    get_page_models, get_translatable_models)
+    Comment, Locale, Page, PageLogEntry, PageManager, Site, get_page_models,
+    get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
     AbstractPage, Advert, AlwaysShowInMenusPage, BlogCategory, BlogCategoryBlogPage, BusinessChild,

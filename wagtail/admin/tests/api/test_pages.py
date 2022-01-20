@@ -11,7 +11,7 @@ from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.tests.demosite import models
-from wagtail.tests.testapp.models import SimplePage, StreamPage
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -1298,6 +1298,87 @@ class TestMovePageAction(AdminAPITestCase):
 
         content = json.loads(response.content.decode("utf-8"))
         self.assertEqual(content, {"destination_page_id": ["This field is required."]})
+
+
+class TestCopyForTranslationAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "copy_for_translation"]), data
+        )
+
+    def setUp(self):
+        super().setUp()
+        self.en_homepage = Page.objects.get(url_path="/home/").specific
+        self.en_eventindex = EventIndex.objects.get(url_path="/home/events/")
+        self.en_eventpage = EventPage.objects.get(url_path="/home/events/christmas/")
+        self.root_page = self.en_homepage.get_parent()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+
+    def test_copy_homepage_for_translation(self):
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        fr_homepage = Page.objects.get(id=content["id"])
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+
+        # At the top level, the language code should be appended to the slug
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+        # Translation must be in draft
+        self.assertFalse(fr_homepage.live)
+        self.assertTrue(fr_homepage.has_unpublished_changes)
+
+    def test_copy_childpage_without_parent(self):
+        response = self.get_response(self.en_eventindex.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"message": "Parent page is not translated."})
+
+    def test_copy_childpage_with_copy_parents(self):
+        response = self.get_response(
+            self.en_eventindex.id, {"locale": "fr", "copy_parents": True}
+        )
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        fr_eventindex = Page.objects.get(id=content["id"])
+
+        self.assertNotEqual(self.en_eventindex.id, fr_eventindex.id)
+        self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(
+            fr_eventindex.translation_key, self.en_eventindex.translation_key
+        )
+        self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # This should create the homepage as well
+        fr_homepage = fr_eventindex.get_parent()
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+    def test_copy_for_translation_no_locale(self):
+        response = self.get_response(self.en_homepage.id, {})
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"locale": ["This field is required."]})
+
+    def test_copy_for_translation_unknown_locale(self):
+        response = self.get_response(self.en_homepage.id, {"locale": "de"})
+
+        self.assertEqual(response.status_code, 404)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"message": "No Locale matches the given query."})
 
 
 # Overwrite imported test cases do Django doesn't run them

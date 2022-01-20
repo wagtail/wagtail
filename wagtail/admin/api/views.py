@@ -11,6 +11,7 @@ from wagtail.core.models import Page
 
 from .actions.convert_alias import ConvertAliasPageAPIAction
 from .actions.copy import CopyPageAPIAction
+from .actions.copy_for_translation import CopyForTranslationAPIAction
 from .actions.delete import DeletePageAPIAction
 from .actions.move import MovePageAPIAction
 from .actions.publish import PublishPageAPIAction
@@ -30,6 +31,7 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         'publish': PublishPageAPIAction,
         'unpublish': UnpublishPageAPIAction,
         'move': MovePageAPIAction,
+        'copy_for_translation': CopyForTranslationAPIAction,
     }
 
     # Add has_children and for_explorer filters

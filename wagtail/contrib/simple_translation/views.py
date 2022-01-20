@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
+from wagtail.core.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.core.models import Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
@@ -47,20 +48,20 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
         form = self.get_form()
 
         if form.is_valid():
+            include_subtree = form.cleaned_data["include_subtree"]
+            user = request.user
+
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
                     if isinstance(self.object, Page):
-                        self.object.copy_for_translation(locale)
-                        if form.cleaned_data["include_subtree"]:
+                        action = CopyPageForTranslationAction(
+                            page=self.object,
+                            locale=locale,
+                            include_subtree=include_subtree,
+                            user=user,
+                        )
+                        action.execute(skip_permission_checks=True)
 
-                            def _walk(current_page):
-                                for child_page in current_page.get_children():
-                                    child_page.copy_for_translation(locale)
-
-                                    if child_page.numchild:
-                                        _walk(child_page)
-
-                            _walk(self.object)
                     else:
                         self.object.copy_for_translation(
                             locale

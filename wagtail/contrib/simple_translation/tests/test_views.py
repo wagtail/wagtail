@@ -10,7 +10,8 @@ from wagtail.contrib.simple_translation.models import after_create_page
 from wagtail.contrib.simple_translation.views import (
     SubmitPageTranslationView, SubmitSnippetTranslationView, SubmitTranslationView)
 from wagtail.core import hooks
-from wagtail.core.models import Locale, Page, ParentNotTranslatedError
+from wagtail.core.actions.copy_for_translation import ParentNotTranslatedError
+from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.snippets.models import TranslatableSnippet
 from wagtail.tests.utils import TestCase, WagtailTestUtils
