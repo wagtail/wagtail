@@ -558,6 +558,7 @@ Contributors
 * Vu Pham
 * Khanh Hoang
 * Jason Attwood
+* Vladimir Tananko
 
 Translators
 ===========

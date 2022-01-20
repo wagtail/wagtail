@@ -36,6 +36,8 @@ Changelog
  * Ensure site summary items wrap on smaller devices on the admin home page (Jérôme Lebleu)
  * Rework Workflow task chooser modal to align with other chooser modals, using consistent pagination and leveraging class based views (Matt Westcott)
  * Implemented a locale switcher on the forms listing page in the admin (Dan Braghis)
+ * Implemented a locale switcher on the page chooser modal (Dan Braghis)
+ * Implemented the `wagtail_site` template tag for Jinja2 (Vladimir Tananko)
  * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast, help/error/warning blocks for fields and general content, side comment buttons within the page editor, dropdown buttons (Sakshi Uppoor, Shariq Jamil, LB (Ben Johnston), Jason Attwood)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
  * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
