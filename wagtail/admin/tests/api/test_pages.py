@@ -11,11 +11,7 @@ from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.tests.demosite import models
-<<<<<<< HEAD
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
-=======
-from wagtail.tests.testapp.models import EventIndex, SimplePage, StreamPage
->>>>>>> Add create page alias admin API
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
