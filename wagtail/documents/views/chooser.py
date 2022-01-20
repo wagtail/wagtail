@@ -109,7 +109,7 @@ class ChooseView(BaseChooseView):
             json_data={
                 'step': 'chooser',
                 'error_label': _("Server Error"),
-                'error_message': _("Report this error to your webmaster with the following information:"),
+                'error_message': _("Report this error to your website administrator with the following information:"),
                 'tag_autocomplete_url': reverse('wagtailadmin_tag_autocomplete'),
             }
         )
