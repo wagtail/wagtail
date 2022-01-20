@@ -571,7 +571,7 @@ class BaseTaskChooserView(TemplateView):
     def get_form_js_context(self):
         return {
             'error_label': _("Server Error"),
-            'error_message': _("Report this error to your webmaster with the following information:"),
+            'error_message': _("Report this error to your website administrator with the following information:"),
         }
 
     def get_task_listing_context_data(self):
