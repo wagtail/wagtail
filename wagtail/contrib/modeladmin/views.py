@@ -811,7 +811,9 @@ class EditView(ModelFormView, InstanceSpecificView):
         if self.is_pagemodel:
             return redirect(self.url_helper.get_action_url("edit", self.pk_quoted))
 
-        if self.locale:
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
             translations = []
             for translation in self.instance.get_translations().select_related(
                 "locale"
