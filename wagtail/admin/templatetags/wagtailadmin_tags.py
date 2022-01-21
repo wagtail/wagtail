@@ -8,7 +8,6 @@ from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Min, QuerySet
 from django.forms import Media
 from django.shortcuts import resolve_url as resolve_url_func
@@ -19,7 +18,7 @@ from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.html import avoid_wrapping, format_html, format_html_join
+from django.utils.html import avoid_wrapping, format_html, format_html_join, json_script
 from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
@@ -782,7 +781,7 @@ def sidebar_collapsed(context):
 
 
 @register.simple_tag(takes_context=True)
-def menu_props(context):
+def sidebar_props(context):
     request = context['request']
     search_areas = admin_search_areas.search_items_for_request(request)
     if search_areas:
@@ -802,9 +801,9 @@ def menu_props(context):
     ]
     modules = [module for module in modules if module is not None]
 
-    return json.dumps({
+    return json_script({
         'modules': JSContext().pack(modules),
-    }, cls=DjangoJSONEncoder)
+    }, element_id="wagtail-sidebar-props")
 
 
 @register.simple_tag
