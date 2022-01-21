@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,37 +66,55 @@ msgstr ""
 msgid "To field"
 msgstr ""
 
-#: models.py:10
+#: models.py:11
 msgid "redirect from"
 msgstr ""
 
-#: models.py:13
+#: models.py:14
 msgid "site"
 msgstr ""
 
-#: models.py:19 models.py:49
+#: models.py:20 models.py:72
 msgid "permanent"
 msgstr ""
 
-#: models.py:20
+#: models.py:21
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 
-#: models.py:25
+#: models.py:26
 msgid "redirect to a page"
 msgstr ""
 
-#: models.py:29
+#: models.py:31
+msgid "target page route"
+msgstr ""
+
+#: models.py:33
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+
+#: models.py:39
 msgid "redirect to any URL"
 msgstr ""
 
-#: models.py:51
+#: models.py:41
+msgid "automatically created"
+msgstr ""
+
+#: models.py:45
+msgid "created at"
+msgstr ""
+
+#: models.py:74
 msgid "temporary"
 msgstr ""
 
-#: models.py:129
+#: models.py:180
 msgid "redirect"
 msgstr ""
 
@@ -262,6 +280,7 @@ msgid "Search redirects"
 msgstr ""
 
 #: views.py:92
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr ""
 
@@ -274,10 +293,12 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 
 #: views.py:121
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr ""
 
 #: views.py:138
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr ""
 
