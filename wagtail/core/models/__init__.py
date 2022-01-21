@@ -493,7 +493,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # Basically: If update_fields has been specified, and slug is not included, skip this step
             if not ('update_fields' in kwargs and 'slug' not in kwargs['update_fields']):
                 # see if the slug has changed from the record in the db, in which case we need to
-                # update url_path of self and all descendants
+                # update url_path of self and all descendants. Even though we might not need it,
+                # the specific page is fetched here for sending to the 'page_slug_changed' signal.
                 old_record = Page.objects.get(id=self.id).specific
                 if old_record.slug != self.slug:
                     self.set_url_path(self.get_parent())
