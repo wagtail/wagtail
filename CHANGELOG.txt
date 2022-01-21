@@ -25,6 +25,7 @@ Changelog
  * Improve the visibility of field error messages, in Windows high-contrast mode and out (Jason Attwood)
  * Improve implementations of visually-hidden text in explorer and main menu toggle (Martin Coote)
  * Add locale labels to page listings (Dan Braghis)
+ * Add locale labels to page reports (Dan Braghis)
  * Change release check domain to releases.wagtail.org (Jake Howard)
  * Add the user who submitted a page for moderation to the "Awaiting your review" homepage summary panel (Tidiane Dia)
  * When moving pages, default to the current parent section (Tidjani Dia)
