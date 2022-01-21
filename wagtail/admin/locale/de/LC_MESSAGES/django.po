@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Alexander Weiß, 2021
+# aw.wunderweiss, 2021
 # benebun <benedikt.breinbauer@gmail.com>, 2021
 # Benedikt Willi <ben.willi@gmail.com>, 2020
 # Benjamin Kaspar <bennykaspar@gmail.com>, 2021
@@ -45,8 +45,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-09 11:00+0000\n"
-"Last-Translator: Alexander Weiß\n"
+"PO-Revision-Date: 2021-11-16 16:54+0000\n"
+"Last-Translator: aw.wunderweiss\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -1167,11 +1167,42 @@ msgstr[1] " %(counter)s Seiten löschen"
 msgid "Are you sure you want to delete these pages?"
 msgstr "Sind Sie sicher, dass Sie diese Seiten löschen möchten?"
 
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "Sie haben nicht die Berechtigung diese Seite zu löschen"
+msgstr[1] "Sie haben nicht die Berechtigung diese Seiten zu löschen"
+
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "1 Seite verschieben"
+msgstr[1] "%(counter)s Seiten verschieben"
+
 msgid "Move"
 msgstr "Verschieben"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Sind Sie sicher, dass Sie diese Seiten verschieben möchten?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"Diese Seite hat eine Unterseite"
+msgstr[1] ""
+"\n"
+"                    Diese Seite hat %(counter)s "
+"Unterseiten                    "
 
 msgid "You don't have permission to move this page"
 msgid_plural "You don't have permission to move these pages"
@@ -1185,11 +1216,37 @@ msgstr[1] ""
 msgid "There is no valid destination page for these pages"
 msgstr "Es existiert kein gültiges Ziel für diese Seiten"
 
+msgid "Yes, move these pages"
+msgstr "Ja, Seiten jetzt verschieben"
+
 msgid "No, don't move"
 msgstr "Nein, nicht verschieben"
 
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "1 Seite veröffentlichen"
+msgstr[1] "%(counter)s Seiten veröffentlichen"
+
 msgid "Are you sure you want to publish these pages?"
 msgstr "Wollen Sie diese Seiten veröffentlichen?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                 Diese Seite hat 1 unveröffentlichte Unterseite"
+msgstr[1] ""
+"\n"
+"                 Diese Seite hat %(counter)s unveröffentlichte "
+"Unterseiten                "
 
 msgid "You don't have permission to publish this page"
 msgid_plural "You don't have permission to publish these pages"
@@ -1198,6 +1255,19 @@ msgstr[1] "Sie haben nicht die Berechtigung diese Seiten zu veröffentlichen"
 
 msgid "Yes, publish"
 msgstr "Ja, veröffentlichen"
+
+msgid "No, don't publish"
+msgstr "Nein, nicht veröffentlichen"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "1 Seite veröffentlichen"
+msgstr[1] "%(counter)s Seiten veröffentlichen"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr ""
+"Sind Sie sicher, dass Sie die Veröffentlichung dieser Seiten aufheben wollen?"
 
 msgid "No, don't unpublish"
 msgstr "Nein, veröffentlicht belassen"

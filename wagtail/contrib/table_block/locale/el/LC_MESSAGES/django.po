@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # Yiannis Inglessis <negtheone@gmail.com>, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2022-01-04 10:13+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail table block"
+msgstr "Μπλοκ πίνακα Wagtail"
 
 msgid "Row header"
 msgstr "Επικεφαλίδα γραμμής"
@@ -31,3 +35,16 @@ msgstr "Επικεφαλίδα στήλης"
 
 msgid "Display the first column as a header."
 msgstr "Εμφάνιση της πρώτης στήλης ως επικεφαλίδα."
+
+msgid "Table caption"
+msgstr "Λεζάντα πίνακα"
+
+msgid ""
+"A heading that identifies the overall topic of the table, and is useful for "
+"screen reader users"
+msgstr ""
+"Επικεφαλίδα που αναφέρει το γενικό περιεχόμενο του πίνακα και είναι χρήσιμη "
+"για προγράμματα ανάγνωσης οθόνης"
+
+msgid "Table"
+msgstr "Πίνακας"

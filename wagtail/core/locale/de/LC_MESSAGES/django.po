@@ -19,6 +19,7 @@
 # oliverengel <codeangel@posteo.de>, 2021
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # Peter Dreuw <archandha@gmx.net>, 2019
+# th3hamm0r <stefan@hammerworxx.com>, 2022
 # Tammo van Lessen <tvanlessen@gmail.com>, 2015
 # Vorlif <flori@vorlif.org>, 2015,2017
 # Wasilis Mandratzis-Walz, 2015
@@ -28,8 +29,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 11:34+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
+"PO-Revision-Date: 2022-01-17 11:34+0000\n"
+"Last-Translator: th3hamm0r <stefan@hammerworxx.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -621,7 +622,7 @@ msgstr ""
 "zurückgekehrt"
 
 msgid "Reverted to previous revision"
-msgstr "Zu vorheriger Revison zurückgekehrt"
+msgstr "Zu vorheriger Revision zurückgekehrt"
 
 msgid "Copy"
 msgstr "Kopieren"
@@ -675,11 +676,38 @@ msgstr "Umsortiert"
 msgid "Schedule publication"
 msgstr "Veröffentlichung einplanen"
 
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Revision %(revision_id)s vom %(created_at)s zur Veröffentlichung am "
+"%(go_live_at)s eingeplant."
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Seite zur Veröffentlichung am %(go_live_at)s eingeplant"
+
 msgid "Page scheduled for publishing"
 msgstr "Seite zur Veröffentlichung eingeplant"
 
 msgid "Unschedule publication"
 msgstr "Geplante Veröffentlichung aufheben"
+
+#, python-format
+msgid ""
+"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
+"%(go_live_at)s."
+msgstr ""
+"Geplante Veröffentlichung von Revision %(revision_id)s vom %(created_at)s am "
+"%(go_live_at)s aufgehoben."
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Veröffentlichung der Seite am %(go_live_at)s aufgehoben"
+
+msgid "Page unscheduled from publishing"
+msgstr "Geplante Veröffentlichung der Seite aufgehoben"
 
 msgid "Add comment"
 msgstr "Kommentar hinzufügen"

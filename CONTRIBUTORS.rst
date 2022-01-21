@@ -579,14 +579,14 @@ Translators
 * Croatian (Croatia): Dino Aljević, Marko Burazin, Ivica Dosen, Luka Matijević
 * Czech: Ales Dvorak, Martin Galda, IT Management, Tomáš Jeřábek, Vláďa Macek, Eva Mikesova, Mořeplavec, Sophy O, Martina Oleksakova, Krystof Pilnacek, Ivan Pomykacz, Jiri Stepanek, Marek Turnovec, Mirek Zvolský
 * Danish: Mads Kronborg, MRostgaard, Asger Sørensen
-* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
+* Dutch: benny_AT_it_digin.com, Bram, Ramon de Jezus Brecht Dervaux, Harmen, Storm Heg, Kees Hink, Huib Keemink, Franklin Kingma, Maarten Kling, Thijs Kramer, Samuel Leeuwenburg, mahulst, Meteor0id, Rob Moorman, Benjamin van Renterghem, Michael van Tellingen, Arne Turpyn, Coen van der Kamp
 * Estonian: Erlend Eelmets, Ragnar Rebase
 * Finnish: Jiri Grönroos, Eetu Häivälä, Niklas Jerva, Aarni Koskela, Rauli Laine, Valter Maasalo, Glen Somerville, Juha Yrjölä
 * French: Adrien, Timothy Allen, Sebastien Andrivet, Bertrand Bordage, André Bouatchidzé, Aurélien Debord, Romain Dorgueil, Tom Dyson, Antonin Enfrun, Axel Haustant, Renaud Kern, Fabien Le Frapper, Léo, Pierre Marfoure, nahuel, Sophy O, Dominique Peretti, fpoulain, Loïc Teixeira, Benoît Vogel
 * Galician: Amós Oviedo
 * Georgian: André Bouatchidzé
 * German: Ettore Atalan, Bohreromir, Benedikt Breinbauer, Donald Buczek, Patrick Craston, Peter Dreuw, Oliver Engel, Stefan Hammer, Patrick Hebner, Krzysztof Jeziorny, Benjamin Kaspar, Henrik Kröger, Tibor L, Tammo van Lessen, Martin Löhle, Wasilis Mandratzis-Walz, Daniel Manser, Matthias Martin, m0rph3u5, Max Pfeiffer, Moritz Pfeiffer, Herbert Poul, Karl Sander, Tobias Schmidt, Scriptim, Johannes Spielmann, Raphael Stolt, Benjamin Thurm, Norman Uekermann, unicode_it, Jannis Vajen, Vorlif, Alexander Weiß, Matthew Westcott, Benedikt Willi
-* Greek: Jim Dal, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
+* Greek: Jim Dal, Dimitri Fekas, George Giannoulopoulos, Yiannis Inglessis, Wasilis Mandratzis-Walz, Nick Mavrakis, NeotheOne, Serafeim Papastefanos
 * Haitian: Hantz Vius
 * Hebrew (Israel): Lior Abazon, bjesus, Yossi Lalum, Men770, Adi Ron, Oleg Sverdlov
 * Hungarian: Istvan Farkas, Laszlo Molnar, Kornél Novák Mergulhão, BN, Aron Santa
@@ -602,10 +602,10 @@ Translators
 * Norwegian Bokmål: Eirik Krogstad, Ole Kristian Losvik, Robin Skahjem-Eriksen, Stein Strindhaug
 * Persian: Mohsen Hassani, Ehsan Jahanbakhsh, Mohammad reza Jelveh, Mehdi, Mohammad Hossein Mojtahedi, Hamed Najand, Mohammad Sharif Shokouhi, Py Zenberg
 * Polish: Łukasz Bołdys, Krzysztof Jeziorny, Konrad Lalik, Miron Levitsky, Mateusz, Miłosz Miśkiewicz, Bartek Sielicki, Grzegorz Wasilewski, Bartosz Wiśniewski
-* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, AM, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Vitor Hugo da Silva Lima, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Ed Wurch
-* Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva
+* Portuguese (Brazil): Claudemiro Alves Feitosa Neto, AM, Bruno Bertoldi, Luiz Boaretto, Éder Brito, Gladson Brito, Thiago Cangussu, Daniel Carvalho, Vitor Hugo da Silva Lima, Rodrigo de Almeida Sottomaior Macedo, Gilson Filho, Joao Garcia, João Luiz Lorencetti, Iuri L. Machado, Marcio Mazza, Douglas Miranda, Guilherme Nabanete, Ed Wurch
+* Portuguese (Portugal): Gladson Brito, Hugo Cachitas, Thiago Cangussu, Luís Tiago Favas, Diogo Gomes, Tiago Henriques, Jose Lourenco, Rui Martins, Nuno Matos, Douglas Miranda, Diogo Ribeiro, Diogo Silva, Manuela Silva
 * Romanian: Dan Braghis, Julian C, Bogdan Mateescu
-* Russian: ajk, Anatoly, Andrey Avdey, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Sergey Mazanov, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov, Vlad
+* Russian: ajk, Anatoly, Andrey Avdey, Vitaly Chekryzhev, Daniil, Mikhail Gerasimov, gsstver, sergeybe, Sergey Khalymon, Sergey Komarov, Miron Levitskiy, Arseni M, Sergey Mazanov, Eugene MechanisM, Rustam Mirzaev, Alexander Penshin, Mikalai Radchuk, Alexandr Romantsov, Mikhail Sidorov, Nikita Tonkoshkur, Alexey Trofimov, Tatsiana Tsygan, Viktor, Nikita Viktorovich, Vassiliy Vorobyov, Vlad
 * Serbian: Nikola Kadić
 * Slovak (Slovakia): Stevo Backor, dellax, Jozef Gáborík, Martin Janšto, Jozef Karabelly
 * Slovenian: Mitja Pagon, Lev Predan Kowarski, Urban Prevc, Matej Stavanja
@@ -616,5 +616,5 @@ Translators
 * Turkish: Saadettin Yasir Akel, Umut Bektaş, Zafer Cengiz, Cihad Gündoǧdu, Basitlik İyidir, Fatih Koç koç, José Luis, Py Data, Ahmet Sarıcan, Halim Turan, Ragıp Ünal, Suayip Uzulmez
 * Turkish (Turkey): Saadettin Yasir Akel, Basitlik İyidir, Umut Bektaş, Aydın Zafer Cengiz, lzm dgl, Cihad Gündoǧdu, Ahmet Serdar Karadeniz, Fatih Koç koç, José Luis, Py Data, Halim Turan, Ragıp Ünal
 * Ukrainian: Yuri Fabirovsky, Vladislav Herasimenko, Mikolai Incognito, Anastasiia La, Sergiy Shkodenko, Viktor Shytiuk, Ivan Tyshchenko, Zoriana Zaiats, Mykola Zamkovoi
-* Vietnamese: Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen
+* Vietnamese: Duc Huynh, Hồng Quân Nguyễn, Luan Nguyen, Vu Pham
 * Welsh: Adam Hughes

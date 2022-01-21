@@ -7,6 +7,7 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Éder Brito <britoederr@gmail.com>, 2021
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
+# Iuri L. Machado, 2021
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
@@ -18,8 +19,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-11-16 18:51+0000\n"
+"Last-Translator: Iuri L. Machado\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -438,12 +439,22 @@ msgstr "entradas de log"
 msgid "The log action '{}' has not been registered."
 msgstr "A ação de log '{}' não foi registrada."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "usuário%(id)s(excluído)"
+
 msgid "system"
 msgstr "sistema"
 
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "%(action)s desconhecida"
+
+msgid "model log entry"
+msgstr "entrada de registro do modelo"
+
+msgid "model log entries"
+msgstr "entradas de registro do modelo"
 
 msgid "collection"
 msgstr "coleção"
@@ -653,6 +664,16 @@ msgstr "Copiado de %(title)s"
 msgid "Copied"
 msgstr "Copiado"
 
+msgid "Copy for translation"
+msgstr "Cópia para tradução"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiado para tradução de%(title)s(%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Copiado para tradução"
+
 msgid "Create alias"
 msgstr "Criar alias"
 
@@ -662,6 +683,9 @@ msgstr "Criado um alias de %(title)s"
 
 msgid "Created an alias"
 msgstr "Criado um alias"
+
+msgid "Convert alias into ordinary page"
+msgstr "Converta o alias em uma página comum"
 
 #, python-format
 msgid "Converted the alias '%(title)s' into an ordinary page"
@@ -708,6 +732,9 @@ msgstr "Página agendada para publicação em %(go_live_at)s"
 msgid "Page scheduled for publishing"
 msgstr "Página agendada para publicação"
 
+msgid "Unschedule publication"
+msgstr "Cancelar o agendamento da publicação"
+
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
@@ -723,6 +750,9 @@ msgstr "Página não agendada para publicação em %(go_live_at)s"
 msgid "Page unscheduled from publishing"
 msgstr "Página não agendada para publicação"
 
+msgid "Add view restrictions"
+msgstr "Adicionar restrições de visualização"
+
 #, python-format
 msgid "Added the '%(restriction)s' view restriction"
 msgstr "Adicionada a visualização de restrição '%(restriction)s'"
@@ -733,6 +763,13 @@ msgstr "Adicionada restrição de visualização"
 msgid "Update view restrictions"
 msgstr "Atualizar restrições de visualização"
 
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Atualizada a restrição de visualização para '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Restrição de visualização atualizada"
+
 msgid "Remove view restrictions"
 msgstr "Remover restrições de visualização"
 
@@ -740,8 +777,131 @@ msgstr "Remover restrições de visualização"
 msgid "Removed the '%(restriction)s' view restriction"
 msgstr "Removida a restrição de visualização de '%(restriction)s' "
 
+msgid "Removed view restriction"
+msgstr "Restrição de visualização removida"
+
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Adicionou um comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Added a comment"
+msgstr "Adicionou um comentário "
+
+msgid "Edit comment"
+msgstr "Editar comentário"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Editou um comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Editou um comentário"
+
+msgid "Delete comment"
+msgstr "Excluir comentário"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Excluiu um comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Excluiu um comentário"
+
+msgid "Resolve comment"
+msgstr "Resolver comentário"
+
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Resolveu um comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Resolveu um comentário"
+
+msgid "Reply to comment"
+msgstr "Responder comentário"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Respondeu um comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Respondeu um comentário"
+
+msgid "Edit reply to comment"
+msgstr "Editar resposta do comentário"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Editou uma resposta ao comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Editou uma resposta"
+
+msgid "Delete reply to comment"
+msgstr "Excluir resposta do comentário"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Excluiu uma resposta do comentário no campo%(field)s: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Excluiu uma resposta"
+
+msgid "Workflow: start"
+msgstr "Fluxo de trabalho: iniciar"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' iniciado. Próximo passo '%(task)s'"
+
 msgid "Workflow started"
 msgstr "Fluxo de trabalho iniciado"
+
+msgid "Workflow: approve task"
+msgstr "Fluxo de trabalho: aprovar tarefa"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Aprovado '%(task)s'. Próximo passo '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Aprovado a '%(task)s'. Completo '%(workflow)s'"
+
+msgid "Workflow task approved"
+msgstr "Tarefa do fluxo de trabalho aprovada"
+
+msgid "Workflow: reject task"
+msgstr "Fluxo de trabalho: rejeitar tarefa"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Rejeitado '%(task)s'. Alterações requisitadas"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr ""
+"Tarefa do fluxo de trabalho rejeitada. O fluxo de trabalho está completo"
+
+msgid "Workflow: resume task"
+msgstr "Fluxo de trabalho: resumir tarefa"
+
+#, python-format
+msgid "Resubmitted '%(task)s'. Workflow resumed'"
+msgstr "Submissão repetida '%(task)s'. Fluxo de trabalho resumido'"
+
+msgid "Workflow task resubmitted. Workflow resumed"
+msgstr ""
+"Tarefa do fluxo de trabalho submetida novamente. Fluxo de trabalho resumido"
+
+msgid "Workflow: cancel"
+msgstr "Fluxo de trabalho: cancelar"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "'%(workflow)s' cancelado devido a '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Fluxo de trabalho cancelado"

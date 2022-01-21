@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # serafeim <serafeim@torchbox.com>, 2014,2016
 # serafeim <serafeim@torchbox.com>, 2014,2016
@@ -12,8 +13,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: George Giannoulopoulos <vdotoree@yahoo.gr>\n"
+"PO-Revision-Date: 2022-01-04 23:41+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail embeds"
+msgstr "Ενσωματώσεις Wagtail"
 
 msgid "Cannot find an embed for this URL."
 msgstr "Δε βρέθηκε τρόπος ενσωμάτωσης για τη διεύθυνση αυτή."
@@ -33,6 +37,9 @@ msgstr "Παρακαλώ εισάγετε μια διεύθυνση"
 
 msgid "embed"
 msgstr "ενσωμάτωση"
+
+msgid "embeds"
+msgstr "ενσωματώσεις"
 
 msgid "Insert embed"
 msgstr "Εισαγωγή ενσωμάτωσης"

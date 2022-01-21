@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2022-01-04 23:36+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -26,17 +27,35 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Add Comment"
+msgstr "Προσθήκη σχολίου"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Ο ελάχιστος αριθμός στοιχείων είναι %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Ο μέγιστος αριθμός στοιχείων είναι %d"
+
 msgid "Move up"
 msgstr "Πάνω"
 
 msgid "Move down"
 msgstr "Κάτω"
 
+msgid "Duplicate"
+msgstr "Αναπαραγωγή"
+
 msgid "Delete"
 msgstr "Διαγραφή"
 
 msgid "Add"
 msgstr "Προσθήκη"
+
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: αυτό το μπλοκ δεν έχει επιλογές"
 
 msgid "This block has no options."
 msgstr "Αυτό το block δεν έχει επιλογές."
@@ -49,6 +68,9 @@ msgstr "Κωδικός"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Ο κωδικός που εισαγάγατε δεν είναι σωστός. Προσπαθήστε ξανα."
+
+msgid "Comment"
+msgstr "Σχόλιο"
 
 msgid "title"
 msgstr "τίτλος"
@@ -81,6 +103,16 @@ msgstr "Διεύθυνση URL"
 msgid "owner"
 msgstr "ιδιοκτήτης"
 
+msgid "title tag"
+msgstr "ετικέτα τίτλου"
+
+msgid ""
+"The name of the page displayed on search engine results as the clickable "
+"headline."
+msgstr ""
+"Το όνομα της σελίδας που εμφανίζεται ως επικεφαλίδα-σύνδεσμος σε μηχανές "
+"αναζήτησης"
+
 msgid "show in menus"
 msgstr "εμφάνιση στα μενού"
 
@@ -89,6 +121,15 @@ msgid ""
 msgstr ""
 "Επιλέξτε αν μια σύνδεση σε αυτή τη σελίδα θα εμφανιστεί στα μενού που "
 "δημιουργούνται αυτόματα"
+
+msgid "meta description"
+msgstr "Περιγραφή"
+
+msgid ""
+"The descriptive text displayed underneath a headline in search engine "
+"results."
+msgstr ""
+"Το κείμενο που εμφανίζεται κάτω από την επικεφαλίδα σε μηχανές αναζήτησης"
 
 msgid "go live date/time"
 msgstr "ημερομηνία/ώρα δημοσίευσης"
@@ -102,11 +143,23 @@ msgstr "έχει λήξει"
 msgid "locked"
 msgstr "κλειδωμένο"
 
+msgid "locked at"
+msgstr "κλειδώθηκε στις"
+
+msgid "locked by"
+msgstr "κλειδώθηκε από"
+
 msgid "first published at"
 msgstr "πρώτη δημοσίευση στις"
 
+msgid "last published at"
+msgstr "τελευταία δημοσίευση στις"
+
 msgid "latest revision created at"
 msgstr "τελευταία αναθεώρηση δημιουργήθηκε στις"
+
+msgid "live revision"
+msgstr "τρέχουσα αναθεώρηση"
 
 msgid "This slug is already in use"
 msgstr "Το slug χρησιμοποιείται ήδη"
@@ -114,8 +167,17 @@ msgstr "Το slug χρησιμοποιείται ήδη"
 msgid "scheduled"
 msgstr "έχει προγραμματιστεί"
 
+msgid "in moderation"
+msgstr "υπό έλεγχο"
+
 msgid "draft"
 msgstr "draft"
+
+msgid "live + scheduled"
+msgstr "τρέχουσα + προγραμματισμένη"
+
+msgid "live + in moderation"
+msgstr "τρέχουσα + υπό έλεγχο"
 
 msgid "live + draft"
 msgstr "live + draft "
@@ -174,6 +236,15 @@ msgstr "Διαγραφή σελιδών με υποσελίδες"
 msgid "Lock"
 msgstr "Κλείδωμα"
 
+msgid "Lock/unlock pages you've locked"
+msgstr "Κλείδωμα/ξεκλείδωμα σελίδων που έχετε κλειδώσει"
+
+msgid "Unlock"
+msgstr "Ξεκλείδωμα"
+
+msgid "Unlock any page"
+msgstr "Ξεκλείδωμα οποιασδήποτε σελίδας"
+
 msgid "group"
 msgstr "ομάδα"
 
@@ -192,8 +263,53 @@ msgstr "περιορισμός προβολής σελίδων"
 msgid "page view restrictions"
 msgstr "περιορισμός προβολών σελίδων"
 
+msgid "workflow"
+msgstr "ροή εργασιών"
+
+msgid "workflow page"
+msgstr "σελίδα ροής εργασιών"
+
+msgid "workflow pages"
+msgstr "σελίδες ροής εργασιών"
+
+msgid "workflow_tasks"
+msgstr "ροή_εργασιών_εργασίες"
+
+msgid "task"
+msgstr "εργασία"
+
+msgid "workflow task order"
+msgstr "σειρά εργασιών της ροής εργασιών"
+
+msgid "workflow task orders"
+msgstr "σειρές εργασιών της ροής εργασιών"
+
 msgid "name"
 msgstr "όνομα"
+
+msgid "active"
+msgstr "εν ενεργεία"
+
+msgid ""
+"Active tasks can be added to workflows. Deactivating a task does not remove "
+"it from existing workflows."
+msgstr ""
+"Εργασίες εν ενεργεία μπορούν να προστεθούν σε ροές εργασιών . Η "
+"απενεργοποίηση μιας εργασίας δεν την διαγράφει από υπάρχοντες ροές "
+"εργασιών.  "
+
+msgid "tasks"
+msgstr "εργασίες"
+
+msgid ""
+"Active workflows can be added to pages. Deactivating a workflow does not "
+"remove it from existing pages."
+msgstr ""
+"Ροές εργασιών εν ενεργεία μπορούν να προστεθούν σε σελίδες. Η απενεργοποίηση "
+"μιας ροής εργασιών δεν την διαγράφει από υπάρχουσες σελίδες."
+
+msgid "workflows"
+msgstr "ροές εργασιών"
 
 msgid "groups"
 msgstr "ομάδες"
@@ -254,6 +370,9 @@ msgstr "site"
 msgid "sites"
 msgstr "sites"
 
+msgid "default"
+msgstr "προεπιλογή"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -300,11 +419,50 @@ msgstr "Θα χρειαστείτε κωδικό για να δείτε αυτή
 msgid "Continue"
 msgstr "Συνέχεια"
 
+msgid "English"
+msgstr "Αγγλικά"
+
+msgid "French"
+msgstr "Γαλλικά"
+
+msgid "German"
+msgstr "Γερμανικά"
+
+msgid "Create"
+msgstr "Δημιουργία"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
 msgid "Save draft"
 msgstr "Αποθήκευση σχεδίου"
 
+msgid "Draft saved"
+msgstr "Προσχέδιο αποθηκεύτηκε"
+
+msgid "Deleted"
+msgstr "Διαγράφηκε"
+
+msgid "Published"
+msgstr "Δημοσιεύθηκε"
+
+msgid "Publish scheduled draft"
+msgstr "Δημοσίευση προγραμματισμένου προσχεδίου"
+
+msgid "Published scheduled draft"
+msgstr "Προγραμματισμένο προσχέδιο δημοσιεύτηκε"
+
 msgid "Unpublish"
 msgstr "Κατάργηση δημοσίευσης"
+
+msgid "Unpublished"
+msgstr "Αποδημοσιεύτηκε"
+
+msgid "Unpublish scheduled draft"
+msgstr "Αποδημοσίευση προγραμματισμένου προσχεδίου"
+
+msgid "Unpublished scheduled draft"
+msgstr "Προγραμματισμένο προσχέδιο αποδημοσιεύτηκε"
 
 msgid "Locked"
 msgstr "Κλειδωμένο"
@@ -314,6 +472,16 @@ msgstr "Ξεκλειδωμενο"
 
 msgid "Reject"
 msgstr "Απόρριψη"
+
+msgid "Rename"
+msgstr "μετονομασία"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Μετονομάστηκε από '%(old)s' σε '%(new)s' "
+
+msgid "Renamed"
+msgstr "Μετονομάστηκε"
 
 msgid "Copy"
 msgstr "Αντιγραφή"

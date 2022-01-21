@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Diogo Gomes, 2021
 # Diogo Silva <diogo_silva30@hotmail.com>, 2021
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
 # Luís Tiago Favas <al62006@utad.eu>, 2020
@@ -15,8 +16,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2021-12-03 20:58+0000\n"
+"Last-Translator: Diogo Gomes\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -436,6 +437,10 @@ msgstr "entradas no diário"
 msgid "The log action '{}' has not been registered."
 msgstr "A ação de registo '{}' não foi registada."
 
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "utilizador %(id)s (eliminado)"
+
 msgid "system"
 msgstr "sistema"
 
@@ -652,6 +657,16 @@ msgstr "Copiado de %(title)s"
 msgid "Copied"
 msgstr "Copiado"
 
+msgid "Copy for translation"
+msgstr "Cópiar para tradução"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Copiado para tradução de%(title)s(%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Copiado para tradução"
+
 msgid "Create alias"
 msgstr "Criar pseudónimo"
 
@@ -661,6 +676,9 @@ msgstr "Criado um pseudónimo para %(title)s"
 
 msgid "Created an alias"
 msgstr "Criado um pseudónimo"
+
+msgid "Convert alias into ordinary page"
+msgstr "Converter pseudónimo numa página normal"
 
 msgid "Move"
 msgstr "Mover"
@@ -762,6 +780,10 @@ msgstr "Editou um comentário"
 
 msgid "Delete comment"
 msgstr "Apagar comentário"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Eliminado um comentário no campo%(field)s: \"%(text)s\""
 
 msgid "Deleted a comment"
 msgstr "Apagou um comentário"

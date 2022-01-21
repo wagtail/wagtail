@@ -8,6 +8,7 @@
 # Douglas Miranda <douglasmirandasilva@gmail.com>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
+# Iuri L. Machado, 2021
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2018,2021
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -17,8 +18,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"PO-Revision-Date: 2021-11-20 01:37+0000\n"
+"Last-Translator: Iuri L. Machado\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -129,14 +130,72 @@ msgstr "Perfil de usuário"
 msgid "user profiles"
 msgstr "perfis de usuário"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Atribuir função a 1 usuário"
+msgstr[1] "Atribuir função a %(counter)susuários"
+
+msgid "Assign role"
+msgstr "Atribuir função"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Você tem certeza que atribuir essas funções a estes usuários?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Você não tem permissão para editar este usuário"
+msgstr[1] "Você não tem permissão para editar estes usuários"
+
+msgid "Yes, assign"
+msgstr "Atribuir"
+
+msgid "No, don't assign"
+msgstr "Não atribuir"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Excluir 1 usuário"
+msgstr[1] "Excluir%(counter)susuários"
+
 msgid "Delete"
 msgstr "Remover"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Você tem certeza que deseja excluir estes usuários?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Você não tem permissão para excluir este usuário"
+msgstr[1] "Você não tem permissão para excluir estes usuários"
 
 msgid "Yes, delete"
 msgstr "Sim, remova"
 
 msgid "No, don't delete"
 msgstr "Não, não apague"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Alterar o estado ativo para 1 usuário"
+msgstr[1] "Alterar o estado ativo para %(counter)s usuários"
+
+msgid "Set active state"
+msgstr "Ativar estado"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Tem certeza de que deseja alterar o estado ativo para estes usuários?"
+
+msgid "You cannot change your own active status"
+msgstr "Você não pode alterar seu próprio status ativo"
+
+msgid "Yes, change state"
+msgstr "Alterar estado"
+
+msgid "No, don't change state"
+msgstr "Não alterar estado"
 
 msgid "Delete group"
 msgstr "Remover grupo"
@@ -200,6 +259,9 @@ msgstr "Adicionar"
 msgid "Change"
 msgstr "Alterar"
 
+msgid "Custom permissions"
+msgstr "Permissões personalizadas"
+
 msgid "Other permissions"
 msgstr "Outras permissões"
 
@@ -250,6 +312,9 @@ msgstr "Usuários"
 
 msgid "Add a user"
 msgstr "Adicionar um usuário"
+
+msgid "Select all users in listing"
+msgstr "Selecionar todos os usuários da lista"
 
 msgid "Username"
 msgstr "Nome de usuário"
@@ -313,6 +378,39 @@ msgid ""
 msgstr ""
 "Não há usuários configurados. Por que não <a href=\"%(wagtailusers_add_url)s"
 "\">adicionar alguns</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Atribuir função aos usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)dusuário foi adicionado a %(role)s"
+msgstr[1] "%(num_parent_objects)dusuários foram adicionados a%(role)s"
+
+msgid "Delete selected users"
+msgstr "Excluir usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)dusuário foi excluído"
+msgstr[1] "%(num_parent_objects)dusuários foram excluídos"
+
+msgid "Change the active state for selected users"
+msgstr "Alterar o estado ativo para os usuários selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)dusuário foi marcado como ativo"
+msgstr[1] "%(num_parent_objects)dusuários foram marcados como ativos"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)dusuário foi marcado como inativo"
+msgstr[1] "%(num_parent_objects)dusuários foram marcados como inativos"
 
 msgid "Groups"
 msgstr "Grupos"

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2022-01-04 23:31+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Αρχεία Wagtail"
 
 msgid "Collection"
 msgstr "Συλλογή"
@@ -62,8 +66,17 @@ msgstr "ετικέτες"
 msgid "document"
 msgstr "έγγραφο"
 
+msgid "documents"
+msgstr "αρχεία"
+
+msgid "Add tags to documents"
+msgstr "Προσθήκη ετικετών σε αρχεία"
+
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
 
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
@@ -82,6 +95,9 @@ msgstr "Τίτλος"
 
 msgid "File"
 msgstr "Αρχείο"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -126,6 +142,9 @@ msgstr "Μέγεθος Αρχείου"
 
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
+
+msgid "Usage"
+msgstr "Χρήση"
 
 msgid "Documents"
 msgstr "Έγγραφα"
@@ -182,6 +201,9 @@ msgstr "Προσθήκη συλλογής:"
 
 msgid "Sorry, upload failed."
 msgstr "Σφάλμα κατά τη μεταφορά."
+
+msgid "Document updated."
+msgstr "Αρχείο αναθεωρήθηκε"
 
 msgid "Document permissions"
 msgstr "Δικαιώματα εγγράφων"

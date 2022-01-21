@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: 79353a696ad19dc202b261b3067b7640_bec941e\n"
+"PO-Revision-Date: 2022-01-05 15:58+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -100,12 +100,21 @@ msgstr "Πίσω στη λίστα"
 msgid "Yes, delete"
 msgstr "Ναι, να γίνει διαγραφή"
 
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
+
 msgid "Home"
 msgstr "Αρχική"
 
 #, python-format
 msgid " By %(filter_title)s "
 msgstr " Κατά %(filter_title)s "
+
+msgid "Last updated"
+msgstr "Τελευταία αναθεώρηση"
+
+msgid "History"
+msgstr "Ιστορικό"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -141,6 +150,9 @@ msgstr ""
 "                                                Γιατί να μην <a href="
 "\"%(url)s\">προσθέσετε ένα</a>;\n"
 "                                            "
+
+msgid "Pagination"
+msgstr "Σελιδοποίηση"
 
 #, python-format
 msgid "Page %(current_page)s of %(num_pages)s."
@@ -197,6 +209,9 @@ msgstr "Επισκόπηση"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Επισκόπηση %s"
+
+msgid "Action"
+msgstr "Ενέργεια"
 
 msgid "Date"
 msgstr "Ημερομηνία"

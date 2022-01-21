@@ -19,12 +19,13 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
-# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 # Vassily <zuber.kg@gmail.com>, 2019
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
+# Виталий Чекрыжев, 2021
 # Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
@@ -33,8 +34,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Eugene <eugene.mechanism@gmail.com>\n"
+"PO-Revision-Date: 2021-12-17 11:24+0000\n"
+"Last-Translator: Виталий Чекрыжев\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -185,8 +186,17 @@ msgstr "Коллекция"
 msgid "Add"
 msgstr "Добавить"
 
+msgid "Add collections"
+msgstr "Добавить коллекцию"
+
 msgid "Edit"
 msgstr "Редактировать"
+
+msgid "Edit collections"
+msgstr "Редактировать коллекцию"
+
+msgid "Delete collections"
+msgstr "Удалить коллекцию"
 
 msgid "You cannot edit another user's comment."
 msgstr "Вы не можете редактировать комментарий другого пользователя."
@@ -428,11 +438,26 @@ msgstr "Оставить комментарий"
 msgid "More actions"
 msgstr "Больше действий"
 
+msgid "Save the page to add this comment"
+msgstr "Сохраните страницу, чтобы добавить этот комментарий"
+
+msgid "Save the page to save this comment"
+msgstr "Сохраните страницу, чтобы сохранить этот комментарий"
+
+msgid "Save the page to save this reply"
+msgstr "Сохраните страницу, чтобы добавить этот ответ"
+
 msgid "Dashboard"
 msgstr "Панель управления"
 
 msgid "Edit your account"
 msgstr "Редактировать ваш аккаунт"
+
+msgid "1 page selected"
+msgstr "1 страница выбрана"
+
+msgid "{0} pages selected"
+msgstr "{0} страниц выбрано"
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
@@ -444,7 +469,7 @@ msgid "The requested page could not be found."
 msgstr "Запрошенная страница не найдена."
 
 msgid "Go to Wagtail admin"
-msgstr "Идти в админ-панель Wagtail"
+msgstr "Перейти в панель управления Wagtail"
 
 msgid "Account"
 msgstr "Аккаунт"
@@ -970,7 +995,7 @@ msgid ""
 "\"%(workflow)s\" by %(requester)s."
 msgstr ""
 "Страница \"%(title)s\" была отправлена ​​на модерацию в рабочий процесс "
-"\"%(workflow)s\" by %(requester)s."
+"\"%(workflow)s\" от %(requester)s."
 
 #, python-format
 msgid ""
@@ -2485,6 +2510,9 @@ msgstr "Убрать с публикации '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Посмотреть историю страницы '%(title)s'"
+
+msgid "Sort menu order"
+msgstr "Задать порядок сортировки"
 
 #, python-format
 msgid "Heading %(level)d"

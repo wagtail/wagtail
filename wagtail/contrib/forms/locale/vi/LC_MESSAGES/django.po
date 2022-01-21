@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Vu Pham, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-08-16 14:56+0000\n"
-"Last-Translator: Duc Huynh <duchuynhthoai@gmail.com>\n"
+"PO-Revision-Date: 2022-01-06 06:05+0000\n"
+"Last-Translator: Vu Pham\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -18,11 +19,47 @@ msgstr ""
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Date from"
+msgstr "Từ ngày"
+
+msgid "Date to"
+msgstr "Đến ngày"
+
 msgid "Email"
 msgstr "Email"
 
 msgid "URL"
 msgstr "URL"
 
+msgid "Date"
+msgstr "Ngày"
+
+msgid "Date/time"
+msgstr "Ngày/Giờ"
+
+msgid "name"
+msgstr "tên"
+
+msgid "required"
+msgstr "bắt buộc"
+
+msgid "default value"
+msgstr "giá trị mặc định"
+
+msgid "Form"
+msgstr "Biểu mẫu"
+
 msgid "Delete"
 msgstr "Xoá"
+
+msgid "Pages"
+msgstr "Trang"
+
+msgid "Download XLSX"
+msgstr "Tải XLSX"
+
+msgid "Download CSV"
+msgstr "Tải CSV"
+
+msgid "Title"
+msgstr "Tiêu đề"

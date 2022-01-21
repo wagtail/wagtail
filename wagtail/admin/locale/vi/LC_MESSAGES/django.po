@@ -5,13 +5,14 @@
 # Translators:
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2018
 # Hồng Quân Nguyễn <ng.hong.quan@gmail.com>, 2017
+# Vu Pham, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Luan Nguyen <lihavim@gmail.com>\n"
+"PO-Revision-Date: 2022-01-07 05:34+0000\n"
+"Last-Translator: Vu Pham\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +24,45 @@ msgstr ""
 msgid "Publish"
 msgstr "Xuất bản"
 
+msgid "Restart workflow "
+msgstr "Khởi động lại luồng công việc"
+
 msgid "Unpublish"
 msgstr "Thu hồi xuất bản"
 
 msgid "Delete"
 msgstr "Xoá"
 
+msgid "Lock"
+msgstr "Khóa"
+
+msgid "Unlock"
+msgstr "Mở khóa"
+
+msgid "Save Draft"
+msgstr "Lưu bản nháp"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)svà Xuất bản"
+
+msgid "Wagtail admin"
+msgstr "Quản trị viên Wagtail"
+
 msgid "Settings"
 msgstr "Tùy chỉnh"
+
+msgid "Date from"
+msgstr "Từ ngày"
+
+msgid "Date to"
+msgstr "Đến ngày"
+
+msgid "All"
+msgstr "Tất cả"
+
+msgid "Current time zone"
+msgstr "Múi giờ hiện tại"
 
 msgid "First Name"
 msgstr "Tên"
@@ -41,6 +73,16 @@ msgstr "Họ"
 msgid "Email"
 msgstr "Email"
 
+msgid "Enter password"
+msgstr "Nhập mật khẩu"
+
+#, python-format
+msgid "Enter your %s"
+msgstr "Nhập %scủa bạn"
+
+msgid "Enter your email address to reset your password"
+msgstr "Nhập địa chỉ email của bạn để thiết lập lại mật khẩu"
+
 msgid "URL"
 msgstr "URL"
 
@@ -50,23 +92,153 @@ msgstr "Thêm"
 msgid "Edit"
 msgstr "Biên tập"
 
+msgid "New title"
+msgstr "Tiêu đề mới"
+
+msgid "Search"
+msgstr "Tìm kiếm"
+
+msgid "Please select at least one group."
+msgstr "Hãy lựa chọn ít nhất một nhóm."
+
+msgid "Page"
+msgstr "Trang"
+
+msgid "Pages"
+msgstr "Trang"
+
+msgid "Loading…"
+msgstr "Đang tải..."
+
+msgid "Server Error"
+msgstr "Lỗi Hệ thống"
+
+msgid "Undo"
+msgstr "Hoàn tác"
+
+msgid "Show error"
+msgstr "Hiển thị lỗi"
+
+msgid "Close"
+msgstr "Đóng"
+
+msgid "Edit '{title}'"
+msgstr "Chỉnh sửa '{title}'"
+
 msgid "Save"
 msgstr "Lưu"
 
 msgid "Saving..."
 msgstr "Đang lưu..."
 
+msgid "Deleting..."
+msgstr "Đang xóa..."
+
+msgid "Add a comment"
+msgstr "Thêm bình luận"
+
+msgid "Show comments"
+msgstr "Hiển thị bình luận"
+
+msgid "Delete error"
+msgstr "Xóa lỗi"
+
+msgid "Are you sure?"
+msgstr "Bạn chắc chắn không?"
+
+msgid "Save error"
+msgstr "Lưu lỗi"
+
+msgid "Comment"
+msgstr "Bình luận"
+
+msgid "Dashboard"
+msgstr "Trang tổng quan"
+
+msgid "Edit your account"
+msgstr "Chỉnh sửa tài khoản của bạn"
+
+msgid "1 page selected"
+msgstr "1 trang được chọn"
+
+msgid "1 image selected"
+msgstr "1 hình ảnh được chọn"
+
+msgid "Error 404"
+msgstr "Lỗi 404"
+
 msgid "Account"
 msgstr "Tài khoản"
+
+msgid "Change password"
+msgstr "Thay mật khẩu"
+
+msgid "Reset password"
+msgstr "Khôi phục mật khẩu"
+
+msgid "Password change successful"
+msgstr "Mật khẩu thay đổi thành công"
+
+msgid "Login"
+msgstr "Đăng nhập"
+
+msgid "Set your new password"
+msgstr "Đặt mật khẩu mới của bạn"
+
+msgid "Check your email"
+msgstr "Kiểm tra email của bạn"
+
+msgid "Password reset"
+msgstr "Đặt lại mật khẩu"
+
+msgid "Reset your password"
+msgstr "Đặt lại mật khẩu của bạn"
+
+msgid "Select all"
+msgstr "Chọn tất cả"
+
+msgid "Email link"
+msgstr "Đường dẫn email"
+
+msgid "Choose"
+msgstr "Chọn"
+
+msgid "Public"
+msgstr "Công khai"
+
+msgid "Private"
+msgstr "Riêng tư"
 
 msgid "Name"
 msgstr "Tên"
 
+#, python-format
+msgid "Add %(label)s"
+msgstr "Thêm %(label)s"
+
+msgid "Add comment"
+msgstr "Thêm bình luận"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
 
+msgid "Title"
+msgstr "Tiêu đề"
+
+msgid "Draft"
+msgstr "Bản nháp"
+
+msgid "Approve"
+msgstr "Phê chuẩn"
+
+msgid "Reject"
+msgstr "Từ chối"
+
 msgid "Status"
 msgstr "Trạng thái"
+
+msgid "Date"
+msgstr "Ngày"
 
 msgid "Publishing…"
 msgstr "Đang xuất bản..."
@@ -74,11 +246,47 @@ msgstr "Đang xuất bản..."
 msgid "Saving…"
 msgstr "Đang lưu..."
 
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Xóa %(title)s"
+
+msgid "Copy"
+msgstr "Sao chép"
+
+#, python-format
+msgid "Comparing %(title)s"
+msgstr "So sánh %(title)s"
+
+msgid "Comparing"
+msgstr "So sánh"
+
+#, python-format
+msgid "Status <span class=\"status-tag primary\"> %(status)s</span>"
+msgstr "Trạng thái <span class=\"status-tag primary\">%(status)s</span>"
+
+msgid "Workflow started"
+msgstr "Luồng công việc đã bắt đầu"
+
 msgid "Edit page"
 msgstr "Sửa trang"
 
+msgid "Download XLSX"
+msgstr "Tải XLSX"
+
+msgid "Download CSV"
+msgstr "Tải CSV"
+
+msgid "Locked"
+msgstr "Đã bị khóa"
+
 msgid "Home"
 msgstr "Trang Chủ"
+
+msgid "Published"
+msgstr "Đã xuất bản"
+
+msgid "draft"
+msgstr "bản nháp"
 
 msgid "Password"
 msgstr "Mật khẩu"
@@ -88,3 +296,6 @@ msgstr "Chỉnh sửa"
 
 msgid "View live"
 msgstr "Xem bản live"
+
+msgid "Date/Time"
+msgstr "Ngày/Giờ"
