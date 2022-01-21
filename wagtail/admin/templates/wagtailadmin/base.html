@@ -5,7 +5,7 @@
     {% slim_sidebar_enabled as slim_sidebar_enabled %}
     <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
     {% if slim_sidebar_enabled %}
-    <script id="wagtail-sidebar-props" type="application/json">{% autoescape off %}{% menu_props %}{% endautoescape %}</script>
+    {% sidebar_props %}
     <aside id="wagtail-sidebar" data-wagtail-sidebar></aside>
     {% else %}
     <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
