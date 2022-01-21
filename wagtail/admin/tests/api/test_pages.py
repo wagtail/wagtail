@@ -1493,6 +1493,71 @@ class TestCreatePageAliasAction(AdminAPITestCase):
         )
 
 
+class TestRevertToPageRevisionAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        self.events_page = Page.objects.get(id=3)
+
+        # Create revision to revert back to
+        self.first_revision = self.events_page.save_revision()
+
+        # Change page title
+        self.events_page.title = "Evenements"
+        self.events_page.save_revision().publish()
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "revert_to_page_revision"]), data
+        )
+
+    def test_revert_to_page_revision(self):
+        self.assertEqual(self.events_page.title, "Evenements")
+
+        response = self.get_response(self.events_page.id, {"revision_id": self.first_revision.id})
+        self.assertEqual(response.status_code, 200)
+
+        self.events_page.get_latest_revision().publish()
+        self.events_page.refresh_from_db()
+        self.assertEqual(self.events_page.title, "Events")
+
+    def test_revert_to_page_revision_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(self.events_page.id, {"revision_id": self.first_revision.id})
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_revert_to_page_revision_without_revision_id(self):
+        response = self.get_response(self.events_page.id, {})
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"revision_id": ["This field is required."]})
+
+    def test_revert_to_page_revision_bad_revision_id(self):
+        self.assertEqual(self.events_page.title, "Evenements")
+
+        response = self.get_response(self.events_page.id, {"revision_id": 999})
+        self.assertEqual(response.status_code, 404)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {'message': 'No PageRevision matches the given query.'})
+
+
 # Overwrite imported test cases do Django doesn't run them
 TestPageDetail = None
 TestPageListing = None
