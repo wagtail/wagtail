@@ -6,7 +6,7 @@ Changelog
 
  * Removed support for Django 3.0 and 3.1
  * Removed support for Python 3.6
- * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia)
+ * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia, with sponsorship from [NHS](https://www.nhs.uk/))
  * Added Aging Pages report (Tidjani Dia)
  * Added automatic redirect creation feature (Andy Babic, with sponsorship from [The National Archives](https://www.nationalarchives.gov.uk))
  * Added `page_slug_changed` signal for pages (Andy Babic)
