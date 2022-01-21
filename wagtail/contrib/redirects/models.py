@@ -158,8 +158,7 @@ class Redirect(models.Model):
             return ""
 
         # Extract the path from the rest of the value
-        url_parsed = urlparse(url)
-        path = url_parsed[2]
+        path = urlparse(url).path
 
         if path == "/":
             return ""
