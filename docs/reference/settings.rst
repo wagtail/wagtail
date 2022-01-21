@@ -224,7 +224,7 @@ Changes whether the Submit for Moderation button is displayed in the action menu
 
   WAGTAIL_SLIM_SIDEBAR = False
 
-Disables Wagtail’s slim sidebar to use the legacy sidebar instead.
+Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy sidebar and this setting will be removed in Wagtail 2.18.
 
 Comments
 ========
