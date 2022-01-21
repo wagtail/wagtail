@@ -35,6 +35,9 @@ def autocreate_redirects_on_slug_change(
     instance: Page,
     **kwargs
 ):
+    # NB: `page_slug_changed` provides specific page instances,
+    # so we do not need to 'upcast' them for create_redirects here
+
     if not getattr(settings, "WAGTAILREDIRECTS_AUTO_CREATE", True):
         return None
 
