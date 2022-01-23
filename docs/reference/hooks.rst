@@ -536,13 +536,13 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.utils.html import format_html
+    from django.utils.safestring import mark_safe
 
     from wagtail.core import hooks
 
     @hooks.register('insert_global_admin_js')
     def global_admin_js():
-        return format_html(
+        return mark_safe(
             '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"></script>',
         )
 
