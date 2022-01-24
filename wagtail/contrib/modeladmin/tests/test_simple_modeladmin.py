@@ -13,7 +13,7 @@ from openpyxl import load_workbook
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
-from wagtail.core.models import ModelLogEntry, Page
+from wagtail.core.models import Locale, ModelLogEntry, Page
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import (
@@ -22,6 +22,7 @@ from wagtail.tests.modeladmintest.models import (
     Publisher,
     RelatedLink,
     Token,
+    TranslatableBook,
 )
 from wagtail.tests.modeladmintest.wagtail_hooks import BookModelAdmin
 from wagtail.tests.utils import WagtailTestUtils
@@ -654,6 +655,40 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that the link was updated
         self.assertEqual(RelatedLink.objects.filter(title="Homepage edited").count(), 1)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get(self, book_id, **params):
+        return self.client.get(
+            "/admin/modeladmintest/translatablebook/edit/%d/" % book_id, params
+        )
+
+    def test_simple(self):
+        book = TranslatableBook.objects.first()
+        response = self.get(book.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the locale switcher isn't there
+        self.assertNotContains(response, "English", html=True)
+
+        tbook = book.copy_for_translation(locale=Locale.objects.get(language_code="fr"))
+        tbook.save()
+
+        response = self.get(tbook.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the locale switcher is there
+        expected = """
+        <a href="/admin/modeladmintest/translatablebook/edit/1/?locale=en" aria-label="English" class="u-link is-live">
+            English
+        </a>"""
+        self.assertContains(response, expected, html=True)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):

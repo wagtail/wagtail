@@ -189,7 +189,7 @@ class TranslatableMixin(models.Model):
 
         Note that the copy is initially unsaved.
         """
-        translated, child_object_map = _copy(self)
+        translated, child_object_map = _copy(self, exclude_fields=["index_entries"])
         translated.locale = locale
 
         # Update locale on any translatable child objects as well
