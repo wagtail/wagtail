@@ -10,7 +10,7 @@ jobs:
           keys:
             - pip-packages-v1-{{ .Branch }}
             - pip-packages-v1-
-      - run: pipenv install -e .[testing]
+      - run: pipenv install --skip-lock -e .[testing]
       - save_cache:
           paths:
             - ~/.local/
