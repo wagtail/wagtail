@@ -552,6 +552,7 @@ Contributors
 * Kyle Bayliss
 * Justin Michalicek
 * Vu Pham
+* Rizwan Mansuri
 
 Translators
 ===========
