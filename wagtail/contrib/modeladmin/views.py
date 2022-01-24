@@ -993,7 +993,9 @@ class InspectView(InstanceSpecificView):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)
 
     def dispatch(self, request, *args, **kwargs):
-        if self.locale:
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model_admin.model, TranslatableMixin
+        ):
             translations = []
             for translation in self.instance.get_translations().select_related(
                 "locale"
