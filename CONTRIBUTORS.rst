@@ -559,6 +559,7 @@ Contributors
 * Khanh Hoang
 * Jason Attwood
 * Vladimir Tananko
+* Rizwan Mansuri
 
 Translators
 ===========
