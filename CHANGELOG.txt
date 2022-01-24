@@ -362,6 +362,12 @@ Changelog
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
 
 
+2.11.9 (24.01.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Update Pillow dependency to allow 9.x (Rizwan Mansuri)
+
+
 2.11.8 (17.06.2021)
 ~~~~~~~~~~~~~~~~~~~
 
