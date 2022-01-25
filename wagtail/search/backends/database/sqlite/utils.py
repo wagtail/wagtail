@@ -14,7 +14,7 @@ def fts5_available():
     tmp_db = sqlite3.connect(':memory:')
     try:
         tmp_db.execute('CREATE VIRTUAL TABLE fts5test USING fts5 (data);')
-    except OperationalError:
+    except sqlite3.OperationalError:
         return False
     finally:
         tmp_db.close()
