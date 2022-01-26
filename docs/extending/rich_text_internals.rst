@@ -199,7 +199,7 @@ This method allows you to register a custom handler deriving from ``wagtail.core
 Editor widgets
 --------------
 
-The editor interface used on rich text fields can be configured with the :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS <WAGTAILADMIN_RICH_TEXT_EDITORS>` setting. Wagtail provides two editor implementations: ``wagtail.admin.rich_text.DraftailRichTextArea`` (the `Draftail <https://www.draftail.org/>`_ editor based on `Draft.js <https://draftjs.org/>`_) and ``wagtail.admin.rich_text.HalloRichTextArea`` (deprecated, based on `Hallo.js <http://hallojs.org/>`_).
+The editor interface used on rich text fields can be configured with the :ref:`WAGTAILADMIN_RICH_TEXT_EDITORS <WAGTAILADMIN_RICH_TEXT_EDITORS>` setting. Wagtail provides an implementation: ``wagtail.admin.rich_text.DraftailRichTextArea`` (the `Draftail <https://www.draftail.org/>`_ editor based on `Draft.js <https://draftjs.org/>`_).
 
 It is possible to create your own rich text editor implementation. At minimum, a rich text editor is a Django :class:`~django.forms.Widget` subclass whose constructor accepts an ``options`` keyword argument (a dictionary of editor-specific configuration options sourced from the ``OPTIONS`` field in ``WAGTAILADMIN_RICH_TEXT_EDITORS``), and which consumes and produces string data in the HTML-like format described above.
 
@@ -207,7 +207,7 @@ Typically, a rich text widget also receives a ``features`` list, passed from eit
 
 There is a standard set of recognised feature identifiers as listed under :ref:`rich_text_features`, but this is not a definitive list; feature identifiers are only defined by convention, and it is up to each editor widget to determine which features it will recognise, and adapt its behaviour accordingly. Individual editor widgets might implement fewer or more features than the default set, either as built-in functionality or through a plugin mechanism if the editor widget has one.
 
-For example, a third-party Wagtail extension might introduce ``table`` as a new rich text feature, and provide implementations for the Draftail and Hallo editors (which both provide a plugin mechanism). In this case, the third-party extension will not be aware of your custom editor widget, and so the widget will not know how to handle the ``table`` feature identifier. Editor widgets should silently ignore any feature identifiers that they do not recognise.
+For example, a third-party Wagtail extension might introduce ``table`` as a new rich text feature, and provide implementations for the Draftail editor (which provides a plugin mechanism). In this case, the third-party extension will not be aware of your custom editor widget, and so the widget will not know how to handle the ``table`` feature identifier. Editor widgets should silently ignore any feature identifiers that they do not recognise.
 
 The ``default_features`` attribute of the feature registry is a list of feature identifiers to be used whenever an explicit feature list has not been given in ``RichTextField`` / ``RichTextBlock`` or ``WAGTAILADMIN_RICH_TEXT_EDITORS``. This list can be modified within the ``register_rich_text_features`` hook to make new features enabled by default, and retrieved by calling ``get_default_features()``.
 
@@ -245,13 +245,13 @@ Editor plugins
 
 Rich text editors often provide a plugin mechanism to allow extending the editor with new functionality. The ``register_editor_plugin`` method provides a standardised way for ``register_rich_text_features`` hooks to define plugins to be pulled in to the editor when a given rich text feature is enabled.
 
-``register_editor_plugin`` is passed an editor name (a string uniquely identifying the editor widget - Wagtail uses the identifiers ``draftail`` and ``hallo`` for its built-in editors), a feature identifier, and a plugin definition object. This object is specific to the editor widget and can be any arbitrary value, but will typically include a :doc:`Django form media <django:topics/forms/media>` definition referencing the plugin's JavaScript code - which will then be merged into the editor widget's own media definition - along with any relevant configuration options to be passed when instantiating the editor.
+``register_editor_plugin`` is passed an editor name (a string uniquely identifying the editor widget - Wagtail uses the identifier ``draftail`` for the built-in editor), a feature identifier, and a plugin definition object. This object is specific to the editor widget and can be any arbitrary value, but will typically include a :doc:`Django form media <django:topics/forms/media>` definition referencing the plugin's JavaScript code - which will then be merged into the editor widget's own media definition - along with any relevant configuration options to be passed when instantiating the editor.
 
 .. method:: FeatureRegistry.get_editor_plugin(editor_name, feature_name)
 
 Within the editor widget, the plugin definition for a given feature can be retrieved via the ``get_editor_plugin`` method, passing the editor's own identifier string and the feature identifier. This will return ``None`` if no matching plugin has been registered.
 
-For details of the plugin formats for Wagtail's built-in editors, see :doc:`./extending_draftail` and :doc:`./extending_hallo`.
+For details of the plugin formats for Wagtail's built-in editors, see :doc:`./extending_draftail`.
 
 
 .. _rich_text_format_converters:
@@ -259,7 +259,7 @@ For details of the plugin formats for Wagtail's built-in editors, see :doc:`./ex
 Format converters
 -----------------
 
-Editor widgets will often be unable to work directly with Wagtail's rich text format, and require conversion to their own native format. For Draftail, this is a JSON-based format known as ContentState (see `How Draft.js Represents Rich Text Data <https://medium.com/@rajaraodv/how-draft-js-represents-rich-text-data-eeabb5f25cf2>`_). Hallo.js and other editors based on HTML's ``contentEditable`` mechanism require valid HTML, and so Wagtail uses a convention referred to as "editor HTML", where the additional data required on link and embed elements is stored in ``data-`` attributes, for example: ``<a href="/contact-us/" data-linktype="page" data-id="3">Contact us</a>``.
+Editor widgets will often be unable to work directly with Wagtail's rich text format, and require conversion to their own native format. For Draftail, this is a JSON-based format known as ContentState (see `How Draft.js Represents Rich Text Data <https://medium.com/@rajaraodv/how-draft-js-represents-rich-text-data-eeabb5f25cf2>`_). Editors based on HTML's ``contentEditable`` mechanism require valid HTML, and so Wagtail uses a convention referred to as "editor HTML", where the additional data required on link and embed elements is stored in ``data-`` attributes, for example: ``<a href="/contact-us/" data-linktype="page" data-id="3">Contact us</a>``.
 
 Wagtail provides two utility classes, ``wagtail.admin.rich_text.converters.contentstate.ContentstateConverter`` and ``wagtail.admin.rich_text.converters.editor_html.EditorHTMLConverter``, to perform conversions between rich text format and the native editor formats. These classes are independent of any editor widget, and distinct from the rewriting process that happens when rendering rich text onto a template.
 
@@ -271,7 +271,7 @@ As with editor plugins, the behaviour of a converter class can vary according to
 
 ``register_editor_plugin`` is passed a converter name (a string uniquely identifying the converter class - Wagtail uses the identifiers ``contentstate`` and ``editorhtml``), a feature identifier, and a rule definition object. This object is specific to the converter and can be any arbitrary value.
 
-For details of the rule definition format for the ``contentstate`` and ``editorhtml`` converters, see :doc:`./extending_draftail` and :doc:`./extending_hallo` respectively.
+For details of the rule definition format for the ``contentstate`` converter, see :doc:`./extending_draftail`.
 
 .. method:: FeatureRegistry.get_converter_rule(converter_name, feature_name)
 

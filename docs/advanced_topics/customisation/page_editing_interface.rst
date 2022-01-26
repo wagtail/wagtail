@@ -96,7 +96,6 @@ The process for creating new features is described in the following pages:
 
 * :doc:`../../extending/rich_text_internals`
 * :doc:`../../extending/extending_draftail`
-* :doc:`../../extending/extending_hallo`
 
 .. _rich_text_image_formats:
 
