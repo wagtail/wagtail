@@ -4,7 +4,6 @@ from django.utils.safestring import mark_safe
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
@@ -91,19 +90,9 @@ def hide_hidden_pages(parent_page, pages, request):
     return pages.exclude(title__icontains="hidden")
 
 
-# register 'quotation' as a rich text feature supported by a hallo.js plugin
-# and a Draftail feature
+# register 'quotation' as a rich text feature supported by a Draftail feature
 @hooks.register("register_rich_text_features")
 def register_quotation_feature(features):
-    features.register_editor_plugin(
-        "hallo",
-        "quotation",
-        HalloPlugin(
-            name="halloquotation",
-            js=["testapp/js/hallo-quotation.js"],
-            css={"all": ["testapp/css/hallo-quotation.css"]},
-        ),
-    )
     features.register_editor_plugin(
         "draftail",
         "quotation",

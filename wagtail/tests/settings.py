@@ -218,7 +218,6 @@ WAGTAIL_SITE_NAME = "Test Site"
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
     "default": {"WIDGET": "wagtail.admin.rich_text.DraftailRichTextArea"},
-    "hallo": {"WIDGET": "wagtail.admin.rich_text.HalloRichTextArea"},
     "custom": {"WIDGET": "wagtail.tests.testapp.rich_text.CustomRichTextArea"},
 }
 

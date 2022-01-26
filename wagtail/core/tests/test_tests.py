@@ -415,5 +415,5 @@ class TestFormDataHelpers(TestCase):
         )
 
     def test_rich_text_with_alternative_editor(self):
-        result = rich_text("<h2>title</h2><p>para</p>", editor="hallo")
+        result = rich_text("<h2>title</h2><p>para</p>", editor="custom")
         self.assertEqual(result, "<h2>title</h2><p>para</p>")
