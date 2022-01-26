@@ -152,7 +152,7 @@ class Command(BaseCommand):
 
             self.stdout.flush()
 
-    # Atomic so the count of models doesnt change as it is iterated
+    # Atomic so the count of models doesn't change as it is iterated
     @transaction.atomic
     def queryset_chunks(self, qs, chunk_size=DEFAULT_CHUNK_SIZE):
         """

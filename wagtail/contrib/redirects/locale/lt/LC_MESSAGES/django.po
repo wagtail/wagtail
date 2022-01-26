@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,9 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
+msgid "Type"
+msgstr "Tipas"
+
 msgid "From site"
 msgstr "Iš tinklalapio"
 
@@ -29,6 +32,10 @@ msgstr "Visi tinklalapiai"
 
 msgid "A redirect with this path already exists."
 msgstr "Peradresavimas su šiuo keliu jau egzistuoja."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Palaikomi formatai:  %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "peradresavimas iš"
@@ -80,6 +87,12 @@ msgstr "Ar tikrai norite ištrinti šį peradresavimą?"
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
+msgid "Cancel"
+msgstr "Atšaukti"
+
+msgid "Preview"
+msgstr "Peržiūrėti"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Redaguojama %(title)s"
@@ -96,11 +109,11 @@ msgstr "Forma"
 msgid "To"
 msgstr "Į"
 
+msgid "Continue"
+msgstr "Tęsti"
+
 msgid "Site"
 msgstr "Tinklalapis"
-
-msgid "Type"
-msgstr "Tipas"
 
 msgid "Edit this redirect"
 msgstr "Redaguoti šį peradresavimą"

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: 小口英昭 <oguchi@bluff-lab.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -75,15 +75,6 @@ msgstr "このグループ名は既に使用されています。"
 msgid "You cannot have multiple permission records for the same page."
 msgstr "同一ページ内で複数の権限を持つことはできません"
 
-msgid "Preferred language"
-msgstr "好みの言語"
-
-msgid "Current time zone"
-msgstr "現在のタイムゾーン"
-
-msgid "Upload a profile picture"
-msgstr "プロフィール写真をアップロード"
-
 msgid "submitted notifications"
 msgstr "承認リクエスト通知"
 
@@ -123,6 +114,15 @@ msgstr "プロフィール"
 msgid "user profiles"
 msgstr "プロフィール"
 
+msgid "Delete"
+msgstr "削除"
+
+msgid "Yes, delete"
+msgstr "はい、削除します"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
 msgid "Delete group"
 msgstr "グループを削除"
 
@@ -151,9 +151,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "このグループを削除してよろしいですか？"
 
-msgid "Yes, delete"
-msgstr "はい、削除します"
-
 msgid "Add group"
 msgstr "グループを追加"
 
@@ -177,9 +174,6 @@ msgstr "追加"
 
 msgid "Change"
 msgstr "変更"
-
-msgid "Delete"
-msgstr "削除"
 
 msgid "Other permissions"
 msgstr "他の権限"

@@ -7,11 +7,11 @@ ALPHANUM = string.ascii_lowercase + string.digits
 
 
 class Block:
-    def __init__(self, typ, depth=0):
+    def __init__(self, typ, depth=0, key=None):
         self.type = typ
         self.depth = depth
         self.text = ""
-        self.key = ''.join(random.choice(ALPHANUM) for _ in range(5))
+        self.key = key if key else ''.join(random.choice(ALPHANUM) for _ in range(5))
         self.inline_style_ranges = []
         self.entity_ranges = []
 

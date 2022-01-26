@@ -26,7 +26,35 @@ class TestAdminPageChooserWidget(TestCase):
         widget = widgets.AdminPageChooser()
         self.assertFalse(widget.is_hidden)
 
+    def test_adapt(self):
+        widget = widgets.AdminPageChooser()
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertInHTML("""<input id="__ID__" name="__NAME__" type="hidden" />""", js_args[0])
+        self.assertIn(">Choose a page<", js_args[0])
+        self.assertEqual(js_args[1], '__ID__')
+        self.assertEqual(js_args[2], {
+            'can_choose_root': False,
+            'model_names': ['wagtailcore.page'],
+            'user_perms': None
+        })
+
+    def test_adapt_with_target_model(self):
+        widget = widgets.AdminPageChooser(target_models=[SimplePage, EventPage])
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertEqual(js_args[2]['model_names'], ['tests.simplepage', 'tests.eventpage'])
+
+    def test_adapt_with_can_choose_root(self):
+        widget = widgets.AdminPageChooser(can_choose_root=True)
+
+        js_args = widgets.PageChooserAdapter().js_args(widget)
+        self.assertTrue(js_args[2]['can_choose_root'])
+
     def test_render_html(self):
+        # render_html is mostly an internal API, but we do want to support calling it with None as
+        # a value, to render a blank field without the JS initialiser (so that we can call that
+        # separately in our own context and hold on to the return value)
         widget = widgets.AdminPageChooser()
 
         html = widget.render_html('test', None, {})
@@ -36,65 +64,78 @@ class TestAdminPageChooserWidget(TestCase):
     def test_render_js_init(self):
         widget = widgets.AdminPageChooser()
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null, false, null);")
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});', html)
 
     def test_render_js_init_with_user_perm(self):
         widget = widgets.AdminPageChooser(user_perms='copy_to')
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], null, false, \"copy_to\");")
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": "copy_to"});', html)
 
-    def test_render_html_with_value(self):
+    def test_render_with_value(self):
         widget = widgets.AdminPageChooser()
 
-        html = widget.render_html('test', self.child_page, {})
-        self.assertInHTML("""<input name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
+        self.assertInHTML("""<input id="test-id" name="test" type="hidden" value="%d" />""" % self.child_page.id, html)
         # SimplePage has a custom get_admin_display_title method which should be reflected here
         self.assertInHTML("foobarbaz (simple page)", html)
 
-    def test_render_js_init_with_value(self):
-        widget = widgets.AdminPageChooser()
-
-        js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, false, null);" % self.root_page.id
+        self.assertIn(
+            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": false, "user_perms": null});' % self.root_page.id, html
         )
 
-    # def test_render_html_init_with_content_type omitted as HTML does not
-    # change when selecting a content type
-
-    def test_render_js_init_with_target_model(self):
+    def test_render_with_target_model(self):
         widget = widgets.AdminPageChooser(target_models=[SimplePage])
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\"], null, false, null);")
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn('createPageChooser("test-id", null, {"model_names": ["tests.simplepage"], "can_choose_root": false, "user_perms": null});', html)
 
-        html = widget.render_html('test', self.child_page, {})
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
         self.assertIn(">Choose a page (Simple Page)<", html)
 
-    def test_render_js_init_with_multiple_target_models(self):
+    def test_render_with_multiple_target_models(self):
         target_models = [SimplePage, EventPage]
         widget = widgets.AdminPageChooser(target_models=target_models)
 
-        js_init = widget.render_js_init('test-id', 'test', None)
-        self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"tests.simplepage\", \"tests.eventpage\"], null, false, null);"
+        html = widget.render('test', None, {'id': 'test-id'})
+        self.assertIn(
+            'createPageChooser("test-id", null, {"model_names": ["tests.simplepage", "tests.eventpage"], "can_choose_root": false, "user_perms": null});', html
         )
 
-        html = widget.render_html('test', self.child_page, {})
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
         self.assertIn(">Choose a page<", html)
 
     def test_render_js_init_with_can_choose_root(self):
         widget = widgets.AdminPageChooser(can_choose_root=True)
 
-        js_init = widget.render_js_init('test-id', 'test', self.child_page)
-        self.assertEqual(
-            js_init, "createPageChooser(\"test-id\", [\"wagtailcore.page\"], %d, true, null);" % self.root_page.id
+        html = widget.render('test', self.child_page, {'id': 'test-id'})
+        self.assertIn(
+            'createPageChooser("test-id", %d, {"model_names": ["wagtailcore.page"], "can_choose_root": true, "user_perms": null});' % self.root_page.id, html
         )
 
 
 class TestAdminDateInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminDateInput()
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateInput(format='%d.%m.%Y')
+
+        js_args = widgets.AdminDateInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y'
+        })
 
     def test_render_js_init(self):
         widget = widgets.AdminDateInput()
@@ -140,7 +181,84 @@ class TestAdminDateInput(TestCase):
         self.assertIn('vendor/star_date.js', media_html)
 
 
+class TestAdminTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminTimeInput()
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        js_args = widgets.AdminTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'format': 'H:i:s',
+            'formatTime': 'H:i:s'
+        })
+
+    def test_render_js_init(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+
+        self.assertInHTML('<input type="text" name="test" autocomplete="off" id="test-id" />', html)
+
+        # we should see the JS initialiser code:
+        # initDateChooser("test-id", {"dayOfWeekStart": 0, "format": "Y-m-d"});
+        # except that we can't predict the order of the config options
+        self.assertIn('initTimeChooser("test\\u002Did", {', html)
+        self.assertIn('"format": "H:i"', html)
+
+    def test_render_js_init_with_format(self):
+        widget = widgets.AdminTimeInput(format='%H:%M:%S')
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+    @override_settings(WAGTAIL_TIME_FORMAT='%H:%M:%S')
+    def test_render_js_init_with_format_from_settings(self):
+        widget = widgets.AdminTimeInput()
+
+        html = widget.render('test', None, attrs={'id': 'test-id'})
+        self.assertIn(
+            '"format": "H:i:s"',
+            html,
+        )
+
+
 class TestAdminDateTimeInput(TestCase):
+
+    def test_adapt(self):
+        widget = widgets.AdminDateTimeInput()
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'Y-m-d H:i',
+            'formatTime': 'H:i'
+        })
+
+    def test_adapt_with_custom_format(self):
+        widget = widgets.AdminDateTimeInput(format='%d.%m.%Y. %H:%M', time_format='%H:%M %p')
+
+        js_args = widgets.AdminDateTimeInputAdapter().js_args(widget)
+
+        self.assertEqual(js_args[0], {
+            'dayOfWeekStart': 0,
+            'format': 'd.m.Y. H:i',
+            'formatTime': 'H:i A'
+        })
 
     def test_render_js_init(self):
         widget = widgets.AdminDateTimeInput()

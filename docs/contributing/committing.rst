@@ -16,7 +16,7 @@ Pull requests should not be merged from Github, apart from small documentation f
 which can be merged with the 'Squash and merge' option. Instead, the code should
 be checked out by a committer locally, the changes examined and rebased,
 the ``CHANGELOG.txt`` and release notes updated,
-and finally the code should be pushed to the master branch.
+and finally the code should be pushed to the ``main`` branch.
 This process is covered in more detail below.
 
 Check out the code locally
@@ -33,10 +33,10 @@ A simple way to do this is by adding the following ``git`` alias to your ``~/.gi
 
 Now you can check out pull request number ``xxxx`` by running ``git pr xxxx``.
 
-Rebase on to master
-===================
+Rebase on to ``main``
+=====================
 
-Now that you have the code, you should rebase the commits on to the ``master`` branch.
+Now that you have the code, you should rebase the commits on to the ``main`` branch.
 Rebasing is preferred over merging,
 as merge commits make the commit history harder to read for small changes.
 
@@ -54,13 +54,13 @@ depending on which will be more readable in the commit history.
 
     $ # Get the latest commits from Wagtail
     $ git fetch upstream
-    $ git checkout master
-    $ git merge --ff-only upstream/master
-    $ # Rebase this pull request on to master
+    $ git checkout main
+    $ git merge --ff-only upstream/main
+    $ # Rebase this pull request on to main
     $ git checkout pr/xxxx
-    $ git rebase master
-    $ # Update master to this commit
-    $ git checkout master
+    $ git rebase main
+    $ # Update main to this commit
+    $ git checkout main
     $ git merge --ff-only pr/xxxx
 
 Update ``CHANGELOG.txt`` and release notes
@@ -117,18 +117,18 @@ The commit message should say ``Release notes for #xxxx``:
     $ git add CHANGELOG.txt docs/releases/x.x.x.rst CONTRIBUTORS.rst
     $ git commit -m 'Release notes for #xxxx'
 
-Push to master
-==============
+Push to ``main``
+================
 
-The changes are ready to be pushed to ``master`` now.
+The changes are ready to be pushed to ``main`` now.
 
 .. code-block:: console
 
     $ # Check that everything looks OK
-    $ git log upstream/master..master --oneline
-    $ git push --dry-run upstream master
+    $ git log upstream/main..main --oneline
+    $ git push --dry-run upstream main
     $ # Push the commits!
-    $ git push upstream master
+    $ git push upstream main
     $ git branch -d pr/xxxx
 
 When you have made a mistake

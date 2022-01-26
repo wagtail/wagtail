@@ -72,7 +72,7 @@
                 <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
                 <p class="status-msg server-error">
                     <strong>{% trans "Server Error" %}</strong>
-                    {% trans "Report this error to your webmaster with the following information:"%}
+                    {% trans "Report this error to your website administrator with the following information:"%}
                     <br /><span class="error-text"></span> - <span class="error-code"></span>
                 </p>
                 <p class="status-msg update-success">{% trans "Image updated." %}</p>
@@ -106,9 +106,10 @@
             simple_upload_url: "{% url 'wagtailimages:add' %}",
             accepted_file_types: /\.({{ allowed_extensions|join:"|" }})$/i, //must be regex
             max_file_size: {{ max_filesize|stringformat:"s"|default:"null" }}, //numeric format
+            max_title_length: {{ max_title_length|stringformat:"s"|default:"null" }}, //numeric format
             errormessages: {
-                max_file_size: "{{ error_max_file_size }}",
-                accepted_file_types: "{{ error_accepted_file_types }}"
+                max_file_size: "{{ error_max_file_size|escapejs }}",
+                accepted_file_types: "{{ error_accepted_file_types|escapejs }}"
             }
         }
         window.tagit_opts = {

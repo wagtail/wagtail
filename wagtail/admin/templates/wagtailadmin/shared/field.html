@@ -1,12 +1,12 @@
-{% load wagtailadmin_tags %}
-<div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}">
+{% load wagtailadmin_tags i18n %}
+<div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}" {% if include_contentpath|default_if_none:True %}data-contentpath="{{ field.name }}"{% endif %}>
     {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
         <div class="input {{ input_classes }} ">
             {% block form_field %}
                 {{ field|render_with_errors }}
             {% endblock %}
-            
+
             {# This span only used on rare occasions by certain types of input #}
             <span></span>
         </div>
@@ -22,4 +22,13 @@
             </p>
         {% endif %}
     </div>
+
+    {% if show_add_comment_button %}
+        <div class="field-comment-control">
+            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
+                <svg class="icon icon-comment-add initial icon-default" aria-hidden="true" focusable="false"><use href="#icon-comment-add"></use></svg>
+                <svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true" focusable="false"><use href="#icon-comment-add-reversed"></use></svg>
+            </button>
+        </div>
+    {% endif %}
 </div>

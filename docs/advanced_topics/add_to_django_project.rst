@@ -344,10 +344,6 @@ These two files should reside in your project directory (``myproject/myproject/`
   # which welcomes users upon login to the Wagtail admin.
   WAGTAIL_SITE_NAME = 'My Project'
 
-  # Override the search results template for wagtailsearch
-  # WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  # WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {

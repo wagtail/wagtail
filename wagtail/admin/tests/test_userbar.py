@@ -111,7 +111,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         # page allows subpages, so the 'add page' button should show
         expected_url = reverse('wagtailadmin_pages:add_subpage', args=(self.event_index.id, ))
         needle = f"""
-            <a href="{expected_url}" target="_parent">
+            <a href="{expected_url}" target="_parent" role="menuitem">
                 <svg class="icon icon-plus wagtail-action-icon" aria-hidden="true" focusable="false">
                     <use href="#icon-plus"></use>
                 </svg>

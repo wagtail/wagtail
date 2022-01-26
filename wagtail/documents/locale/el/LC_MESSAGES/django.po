@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2022-01-04 23:31+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -25,6 +26,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Αρχεία Wagtail"
+
+msgid "Collection"
+msgstr "Συλλογή"
 
 msgid "Add"
 msgstr "Προσθήκη"
@@ -37,6 +44,9 @@ msgstr "Επεξεργασία"
 
 msgid "Edit any document"
 msgstr "Διόρθωση όλων των εγγράφων"
+
+msgid "Choose"
+msgstr "Επιλογή"
 
 msgid "title"
 msgstr "τίτλος"
@@ -56,6 +66,18 @@ msgstr "ετικέτες"
 msgid "document"
 msgstr "έγγραφο"
 
+msgid "documents"
+msgstr "αρχεία"
+
+msgid "Add tags to documents"
+msgstr "Προσθήκη ετικετών σε αρχεία"
+
+msgid "Yes, delete"
+msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
+
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
 
@@ -65,16 +87,29 @@ msgstr "Αναζήτηση"
 msgid "Upload"
 msgstr "Ανέβασμα"
 
-msgid "Uploading…"
-msgstr "Ανέβασμα εγγράφου .."
-
 msgid "Latest documents"
 msgstr "Τελευταία έγγραφα"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "File"
+msgstr "Αρχείο"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Δε βρέθηκαν έγγραφα που να ταιριάζουν με το \"<em>%(query_string)s</em>\""
+
+msgid "Uploading…"
+msgstr "Ανέβασμα εγγράφου .."
 
 msgid "Change document:"
 msgstr "Αλλαγή εγγράφου:"
@@ -92,12 +127,6 @@ msgstr "Διαγραφή %(title)s"
 msgid "Delete document"
 msgstr "Διαγραφή εγγράφου"
 
-msgid "Are you sure you want to delete this document?"
-msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτό το έγγραφο;"
-
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
-
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Διόρθωση %(title)s"
@@ -114,18 +143,11 @@ msgstr "Μέγεθος Αρχείου"
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
+msgid "Usage"
+msgstr "Χρήση"
+
 msgid "Documents"
 msgstr "Έγγραφα"
-
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid ""
@@ -180,17 +202,17 @@ msgstr "Προσθήκη συλλογής:"
 msgid "Sorry, upload failed."
 msgstr "Σφάλμα κατά τη μεταφορά."
 
-msgid "Update"
-msgstr "Ενημέρωση"
-
-msgid "Delete"
-msgstr "Διαγραφή"
+msgid "Document updated."
+msgstr "Αρχείο αναθεωρήθηκε"
 
 msgid "Document permissions"
 msgstr "Δικαιώματα εγγράφων"
 
 msgid "Add a document permission"
 msgstr "Προσθήκη δικαιώματος εγγράφου"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Server Error"
 msgstr "Σφάλμα"
@@ -218,6 +240,9 @@ msgstr ""
 
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
+
+msgid "Document"
+msgstr "Έγγραφο"
 
 #, python-format
 msgid "%(count)s document"

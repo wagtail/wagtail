@@ -4,6 +4,7 @@
 {% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ edit_handler.form.media.css }}
     {{ pages_formset.media.css }}
@@ -13,6 +14,7 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ edit_handler.form.media.js }}
     {{ pages_formset.media.js }}
@@ -24,7 +26,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 only %}
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
@@ -63,9 +65,9 @@
         </ul>
 
         {% block footer %}
-            <footer role="contentinfo">
+            <footer class="footer" role="contentinfo">
                 <ul>
-                    <li class="actions">
+                    <li class="actions footer__container">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
                                 <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Saving…' %}">

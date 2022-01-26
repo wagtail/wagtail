@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -87,6 +87,12 @@ msgstr "קבלו התראה כשעריכת העמוד נדחית"
 msgid "user profile"
 msgstr "פרופיל משתמש"
 
+msgid "Delete"
+msgstr "מחק"
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
+
 msgid "Delete group"
 msgstr "מחק קבוצה"
 
@@ -97,9 +103,6 @@ msgstr "מחיקת קבוצה זו תשלול את ההרשאות עבור כל 
 
 msgid "Are you sure you want to delete this group?"
 msgstr "האם אתם בטוחים כי ברצונכם למחוק קבוצה זו?"
-
-msgid "Yes, delete"
-msgstr "כן, מחק"
 
 msgid "Add group"
 msgstr "הוסף קבוצה"
@@ -121,9 +124,6 @@ msgstr "הוסף"
 
 msgid "Change"
 msgstr "שנה"
-
-msgid "Delete"
-msgstr "מחק"
 
 msgid "Other permissions"
 msgstr "הרשאות אחרות "
@@ -211,6 +211,9 @@ msgstr "ערוך"
 
 msgid "The user could not be created due to errors."
 msgstr "לא ניתן ליצור את המשתמש עקב שגיאה"
+
+msgid "User '{0}' updated."
+msgstr "משתמש '{0}' עודכן "
 
 msgid "The user could not be saved due to errors."
 msgstr "לא ניתן לשמור את המשתמש עקב שגיאות"

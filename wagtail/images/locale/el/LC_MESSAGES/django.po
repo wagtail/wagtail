@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2022-01-04 10:21+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,9 @@ msgstr "Στοίχιση αριστερά"
 msgid "Right-aligned"
 msgstr "Στοίχιση δεξιά"
 
+msgid "Collection"
+msgstr "Συλλογή"
+
 msgid "Filter"
 msgstr "Φίλτρο"
 
@@ -106,6 +109,9 @@ msgstr "Επεξεργασία"
 msgid "Edit any image"
 msgstr "Επεξεργασία όλων των εικόνων"
 
+msgid "Choose"
+msgstr "Επιλογή"
+
 msgid "title"
 msgstr "τίτλος"
 
@@ -127,6 +133,15 @@ msgstr "ανέβηκε από το χρήστη"
 msgid "tags"
 msgstr "ετικέτες"
 
+msgid "image"
+msgstr "Εικόνα"
+
+msgid "Yes, delete"
+msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
+
 msgid "Choose an image"
 msgstr "Επιλέξατε εικόνα"
 
@@ -139,9 +154,6 @@ msgstr "Ανέβασμα"
 msgid "Popular tags"
 msgstr "Δημοφιλείς ετικέτες"
 
-msgid "Uploading…"
-msgstr "Ανέβασμα εικόνας …"
-
 msgid "Latest images"
 msgstr "Τελευταίες εικόνες"
 
@@ -150,6 +162,9 @@ msgstr "Επιλογή τύπου"
 
 msgid "Insert image"
 msgstr "Εισαγωγή εικόνας"
+
+msgid "Uploading…"
+msgstr "Ανέβασμα εικόνας …"
 
 msgid "Change image file:"
 msgstr "Αλλαγή αρχείου εικόνας:"
@@ -165,12 +180,6 @@ msgstr "Αποθήκευση"
 
 msgid "Delete image"
 msgstr "Διαγραφή εικόνας"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Είστε σίγουρος ότι θέλετε να διαγραφεί αυτή η εικόνα;"
-
-msgid "Yes, delete"
-msgstr "Ναι, να διαγραφεί"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -194,8 +203,14 @@ msgstr "Μέγεθος Αρχείου"
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
+msgid "Usage"
+msgstr "Χρήση"
+
 msgid "Images"
 msgstr "Εικόνες"
+
+msgid "Clear choice"
+msgstr "Διαγραφή επιλογής"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -295,17 +310,14 @@ msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με 
 msgid "Image updated."
 msgstr "Ενημέρωση εικόνας"
 
-msgid "Update"
-msgstr "Ενημέρωση"
-
-msgid "Delete"
-msgstr "Διαγραφή"
-
 msgid "Image permissions"
 msgstr "Άδειες εικόνων"
 
 msgid "Add an image permission"
 msgstr "Προσθήκη αδειών εικόνων"
+
+msgid "Delete"
+msgstr "Διαγραφή"
 
 msgid "Search images"
 msgstr "Αναζήτηση εικόνων"

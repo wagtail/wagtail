@@ -3,10 +3,10 @@
 import json
 import unittest
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.core import mail
+from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -33,38 +33,47 @@ class TestHome(TestCase, WagtailTestUtils):
     def test_admin_menu(self):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
-        # check that media attached to menu items is correctly pulled in
-        if DJANGO_VERSION >= (3, 1):
-            self.assertContains(
-                response,
-                '<script src="/static/testapp/js/kittens.js"></script>',
-                html=True
-            )
-        else:
-            self.assertContains(
-                response,
-                '<script type="text/javascript" src="/static/testapp/js/kittens.js"></script>',
-                html=True
-            )
-
-        # check that custom menu items (including classname / attrs parameters) are pulled in
+        # check that custom menu items (including classname / icon_name) are pulled in
         self.assertContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>',
-            html=True
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/"}',
         )
 
         # Check that the explorer menu item is here, with the right start page.
         self.assertContains(
             response,
-            'data-explorer-start-page="1"'
+            '{"name": "explorer", "label": "Pages", "icon_name": "folder-open-inverse", "classnames": "", "url": "/admin/pages/"}, 1]'
         )
 
         # check that is_shown is respected on menu items
         response = self.client.get(reverse('wagtailadmin_home') + '?hide-kittens=true')
         self.assertNotContains(
             response,
-            '<a href="http://www.tomroyal.com/teaandkittens/" class="icon icon-kitten" data-fluffy="yes">Kittens!</a>'
+            '{"name": "kittens", "label": "Kittens!", "icon_name": "kitten", "classnames": "kitten--test", "url": "http://www.tomroyal.com/teaandkittens/"}'
+        )
+
+    def test_dashboard_panels(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>It looks like you're making a website. Would you like some help?</p>")
+
+        # check that media attached to dashboard panels is correctly pulled in
+        self.assertContains(
+            response,
+            '<script src="/static/testapp/js/clippy.js"></script>',
+            html=True
+        )
+
+    def test_summary_items(self):
+        response = self.client.get(reverse('wagtailadmin_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "<p>0 broken links</p>")
+
+        # check that media attached to summary items is correctly pulled in
+        self.assertContains(
+            response,
+            '<link href="/static/testapp/css/broken-links.css" type="text/css" media="all" rel="stylesheet">',
+            html=True
         )
 
     def test_never_cache_header(self):
@@ -169,7 +178,7 @@ class TestSendMail(TestCase):
         email_message = mail.outbox[0]
         self.assertEqual(email_message.subject, "Test HTML subject")
         self.assertEqual(email_message.alternatives, [('<h2>Test HTML content</h2>', 'text/html')])
-        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will alwasy be added to body, even with alternatives
+        self.assertEqual(email_message.body, "TEXT content")  # note: plain text will always be added to body, even with alternatives
         self.assertEqual(email_message.to, ["has.html@email.com"])
 
         # confirm that without html_message kwarg we do not get 'alternatives'
@@ -330,14 +339,43 @@ class TestUserHasAnyPagePermission(TestCase, WagtailTestUtils):
 
 
 class Test404(TestCase, WagtailTestUtils):
-    def test_admin_404_template_used(self):
+    def test_admin_404_template_used_append_slash_true(self):
         self.login()
-        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
-        self.assertEqual(response.status_code, 404)
-        self.assertTemplateUsed(response, 'wagtailadmin/404.html')
+        with self.settings(APPEND_SLASH=True):
+            response = self.client.get('/admin/sdfgdsfgdsfgsdf', follow=True)
+
+            # Check 404 error after CommonMiddleware redirect
+            self.assertEqual(response.status_code, 404)
+            self.assertTemplateUsed(response, 'wagtailadmin/404.html')
 
     def test_not_logged_in_redirect(self):
-        response = self.client.get('/admin/sdfgdsfgdsfgsdf')
+        response = self.client.get('/admin/sdfgdsfgdsfgsdf/')
 
         # Check that the user was redirected to the login page and that next was set correctly
-        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf')
+        self.assertRedirects(response, reverse('wagtailadmin_login') + '?next=/admin/sdfgdsfgdsfgsdf/')
+
+
+class TestAdminURLAppendSlash(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+    def test_return_correct_view_for_correct_url_without_ending_slash(self):
+        self.login()
+        with self.settings(APPEND_SLASH=True):
+            # Remove trailing slash from URL
+            response = self.client.get(reverse('wagtailadmin_explore_root')[:-1], follow=True)
+
+            # Check that correct page is returned after CommonMiddleware redirect
+            self.assertEqual(response.status_code, 200)
+            self.assertTemplateUsed(response, 'wagtailadmin/pages/index.html')
+            self.assertEqual(Page.objects.get(id=1), response.context['parent_page'])
+            self.assertTrue(response.context['pages'].paginator.object_list.filter(id=self.root_page.id).exists())
+
+
+class TestRemoveStaleContentTypes(TestCase):
+    def test_remove_stale_content_types_preserves_access_admin_permission(self):
+        call_command('remove_stale_contenttypes', interactive=False)
+        self.assertTrue(
+            Permission.objects.filter(content_type__app_label='wagtailadmin', codename='access_admin').exists()
+        )

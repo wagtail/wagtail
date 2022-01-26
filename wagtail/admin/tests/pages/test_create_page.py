@@ -109,13 +109,25 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response['Content-Type'], "text/html; charset=utf-8")
-        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
-        self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active" data-tab="content">Content</a>')
+        self.assertContains(response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>')
         # test register_page_action_menu_item hook
         self.assertContains(response, '<button type="submit" name="action-panic" value="Panic!" class="button">Panic!</button>')
         self.assertContains(response, 'testapp/js/siren.js')
         # test construct_page_action_menu hook
         self.assertContains(response, '<button type="submit" name="action-relax" value="Relax." class="button">Relax.</button>')
+        # test that workflow actions are shown
+        self.assertContains(
+            response, '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
+        )
+
+    @override_settings(WAGTAIL_WORKFLOW_ENABLED=False)
+    def test_workflow_buttons_not_shown_when_workflow_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(
+            response, 'value="Submit for moderation"'
+        )
 
     def test_create_multipart(self):
         """
@@ -140,8 +152,8 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:add', args=('tests', 'standardindex', self.root_page.id))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
-        self.assertNotContains(response, '<a href="#tab-promote" class="">Promote</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active" data-tab="content">Content</a>')
+        self.assertNotContains(response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>')
 
     def test_create_page_with_custom_tabs(self):
         """
@@ -151,9 +163,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             reverse('wagtailadmin_pages:add', args=('tests', 'standardchild', self.root_page.id))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '<a href="#tab-content" class="active">Content</a>')
-        self.assertContains(response, '<a href="#tab-promote" class="">Promote</a>')
-        self.assertContains(response, '<a href="#tab-dinosaurs" class="">Dinosaurs</a>')
+        self.assertContains(response, '<a href="#tab-content" class="active" data-tab="content">Content</a>')
+        self.assertContains(response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>')
+        self.assertContains(response, '<a href="#tab-dinosaurs" class="" data-tab="dinosaurs">Dinosaurs</a>')
 
     def test_create_page_with_non_model_field(self):
         """
@@ -644,6 +656,10 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(page, SimplePage)
 
+            # Both are None as this is only a draft
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
+
             return HttpResponse("Overridden!")
 
         with self.register_hook('after_create_page', hook_func):
@@ -663,10 +679,41 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         # page should be created
         self.assertTrue(Page.objects.filter(title="New page!").exists())
 
+    def test_after_create_page_hook_with_page_publish(self):
+        def hook_func(request, page):
+            self.assertIsInstance(request, HttpRequest)
+            self.assertIsInstance(page, SimplePage)
+
+            self.assertIsNotNone(page.first_published_at)
+            self.assertIsNotNone(page.last_published_at)
+
+            return HttpResponse("Overridden!")
+
+        with self.register_hook('after_create_page', hook_func):
+            post_data = {
+                'title': "New page!",
+                'content': "Some content",
+                'slug': 'hello-world',
+                'action-publish': "Publish",
+            }
+            response = self.client.post(
+                reverse('wagtailadmin_pages:add', args=('tests', 'simplepage', self.root_page.id)),
+                post_data
+            )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"Overridden!")
+
+        # page should be created
+        self.assertTrue(Page.objects.filter(title="New page!").exists())
+
     def test_after_publish_page(self):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(page.title, "New page!")
+
+            self.assertIsNotNone(page.first_published_at)
+            self.assertIsNotNone(page.last_published_at)
 
             return HttpResponse("Overridden!")
 
@@ -691,6 +738,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         def hook_func(request, page):
             self.assertIsInstance(request, HttpRequest)
             self.assertEqual(page.title, "New page!")
+
+            self.assertIsNone(page.first_published_at)
+            self.assertIsNone(page.last_published_at)
 
             return HttpResponse("Overridden!")
 
@@ -923,7 +973,7 @@ class TestInlineStreamField(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # response should include HTML declarations for streamfield child blocks
-        self.assertContains(response, '<div id="__PREFIX__-container" aria-hidden="false">')
+        self.assertContains(response, '<div id="sections-__prefix__-body" data-block="')
 
 
 class TestIssue2994(TestCase, WagtailTestUtils):
@@ -978,6 +1028,10 @@ class TestInlinePanelWithTags(TestCase, WagtailTestUtils):
             'addresses-0-address': "52 Festive Road, London",
             'addresses-0-tags': "shopkeeper, bowler-hat",
             'action-publish': "Publish",
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('tests', 'personpage', self.root_page.id)), post_data
@@ -1017,6 +1071,10 @@ class TestInlinePanelNonFieldErrors(TestCase, WagtailTestUtils):
             'carousel_items-MAX_NUM_FORMS': 1000,
             'carousel_items-TOTAL_FORMS': 0,
             'action-publish': "Publish",
+            'comments-TOTAL_FORMS': 0,
+            'comments-INITIAL_FORMS': 0,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
         }
         response = self.client.post(
             reverse('wagtailadmin_pages:add', args=('demosite', 'homepage', self.root_page.id)), post_data
@@ -1112,3 +1170,55 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
 
         add_translation_url = reverse('wagtailadmin_pages:add', args=['demosite', 'homepage', self.root_page.id]) + '?locale=fr'
         self.assertNotContains(response, f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">')
+
+
+class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
+    def setUp(self):
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Login
+        self.user = self.login()
+
+    def test_commment_notifications_switched_on_by_default(self):
+        response = self.client.get(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<input type="checkbox" name="comment_notifications" id="id_comment_notifications" checked>')
+
+    def test_post_with_comment_notifications_switched_on(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+            'comment_notifications': 'on'
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]), post_data)
+
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[page.id]))
+
+        # Check the subscription
+        subscription = page.subscribers.get()
+
+        self.assertEqual(subscription.user, self.user)
+        self.assertTrue(subscription.comment_notifications)
+
+    def test_post_with_comment_notifications_switched_off(self):
+        post_data = {
+            'title': "New page!",
+            'content': "Some content",
+            'slug': 'hello-world',
+        }
+        response = self.client.post(reverse('wagtailadmin_pages:add', args=['tests', 'simplepage', self.root_page.id]), post_data)
+
+        page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
+
+        self.assertRedirects(response, reverse('wagtailadmin_pages:edit', args=[page.id]))
+
+        # Check the subscription
+        subscription = page.subscribers.get()
+
+        self.assertEqual(subscription.user, self.user)
+        self.assertFalse(subscription.comment_notifications)

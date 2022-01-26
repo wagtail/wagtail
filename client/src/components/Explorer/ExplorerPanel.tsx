@@ -157,34 +157,36 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
 
     return (
       <FocusTrap
-        tag="div"
-        role="dialog"
-        className="explorer"
         paused={paused || !page || page.isFetchingChildren || page.isFetchingTranslations}
         focusTrapOptions={{
           initialFocus: '.c-explorer__header__title',
           onDeactivate: onClose,
         }}
       >
-        <Button className="c-explorer__close">
-          {STRINGS.CLOSE_EXPLORER}
-        </Button>
-        <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
-          <div key={depth} className="c-transition-group">
-            <ExplorerHeader
-              depth={depth}
-              page={page}
-              onClick={this.onHeaderClick}
-              gotoPage={gotoPage}
-            />
+        <div
+          role="dialog"
+          className="explorer"
+        >
+          <Button className="c-explorer__close">
+            {STRINGS.CLOSE_EXPLORER}
+          </Button>
+          <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+            <div key={depth} className="c-transition-group">
+              <ExplorerHeader
+                depth={depth}
+                page={page}
+                onClick={this.onHeaderClick}
+                gotoPage={gotoPage}
+              />
 
-            {this.renderChildren()}
+              {this.renderChildren()}
 
-            {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
-              <PageCount page={page} />
-            ) : null}
-          </div>
-        </Transition>
+              {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+                <PageCount page={page} />
+              ) : null}
+            </div>
+          </Transition>
+        </div>
       </FocusTrap>
     );
   }

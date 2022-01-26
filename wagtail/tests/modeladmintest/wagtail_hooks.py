@@ -3,6 +3,7 @@ from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin, ModelAdminGroup, ThumbnailMixin, modeladmin_register)
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
+from wagtail.core.models import Page
 from wagtail.tests.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm
@@ -171,6 +172,11 @@ class RelatedLinkAdmin(ModelAdmin):
     menu_label = "Related Links"
 
 
+class PageAdmin(ModelAdmin):
+    model = Page
+    menu_label = "Page"
+
+
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
 modeladmin_register(TokenModelAdmin)
@@ -182,3 +188,4 @@ modeladmin_register(FriendAdmin)
 modeladmin_register(VisitorAdmin)
 modeladmin_register(ContributorAdmin)
 modeladmin_register(RelatedLinkAdmin)
+modeladmin_register(PageAdmin)

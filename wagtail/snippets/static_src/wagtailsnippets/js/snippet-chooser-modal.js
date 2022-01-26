@@ -7,54 +7,40 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
             });
 
             $('.pagination a', context).on('click', function() {
-                var page = this.getAttribute('data-page');
-                setPage(page);
+                loadResults(this.href);
                 return false;
             });
         }
 
-        var searchUrl = $('form.snippet-search', modal.body).attr('action');
+        var searchForm$ = $('form.snippet-search', modal.body);
+        var searchUrl = searchForm$.attr('action');
         var request;
 
         function search() {
-            request = $.ajax({
-                url: searchUrl,
-                data: {q: $('#id_q').val(), results: 'true'},
-                success: function(data, status) {
-                    request = null;
-                    $('#search-results').html(data);
-                    ajaxifyLinks($('#search-results'));
-                },
-                error: function() {
-                    request = null;
-                }
-            });
+            loadResults(searchUrl, searchForm$.serialize());
             return false;
         }
 
-        function setPage(page) {
-            var dataObj = {p: page, results: 'true'};
-
-            if ($('#id_q').length && $('#id_q').val().length) {
-                dataObj.q = $('#id_q').val();
-            }
-
-            request = $.ajax({
-                url: searchUrl,
-                data: dataObj,
-                success: function(data, status) {
+        function loadResults(url, data) {
+            var opts = {
+                url: url,
+                success: function(resultsData, status) {
                     request = null;
-                    $('#search-results').html(data);
+                    $('#search-results').html(resultsData);
                     ajaxifyLinks($('#search-results'));
                 },
                 error: function() {
                     request = null;
                 }
-            });
-            return false;
+            };
+            if (data) {
+                opts.data = data;
+            }
+            request = $.ajax(opts);
         }
 
         $('form.snippet-search', modal.body).on('submit', search);
+        $('#snippet-chooser-locale', modal.body).on('change', search);
 
         $('#id_q').on('input', function() {
             if (request) {
@@ -68,7 +54,7 @@ SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         ajaxifyLinks(modal.body);
     },
     'chosen': function(modal, jsonData) {
-        modal.respond('snippetChosen', jsonData['result']);
+        modal.respond('snippetChosen', jsonData.result);
         modal.close();
     }
 };

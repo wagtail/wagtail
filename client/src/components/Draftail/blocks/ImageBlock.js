@@ -12,7 +12,10 @@ const ImageBlock = props => {
   const { blockProps } = props;
   const { entity, onEditEntity, onRemoveEntity } = blockProps;
   const { src, alt } = entity.getData();
-  const altLabel = `${STRINGS.ALT_TEXT}: “${alt || ''}”`;
+  let altLabel = STRINGS.DECORATIVE_IMAGE;
+  if (alt) {
+    altLabel = `${STRINGS.ALT_TEXT}: “${alt}”`;
+  }
 
   return (
     <MediaBlock {...props} src={src} alt="">

@@ -3,13 +3,15 @@ import datetime
 import json
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, Permission
 from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.core.models import Locale, Page
+from wagtail.core import hooks
+from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.tests.demosite import models
-from wagtail.tests.testapp.models import SimplePage, StreamPage
+from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -172,7 +174,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'admin_display_title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'children', 'descendants', 'ancestors', 'translations', 'status', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'alias_of', 'children', 'descendants', 'ancestors', 'translations', 'status', 'latest_revision_created_at'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-admin_display_title,-date,-seo_title,-status')
@@ -180,7 +182,7 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'children', 'descendants', 'ancestors', 'translations', 'latest_revision_created_at'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'parent', 'html_url', 'search_description', 'locale', 'alias_of', 'children', 'descendants', 'ancestors', 'translations', 'latest_revision_created_at'})
 
     def test_all_nested_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='feed_image(*)')
@@ -371,6 +373,18 @@ class TestAdminPageListing(AdminAPITestCase, TestPageListing):
             'message': 'filtering by for_explorer without child_of is not supported',
         })
 
+    def test_for_explorer_construct_explorer_page_queryset_ordering(self):
+        def set_custom_ordering(parent_page, pages, request):
+            return pages.order_by('-title')
+
+        with hooks.register_temporarily('construct_explorer_page_queryset', set_custom_ordering):
+            response = self.get_response(for_explorer=True, child_of=2)
+
+        content = json.loads(response.content.decode('UTF-8'))
+        page_id_list = self.get_page_id_list(content)
+
+        self.assertEqual(page_id_list, [6, 20, 4, 12, 5])
+
     # HAS CHILDREN FILTER
 
     def test_has_children_filter(self):
@@ -512,6 +526,11 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/admin/api/main/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
+        # Check the alias_of field
+        # See test_alias_page for a test on an alias page
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsNone(content['meta']['alias_of'])
+
         # Check that the custom fields are included
         self.assertIn('date', content)
         self.assertIn('body', content)
@@ -555,7 +574,7 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name'], 'blog index page')
         self.assertEqual(content['__types']['demosite.BlogIndexPage']['verbose_name_plural'], 'blog index pages')
 
-    # Overriden from public API tests
+    # overridden from public API tests
     def test_meta_parent_id_doesnt_show_root_page(self):
         # Root page is visible in the admin API
         response = self.get_response(2)
@@ -683,10 +702,36 @@ class TestAdminPageDetail(AdminAPITestCase, TestPageDetail):
         self.assertEqual(content['meta']['ancestors'][1]['title'], 'Home page')
         self.assertEqual(content['meta']['ancestors'][2]['title'], 'Blog index')
 
+    def test_alias_page(self):
+        original = Page.objects.get(id=16).specific
+        alias = original.create_alias(update_slug='new-slug')
+
+        response = self.get_response(alias.id)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/new-slug/')
+
+        # Check alias_of field
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsInstance(content['meta']['alias_of'], dict)
+        self.assertEqual(set(content['meta']['alias_of'].keys()), {'id', 'meta', 'title'})
+        self.assertEqual(content['meta']['alias_of']['id'], 16)
+        self.assertIsInstance(content['meta']['alias_of']['meta'], dict)
+        self.assertEqual(set(content['meta']['alias_of']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['alias_of']['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['alias_of']['meta']['detail_url'], 'http://localhost/admin/api/main/pages/16/')
+        self.assertEqual(content['meta']['alias_of']['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
+
     # FIELDS
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description')
+        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-descendants,-latest_revision_created_at,-alias_of,-children,-ancestors,-show_in_menus,-seo_title,-parent,-status,-search_description')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertNotIn('meta', set(content.keys()))
@@ -792,6 +837,725 @@ class TestCustomAdminDisplayTitle(AdminAPITestCase):
         self.assertEqual(1, len(matching_items))
         self.assertEqual(matching_items[0]['title'], "Saint Patrick")
         self.assertEqual(matching_items[0]['admin_display_title'], "Saint Patrick (single event)")
+
+
+class TestCopyPageAction(AdminAPITestCase):
+    fixtures = ['test.json']
+
+    def get_response(self, page_id, data):
+        return self.client.post(reverse('wagtailadmin_api:pages:action', args=[page_id, 'copy']), data)
+
+    def test_copy_page(self):
+        response = self.get_response(3, {})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertEqual(new_page.slug, 'events-1')
+        self.assertTrue(new_page.live)
+        self.assertFalse(new_page.get_children().exists())
+
+    def test_copy_page_change_title(self):
+        response = self.get_response(3, {
+            'title': "New title"
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "New title")
+        self.assertEqual(new_page.slug, 'events-1')
+
+    def test_copy_page_change_slug(self):
+        response = self.get_response(3, {
+            'slug': "new-slug"
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.slug, 'new-slug')
+
+    def test_copy_page_destination(self):
+        response = self.get_response(3, {
+            'destination_page_id': 3
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertTrue(new_page.live)
+        self.assertFalse(new_page.get_children().exists())
+
+    def test_copy_page_recursive(self):
+        response = self.get_response(3, {
+            'recursive': True,
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertTrue(new_page.get_children().exists())
+
+    def test_copy_page_in_draft(self):
+        response = self.get_response(3, {
+            'keep_live': False,
+        })
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode('utf-8'))
+
+        new_page = Page.objects.get(id=content['id'])
+        self.assertEqual(new_page.title, "Events")
+        self.assertFalse(new_page.live)
+
+    # Check errors
+
+    def test_without_publish_permissions_at_destination_with_keep_live_false(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(
+            Group.objects.get(name="Editors")
+        )
+        self.user.save()
+
+        response = self.get_response(3, {
+            'destination_page_id': 1,
+            'keep_live': False,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_recursively_copy_into_self(self):
+        response = self.get_response(3, {
+            'destination_page_id': 3,
+            'recursive': True,
+        })
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'message': "You cannot copy a tree branch recursively into itself"
+        })
+
+    def test_without_create_permissions_at_destination(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.save()
+
+        response = self.get_response(3, {
+            'destination_page_id': 2,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_without_publish_permissions_at_destination_with_keep_live(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+        )
+        self.user.groups.add(
+            Group.objects.get(name="Editors")
+        )
+        self.user.save()
+
+        GroupPagePermission.objects.create(
+            group=Group.objects.get(name="Editors"),
+            page_id=2,
+            permission_type='add'
+        )
+
+        response = self.get_response(3, {
+            'destination_page_id': 2,
+        })
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_respects_page_creation_rules(self):
+        # Only one homepage may exist
+        response = self.get_response(2, {})
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {
+            'detail': "You do not have permission to perform this action."
+        })
+
+    def test_copy_page_slug_in_use(self):
+        response = self.get_response(3, {
+            'slug': 'events',
+        })
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode('utf-8'))
+        self.assertEqual(content, {'slug': ['This slug is already in use']})
+
+
+class TestConvertAliasPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        # Find root page
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage(title="Hello world!", slug="hello-world", content="hello")
+        self.root_page.add_child(instance=self.child_page)
+
+        # Add alias page
+        self.alias_page = self.child_page.create_alias(update_slug="alias-page")
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "convert_alias"])
+        )
+
+    def test_convert_alias(self):
+        response = self.get_response(self.alias_page.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the page was converted
+        self.alias_page.refresh_from_db()
+        self.assertIsNone(self.alias_page.alias_of)
+
+        # Check that a revision was created
+        revision = self.alias_page.revisions.get()
+        self.assertEqual(revision.user, self.user)
+        self.assertEqual(self.alias_page.live_revision, revision)
+
+        # Check audit log
+        log = PageLogEntry.objects.get(action="wagtail.convert_alias")
+        self.assertFalse(log.content_changed)
+        self.assertEqual(
+            json.loads(log.data_json),
+            {
+                "page": {
+                    "id": self.alias_page.id,
+                    "title": self.alias_page.get_admin_display_title(),
+                }
+            },
+        )
+        self.assertEqual(log.page, self.alias_page.page_ptr)
+        self.assertEqual(log.revision, revision)
+        self.assertEqual(log.user, self.user)
+
+    def test_convert_alias_not_alias(self):
+        response = self.get_response(self.child_page.id)
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {'message': 'Page must be an alias to be converted.'}
+        )
+
+    def test_convert_alias_bad_permission(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(self.alias_page.id)
+        self.assertEqual(response.status_code, 403)
+
+
+class TestDeletePageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "delete"])
+        )
+
+    def test_delete_page(self):
+        response = self.get_response(4)
+
+        # Page is deleted
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Page.objects.filter(id=4).exists())
+
+    def test_delete_page_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # delete
+        response = self.get_response(4)
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+        # Page is still there
+        self.assertTrue(Page.objects.filter(id=4).exists())
+
+
+class TestPublishPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "publish"])
+        )
+
+    def test_publish_page(self):
+        unpublished_page = Page.objects.get(slug="tentative-unpublished-event")
+        self.assertEqual(unpublished_page.first_published_at, None)
+        self.assertEqual(
+            unpublished_page.first_published_at, unpublished_page.last_published_at
+        )
+        self.assertEqual(unpublished_page.live, False)
+
+        response = self.get_response(unpublished_page.id)
+        self.assertEqual(response.status_code, 200)
+
+        unpublished_page.refresh_from_db()
+        self.assertNotEqual(unpublished_page.first_published_at, None)
+        self.assertEqual(
+            unpublished_page.first_published_at, unpublished_page.last_published_at
+        )
+        self.assertEqual(unpublished_page.live, True)
+
+    def test_publish_insufficient_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.groups.add(Group.objects.get(name="Editors"))
+        self.user.save()
+
+        response = self.get_response(4)
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_publish_alias_page(self):
+        home = Page.objects.get(slug="home")
+        alias_page = home.create_alias(update_slug="new-home-page")
+
+        response = self.get_response(alias_page.id)
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content,
+            {
+                "message": (
+                    "save_revision() was called on an alias page. "
+                    "Revisions are not required for alias pages as they are an exact copy of another page."
+                )
+            },
+        )
+
+
+class TestUnpublishPageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "unpublish"]), data
+        )
+
+    def test_unpublish_page(self):
+        self.assertTrue(Page.objects.get(id=3).live)
+
+        response = self.get_response(3, {})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page was unpublished
+        self.assertFalse(Page.objects.get(id=3).live)
+
+    def test_unpublish_page_include_descendants(self):
+        page = Page.objects.get(slug="home")
+        # Check that the page has live descendants that aren't locked.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+        response = self.get_response(page.id, {"recursive": True})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page is unpublished
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+
+        # Check that the descendant pages that weren't locked are unpublished as well
+        descendant_pages = page.get_descendants().filter(locked=False)
+        self.assertTrue(descendant_pages.exists())
+        for descendant_page in descendant_pages:
+            self.assertFalse(descendant_page.live)
+
+    def test_unpublish_page_without_including_descendants(self):
+        page = Page.objects.get(slug="secret-plans")
+        # Check that the page has live descendants that aren't locked.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+        response = self.get_response(page.id, {"recursive": False})
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the page is unpublished
+        page.refresh_from_db()
+        self.assertFalse(page.live)
+
+        # Check that the descendant pages that weren't locked aren't unpublished.
+        self.assertTrue(page.get_descendants().live().filter(locked=False).exists())
+
+    def test_unpublish_invalid_page_id(self):
+        response = self.get_response(12345, {})
+        self.assertEqual(response.status_code, 404)
+
+    def test_unpublish_page_insufficient_permission(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(3, {})
+
+        self.assertEqual(response.status_code, 403)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+
+class TestMovePageAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "move"]), data
+        )
+
+    def test_move_page(self):
+        response = self.get_response(4, {"destination_page_id": 3})
+        self.assertEqual(response.status_code, 200)
+
+    def test_move_page_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        # Move
+        response = self.get_response(4, {"destination_page_id": 3})
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_move_page_without_destination_page_id(self):
+        response = self.get_response(4, {})
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"destination_page_id": ["This field is required."]})
+
+
+class TestCopyForTranslationAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "copy_for_translation"]), data
+        )
+
+    def setUp(self):
+        super().setUp()
+        self.en_homepage = Page.objects.get(url_path="/home/").specific
+        self.en_eventindex = EventIndex.objects.get(url_path="/home/events/")
+        self.en_eventpage = EventPage.objects.get(url_path="/home/events/christmas/")
+        self.root_page = self.en_homepage.get_parent()
+        self.fr_locale = Locale.objects.create(language_code="fr")
+
+    def test_copy_homepage_for_translation(self):
+        response = self.get_response(self.en_homepage.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        fr_homepage = Page.objects.get(id=content["id"])
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+
+        # At the top level, the language code should be appended to the slug
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+        # Translation must be in draft
+        self.assertFalse(fr_homepage.live)
+        self.assertTrue(fr_homepage.has_unpublished_changes)
+
+    def test_copy_childpage_without_parent(self):
+        response = self.get_response(self.en_eventindex.id, {"locale": "fr"})
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"message": "Parent page is not translated."})
+
+    def test_copy_childpage_with_copy_parents(self):
+        response = self.get_response(
+            self.en_eventindex.id, {"locale": "fr", "copy_parents": True}
+        )
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        fr_eventindex = Page.objects.get(id=content["id"])
+
+        self.assertNotEqual(self.en_eventindex.id, fr_eventindex.id)
+        self.assertEqual(fr_eventindex.locale, self.fr_locale)
+        self.assertEqual(
+            fr_eventindex.translation_key, self.en_eventindex.translation_key
+        )
+        self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # This should create the homepage as well
+        fr_homepage = fr_eventindex.get_parent()
+
+        self.assertNotEqual(self.en_homepage.id, fr_homepage.id)
+        self.assertEqual(fr_homepage.locale, self.fr_locale)
+        self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
+        self.assertEqual(fr_homepage.slug, "home-fr")
+
+    def test_copy_for_translation_no_locale(self):
+        response = self.get_response(self.en_homepage.id, {})
+
+        self.assertEqual(response.status_code, 400)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"locale": ["This field is required."]})
+
+    def test_copy_for_translation_unknown_locale(self):
+        response = self.get_response(self.en_homepage.id, {"locale": "de"})
+
+        self.assertEqual(response.status_code, 404)
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"message": "No Locale matches the given query."})
+
+
+class TestCreatePageAliasAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+        self.events_index = EventIndex.objects.get(url_path="/home/events/")
+        self.about_us = SimplePage.objects.get(url_path="/home/about-us/")
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "create_alias"]),
+            data,
+        )
+
+    def test_create_alias(self):
+        # Set a different draft title, aliases are not supposed to
+        # have a different draft_title because they don't have revisions.
+        # This should be corrected when copying
+        self.about_us.draft_title = "Draft title"
+        self.about_us.save(update_fields=["draft_title"])
+
+        response = self.get_response(
+            self.about_us.id, data={"update_slug": "new-about-us"}
+        )
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        new_about_us = Page.objects.get(id=content["id"])
+
+        # Check that new_about_us is correct
+        self.assertIsInstance(new_about_us.specific, SimplePage)
+        self.assertEqual(new_about_us.slug, "new-about-us")
+        # Draft title should be changed to match the live title
+        self.assertEqual(new_about_us.draft_title, "About us")
+
+        # Check that new_about_us is a different page
+        self.assertNotEqual(self.about_us.id, new_about_us.id)
+
+        # Check that the url path was updated
+        self.assertEqual(new_about_us.url_path, "/home/new-about-us/")
+
+        # Check that the alias_of field was filled in
+        self.assertEqual(new_about_us.alias_of.specific, self.about_us)
+
+    def test_create_alias_recursive(self):
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "update_slug": "new-events-index"},
+        )
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        new_events_index = Page.objects.get(id=content["id"])
+
+        # Get christmas event
+        old_christmas_event = (
+            self.events_index.get_children().filter(slug="christmas").first()
+        )
+        new_christmas_event = (
+            new_events_index.get_children().filter(slug="christmas").first()
+        )
+
+        # Check that the event exists in both places
+        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
+        self.assertNotEqual(
+            old_christmas_event, None, "Child pages were removed from original page"
+        )
+
+        # Check that the url path was updated
+        self.assertEqual(
+            new_christmas_event.url_path, "/home/new-events-index/christmas/"
+        )
+
+        # Check that the children were also created as aliases
+        self.assertEqual(new_christmas_event.alias_of, old_christmas_event)
+
+    def test_create_alias_doesnt_copy_recursively_to_the_same_tree(self):
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "destination_page_id": self.events_index.id},
+        )
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content,
+            {"message": "You cannot copy a tree branch recursively into itself"},
+        )
+
+    def test_create_alias_without_publish_permissions(self):
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(
+            self.events_index.id,
+            data={"recursive": True, "update_slug": "new-events-index"},
+        )
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+
+class TestRevertToPageRevisionAction(AdminAPITestCase):
+    fixtures = ["test.json"]
+
+    def setUp(self):
+        super().setUp()
+
+        self.events_page = Page.objects.get(id=3)
+
+        # Create revision to revert back to
+        self.first_revision = self.events_page.save_revision()
+
+        # Change page title
+        self.events_page.title = "Evenements"
+        self.events_page.save_revision().publish()
+
+    def get_response(self, page_id, data):
+        return self.client.post(
+            reverse("wagtailadmin_api:pages:action", args=[page_id, "revert_to_page_revision"]), data
+        )
+
+    def test_revert_to_page_revision(self):
+        self.assertEqual(self.events_page.title, "Evenements")
+
+        response = self.get_response(self.events_page.id, {"revision_id": self.first_revision.id})
+        self.assertEqual(response.status_code, 200)
+
+        self.events_page.get_latest_revision().publish()
+        self.events_page.refresh_from_db()
+        self.assertEqual(self.events_page.title, "Events")
+
+    def test_revert_to_page_revision_bad_permissions(self):
+        # Remove privileges from user
+        self.user.is_superuser = False
+        self.user.user_permissions.add(
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
+        )
+        self.user.save()
+
+        response = self.get_response(self.events_page.id, {"revision_id": self.first_revision.id})
+        self.assertEqual(response.status_code, 403)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(
+            content, {"detail": "You do not have permission to perform this action."}
+        )
+
+    def test_revert_to_page_revision_without_revision_id(self):
+        response = self.get_response(self.events_page.id, {})
+        self.assertEqual(response.status_code, 400)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {"revision_id": ["This field is required."]})
+
+    def test_revert_to_page_revision_bad_revision_id(self):
+        self.assertEqual(self.events_page.title, "Evenements")
+
+        response = self.get_response(self.events_page.id, {"revision_id": 999})
+        self.assertEqual(response.status_code, 404)
+
+        content = json.loads(response.content.decode("utf-8"))
+        self.assertEqual(content, {'message': 'No PageRevision matches the given query.'})
 
 
 # Overwrite imported test cases do Django doesn't run them

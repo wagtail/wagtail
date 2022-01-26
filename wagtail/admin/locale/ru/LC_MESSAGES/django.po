@@ -7,7 +7,7 @@
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
 # Alexandr <alexromantsov@gmail.com>, 2016
 # Alexey Trofimov <funkindy@gmail.com>, 2020
-# Andrey Avdey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
 # Arseni M <arseni+transifex@mouchinski.com>, 2017
 # Daniil <fleepd@gmail.com>, 2015
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
@@ -19,21 +19,23 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # Nikita Tonkoshkur <humapen@gmail.com>, 2018
-# sergeybe <sergeybe@gmail.com>, 2020
+# sergeybe <sergeybe@gmail.com>, 2020-2021
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 # Vassily <zuber.kg@gmail.com>, 2019
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
+# Виталий Чекрыжев, 2021
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 14:09+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-12-17 11:24+0000\n"
+"Last-Translator: Виталий Чекрыжев\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -105,8 +107,11 @@ msgstr "Отложенная публикация"
 msgid "Privacy"
 msgstr "Приватность"
 
-msgid "Common page configuration"
-msgstr "Общие настройки страниц"
+msgid "For search engines"
+msgstr "Для поисковых систем"
+
+msgid "For site menus"
+msgstr "Для меню сайта"
 
 msgid "Content"
 msgstr "Содержимое"
@@ -126,26 +131,23 @@ msgstr "До"
 msgid "All"
 msgstr "Все"
 
-msgid "Started at"
-msgstr "Запущен в"
+msgid "Preferred language"
+msgstr "Предпочтительный язык"
 
-msgid "Show"
-msgstr "Показать"
+msgid "Current time zone"
+msgstr "Текущий часовой пояс"
 
-msgid "Awaiting my review"
-msgstr "В ожидании моего отзыва"
+msgid "First Name"
+msgstr "Имя"
 
-msgid "Completed at"
-msgstr "Завершен в"
+msgid "Last Name"
+msgstr "Фамилия"
 
-msgid "Workflow"
-msgstr "Рабочий процесс"
+msgid "Email"
+msgstr "Адрес электронной почты"
 
-msgid "Date"
-msgstr "Дата"
-
-msgid "Title"
-msgstr "Заголовок"
+msgid "Upload a profile picture"
+msgstr "Загрузить изображение профиля"
 
 msgid "Enter password"
 msgstr "Введите пароль"
@@ -160,10 +162,44 @@ msgstr "Введите ваш адрес электронной почты дл�
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Родительский элемент"
+
+msgid ""
+"Select hierarchical position. Note: a collection cannot become a child of "
+"itself or one of its descendants."
+msgstr ""
+"Выберите положение в иерархии. Примечание: коллекция не может стать дочерним "
+"элементом самой себя или одного из своих потомков."
+
+msgid "Please select another parent"
+msgstr "Пожалуйста выберите другого родителя"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Вы не можете иметь несколько записей с правами доступа к одной и той же "
 "коллекции."
+
+msgid "Collection"
+msgstr "Коллекция"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "Add collections"
+msgstr "Добавить коллекцию"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit collections"
+msgstr "Редактировать коллекцию"
+
+msgid "Delete collections"
+msgstr "Удалить коллекцию"
+
+msgid "You cannot edit another user's comment."
+msgstr "Вы не можете редактировать комментарий другого пользователя."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -221,6 +257,9 @@ msgstr[3] ""
 msgid "Alias"
 msgstr "Псевдоним"
 
+msgid "Keep the new pages updated with future changes"
+msgstr "Хранить новые страницы с учетом будущих изменений"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "У вас нет прав для копирования страницы \"%(page_title)s\""
@@ -277,114 +316,6 @@ msgstr "Задайте название рабочего процесса."
 msgid "Add tasks to your workflow"
 msgstr "Добавить задачи к рабочему процессу"
 
-msgid "Arabic"
-msgstr "Арабский"
-
-msgid "Catalan"
-msgstr "Каталанский"
-
-msgid "Czech"
-msgstr "Чешский"
-
-msgid "German"
-msgstr "Немецкий"
-
-msgid "Greek"
-msgstr "Греческий"
-
-msgid "English"
-msgstr "Английский"
-
-msgid "Spanish"
-msgstr "Испанский"
-
-msgid "Estonian"
-msgstr "Эстонский"
-
-msgid "Finnish"
-msgstr "Финский"
-
-msgid "French"
-msgstr "Французский"
-
-msgid "Galician"
-msgstr "Галисийский"
-
-msgid "Hungarian"
-msgstr "Венгерский"
-
-msgid "Indonesian"
-msgstr "Индонезийский"
-
-msgid "Icelandic"
-msgstr "Исландский"
-
-msgid "Italian"
-msgstr "Итальянский"
-
-msgid "Japanese"
-msgstr "Японский"
-
-msgid "Korean"
-msgstr "Корейский"
-
-msgid "Lithuanian"
-msgstr "Литовский"
-
-msgid "Mongolian"
-msgstr "Монгольский"
-
-msgid "Norwegian Bokmål"
-msgstr "Норвежский Букмол"
-
-msgid "Netherlands Dutch"
-msgstr "Голландский"
-
-msgid "Persian"
-msgstr "Персидский"
-
-msgid "Polish"
-msgstr "Польский"
-
-msgid "Brazilian Portuguese"
-msgstr "Бразильский португальский"
-
-msgid "Portuguese"
-msgstr "Португальский"
-
-msgid "Romanian"
-msgstr "Румынский"
-
-msgid "Russian"
-msgstr "Русский"
-
-msgid "Swedish"
-msgstr "Шведский"
-
-msgid "Slovak"
-msgstr "Словацкий язык"
-
-msgid "Thai"
-msgstr "Тайский"
-
-msgid "Turkish"
-msgstr "Турецкий"
-
-msgid "Turkish (Turkey)"
-msgstr "Турецкий (Турция)"
-
-msgid "Ukrainian"
-msgstr "Украинский язык"
-
-msgid "Chinese (Simplified)"
-msgstr "Китайский (Упрощенный)"
-
-msgid "Chinese (Traditional)"
-msgstr "Китайский (Традиционный)"
-
-msgid "Edit"
-msgstr "Редактировать"
-
 msgid "Page"
 msgstr "Страница"
 
@@ -408,6 +339,9 @@ msgstr "Закрыть проводник"
 
 msgid "Alt text"
 msgstr "Текст подсказки"
+
+msgid "Decorative image"
+msgstr "Декоративное изображение"
 
 msgid "Write here…"
 msgstr "Введите текст..."
@@ -459,9 +393,71 @@ msgstr "Показать дочерние страницы '{title}'"
 msgid "Page explorer"
 msgstr "Просмотрщик страниц"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Неизвестное %(action)s"
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Saving..."
+msgstr "Сохранение..."
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Deleting..."
+msgstr "Удаление ..."
+
+msgid "Add a comment"
+msgstr "Добавить комментарий"
+
+msgid "Show comments"
+msgstr "Показать комментарии"
+
+msgid "Reply"
+msgstr "Ответить"
+
+msgid "Resolve"
+msgstr "Закрыть обсуждение"
+
+msgid "Retry"
+msgstr "Повторить"
+
+msgid "Delete error"
+msgstr "Удалить ошибку"
+
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+msgid "Save error"
+msgstr "Сохранить ошибку"
+
+msgid "This will be saved when the page is saved"
+msgstr "Это будет сохранено при сохранении страницы."
+
+msgid "Comment"
+msgstr "Оставить комментарий"
+
+msgid "More actions"
+msgstr "Больше действий"
+
+msgid "Save the page to add this comment"
+msgstr "Сохраните страницу, чтобы добавить этот комментарий"
+
+msgid "Save the page to save this comment"
+msgstr "Сохраните страницу, чтобы сохранить этот комментарий"
+
+msgid "Save the page to save this reply"
+msgstr "Сохраните страницу, чтобы добавить этот ответ"
+
+msgid "Dashboard"
+msgstr "Панель управления"
+
+msgid "Edit your account"
+msgstr "Редактировать ваш аккаунт"
+
+msgid "1 page selected"
+msgstr "1 страница выбрана"
+
+msgid "{0} pages selected"
+msgstr "{0} страниц выбрано"
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
@@ -473,25 +469,13 @@ msgid "The requested page could not be found."
 msgstr "Запрошенная страница не найдена."
 
 msgid "Go to Wagtail admin"
-msgstr "Идти в админ-панель Wagtail"
+msgstr "Перейти в панель управления Wagtail"
 
 msgid "Account"
 msgstr "Аккаунт"
 
-msgid "Change profile picture"
-msgstr "Выбрать фотографию профиля"
-
-msgid "Your current profile picture:"
-msgstr "Ваша текущая картинка профиля:"
-
-msgid "Update"
-msgstr "Обновить"
-
-msgid "Change email"
-msgstr "Изменить email"
-
-msgid "Change name"
-msgstr "Изменить имя"
+msgid "Save account details"
+msgstr "Сохранить данные учетной записи"
 
 msgid "Change password"
 msgstr "Изменить пароль"
@@ -501,15 +485,6 @@ msgid ""
 msgstr ""
 "Ваш пароль не может быть изменен здесь. Пожалуйста, свяжитесь с "
 "администратором сайта."
-
-msgid "Set Time Zone"
-msgstr "Установить временную зону"
-
-msgid "Language Preferences"
-msgstr "Настройки языка"
-
-msgid "Notification preferences"
-msgstr "Настройки уведомления"
 
 msgid "Reset password"
 msgstr "Сбросить пароль"
@@ -557,17 +532,20 @@ msgstr "Восстановление пароля"
 msgid "Reset your password"
 msgstr "Сбросить ваш пароль"
 
-msgid "Dashboard"
-msgstr "Панель управления"
+msgid "Upload a profile picture:"
+msgstr "Изображение профиля:"
+
+msgid "Reset to default"
+msgstr "Восстановление значений по умолчанию"
 
 msgid "Menu"
 msgstr "Меню"
 
-msgid "Move up"
-msgstr "Двигать наверх"
+msgid "Go back"
+msgstr "Обратно"
 
-msgid "Move down"
-msgstr "Двигать вниз"
+msgid "Select all"
+msgstr "Выбрать все"
 
 msgid "Explorer"
 msgstr "Проводник"
@@ -679,9 +657,6 @@ msgstr ""
 "Настройки приватности определяют кто в праве просматривать документы из этой "
 "коллекции."
 
-msgid "Save"
-msgstr "Сохранить"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Установить конфиденциальность коллекции. Текущий статус: Общедоступный"
 
@@ -714,8 +689,23 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Добавить %(label)s"
 
+msgid "Move up"
+msgstr "Двигать наверх"
+
+msgid "Move down"
+msgstr "Двигать вниз"
+
+msgid "Add comment"
+msgstr "Добавить комментарий"
+
+msgid "Comment notifications"
+msgstr "Уведомления о комментариях"
+
 msgid "Yes, delete"
 msgstr "Да, удалить"
+
+msgid "Update"
+msgstr "Обновить"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -728,18 +718,11 @@ msgstr ""
 "Это ваша панель управления, на ней отображается полезная информация о "
 "созданном вами контенте."
 
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail постепенно прекращает поддержку IE11, это может затронуть вас или "
-"вашу организацию. <a href=\"%(url)s\">Узнайте больше о наших планах "
-"поддержки IE11</a>."
-
 msgid "Your locked pages"
 msgstr "Ваши заблокированные страницы"
+
+msgid "Title"
+msgstr "Заголовок"
 
 msgid "Locked at"
 msgstr "Заблокирован в"
@@ -759,9 +742,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Страницы ожидающие модерации"
-
-msgid "Parent"
-msgstr "Родительский элемент"
 
 msgid "Type"
 msgstr "Тип"
@@ -786,6 +766,9 @@ msgstr "Ваши последние правки"
 
 msgid "Status"
 msgstr "Статус"
+
+msgid "Date"
+msgstr "Дата"
 
 msgid "Site summary"
 msgstr "Общая информация"
@@ -856,9 +839,6 @@ msgstr "Войти в Wagtail"
 
 msgid "Signing in…"
 msgstr "Выполняется вход..."
-
-msgid "Forgotten it?"
-msgstr "Забыли его?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -939,6 +919,41 @@ msgid ""
 msgstr "Страница \"%(title)s\" была отправлена на модерацию \"%(task)s\"."
 
 #, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\"."
+msgstr "%(editor)s обновил комментарии к \"%(title)s\""
+
+msgid "New comments"
+msgstr "Новые комментарии"
+
+msgid "Resolved comments"
+msgstr "Закрытые обсуждения"
+
+msgid "Deleted comments"
+msgstr "Удаленные комментарии"
+
+msgid "New replies"
+msgstr "Новые ответы"
+
+msgid "New replies to:"
+msgstr "Новые ответы на:"
+
+msgid "New comments:"
+msgstr "Новые комментарии:"
+
+msgid "Resolved comments:"
+msgstr "Закрытые обсуждения:"
+
+msgid "Deleted comments:"
+msgstr "Удаленные комментарии:"
+
+msgid "New replies:"
+msgstr "Новые ответы:"
+
+#, python-format
+msgid "%(editor)s has updated comments on \"%(title)s\""
+msgstr "%(editor)s обновил комментарии к \"%(title)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
 msgstr ""
 "Страница \"%(title)s\"  утверждена в рамках рабочего процесса \"%(workflow)s"
@@ -973,6 +988,14 @@ msgstr "Оставлен комментарий: \"%(comment)s\"."
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "Страница \"%(title)s\" отклонена в рамках \"%(workflow)s\"."
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\" by %(requester)s."
+msgstr ""
+"Страница \"%(title)s\" была отправлена ​​на модерацию в рабочий процесс "
+"\"%(workflow)s\" от %(requester)s."
 
 #, python-format
 msgid ""
@@ -1016,6 +1039,20 @@ msgstr "Конфиденциальность страницы. Текущий с
 msgid "Page privacy. Current status: Private"
 msgstr "Конфиденциальность страницы. Текущий статус: Приватный"
 
+msgid "You have <span>unsaved edits</span>"
+msgstr "У вас есть <span> несохраненные изменения</span>"
+
+msgid "You have <span>unsaved comments</span>"
+msgstr "У вас есть <span> несохраненные комментарии </span>"
+
+msgid "You have <span>unsaved edits</span> and <span>comments</span>"
+msgstr ""
+"У вас есть <span> несохраненные изменения </span> и <span> комментарии </"
+"span>"
+
+msgid "Save the page before leaving"
+msgstr "Сохраните страницу перед выходом"
+
 msgid "Publishing…"
 msgstr "Публикуется..."
 
@@ -1044,6 +1081,31 @@ msgstr "Выберите тип создаваемой страницы."
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Страницы, использующие %(page_type)s"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
+
+msgid "Move"
+msgstr "Переместить"
+
+msgid "No, don't unpublish"
+msgstr "Нет, оставить опубликованным"
+
+#, python-format
+msgid "Convert alias %(title)s"
+msgstr "Сконвертировать псевдоним %(title)s"
+
+msgid "Convert alias"
+msgstr "Сконвертировать  псевдоним"
+
+msgid "This action cannot be undone."
+msgstr "Это действие не может быть отменено."
+
+msgid "Yes, convert it"
+msgstr "Да, конвертировать"
+
+msgid "No, leave it as an alias"
+msgstr "Нет, оставить как псевдоним"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -1094,9 +1156,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Переместить %(title)s"
-
-msgid "Move"
-msgstr "Переместить"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -1149,9 +1208,6 @@ msgstr[3] ""
 msgid "Yes, unpublish it"
 msgstr "Да, отменить публикацию"
 
-msgid "No, don't unpublish"
-msgstr "Нет, оставить опубликованным"
-
 msgid "Publish page"
 msgstr "Опубликовать страницу"
 
@@ -1183,9 +1239,6 @@ msgstr "Публикация этой страницы отменит текущ
 
 msgid "Would you still like to publish this page?"
 msgstr "Вы все равно хотите опубликовать страницу?"
-
-msgid "Cancel"
-msgstr "Отмена"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1228,6 +1281,12 @@ msgstr "Редактирование %(page_type)s"
 msgid "History"
 msgstr "История"
 
+msgid "This page is an alias of another page."
+msgstr "Эта страница псевдоним другой страницы."
+
+msgid "Edit original page"
+msgstr "Редактировать оригинальную страницу"
+
 #, python-format
 msgid "Page history for %(subtitle)s"
 msgstr "Страница истории для %(subtitle)s"
@@ -1240,9 +1299,6 @@ msgstr "Пользователь"
 
 msgid "Date / Time"
 msgstr "Дата / Время"
-
-msgid "Comment"
-msgstr "Комментарий"
 
 msgid "Live version"
 msgstr "Опубликованная версия"
@@ -1675,6 +1731,9 @@ msgstr "Редактировать страницу"
 msgid "Requested by"
 msgstr "Запрошен"
 
+msgid "Started at"
+msgstr "Запущен в"
+
 msgid "Approved task"
 msgstr "Утвержденная задача"
 
@@ -1683,9 +1742,6 @@ msgstr "Незавершенная задача"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Страница еще не была отправлена на модерацию"
-
-msgid "Collection"
-msgstr "Коллекция"
 
 msgid "No pages match this report's criteria."
 msgstr "Нет страниц удовлетворяющих критерию отчета."
@@ -1743,14 +1799,23 @@ msgstr "Заблокировано"
 msgid "No locked pages found."
 msgstr "Не найдены заблокированные страницы."
 
+msgid "Edit this item"
+msgstr "Редактировать этот элемент"
+
 msgid "By Task"
 msgstr "По Задаче"
+
+msgid "Workflow"
+msgstr "Рабочий процесс"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "Ни одна страница еще не была отправлена на модерацию"
 
 msgid "By Workflow"
 msgstr "По рабочему процессу"
+
+msgid "Completed at"
+msgstr "Завершен в"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1767,9 +1832,6 @@ msgstr "Главная"
 
 msgid "All collections"
 msgstr "Все коллекции"
-
-msgid "Edit your account"
-msgstr "Редактировать ваш аккаунт"
 
 msgid "Account settings"
 msgstr "Настройки аккаунта"
@@ -1822,9 +1884,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Идти в интерфейс управления Wagtail"
 
 msgid "Add a child page"
 msgstr "Добавить дочернюю страницу"
@@ -2071,6 +2130,9 @@ msgstr ""
 "Отсортировать дочерние страницы из '%(parent)s' в '%(label)s в порядке "
 "убывания."
 
+msgid "More"
+msgstr "Больше"
+
 msgid "0 minutes"
 msgstr "0 минут"
 
@@ -2080,29 +2142,35 @@ msgstr "Только что"
 msgid "live"
 msgstr "опубликовано"
 
-msgid "live + draft"
-msgstr "опубликован + черновик"
-
 msgid "draft"
 msgstr "черновик"
+
+msgid "live + draft"
+msgstr "опубликован + черновик"
 
 msgid "Test"
 msgstr "Тест"
 
-msgid "Your password has been changed successfully!"
-msgstr "Ваш пароль был успешно изменен!"
+msgid "Profile"
+msgstr "Профиль"
 
-msgid "Your email has been changed successfully!"
-msgstr "Ваш email успешно поменялся"
+msgid "Notifications"
+msgstr "Уведомления"
 
-msgid "Your name has been changed successfully!"
-msgstr "Ваше имя было успешно изменено!"
+msgid "Name and Email"
+msgstr "Имя и электронная почта"
 
-msgid "Your preferences have been updated."
-msgstr "Ваши настройки были обновлены."
+msgid "Profile picture"
+msgstr "Изображение профиля"
 
-msgid "Your preferences have been updated successfully!"
-msgstr "Ваши настройки были успешно обновлены!"
+msgid "Locale"
+msgstr "Локализация"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Настройки вашей учетной записи были успешно изменены!"
 
 msgid "You have been successfully logged out."
 msgstr "Вы успешно вышли"
@@ -2281,8 +2349,26 @@ msgstr "Страница '{0}' снята с публикации."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Страница '{0}' в данный момент не ожидает модерации по задаче '{1}'."
 
+msgid "Site history"
+msgstr "История действий на сайте"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Тип действия"
+
+msgid "Date/Time"
+msgstr "Дата/Время"
+
 msgid "Locked pages"
 msgstr "Заблокированные страницы"
+
+msgid "Show"
+msgstr "Показать"
+
+msgid "Awaiting my review"
+msgstr "В ожидании моего отзыва"
 
 msgid "Workflows"
 msgstr "Рабочие процессы"
@@ -2301,18 +2387,6 @@ msgstr "Задачи рабочего процесса"
 
 msgid "Requested By"
 msgstr "Запросил"
-
-msgid "Site history"
-msgstr "История действий на сайте"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Тип действия"
-
-msgid "Date/Time"
-msgstr "Дата/Время"
 
 msgid "Add a workflow"
 msgstr "Добавить рабочий процесс"
@@ -2389,30 +2463,6 @@ msgstr "Отключить задачу"
 msgid "Task '{0}' disabled."
 msgstr "Задача '{0}' отключена."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"странице. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[1] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[2] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-msgstr[3] ""
-"Данная задача находится в процессе исполнения на %(states_in_progress)d "
-"страницах. Ее отключение приведет к пропуска соответствующего шага в рамках "
-"рабочего процесса."
-
 msgid "Task '{0}' enabled."
 msgstr "Задача '{0}' включена."
 
@@ -2436,9 +2486,6 @@ msgstr "Посмотреть опубликованную версию '%(title)
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Добавить дочернюю страницу '%(title)s'"
-
-msgid "More"
-msgstr "Больше"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2464,35 +2511,8 @@ msgstr "Убрать с публикации '%(title)s'"
 msgid "View page history for '%(title)s'"
 msgstr "Посмотреть историю страницы '%(title)s'"
 
-msgid "Set profile picture"
-msgstr "Установить фото профиля"
-
-msgid "Change your profile picture."
-msgstr "Изменить фотографию вашего профиля."
-
-msgid "Change the email address linked to your account."
-msgstr "Изменить адрес электронной почты, привязанный к вашему профилю."
-
-msgid "Change the password you use to log in."
-msgstr "Изменить пароль, который вы используете для входа."
-
-msgid "Choose which email notifications to receive."
-msgstr "Выберите какие уведомления принимать на электронную почту."
-
-msgid "Language preferences"
-msgstr "Языковые настройки"
-
-msgid "Choose the language you want to use here."
-msgstr "Выберите язык, который вы хотите использовать."
-
-msgid "Current Time Zone"
-msgstr "Текущий часовой пояс"
-
-msgid "Choose your current time zone."
-msgstr "Выбрать текущий часовой пояс."
-
-msgid "Change your first and last name on your account."
-msgstr "Изменить имя и фамилию в вашем профиле."
+msgid "Sort menu order"
+msgstr "Задать порядок сортировки"
 
 #, python-format
 msgid "Heading %(level)d"
@@ -2534,188 +2554,6 @@ msgstr "Заблокированные страницы"
 msgid "Reports"
 msgstr "Отчеты"
 
-msgid "Created"
-msgstr "Создан"
-
-msgid "Deleted"
-msgstr "Удален"
-
-msgid "Publish scheduled draft"
-msgstr "Опубликовать запланированный черновик"
-
-msgid "Published scheduled draft"
-msgstr "Опубликованный запланированный черновик"
-
-msgid "Unpublished"
-msgstr "Снято с публикации"
-
-msgid "Unpublish scheduled draft"
-msgstr "Отменить публикацию запланированного черновика"
-
-msgid "Unpublished scheduled draft"
-msgstr "Снятый с публикации запланированный черновик"
-
-msgid "Unlocked"
-msgstr "Разблокировано"
-
-msgid "Approved"
-msgstr "Утвержден"
-
-msgid "Rejected"
-msgstr "Отклонен"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr "Возвращен к версии %(revision_id)s от %(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Возвращен к предыдущей версии"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Скопирован с %(title)s"
-
-msgid "Copied"
-msgstr "Скопирован"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Перемещен из '%(old_parent)s' в '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Перемещен"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Версия %(revision_id)s от %(created_at)s запланирована к публикации "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Страница запланирована к публикации %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Страница запланирована к публикации"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Версия %(revision_id)s от %(created_at)s больше не запланирована к "
-"публикации %(go_live_at)s."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Страница снята с расписания публикации на %(go_live_at)s."
-
-msgid "Page unscheduled from publishing"
-msgstr "Страница снята с расписания публикации"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Добавлено '%(restriction)s' ограничение на просмотр"
-
-msgid "Added view restriction"
-msgstr "Добавленно ограничение просмотра"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Обновлены ограничение просмотра в '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "Обновлены ограничение просмотра"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Удалено '%(restriction)s' запрет просмотра"
-
-msgid "Removed view restriction"
-msgstr "Удалено ограничение просмотра"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Переименован из '%(old)s' в '%(new)s'"
-
-msgid "Renamed"
-msgstr "Переименован"
-
-msgid "Rename"
-msgstr "Переименовать"
-
-msgid "Revert"
-msgstr "Вернуть назад"
-
-msgid "Schedule publication"
-msgstr "Запланированная публикация"
-
-msgid "Unschedule publication"
-msgstr "Внеплановая публикация "
-
-msgid "Add view restrictions"
-msgstr "Добавить ограничение просмотра"
-
-msgid "Update view restrictions"
-msgstr "Обновить ограничения просмотра"
-
-msgid "Remove view restrictions"
-msgstr "Убрать ограничения просмотра"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' запущен. Следующий шаг '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Утверждено на шаге '%(task)s'. Следующий шаг '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Утверждено на шаге %(task)s. Рабочий процесс %(workflow)s окончен"
-
-msgid "Workflow task approved"
-msgstr "Задача рабочего процесса"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Отклонено на задаче '%(task)s'. Запрошены изменения"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Задача рабочего процесса отклонена. Процесс завершен."
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Задача '%(task)s' выполнена еще раз. Рабочий процесс возобновлен."
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Задача выполнена еще раз. Рабочий процесс возобновлен."
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Отменен '%(workflow)s' в '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "Рабочий процесс отменен."
-
-msgid "Workflow: start"
-msgstr "Рабочий процесс: запустить"
-
-msgid "Workflow: approve task"
-msgstr "Рабочий процесс: утвердить задачу"
-
-msgid "Workflow: reject task"
-msgstr "Рабочий процесс: отклонить задачу"
-
-msgid "Workflow: resume task"
-msgstr "Рабочий процесс: возобновить задачу"
-
-msgid "Workflow: cancel"
-msgstr "Рабочий процесс: отменен"
-
 msgid "Yes"
 msgstr "Да"
 
@@ -2730,9 +2568,6 @@ msgstr "Выбрать другой элемент"
 
 msgid "Clear choice"
 msgstr "Очистить выбор"
-
-msgid "Edit this item"
-msgstr "Редактировать этот элемент"
 
 msgid "Choose another page"
 msgstr "Выбрать другую страницу"

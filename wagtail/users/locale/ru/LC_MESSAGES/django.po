@@ -4,7 +4,7 @@
 #
 # Translators:
 # eb5b5ee62bf6428e621432b9e62de6b8_d17f633, 2014
-# Andrey Avdey <talkerbox@live.com>, 2016
+# Andrey <talkerbox@live.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2014-2016
 # Eugene <eugene.mechanism@gmail.com>, 2017
 # Никита Викторович <hnknta@gmail.com>, 2014
@@ -13,14 +13,15 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
+# Влад <integration.into.society@gmail.com>, 2021
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 17:28+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -86,15 +87,6 @@ msgstr ""
 "Вы не можете иметь несколько записей с правами доступа для одной и той же "
 "страницы."
 
-msgid "Preferred language"
-msgstr "Предпочтительный язык"
-
-msgid "Current time zone"
-msgstr "Текущий часовой пояс"
-
-msgid "Upload a profile picture"
-msgstr "Загрузить изображение профиля"
-
 msgid "submitted notifications"
 msgstr "уведомления при добавлении"
 
@@ -112,6 +104,16 @@ msgstr "уведомления при отклонении"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Принимать уведомление при отклонении вашей редакции страницы."
+
+msgid "updated comments notifications"
+msgstr "обновленные уведомления о комментариях"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Получать уведомление, когда комментарии были созданы, закрыты или удалены на "
+"странице, на которую вы подписались"
 
 msgid "preferred language"
 msgstr "Предпочтительный язык"
@@ -133,6 +135,15 @@ msgstr "профиль пользователя"
 
 msgid "user profiles"
 msgstr "профили пользователя"
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Yes, delete"
+msgstr "Да, удалить"
+
+msgid "No, don't delete"
+msgstr "Нет, не удалять"
 
 msgid "Delete group"
 msgstr "Удалить группу"
@@ -179,9 +190,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Вы уверены что хотите удалить эту группу?"
 
-msgid "Yes, delete"
-msgstr "Да, удалить"
-
 msgid "Add group"
 msgstr "Добавить группу"
 
@@ -208,9 +216,6 @@ msgstr "Добавить"
 
 msgid "Change"
 msgstr "Изменить"
-
-msgid "Delete"
-msgstr "Удалить"
 
 msgid "Other permissions"
 msgstr "Другие разрешения"

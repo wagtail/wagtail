@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.widgets.TableInput it renders correctly 1`] = `
+"<div>
+      <div class=\\"field boolean_field widget-checkbox_input\\">
+        <label for=\\"the-id-handsontable-header\\">Row header</label>
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <input type=\\"checkbox\\" id=\\"the-id-handsontable-header\\" name=\\"handsontable-header\\">
+          </div>
+          <p class=\\"help\\">Display the first row as a header.</p>
+        </div>
+      </div>
+      <br>
+      <div class=\\"field boolean_field widget-checkbox_input\\">
+        <label for=\\"the-id-handsontable-col-header\\">Column header</label>
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <input type=\\"checkbox\\" id=\\"the-id-handsontable-col-header\\" name=\\"handsontable-col-header\\">
+          </div>
+          <p class=\\"help\\">Display the first column as a header.</p>
+        </div>
+      </div>
+      <br>
+      <div class=\\"field\\">
+          <label for=\\"the-id-handsontable-col-caption\\">Table caption</label>
+          <div class=\\"field-content\\">
+            <div class=\\"input\\">
+            <input type=\\"text\\" id=\\"the-id-handsontable-col-caption\\" name=\\"handsontable-col-caption\\">
+          </div>
+          <p class=\\"help\\">
+            A heading that identifies the overall topic of the table, and is useful for screen reader users
+          </p>
+        </div>
+      </div>
+      <br>
+      <div id=\\"the-id-handsontable-container\\"></div>
+      <input type=\\"hidden\\" name=\\"the-name\\" id=\\"the-id\\" placeholder=\\"Table\\" value=\\"{&quot;data&quot;:[[&quot;Test&quot;,&quot;Heading&quot;],[&quot;Foo&quot;,&quot;123&quot;],[&quot;Bar&quot;,&quot;456&quot;]],&quot;cell&quot;:[],&quot;first_row_is_table_header&quot;:true,&quot;first_col_is_header&quot;:false,&quot;table_caption&quot;:&quot;&quot;}\\">
+    </div>"
+`;
+
+exports[`telepath: wagtail.widgets.TableInput translation 1`] = `
+"<div>
+      <div class=\\"field boolean_field widget-checkbox_input\\">
+        <label for=\\"the-id-handsontable-header\\">En-tête de ligne</label>
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <input type=\\"checkbox\\" id=\\"the-id-handsontable-header\\" name=\\"handsontable-header\\">
+          </div>
+          <p class=\\"help\\">Affichez la première ligne sous forme d'en-tête.</p>
+        </div>
+      </div>
+      <br>
+      <div class=\\"field boolean_field widget-checkbox_input\\">
+        <label for=\\"the-id-handsontable-col-header\\">En-tête de colonne</label>
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <input type=\\"checkbox\\" id=\\"the-id-handsontable-col-header\\" name=\\"handsontable-col-header\\">
+          </div>
+          <p class=\\"help\\">Affichez la première colonne sous forme d'en-tête.</p>
+        </div>
+      </div>
+      <br>
+      <div class=\\"field\\">
+          <label for=\\"the-id-handsontable-col-caption\\">Légende du tableau</label>
+          <div class=\\"field-content\\">
+            <div class=\\"input\\">
+            <input type=\\"text\\" id=\\"the-id-handsontable-col-caption\\" name=\\"handsontable-col-caption\\">
+          </div>
+          <p class=\\"help\\">
+            Un en-tête qui identifie le sujet général du tableau et qui est utile pour les utilisateurs de lecteurs d'écran
+          </p>
+        </div>
+      </div>
+      <br>
+      <div id=\\"the-id-handsontable-container\\"></div>
+      <input type=\\"hidden\\" name=\\"the-name\\" id=\\"the-id\\" placeholder=\\"Tableau\\" value=\\"{&quot;data&quot;:[[&quot;Test&quot;,&quot;Heading&quot;],[&quot;Foo&quot;,&quot;123&quot;],[&quot;Bar&quot;,&quot;456&quot;]],&quot;cell&quot;:[],&quot;first_row_is_table_header&quot;:true,&quot;first_col_is_header&quot;:false,&quot;table_caption&quot;:&quot;&quot;}\\">
+    </div>"
+`;

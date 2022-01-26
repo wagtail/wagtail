@@ -45,9 +45,9 @@ can hook into the rest of your project.
 
 Wagtail provides three endpoint classes you can use:
 
- - Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
- - Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
- - Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
+- Pages :class:`wagtail.api.v2.views.PagesAPIViewSet`
+- Images :class:`wagtail.images.api.v2.views.ImagesAPIViewSet`
+- Documents :class:`wagtail.documents.api.v2.views.DocumentsAPIViewSet`
 
 You can subclass any of these endpoint classes to customise their functionality.
 Additionally, there is a base endpoint class you can use for adding different
@@ -178,7 +178,7 @@ to add API fields that have a different field name or no underlying field at all
             APIField('published_date'),
 
             # A separate published_date_display field with a different format
-            APIField('published_date_display', serializer=DateField(format='%A $d %B %Y', source='published_date')),
+            APIField('published_date_display', serializer=DateField(format='%A %d %B %Y', source='published_date')),
             ...
         ]
 

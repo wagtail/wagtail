@@ -57,6 +57,28 @@ header {
         .right:last-child {
             padding-right: 0;
         }
+
+        @include media-breakpoint-down(xs) {
+            .breadcrumb {
+                padding-left: calc(#{$desktop-nice-padding} - 8px);
+            }
+        }
+        @include media-breakpoint-up(sm) {
+            .breadcrumb {
+                margin-left: -$desktop-nice-padding;
+                margin-right: -$desktop-nice-padding;
+                padding-left: $desktop-nice-padding / 2;
+            }
+        }
+    }
+
+    &.header-with-breadcrumb {
+        padding-top: 0;
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            padding-left: $desktop-nice-padding / 2; // rather than padding-left: revert;
+        }
     }
 
     &.tab-merged,
@@ -125,6 +147,32 @@ header {
     .field-content {
         width: auto;
         padding: 0;
+    }
+
+    .last-updated {
+        ul {
+            padding: 0;
+        }
+
+        li {
+            display: inline;
+            margin-right: 2em;
+        }
+
+        .avatar.small {
+            margin-left: 0;
+        }
+
+        a {
+            font-weight: bold;
+        }
+    }
+}
+
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+    header .field-content {
+        border: 0.1em solid $system-color-link-text;
     }
 }
 

@@ -1,5 +1,5 @@
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count
+from django.db.models import Count, Model
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
@@ -9,6 +9,17 @@ from taggit.models import Tag
 # system checks.
 from wagtail.admin import edit_handlers  # NOQA
 from wagtail.core.models import Page
+
+
+# A dummy model that exists purely to attach the access_admin permission type to, so that it
+# doesn't get identified as a stale content type and removed by the remove_stale_contenttypes
+# management command.
+class Admin(Model):
+    class Meta:
+        default_permissions = []  # don't create the default add / change / delete / view perms
+        permissions = [
+            ('access_admin', "Can access Wagtail admin"),
+        ]
 
 
 def get_object_usage(obj):

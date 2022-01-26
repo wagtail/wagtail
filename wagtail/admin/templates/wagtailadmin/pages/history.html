@@ -29,16 +29,16 @@
                     <tr>
                         <td>
                             {% if entry.revision %}<span class="report__results--text">{% endif %}
-                            {{ entry|format_action_log_message }}
+                            {{ entry.message }}
                             {% if entry.revision %}</span>{% endif %}
                             {% if entry.comment %}
-                                <span class="report__results--comment">{% trans "Comment" %}: "<em>{{ entry.comment }}</em>"</span>
+                                <span class="report__results--comment">{% trans "Comment" %}: <em>{{ entry.comment }}</em></span>
                             {% endif %}
                             {% if entry.revision %}
                                 {% if entry.action == 'wagtail.publish' %}
-                                    {% if entry.revision == page.live_revision %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
+                                    {% if entry.revision_id == page.live_revision_id %}<span class="status-tag primary">{% trans 'Live version' %}</span>{% endif %}
                                 {% elif entry.content_changed %}
-                                    {% if entry.revision == page.get_latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
+                                    {% if entry.revision == page_latest_revision %}<span class="status-tag primary">{% trans 'Current draft' %}</span>{% endif %}
                                     {% include "wagtailadmin/pages/revisions/_actions.html" with revision=entry.revision %}
                                 {% endif %}
                             {% endif %}
@@ -47,7 +47,7 @@
                             {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}
                         </td>
                         <td class="updated">
-                            <div class="human-readable-date" title="{{ entry.timestamp|date:"d M Y H:i" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
+                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
                         </td>
                     </tr>
                 {% endfor %}

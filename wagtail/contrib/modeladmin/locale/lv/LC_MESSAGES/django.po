@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -22,3 +22,52 @@ msgstr ""
 
 msgid "Parent page"
 msgstr "Augstāka līmeņa lapa"
+
+msgid "Edit"
+msgstr "Labot"
+
+#, python-format
+msgid "Edit this %s"
+msgstr "Labot šo %s"
+
+msgid "Delete"
+msgstr "Dzēst"
+
+msgid "Unpublish"
+msgstr "Atsaukt publicēšanu"
+
+msgid "Copy"
+msgstr "Kopēt"
+
+msgid "Saving…"
+msgstr "Saglabā..."
+
+msgid "Save"
+msgstr "Saglabāt"
+
+msgid "Yes, delete"
+msgstr "Dzēst"
+
+msgid "Home"
+msgstr "Sākumlapa"
+
+msgid "Download CSV"
+msgstr "Lejupielādēt CSV failu"
+
+msgid "Filter"
+msgstr "Atsijāt"
+
+msgid "Previous"
+msgstr "Iepriekšējais"
+
+msgid "Next"
+msgstr "Nākamais"
+
+msgid "New"
+msgstr "Jauns"
+
+msgid "Editing"
+msgstr "Rediģē"
+
+msgid "Date"
+msgstr "Datums"

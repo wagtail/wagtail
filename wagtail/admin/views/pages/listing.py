@@ -77,22 +77,25 @@ def index(request, parent_page_id=None):
     # allow drag-and-drop reordering
     do_paginate = ordering != 'ord'
 
-    if do_paginate or pages.count() < 100:
-        # Retrieve pages in their most specific form, so that custom
-        # get_admin_display_title and get_url_parts methods on subclasses are respected.
-        # However, skip this on unpaginated listings with >100 child pages as this could
-        # be a significant performance hit. (This should only happen on the reorder view,
-        # and hopefully no-one is having to do manual reordering on listings that large...)
-        pages = pages.specific(defer=True)
+    # We want specific page instances, but do not need streamfield values here
+    pages = pages.defer_streamfields().specific()
 
-    # allow hooks to modify the queryset
+    # allow hooks defer_streamfieldsyset
     for hook in hooks.get_hooks('construct_explorer_page_queryset'):
         pages = hook(parent_page, pages, request)
+
+    # Annotate queryset with various states to be used later for performance optimisations
+    if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+        pages = pages.prefetch_workflow_states()
+
+    pages = pages.annotate_site_root_state().annotate_approved_schedule()
 
     # Pagination
     if do_paginate:
         paginator = Paginator(pages, per_page=50)
         pages = paginator.get_page(request.GET.get('p'))
+
+    show_ordering_column = request.GET.get('ordering') == 'ord'
 
     context = {
         'parent_page': parent_page.specific,
@@ -102,18 +105,24 @@ def index(request, parent_page_id=None):
         'do_paginate': do_paginate,
         'locale': None,
         'translations': [],
+        'show_ordering_column': show_ordering_column,
+        'show_bulk_actions': not show_ordering_column,
+        'show_locale_labels': False,
     }
 
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and not parent_page.is_root():
-        context.update({
-            'locale': parent_page.locale,
-            'translations': [
-                {
-                    'locale': translation.locale,
-                    'url': reverse('wagtailadmin_explore', args=[translation.id]),
-                }
-                for translation in parent_page.get_translations().only('id', 'locale').select_related('locale')
-            ],
-        })
+    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+        if not parent_page.is_root():
+            context.update({
+                'locale': parent_page.locale,
+                'translations': [
+                    {
+                        'locale': translation.locale,
+                        'url': reverse('wagtailadmin_explore', args=[translation.id]),
+                    }
+                    for translation in parent_page.get_translations().only('id', 'locale').select_related('locale')
+                ],
+            })
+        else:
+            context['show_locale_labels'] = True
 
     return TemplateResponse(request, 'wagtailadmin/pages/index.html', context)

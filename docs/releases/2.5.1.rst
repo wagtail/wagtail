@@ -13,4 +13,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Prevent crash when comparing StructBlocks in revision history (Adrian Turjak, Matt Westcott)
+* Prevent crash when comparing StructBlocks in revision history (Adrian Turjak, Matt Westcott)

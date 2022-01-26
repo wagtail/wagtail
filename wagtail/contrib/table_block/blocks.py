@@ -4,9 +4,12 @@ from django import forms
 from django.template.loader import render_to_string
 from django.utils import translation
 from django.utils.functional import cached_property
+from django.utils.translation import gettext as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.blocks import FieldBlock
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 DEFAULT_TABLE_OPTIONS = {
@@ -37,21 +40,44 @@ DEFAULT_TABLE_OPTIONS = {
 
 
 class TableInput(forms.HiddenInput):
-    template_name = "table_block/widgets/table.html"
-
     def __init__(self, table_options=None, attrs=None):
         self.table_options = table_options
         super().__init__(attrs=attrs)
 
-    def get_context(self, name, value, attrs=None):
-        context = super().get_context(name, value, attrs)
-        table_caption = ''
-        if value and value != 'null':
-            table_caption = json.loads(value).get('table_caption', '')
-        context['widget']['table_options_json'] = json.dumps(self.table_options)
-        context['widget']['table_caption'] = table_caption
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={'all': [
+                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css'),
+            ]},
+            js=[
+                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
+                versioned_static('table_block/js/table.js'),
+            ]
+        )
 
-        return context
+
+class TableInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.TableInput'
+
+    def js_args(self, widget):
+        strings = {
+            'Row header': _("Row header"),
+            'Display the first row as a header.': _("Display the first row as a header."),
+            'Column header': _("Column header"),
+            'Display the first column as a header.': _("Display the first column as a header."),
+            'Table caption': _("Table caption"),
+            'A heading that identifies the overall topic of the table, and is useful for screen reader users': _("A heading that identifies the overall topic of the table, and is useful for screen reader users"),
+            'Table': _("Table"),
+        }
+
+        return [
+            widget.table_options,
+            strings,
+        ]
+
+
+register(TableInputAdapter(), TableInput)
 
 
 class TableBlock(FieldBlock):
@@ -78,6 +104,10 @@ class TableBlock(FieldBlock):
 
     def value_for_form(self, value):
         return json.dumps(value)
+
+    def get_form_state(self, value):
+        # pass state to frontend as a JSON-ish dict - do not serialise to a JSON string
+        return value
 
     def is_html_renderer(self):
         return self.table_options['renderer'] == 'html'
@@ -120,18 +150,6 @@ class TableBlock(FieldBlock):
         else:
             return self.render_basic(value or "", context=context)
 
-    @property
-    def media(self):
-        return forms.Media(
-            css={'all': [
-                versioned_static('table_block/css/vendor/handsontable-6.2.2.full.min.css')
-            ]},
-            js=[
-                versioned_static('table_block/js/vendor/handsontable-6.2.2.full.min.js'),
-                versioned_static('table_block/js/table.js')
-            ]
-        )
-
     def get_table_options(self, table_options=None):
         """
         Return a dict of table options using the defaults unless custom options provided
@@ -139,14 +157,14 @@ class TableBlock(FieldBlock):
         table_options can contain any valid handsontable options:
         https://handsontable.com/docs/6.2.2/Options.html
         contextMenu: if value from table_options is True, still use default
-        language: if value is not in table_options, attempt to get from envrionment
+        language: if value is not in table_options, attempt to get from environment
         """
 
         collected_table_options = DEFAULT_TABLE_OPTIONS.copy()
 
         if table_options is not None:
             if table_options.get('contextMenu', None) is True:
-                # explicity check for True, as value could also be array
+                # explicitly check for True, as value could also be array
                 # delete to ensure the above default is kept for contextMenu
                 del table_options['contextMenu']
             collected_table_options.update(table_options)

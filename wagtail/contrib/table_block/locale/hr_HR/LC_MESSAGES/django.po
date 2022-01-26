@@ -4,12 +4,13 @@
 #
 # Translators:
 # Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-05-22 23:17+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 07:51+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -44,3 +45,6 @@ msgid ""
 msgstr ""
 "Naslov koji opisuje tablicu i služi korisnicima koji upotrebljavaju čitač "
 "zaslona"
+
+msgid "Table"
+msgstr "Tablica"

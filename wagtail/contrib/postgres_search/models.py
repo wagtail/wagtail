@@ -1,3 +1,4 @@
+from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -5,6 +6,7 @@ from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.db import models
 from django.db.models.functions import Cast
+from django.db.models.sql.where import WhereNode
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.search.index import class_is_indexed
@@ -30,11 +32,18 @@ class TextIDGenericRelation(GenericRelation):
             from_field.get_col(remote_alias),
             Cast(to_field.get_col(alias), from_field))
 
-    def get_extra_restriction(self, where_class, alias, remote_alias):
-        cond = where_class()
-        cond.add(self.get_content_type_lookup(alias, remote_alias), 'AND')
-        cond.add(self.get_object_id_lookup(alias, remote_alias), 'AND')
-        return cond
+    if DJANGO_VERSION >= (4, 0):
+        def get_extra_restriction(self, alias, remote_alias):
+            cond = WhereNode()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), 'AND')
+            cond.add(self.get_object_id_lookup(alias, remote_alias), 'AND')
+            return cond
+    else:
+        def get_extra_restriction(self, where_class, alias, remote_alias):
+            cond = where_class()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), 'AND')
+            cond.add(self.get_object_id_lookup(alias, remote_alias), 'AND')
+            return cond
 
     def resolve_related_fields(self):
         return []
@@ -60,6 +69,8 @@ class IndexEntry(models.Model):
         unique_together = ('content_type', 'object_id')
         verbose_name = _('index entry')
         verbose_name_plural = _('index entries')
+        # An additional computed GIN index on 'title || body' is created in a SQL migration
+        # covers the default case of PostgresSearchQueryCompiler.get_index_vectors.
         indexes = [GinIndex(fields=['autocomplete']),
                    GinIndex(fields=['title']),
                    GinIndex(fields=['body'])]
@@ -76,4 +87,4 @@ class IndexEntry(models.Model):
         for model in apps.get_models():
             if class_is_indexed(model):
                 TextIDGenericRelation(cls).contribute_to_class(model,
-                                                               'index_entries')
+                                                               'postgres_index_entries')

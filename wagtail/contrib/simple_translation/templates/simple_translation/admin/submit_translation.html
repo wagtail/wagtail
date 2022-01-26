@@ -1,0 +1,52 @@
+{% extends "wagtailadmin/base.html" %}
+{% load i18n wagtailadmin_tags %}
+{% block titletag %}{{ view.get_title }} {{ view.get_subtitle }}{% endblock %}
+
+{% block content %}
+    {% include "wagtailadmin/shared/header.html" with title=view.get_title subtitle=view.get_subtitle icon="doc-empty-inverse" %}
+
+    <div class="nice-padding">
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if next_url %}
+                <input type="hidden" name="next" value="{{ next_url }}">
+            {% endif %}
+
+            {% for field in form.hidden_fields %}{{ field }}{% endfor %}
+
+            <ul class="fields">
+                {% block visible_fields %}
+                    {% for field in form.visible_fields %}
+                        {% include "wagtailadmin/shared/field_as_li.html" %}
+                    {% endfor %}
+                {% endblock %}
+                {% if form.show_submit %}
+                    <li>
+                        <input type="submit" value="{% trans 'Submit' %}" class="button" />
+                    </li>
+                {% endif %}
+            </ul>
+        </form>
+    </div>
+{% endblock %}
+
+
+{% block extra_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var selectAll = document.querySelector('[name="select_all"]');
+            var locales = document.querySelectorAll('[name="locales"]');
+
+            selectAll.addEventListener('change', function() {
+                for (var i = 0; i < locales.length; i++) {
+                    if (locales[i].disabled === false) {
+                        locales[i].checked = selectAll.checked;
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

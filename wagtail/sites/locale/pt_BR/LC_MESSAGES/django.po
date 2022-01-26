@@ -6,13 +6,13 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # João Luiz Lorencetti <me@dirtycoder.net>, 2015
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
-# Luiz Boaretto <lboaretto@gmail.com>, 2016
+# Luiz Boaretto <lboaretto@gmail.com>, 2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
@@ -22,35 +22,29 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+msgid "Wagtail sites"
+msgstr "Wagtail sites"
+
 msgid "Choose a root page"
 msgstr "Escolher uma página raiz"
 
 msgid "Choose a different root page"
 msgstr "Escolher outra página raiz"
 
+msgid "Sites"
+msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Adicionar um site"
+
 msgid "Site"
 msgstr "Site"
-
-msgid "Port"
-msgstr "Porta"
-
-msgid "Site name"
-msgstr "Nome do site"
-
-msgid "Root page"
-msgstr "Página raiz"
 
 msgid "Default?"
 msgstr "Padrão?"
 
 msgid "Default"
 msgstr "Padrão"
-
-msgid "Sites"
-msgstr "Sites"
-
-msgid "Add a site"
-msgstr "Adicionar um site"
 
 msgid "Add site"
 msgstr "Adicionar site"

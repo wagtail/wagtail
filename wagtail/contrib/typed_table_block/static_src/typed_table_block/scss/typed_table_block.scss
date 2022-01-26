@@ -1,0 +1,91 @@
+@import 'wagtailadmin/scss/helpers';
+
+.typed-table-block {
+    &__wrapper {
+        overflow-x: auto;
+        // Reserve space for the add column menu.
+        min-height: 20rem;
+    }
+
+    table {
+        margin: 2.5rem 0 1rem 2.5rem;
+    }
+
+    th,
+    td {
+        padding: 0.25rem;
+    }
+
+    th {
+        position: relative;
+        border: 2px solid $color-grey-2;
+
+        button.prepend-column,
+        button.append-column {
+            position: absolute;
+            left: -0.9rem;
+            top: -2rem;
+        }
+
+        button.delete-column {
+            position: absolute;
+            right: 0.625rem;
+            top: 0.875rem;
+        }
+
+        input.column-heading {
+            padding-right: 3rem;
+            font-weight: bold;
+        }
+    }
+
+    td {
+        position: relative;
+        border-left: 1px solid $color-grey-2;
+    }
+
+    th:first-child,
+    th:last-child,
+    td:first-child {
+        border-width: 0;
+    }
+
+    tbody tr,
+    tfoot tr {
+        position: relative;
+        border-top: 1px dotted $color-grey-2;
+
+        button.prepend-row {
+            left: -2rem;
+            position: absolute;
+            top: -0.9rem;
+        }
+
+        button.delete-row {
+            margin-left: 0.25rem;
+        }
+
+        td:not(.control-cell) {
+            vertical-align: top;
+            min-width: 20rem;
+        }
+    }
+
+    ul.add-column-menu {
+        position: absolute;
+        top: 0;
+        left: -0.9rem;
+        z-index: 100;
+        min-width: 10rem;
+        background-color: $color-white;
+
+        button {
+            width: 100%;
+            margin: 1px;
+        }
+    }
+
+    .control-cell ul.add-column-menu {
+        top: 0;
+    }
+}

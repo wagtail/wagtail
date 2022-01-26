@@ -3,15 +3,17 @@ import datetime
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
 from django.forms.fields import CallableChoiceIterator
-from django.template.loader import render_to_string
 from django.utils.dateparse import parse_date, parse_datetime, parse_time
 from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import RichText, get_text_for_indexing
-from wagtail.core.utils import resolve_model_string
+from wagtail.core.telepath import Adapter, register
+from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 
 from .base import Block
 
@@ -21,29 +23,6 @@ class FieldBlock(Block):
 
     def id_for_label(self, prefix):
         return self.field.widget.id_for_label(prefix)
-
-    def render_form(self, value, prefix='', errors=None):
-        field = self.field
-        widget = field.widget
-
-        widget_attrs = {'id': prefix, 'placeholder': self.label}
-
-        field_value = field.prepare_value(self.value_for_form(value))
-
-        if hasattr(widget, 'render_with_errors'):
-            widget_html = widget.render_with_errors(prefix, field_value, attrs=widget_attrs, errors=errors)
-            widget_has_rendered_errors = True
-        else:
-            widget_html = widget.render(prefix, field_value, attrs=widget_attrs)
-            widget_has_rendered_errors = False
-
-        return render_to_string('wagtailadmin/block_forms/field.html', {
-            'name': self.name,
-            'classes': getattr(self.meta, 'form_classname', self.meta.classname),
-            'widget': widget_html,
-            'field': field,
-            'errors': errors if (not widget_has_rendered_errors) else None
-        })
 
     def value_from_form(self, value):
         """
@@ -78,13 +57,12 @@ class FieldBlock(Block):
         return self.value_from_form(self.field.clean(self.value_for_form(value)))
 
     @property
-    def media(self):
-        return self.field.widget.media
-
-    @property
     def required(self):
         # a FieldBlock is required if and only if its underlying form field is required
         return self.field.required
+
+    def get_form_state(self, value):
+        return self.field.widget.format_value(self.field.prepare_value(self.value_for_form(value)))
 
     class Meta:
         # No icon specified here, because that depends on the purpose that the
@@ -92,6 +70,55 @@ class FieldBlock(Block):
         # descendant block type
         icon = "placeholder"
         default = None
+
+
+class FieldBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.FieldBlock'
+
+    def js_args(self, block):
+        classname = [
+            'field',
+            camelcase_to_underscore(block.field.__class__.__name__),
+            'widget-' + camelcase_to_underscore(block.field.widget.__class__.__name__),
+            'fieldname-' + block.name,
+        ]
+
+        form_classname = getattr(block.meta, 'form_classname', '')
+        if form_classname:
+            classname.append(form_classname)
+
+        # Provided for backwards compatibility. Replaced with 'form_classname'
+        legacy_classname = getattr(block.meta, 'classname', '')
+        if legacy_classname:
+            classname.append(legacy_classname)
+
+        meta = {
+            'label': block.label,
+            'required': block.required,
+            'icon': block.meta.icon,
+            'classname': ' '.join(classname),
+            'showAddCommentButton': getattr(block.field.widget, 'show_add_comment_button', True),
+            'strings': {
+                'ADD_COMMENT': _('Add Comment')
+            },
+        }
+        if block.field.help_text:
+            meta['helpText'] = block.field.help_text
+
+        return [
+            block.name,
+            block.field.widget,
+            meta,
+        ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
+
+
+register(FieldBlockAdapter(), FieldBlock)
 
 
 class CharBlock(FieldBlock):
@@ -231,6 +258,12 @@ class BooleanBlock(FieldBlock):
         self.field = forms.BooleanField(required=required, help_text=help_text)
         super().__init__(**kwargs)
 
+    def get_form_state(self, value):
+        # Bypass widget.format_value, because CheckboxInput uses that to prepare the "value"
+        # attribute (as distinct from the "checked" attribute that represents the actual checkbox
+        # state, which it handles in get_context).
+        return bool(value)
+
     class Meta:
         icon = "tick-inverse"
 
@@ -274,18 +307,19 @@ class DateBlock(FieldBlock):
 
 class TimeBlock(FieldBlock):
 
-    def __init__(self, required=True, help_text=None, validators=(), **kwargs):
+    def __init__(self, required=True, help_text=None, format=None, validators=(), **kwargs):
         self.field_options = {
             'required': required,
             'help_text': help_text,
             'validators': validators
         }
+        self.format = format
         super().__init__(**kwargs)
 
     @cached_property
     def field(self):
         from wagtail.admin.widgets import AdminTimeInput
-        field_kwargs = {'widget': AdminTimeInput}
+        field_kwargs = {'widget': AdminTimeInput(format=self.format)}
         field_kwargs.update(self.field_options)
         return forms.TimeField(**field_kwargs)
 
@@ -729,6 +763,18 @@ class PageChooserBlock(ChooserBlock):
         from wagtail.admin.widgets import AdminPageChooser
         return AdminPageChooser(target_models=self.target_models,
                                 can_choose_root=self.can_choose_root)
+
+    def get_form_state(self, value):
+        value_data = self.widget.get_value_data(value)
+        if value_data is None:
+            return None
+        else:
+            return {
+                'id': value_data['id'],
+                'parentId': value_data['parent_id'],
+                'adminTitle': value_data['display_title'],
+                'editUrl': value_data['edit_url'],
+            }
 
     def render_basic(self, value, context=None):
         if value:

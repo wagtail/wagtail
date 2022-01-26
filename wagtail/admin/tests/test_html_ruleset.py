@@ -17,7 +17,7 @@ class TestHTMLRuleset(TestCase):
         self.assertEqual(ruleset.match('p', {}), 'paragraph')
         self.assertEqual(ruleset.match('p', {'class': 'intro'}), 'paragraph')
         self.assertEqual(ruleset.match('a', {'class': 'button'}), None)
-        self.assertEqual(ruleset.match('a', {'class': 'button', 'href': 'http://wagtail.io'}), 'link')
+        self.assertEqual(ruleset.match('a', {'class': 'button', 'href': 'http://wagtail.org'}), 'link')
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'document'}), None)
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'page'}), 'page-link')
         self.assertEqual(ruleset.match('a', {'class': 'button', 'linktype': 'silly page'}), 'silly-page-link')

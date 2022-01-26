@@ -2,8 +2,10 @@
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
 from wagtail.core.models import Page, Site
+from wagtail.tests.routablepage.models import RoutablePageTest
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -18,7 +20,7 @@ class TestRedirects(TestCase):
         # Create a path
         path = normalise_path('/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2')
 
-        # Test against equivalant paths
+        # Test against equivalent paths
         self.assertEqual(path, normalise_path(  # The exact same URL
             '/Hello/world.html;fizz=three;buzz=five?foo=Bar&Baz=quux2'
         ))
@@ -97,6 +99,20 @@ class TestRedirects(TestCase):
             normalise_path('/here/tésting-ünicode')
         )
 
+    def test_route_path_normalisation(self):
+        normalise_path = models.Redirect.normalise_page_route_path
+
+        # "/" should be normalized to a blank string
+        self.assertEqual("", normalise_path("/"))
+
+        # leading slashes should always be added
+        self.assertEqual("/test/", normalise_path("test/"))
+
+        # but trailing slashes are not enforced either way
+        # (that may cause regex matching for routes to fail)
+        self.assertEqual("/multiple/segment/test", normalise_path("/multiple/segment/test"))
+        self.assertEqual("/multiple/segment/test/", normalise_path("/multiple/segment/test/"))
+
     def test_basic_redirect(self):
         # Create a redirect
         redirect = models.Redirect(old_path='/redirectme', redirect_link='/redirectto')
@@ -147,6 +163,23 @@ class TestRedirects(TestCase):
         # Only one site defined, so redirect should return a local URL
         # (to keep things working if Site records haven't been configured correctly)
         self.assertRedirects(response, '/events/christmas/', status_code=301, fetch_redirect_response=False)
+
+    def test_redirect_to_specific_page_route(self):
+        homepage = Page.objects.get(id=2)
+        routable_page = homepage.add_child(instance=RoutablePageTest(
+            title="Routable Page",
+            live=True,
+        ))
+
+        # test redirect with a VALID route path
+        models.Redirect.add_redirect(old_path='/old-path-one', redirect_to=routable_page, page_route_path='/render-method-test-custom-template/')
+        response = self.client.get('/old-path-one/', HTTP_HOST='test.example.com')
+        self.assertRedirects(response, '/routable-page/render-method-test-custom-template/', status_code=301, fetch_redirect_response=False)
+
+        # test redirect with an INVALID route path
+        models.Redirect.add_redirect(old_path='/old-path-two', redirect_to=routable_page, page_route_path='/invalid-route/')
+        response = self.client.get('/old-path-two/', HTTP_HOST='test.example.com')
+        self.assertRedirects(response, '/routable-page/', status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')
@@ -518,7 +551,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         self.redirect.save()
 
         # Login
-        self.login()
+        self.user = self.login()
 
     def get(self, params={}, redirect_id=None):
         return self.client.get(reverse('wagtailredirects:edit', args=(redirect_id or self.redirect.id, )), params)
@@ -530,6 +563,10 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailredirects/edit.html')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/redirects/%d/' % self.redirect.id
+        self.assertEqual(url_finder.get_edit_url(self.redirect), expected_url)
 
     def test_nonexistant_redirect(self):
         self.assertEqual(self.get(redirect_id=100000).status_code, 404)

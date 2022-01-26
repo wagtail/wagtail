@@ -14,7 +14,7 @@
         {% page_permissions page as perms %}
         <p>
             {% if page.locked_at %}
-                {% with page.locked_at|date:"d M Y H:i" as locking_date %}
+                {% with page.locked_at|date:"DATETIME_FORMAT" as locking_date %}
                     {% if page.locked_by %}
                         {% if page.locked_by_id == request.user.pk %}
                             {% blocktrans %}

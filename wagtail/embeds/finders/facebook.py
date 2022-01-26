@@ -21,7 +21,7 @@ class FacebookOEmbedFinder(EmbedFinder):
     https://developers.facebook.com/docs/plugins/oembed
     '''
     facebook_video = {
-        "endpoint": "https://graph.facebook.com/v9.0/oembed_video",
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_video",
         "urls": [
             r'^https://(?:www\.)?facebook\.com/.+?/videos/.+$',
             r'^https://(?:www\.)?facebook\.com/video\.php\?(?:v|id)=.+$',
@@ -30,7 +30,7 @@ class FacebookOEmbedFinder(EmbedFinder):
     }
 
     facebook_post = {
-        "endpoint": "https://graph.facebook.com/v9.0/oembed_post",
+        "endpoint": "https://graph.facebook.com/v11.0/oembed_post",
         "urls": [
             r'^https://(?:www\.)?facebook\.com/.+?/(?:posts|activity)/.+$',
             r'^https://(?:www\.)?facebook\.com/photo\.php\?fbid=.+$',
@@ -72,7 +72,7 @@ class FacebookOEmbedFinder(EmbedFinder):
     def accept(self, url):
         return self._get_endpoint(url) is not None
 
-    def find_embed(self, url, max_width=None):
+    def find_embed(self, url, max_width=None, max_height=None):
         # Find provider
         endpoint = self._get_endpoint(url)
         if endpoint is None:
@@ -81,6 +81,8 @@ class FacebookOEmbedFinder(EmbedFinder):
         params = {'url': url, 'format': 'json'}
         if max_width:
             params['maxwidth'] = max_width
+        if max_height:
+            params['maxheight'] = max_height
         if self.omitscript:
             params['omitscript'] = 'true'
 

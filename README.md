@@ -1,12 +1,12 @@
 <h1 align="center">
-    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail.svg" alt="Wagtail">
+    <img width="343" src="https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail.svg" alt="Wagtail">
     <br>
     <br>
 </h1>
 
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
 
-![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/wagtail-screenshot-with-browser.png)
+![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail-screenshot-with-browser.png)
 
 ### Features
 
@@ -15,14 +15,14 @@ Wagtail is an open source content management system built on Django, with a stro
 * Scales to millions of pages and thousands of editors
 * Fast out of the box, cache-friendly when you need it
 * Content API for 'headless' sites with de-coupled front-end
-* Runs on a Raspberry Pi or a multi-datacenter cloud platform 
+* Runs on a Raspberry Pi or a multi-datacenter cloud platform
 * StreamField encourages flexible content without compromising structure
 * Powerful, integrated search, using Elasticsearch or PostgreSQL
 * Excellent support for images and embedded content
 * Multi-site and multi-language ready
 * Embraces and extends Django
 
-Find out more at [wagtail.io](https://wagtail.io/).
+Find out more at [wagtail.org](https://wagtail.org/).
 
 ### Getting started
 
@@ -40,27 +40,27 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-For detailed installation and setup docs, see [docs.wagtail.io](https://docs.wagtail.io/).
+For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
 
 ### Who’s using it?
 
-Wagtail is used by NASA, Google, Oxfam, the NHS, Mozilla, MIT, the Red Cross, Salesforce, NBC, BMW, and the US and UK governments. Add your own Wagtail site to [madewithwagtail.org](https://madewithwagtail.org).
+Wagtail is used by [NASA](https://www.nasa.gov/), [Google](https://www.google.com/), [Oxfam](https://www.oxfam.org/en), the [NHS](https://www.nhs.uk/), [Mozilla](https://www.mozilla.org/en-US/), [MIT](https://www.mit.edu/), the [Red Cross](https://www.icrc.org/en), [Salesforce](https://www.salesforce.com/), [NBC](https://www.nbc.com/), [BMW](https://www.bmw.com/en/index.html), and the US and UK governments. Add your own Wagtail site to [madewithwagtail.org](https://madewithwagtail.org).
 
 ### Documentation
 
-[docs.wagtail.io](https://docs.wagtail.io/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
+[docs.wagtail.org](https://docs.wagtail.org/) is the full reference for Wagtail, and includes guides for developers, designers and editors, alongside release notes and our roadmap.
 
 ### Compatibility
 
-_(If you are reading this on GitHub, the details here may not be indicative of the current released version - please see [Compatible Django / Python versions](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) in the Wagtail documentation.)_
+_(If you are reading this on GitHub, the details here may not be indicative of the current released version - please see [Compatible Django / Python versions](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) in the Wagtail documentation.)_
 
 Wagtail supports:
 
-* Django 2.2.x, 3.0.x and 3.1.x
-* Python 3.6, 3.7, 3.8 and 3.9
+* Django 3.2.x and 4.0.x
+* Python 3.7, 3.8, 3.9 and 3.10
 * PostgreSQL, MySQL and SQLite as database backends
 
-[Previous versions of Wagtail](https://docs.wagtail.io/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and Django 1.x.
+[Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
 
 ---
 
@@ -69,6 +69,8 @@ Wagtail supports:
 There is an active community of Wagtail users and developers responding to questions on [Stack Overflow](https://stackoverflow.com/questions/tagged/wagtail). When posting questions, please read Stack Overflow's advice on [how to ask questions](https://stackoverflow.com/help/how-to-ask) and remember to tag your question "wagtail".
 
 For topics and discussions that do not fit Stack Overflow's question and answer format, we have a [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack) and a [Wagtail Support mailing list](https://groups.google.com/forum/#!forum/wagtail). Please respect the time and effort of volunteers by not asking the same question in multiple places.
+
+Our [Github discussion boards](https://github.com/wagtail/wagtail/discussions) are open for sharing ideas and plans for the Wagtail project.
 
 We maintain a curated list of third party packages, articles and other resources at [Awesome Wagtail](https://github.com/springload/awesome-wagtail).
 
@@ -88,35 +90,35 @@ Feature releases of Wagtail are released every three months. Selected releases a
 
 #### Nightly releases
 
-To try out the latest features before a release, we also create builds from master every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.io/nightly/index.html
+To try out the latest features before a release, we also create builds from `main` every night. You can find instructions on how to install the latest nightly release at https://releases.wagtail.org/nightly/index.html
 
 ### Contributing
 
 If you're a Python or Django developer, fork the repo and get stuck in! We have several developer focused channels on the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack).
 
-You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
+You might like to start by reviewing the [contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html) and checking issues with the [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
 ### License
-[BSD](https://github.com/wagtail/wagtail/blob/master/LICENSE)
+[BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE)
 
 ### Thanks
 
 We thank the following organisations for their services used in Wagtail's development:
 
-[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
+[![Browserstack](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/browserstack-logo.svg)](https://www.browserstack.com/)<br>
 [BrowserStack](https://www.browserstack.com/) provides the project with free access to their live web-based browser testing tool, and automated Selenium cloud testing.
 
-[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@master/.github/squash-logo.svg)](https://www.squash.io/)<br>
+[![squash.io](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/squash-logo.svg)](https://www.squash.io/)<br>
 [Squash](https://www.squash.io/) provides the project with free test environments for reviewing pull requests.
 
+[![Assistiv Labs](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/assistivlabs-logo.png)](https://assistivlabs.com/)<br>
+[Assistiv Labs](https://assistivlabs.com/) provides the project with unlimited access to their remote testing with assistive technologies.
 
 [![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
 [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/) 
-[![Coverage](https://codecov.io/github/wagtail/wagtail/coverage.svg?branch=master)](https://codecov.io/github/wagtail/wagtail?branch=master)
+[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
-[![Slack](https://wagtail-slack.now.sh/badge.svg)](https://wagtail-slack.now.sh)

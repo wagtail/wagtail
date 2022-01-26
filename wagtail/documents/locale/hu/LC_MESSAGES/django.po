@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2020
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
 # Laszlo Molnar <lazlowmiller@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-02 19:46+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-26 13:13+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -23,6 +23,9 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "Dokumentumok"
 
+msgid "Collection"
+msgstr "Gyűjtemény"
+
 msgid "Add"
 msgstr "Hozzáadás"
 
@@ -34,6 +37,12 @@ msgstr "Szerkeszt"
 
 msgid "Edit any document"
 msgstr "Bármelyik dokumentum szerkesztése"
+
+msgid "Choose"
+msgstr "Kiválasztás"
+
+msgid "Select documents in choosers"
+msgstr "Kiválaszthat dokumentumokat tallózáskor"
 
 msgid "title"
 msgstr "cím"
@@ -56,6 +65,90 @@ msgstr "dokumentum"
 msgid "documents"
 msgstr "dokumentumok"
 
+#, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Címke hozzáadása 1 dokumentumhoz"
+msgstr[1] "Címke hozzáadása %(counter)s dokumentumhoz"
+
+msgid "Add tags to documents"
+msgstr "Dokumentumok címkézése"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Biztosan címkézni szeretné a következő dokumentumot?"
+msgstr[1] "Biztosan címkézni szeretné a következő dokumentumokat?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Nincs jogosultsága címkézni ezt a dokumentumot"
+msgstr[1] "Nincs jogosultsága címkézni ezeket a dokumentumokat"
+
+msgid "Yes, add"
+msgstr "Igen, hozzáadom"
+
+msgid "No, don't add"
+msgstr "Nem, mégsem"
+
+#, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "1 dokumentum mozgatása új gyűjteménybe"
+msgstr[1] "%(counter)s dokumentum mozgatása új gyűjteménybe"
+
+msgid "Add documents to collection"
+msgstr "Dokumentumok mozgatása gyűjteménybe"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Biztosan hozzá szeretné adni az alábbi dokumentumot a kiválasztott "
+"gyűjteményhez?"
+msgstr[1] ""
+"Biztosan hozzá szeretné adni az alábbi dokumentumokat a kiválasztott "
+"gyűjteményhez?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Nincs jogosultsága hozzáadni a dokumentumot a gyűjteményhez"
+msgstr[1] ""
+"Nincs jogosultsága hozzáadni ezeket a dokumentumokat a gyűjteményhez"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "1 dokumentum törlése"
+msgstr[1] "%(counter)s dokumentum törlése"
+
+msgid "Delete documents"
+msgstr "Dokumentumok törlése"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Biztosan törölni szeretné ezt a dokumentumot?"
+msgstr[1] "Biztosan törölni szeretné ezeket a dokumentumokat?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s alkalommal használva"
+msgstr[1] "%(usage_count)s alkalommal használva"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Nincs jogosultsága törölni ezt a dokumentumot"
+msgstr[1] "Nincs jogosultsága törölni ezeket a dokumentumokat"
+
+msgid "Yes, delete"
+msgstr "Igen, törlés"
+
+msgid "No, don't delete"
+msgstr "Nem, ne töröljük"
+
 msgid "Choose a document"
 msgstr "dokumentum kiválasztása"
 
@@ -64,9 +157,6 @@ msgstr "Keresés"
 
 msgid "Upload"
 msgstr "Feltöltés"
-
-msgid "Uploading…"
-msgstr "Feltöltés folyamatban…"
 
 #, python-format
 msgid ""
@@ -86,6 +176,19 @@ msgstr[1] ""
 
 msgid "Latest documents"
 msgstr "Legutóbbi dokumentumok"
+
+msgid "Title"
+msgstr "Cím"
+
+msgid "File"
+msgstr "Fájl"
+
+msgid "Created"
+msgstr "Létrehozva"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "ekkor: %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -108,6 +211,9 @@ msgstr ""
 "Miért nem <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
 "\">tölt fel egyet most</a>?"
 
+msgid "Uploading…"
+msgstr "Feltöltés folyamatban…"
+
 msgid "Change document:"
 msgstr "Dokumentum módosítása"
 
@@ -123,21 +229,6 @@ msgstr "Törlés: %(title)s"
 
 msgid "Delete document"
 msgstr "Dokumentum törlése"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s alkalommal használva"
-msgstr[1] "%(usage_count)s alkalommal használva"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Biztosan törölni szeretné a dokumentumot?"
-
-msgid "Yes, delete"
-msgstr "Igen, törlés"
-
-msgid "No, don't delete"
-msgstr "Nem, ne töröljük"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -161,21 +252,11 @@ msgstr "Használat"
 msgid "Documents"
 msgstr "Dokumentumok"
 
-msgid "Title"
-msgstr "Cím"
+msgid "Select all documents in listing"
+msgstr "Összes dokumentum kiválasztása a listában"
 
-msgid "File"
-msgstr "Fájl"
-
-msgid "Collection"
-msgstr "Gyűjtemény"
-
-msgid "Created"
-msgstr "Létrehozva"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "ekkor: %(time_period)s"
+msgid "Select document"
+msgstr "Dokumentum kíválasztása"
 
 #, python-format
 msgid ""
@@ -262,12 +343,6 @@ msgstr "Sajnáljuk, de a feltöltés sikertelen volt."
 msgid "Document updated."
 msgstr "Dokumentum frissítve."
 
-msgid "Update"
-msgstr "Frissítés"
-
-msgid "Delete"
-msgstr "Törlés"
-
 msgid "You need a password to access this document."
 msgstr "A dokumentum eléréshez jelszó szükséges."
 
@@ -276,6 +351,45 @@ msgstr "Dokumentum engedélyek"
 
 msgid "Add a document permission"
 msgstr "Dokumentum engedély hozzáadása"
+
+msgid "Tag"
+msgstr "Címkézés"
+
+msgid "Add tags to the selected documents"
+msgstr "Címke hozzáadása a kiválasztott dokumentumokhoz"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Új címkék hozzáadva %(num_parent_objects)d dokumentumhoz"
+msgstr[1] "Új címkék hozzáadva %(num_parent_objects)d dokumentumhoz"
+
+msgid "Add to collection"
+msgstr "Hozzáadás gyűjteményhez"
+
+msgid "Add selected documents to collection"
+msgstr "Kiválasztott dokumentumok hozzáadása gyűjteményhez"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] ""
+"%(collection)s gyűjteményhez %(num_parent_objects)d dokumentum hozzáadva"
+msgstr[1] ""
+"%(collection)s gyűjteményhez %(num_parent_objects)d dokumentum hozzáadva "
+
+msgid "Delete"
+msgstr "Törlés"
+
+msgid "Delete selected documents"
+msgstr "Kiválasztott dokumentumok törlése"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d dokumentum törölve"
+msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 
 msgid "Server Error"
 msgstr "Szerverhiba"

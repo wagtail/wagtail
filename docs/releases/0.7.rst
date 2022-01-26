@@ -41,27 +41,27 @@ Moderators and administrators now have the ability to lock a page, preventing fu
 Minor features
 ~~~~~~~~~~~~~~
 
- * The ``content_type`` template filter has been removed from the project template, as the same thing can be accomplished with ``self.get_verbose_name|slugify``.
- * Page copy operations now also copy the page revision history.
- * Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
- * ``register_snippet`` can now be invoked as a decorator.
- * The project template (used when running ``wagtail start``) has been updated to Django 1.7.
- * The 'boost' applied to the title field on searches has been reduced from 100 to 2.
- * The ``type`` method of ``PageQuerySet`` (used to filter the QuerySet to a specific page type) now includes subclasses of the given page type.
- * The ``update_index`` management command now updates all backends listed in ``WAGTAILSEARCH_BACKENDS``, or a specific one passed on the command line, rather than just the default backend.
- * The 'fill' image resize method now supports an additional parameter defining the closeness of the crop. See :ref:`image_tag`
- * Added support for invalidating Cloudflare caches. See :ref:`frontend_cache_purging`
- * Pages in the explorer can now be ordered by last updated time.
+* The ``content_type`` template filter has been removed from the project template, as the same thing can be accomplished with ``self.get_verbose_name|slugify``.
+* Page copy operations now also copy the page revision history.
+* Page models now support a ``parent_page_types`` property in addition to ``subpage types``, to restrict the types of page they can be created under.
+* ``register_snippet`` can now be invoked as a decorator.
+* The project template (used when running ``wagtail start``) has been updated to Django 1.7.
+* The 'boost' applied to the title field on searches has been reduced from 100 to 2.
+* The ``type`` method of ``PageQuerySet`` (used to filter the QuerySet to a specific page type) now includes subclasses of the given page type.
+* The ``update_index`` management command now updates all backends listed in ``WAGTAILSEARCH_BACKENDS``, or a specific one passed on the command line, rather than just the default backend.
+* The 'fill' image resize method now supports an additional parameter defining the closeness of the crop. See :ref:`image_tag`
+* Added support for invalidating Cloudflare caches. See :ref:`frontend_cache_purging`
+* Pages in the explorer can now be ordered by last updated time.
 
 Bug fixes
 ~~~~~~~~~
 
- * The 'wagtail start' command now works on Windows and other environments where the ``django-admin.py`` executable is not readily accessible.
- * The external image URL generator no longer stores generated images in Django's cache; this was an unintentional side-effect of setting cache control headers.
- * The Elasticsearch backend can now search QuerySets that have been filtered with an 'in' clause of a non-list type (such as a ``ValuesListQuerySet``).
- * Logic around the ``has_unpublished_changes`` flag has been fixed, to prevent issues with the 'View draft' button failing to show in some cases.
- * It is now easier to move pages to the beginning and end of their section
- * Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
+* The 'wagtail start' command now works on Windows and other environments where the ``django-admin.py`` executable is not readily accessible.
+* The external image URL generator no longer stores generated images in Django's cache; this was an unintentional side-effect of setting cache control headers.
+* The Elasticsearch backend can now search QuerySets that have been filtered with an 'in' clause of a non-list type (such as a ``ValuesListQuerySet``).
+* Logic around the ``has_unpublished_changes`` flag has been fixed, to prevent issues with the 'View draft' button failing to show in some cases.
+* It is now easier to move pages to the beginning and end of their section
+* Image rendering no longer creates erroneous duplicate Rendition records when the focal point is blank.
 
 
 Upgrade considerations
@@ -100,5 +100,5 @@ Update to ``focal_point_key`` field on custom Rendition models
 
 The ``focal_point_key`` field on wagtailimages.Rendition has been changed to ``null=False``, to fix an issue with duplicate renditions being created. If you have defined a custom Rendition model in your project (by extending the ``wagtailimages.AbstractRendition`` class), you will need to apply a migration to make the corresponding change on your custom model. Unfortunately neither South nor Django 1.7's migration system are able to generate this automatically - you will need to customise the migration produced by ``./manage.py schemamigration`` / ``./manage.py makemigrations``, using the wagtailimages migration as a guide:
 
- - https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
- - https://github.com/wagtail/wagtail/blob/master/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)
+- https://github.com/wagtail/wagtail/blob/stable/0.7.x/wagtail/wagtailimages/south_migrations/0004_auto__chg_field_rendition_focal_point_key.py (for South / Django 1.6)
+- https://github.com/wagtail/wagtail/blob/stable/0.7.x/wagtail/wagtailimages/migrations/0004_make_focal_point_key_not_nullable.py (for Django 1.7)

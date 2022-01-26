@@ -10,7 +10,7 @@ The ``RoutablePageMixin`` mixin provides a convenient way for a page to respond 
 
 A ``Page`` using ``RoutablePageMixin`` exists within the page tree like any other page, but URL paths underneath it are checked against a list of patterns. If none of the patterns match, control is passed to subpages as usual (or failing that, a 404 error is thrown).
 
-By default a route for ``r'^$'`` exists, which serves the content exactly like a regular ``Page`` would. It can be overridden by using ``@route(r'^$')`` on any other method of the inheriting class.
+By default a route for ``r'^$'`` exists, which serves the content exactly like a normal ``Page`` would. It can be overridden by using ``@route(r'^$')`` on any other method of the inheriting class.
 
 
 Installation
@@ -18,13 +18,13 @@ Installation
 
 Add ``"wagtail.contrib.routable_page"`` to your INSTALLED_APPS:
 
- .. code-block:: python
+.. code-block:: python
 
-     INSTALLED_APPS = [
-        ...
+    INSTALLED_APPS = [
+      ...
 
-        "wagtail.contrib.routable_page",
-     ]
+      "wagtail.contrib.routable_page",
+    ]
 
 
 The basics
@@ -174,7 +174,7 @@ The route name defaults to the name of the view. You can override this name with
 
 .. code-block:: python
 
-    >>> event_page.reverse_subpage('year', args=(2015, ))
+    >>> event_page.url + event_page.reverse_subpage('year', args=(2015, ))
     '/events/year/2015/'
 
 The ``RoutablePageMixin`` class
@@ -183,26 +183,26 @@ The ``RoutablePageMixin`` class
 .. automodule:: wagtail.contrib.routable_page.models
 .. autoclass:: RoutablePageMixin
 
-    .. automethod:: render
+  .. automethod:: render
 
-    .. automethod:: get_subpage_urls
+  .. automethod:: get_subpage_urls
 
-    .. automethod:: resolve_subpage
+  .. automethod:: resolve_subpage
 
-        Example:
+    Example:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            view, args, kwargs = page.resolve_subpage('/past/')
-            response = view(request, *args, **kwargs)
+        view, args, kwargs = page.resolve_subpage('/past/')
+        response = view(request, *args, **kwargs)
 
-    .. automethod:: reverse_subpage
+  .. automethod:: reverse_subpage
 
-        Example:
+    Example:
 
-        .. code-block:: python
+    .. code-block:: python
 
-            url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
+        url = page.url + page.reverse_subpage('events_for_year', kwargs={'year': '2014'})
 
 
  .. _routablepageurl_template_tag:

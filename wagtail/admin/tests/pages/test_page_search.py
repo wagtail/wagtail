@@ -175,3 +175,12 @@ class TestPageSearch(TestCase, WagtailTestUtils):
         response = self.get({'q': 'Lunar', 'ordering': '-live'})
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [live_event.id, draft_event.id])
+
+    def test_search_filter_content_type(self):
+        # Correct content_type
+        response = self.get({'content_type': "demosite.standardpage"})
+        self.assertEqual(response.status_code, 200)
+
+        # Incorrect content_type
+        response = self.get({'content_type': "demosite.standardpage.error"})
+        self.assertEqual(response.status_code, 404)

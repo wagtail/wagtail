@@ -7,6 +7,8 @@ from django.utils.formats import get_format
 
 from wagtail.admin.datetimepicker import to_datetimepicker_format
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 
 
 DEFAULT_DATE_FORMAT = '%Y-%m-%d'
@@ -27,14 +29,16 @@ class AdminDateInput(widgets.DateInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=default_attrs, format=fmt)
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-
-        config = {
+    def get_config(self):
+        return {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
         }
-        context['widget']['config_json'] = json.dumps(config)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        context['widget']['config_json'] = json.dumps(self.get_config())
 
         return context
 
@@ -43,6 +47,18 @@ class AdminDateInput(widgets.DateInput):
         return forms.Media(js=[
             versioned_static('wagtailadmin/js/date-time-chooser.js'),
         ])
+
+
+class AdminDateInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.AdminDateInput'
+
+    def js_args(self, widget):
+        return [
+            widget.get_config(),
+        ]
+
+
+register(AdminDateInputAdapter(), AdminDateInput)
 
 
 class AdminTimeInput(widgets.TimeInput):
@@ -58,15 +74,15 @@ class AdminTimeInput(widgets.TimeInput):
         self.js_format = to_datetimepicker_format(fmt)
         super().__init__(attrs=default_attrs, format=fmt)
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-
-        config = {
+    def get_config(self):
+        return {
             'format': self.js_format,
             'formatTime': self.js_format
         }
-        context['widget']['config_json'] = json.dumps(config)
 
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+        context['widget']['config_json'] = json.dumps(self.get_config())
         return context
 
     @property
@@ -74,6 +90,18 @@ class AdminTimeInput(widgets.TimeInput):
         return forms.Media(js=[
             versioned_static('wagtailadmin/js/date-time-chooser.js'),
         ])
+
+
+class AdminTimeInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.AdminTimeInput'
+
+    def js_args(self, widget):
+        return [
+            widget.get_config(),
+        ]
+
+
+register(AdminTimeInputAdapter(), AdminTimeInput)
 
 
 class AdminDateTimeInput(widgets.DateTimeInput):
@@ -93,15 +121,17 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         self.js_time_format = to_datetimepicker_format(time_fmt)
         super().__init__(attrs=default_attrs, format=fmt)
 
-    def get_context(self, name, value, attrs):
-        context = super().get_context(name, value, attrs)
-
-        config = {
+    def get_config(self):
+        return {
             'dayOfWeekStart': get_format('FIRST_DAY_OF_WEEK'),
             'format': self.js_format,
             'formatTime': self.js_time_format
         }
-        context['widget']['config_json'] = json.dumps(config)
+
+    def get_context(self, name, value, attrs):
+        context = super().get_context(name, value, attrs)
+
+        context['widget']['config_json'] = json.dumps(self.get_config())
 
         return context
 
@@ -110,3 +140,15 @@ class AdminDateTimeInput(widgets.DateTimeInput):
         return forms.Media(js=[
             versioned_static('wagtailadmin/js/date-time-chooser.js'),
         ])
+
+
+class AdminDateTimeInputAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.AdminDateTimeInput'
+
+    def js_args(self, widget):
+        return [
+            widget.get_config(),
+        ]
+
+
+register(AdminDateTimeInputAdapter(), AdminDateTimeInput)

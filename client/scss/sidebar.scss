@@ -1,0 +1,74 @@
+/* =============================================================================
+/*  Wagtail CMS sidebar stylesheet entrypoint
+/* =============================================================================
+
+The sidebar is implemented in its own stylesheet so that it can be used
+by different frontend frameworks.
+
+This stylesheet follows the same conventions as the rest of Wagtail,
+see core.scss for details.
+
+==============================================================================*/
+
+
+/* SETTINGS
+These are variables, maps, and fonts.
+* No CSS should be produced by these files
+*/
+
+@import 'settings';
+
+
+/* TOOLS
+These are functions and mixins.
+* No CSS should be produced by these files.
+*/
+
+@import 'tools';
+
+
+/* GENERIC
+This is for resets and other rules that affect large collections of bare elements.
+* Changes to them should be very rare.
+*/
+
+@import 'generic/generic';
+
+
+/* ELEMENTS
+These are base styles for bare HTML elements.
+* Changes to them should be very rare.
+*/
+
+@import 'elements/elements';
+@import 'elements/typography';
+@import 'elements/forms';
+@import 'elements/root';
+
+
+/* OBJECTS
+These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
+* This is for grids, wrappers, and other non-consmetic layout utilities.
+* These classes are prefixed with `.o-`.
+*/
+
+@import 'objects/objects';
+@import 'objects/avatar';
+
+
+/* COMPONENTS
+These are classes for components.
+* These classes (unless legacy) are prefixed with `.c-`.
+* React component styles live in the same folders as their React components,
+  which is the preferred pattern over housing them in the scss folder.
+*/
+
+@import '../src/components/Transition/Transition';
+@import '../src/components/LoadingSpinner/LoadingSpinner';
+@import '../src/components/PublicationStatus/PublicationStatus';
+@import '../src/components/PageExplorer/PageExplorer';
+@import '../src/components/Sidebar/Sidebar';
+
+
+// Legacy
+@import 'components/icons';

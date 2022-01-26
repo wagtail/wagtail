@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: MRostgaard <Mrostgaard@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -51,9 +51,6 @@ msgstr "Planlagt udgivning"
 msgid "Privacy"
 msgstr "Privatliv"
 
-msgid "Common page configuration"
-msgstr "Konfiguration af standardside"
-
 msgid "Content"
 msgstr "Indhold"
 
@@ -62,12 +59,6 @@ msgstr "Promover"
 
 msgid "Settings"
 msgstr "Indstillinger"
-
-msgid "Date"
-msgstr "Dato"
-
-msgid "Title"
-msgstr "Titel"
 
 msgid "Enter password"
 msgstr "Skriv adgangskode"
@@ -79,9 +70,21 @@ msgstr "Skriv din %s"
 msgid "Enter your email address to reset your password"
 msgstr "Skriv din email addresse for at genindstille din adgangskode"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Parent"
+msgstr "Forældre"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "Du har ikke mulighed for at have flere tilladelser på den samme samling."
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Edit"
+msgstr "Rediger"
 
 msgid "New title"
 msgstr "Ny titel"
@@ -162,78 +165,6 @@ msgstr "Dette felt er påkrævet."
 msgid "Please select at least one group."
 msgstr "Vælg venligst mindst én gruppe."
 
-msgid "Catalan"
-msgstr "Katalansk"
-
-msgid "German"
-msgstr "Tysk"
-
-msgid "Greek"
-msgstr "Græsk"
-
-msgid "English"
-msgstr "Engelsk"
-
-msgid "Spanish"
-msgstr "Spansk"
-
-msgid "Finnish"
-msgstr "Finsk"
-
-msgid "French"
-msgstr "Fransk"
-
-msgid "Galician"
-msgstr "Galicisk"
-
-msgid "Icelandic"
-msgstr "Islandsk"
-
-msgid "Italian"
-msgstr "Italiensk"
-
-msgid "Korean"
-msgstr "Koreansk"
-
-msgid "Lithuanian"
-msgstr "Litauensk"
-
-msgid "Norwegian Bokmål"
-msgstr "Norsk Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Hollandsk"
-
-msgid "Persian"
-msgstr "Persisk"
-
-msgid "Polish"
-msgstr "Polsk"
-
-msgid "Brazilian Portuguese"
-msgstr "Braziliansk Portugisisk"
-
-msgid "Portuguese"
-msgstr "Portugisisk"
-
-msgid "Romanian"
-msgstr "Romænsk"
-
-msgid "Russian"
-msgstr "Russisk"
-
-msgid "Swedish"
-msgstr "Svensk"
-
-msgid "Slovak"
-msgstr "Slovakisk"
-
-msgid "Ukrainian"
-msgstr "Ukrainsk"
-
-msgid "Edit"
-msgstr "Rediger"
-
 msgid "Page"
 msgstr "Side"
 
@@ -297,6 +228,18 @@ msgstr "Luk"
 msgid "Edit '{title}'"
 msgstr "Rediger '{title}'"
 
+msgid "Save"
+msgstr "Gem"
+
+msgid "Saving..."
+msgstr "Gemmer..."
+
+msgid "Dashboard"
+msgstr "Dashboard"
+
+msgid "Edit your account"
+msgstr "Rediger din konto"
+
 msgid "Error 404: Page not found"
 msgstr "Fejl 404: Side ikke fundet"
 
@@ -312,18 +255,6 @@ msgstr "Gå til Wagtail admin"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Change profile picture"
-msgstr "Skift profilbillede."
-
-msgid "Your current profile picture:"
-msgstr "Dit nuværende profilbillede:"
-
-msgid "Update"
-msgstr "Opdater"
-
-msgid "Change email"
-msgstr "Skift email"
-
 msgid "Change password"
 msgstr "Skift adgangskode"
 
@@ -331,15 +262,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Dit kodeord kan ikke blive ændret her. Kontakt venligst en administrator"
-
-msgid "Set Time Zone"
-msgstr "Angiv tidszone"
-
-msgid "Language Preferences"
-msgstr "Sprog præferencer"
-
-msgid "Notification preferences"
-msgstr "Notifikationspræferencer"
 
 msgid "Reset password"
 msgstr "Genindstil adgangskode"
@@ -387,17 +309,8 @@ msgstr "Gendan kodeord"
 msgid "Reset your password"
 msgstr "Gendan dit kodeord"
 
-msgid "Dashboard"
-msgstr "Dashboard"
-
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Bevæg op"
-
-msgid "Move down"
-msgstr "Bevæg ned"
 
 msgid "Explorer"
 msgstr "Explorer"
@@ -479,9 +392,6 @@ msgstr ""
 "Indstillingerne bestemmer hvem der er i stand til at se documenter fra denne "
 "side."
 
-msgid "Save"
-msgstr "Gem"
-
 msgid "Public"
 msgstr "Offentlig"
 
@@ -495,12 +405,24 @@ msgstr "Navn"
 msgid "Add %(label)s"
 msgstr "Tilføj %(label)s"
 
+msgid "Move up"
+msgstr "Bevæg op"
+
+msgid "Move down"
+msgstr "Bevæg ned"
+
 msgid "Yes, delete"
 msgstr "Ja, slet"
+
+msgid "Update"
+msgstr "Opdater"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
 msgstr "Velkommen til %(site_name)s Wagtail CMS"
+
+msgid "Title"
+msgstr "Titel"
 
 msgid "Edit this page"
 msgstr "Rediger denne side"
@@ -510,9 +432,6 @@ msgstr "Skitse"
 
 msgid "Live"
 msgstr "Live"
-
-msgid "Parent"
-msgstr "Forældre"
 
 msgid "Type"
 msgstr "Type"
@@ -535,6 +454,9 @@ msgstr "Dine seneste redigeringer"
 msgid "Status"
 msgstr "Status"
 
+msgid "Date"
+msgstr "Dato"
+
 msgid "Site summary"
 msgstr "Side opsummering"
 
@@ -551,9 +473,6 @@ msgstr "Log ind i Wagtail"
 
 msgid "Signing in…"
 msgstr "Logger ind..."
-
-msgid "Forgotten it?"
-msgstr "Glemt det?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -604,6 +523,12 @@ msgstr "Lav en side i"
 msgid "Choose which type of page you'd like to create."
 msgstr "Vælg hvilken type side du gerne vil lave."
 
+msgid "Move"
+msgstr "Flyt"
+
+msgid "No, don't unpublish"
+msgstr "Nej, afpublicer den ikke"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Slet %(title)s"
@@ -640,9 +565,6 @@ msgstr "Nej, slet den ikke"
 #, python-format
 msgid "Move %(title)s"
 msgstr "Flyt %(title)s"
-
-msgid "Move"
-msgstr "Flyt"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -688,9 +610,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ja, afpublicer den"
-
-msgid "No, don't unpublish"
-msgstr "Nej, afpublicer den ikke"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -874,23 +793,20 @@ msgstr "af"
 msgid "Locked"
 msgstr "Låst"
 
+msgid "Edit this item"
+msgstr "Rediger denne enhed"
+
 msgid "Root"
 msgstr "Rod"
 
 msgid "Home"
 msgstr "Hjem"
 
-msgid "Edit your account"
-msgstr "Rediger din konto"
-
 msgid "Account settings"
 msgstr "Kontoindstillinger"
 
 msgid "Log out"
 msgstr "Log ud"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Gå til Wagtail admin interface"
 
 msgid "Add a child page"
 msgstr "Tilføj en underside"
@@ -901,6 +817,9 @@ msgstr "Vis i Udforsker"
 #, python-format
 msgid "by %(modified_by)s"
 msgstr "af %(modified_by)s"
+
+msgid "More"
+msgstr "Mere"
 
 msgid "Test"
 msgstr "Test"
@@ -947,27 +866,6 @@ msgstr "Seneste"
 msgid "Page '{0}' unpublished."
 msgstr "SIde '{0}' afpubliceret."
 
-msgid "More"
-msgstr "Mere"
-
-msgid "Set profile picture"
-msgstr "Angiv profilbillede"
-
-msgid "Change the password you use to log in."
-msgstr "Skift den adgangskode du anvender til at logge ind med."
-
-msgid "Language preferences"
-msgstr "Sprog præferencer"
-
-msgid "Choose the language you want to use here."
-msgstr "Vælg det sprog du ønsker at bruge her."
-
-msgid "Current Time Zone"
-msgstr "Nuværende tidszone"
-
-msgid "Choose your current time zone."
-msgstr "Vælg din nuværende tidszone."
-
 msgid "Bulleted list"
 msgstr "Liste med prikker"
 
@@ -991,9 +889,6 @@ msgstr "Vælg en til enhed"
 
 msgid "Clear choice"
 msgstr "Nulstil valg"
-
-msgid "Edit this item"
-msgstr "Rediger denne enhed"
 
 msgid "Choose another page"
 msgstr "Vælg en anden side"

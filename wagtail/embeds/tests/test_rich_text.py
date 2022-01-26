@@ -129,4 +129,4 @@ class TestFrontendMediaEmbedHandler(TestCase):
 
         result = expand_db_html('<p>1 2 <embed embedtype="media" url="https://www.youtube.com/watch?v=O7D-1RG-VRk&amp;t=25" /> 3 4</p>')
         self.assertIn('test html', result)
-        get_embed.assert_called_with('https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25')
+        get_embed.assert_called_with('https://www.youtube.com/watch?v=O7D-1RG-VRk&t=25', None, None)

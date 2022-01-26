@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Нийтлэхгүй байх"
 
 msgid "Delete"
 msgstr "Устгах"
+
+msgid "Lock"
+msgstr "Түгжих"
 
 msgid "Page locked"
 msgstr "Хуудас түгжигдсэн"
@@ -54,9 +57,6 @@ msgstr "Төлөвлөгөөт нийтлэл"
 msgid "Privacy"
 msgstr "Нууцлал"
 
-msgid "Common page configuration"
-msgstr "Нийтлэг хуудасны тохиргоо"
-
 msgid "Content"
 msgstr "Контент"
 
@@ -66,11 +66,29 @@ msgstr "Бусад тохиргоо"
 msgid "Settings"
 msgstr "Тохиргоо"
 
-msgid "Date"
-msgstr "Огноо"
+msgid "Date from"
+msgstr "Эхлэх огноо"
 
-msgid "Title"
-msgstr "Гарчиг"
+msgid "Date to"
+msgstr "Дуусах огноо"
+
+msgid "Preferred language"
+msgstr "Сонгосон хэл"
+
+msgid "Current time zone"
+msgstr "Одоогийн цагийн бүс"
+
+msgid "First Name"
+msgstr "Нэр"
+
+msgid "Last Name"
+msgstr "Овог"
+
+msgid "Email"
+msgstr "Имейл"
+
+msgid "Upload a profile picture"
+msgstr "Профайл зураг оруулах"
 
 msgid "Enter password"
 msgstr "Нууц үг оруулна уу"
@@ -82,8 +100,23 @@ msgstr "Өөрийн%s оруулна уу"
 msgid "Enter your email address to reset your password"
 msgstr "Нууц үгээ шинээр сэргээхийн тулд имейл хаягаа оруулна уу"
 
+msgid "URL"
+msgstr "URL хаяг"
+
+msgid "Parent"
+msgstr "Эцэг"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Нэг цуглуулганд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
+
+msgid "Collection"
+msgstr "Цуглуулга"
+
+msgid "Add"
+msgstr "Нэмэх"
+
+msgid "Edit"
+msgstr "Засах"
 
 msgid "New title"
 msgstr "Шинэ гарчиг"
@@ -166,69 +199,6 @@ msgstr "Энэ талбарыг заавал бөглөх шаардлагата
 msgid "Please select at least one group."
 msgstr "Ядаж нэг бүлэг сонгоно уу."
 
-msgid "Arabic"
-msgstr "Араб"
-
-msgid "Catalan"
-msgstr "Каталан хэл"
-
-msgid "German"
-msgstr "Герман"
-
-msgid "Greek"
-msgstr "Грек"
-
-msgid "English"
-msgstr "Англи хэл"
-
-msgid "Spanish"
-msgstr "Испани"
-
-msgid "Finnish"
-msgstr "Финланд хэл"
-
-msgid "French"
-msgstr "Франц"
-
-msgid "Indonesian"
-msgstr "Индонези"
-
-msgid "Italian"
-msgstr "Итали"
-
-msgid "Korean"
-msgstr "Солонгос хэл"
-
-msgid "Lithuanian"
-msgstr "Литва хэл"
-
-msgid "Persian"
-msgstr "Перс"
-
-msgid "Polish"
-msgstr "Польш хэл"
-
-msgid "Portuguese"
-msgstr "Португали"
-
-msgid "Romanian"
-msgstr "Румын"
-
-msgid "Russian"
-msgstr "Орос хэл"
-
-msgid "Swedish"
-msgstr "Швед хэл"
-
-msgid "Slovak"
-msgstr "Словак"
-
-msgid "Ukrainian"
-msgstr "Украйн"
-
-msgid "Edit"
-msgstr "Засах"
-
 msgid "Page"
 msgstr "Хуудас"
 
@@ -292,6 +262,15 @@ msgstr "Хаах"
 msgid "Edit '{title}'"
 msgstr "'{title}' засах"
 
+msgid "Save"
+msgstr "Хадгалах"
+
+msgid "Dashboard"
+msgstr "Хянах самбар"
+
+msgid "Edit your account"
+msgstr "Хэрэглэгчийн эрхээ засах"
+
 msgid "Error 404: Page not found"
 msgstr "Алдаа 404: Хуудас олдсонгүй"
 
@@ -307,18 +286,6 @@ msgstr "Админ панел руу очих"
 msgid "Account"
 msgstr "Хэрэглэгчийн эрх"
 
-msgid "Change profile picture"
-msgstr "Профайл зургаа солих"
-
-msgid "Your current profile picture:"
-msgstr "Одоогийн профайл зураг:"
-
-msgid "Update"
-msgstr "Шинэчлэх"
-
-msgid "Change email"
-msgstr "Имейл солих"
-
 msgid "Change password"
 msgstr "Нууц үгээ солих"
 
@@ -326,15 +293,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Та нууц үгээ энд солих боломжгүй. Системийн аминистратортой холбогдоно уу."
-
-msgid "Set Time Zone"
-msgstr "Цагийн бүс тохируулах"
-
-msgid "Language Preferences"
-msgstr "Хэлний тохиргоо"
-
-msgid "Notification preferences"
-msgstr "Мэдэгдлийн тохируулга"
 
 msgid "Reset password"
 msgstr "Нууц үгээ сэргээх"
@@ -382,17 +340,8 @@ msgstr "Нууц үг сэргээх"
 msgid "Reset your password"
 msgstr "Нууц үгээ сэргээх"
 
-msgid "Dashboard"
-msgstr "Хянах самбар"
-
 msgid "Menu"
 msgstr "Цэс"
-
-msgid "Move up"
-msgstr "Дээш зөөх"
-
-msgid "Move down"
-msgstr "Доош зөөх"
 
 msgid "Internal link"
 msgstr "Дотоод холбоос"
@@ -445,9 +394,6 @@ msgstr "Цуглуулгын нууцлалын тохиргоо"
 msgid "You can edit the privacy settings on:"
 msgstr "Нууцлалын тохиргоог өөрчлөх боломжтой:"
 
-msgid "Save"
-msgstr "Хадгалах"
-
 msgid "Public"
 msgstr "Нийтэд нээлттэй"
 
@@ -461,8 +407,17 @@ msgstr "Нэр"
 msgid "Add %(label)s"
 msgstr "%(label)s нэмэх"
 
+msgid "Move up"
+msgstr "Дээш зөөх"
+
+msgid "Move down"
+msgstr "Доош зөөх"
+
 msgid "Yes, delete"
 msgstr "Тийм, устга"
+
+msgid "Update"
+msgstr "Шинэчлэх"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -475,6 +430,9 @@ msgstr ""
 "Энэ хянах самбар дээр таны үүсгэсэн контентын талаар хэрэгцээт мэдээлэл "
 "харагдана."
 
+msgid "Title"
+msgstr "Гарчиг"
+
 msgid "Edit this page"
 msgstr "Энэ хуудсыг засах"
 
@@ -486,9 +444,6 @@ msgstr "Нийтлэгдсэн"
 
 msgid "Pages awaiting moderation"
 msgstr "Хянагдахаар хүлээгдэж буй хуудсууд"
-
-msgid "Parent"
-msgstr "Эцэг"
 
 msgid "Type"
 msgstr "Төрөл"
@@ -514,6 +469,9 @@ msgstr "Таны сүүлийн засварууд"
 msgid "Status"
 msgstr "Төлөв"
 
+msgid "Date"
+msgstr "Огноо"
+
 msgid "Site summary"
 msgstr "Сайтын хураангуй"
 
@@ -530,9 +488,6 @@ msgstr "Нэвтрэх"
 
 msgid "Signing in…"
 msgstr "Нэвтэрч байна..."
-
-msgid "Forgotten it?"
-msgstr "Мартсан уу?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -608,6 +563,12 @@ msgstr "Үүсгэх хуудасныхаа төрлийг сонгоно уу."
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s-г ашиглаж буй хуудсууд"
 
+msgid "Move"
+msgstr "Зөөх"
+
+msgid "No, don't unpublish"
+msgstr "Үгүй"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "%(title)s-г устгах"
@@ -655,9 +616,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s-г зөөх"
 
-msgid "Move"
-msgstr "Зөөх"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Энэ хуудсыг үнэхээр '%(title)s'-руу зөөх үү?"
@@ -680,9 +638,6 @@ msgstr "Энэ хуудсыг үнэхээр хандах боломжгүй б�
 
 msgid "Yes, unpublish it"
 msgstr "Тийм, Нийтлэхгүй болго"
-
-msgid "No, don't unpublish"
-msgstr "Үгүй"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -887,11 +842,17 @@ msgstr "Хайлтын утгаа дээд хэсэгт оруулна уу"
 msgid "No pages use"
 msgstr "Хуудас хэрэглээгүй"
 
-msgid "Collection"
-msgstr "Цуглуулга"
+msgid "Download CSV"
+msgstr "CSV татах"
+
+msgid "Filter"
+msgstr "Шүүлтүүр"
 
 msgid "Locked"
 msgstr "Түгжигдсэн"
+
+msgid "Edit this item"
+msgstr "Энэ зүйлийг засах"
 
 msgid "Root"
 msgstr "Үндэс"
@@ -902,9 +863,6 @@ msgstr "Нүүр хуудас"
 msgid "All collections"
 msgstr "Цуглуулга нэмэх"
 
-msgid "Edit your account"
-msgstr "Хэрэглэгчийн эрхээ засах"
-
 msgid "Account settings"
 msgstr "Хэрэглэгчийн эрхийн тохиргоо"
 
@@ -913,9 +871,6 @@ msgstr "Гарах"
 
 msgid "Other searches"
 msgstr "Бусад хайлтууд"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Админ панел руу шилжих"
 
 msgid "Add a child page"
 msgstr "Шинэ мэдээ нэмэх"
@@ -927,20 +882,23 @@ msgstr "%(modified_by)s-р"
 msgid "Compare with live version"
 msgstr "Нийтлэгдсэн хувилбартай харьцуулах"
 
+msgid "More"
+msgstr "Дэлгэрэнгүй"
+
+msgid "live"
+msgstr "нийтлэгдсэн"
+
+msgid "draft"
+msgstr "ноорог"
+
+msgid "live + draft"
+msgstr "нийтлэгдсэн + ноорог"
+
 msgid "Test"
 msgstr "Тест"
 
-msgid "Your password has been changed successfully!"
-msgstr "Таны нууц үг амжилттай өөрчлөгдлөө!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Таны имейл амжилттай өөрчлөгдлөө."
-
-msgid "Your preferences have been updated."
-msgstr "Таны тохиргоо хадгалагдлаа!"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Таны тохиргоо амжилттай хадгалагдлаа!"
+msgid "Password"
+msgstr "Нууц үг"
 
 msgid "You have been successfully logged out."
 msgstr "Та системээс гарлаа."
@@ -1053,33 +1011,6 @@ msgstr "\"{1}\"-с {0} дэх хувилбар"
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' хуудсыг хаалаа."
 
-msgid "More"
-msgstr "Дэлгэрэнгүй"
-
-msgid "Set profile picture"
-msgstr "Профайл зураг оруулах"
-
-msgid "Change the email address linked to your account."
-msgstr "Таны хэрэглэгчийн эрхтэй холбоотой имейл хаягийг өөрчлөх."
-
-msgid "Change the password you use to log in."
-msgstr "Нэвтрэхдээ ашигладаг нууц үгээ солих."
-
-msgid "Choose which email notifications to receive."
-msgstr "Имейлээр хүлээж авах мэдэгдийн төрлөө сонгох"
-
-msgid "Language preferences"
-msgstr "Хэлний тохиргоо"
-
-msgid "Choose the language you want to use here."
-msgstr "Ашиглах хэлээ сонгоно уу."
-
-msgid "Current Time Zone"
-msgstr "Одоогийн цагийн бүс"
-
-msgid "Choose your current time zone."
-msgstr "Өөрийн цагийн бүсийг тохируулна уу."
-
 msgid "Bulleted list"
 msgstr "Сумтай жагсаалт"
 
@@ -1103,9 +1034,6 @@ msgstr "Өөр зүйл сонгох"
 
 msgid "Clear choice"
 msgstr "Сонголтыг цэвэрлэх"
-
-msgid "Edit this item"
-msgstr "Энэ зүйлийг засах"
 
 msgid "Choose another page"
 msgstr "Өөр хуудас сонгох"

@@ -13,5 +13,5 @@ What's changed
 Bug fixes
 ~~~~~~~~~
 
- * Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
- * Prevent pages from being recursively copied into themselves (Matheus Bratfisch)
+* Removed erroneous ``|safe`` filter from search results template in project template (Karl Hobley)
+* Prevent pages from being recursively copied into themselves (Matheus Bratfisch)

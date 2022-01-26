@@ -3,15 +3,18 @@ import json
 
 from unittest import mock
 
+from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.core.models import Locale, Page, Site
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
+from wagtail.tests.utils import WagtailTestUtils
 
 
 def get_total_page_count():
@@ -19,7 +22,7 @@ def get_total_page_count():
     return Page.objects.live().public().count() - 1
 
 
-class TestPageListing(TestCase):
+class TestPageListing(TestCase, WagtailTestUtils):
     fixtures = ['demosite.json']
 
     def get_response(self, **params):
@@ -81,12 +84,41 @@ class TestPageListing(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
         self.assertEqual(content['meta']['total_count'], new_total_count)
 
+    def test_private_pages_with_user_login(self):
+        client = APIClient()
+        user = self.create_user(username='alice', password='password')
+        old_total_count = get_total_page_count()
+        page = models.BlogIndexPage.objects.get(id=5)
+        page.view_restrictions.create(restriction_type='login')
+        # authenticate user
+        client.force_authenticate(user)
+        # getting number of pages after authenticating user
+        response = client.get(reverse('wagtailapi_v2:pages:listing'))
+        new_total_count = json.loads(response.content.decode('UTF-8'))['meta']['total_count']
+        self.assertEqual(new_total_count, old_total_count)
+
+    def test_private_pages_with_user_groups(self):
+        client = APIClient()
+        user = self.create_user(username='alice', password='password')
+        old_total_count = get_total_page_count()
+        page = models.BlogIndexPage.objects.get(id=5)
+        editors_group = Group.objects.get(name='Editors')
+        page_restriction_instance = page.view_restrictions.create(restriction_type='groups')
+        page_restriction_instance.groups.add(editors_group)
+        # add self.user to editors group and authenticate user
+        user.groups.add(editors_group)
+        client.force_authenticate(user)
+        # getting number of pages after authenticating user
+        response = client.get(reverse('wagtailapi_v2:pages:listing'))
+        new_total_count = json.loads(response.content.decode('UTF-8'))['meta']['total_count']
+        self.assertEqual(new_total_count, old_total_count)
+
     def test_page_listing_with_missing_page_model(self):
         # Create a ContentType that doesn't correspond to a real model
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
 
         # Turn a BlogEntryPage into this content_type
-        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(content_type=missing_page_content_type)
 
         # get page listing with missing model
         response = self.get_response()
@@ -161,6 +193,22 @@ class TestPageListing(TestCase):
         self.assertEqual(len(content['items']), 1)
         self.assertEqual(content['items'][0]['id'], french_homepage.id)
 
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_locale_filter_with_search(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+        events_index = Page.objects.get(url_path='/home-page/events-index/')
+        french_events_index = events_index.copy_for_translation(french)
+        french_events_index.get_latest_revision().publish()
+
+        response = self.get_response(locale='fr', search='events')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_events_index.id)
+
     # TRANSLATION OF FILTER
 
     @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -175,6 +223,21 @@ class TestPageListing(TestCase):
 
         self.assertEqual(len(content['items']), 1)
         self.assertEqual(content['items'][0]['id'], french_homepage.id)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_translation_of_filter_with_search(self):
+        french = Locale.objects.create(language_code='fr')
+        homepage = Page.objects.get(depth=2)
+        french_homepage = homepage.copy_for_translation(french)
+        french_homepage.get_latest_revision().publish()
+
+        response = self.get_response(translation_of=homepage.id, search='home')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(len(content['items']), 1)
+        self.assertEqual(content['items'][0]['id'], french_homepage.id)
+        response = self.get_response(translation_of=homepage.id, search='gnome')
+        content = json.loads(response.content.decode('UTF-8'))
+        self.assertEqual(len(content['items']), 0)
 
     # FIELDS
 
@@ -237,7 +300,7 @@ class TestPageListing(TestCase):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'title', 'date', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'seo_title', 'slug', 'html_url', 'search_description', 'locale'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'alias_of', 'seo_title', 'slug', 'html_url', 'search_description', 'locale'})
 
     def test_all_fields_then_remove_something(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='*,-title,-date,-seo_title')
@@ -245,7 +308,7 @@ class TestPageListing(TestCase):
 
         for page in content['items']:
             self.assertEqual(set(page.keys()), {'id', 'meta', 'related_links', 'tags', 'carousel_items', 'body', 'feed_image', 'feed_image_thumbnail'})
-            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'slug', 'html_url', 'search_description', 'locale'})
+            self.assertEqual(set(page['meta'].keys()), {'type', 'detail_url', 'show_in_menus', 'first_published_at', 'alias_of', 'slug', 'html_url', 'search_description', 'locale'})
 
     def test_remove_all_fields(self):
         response = self.get_response(type='demosite.BlogEntryPage', fields='_,id,type')
@@ -423,6 +486,13 @@ class TestPageListing(TestCase):
         page_id_list = self.get_page_id_list(content)
         self.assertEqual(page_id_list, [16])
 
+    def test_filtering_on_foreign_key(self):
+        response = self.get_response(type="demosite.contactpage", feed_image=7)
+        content = json.loads(response.content.decode('UTF-8'))
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [12])
+
     def test_filtering_on_boolean(self):
         response = self.get_response(show_in_menus='false')
         content = json.loads(response.content.decode('UTF-8'))
@@ -458,12 +528,19 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "query parameter is not an operation or a recognised field: not_a_field"})
 
-    def test_filtering_int_validation(self):
+    def test_filtering_id_int_validation(self):
         response = self.get_response(id='abc')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "field filter error. 'abc' is not a valid value for id (invalid literal for int() with base 10: 'abc')"})
+
+    def test_filtering_foreign_key_int_validation(self):
+        response = self.get_response(type="demosite.contactpage", feed_image='abc')
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content['message'][:61], "field filter error. 'abc' is not a valid value for feed_image")
 
     def test_filtering_boolean_validation(self):
         response = self.get_response(show_in_menus='abc')
@@ -518,6 +595,44 @@ class TestPageListing(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(content, {'message': "parent page doesn't exist"})
 
+    # ANCESTOR OF FILTER
+
+    def test_ancestor_of_filter(self):
+        response = self.get_response(ancestor_of=10)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [2, 6])
+
+    def test_ancestor_of_with_type(self):
+        response = self.get_response(type='demosite.eventindexpage', ancestor_of=8)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [4])
+
+    def test_ancestor_of_unknown_page_gives_error(self):
+        response = self.get_response(ancestor_of=1000)
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "descendant page doesn't exist"})
+
+    def test_ancestor_of_not_integer_gives_error(self):
+        response = self.get_response(ancestor_of='abc')
+        content = response.json()
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(content, {'message': "ancestor_of must be a positive integer"})
+
+    def test_ancestor_of_home_page_ignores_root(self):
+        # Root page is not in any site, so pretend it doesn't exist
+        response = self.get_response(ancestor_of=2)
+        content = response.json()
+
+        page_id_list = self.get_page_id_list(content)
+        self.assertEqual(page_id_list, [])
+
     # DESCENDANT OF FILTER
 
     def test_descendant_of_filter(self):
@@ -528,7 +643,7 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [10, 15, 17, 21, 22, 23])
 
     def test_descendant_of_root(self):
-        # "root" gets decendants of the homepage of the current site
+        # "root" gets descendants of the homepage of the current site
         # Basically returns every page except the homepage
         response = self.get_response(descendant_of='root')
         content = json.loads(response.content.decode('UTF-8'))
@@ -537,11 +652,11 @@ class TestPageListing(TestCase):
         self.assertEqual(page_id_list, [4, 8, 9, 5, 16, 18, 19, 6, 10, 15, 17, 21, 22, 23, 20, 13, 14, 12])
 
     def test_descendant_of_with_type(self):
-        response = self.get_response(type='tests.EventPage', descendant_of=6)
+        response = self.get_response(type='demosite.eventindexpage', descendant_of=2)
         content = json.loads(response.content.decode('UTF-8'))
 
         page_id_list = self.get_page_id_list(content)
-        self.assertEqual(page_id_list, [])
+        self.assertEqual(page_id_list, [4])
 
     def test_descendant_of_unknown_page_gives_error(self):
         response = self.get_response(descendant_of=1000)
@@ -876,6 +991,11 @@ class TestPageDetail(TestCase):
         self.assertEqual(content['meta']['parent']['meta']['detail_url'], 'http://localhost/api/main/pages/5/')
         self.assertEqual(content['meta']['parent']['meta']['html_url'], 'http://localhost/blog-index/')
 
+        # Check the alias_of field
+        # See test_alias_page for a test on an alias page
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsNone(content['meta']['alias_of'])
+
         # Check that the custom fields are included
         self.assertIn('date', content)
         self.assertIn('body', content)
@@ -949,12 +1069,13 @@ class TestPageDetail(TestCase):
             'seo_title',
             'search_description',
             'first_published_at',
+            'alias_of',
             'parent',
         ]
         self.assertEqual(list(content['meta'].keys()), meta_field_order)
 
     def test_null_foreign_key(self):
-        models.BlogEntryPage.objects.filter(id=16).update(feed_image_id=None)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(feed_image_id=None)
 
         response = self.get_response(16)
         content = json.loads(response.content.decode('UTF-8'))
@@ -967,11 +1088,37 @@ class TestPageDetail(TestCase):
         missing_page_content_type = ContentType.objects.create(app_label='tests', model='missingpage')
 
         # Turn a BlogEntryPage into this content_type
-        models.BlogEntryPage.objects.filter(id=16).update(content_type=missing_page_content_type)
+        models.BlogEntryPage.objects.filter(id=16).order_by().update(content_type=missing_page_content_type)
 
         # get missing model page
         response = self.get_response(16)
         self.assertEqual(response.status_code, 200)
+
+    def test_alias_page(self):
+        original = Page.objects.get(id=16).specific
+        alias = original.create_alias(update_slug='new-slug')
+
+        response = self.get_response(alias.id)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-type'], 'application/json')
+
+        # Will crash if the JSON is invalid
+        content = json.loads(response.content.decode('UTF-8'))
+
+        self.assertEqual(content['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['html_url'], 'http://localhost/blog-index/new-slug/')
+
+        # Check alias_of field
+        self.assertIn('alias_of', content['meta'])
+        self.assertIsInstance(content['meta']['alias_of'], dict)
+        self.assertEqual(set(content['meta']['alias_of'].keys()), {'id', 'meta', 'title'})
+        self.assertEqual(content['meta']['alias_of']['id'], 16)
+        self.assertIsInstance(content['meta']['alias_of']['meta'], dict)
+        self.assertEqual(set(content['meta']['alias_of']['meta'].keys()), {'type', 'detail_url', 'html_url'})
+        self.assertEqual(content['meta']['alias_of']['meta']['type'], 'demosite.BlogEntryPage')
+        self.assertEqual(content['meta']['alias_of']['meta']['detail_url'], 'http://localhost/api/main/pages/16/')
+        self.assertEqual(content['meta']['alias_of']['meta']['html_url'], 'http://localhost/blog-index/blog-post/')
 
     # FIELDS
 
@@ -998,7 +1145,7 @@ class TestPageDetail(TestCase):
         self.assertNotIn('html_url', set(content['meta'].keys()))
 
     def test_remove_all_meta_fields(self):
-        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-html_url,-search_description,-show_in_menus,-parent,-seo_title')
+        response = self.get_response(16, fields='-type,-detail_url,-slug,-first_published_at,-alias_of,-html_url,-search_description,-show_in_menus,-parent,-seo_title')
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('id', set(content.keys()))

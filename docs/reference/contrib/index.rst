@@ -15,7 +15,9 @@ Wagtail ships with a variety of extra optional modules.
     modeladmin/index
     postgres_search
     searchpromotions
+    simple_translation
     table_block
+    typed_table_block
     redirects
     legacy_richtext
 
@@ -63,10 +65,22 @@ A module allowing for more customisable representation and management of custom 
 A module for managing "Promoted Search Results"
 
 
+:doc:`simple_translation`
+-------------------------
+
+A module for copying translatables (pages and snippets) to another language.
+
+
 :doc:`table_block`
 -----------------------
 
 Provides a TableBlock for adding HTML tables to pages.
+
+
+:doc:`typed_table_block`
+------------------------
+
+Provides a StreamField block for authoring tables, where cells can be any block type including rich text.
 
 
 :doc:`redirects`

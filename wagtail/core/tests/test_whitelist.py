@@ -37,7 +37,7 @@ class TestAttributeRule(TestCase):
 
     def test_rule_true_for_attr(self):
         """
-        Test that attribute_rule() does not change atrributes
+        Test that attribute_rule() does not change attributes
         when the corresponding rule returns True
         """
         tag = self.soup.b
@@ -47,7 +47,7 @@ class TestAttributeRule(TestCase):
 
     def test_rule_false_for_attr(self):
         """
-        Test that attribute_rule() drops atrributes
+        Test that attribute_rule() drops attributes
         when the corresponding rule returns False
         """
         tag = self.soup.b

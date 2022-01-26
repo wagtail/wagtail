@@ -1,8 +1,9 @@
 from django import template
-from django.shortcuts import reverse
+from django.shortcuts import resolve_url
 from django.template.defaulttags import token_kwargs
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.html import conditional_escape
 
 from wagtail import VERSION, __version__
 from wagtail.core.models import Page, Site
@@ -21,7 +22,7 @@ def pageurl(context, page, fallback=None):
     If kwargs contains a fallback view name and page is None, the fallback view url will be returned.
     """
     if page is None and fallback:
-        return reverse(fallback)
+        return resolve_url(fallback)
 
     if not hasattr(page, 'relative_url'):
         raise ValueError("pageurl tag expected a Page object, got %r" % page)
@@ -83,9 +84,9 @@ def wagtail_version():
 def wagtail_documentation_path():
     major, minor, patch, release, num = VERSION
     if release == 'final':
-        return 'https://docs.wagtail.io/en/v%s' % __version__
+        return 'https://docs.wagtail.org/en/v%s' % __version__
     else:
-        return 'https://docs.wagtail.io/en/latest'
+        return 'https://docs.wagtail.org/en/latest'
 
 
 @register.simple_tag
@@ -130,9 +131,14 @@ class IncludeBlockNode(template.Node):
                 for var_name, var_value in self.extra_context.items():
                     new_context[var_name] = var_value.resolve(context)
 
-            return value.render_as_block(context=new_context)
+            output = value.render_as_block(context=new_context)
         else:
-            return force_str(value)
+            output = value
+
+        if context.autoescape:
+            return conditional_escape(output)
+        else:
+            return force_str(output)
 
 
 @register.tag

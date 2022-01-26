@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Type"
+msgstr "Вид"
+
+msgid "Permanent"
+msgstr "Постоянни"
 
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
@@ -50,6 +56,9 @@ msgstr "Сигурен ли сте, че искате да изтриете пр
 msgid "Yes, delete"
 msgstr "Да, изтрий го"
 
+msgid "Preview"
+msgstr "Преглед"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Редакция на %(title)s"
@@ -62,9 +71,6 @@ msgstr "Изтрий пренасочването"
 
 msgid "To"
 msgstr "До"
-
-msgid "Type"
-msgstr "Вид"
 
 msgid "Edit this redirect"
 msgstr "Редактирайте това пренасочване"
@@ -79,6 +85,9 @@ msgstr ""
 
 msgid "Redirect '{0}' updated."
 msgstr "Пренасочването '{0}' обновено."
+
+msgid "Edit"
+msgstr "Редакция"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "Пренасочването не бе запазено поради грешки."

@@ -1,25 +1,31 @@
-from datetime import date
+from datetime import date, datetime
 from functools import wraps
 from unittest import mock
 
 from django import forms
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
 from django.core import checks
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.test import RequestFactory, TestCase, override_settings
+from django.utils.html import json_script
+from freezegun import freeze_time
+from pytz import utc
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel, RichTextFieldPanel,
-    TabbedInterface, extract_panel_definitions_from_model_class, get_form_for_model)
+    CommentPanel, FieldPanel, FieldRowPanel, InlinePanel, ObjectList, PageChooserPanel,
+    RichTextFieldPanel, TabbedInterface, extract_panel_definitions_from_model_class,
+    get_form_for_model)
 from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import AdminAutoHeightTextInput, AdminDateInput, AdminPageChooser
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Comment, CommentReply, Page, Site
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel, RestaurantPage,
-    RestaurantTag, SimplePage, ValidatedPage)
+    DefaultStreamPage, EventPage, EventPageChooserModel, EventPageSpeaker, PageChooserModel,
+    RestaurantPage, RestaurantTag, SimplePage, ValidatedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -203,14 +209,35 @@ class TestPageEditHandlers(TestCase):
         with mock.patch.object(ValidatedPage, 'base_form_class', new=BadFormClass):
             errors = checks.run_checks()
 
-            # ignore CSS loading errors (to avoid spurious failures on CI servers that
-            # don't build the CSS)
-            errors = [e for e in errors if e.id != 'wagtailadmin.W001']
+            # Only look at errors (e.g. ignore warnings about CSS not being built)
+            errors = [e for e in errors if e.level >= checks.ERROR]
 
             # Errors may appear out of order, so sort them by id
             errors.sort(key=lambda e: e.id)
 
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
+
+    @clear_edit_handler(DefaultStreamPage)
+    def test_check_invalid_streamfield_edit_handler(self):
+        """
+        Set the edit handler for body (a StreamField) to be
+        a FieldPanel instead of a StreamFieldPanel.
+        Check that the correct warning is raised.
+        """
+
+        invalid_edit_handler = checks.Warning(
+            "DefaultStreamPage.body is a StreamField, but uses FieldPanel",
+            hint="Ensure that it uses a StreamFieldPanel, or change the field type",
+            obj=DefaultStreamPage,
+            id='wagtailadmin.W003')
+
+        with mock.patch.object(DefaultStreamPage, 'content_panels', new=[FieldPanel('body')]):
+            checks_result = checks.run_checks(tags=['panels'])
+
+            # Only look at warnings for DefaultStreamPage
+            warning = [warning for warning in checks_result if warning.obj == DefaultStreamPage]
+
+            self.assertEqual(warning, [invalid_edit_handler])
 
     @clear_edit_handler(ValidatedPage)
     def test_custom_edit_handler_form_class(self):
@@ -307,13 +334,13 @@ class TestTabbedInterface(TestCase):
         result = tabbed_interface.render()
 
         # result should contain tab buttons
-        self.assertIn('<a href="#tab-event-details" class="active">Event details</a>', result)
-        self.assertIn('<a href="#tab-speakers" class="">Speakers</a>', result)
+        self.assertIn('<a href="#tab-event-details" class="active" data-tab="event-details">Event details</a>', result)
+        self.assertIn('<a href="#tab-speakers" class="" data-tab="speakers">Speakers</a>', result)
 
         # result should contain tab panels
         self.assertIn('<div class="tab-content">', result)
-        self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details">', result)
-        self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers">', result)
+        self.assertIn('<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details" data-tab="event-details">', result)
+        self.assertIn('<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers" data-tab="speakers">', result)
 
         # result should contain rendered content from descendants
         self.assertIn('Abergavenny sheepdog trials</textarea>', result)
@@ -430,6 +457,7 @@ class TestFieldPanel(TestCase):
         end_date_panel_with_overridden_heading = (FieldPanel('date_to', classname='full-width', heading="New heading")
                                                   .bind_to(model=EventPage, request=self.request, form=self.EventPageForm()))
         self.assertEqual(end_date_panel_with_overridden_heading.heading, "New heading")
+        self.assertEqual(end_date_panel_with_overridden_heading.bound_field.label, "New heading")
 
     def test_render_as_object(self):
         form = self.EventPageForm(
@@ -530,7 +558,7 @@ class TestFieldRowPanel(TestCase):
                                date_from=date(2014, 7, 20), date_to=date(2014, 7, 21))
 
         self.dates_panel = FieldRowPanel([
-            FieldPanel('date_from', classname='col4'),
+            FieldPanel('date_from', classname='col4', heading="Start"),
             FieldPanel('date_to', classname='coltwo'),
         ]).bind_to(model=EventPage, request=self.request)
 
@@ -569,6 +597,9 @@ class TestFieldRowPanel(TestCase):
         # check that label is output in the 'field' style
         self.assertIn('<label for="id_date_to">End date:</label>', result)
         self.assertNotIn('<legend>End date</legend>', result)
+
+        # check that label is overridden with the 'heading' argument
+        self.assertIn('<label for="id_date_from">Start:</label>', result)
 
         # check that help text is included
         self.assertIn('Not required if event is on a single day', result)
@@ -697,7 +728,7 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_js_init(self):
         result = self.page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -717,7 +748,7 @@ class TestPageChooserPanel(TestCase):
         result = page_chooser_panel.render_as_field()
 
         # the canChooseRoot flag on createPageChooser should now be true
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, true, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": true, "user_perms": null}});'.format(
             id="id_page", model="wagtailcore.page", parent=self.events_index_page.id)
         self.assertIn(expected_js, result)
 
@@ -766,7 +797,7 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form, request=self.request)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
             id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
 
         self.assertIn(expected_js, result)
@@ -784,8 +815,9 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form)
 
         result = page_chooser_panel.render_as_field()
-        expected_js = 'createPageChooser("{id}", ["{model}"], {parent}, false, null);'.format(
-            id="id_page", model="tests.eventpage", parent=self.events_index_page.id)
+        expected_js = 'createPageChooser("{id}", {parent}, {{"model_names": ["{model}"], "can_choose_root": false, "user_perms": null}});'.format(
+            id="id_page", model="tests.eventpage", parent=self.events_index_page.id
+        )
 
         self.assertIn(expected_js, result)
 
@@ -1026,9 +1058,9 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         """Checks should NOT warn if InlinePanel models use tabbed panels AND edit_handler"""
 
         EventPageSpeaker.content_panels = [FieldPanel('first_name')]
-        EventPageSpeaker.edit_handler = TabbedInterface(
+        EventPageSpeaker.edit_handler = TabbedInterface([
             ObjectList([FieldPanel('last_name')], heading='test')
-        )
+        ])
 
         # should not be any errors
         self.assertEqual(self.get_checks_result(), [])
@@ -1036,3 +1068,264 @@ There are no tabs on non-Page model editing within InlinePanels.""",
         # clean up for future checks
         delattr(EventPageSpeaker, 'edit_handler')
         delattr(EventPageSpeaker, 'content_panels')
+
+
+class TestCommentPanel(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.commenting_user = get_user_model().objects.get(pk=7)
+        self.other_user = get_user_model().objects.get(pk=6)
+        self.request = RequestFactory().get('/')
+        self.request.user = self.commenting_user
+        self.object_list = ObjectList([
+            CommentPanel()
+        ]).bind_to(model=EventPage, request=self.request)
+        self.tabbed_interface = TabbedInterface([self.object_list])
+        self.EventPageForm = self.object_list.get_form_class()
+        self.event_page = EventPage.objects.get(slug='christmas')
+        self.comment = Comment.objects.create(page=self.event_page, text='test', user=self.other_user, contentpath='test_contentpath')
+        self.reply_1 = CommentReply.objects.create(comment=self.comment, text='reply_1', user=self.other_user)
+        self.reply_2 = CommentReply.objects.create(comment=self.comment, text='reply_2', user=self.commenting_user)
+
+    def test_comments_toggle_enabled(self):
+        """
+        Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
+        """
+        self.assertTrue(self.tabbed_interface.show_comments_toggle)
+        self.assertFalse(TabbedInterface([ObjectList(self.event_page.content_panels)]).show_comments_toggle)
+
+    @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
+    def test_comments_disabled_setting(self):
+        """
+        Test that the comment panel is missing if WAGTAILADMIN_COMMENTS_ENABLED=False
+        """
+        self.assertFalse(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertFalse(Page.get_edit_handler().show_comments_toggle)
+
+    def test_comments_enabled_setting(self):
+        """
+        Test that the comment panel is present by default
+        """
+        self.assertTrue(any(isinstance(panel, CommentPanel) for panel in Page.settings_panels))
+        self.assertTrue(Page.get_edit_handler().show_comments_toggle)
+
+    def test_context(self):
+        """
+        Test that the context contains the data about existing comments necessary to initialize the commenting app
+        """
+        form = self.EventPageForm(instance=self.event_page)
+        panel = self.object_list.bind_to(instance=self.event_page, form=form).children[0]
+        data = panel.get_context()['comments_data']
+
+        self.assertEqual(data['user'], self.commenting_user.pk)
+
+        self.assertEqual(len(data['comments']), 1)
+        self.assertEqual(data['comments'][0]['user'], self.comment.user.pk)
+
+        self.assertEqual(len(data['comments'][0]['replies']), 2)
+        self.assertEqual(data['comments'][0]['replies'][0]['user'], self.reply_1.user.pk)
+        self.assertEqual(data['comments'][0]['replies'][1]['user'], self.reply_2.user.pk)
+
+        self.assertIn(str(self.commenting_user.pk), data['authors'])
+        self.assertIn(str(self.other_user.pk), data['authors'])
+
+        try:
+            json_script(data, 'comments-data')
+        except TypeError:
+            self.fail("Failed to serialize comments data. This is likely due to a custom user model using an unsupported field.")
+
+    def test_form(self):
+        """
+        Check that the form has the comments/replies formsets, and that the
+        user has been set on each CommentForm/CommentReplyForm subclass
+        """
+        form = self.EventPageForm(instance=self.event_page)
+
+        self.assertIn('comments', form.formsets)
+
+        comments_formset = form.formsets['comments']
+        self.assertEqual(len(comments_formset.forms), 1)
+        self.assertEqual(comments_formset.forms[0].user, self.commenting_user)
+
+        replies_formset = comments_formset.forms[0].formsets['replies']
+        self.assertEqual(len(replies_formset.forms), 2)
+        self.assertEqual(replies_formset.forms[0].user, self.commenting_user)
+
+    def test_comment_form_validation(self):
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 2,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': 'edited text',  # Try to edit an existing comment from another user
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-1-id': '',
+            'comments-1-text': 'new comment',  # Add a new comment
+            'comments-1-contentpath': 'new.path',
+            'comments-1-replies-TOTAL_FORMS': 0,
+            'comments-1-replies-INITIAL_FORMS': 0,
+            'comments-1-replies-MIN_NUM_FORMS': 0,
+            'comments-1-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertFalse(comment_form.is_valid())
+        # The existing comment was from another user, so should not be editable
+
+        comment_form = form.formsets['comments'].forms[1]
+        self.assertTrue(comment_form.is_valid())
+        self.assertEqual(comment_form.instance.user, self.commenting_user)
+        # The commenting user should be able to add a new comment, and the new comment's user should be set to request.user
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-DELETE': 1,  # Try to delete a comment from another user
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertFalse(comment_form.is_valid())
+        # Users cannot delete comments from other users
+
+    def test_users_can_edit_comment_positions(self):
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-position': 'a_new_position',  # Try to change the position of a comment
+            'comments-0-DELETE': 0,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertTrue(comment_form.is_valid())
+        # Users can change the positions of other users' comments within a field
+        # eg by editing a rich text field
+
+    @freeze_time("2017-01-01 12:00:00")
+    def test_comment_resolve(self):
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-resolved': 1,
+            'comments-0-replies-TOTAL_FORMS': 0,
+            'comments-0-replies-INITIAL_FORMS': 0,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+        },
+            instance=self.event_page
+        )
+        comment_form = form.formsets['comments'].forms[0]
+        self.assertTrue(comment_form.is_valid())
+        comment_form.save()
+        resolved_comment = Comment.objects.get(pk=self.comment.pk)
+        self.assertEqual(resolved_comment.resolved_by, self.commenting_user)
+
+        if settings.USE_TZ:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0, tzinfo=utc))
+        else:
+            self.assertEqual(resolved_comment.resolved_at, datetime(2017, 1, 1, 12, 0, 0))
+
+    def test_comment_reply_form_validation(self):
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 3,
+            'comments-0-replies-INITIAL_FORMS': 2,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-0-replies-0-id': self.reply_1.pk,
+            'comments-0-replies-0-text': 'edited_text',  # Try to edit someone else's reply
+            'comments-0-replies-1-id': self.reply_2.pk,
+            'comments-0-replies-1-text': "Edited text 2",  # Try to edit own reply
+            'comments-0-replies-2-id': "",  # Add new reply
+            'comments-0-replies-2-text': "New reply",
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+
+        reply_forms = comment_form.formsets['replies'].forms
+
+        self.assertFalse(reply_forms[0].is_valid())
+        # The existing reply was from another user, so should not be editable
+
+        self.assertTrue(reply_forms[1].is_valid())
+        # The existing reply was from the same user, so should be editable
+
+        self.assertTrue(reply_forms[2].is_valid())
+        self.assertEqual(reply_forms[2].instance.user, self.commenting_user)
+        # Should be able to add new reply, and user should be set correctly
+
+        form = self.EventPageForm({
+            'comments-TOTAL_FORMS': 1,
+            'comments-INITIAL_FORMS': 1,
+            'comments-MIN_NUM_FORMS': 0,
+            'comments-MAX_NUM_FORMS': 1000,
+            'comments-0-id': self.comment.pk,
+            'comments-0-text': self.comment.text,
+            'comments-0-contentpath': self.comment.contentpath,
+            'comments-0-replies-TOTAL_FORMS': 2,
+            'comments-0-replies-INITIAL_FORMS': 2,
+            'comments-0-replies-MIN_NUM_FORMS': 0,
+            'comments-0-replies-MAX_NUM_FORMS': 1000,
+            'comments-0-replies-0-id': self.reply_1.pk,
+            'comments-0-replies-0-text': self.reply_1.text,
+            'comments-0-replies-0-DELETE': 1,  # Try to delete someone else's reply
+            'comments-0-replies-1-id': self.reply_2.pk,
+            'comments-0-replies-1-text': "Edited text 2",
+            'comments-0-replies-1-DELETE': 1,  # Try to delete own reply
+        },
+            instance=self.event_page
+        )
+
+        comment_form = form.formsets['comments'].forms[0]
+
+        reply_forms = comment_form.formsets['replies'].forms
+
+        self.assertFalse(reply_forms[0].is_valid())
+        # The existing reply was from another user, so should not be deletable
+
+        self.assertTrue(reply_forms[1].is_valid())
+        # The existing reply was from the same user, so should be deletable

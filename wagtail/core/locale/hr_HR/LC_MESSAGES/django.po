@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 12:20+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -24,22 +24,34 @@ msgid "Wagtail core"
 msgstr "Wagtail jezgra"
 
 #, python-format
+msgid "The minimum number of items is %d"
+msgstr "Minimalni broj stavki iznosi %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Maksimalni broj stavki iznosi %d"
+
+msgid "Move up"
+msgstr "Pomakni prema gore"
+
+msgid "Move down"
+msgstr "Pomakni prema dolje"
+
+msgid "Delete"
+msgstr "Izbriši"
+
+msgid "Add"
+msgstr "Dodaj"
+
+#, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: ovaj blok nema dodatnih mogućnosti."
 
 msgid "This block has no options."
 msgstr "Ovaj blok nema dodatnih mogućnosti."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Minimalni broj stavki iznosi %d"
-
 msgid "This field is required."
 msgstr "Ovo polje je obavezno."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Maksimalni broj stavki iznosi %d"
 
 msgid "Password"
 msgstr "Lozinka"
@@ -49,57 +61,6 @@ msgstr "Unesena lozinka nije ispravna. Molimo probajte ponovno."
 
 msgid "Comment"
 msgstr "Komentar"
-
-msgid "hostname"
-msgstr "naziv domaćina"
-
-msgid "port"
-msgstr "vrata"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Postavite ovo na vrijednost različitu od 80 ako su vam potrebna specifična "
-"vrata unutar URL-a (npr. razvoj na vratima 8000). Ovo ne utječe na rukovanje "
-"zahtjevima (prosljeđivanje na vrata i dalje funkcionira)."
-
-msgid "site name"
-msgstr "naziv sjedišta"
-
-msgid "Human-readable name for the site."
-msgstr "Naziv sjedišta čitljiv ljudima"
-
-msgid "root page"
-msgstr "korijenska stranica"
-
-msgid "is default site"
-msgstr "zadana stranica"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Ako je postavljeno, sjedište će obrađivati zahtjeve za sve domaćine koji "
-"nemaju definirano vlastito sjedište."
-
-msgid "site"
-msgstr "sjedište"
-
-msgid "sites"
-msgstr "sjedišta"
-
-msgid "default"
-msgstr "zadano"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s je već postavljeno kao zadano sjedište. Morate otkloniti to "
-"sjedište prije nego li postavite ovo sjedište kao zadano."
 
 msgid "title"
 msgstr "naslov"
@@ -132,16 +93,6 @@ msgstr "URL putanja"
 msgid "owner"
 msgstr "vlasnik"
 
-msgid "page title"
-msgstr "naslov stranice"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"Neobaezno. Naslov razumljiv tražilicama. Ovo će se prikazati na vrhu prozora "
-"preglednika."
-
 msgid "show in menus"
 msgstr "prikaži u izborniku"
 
@@ -149,9 +100,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Hoće li se poveznica na ovu stranicu pojavljivati u generiranim izbornicima"
-
-msgid "search description"
-msgstr "opis"
 
 msgid "go live date/time"
 msgstr "Objavi u datum/vrijeme"
@@ -234,9 +182,6 @@ msgstr "revizija stranice"
 msgid "page revisions"
 msgstr "revizije stranice"
 
-msgid "Add"
-msgstr "Dodaj"
-
 msgid "Add/edit pages you own"
 msgstr "Dodaj/uredi vlastite stranice"
 
@@ -282,59 +227,11 @@ msgstr "Grupna dozvola stranice"
 msgid "group page permissions"
 msgstr "Grupne dozvole stranice"
 
-msgid "Public"
-msgstr "Javno"
-
-msgid "Private, accessible to logged-in users"
-msgstr "Privatno, pristup prijavljenim korisnicima."
-
-msgid "Private, accessible with the following password"
-msgstr "Privatno, pristup sa sljedećom lozinkom"
-
-msgid "Private, accessible to users in specific groups"
-msgstr "Privatno, pristup korisnicima u određenim grupama"
-
-msgid "password"
-msgstr "lozinka"
-
-msgid "groups"
-msgstr "grupe"
-
-msgid "view restriction"
-msgstr "ograničenje pogleda"
-
-msgid "view restrictions"
-msgstr "ograničenja pogleda"
-
 msgid "page view restriction"
 msgstr "ograničenje pogleda stranice"
 
 msgid "page view restrictions"
 msgstr "ograničenja pogleda stranice"
-
-msgid "collection"
-msgstr "zbirka"
-
-msgid "collection view restriction"
-msgstr "ograničenje pogleda zbirke"
-
-msgid "collection view restrictions"
-msgstr "ograničenje pogleda zbirki"
-
-msgid "name"
-msgstr "naziv"
-
-msgid "collections"
-msgstr "zbirke"
-
-msgid "permission"
-msgstr "dozvole"
-
-msgid "group collection permission"
-msgstr "Grupna dozvola zbirke"
-
-msgid "group collection permissions"
-msgstr "Grupne dozvole zbirke"
 
 msgid "workflow"
 msgstr "Tijek rada"
@@ -356,6 +253,9 @@ msgstr "redoslijed zadatka radnog tijeka"
 
 msgid "workflow task orders"
 msgstr "redoslijedi zadataka radnog tijeka"
+
+msgid "name"
+msgstr "naziv"
 
 msgid "active"
 msgstr "aktivno"
@@ -379,6 +279,9 @@ msgstr ""
 
 msgid "workflows"
 msgstr "tijekovi rada"
+
+msgid "groups"
+msgstr "grupe"
 
 msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
@@ -471,6 +374,12 @@ msgstr "Stanje zadatka"
 msgid "Task states"
 msgstr "Stanja zadataka"
 
+msgid "page log entry"
+msgstr "zapis stranice"
+
+msgid "page log entries"
+msgstr "zapisi stranice"
+
 msgid "timestamp (UTC)"
 msgstr "vremenska oznaka (UTC)"
 
@@ -480,18 +389,101 @@ msgstr "zapis"
 msgid "log entries"
 msgstr "zapisi"
 
-#, python-format
-msgid "user %(id)d (deleted)"
-msgstr "korisnik %(id)d (izbrisan)"
-
 msgid "system"
 msgstr "sustav"
 
-msgid "page log entry"
-msgstr "zapis stranice"
+msgid "collection"
+msgstr "zbirka"
 
-msgid "page log entries"
-msgstr "zapisi stranice"
+msgid "collection view restriction"
+msgstr "ograničenje pogleda zbirke"
+
+msgid "collection view restrictions"
+msgstr "ograničenje pogleda zbirki"
+
+msgid "collections"
+msgstr "zbirke"
+
+msgid "permission"
+msgstr "dozvole"
+
+msgid "group collection permission"
+msgstr "Grupna dozvola zbirke"
+
+msgid "group collection permissions"
+msgstr "Grupne dozvole zbirke"
+
+msgid "hostname"
+msgstr "naziv domaćina"
+
+msgid "port"
+msgstr "vrata"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Postavite ovo na vrijednost različitu od 80 ako su vam potrebna specifična "
+"vrata unutar URL-a (npr. razvoj na vratima 8000). Ovo ne utječe na rukovanje "
+"zahtjevima (prosljeđivanje na vrata i dalje funkcionira)."
+
+msgid "site name"
+msgstr "naziv sjedišta"
+
+msgid "Human-readable name for the site."
+msgstr "Naziv sjedišta čitljiv ljudima"
+
+msgid "root page"
+msgstr "korijenska stranica"
+
+msgid "is default site"
+msgstr "zadana stranica"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Ako je postavljeno, sjedište će obrađivati zahtjeve za sve domaćine koji "
+"nemaju definirano vlastito sjedište."
+
+msgid "site"
+msgstr "sjedište"
+
+msgid "sites"
+msgstr "sjedišta"
+
+msgid "default"
+msgstr "zadano"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s je već postavljeno kao zadano sjedište. Morate otkloniti to "
+"sjedište prije nego li postavite ovo sjedište kao zadano."
+
+msgid "Public"
+msgstr "Javno"
+
+msgid "Private, accessible to logged-in users"
+msgstr "Privatno, pristup prijavljenim korisnicima."
+
+msgid "Private, accessible with the following password"
+msgstr "Privatno, pristup sa sljedećom lozinkom"
+
+msgid "Private, accessible to users in specific groups"
+msgstr "Privatno, pristup korisnicima u određenim grupama"
+
+msgid "password"
+msgstr "lozinka"
+
+msgid "view restriction"
+msgstr "ograničenje pogleda"
+
+msgid "view restrictions"
+msgstr "ograničenja pogleda"
 
 msgid "Log in"
 msgstr "Prijava"
@@ -515,9 +507,191 @@ msgstr "Potrebna je lozinka kako biste pristupili ovoj stranici."
 msgid "Continue"
 msgstr "Nastavi"
 
+msgid "English"
+msgstr "Engleski"
+
+msgid "French"
+msgstr "Francuski"
+
+msgid "German"
+msgstr "Njemački"
+
 #, python-format
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s zbirka potomka"
 msgstr[1] "%(count)s zbriki potamaka"
 msgstr[2] "%(count)s zbirki potomaka"
+
+msgid "Create"
+msgstr "Stvori"
+
+msgid "Created"
+msgstr "Stvoreno"
+
+msgid "Save draft"
+msgstr "Spremi skicu"
+
+msgid "Draft saved"
+msgstr "Spremljena skica"
+
+msgid "Deleted"
+msgstr "Izbrisano"
+
+msgid "Published"
+msgstr "Objavljeno"
+
+msgid "Publish scheduled draft"
+msgstr "Objavi zakazanu skicu"
+
+msgid "Published scheduled draft"
+msgstr "Objavljena zakazana skica"
+
+msgid "Unpublish"
+msgstr "Odjavi"
+
+msgid "Unpublished"
+msgstr "Odjavljeno"
+
+msgid "Unpublish scheduled draft"
+msgstr "Odjavi zakazanu skicu"
+
+msgid "Unpublished scheduled draft"
+msgstr "Odjavljena zakazana skica"
+
+msgid "Locked"
+msgstr "Zaključano"
+
+msgid "Unlocked"
+msgstr "Otključano"
+
+msgid "Reject"
+msgstr "Odbij"
+
+msgid "Rename"
+msgstr "Preimenuj"
+
+#, python-format
+msgid "Renamed from '%(old)s' to '%(new)s'"
+msgstr "Preimenovano iz '%(old)s' u '%(new)s'"
+
+msgid "Renamed"
+msgstr "Preimenovano"
+
+msgid "Revert"
+msgstr "Vrati na staro"
+
+msgid "Reverted to previous revision"
+msgstr "Vraćeno na prijašnju verziju"
+
+msgid "Copy"
+msgstr "Kopiraj"
+
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopirano iz %(title)s"
+
+msgid "Copied"
+msgstr "Kopirano"
+
+msgid "Create alias"
+msgstr "Stvori alias"
+
+#, python-format
+msgid "Created an alias of %(title)s"
+msgstr "Stvoren je alias za %(title)s"
+
+msgid "Created an alias"
+msgstr "Stvoren je alias"
+
+msgid "Move"
+msgstr "Premjesti"
+
+#, python-format
+msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
+msgstr "Premješteno iz '%(old_parent)s' u '%(new_parent)s'"
+
+msgid "Moved"
+msgstr "Premješteno"
+
+msgid "Schedule publication"
+msgstr "Zakaži objavu"
+
+#, python-format
+msgid "Page scheduled for publishing at %(go_live_at)s"
+msgstr "Stranici je zakazano objavljivanje u %(go_live_at)s"
+
+msgid "Page scheduled for publishing"
+msgstr "Stranici je zakazano objavljivanje"
+
+#, python-format
+msgid "Page unscheduled for publishing at %(go_live_at)s"
+msgstr "Stranici je otkazano objavljivanje u %(go_live_at)s"
+
+msgid "Page unscheduled from publishing"
+msgstr "Stranici je otkazano objavljivanje"
+
+msgid "Add view restrictions"
+msgstr "Dodaj ograničenja pogleda"
+
+#, python-format
+msgid "Added the '%(restriction)s' view restriction"
+msgstr "Dodano je '%(restriction)s' ograničenje pogleda"
+
+msgid "Added view restriction"
+msgstr "Dodano je ograničenja pogleda"
+
+msgid "Update view restrictions"
+msgstr "Ažuriraj ograničenja pogleda"
+
+#, python-format
+msgid "Updated the view restriction to '%(restriction)s'"
+msgstr "Ažurirano je ograničenje pogleda na '%(restriction)s'"
+
+msgid "Updated view restriction"
+msgstr "Ažurirano je ograničenje pogleda"
+
+msgid "Remove view restrictions"
+msgstr "Ukloni ograničenja pogleda"
+
+#, python-format
+msgid "Removed the '%(restriction)s' view restriction"
+msgstr "Uklonjeno '%(restriction)s' ograničenje pogleda"
+
+msgid "Removed view restriction"
+msgstr "Uklonjeno je ograničenje pogleda"
+
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+#, python-format
+msgid "'%(workflow)s' started. Next step '%(task)s'"
+msgstr "'%(workflow)s' je započeo. Sljedeći korak '%(task)s'"
+
+msgid "Workflow started"
+msgstr "Tijek rada je započeo"
+
+#, python-format
+msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
+msgstr "Odobreno u '%(task)s'. Sljedeći korak '%(next_task)s'"
+
+#, python-format
+msgid "Approved at '%(task)s'. '%(workflow)s' complete"
+msgstr "Odoboreno u '%(task)s'. '%(workflow)s' završen"
+
+msgid "Workflow task approved"
+msgstr "Zadatak tijeka rada je odobren"
+
+#, python-format
+msgid "Rejected at '%(task)s'. Changes requested"
+msgstr "Odbijeno u '%(task)s'. Zahtijeva promjene"
+
+msgid "Workflow task rejected. Workflow complete"
+msgstr "Tijek rada odbijen. Tijek rada završen"
+
+#, python-format
+msgid "Cancelled '%(workflow)s' at '%(task)s'"
+msgstr "Otkazan '%(workflow)s' u '%(task)s'"
+
+msgid "Workflow cancelled"
+msgstr "Tijek rada otkazan"

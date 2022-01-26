@@ -1,0 +1,318 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Pukapuka-a-Wagtail"
+
+msgid "Collection"
+msgstr "Kohikohinga"
+
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Add/edit documents you own"
+msgstr "Tāpiri/ whakarerekē ōu ake pukapuka"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Edit any document"
+msgstr "Whakarerekē ngā pukapuka"
+
+msgid "Choose"
+msgstr "Kōhiti"
+
+msgid "title"
+msgstr "taitara"
+
+msgid "file"
+msgstr "kōnae"
+
+msgid "created at"
+msgstr "I hangaia ki"
+
+msgid "uploaded by user"
+msgstr "Nō te kaiwhakamahi ī tukuatu"
+
+msgid "tags"
+msgstr "pinetohu"
+
+msgid "document"
+msgstr "pukapuka"
+
+msgid "documents"
+msgstr "Ngā pukapuka"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)staima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Choose a document"
+msgstr "Kōhiti he pukapuka"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "Upload"
+msgstr "Tukuatu"
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"%(counter)s e whakarite"
+msgstr[1] ""
+"\n"
+"%(counter)s e whakarite"
+
+msgid "Latest documents"
+msgstr "Pukapuka hōu"
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "File"
+msgstr "Kōnae"
+
+msgid "Created"
+msgstr "Hangaia"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s mai rā anō"
+
+#, python-format
+msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Aroha mai, karekau hē pukapuka e whakataurite ki \"<em>%(query_string)s</em>"
+"\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga."
+
+msgid "You haven't uploaded any documents."
+msgstr "Ehara koe i tukuatu ētahi pukapuka."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"He aha ai<a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
+"\">tukuatu i nāeanei</a>?"
+
+msgid "Uploading…"
+msgstr "Tukuna atu..."
+
+msgid "Change document:"
+msgstr "panoni pukapuka:"
+
+msgid "Add a document"
+msgstr "Tāpiri he pukapuka"
+
+msgid "Add document"
+msgstr "Tāpiri pukapuka"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Muku %(title)s"
+
+msgid "Delete document"
+msgstr "Mukuhia pukapuka"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Whakarerekē %(title)s"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Filesize"
+msgstr "Kōnae korahi"
+
+msgid "File not found"
+msgstr "Ehara i kimi te kōnae"
+
+msgid "Usage"
+msgstr "Whakamahi"
+
+msgid "Documents"
+msgstr "Ngā pukapuka"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents in this collection. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ehara koe i tukuatu ētahi pukapuka ki tēnei kohikohinga. He aha ai<a href="
+"\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
+
+#, python-format
+msgid ""
+"You haven't uploaded any documents. Why not <a href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?"
+msgstr ""
+"Ehara koe i tukuatu ētahi pukapuka. He aha ai<a href="
+"\"%(wagtaildocs_add_document_url)s\">tukuatu i naianei</a>?"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Te whakamahi ō %(title)s"
+
+msgid "Usage of"
+msgstr "Te whakamahi ō "
+
+msgid "Parent"
+msgstr "Mātua"
+
+msgid "Type"
+msgstr "Momo"
+
+msgid "Status"
+msgstr "Tūnga"
+
+msgid "Edit this page"
+msgstr "Whakarerekē i tēnei whārangi"
+
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"<span>%(total)s</span>Pukapuka<span class=\"visuallyhidden\">I hangaia ki "
+"roto%(site_name)s</span>"
+msgstr[1] ""
+"\n"
+"<span>%(total)s</span>Pukapuka<span class=\"visuallyhidden\">I hangaia ki "
+"roto%(site_name)s</span>"
+
+msgid "Add multiple documents"
+msgstr "Tāpiri ngā pukapuka taurea"
+
+msgid "Add documents"
+msgstr "Tāpiri ngā pukapuka"
+
+msgid "Drag and drop documents into this area to upload immediately."
+msgstr ""
+"Tōanga me ngakuru ngā pukapuka ki roto i tēnei wāhi kia tukuatu i nāianei."
+
+msgid "Or choose from your computer"
+msgstr "Kōhiti nō tō rorohiko rānei"
+
+msgid "Add to collection:"
+msgstr "Tāpiri ki te kohikohinga:"
+
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"Angitūtanga te tukuatu. Tērā pea me whakahou koa i tēnei pukapuka me he "
+"taitara he tika."
+
+msgid "Sorry, upload failed."
+msgstr "Aroha mai, kua rahua te tukuatu."
+
+msgid "Document updated."
+msgstr "Kua whakahou te pukapuka."
+
+msgid "You need a password to access this document."
+msgstr "E hiahia ana he kupu muna kia tomonga i tēnei pukapuka."
+
+msgid "Document permissions"
+msgstr "Whakaae-a-pukapuka"
+
+msgid "Add a document permission"
+msgstr "Tāpiri he whakaae-a-pukapuka"
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Server Error"
+msgstr "Hapa rorohiko"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
+
+msgid "Search documents"
+msgstr "Haha ngā pukapuka"
+
+msgid "Document '{0}' added."
+msgstr "Pukapuka '{0}' kua tāpiri."
+
+msgid "The document could not be saved due to errors."
+msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
+
+msgid "Document '{0}' updated"
+msgstr "Pukapuka '{0}' kua whakahou"
+
+msgid ""
+"The file could not be found. Please change the source or delete the document"
+msgstr ""
+"Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
+"pukapuka rānei."
+
+msgid "Document '{0}' deleted."
+msgstr "Pukapuka '{0}' kua mukuhia."
+
+msgid "Document"
+msgstr "Pukapuka"
+
+#, python-format
+msgid "%(count)s document"
+msgid_plural "%(count)s documents"
+msgstr[0] "%(count)s pukapuka"
+msgstr[1] "%(count)s pukapuka"
+
+msgid "Choose another document"
+msgstr "Kōhiti anō he pukapuka "
+
+msgid "Edit this document"
+msgstr "Whakarerekē i tēnei pukapuka"

@@ -1,0 +1,93 @@
+.c-page-explorer__item {
+    display: flex;
+    flex-flow: row nowrap;
+    border-bottom: 1px solid $c-page-explorer-bg-dark;
+}
+
+.c-page-explorer__item__link {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    padding: 1.45em 1em;
+    cursor: pointer;
+
+    &:focus {
+        background: $c-page-explorer-bg-active;
+        color: $color-white;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $color-white;
+    }
+
+    @include hover {
+        background: $c-page-explorer-bg-active;
+    }
+
+    @include media-breakpoint-up(sm) {
+        padding: 1.45em 1.75em;
+    }
+}
+
+.c-page-explorer__item__link .icon {
+    width: 2em;
+    height: 2em;
+    color: $c-page-explorer-secondary;
+    margin-right: 0.75rem;
+}
+
+.c-page-explorer__item__title {
+    margin: 0;
+    color: $color-white;
+    display: inline-block;
+}
+
+.c-page-explorer__item__action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 50px;
+    padding: 0 0.5em;
+    line-height: 1;
+    font-size: 2em;
+    cursor: pointer;
+    color: $c-page-explorer-secondary;
+    border: 0;
+    border-left: solid 1px $c-page-explorer-bg-dark;
+
+    &:focus {
+        background: $c-page-explorer-bg-active;
+        color: $color-white;
+    }
+
+    // Overrides for default link hover.
+    &:hover {
+        color: $c-page-explorer-secondary;
+    }
+
+    @include hover {
+        background: $c-page-explorer-bg-active;
+        color: $color-white;
+    }
+
+    .icon::before {
+        margin-right: 0;
+    }
+}
+
+.c-page-explorer__item__action--small {
+    font-size: 1.2em;
+}
+
+.icon--item-action {
+    width: 1em;
+    height: 1em;
+}
+
+.c-page-explorer__meta {
+    margin-left: 0.5rem;
+    color: $c-page-explorer-secondary;
+    font-size: 12px;
+}

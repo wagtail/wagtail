@@ -1,6 +1,5 @@
-from django import forms
 from django.http import HttpResponse
-from django.templatetags.static import static
+from django.utils.safestring import mark_safe
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
@@ -9,8 +8,13 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 from wagtail.admin.search import SearchArea
+from wagtail.admin.site_summary import SummaryItem
+from wagtail.admin.ui.components import Component
+from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
 from wagtail.core import hooks
+
+from .forms import FavouriteColourForm
 
 
 # Register one hook using decorators...
@@ -36,10 +40,6 @@ hooks.register('before_serve_page', block_googlebot)
 
 
 class KittensMenuItem(MenuItem):
-    @property
-    def media(self):
-        return forms.Media(js=[static('testapp/js/kittens.js')])
-
     def is_shown(self, request):
         return not request.GET.get('hide-kittens', False)
 
@@ -49,8 +49,8 @@ def register_kittens_menu_item():
     return KittensMenuItem(
         'Kittens!',
         'http://www.tomroyal.com/teaandkittens/',
-        classnames='icon icon-kitten',
-        attrs={'data-fluffy': 'yes'},
+        classnames='kitten--test',
+        icon_name='kitten',
         order=10000
     )
 
@@ -69,7 +69,8 @@ def register_custom_search_area():
     return MyCustomSearchArea(
         'My Search',
         '/customsearch/',
-        classnames='icon icon-custom',
+        classnames='search--custom-class',
+        icon_name='custom',
         attrs={'is-custom': 'true'},
         order=10000)
 
@@ -137,6 +138,11 @@ def register_panic_menu_item():
     return PanicMenuItem()
 
 
+@hooks.register('register_page_action_menu_item')
+def register_none_menu_item():
+    return None
+
+
 class RelaxMenuItem(ActionMenuItem):
     label = "Relax."
     name = 'action-relax'
@@ -171,3 +177,42 @@ def register_snippet_listing_button_item(buttons, snippet, user, context=None):
         priority=10,
     )
     buttons.append(item)
+
+
+@hooks.register('register_account_settings_panel')
+class FavouriteColourPanel(BaseSettingsPanel):
+    name = 'favourite_colour'
+    title = "Favourite colour"
+    order = 500
+    form_class = FavouriteColourForm
+    form_object = 'user'
+
+
+class ClippyPanel(Component):
+    order = 50
+
+    def render_html(self, parent_context):
+        return mark_safe("<p>It looks like you're making a website. Would you like some help?</p>")
+
+    class Media:
+        js = ['testapp/js/clippy.js']
+
+
+@hooks.register('construct_homepage_panels')
+def add_clippy_panel(request, panels):
+    panels.append(ClippyPanel())
+
+
+class BrokenLinksSummaryItem(SummaryItem):
+    order = 100
+
+    def render_html(self, parent_context):
+        return mark_safe("<p>0 broken links</p>")
+
+    class Media:
+        css = {'all': ['testapp/css/broken-links.css']}
+
+
+@hooks.register('construct_homepage_summary_items')
+def add_broken_links_summary_item(request, items):
+    items.append(BrokenLinksSummaryItem(request))

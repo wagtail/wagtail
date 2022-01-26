@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='workflowstate',
-            constraint=models.UniqueConstraint(condition=models.Q(('status', 'in_progress'), ('status', 'needs_changes'), _connector='OR'), fields=('page',), name='unique_in_progress_workflow'),
+            constraint=models.UniqueConstraint(condition=models.Q(status__in=('in_progress', 'needs_changes')), fields=('page',), name='unique_in_progress_workflow'),
         ),
     ]

@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}" type="text/css" />
     {% hook_output 'insert_global_admin_css' %}
 
+    {% main_nav_css %}
+
     {% block extra_css %}{% endblock %}
 {% endblock %}
 
@@ -39,7 +41,7 @@
             };
         })(document, window);
     </script>
-    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-3.6.0.min.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery-ui-1.12.1.min.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.datetimepicker.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor/jquery.autosize.js' %}"></script>

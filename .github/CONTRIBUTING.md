@@ -2,7 +2,7 @@
 
 Thank you for considering to help Wagtail.
 
-We welcome all support, whether on bug reports, code, design, reviews, tests, 
+We welcome all support, whether on bug reports, code, design, reviews, tests,
 documentation, translations or just feature requests.
 
 ## Using the issue tracker
@@ -14,9 +14,9 @@ for support - use [the 'wagtail' tag on Stack Overflow](https://stackoverflow.co
 
 ## New code
 
-Please review the 
-[contributing guidelines](https://docs.wagtail.io/en/latest/contributing/index.html).
-You might like to start by checking issues with the 
+Please review the
+[contributing guidelines](https://docs.wagtail.org/en/latest/contributing/index.html).
+You might like to start by checking issues with the
 [good first issue](https://github.com/wagtail/wagtail/labels/good%20first%20issue) label.
 
 ## Code reviews
@@ -26,3 +26,7 @@ We welcome code reviews from everyone. There's always a list of pull requests ta
 ## Translations
 
 Please submit any new or improved translations through [Transifex](https://www.transifex.com/projects/p/wagtail/).
+
+## Accessibility testing
+
+We’d love to get feedback on the accessibility of Wagtail. Get in touch with our [accessibility team](https://github.com/wagtail/wagtail/wiki/Accessibility-team) if you are testing Wagtail and want to report your findings, or have a look at our [backlog of accessibility issues and improvements](https://github.com/wagtail/wagtail/projects/5). We also document our [testing targets and known issues](https://docs.wagtail.org/en/latest/contributing/developing.html#accessibility-targets).

@@ -20,35 +20,38 @@ except ImportError:
 
 
 install_requires = [
-    "Django>=2.2,<3.2",
-    "django-modelcluster>=5.1,<6.0",
-    "django-taggit>=1.0,<2.0",
-    "django-treebeard>=4.2.0,<5.0",
+    "Django>=3.2,<4.1",
+    "django-modelcluster>=5.2,<6.0",
+    "django-taggit>=2.0,<3.0",
+    "django-treebeard>=4.2.0,<5.0,!=4.5",
     "djangorestframework>=3.11.1,<4.0",
-    "django-filter>=2.2,<3.0",
+    "django-filter>=2.2,<22",
     "draftjs_exporter>=2.1.5,<3.0",
-    "Pillow>=4.0.0,<9.0.0",
-    "beautifulsoup4>=4.8,<4.9",
+    "Pillow>=4.0.0,<10.0.0",
+    "beautifulsoup4>=4.8,<4.10",
     "html5lib>=0.999,<2",
     "Willow>=1.4,<1.5",
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
-    "xlsxwriter>=1.2.8,<2.0",
+    "xlsxwriter>=1.2.8,<4.0",
     "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
+    "telepath>=0.1.1,<1",
 ]
 
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'python-dateutil>=2.2',
+    'python-dateutil>=2.7',
     'pytz>=2014.7',
     'elasticsearch>=5.0,<6.0',
-    'Jinja2>=2.8,<3.0',
+    'Jinja2>=2.11,<3.0',
     'boto3>=1.16,<1.17',
     'freezegun>=0.3.8',
     'openpyxl>=2.6.4',
     'Unidecode>=0.04.14,<2.0',
+    'azure-mgmt-cdn>=5.1,<6.0',
+    'azure-mgmt-frontdoor>=0.3,<0.4',
 
     # For coverage and PEP8 linting
     'coverage>=3.7.0',
@@ -64,9 +67,8 @@ testing_extras = [
     # Pipenv hack to fix broken dependency causing CircleCI failures
     'docutils==0.15',
 
-    # django-taggit 1.3.0 made changes to verbose_name which affect migrations;
-    # the test suite migrations correspond to >=1.3.0
-    'django-taggit>=1.3.0,<2.0',
+    # for validating string formats in .po translation files
+    'polib>=1.1,<2.0',
 ]
 
 # Documentation dependencies
@@ -75,7 +77,8 @@ documentation_extras = [
     'sphinxcontrib-spelling>=5.4.0,<6',
     'Sphinx>=1.5.2',
     'sphinx-autobuild>=0.6.0',
-    'sphinx_rtd_theme>=0.1.9',
+    'sphinx-wagtail-theme==5.0.4',
+    'recommonmark>=0.7.1',
 ]
 
 setup(
@@ -83,8 +86,8 @@ setup(
     version=__version__,
     description='A Django content management system.',
     author='Wagtail core team + contributors',
-    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.io/en/stable/support.html
-    url='https://wagtail.io/',
+    author_email='hello@wagtail.io',  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
+    url='https://wagtail.org/',
     packages=find_packages(),
     include_package_data=True,
     license='BSD',
@@ -92,7 +95,7 @@ setup(
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
 designers and developers.\n\n\
-For more details, see https://wagtail.io, https://docs.wagtail.io and \
+For more details, see https://wagtail.io, https://docs.wagtail.org and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -102,18 +105,17 @@ https://github.com/wagtail/wagtail/.",
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Framework :: Django',
-        'Framework :: Django :: 2.2',
-        'Framework :: Django :: 3.0',
-        'Framework :: Django :: 3.1',
+        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4.0',
         'Framework :: Wagtail',
         'Topic :: Internet :: WWW/HTTP :: Site Management',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.7',
     install_requires=install_requires,
     extras_require={
         'testing': testing_extras,

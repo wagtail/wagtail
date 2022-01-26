@@ -4,7 +4,8 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Luís Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-11 21:46+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -71,6 +72,23 @@ msgstr "Alinhar à esquerda"
 msgid "Right-aligned"
 msgstr "Alinhar à direita"
 
+msgid "Collection"
+msgstr "Coleção"
+
+msgid "Format"
+msgstr "Formato"
+
+msgid "Image is decorative"
+msgstr "A imagem é decorativa"
+
+msgid "Alt text"
+msgstr "Texto alternativo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Por favor adicione algum texto alternativo para a sua imagem ou marque-a "
+"como decorativa"
+
 msgid "Filter"
 msgstr "Filtro"
 
@@ -113,6 +131,12 @@ msgstr "Alterar"
 msgid "Edit any image"
 msgstr "Alterar qualquer imagem"
 
+msgid "Choose"
+msgstr "Escolher"
+
+msgid "Select images in choosers"
+msgstr "Selecionar imagens das escolhas"
+
 msgid "title"
 msgstr "título"
 
@@ -140,6 +164,18 @@ msgstr "imagem"
 msgid "images"
 msgstr "imagens"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Utilizado %(usage_count)s vez"
+msgstr[1] "Utilizado %(usage_count)s vezes"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não eliminar"
+
 msgid "Choose an image"
 msgstr "Escolher uma imagem"
 
@@ -151,9 +187,6 @@ msgstr "Carregar"
 
 msgid "Popular tags"
 msgstr "Palavras-chave populares"
-
-msgid "Uploading…"
-msgstr "A carregar…"
 
 #, python-format
 msgid ""
@@ -181,6 +214,9 @@ msgstr "Escolher um formato"
 
 msgid "Insert image"
 msgstr "Inserir imagem"
+
+msgid "Uploading…"
+msgstr "A carregar…"
 
 #, python-format
 msgid ""
@@ -218,21 +254,6 @@ msgstr "Guardar"
 
 msgid "Delete image"
 msgstr "Apagar imagem"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Utilizado %(usage_count)s vez"
-msgstr[1] "Utilizado %(usage_count)s vezes"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Tem a certeza que quer apagar esta imagem?"
-
-msgid "Yes, delete"
-msgstr "Sim, apagar"
-
-msgid "No, don't delete"
-msgstr "Não, não eliminar"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -381,17 +402,14 @@ msgstr "Comunique este erro ao seu webmaster com a seguinte informação:"
 msgid "Image updated."
 msgstr "Imagem atualizada."
 
-msgid "Update"
-msgstr "Atualizar"
-
-msgid "Delete"
-msgstr "Apagar"
-
 msgid "Image permissions"
 msgstr "Permissões de imagem"
 
 msgid "Add an image permission"
 msgstr "Adicionar uma permissão de imagem"
+
+msgid "Delete"
+msgstr "Apagar"
 
 msgid "Search images"
 msgstr "Pesquisar imagens"

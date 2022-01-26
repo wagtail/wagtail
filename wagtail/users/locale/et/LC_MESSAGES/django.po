@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:12+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -70,15 +70,6 @@ msgstr "Sellenimeline rühm on juba olemas."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Samal lehel ei saa olla mitu lubade kirjet."
 
-msgid "Preferred language"
-msgstr "Eelistatud keel"
-
-msgid "Current time zone"
-msgstr "Praegune ajavöönd"
-
-msgid "Upload a profile picture"
-msgstr "Laadige üles profiilipilt"
-
 msgid "submitted notifications"
 msgstr "esitatud teated"
 
@@ -118,6 +109,15 @@ msgstr "Kasutajaprofiil"
 msgid "user profiles"
 msgstr "kasutajaprofiilid"
 
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
 msgid "Delete group"
 msgstr "Kustuta grupp"
 
@@ -147,9 +147,6 @@ msgstr "Selle grupi kustutamine tühistab selle grupi kõik kasutajate õigused.
 msgid "Are you sure you want to delete this group?"
 msgstr "Kas soovite kindlasti selle grupi kustutada?"
 
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
 msgid "Add group"
 msgstr "Lisa rühm"
 
@@ -176,9 +173,6 @@ msgstr "Lisama"
 
 msgid "Change"
 msgstr "Muuda"
-
-msgid "Delete"
-msgstr "Kustuta"
 
 msgid "Other permissions"
 msgstr "Muud load"

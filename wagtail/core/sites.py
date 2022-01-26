@@ -37,7 +37,7 @@ def get_site_for_hostname(hostname, port):
     ))
 
     if sites:
-        # if theres a unique match or hostname (with port or default) match
+        # if there's a unique match or hostname (with port or default) match
         if len(sites) == 1 or sites[0].match in (MATCH_HOSTNAME_PORT, MATCH_HOSTNAME_DEFAULT):
             return sites[0]
 

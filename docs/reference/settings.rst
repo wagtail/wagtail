@@ -7,6 +7,9 @@ Wagtail makes use of the following settings, in addition to :doc:`Django's core 
 Site Name
 =========
 
+``WAGTAIL_SITE_NAME``
+---------------------
+
 .. code-block:: python
 
   WAGTAIL_SITE_NAME = 'Stark Industries Skunkworks'
@@ -17,6 +20,9 @@ This is the human-readable name of your Wagtail install which welcomes users upo
 
 Append Slash
 ============
+
+``WAGTAIL_APPEND_SLASH``
+------------------------
 
 .. code-block:: python
 
@@ -31,12 +37,15 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 
 .. note::
 
-  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Webmaster Blog post`_ for more details.
+  If you use the ``False`` setting, keep in mind that serving your pages both with and without slashes may affect search engines' ability to index your site. See `this Google Search Central Blog post`_ for more details.
 
-.. _this Google Webmaster Blog post: https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
+.. _this Google Search Central Blog post: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
 
 Search
 ======
+
+``WAGTAILSEARCH_BACKENDS``
+--------------------------
 
 .. code-block:: python
 
@@ -49,14 +58,10 @@ Search
 
 Define a search backend. For a full explanation, see :ref:`wagtailsearch_backends`.
 
-.. code-block:: python
-
-  WAGTAILSEARCH_RESULTS_TEMPLATE = 'myapp/search_results.html'
-  WAGTAILSEARCH_RESULTS_TEMPLATE_AJAX = 'myapp/includes/search_listing.html'
-
-Override the templates used by the search front-end views.
-
 .. _wagtailsearch_hits_max_age:
+
+``WAGTAILSEARCH_HITS_MAX_AGE``
+------------------------------
 
 .. code-block:: python
 
@@ -66,8 +71,6 @@ Set the number of days (default 7) that search query logs are kept for; these ar
 
 Internationalisation
 ====================
-
-.. versionadded:: 2.11
 
 Wagtail supports internationalisation of content by maintaining separate trees
 of pages for each language.
@@ -160,6 +163,9 @@ Wagtail has a builtin list of the most common providers.
 The embeds fetching can be fully configured using the ``WAGTAILEMBEDS_FINDERS``
 setting. This is fully documented in :ref:`configuring_embed_finders`.
 
+``WAGTAILEMBEDS_RESPONSIVE_HTML``
+---------------------------------
+
 .. code-block:: python
 
     WAGTAILEMBEDS_RESPONSIVE_HTML = True
@@ -170,12 +176,17 @@ to assist in making them responsive. See :ref:`responsive-embeds` for details.
 Dashboard
 =========
 
+``WAGTAILADMIN_RECENT_EDITS_LIMIT``
+-----------------------------------
+
 .. code-block:: python
 
     WAGTAILADMIN_RECENT_EDITS_LIMIT = 5
 
 This setting lets you change the number of items shown at 'Your most recent edits' on the dashboard.
 
+``WAGTAILADMIN_USER_LOGIN_FORM``
+--------------------------------
 
 .. code-block:: python
 
@@ -186,6 +197,9 @@ Allows the default ``LoginForm`` to be extended with extra fields.
 
 .. _wagtail_gravatar_provider_url:
 
+``WAGTAIL_GRAVATAR_PROVIDER_URL``
+---------------------------------
+
 .. code-block:: python
 
   WAGTAIL_GRAVATAR_PROVIDER_URL = '//www.gravatar.com/avatar'
@@ -194,21 +208,63 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 .. _wagtail_moderation_enabled:
 
+``WAGTAIL_MODERATION_ENABLED``
+------------------------------
+
 .. code-block:: python
 
   WAGTAIL_MODERATION_ENABLED = True
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
+``WAGTAIL_SLIM_SIDEBAR``
+------------------------
+
+.. code-block:: python
+
+  WAGTAIL_SLIM_SIDEBAR = False
+
+Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy sidebar and this setting will be removed in Wagtail 2.18.
+
+Comments
+========
+
+.. versionadded:: 2.13
+
+``WAGTAILADMIN_COMMENTS_ENABLED``
+---------------------------------
+
+.. code-block:: python
+
+  # Disable commenting
+  WAGTAILADMIN_COMMENTS_ENABLED = False
+
+Sets whether commenting is enabled for pages (``True`` by default).
+
 Images
 ======
+
+``WAGTAILIMAGES_IMAGE_MODEL``
+-----------------------------
 
 .. code-block:: python
 
   WAGTAILIMAGES_IMAGE_MODEL = 'myapp.MyImage'
 
-This setting lets you provide your own image model for use in Wagtail, which might extend the built-in ``AbstractImage`` class or replace it entirely.
+This setting lets you provide your own image model for use in Wagtail, which should extend the built-in ``AbstractImage`` class.
 
+``WAGTAILIMAGES_IMAGE_FORM_BASE``
+---------------------------------
+
+.. code-block:: python
+
+  WAGTAILIMAGES_IMAGE_FORM_BASE = 'myapp.forms.MyImageBaseForm'
+
+This setting lets you provide your own image base form for use in Wagtail, which might extend the built-in ``BaseImageForm`` class or replace it entirely.
+You can use it to specify or override the widgets to use in the admin form.
+
+``WAGTAILIMAGES_MAX_UPLOAD_SIZE``
+---------------------------------
 
 .. code-block:: python
 
@@ -216,11 +272,17 @@ This setting lets you provide your own image model for use in Wagtail, which mig
 
 This setting lets you override the maximum upload size for images (in bytes). If omitted, Wagtail will fall back to using its 10MB default value.
 
+``WAGTAILIMAGES_MAX_IMAGE_PIXELS``
+----------------------------------
+
 .. code-block:: python
 
     WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
 
 This setting lets you override the maximum number of pixels an image can have. If omitted, Wagtail will fall back to using its 128 megapixels default value. The pixel count takes animation frames into account - for example, a 25-frame animation of size 100x100 is considered to have 100 * 100 * 25 = 250000 pixels.
+
+``WAGTAILIMAGES_FEATURE_DETECTION_ENABLED``
+-------------------------------------------
 
 .. code-block:: python
 
@@ -228,17 +290,26 @@ This setting lets you override the maximum number of pixels an image can have. I
 
 This setting enables feature detection once OpenCV is installed, see all details on the :ref:`image_feature_detection` documentation.
 
+``WAGTAILIMAGES_INDEX_PAGE_SIZE``
+---------------------------------
+
 .. code-block:: python
 
     WAGTAILIMAGES_INDEX_PAGE_SIZE = 20
 
 Specifies the number of images per page shown on the main Images listing in the Wagtail admin.
 
+``WAGTAILIMAGES_USAGE_PAGE_SIZE``
+---------------------------------
+
 .. code-block:: python
 
     WAGTAILIMAGES_USAGE_PAGE_SIZE = 20
 
 Specifies the number of items per page shown when viewing an image's usage (see :ref:`WAGTAIL_USAGE_COUNT_ENABLED <WAGTAIL_USAGE_COUNT_ENABLED>`).
+
+``WAGTAILIMAGES_CHOOSER_PAGE_SIZE``
+-----------------------------------
 
 .. code-block:: python
 
@@ -249,13 +320,36 @@ Specifies the number of images shown per page in the image chooser modal.
 Documents
 =========
 
+``WAGTAILDOCS_DOCUMENT_MODEL``
+------------------------------
+
+.. code-block:: python
+
+  WAGTAILDOCS_DOCUMENT_MODEL = 'myapp.MyDocument'
+
+This setting lets you provide your own document model for use in Wagtail, which should extend the built-in ``AbstractDocument`` class.
+
+``WAGTAILDOCS_DOCUMENT_FORM_BASE``
+----------------------------------
+
+.. code-block:: python
+
+  WAGTAILDOCS_DOCUMENT_FORM_BASE = 'myapp.forms.MyDocumentBaseForm'
+
+This setting lets you provide your own Document base form for use in Wagtail, which might extend the built-in ``BaseDocumentForm`` class or replace it entirely.
+You can use it to specify or override the widgets to use in the admin form.
+
+
 .. _wagtaildocs_serve_method:
+
+``WAGTAILDOCS_SERVE_METHOD``
+----------------------------
 
 .. code-block:: python
 
   WAGTAILDOCS_SERVE_METHOD = 'redirect'
 
-Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform permission checks (see :ref:`image_document_permissions`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
+Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see :ref:`collection_privacy_settings`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
 
 For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
 
@@ -266,6 +360,9 @@ For this reason, Wagtail provides a number of serving methods which trade some o
 If ``WAGTAILDOCS_SERVE_METHOD`` is unspecified or set to ``None``, the default method is ``'redirect'`` when a remote storage backend is in use (i.e. one that exposes a URL but not a local filesystem path), and ``'serve_view'`` otherwise. Finally, some storage backends may not expose a URL at all; in this case, serving will proceed as for ``'serve_view'``.
 
 .. _wagtaildocs_content_types:
+
+``WAGTAILDOCS_CONTENT_TYPES``
+-----------------------------
 
 .. code-block:: python
 
@@ -278,6 +375,9 @@ Specifies the MIME content type that will be returned for the given file extensi
 
 .. _wagtaildocs_inline_content_types:
 
+``WAGTAILDOCS_INLINE_CONTENT_TYPES``
+------------------------------------
+
 .. code-block:: python
 
   WAGTAILDOCS_INLINE_CONTENT_TYPES = ['application/pdf', 'text/plain']
@@ -285,6 +385,9 @@ Specifies the MIME content type that will be returned for the given file extensi
 A list of MIME content types that will be shown inline in the browser (by serving the HTTP header ``Content-Disposition: inline``) rather than served as a download, when using the ``serve_view`` method. Defaults to ``application/pdf``.
 
 .. _wagtaildocs_extensions:
+
+``WAGTAILDOCS_EXTENSIONS``
+--------------------------
 
 .. code-block:: python
 
@@ -298,11 +401,17 @@ be renamed to have an extension no matter what data they contain.
 Password Management
 ===================
 
+``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``
+---------------------------------------
+
 .. code-block:: python
 
   WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = True
 
 This specifies whether users are allowed to change their passwords (enabled by default).
+
+``WAGTAIL_PASSWORD_RESET_ENABLED``
+----------------------------------
 
 .. code-block:: python
 
@@ -310,17 +419,26 @@ This specifies whether users are allowed to change their passwords (enabled by d
 
 This specifies whether users are allowed to reset their passwords. Defaults to the same as ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED``. Password reset emails will be sent from the address specified in Django's ``DEFAULT_FROM_EMAIL`` setting.
 
+``WAGTAILUSERS_PASSWORD_ENABLED``
+---------------------------------
+
 .. code-block:: python
 
   WAGTAILUSERS_PASSWORD_ENABLED = True
 
 This specifies whether password fields are shown when creating or editing users through Settings -> Users (enabled by default). Set this to False (along with ``WAGTAIL_PASSWORD_MANAGEMENT_ENABLED`` and ``WAGTAIL_PASSWORD_RESET_ENABLED``) if your users are authenticated through an external system such as LDAP.
 
+``WAGTAILUSERS_PASSWORD_REQUIRED``
+----------------------------------
+
 .. code-block:: python
 
   WAGTAILUSERS_PASSWORD_REQUIRED = True
 
 This specifies whether password is a required field when creating a new user. True by default; ignored if ``WAGTAILUSERS_PASSWORD_ENABLED`` is false. If this is set to False, and the password field is left blank when creating a user, then that user will have no usable password; in order to log in, they will have to reset their password (if ``WAGTAIL_PASSWORD_RESET_ENABLED`` is True) or use an alternative authentication system such as LDAP (if one is set up).
+
+``WAGTAIL_EMAIL_MANAGEMENT_ENABLED``
+------------------------------------
 
 .. code-block:: python
 
@@ -333,17 +451,26 @@ This specifies whether users are allowed to change their email (enabled by defau
 Email Notifications
 ===================
 
+``WAGTAILADMIN_NOTIFICATION_FROM_EMAIL``
+----------------------------------------
+
 .. code-block:: python
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting if set, or ``webmaster@localhost`` if not.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting.
+
+``WAGTAILADMIN_NOTIFICATION_USE_HTML``
+--------------------------------------
 
 .. code-block:: python
 
   WAGTAILADMIN_NOTIFICATION_USE_HTML = True
 
 Notification emails are sent in `text/plain` by default, change this to use HTML formatting.
+
+``WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS``
+------------------------------------------------
 
 .. code-block:: python
 
@@ -356,6 +483,9 @@ Notification emails are sent to moderators and superusers by default. You can ch
 Wagtail update notifications
 ============================
 
+``WAGTAIL_ENABLE_UPDATE_CHECK``
+-------------------------------
+
 .. code-block:: python
 
   WAGTAIL_ENABLE_UPDATE_CHECK = True
@@ -366,11 +496,17 @@ For admins only, Wagtail performs a check on the dashboard to see if newer relea
 Private pages / documents
 =========================
 
+``PASSWORD_REQUIRED_TEMPLATE``
+------------------------------
+
 .. code-block:: python
 
   PASSWORD_REQUIRED_TEMPLATE = 'myapp/password_required.html'
 
 This is the path to the Django template which will be used to display the "password required" form when a user accesses a private page. For more details, see the :ref:`private_pages` documentation.
+
+``DOCUMENT_PASSWORD_REQUIRED_TEMPLATE``
+---------------------------------------
 
 .. code-block:: python
 
@@ -381,11 +517,17 @@ As above, but for password restrictions on documents. For more details, see the 
 Login page
 ==========
 
+``WAGTAIL_FRONTEND_LOGIN_TEMPLATE``
+-----------------------------------
+
 The basic login page can be customised with a custom template.
 
 .. code-block:: python
 
   WAGTAIL_FRONTEND_LOGIN_TEMPLATE = 'myapp/login.html'
+
+``WAGTAIL_FRONTEND_LOGIN_URL``
+------------------------------
 
 Or the login page can be a redirect to an external or internal URL.
 
@@ -398,6 +540,9 @@ For more details, see the :ref:`login_page` documentation.
 Case-Insensitive Tags
 =====================
 
+``TAGGIT_CASE_INSENSITIVE``
+---------------------------
+
 .. code-block:: python
 
   TAGGIT_CASE_INSENSITIVE = True
@@ -406,6 +551,9 @@ Tags are case-sensitive by default ('music' and 'Music' are treated as distinct 
 
 Multi-word tags
 ===============
+
+``TAG_SPACES_ALLOWED``
+----------------------
 
 .. code-block:: python
 
@@ -416,6 +564,9 @@ Tags can only consist of a single word, no spaces allowed. The default setting i
 Tag limit
 =========
 
+``TAG_LIMIT``
+-------------
+
 .. code-block:: python
 
   TAG_LIMIT = 5
@@ -424,6 +575,9 @@ Limit the number of tags that can be added to (django-taggit) Tag model. Default
 
 Unicode Page Slugs
 ==================
+
+``WAGTAIL_ALLOW_UNICODE_SLUGS``
+-------------------------------
 
 .. code-block:: python
 
@@ -435,6 +589,9 @@ By default, page slugs can contain any alphanumeric characters, including non-La
 
 Auto update preview
 ===================
+
+``WAGTAIL_AUTO_UPDATE_PREVIEW``
+-------------------------------
 
 .. code-block:: python
 
@@ -451,6 +608,9 @@ Custom User Edit Forms
 
 See :doc:`/advanced_topics/customisation/custom_user_models`.
 
+``WAGTAIL_USER_EDIT_FORM``
+--------------------------
+
 .. code-block:: python
 
   WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
@@ -458,12 +618,18 @@ See :doc:`/advanced_topics/customisation/custom_user_models`.
 Allows the default ``UserEditForm`` class to be overridden with a custom form when
 a custom user model is being used and extra fields are required in the user edit form.
 
+``WAGTAIL_USER_CREATION_FORM``
+------------------------------
+
 .. code-block:: python
 
   WAGTAIL_USER_CREATION_FORM = 'users.forms.CustomUserCreationForm'
 
 Allows the default ``UserCreationForm`` class to be overridden with a custom form when
 a custom user model is being used and extra fields are required in the user creation form.
+
+``WAGTAIL_USER_CUSTOM_FIELDS``
+------------------------------
 
 .. code-block:: python
 
@@ -475,6 +641,9 @@ A list of the extra custom fields to be appended to the default list.
 
 Usage for images, documents and snippets
 ========================================
+
+``WAGTAIL_USAGE_COUNT_ENABLED``
+--------------------------------
 
 .. code-block:: python
 
@@ -495,6 +664,9 @@ The link is also shown on the delete page, above the "Delete" button.
 Date and DateTime inputs
 ========================
 
+``WAGTAIL_DATE_FORMAT``, ``WAGTAIL_DATETIME_FORMAT``, ``WAGTAIL_TIME_FORMAT``
+-----------------------------------------------------------------------------
+
 .. code-block:: python
 
     WAGTAIL_DATE_FORMAT = '%d.%m.%Y.'
@@ -511,6 +683,9 @@ Time zones
 
 Logged-in users can choose their current time zone for the admin interface in the account settings.  If is no time zone selected by the user, then ``TIME_ZONE`` will be used.
 (Note that time zones are only applied to datetime fields, not to plain time or date fields.  This is a Django design decision.)
+
+``WAGTAIL_USER_TIME_ZONES``
+---------------------------
 
 The list of time zones is by default the common_timezones list from pytz.
 It is possible to override this list via the ``WAGTAIL_USER_TIME_ZONES`` setting.
@@ -529,6 +704,9 @@ Users can choose between several languages for the admin interface
 in the account settings. The list of languages is by default all the available
 languages in Wagtail with at least 90% coverage. To change it, set ``WAGTAILADMIN_PERMITTED_LANGUAGES``:
 
+``WAGTAILADMIN_PERMITTED_LANGUAGES``
+------------------------------------
+
 .. code-block:: python
 
     WAGTAILADMIN_PERMITTED_LANGUAGES = [('en', 'English'),
@@ -545,6 +723,9 @@ can only choose between front office languages:
 Static files
 ============
 
+``WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS``
+--------------------------------------------
+
 .. code-block:: python
 
     WAGTAILADMIN_STATIC_FILE_VERSION_STRINGS = False
@@ -556,12 +737,17 @@ API Settings
 
 For full documentation on API configuration, including these settings, see :ref:`api_v2_configuration` documentation.
 
+``WAGTAILAPI_BASE_URL``
+-----------------------
+
 .. code-block:: python
 
     WAGTAILAPI_BASE_URL = 'http://api.example.com/'
 
 Required when using frontend cache invalidation, used to generate absolute URLs to document files and invalidating the cache.
 
+``WAGTAILAPI_LIMIT_MAX``
+------------------------
 
 .. code-block:: python
 
@@ -569,12 +755,17 @@ Required when using frontend cache invalidation, used to generate absolute URLs 
 
 Default is 20, used to change the maximum number of results a user can request at a time, set to ``None`` for no limit.
 
+``WAGTAILAPI_SEARCH_ENABLED``
+-----------------------------
 
 .. code-block:: python
 
     WAGTAILAPI_SEARCH_ENABLED = False
 
 Default is true, setting this to false will disable full text search on all endpoints.
+
+``WAGTAILAPI_USE_FRONTENDCACHE``
+--------------------------------
 
 .. code-block:: python
 
@@ -587,6 +778,8 @@ Frontend cache
 
 For full documentation on frontend cache invalidation, including these settings, see :ref:`frontend_cache_purging`.
 
+``WAGTAILFRONTENDCACHE``
+------------------------
 
 .. code-block:: python
 
@@ -603,6 +796,8 @@ See documentation linked above for full options available.
 
     ``WAGTAILFRONTENDCACHE_LOCATION`` is no longer the preferred way to set the cache location, instead set the ``LOCATION`` within the ``WAGTAILFRONTENDCACHE`` item.
 
+``WAGTAILFRONTENDCACHE_LANGUAGES``
+----------------------------------
 
 .. code-block:: python
 
@@ -614,6 +809,9 @@ Default is an empty list, must be a list of languages to also purge the urls for
 
 Rich text
 =========
+
+``WAGTAILADMIN_RICH_TEXT_EDITORS``
+----------------------------------
 
 .. code-block:: python
 
@@ -637,21 +835,38 @@ Customise the behaviour of rich text fields. By default, ``RichTextField`` and `
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
 
-.. versionchanged:: 2.10
+.. _WAGTAILADMIN_EXTERNAL_LINK_CONVERSION:
 
-    Omitting the ``'default'`` editor now leaves the original default editor intact, so it is no longer necessary to redefine ``'default'`` when adding alternative editors.
+``WAGTAILADMIN_EXTERNAL_LINK_CONVERSION``
+-----------------------------------------
 
+.. code-block:: python
+
+    WAGTAILADMIN_EXTERNAL_LINK_CONVERSION = 'exact'
+
+Customise Wagtail's behaviour when an internal page url is entered in the external link chooser. Possible values for this setting are
+``'all'``, ``'exact'``, ``'confirm``, or ``''``. The default, ``'all'``, means that Wagtail will automatically convert submitted urls that exactly match
+page urls to the corresponding internal links. If the url is an inexact match - for example, the submitted url has query parameters - then
+Wagtail will confirm the conversion with the user. ``'exact'`` means that any inexact matches will be left as external urls, and the confirmation
+step will be skipped. ``'confirm'`` means that every link conversion will be confirmed with the user, even if the match is exact. ``''``  means
+that Wagtail will not attempt to convert any urls entered to internal page links.
 
 .. _WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK:
 
 Page locking
 ============
 
+``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK``
+--------------------------------------
+
 ``WAGTAILADMIN_GLOBAL_PAGE_EDIT_LOCK`` can be set to ``True`` to prevent users
 from editing pages that they have locked.
 
 Redirects
 =========
+
+``WAGTAIL_REDIRECTS_FILE_STORAGE``
+----------------------------------
 
 .. code-block:: python
 
@@ -665,6 +880,9 @@ By default the redirect importer keeps track of the uploaded file as a temp file
 
 Form builder
 ============
+
+``WAGTAILFORMS_HELP_TEXT_ALLOW_HTML``
+-------------------------------------
 
 .. code-block:: python
 
@@ -681,6 +899,18 @@ When true, HTML tags in form field help text will be rendered unescaped (default
 Workflow
 ========
 
+``WAGTAIL_WORKFLOW_ENABLED``
+----------------------------
+
+.. code-block:: python
+
+  WAGTAIL_WORKFLOW_ENABLED = False
+
+Specifies whether moderation workflows are enabled (default: True). When disabled, editors will no longer be given the option to submit pages to a workflow, and the settings areas for admins to configure workflows and tasks will be unavailable.
+
+``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT``
+-----------------------------------------------
+
 .. code-block:: python
 
   WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True
@@ -691,12 +921,18 @@ This is the default, ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = True`` . Th
 tasks have already been approved, those tasks do not need to be reapproved. This is more suited to a hierarchical workflow system. To use workflows in this mode,
 set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
+``WAGTAIL_FINISH_WORKFLOW_ACTION``
+----------------------------------
+
 .. code-block:: python
 
   WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.core.workflows.publish_workflow_state'
 
 This sets the function to be called when a workflow completes successfully - by default, ``wagtail.core.workflows.publish_workflow_state``,
 which publishes the page. The function must accept a ``WorkflowState`` object as its only positional argument.
+
+``WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH``
+--------------------------------------
 
 .. code-block:: python
 

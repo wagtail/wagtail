@@ -15,13 +15,12 @@ from wagtail.api import APIField
 from wagtail.core.models import Page, Site
 
 from .filters import (
-    ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter, SearchFilter,
-    TranslationOfFilter)
+    AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
+    SearchFilter, TranslationOfFilter)
 from .pagination import WagtailPagination
 from .serializers import BaseSerializer, PageSerializer, get_serializer_class
 from .utils import (
-    BadRequestError, filter_page_type, get_object_detail_url, page_models_from_string,
-    parse_fields_parameter)
+    BadRequestError, get_object_detail_url, page_models_from_string, parse_fields_parameter)
 
 
 class BaseAPIViewSet(GenericViewSet):
@@ -182,11 +181,11 @@ class BaseAPIViewSet(GenericViewSet):
 
     def check_query_parameters(self, queryset):
         """
-        Ensure that only valid query paramters are included in the URL.
+        Ensure that only valid query parameters are included in the URL.
         """
         query_parameters = set(self.request.GET.keys())
 
-        # All query paramters must be either a database field or an operation
+        # All query parameters must be either a database field or an operation
         allowed_query_parameters = set(self.get_available_fields(queryset.model, db_fields_only=True)).union(self.known_query_parameters)
         unknown_parameters = query_parameters - allowed_query_parameters
         if unknown_parameters:
@@ -367,15 +366,17 @@ class PagesAPIViewSet(BaseAPIViewSet):
     filter_backends = [
         FieldsFilter,
         ChildOfFilter,
+        AncestorOfFilter,
         DescendantOfFilter,
         OrderingFilter,
-        SearchFilter,
         TranslationOfFilter,
         LocaleFilter,
+        SearchFilter,  # needs to be last, as SearchResults querysets cannot be filtered further
     ]
     known_query_parameters = BaseAPIViewSet.known_query_parameters.union([
         'type',
         'child_of',
+        'ancestor_of',
         'descendant_of',
         'translation_of',
         'locale',
@@ -390,6 +391,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
         'seo_title',
         'search_description',
         'first_published_at',
+        'alias_of',
         'parent',
         'locale',
     ]
@@ -439,8 +441,20 @@ class PagesAPIViewSet(BaseAPIViewSet):
         This is used as the base for get_queryset and is also used to find the
         parent pages when using the child_of and descendant_of filters as well.
         """
-        # Get live pages that are not in a private section
-        queryset = Page.objects.all().public().live()
+        # Get all live pages
+        queryset = Page.objects.all().live()
+        # if user is not authenticated return only public pages
+        if not self.request.user.is_authenticated:
+            queryset &= queryset.public()
+        else:  # get pages that are accessible to logged-in users or users in specific groups
+            for page in queryset:
+                restrictions = page.get_view_restrictions().order_by('page__depth')
+                if restrictions:
+                    if restrictions[0].restriction_type == "groups":
+                        if not restrictions[0].groups.filter(id__in=self.request.user.groups.all()).exists():
+                            queryset &= queryset.exclude(id=page.id)
+                    # if restriction_type is login, nothing to do since user is_authenticated
+        # TODO: handle "Private, accessible with the following password" privacy option
 
         # Filter by site
         site = Site.find_for_request(self.request)
@@ -477,7 +491,7 @@ class PagesAPIViewSet(BaseAPIViewSet):
             return models[0].objects.filter(id__in=self.get_base_queryset().values_list('id', flat=True))
 
         else:  # len(models) > 1
-            return filter_page_type(self.get_base_queryset(), models)
+            return self.get_base_queryset().type(*models)
 
     def get_object(self):
         base = super().get_object()

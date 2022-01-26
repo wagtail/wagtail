@@ -31,11 +31,14 @@ from wagtail.contrib.forms.views import SubmissionsListView
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.contrib.sitemaps import Sitemap
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail.core.blocks import CharBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock
+from wagtail.core.blocks import (
+    CharBlock, FieldBlock, RawHTMLBlock, RichTextBlock, StreamBlock, StructBlock)
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Orderable, Page, PageManager, PageQuerySet, Task, TranslatableMixin
+from wagtail.documents import get_document_model
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.documents.models import AbstractDocument, Document
+from wagtail.images import get_image_model
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
@@ -183,11 +186,10 @@ class PageWithOldStyleRouteMethod(Page):
 class FilePage(Page):
     file_field = models.FileField()
 
-
-FilePage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('file_field'),
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('file_field'),
+    ]
 
 
 # Event page
@@ -305,30 +307,29 @@ class EventPage(Page):
     password_required_template = 'tests/event_page_password_required.html'
     base_form_class = EventPageForm
 
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('date_from'),
+        FieldPanel('date_to'),
+        FieldPanel('time_from'),
+        FieldPanel('time_to'),
+        FieldPanel('location'),
+        FieldPanel('audience'),
+        FieldPanel('cost'),
+        FieldPanel('signup_link'),
+        InlinePanel('carousel_items', label="Carousel items"),
+        FieldPanel('body', classname="full"),
+        InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
+        InlinePanel('related_links', label="Related links"),
+        FieldPanel('categories'),
+        # InlinePanel related model uses `pk` not `id`
+        InlinePanel('head_counts', label='Head Counts'),
+    ]
 
-EventPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('date_from'),
-    FieldPanel('date_to'),
-    FieldPanel('time_from'),
-    FieldPanel('time_to'),
-    FieldPanel('location'),
-    FieldPanel('audience'),
-    FieldPanel('cost'),
-    FieldPanel('signup_link'),
-    InlinePanel('carousel_items', label="Carousel items"),
-    FieldPanel('body', classname="full"),
-    InlinePanel('speakers', label="Speakers", heading="Speaker lineup"),
-    InlinePanel('related_links', label="Related links"),
-    FieldPanel('categories'),
-    # InlinePanel related model uses `pk` not `id`
-    InlinePanel('head_counts', label='Head Counts'),
-]
-
-EventPage.promote_panels = [
-    MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
-    ImageChooserPanel('feed_image'),
-]
+    promote_panels = [
+        MultiFieldPanel(COMMON_PANELS, "Common page configuration"),
+        ImageChooserPanel('feed_image'),
+    ]
 
 
 class HeadCountRelatedModelUsingPK(models.Model):
@@ -388,8 +389,7 @@ class SingleEventPage(EventPage):
     def get_admin_display_title(self):
         return "%s (single event)" % super().get_admin_display_title()
 
-
-SingleEventPage.content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
+    content_panels = [FieldPanel('excerpt')] + EventPage.content_panels
 
 
 # "custom" sitemap object
@@ -458,11 +458,10 @@ class EventIndex(Page):
             '/past/'
         ]
 
-
-EventIndex.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('intro', classname="full"),
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('intro', classname="full"),
+    ]
 
 
 class FormField(AbstractFormField):
@@ -477,21 +476,20 @@ class FormPage(AbstractEmailForm):
 
     # This is redundant (SubmissionsListView is the default view class), but importing
     # SubmissionsListView in this models.py helps us to confirm that this recipe
-    # https://docs.wagtail.io/en/stable/reference/contrib/forms/customisation.html#customise-form-submissions-listing-in-wagtail-admin
+    # https://docs.wagtail.org/en/stable/reference/contrib/forms/customisation.html#customise-form-submissions-listing-in-wagtail-admin
     # works without triggering circular dependency issues -
     # see https://github.com/wagtail/wagtail/issues/6265
     submissions_list_view_class = SubmissionsListView
 
-
-FormPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    InlinePanel('form_fields', label="Form fields"),
-    MultiFieldPanel([
-        FieldPanel('to_address', classname="full"),
-        FieldPanel('from_address', classname="full"),
-        FieldPanel('subject', classname="full"),
-    ], "Email")
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 # FormPage with a non-HTML extension
@@ -503,16 +501,15 @@ class JadeFormField(AbstractFormField):
 class JadeFormPage(AbstractEmailForm):
     template = "tests/form_page.jade"
 
-
-JadeFormPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    InlinePanel('form_fields', label="Form fields"),
-    MultiFieldPanel([
-        FieldPanel('to_address', classname="full"),
-        FieldPanel('from_address', classname="full"),
-        FieldPanel('subject', classname="full"),
-    ], "Email")
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 # Form page that redirects to a different page
@@ -544,17 +541,16 @@ class FormPageWithRedirect(AbstractEmailForm):
 
         return super(FormPageWithRedirect, self).render_landing_page(request, form_submission, *args, **kwargs)
 
-
-FormPageWithRedirect.content_panels = [
-    FieldPanel('title', classname="full title"),
-    PageChooserPanel('thank_you_redirect_page'),
-    InlinePanel('form_fields', label="Form fields"),
-    MultiFieldPanel([
-        FieldPanel('to_address', classname="full"),
-        FieldPanel('from_address', classname="full"),
-        FieldPanel('subject', classname="full"),
-    ], "Email")
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        PageChooserPanel('thank_you_redirect_page'),
+        InlinePanel('form_fields', label="Form fields"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 # FormPage with a custom FormSubmission
@@ -614,18 +610,17 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
         return super().serve(request, *args, **kwargs)
 
-
-FormPageWithCustomSubmission.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('intro', classname="full"),
-    InlinePanel('custom_form_fields', label="Form fields"),
-    FieldPanel('thank_you_text', classname="full"),
-    MultiFieldPanel([
-        FieldPanel('to_address', classname="full"),
-        FieldPanel('from_address', classname="full"),
-        FieldPanel('subject', classname="full"),
-    ], "Email")
-]
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('intro', classname="full"),
+        InlinePanel('custom_form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('to_address', classname="full"),
+            FieldPanel('from_address', classname="full"),
+            FieldPanel('subject', classname="full"),
+        ], "Email")
+    ]
 
 
 class FormFieldWithCustomSubmission(AbstractFormField):
@@ -688,7 +683,7 @@ class FormPageWithCustomSubmissionListView(AbstractEmailForm):
     ]
 
 
-# FormPage with cutom FormBuilder
+# FormPage with custom FormBuilder
 
 EXTENDED_CHOICES = FORM_FIELD_CHOICES + (('ipaddress', 'IP Address'),)
 
@@ -833,16 +828,16 @@ class StandardIndex(Page):
     """ Index for the site """
     parent_page_types = [Page]
 
+    # A custom panel setup where all Promote fields are placed in the Content tab instead;
+    # we use this to test that the 'promote' tab is left out of the output when empty
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('seo_title'),
+        FieldPanel('slug'),
+        InlinePanel('advert_placements', label="Adverts"),
+    ]
 
-# A custom panel setup where all Promote fields are placed in the Content tab instead;
-# we use this to test that the 'promote' tab is left out of the output when empty
-StandardIndex.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('seo_title'),
-    FieldPanel('slug'),
-    InlinePanel('advert_placements', label="Adverts"),
-]
-StandardIndex.promote_panels = []
+    promote_panels = []
 
 
 class StandardChild(Page):
@@ -890,11 +885,18 @@ class TaggedPageTag(TaggedItemBase):
 class TaggedPage(Page):
     tags = ClusterTaggableManager(through=TaggedPageTag, blank=True)
 
+    content_panels = [
+        FieldPanel('title', classname="full title"),
+        FieldPanel('tags'),
+    ]
 
-TaggedPage.content_panels = [
-    FieldPanel('title', classname="full title"),
-    FieldPanel('tags'),
-]
+
+class TaggedChildPage(TaggedPage):
+    pass
+
+
+class TaggedGrandchildPage(TaggedChildPage):
+    pass
 
 
 class SingletonPage(Page):
@@ -990,6 +992,15 @@ class CustomDocument(AbstractDocument):
         ]
 
 
+# Custom document model with a required field
+class CustomDocumentWithAuthor(AbstractDocument):
+    author = models.CharField(max_length=255)
+
+    admin_form_fields = Document.admin_form_fields + (
+        'author',
+    )
+
+
 class StreamModel(models.Model):
     body = StreamField([
         ('text', CharBlock()),
@@ -998,12 +1009,39 @@ class StreamModel(models.Model):
     ])
 
 
+class MinMaxCountStreamModel(models.Model):
+    body = StreamField(
+        [
+            ('text', CharBlock()),
+            ('rich_text', RichTextBlock()),
+            ('image', ImageChooserBlock()),
+        ],
+        min_num=2, max_num=5
+    )
+
+
+class BlockCountsStreamModel(models.Model):
+    body = StreamField(
+        [
+            ('text', CharBlock()),
+            ('rich_text', RichTextBlock()),
+            ('image', ImageChooserBlock()),
+        ],
+        block_counts={
+            "text": {"min_num": 1},
+            "rich_text": {"max_num": 1},
+            "image": {"min_num": 1, "max_num": 1},
+        }
+    )
+
+
 class ExtendedImageChooserBlock(ImageChooserBlock):
     """
     Example of Block with custom get_api_representation method.
     If the request has an 'extended' query param, it returns a dict of id and title,
     otherwise, it returns the default value.
     """
+
     def get_api_representation(self, value, context=None):
         image_id = super().get_api_representation(value, context=context)
         if 'request' in context and context['request'].query_params.get('extended', False):
@@ -1086,7 +1124,7 @@ class ImportantPages(BaseSetting):
         'wagtailcore.Page', related_name="+", null=True, on_delete=models.SET_NULL)
 
 
-@register_setting(icon="tag")
+@register_setting(icon="icon-setting-tag")
 class IconSetting(BaseSetting):
     pass
 
@@ -1510,3 +1548,34 @@ class TaggedRestaurant(ItemBase):
 
 class SimpleTask(Task):
     pass
+
+
+# StreamField media definitions must not be evaluated at startup (e.g. during system checks) -
+# these may fail if e.g. ManifestStaticFilesStorage is in use and collectstatic has not been run.
+# Check this with a media definition that deliberately errors; if media handling is not set up
+# correctly, then the mere presence of this model definition will cause startup to fail.
+class DeadlyTextInput(forms.TextInput):
+    @property
+    def media(self):
+        raise Exception("BOOM! Attempted to evaluate DeadlyTextInput.media")
+
+
+class DeadlyCharBlock(FieldBlock):
+    def __init__(self, *args, **kwargs):
+        self.field = forms.CharField(widget=DeadlyTextInput())
+        super().__init__(*args, **kwargs)
+
+
+class DeadlyStreamPage(Page):
+    body = StreamField([
+        ('title', DeadlyCharBlock()),
+    ])
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+
+# Check that get_image_model and get_document_model work at import time
+# (so that it's possible to use them in foreign key definitions, for example)
+ReimportedImageModel = get_image_model()
+ReimportedDocumentModel = get_document_model()

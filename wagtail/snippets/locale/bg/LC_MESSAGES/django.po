@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,12 @@ msgstr "Запази"
 
 msgid "Choose"
 msgstr "Избери"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Title"
+msgstr "Заглавие"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -52,9 +58,6 @@ msgstr "Редактиране"
 msgid "Snippets"
 msgstr "Откъси от код"
 
-msgid "Title"
-msgstr "Заглавие"
-
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -75,8 +78,26 @@ msgstr "Откъси от код <span>%(snippet_type_name_plural)s</span>"
 msgid "Add %(snippet_type_name)s"
 msgstr "Добави %(snippet_type_name)s"
 
+msgid "Parent"
+msgstr "Родител"
+
+msgid "Type"
+msgstr "Вид"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Edit this page"
+msgstr "Редактирайте тази страница"
+
+msgid "Edit"
+msgstr "Редакция"
+
 msgid "The snippet could not be created due to errors."
 msgstr "Този код-откъс не беше създаден поради грешки."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Откъса от док не можеше да бъде запазен поради грешки."
+
+msgid "Date"
+msgstr "Дата"

@@ -5,7 +5,6 @@ exports[`LoadingSpinner basic 1`] = `
   <Icon
     className="c-spinner"
     name="spinner"
-    title={null}
   />
    Loading…
 </span>

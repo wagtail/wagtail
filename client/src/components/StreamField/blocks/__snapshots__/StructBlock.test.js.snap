@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.StructBlock it renders correctly 1`] = `
+"<div class=\\"struct-block\\">
+        
+          <span>
+            <div class=\\"help\\">
+              <div class=\\"icon-help\\">?</div>
+              use <strong>lots</strong> of these
+            </div>
+          </span>
+        <div class=\\"field required\\" data-contentpath=\\"heading_text\\">
+            <label class=\\"field__label\\" for=\\"the-prefix-heading_text\\">Heading text</label>
+            <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+          </div><div class=\\"field \\" data-contentpath=\\"size\\">
+            <label class=\\"field__label\\" for=\\"the-prefix-size\\">Size</label>
+            <div class=\\"field choice_field widget-select fieldname-size\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock setError passes error messages to children 1`] = `
+"<div class=\\"struct-block\\">
+        
+          <span>
+            <div class=\\"help\\">
+              <div class=\\"icon-help\\">?</div>
+              use <strong>lots</strong> of these
+            </div>
+          </span>
+        <div class=\\"field required\\" data-contentpath=\\"heading_text\\">
+            <label class=\\"field__label\\" for=\\"the-prefix-heading_text\\">Heading text</label>
+            <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+          </div><div class=\\"field \\" data-contentpath=\\"size\\">
+            <label class=\\"field__label\\" for=\\"the-prefix-size\\">Size</label>
+            <div class=\\"field choice_field widget-select fieldname-size error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
+            <span></span>
+          </div>
+        <p class=\\"error-message\\"><span>This is too big</span></p></div>
+      </div>
+          </div></div>"
+`;
+
+exports[`telepath: wagtail.blocks.StructBlock with formTemplate it renders correctly 1`] = `
+"<div class=\\"custom-form-template\\">
+          <p>here comes the first field:</p>
+          <div class=\\"field char_field widget-text_input fieldname-heading_text\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-heading_text\\" id=\\"the-prefix-heading_text\\">Heading widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+          <p>and here is the second:</p>
+          <div class=\\"field choice_field widget-select fieldname-size\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix-size\\" id=\\"the-prefix-size\\">Size widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div>
+        </div>"
+`;

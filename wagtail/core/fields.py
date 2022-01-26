@@ -10,10 +10,19 @@ from wagtail.core.rich_text import get_text_for_indexing
 
 class RichTextField(models.TextField):
     def __init__(self, *args, **kwargs):
+        # 'editor' and 'features' are popped before super().__init__ has chance to capture them
+        # for use in deconstruct(). This is intentional - they would not be useful in migrations
+        # and retrospectively adding them would generate unwanted migration noise
         self.editor = kwargs.pop('editor', 'default')
         self.features = kwargs.pop('features', None)
-        # TODO: preserve 'editor' and 'features' when deconstructing for migrations
         super().__init__(*args, **kwargs)
+
+    def clone(self):
+        name, path, args, kwargs = self.deconstruct()
+        # add back the 'features' and 'editor' kwargs that were not preserved by deconstruct()
+        kwargs["features"] = self.features
+        kwargs["editor"] = self.editor
+        return self.__class__(*args, **kwargs)
 
     def formfield(self, **kwargs):
         from wagtail.admin.rich_text import get_rich_text_editor_widget
@@ -51,13 +60,31 @@ class Creator:
 
 class StreamField(models.Field):
     def __init__(self, block_types, **kwargs):
+
+        # extract kwargs that are to be passed on to the block, not handled by super
+        block_opts = {}
+        for arg in ['min_num', 'max_num', 'block_counts', 'collapsed']:
+            if arg in kwargs:
+                block_opts[arg] = kwargs.pop(arg)
+
+        # for a top-level block, the 'blank' kwarg (defaulting to False) always overrides the
+        # block's own 'required' meta attribute, even if not passed explicitly; this ensures
+        # that the field and block have consistent definitions
+        block_opts['required'] = not kwargs.get('blank', False)
+
         super().__init__(**kwargs)
+
         if isinstance(block_types, Block):
+            # use the passed block as the top-level block
             self.stream_block = block_types
         elif isinstance(block_types, type):
-            self.stream_block = block_types(required=not self.blank)
+            # block passed as a class - instantiate it
+            self.stream_block = block_types()
         else:
-            self.stream_block = StreamBlock(block_types, required=not self.blank)
+            # construct a top-level StreamBlock from the list of block types
+            self.stream_block = StreamBlock(block_types)
+
+        self.stream_block.set_meta_options(block_opts)
 
     def get_internal_type(self):
         return 'TextField'

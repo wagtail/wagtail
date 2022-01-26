@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -58,8 +58,17 @@ msgstr "גובה"
 msgid "Closeness"
 msgstr "קרבה"
 
+msgid "Add"
+msgstr "הוספה"
+
 msgid "Edit"
 msgstr "ערוך"
+
+msgid "Choose"
+msgstr "בחרו"
+
+msgid "Yes, delete"
+msgstr "כן, מחק"
 
 msgid "Choose an image"
 msgstr "בחרו תמונה"
@@ -97,12 +106,6 @@ msgstr "שמור"
 msgid "Delete image"
 msgstr "מחק תמונה"
 
-msgid "Are you sure you want to delete this image?"
-msgstr "אתם בטוחים כי ברצונכם למחוק את התמונה?"
-
-msgid "Yes, delete"
-msgstr "כן, מחק"
-
 msgid "Editing"
 msgstr "עריכה"
 
@@ -123,6 +126,9 @@ msgstr "קובץ לא נמצא "
 
 msgid "Images"
 msgstr "תמונות "
+
+msgid "Clear choice"
+msgstr "נקה בחירה"
 
 msgid "Generating URL"
 msgstr "מייצר כתובת"
@@ -180,9 +186,6 @@ msgstr ""
 
 msgid "Sorry, upload failed."
 msgstr "סליחה, ההעלאה נכשלה."
-
-msgid "Update"
-msgstr "עדכן"
 
 msgid "Delete"
 msgstr "מחק"

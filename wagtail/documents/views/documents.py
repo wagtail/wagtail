@@ -5,13 +5,16 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.decorators import method_decorator
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Collection
 from wagtail.documents import get_document_model
 from wagtail.documents.forms import get_document_form
@@ -22,74 +25,88 @@ from wagtail.search import index as search_index
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-@permission_checker.require_any('add', 'change', 'delete')
-@vary_on_headers('X-Requested-With')
-def index(request):
-    Document = get_document_model()
+class BaseListingView(TemplateView):
+    @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
+    def get(self, request):
+        return super().get(request)
 
-    # Get documents (filtered by user permission)
-    documents = permission_policy.instances_user_has_any_permission_for(
-        request.user, ['change', 'delete']
-    )
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    # Ordering
-    if 'ordering' in request.GET and request.GET['ordering'] in ['title', '-created_at']:
-        ordering = request.GET['ordering']
-    else:
-        ordering = '-created_at'
-    documents = documents.order_by(ordering)
+        # Get documents (filtered by user permission)
+        documents = permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ['change', 'delete']
+        )
 
-    # Filter by collection
-    current_collection = None
-    collection_id = request.GET.get('collection_id')
-    if collection_id:
-        try:
-            current_collection = Collection.objects.get(id=collection_id)
-            documents = documents.filter(collection=current_collection)
-        except (ValueError, Collection.DoesNotExist):
-            pass
+        # Ordering
+        if 'ordering' in self.request.GET and self.request.GET['ordering'] in ['title', '-created_at']:
+            ordering = self.request.GET['ordering']
+        else:
+            ordering = '-created_at'
+        documents = documents.order_by(ordering)
 
-    # Search
-    query_string = None
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search documents"))
-        if form.is_valid():
-            query_string = form.cleaned_data['q']
-            documents = documents.search(query_string)
-    else:
-        form = SearchForm(placeholder=_("Search documents"))
+        # Filter by collection
+        self.current_collection = None
+        collection_id = self.request.GET.get('collection_id')
+        if collection_id:
+            try:
+                self.current_collection = Collection.objects.get(id=collection_id)
+                documents = documents.filter(collection=self.current_collection)
+            except (ValueError, Collection.DoesNotExist):
+                pass
 
-    # Pagination
-    paginator = Paginator(documents, per_page=20)
-    documents = paginator.get_page(request.GET.get('p'))
+        # Search
+        query_string = None
+        if 'q' in self.request.GET:
+            self.form = SearchForm(self.request.GET, placeholder=_("Search documents"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data['q']
+                documents = documents.search(query_string)
+        else:
+            self.form = SearchForm(placeholder=_("Search documents"))
 
-    collections = permission_policy.collections_user_has_any_permission_for(
-        request.user, ['add', 'change']
-    )
-    if len(collections) < 2:
-        collections = None
+        # Pagination
+        paginator = Paginator(documents, per_page=20)
+        documents = paginator.get_page(self.request.GET.get('p'))
 
-    # Create response
-    if request.is_ajax():
-        return TemplateResponse(request, 'wagtaildocs/documents/results.html', {
+        context.update({
             'ordering': ordering,
             'documents': documents,
             'query_string': query_string,
             'is_searching': bool(query_string),
+            'next': self.request.get_full_path(),
         })
-    else:
-        return TemplateResponse(request, 'wagtaildocs/documents/index.html', {
-            'ordering': ordering,
-            'documents': documents,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
+        return context
 
-            'search_form': form,
-            'popular_tags': popular_tags_for_model(Document),
-            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+
+class IndexView(BaseListingView):
+    template_name = 'wagtaildocs/documents/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        collections = permission_policy.collections_user_has_any_permission_for(
+            self.request.user, ['add', 'change']
+        )
+        if len(collections) < 2:
+            collections = None
+
+        Document = get_document_model()
+
+        context.update({
+            'search_form': self.form,
+            'popular_tags': popular_tags_for_model(get_document_model()),
+            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
             'collections': collections,
-            'current_collection': current_collection,
+            'current_collection': self.current_collection,
+            'app_label': Document._meta.app_label,
+            'model_name': Document._meta.model_name,
         })
+        return context
+
+
+class ListingResultsView(BaseListingView):
+    template_name = 'wagtaildocs/documents/results.html'
 
 
 @permission_checker.require('add')
@@ -137,6 +154,8 @@ def edit(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', doc):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         original_file = doc.file
         form = DocumentForm(request.POST, request.FILES, instance=doc, user=request.user)
@@ -162,10 +181,16 @@ def edit(request, document_id):
             # Reindex the document to make sure all tags are indexed
             search_index.insert_or_update_object(doc)
 
+            edit_url = reverse('wagtaildocs:edit', args=(doc.id,))
+            redirect_url = 'wagtaildocs:index'
+            if next_url:
+                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
+                redirect_url = next_url
+
             messages.success(request, _("Document '{0}' updated").format(doc.title), buttons=[
-                messages.button(reverse('wagtaildocs:edit', args=(doc.id,)), _('Edit'))
+                messages.button(edit_url, _('Edit'))
             ])
-            return redirect('wagtaildocs:index')
+            return redirect(redirect_url)
         else:
             messages.error(request, _("The document could not be saved due to errors."))
     else:
@@ -193,6 +218,7 @@ def edit(request, document_id):
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', doc
         ),
+        'next': next_url,
     })
 
 
@@ -204,13 +230,16 @@ def delete(request, document_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', doc):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         doc.delete()
         messages.success(request, _("Document '{0}' deleted.").format(doc.title))
-        return redirect('wagtaildocs:index')
+        return redirect(next_url) if next_url else redirect('wagtaildocs:index')
 
     return TemplateResponse(request, "wagtaildocs/documents/confirm_delete.html", {
         'document': doc,
+        'next': next_url,
     })
 
 

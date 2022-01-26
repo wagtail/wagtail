@@ -1,0 +1,144 @@
+.comment-header {
+    position: relative;
+
+    &__avatar {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 15px;
+    }
+
+    &__author,
+    &__date {
+        max-width: calc(100% - 110px);  // Leave room for actions to the right and avatar to the left
+        margin: 0;
+        margin-left: 45px;
+        font-size: 11px;
+        line-height: 15px;
+    }
+
+    &__date {
+        color: $color-grey-25;
+    }
+
+    &__actions {
+        position: absolute;
+        right: 0;
+    }
+
+    &__action {
+        float: left;
+        margin-left: 5px;
+        border-radius: 5px;
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+            background-color: $color-grey-7;
+        }
+
+        > button,
+        > details > summary,
+        .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
+            // Hides triangle on Firefox
+            list-style-type: none;
+            // Hides triangle on Chrome
+            &::-webkit-details-marker { display: none; }
+            width: 30px;
+            height: 30px;
+            position: relative;
+            background-color: unset;
+            border: unset;
+            -moz-outline-radius: 10px;
+            padding: 0;
+            box-sizing: border-box;
+
+            svg {
+                position: absolute;
+                top: 7.5px;
+                left: 7.5px;
+                width: 15px;
+                height: 15px;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        > details,
+        > .details-fallback {  // IE11 uses divs instead with these classes
+            position: relative;
+
+            > div {
+                position: absolute;
+                right: 0;
+                top: 35px;
+            }
+        }
+
+        &--more {
+            > button,
+            > details > summary,
+            > .details-fallback > .details-fallback__summary {  // IE11 uses divs instead with these classes
+                color: #767676;
+
+                // stylelint-disable-next-line max-nesting-depth
+                &:hover {
+                    color: $color-grey-25;
+                }
+            }
+        }
+    }
+
+    &__more-actions {
+        background-color: #333;
+        color: $color-grey-5;
+        text-transform: none;
+        position: absolute;
+        z-index: 1000;
+        list-style: none;
+        text-align: left;
+        border-radius: 3px;
+
+        &:before {
+            content: '';
+            border: 6px solid transparent;
+            border-bottom-color: #333;
+            display: block;
+            position: absolute;
+            bottom: 100%;
+            right: 9px;
+        }
+
+        button {
+            display: block;
+            background: none;
+            border: 0;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 13px;
+            width: 100px;
+            text-align: left;
+
+            &:hover {
+                color: #aaa;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.comment--mode-deleting .comment-header,
+.comment-reply--mode-deleting .comment-header {
+    opacity: 0.5;
+}
+
+// IE11 only uses these classes
+.details-fallback .comment-header__more-actions {
+    display: none;
+}
+
+.details-fallback--open .comment-header__more-actions {
+    display: block;
+}

@@ -5,13 +5,14 @@ from django.db import transaction
 from django.db.models.functions import Lower
 from django.http import Http404, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template.response import TemplateResponse
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
@@ -36,6 +37,7 @@ class Index(IndexView):
     template_name = 'wagtailadmin/workflows/index.html'
     add_url_name = 'wagtailadmin_workflows:add'
     edit_url_name = 'wagtailadmin_workflows:edit'
+    index_url_name = 'wagtailadmin_workflows:index'
     page_title = _("Workflows")
     add_item_label = _("Add a workflow")
     header_icon = 'tasks'
@@ -230,11 +232,8 @@ class Disable(DeleteView):
         }
         return context
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.deactivate(user=request.user)
-        messages.success(request, self.get_success_message())
-        return redirect(reverse(self.index_url_name))
+    def delete_action(self):
+        self.object.deactivate(user=self.request.user)
 
 
 def usage(request, pk):
@@ -269,7 +268,7 @@ def enable_workflow(request, pk):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_workflows:edit', workflow.id)
@@ -294,7 +293,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.id)
@@ -307,6 +306,7 @@ class TaskIndex(IndexView):
     template_name = 'wagtailadmin/workflows/task_index.html'
     add_url_name = 'wagtailadmin_workflows:select_task_type'
     edit_url_name = 'wagtailadmin_workflows:edit_task'
+    index_url_name = 'wagtailadmin_workflows:task_index'
     page_title = _("Workflow tasks")
     add_item_label = _("New workflow task")
     header_icon = 'thumbtack'
@@ -444,10 +444,10 @@ class DisableTask(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        states_in_progress = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS).count()
+        states_in_progress = TaskState.objects.filter(status=TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk).count()
         context['warning_message'] = ngettext(
-            'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow.',
-            'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow.',
+            'This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.',
+            'This task is in progress on %(states_in_progress)d pages. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.',
             states_in_progress,
         ) % {
             'states_in_progress': states_in_progress,
@@ -458,11 +458,8 @@ class DisableTask(DeleteView):
     def get_edit_url(self):
         return reverse(self.edit_url_name, args=(self.kwargs['pk'],))
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.deactivate(user=request.user)
-        messages.success(request, self.get_success_message())
-        return redirect(reverse(self.index_url_name))
+    def delete_action(self):
+        self.object.deactivate(user=self.request.user)
 
 
 @require_POST
@@ -482,142 +479,203 @@ def enable_task(request, pk):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_workflows:edit_task', task.id)
 
 
-def get_chooser_context():
-    """construct context variables needed by the chooser JS"""
-    return {
-        'step': 'chooser',
-        'error_label': _("Server Error"),
-        'error_message': _("Report this error to your webmaster with the following information:"),
-    }
-
-
-def get_task_result_data(task):
+def get_task_chosen_response(request, task):
     """
-    helper function: given a task, return the json data to pass back to the
-    chooser panel
+    helper function: given a task, return the response indicating that it has been chosen
     """
-
-    return {
+    result_data = {
         'id': task.id,
         'name': task.name,
         'edit_url': reverse('wagtailadmin_workflows:edit_task', args=[task.id]),
     }
+    return render_modal_workflow(
+        request, None, None,
+        None, json_data={'step': 'task_chosen', 'result': result_data}
+    )
 
 
-def task_chooser(request):
-    task_models = get_task_types()
-    create_model = None
-    can_create = False
+class BaseTaskChooserView(TemplateView):
+    def dispatch(self, request):
+        self.task_models = get_task_types()
+        self.can_create = (
+            task_permission_policy.user_has_permission(request.user, 'add')
+            and len(self.task_models) != 0
+        )
+        return super().dispatch(request)
 
-    if task_permission_policy.user_has_permission(request.user, 'add'):
-        can_create = len(task_models) != 0
+    def get_create_model(self):
+        """
+        To be called after dispatch(); returns the model to use for a new task if one is known
+        (either from being the only available task mode, or from being specified in the URL as create_model)
+        """
+        if self.can_create:
+            if len(self.task_models) == 1:
+                return self.task_models[0]
 
-        if len(task_models) == 1:
-            create_model = task_models[0]
+            elif 'create_model' in self.request.GET:
+                create_model = resolve_model_string(self.request.GET['create_model'])
 
-        elif 'create_model' in request.GET:
-            create_model = resolve_model_string(request.GET['create_model'])
+                if create_model not in self.task_models:
+                    raise Http404
 
-            if create_model not in task_models:
-                raise Http404
+                return create_model
 
-    # Build task types list for "select task type" view
-    task_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
-        for model in task_models
-    ]
-    # sort by lower-cased version of verbose name
-    task_types.sort(key=lambda task_type: task_type[0].lower())
+    def get_create_form_class(self):
+        """
+        To be called after dispatch(); returns the form class for creating a new task
+        """
+        self.create_model = self.get_create_model()
+        if self.create_model:
+            return get_task_form_class(self.create_model)
+        else:
+            return None
 
-    # Build task type choices for filter on "existing task" tab
-    task_type_choices = [
-        (model, model.get_verbose_name())
-        for model in task_models
-    ]
-    task_type_choices.sort(key=lambda task_type: task_type[1].lower())
+    def get_create_form(self):
+        """
+        To be called after dispatch(); returns a blank create form, or None if not available
+        """
+        create_form_class = self.get_create_form_class()
+        if create_form_class:
+            return create_form_class(prefix='create-task')
 
-    if create_model:
-        createform_class = get_task_form_class(create_model)
-    else:
-        createform_class = None
+    def get_task_type_options(self):
+        """
+        To be called after dispatch(); returns the task types list for the "select task type" view
+        """
+        task_types = [
+            (model.get_verbose_name(), model._meta.app_label, model._meta.model_name, model.get_description())
+            for model in self.task_models
+        ]
+        # sort by lower-cased version of verbose name
+        task_types.sort(key=lambda task_type: task_type[0].lower())
 
-    q = None
-    if 'q' in request.GET or 'p' in request.GET or 'task_type' in request.GET:
-        searchform = TaskChooserSearchForm(request.GET, task_type_choices=task_type_choices)
-        tasks = all_tasks = searchform.task_model.objects.order_by(Lower('name'))
+        return task_types
+
+    def get_task_type_filter_choices(self):
+        """
+        To be called after dispatch(); returns the list of task type choices for filter on "existing task" tab
+        """
+        task_type_choices = [
+            (model, model.get_verbose_name())
+            for model in self.task_models
+        ]
+        task_type_choices.sort(key=lambda task_type: task_type[1].lower())
+        return task_type_choices
+
+    def get_form_js_context(self):
+        return {
+            'error_label': _("Server Error"),
+            'error_message': _("Report this error to your website administrator with the following information:"),
+        }
+
+    def get_task_listing_context_data(self):
+        search_form = TaskChooserSearchForm(self.request.GET, task_type_choices=self.get_task_type_filter_choices())
+        tasks = all_tasks = search_form.task_model.objects.filter(active=True).order_by(Lower('name'))
         q = ''
 
-        if searchform.is_searching():
+        if search_form.is_searching():
             # Note: I decided not to use wagtailsearch here. This is because
             # wagtailsearch creates a new index for each model you make
             # searchable and this might affect someone's quota. I doubt there
             # would ever be enough tasks to require using anything more than
             # an icontains anyway.
-            q = searchform.cleaned_data['q']
+            q = search_form.cleaned_data['q']
             tasks = tasks.filter(name__icontains=q)
 
         # Pagination
         paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(request.GET.get('p'))
+        tasks = paginator.get_page(self.request.GET.get('p'))
 
-        return TemplateResponse(request, "wagtailadmin/workflows/task_chooser/includes/results.html", {
-            'task_types': task_types,
-            'searchform': searchform,
+        return {
+            'search_form': search_form,
             'tasks': tasks,
             'all_tasks': all_tasks,
             'query_string': q,
-        })
-    else:
-        if createform_class:
-            if request.method == 'POST':
-                createform = createform_class(request.POST, request.FILES, prefix='create-task')
+            'can_create': self.can_create,
+        }
 
-                if createform.is_valid():
-                    task = createform.save()
+    def get_create_tab_context_data(self):
+        return {
+            'create_form': self.create_form,
+            'add_url': reverse('wagtailadmin_workflows:task_chooser_create') + '?' + self.request.GET.urlencode() if self.create_model else None,
+            'task_types': self.get_task_type_options(),
+        }
 
-                    response = render_modal_workflow(
-                        request, None, None,
-                        None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
-                    )
 
-                    # Use a different status code so we can tell the difference between validation errors and successful creations
-                    response.status_code = 201
+class TaskChooserView(BaseTaskChooserView):
+    def get(self, request):
+        self.create_form = self.get_create_form()
+        return super().get(request)
 
-                    return response
-            else:
-                createform = createform_class(prefix='create-task')
+    def get_context_data(self, **kwargs):
+        context = {
+            'can_create': self.can_create,
+        }
+        context.update(self.get_task_listing_context_data())
+        context.update(self.get_create_tab_context_data())
+        return context
+
+    def render_to_response(self, context):
+        js_context = self.get_form_js_context()
+        js_context['step'] = 'chooser'
+
+        return render_modal_workflow(
+            self.request, 'wagtailadmin/workflows/task_chooser/chooser.html', None,
+            context, json_data=js_context
+        )
+
+
+class TaskChooserCreateView(BaseTaskChooserView):
+    def get(self, request):
+        self.create_form = self.get_create_form()
+        return super().get(request)
+
+    def post(self, request):
+        create_form_class = self.get_create_form_class()
+        if not create_form_class:
+            return HttpResponseBadRequest()
+
+        self.create_form = create_form_class(request.POST, request.FILES, prefix='create-task')
+
+        if self.create_form.is_valid():
+            task = self.create_form.save()
+            return get_task_chosen_response(request, task)
         else:
-            if request.method == 'POST':
-                return HttpResponseBadRequest()
+            context = self.get_context_data()
+            return self.render_to_response(context)
 
-            createform = None
+    def get_context_data(self, **kwargs):
+        return self.get_create_tab_context_data()
 
-        searchform = TaskChooserSearchForm(task_type_choices=task_type_choices)
-        tasks = searchform.task_model.objects.order_by(Lower('name'))
+    def render_to_response(self, context):
+        tab_html = render_to_string(
+            "wagtailadmin/workflows/task_chooser/includes/create_tab.html",
+            context, self.request
+        )
 
-        paginator = Paginator(tasks, per_page=10)
-        tasks = paginator.get_page(request.GET.get('p'))
+        js_context = self.get_form_js_context()
+        js_context['step'] = 'reshow_create_tab'
+        js_context['htmlFragment'] = tab_html
 
-        return render_modal_workflow(request, 'wagtailadmin/workflows/task_chooser/chooser.html', None, {
-            'task_types': task_types,
-            'tasks': tasks,
-            'searchform': searchform,
-            'createform': createform,
-            'can_create': can_create,
-            'add_url': reverse('wagtailadmin_workflows:task_chooser') + '?' + request.GET.urlencode() if create_model else None
-        }, json_data=get_chooser_context())
+        return render_modal_workflow(
+            self.request, None, None, None,
+            json_data=js_context
+        )
+
+
+class TaskChooserResultsView(BaseTaskChooserView):
+    template_name = "wagtailadmin/workflows/task_chooser/includes/results.html"
+
+    def get_context_data(self, **kwargs):
+        return self.get_task_listing_context_data()
 
 
 def task_chosen(request, task_id):
     task = get_object_or_404(Task, id=task_id)
-
-    return render_modal_workflow(
-        request, None, None,
-        None, json_data={'step': 'task_chosen', 'result': get_task_result_data(task)}
-    )
+    return get_task_chosen_response(request, task)

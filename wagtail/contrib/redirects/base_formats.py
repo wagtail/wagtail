@@ -23,7 +23,7 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-# https://raw.githubusercontent.com/django-import-export/django-import-export/master/import_export/formats/base_formats.py
+# https://raw.githubusercontent.com/django-import-export/django-import-export/main/import_export/formats/base_formats.py
 from importlib import import_module
 
 import tablib

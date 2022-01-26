@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Martin Janšto <mato@jansto.sk>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,9 @@ msgstr "Nezverejniť"
 msgid "Delete"
 msgstr "Vymazať"
 
+msgid "Lock"
+msgstr "Zamknúť"
+
 msgid "Page locked"
 msgstr "Stránka je uzamknutá"
 
@@ -55,9 +58,6 @@ msgstr "Naplánovať publikovanie"
 msgid "Privacy"
 msgstr "Súkromie"
 
-msgid "Common page configuration"
-msgstr "Základné nastavenia stránky"
-
 msgid "Content"
 msgstr "Obsah"
 
@@ -67,11 +67,20 @@ msgstr "Propagovať"
 msgid "Settings"
 msgstr "Nastavenia"
 
-msgid "Date"
-msgstr "Dátum"
+msgid "Date from"
+msgstr "Dátum od"
 
-msgid "Title"
-msgstr "Titulok"
+msgid "Date to"
+msgstr "Dátum do"
+
+msgid "First Name"
+msgstr "Krstné meno"
+
+msgid "Last Name"
+msgstr "Priezvisko"
+
+msgid "Email"
+msgstr "Email"
 
 msgid "Enter password"
 msgstr "Zadajte heslo"
@@ -83,8 +92,23 @@ msgstr "Zadajte vaše %s"
 msgid "Enter your email address to reset your password"
 msgstr "Zadajte vašu emailovú adresu pre obnovu hesla"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Parent"
+msgstr "Rodič"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
+
+msgid "Collection"
+msgstr "Kolekcie"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -174,72 +198,6 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
-msgid "Catalan"
-msgstr "Katalánsky"
-
-msgid "German"
-msgstr "Nemecky"
-
-msgid "Greek"
-msgstr "Grécky"
-
-msgid "English"
-msgstr "Anglicky"
-
-msgid "Spanish"
-msgstr "Španielsky"
-
-msgid "Finnish"
-msgstr "Fínsky"
-
-msgid "French"
-msgstr "Francúzsky"
-
-msgid "Galician"
-msgstr "Galicijsky"
-
-msgid "Icelandic"
-msgstr "Islandsky"
-
-msgid "Italian"
-msgstr "Taliansky"
-
-msgid "Korean"
-msgstr "Kórejsky"
-
-msgid "Lithuanian"
-msgstr "Litovsky"
-
-msgid "Norwegian Bokmål"
-msgstr " Norsky"
-
-msgid "Netherlands Dutch"
-msgstr "Holandsky"
-
-msgid "Persian"
-msgstr "Perzsky"
-
-msgid "Polish"
-msgstr "Poľsky"
-
-msgid "Brazilian Portuguese"
-msgstr "Portugalsky (Brazília)"
-
-msgid "Portuguese"
-msgstr "Portugalsky"
-
-msgid "Romanian"
-msgstr "Rumunsky"
-
-msgid "Russian"
-msgstr "Rusky"
-
-msgid "Swedish"
-msgstr "Švédsky"
-
-msgid "Edit"
-msgstr "Upraviť"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -264,6 +222,18 @@ msgstr "Zavrieť"
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
+msgid "Save"
+msgstr "Uložiť"
+
+msgid "Saving..."
+msgstr "Ukladám..."
+
+msgid "Dashboard"
+msgstr "Nástenka"
+
+msgid "Edit your account"
+msgstr "Upraviť váš účet"
+
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebola nájdená"
 
@@ -279,9 +249,6 @@ msgstr "Choď do administrátorskej časti"
 msgid "Account"
 msgstr "Účet"
 
-msgid "Update"
-msgstr "Aktualizovať"
-
 msgid "Change password"
 msgstr "Zmeniť heslo"
 
@@ -289,12 +256,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Vaše heslo nemôže byť zmenené. Prosím kontaktujte administrátora sídla."
-
-msgid "Language Preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Notification preferences"
-msgstr "Notifikačné nastavenia"
 
 msgid "Reset password"
 msgstr "Resetovať heslo"
@@ -323,17 +284,8 @@ msgstr "Obnova hesla"
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
 
-msgid "Dashboard"
-msgstr "Nástenka"
-
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Posunúť vyššie"
-
-msgid "Move down"
-msgstr "Posunúť nižšie"
 
 msgid "Explorer"
 msgstr "Prehliadač"
@@ -408,9 +360,6 @@ msgid ""
 msgstr ""
 "Nastavenia súkromia určujú, kto bude môcť prezerať dokumenty v kolekcii."
 
-msgid "Save"
-msgstr "Uložiť"
-
 msgid "Public"
 msgstr "Verejná"
 
@@ -432,8 +381,17 @@ msgstr ""
 "Zatiaľ neboli vytvorené žiadne kolekcie. Kliknite a <a href="
 "\"%(add_collection_url)s\">pridajte prvú</a>."
 
+msgid "Move up"
+msgstr "Posunúť vyššie"
+
+msgid "Move down"
+msgstr "Posunúť nižšie"
+
 msgid "Yes, delete"
 msgstr "Áno, zmazať"
+
+msgid "Update"
+msgstr "Aktualizovať"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -446,6 +404,9 @@ msgstr ""
 "Toto je vaša nástenka, na ktorej sa budú zobrazovať informácie o obsahu, "
 "ktorý ste vytvorili."
 
+msgid "Title"
+msgstr "Titulok"
+
 msgid "Edit this page"
 msgstr "Upraviť túto stránku"
 
@@ -457,9 +418,6 @@ msgstr "Live"
 
 msgid "Pages awaiting moderation"
 msgstr "Stránky čakajúce na moderáciu"
-
-msgid "Parent"
-msgstr "Rodič"
 
 msgid "Type"
 msgstr "Typ"
@@ -482,6 +440,9 @@ msgstr "Vaše posledné úpravy"
 msgid "Status"
 msgstr "Stav"
 
+msgid "Date"
+msgstr "Dátum"
+
 msgid "Site summary"
 msgstr "Prehľad sídla"
 
@@ -494,9 +455,6 @@ msgstr "Vaše %(username_field)s a heslo sú nesprávne. Prosím skúste znovu."
 
 msgid "Sign in to Wagtail"
 msgstr "Prihlásiť sa do Wagtail"
-
-msgid "Forgotten it?"
-msgstr "Zabudli ste heslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -547,6 +505,9 @@ msgstr "Táto stránka bola zmenená na súkromnú svojou rodičovskou stránkou
 msgid "Privacy changes apply to all children of this page too."
 msgstr "Zmeny súkromia tejto stránky sa prejavia tiež všetkým jej podstránkam."
 
+msgid "Saving…"
+msgstr "Ukladám…"
+
 msgid "Replace current draft"
 msgstr "Prepísať aktuálny koncept"
 
@@ -566,6 +527,12 @@ msgstr "Zvoľte typ stránky ktorý chcete vytvoriť"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "Stránky používajúce %(page_type)s"
+
+msgid "Move"
+msgstr "Presunúť"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -616,9 +583,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Presunúť %(title)s"
-
-msgid "Move"
-msgstr "Presunúť"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -674,9 +638,6 @@ msgstr[3] ""
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
 
-msgid "No, don't unpublish"
-msgstr "Nie, nepublikovať"
-
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
 msgstr "Stránky používajúce %(page_class_verbose_name)s"
@@ -701,12 +662,18 @@ msgstr "Nový  %(page_type)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Actions"
+msgstr "Akcie"
+
 msgid "This page has unsaved changes."
 msgstr "Táto stránka má neuložené zmeny."
 
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "Upravujete %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "Používateľ"
 
 msgid "Live version"
 msgstr "Živá verzia"
@@ -993,11 +960,17 @@ msgstr "Zadajte hľadaný výraz"
 msgid "No pages use"
 msgstr "Nepoužívajú žiadne stránky"
 
-msgid "Collection"
-msgstr "Kolekcie"
+msgid "Download CSV"
+msgstr "Stiahnuť CSV"
+
+msgid "Filter"
+msgstr "Filter"
 
 msgid "Locked"
 msgstr "Zamknuté"
+
+msgid "Edit this item"
+msgstr "Upraviť položku"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1012,9 +985,6 @@ msgstr "Domov"
 msgid "All collections"
 msgstr "Všetky kolekcie"
 
-msgid "Edit your account"
-msgstr "Upraviť váš účet"
-
 msgid "Account settings"
 msgstr "Nastavenia účtu"
 
@@ -1023,9 +993,6 @@ msgstr "Odhlásiť sa"
 
 msgid "Other searches"
 msgstr "Ostatné výsledky hľadania"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Pokračovať do administrátorskej časti"
 
 msgid "Add a child page"
 msgstr "Pridať podstránku"
@@ -1040,14 +1007,23 @@ msgstr "od %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Porovnaj s live verziou"
 
+msgid "More"
+msgstr "Viac"
+
+msgid "live"
+msgstr "live"
+
+msgid "draft"
+msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Vaše heslo bolo úspešne zmenené"
-
-msgid "Your preferences have been updated."
-msgstr "Vaše preferencie boli aktulizované."
+msgid "Password"
+msgstr "Heslo"
 
 msgid "You have been successfully logged out."
 msgstr "Boli ste úspešne odhlásení."
@@ -1163,20 +1139,8 @@ msgstr "Najnovšie"
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
 
-msgid "More"
-msgstr "Viac"
-
-msgid "Change the password you use to log in."
-msgstr "Zmeniť heslo ktoré používate na prihlásenie."
-
-msgid "Choose which email notifications to receive."
-msgstr "Zvoľte ktoré emailové notifikácie chcete dostávať"
-
-msgid "Language preferences"
-msgstr "Nastavenia jazyka"
-
-msgid "Choose the language you want to use here."
-msgstr "Vyberte jazyk, ktorá tu chcete používať."
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"
@@ -1186,9 +1150,6 @@ msgstr "Zvoliť daľšiu položku"
 
 msgid "Clear choice"
 msgstr "Zmazať voľbu"
-
-msgid "Edit this item"
-msgstr "Upraviť položku"
 
 msgid "Choose another page"
 msgstr "Zvoliť ďalšiu stránku"

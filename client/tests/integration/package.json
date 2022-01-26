@@ -1,0 +1,11 @@
+{
+  "name": "wagtail-client-tests-integration",
+  "private": true,
+  "devDependencies": {
+    "@wordpress/jest-puppeteer-axe": "^3.1.0",
+    "expect-puppeteer": "^6.0.0",
+    "jest": "^27.3.1",
+    "jest-junit": "^13.0.0",
+    "puppeteer": "^11.0.0"
+  }
+}

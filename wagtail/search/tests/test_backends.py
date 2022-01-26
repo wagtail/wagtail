@@ -1,21 +1,24 @@
 # coding: utf-8
-
 import unittest
 
 from collections import OrderedDict
 from datetime import date
 from io import StringIO
+from unittest import mock
 
 from django.conf import settings
 from django.core import management
+from django.db import connection
 from django.test import TestCase
 from django.test.utils import override_settings
 from taggit.models import Tag
 
 from wagtail.search.backends import (
     InvalidSearchBackendError, get_search_backend, get_search_backends)
-from wagtail.search.backends.base import FieldError, FilterFieldError
-from wagtail.search.backends.db import DatabaseSearchBackend
+from wagtail.search.backends.base import BaseSearchBackend, FieldError, FilterFieldError
+from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+from wagtail.search.backends.database.sqlite.utils import fts5_available
+from wagtail.search.models import IndexEntry
 from wagtail.search.query import MATCH_ALL, MATCH_NONE, And, Boost, Not, Or, Phrase, PlainText
 from wagtail.tests.search import models
 from wagtail.tests.utils import WagtailTestUtils
@@ -36,6 +39,9 @@ class BackendTests(WagtailTestUtils):
         else:
             # no conf entry found - skip tests for this backend
             raise unittest.SkipTest("No WAGTAILSEARCH_BACKENDS entry for the backend %s" % self.backend_path)
+
+        # HACK: This is a hack to delete all the index entries that may be present in the test database before each test is run.
+        IndexEntry.objects.all().delete()
 
         management.call_command('update_index', backend_name=self.backend_name, stdout=StringIO(), chunk_size=50)
 
@@ -554,7 +560,7 @@ class BackendTests(WagtailTestUtils):
                              'JavaScript: The good parts'})
 
     def test_plain_text_multiple_words_and(self):
-        results = self.backend.search(PlainText('JavaScript Definitive',
+        results = self.backend.search(PlainText('JavaScript Definitive Guide',
                                                 operator='and'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results},
@@ -657,7 +663,6 @@ class BackendTests(WagtailTestUtils):
         results = self.backend.search(~PlainText('javascript'),
                                       models.Book.objects.all())
         self.assertSetEqual({r.title for r in results}, all_other_titles)
-
         # Tests multiple words
         results = self.backend.search(~PlainText('javascript the'),
                                       models.Book.objects.all())
@@ -689,21 +694,99 @@ class BackendTests(WagtailTestUtils):
 
 @override_settings(
     WAGTAILSEARCH_BACKENDS={
-        'default': {'BACKEND': 'wagtail.search.backends.db'}
+        'default': {'BACKEND': 'wagtail.search.backends.database'}
     }
 )
 class TestBackendLoader(TestCase):
-    def test_import_by_name(self):
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_name_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
         db = get_search_backend(backend='default')
         self.assertIsInstance(db, DatabaseSearchBackend)
 
-    def test_import_by_path(self):
-        db = get_search_backend(backend='wagtail.search.backends.db')
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_path_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
+        db = get_search_backend(backend='wagtail.search.backends.database')
         self.assertIsInstance(db, DatabaseSearchBackend)
 
-    def test_import_by_full_path(self):
-        db = get_search_backend(backend='wagtail.search.backends.db.DatabaseSearchBackend')
+    @mock.patch('wagtail.search.backends.database.connection')
+    def test_import_by_full_path_unknown_db_vendor(self, connection):
+        connection.vendor = 'unknown'
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
         self.assertIsInstance(db, DatabaseSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_name_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='default')
+        self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_path_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database')
+        self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'postgresql', 'Only applicable to PostgreSQL database systems')
+    def test_import_by_full_path_postgres_db_vendor(self):
+        from wagtail.search.backends.database.postgres.postgres import PostgresSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+        self.assertIsInstance(db, PostgresSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_name_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='default')
+        self.assertIsInstance(db, MySQLSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_path_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database')
+        self.assertIsInstance(db, MySQLSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'mysql', 'Only applicable to MySQL database systems')
+    def test_import_by_full_path_mysql_db_vendor(self):
+        from wagtail.search.backends.database.mysql.mysql import MySQLSearchBackend
+        db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+        self.assertIsInstance(db, MySQLSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
+    def test_import_by_name_sqlite_db_vendor(self):
+        # This should return the fallback backend, because the SQLite backend doesn't support versions less than 3.19.0
+        if not fts5_available():
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='default')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='default')
+            self.assertIsInstance(db, SQLiteSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
+    def test_import_by_path_sqlite_db_vendor(self):
+        # Same as above
+        if not fts5_available():
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database')
+            self.assertIsInstance(db, SQLiteSearchBackend)
+
+    @unittest.skipIf(connection.vendor != 'sqlite', 'Only applicable to SQLite database systems')
+    def test_import_by_full_path_sqlite_db_vendor(self):
+        # Same as above
+        if not fts5_available():
+            from wagtail.search.backends.database.fallback import DatabaseSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+            self.assertIsInstance(db, DatabaseSearchBackend)
+        else:
+            from wagtail.search.backends.database.sqlite.sqlite import SQLiteSearchBackend
+            db = get_search_backend(backend='wagtail.search.backends.database.SearchBackend')
+            self.assertIsInstance(db, SQLiteSearchBackend)
 
     def test_nonexistent_backend_import(self):
         self.assertRaises(
@@ -717,7 +800,8 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DatabaseSearchBackend)
+        if not issubclass(type(backends[0]), BaseSearchBackend):
+            self.fail()
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={}
@@ -726,15 +810,16 @@ class TestBackendLoader(TestCase):
         backends = list(get_search_backends())
 
         self.assertEqual(len(backends), 1)
-        self.assertIsInstance(backends[0], DatabaseSearchBackend)
+        if not issubclass(type(backends[0]), BaseSearchBackend):
+            self.fail()
 
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db'
+                'BACKEND': 'wagtail.search.backends.database'
             },
             'another-backend': {
-                'BACKEND': 'wagtail.search.backends.db'
+                'BACKEND': 'wagtail.search.backends.database'
             },
         }
     )
@@ -752,7 +837,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db',
+                'BACKEND': 'wagtail.search.backends.database',
                 'AUTO_UPDATE': False,
             },
         }
@@ -765,7 +850,7 @@ class TestBackendLoader(TestCase):
     @override_settings(
         WAGTAILSEARCH_BACKENDS={
             'default': {
-                'BACKEND': 'wagtail.search.backends.db',
+                'BACKEND': 'wagtail.search.backends.database',
                 'AUTO_UPDATE': False,
             },
         }

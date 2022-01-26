@@ -60,3 +60,25 @@ class TestLoginView(TestCase, WagtailTestUtils):
     def test_bidi_language_changes_dir_attribute(self):
         response = self.client.get(reverse('wagtailadmin_login'))
         self.assertContains(response, '<html class="no-js" lang="he" dir="rtl">')
+
+    @override_settings(WAGTAILADMIN_USER_LOGIN_FORM="wagtail.admin.tests.test_forms.CustomLoginForm")
+    def test_login_page_renders_extra_fields(self):
+        response = self.client.get(reverse('wagtailadmin_login'))
+        self.assertContains(response, '<input type="text" name="captcha" required id="id_captcha">')
+
+    def test_session_expire_on_browser_close(self):
+        self.client.post(reverse('wagtailadmin_login'), {
+            'username': 'test@email.com',
+            'password': 'password',
+        })
+        self.assertTrue(self.client.session.get_expire_at_browser_close())
+
+    @override_settings(SESSION_COOKIE_AGE=7)
+    def test_session_expiry_remember(self):
+        self.client.post(reverse('wagtailadmin_login'), {
+            'username': 'test@email.com',
+            'password': 'password',
+            'remember': True
+        })
+        self.assertFalse(self.client.session.get_expire_at_browser_close())
+        self.assertEqual(self.client.session.get_expiry_age(), 7)

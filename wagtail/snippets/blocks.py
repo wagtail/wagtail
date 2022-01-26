@@ -18,5 +18,16 @@ class SnippetChooserBlock(ChooserBlock):
         from wagtail.snippets.widgets import AdminSnippetChooser
         return AdminSnippetChooser(self.target_model)
 
+    def get_form_state(self, value):
+        value_data = self.widget.get_value_data(value)
+        if value_data is None:
+            return None
+        else:
+            return {
+                'id': value_data['id'],
+                'edit_link': value_data['edit_url'],
+                'string': value_data['string'],
+            }
+
     class Meta:
         icon = "snippet"

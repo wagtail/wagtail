@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Dino Aljević <dino8890@protonmail.com>, 2020
+# Dino Aljević <dino8890@protonmail.com>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2020\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
 "teams/8009/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Jezik"
 msgid "Select a new language"
 msgstr "Odaberite novi jezik"
 
+msgid "This locale's language code is not supported"
+msgstr "Jezična oznaka lokaliteta nije podržana"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -45,17 +48,14 @@ msgstr ""
 "Jezična oznaka lokaliteta nije podržana. Molimo odaberite novi jezik ili "
 "izbrišite ovaj lokalitet."
 
-msgid "Usage"
-msgstr "Upotreba"
-
-msgid "This locale's language code is not supported"
-msgstr "Jezična oznaka lokaliteta nije podržana"
-
 msgid "Locales"
 msgstr "Lokaliteti"
 
 msgid "Add a locale"
 msgstr "Dodaj lokalitet"
+
+msgid "Usage"
+msgstr "Upotreba"
 
 msgid "Add locale"
 msgstr "Dodaj lokalitet"
@@ -75,12 +75,17 @@ msgstr "Izbriši lokalitet"
 msgid "Locale '{0}' deleted."
 msgstr "Lokalitet '{0}' je izbrisan."
 
+msgid "Are you sure you want to delete this locale?"
+msgstr "Jeste li sigurni da želite izbrisati lokalitet?"
+
+msgid "This locale cannot be deleted because there are no other locales."
+msgstr ""
+"Lokalitet nije moguće izbrisati zato što ne postoji niti jedan drugi "
+"lokalitet."
+
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
 msgstr ""
 "Lokalitet nije moguće izbrisati zato što ga koriste stranice i/ili ostali "
 "objekti."
-
-msgid "Are you sure you want to delete this locale?"
-msgstr "Jeste li sigurni da želite izbrisati lokalitet?"

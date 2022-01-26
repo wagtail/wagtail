@@ -4,15 +4,16 @@
 #
 # Translators:
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
+# Martin Sandström <martin@marteinn.se>, 2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-04-22 11:46+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-28 18:16+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -122,6 +123,16 @@ msgstr "Hem"
 #, python-format
 msgid " By %(filter_title)s "
 msgstr "Av %(filter_title)s"
+
+msgid "Last updated"
+msgstr "Senast ändrad"
+
+msgid "History"
+msgstr "Historik"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s av %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
@@ -236,3 +247,9 @@ msgstr "Inspekterar"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Inspekterar%s"
+
+msgid "Action"
+msgstr "Handling"
+
+msgid "Date"
+msgstr "Datum"

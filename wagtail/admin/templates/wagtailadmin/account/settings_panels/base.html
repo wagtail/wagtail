@@ -1,0 +1,7 @@
+{% block content %}
+    <ul class="fields">
+        {% for field in form %}
+            {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
+    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
 
     <div class="row row-flush">
 
@@ -12,10 +12,10 @@
             <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
-                <footer>
+                <footer class="footer">
                     <nav aria-label="{% trans 'Actions' %}">
                         <ul>
-                            <li class="actions actions--primary">
+                            <li class="actions actions--primary footer__container">
                                 <div class="dropdown dropup dropdown-button match-width">
                                     {{ action_menu.render_html }}
                                 </div>
@@ -51,4 +51,24 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ edit_handler.form.media.js }}
     {{ edit_handler.html_declarations }}
+
+    <script>
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+
+        $(function() {
+            $('[data-wagtail-tooltip]').tooltip({
+                animation: false,
+                title: function() {
+                    return $(this).attr('data-wagtail-tooltip');
+                },
+                trigger: 'hover',
+                placement: 'bottom',
+            });
+        })
+    </script>
 {% endblock %}

@@ -5,15 +5,15 @@
 # Translators:
 # Andy Kong <worminfo@gmail.com>, 2020
 # ongchi <ihcgno@icloud.com>, 2019
-# ongchi <ihcgno@icloud.com>, 2020
+# ongchi <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-07 14:59+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 12:59+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -50,6 +50,9 @@ msgstr "刪除"
 msgid "Lock"
 msgstr "鎖定"
 
+msgid "Apply editor lock"
+msgstr "套用編輯鎖定"
+
 msgid "Unlock"
 msgstr "解鎖"
 
@@ -77,9 +80,6 @@ msgstr "定時發佈"
 msgid "Privacy"
 msgstr "隱蔽設置"
 
-msgid "Common page configuration"
-msgstr "常用頁面配置"
-
 msgid "Content"
 msgstr "內容"
 
@@ -89,29 +89,32 @@ msgstr "推薦"
 msgid "Settings"
 msgstr "設置"
 
+msgid "Date from"
+msgstr "起始日期"
+
+msgid "Date to"
+msgstr "結束日期"
+
 msgid "All"
 msgstr "全部"
 
-msgid "Started at"
-msgstr "開始於"
+msgid "Preferred language"
+msgstr "首選語言"
 
-msgid "Show"
-msgstr "顯示"
+msgid "Current time zone"
+msgstr "當前時區"
 
-msgid "Awaiting my review"
-msgstr "待審中"
+msgid "First Name"
+msgstr "名"
 
-msgid "Completed at"
-msgstr "完成時間"
+msgid "Last Name"
+msgstr "姓"
 
-msgid "Workflow"
-msgstr "工作流程"
+msgid "Email"
+msgstr "電子郵件"
 
-msgid "Date"
-msgstr "日期"
-
-msgid "Title"
-msgstr "標題"
+msgid "Upload a profile picture"
+msgstr "上傳新的頭像"
 
 msgid "Enter password"
 msgstr "輸入密碼"
@@ -126,8 +129,29 @@ msgstr "輸入電子郵件地址以重置密碼"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "上一級"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "對於同一個集合你不能設置多重權限"
+
+msgid "Collection"
+msgstr "集合"
+
+msgid "Add"
+msgstr "新增"
+
+msgid "Add collections"
+msgstr "新增集合"
+
+msgid "Edit"
+msgstr "編輯"
+
+msgid "Edit collections"
+msgstr "編輯集合"
+
+msgid "Delete collections"
+msgstr "刪除集合"
 
 msgid "New title"
 msgstr "新增標題"
@@ -221,84 +245,6 @@ msgstr "命名工作流程"
 msgid "Add tasks to your workflow"
 msgstr "增加作業至工作流程"
 
-msgid "Arabic"
-msgstr "阿拉伯語"
-
-msgid "Catalan"
-msgstr "加泰羅尼亞語"
-
-msgid "German"
-msgstr "德語"
-
-msgid "Greek"
-msgstr "希臘語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "西班牙語"
-
-msgid "Finnish"
-msgstr "芬蘭語"
-
-msgid "French"
-msgstr "法語"
-
-msgid "Galician"
-msgstr "加利西亞語"
-
-msgid "Indonesian"
-msgstr "印度尼西亞"
-
-msgid "Icelandic"
-msgstr "冰島語"
-
-msgid "Italian"
-msgstr "義大利語"
-
-msgid "Korean"
-msgstr "韓國語"
-
-msgid "Lithuanian"
-msgstr "立陶宛語"
-
-msgid "Norwegian Bokmål"
-msgstr "挪威博克馬爾語"
-
-msgid "Netherlands Dutch"
-msgstr "荷蘭語"
-
-msgid "Persian"
-msgstr "波斯語"
-
-msgid "Polish"
-msgstr "波蘭語"
-
-msgid "Brazilian Portuguese"
-msgstr "巴西葡萄牙語"
-
-msgid "Portuguese"
-msgstr "葡萄牙語"
-
-msgid "Romanian"
-msgstr "羅馬尼亞語"
-
-msgid "Russian"
-msgstr "俄語"
-
-msgid "Swedish"
-msgstr "瑞典語"
-
-msgid "Slovak"
-msgstr "斯洛伐克語"
-
-msgid "Ukrainian"
-msgstr "烏克蘭語"
-
-msgid "Edit"
-msgstr "編輯"
-
 msgid "Page"
 msgstr "頁面"
 
@@ -372,9 +318,41 @@ msgstr "檢視 '{title}' 子頁面"
 msgid "Page explorer"
 msgstr "頁面瀏覽器"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "未知 %(action)s"
+msgid "Save"
+msgstr "儲存"
+
+msgid "Saving..."
+msgstr "儲存中..."
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Deleting..."
+msgstr "刪除中..."
+
+msgid "Reply"
+msgstr "回覆"
+
+msgid "Retry"
+msgstr "重試"
+
+msgid "Comment"
+msgstr "評論"
+
+msgid "More actions"
+msgstr "更多動作"
+
+msgid "Dashboard"
+msgstr "控制面板"
+
+msgid "Edit your account"
+msgstr "編輯帳號"
+
+msgid "1 page selected"
+msgstr "已選擇1頁面"
+
+msgid "{0} pages selected"
+msgstr "已選擇{0}頁面"
 
 msgid "Error 404: Page not found"
 msgstr "404錯誤：沒有找到頁面"
@@ -391,36 +369,12 @@ msgstr "轉到管理界面"
 msgid "Account"
 msgstr "帳號"
 
-msgid "Change profile picture"
-msgstr "更改個人資料圖片"
-
-msgid "Your current profile picture:"
-msgstr "您目前的個人資料圖片："
-
-msgid "Update"
-msgstr "更新"
-
-msgid "Change email"
-msgstr "更改電子郵件"
-
-msgid "Change name"
-msgstr "更改名稱"
-
 msgid "Change password"
 msgstr "更改密碼"
 
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "您不能修改密碼，請聯系管理員。"
-
-msgid "Set Time Zone"
-msgstr "設定時區"
-
-msgid "Language Preferences"
-msgstr "語言偏好設定"
-
-msgid "Notification preferences"
-msgstr "通知偏好設定"
 
 msgid "Reset password"
 msgstr "重置密碼"
@@ -465,17 +419,20 @@ msgstr "密碼已重置。"
 msgid "Reset your password"
 msgstr "重置密碼"
 
-msgid "Dashboard"
-msgstr "控制面板"
+msgid "Reset to default"
+msgstr "重置為預設值"
 
 msgid "Menu"
 msgstr "選單"
 
-msgid "Move up"
-msgstr "上移"
+msgid "Go back"
+msgstr "返回"
 
-msgid "Move down"
-msgstr "下移"
+msgid "Select row"
+msgstr "選擇列"
+
+msgid "Select all"
+msgstr "全選"
 
 msgid "Explorer"
 msgstr "資源管理"
@@ -545,9 +502,6 @@ msgid ""
 "Privacy settings determine who is able to view documents in this collection."
 msgstr "隱蔽設置可檢視此文件集合之使用者。"
 
-msgid "Save"
-msgstr "儲存"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "集合隱蔽設定。目前狀態：公開"
 
@@ -578,8 +532,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "增加 %(label)s"
 
+msgid "Move up"
+msgstr "上移"
+
+msgid "Move down"
+msgstr "下移"
+
 msgid "Yes, delete"
 msgstr "確認刪除"
+
+msgid "Update"
+msgstr "更新"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -590,17 +553,11 @@ msgid ""
 "created will be displayed."
 msgstr "此面版可顯示你所建立內容的相關資訊。"
 
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail 已逐步移除對 IE11 的支援，可能對於你或你的組織造成影響。<a href="
-"\"%(url)s\">查看更多有關 IE11 的支援計畫</a>"
-
 msgid "Your locked pages"
 msgstr "你已鎖定的頁面"
+
+msgid "Title"
+msgstr "標題"
 
 msgid "Locked at"
 msgstr "鎖定於"
@@ -620,9 +577,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "等待頁面審核中"
-
-msgid "Parent"
-msgstr "上一級"
 
 msgid "Type"
 msgstr "類型"
@@ -647,6 +601,9 @@ msgstr "最近編輯"
 
 msgid "Status"
 msgstr "狀態"
+
+msgid "Date"
+msgstr "日期"
 
 msgid "Site summary"
 msgstr "網站摘要"
@@ -679,19 +636,16 @@ msgstr "登錄Wagtail"
 msgid "Signing in…"
 msgstr "正在登錄..."
 
-msgid "Forgotten it?"
-msgstr "忘記密碼？"
-
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
-msgstr "頁面\"%(title)s\"已批準。"
+msgstr "頁面 \"%(title)s\" 已核準。"
 
 msgid "You can view the page here:"
-msgstr "在這里查看頁面："
+msgstr "在此查看頁面："
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved"
-msgstr "頁面\"%(title)s\"已批準"
+msgstr "頁面 \"%(title)s\" 已核準"
 
 #, python-format
 msgid "Hello %(username)s,"
@@ -713,10 +667,10 @@ msgstr "頁面\"%(title)s\"被駁回"
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation by %(editor)s."
-msgstr "頁面“%(page)s”已被“%(editor)s”審核"
+msgstr "頁面 “%(page)s” 已由 “%(editor)s” 提交審核"
 
 msgid "You can preview the page here:"
-msgstr "可以在此預覽頁面："
+msgstr "在此預覽頁面："
 
 #, python-format
 msgid "The page \"%(page)s\" has been submitted for moderation"
@@ -725,20 +679,46 @@ msgstr "頁面\"%(page)s\"已提交審核"
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been approved in moderation stage \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 核准"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved in \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 核准"
 
 #, python-format
 msgid ""
 "The page \"%(title)s\" has been rejected in moderation stage \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
+msgstr "頁面 \"%(title)s\" 已於階段 \"%(task)s\" 駁回"
 
 #, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(task)s\"."
-msgstr "此頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+msgstr "頁面 \"%(title)s\" 已於 \"%(task)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval to moderation stage "
+"\"%(task)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for approval in moderation stage "
+"\"%(task)s\" "
+msgstr "頁面 \"%(title)s\" 已提交至審核階段 \"%(task)s\""
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in workflow \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 核準"
+
+#, python-format
+msgid "The page \"%(title)s\" has been approved in \"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已於 \"%(workflow)s\" 核準"
 
 #, python-format
 msgid ""
@@ -755,8 +735,22 @@ msgid ""
 msgstr "頁面 \"%(title)s\" 已於工作流程 \"%(workflow)s\" 之 \"%(task)s\" 駁回"
 
 #, python-format
+msgid "The following comment was left: \"%(comment)s\""
+msgstr "意見如下： \"%(comment)s\""
+
+#, python-format
 msgid "The page \"%(title)s\" has been rejected during \"%(workflow)s\"."
 msgstr "頁面 \"%(title)s\" 已被 \"%(workflow)s\" 駁回"
+
+#, python-format
+msgid ""
+"The page \"%(title)s\" has been submitted for moderation to workflow "
+"\"%(workflow)s\"."
+msgstr "頁面 \"%(title)s\" 已提交至審核工作流程 \"%(workflow)s\" "
+
+#, python-format
+msgid "The page \"%(title)s\" has been submitted to workflow \"%(workflow)s\" "
+msgstr "頁面 \"%(title)s\" 已提交至工作流程 \"%(workflow)s\" "
 
 msgid "Page privacy"
 msgstr "頁面隱蔽設置"
@@ -814,15 +808,21 @@ msgstr "選擇創建的頁面類型"
 msgid "Pages using %(page_type)s"
 msgstr " %(page_type)s類型的頁面"
 
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "No, don't unpublish"
+msgstr "否，不取消發佈"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "轉換別名 %(title)s"
 
 msgid "Convert alias"
 msgstr "轉換別名"
-
-msgid "Are you sure you want to convert this alias into a regular page?"
-msgstr "確定將此別名轉換為一般頁面？"
 
 msgid "This action cannot be undone."
 msgstr "此操作無法復原"
@@ -873,9 +873,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "移動%(title)s"
 
-msgid "Move"
-msgstr "移動"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "確定將此頁面移到 '%(title)s'？"
@@ -915,9 +912,6 @@ msgstr[0] ""
 msgid "Yes, unpublish it"
 msgstr "是，取消發佈"
 
-msgid "No, don't unpublish"
-msgstr "否，不取消發佈"
-
 msgid "Publish page"
 msgstr "發佈頁面"
 
@@ -947,9 +941,6 @@ msgstr "發佈此頁面將取消目前工作流程"
 
 msgid "Would you still like to publish this page?"
 msgstr "確定仍要發佈此頁面？"
-
-msgid "Cancel"
-msgstr "取消"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -998,9 +989,6 @@ msgstr "此頁面為其它頁面之別名"
 msgid "Edit original page"
 msgstr "編輯原始面頁"
 
-msgid "Convert this alias into a regular page"
-msgstr "將此別名轉換為一般頁面"
-
 #, python-format
 msgid "Page history for %(subtitle)s"
 msgstr "%(subtitle)s 頁面歷史"
@@ -1013,9 +1001,6 @@ msgstr "使用者"
 
 msgid "Date / Time"
 msgstr "日期/時間"
-
-msgid "Comment"
-msgstr "評論"
 
 msgid "Live version"
 msgstr "線上版本"
@@ -1329,6 +1314,9 @@ msgstr "初始版本"
 msgid "Page edited"
 msgstr "已編輯頁面"
 
+msgid "with comment:"
+msgstr "意見："
+
 msgid "Workflow started"
 msgstr "已開始工作流程"
 
@@ -1338,14 +1326,14 @@ msgstr "已完成工作流程"
 msgid "Edit page"
 msgstr "編輯頁面"
 
+msgid "Started at"
+msgstr "開始於"
+
 msgid "Approved task"
 msgstr "已核准作業"
 
 msgid "Incomplete task"
 msgstr "未完成作業"
-
-msgid "Collection"
-msgstr "集合"
 
 msgid "Download XLSX"
 msgstr "下載 XLSX"
@@ -1368,6 +1356,15 @@ msgstr "已鎖定"
 msgid "No locked pages found."
 msgstr "沒有已被鎖定頁面"
 
+msgid "Edit this item"
+msgstr "編輯此項"
+
+msgid "Workflow"
+msgstr "工作流程"
+
+msgid "Completed at"
+msgstr "完成時間"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "第 %(page_num)s 頁，共 %(total_pages)s 頁。"
@@ -1380,9 +1377,6 @@ msgstr "主頁"
 
 msgid "All collections"
 msgstr "所有集合"
-
-msgid "Edit your account"
-msgstr "編輯帳號"
 
 msgid "Account settings"
 msgstr "帳號設置"
@@ -1407,9 +1401,6 @@ msgstr "已發佈"
 
 msgid "Draft saved"
 msgstr "已儲存草稿"
-
-msgid "Go to Wagtail admin interface"
-msgstr "轉到管理界面"
 
 msgid "Add a child page"
 msgstr "新增子頁面"
@@ -1523,23 +1514,26 @@ msgstr "檢視完整歷史"
 msgid "Compare with live version"
 msgstr "與線上版本進行比較"
 
+msgid "More"
+msgstr "更多"
+
 msgid "0 minutes"
 msgstr "0 分鐘"
+
+msgid "live"
+msgstr "在用"
+
+msgid "draft"
+msgstr "草稿"
+
+msgid "live + draft"
+msgstr "發佈+草稿"
 
 msgid "Test"
 msgstr "測試"
 
-msgid "Your password has been changed successfully!"
-msgstr "密碼成功修改！"
-
-msgid "Your email has been changed successfully!"
-msgstr "修改郵箱成功！😊"
-
-msgid "Your preferences have been updated."
-msgstr "你的首選項已被更新。"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "已更新您的配置！"
+msgid "Password"
+msgstr "密碼"
 
 msgid "You have been successfully logged out."
 msgstr "成功登出"
@@ -1626,7 +1620,7 @@ msgid "Page '{0}' has been published."
 msgstr "頁面 '{0}' 已經發佈。"
 
 msgid "Page '{0}' has been submitted for moderation."
-msgstr "頁面 '{0}' 已經提交給版主。"
+msgstr "頁面 '{0}' 已提交審核。"
 
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "已重啟頁面  '{0}' 之工作流程"
@@ -1670,8 +1664,23 @@ msgstr " \"{1}\"的修訂版本{0}"
 msgid "Page '{0}' unpublished."
 msgstr "頁面'{0}'已取消發佈。"
 
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "操作類型"
+
+msgid "Date/Time"
+msgstr "日期/時間"
+
 msgid "Locked pages"
 msgstr "已被鎖定頁面"
+
+msgid "Show"
+msgstr "顯示"
+
+msgid "Awaiting my review"
+msgstr "待審中"
 
 msgid "Workflows"
 msgstr "工作流程"
@@ -1687,15 +1696,6 @@ msgstr "頁面標題"
 
 msgid "Workflow tasks"
 msgstr "工作流程作業"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "操作類型"
-
-msgid "Date/Time"
-msgstr "日期/時間"
 
 msgid "Add a workflow"
 msgstr "增加工作流程"
@@ -1755,6 +1755,9 @@ msgstr "已禁用作業 '{0}'"
 msgid "Task '{0}' enabled."
 msgstr "已啟用作業 '{0}'"
 
+msgid "Report this error to your webmaster with the following information:"
+msgstr "將此錯誤報告給你的網路管理員，包含如下信息："
+
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr "編輯 '%(title)s'"
@@ -1767,9 +1770,6 @@ msgstr "預覽草稿版本 '%(title)s'"
 msgid "Add a child page to '%(title)s' "
 msgstr "新增子頁面至 '%(title)s'"
 
-msgid "More"
-msgstr "更多"
-
 #, python-format
 msgid "Move page '%(title)s'"
 msgstr "移動頁面 '%(title)s'"
@@ -1781,33 +1781,6 @@ msgstr "取消發佈頁面 '%(title)s'"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "檢視 '%(title)s' 歷史頁面"
-
-msgid "Set profile picture"
-msgstr "頭像設置"
-
-msgid "Change your profile picture."
-msgstr "更改你的個人資料圖片"
-
-msgid "Change the email address linked to your account."
-msgstr "更改帳號關聯信箱"
-
-msgid "Change the password you use to log in."
-msgstr "修改用於登錄的密碼"
-
-msgid "Choose which email notifications to receive."
-msgstr "選擇接收哪些郵件提醒"
-
-msgid "Language preferences"
-msgstr "語言首選項"
-
-msgid "Choose the language you want to use here."
-msgstr "請在這里選擇你想使用的語言。"
-
-msgid "Current Time Zone"
-msgstr "當前時區"
-
-msgid "Choose your current time zone."
-msgstr "選擇你的當前時區"
 
 msgid "Bulleted list"
 msgstr "項目列表"
@@ -1845,132 +1818,6 @@ msgstr "已被鎖定頁面"
 msgid "Reports"
 msgstr "報告"
 
-msgid "Created"
-msgstr "已建立"
-
-msgid "Deleted"
-msgstr "已刪除"
-
-msgid "Unpublished"
-msgstr "取消發佈"
-
-msgid "Unlocked"
-msgstr "已解鎖"
-
-msgid "Approved"
-msgstr "己核准"
-
-msgid "Rejected"
-msgstr "已駁回"
-
-msgid "Reverted to previous revision"
-msgstr "已還原至前版本"
-
-msgid "Copied"
-msgstr "已複製"
-
-msgid "Created an alias"
-msgstr "建立別名"
-
-msgid "Converted an alias into a regular page"
-msgstr "轉換別名為一般頁面"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "由 '%(old_parent)s' 移動至 '%(new_parent)s'"
-
-msgid "Added view restriction"
-msgstr "新增檢視限制"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "更新檢視限制為 '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "已更新檢視限制"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "移除檢視限制 '%(restriction)s'"
-
-msgid "Removed view restriction"
-msgstr "已移除檢視限制"
-
-msgid "Renamed"
-msgstr "已更名"
-
-msgid "Rename"
-msgstr "重新命名"
-
-msgid "Revert"
-msgstr "復原"
-
-msgid "Create alias"
-msgstr "建立別名"
-
-msgid "Convert alias into regular page"
-msgstr "轉換別名為一般頁面"
-
-msgid "Add view restrictions"
-msgstr "新增檢視限制"
-
-msgid "Update view restrictions"
-msgstr "更新檢視限制"
-
-msgid "Remove view restrictions"
-msgstr "移除檢視限制"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "已開始 '%(workflow)s' ，下一步驟 '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "已核准 '%(task)s' ，下一步驟 '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "已核准 '%(task)s' ，'%(workflow)s' 完成"
-
-msgid "Workflow task approved"
-msgstr "已核准工作流程作業"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "已駁回 '%(task)s' ，需進行變更"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "已駁回工作流程作業。工作流程完成"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "重新提交 '%(task)s' ，已繼續工作流程"
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "重新提交工作流程作業，已繼續工作流程"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "已取消 '%(workflow)s' 於 '%(task)s'"
-
-msgid "Workflow cancelled"
-msgstr "已取消工作流程"
-
-msgid "Workflow: start"
-msgstr "工作流程：開始"
-
-msgid "Workflow: approve task"
-msgstr "工作流程：核准作業"
-
-msgid "Workflow: reject task"
-msgstr "工作流程：駁回作業"
-
-msgid "Workflow: resume task"
-msgstr "工作流程：繼續作業"
-
-msgid "Workflow: cancel"
-msgstr "工作流程：取消"
-
 msgid "Yes"
 msgstr "是"
 
@@ -1985,9 +1832,6 @@ msgstr "選擇其它項"
 
 msgid "Clear choice"
 msgstr "清除選擇"
-
-msgid "Edit this item"
-msgstr "編輯此項"
 
 msgid "Choose another page"
 msgstr "選擇其它頁面"

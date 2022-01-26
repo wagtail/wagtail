@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.StaticBlock HTML escaping it renders correctly 1`] = `"<div>The admin text &lt;script&gt;somethingBad();&lt;/script&gt;</div>"`;
+
+exports[`telepath: wagtail.blocks.StaticBlock allows safe HTML it renders correctly 1`] = `"<div>The admin text <script>somethingBad();</script></div>"`;
+
+exports[`telepath: wagtail.blocks.StaticBlock it renders correctly 1`] = `"<div>The admin text</div>"`;

@@ -19,4 +19,4 @@ class TestRegister(TestCase, WagtailTestUtils):
 
     def test_icon(self):
         admin = self.client.get(reverse('wagtailadmin_home'))
-        self.assertContains(admin, 'icon icon-tag')
+        self.assertContains(admin, 'icon-setting-tag')

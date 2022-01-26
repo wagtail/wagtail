@@ -25,7 +25,7 @@ Whenever a user creates a page through the Wagtail admin, that user is designate
 
 The full set of available permission types is as follows:
 
-* **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see :ref:`page_type_business_rules`), and to edit and delete pages owned by the current user. Published pages cannot be deleted unless the user also has 'publish' permission.
+* **Add** - grants the ability to create new subpages underneath this page (provided the page model permits this - see :ref:`Parent page / subpage type rules<page_type_business_rules>`), and to edit and delete pages owned by the current user. Published pages cannot be deleted unless the user also has 'publish' permission.
 * **Edit** - grants the ability to edit and delete this page, and any pages underneath it, regardless of ownership. A user with only 'edit' permission may not create new pages, only edit existing ones. Published pages cannot be deleted unless the user also has 'publish' permission.
 * **Publish** - grants the ability to publish and unpublish this page and/or its children. A user without publish permission cannot directly make changes that are visible to visitors of the website; instead, they must submit their changes for moderation. Publish permission is independent of edit permission; a user with only publish permission will not be able to make any edits of their own.
 * **Bulk delete** - allows a user to delete pages that have descendants, in a single operation. Without this permission, a user has to delete the descendant pages individually before deleting the parent. This is a safeguard against accidental deletion. This permission must be used in conjunction with 'add' / 'edit' permission, as it does not provide any deletion rights of its own; it only provides a 'shortcut' for the permissions the user has already. For example, a user with just 'add' and 'bulk delete' permissions will only be able to bulk-delete if all the affected pages are owned by that user, and are unpublished.
@@ -41,4 +41,25 @@ Image / document permissions
 
 The permission rules for images and documents work on a similar basis to pages. Images and documents are considered to be 'owned' by the user who uploaded them; a user with 'add' permission also has the ability to edit items they own; and deletion is considered equivalent to editing rather than having a specific permission type.
 
-Access to specific sets of images and documents can be controlled by setting up *collections*. By default all images and documents belong to the 'root' collection, but new collections can be created through the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images on root can edit all images; permissions set on other collections apply to that collection only.
+Access to specific sets of images and documents can be controlled by setting up *collections*. By default all images and documents belong to the 'root' collection, but users with appropriate permissions can create new collections the Settings -> Collections area of the admin interface. Permissions set on 'root' apply to all collections, so a user with 'edit' permission for images in the root collection can edit all images; permissions set on other collections only apply to that collection and any of its sub-collections.
+
+The 'choose' permission for images and documents determines which collections are visible within the chooser interface used to select images and document links for insertion into pages (and other models, such as snippets). Typically, all users are granted choose permission for all collections, allowing them to use any uploaded image or document on pages they create, but this permission can be limited to allow creating collections that are only visible to specific groups.
+
+.. _collection_management_permissions:
+
+Collection management permissions
+---------------------------------
+
+Permission for managing collections themselves can be attached at any point in the collection tree. The available collection management permissions are as follows:
+
+* **Add** - grants the ability to create new collections underneath this collection.
+* **Edit** - grants the ability to edit the name of the collection, change its location in the collection tree, and to change the privacy settings for documents within this collection.
+* **Delete** - grants the ability to delete collections that were added below this collection. *Note:* a collection must have no subcollections under it and the collection itself must be empty before it can be deleted.
+
+.. Note::
+    Users are not allowed to move or delete the collection that is used to assign them permission to manage collections.
+
+Displaying custom permissions in the admin
+------------------------------------------
+
+Most permissions will automatically show up in the wagtail admin Group edit form, however, you can also add them using the ``register_permissions`` hook (see :ref:`register_permissions`).

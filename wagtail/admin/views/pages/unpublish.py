@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
+from wagtail.core.actions.unpublish_page import UnpublishPageAction
 from wagtail.core.models import Page, UserPagePermissionsProxy
 
 
@@ -27,13 +28,8 @@ def unpublish(request, page_id):
             if hasattr(result, 'status_code'):
                 return result
 
-        page.unpublish(user=request.user)
-
-        if include_descendants:
-            live_descendant_pages = page.get_descendants().live().specific()
-            for live_descendant_page in live_descendant_pages:
-                if user_perms.for_page(live_descendant_page).can_unpublish():
-                    live_descendant_page.unpublish()
+        action = UnpublishPageAction(page, user=request.user, include_descendants=include_descendants)
+        action.execute(skip_permission_checks=True)
 
         for fn in hooks.get_hooks('after_unpublish_page'):
             result = fn(request, page)

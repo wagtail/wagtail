@@ -46,21 +46,21 @@ Wagtail-specific additions. It includes bare minimum settings and two apps (home
 Minor changes
 ~~~~~~~~~~~~~
 
- * Dropped Django 1.6 support
- * Dropped Python 2.6 and 3.2 support
- * Dropped Elasticsearch 0.90.x support
- * Removed dependency on ``libsass``
- * Users without usernames can now be created and edited in the admin interface
- * Added new translations for Croatian and Finnish
+* Dropped Django 1.6 support
+* Dropped Python 2.6 and 3.2 support
+* Dropped Elasticsearch 0.90.x support
+* Removed dependency on ``libsass``
+* Users without usernames can now be created and edited in the admin interface
+* Added new translations for Croatian and Finnish
 
 
 Core
 ----
 
- * The Page model now records the date/time that a page was first published, as the field ``first_published_at``
- * Increased the maximum length of a page slug from 50 to 255 characters
- * Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
- * Page URL paths can now be longer than 255 characters
+* The Page model now records the date/time that a page was first published, as the field ``first_published_at``
+* Increased the maximum length of a page slug from 50 to 255 characters
+* Added hooks ``register_rich_text_embed_handler`` and ``register_rich_text_link_handler`` for customising link / embed handling within rich text fields
+* Page URL paths can now be longer than 255 characters
 
 
 Admin
@@ -68,76 +68,76 @@ Admin
 
 **UI**
 
- * Improvements to the layout of the left-hand menu footer
- * Menu items of custom apps are now highlighted when being used
- * Added thousands separator for counters on dashboard
- * Added contextual links to admin notification messages
- * When copying pages, it is now possible to specify a place to copy to
- * Added pagination to the snippets listing and chooser
- * Page / document / image / snippet choosers now include a link to edit the chosen item
- * Plain text fields in the page editor now use auto-expanding text areas
- * Added "Add child page" button to admin userbar
- * Added update notifications (See: :ref:`update_notifications`)
+* Improvements to the layout of the left-hand menu footer
+* Menu items of custom apps are now highlighted when being used
+* Added thousands separator for counters on dashboard
+* Added contextual links to admin notification messages
+* When copying pages, it is now possible to specify a place to copy to
+* Added pagination to the snippets listing and chooser
+* Page / document / image / snippet choosers now include a link to edit the chosen item
+* Plain text fields in the page editor now use auto-expanding text areas
+* Added "Add child page" button to admin userbar
+* Added update notifications (See: :ref:`update_notifications`)
 
 
 **Page editor**
 
- * JavaScript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
- * The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
- * Bare text entered in rich text areas is now automatically wrapped in a paragraph element
+* JavaScript includes in the admin backend have been moved to the HTML header, to accommodate form widgets that render inline scripts that depend on libraries such as jQuery
+* The external link chooser in rich text areas now accepts URLs of the form '/some/local/path', to allow linking to non-Wagtail-controlled URLs within the local site
+* Bare text entered in rich text areas is now automatically wrapped in a paragraph element
 
 
 **Edit handlers API**
 
- * ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
- * Page model fields without a ``FieldPanel`` are no longer displayed in the form
- * No longer need to specify the base model on ``InlinePanel`` definitions
- * Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customising_the_tabbed_interface`.
+* ``FieldPanel`` now accepts an optional ``widget`` parameter to override the field's default form widget
+* Page model fields without a ``FieldPanel`` are no longer displayed in the form
+* No longer need to specify the base model on ``InlinePanel`` definitions
+* Page classes can specify an edit_handler property to override the default Content / Promote / Settings tabbed interface. See :ref:`customising_the_tabbed_interface`.
 
 
 **Other admin changes**
 
- * SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
- * Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
- * Password reset view names namespaced to wagtailadmin
- * Removed the need to add permission check on admin views (now automated)
- * Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
- * Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
- * Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
- * Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
- * Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
- * 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
+* SCSS files in wagtailadmin now use absolute imports, to permit overriding by user stylesheets
+* Removed the dependency on ``LOGIN_URL`` and ``LOGIN_REDIRECT_URL`` settings
+* Password reset view names namespaced to wagtailadmin
+* Removed the need to add permission check on admin views (now automated)
+* Reversing ``django.contrib.auth.admin.login`` will no longer lead to Wagtails login view (making it easier to have frontend login views)
+* Added cache-control headers to all admin views. This allows Varnish/Squid/CDN to run on vanilla settings in front of a Wagtail site
+* Date / time pickers now consistently use times without seconds, to prevent JavasSript behaviour glitches when focusing / unfocusing fields
+* Added hook ``construct_homepage_summary_items`` for customising the site summary panel on the admin homepage
+* Renamed the ``construct_wagtail_edit_bird`` hook to ``construct_wagtail_userbar``
+* 'static' template tags are now used throughout the admin templates, in place of ``STATIC_URL``
 
 
 Docs
 ----
 
- * Support for ``django-sendfile`` added
- * Documents now served with correct mime-type
- * Support for ``If-Modified-Since`` HTTP header
+* Support for ``django-sendfile`` added
+* Documents now served with correct mime-type
+* Support for ``If-Modified-Since`` HTTP header
 
 
 Search
 ------
 
- * Search view accepts "page" GET parameter in line with pagination
- * Added :ref:`wagtailsearch_backends_auto_update` flag to search backend settings to enable/disable automatically updating the search index on model changes
+* Search view accepts "page" GET parameter in line with pagination
+* Added :ref:`wagtailsearch_backends_auto_update` flag to search backend settings to enable/disable automatically updating the search index on model changes
 
 
 Routable pages
 --------------
 
- * Added a new decorator-based syntax for RoutablePage, compatible with Django 1.8
+* Added a new decorator-based syntax for RoutablePage, compatible with Django 1.8
 
 
 Bug fixes
 ~~~~~~~~~
 
- * The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
- * Image edit page no longer throws ``OSError`` when the original image is missing
- * Collapsible blocks stay open on any form error
- * Document upload modal no longer switches tabs on form errors
- * ``with_metaclass`` is now imported from Django's bundled copy of the ``six`` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
+* The ``document_served`` signal now correctly passes the Document class as ``sender`` and the document as ``instance``
+* Image edit page no longer throws ``OSError`` when the original image is missing
+* Collapsible blocks stay open on any form error
+* Document upload modal no longer switches tabs on form errors
+* ``with_metaclass`` is now imported from Django's bundled copy of the ``six`` library, to avoid errors on Mac OS X from an outdated system copy of the library being imported
 
 
 Upgrade considerations

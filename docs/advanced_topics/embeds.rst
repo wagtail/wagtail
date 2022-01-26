@@ -33,6 +33,8 @@ nest the embed code.
 The :class:`~wagtail.embeds.block.EmbedBlock` block type allows embeds
 to be placed into a ``StreamField``.
 
+The ``max_width`` and ``max_height`` arguments are sent to the provider when fetching the embed code.
+
 For example:
 
 .. code-block:: python
@@ -42,7 +44,7 @@ For example:
     class MyStreamField(blocks.StreamBlock):
         ...
 
-        embed = EmbedBlock()
+        embed = EmbedBlock(max_width=800, max_height=400)
 
 ``{% embed %}`` tag
 -------------------
@@ -59,7 +61,7 @@ The ``max_width`` argument is sent to the provider when fetching the embed code.
     {% load wagtailembeds_tags %}
 
     {# Embed a YouTube video #}
-    {% embed 'https://www.youtube.com/watch?v=SJXMTtvCxRo' %}
+    {% embed 'https://www.youtube.com/watch?v=Ffu-2jEdLPw' %}
 
     {# This tag can also take the URL from a variable #}
     {% embed page.video_url %}
@@ -78,7 +80,7 @@ fetching the embed code.
     from wagtail.embeds.exceptions import EmbedException
 
     try:
-        embed = get_embed('https://www.youtube.com/watch?v=SJXMTtvCxRo')
+        embed = get_embed('https://www.youtube.com/watch?v=Ffu-2jEdLPw')
 
         print(embed.html)
     except EmbedException:
@@ -117,7 +119,7 @@ provider using the oEmbed protocol. Wagtail has a built-in list of providers
 which are all enabled by default. You can find that provider list at the
 following link:
 
-https://github.com/wagtail/wagtail/blob/master/wagtail/embeds/oembed_providers.py
+https://github.com/wagtail/wagtail/blob/main/wagtail/embeds/oembed_providers.py
 
 .. _customising_embed_providers:
 
@@ -200,10 +202,19 @@ Facebook and Instagram
 As of October 2020, Facebook deprecated their public oEmbed APIs. If you would
 like to embed Facebook or Instagram posts in your site, you will need to
 use the new authenticated APIs. This requires you to set up a Facebook
-Developer Account and create a Facebook App that includes the oEmbed Product.
-Instructions for creating the neccessary app are in the requirements sections of the
+Developer Account and create a Facebook App that includes the `oEmbed Product`.
+Instructions for creating the necessary app are in the requirements sections of the
 `Facebook <https://developers.facebook.com/docs/plugins/oembed>`_
 and `Instagram <https://developers.facebook.com/docs/instagram/oembed>`_ documentation.
+
+As of June 2021, the `oEmbed Product` has been replaced with the `oEmbed Read`
+feature. In order to embed Facebook and Instagram posts your app must activate
+the `oEmbed Read` feature. Furthermore the app must be reviewed and accepted
+by Facebook. You can find the announcement in the `API changelog
+<https://developers.facebook.com/docs/graph-api/changelog/version11.0/#oembed>`_.
+
+Apps that activated the oEmbed Product before June 8, 2021 need to activate
+the oEmbed Read feature and review their app before September 7, 2021.
 
 Once you have your app access tokens (App ID and App Secret), add the Facebook and/or
 Instagram finders to your ``WAGTAILEMBEDS_FINDERS`` setting and configure them with
@@ -221,6 +232,11 @@ the App ID and App Secret from your app:
             'class': 'wagtail.embeds.finders.instagram',
             'app_id': 'YOUR INSTAGRAM APP_ID HERE',
             'app_secret': 'YOUR INSTAGRAM APP_SECRET HERE',
+        },
+
+        # Handles all other oEmbed providers the default way
+        {
+            'class': 'wagtail.embeds.finders.oembed',
         }
     ]
 

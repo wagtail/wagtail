@@ -1,6 +1,8 @@
 import collections
+import json
 import re
 
+from functools import lru_cache
 from importlib import import_module
 
 from django import forms
@@ -8,8 +10,13 @@ from django.core import checks
 from django.core.exceptions import ImproperlyConfigured
 from django.template.loader import render_to_string
 from django.utils.encoding import force_str
+from django.utils.functional import cached_property
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
+
+from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.telepath import JSContext
 
 
 __all__ = ['BaseBlock', 'Block', 'BoundBlock', 'DeclarativeSubBlocksMetaclass', 'BlockWidget', 'BlockField']
@@ -47,15 +54,11 @@ class Block(metaclass=BaseBlock):
         classname = None
         group = ''
 
-    """
-    Setting a 'dependencies' list serves as a shortcut for the common case where a complex block type
-    (such as struct, list or stream) relies on one or more inner block objects, and needs to ensure that
-    the responses from the 'media' and 'html_declarations' include the relevant declarations for those inner
-    blocks, as well as its own. Specifying these inner block objects in a 'dependencies' list means that
-    the base 'media' and 'html_declarations' methods will return those declarations; the outer block type can
-    then add its own declarations to the list by overriding those methods and using super().
-    """
-    dependencies = []
+    # Attributes of Meta which can legally be modified after the block has been instantiated.
+    # Used to implement __eq__. label is not included here, despite it technically being mutable via
+    # set_name, since its value must originate from either the constructor arguments or set_name,
+    # both of which are captured by the equality test, so checking label as well would be redundant.
+    MUTABLE_META_ATTRIBUTES = []
 
     def __new__(cls, *args, **kwargs):
         # adapted from django.utils.deconstruct.deconstructible; capture the arguments
@@ -63,38 +66,6 @@ class Block(metaclass=BaseBlock):
         obj = super(Block, cls).__new__(cls)
         obj._constructor_args = (args, kwargs)
         return obj
-
-    def all_blocks(self):
-        """
-        Return a list consisting of self and all block objects that are direct or indirect dependencies
-        of this block
-        """
-        result = [self]
-        for dep in self.dependencies:
-            result.extend(dep.all_blocks())
-        return result
-
-    def all_media(self):
-        media = forms.Media()
-
-        # In cases where the same block definition appears multiple times within different
-        # container blocks (e.g. a RichTextBlock appearing at the top level of a StreamField as
-        # well as both sides of a StructBlock for producing two-column layouts), we will encounter
-        # identical media declarations. Adding these to the final combined media declaration would
-        # be redundant and add processing time when determining the final media ordering. To avoid
-        # this, we keep a cache of previously-seen declarations and only add unique ones.
-        media_cache = set()
-
-        for block in self.all_blocks():
-            key = block.media.__repr__()
-            if key not in media_cache:
-                media += block.media
-                media_cache.add(key)
-        return media
-
-    def all_html_declarations(self):
-        declarations = filter(bool, [block.html_declarations() for block in self.all_blocks()])
-        return mark_safe('\n'.join(declarations))
 
     def __init__(self, **kwargs):
         if 'classname' in self._constructor_args[1]:
@@ -121,43 +92,18 @@ class Block(metaclass=BaseBlock):
         if not self.meta.label:
             self.label = capfirst(force_str(name).replace('_', ' '))
 
-    @property
-    def media(self):
-        return forms.Media()
-
-    def html_declarations(self):
+    def set_meta_options(self, opts):
         """
-        Return an HTML fragment to be rendered on the form page once per block definition -
-        as opposed to once per occurrence of the block. For example, the block definition
-            ListBlock(label="Shopping list", CharBlock(label="Product"))
-        needs to output a <script type="text/template"></script> block containing the HTML for
-        a 'product' text input, to that these can be dynamically added to the list. This
-        template block must only occur once in the page, even if there are multiple 'shopping list'
-        blocks on the page.
-
-        Any element IDs used in this HTML fragment must begin with definition_prefix.
-        (More precisely, they must either be definition_prefix itself, or begin with definition_prefix
-        followed by a '-' character)
+        Update this block's meta options (out of the ones designated as mutable) from the given dict.
+        Used by the StreamField constructor to pass on kwargs that are to be handled by the block,
+        since the block object has already been created by that point, e.g.:
+        body = StreamField(SomeStreamBlock(), max_num=5)
         """
-        return ''
-
-    def js_initializer(self):
-        """
-        Returns a JavaScript expression string, or None if this block does not require any
-        JavaScript behaviour. This expression evaluates to an initializer function, a function that
-        takes the ID prefix and applies JS behaviour to the block instance with that value and prefix.
-
-        The parent block of this block (or the top-level page code) must ensure that this
-        expression is not evaluated more than once. (The resulting initializer function can and will be
-        called as many times as there are instances of this block, though.)
-        """
-        return None
-
-    def render_form(self, value, prefix='', errors=None):
-        """
-        Render the HTML for this block with 'value' as its content.
-        """
-        raise NotImplementedError('%s.render_form' % self.__class__)
+        for attr, value in opts.items():
+            if attr in self.MUTABLE_META_ATTRIBUTES:
+                setattr(self.meta, attr, value)
+            else:
+                raise TypeError("set_meta_options received unexpected option: %r" % attr)
 
     def value_from_datadict(self, data, files, prefix):
         raise NotImplementedError('%s.value_from_datadict' % self.__class__)
@@ -189,14 +135,6 @@ class Block(metaclass=BaseBlock):
         pointer back to the block definion object).
         """
         return self.meta.default
-
-    def prototype_block(self):
-        """
-        Return a BoundBlock that can be used as a basis for new empty block instances to be added on the fly
-        (new list items, for example). This will have a prefix of '__PREFIX__' (to be dynamically replaced with
-        a real prefix when it's inserted into the page) and a value equal to the block's default value.
-        """
-        return self.bind(self.get_default(), '__PREFIX__')
 
     def clean(self, value):
         """
@@ -231,6 +169,17 @@ class Block(metaclass=BaseBlock):
     def get_prep_value(self, value):
         """
         The reverse of to_python; convert the python value into JSON-serialisable form.
+        """
+        return value
+
+    def get_form_state(self, value):
+        """
+        Convert a python value for this block into a JSON-serialisable representation containing
+        all the data needed to present the value in a form field, to be received by the block's
+        client-side component. Examples of where this conversion is not trivial include rich text
+        (where it needs to be supplied in a format that the editor can process, e.g. ContentState
+        for Draftail) and page / image / document choosers (where it needs to include all displayed
+        data for the selected item, such as title or thumbnail).
         """
         return value
 
@@ -340,7 +289,7 @@ class Block(metaclass=BaseBlock):
             errors.append(checks.Error(
                 "Block name %r is invalid" % self.name,
                 "Block names should follow standard Python conventions for "
-                "variable names: alpha-numeric and underscores, and cannot "
+                "variable names: alphanumeric and underscores, and cannot "
                 "begin with a digit",
                 obj=kwargs.get('field', self),
                 id='wagtailcore.E001',
@@ -395,9 +344,9 @@ class Block(metaclass=BaseBlock):
     def __eq__(self, other):
         """
         Implement equality on block objects so that two blocks with matching definitions are considered
-        equal. (Block objects are intended to be immutable with the exception of set_name(), so here
-        'matching definitions' means that both the 'name' property and the constructor args/kwargs - as
-        captured in _constructor_args - are equal on both blocks.)
+        equal. Block objects are intended to be immutable with the exception of set_name() and any meta
+        attributes identified in MUTABLE_META_ATTRIBUTES, so checking these along with the result of
+        deconstruct (which captures the constructor arguments) is sufficient to identify (valid) differences.
 
         This was originally necessary as a workaround for https://code.djangoproject.com/ticket/24340
         in Django <1.9; the deep_deconstruct function used to detect changes for migrations did not
@@ -439,7 +388,14 @@ class Block(metaclass=BaseBlock):
             # the migration, rather than leaving the migration vulnerable to future changes to FooBlock / BarBlock
             # in models.py.
 
-        return (self.name == other.name) and (self.deconstruct() == other.deconstruct())
+        return (
+            self.name == other.name
+            and self.deconstruct() == other.deconstruct()
+            and all(
+                getattr(self.meta, attr, None) == getattr(other.meta, attr, None)
+                for attr in self.MUTABLE_META_ATTRIBUTES
+            )
+        )
 
 
 class BoundBlock:
@@ -448,9 +404,6 @@ class BoundBlock:
         self.value = value
         self.prefix = prefix
         self.errors = errors
-
-    def render_form(self):
-        return self.block.render_form(self.value, self.prefix, errors=self.errors)
 
     def render(self, context=None):
         return self.block.render(self.value, context=context)
@@ -472,11 +425,14 @@ class BoundBlock:
         """Render the value according to the block's native rendering"""
         return self.block.render(self.value)
 
+    def __repr__(self):
+        return "<block %s: %r>" % (self.block.name or type(self.block).__name__, self.value)
+
 
 class DeclarativeSubBlocksMetaclass(BaseBlock):
     """
     Metaclass that collects sub-blocks declared on the base classes.
-    (cheerfully stolen from https://github.com/django/django/blob/master/django/forms/forms.py)
+    (cheerfully stolen from https://github.com/django/django/blob/main/django/forms/forms.py)
     """
     def __new__(mcs, name, bases, attrs):
         # Collect sub-blocks declared on the current class.
@@ -520,31 +476,58 @@ class BlockWidget(forms.Widget):
     def __init__(self, block_def, attrs=None):
         super().__init__(attrs=attrs)
         self.block_def = block_def
+        self._js_context = None
+
+    def _build_block_json(self):
+        self._js_context = JSContext()
+        self._block_json = json.dumps(self._js_context.pack(self.block_def))
+
+    @property
+    def js_context(self):
+        if self._js_context is None:
+            self._build_block_json()
+
+        return self._js_context
+
+    @property
+    def block_json(self):
+        if self._js_context is None:
+            self._build_block_json()
+
+        return self._block_json
 
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
-        bound_block = self.block_def.bind(value, prefix=name, errors=errors)
-        js_initializer = self.block_def.js_initializer()
-        if js_initializer:
-            js_snippet = """
-                <script>
-                $(function() {
-                    var initializer = %s;
-                    initializer('%s');
-                })
-                </script>
-            """ % (js_initializer, name)
+        value_json = json.dumps(self.block_def.get_form_state(value))
+
+        if errors:
+            errors_json = json.dumps(self.js_context.pack(errors.as_data()))
         else:
-            js_snippet = ''
-        return mark_safe(bound_block.render_form() + js_snippet)
+            errors_json = '[]'
+
+        return format_html(
+            """
+                <div id="{id}" data-block="{block_json}" data-value="{value_json}" data-errors="{errors_json}"></div>
+                <script>
+                    initBlockWidget('{id}');
+                </script>
+            """,
+            id=name, block_json=self.block_json, value_json=value_json, errors_json=errors_json
+        )
 
     def render(self, name, value, attrs=None, renderer=None):
         return self.render_with_errors(name, value, attrs=attrs, errors=None, renderer=renderer)
 
-    @property
+    @cached_property
     def media(self):
-        return self.block_def.all_media() + forms.Media(
+        return self.js_context.media + forms.Media(
+            js=[
+                # needed for initBlockWidget, although these will almost certainly be
+                # pulled in by the block adapters too
+                versioned_static('wagtailadmin/js/telepath/telepath.js'),
+                versioned_static('wagtailadmin/js/telepath/blocks.js'),
+            ],
             css={'all': [
-                'wagtailadmin/css/panels/streamfield.css',
+                versioned_static('wagtailadmin/css/panels/streamfield.css'),
             ]}
         )
 
@@ -572,6 +555,13 @@ class BlockField(forms.Field):
 
     def has_changed(self, initial_value, data_value):
         return self.block.get_prep_value(initial_value) != self.block.get_prep_value(data_value)
+
+
+@lru_cache(maxsize=1)
+def get_help_icon():
+    return render_to_string("wagtailadmin/shared/icon.html", {
+        'name': 'help', 'class_name': 'default'
+    })
 
 
 DECONSTRUCT_ALIASES = {

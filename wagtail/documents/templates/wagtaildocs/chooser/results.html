@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if documents %}
     {% if is_searching %}
         <h2 role="alert">
@@ -12,9 +12,8 @@
         <h2>{% trans "Latest documents" %}</h2>
     {% endif %}
 
-    {% include "wagtaildocs/documents/list.html" with choosing=1 %}
-
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=documents %}
+    {% component table %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=documents linkurl='wagtaildocs:chooser_results' %}
 {% else %}
     {% if documents_exist %}
         <p role="alert">{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>

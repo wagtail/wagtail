@@ -8,7 +8,7 @@
     {% include "wagtailadmin/shared/header.html" with title=title_str %}
 
     <div class="nice-padding">
-        <h2>{% icon "doc-empty-inverse" class_name="initial" %} {{ page.get_admin_display_title }}</h2>
+        <h2>{% icon "doc-empty-inverse" class_name="initial" %} {{ page.specific_deferred.get_admin_display_title }}</h2>
         <p>
             <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button button-small button-secondary">{% trans "Edit / Review" %}</a>
             <a href="{% url 'wagtailadmin_pages:workflow_history' page.id %}" class="button button-small button-secondary">{% trans "Workflow history" %}</a>

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -61,6 +61,12 @@ msgstr "Зүүн-зэрэгцүүлэх"
 msgid "Right-aligned"
 msgstr "Баруун-зэрэгцүүлэх"
 
+msgid "Collection"
+msgstr "Цуглуулга"
+
+msgid "Alt text"
+msgstr "Зургийн тайлбар текст"
+
 msgid "Filter"
 msgstr "Шүүлтүүр"
 
@@ -87,6 +93,9 @@ msgstr "Засах"
 
 msgid "Edit any image"
 msgstr "Ямар ч хуудсыг засах"
+
+msgid "Choose"
+msgstr "Сонгох"
 
 msgid "title"
 msgstr "гарчиг"
@@ -115,6 +124,15 @@ msgstr "зураг"
 msgid "images"
 msgstr "зургууд"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s удаа ашигласан"
+msgstr[1] "Used %(usage_count)s times"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
 msgid "Choose an image"
 msgstr "Зургаа сонгоно уу"
 
@@ -126,9 +144,6 @@ msgstr "Хуулах"
 
 msgid "Popular tags"
 msgstr "Түгээмэл шошгууд"
-
-msgid "Uploading…"
-msgstr "Хуулж байна..."
 
 #, python-format
 msgid ""
@@ -156,6 +171,9 @@ msgstr "Форматаа сонгоно уу"
 msgid "Insert image"
 msgstr "Зураг оруулах"
 
+msgid "Uploading…"
+msgstr "Хуулж байна..."
+
 msgid "Change image file:"
 msgstr "Зургийн файл солих:"
 
@@ -170,18 +188,6 @@ msgstr "Хадгалах"
 
 msgid "Delete image"
 msgstr "Зургийг устгах"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s удаа ашигласан"
-msgstr[1] "Used %(usage_count)s times"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Энэ зургийг үнэхээр устгах уу?"
-
-msgid "Yes, delete"
-msgstr "Тийм, устга"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -224,6 +230,9 @@ msgstr "Хэрэглээ"
 
 msgid "Images"
 msgstr "Зургууд"
+
+msgid "Clear choice"
+msgstr "Сонголтыг цэвэрлэх"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -285,17 +294,14 @@ msgstr "Серверийн алдаа"
 msgid "Image updated."
 msgstr "Зураг шинэчлэгдлээ."
 
-msgid "Update"
-msgstr "Шинэчлэх"
-
-msgid "Delete"
-msgstr "Устгах"
-
 msgid "Image permissions"
 msgstr "Зургийн хандалтын эрх"
 
 msgid "Add an image permission"
 msgstr "Зургийн хандах эрх нэмэх"
+
+msgid "Delete"
+msgstr "Устгах"
 
 msgid "Search images"
 msgstr "Зураг хайх"

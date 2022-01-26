@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -58,6 +58,12 @@ msgstr "แนวราบ-ด้านซ้าย"
 msgid "Right-aligned"
 msgstr "แนวราบ-ด้านขวา"
 
+msgid "Collection"
+msgstr "ชุด"
+
+msgid "Alt text"
+msgstr "ข้อความอย่างอื่น"
+
 msgid "Filter"
 msgstr "กรอง"
 
@@ -100,6 +106,9 @@ msgstr "แก้ไข"
 msgid "Edit any image"
 msgstr "แก้ไขรูปภาพอันไหนก็ได้"
 
+msgid "Choose"
+msgstr "เลือก"
+
 msgid "title"
 msgstr "หัวเรื่อง,หัวข้อ"
 
@@ -127,6 +136,14 @@ msgstr "รูปภาพ"
 msgid "images"
 msgstr "รูปภาพ"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
+
+msgid "Yes, delete"
+msgstr "ใช่,ลบทิ้ง"
+
 msgid "Choose an image"
 msgstr "เลือกรูปภาพ"
 
@@ -138,9 +155,6 @@ msgstr "อัพโหลด"
 
 msgid "Popular tags"
 msgstr "แท็กซ์ที่เป็นที่นิยม"
-
-msgid "Uploading…"
-msgstr "กำลังอัพโหลด...."
 
 #, python-format
 msgid ""
@@ -165,6 +179,9 @@ msgstr "เลือกรูปแบบ"
 msgid "Insert image"
 msgstr "ใส่รูปภาพ"
 
+msgid "Uploading…"
+msgstr "กำลังอัพโหลด...."
+
 msgid "Change image file:"
 msgstr "เปลี่ยนแฟ้มรูปภาพ:"
 
@@ -179,17 +196,6 @@ msgstr "เซฟ"
 
 msgid "Delete image"
 msgstr "ลบรูปภาพ"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "ถูกใช้ %(usage_count)s ครั้ง"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "คุณแน่ใจว่าคุณต้องการลบรูปภาพนี้?"
-
-msgid "Yes, delete"
-msgstr "ใช่,ลบทิ้ง"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -232,6 +238,9 @@ msgstr "การใช้"
 
 msgid "Images"
 msgstr "รูปภาพ"
+
+msgid "Clear choice"
+msgstr "ทางเลือกที่ชัดเจน"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -326,17 +335,14 @@ msgstr "รายงานข้อผิดพลาดนี้ของคุ
 msgid "Image updated."
 msgstr "รูปภาพถูกอัพเดทแล้ว"
 
-msgid "Update"
-msgstr "อัพเดท"
-
-msgid "Delete"
-msgstr "ลบ"
-
 msgid "Image permissions"
 msgstr "การอนุญาตรูปภาพ"
 
 msgid "Add an image permission"
 msgstr "เพิ่มการอนุญาตรูปภาพ"
+
+msgid "Delete"
+msgstr "ลบ"
 
 msgid "Search images"
 msgstr "ค้นหารูปภาพ"

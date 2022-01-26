@@ -6,17 +6,19 @@ from django.db.models import Model
 from django.urls import re_path
 from django.utils.safestring import mark_safe
 
+from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.core import hooks
 from wagtail.core.models import Page
 
 from .helpers import (
-    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, PageAdminURLHelper, PageButtonHelper,
-    PagePermissionHelper, PermissionHelper)
+    AdminURLHelper, ButtonHelper, DjangoORMSearchHandler, ModelAdminURLFinder, PageAdminURLHelper,
+    PageButtonHelper, PagePermissionHelper, PermissionHelper)
 from .menus import GroupMenuItem, ModelAdminMenuItem, SubMenu
 from .mixins import ThumbnailMixin  # NOQA
-from .views import ChooseParentView, CreateView, DeleteView, EditView, IndexView, InspectView
+from .views import (
+    ChooseParentView, CreateView, DeleteView, EditView, HistoryView, IndexView, InspectView)
 
 
 class WagtailRegisterable:
@@ -55,6 +57,11 @@ class WagtailRegisterable:
                 return self.modify_explorer_page_queryset(
                     parent_page, queryset, request)
 
+        self.register_admin_url_finders()
+
+    def register_admin_url_finders(self):
+        pass
+
     def will_modify_explorer_page_queryset(self):
         return False
 
@@ -78,6 +85,7 @@ class ModelAdmin(WagtailRegisterable):
     inspect_view_fields = []
     inspect_view_fields_exclude = []
     inspect_view_enabled = False
+    history_view_enabled = True
     empty_value_display = '-'
     list_filter = ()
     list_select_related = False
@@ -91,12 +99,14 @@ class ModelAdmin(WagtailRegisterable):
     edit_view_class = EditView
     inspect_view_class = InspectView
     delete_view_class = DeleteView
+    history_view_class = HistoryView
     choose_parent_view_class = ChooseParentView
     index_template_name = ''
     create_template_name = ''
     edit_template_name = ''
     inspect_template_name = ''
     delete_template_name = ''
+    history_template_name = ''
     choose_parent_template_name = ''
     search_handler_class = DjangoORMSearchHandler
     extra_search_kwargs = {}
@@ -126,7 +136,7 @@ class ModelAdmin(WagtailRegisterable):
             self.model, self.inspect_view_enabled)
         self.url_helper = self.get_url_helper_class()(self.model)
 
-        # Needed to support RelatedFieldListFilter in Django 2.2+
+        # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105
         self.admin_site = default_django_admin_site
 
@@ -240,6 +250,9 @@ class ModelAdmin(WagtailRegisterable):
         ordering = self.get_ordering(request)
         if ordering:
             qs = qs.order_by(*ordering)
+        if self.is_pagemodel:
+            # If we're listing pages, exclude the root page
+            qs = qs.exclude(depth=1)
         return qs
 
     def get_search_fields(self, request):
@@ -411,6 +424,11 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.delete_view_class
         return view_class.as_view(**kwargs)(request)
 
+    def history_view(self, request, instance_pk):
+        kwargs = {'model_admin': self, 'instance_pk': instance_pk}
+        view_class = self.history_view_class
+        return view_class.as_view(**kwargs)(request)
+
     def get_edit_handler(self, instance, request):
         """
         Returns the appropriate edit_handler for this modeladmin class.
@@ -474,6 +492,15 @@ class ModelAdmin(WagtailRegisterable):
         returned.
         """
         return self.inspect_template_name or self.get_templates('inspect')
+
+    def get_history_template(self):
+        """
+        Returns a template to be used when rendering 'history_view'. If a
+        template is specified by the 'history_template_name' attribute, that
+        will be used. Otherwise, a list of preferred template names are
+        returned.
+        """
+        return self.history_template_name or self.get_templates('history')
 
     def get_create_template(self):
         """
@@ -550,6 +577,13 @@ class ModelAdmin(WagtailRegisterable):
                     self.inspect_view,
                     name=self.url_helper.get_action_url_name('inspect')),
             )
+        if self.history_view_enabled:
+            urls = urls + (
+                re_path(
+                    self.url_helper.get_action_url_pattern('history'),
+                    self.history_view,
+                    name=self.url_helper.get_action_url_name('history')),
+            )
         if self.is_pagemodel:
             urls = urls + (
                 re_path(
@@ -575,6 +609,14 @@ class ModelAdmin(WagtailRegisterable):
             errors = check_panels_in_model(self.model, 'modeladmin')
             return errors
 
+    def register_admin_url_finders(self):
+        if not self.is_pagemodel:
+            finder_class = type('_ModelAdminURLFinder', (ModelAdminURLFinder, ), {
+                'permission_helper': self.permission_helper,
+                'url_helper': self.url_helper
+            })
+            register_admin_url_finder(self.model, finder_class)
+
 
 class ModelAdminGroup(WagtailRegisterable):
     """
@@ -590,7 +632,7 @@ class ModelAdminGroup(WagtailRegisterable):
     def __init__(self):
         """
         When initialising, instantiate the classes within 'items', and assign
-        the instances to a 'modeladmin_instances' attribute for convienient
+        the instances to a 'modeladmin_instances' attribute for convenient
         access later
         """
         self.modeladmin_instances = []
@@ -671,6 +713,10 @@ class ModelAdminGroup(WagtailRegisterable):
             for modeladmin_class in self.items:
                 errors.extend(check_panels_in_model(modeladmin_class.model))
             return errors
+
+    def register_admin_url_finders(self):
+        for instance in self.modeladmin_instances:
+            instance.register_admin_url_finders()
 
 
 def modeladmin_register(modeladmin_class):

@@ -1,0 +1,2 @@
+docutils==0.16  # Pinned to work around https://github.com/sphinx-doc/sphinx/issues/9049
+sphinx-wagtail-theme==5.0.4

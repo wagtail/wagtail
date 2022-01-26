@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-17 15:39+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,76 +21,64 @@ msgstr ""
 msgid "Wagtail users"
 msgstr ""
 
-#: forms.py:51
+#: forms.py:42
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
 
-#: forms.py:55
+#: forms.py:46
 msgid "This value may contain only letters, numbers and @/./+/-/_ characters."
 msgstr ""
 
-#: forms.py:78
+#: forms.py:69
 msgid "A user with that username already exists."
 msgstr ""
 
-#: forms.py:79
+#: forms.py:70
 msgid "The two password fields didn't match."
 msgstr ""
 
-#: forms.py:82 forms.py:408
+#: forms.py:73
 msgid "Email"
 msgstr ""
 
-#: forms.py:83 forms.py:416
+#: forms.py:74
 msgid "First Name"
 msgstr ""
 
-#: forms.py:84 forms.py:417
+#: forms.py:75
 msgid "Last Name"
 msgstr ""
 
-#: forms.py:87
+#: forms.py:78
 msgid "Password"
 msgstr ""
 
-#: forms.py:89
+#: forms.py:80
 msgid "Leave blank if not changing."
 msgstr ""
 
-#: forms.py:91
+#: forms.py:82
 msgid "Password confirmation"
 msgstr ""
 
-#: forms.py:93
+#: forms.py:84
 msgid "Enter the same password as above, for verification."
 msgstr ""
 
-#: forms.py:96 forms.py:224
+#: forms.py:87 forms.py:215
 msgid "Administrator"
 msgstr ""
 
-#: forms.py:97 forms.py:226
+#: forms.py:88 forms.py:217
 msgid "Administrators have full access to manage any object or setting."
 msgstr ""
 
-#: forms.py:220
+#: forms.py:211
 msgid "A group with that name already exists."
 msgstr ""
 
-#: forms.py:324
+#: forms.py:315
 msgid "You cannot have multiple permission records for the same page."
-msgstr ""
-
-#: forms.py:399
-msgid "Preferred language"
-msgstr ""
-
-#: forms.py:434
-msgid "Current time zone"
-msgstr ""
-
-#: forms.py:444
-msgid "Upload a profile picture"
 msgstr ""
 
 #: models.py:25
@@ -118,37 +106,140 @@ msgid "Receive notification when your page edit is rejected"
 msgstr ""
 
 #: models.py:43
-msgid "preferred language"
+msgid "updated comments notifications"
 msgstr ""
 
 #: models.py:45
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+
+#: models.py:49
+msgid "preferred language"
+msgstr ""
+
+#: models.py:51
 msgid "Select language for the admin"
 msgstr ""
 
-#: models.py:50
+#: models.py:56
 msgid "current time zone"
 msgstr ""
 
-#: models.py:52
+#: models.py:58
 msgid "Select your current time zone"
 msgstr ""
 
-#: models.py:57
+#: models.py:63
 msgid "profile picture"
 msgstr ""
 
-#: models.py:76
+#: models.py:82
 msgid "user profile"
 msgstr ""
 
-#: models.py:77
+#: models.py:83
 msgid "user profiles"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:4
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:7
+#: views/bulk_actions/assign_role.py:17
+msgid "Assign role"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:13
+msgid "Are you sure you want to assign this role to these users?"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:26
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:26
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:33
+msgid "Yes, assign"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_assign_role.html:34
+msgid "No, don't assign"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:4
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:7
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:19
+#: templates/wagtailusers/groups/includes/page_permissions_form.html:13
+#: views/bulk_actions/delete.py:9 wagtail_hooks.py:130
+msgid "Delete"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:13
+msgid "Are you sure you want to delete these users?"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:26
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:33
+#: templates/wagtailusers/groups/confirm_delete.html:26
+#: templates/wagtailusers/users/confirm_delete.html:13
+msgid "Yes, delete"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_delete.html:34
+msgid "No, don't delete"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:4
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:7
+#: views/bulk_actions/set_active_state.py:21
+msgid "Set active state"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:13
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:29
+msgid "You cannot change your own active status"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:36
+msgid "Yes, change state"
+msgstr ""
+
+#: templates/wagtailusers/bulk_actions/confirm_bulk_set_active_state.html:37
+msgid "No, don't change state"
 msgstr ""
 
 #: templates/wagtailusers/groups/confirm_delete.html:3
 #: templates/wagtailusers/groups/confirm_delete.html:6
-#: templates/wagtailusers/groups/edit.html:40 views/groups.py:110
-#: views/groups.py:147
+#: templates/wagtailusers/groups/edit.html:43 views/groups.py:115
+#: views/groups.py:152
 msgid "Delete group"
 msgstr ""
 
@@ -173,18 +264,13 @@ msgid ""
 "users."
 msgstr ""
 
-#: templates/wagtailusers/groups/confirm_delete.html:23 views/groups.py:148
+#: templates/wagtailusers/groups/confirm_delete.html:23 views/groups.py:153
 msgid "Are you sure you want to delete this group?"
-msgstr ""
-
-#: templates/wagtailusers/groups/confirm_delete.html:26
-#: templates/wagtailusers/users/confirm_delete.html:13
-msgid "Yes, delete"
 msgstr ""
 
 #: templates/wagtailusers/groups/create.html:4
 #: templates/wagtailusers/groups/create.html:15
-#: templates/wagtailusers/groups/create.html:32 views/groups.py:71
+#: templates/wagtailusers/groups/create.html:35 views/groups.py:76
 msgid "Add group"
 msgstr ""
 
@@ -199,7 +285,7 @@ msgstr ""
 msgid "View users in this group"
 msgstr ""
 
-#: templates/wagtailusers/groups/edit.html:37
+#: templates/wagtailusers/groups/edit.html:40
 #: templates/wagtailusers/users/edit.html:41
 #: templates/wagtailusers/users/edit.html:56
 msgid "Save"
@@ -213,29 +299,27 @@ msgstr ""
 msgid "Object permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:13
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:52
-#: templates/wagtailusers/groups/list.html:6
-#: templates/wagtailusers/users/list.html:8
-#: templates/wagtailusers/users/list.html:12
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:16
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:73
+#: templates/wagtailusers/users/list.html:9
+#: templates/wagtailusers/users/list.html:13 views/groups.py:65
 msgid "Name"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:14
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:17
 msgid "Add"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:15
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:18
 msgid "Change"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:16
-#: templates/wagtailusers/groups/includes/page_permissions_form.html:13
-#: wagtail_hooks.py:108
-msgid "Delete"
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:21
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:51
+msgid "Custom permissions"
 msgstr ""
 
-#: templates/wagtailusers/groups/includes/formatted_permissions.html:46
+#: templates/wagtailusers/groups/includes/formatted_permissions.html:67
 msgid "Other permissions"
 msgstr ""
 
@@ -256,7 +340,7 @@ msgstr ""
 msgid "groups"
 msgstr ""
 
-#: templates/wagtailusers/groups/index.html:17 views/groups.py:55
+#: templates/wagtailusers/groups/index.html:17 views/groups.py:56
 msgid "Add a group"
 msgstr ""
 
@@ -301,45 +385,51 @@ msgid "Roles"
 msgstr ""
 
 #: templates/wagtailusers/users/index.html:3
-#: templates/wagtailusers/users/index.html:20 wagtail_hooks.py:48
-#: wagtail_hooks.py:98
+#: templates/wagtailusers/users/index.html:24 wagtail_hooks.py:70
+#: wagtail_hooks.py:120
 msgid "Users"
 msgstr ""
 
-#: templates/wagtailusers/users/index.html:21
+#: templates/wagtailusers/users/index.html:25
 msgid "Add a user"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:19
-#: templates/wagtailusers/users/list.html:23
+#: templates/wagtailusers/users/index.html:34
+msgid "Select all users in listing"
+msgstr ""
+
+#: templates/wagtailusers/users/list.html:20
+#: templates/wagtailusers/users/list.html:24
 msgid "Username"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:27
+#: templates/wagtailusers/users/list.html:28
 msgid "Level"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:28
+#: templates/wagtailusers/users/list.html:29
 msgid "Status"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:29
+#: templates/wagtailusers/users/list.html:30
 msgid "Last Login"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:45
+#: templates/wagtailusers/users/list.html:47
 msgid "Admin"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:46
+#: templates/wagtailusers/users/list.html:48
+#: views/bulk_actions/set_active_state.py:12
 msgid "Active"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:46
+#: templates/wagtailusers/users/list.html:48
+#: views/bulk_actions/set_active_state.py:13
 msgid "Inactive"
 msgstr ""
 
-#: templates/wagtailusers/users/list.html:47
+#: templates/wagtailusers/users/list.html:49
 #, python-format
 msgid "%(time_period)s ago"
 msgstr ""
@@ -357,81 +447,127 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailusers/users/results.html:20
+#: templates/wagtailusers/users/results.html:21
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailusers/users/results.html:27
+#: templates/wagtailusers/users/results.html:28
 #, python-format
 msgid ""
 "The %(group_name)s group has no users configured. Why not <a href="
 "\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
 
-#: templates/wagtailusers/users/results.html:30
+#: templates/wagtailusers/users/results.html:31
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
 
-#: views/groups.py:54 wagtail_hooks.py:67
+#: views/bulk_actions/assign_role.py:19
+msgid "Assign role to selected users"
+msgstr ""
+
+#: views/bulk_actions/assign_role.py:42
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/delete.py:11
+msgid "Delete selected users"
+msgstr ""
+
+#: views/bulk_actions/delete.py:34
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/set_active_state.py:23
+msgid "Change the active state for selected users"
+msgstr ""
+
+#: views/bulk_actions/set_active_state.py:59
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/bulk_actions/set_active_state.py:67
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views/groups.py:55 wagtail_hooks.py:89
 msgid "Groups"
 msgstr ""
 
-#: views/groups.py:56
+#: views/groups.py:57
 msgid "Search groups"
 msgstr ""
 
-#: views/groups.py:72
+#: views/groups.py:77
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr ""
 
-#: views/groups.py:108
+#: views/groups.py:113
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr ""
 
-#: views/groups.py:109
+#: views/groups.py:114
 msgid "The group could not be saved due to errors."
 msgstr ""
 
-#: views/groups.py:146
+#: views/groups.py:151
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr ""
 
-#: views/users.py:64 views/users.py:85
+#: views/users.py:85 views/users.py:93
 msgid "Search users"
 msgstr ""
 
-#: views/users.py:132
+#: views/users.py:144
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr ""
 
-#: views/users.py:133 views/users.py:170 wagtail_hooks.py:106
+#: views/users.py:145 views/users.py:184 wagtail_hooks.py:128
 msgid "Edit"
 msgstr ""
 
-#: views/users.py:141
+#: views/users.py:153
 msgid "The user could not be created due to errors."
 msgstr ""
 
-#: views/users.py:169
+#: views/users.py:183
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr ""
 
-#: views/users.py:178
+#: views/users.py:192
 msgid "The user could not be saved due to errors."
 msgstr ""
 
-#: views/users.py:202
+#: views/users.py:218
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr ""
 
-#: wagtail_hooks.py:106
+#: wagtail_hooks.py:128
 msgid "Edit this user"
 msgstr ""
 
-#: wagtail_hooks.py:108
+#: wagtail_hooks.py:130
 msgid "Delete this user"
 msgstr ""

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -26,14 +26,14 @@ msgstr "בחרו עמוד מקור"
 msgid "Choose a different root page"
 msgstr "בחרו עמוד מקור שונה"
 
+msgid "Sites"
+msgstr "אתרים"
+
+msgid "Add a site"
+msgstr "הוספת אתר"
+
 msgid "Site"
 msgstr "אתר"
-
-msgid "Port"
-msgstr "מעגן"
-
-msgid "Root page"
-msgstr "עמוד מקור"
 
 msgid "Default?"
 msgstr "ברירת מחדל?"
@@ -41,5 +41,23 @@ msgstr "ברירת מחדל?"
 msgid "Default"
 msgstr "ברירת מחדל"
 
-msgid "Sites"
-msgstr "אתרים"
+msgid "Add site"
+msgstr "הוספת אתר"
+
+msgid "Site '{0}' created."
+msgstr "עמוד '{0}' נוצר"
+
+msgid "Site '{0}' updated."
+msgstr "אתר '{0}' עודכן"
+
+msgid "The site could not be saved due to errors."
+msgstr "לא ניתן לשמור את האתר בעקבות שגיאות "
+
+msgid "Delete site"
+msgstr "מחק אתר"
+
+msgid "Site '{0}' deleted."
+msgstr "אתר '{0}' נמחק"
+
+msgid "Are you sure you want to delete this site?"
+msgstr "האם אתם בטוחים כי ברצונכם למחוק את האתר?"

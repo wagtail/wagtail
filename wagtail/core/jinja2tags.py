@@ -3,7 +3,7 @@ import jinja2.nodes
 
 from jinja2.ext import Extension
 
-from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_version
+from .templatetags.wagtailcore_tags import pageurl, richtext, slugurl, wagtail_site, wagtail_version
 
 
 class WagtailCoreExtension(Extension):
@@ -15,6 +15,7 @@ class WagtailCoreExtension(Extension):
         self.environment.globals.update({
             'pageurl': jinja2.contextfunction(pageurl),
             'slugurl': jinja2.contextfunction(slugurl),
+            'wagtail_site': jinja2.contextfunction(wagtail_site),
             'wagtail_version': wagtail_version,
         })
         self.environment.filters.update({
@@ -31,30 +32,39 @@ class WagtailCoreExtension(Extension):
 
         args = [parser.parse_expression()]
 
-        with_context = True
+        # always pass context to _include_block - even if we're not passing it on to render_as_block,
+        # we need it to see if autoescaping is enabled
+        if hasattr(jinja2.nodes, 'DerivedContextReference'):
+            # DerivedContextReference includes local variables. Introduced in Jinja 2.11
+            args.append(jinja2.nodes.DerivedContextReference())
+        else:
+            args.append(jinja2.nodes.ContextReference())
+
+        use_context = True
         if parser.stream.current.test_any('name:with', 'name:without') and parser.stream.look().test('name:context'):
-            with_context = next(parser.stream).value == 'with'
+            use_context = next(parser.stream).value == 'with'
             parser.stream.skip()
 
-        if with_context:
-            args.append(jinja2.nodes.ContextReference())
-        else:
-            # Actually we can just skip else branch because context arg default to None
-            args.append(jinja2.nodes.Const(None))
+        args.append(jinja2.nodes.Const(use_context))
 
         node = self.call_method('_include_block', args, lineno=lineno)
         return jinja2.nodes.Output([node], lineno=lineno)
 
-    def _include_block(self, value, context=None):
+    def _include_block(self, value, context, use_context):
         if hasattr(value, 'render_as_block'):
-            if context:
+            if use_context:
                 new_context = context.get_all()
             else:
                 new_context = {}
 
-            return jinja2.Markup(value.render_as_block(context=new_context))
+            result = value.render_as_block(context=new_context)
+        else:
+            result = value
 
-        return jinja2.Markup(value)
+        if context.eval_ctx.autoescape:
+            return jinja2.escape(result)
+        else:
+            return jinja2.Markup(result)
 
 
 # Nicer import names

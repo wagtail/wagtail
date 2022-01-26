@@ -1,0 +1,25 @@
+{% load wagtailadmin_tags %}
+
+<table {% if table.classname %}class="{{ table.classname }}"{% endif %}>
+    {% if table.has_column_widths %}
+        {% for column in table.columns.values %}
+            <col {% if column.width %}width="{{ column.width }}"{% endif %} />
+        {% endfor %}
+    {% endif %}
+    <thead>
+        <tr {% if table.header_row_classname %}class="{{ table.header_row_classname }}"{% endif %}>
+            {% for column in table.columns.values %}
+                {% component column.header %}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in table.rows %}
+            <tr>
+                {% for cell in row.values %}
+                    {% component cell %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-12-17 19:08+0000\n"
+"Last-Translator: Vu Pham\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -44,6 +44,9 @@ msgstr "Biên tập"
 msgid "Edit this %s"
 msgstr "Biên tập %s này"
 
+msgid "Delete"
+msgstr "Xoá"
+
 msgid "Unpublish"
 msgstr "Thu hồi xuất bản"
 
@@ -51,8 +54,32 @@ msgstr "Thu hồi xuất bản"
 msgid "Unpublish this %s"
 msgstr "Thu hồi xụất bản %s này"
 
+msgid "Copy"
+msgstr "Sao chép"
+
 msgid "Choose a parent page"
 msgstr "Chọn một trang cha"
 
+msgid "Saving…"
+msgstr "Đang lưu..."
+
 msgid "Save"
 msgstr "Lưu"
+
+msgid "Yes, delete"
+msgstr "Đúng, xoá đi"
+
+msgid "Home"
+msgstr "Trang Chủ"
+
+msgid "Download XLSX"
+msgstr "Tải XLSX"
+
+msgid "Download CSV"
+msgstr "Tải CSV"
+
+msgid "Editing"
+msgstr "Chỉnh sửa"
+
+msgid "Date"
+msgstr "Ngày"

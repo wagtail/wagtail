@@ -6,9 +6,10 @@
 {% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
+    <div id="comments"></div>
     {% page_permissions page as page_perms %}
     <header class="merged tab-merged">
-        {% explorer_breadcrumb page %}
+        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}
 
         <div class="row">
             <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
@@ -52,17 +53,19 @@
             <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
         {% endif %}
 
-        <footer>
-            <nav aria-label="{% trans 'Actions' %}">
-                <ul>
-                    <li class="actions actions--primary">
-                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+        <footer class="footer">
+            <ul>
+                <li class="footer__container">
+                    <nav aria-label="{% trans 'Actions' %}">
+                        <ul>
+                            <li class="actions actions--primary">
+                                <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
                             {{ action_menu.render_html }}
-                        </div>
-                    </li>
+                                </div>
+                            </li>
 
-                    {% if preview_modes %}
-                        <li class="preview">
+                            {% if preview_modes %}
+                                <li class="preview">
                             {% trans 'Preview' as preview_label %}
                             {% if preview_modes|length > 1 %}
                                 <div class="dropdown dropup dropdown-button match-width">
@@ -79,13 +82,16 @@
                             {% else %}
                                 {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
                             {% endif %}
-                        </li>
-                    {% endif %}
+                                </li>
+                            {% endif %}
 
-                    {% block extra_footer_actions %}
-                    {% endblock %}
-                </ul>
-            </nav>
+                            {% block extra_footer_actions %}
+                            {% endblock %}
+                        </ul>
+                    </nav>
+                </li>
+                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+            </ul>
         </footer>
     </form>
     {% endblock %}
@@ -115,8 +121,15 @@
     {{ edit_handler.html_declarations }}
 
     <script>
-        {% if publishing_will_cancel_workflow %}
+        // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
+        // This value may be used by JS widgets on the form
+        {% if locale %}
+            window.wagtailConfig = window.wagtailConfig || {};
+            window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
+        {% endif %}
+
         $(function() {
+            {% if publishing_will_cancel_workflow %}
             /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
             let cancellationConfirmed = false;
             $('[name=action-publish]').click((e) => {
@@ -124,31 +137,29 @@
                     e.stopImmediatePropagation();
                     e.preventDefault();
                     ModalWorkflow({
-                    'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
-                    'onload': {
-                        'confirm': function(modal, jsonData) {
-                            $('[data-confirm-cancellation]', modal.body).click((event) => {
+                        'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
+                        'onload': {
+                            'confirm': function(modal, jsonData) {
+                                $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                    cancellationConfirmed = true;
+                                    modal.close();
+                                    e.currentTarget.click();
+                                })
+                                $('[data-cancel-dialog]', modal.body).click((event) => {
+                                    modal.close();
+                                })
+                            },
+                            'no_confirmation_needed': function(modal, jsonData) {
+                                modal.close();
                                 cancellationConfirmed = true;
-                                modal.close();
                                 e.currentTarget.click();
-                            })
-                            $('[data-cancel-dialog]', modal.body).click((event) => {
-                                modal.close();
-                            })
+                            }
                         },
-                        'no_confirmation_needed': function(modal, jsonData) {
-                            modal.close();
-                            cancellationConfirmed = true;
-                            e.currentTarget.click();
-                        }
-                    },
-                });
+                    });
                 }
-                });
-        });
-        {% endif %}
+            });
+            {% endif %}
 
-        $(function() {
             /* Make user confirm before leaving the editor if there are unsaved changes */
             {% trans "This page has unsaved changes." as confirmation_message %}
             enableDirtyFormCheck(
@@ -159,12 +170,13 @@
                     {% if has_unsaved_changes %}
                         alwaysDirty: true,
                     {% endif %}
+
+                    commentApp: window.comments.commentApp,
+                    callback: window.updateFooterSaveWarning
                 }
             );
-        });
 
-        /* Tooltips used by the workflow status component */
-        $(function() {
+            /* Tooltips used by the workflow status component */
             $('[data-wagtail-tooltip]').tooltip({
                 animation: false,
                 title: function() {
@@ -173,11 +185,15 @@
                 trigger: 'hover',
                 placement: 'bottom',
             });
-        });
 
-        $(function() {
-            document.addEventListener('DOMContentLoaded', ActivateWorkflowActionsForEditView('#page-edit-form'));
-            document.addEventListener('DOMContentLoaded', LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}'));
-        })
+            ActivateWorkflowActionsForEditView('#page-edit-form');
+            LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
+
+            {% get_comments_enabled as comments_enabled %}
+            {% if comments_enabled %}
+            // Initialise comments UI
+            window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
+            {% endif %}
+        });
     </script>
 {% endblock %}

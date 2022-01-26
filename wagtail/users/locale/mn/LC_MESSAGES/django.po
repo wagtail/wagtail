@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -70,15 +70,6 @@ msgstr "Ийм нэртэй бүлэг өмнө нь оруулсан байна
 msgid "You cannot have multiple permission records for the same page."
 msgstr "Нэг хуудсанд олон хандалтын эрхийн бичлэг тохируулах боломжгүй."
 
-msgid "Preferred language"
-msgstr "Сонгосон хэл"
-
-msgid "Current time zone"
-msgstr "Одоогийн цагийн бүс"
-
-msgid "Upload a profile picture"
-msgstr "Профайл зураг оруулах"
-
 msgid "submitted notifications"
 msgstr "илгээсэн мэдэгдлүүд"
 
@@ -118,6 +109,12 @@ msgstr "хэрэглэгчийн профайл"
 msgid "user profiles"
 msgstr "хэрэглэгчийн профайлууд"
 
+msgid "Delete"
+msgstr "Устгах"
+
+msgid "Yes, delete"
+msgstr "Тийм, устга"
+
 msgid "Delete group"
 msgstr "Бүлэг устгах"
 
@@ -153,9 +150,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Энэ бүлгийг үнэхээр устгах уу?"
 
-msgid "Yes, delete"
-msgstr "Тийм, устга"
-
 msgid "Add group"
 msgstr "Бүлэг нэмэх"
 
@@ -176,9 +170,6 @@ msgstr "Нэмэх"
 
 msgid "Change"
 msgstr "Солих"
-
-msgid "Delete"
-msgstr "Устгах"
 
 msgid "Other permissions"
 msgstr "Бусад эрхүүд"

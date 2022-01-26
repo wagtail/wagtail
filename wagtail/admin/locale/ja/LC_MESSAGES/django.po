@@ -4,8 +4,11 @@
 #
 # Translators:
 # Daigo Shitara <stain.witness@gmail.com>, 2014,2016
+# Hiroki Sawano, 2021
 # shuhei hirota, 2019
 # Kinoshita Shinji <shinji.kino@gmail.com>, 2020
+# kojikojikojikoji, 2021
+# kojikojikojikoji, 2021
 # umepon0626 <ryuichi-astrona@ymobile.ne.jp>, 2019
 # Tri Minh <minh.nguyentri.95@gmail.com>, 2019
 # 小口英昭 <oguchi@bluff-lab.com>, 2019
@@ -16,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-11-04 15:28+0000\n"
+"Last-Translator: Hiroki Sawano\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -33,6 +36,12 @@ msgstr "公開"
 msgid "Submit for moderation"
 msgstr "承認を受ける"
 
+msgid "Resubmit to {}"
+msgstr "{}に再提出する"
+
+msgid "Submit to {}"
+msgstr "{}に提出する"
+
 msgid "Restart workflow "
 msgstr "ワークフローを再開"
 
@@ -45,8 +54,24 @@ msgstr "非公開に設定"
 msgid "Delete"
 msgstr "削除"
 
+msgid "Lock"
+msgstr "ロックする"
+
+msgid "Apply editor lock"
+msgstr "エディターロック機能を適用する"
+
+msgid "Unlock"
+msgstr "ロックを解除"
+
+msgid "Save Draft"
+msgstr "原稿を保存"
+
 msgid "Page locked"
 msgstr "ページはロックされています"
+
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)sと公開 "
 
 msgid "Wagtail admin"
 msgstr "Wagtail管理"
@@ -66,8 +91,11 @@ msgstr "予定公開日"
 msgid "Privacy"
 msgstr "公開設定"
 
-msgid "Common page configuration"
-msgstr "ページの一般設定"
+msgid "For search engines"
+msgstr "検索エンジンのため"
+
+msgid "For site menus"
+msgstr "サイトメニューのため"
 
 msgid "Content"
 msgstr "コンテンツ"
@@ -78,11 +106,32 @@ msgstr "プロモート"
 msgid "Settings"
 msgstr "設定"
 
-msgid "Date"
-msgstr "日付"
+msgid "Date from"
+msgstr "日から"
 
-msgid "Title"
-msgstr "タイトル"
+msgid "Date to"
+msgstr "まで"
+
+msgid "All"
+msgstr "全て"
+
+msgid "Preferred language"
+msgstr "好みの言語"
+
+msgid "Current time zone"
+msgstr "現在のタイムゾーン"
+
+msgid "First Name"
+msgstr "名"
+
+msgid "Last Name"
+msgstr "姓"
+
+msgid "Email"
+msgstr "Eメール"
+
+msgid "Upload a profile picture"
+msgstr "プロフィール写真をアップロード"
 
 msgid "Enter password"
 msgstr "パスワードを入力してください"
@@ -94,8 +143,35 @@ msgstr "%sを入力してください"
 msgid "Enter your email address to reset your password"
 msgstr "パスワードをリセットするにはEメールアドレスを入力してください"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Parent"
+msgstr "上位階層"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "同一コレクション内で複数の権限を持つことはできません"
+
+msgid "Collection"
+msgstr "コレクション"
+
+msgid "Add"
+msgstr "追加"
+
+msgid "Add collections"
+msgstr "コレクションを追加"
+
+msgid "Edit"
+msgstr "編集"
+
+msgid "Edit collections"
+msgstr "コレクションを編集"
+
+msgid "Delete collections"
+msgstr "コレクションを削除"
+
+msgid "You cannot edit another user's comment."
+msgstr "他ユーザーのコメントは編集できません。"
 
 msgid "New title"
 msgstr "新規タイトル"
@@ -137,6 +213,9 @@ msgstr[0] ""
 "複製元のページのうち%(count)sページは公開されています。複製されたページも公開"
 "しますか？"
 
+msgid "Alias"
+msgstr "アライアス"
+
 #, python-format
 msgid "You do not have permission to copy to page \"%(page_title)s\""
 msgstr "\"%(page_title)s\" にコピーする権限がありません。"
@@ -173,101 +252,20 @@ msgstr "この項目は必須です"
 msgid "Please select at least one group."
 msgstr "1グループ以上を選択してください"
 
-msgid "Arabic"
-msgstr "アラビア語"
+msgid "All types"
+msgstr "全タイプ"
 
-msgid "Catalan"
-msgstr "カタルーニャ語"
+msgid "This page already has workflow '{0}' assigned."
+msgstr "このページは既に'{0}'が割り振られているワークフローがあります。"
 
-msgid "Czech"
-msgstr "チェコ語"
+msgid "You cannot assign this workflow to the same page multiple times."
+msgstr "同じページにこのワークフローを割り当てることはできません。"
 
-msgid "German"
-msgstr "ドイツ語"
+msgid "Give your workflow a name"
+msgstr "ワークフローに名前をつけてください"
 
-msgid "Greek"
-msgstr "ギリシャ語"
-
-msgid "English"
-msgstr "英語"
-
-msgid "Spanish"
-msgstr "スペイン語"
-
-msgid "Finnish"
-msgstr "フィンランド語"
-
-msgid "French"
-msgstr "フランス語"
-
-msgid "Galician"
-msgstr "ガリシア語"
-
-msgid "Hungarian"
-msgstr "ハンガリー語"
-
-msgid "Indonesian"
-msgstr "インドネシア語"
-
-msgid "Icelandic"
-msgstr "アイスランド語"
-
-msgid "Italian"
-msgstr "イタリア語"
-
-msgid "Korean"
-msgstr "韓国語"
-
-msgid "Lithuanian"
-msgstr "リトアニア語"
-
-msgid "Mongolian"
-msgstr "モンゴル語"
-
-msgid "Norwegian Bokmål"
-msgstr "ノルウェー・書籍語"
-
-msgid "Netherlands Dutch"
-msgstr "オランダ語"
-
-msgid "Persian"
-msgstr "ペルシア語"
-
-msgid "Polish"
-msgstr "ポーランド語"
-
-msgid "Brazilian Portuguese"
-msgstr "ブラジル・ポルトガル語"
-
-msgid "Portuguese"
-msgstr "ポルトガル語"
-
-msgid "Romanian"
-msgstr "ルーマニア語"
-
-msgid "Russian"
-msgstr "ロシア語"
-
-msgid "Swedish"
-msgstr "スウェーデン語"
-
-msgid "Slovak"
-msgstr "スロヴァキア語"
-
-msgid "Thai"
-msgstr "タイ語"
-
-msgid "Ukrainian"
-msgstr "ウクライナ語"
-
-msgid "Chinese (Simplified)"
-msgstr "中国語（簡体字）"
-
-msgid "Chinese (Traditional)"
-msgstr "中国語（繁体字）"
-
-msgid "Edit"
-msgstr "編集"
+msgid "Add tasks to your workflow"
+msgstr "ワークフローにタスクを追加"
 
 msgid "Page"
 msgstr "ページ"
@@ -292,6 +290,9 @@ msgstr "エクスプローラーを閉じる。"
 
 msgid "Alt text"
 msgstr "Alt 属性に記載するテキスト"
+
+msgid "Decorative image"
+msgstr "装飾画像"
 
 msgid "Write here…"
 msgstr "入力してください"
@@ -338,8 +339,68 @@ msgstr "閉じる"
 msgid "Edit '{title}'"
 msgstr "'{title}'を編集します"
 
+msgid "View child pages of '{title}'"
+msgstr "'{title}'の子ページを閲覧する"
+
 msgid "Page explorer"
 msgstr "ページ探索"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Saving..."
+msgstr "保存中"
+
+msgid "Cancel"
+msgstr "キャンセル"
+
+msgid "Deleting..."
+msgstr "削除中"
+
+msgid "Add a comment"
+msgstr "コメントを追加"
+
+msgid "Show comments"
+msgstr "コメントを表示"
+
+msgid "Reply"
+msgstr "返信"
+
+msgid "Resolve"
+msgstr "解決"
+
+msgid "Retry"
+msgstr "リトライ"
+
+msgid "Delete error"
+msgstr "削除エラー"
+
+msgid "Are you sure?"
+msgstr "本当によろしいですか？"
+
+msgid "Save error"
+msgstr "保存失敗"
+
+msgid "This will be saved when the page is saved"
+msgstr "ページと同時に保存されます"
+
+msgid "Focus comment"
+msgstr "コメントにフォーカス"
+
+msgid "Unfocus comment"
+msgstr "コメントをアンフォーカス"
+
+msgid "Comment"
+msgstr "コメント"
+
+msgid "More actions"
+msgstr "他のアクション"
+
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+msgid "Edit your account"
+msgstr "アカウント変更"
 
 msgid "Error 404: Page not found"
 msgstr "404エラー：ページが見つかりません"
@@ -356,17 +417,8 @@ msgstr "Wagtail管理画面へ移動"
 msgid "Account"
 msgstr "アカウント"
 
-msgid "Change profile picture"
-msgstr "プロファイル写真を変更します"
-
-msgid "Your current profile picture:"
-msgstr "現在プロファイル写真"
-
-msgid "Update"
-msgstr "アップデート"
-
-msgid "Change email"
-msgstr "メールアドレスを変更します"
+msgid "Save account details"
+msgstr "アカウントの詳細を保存"
 
 msgid "Change password"
 msgstr "パスワードを変更する"
@@ -375,15 +427,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "パスワードを変更することができません。サイトの管理者に連絡してください。"
-
-msgid "Set Time Zone"
-msgstr "タイムゾーン設定"
-
-msgid "Language Preferences"
-msgstr "言語設定"
-
-msgid "Notification preferences"
-msgstr "通知設定"
 
 msgid "Reset password"
 msgstr "パスワードを再設定"
@@ -432,17 +475,14 @@ msgstr "パスワードが再設定されました"
 msgid "Reset your password"
 msgstr "パスワードを再設定"
 
-msgid "Dashboard"
-msgstr "ダッシュボード"
+msgid "Upload a profile picture:"
+msgstr "プロフィール画像をアップロード"
+
+msgid "Reset to default"
+msgstr "デフォルトに戻す"
 
 msgid "Menu"
 msgstr "メニュー"
-
-msgid "Move up"
-msgstr "上に移動"
-
-msgid "Move down"
-msgstr "下に移動"
 
 msgid "Explorer"
 msgstr "エクスプローラー"
@@ -456,6 +496,12 @@ msgstr "外部リンク"
 msgid "Email link"
 msgstr "メールアドレスのリンク"
 
+msgid "Phone link"
+msgstr "電話番号のリンク"
+
+msgid "Anchor link"
+msgstr "アンカーのリンク"
+
 #, python-format
 msgid ""
 "\n"
@@ -468,6 +514,12 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(counter)sのマッチがあります。"
+
+msgid "Add an anchor link"
+msgstr "アンカーリンクを追加"
+
+msgid "Insert anchor"
+msgstr "アンカーを挿入"
 
 msgid "Choose"
 msgstr "選択"
@@ -500,6 +552,9 @@ msgstr "リンクを挿入"
 msgid "Add an external link"
 msgstr "外部リンクを追加"
 
+msgid "Add a phone link"
+msgstr "電話番号のリンクを追加"
+
 msgid "Collection privacy"
 msgstr "コレクションプライバシー"
 
@@ -514,9 +569,6 @@ msgid ""
 msgstr ""
 "プライバシー設定により、このコレクション内のドキュメントを閲覧できるユーザー"
 "が決まります。"
-
-msgid "Save"
-msgstr "保存"
 
 msgid "Set collection privacy. Current status: Public"
 msgstr "コレクションのプライバシーを設定する。現在の状態：公開"
@@ -550,8 +602,29 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "%(label)sを追加"
 
+msgid "Move up"
+msgstr "上に移動"
+
+msgid "Move down"
+msgstr "下に移動"
+
+msgid "Add comment"
+msgstr "コメントを追加"
+
+msgid "Comments"
+msgstr "コメント"
+
+msgid "Commenting on this page"
+msgstr "このページへのコメント"
+
+msgid "Comment notifications"
+msgstr "コメント通知"
+
 msgid "Yes, delete"
 msgstr "はい、削除します"
+
+msgid "Update"
+msgstr "アップデート"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -564,6 +637,15 @@ msgstr ""
 "これがあなたのダッシュボードです。ここにあなたが作成したコンテンツに関する役"
 "立つ情報が表示されます。"
 
+msgid "Your locked pages"
+msgstr "あなたのロックされているページ"
+
+msgid "Title"
+msgstr "タイトル"
+
+msgid "Locked at"
+msgstr "ロック時刻"
+
 msgid "Edit this page"
 msgstr "ページを編集"
 
@@ -575,9 +657,6 @@ msgstr "公開"
 
 msgid "Pages awaiting moderation"
 msgstr "承認待ちのページ"
-
-msgid "Parent"
-msgstr "上位階層"
 
 msgid "Type"
 msgstr "タイプ"
@@ -603,6 +682,9 @@ msgstr "最近の編集"
 msgid "Status"
 msgstr "ステータス"
 
+msgid "Date"
+msgstr "日付"
+
 msgid "Site summary"
 msgstr "サイトの概要"
 
@@ -623,6 +705,27 @@ msgstr[0] ""
 "された<span>%(total)s</span> 件のページ\n"
 "    "
 
+msgid "Your pages in a workflow"
+msgstr "あなたのページはワークフローに含まれています"
+
+msgid "Task"
+msgstr "タスク"
+
+msgid "Task started"
+msgstr "タスク開始時刻"
+
+msgid "Changes requested at"
+msgstr "修正依頼"
+
+msgid "Awaiting"
+msgstr "待機中"
+
+msgid "Awaiting your review"
+msgstr "あなたのレビューの待機中"
+
+msgid "Tasks"
+msgstr "タスク"
+
 msgid "Sign in"
 msgstr "サインイン"
 
@@ -637,8 +740,8 @@ msgstr "Wagtailへサインイン"
 msgid "Signing in…"
 msgstr "サインイン中..."
 
-msgid "Forgotten it?"
-msgstr "パスワードを忘れましたか？"
+msgid "Forgotten password?"
+msgstr "パスワードをお忘れですか？"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -680,6 +783,33 @@ msgstr "ページをプレビュー："
 msgid "The page \"%(page)s\" has been submitted for moderation"
 msgstr "ページ：%(page)s は現在承認待ちです。"
 
+msgid "New comments"
+msgstr "新しいコメント"
+
+msgid "Resolved comments"
+msgstr "解決済みのコメント"
+
+msgid "Deleted comments"
+msgstr "コメントを削除する"
+
+msgid "New replies"
+msgstr "新しいリプライ"
+
+msgid "New replies to:"
+msgstr "へ新しい返信"
+
+msgid "New comments:"
+msgstr "新しいコメント"
+
+msgid "Resolved comments:"
+msgstr "解決済みのコメント"
+
+msgid "Deleted comments:"
+msgstr "削除されたコメント"
+
+msgid "New replies:"
+msgstr "新しい返信"
+
 msgid "Page privacy"
 msgstr "ページの公開設定"
 
@@ -691,6 +821,9 @@ msgstr "公開設定の変更はすべての孫ページに反映されます。
 
 msgid "Visit the live page"
 msgstr "ライブページを訪れる。"
+
+msgid "restricted"
+msgstr "制限"
 
 msgid "Set page privacy. Current status: Public"
 msgstr "ページプライバシーを設定する。現在の状態：公開"
@@ -704,8 +837,14 @@ msgstr "ページプライバシーの現在の状態：公開"
 msgid "Page privacy. Current status: Private"
 msgstr "ページプライバシーの現在の状態：非公開"
 
+msgid "Save the page before leaving"
+msgstr "離れる前に保存してください"
+
 msgid "Publishing…"
 msgstr "公開中..."
+
+msgid "Publish this version"
+msgstr "このバージョンを公開する"
 
 msgid "Saving…"
 msgstr "保存中"
@@ -729,6 +868,21 @@ msgstr "作成するページのタイプを選択"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)sを使用するページ"
+
+msgid "No, don't delete"
+msgstr "いいえ、削除しません"
+
+msgid "Move"
+msgstr "移動"
+
+msgid "No, don't unpublish"
+msgstr "いいえ、非公開にしません"
+
+msgid "This action cannot be undone."
+msgstr "このアクションは元に戻せません。"
+
+msgid "Yes, convert it"
+msgstr "はい。変換します。"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -771,9 +925,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)sを移動"
 
-msgid "Move"
-msgstr "移動"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "%(title)sを移動してよろしいですか？"
@@ -813,8 +964,8 @@ msgstr[0] ""
 msgid "Yes, unpublish it"
 msgstr "はい、非公開に設定します。"
 
-msgid "No, don't unpublish"
-msgstr "いいえ、非公開にしません"
+msgid "Publish page"
+msgstr "公開する"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -849,6 +1000,22 @@ msgstr "このページは変更が保存されなかった"
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "%(page_type)s: %(title)sを編集"
+
+msgid "History"
+msgstr "履歴"
+
+msgid "Edit original page"
+msgstr "元ページを編集"
+
+#, python-format
+msgid "Page history for %(subtitle)s"
+msgstr "%(subtitle)sのページ履歴"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "User"
+msgstr "ユーザー"
 
 msgid "Live version"
 msgstr "ライブ版"
@@ -1012,6 +1179,9 @@ msgstr ""
 "ビューを使用してください。\n"
 "            "
 
+msgid "Current status:"
+msgstr "現在のステータス"
+
 msgid "Cancel scheduled publish"
 msgstr "予定された公開を取り消す"
 
@@ -1021,6 +1191,9 @@ msgstr "%(title)sを比較"
 
 msgid "Comparing"
 msgstr "比較"
+
+msgid "Page history"
+msgstr "ページの履歴"
 
 msgid "Fields"
 msgstr "フィールド"
@@ -1119,11 +1292,54 @@ msgstr "検索語を入力"
 msgid "No pages use"
 msgstr "この語を使用するページはありません。"
 
-msgid "Collection"
-msgstr "コレクション"
+msgid "Workflow history"
+msgstr "ワークフローの履歴"
+
+#, python-format
+msgid "Workflow history for %(title)s"
+msgstr "%(title)sのワークフロー履歴"
+
+msgid "Edit page"
+msgstr "ページを編集"
+
+msgid "Requested by"
+msgstr "リクエストしたユーザ"
+
+msgid "Started at"
+msgstr "開始時刻"
+
+msgid "Add a collection permission"
+msgstr "コレクションの権限を追加"
+
+msgid "Download XLSX"
+msgstr "XLSXファイルをダウンロード"
+
+msgid "Download CSV"
+msgstr "CSVをダウンロードする"
+
+msgid "Filter"
+msgstr "フィルター"
+
+msgid "Apply filters"
+msgstr "フィルターを適用"
 
 msgid "Locked"
 msgstr "ロックあり"
+
+msgid "No locked pages found."
+msgstr "ロックされたページは見つかりませんでした。"
+
+msgid "Edit this item"
+msgstr "アイテムを編集"
+
+msgid "Workflow"
+msgstr "ワークフロー"
+
+msgid "No pages have been submitted for moderation yet"
+msgstr "承認が必要なページはありません。"
+
+msgid "Completed at"
+msgstr "完了時刻"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1141,9 +1357,6 @@ msgstr "ホーム"
 msgid "All collections"
 msgstr "全部コレクション"
 
-msgid "Edit your account"
-msgstr "アカウント変更"
-
 msgid "Account settings"
 msgstr "アカウント設定"
 
@@ -1156,14 +1369,14 @@ msgstr "現在のページ状況："
 msgid "Other searches"
 msgstr "他の検索結果"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Wagtailの管理者インターフェースに移動"
-
 msgid "Add a child page"
 msgstr "子ページを追加"
 
 msgid "Show in Explorer"
 msgstr "エクスプローラーに表示"
+
+msgid "Create"
+msgstr "作成"
 
 #, python-format
 msgid "by %(modified_by)s"
@@ -1184,20 +1397,23 @@ msgid ""
 "descending order."
 msgstr "'%(parent)s'内の子ページの順序を'%(label)s'で降順に並べ替えます。"
 
+msgid "More"
+msgstr "詳細表示"
+
+msgid "live"
+msgstr "公開"
+
+msgid "draft"
+msgstr "下書き"
+
+msgid "live + draft"
+msgstr "公開 + 下書き"
+
 msgid "Test"
 msgstr "テスト"
 
-msgid "Your password has been changed successfully!"
-msgstr "パスワードが変更されました。"
-
-msgid "Your email has been changed successfully!"
-msgstr "メールを更新済み"
-
-msgid "Your preferences have been updated."
-msgstr "設定が更新されました。"
-
-msgid "Your preferences have been updated successfully!"
-msgstr "設定が更新されました。"
+msgid "Password"
+msgstr "パスワード"
 
 msgid "You have been successfully logged out."
 msgstr "ログアウトに成功しました。"
@@ -1325,32 +1541,53 @@ msgstr "\"{1}\"のリビジョン{0}"
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
-msgid "More"
-msgstr "詳細表示"
+msgid "Site history"
+msgstr "サイトの履歴"
 
-msgid "Set profile picture"
-msgstr "プロファイル写真を設定します"
+msgid "Locked pages"
+msgstr "ロックされたページ"
 
-msgid "Change the email address linked to your account."
-msgstr "アカウントに設定された電子メールアドレスを変更して下さい。"
+msgid "Show"
+msgstr "表示"
 
-msgid "Change the password you use to log in."
-msgstr "ログインに使用するパスワードを変更します。"
+msgid "Awaiting my review"
+msgstr "自分のレビュー待ち"
 
-msgid "Choose which email notifications to receive."
-msgstr "受信するEメール通知を選択します。"
+msgid "Workflows"
+msgstr "ワークフロー"
 
-msgid "Language preferences"
-msgstr "言語設定"
+msgid "Page Title"
+msgstr "ページタイトル"
 
-msgid "Choose the language you want to use here."
-msgstr "使用した言語を選択してください"
+msgid "Workflow tasks"
+msgstr "ワークフローのタスク"
 
-msgid "Current Time Zone"
-msgstr "現在タイムゾーン"
+msgid "Requested By"
+msgstr "リクエストしたユーザ"
 
-msgid "Choose your current time zone."
-msgstr "現在タイムゾーンを選択"
+msgid "Add a workflow"
+msgstr "ワークフローを追加"
+
+msgid "New workflow"
+msgstr "新しいワークフロー"
+
+msgid "Editing workflow"
+msgstr "ワークフローの編集"
+
+msgid "Disable workflow"
+msgstr "ワークフローを無効化"
+
+msgid "Workflow removed from Page '{0}'."
+msgstr "ページ '{0}'から削除されたワークフロー"
+
+msgid "New workflow task"
+msgstr "ワークフローの新規タスク"
+
+msgid "Editing workflow task"
+msgstr "ワークフローのタスクを編集"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "次の情報を添えて、このエラーを管理者に報告してください:"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"
@@ -1382,6 +1619,12 @@ msgstr "取り消し線"
 msgid "Code"
 msgstr "コード"
 
+msgid "Locked Pages"
+msgstr "ロックされたページ"
+
+msgid "Reports"
+msgstr "レポート"
+
 msgid "Choose an item"
 msgstr "アイテムを選択"
 
@@ -1390,9 +1633,6 @@ msgstr "別のアイテムを選択"
 
 msgid "Clear choice"
 msgstr "選択を解除"
-
-msgid "Edit this item"
-msgstr "アイテムを編集"
 
 msgid "Choose another page"
 msgstr "別のページを選択"

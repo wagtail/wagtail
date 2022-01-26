@@ -1,0 +1,151 @@
+.comment {
+    @include box;
+
+    width: calc(100vw - 40px);
+    max-width: calc(100vw - 19%);
+    display: block;
+    transition: top 0.5s ease 0s, right 0.5s ease 0s, height 0.5s ease 0s;
+    pointer-events: auto;
+    box-sizing: border-box;
+    padding-bottom: 0;
+    right: -2000px;
+
+    @include media-breakpoint-up(sm) {
+        width: calc(100vw - 40px);
+        max-width: 400px;
+        left: initial;
+    }
+
+    @include media-breakpoint-up(md) {
+        max-width: 200px;
+        right: 0;
+    }
+
+    @include media-breakpoint-up(lg) {
+        max-width: 275px;
+    }
+
+    &--focused {
+        right: 35px;
+
+        @include media-breakpoint-up(md) {
+            right: 50px;
+        }
+    }
+
+    &__text {
+        color: $color-box-text;
+        font-size: 13px;
+        line-height: 19px;
+        margin-bottom: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        &--mode-deleting {
+            color: $color-grey-1;
+        }
+    }
+
+    form {
+        border-top: 1px solid $color-comment-separator;
+    }
+
+    &--mode-creating form {
+        border-top: 0;
+        margin-top: 10px;
+    }
+
+    &--mode-editing form {
+        margin-top: 10px;
+    }
+
+    &--mode-deleting &__text {
+        color: $color-grey-3;
+    }
+
+    &__replies {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__button {
+        @include button;
+    }
+
+    &__actions,
+    &__reply-actions {
+        padding-bottom: 10px;
+    }
+
+    &__actions &__button,
+    &__reply-actions &__button {
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    &__confirm-delete &__button {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    &__confirm-delete,
+    &__error {
+        color: $color-box-text;
+        font-weight: bold;
+        font-size: 13px;
+        margin-top: 10px;
+
+        button {
+            float: right;
+        }
+
+        &::after {
+            display: block;
+            content: ' ';
+            clear: both;
+        }
+    }
+
+    &__error {
+        color: $color-white;
+        background-color: $color-red-dark;
+        border-radius: 3px;
+        padding: 5px;
+        padding-left: 10px;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+
+        button {
+            height: 26px;
+            float: right;
+            margin-left: 5px;
+            color: $color-white;
+            background-color: $color-red-very-dark;
+            border-color: $color-red-very-dark;
+            padding: 2px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 0.65em;
+            font-weight: bold;
+        }
+
+        &::after {
+            display: block;
+            content: '';
+            clear: both;
+        }
+    }
+
+    &__progress {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+
+    &__reply-input {
+        /* stylelint-disable-next-line declaration-no-important */
+        margin-top: 20px !important;
+    }
+}

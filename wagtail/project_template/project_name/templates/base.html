@@ -1,4 +1,4 @@
-{% templatetag openblock %} load static wagtailuserbar {% templatetag closeblock %}
+{% templatetag openblock %} load static wagtailcore_tags wagtailuserbar {% templatetag closeblock %}
 
 <!DOCTYPE html>
 <html class="no-js" lang="en">
@@ -6,12 +6,11 @@
         <meta charset="utf-8" />
         <title>
             {% templatetag openblock %} block title %}
-                {% templatetag openblock %} if self.seo_title %}{% templatetag openvariable %} self.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} self.title {% templatetag closevariable %}{% templatetag openblock %} endif %}
+                {% templatetag openblock %} if page.seo_title %}{% templatetag openvariable %} page.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} page.title {% templatetag closevariable %}{% templatetag openblock %} endif %}
             {% templatetag openblock %} endblock %}
             {% templatetag openblock %} block title_suffix %}
-                {% templatetag openblock %} with self.get_site.site_name as site_name %}
-                    {% templatetag openblock %} if site_name %}- {% templatetag openvariable %} site_name {% templatetag closevariable %}{% templatetag openblock %} endif %}
-                {% templatetag openblock %} endwith %}
+                {% templatetag openblock %} wagtail_site as current_site %}
+                {% templatetag openblock %} if current_site and current_site.site_name %}- {% templatetag openvariable %} current_site.site_name {% templatetag closevariable %}{% templatetag openblock %} endif %}
             {% templatetag openblock %} endblock %}
         </title>
         <meta name="description" content="" />

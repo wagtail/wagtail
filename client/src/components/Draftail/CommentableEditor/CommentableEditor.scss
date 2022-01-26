@@ -1,0 +1,35 @@
+.Draftail-Toolbar {
+    display: flex;
+    flex-wrap: wrap;
+
+    .Draftail-ToolbarGroup:last-child {
+        flex-grow: 1;
+    }
+
+    .Draftail-CommentControl {
+        float: right;
+        color: $color-teal;
+    }
+}
+
+.Draftail-CommentControl .Draftail-ToolbarButton {
+    .icon-comment-large-outline {
+        display: block;
+    }
+
+    .icon-comment-large-reversed {
+        display: none;
+    }
+
+    &:hover {
+        border-color: transparent;
+
+        .icon-comment-large-outline {
+            display: none;
+        }
+
+        .icon-comment-large-reversed {
+            display: block;
+        }
+    }
+}

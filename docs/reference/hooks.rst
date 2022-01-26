@@ -78,6 +78,24 @@ And here's an example of registering a hook function for a single block of code:
 
   # Hook is unregistered here
 
+If you need to register multiple hooks in a ``with`` block, you can pass the hooks in as a list of tuples:
+
+.. code-block:: python
+
+    def my_hook(...):
+        pass
+
+    def my_other_hook(...):
+        pass
+
+    with hooks.register_temporarily([
+        ('hook_name', my_hook),
+        ('hook_name', my_other_hook),
+    ]):
+        # All hooks are registered here
+        ..
+
+    # All hooks are unregistered here
 
 The available hooks are listed below.
 
@@ -95,18 +113,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_panels``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of ``panels``, objects which have a ``render()`` method returning a string. The objects also have an ``order`` property, an integer used for ordering the panels. The default panels use integers between ``100`` and ``300``. Hook functions should modify the ``panels`` list in-place as required.
+  Add or remove panels from the Wagtail admin homepage. The callable passed into this hook should take a ``request`` object and a list of panel objects, and should modify this list in-place as required. Panel objects are :doc:`components </extending/template_components>` with an additional ``order`` property, an integer that determines the panel's position in the final ordered list. The default panels use integers between ``100`` and ``300``.
 
   .. code-block:: python
 
     from django.utils.safestring import mark_safe
 
+    from wagtail.admin.ui.components import Component
     from wagtail.core import hooks
 
-    class WelcomePanel:
+    class WelcomePanel(Component):
         order = 50
 
-        def render(self):
+        def render_html(self, parent_context):
             return mark_safe("""
             <section class="panel summary nice-padding">
               <h3>No, but seriously -- welcome to the admin homepage.</h3>
@@ -123,7 +142,19 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_homepage_summary_items``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of ``SummaryItem`` objects to be modified as required. These objects have a ``render()`` method, which returns an HTML string, and an ``order`` property, which is an integer that specifies the order in which the items will appear.
+  Add or remove items from the 'site summary' bar on the admin homepage (which shows the number of pages and other object that exist on the site). The callable passed into this hook should take a ``request`` object and a list of summary item objects, and should modify this list in-place as required. Summary item objects are instances of ``wagtail.admin.site_summary.SummaryItem``, which extends :ref:`the Component class <creating_template_components>` with the following additional methods and properties:
+
+  .. method:: SummaryItem(request)
+
+    Constructor; receives the request object its argument
+
+  .. attribute:: order
+
+    An integer that specifies the item's position in the sequence.
+
+  .. method:: is_shown()
+
+    Returns a boolean indicating whether the summary item should be shown on this request.
 
 
 .. _construct_main_menu:
@@ -131,7 +162,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``construct_main_menu``
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will be missing any associated JavaScript includes, and their ``is_shown`` check will not be applied.
+  Called just before the Wagtail admin menu is output, to allow the list of menu items to be modified. The callable passed to this hook will receive a ``request`` object and a list of ``menu_items``, and should modify ``menu_items`` in-place as required. Adding menu items should generally be done through the ``register_admin_menu_item`` hook instead - items added through ``construct_main_menu`` will not have their ``is_shown`` check applied.
 
   .. code-block:: python
 
@@ -159,12 +190,52 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ``url`` (optional)
   A URL to an index page that lists the objects being described.
 
+
+``register_account_settings_panel``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Registers a new settings panel class to add to the "Account" view in the admin.
+
+This hook can be added to a sub-class of ``BaseSettingsPanel``. For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    @hooks.register('register_account_settings_panel')
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+Alternatively, it can also be added to a function. For example, this function is equivalent to the above:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.account import BaseSettingsPanel
+    from wagtail.core import hooks
+
+    class CustomSettingsPanel(BaseSettingsPanel):
+        name = 'custom'
+        title = "My custom settings"
+        order = 500
+        form_class = CustomSettingsForm
+
+    @hooks.register('register_account_settings_panel')
+    def register_custom_settings_panel(request, user, profile):
+        return CustomSettingsPanel(request, user, profile)
+
+More details about the options that are available can be found at :doc:`/extending/custom_account_settings`.
+
+
 .. _register_account_menu_item:
 
 ``register_account_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the “Account settings” page within the Wagtail admin.
+  Add an item to the "More actions" tab on the "Account" page within the Wagtail admin.
   The callable for this hook should return a dict with the keys
   ``url``, ``label`` and ``help_text``. For example:
 
@@ -191,13 +262,13 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   Add an item to the Wagtail admin menu. The callable passed to this hook must return an instance of ``wagtail.admin.menu.MenuItem``. New items can be constructed from the ``MenuItem`` class by passing in a ``label`` which will be the text in the menu item, and the URL of the admin page you want the menu item to link to (usually by calling ``reverse()`` on the admin view you've set up). Additionally, the following keyword arguments are accepted:
 
   :name: an internal name used to identify the menu item; defaults to the slugified form of the label.
-  :classnames: additional classnames applied to the link, used to give it an icon
-  :attrs: additional HTML attributes to apply to the link
+  :icon_name: icon to display against the menu item; no defaults, optional, but should be set for top-level menu items so they can be identified when collapsed.
+  :classnames: additional classnames applied to the link
   :order: an integer which determines the item's position in the menu
 
   For menu items that are only available to superusers, the subclass ``wagtail.admin.menu.AdminOnlyMenuItem`` can be used in place of ``MenuItem``.
 
-  ``MenuItem`` can be further subclassed to customise the HTML output, specify JavaScript files required by the menu item, or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
+  ``MenuItem`` can be further subclassed to customise its initialisation or conditionally show or hide the item for specific requests (for example, to apply permission checks); see the source code (``wagtail/admin/menu.py``) for details.
 
   .. code-block:: python
 
@@ -208,7 +279,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_menu_item')
     def register_frank_menu_item():
-      return MenuItem('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+      return MenuItem('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_admin_urls:
@@ -287,7 +358,8 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
   :label: text displayed in the "Other Searches" option box.
   :name: an internal name used to identify the search option; defaults to the slugified form of the label.
   :url: the URL of the target search page.
-  :classnames: additional CSS classnames applied to the link, used to give it an icon.
+  :classnames: arbitrary CSS classnames applied to the link
+  :icon_name: icon to display next to the label.
   :attrs: additional HTML attributes to apply to the link.
   :order: an integer which determines the item's position in the list of options.
 
@@ -306,7 +378,7 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 
     @hooks.register('register_admin_search_area')
     def register_frank_search_area():
-        return SearchArea('Frank', reverse('frank'), classnames='icon icon-folder-inverse', order=10000)
+        return SearchArea('Frank', reverse('frank'), icon_name='folder-inverse', order=10000)
 
 
 .. _register_permissions:
@@ -315,6 +387,21 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
   Return a QuerySet of ``Permission`` objects to be shown in the Groups administration area.
+
+  .. code-block:: python
+
+      from django.contrib.auth.models import Permission
+      from wagtail.core import hooks
+
+
+      @hooks.register('register_permissions')
+      def register_permissions():
+          app = 'blog'
+          model = 'extramodelset'
+
+          return Permission.objects.filter(content_type__app_label=app, codename__in=[
+              f"view_{model}", f"add_{model}", f"change_{model}", f"delete_{model}"
+          ])
 
 
 .. _filter_form_submissions_for_user:
@@ -343,7 +430,6 @@ Hooks for building new areas of the admin interface (alongside pages, images, do
             queryset = queryset.none()
 
         return queryset
-
 
 
 Editor interface
@@ -410,7 +496,8 @@ Hooks for customising the editing interface for pages and snippets.
 
   .. code-block:: python
 
-    from django.utils.html import format_html, format_html_join
+    from django.utils.html import format_html_join
+    from django.utils.safestring import mark_safe
     from django.templatetags.static import static
 
     from wagtail.core import hooks
@@ -418,16 +505,22 @@ Hooks for customising the editing interface for pages and snippets.
     @hooks.register('insert_editor_js')
     def editor_js():
         js_files = [
-            'demo/js/jquery.raptorize.1.0.js',
+            'js/fireworks.js', # https://fireworks.js.org
         ]
         js_includes = format_html_join('\n', '<script src="{0}"></script>',
             ((static(filename),) for filename in js_files)
         )
-        return js_includes + format_html(
+        return js_includes + mark_safe(
             """
             <script>
-                $(function() {
-                    $('button').raptorize();
+                window.addEventListener('DOMContentLoaded', (event) => {
+                    var container = document.createElement('div');
+                    container.style.cssText = 'position: fixed; width: 100%; height: 100%; z-index: 100; top: 0; left: 0; pointer-events: none;';
+                    container.id = 'fireworks';
+                    document.getElementById('main').prepend(container);
+                    var options = { "acceleration": 1.2, "autoresize": true, "mouse": { "click": true, "max": 3 } };
+                    var fireworks = new Fireworks(document.getElementById('fireworks'), options);
+                    fireworks.start();
                 });
             </script>
             """
@@ -452,6 +545,36 @@ Hooks for customising the editing interface for pages and snippets.
         return format_html(
             '<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.js"></script>',
         )
+
+
+.. register_page_header_buttons:
+
+``register_page_header_buttons``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Add buttons to the secondary dropdown menu in the page edit view. This works similarly to the ``register_page_listing_buttons`` hook.
+
+  This example will add a simple button to the secondary dropdown menu:
+
+  .. code-block:: python
+
+    from wagtail.admin import widgets as wagtailadmin_widgets
+
+    @hooks.register('register_page_header_buttons')
+    def page_header_buttons(page, page_perms, next_url=None):
+        yield wagtailadmin_widgets.Button(
+            'A dropdown button',
+            '/goes/to/a/url/',
+            priority=60
+        )
+
+  The arguments passed to the hook are as follows:
+
+  * ``page`` - the page object to generate the button for
+  * ``page_perms`` - a ``PagePermissionTester`` object that can be queried to determine the current user's permissions on the given page
+  * ``next_url`` - the URL that the linked action should redirect back to on completion of the action, if the view supports it
+
+  The ``priority`` argument controls the order the buttons are displayed in the dropdown. Buttons are ordered from low to high priority, so a button with ``priority=10`` will be displayed before a button with ``priority=60``.
 
 
 Editor workflow
@@ -482,7 +605,7 @@ Hooks for customising the way users are directed through the process of creating
   .. code-block:: python
 
       @hooks.register('after_create_page')
-      def set_attribute_after_page_create(request, page)
+      def set_attribute_after_page_create(request, page):
          page.title = 'Persistent Title'
          new_revision = page.save_revision()
          if page.live:
@@ -531,8 +654,26 @@ Hooks for customising the way users are directed through the process of creating
 
   Called at the beginning of the "delete page" view passing in the request and the page object.
 
-  Uses the same behaviour as ``before_create_page``.
+  Uses the same behaviour as ``before_create_page``, is is run both for both ``GET`` and ``POST`` requests.
 
+ .. code-block:: python
+
+    from django.shortcuts import redirect
+    from django.utils.html import format_html
+
+    from wagtail.admin import messages
+    from wagtail.core import hooks
+
+    from .models import AwesomePage
+
+
+    @hooks.register('before_delete_page')
+    def before_delete_page(request, page):
+        """Block awesome page deletion and show a message."""
+
+        if request.method == 'POST' and page.specific_class in [AwesomePage]:
+            messages.warning(request, "Awesome pages cannot be deleted, only unpublished")
+            return redirect('wagtailadmin_pages:delete', page.pk)
 
 .. _after_edit_page:
 
@@ -656,7 +797,7 @@ Hooks for customising the way users are directed through the process of creating
 ``register_page_action_menu_item``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. The following attributes and methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  Add an item to the popup menu of actions on the page creation and edit views. The callable passed to this hook must return an instance of ``wagtail.admin.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -665,16 +806,13 @@ Hooks for customising the way users are directed through the process of creating
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining JavaScript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
-  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+  The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods all accept a context dictionary containing the following fields:
 
   :view: name of the current view: ``'create'``, ``'edit'`` or ``'revisions_revert'``
   :page: For ``view`` = ``'edit'`` or ``'revisions_revert'``, the page being edited
   :parent_page: For ``view`` = ``'create'``, the parent page of the page being created
+  :request: The current request object
   :user_page_permissions: a ``UserPagePermissionsProxy`` object for the current user, to test permissions against
 
   .. code-block:: python
@@ -686,7 +824,7 @@ Hooks for customising the way users are directed through the process of creating
         name = 'action-guacamole'
         label = "Guacamole"
 
-        def get_url(self, request, context):
+        def get_url(self, context):
             return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 
@@ -756,7 +894,7 @@ Hooks for customising the way users are directed through the process of creating
     class UserbarPuppyLinkItem:
         def render(self, request):
             return '<li><a href="http://cuteoverload.com/tag/puppehs/" ' \
-                + 'target="_parent" class="action icon icon-wagtail">Puppies!</a></li>'
+                + 'target="_parent" role="menuitem" class="action icon icon-wagtail">Puppies!</a></li>'
 
     @hooks.register('construct_wagtail_userbar')
     def add_puppy_link_item(request, items):
@@ -1173,8 +1311,7 @@ Hooks for working with registered Snippets.
 
   Add an item to the popup menu of actions on the snippet creation and edit views.
   The callable passed to this hook must return an instance of
-  ``wagtail.snippets.action_menu.ActionMenuItem``. The following attributes and
-  methods are available to be overridden on subclasses of ``ActionMenuItem``:
+  ``wagtail.snippets.action_menu.ActionMenuItem``. ``ActionMenuItem`` is a subclass of :ref:`Component <creating_template_components>` and so the rendering of the menu item can be customised through ``template_name``, ``get_context_data``, ``render_html`` and ``Media``. In addition, the following attributes and methods are available to be overridden:
 
   :order: an integer (default 100) which determines the item's position in the menu. Can also be passed as a keyword argument to the object constructor. The lowest-numbered item in this sequence will be selected as the default menu item; as standard, this is "Save draft" (which has an ``order`` of 0).
   :label: the displayed text of the menu item
@@ -1183,16 +1320,13 @@ Hooks for working with registered Snippets.
   :icon_name: icon to display against the menu item
   :classname: a ``class`` attribute value to add to the button element
   :is_shown: a method which returns a boolean indicating whether the menu item should be shown; by default, true except when editing a locked page
-  :template: the path to a template to render to produce the menu item HTML
-  :get_context: a method that returns a context dictionary to pass to the template
-  :render_html: a method that returns the menu item HTML; by default, renders ``template`` with the context returned from ``get_context``
-  :Media: an inner class defining Javascript and CSS to import when this menu item is shown - see `Django form media <https://docs.djangoproject.com/en/stable/topics/forms/media/>`_
 
-  The ``get_url``, ``is_shown``, ``get_context`` and ``render_html`` methods all accept a request object and a context dictionary containing the following fields:
+  The ``get_url``, ``is_shown``, ``get_context_data`` and ``render_html`` methods all accept a context dictionary containing the following fields:
 
   :view: name of the current view: ``'create'`` or ``'edit'``
-  :model: The snippets model class
+  :model: The snippet's model class
   :instance: For ``view`` = ``'edit'``, the instance being edited
+  :request: The current request object
 
   .. code-block:: python
 
@@ -1203,7 +1337,7 @@ Hooks for working with registered Snippets.
         name = 'action-guacamole'
         label = "Guacamole"
 
-        def get_url(self, request, context):
+        def get_url(self, context):
             return "https://www.youtube.com/watch?v=dNJdJIwCF_Y"
 
 
@@ -1290,6 +1424,83 @@ Hooks for working with registered Snippets.
     def remove_snippet_listing_button_item(buttons, snippet, user, context=None):
         buttons.pop()  # Removes the 'delete' button
 
+
+Bulk actions
+------------
+
+Hooks for registering and customising bulk actions. See :ref:`here <custom_bulk_actions>` on how to write custom bulk actions.
+
+
+.. _register_bulk_action:
+
+``register_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Registers a new bulk action to add to the list of bulk actions in the explorer
+
+  This hook must be registered with a sub-class of ``BulkAction`` . For example:
+
+  .. code-block:: python
+
+    from wagtail.admin.views.bulk_action import BulkAction
+    from wagtail.core import hooks
+
+
+    @hooks.register("register_bulk_action")
+    class CustomBulkAction(BulkAction):
+        display_name = _("Custom Action")
+        action_type = "action"
+        aria_label = _("Do custom action")
+        template_name = "/path/to/template"
+        models = [...]  # list of models the action should execute upon
+
+
+        @classmethod
+        def execute_action(cls, objects, **kwargs):
+            for object in objects:
+                do_something(object)
+            return num_parent_objects, num_child_objects  # return the count of updated objects
+
+
+.. _before_bulk_action:
+
+``before_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right before a bulk action is executed (before the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register("before_bulk_action")
+    def hook_func(request, action_type, objects, action_class_instance):
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects would be deleted", content_type="text/plain")
+
+
+.. _after_bulk_action:
+
+``after_bulk_action``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Do something right after a bulk action is executed (after the ``execute_action`` method is called)
+
+  This hook can be used to return an HTTP response. For example:
+
+  .. code-block:: python
+
+    from wagtail.core import hooks
+
+    @hooks.register("after_bulk_action")
+    def hook_func(request, action_type, objects, action_class_instance):
+      if action_type == 'delete':
+        return HttpResponse(f"{len(objects)} objects have been deleted", content_type="text/plain")
+
+
+
 Audit log
 ---------
 
@@ -1308,12 +1519,31 @@ Audit log
 
         from wagtail.core import hooks
 
-        @hook.register('register_log_actions')
+        @hooks.register('register_log_actions')
         def additional_log_actions(actions):
             actions.register_action('wagtail_package.echo', _('Echo'), _('Sent an echo'))
 
-            def callback_message(data):
-                return _('Hello %(audience)s') % {
-                    'audience': data['audience'],
-                }
-            actions.register_action('wagtail_package.with_callback', _('Callback'), callback_message)
+
+    Alternatively, for a log message that varies according to the log entry's data, create a subclass of ``wagtail.core.log_actions.LogFormatter`` that overrides the ``format_message`` method, and use ``register_action`` as a decorator on that class:
+
+    .. code-block:: python
+
+        from django.utils.translation import gettext_lazy as _
+
+        from wagtail.core import hooks
+        from wagtail.core.log_actions import LogFormatter
+
+        @hooks.register('register_log_actions')
+        def additional_log_actions(actions):
+            @actions.register_action('wagtail_package.greet_audience')
+            class GreetingActionFormatter(LogFormatter):
+                label = _('Greet audience')
+
+                def format_message(self, log_entry):
+                    return _('Hello %(audience)s') % {
+                        'audience': log_entry.data['audience'],
+                    }
+
+    .. versionchanged:: 2.15
+
+      The ``LogFormatter`` class was introduced. Previously, dynamic messages were achieved by passing a callable as the ``message`` argument to ``register_action``.

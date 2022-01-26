@@ -1,6 +1,6 @@
 [
     {
-        "pk": 1,
+        "pk": "00000000-0000-0000-0000-000000000001",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Clark",
@@ -16,7 +16,7 @@
         }
     },
     {
-        "pk": 2,
+        "pk": "00000000-0000-0000-0000-000000000002",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Jane",
@@ -33,7 +33,7 @@
         }
     },
     {
-        "pk": 3,
+        "pk": "00000000-0000-0000-0000-000000000003",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Bob",
@@ -50,7 +50,7 @@
         }
     },
     {
-        "pk": 4,
+        "pk": "00000000-0000-0000-0000-000000000004",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Sam",
@@ -68,7 +68,7 @@
         }
     },
     {
-        "pk": 5,
+        "pk": "00000000-0000-0000-0000-000000000005",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Mary",
@@ -86,7 +86,7 @@
         }
     },
     {
-        "pk": 6,
+        "pk": "00000000-0000-0000-0000-000000000006",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "Josh",

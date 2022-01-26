@@ -1,15 +1,22 @@
+from django.apps import apps
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Permission
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import Q
 from django.urls import include, path, reverse
+from django.utils.module_loading import import_string
 from django.utils.translation import gettext_lazy as _
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
 from wagtail.core import hooks
 from wagtail.core.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
+from wagtail.core.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
-from wagtail.users.views.groups import GroupViewSet
+from wagtail.users.views.bulk_actions import (
+    AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction)
 from wagtail.users.widgets import UserListingButton
 
 
@@ -20,9 +27,24 @@ def register_admin_urls():
     ]
 
 
+def get_group_viewset_cls(app_config):
+    try:
+        group_viewset_cls = import_string(app_config.group_viewset)
+    except (AttributeError, ImportError) as e:
+        raise ImproperlyConfigured(
+            "Invalid setting for {appconfig}.group_viewset: {message}".format(
+                appconfig=app_config.__class__.__name__,
+                message=e
+            )
+        )
+    return group_viewset_cls
+
+
 @hooks.register('register_admin_viewset')
 def register_viewset():
-    return GroupViewSet('wagtailusers_groups', url_prefix='groups')
+    app_config = apps.get_app_config("wagtailusers")
+    group_viewset_cls = get_group_viewset_cls(app_config)
+    return group_viewset_cls('wagtailusers_groups', url_prefix='groups')
 
 
 # Typically we would check the permission 'auth.change_user' (and 'auth.add_user' /
@@ -97,7 +119,7 @@ def register_users_search_area():
     return UsersSearchArea(
         _('Users'), reverse('wagtailusers_users:index'),
         name='users',
-        classnames='icon icon-user',
+        icon_name='user',
         order=600)
 
 
@@ -106,3 +128,18 @@ def user_listing_buttons(context, user):
     yield UserListingButton(_('Edit'), reverse('wagtailusers_users:edit', args=[user.pk]), attrs={'title': _('Edit this user')}, priority=10)
     if user_can_delete_user(context.request.user, user):
         yield UserListingButton(_('Delete'), reverse('wagtailusers_users:delete', args=[user.pk]), classes={'no'}, attrs={'title': _('Delete this user')}, priority=20)
+
+
+User = get_user_model()
+
+
+class UserAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtailusers_users:edit'
+    permission_policy = ModelPermissionPolicy(User)
+
+
+register_admin_url_finder(User, UserAdminURLFinder)
+
+
+for action_class in [AssignRoleBulkAction, DeleteBulkAction, SetActiveStateBulkAction]:
+    hooks.register('register_bulk_action', action_class)

@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Type"
+msgstr "Tipo"
+
+msgid "Permanent"
+msgstr "Permanente"
+
+msgid "All"
+msgstr "Todos"
 
 msgid "From site"
 msgstr "Dende sitio web"
@@ -29,6 +38,10 @@ msgstr "Todos os sitios web"
 
 msgid "A redirect with this path already exists."
 msgstr "Unha redirección con esta ruta xa existe"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Formatos soportados: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "redireccionar dende"
@@ -78,6 +91,9 @@ msgstr "¿Seguro que queres eliminar esta redirección?"
 msgid "Yes, delete"
 msgstr "Si, eliminar"
 
+msgid "Preview"
+msgstr "Previsualizar"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editando %(title)s"
@@ -94,11 +110,11 @@ msgstr "Dende"
 msgid "To"
 msgstr "A"
 
+msgid "Continue"
+msgstr "Continuar"
+
 msgid "Site"
 msgstr "Sitio web"
-
-msgid "Type"
-msgstr "Tipo"
 
 msgid "Edit this redirect"
 msgstr "Editar esta redirección"

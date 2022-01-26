@@ -18,6 +18,9 @@ import sys
 from datetime import datetime
 
 import django
+import sphinx_wagtail_theme
+
+from recommonmark.transform import AutoStructify
 
 from wagtail import VERSION, __version__
 
@@ -25,10 +28,13 @@ from wagtail import VERSION, __version__
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_wagtail_theme'
+html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
+
+html_theme_options = dict(
+    project_name="Wagtail Documentation",
+    github_url="https://github.com/wagtail/wagtail/blob/main/docs/"
+)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -54,6 +60,8 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
+    'recommonmark',
+    'sphinx_wagtail_theme',
 ]
 
 if not on_rtd:
@@ -72,8 +80,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Wagtail'
-copyright = '{year:d}, Torchbox'.format(year=datetime.now().year)
+project = 'Wagtail Documentation'
+copyright = f'{datetime.now().year}, Torchbox and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -96,7 +104,7 @@ release = __version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', 'README.md']
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -148,7 +156,7 @@ intersphinx_mapping = {
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = 'logo.png'
+# html_logo = 'logo.png'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -184,7 +192,10 @@ html_extra_path = ['robots.txt']
 # html_domain_indices = True
 
 # If false, no index is generated.
-# html_use_index = True
+# Since we are implementing search with Algolia DocSearch, we do not need Sphinx to
+# generate its own index. It might not hurt to keep the Sphinx index, but it
+# could potentially speed up the build process.
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 # html_split_index = False
@@ -300,3 +311,10 @@ texinfo_documents = [
 def setup(app):
     app.add_css_file('css/custom.css')
     app.add_js_file('js/banner.js')
+
+    github_doc_root = 'https://github.com/wagtail/wagtail/tree/main/docs/'
+
+    app.add_config_value('recommonmark_config', {
+        'url_resolver': lambda url: github_doc_root + url,
+    }, True)
+    app.add_transform(AutoStructify)

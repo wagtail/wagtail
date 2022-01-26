@@ -16,6 +16,7 @@ from wagtail.admin.urls import password_reset as wagtailadmin_password_reset_url
 from wagtail.admin.urls import reports as wagtailadmin_reports_urls
 from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, home, tags, userbar
+from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.pages import listing
 from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
@@ -33,6 +34,9 @@ urlpatterns = [
     # TODO: Move into wagtailadmin_pages namespace
     path('pages/', listing.index, name='wagtailadmin_explore_root'),
     path('pages/<int:parent_page_id>/', listing.index, name='wagtailadmin_explore'),
+
+    # bulk actions
+    path('bulk/<str:app_label>/<str:model_name>/<str:action>/', bulk_actions, name='wagtail_bulk_action'),
 
     path('pages/', include(wagtailadmin_pages_urls, namespace='wagtailadmin_pages')),
 
@@ -53,25 +57,6 @@ urlpatterns = [
     path('reports/', include(wagtailadmin_reports_urls, namespace='wagtailadmin_reports')),
 
     path('account/', account.account, name='wagtailadmin_account'),
-    path('account/change_password/', account.change_password, name='wagtailadmin_account_change_password'),
-    path('account/change_email/', account.change_email, name='wagtailadmin_account_change_email'),
-    path('account/change_name/', account.change_name, name='wagtailadmin_account_change_name'),
-    path(
-        'account/notification_preferences/',
-        account.notification_preferences,
-        name='wagtailadmin_account_notification_preferences'
-    ),
-    path('account/change_avatar/', account.change_avatar, name='wagtailadmin_account_change_avatar'),
-    path(
-        'account/language_preferences/',
-        account.language_preferences,
-        name='wagtailadmin_account_language_preferences'
-    ),
-    path(
-        'account/current_time_zone/',
-        account.current_time_zone,
-        name='wagtailadmin_account_current_time_zone'
-    ),
     path('logout/', account.LogoutView.as_view(), name='wagtailadmin_logout'),
 ]
 
@@ -112,11 +97,24 @@ urlpatterns += [
 
     # Password reset
     path('password_reset/', include(wagtailadmin_password_reset_urls)),
-
-    # Default view (will show 404 page)
-    # This must be the last URL in this file!
-    re_path(r'^', home.default),
 ]
+
+
+# Default view (will show 404 page)
+# This must be the last URL in this file!
+
+if settings.APPEND_SLASH:
+    # Only catch unrecognized patterns with a trailing slash
+    # and let CommonMiddleware handle adding a slash to every other pattern
+    urlpatterns += [
+        re_path(r'^.*/$', home.default),
+    ]
+
+else:
+    # Catch all unrecognized patterns
+    urlpatterns += [
+        re_path(r'^', home.default),
+    ]
 
 
 # Hook in our own 404 handler

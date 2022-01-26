@@ -3,18 +3,19 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Łukasz Bołdys (Lukasz Boldys), 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016
-# Miłosz Miśkiewicz, 2018
+# Miłosz Miśkiewicz, 2018,2020-2021
 # Miłosz Miśkiewicz, 2016
 # Łukasz Bołdys (Lukasz Boldys), 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 09:39+0000\n"
+"Last-Translator: Łukasz Bołdys (Lukasz Boldys)\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -28,20 +29,45 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "Przekierowania Wagtail"
 
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Stałe"
+
+msgid "Temporary"
+msgstr "Czasowe"
+
+msgid "All"
+msgstr "Wszystkie"
+
 msgid "From site"
-msgstr "Strona źródłowa"
+msgstr "Serwis źródłowy"
 
 msgid "All sites"
-msgstr "Wszystkie strony"
+msgstr "Wszystkie serwisy"
 
 msgid "A redirect with this path already exists."
 msgstr "Przekierowanie z tym adresem już istnieje."
+
+msgid "File to import"
+msgstr "Plik do importu"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Wspierane formaty: %(supported_formats)s."
+
+msgid "From field"
+msgstr "Pole formularza"
+
+msgid "To field"
+msgstr "Do pola"
 
 msgid "redirect from"
 msgstr "przekierowanie z"
 
 msgid "site"
-msgstr "strona"
+msgstr "serwis"
 
 msgid "permanent"
 msgstr "stałe"
@@ -74,6 +100,29 @@ msgstr "Zapisz"
 msgid "Redirects"
 msgstr "Przekierowania"
 
+msgid "Import redirects"
+msgstr "Import przekierowań"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Wybierz plik, w którym przekierowania są podzielone na "
+"wiersze i zawierają kolumny reprezentujące <code>z</code> i <code>do</code> "
+"(mogą się nazywać dowolnie).</p>\n"
+"                <p>Po wysłaniu zostaniesz przekierowany na widok "
+"potwierdzenia gdzie możesz zmodyfikować przekierowania przez importem.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Import"
+
 #, python-format
 msgid "Delete redirect %(title)s"
 msgstr "Usuń przekierowanie %(title)s"
@@ -87,6 +136,18 @@ msgstr "Czy na pewno chcesz usunąć to przekierowanie?"
 msgid "Yes, delete"
 msgstr "Tak, usuń"
 
+msgid "Confirm import"
+msgstr "Potwierdź import"
+
+msgid "Confirm"
+msgstr "Potwierdź"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+msgid "Preview"
+msgstr "Podgląd"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Edycja %(title)s"
@@ -97,20 +158,39 @@ msgstr "Edycja"
 msgid "Delete redirect"
 msgstr "Usuń przekierowanie"
 
+msgid "Summary"
+msgstr "Podsumowanie"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Znaleziono %(total)s przekierowań, utworzono %(successes)s i znaleziono "
+"%(errors)s błędów."
+
 msgid "From"
 msgstr "Z"
 
 msgid "To"
 msgstr "Do"
 
-msgid "Site"
-msgstr "Strona"
+msgid "Error"
+msgstr "Błąd"
 
-msgid "Type"
-msgstr "Typ"
+msgid "Continue"
+msgstr "Kontynuuj"
+
+msgid "Export redirects"
+msgstr "Eksport przekierowań"
+
+msgid "Site"
+msgstr "Serwis"
 
 msgid "Edit this redirect"
 msgstr "Edytuj to przekierowanie"
+
+msgid "No redirects found."
+msgstr "Nie znaleziono przekierowań."
 
 #, python-format
 msgid ""
@@ -172,3 +252,26 @@ msgstr "Przekierowanie '{0}' dodane."
 
 msgid "The redirect could not be created due to errors."
 msgstr "Przekierowanie nie mogło zostać stworzone z powodu błędów."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Format pliku typu \"{}\" nie jest wspierany"
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Zaimportowany plik ma złe kodowanie: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr ""
+"%(error)s błędów napotkanych w trakcie próbie odczytu pliku: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Zaimportowano %(total)d przekierowanie"
+msgstr[1] "Zaimportowano %(total)d przekierowań"
+msgstr[2] "Zaimportowano %(total)d przekierowań"
+msgstr[3] "Zaimportowano %(total)d przekierowań"
+
+msgid "Export Redirects"
+msgstr "Eksport Przekierowań"

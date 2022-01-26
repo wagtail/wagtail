@@ -19,6 +19,7 @@ class SearchQuery:
     def __repr__(self):
         raise NotImplementedError
 
+
 #
 # Basic query classes
 #
@@ -45,7 +46,7 @@ class Phrase(SearchQuery):
         self.query_string = query_string
 
     def __repr__(self):
-        return '<PlainText {}>'.format(repr(self.query_string))
+        return '<Phrase {}>'.format(repr(self.query_string))
 
 
 class MatchAll(SearchQuery):

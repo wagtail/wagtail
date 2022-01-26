@@ -1,3 +1,4 @@
+import datetime
 import json
 import unittest
 import urllib.request
@@ -9,11 +10,12 @@ from django import template
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.urls import reverse
+from django.utils.timezone import make_aware, now
 
 from wagtail.core import blocks
 from wagtail.embeds import oembed_providers
 from wagtail.embeds.blocks import EmbedBlock, EmbedValue
-from wagtail.embeds.embeds import get_embed
+from wagtail.embeds.embeds import get_embed, get_embed_hash
 from wagtail.embeds.exceptions import EmbedNotFoundException, EmbedUnsupportedProviderException
 from wagtail.embeds.finders import get_finders
 from wagtail.embeds.finders.embedly import AccessDeniedEmbedlyException, EmbedlyException
@@ -120,7 +122,7 @@ class TestEmbeds(TestCase):
     def setUp(self):
         self.hit_count = 0
 
-    def dummy_finder(self, url, max_width=None):
+    def dummy_finder(self, url, max_width=None, max_height=None):
         # Up hit count
         self.hit_count += 1
 
@@ -128,7 +130,6 @@ class TestEmbeds(TestCase):
         return {
             'title': "Test: " + url,
             'type': 'video',
-            'thumbnail_url': '',
             'width': max_width if max_width else 640,
             'height': 480,
             'html': "<p>Blah blah blah</p>",
@@ -142,6 +143,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.title, "Test: www.test.com/1234")
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
+        self.assertEqual(embed.thumbnail_url, '')
 
         # Check ratio calculations
         self.assertEqual(embed.ratio, 480 / 400)
@@ -171,8 +173,44 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.type, 'video')
         self.assertEqual(embed.width, 400)
         self.assertFalse(embed.is_responsive)
+        self.assertIsNone(embed.cache_until)
 
-    def dummy_finder_invalid_width(self, url, max_width=None):
+    def dummy_cache_until_finder(self, url, max_width=None, max_height=None):
+        # Up hit count
+        self.hit_count += 1
+
+        # Return a pretend record
+        return {
+            'title': "Test: " + url,
+            'type': 'video',
+            'width': max_width if max_width else 640,
+            'height': 480,
+            'html': "<p>Blah blah blah</p>",
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3)),
+        }
+
+    def test_get_embed_cache_until(self):
+        embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(embed.cache_until, make_aware(datetime.datetime(2001, 2, 3)))
+        self.assertEqual(self.hit_count, 1)
+
+        # expired cache_until should be ignored
+        embed_2 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # future cache_until should not be ignored
+        future_dt = now() + datetime.timedelta(minutes=1)
+        embed.cache_until = future_dt
+        embed.save()
+        embed_3 = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_cache_until_finder)
+        self.assertEqual(self.hit_count, 2)
+
+        # ensure we've received the same embed
+        self.assertEqual(embed, embed_2)
+        self.assertEqual(embed, embed_3)
+        self.assertEqual(embed_3.cache_until, future_dt)
+
+    def dummy_finder_invalid_width(self, url, max_width=None, max_height=None):
         # Return a record with an invalid width
         return {
             'title': "Test: " + url,
@@ -190,7 +228,7 @@ class TestEmbeds(TestCase):
         self.assertEqual(embed.width, None)
 
     def test_no_html(self):
-        def no_html_finder(url, max_width=None):
+        def no_html_finder(url, max_width=None, max_height=None):
             """
             A finder which returns everything but HTML
             """
@@ -206,6 +244,14 @@ class TestEmbeds(TestCase):
     def test_no_finders_available(self):
         with self.assertRaises(EmbedUnsupportedProviderException):
             get_embed('www.test.com/1234', max_width=400)
+
+
+class TestEmbedHash(TestCase):
+    def test_get_embed_hash(self):
+        url = "www.test.com/1234"
+        self.assertEqual(get_embed_hash(url), "9a4cfc187266026cd68160b5db572629")
+        self.assertEqual(get_embed_hash(url, 0), "946fb9597a6c74ab3cef1699eff7fde7")
+        self.assertEqual(get_embed_hash(url, 1), "427830227a86093b50417e11dbd2f28e")
 
 
 class TestChooser(TestCase, WagtailTestUtils):
@@ -368,6 +414,14 @@ class TestOembed(TestCase):
                               "http://www.youtube.com/watch/")
 
     @patch('urllib.request.urlopen')
+    def test_oembed_non_json_response(self, urlopen):
+        urlopen.return_value = self.dummy_response
+        self.assertRaises(
+            EmbedNotFoundException, OEmbedFinder().find_embed,
+            "https://www.youtube.com/watch?v=ReblZ7o7lu4"
+        )
+
+    @patch('urllib.request.urlopen')
     @patch('json.loads')
     def test_oembed_photo_request(self, loads, urlopen):
         urlopen.return_value = self.dummy_response
@@ -403,6 +457,68 @@ class TestOembed(TestCase):
             'width': 'test_width',
             'height': 'test_height',
             'html': 'test_html'
+        })
+
+    @patch('django.utils.timezone.now')
+    @patch('urllib.request.urlopen')
+    @patch('json.loads')
+    def test_oembed_cache_until(self, loads, urlopen, now):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {
+            'type': 'something',
+            'url': 'http://www.example.com',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_age': 3600
+        }
+        now.return_value = make_aware(datetime.datetime(2001, 2, 3))
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3, hour=1))
+        })
+
+    @patch('django.utils.timezone.now')
+    @patch('urllib.request.urlopen')
+    @patch('json.loads')
+    def test_oembed_cache_until_as_string(self, loads, urlopen, now):
+        urlopen.return_value = self.dummy_response
+        loads.return_value = {
+            'type': 'something',
+            'url': 'http://www.example.com',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_age': '3600'
+        }
+        now.return_value = make_aware(datetime.datetime(2001, 2, 3))
+        result = OEmbedFinder().find_embed("http://www.youtube.com/watch/")
+        self.assertEqual(result, {
+            'type': 'something',
+            'title': 'test_title',
+            'author_name': 'test_author',
+            'provider_name': 'test_provider_name',
+            'thumbnail_url': 'test_thumbail_url',
+            'width': 'test_width',
+            'height': 'test_height',
+            'html': 'test_html',
+            'cache_until': make_aware(datetime.datetime(2001, 2, 3, hour=1))
         })
 
     def test_oembed_accepts_known_provider(self):
@@ -467,7 +583,7 @@ class TestInstagramOEmbed(TestCase):
         request = urlopen.call_args[0][0]
         self.assertEqual(
             request.get_full_url(),
-            "https://graph.facebook.com/v9.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json"
+            "https://graph.facebook.com/v11.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json"
         )
         self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
 
@@ -502,7 +618,6 @@ class TestFacebookOEmbed(TestCase):
                     "title": "test_title",
                     "author_name": "test_author",
                     "provider_name": "Facebook",
-                    "thumbnail_url": "test_thumbail_url",
                     "width": "test_width",
                     "height": "test_height",
                     "html": "<blockquote class=\\\"facebook-media\\\">Content</blockquote>"
@@ -523,7 +638,7 @@ class TestFacebookOEmbed(TestCase):
             'title': 'test_title',
             'author_name': 'test_author',
             'provider_name': 'Facebook',
-            'thumbnail_url': 'test_thumbail_url',
+            'thumbnail_url': None,
             'width': 'test_width',
             'height': 'test_height',
             'html': '<blockquote class="facebook-media">Content</blockquote>'
@@ -532,7 +647,7 @@ class TestFacebookOEmbed(TestCase):
         request = urlopen.call_args[0][0]
         self.assertEqual(
             request.get_full_url(),
-            "https://graph.facebook.com/v9.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json"
+            "https://graph.facebook.com/v11.0/oembed_video?url=https%3A%2F%2Ffb.watch%2FABC123eew%2F&format=json"
         )
         self.assertEqual(request.get_header('Authorization'), "Bearer 123|abc")
 
@@ -626,7 +741,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     @patch('wagtail.embeds.embeds.get_embed')
     def test_render_within_structblock(self, get_embed):
@@ -651,18 +766,7 @@ class TestEmbedBlock(TestCase):
         self.assertIn('<h1>Hello world!</h1>', result)
 
         # Check that get_embed was called correctly
-        get_embed.assert_any_call('http://www.example.com/foo')
-
-    def test_render_form(self):
-        """
-        The form field for an EmbedBlock should be a text input containing
-        the URL
-        """
-        block = EmbedBlock()
-
-        form_html = block.render_form(EmbedValue('http://www.example.com/foo'), prefix='myembed')
-        self.assertIn('<input ', form_html)
-        self.assertIn('value="http://www.example.com/foo"', form_html)
+        get_embed.assert_any_call('http://www.example.com/foo', None, None)
 
     def test_value_from_form(self):
         """

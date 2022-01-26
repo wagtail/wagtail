@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# ongchi <ihcgno@icloud.com>, 2020
+# ongchi <ihcgno@icloud.com>, 2020-2021
 # Ocin Leung, 2020
 # Yeh Yen-Ke <yyken@outlook.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-01 10:02+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-16 13:06+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -24,6 +24,9 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "Wagtail 文件"
 
+msgid "Collection"
+msgstr "集合"
+
 msgid "Add"
 msgstr "新增"
 
@@ -35,6 +38,9 @@ msgstr "編輯"
 
 msgid "Edit any document"
 msgstr "編輯任意文件"
+
+msgid "Choose"
+msgstr "選擇"
 
 msgid "title"
 msgstr "標題"
@@ -57,6 +63,23 @@ msgstr "文件"
 msgid "documents"
 msgstr "文件"
 
+msgid "Add documents to collection"
+msgstr "將選擇的文件加入至集合"
+
+msgid "Delete documents"
+msgstr "刪除文件"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "已使用%(usage_count)s次"
+
+msgid "Yes, delete"
+msgstr "是，刪除"
+
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
 msgid "Choose a document"
 msgstr "選擇一個文件"
 
@@ -65,9 +88,6 @@ msgstr "搜索"
 
 msgid "Upload"
 msgstr "上傳"
-
-msgid "Uploading…"
-msgstr "正在上傳…"
 
 #, python-format
 msgid ""
@@ -84,6 +104,19 @@ msgstr[0] ""
 
 msgid "Latest documents"
 msgstr "最新文件"
+
+msgid "Title"
+msgstr "標題"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Created"
+msgstr "已創建"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -106,6 +139,9 @@ msgstr ""
 "一個文件都沒有呢，現在<a class=\"upload-one-now\" href="
 "\"%(wagtaildocs_add_document_url)s\">上傳一個</a>?"
 
+msgid "Uploading…"
+msgstr "正在上傳…"
+
 msgid "Change document:"
 msgstr "修改文件："
 
@@ -121,20 +157,6 @@ msgstr "刪除 %(title)s"
 
 msgid "Delete document"
 msgstr "刪除文件"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "已使用%(usage_count)s次"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "確定刪除此文件？"
-
-msgid "Yes, delete"
-msgstr "是，刪除"
-
-msgid "No, don't delete"
-msgstr "否，不刪除"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -158,21 +180,8 @@ msgstr "使用情況"
 msgid "Documents"
 msgstr "文件"
 
-msgid "Title"
-msgstr "標題"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Collection"
-msgstr "集合"
-
-msgid "Created"
-msgstr "已創建"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
+msgid "Select document"
+msgstr "選擇文件"
 
 #, python-format
 msgid ""
@@ -255,12 +264,6 @@ msgstr "對不起，上傳失敗。"
 msgid "Document updated."
 msgstr "已更新文件"
 
-msgid "Update"
-msgstr "更新"
-
-msgid "Delete"
-msgstr "刪除"
-
 msgid "You need a password to access this document."
 msgstr "你需要一個密碼來訪問這個文件。"
 
@@ -269,6 +272,18 @@ msgstr "文件權限"
 
 msgid "Add a document permission"
 msgstr "新增一個文件權限"
+
+msgid "Tag"
+msgstr "標籤"
+
+msgid "Add to collection"
+msgstr "加入至集合"
+
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Delete selected documents"
+msgstr "刪除選擇的文件"
 
 msgid "Server Error"
 msgstr "伺服器錯誤"

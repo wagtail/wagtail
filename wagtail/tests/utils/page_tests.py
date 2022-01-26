@@ -81,7 +81,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
 
         explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
         if response.redirect_chain != [(explore_url, 302)]:
-            msg = self._formatMessage(msg, 'Creating a page %s.%s didnt redirect the user to the explorer, but to %s' % (
+            msg = self._formatMessage(msg, 'Creating a page %s.%s didn\'t redirect the user to the explorer, but to %s' % (
                 child_model._meta.app_label, child_model._meta.model_name,
                 response.redirect_chain))
             raise self.failureException(msg)

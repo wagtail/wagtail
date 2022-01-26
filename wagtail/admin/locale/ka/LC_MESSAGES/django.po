@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: André Bouatchidzé <a@anbz.net>\n"
 "Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
 "ka/)\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,14 @@ msgstr "წაშლა"
 msgid "Content"
 msgstr "შიგთავსი"
 
-msgid "Date"
-msgstr "თარიღი"
+msgid "First Name"
+msgstr "სახელი"
 
-msgid "Title"
-msgstr "სათაური"
+msgid "Last Name"
+msgstr "გვარი"
+
+msgid "Email"
+msgstr "ელფოსტა"
 
 msgid "Enter password"
 msgstr "შეიყვანეთ პაროლი"
@@ -40,6 +43,12 @@ msgstr "შეიყვანეთ პაროლი"
 #, python-format
 msgid "Enter your %s"
 msgstr "შეიყვანეთ თქვენი %s"
+
+msgid "Add"
+msgstr "დამატება"
+
+msgid "Edit"
+msgstr "რედაქტირება"
 
 msgid "New title"
 msgstr "ახალი სათაური"
@@ -49,6 +58,12 @@ msgstr "ძიება"
 
 msgid "Search term"
 msgstr "ძიების ტერმინი"
+
+msgid "Page"
+msgstr "გვერდი"
+
+msgid "Save"
+msgstr "შენახვა"
 
 msgid "Account"
 msgstr "ანგარიში"
@@ -68,8 +83,8 @@ msgstr "მენიუ"
 msgid "Internal link"
 msgstr "შიდა ბმული"
 
-msgid "Save"
-msgstr "შენახვა"
+msgid "Title"
+msgstr "სათაური"
 
 msgid "Edit this page"
 msgstr "ამ გვერდის რედაქტირება"
@@ -79,6 +94,9 @@ msgstr "ტიპი"
 
 msgid "Status"
 msgstr "სტატუსი"
+
+msgid "Date"
+msgstr "თარიღი"
 
 msgid "You can view the page here:"
 msgstr "გვერდის ნახვა შეგიძლიათ აქ:"
@@ -92,6 +110,9 @@ msgstr "კოპირება"
 msgid "New"
 msgstr "ახალი"
 
+msgid "User"
+msgstr "მომხმარებელი"
+
 msgid "Previous"
 msgstr "წინა"
 
@@ -100,6 +121,9 @@ msgstr "შემდეგი"
 
 msgid "Log out"
 msgstr "გამოსვლა"
+
+msgid "Password"
+msgstr "პაროლი"
 
 msgid "Choose another page"
 msgstr "სხვა გვერდის არჩევა"

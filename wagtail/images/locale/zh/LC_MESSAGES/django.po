@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Choose"
+msgstr "选择"
+
+msgid "title"
+msgstr "标题"
+
+msgid "file"
+msgstr "文件"
+
+msgid "created at"
+msgstr "创建于"
+
+msgid "tags"
+msgstr "标签"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
 
 msgid "Choose an image"
 msgstr "选择一个图片"
@@ -39,6 +63,9 @@ msgstr "选择一个格式"
 msgid "Insert image"
 msgstr "插入图片"
 
+msgid "Uploading…"
+msgstr "上传中"
+
 msgid "Add an image"
 msgstr "添加一个图片"
 
@@ -51,12 +78,6 @@ msgstr "保存"
 msgid "Delete image"
 msgstr "删除图片"
 
-msgid "Are you sure you want to delete this image?"
-msgstr "你确定你要删除这个图片吗？"
-
-msgid "Yes, delete"
-msgstr "是的，删除"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "编辑图片 %(title)s"
@@ -64,11 +85,44 @@ msgstr "编辑图片 %(title)s"
 msgid "Editing"
 msgstr "编辑"
 
+msgid "Filesize"
+msgstr "文件大小"
+
+msgid "File not found"
+msgstr "未找到文件"
+
 msgid "Images"
 msgstr "图片"
 
+msgid "Clear choice"
+msgstr "清除选择"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "预览"
+
 msgid "Title"
 msgstr "标题"
+
+msgid "Parent"
+msgstr "上一级"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Server Error"
+msgstr "服务错误"
+
+msgid "Delete"
+msgstr "删除"
 
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新"

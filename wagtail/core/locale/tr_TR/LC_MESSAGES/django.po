@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -29,76 +29,40 @@ msgid "Wagtail core"
 msgstr "Wagtail core (çekirdek)"
 
 #, python-format
+msgid "The minimum number of items is %d"
+msgstr "Asgari öğe sayısı %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Azami öğe sayısı %d"
+
+msgid "Move up"
+msgstr "Yukarı çıkar"
+
+msgid "Move down"
+msgstr "Aşağı indir"
+
+msgid "Delete"
+msgstr "Sil"
+
+msgid "Add"
+msgstr "Ekle"
+
+#, python-format
 msgid "%(label)s: this block has no options."
 msgstr "%(label)s: bu blokta seçenek yok."
 
 msgid "This block has no options."
 msgstr "Bu blokta seçenek yok."
 
-#, python-format
-msgid "The minimum number of items is %d"
-msgstr "Asgari öğe sayısı %d"
-
 msgid "This field is required."
 msgstr "Bu alan gerekli."
-
-#, python-format
-msgid "The maximum number of items is %d"
-msgstr "Azami öğe sayısı %d"
 
 msgid "Password"
 msgstr "Parola"
 
 msgid "The password you have entered is not correct. Please try again."
 msgstr "Girmiş olduğunuz şifre doğru degil. Lütfen tekrar deneyin."
-
-msgid "hostname"
-msgstr "ana bilgisayar adı (hostname)"
-
-msgid "port"
-msgstr "port"
-
-msgid ""
-"Set this to something other than 80 if you need a specific port number to "
-"appear in URLs (e.g. development on port 8000). Does not affect request "
-"handling (so port forwarding still works)."
-msgstr ""
-"Eğer URL'lerde görünmesini istediğiniz, 80 dışında belirli bir port numarası "
-"varsa girin (8000 portunde geliştirme gibi). İstek işlemesini (request "
-"handling) etkilemez (dolayısıyla port yönlendirme çalışmaya devam eder)."
-
-msgid "site name"
-msgstr "site adı"
-
-msgid "Human-readable name for the site."
-msgstr "Okunabilir site adı."
-
-msgid "root page"
-msgstr "root (kök) sayfası"
-
-msgid "is default site"
-msgstr "varsayılan site mi"
-
-msgid ""
-"If true, this site will handle requests for all other hostnames that do not "
-"have a site entry of their own"
-msgstr ""
-"Eğer doğru seçilirse bu site, içeriği olmayan tüm diğer hostname'lerin "
-"isteklerini işleyecektir."
-
-msgid "site"
-msgstr "site"
-
-msgid "sites"
-msgstr "siteler"
-
-#, python-format
-msgid ""
-"%(hostname)s is already configured as the default site. You must unset that "
-"before you can save this site as default."
-msgstr ""
-"%(hostname)s zaten varsayılan site olarak ayarlandı. Bu siteyi varsayılan "
-"olarak seçmek için önce onun varsayılan site ayarını kaldırmalısınız."
 
 msgid "title"
 msgstr "başlık"
@@ -130,16 +94,6 @@ msgstr "URL yolu"
 msgid "owner"
 msgstr "sahibi"
 
-msgid "page title"
-msgstr "sayfa başlığı"
-
-msgid ""
-"Optional. 'Search Engine Friendly' title. This will appear at the top of the "
-"browser window."
-msgstr ""
-"İsteğe bağlı. 'Arama Motoru Dostu' başlık. Bu başlık, tarayıcı penceresinin "
-"en üstünde bulunacaktır."
-
 msgid "show in menus"
 msgstr "menülerde göster"
 
@@ -147,9 +101,6 @@ msgid ""
 "Whether a link to this page will appear in automatically generated menus"
 msgstr ""
 "Otomatik olarak oluşturulan menülerde, bu sayfaya bir bağlantı olacaktır"
-
-msgid "search description"
-msgstr "arama açıklaması"
 
 msgid "go live date/time"
 msgstr "yayın başlangış tarihi/zamanı"
@@ -217,9 +168,6 @@ msgstr "sayfa revizyon"
 msgid "page revisions"
 msgstr "sayfa revizyonları"
 
-msgid "Add"
-msgstr "Ekle"
-
 msgid "Add/edit pages you own"
 msgstr "Sahip olduğun sayfalara ekle/düzenle"
 
@@ -244,6 +192,9 @@ msgstr "Alt sayfası olan sayfaları sil"
 msgid "Lock"
 msgstr "Kilitle"
 
+msgid "Unlock"
+msgstr "Kilidi kaldır"
+
 msgid "group"
 msgstr "grup"
 
@@ -255,6 +206,90 @@ msgstr "grup sayfası izni"
 
 msgid "group page permissions"
 msgstr "grup sayfası izinleri"
+
+msgid "page view restriction"
+msgstr "sayfa izleme kısıtı"
+
+msgid "page view restrictions"
+msgstr "sayfa görme kısıtları"
+
+msgid "name"
+msgstr "isim"
+
+msgid "groups"
+msgstr "gruplar"
+
+msgid "Approve"
+msgstr "Onayla"
+
+msgid "collection"
+msgstr "koleksiyon"
+
+msgid "collection view restriction"
+msgstr "koleksiyon görme kısıtı"
+
+msgid "collection view restrictions"
+msgstr "koleksiyon görme kısıtları"
+
+msgid "collections"
+msgstr "koleksiyonlar"
+
+msgid "permission"
+msgstr "izin"
+
+msgid "group collection permission"
+msgstr "grup koleksiyon izni"
+
+msgid "group collection permissions"
+msgstr "grup koleksiyon izinleri"
+
+msgid "hostname"
+msgstr "ana bilgisayar adı (hostname)"
+
+msgid "port"
+msgstr "port"
+
+msgid ""
+"Set this to something other than 80 if you need a specific port number to "
+"appear in URLs (e.g. development on port 8000). Does not affect request "
+"handling (so port forwarding still works)."
+msgstr ""
+"Eğer URL'lerde görünmesini istediğiniz, 80 dışında belirli bir port numarası "
+"varsa girin (8000 portunde geliştirme gibi). İstek işlemesini (request "
+"handling) etkilemez (dolayısıyla port yönlendirme çalışmaya devam eder)."
+
+msgid "site name"
+msgstr "site adı"
+
+msgid "Human-readable name for the site."
+msgstr "Okunabilir site adı."
+
+msgid "root page"
+msgstr "root (kök) sayfası"
+
+msgid "is default site"
+msgstr "varsayılan site mi"
+
+msgid ""
+"If true, this site will handle requests for all other hostnames that do not "
+"have a site entry of their own"
+msgstr ""
+"Eğer doğru seçilirse bu site, içeriği olmayan tüm diğer hostname'lerin "
+"isteklerini işleyecektir."
+
+msgid "site"
+msgstr "site"
+
+msgid "sites"
+msgstr "siteler"
+
+#, python-format
+msgid ""
+"%(hostname)s is already configured as the default site. You must unset that "
+"before you can save this site as default."
+msgstr ""
+"%(hostname)s zaten varsayılan site olarak ayarlandı. Bu siteyi varsayılan "
+"olarak seçmek için önce onun varsayılan site ayarını kaldırmalısınız."
 
 msgid "Public"
 msgstr "Genel"
@@ -271,44 +306,11 @@ msgstr "Gizli, belirli gruptaki kullanıcılar erişebilir"
 msgid "password"
 msgstr "şifre"
 
-msgid "groups"
-msgstr "gruplar"
-
 msgid "view restriction"
 msgstr "kısıtı gör"
 
 msgid "view restrictions"
 msgstr "kısıtları gör"
-
-msgid "page view restriction"
-msgstr "sayfa izleme kısıtı"
-
-msgid "page view restrictions"
-msgstr "sayfa görme kısıtları"
-
-msgid "collection"
-msgstr "koleksiyon"
-
-msgid "collection view restriction"
-msgstr "koleksiyon görme kısıtı"
-
-msgid "collection view restrictions"
-msgstr "koleksiyon görme kısıtları"
-
-msgid "name"
-msgstr "isim"
-
-msgid "collections"
-msgstr "koleksiyonlar"
-
-msgid "permission"
-msgstr "izin"
-
-msgid "group collection permission"
-msgstr "grup koleksiyon izni"
-
-msgid "group collection permissions"
-msgstr "grup koleksiyon izinleri"
 
 msgid "Log in"
 msgstr "Giriş yap"
@@ -331,3 +333,33 @@ msgstr "Bu sayfaya erişmek için şifre gerekiyor."
 
 msgid "Continue"
 msgstr "Devam et"
+
+msgid "English"
+msgstr "İngilizce"
+
+msgid "French"
+msgstr "Fransızca"
+
+msgid "German"
+msgstr "Almanca"
+
+msgid "Save draft"
+msgstr "Taslağı kaydet"
+
+msgid "Unpublish"
+msgstr "Yayından Kaldır"
+
+msgid "Locked"
+msgstr "Kilitlendi"
+
+msgid "Unlocked"
+msgstr "Kilitsiz"
+
+msgid "Reject"
+msgstr "Reddet"
+
+msgid "Copy"
+msgstr "Kopyala"
+
+msgid "Move"
+msgstr "Taşı"

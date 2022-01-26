@@ -3,10 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# oliverengel <codeangel@posteo.de>, 2021
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-08-08 17:07+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Bohreromir\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -88,15 +89,6 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Sie können nicht mehrere Berechtigungseinträge für dieselbe Seite haben."
 
-msgid "Preferred language"
-msgstr "Bevorzugte Sprache"
-
-msgid "Current time zone"
-msgstr "Aktuelle Zeitzone"
-
-msgid "Upload a profile picture"
-msgstr "Ein Profilbild hochladen"
-
 msgid "submitted notifications"
 msgstr "Eingereicht-Benachrichtigungen"
 
@@ -115,6 +107,17 @@ msgstr "Zurückgewiesen-Benachrichtigungen"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Benachrichtung erhalten, wenn Ihre Änderungen abgelehnt wurden"
+
+msgid "updated comments notifications"
+msgstr "aktualisierte Kommentarbenachichtigungen"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Erhalte Benachrichtigungen wenn Kommentare auf einer Seite erstellt, gelöst "
+"oder gelöscht wurden, bei denen du die Kommentarbenachrichtigung aktiviert "
+"hast."
 
 msgid "preferred language"
 msgstr "bevorzugte Sprache"
@@ -136,6 +139,15 @@ msgstr "Benutzerprofil"
 
 msgid "user profiles"
 msgstr "Benutzerprofile"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -170,9 +182,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Sind Sie sicher, dass Sie diese Gruppe löschen möchten?"
 
-msgid "Yes, delete"
-msgstr "Ja, löschen"
-
 msgid "Add group"
 msgstr "Gruppe hinzufügen"
 
@@ -199,9 +208,6 @@ msgstr "Hinzufügen"
 
 msgid "Change"
 msgstr "Ändern"
-
-msgid "Delete"
-msgstr "Löschen"
 
 msgid "Other permissions"
 msgstr "Andere Berechtigung"
@@ -299,6 +305,22 @@ msgstr[1] ""
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Es gibt leider keine Benutzer zum Suchbegriff „<em>%(query_string)s</em>“."
+
+#, python-format
+msgid ""
+"The %(group_name)s group has no users configured. Why not <a href="
+"\"%(wagtailusers_add_url)s\">add some</a>?"
+msgstr ""
+"Die Gruppe %(group_name)s hat keine eingerichteten Benutzer. Warum nicht <a "
+"href=\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
+
+#, python-format
+msgid ""
+"There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
+"\">add some</a>?"
+msgstr ""
+"Es sind keine Benutzer eingerichtet. Warum nicht <a href="
+"\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
 
 msgid "Groups"
 msgstr "Gruppen"

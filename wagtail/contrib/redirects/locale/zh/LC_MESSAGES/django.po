@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Permanent"
+msgstr "永久"
 
 msgid ""
 "Recommended. Permanent redirects ensure search engines forget the old page "
@@ -45,6 +51,9 @@ msgstr "你确定你想删除这个转向？"
 msgid "Yes, delete"
 msgstr "是的， 删除"
 
+msgid "Preview"
+msgstr "预览"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "编辑 %(title)s"
@@ -57,9 +66,6 @@ msgstr "删除转向"
 
 msgid "To"
 msgstr "到"
-
-msgid "Type"
-msgstr "类型"
 
 msgid "Edit this redirect"
 msgstr "编辑这个转向"
@@ -74,6 +80,9 @@ msgstr ""
 
 msgid "Redirect '{0}' updated."
 msgstr "转向 '{0}' 已更新"
+
+msgid "Edit"
+msgstr "编辑"
 
 msgid "The redirect could not be saved due to errors."
 msgstr "由于多个错误，转向设置无法保存。"

@@ -5,6 +5,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
+from wagtail.core import hooks
 from wagtail.core.models import GroupPagePermission, Locale, Page
 from wagtail.tests.testapp.models import SimplePage, SingleEventPage, StandardIndex
 from wagtail.tests.utils import WagtailTestUtils
@@ -150,6 +151,19 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         page_ids = [page.id for page in response.context['pages']]
         self.assertEqual(page_ids, [self.child_page.id])
 
+    def test_construct_explorer_page_queryset_hook_with_ordering(self):
+        def set_custom_ordering(parent_page, pages, request):
+            return pages.order_by('-title')
+
+        with hooks.register_temporarily('construct_explorer_page_queryset', set_custom_ordering):
+            response = self.client.get(
+                reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            )
+
+        # child pages should be ordered by according to the hook preference
+        page_ids = [page.id for page in response.context['pages']]
+        self.assertEqual(page_ids, [self.old_page.id, self.new_page.id, self.child_page.id])
+
     def test_construct_page_listing_buttons_hook(self):
         # testapp implements a construct_page_listing_buttons hook
         # that add's an dummy button with the label 'Dummy Button' which points
@@ -243,21 +257,6 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore', args=(new_event.id, )))
         self.assertContains(response, 'New event 0 (single event)')
 
-    def test_ordering_less_than_100_pages_uses_specific_page_with_custom_display_title(self):
-        # Reorder view should also use specific pages
-        # (provided there are <100 pages in the listing, as this may be a significant
-        # performance hit on larger listings)
-        # There are 3 pages created in setUp, so 96 more add to a total of 99.
-        self.make_event_pages(count=96)
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
-        self.assertContains(response, 'New event 0 (single event)')
-
-    def test_ordering_100_or_more_pages_uses_generic_page_without_custom_display_title(self):
-        # There are 3 pages created in setUp, so 97 more add to a total of 100.
-        self.make_event_pages(count=97)
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )) + '?ordering=ord')
-        self.assertNotContains(response, 'New event 0 (single event)')
-
     def test_parent_page_is_specific(self):
         response = self.client.get(reverse('wagtailadmin_explore', args=(self.child_page.id, )))
         self.assertEqual(response.status_code, 200)
@@ -308,8 +307,8 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
         # The breadcrumb should pick up SimplePage's overridden get_admin_display_title method
         expected_url = reverse('wagtailadmin_explore', args=(Page.objects.get(url_path='/home/secret-plans/').id, ))
         expected = """
-            <li>
-                <a href="%s"><span class="title">Secret plans (simple page)</span>
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="%s"><span class="title">Secret plans (simple page)</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
                     </svg>
@@ -516,8 +515,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_explore', args=[6]))
         self.assertEqual(response.status_code, 200)
         expected = """
-            <li class="home">
-                <a href="/admin/pages/">
+            <li class="home breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/">
                     <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-site"></use>
                     </svg>
@@ -530,8 +529,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/4/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/4/">
                     <span class="title">Welcome to example.com!</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -541,8 +540,8 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/5/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -559,22 +558,22 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         # While at "Page 1", Josh should see the breadcrumbs leading only as far back as the example.com homepage,
         # since it's his Closest Common Ancestor.
         expected = """
-            <li class="home">
-                <a href="/admin/pages/4/" class="text-replace">
+            <li class="home breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/4/">
                     <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-site"></use>
                     </svg>
                     <span class="visuallyhidden">Home</span>
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
                 </a>
-                <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
-                    <use href="#icon-arrow-right"></use>
-                </svg>
             </li>
         """
         self.assertContains(response, expected, html=True)
         expected = """
-            <li>
-                <a href="/admin/pages/5/">
+            <li class="breadcrumb-item">
+                <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
                     <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-arrow-right"></use>
@@ -599,7 +598,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailadmin_home'))
         self.assertEqual(response.status_code, 200)
         # Since Mary has no page permissions, she should not see the breadcrumb
-        self.assertNotContains(response, """<li class="home"><a href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
+        self.assertNotContains(response, """<li class="home breadcrumb-item"><a class="breadcrumb-link" href="/admin/pages/4/" class="icon icon-home text-replace">Home</a></li>""")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)

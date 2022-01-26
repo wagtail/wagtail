@@ -1,0 +1,6 @@
+{% load i18n wagtailadmin_tags %}
+<th class="bulk-actions-filter-checkbox" aria-label="{% trans 'Select row' %}">
+    <div>
+        {% include 'wagtailadmin/bulk_actions/select_all_checkbox_input.html' with parent=parent %}
+    </div>
+</th>

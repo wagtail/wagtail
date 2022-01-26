@@ -31,7 +31,7 @@ Ideally, always add an optional “alt text” field wherever an image is used, 
 
 - For normal fields, add an alt text field to your image’s panel.
 - For StreamField, add an extra field to your image block.
-- For rich text – Wagtail already makes it possible to customize alt text for rich text images. Unfortunately, it’s not currently possible to set alt text as an optional field in these situations (see `#6494 <https://github.com/wagtail/wagtail/issues/6494>`_).
+- For rich text – Wagtail already makes it possible to customize alt text for rich text images.
 
 When defining the alt text fields, make sure they are optional so editors can choose to not write any alt text for decorative images. Take the time to provide ``help_text`` with appropriate guidance.
 For example, linking to `established resources on alt text <https://axesslab.com/alt-texts/>`_.
@@ -102,7 +102,7 @@ Empty heading tags
 
 In both rich text and custom StreamField blocks, it’s sometimes easy for editors to create a heading block but not add any content to it. If this is a problem for your site,
 
-- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`StereamField </topics/streamfield>` ``CharBlock`` which is required by default.
+- Add validation rules to those fields, making sure the page can’t be saved with the empty headings, for example by using the :doc:`StreamField </topics/streamfield>` ``CharBlock`` which is required by default.
 - Consider adding similar validation rules for rich text fields (`#6526 <https://github.com/wagtail/wagtail/issues/6526>`_).
 
 Additionally, you can hide empty heading blocks with CSS:
@@ -116,14 +116,16 @@ Additionally, you can hide empty heading blocks with CSS:
 Forms
 -----
 
-When using the ``wagtailforms`` :ref:`form_builder`, don’t stop at Django’s default forms rendering:
+The ``wagtailforms`` :ref:`form_builder` uses Django’s forms API. Here are considerations specific to forms in templates:
 
-- Avoid ``as_table`` and ``as_ul``, which make forms harder to navigate for screen reader users.
+- Avoid rendering helpers such as ``as_table``, ``as_ul``, ``as_p``, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket `#32339 <https://code.djangoproject.com/ticket/32339>`_).
 - Make sure to visually distinguish required and optional fields.
+- Take the time to group related fields together in ``fieldset``, with an appropriate ``legend``, in particular for radios and checkboxes (see Django ticket `#32338 <https://code.djangoproject.com/ticket/32338>`_).
 - If relevant, use the appropriate ``autocomplete`` and ``autocapitalize`` attributes.
-- Make sure to display an example value, or the expected format, for fields that accept arbitrary values but have validation – like Date and Date/Time.
+- For Date and Datetime fields, make sure to display the expected format or an example value (see Django ticket `#32340 <https://code.djangoproject.com/ticket/32340>`_). Or use `input type="date" <https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date>`_.
+- For Number fields, consider whether ``input type="number"`` really is appropriate, or whether there may be `better alternatives such as inputmode <https://technology.blog.gov.uk/2020/02/24/why-the-gov-uk-design-system-team-changed-the-input-type-for-numbers/>`_.
 
-There are further issues with Django’s built-in forms rendering – make sure to rest your forms’ implementation and review `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_ for further information.
+Make sure to test your forms’ implementation with assistive technologies, and review `official W3C guidance on accessible forms development <https://www.w3.org/WAI/tutorials/forms/>`_ for further information.
 
 ----
 

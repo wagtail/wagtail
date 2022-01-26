@@ -21,7 +21,7 @@ Setup
 
 Add an entry for the view into your URLs configuration:
 
- .. code-block:: python
+.. code-block:: python
 
     from wagtail.images.views.serve import ServeView
 

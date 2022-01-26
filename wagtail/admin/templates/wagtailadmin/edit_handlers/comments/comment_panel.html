@@ -1,0 +1,3 @@
+{% load wagtailadmin_tags %}
+{{ comments_data|json_script:"comments-data" }}
+<div id="comments-output" hidden></div>

@@ -6,6 +6,7 @@ from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 
+from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.rich_text import HalloPlugin
@@ -19,6 +20,8 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.rich_text import ImageEmbedHandler
 from wagtail.images.rich_text.contentstate import ContentstateImageConversionRule
 from wagtail.images.rich_text.editor_html import EditorHTMLImageConversionRule
+from wagtail.images.views.bulk_actions import (
+    AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction)
 
 
 @hooks.register('register_admin_urls')
@@ -126,9 +129,9 @@ def register_image_operations():
 
 class ImagesSummaryItem(SummaryItem):
     order = 200
-    template = 'wagtailimages/homepage/site_summary_images.html'
+    template_name = 'wagtailimages/homepage/site_summary_images.html'
 
-    def get_context(self):
+    def get_context_data(self, parent_context):
         site_name = get_site_for_user(self.request.user)['site_name']
 
         return {
@@ -159,7 +162,7 @@ def register_images_search_area():
     return ImagesSearchArea(
         _('Images'), reverse('wagtailimages:index'),
         name='images',
-        classnames='icon icon-image',
+        icon_name='image',
         order=200)
 
 
@@ -182,3 +185,15 @@ def describe_collection_docs(collection):
             ) % {'count': images_count},
             'url': url,
         }
+
+
+class ImageAdminURLFinder(ModelAdminURLFinder):
+    edit_url_name = 'wagtailimages:edit'
+    permission_policy = permission_policy
+
+
+register_admin_url_finder(get_image_model(), ImageAdminURLFinder)
+
+
+for action_class in [AddTagsBulkAction, AddToCollectionBulkAction, DeleteBulkAction]:
+    hooks.register('register_bulk_action', action_class)

@@ -1,13 +1,13 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
-from django.utils import formats
-from django.utils.dateparse import parse_date
+from freezegun import freeze_time
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventPage, FormClassAdditionalFieldPage
+from wagtail.tests.testapp.models import EventPage, FormClassAdditionalFieldPage, SecretPage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -42,31 +42,8 @@ class TestRevisions(TestCase, WagtailTestUtils):
         response = self.client.get(
             reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
         )
-        self.assertEqual(response.status_code, 200)
-
-        self.assertContains(response, formats.localize(parse_date('2013-12-25')))
-        last_christmas_preview_url = reverse(
-            'wagtailadmin_pages:revisions_view',
-            args=(self.christmas_event.id, self.last_christmas_revision.id)
-        )
-        last_christmas_revert_url = reverse(
-            'wagtailadmin_pages:revisions_revert',
-            args=(self.christmas_event.id, self.last_christmas_revision.id)
-        )
-        self.assertContains(response, last_christmas_preview_url)
-        self.assertContains(response, last_christmas_revert_url)
-
-        self.assertContains(response, formats.localize(local_datetime(2014, 12, 25)))
-        this_christmas_preview_url = reverse(
-            'wagtailadmin_pages:revisions_view',
-            args=(self.christmas_event.id, self.this_christmas_revision.id)
-        )
-        this_christmas_revert_url = reverse(
-            'wagtailadmin_pages:revisions_revert',
-            args=(self.christmas_event.id, self.this_christmas_revision.id)
-        )
-        self.assertContains(response, this_christmas_preview_url)
-        self.assertContains(response, this_christmas_revert_url)
+        history_url = reverse('wagtailadmin_pages:history', args=(self.christmas_event.id, ))
+        self.assertRedirects(response, history_url)
 
     def request_preview_revision(self):
         last_christmas_preview_url = reverse(
@@ -139,20 +116,25 @@ class TestRevisions(TestCase, WagtailTestUtils):
         self.assertContains(response, "Replace current draft")
         self.assertContains(response, "Publish this version")
 
+    @freeze_time("2014-12-20 12:00:00")
     def test_scheduled_revision(self):
-        self.last_christmas_revision.publish()
-        self.this_christmas_revision.approved_go_live_at = local_datetime(2014, 12, 26)
-        self.this_christmas_revision.save()
+        if settings.USE_TZ:
+            # 12:00 UTC
+            self.christmas_event.go_live_at = '2014-12-26T12:00:00.000Z'
+        else:
+            # 12:00 in no specific timezone
+            self.christmas_event.go_live_at = '2014-12-26T12:00:00'
+        this_christmas_revision = self.christmas_event.save_revision(log_action=True)
+        this_christmas_revision.publish(log_action=True)
         this_christmas_unschedule_url = reverse(
             'wagtailadmin_pages:revisions_unschedule',
-            args=(self.christmas_event.id, self.this_christmas_revision.id)
+            args=(self.christmas_event.id, this_christmas_revision.id)
         )
         response = self.client.get(
-            reverse('wagtailadmin_pages:revisions_index', args=(self.christmas_event.id, ))
+            reverse('wagtailadmin_pages:history', args=(self.christmas_event.id, ))
         )
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Scheduled for')
-        self.assertContains(response, formats.localize(parse_date('2014-12-26')))
+        self.assertContains(response, 'Page scheduled for publishing at 26 Dec 2014')
         self.assertContains(response, this_christmas_unschedule_url)
 
 
@@ -246,6 +228,61 @@ class TestCompareRevisions(TestCase, WagtailTestUtils):
             response,
             '<span class="deletion">Last Christmas I gave you my heart, but the very next day you gave it away</span><span class="addition">This year, to save me from tears, I&#39;ll just feed it to the dog</span>',
             html=True
+        )
+
+
+class TestCompareRevisionsWithPerUserEditHandlers(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        self.home = Page.objects.get(url_path='/home/')
+        self.secret_page = SecretPage(
+            title="Secret page",
+            boring_data="InnocentCorp is the leading supplier of door hinges",
+            secret_data="for flying saucers",
+        )
+        self.home.add_child(instance=self.secret_page)
+        self.old_revision = self.secret_page.save_revision()
+        self.secret_page.boring_data = "InnocentCorp is the leading supplier of rubber sprockets"
+        self.secret_page.secret_data = "for fake moon landings"
+        self.new_revision = self.secret_page.save_revision()
+        self.compare_url = reverse(
+            'wagtailadmin_pages:revisions_compare',
+            args=(self.secret_page.id, self.old_revision.id, self.new_revision.id)
+        )
+
+    def test_comparison_as_superuser(self):
+        self.login()
+        response = self.client.get(self.compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            'InnocentCorp is the leading supplier of <span class="deletion">door hinges</span><span class="addition">rubber sprockets</span>',
+            html=True
+        )
+        self.assertContains(
+            response,
+            'for <span class="deletion">flying saucers</span><span class="addition">fake moon landings</span>',
+            html=True
+        )
+
+    def test_comparison_as_ordinary_user(self):
+        user = self.create_user(username='editor', password='password')
+        user.groups.add(Group.objects.get(name='Site-wide editors'))
+        self.login(username='editor', password='password')
+
+        response = self.client.get(self.compare_url)
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            'InnocentCorp is the leading supplier of <span class="deletion">door hinges</span><span class="addition">rubber sprockets</span>',
+            html=True
+        )
+        self.assertNotContains(
+            response,
+            'moon landings',
         )
 
 

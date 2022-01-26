@@ -3,15 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# oliverengel <codeangel@posteo.de>, 2021
 # Bohreromir, 2020
 # Bohreromir, 2019
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # M0rph 3u5 <transifex@m0rph3u5.net>, 2014
 # Max Pfeiffer <max.pfeiffer@alp-phone.ch>, 2015
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
+# oliverengel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # pcraston <patrick@craston.com>, 2014
 # Peter Dreuw <archandha@gmx.net>, 2019
@@ -22,9 +25,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-08-08 17:08+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-11-04 13:34+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -80,6 +83,23 @@ msgstr "Linksbündig"
 msgid "Right-aligned"
 msgstr "Rechtsbündig"
 
+msgid "Collection"
+msgstr "Sammlung"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Bild ist dekorativ"
+
+msgid "Alt text"
+msgstr "Alternativtext"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Bitte füge etwas Alternativtext für dein Bild hinzu oder markiere es als "
+"dekorativ"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -122,6 +142,12 @@ msgstr "Bearbeiten"
 msgid "Edit any image"
 msgstr "Jedes Bild bearbeiten"
 
+msgid "Choose"
+msgstr "Auswählen"
+
+msgid "Select images in choosers"
+msgstr "Wähle Bilder im Chooser aus"
+
 msgid "title"
 msgstr "Titel"
 
@@ -149,6 +175,30 @@ msgstr "Bild"
 msgid "images"
 msgstr "Bilder"
 
+msgid "Yes, add"
+msgstr "Ja, hinzufügen"
+
+msgid "No, don't add"
+msgstr "Nein, nicht hinzufügen"
+
+msgid "Add images to collection"
+msgstr "Der Sammlung hinzufügen"
+
+msgid "Delete images"
+msgstr "Bilder löschen"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "%(usage_count)s mal benutzt"
+msgstr[1] "%(usage_count)s mal benutzt"
+
+msgid "Yes, delete"
+msgstr "Ja, löschen"
+
+msgid "No, don't delete"
+msgstr "Nein, nicht löschen"
+
 msgid "Choose an image"
 msgstr "Bild auswählen"
 
@@ -160,9 +210,6 @@ msgstr "Hochladen"
 
 msgid "Popular tags"
 msgstr "Häufig verwendete Schlagwörter"
-
-msgid "Uploading…"
-msgstr "Wird hochgeladen…"
 
 #, python-format
 msgid ""
@@ -190,6 +237,9 @@ msgstr "Wählen Sie ein Format aus"
 
 msgid "Insert image"
 msgstr "Bild einfügen"
+
+msgid "Uploading…"
+msgstr "Wird hochgeladen…"
 
 #, python-format
 msgid ""
@@ -225,21 +275,6 @@ msgstr "Speichern"
 
 msgid "Delete image"
 msgstr "Bild löschen"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "%(usage_count)s mal benutzt"
-msgstr[1] "%(usage_count)s mal benutzt"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Sind Sie sicher, dass Sie dieses Bild löschen wollen?"
-
-msgid "Yes, delete"
-msgstr "Ja, löschen"
-
-msgid "No, don't delete"
-msgstr "Nein, nicht löschen"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -367,7 +402,7 @@ msgid "Or choose from your computer"
 msgstr "Oder wählen Sie es von Ihrem Computer aus"
 
 msgid "Add to collection:"
-msgstr "Zu Sammlung hinzufügen:"
+msgstr "Der Sammlung hinzufügen:"
 
 msgid ""
 "Upload successful. Please update this image with a more appropriate title, "
@@ -391,17 +426,23 @@ msgstr ""
 msgid "Image updated."
 msgstr "Bild geändert."
 
-msgid "Update"
-msgstr "Updaten"
-
-msgid "Delete"
-msgstr "Löschen"
-
 msgid "Image permissions"
 msgstr "Bild-Berechtigungen"
 
 msgid "Add an image permission"
 msgstr "Eine Bild-Berechtigung hinzufügen"
+
+msgid "Add to collection"
+msgstr "Der Sammlung hinzufügen"
+
+msgid "Add selected images to collection"
+msgstr "Die markierten Bilder der Sammlung hinzufügen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Delete selected images"
+msgstr "Ausgewählte Bilder löschen"
 
 msgid "Search images"
 msgstr "Nach Bildern suchen"

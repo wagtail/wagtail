@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-12-17 19:19+0000\n"
+"Last-Translator: Vu Pham\n"
+"Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
+"language/vi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: vi\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add"
+msgstr "Thêm"
+
+msgid "Edit"
+msgstr "Biên tập"
+
+msgid "Choose"
+msgstr "Chọn"
+
+msgid "title"
+msgstr "tiêu đề"
+
+msgid "Yes, delete"
+msgstr "Đúng, xoá đi"
+
+msgid "Search"
+msgstr "Tìm kiếm"
+
+msgid "Upload"
+msgstr "Đăng tải"
+
+msgid "Uploading…"
+msgstr "Đang đăng tải..."
+
+msgid "Save"
+msgstr "Lưu"
+
+msgid "Delete image"
+msgstr "Xóa Ảnh"
+
+msgid "Editing"
+msgstr "Chỉnh sửa"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Title"
+msgstr "Tiêu đề"
+
+msgid "Status"
+msgstr "Trạng thái"
+
+msgid "Server Error"
+msgstr "Lỗi Hệ thống"
+
+msgid "Delete"
+msgstr "Xoá"

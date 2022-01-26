@@ -1,0 +1,38 @@
+@import '../../../../../../client/scss/settings/variables';
+
+.top-padding {
+    padding-top: $object-title-height + 12px;
+}
+
+.avatar-panel {
+    margin-top: 20px;
+
+    &__image {
+        float: left;
+        width: 16%;
+        margin-bottom: 20px;
+    }
+
+    &__form {
+        float: left;
+
+        label {
+            display: block;
+            padding: 0;
+            width: unset;
+            float: unset;
+            margin-bottom: 10px;
+        }
+    }
+
+    &__revert-to-gravatar {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    &::after {
+        content: ' ';
+        display: table;
+        clear: both;
+    }
+}

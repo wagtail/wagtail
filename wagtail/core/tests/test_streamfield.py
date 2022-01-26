@@ -8,12 +8,12 @@ from django.test import TestCase
 from django.utils.safestring import SafeString
 
 from wagtail.core import blocks
-from wagtail.core.blocks import StreamValue
+from wagtail.core.blocks import StreamBlockValidationError, StreamValue
 from wagtail.core.fields import StreamField
 from wagtail.core.rich_text import RichText
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import StreamModel
+from wagtail.tests.testapp.models import BlockCountsStreamModel, MinMaxCountStreamModel, StreamModel
 
 
 class TestLazyStreamField(TestCase):
@@ -27,6 +27,11 @@ class TestLazyStreamField(TestCase):
         self.no_image = StreamModel.objects.create(body=json.dumps([
             {'type': 'text', 'value': 'foo'}]))
         self.nonjson_body = StreamModel.objects.create(body="<h1>hello world</h1>")
+        self.three_items = StreamModel.objects.create(body=json.dumps([
+            {'type': 'text', 'value': 'foo'},
+            {'type': 'image', 'value': self.image.pk},
+            {'type': 'text', 'value': 'bar'},
+        ]))
 
     def test_lazy_load(self):
         """
@@ -49,6 +54,29 @@ class TestLazyStreamField(TestCase):
             # Everything has been fetched now, no further database queries.
             self.assertEqual(body[0].value, self.image)
             self.assertEqual(body[1].value, 'foo')
+
+    def test_slice(self):
+        with self.assertNumQueries(1):
+            instance = StreamModel.objects.get(pk=self.three_items.pk)
+
+        with self.assertNumQueries(1):
+            # Access the image item from the stream. The image is fetched now
+            instance.body[1].value
+
+        with self.assertNumQueries(0):
+            # taking a slice of a StreamValue should re-use already-fetched values
+            values = [block.value for block in instance.body[1:3]]
+            self.assertEqual(values, [self.image, 'bar'])
+
+        with self.assertNumQueries(0):
+            # test slicing with negative indexing
+            values = [block.value for block in instance.body[-2:]]
+            self.assertEqual(values, [self.image, 'bar'])
+
+        with self.assertNumQueries(0):
+            # test slicing with skips
+            values = [block.value for block in instance.body[0:3:2]]
+            self.assertEqual(values, ['foo', 'bar'])
 
     def test_lazy_load_no_images(self):
         """
@@ -177,6 +205,18 @@ class TestStreamValueAccess(TestCase):
         self.assertIsInstance(fetched_body[0].value, RichText)
         self.assertEqual(fetched_body[0].value.source, "<h2>hello world</h2>")
 
+    def test_can_append(self):
+        self.json_body.body.append(('text', 'bar'))
+        self.json_body.save()
+
+        fetched_body = StreamModel.objects.get(id=self.json_body.id).body
+        self.assertIsInstance(fetched_body, StreamValue)
+        self.assertEqual(len(fetched_body), 2)
+        self.assertEqual(fetched_body[0].block_type, 'text')
+        self.assertEqual(fetched_body[0].value, 'foo')
+        self.assertEqual(fetched_body[1].block_type, 'text')
+        self.assertEqual(fetched_body[1].value, 'bar')
+
 
 class TestStreamFieldRenderingBase(TestCase):
     def setUp(self):
@@ -237,9 +277,229 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
 
 class TestRequiredStreamField(TestCase):
     def test_non_blank_field_is_required(self):
+        # passing a block list
         field = StreamField([('paragraph', blocks.CharBlock())], blank=False)
         self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = False
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock(), blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        field = StreamField(MyStreamBlock(required=False), blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        # passing a block class
+        field = StreamField(MyStreamBlock, blank=False)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+    def test_blank_false_is_implied_by_default(self):
+        # passing a block list
+        field = StreamField([('paragraph', blocks.CharBlock())])
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = False
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock())
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        field = StreamField(MyStreamBlock(required=False))
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
+
+        # passing a block class
+        field = StreamField(MyStreamBlock)
+        self.assertTrue(field.stream_block.required)
+        with self.assertRaises(StreamBlockValidationError):
+            field.stream_block.clean([])
 
     def test_blank_field_is_not_required(self):
+        # passing a block list
         field = StreamField([('paragraph', blocks.CharBlock())], blank=True)
         self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        class MyStreamBlock(blocks.StreamBlock):
+            paragraph = blocks.CharBlock()
+
+            class Meta:
+                required = True
+
+        # passing a block instance
+        field = StreamField(MyStreamBlock(), blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        field = StreamField(MyStreamBlock(required=True), blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+        # passing a block class
+        field = StreamField(MyStreamBlock, blank=True)
+        self.assertFalse(field.stream_block.required)
+        field.stream_block.clean([])  # no validation error on empty stream
+
+
+class TestStreamFieldCountValidation(TestCase):
+    def setUp(self):
+        self.image = Image.objects.create(
+            title='Test image',
+            file=get_test_image_file())
+
+        self.rich_text_body = {'type': 'rich_text', 'value': '<p>Rich text</p>'}
+        self.image_body = {'type': 'image', 'value': self.image.pk}
+        self.text_body = {'type': 'text', 'value': 'Hello, World!'}
+
+    def test_minmax_pass_to_block(self):
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps([]))
+        internal_block = instance.body.stream_block
+
+        self.assertEqual(internal_block.meta.min_num, 2)
+        self.assertEqual(internal_block.meta.max_num, 5)
+
+    def test_counts_pass_to_block(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+        block_counts = instance.body.stream_block.meta.block_counts
+
+        self.assertEqual(block_counts.get('text'), {'min_num': 1})
+        self.assertEqual(block_counts.get('rich_text'), {'max_num': 1})
+        self.assertEqual(block_counts.get('image'), {'min_num': 1, 'max_num': 1})
+
+    def test_minimum_count(self):
+        # Single block should fail validation
+        body = [self.rich_text_body]
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The minimum number of items is 2']
+        })
+
+        # 2 blocks okay
+        body = [self.rich_text_body, self.text_body]
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_maximum_count(self):
+        # 5 blocks okay
+        body = [self.rich_text_body] * 5
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+        # 6 blocks should fail validation
+        body = [self.rich_text_body, self.text_body] * 3
+        instance = MinMaxCountStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['The maximum number of items is 5']
+        })
+
+    def test_block_counts_minimums(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+
+        # Zero blocks should fail validation (requires one text, one image)
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        errors = list(catcher.exception.params['__all__'])
+        self.assertIn('This field is required.', errors)
+        self.assertIn('Text: The minimum number of items is 1', errors)
+        self.assertIn('Image: The minimum number of items is 1', errors)
+        self.assertEqual(len(errors), 3)
+
+        # One plain text should fail validation
+        body = [self.text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Image: The minimum number of items is 1']
+        })
+
+        # One text, one image should be okay
+        body = [self.text_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_block_counts_maximums(self):
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps([]))
+
+        # Base is one text, one image
+        body = [self.text_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+        # Two rich text should error
+        body = [self.text_body, self.image_body, self.rich_text_body, self.rich_text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+
+        with self.assertRaises(StreamBlockValidationError):
+            instance.body.stream_block.clean(instance.body)
+
+        # Two images should error
+        body = [self.text_body, self.image_body, self.image_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+
+        with self.assertRaises(StreamBlockValidationError) as catcher:
+            instance.body.stream_block.clean(instance.body)
+        self.assertEqual(catcher.exception.params, {
+            '__all__': ['Image: The maximum number of items is 1']
+        })
+
+        # One text, one rich, one image should be okay
+        body = [self.text_body, self.image_body, self.rich_text_body]
+        instance = BlockCountsStreamModel.objects.create(body=json.dumps(body))
+        self.assertTrue(instance.body.stream_block.clean(instance.body))
+
+    def test_streamfield_count_argument_precedence(self):
+
+        class TestStreamBlock(blocks.StreamBlock):
+            heading = blocks.CharBlock()
+            paragraph = blocks.RichTextBlock()
+
+            class Meta:
+                min_num = 2
+                max_num = 5
+                block_counts = {'heading': {'max_num': 1}}
+
+        # args being picked up from the class definition
+        field = StreamField(TestStreamBlock)
+        self.assertEqual(field.stream_block.meta.min_num, 2)
+        self.assertEqual(field.stream_block.meta.max_num, 5)
+        self.assertEqual(field.stream_block.meta.block_counts['heading']['max_num'], 1)
+
+        # args being overridden by StreamField
+        field = StreamField(TestStreamBlock, min_num=3, max_num=6, block_counts={'heading': {'max_num': 2}})
+        self.assertEqual(field.stream_block.meta.min_num, 3)
+        self.assertEqual(field.stream_block.meta.max_num, 6)
+        self.assertEqual(field.stream_block.meta.block_counts['heading']['max_num'], 2)
+
+        # passing None from StreamField should cancel limits set at the block level
+        field = StreamField(TestStreamBlock, min_num=None, max_num=None, block_counts=None)
+        self.assertEqual(field.stream_block.meta.min_num, None)
+        self.assertEqual(field.stream_block.meta.max_num, None)
+        self.assertEqual(field.stream_block.meta.block_counts, None)

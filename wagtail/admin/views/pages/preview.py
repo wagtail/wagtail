@@ -41,14 +41,14 @@ class PreviewOnEdit(View):
 
     @property
     def session_key(self):
-        return self.session_key_prefix + ','.join(self.args)
+        return '{}{}'.format(self.session_key_prefix, self.kwargs['page_id'])
 
     def get_page(self):
         return get_object_or_404(Page,
                                  id=self.kwargs["page_id"]).get_latest_revision_as_page()
 
     def get_form(self, page, query_dict):
-        form_class = page.get_edit_handler().get_form_class()
+        form_class = page.get_edit_handler().bind_to(instance=page, request=self.request).get_form_class()
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:
@@ -93,6 +93,15 @@ class PreviewOnEdit(View):
 
 
 class PreviewOnCreate(PreviewOnEdit):
+    @property
+    def session_key(self):
+        return '{}{}-{}-{}'.format(
+            self.session_key_prefix,
+            self.kwargs['content_type_app_name'],
+            self.kwargs['content_type_model_name'],
+            self.kwargs['parent_page_id'],
+        )
+
     def get_page(self):
         content_type_app_name = self.kwargs["content_type_app_name"]
         content_type_model_name = self.kwargs["content_type_model_name"]

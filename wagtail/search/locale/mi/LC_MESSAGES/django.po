@@ -1,0 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail search"
+msgstr "Haha-a-Wagtail"
+
+msgid "Search term(s)/phrase"
+msgstr "haha-a-karangatanga/rerenga kupu"
+
+msgid ""
+"Enter the full search string to match. An exact match is required for your "
+"Promoted Results to be displayed, wildcards are NOT allowed."
+msgstr ""
+"Tāuru te haha-a-tui katoa kia whakataurite. He whakataurite tuturu anake te "
+"mea hei whakamātakitaki Ī ou tukunga iho whakatuarā, ehara e āhei ngā kāri "
+"pāwhara."
+
+msgid "Query Daily Hits"
+msgstr "Pātai hahau ō te rā"
+
+msgid "Popular search terms"
+msgstr "Karangatanga rongonui"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "Terms"
+msgstr "Karangatanga"
+
+msgid "Views (past week)"
+msgstr "Tirohanga (te wiki kua pāhi)"
+
+msgid "No results found"
+msgstr "Karekau he tukunga iho e kimihia"
+
+msgid "Date"
+msgstr "Rā"
+
+msgid "Choose from popular search terms"
+msgstr "Kōhiti mai I ngā karangatanga rongonui"

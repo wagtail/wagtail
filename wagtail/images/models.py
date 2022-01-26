@@ -1,5 +1,7 @@
 import hashlib
+import logging
 import os.path
+import time
 
 from collections import OrderedDict
 from contextlib import contextmanager
@@ -23,9 +25,13 @@ from wagtail.core import hooks
 from wagtail.core.models import CollectionMember
 from wagtail.core.utils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
+from wagtail.images.image_operations import FilterOperation, ImageTransform, TransformOperation
 from wagtail.images.rect import Rect
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+
+
+logger = logging.getLogger("wagtail.images")
 
 
 class SourceImageIOError(IOError):
@@ -61,32 +67,7 @@ def get_rendition_upload_to(instance, filename):
     return instance.get_upload_to(filename)
 
 
-class AbstractImage(CollectionMember, index.Indexed, models.Model):
-    title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.ImageField(
-        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
-    )
-    width = models.IntegerField(verbose_name=_('width'), editable=False)
-    height = models.IntegerField(verbose_name=_('height'), editable=False)
-    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
-    uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
-        null=True, blank=True, editable=False, on_delete=models.SET_NULL
-    )
-
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
-
-    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
-    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
-
-    file_size = models.PositiveIntegerField(null=True, editable=False)
-    # A SHA-1 hash of the file contents
-    file_hash = models.CharField(max_length=40, blank=True, editable=False)
-
-    objects = ImageQuerySet.as_manager()
-
+class ImageFileMixin:
     def is_stored_locally(self):
         """
         Returns True if the image is hosted on the local filesystem
@@ -113,6 +94,70 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             self.save(update_fields=['file_size'])
 
         return self.file_size
+
+    @contextmanager
+    def open_file(self):
+        # Open file if it is closed
+        close_file = False
+        try:
+            image_file = self.file
+
+            if self.file.closed:
+                # Reopen the file
+                if self.is_stored_locally():
+                    self.file.open('rb')
+                else:
+                    # Some external storage backends don't allow reopening
+                    # the file. Get a fresh file instance. #1397
+                    storage = self._meta.get_field('file').storage
+                    image_file = storage.open(self.file.name, 'rb')
+
+                close_file = True
+        except IOError as e:
+            # re-throw this as a SourceImageIOError so that calling code can distinguish
+            # these from IOErrors elsewhere in the process
+            raise SourceImageIOError(str(e))
+
+        # Seek to beginning
+        image_file.seek(0)
+
+        try:
+            yield image_file
+        finally:
+            if close_file:
+                image_file.close()
+
+    @contextmanager
+    def get_willow_image(self):
+        with self.open_file() as image_file:
+            yield WillowImage.open(image_file)
+
+
+class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Model):
+    title = models.CharField(max_length=255, verbose_name=_('title'))
+    file = models.ImageField(
+        verbose_name=_('file'), upload_to=get_upload_to, width_field='width', height_field='height'
+    )
+    width = models.IntegerField(verbose_name=_('width'), editable=False)
+    height = models.IntegerField(verbose_name=_('height'), editable=False)
+    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True, db_index=True)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
+        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+    )
+
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
+
+    focal_point_x = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_y = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_width = models.PositiveIntegerField(null=True, blank=True)
+    focal_point_height = models.PositiveIntegerField(null=True, blank=True)
+
+    file_size = models.PositiveIntegerField(null=True, editable=False)
+    # A SHA-1 hash of the file contents
+    file_hash = models.CharField(max_length=40, blank=True, editable=False)
+
+    objects = ImageQuerySet.as_manager()
 
     def _set_file_hash(self, file_contents):
         self.file_hash = hashlib.sha1(file_contents).hexdigest()
@@ -166,43 +211,6 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
 
     def __str__(self):
         return self.title
-
-    @contextmanager
-    def open_file(self):
-        # Open file if it is closed
-        close_file = False
-        try:
-            image_file = self.file
-
-            if self.file.closed:
-                # Reopen the file
-                if self.is_stored_locally():
-                    self.file.open('rb')
-                else:
-                    # Some external storage backends don't allow reopening
-                    # the file. Get a fresh file instance. #1397
-                    storage = self._meta.get_field('file').storage
-                    image_file = storage.open(self.file.name, 'rb')
-
-                close_file = True
-        except IOError as e:
-            # re-throw this as a SourceImageIOError so that calling code can distinguish
-            # these from IOErrors elsewhere in the process
-            raise SourceImageIOError(str(e))
-
-        # Seek to beginning
-        image_file.seek(0)
-
-        try:
-            yield image_file
-        finally:
-            if close_file:
-                image_file.close()
-
-    @contextmanager
-    def get_willow_image(self):
-        with self.open_file() as image_file:
-            yield WillowImage.open(image_file)
 
     def get_rect(self):
         return Rect(0, 0, self.width, self.height)
@@ -302,7 +310,25 @@ class AbstractImage(CollectionMember, index.Indexed, models.Model):
             )
         except Rendition.DoesNotExist:
             # Generate the rendition image
-            generated_image = filter.run(self, BytesIO())
+            try:
+                logger.debug(
+                    "Generating '%s' rendition for image %d",
+                    filter.spec,
+                    self.pk,
+                )
+
+                start_time = time.time()
+                generated_image = filter.run(self, BytesIO())
+
+                logger.debug(
+                    "Generated '%s' rendition for image %d in %.1fms",
+                    filter.spec,
+                    self.pk,
+                    (time.time() - start_time) * 1000
+                )
+            except:  # noqa:B901,E722
+                logger.debug("Failed to generate '%s' rendition for image %d", filter.spec, self.pk)
+                raise
 
             # Generate filename
             input_filename = os.path.basename(self.file.name)
@@ -372,9 +398,12 @@ class Image(AbstractImage):
         'focal_point_height',
     )
 
-    class Meta:
+    class Meta(AbstractImage.Meta):
         verbose_name = _('image')
         verbose_name_plural = _('images')
+        permissions = [
+            ("choose_image", "Can choose image"),
+        ]
 
 
 class Filter:
@@ -407,6 +436,38 @@ class Filter:
             operations.append(op_class(*op_spec_parts))
         return operations
 
+    @property
+    def transform_operations(self):
+        return [
+            operation for operation in self.operations
+            if isinstance(operation, TransformOperation)
+        ]
+
+    @property
+    def filter_operations(self):
+        return [
+            operation for operation in self.operations
+            if isinstance(operation, FilterOperation)
+        ]
+
+    def get_transform(self, image, size=None):
+        """
+        Returns an ImageTransform with all the transforms in this filter applied.
+
+        The ImageTransform is an object with two attributes:
+         - .size - The size of the final image
+         - .matrix - An affine transformation matrix that combines any
+           transform/scale/rotation operations that need to be applied to the image
+        """
+
+        if not size:
+            size = (image.width, image.height)
+
+        transform = ImageTransform(size)
+        for operation in self.transform_operations:
+            transform = operation.run(transform, image)
+        return transform
+
     def run(self, image, output):
         with image.get_willow_image() as willow:
             original_format = willow.format_name
@@ -414,10 +475,16 @@ class Filter:
             # Fix orientation of image
             willow = willow.auto_orient()
 
+            # Transform the image
+            transform = self.get_transform(image, (willow.image.width, willow.image.height))
+            willow = willow.crop(transform.get_rect().round())
+            willow = willow.resize(transform.size)
+
+            # Apply filters
             env = {
                 'original-format': original_format,
             }
-            for operation in self.operations:
+            for operation in self.filter_operations:
                 willow = operation.run(willow, image, env) or willow
 
             # Find the output format to use
@@ -488,7 +555,7 @@ class Filter:
         return hashlib.sha1(vary_string.encode('utf-8')).hexdigest()[:8]
 
 
-class AbstractRendition(models.Model):
+class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(upload_to=get_rendition_upload_to, width_field='width', height_field='height')
     width = models.IntegerField(editable=False)
@@ -522,6 +589,46 @@ class AbstractRendition(models.Model):
             ('height', self.height),
             ('alt', self.alt),
         ])
+
+    @property
+    def full_url(self):
+        url = self.url
+        if hasattr(settings, 'BASE_URL') and url.startswith("/"):
+            url = settings.BASE_URL + url
+        return url
+
+    @property
+    def filter(self):
+        return Filter(self.filter_spec)
+
+    @cached_property
+    def focal_point(self):
+        image_focal_point = self.image.get_focal_point()
+        if image_focal_point:
+            transform = self.filter.get_transform(self.image)
+            return image_focal_point.transform(transform)
+
+    @property
+    def background_position_style(self):
+        """
+        Returns a `background-position` rule to be put in the inline style of an element which uses the rendition for its background.
+
+        This positions the rendition according to the value of the focal point. This is helpful for when the element does not have
+        the same aspect ratio as the rendition.
+
+        For example:
+
+            {% image page.image fill-1920x600 as image %}
+            <div style="background-image: url('{{ image.url }}'); {{ image.background_position_style }}">
+            </div>
+        """
+        focal_point = self.focal_point
+        if focal_point:
+            horz = int((focal_point.x * 100) // self.width)
+            vert = int((focal_point.y * 100) // self.height)
+            return 'background-position: {}% {}%;'.format(horz, vert)
+        else:
+            return 'background-position: 50% 50%;'
 
     def img_tag(self, extra_attributes={}):
         attrs = self.attrs_dict.copy()

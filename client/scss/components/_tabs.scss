@@ -37,7 +37,7 @@
 
         &:hover {
             color: $color-white;
-            border-top-color: darken($color-teal-darker, 8);
+            border-top-color: rgba(0, 0, 0, 0.35);
         }
     }
 
@@ -71,6 +71,21 @@
     &.merged {
         margin-top: 0;
         background-color: $color-header-bg;
+    }
+
+    li.right {
+        float: right;
+        margin-right: 0;
+        margin-left: 2px;
+    }
+
+    li.wide {
+        width: unset;
+    }
+
+    .right {
+        max-height: 1.44em;
+        overflow: visible;
     }
 }
 
@@ -135,5 +150,12 @@
 
     .tab-nav li {
         width: auto;
+    }
+}
+
+// Media for Windows High Contrast
+@media (forced-colors: $media-forced-colours) {
+    .tab-nav li.active a {
+        border-bottom: 0.3em solid $system-color-link-text;
     }
 }

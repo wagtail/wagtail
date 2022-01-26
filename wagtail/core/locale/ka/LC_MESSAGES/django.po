@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Georgian (http://www.transifex.com/torchbox/wagtail/language/"
 "ka/)\n"
@@ -19,14 +19,35 @@ msgstr ""
 "Language: ka\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
-msgid "site"
-msgstr "საიტი"
+msgid "Delete"
+msgstr "წაშლა"
 
-msgid "sites"
-msgstr "საიტები"
+msgid "Add"
+msgstr "დამატება"
+
+msgid "Password"
+msgstr "პაროლი"
 
 msgid "page"
 msgstr "გვერდი"
 
 msgid "pages"
 msgstr "გვერდები"
+
+msgid "Edit"
+msgstr "რედაქტირება"
+
+msgid "Publish"
+msgstr "გამოქვეყნება"
+
+msgid "groups"
+msgstr "ჯგუფები"
+
+msgid "site"
+msgstr "საიტი"
+
+msgid "sites"
+msgstr "საიტები"
+
+msgid "Copy"
+msgstr "კოპირება"

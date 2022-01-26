@@ -77,6 +77,7 @@ select::-ms-expand {
 }
 
 // select boxes
+.collection_choice_field .input,
 .choice_field .input,
 .model_choice_field .input,
 .typed_choice_field .input {
@@ -106,23 +107,37 @@ select::-ms-expand {
             display: none;
         }
     }
-}
 
-// the site setting dropdown is auto width, so the chevron will overlap with text if not padded
-.choice_field .setting-site-switch-form .input select {
-    padding-right: 5em;
+    // Override default select padding so the chevron will overlap with long option text
+    select {
+        padding-right: 5em;
+    }
 }
 
 // Other text
 .help,
 .error-message {
+    border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
     font-size: 0.85em;
     font-weight: normal;
     margin: 0.5em 0 0;
 }
 
 .error-message {
-    color: $color-red;
+    font-size: 1em;
+    font-weight: bold;
+    color: $color-text-error;
+
+    @media (forced-colors: $media-forced-colours) {
+        forced-color-adjust: none;
+        color: $color-text-error-forced-color;
+    }
+
+    &::before {
+        font-family: wagtail;
+        vertical-align: -10%;
+        content: map-get($icons, 'cross');
+    }
 }
 
 .help {
@@ -137,7 +152,8 @@ li.focused > .help {
     opacity: 1;
 }
 
-.required .field > label:after {
+.required .field > label:after,
+label.required:after {
     content: '*';
     color: $color-red;
     font-weight: bold;
@@ -252,14 +268,17 @@ li.focused > .help {
     }
 }
 
-// This is specifically for model that are a generated set of checkboxes/radios
+// This is specifically for list of radios/checkboxes
 .model_multiple_choice_field .input li,
+.checkbox_select_multiple .input li,
+.multiple_choice_field .input li,
 .choice_field .input li {
     label {
         display: block;
         width: auto;
         float: none;
         padding-top: 0; // Negates padding added to label for the group of fields as a whole
+        padding-bottom: 0.8em;
     }
 }
 
@@ -328,7 +347,6 @@ ul.inline li:first-child,
 li.inline:first-child {
     margin-left: -$grid-gutter-width / 2;
 }
-
 
 // search-bars
 .search-bar {
@@ -424,6 +442,131 @@ li.inline:first-child {
             padding: 0 0 0.8em;
             float: none;
             width: auto;
+        }
+    }
+}
+
+.field-comment-control {
+    display: none;
+}
+
+.tab-content--comments-enabled {
+    .field {
+        position: relative;
+    }
+
+    .field-content {
+        padding-right: 45px;
+
+        @include media-breakpoint-up(sm) {
+            padding-right: 60px;
+        }
+    }
+
+    .widget-draftail_rich_text_area .field-content {
+        padding-right: 0;
+    }
+
+    .field-comment-control {
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        height: 100%;
+        line-height: 100%;
+
+        &--object {
+            right: 20px;
+
+            @include media-breakpoint-up(lg) {
+                right: 350px;
+            }
+        }
+
+        button {
+            @include transition(opacity 0.2s ease);
+            border: 0;
+            background: none;
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border-radius: 3px;
+            position: absolute;
+            top: 50%;
+            right: 0;
+
+            @include media-breakpoint-up(sm) {
+                right: 10px;
+            }
+
+            // Hide by default, reveal on hover of parent
+            @include media-breakpoint-up(md) {
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-50%);
+                right: 0;
+            }
+
+            .icon-reversed {
+                display: none;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                // stylelint-disable max-nesting-depth
+                .icon-default {
+                    display: none;
+                }
+
+                .icon-reversed {
+                    display: block;
+                }
+            }
+
+            &:focus {
+                opacity: 1;
+                pointer-events: initial;
+            }
+
+            > svg {
+                width: 30px;
+                height: 30px;
+                color: $color-teal;
+
+                @media (forced-colors: $media-forced-colours) {
+                    color: ButtonText;
+                    border: 1px solid;
+                }
+            }
+        }
+    }
+
+    .field-row .field-comment-control {
+        top: 0;
+    }
+
+    .field:not(.block_field) {
+        &:hover {
+            .field-comment-control button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object {
+        &:hover {
+            .field-comment-control--object button {
+                opacity: 1;
+                pointer-events: initial;
+            }
+        }
+    }
+
+    .object.model_choice_field {
+        .object-help {
+            right: 153px;
         }
     }
 }

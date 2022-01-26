@@ -1,0 +1,113 @@
+.comments-controls {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 2px;
+    height: 42px;
+    box-sizing: border-box;
+
+    @include media-breakpoint-up(sm) {
+        padding-right: 30px;
+        height: 43px;
+    }
+}
+
+.comments-toggle {
+    $root: &;
+    float: none;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    width: auto;
+    align-items: center;
+
+    // Wagtail adds some top padding to labels on mobile
+    padding: 0;
+
+    &--active,
+    &:hover {
+        #{$root}__label {
+            opacity: 1;
+        }
+
+        #{$root}__icon {
+            color: $color-white;
+        }
+    }
+
+    &__icon {
+        position: absolute;
+        left: -12px;
+        bottom: 3px;
+        width: 52px;
+        height: 52px;
+        color: $color-teal-dark;
+        transition: color 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &__count {
+        position: absolute;
+        top: -1px;
+        right: -8px;
+        width: 19px;
+        height: 19px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        background-color: $color-salmon;
+        border: 1px solid $color-teal;
+        color: $color-white;
+        font-size: 9px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 17px;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    &__icon-wrapper {
+        width: 28px;
+        height: 52px;
+        position: relative;
+    }
+
+    &__label {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: $color-white;
+        font-weight: 400;
+        margin-right: 10px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [type=checkbox] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        top: -20px;
+    }
+
+    [type=checkbox]:checked + &__icon {
+        opacity: 1;
+    }
+}
+
+.comment-notifications-toggle {
+    label {
+        padding: 0;
+        margin: 0;
+        padding-top: 5px;
+        font-weight: normal;
+        font-size: 13px;
+        color: $color-white;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .switch__toggle {
+        margin-left: 15px;
+    }
+}

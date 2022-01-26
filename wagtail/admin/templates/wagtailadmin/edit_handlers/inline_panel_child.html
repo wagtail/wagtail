@@ -1,5 +1,5 @@
 {% load i18n wagtailadmin_tags %}
-<li data-inline-panel-child id="inline_child_{{ child.form.prefix }}">
+<li data-inline-panel-child id="inline_child_{{ child.form.prefix }}" data-contentpath-disabled>
     {% if child.form.non_field_errors %}
     <ul>
         {% for error in child.form.non_field_errors %}

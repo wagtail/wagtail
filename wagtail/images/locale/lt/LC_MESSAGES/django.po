@@ -4,12 +4,13 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
+# Naglis Jonaitis, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
@@ -20,6 +21,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail paveikslėliai"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -46,6 +53,10 @@ msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Byla yra per didelė (%%s). Didžiausias bylos dydis yra %s."
 
 #, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Byla turi per daug taškų (%%s). Didžiausias taškų kiekis yra %s."
+
+#, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Byla yra per didelė. Didžiausias bylos dydis yra %s."
 
@@ -57,6 +68,12 @@ msgstr "Lygiuoti į kairę"
 
 msgid "Right-aligned"
 msgstr "Lygiuoti į dešinę"
+
+msgid "Collection"
+msgstr "Kolekcija"
+
+msgid "Alt text"
+msgstr "Alternatyvus tekstas"
 
 msgid "Filter"
 msgstr "Filtras"
@@ -100,6 +117,9 @@ msgstr "Redaguoti"
 msgid "Edit any image"
 msgstr "Redaguoti bet kurį paveiksliuką"
 
+msgid "Choose"
+msgstr "Pasirinkti"
+
 msgid "title"
 msgstr "pavadinimas"
 
@@ -121,6 +141,26 @@ msgstr "įkelta vartotojo"
 msgid "tags"
 msgstr "žymenos"
 
+msgid "image"
+msgstr "paveiksliukas"
+
+msgid "images"
+msgstr "paveiksliukai"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Panaudota %(usage_count)s kartą"
+msgstr[1] "Panaudota %(usage_count)s kartus"
+msgstr[2] "Panaudota %(usage_count)s kartų"
+msgstr[3] "Panaudota %(usage_count)s kartų"
+
+msgid "Yes, delete"
+msgstr "Taip, ištrinti"
+
+msgid "No, don't delete"
+msgstr "Ne, neištrinti"
+
 msgid "Choose an image"
 msgstr "Pasirinkti paveiksliuką"
 
@@ -133,9 +173,6 @@ msgstr "Įkelti"
 msgid "Popular tags"
 msgstr "Populiarios žymenos"
 
-msgid "Uploading…"
-msgstr "Įkeliama..."
-
 msgid "Latest images"
 msgstr "Paskutiniai paveiksliukai"
 
@@ -144,6 +181,9 @@ msgstr "Pasirinkti formatą"
 
 msgid "Insert image"
 msgstr "Įterpti paveiksliuką"
+
+msgid "Uploading…"
+msgstr "Įkeliama..."
 
 msgid "Change image file:"
 msgstr "Keisti paveiksliuko bylą:"
@@ -161,20 +201,6 @@ msgid "Delete image"
 msgstr "Ištrinti paveiksliuką"
 
 #, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Panaudota %(usage_count)s kartą"
-msgstr[1] "Panaudota %(usage_count)s kartus"
-msgstr[2] "Panaudota %(usage_count)s kartų"
-msgstr[3] "Panaudota %(usage_count)s kartų"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Ar tikrai norite ištrinti šį paveiksliuką?"
-
-msgid "Yes, delete"
-msgstr "Taip, ištrinti"
-
-#, python-format
 msgid "Editing image %(title)s"
 msgstr "Redaguojamas paveiksliukas %(title)s"
 
@@ -183,6 +209,19 @@ msgstr "Redagavimas"
 
 msgid "URL Generator"
 msgstr "URL generatorius"
+
+msgid "Focal point"
+msgstr "Svarbiausias taškas"
+
+msgid "(optional)"
+msgstr "(nebūtina)"
+
+msgid ""
+"To define this image's most important region, drag a box over the image "
+"above."
+msgstr ""
+"Kad nustatyti svarbiausią paveiksliuko zoną, apibrėžkite ją stačiakampiu "
+"aukščiau esančiame paveiksliuke."
 
 msgid "Current focal point shown"
 msgstr "Rodomas dabartinis svarbiausias taškas"
@@ -204,6 +243,15 @@ msgstr "Panaudojimas"
 
 msgid "Images"
 msgstr "Paveiksliukai"
+
+msgid "Popular Tags:"
+msgstr "Populiarios žymenos:"
+
+msgid "Clear choice"
+msgstr "Išvalyti pasirinkimus"
+
+msgid "pixels"
+msgstr "taškai"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -303,17 +351,14 @@ msgstr ""
 msgid "Image updated."
 msgstr "Paveiksliukai atnaujinti."
 
-msgid "Update"
-msgstr "Atnaujinti"
-
-msgid "Delete"
-msgstr "Ištrinti"
-
 msgid "Image permissions"
 msgstr "Paveiksliuko leidimai"
 
 msgid "Add an image permission"
 msgstr "Pridėti paveiksliuko leidimą"
+
+msgid "Delete"
+msgstr "Ištrinti"
 
 msgid "Search images"
 msgstr "Ieškoti paveiksliukų"

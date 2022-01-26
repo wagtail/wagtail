@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 {% if tasks %}
-    {% if searchform.is_searching %}
+    {% if search_form.is_searching %}
         <h2 role="alert">
         {% blocktrans count counter=tasks.paginator.count %}
             There is {{ counter }} match
@@ -18,7 +18,7 @@
                 <th>
                     {% trans "Name" %}
                 </th>
-                {% if searchform.specific_task_model_selected %}
+                {% if search_form.specific_task_model_selected %}
                     {# TODO #}
                 {% else %}
                     <th>
@@ -36,7 +36,7 @@
                     <td class="title">
                         <div class="title-wrapper"><a href="{% url 'wagtailadmin_workflows:task_chosen' task.id %}" class="task-choice">{{ task.name }}</a></div>
                     </td>
-                    {% if searchform.specific_task_model_selected %}
+                    {% if search_form.specific_task_model_selected %}
                         {# TODO #}
                     {% else %}
                         <td>
@@ -58,14 +58,14 @@
         </tbody>
     </table>
 
-    {% include "wagtailadmin/shared/ajax_pagination_nav.html" with items=tasks %}
+    {% include "wagtailadmin/shared/pagination_nav.html" with items=tasks linkurl='wagtailadmin_workflows:task_chooser_results' %}
 {% else %}
     {% if all_tasks.exists %}
         <p role="alert">{% blocktrans %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         <p>
         {% trans "You haven't created any tasks." %}
-        {% if createform %}
+        {% if can_create %}
             {% blocktrans %}
                 Why not <a class="create-one-now" href="#">create one now</a>?
             {% endblocktrans %}

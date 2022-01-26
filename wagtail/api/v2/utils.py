@@ -52,15 +52,6 @@ def page_models_from_string(string):
     return tuple(page_models)
 
 
-def filter_page_type(queryset, page_models):
-    qs = queryset.none()
-
-    for model in page_models:
-        qs |= queryset.type(model)
-
-    return qs
-
-
 class FieldsParameterParseError(ValueError):
     pass
 

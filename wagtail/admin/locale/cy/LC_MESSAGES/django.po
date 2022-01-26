@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Adam Hughes <adamhughes31@gmail.com>, 2017,2020
+# Adam Hughes <adamhughes31@gmail.com>, 2017,2020-2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -82,9 +82,6 @@ msgstr "Cyhoeddi wedi'i drefnu"
 msgid "Privacy"
 msgstr "Preifatrwydd"
 
-msgid "Common page configuration"
-msgstr "Cyfluniadau tudalen cyffredin"
-
 msgid "Content"
 msgstr "Cynnwys"
 
@@ -103,27 +100,6 @@ msgstr "Dyddiad i"
 msgid "All"
 msgstr "I gyd"
 
-msgid "Started at"
-msgstr "Dechreuwyd yn"
-
-msgid "Show"
-msgstr "Dangos"
-
-msgid "Awaiting my review"
-msgstr "Yn aros am fy adolygiad"
-
-msgid "Completed at"
-msgstr "Wedi'i gwblhau yn"
-
-msgid "Workflow"
-msgstr "Llif gwaith"
-
-msgid "Date"
-msgstr "Dyddiad"
-
-msgid "Title"
-msgstr "Teitl"
-
 msgid "Enter password"
 msgstr "Rhowch cyfrinair "
 
@@ -136,6 +112,12 @@ msgstr "Rhowch eich cyfeiriad ebost i ailosod eich cyfrinair"
 
 msgid "URL"
 msgstr "URL"
+
+msgid "Add"
+msgstr "Ychwanegu"
+
+msgid "Edit"
+msgstr "Golygu"
 
 msgid "New title"
 msgstr "Teitl newydd"
@@ -153,3 +135,99 @@ msgid "Search term"
 msgstr ""
 " \n"
 "Term Chwilio"
+
+msgid "Server Error"
+msgstr "Gwall Gweinydd"
+
+msgid "Missing document"
+msgstr "Dogfen ar goll"
+
+msgid "Close"
+msgstr "Cau"
+
+msgid "Save"
+msgstr "Cadw"
+
+msgid "Saving..."
+msgstr "Cadw..."
+
+msgid "Reply"
+msgstr "Ymateb"
+
+msgid "Resolve"
+msgstr "Datrys"
+
+msgid "Retry"
+msgstr "Ailgynnig"
+
+msgid "Are you sure?"
+msgstr "Wyt ti'n siwr?"
+
+msgid "Save error"
+msgstr "Arbed gwall"
+
+msgid "Comment"
+msgstr "Sylw"
+
+msgid "Error 404"
+msgstr "Gwall 404"
+
+msgid "Go to Wagtail admin"
+msgstr "Ewch i Wagtail Admin"
+
+msgid "Account"
+msgstr "Cyfrif"
+
+msgid "Save account details"
+msgstr "Cadw manylion cyfrif"
+
+msgid "Change password"
+msgstr "Newid cyfrinair"
+
+msgid "Reset password"
+msgstr "Ailosod cyfrinair"
+
+msgid "Login"
+msgstr "Mewngofnodi"
+
+msgid "Invalid password reset link"
+msgstr "Dolen ailosod cyfrinair annilys"
+
+msgid "Check your email"
+msgstr "Gwiriwch eich e-bost"
+
+msgid "Update"
+msgstr "Diweddariad"
+
+msgid "Title"
+msgstr "Teitl"
+
+msgid "Date"
+msgstr "Dyddiad"
+
+msgid "Saving…"
+msgstr "Cadw…"
+
+msgid "Started at"
+msgstr "Dechreuwyd yn"
+
+msgid "Filter"
+msgstr "Hidlydd"
+
+msgid "Workflow"
+msgstr "Llif gwaith"
+
+msgid "Completed at"
+msgstr "Wedi'i gwblhau yn"
+
+msgid "Editing"
+msgstr "Golygu"
+
+msgid "View live"
+msgstr "Gweld in fyw"
+
+msgid "Show"
+msgstr "Dangos"
+
+msgid "Awaiting my review"
+msgstr "Yn aros am fy adolygiad"

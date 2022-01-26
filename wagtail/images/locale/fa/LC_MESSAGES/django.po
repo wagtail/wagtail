@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -58,6 +58,12 @@ msgstr "چپ چین"
 msgid "Right-aligned"
 msgstr "راست چین"
 
+msgid "Collection"
+msgstr "مجموعه"
+
+msgid "Alt text"
+msgstr "متن جایگزین"
+
 msgid "Filter"
 msgstr "صافی"
 
@@ -100,6 +106,9 @@ msgstr "ویرایش"
 msgid "Edit any image"
 msgstr "ویرایش هرنوع تصویری"
 
+msgid "Choose"
+msgstr "انتخاب کنید"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -121,6 +130,12 @@ msgstr "آپلود‌شده توسط کاربر"
 msgid "tags"
 msgstr "برچسب‌ها"
 
+msgid "image"
+msgstr "تصویر"
+
+msgid "Yes, delete"
+msgstr "بله حذف شود"
+
 msgid "Choose an image"
 msgstr "تصویر را انتخاب کنید"
 
@@ -133,9 +148,6 @@ msgstr "آپلود"
 msgid "Popular tags"
 msgstr "برچسب های پرتکرار"
 
-msgid "Uploading…"
-msgstr "در حال آپلود…"
-
 msgid "Latest images"
 msgstr "آخرین تصاویر"
 
@@ -144,6 +156,9 @@ msgstr "انتخاب یک فورمت"
 
 msgid "Insert image"
 msgstr "درج تصویر"
+
+msgid "Uploading…"
+msgstr "در حال آپلود…"
 
 msgid "Change image file:"
 msgstr "تغییر فایل تصویر:"
@@ -159,12 +174,6 @@ msgstr "ذخیره"
 
 msgid "Delete image"
 msgstr "حذف تصویر"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "آیا میخواهید این تصویر را حذف کنید؟"
-
-msgid "Yes, delete"
-msgstr "بله حذف شود"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -193,6 +202,9 @@ msgstr "فایل پیدا نشد"
 
 msgid "Images"
 msgstr "عکس‌ها"
+
+msgid "Clear choice"
+msgstr "پاک کردن انتخاب"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -287,17 +299,14 @@ msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 msgid "Image updated."
 msgstr "تصویر آپلود شد."
 
-msgid "Update"
-msgstr "بروزرسانی"
-
-msgid "Delete"
-msgstr "حذف"
-
 msgid "Image permissions"
 msgstr "مجوزهای تصویر"
 
 msgid "Add an image permission"
 msgstr "افزودن مجوز تصویر"
+
+msgid "Delete"
+msgstr "حذف"
 
 msgid "Search images"
 msgstr "جستجوی تصاویر"
@@ -330,6 +339,9 @@ msgid "%(count)s image"
 msgid_plural "%(count)s images"
 msgstr[0] "%(count)s تصویر"
 msgstr[1] "%(count)s تصویر"
+
+msgid "Change image"
+msgstr "تغییر تصویر"
 
 msgid "Edit this image"
 msgstr "ویرایش این تصویر"

@@ -13,6 +13,7 @@ This section of the documentation is written for the users of a Wagtail-powered 
    finding_your_way_around/index
    new_pages/index
    editing_existing_pages
+   copying_aliasing_existing_pages
    documents_images_snippets/index
    managing_redirects
    administrator_tasks/index

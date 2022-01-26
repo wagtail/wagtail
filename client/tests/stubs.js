@@ -30,6 +30,7 @@ global.wagtailConfig = {
     SEE_ALL: 'See all',
     CLOSE_EXPLORER: 'Close explorer',
     ALT_TEXT: 'Alt text',
+    DECORATIVE_IMAGE: 'Decorative image',
     WRITE_HERE: 'Write here…',
     HORIZONTAL_LINE: 'Horizontal line',
     LINE_BREAK: 'Line break',
@@ -46,6 +47,26 @@ global.wagtailConfig = {
     EDIT_PAGE: 'Edit \'{title}\'',
     VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
     PAGE_EXPLORER: 'Page explorer',
+    SAVE: 'Save',
+    SAVING: 'Saving...',
+    CANCEL: 'Cancel',
+    DELETING: 'Deleting...',
+    ADD_A_COMMENT: 'Add a comment',
+    SHOW_COMMENTS: 'Show comments',
+    REPLY: 'Reply',
+    RESOLVE: 'Resolve',
+    RETRY: 'Retry',
+    DELETE_ERROR: 'Delete error',
+    CONFIRM_DELETE_COMMENT: 'Are you sure?',
+    SAVE_ERROR: 'Save error',
+    SAVE_COMMENT_WARNING: 'This will be saved when the page is saved',
+    FOCUS_COMMENT: 'Focus comment',
+    UNFOCUS_COMMENT: 'Unfocus comment',
+    SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
+    SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
+    SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
+    TOGGLE_SIDEBAR: 'Toggle sidebar',
+    MAIN_MENU: 'Main menu',
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [
@@ -80,10 +101,3 @@ global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
 global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
 global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'embed' };
 global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
-
-const jQueryObj = {
-  on: jest.fn(),
-  off: jest.fn(),
-};
-
-global.jQuery = () => jQueryObj;

@@ -241,6 +241,12 @@ ul.listing {
         border-color: $color-grey-3;
         background: $color-white;
 
+        &.no:hover {
+            border-color: $color-button-no-hover;
+            background-color: $color-button-no-hover;
+            color: $color-white;
+        }
+
         &:hover {
             border-color: $color-teal;
             background-color: $color-teal;
@@ -414,7 +420,6 @@ ul.listing {
 
             &.bicolor {
                 background: $color-teal-darker;
-                border: solid 1px darken($color-teal-darker, 10%);
 
                 &:active {
                     color: $color-white;
@@ -581,28 +586,47 @@ table.listing {
         padding: 0.8em;
         float: left;
     }
+
+    &__icon {
+        width: 1em;
+        height: 1em;
+        margin-right: 0.2em;
+        vertical-align: middle;
+        position: relative;
+        top: -1px;
+    }
 }
 
 
 @include media-breakpoint-up(sm) {
     .listing {
-        &.horiz > li {
-            float: left;
+        &.horiz {
+            display: flex;
+            flex-wrap: wrap;
         }
 
         &.images {
-            @include clearfix();
             border: 1px solid $color-grey-4;
             border-width: 0 0 0 1px;
 
             > li {
-                padding: 1.3em;
+                padding: 1.5em;
                 width: 200px;
-                height: 220px;
+                height: auto;
                 text-align: center;
                 margin-top: -1px;
                 border: 1px solid $color-grey-4;
                 border-width: 1px 1px 1px 0;
+
+                .bulk-action-checkbox {
+                    float: left;
+                    margin: -0.5em 0.5em 0.5em -0.75em;
+                }
+
+                .bulk-action-checkbox + .image-choice {
+                    clear: both;
+                    margin-top: 1em;
+                }
 
                 .image {
                     text-align: center;
@@ -647,6 +671,15 @@ table.listing {
             visibility: visible;
         }
 
+        .bulk-action-checkbox {
+            opacity: 0;
+
+            &.show,
+            &:checked {
+                opacity: 1;
+            }
+        }
+
         .no-children {
             border-color: transparent;
 
@@ -655,8 +688,20 @@ table.listing {
             }
         }
 
-        tr:hover .no-children a {
-            opacity: 1;
+        tr:hover,
+        tr:focus-within {
+            .no-children a,
+            .bulk-action-checkbox {
+                opacity: 1;
+            }
+        }
+
+        // used on the image listing
+        li:hover,
+        li:focus-within {
+            .bulk-action-checkbox {
+                opacity: 1;
+            }
         }
 
         tr:hover .children {

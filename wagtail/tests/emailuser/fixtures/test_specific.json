@@ -1,6 +1,6 @@
 [
     {
-        "pk": 1,
+        "pk": "00000000-0000-0000-0000-000000000001",
         "model": "emailuser.emailuser",
         "fields": {
             "first_name": "",

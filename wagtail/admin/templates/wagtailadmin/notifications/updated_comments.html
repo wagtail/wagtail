@@ -1,0 +1,58 @@
+{% extends 'wagtailadmin/notifications/base.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    <p>
+        {% blocktrans with title=page.get_admin_display_title editor=editor|user_display_name %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
+    </p>
+
+    {% if new_comments %}
+        <h3>{% trans "New comments" %}</h3>
+
+        <ul>
+            {% for comment in new_comments %}
+                <li>{{ comment.text }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if resolved_comments %}
+        <h3>{% trans "Resolved comments" %}</h3>
+
+        <ul>
+            {% for comment in resolved_comments %}
+                <li>{{ comment.text }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if deleted_comments %}
+        <h3>{% trans "Deleted comments" %}</h3>
+
+        <ul>
+            {% for comment in deleted_comments %}
+                <li>{{ comment.text }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if replied_comments %}
+    <h3>{% trans "New replies" %}</h3>
+
+    <ul>
+        {% for thread in replied_comments %}
+            <li>{% trans 'New replies to:' %} {{ thread.comment.text }}
+                <ul>
+                    {% for reply in thread.replies %}
+                        <li>{{ reply.text }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    <p>{% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
+{% endblock %}
+
+

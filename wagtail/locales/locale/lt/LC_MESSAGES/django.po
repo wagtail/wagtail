@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020\n"
 "Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
@@ -33,6 +33,9 @@ msgstr "Kalba"
 msgid "Select a new language"
 msgstr "Pasirinkite naują kalbą"
 
+msgid "This locale's language code is not supported"
+msgstr "Šios lokalės kalbos kodas nepalaikomas"
+
 msgid "Yes, delete"
 msgstr "Taip, ištrinti"
 
@@ -46,17 +49,14 @@ msgstr ""
 "Esamas šios lokalės kalbos kodas nepalaikomas. Prašome pasirinkti kitą kalbą "
 "arba ištrinti šią lokalę."
 
-msgid "Usage"
-msgstr "Panaudojimas"
-
-msgid "This locale's language code is not supported"
-msgstr "Šios lokalės kalbos kodas nepalaikomas"
-
 msgid "Locales"
 msgstr "Lokalės"
 
 msgid "Add a locale"
 msgstr "Pridėti lokalę"
+
+msgid "Usage"
+msgstr "Panaudojimas"
 
 msgid "Add locale"
 msgstr "Pridėti lokalę"
@@ -76,12 +76,12 @@ msgstr "Ištrinti lokalę"
 msgid "Locale '{0}' deleted."
 msgstr "Lokalė '{0}' ištrinta."
 
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ar tikrai norite ištrinti šią lokalę?"
+
 msgid ""
 "This locale cannot be deleted because there are pages and/or other objects "
 "using it."
 msgstr ""
 "Ši lokalė negali būti ištrinta, nes yra ją naudojančių puslapių ir/ar kitų "
 "objektų."
-
-msgid "Are you sure you want to delete this locale?"
-msgstr "Ar tikrai norite ištrinti šią lokalę?"

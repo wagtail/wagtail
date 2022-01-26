@@ -1,6 +1,7 @@
 {% extends "wagtailadmin/generic/create.html" %}
+{% load wagtailadmin_tags %}
 
 {% block extra_js %}
     {{ block.super }}
-    {% include "wagtailadmin/pages/_editor_js.html" %}
+    <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
 {% endblock %}

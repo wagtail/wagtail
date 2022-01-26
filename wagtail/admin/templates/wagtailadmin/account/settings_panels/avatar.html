@@ -1,0 +1,37 @@
+{% load i18n wagtailadmin_tags %}
+{% block content %}
+    <div class="avatar-panel">
+        <div class="avatar-panel__image">
+            <div class="avatar large">
+                <img src="{% avatar_url request.user 100 %}" alt="">
+            </div>
+        </div>
+        <div class="avatar-panel__form">
+            <label for="id_avatar-avatar">{% trans "Upload a profile picture:" %}</label>
+            <input type="file" name="avatar-avatar" accept="image/*" id="id_avatar-avatar">
+            <input type="hidden" name="avatar-avatar-clear" id="avatar-avatar-clear_id">
+
+            {% if form.avatar.value %}
+                <button class="avatar-panel__revert-to-gravatar button button-secondary" data-gravatar-url="{% avatar_url request.user 100 gravatar_only=True %}">{% trans "Reset to default" %}</button>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var revertToGravatarButton = document.querySelector('.avatar-panel__revert-to-gravatar');
+            if (revertToGravatarButton) {
+                revertToGravatarButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    var avatarImagePreview = document.querySelector('.avatar-panel__image img');
+                    avatarImagePreview.src = revertToGravatarButton.dataset.gravatarUrl;
+
+                    document.getElementById('avatar-avatar-clear_id').value = 'on';
+
+                    revertToGravatarButton.remove();
+                });
+            }
+        })();
+    </script>
+{% endblock %}

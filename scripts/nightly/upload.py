@@ -22,6 +22,6 @@ print("Updating latest.json")
 boto3.resource('s3').Object('releases.wagtail.io', 'nightly/latest.json').put(
     ACL='public-read',
     Body=json.dumps({
-        "url": 'https://releases.wagtail.io/nightly/dist/' + f.name,
+        "url": 'https://releases.wagtail.org/nightly/dist/' + f.name,
     })
 )

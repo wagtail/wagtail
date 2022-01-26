@@ -8,13 +8,13 @@
 }
 
 // Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
-// which get added after the core CSS, and otherweise trump our styles.
+// which get added after the core CSS, and otherwise trump our styles.
 .admin_tag_widget ul.tagit input[type='text'] {
     padding: 0.2em 0.5em;
 }
 
 // Additional specificity (.admin_tag_widget ) required to override tagit stylesheets,
-// which get added after the core CSS, and otherweise trump our styles.
+// which get added after the core CSS, and otherwise trump our styles.
 .admin_tag_widget ul.tagit li.tagit-choice-editable {
     padding: 0 23px 0 0;
 }

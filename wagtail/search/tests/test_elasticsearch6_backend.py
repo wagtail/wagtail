@@ -333,6 +333,17 @@ class TestElasticsearch6SearchQuery(TestCase):
         expected_result = {'match_phrase': {'title': "Hello world"}}
         self.assertDictEqual(query_compiler.get_inner_query(), expected_result)
 
+    def test_year_filter(self):
+        # Create a query
+        query_compiler = self.query_compiler_class(models.Book.objects.filter(publication_date__year=1900), "Hello")
+
+        # Check it
+        expected_result = {'bool': {'filter': [
+            {'match': {'content_type': 'searchtests.Book'}},
+            {'term': {'publication_date_filter': 1900}}
+        ], 'must': {'multi_match': {'query': 'Hello', 'fields': ['_all_text', '_edgengrams']}}}}
+        self.assertDictEqual(query_compiler.get_query(), expected_result)
+
 
 class TestElasticsearch6SearchResults(TestCase):
     fixtures = ['search']

@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Erlend Eelmets <debcf78e@opayq.com>, 2020
+# Erlend <debcf78e@opayq.com>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2020
 # Ragnar Rebase <rrebase@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -82,9 +82,6 @@ msgstr "Plaaniline avaldamine"
 msgid "Privacy"
 msgstr "Privaatsus"
 
-msgid "Common page configuration"
-msgstr "Ühine lehekonfiguratsioon"
-
 msgid "Content"
 msgstr "Sisu"
 
@@ -103,26 +100,23 @@ msgstr "Kuupäev kuni"
 msgid "All"
 msgstr "Kõik"
 
-msgid "Started at"
-msgstr "Algus kell"
+msgid "Preferred language"
+msgstr "Eelistatud keel"
 
-msgid "Show"
-msgstr "Näita"
+msgid "Current time zone"
+msgstr "Praegune ajavöönd"
 
-msgid "Awaiting my review"
-msgstr "Ootan minu ülevaadet"
+msgid "First Name"
+msgstr "Eesnimi"
 
-msgid "Completed at"
-msgstr "Valmis kell"
+msgid "Last Name"
+msgstr "Perekonnanimi"
 
-msgid "Workflow"
-msgstr "Töövoog"
+msgid "Email"
+msgstr "E-post"
 
-msgid "Date"
-msgstr "Kuupäev"
-
-msgid "Title"
-msgstr "Pealkiri"
+msgid "Upload a profile picture"
+msgstr "Laadige üles profiilipilt"
 
 msgid "Enter password"
 msgstr "Sisestage parool"
@@ -137,8 +131,20 @@ msgstr "Parooli lähtestamiseks sisestage oma e-posti aadress"
 msgid "URL"
 msgstr "URL"
 
+msgid "Parent"
+msgstr "Vanem"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Teil ei saa olla ühe kogu jaoks mitu lubade kirjet."
+
+msgid "Collection"
+msgstr "Kogumine"
+
+msgid "Add"
+msgstr "Lisama"
+
+msgid "Edit"
+msgstr "Muuda"
 
 msgid "New title"
 msgstr "Uus pealkiri"
@@ -236,111 +242,6 @@ msgstr "Andke oma töövoole nimi"
 msgid "Add tasks to your workflow"
 msgstr "Lisage töövoole ülesandeid"
 
-msgid "Arabic"
-msgstr "Araabia"
-
-msgid "Catalan"
-msgstr "Katalaani keel"
-
-msgid "Czech"
-msgstr "Tšehhi keel"
-
-msgid "German"
-msgstr "Saksa keel"
-
-msgid "Greek"
-msgstr "Kreeka keel"
-
-msgid "English"
-msgstr "Inglise"
-
-msgid "Spanish"
-msgstr "Hispaania keel"
-
-msgid "Finnish"
-msgstr "Soome keel"
-
-msgid "French"
-msgstr "Prantsuse keel"
-
-msgid "Galician"
-msgstr "Galicia keel"
-
-msgid "Hungarian"
-msgstr "Ungari keel"
-
-msgid "Indonesian"
-msgstr "Indoneesia keel"
-
-msgid "Icelandic"
-msgstr "Islandi keel"
-
-msgid "Italian"
-msgstr "Itaalia keel"
-
-msgid "Japanese"
-msgstr "Jaapani keel"
-
-msgid "Korean"
-msgstr "Korea keel"
-
-msgid "Lithuanian"
-msgstr "Leedu keel"
-
-msgid "Mongolian"
-msgstr "Mongoli keel"
-
-msgid "Norwegian Bokmål"
-msgstr "Norra bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Holland Hollandi keel"
-
-msgid "Persian"
-msgstr "Pärsia keel"
-
-msgid "Polish"
-msgstr "Poola keel"
-
-msgid "Brazilian Portuguese"
-msgstr "Brasiilia portugali keel"
-
-msgid "Portuguese"
-msgstr "Portugali keel"
-
-msgid "Romanian"
-msgstr "Rumeenia keel"
-
-msgid "Russian"
-msgstr "Vene keel"
-
-msgid "Swedish"
-msgstr "Rootsi keel"
-
-msgid "Slovak"
-msgstr "Slovaki keel"
-
-msgid "Thai"
-msgstr "Tai"
-
-msgid "Turkish"
-msgstr "Türgi keel"
-
-msgid "Turkish (Turkey)"
-msgstr "Türgi (Türgi)"
-
-msgid "Ukrainian"
-msgstr "Ukrainlane"
-
-msgid "Chinese (Simplified)"
-msgstr "Lihtsustatud hiina keel)"
-
-msgid "Chinese (Traditional)"
-msgstr "Traditsiooniline hiina keel)"
-
-msgid "Edit"
-msgstr "Muuda"
-
 msgid "Page"
 msgstr "Leht"
 
@@ -415,9 +316,20 @@ msgstr "Kuva üksuse „{title}” alamlehed"
 msgid "Page explorer"
 msgstr "Leheuurija"
 
-#, python-format
-msgid "Unknown %(action)s"
-msgstr "Tundmatu %(action)s"
+msgid "Save"
+msgstr "Salvesta"
+
+msgid "Cancel"
+msgstr "Tühista"
+
+msgid "Comment"
+msgstr "Kommentaar"
+
+msgid "Dashboard"
+msgstr "Armatuurlaud"
+
+msgid "Edit your account"
+msgstr "Muutke oma kontot"
 
 msgid "Error 404: Page not found"
 msgstr "Viga 404: lehte ei leitud"
@@ -434,21 +346,6 @@ msgstr "Minge Wagtail administraatori juurde"
 msgid "Account"
 msgstr "Konto"
 
-msgid "Change profile picture"
-msgstr "Profiilipildi muutmine"
-
-msgid "Your current profile picture:"
-msgstr "Teie praegune profiilipilt:"
-
-msgid "Update"
-msgstr "Uuenda"
-
-msgid "Change email"
-msgstr "Muuda meiliaadressi"
-
-msgid "Change name"
-msgstr "Muuda nime"
-
 msgid "Change password"
 msgstr "Muuda salasõna"
 
@@ -456,15 +353,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Teie parooli ei saa siin muuta. Võtke ühendust saidi administraatoriga."
-
-msgid "Set Time Zone"
-msgstr "Määra ajavöönd"
-
-msgid "Language Preferences"
-msgstr "Keele-eelistused"
-
-msgid "Notification preferences"
-msgstr "Teavitamiseelistused"
 
 msgid "Reset password"
 msgstr "Lähtesta parool"
@@ -513,17 +401,8 @@ msgstr "Parooli lähtestamine"
 msgid "Reset your password"
 msgstr "Taasta oma salasõna"
 
-msgid "Dashboard"
-msgstr "Armatuurlaud"
-
 msgid "Menu"
 msgstr "Menüü"
-
-msgid "Move up"
-msgstr "Üles liikuma"
-
-msgid "Move down"
-msgstr "Liigu alla"
 
 msgid "Explorer"
 msgstr "Uurija"
@@ -618,9 +497,6 @@ msgstr ""
 "Privaatsusseaded määravad, kes saavad selles kollektsioonis olevaid "
 "dokumente vaadata."
 
-msgid "Save"
-msgstr "Salvesta"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Määra kogu privaatsus. Praegune staatus: avalik"
 
@@ -652,8 +528,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr "Lisage %(label)s"
 
+msgid "Move up"
+msgstr "Üles liikuma"
+
+msgid "Move down"
+msgstr "Liigu alla"
+
 msgid "Yes, delete"
 msgstr "Jah, kustuta"
+
+msgid "Update"
+msgstr "Uuenda"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -668,6 +553,9 @@ msgstr ""
 
 msgid "Your locked pages"
 msgstr "Teie lukustatud lehed"
+
+msgid "Title"
+msgstr "Pealkiri"
 
 msgid "Locked at"
 msgstr "Lukustatud kell"
@@ -687,9 +575,6 @@ msgstr "%(time_period)s"
 
 msgid "Pages awaiting moderation"
 msgstr "Modereerimist ootavad lehed"
-
-msgid "Parent"
-msgstr "Vanem"
 
 msgid "Type"
 msgstr "Tüüp"
@@ -714,6 +599,9 @@ msgstr "Teie viimased muudatused"
 
 msgid "Status"
 msgstr "Staatus"
+
+msgid "Date"
+msgstr "Kuupäev"
 
 msgid "Site summary"
 msgstr "Saidi kokkuvõte"
@@ -771,9 +659,6 @@ msgstr "Logige sisse Wagtailisse"
 
 msgid "Signing in…"
 msgstr "Sisselogimine ..."
-
-msgid "Forgotten it?"
-msgstr "Unustasid selle?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -960,6 +845,15 @@ msgstr "Valige, millist tüüpi lehte soovite luua."
 msgid "Pages using %(page_type)s"
 msgstr "Lehed, mis kasutavad %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
+msgid "Move"
+msgstr "Liiguta"
+
+msgid "No, don't unpublish"
+msgstr "Ei, ärge avaldamist tühistage"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Kustuta %(title)s"
@@ -1004,9 +898,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "%(title)s teisaldamine"
 
-msgid "Move"
-msgstr "Liiguta"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Kas olete kindel, et soovite selle lehe teisaldada kausta %(title)s?"
@@ -1050,9 +941,6 @@ msgstr[1] ""
 msgid "Yes, unpublish it"
 msgstr "Jah, tühista selle avaldamine"
 
-msgid "No, don't unpublish"
-msgstr "Ei, ärge avaldamist tühistage"
-
 msgid "Publish page"
 msgstr "Avaldage leht"
 
@@ -1083,9 +971,6 @@ msgstr "Selle lehe avaldamine tühistab praeguse töövoo."
 
 msgid "Would you still like to publish this page?"
 msgstr "Kas soovite ikkagi selle lehe avaldada?"
-
-msgid "Cancel"
-msgstr "Tühista"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1140,9 +1025,6 @@ msgstr "Kasutaja"
 
 msgid "Date / Time"
 msgstr "Kuupäev Kellaaeg"
-
-msgid "Comment"
-msgstr "Kommentaar"
 
 msgid "Live version"
 msgstr "Reaalajas versioon"
@@ -1528,6 +1410,9 @@ msgstr "Muuda lehte"
 msgid "Requested by"
 msgstr "Nõutud"
 
+msgid "Started at"
+msgstr "Algus kell"
+
 msgid "Approved task"
 msgstr "Kinnitatud ülesanne"
 
@@ -1536,9 +1421,6 @@ msgstr "Mittetäielik ülesanne"
 
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Seda lehte ei ole veel modereerimiseks esitatud"
-
-msgid "Collection"
-msgstr "Kogumine"
 
 msgid "No pages match this report's criteria."
 msgstr "Ükski leht ei vasta selle aruande kriteeriumidele."
@@ -1596,14 +1478,23 @@ msgstr "Lukustatud"
 msgid "No locked pages found."
 msgstr "Lukustatud lehti ei leitud."
 
+msgid "Edit this item"
+msgstr "Muutke seda üksust"
+
 msgid "By Task"
 msgstr "Autor ülesanne"
+
+msgid "Workflow"
+msgstr "Töövoog"
 
 msgid "No pages have been submitted for moderation yet"
 msgstr "Ühtegi lehte pole modereerimiseks veel esitatud"
 
 msgid "By Workflow"
 msgstr "Töövoo järgi"
+
+msgid "Completed at"
+msgstr "Valmis kell"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -1620,9 +1511,6 @@ msgstr "Kodu"
 
 msgid "All collections"
 msgstr "Kõik kollektsioonid"
-
-msgid "Edit your account"
-msgstr "Muutke oma kontot"
 
 msgid "Account settings"
 msgstr "Konto seaded"
@@ -1658,9 +1546,6 @@ msgstr ""
 
 msgid "Skip to main content"
 msgstr "Otse põhisisu juurde"
-
-msgid "Go to Wagtail admin interface"
-msgstr "Minge Wagtail administraatori liidesesse"
 
 msgid "Add a child page"
 msgstr "Lisage lapse leht"
@@ -1878,6 +1763,9 @@ msgstr ""
 "Sortige alamlehekülgede järjestus \"%(parent)s\" ja \"%(label)s\" poolt "
 "kahanevas järjekorras."
 
+msgid "More"
+msgstr "Veel"
+
 msgid "0 minutes"
 msgstr "0 minutit"
 
@@ -1887,29 +1775,17 @@ msgstr "Just praegu"
 msgid "live"
 msgstr "elama"
 
-msgid "live + draft"
-msgstr "otse + mustand"
-
 msgid "draft"
 msgstr "mustand"
+
+msgid "live + draft"
+msgstr "otse + mustand"
 
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "Teie parool on edukalt muudetud!"
-
-msgid "Your email has been changed successfully!"
-msgstr "Teie e-posti aadressi on edukalt muudetud!"
-
-msgid "Your name has been changed successfully!"
-msgstr "Teie nime on edukalt muudetud!"
-
-msgid "Your preferences have been updated."
-msgstr "Teie eelistusi on värskendatud."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Teie eelistusi on edukalt värskendatud!"
+msgid "Password"
+msgstr "Parool"
 
 msgid "You have been successfully logged out."
 msgstr "Teid on edukalt välja logitud."
@@ -2087,8 +1963,26 @@ msgstr "Lehe '{0}' avaldamine tühistati."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Leht '{0}' ei oota praegu ülesandes '{1}' modereerimist."
 
+msgid "Site history"
+msgstr "Saidi ajalugu"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Action type"
+msgstr "Toimingu tüüp"
+
+msgid "Date/Time"
+msgstr "Kuupäev Kellaaeg"
+
 msgid "Locked pages"
 msgstr "Lukustatud lehed"
+
+msgid "Show"
+msgstr "Näita"
+
+msgid "Awaiting my review"
+msgstr "Ootan minu ülevaadet"
 
 msgid "Workflows"
 msgstr "Töövood"
@@ -2107,18 +2001,6 @@ msgstr "Töövoo ülesanded"
 
 msgid "Requested By"
 msgstr "Nõutud"
-
-msgid "Site history"
-msgstr "Saidi ajalugu"
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Action type"
-msgstr "Toimingu tüüp"
-
-msgid "Date/Time"
-msgstr "Kuupäev Kellaaeg"
 
 msgid "Add a workflow"
 msgstr "Lisage töövoog"
@@ -2189,21 +2071,6 @@ msgstr "Keela ülesanne"
 msgid "Task '{0}' disabled."
 msgstr "Ülesanne '{0}' on keelatud."
 
-#, python-format
-msgid ""
-"This task is in progress on %(states_in_progress)d page. Disabling this task "
-"will cause it to be skipped in the moderation workflow."
-msgid_plural ""
-"This task is in progress on %(states_in_progress)d pages. Disabling this "
-"task will cause it to be skipped in the moderation workflow."
-msgstr[0] ""
-"See ülesanne on %(states_in_progress)d lehel pooleli. Selle ülesande "
-"keelamine jätab selle modereerimise töövoos vahele."
-msgstr[1] ""
-" \n"
-"See ülesanne on %(states_in_progress)d lehtedel pooleli. Selle ülesande "
-"keelamine jätab selle modereerimise töövoos vahele."
-
 msgid "Task '{0}' enabled."
 msgstr "Ülesanne '{0}' on lubatud."
 
@@ -2225,9 +2092,6 @@ msgstr "Kuva reaalajas versioon '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Lisage alamleht lehele %(title)s"
-
-msgid "More"
-msgstr "Veel"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2252,36 +2116,6 @@ msgstr "Lehe ' %(title)s' avaldamise tühistamine"
 #, python-format
 msgid "View page history for '%(title)s'"
 msgstr "Kuva lehe ajalugu: %(title)s"
-
-msgid "Set profile picture"
-msgstr "Määra profiilipilt"
-
-msgid "Change your profile picture."
-msgstr "Muutke oma profiilipilti."
-
-msgid "Change the email address linked to your account."
-msgstr "Muutke oma kontoga lingitud e-posti aadressi."
-
-msgid "Change the password you use to log in."
-msgstr "Muutke sisselogimiseks kasutatavat parooli."
-
-msgid "Choose which email notifications to receive."
-msgstr "Valige, milliseid e-posti märguandeid saada."
-
-msgid "Language preferences"
-msgstr "Keele-eelistused"
-
-msgid "Choose the language you want to use here."
-msgstr "Valige siin keel, mida soovite kasutada."
-
-msgid "Current Time Zone"
-msgstr "Praegune ajavöönd"
-
-msgid "Choose your current time zone."
-msgstr "Valige oma ajavöönd."
-
-msgid "Change your first and last name on your account."
-msgstr "Muutke oma kontol oma ees- ja perekonnanime."
 
 #, python-format
 msgid "Heading %(level)d"
@@ -2323,190 +2157,6 @@ msgstr "Lukustatud lehed"
 msgid "Reports"
 msgstr "Aruanded"
 
-msgid "Created"
-msgstr "Loodud"
-
-msgid "Deleted"
-msgstr "Kustutatud"
-
-msgid "Publish scheduled draft"
-msgstr "Ajakava mustandi avaldamine"
-
-msgid "Published scheduled draft"
-msgstr "Avaldatud kavandatud mustand"
-
-msgid "Unpublished"
-msgstr "Avaldamata"
-
-msgid "Unpublish scheduled draft"
-msgstr "Ajastatud mustandi avaldamise tühistamine"
-
-msgid "Unpublished scheduled draft"
-msgstr "Ajakavandi avaldamata avaldamine"
-
-msgid "Unlocked"
-msgstr "Lukustamata"
-
-msgid "Approved"
-msgstr "Heaks kiidetud"
-
-msgid "Rejected"
-msgstr "Tagasi lükatud"
-
-#, python-format
-msgid ""
-"Reverted to previous revision with id %(revision_id)s from %(created_at)s"
-msgstr ""
-"Tagasi eelmisele versioonile lülitumine, mille ID on %(revision_id)sloodud "
-"%(created_at)s"
-
-msgid "Reverted to previous revision"
-msgstr "Tagasi eelmise redaktsiooni juurde"
-
-#, python-format
-msgid "Copied from %(title)s"
-msgstr "Kopeeritud asukohast %(title)s"
-
-msgid "Copied"
-msgstr "Kopeeritud"
-
-#, python-format
-msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Teisaldatud kaustast '%(old_parent)s' kausta '%(new_parent)s'"
-
-msgid "Moved"
-msgstr "Liigutatud"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Versiooni %(revision_id)s plaaniline %(created_at)s avaldamine "
-"%(go_live_at)s."
-
-#, python-format
-msgid "Page scheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on kavandatud kell %(go_live_at)s"
-
-msgid "Page scheduled for publishing"
-msgstr "Lehe avaldamine on kavandatud"
-
-#, python-format
-msgid ""
-"Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
-"%(go_live_at)s."
-msgstr ""
-"Versiooni %(revision_id)s  plaaniväline %(created_at)s avaldamine "
-"%(go_live_at)s asemel."
-
-#, python-format
-msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Lehe avaldamine on ajakavas %(go_live_at)s"
-
-msgid "Page unscheduled from publishing"
-msgstr "Lehe avaldamine on ajastatud"
-
-#, python-format
-msgid "Added the '%(restriction)s' view restriction"
-msgstr "Lisati vaatamise piirang '%(restriction)s'"
-
-msgid "Added view restriction"
-msgstr "Lisatud vaatamispiirang"
-
-#, python-format
-msgid "Updated the view restriction to '%(restriction)s'"
-msgstr "Vaatamispiirang värskendati väärtusele '%(restriction)s'"
-
-msgid "Updated view restriction"
-msgstr "Uuendatud vaatamispiirang"
-
-#, python-format
-msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Eemaldas vaatamise piirangu '%(restriction)s'"
-
-msgid "Removed view restriction"
-msgstr "Vaatamispiirang on eemaldatud"
-
-#, python-format
-msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Nimetati '%(old)s' ümber '%(new)s'"
-
-msgid "Renamed"
-msgstr "Ümbernimetatud"
-
-msgid "Rename"
-msgstr "Nimeta ümber"
-
-msgid "Revert"
-msgstr "Tagasi"
-
-msgid "Schedule publication"
-msgstr "Ajakava avaldamine"
-
-msgid "Unschedule publication"
-msgstr "Väljaandmise ajagraafik"
-
-msgid "Add view restrictions"
-msgstr "Lisage vaate piirangud"
-
-msgid "Update view restrictions"
-msgstr "Vaate piirangute värskendamine"
-
-msgid "Remove view restrictions"
-msgstr "Eemaldage vaate piirangud"
-
-#, python-format
-msgid "'%(workflow)s' started. Next step '%(task)s'"
-msgstr "'%(workflow)s' algas. Järgmine samm '%(task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Heaks kiidetud '%(task)s'. Järgmine samm '%(next_task)s'"
-
-#, python-format
-msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Kinnitatud \"%(task)s\". \"%(workflow)s\" lõpetatud."
-
-msgid "Workflow task approved"
-msgstr "Töövoo ülesanne on kinnitatud"
-
-#, python-format
-msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Tagasi lükatud ''%(task)s\". Nõutud on muudatusi"
-
-msgid "Workflow task rejected. Workflow complete"
-msgstr "Töövoo ülesanne lükati tagasi. Töövoog on lõpule viidud"
-
-#, python-format
-msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Esitatud uuesti \"%(task)s\". Töövoo jätkamine "
-
-msgid "Workflow task resubmitted. Workflow resumed"
-msgstr "Töövoo ülesanne on uuesti esitatud. Töövoog jätkus"
-
-#, python-format
-msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "Tühistatud \"%(workflow)s\" \"%(task)s\" "
-
-msgid "Workflow cancelled"
-msgstr "Töövoog on tühistatud"
-
-msgid "Workflow: start"
-msgstr "Töövoog: algus"
-
-msgid "Workflow: approve task"
-msgstr "Töövoog: kinnitage ülesanne"
-
-msgid "Workflow: reject task"
-msgstr "Töövoog: lükake ülesanne tagasi"
-
-msgid "Workflow: resume task"
-msgstr "Töövoog: ülesande jätkamine"
-
-msgid "Workflow: cancel"
-msgstr "Töövoog: tühista"
-
 msgid "Yes"
 msgstr "Jah"
 
@@ -2521,9 +2171,6 @@ msgstr "Valige teine ​​üksus"
 
 msgid "Clear choice"
 msgstr "Eemalda valik"
-
-msgid "Edit this item"
-msgstr "Muutke seda üksust"
 
 msgid "Choose another page"
 msgstr "Valige teine ​​leht"

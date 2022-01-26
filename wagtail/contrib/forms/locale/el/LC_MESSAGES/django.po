@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2022-01-04 09:31+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Date from"
+msgstr "Ημερομηνία από"
+
+msgid "Date to"
+msgstr "Ημερομηνία έως"
 
 #, python-format
 msgid "There is another field with the label %s, please change one of them."
@@ -67,6 +73,9 @@ msgstr "χρόνος υποβολής"
 
 msgid "form submission"
 msgstr "υποβολές φόρμας"
+
+msgid "name"
+msgstr "όνομα"
 
 msgid "label"
 msgstr "ετικέτα"

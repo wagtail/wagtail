@@ -1,4 +1,3 @@
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 
@@ -55,6 +54,14 @@ class TestIndexView(TestCase, WagtailTestUtils):
         # There should still be four results
         self.assertEqual(response.context['result_count'], 4)
 
+    def test_using_core_page(self):
+        # The core page is slightly different to other pages, so exclude it
+        response = self.client.get('/admin/wagtailcore/page/')
+        self.assertEqual(response.status_code, 200)
+
+        root_page = Page.objects.get(depth=1)
+        self.assertNotIn(root_page, response.context['paginator'].object_list)
+
 
 class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
@@ -65,21 +72,13 @@ class TestExcludeFromExplorer(TestCase, WagtailTestUtils):
     def test_attribute_effects_explorer(self):
         # The two VenuePages should appear in the venuepage list
         response = self.client.get('/admin/modeladmintest/venuepage/')
-        if DJANGO_VERSION >= (3, 0):
-            self.assertContains(response, "Santa&#x27;s Grotto")
-            self.assertContains(response, "Santa&#x27;s Workshop")
-        else:
-            self.assertContains(response, "Santa&#39;s Grotto")
-            self.assertContains(response, "Santa&#39;s Workshop")
+        self.assertContains(response, "Santa&#x27;s Grotto")
+        self.assertContains(response, "Santa&#x27;s Workshop")
 
         # But when viewing the children of 'Christmas' event in explorer
         response = self.client.get('/admin/pages/4/')
-        if DJANGO_VERSION >= (3, 0):
-            self.assertNotContains(response, "Santa&#x27;s Grotto")
-            self.assertNotContains(response, "Santa&#x27;s Workshop")
-        else:
-            self.assertNotContains(response, "Santa&#39;s Grotto")
-            self.assertNotContains(response, "Santa&#39;s Workshop")
+        self.assertNotContains(response, "Santa&#x27;s Grotto")
+        self.assertNotContains(response, "Santa&#x27;s Workshop")
 
         # But the other test page should...
         self.assertContains(response, "Claim your free present!")
@@ -195,6 +194,12 @@ class TestEditView(TestCase, WagtailTestUtils):
     def test_non_existent(self):
         response = self.get(100)
 
+        self.assertEqual(response.status_code, 404)
+
+    def test_using_core_page(self):
+        # The core page is slightly different to other pages, so exclude it
+        root_page = Page.objects.get(depth=1)
+        response = self.client.get('/admin/wagtailcore/page/{}/'.format(root_page.id))
         self.assertEqual(response.status_code, 404)
 
 
@@ -340,8 +345,8 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that home breadcrumb link exists
         expected = """
-            <li class="home">
-                <a href="/admin/">
+            <li class="breadcrumb-item home">
+                <a href="/admin/" class="breadcrumb-link">
                     <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-home"></use>
                     </svg>
@@ -369,8 +374,8 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that home breadcrumb link exists
         expected = """
-            <li class="home">
-                <a href="/admin/">
+            <li class="breadcrumb-item home">
+                <a href="/admin/" class="breadcrumb-link">
                     <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-home"></use>
                     </svg>

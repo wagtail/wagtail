@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Collection"
+msgstr "Col·lecció"
 
 msgid "Add"
 msgstr "Afegir"
@@ -32,6 +35,9 @@ msgstr "Editar"
 
 msgid "Edit any document"
 msgstr "Editar algun document"
+
+msgid "Choose"
+msgstr "Seleccionar"
 
 msgid "title"
 msgstr "títol"
@@ -51,6 +57,12 @@ msgstr "etiquetes"
 msgid "document"
 msgstr "document"
 
+msgid "Yes, delete"
+msgstr "Si, esborra"
+
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 msgid "Choose a document"
 msgstr "Escull un document"
 
@@ -60,15 +72,28 @@ msgstr "Cercar"
 msgid "Upload"
 msgstr "Pujar"
 
-msgid "Uploading…"
-msgstr "Pujant…"
-
 msgid "Latest documents"
 msgstr "Últims documents"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "File"
+msgstr "Arxiu"
+
+msgid "Created"
+msgstr "Creada"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
+
+msgid "Uploading…"
+msgstr "Pujant…"
 
 msgid "Change document:"
 msgstr "Canvia el document:"
@@ -86,12 +111,6 @@ msgstr "Esborra %(title)s"
 msgid "Delete document"
 msgstr "Esborra el document"
 
-msgid "Are you sure you want to delete this document?"
-msgstr "Estàs segur que vols esborrar aquest document?"
-
-msgid "Yes, delete"
-msgstr "Si, esborra"
-
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Editant %(title)s"
@@ -108,18 +127,11 @@ msgstr "Mida del fitxer"
 msgid "File not found"
 msgstr "No s'ha trobat el fitxer"
 
+msgid "Usage"
+msgstr "Ús"
+
 msgid "Documents"
 msgstr "Documents"
-
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
 
 #, python-format
 msgid ""
@@ -176,17 +188,14 @@ msgstr "Afegir a la col·lecció:"
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
 
-msgid "Update"
-msgstr "Actualitzar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Document permissions"
 msgstr "Permisos de document"
 
 msgid "Add a document permission"
 msgstr "Afegir un permís de document"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Server Error"
 msgstr "Error del servidor"

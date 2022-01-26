@@ -288,22 +288,22 @@
                         <td class="title">
                             <h2><a href="">TD with title class</a></h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                     <tr class="unpublished">
                         <td class="title">
                             <h2><a href="">Unpublished TD with title class</a></h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                     <tr>
                         <td class="title">
                             <h2><a href="">TD with title class</a></h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                 </tbody>
             </table>
@@ -361,22 +361,22 @@
                         <td class="title">
                             <h2><a href="#">TD with title class</a></h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                     <tr class="disabled">
                         <td class="title">
                             <h2>Disabled TD with title class</h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                     <tr>
                         <td class="title">
                             <h2><a href="">TD with title class</a></h2>
                         </td>
-                        <td>Regular listing TD</td>
-                        <td>Regular listing TD</td>
+                        <td>Standard TD</td>
+                        <td>Standard TD</td>
                     </tr>
                 </tbody>
             </table>
@@ -394,7 +394,7 @@
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
 
-            <h3>Regular buttons</h3>
+            <h3>Basic buttons</h3>
 
             <a href="#" class="button">button link</a>
             <button class="button">button element</button>
@@ -709,7 +709,7 @@
         <section id="tabs">
             <h2>Tabs</h2>
 
-            <ul class="tab-nav">
+            <ul class="tab-nav" data-tab-nav>
                 <li class="active"><a href="#tab1">Tab 1</a></li>
                 <li><a href="#tab2">Tab 2</a></li>
             </ul>
@@ -717,7 +717,7 @@
             <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
+            <ul class="tab-nav merged" data-tab-nav>
                 <li class="active"><a href="#">Tab1</a></li>
                 <li><a href="#">Tab2</a></li>
             </ul>
@@ -725,7 +725,7 @@
             <p>Tabs can also indicate errors:</p>
 
             {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged">
+            <ul class="tab-nav merged" data-tab-nav>
                 <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
                 <li><a href="#" class="errors" data-count="1">Tab2</a></li>
             </ul>
@@ -736,10 +736,10 @@
 
             <ul class="breadcrumb">
                 {% trans 'Home' as home %}
-                <li class="home"><a href="{% url 'wagtailadmin_home' %}">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             </ul>
 
         </section>
@@ -788,12 +788,12 @@
 
           <style>
             .spinning {
-              animation-name: spin;
+              animation-name: spin-wag;
               animation-duration: 500ms;
               animation-iteration-count: infinite;
               animation-timing-function: linear;
             }
-            @keyframes spin {
+            @keyframes spin-wag {
                 from {
                     transform: translateY(0.6em) rotate(0deg);
                 } to {
@@ -876,6 +876,7 @@
                 <li>{% icon 'no-view' %} no-view</li>
                 <li>{% icon 'collapse-up' %} collapse-up</li>
                 <li>{% icon 'collapse-down' %} collapse-down</li>
+                <li>{% icon 'comment' %} comment</li>
                 <li>{% icon 'help' %} help</li>
                 <li>{% icon 'warning' %} warning</li>
                 <li>{% icon 'error' %} error</li>

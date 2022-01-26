@@ -5,12 +5,14 @@
         <div class="object-layout">
             <table class="listing">
                 <col />
-                <col width="30%"/>
+                <col width="15%"/>
+                <col width="15%"/>
                 <col width="15%"/>
                 <thead>{# Note: the header is visually hidden behind .title-wrapper #}
                     <tr>
                         <th class="title">{% trans "Title" %}</th>
                         <th>{% trans "Tasks" %}</th>
+                        <th>{% trans "Task submitted by" %}</th>
                         <th>{% trans "Task started" %}</th>
                     </tr>
                 </thead>
@@ -22,11 +24,16 @@
                             <td class="title" valign="top">
                                 <div class="title-wrapper">
                                     {% if page_perms.can_edit %}
-                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.get_admin_display_title }}</a>
+                                        <a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" title="{% trans 'Edit this page' %}">{{ revision.page.specific_deferred.get_admin_display_title }}</a>
                                     {% else %}
-                                        {{ revision.page.get_admin_display_title }}
+                                        {{ revision.page.specific_deferred.get_admin_display_title }}
                                     {% endif %}
 
+                                    {% i18n_enabled as show_locale_labels %}
+                                    {% if show_locale_labels and revision.page.locale_id %}
+                                        {% locale_label_from_id revision.page.locale_id as locale_label %}
+                                        <span class="status-tag status-tag--label">{{ locale_label }}</span>
+                                    {% endif %}
                                     {% include "wagtailadmin/pages/listing/_privacy_indicator.html" with page=revision.page %}
                                     {% include "wagtailadmin/pages/listing/_locked_indicator.html" with page=revision.page %}
                                 </div>
@@ -64,7 +71,10 @@
                                 {% endfor %}
                             </td>
                             <td valign="top">
-                                <div class="human-readable-date" title="{{ task_state.started_at|date:"d M Y H:i" }}">{% blocktrans with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
+                                {% if revision.user %}{{ revision.user|user_display_name }}{% endif %}
+                            </td>
+                            <td valign="top">
+                                <div class="human-readable-date" title="{{ task_state.started_at|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div>
                             </td>
                         </tr>
                         {% endwith %}

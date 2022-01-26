@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: ROGER MICHAEL ASHLEY ALLEN <rogermaallen@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,12 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "Wagtail اعادات توجية"
 
+msgid "Type"
+msgstr "نوع"
+
+msgid "Permanent"
+msgstr "دتئم"
+
 msgid "From site"
 msgstr "من الموقع"
 
@@ -35,6 +41,10 @@ msgstr "كل المواقع"
 
 msgid "A redirect with this path already exists."
 msgstr "يوجد بالفعل إعادة توجيه مع هذا المسار."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "الصيغ المدعومة:%(supported_formats)s."
 
 msgid "redirect from"
 msgstr "إعادة توجيه من"
@@ -86,6 +96,9 @@ msgstr "هل أنت متأكد من أنك تريد حذف إعادة التوج
 msgid "Yes, delete"
 msgstr "نعم احذف"
 
+msgid "Preview"
+msgstr "نظر مقدم"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "يتم تحرير %(title)s"
@@ -102,11 +115,11 @@ msgstr "من"
 msgid "To"
 msgstr "إلى"
 
+msgid "Continue"
+msgstr "أكمل"
+
 msgid "Site"
 msgstr "موقع"
-
-msgid "Type"
-msgstr "نوع"
 
 msgid "Edit this redirect"
 msgstr "تحرير إعادة التوجيه"

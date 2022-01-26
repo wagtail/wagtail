@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -31,6 +31,9 @@ msgstr "انتخاب"
 
 msgid "Search"
 msgstr "جستجو"
+
+msgid "Title"
+msgstr "عنوان"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -53,6 +56,9 @@ msgstr "%(snippet_type_name)s جدید"
 msgid "New"
 msgstr "جدید"
 
+msgid "Actions"
+msgstr "اعمال"
+
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "ویرایش %(snippet_type_name)s - %(instance)s"
@@ -62,9 +68,6 @@ msgstr "ویرایش"
 
 msgid "Snippets"
 msgstr "قطعه‌ها"
-
-msgid "Title"
-msgstr "عنوان"
 
 #, python-format
 msgid ""
@@ -117,6 +120,13 @@ msgstr "به دلیل بروز خطا قطعه ای ساخته نشد."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "قطعه به دلیل بروز خطا ذخیره نشد."
+
+msgid "Date"
+msgstr "تاریخ"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "ویرایش %(title)s"
 
 #, python-format
 msgid "Choose %s"

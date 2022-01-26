@@ -1,0 +1,275 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "Wagtail images"
+msgstr "Whakaahua-a-Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
+
+#, python-format
+msgid ""
+"Supported formats: %(supported_formats)s. Maximum filesize: "
+"%(max_upload_size)s."
+msgstr ""
+"Pou hōputu: %(supported_formats)s. Korahi whakatīeke ō te kōnae: "
+"%(max_upload_size)s"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Pou hōputu: %(supported_formats)s. "
+
+#, python-format
+msgid "Not a supported image format. Supported formats: %s."
+msgstr "Ehara tēnei whakaahua e pou hōputu. Ngā pou hōputu: %s. "
+
+#, python-format
+msgid "Not a valid %s image."
+msgstr "Ehara he pono %s whakaahua."
+
+#, python-format
+msgid "This file is too big (%%s). Maximum filesize %s."
+msgstr "He nui rawa atu tēnei kōnae (%%s). Korahi whakatīeke ō te kōnae %s."
+
+#, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr ""
+"He nui rawa atu te nama ō tongiiti i tēnei kōnae (%%s). Tongiiti whakatīeke "
+"%s."
+
+#, python-format
+msgid "This file is too big. Maximum filesize %s."
+msgstr "He nui rawa atu tēnei kōnae. Korahi whakatieke ō te kōnae %s."
+
+msgid "Full width"
+msgstr "Pangoro rangiwhāwhātanga"
+
+msgid "Left-aligned"
+msgstr "Tīaroaro-mauī"
+
+msgid "Right-aligned"
+msgstr "Tīaroaro-matau"
+
+msgid "Collection"
+msgstr "Kohikohinga"
+
+msgid "Alt text"
+msgstr "Manohi kuputuhi"
+
+msgid "Filter"
+msgstr "Tātari"
+
+msgid "Original size"
+msgstr "Korahi orokohanga"
+
+msgid "Resize to width"
+msgstr "Korahi anō ki te rangiwhāwhātanga"
+
+msgid "Resize to height"
+msgstr "Korahi anō ki te ikeike"
+
+msgid "Resize to min"
+msgstr "Korahi anō hei iti"
+
+msgid "Resize to max"
+msgstr "Korahi anō hei nui"
+
+msgid "Resize to fill"
+msgstr "Korahi anō hei utuutu"
+
+msgid "Width"
+msgstr "Rangiwhāwhātanga"
+
+msgid "Height"
+msgstr "Ikeike"
+
+msgid "Closeness"
+msgstr "Tata"
+
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Add/edit images you own"
+msgstr "Tāpiri/ whakarerekē ōu ake whakaahua"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
+msgid "Edit any image"
+msgstr "Whakarerekē ngā whakaahua"
+
+msgid "Choose"
+msgstr "Kōhiti"
+
+msgid "title"
+msgstr "taitara"
+
+msgid "file"
+msgstr "kōnae"
+
+msgid "width"
+msgstr "rangiwhāwhātanga"
+
+msgid "height"
+msgstr "ikeike"
+
+msgid "created at"
+msgstr "I hangaia ki"
+
+msgid "uploaded by user"
+msgstr "Nō te kaiwhakamahi ī tukuatu"
+
+msgid "tags"
+msgstr "pinetohu"
+
+msgid "image"
+msgstr "whakaahua"
+
+msgid "images"
+msgstr "Ngā whakaahua"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
+msgid "Choose an image"
+msgstr "Kōhiti he whakaahua"
+
+msgid "Search"
+msgstr "Haha"
+
+msgid "Upload"
+msgstr "Tukuatu"
+
+msgid "Popular tags"
+msgstr "Ngā pinetohu rongonui"
+
+msgid "Latest images"
+msgstr "Ngā whakaahua hou"
+
+msgid "Choose a format"
+msgstr "Kōhiti he hōputu"
+
+msgid "Insert image"
+msgstr "Komotanga he whakaahua"
+
+msgid "Uploading…"
+msgstr "Tukuna atu..."
+
+msgid "Change image file:"
+msgstr "Panoni te kōnae whakaahua"
+
+msgid "Add an image"
+msgstr "Tāpiri he whakaahua"
+
+msgid "Add image"
+msgstr "Tāpiri whakaahua"
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Delete image"
+msgstr "Muku whakaahua"
+
+#, python-format
+msgid "Editing image %(title)s"
+msgstr "E whakarerekē ana a whakahua %(title)s"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "Filesize"
+msgstr "Kōnae korahi"
+
+msgid "File not found"
+msgstr "Ehara i kimi te kōnae"
+
+msgid "Usage"
+msgstr "Whakamahi"
+
+msgid "Images"
+msgstr "Ngā whakaahua"
+
+msgid "Clear choice"
+msgstr "Kōwhiri whakapara"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Titiro"
+
+#, python-format
+msgid "Usage of %(title)s"
+msgstr "Te whakamahi ō %(title)s"
+
+msgid "Usage of"
+msgstr "Te whakamahi ō "
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "Parent"
+msgstr "Mātua"
+
+msgid "Type"
+msgstr "Momo"
+
+msgid "Status"
+msgstr "Tūnga"
+
+msgid "Edit this page"
+msgstr "Whakarerekē i tēnei whārangi"
+
+msgid "Or choose from your computer"
+msgstr "Kōhiti nō tō rorohiko rānei"
+
+msgid "Add to collection:"
+msgstr "Tāpiri ki te kohikohinga:"
+
+msgid "Sorry, upload failed."
+msgstr "Aroha mai, kua rahua te tukuatu."
+
+msgid "Server Error"
+msgstr "Hapa rorohiko"
+
+msgid "Report this error to your webmaster with the following information:"
+msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
+
+msgid "Delete"
+msgstr "Muku"
+
+msgid "Image '{0}' updated."
+msgstr "Whakahua '{0}' kua whakahou"
+
+msgid "The image could not be saved due to errors."
+msgstr "Ehara ka taea te puritia kī te whakahua nei, he raruraru "
+
+msgid "Image '{0}' deleted."
+msgstr "Whakahua '{0}' kua mukuhia."
+
+msgid "Image '{0}' added."
+msgstr "Whakahua '{0}' kua tāpiri."
+
+msgid "The image could not be created due to errors."
+msgstr "Ehara ka taea ki te hangaia te whakahua nei, he raruraru "

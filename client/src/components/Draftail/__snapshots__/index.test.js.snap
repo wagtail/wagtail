@@ -10,6 +10,7 @@ Object {
   "bottomToolbar": null,
   "controls": Array [],
   "decorators": Array [],
+  "editorState": null,
   "enableHorizontalRule": Object {
     "description": "Horizontal line",
   },
@@ -27,11 +28,13 @@ Object {
   "inlineStyles": Array [],
   "maxListNesting": 4,
   "onBlur": null,
+  "onChange": null,
   "onFocus": null,
   "onSave": [Function],
   "placeholder": "Write here…",
   "plugins": Array [],
   "rawContentState": null,
+  "readOnly": false,
   "showRedoControl": Object {
     "description": "Redo",
   },
@@ -49,8 +52,6 @@ Object {
 
 exports[`Draftail #wrapWagtailIcon works 1`] = `
 <Icon
-  className={null}
   name="media"
-  title={null}
 />
 `;

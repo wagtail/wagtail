@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`explorer OPEN_EXPLORER 1`] = `
+Object {
+  "currentPageId": 1,
+  "depth": 0,
+}
+`;
+
+exports[`explorer POP_PAGE 1`] = `
+Object {
+  "currentPageId": null,
+  "depth": 0,
+}
+`;
+
+exports[`explorer PUSH_PAGE 1`] = `
+Object {
+  "currentPageId": null,
+  "depth": 0,
+}
+`;

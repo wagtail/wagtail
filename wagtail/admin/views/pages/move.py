@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.core import hooks
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.models import Page
 
 
@@ -19,7 +20,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
     if viewed_page_id:
         viewed_page = get_object_or_404(Page, id=viewed_page_id)
     else:
-        viewed_page = Page.get_first_root_node()
+        viewed_page = page_to_move.get_parent()
 
     viewed_page.can_choose = page_perms.can_move_to(viewed_page)
 
@@ -49,9 +50,8 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
 
 def move_confirm(request, page_to_move_id, destination_id):
     page_to_move = get_object_or_404(Page, id=page_to_move_id).specific
-    destination = get_object_or_404(Page, id=destination_id)
-    if not page_to_move.permissions_for_user(request.user).can_move_to(destination):
-        raise PermissionDenied
+    # Needs .specific_deferred because the .get_admin_display_title method is called in template
+    destination = get_object_or_404(Page, id=destination_id).specific_deferred
 
     if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
         messages.error(
@@ -66,9 +66,10 @@ def move_confirm(request, page_to_move_id, destination_id):
             return result
 
     if request.method == 'POST':
-        # any invalid moves *should* be caught by the permission check above,
+        # any invalid moves *should* be caught by the permission check in the action class,
         # so don't bother to catch InvalidMoveToDescendant
-        page_to_move.move(destination, pos='last-child', user=request.user)
+        action = MovePageAction(page_to_move, destination, pos='last-child', user=request.user)
+        action.execute()
 
         messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
             messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Joanico Barros <joanico@catalpa.io>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "Wagtail troka dalan"
 
+msgid "Type"
+msgstr "Tipu"
+
 msgid "From site"
 msgstr "Husi situs"
 
@@ -31,6 +34,10 @@ msgstr "situs sira hotu"
 
 msgid "A redirect with this path already exists."
 msgstr "Troko dalan ho parte ne'ebe mak existi tiha ona"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Suporta formatu: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "Troka dalan husi"
@@ -82,6 +89,9 @@ msgstr "Ita serteza hakarak hamos dalan ida ne'e?"
 msgid "Yes, delete"
 msgstr "Loos, hamoos"
 
+msgid "Preview"
+msgstr "Pré-visualizasaun"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Hadia hela %(title)s"
@@ -98,11 +108,11 @@ msgstr "Husi"
 msgid "To"
 msgstr "Ba "
 
+msgid "Continue"
+msgstr "Kontinua"
+
 msgid "Site"
 msgstr "situs"
-
-msgid "Type"
-msgstr "Tipu"
 
 msgid "Edit this redirect"
 msgstr "Hadia dalan ida ne'e"

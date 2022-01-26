@@ -1,0 +1,109 @@
+.comment-reply {
+    padding-top: 20px;
+    pointer-events: auto;
+    position: relative;
+    border-top: 1px solid $color-comment-separator;
+
+    &__text {
+        color: $color-box-text;
+        font-size: 13px;
+        line-height: 19px;
+        margin-bottom: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        &--mode-deleting {
+            color: $color-grey-1;
+        }
+    }
+
+    &--mode-deleting &__avatar {
+        opacity: 0.5;
+    }
+
+    &--mode-deleting &__text {
+        color: $color-grey-3;
+    }
+
+    form {
+        margin-top: 10px;
+    }
+
+    &__button {
+        @include button;
+    }
+
+    &__actions,
+    &__confirm-delete,
+    &__progress,
+    &__error {
+        &::after {
+            display: block;
+            content: '';
+            clear: both;
+        }
+    }
+
+    &__actions {
+        padding-bottom: 10px;
+    }
+
+    &__actions &__button {
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    &__confirm-delete &__button {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+
+    &__confirm-delete,
+    &__error {
+        color: $color-box-text;
+        font-weight: bold;
+        font-size: 13px;
+        margin-top: 10px;
+
+        button {
+            float: right;
+        }
+
+        &::after {
+            display: block;
+            content: ' ';
+            clear: both;
+        }
+    }
+
+    &__error {
+        color: $color-white;
+        background-color: $color-red-dark;
+        border-radius: 3px;
+        padding: 5px;
+        padding-left: 10px;
+        height: 26px;
+        line-height: 26px;
+        vertical-align: middle;
+
+        button {
+            height: 26px;
+            float: right;
+            margin-left: 5px;
+            color: $color-white;
+            background-color: $color-red-very-dark;
+            border-color: $color-red-very-dark;
+            padding: 2px;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 0.65em;
+            font-weight: bold;
+        }
+    }
+
+    &__progress {
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 13px;
+    }
+}

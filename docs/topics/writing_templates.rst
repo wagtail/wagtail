@@ -174,7 +174,7 @@ Takes a Page object and returns a relative URL (``/foo/bar/``) if within the sam
     <a href="{% pageurl page.get_parent %}">Back to index</a>
 
 
-A ``fallback`` keyword argument can be provided - this should be a URL route name that takes no parameters, and will be used as a substitute URL when the passed page is ``None``.
+A ``fallback`` keyword argument can be provided - this can be a URL string, a named URL route that can be resolved with no parameters, or an object with a ``get_absolute_url`` method, and will be used as a substitute URL when the passed page is ``None``.
 
 .. code-block:: html+django
 
@@ -244,13 +244,24 @@ Wagtail User Bar
 
 This tag provides a contextual flyout menu for logged-in users. The menu gives editors the ability to edit the current page or add a child page, besides the options to show the page in the Wagtail page explorer or jump to the Wagtail admin dashboard. Moderators are also given the ability to accept or reject a page being previewed as part of content moderation.
 
-This tag may be used on regular Django views, without page object. The user bar will contain one item pointing to the admin.
+This tag may be used on standard Django views, without page object. The user bar will contain one item pointing to the admin.
+
+We recommend putting the tag near the top of the ``<body>`` element so keyboard users can reach it. You should consider putting the tag after any `skip links <https://webaim.org/techniques/skipnav/>`_ but before the navigation and main content of your page.
 
 .. code-block:: html+django
 
     {% load wagtailuserbar %}
     ...
-    {% wagtailuserbar %}
+    <body>
+      <a id="#content">Skip to content</a>
+      {% wagtailuserbar %} {# This is a good place for the userbar #}
+      <nav>
+      ...
+      </nav>
+      <main id="content">
+      ...
+      </main>
+    </body>
 
 By default the User Bar appears in the bottom right of the browser window, inset from the edge. If this conflicts with your design it can be moved by passing a parameter to the template tag. These examples show you how to position the userbar in each corner of the screen:
 
@@ -286,3 +297,6 @@ Sometimes you may wish to vary the template output depending on whether the page
           ...
         </script>
     {% endif %}
+
+If the page is being previewed, ``request.preview_mode`` can be used to determine the specific preview mode being used,
+if the page supports :attr:`multiple preview modes <wagtail.core.models.Page.preview_modes>`.

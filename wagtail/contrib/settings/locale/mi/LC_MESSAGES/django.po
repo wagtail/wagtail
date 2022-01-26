@@ -1,0 +1,57 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Awatea Randall <awatea@octave.nz>, 2021
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-01-21 01:14+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
+"mi/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: mi\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+msgid "default"
+msgstr "taunoa"
+
+#, python-format
+msgid "Editing %(setting_type_name)s - %(instance)s"
+msgstr ""
+"%(setting_type_name)s Whakarerekē\n"
+"E Whakarerekē a John I ōna tuhinga mo tōna pukapuka – John is editing the "
+"writing for his book\n"
+"%(instance)s Kei te Whakarerekē a Hine ī nga tuhinga mō te nūpepa – Hine is "
+"editing the writing for the newspaper"
+
+msgid "Editing"
+msgstr "Whakarerekē"
+
+msgid "Site"
+msgstr "Pae"
+
+msgid "Saving…"
+msgstr "pupuru ana..."
+
+msgid "Save"
+msgstr "Puritia"
+
+msgid "Settings"
+msgstr "tautuhinga"
+
+msgid "This setting could not be opened because there is no site defined."
+msgstr "Nōtemea e kore he pae tautuhi, ehara tēnei ka taea ki te pōaha "
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s whakahou."
+
+msgid "The setting could not be saved due to errors."
+msgstr "Ehara tēnei i puritia, he raruraru."

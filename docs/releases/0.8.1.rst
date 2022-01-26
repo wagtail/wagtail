@@ -14,4 +14,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Fixed a regression where images would fail to save when feature detection is active
+* Fixed a regression where images would fail to save when feature detection is active

@@ -23,7 +23,7 @@ function setupJcrop(image, original, focalPointOriginal, fields) {
             fields.height.val(focalPointOriginal.height);
         }
     }, function() {
-        jcropapi = this
+        jcropapi = this;
 
         // Set alt="" on the image so its src is not read out loud to screen reader users.
         var $holderImage = $('img', jcropapi.ui.holder);
@@ -39,24 +39,24 @@ $(function() {
     var original = {
         width: $image.data('originalWidth'),
         height: $image.data('originalHeight')
-    }
+    };
 
     var focalPointOriginal = {
         x: $chooser.data('focalPointX'),
         y: $chooser.data('focalPointY'),
         width: $chooser.data('focalPointWidth'),
         height: $chooser.data('focalPointHeight')
-    }
+    };
 
     var fields = {
         x: $('input.focal_point_x'),
         y: $('input.focal_point_y'),
         width: $('input.focal_point_width'),
         height: $('input.focal_point_height')
-    }
+    };
 
-    var left = focalPointOriginal.x - focalPointOriginal.width / 2
-    var top = focalPointOriginal.y - focalPointOriginal.height / 2
+    var left = focalPointOriginal.x - focalPointOriginal.width / 2;
+    var top = focalPointOriginal.y - focalPointOriginal.height / 2;
     var width = focalPointOriginal.width;
     var height = focalPointOriginal.height;
 
@@ -67,16 +67,16 @@ $(function() {
 
     var params = [$image, original, focalPointOriginal, fields];
 
-    setupJcrop.apply(this, params)
+    setupJcrop.apply(this, params);
 
     $(window).on('resize', $.debounce(300, function() {
         // jcrop doesn't support responsive images so to cater for resizing the browser
         // we have to destroy() it, which doesn't properly do it,
-        // so destory it some more, then re-apply it
+        // so destroy it some more, then re-apply it
         jcropapi.destroy();
         $image.removeAttr('style');
         $('.jcrop-holder').remove();
-        setupJcrop.apply(this, params)
+        setupJcrop.apply(this, params);
     }));
 
     $('.remove-focal-point').on('click', function() {

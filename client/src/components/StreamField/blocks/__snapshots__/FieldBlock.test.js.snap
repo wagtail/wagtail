@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`telepath: wagtail.blocks.FieldBlock catches widget render errors it renders correctly 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <div data-streamfield-widget=\\"\\"></div>
+            <span></span>
+          </div>
+        <p class=\\"error-message\\"><span>This widget failed to render, please check the console for details</span></p></div>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.FieldBlock it renders correctly 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"help\\">drink <em>more</em> water</p></div>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.FieldBlock setError() renders errors 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock error\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"help\\">drink <em>more</em> water</p><p class=\\"error-message\\"><span>Field must not contain the letter E</span><span>Field must contain a story about kittens</span></p></div>
+      </div>"
+`;
+
+exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders correctly 1`] = `
+"<div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"the-prefix\\" id=\\"the-prefix\\">The widget</p>
+            <span></span>
+          </div>
+        <p class=\\"help\\">drink <em>more</em> water</p></div>
+      <div class=\\"field-comment-control\\"><button type=\\"button\\" aria-label=\\"Add Comment\\" data-comment-add=\\"\\" class=\\"button button-secondary button-small u-hidden\\"><svg class=\\"icon icon-comment-add initial icon-default\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment-add\\"></use></svg><svg class=\\"icon icon-comment-add initial icon-reversed\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment-add-reversed\\"></use></svg></button></div></div>"
+`;

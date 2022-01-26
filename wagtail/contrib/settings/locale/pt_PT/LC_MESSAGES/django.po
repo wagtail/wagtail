@@ -4,15 +4,15 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2016
-# Luís Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2020
 # Tiago Henriques <trinosauro@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
 "PO-Revision-Date: 2020-07-24 17:13+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"

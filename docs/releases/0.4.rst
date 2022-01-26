@@ -38,6 +38,8 @@ Search on QuerySet with Elasticsearch
 
 It's now possible to perform searches with Elasticsearch on ``PageQuerySet`` objects:
 
+.. code-block:: console
+
     >>> from wagtail.core.models import Page
     >>> Page.objects.live().descendant_of(events_index).search("Hello")
     [<Page: Event 1>, <Page: Event 2>]
@@ -72,65 +74,65 @@ Minor features
 Core
 ----
 
- * Any extra arguments given to ``Page.serve`` are now passed through to ``get_context`` and ``get_template``
- * Added ``in_menu`` and ``not_in_menu`` methods to ``PageQuerySet``
- * Added ``search`` method to ``PageQuerySet``
- * Added ``get_next_siblings`` and ``get_prev_siblings`` to ``Page``
- * Added ``page_published`` signal
- * Added ``copy`` method to ``Page`` to allow copying of pages
- * Added ``construct_whitelister_element_rules`` hook for customising the HTML whitelist used when saving ``RichText`` fields
- * Support for setting a ``subpage_types`` property on ``Page`` models, to define which page types are allowed as subpages
+* Any extra arguments given to ``Page.serve`` are now passed through to ``get_context`` and ``get_template``
+* Added ``in_menu`` and ``not_in_menu`` methods to ``PageQuerySet``
+* Added ``search`` method to ``PageQuerySet``
+* Added ``get_next_siblings`` and ``get_prev_siblings`` to ``Page``
+* Added ``page_published`` signal
+* Added ``copy`` method to ``Page`` to allow copying of pages
+* Added ``construct_whitelister_element_rules`` hook for customising the HTML whitelist used when saving ``RichText`` fields
+* Support for setting a ``subpage_types`` property on ``Page`` models, to define which page types are allowed as subpages
 
 
 Admin
 -----
 
- * Removed the "More" section from the menu
- * Added pagination to page listings
- * Added a new datetime picker widget
- * Updated ``hallo.js`` to version 1.0.4
- * Aesthetic improvements to preview experience
- * Login screen redirects to dashboard if user is already logged in
- * Snippets are now ordered alphabetically
- * Added ``init_new_page`` signal
+* Removed the "More" section from the menu
+* Added pagination to page listings
+* Added a new datetime picker widget
+* Updated ``hallo.js`` to version 1.0.4
+* Aesthetic improvements to preview experience
+* Login screen redirects to dashboard if user is already logged in
+* Snippets are now ordered alphabetically
+* Added ``init_new_page`` signal
 
 
 Search
 ------
 
- * Added a new way to configure searchable/filterable fields on models
- * Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
- * Major refactor of Elasticsearch backend
- * Use ``match`` instead of ``query_string`` queries
- * Fields are now indexed in Elasticsearch with their correct type
- * Filter fields are no longer included in ``_all``
- * Fields with partial matching are now indexed together into ``_partials``
+* Added a new way to configure searchable/filterable fields on models
+* Added ``get_indexed_objects`` allowing developers to customise which objects get added to the search index
+* Major refactor of Elasticsearch backend
+* Use ``match`` instead of ``query_string`` queries
+* Fields are now indexed in Elasticsearch with their correct type
+* Filter fields are no longer included in ``_all``
+* Fields with partial matching are now indexed together into ``_partials``
 
 
 Images
 ------
 
- * Added ``original`` as a resizing rule supported by the ``{% image %}`` tag
- * ``image`` tag now accepts extra keyword arguments to be output as attributes on the ``img`` tag
- * Added an ``attrs`` property to image rendition objects to output ``src``, ``width``, ``height`` and ``alt`` attributes all in one go
+* Added ``original`` as a resizing rule supported by the ``{% image %}`` tag
+* ``image`` tag now accepts extra keyword arguments to be output as attributes on the ``img`` tag
+* Added an ``attrs`` property to image rendition objects to output ``src``, ``width``, ``height`` and ``alt`` attributes all in one go
 
 
 Other
 -----
 
- * Added styleguide, for Wagtail developers
+* Added styleguide, for Wagtail developers
 
 
 Bug fixes
 ~~~~~~~~~
 
- * Animated GIFs are now coalesced before resizing
- * The Wand backend clones images before modifying them
- * The admin breadcrumb is now positioned correctly on mobile
- * The page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
- * Embeds - fixed crash when no HTML field is sent back from the embed provider
- * Multiple sites with same hostname but different ports are now allowed
- * It is no longer possible to create multiple sites with ``is_default_site = True``
+* Animated GIFs are now coalesced before resizing
+* The Wand backend clones images before modifying them
+* The admin breadcrumb is now positioned correctly on mobile
+* The page chooser breadcrumb now updates the chooser modal instead of linking to Explorer
+* Embeds - fixed crash when no HTML field is sent back from the embed provider
+* Multiple sites with same hostname but different ports are now allowed
+* It is no longer possible to create multiple sites with ``is_default_site = True``
 
 
 Backwards-incompatible changes
@@ -169,10 +171,10 @@ Template tag libraries renamed
 
 The following template tag libraries have been renamed:
 
- * ``pageurl`` => ``wagtailcore_tags``
- * ``rich_text`` => ``wagtailcore_tags``
- * ``embed_filters`` => ``wagtailembeds_tags``
- * ``image_tags`` => ``wagtailimages_tags``
+* ``pageurl`` => ``wagtailcore_tags``
+* ``rich_text`` => ``wagtailcore_tags``
+* ``embed_filters`` => ``wagtailembeds_tags``
+* ``image_tags`` => ``wagtailimages_tags``
 
 The old names will continue to work, but output a ``DeprecationWarning`` - you are advised to update any ``{% load %}`` tags in your templates to refer to the new names.
 
@@ -202,6 +204,6 @@ Change this to: ``from wagtail.core import hooks``
 Miscellaneous
 ~~~~~~~~~~~~~
 
- * ``Page.show_as_mode``  replaced with ``Page.serve_preview``
- * ``Page.get_page_modes`` method replaced with ``Page.preview_modes`` property
- * ``Page.get_other_siblings`` replaced with ``Page.get_siblings(inclusive=False)``
+* ``Page.show_as_mode``  replaced with ``Page.serve_preview``
+* ``Page.get_page_modes`` method replaced with ``Page.preview_modes`` property
+* ``Page.get_other_siblings`` replaced with ``Page.get_siblings(inclusive=False)``

@@ -14,4 +14,4 @@ What's new
 Bug fixes
 ~~~~~~~~~
 
- * Fixed regression in 1.5.1 on editing external links (Stephen Rice)
+* Fixed regression in 1.5.1 on editing external links (Stephen Rice)

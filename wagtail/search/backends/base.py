@@ -1,5 +1,7 @@
 from warnings import warn
 
+from django.db.models.functions.datetime import Extract as ExtractDate
+from django.db.models.functions.datetime import ExtractYear
 from django.db.models.lookups import Lookup
 from django.db.models.query import QuerySet
 from django.db.models.sql.where import SubqueryConstraint, WhereNode
@@ -88,7 +90,16 @@ class BaseSearchQueryCompiler:
     def _get_filters_from_where_node(self, where_node, check_only=False):
         # Check if this is a leaf node
         if isinstance(where_node, Lookup):
-            field_attname = where_node.lhs.target.attname
+            if isinstance(where_node.lhs, ExtractDate):
+                if isinstance(where_node.lhs, ExtractYear):
+                    field_attname = where_node.lhs.lhs.target.attname
+                else:
+                    raise FilterError(
+                        'Cannot apply filter on search results: "' + where_node.lhs.lookup_name
+                        + '" queries are not supported.'
+                    )
+            else:
+                field_attname = where_node.lhs.target.attname
             lookup = where_node.lookup_name
             value = where_node.rhs
 
@@ -346,19 +357,19 @@ class BaseSearchBackend:
         if not class_is_indexed(model):
             return EmptySearchResults()
 
-        # Check that theres still a query string after the clean up
+        # Check that there's still a query string after the clean up
         if query == "":
             return EmptySearchResults()
 
         # Search
-        search_query = query_compiler_class(
+        search_query_compiler = query_compiler_class(
             queryset, query, **kwargs
         )
 
         # Check the query
-        search_query.check()
+        search_query_compiler.check()
 
-        return self.results_class(self, search_query)
+        return self.results_class(self, search_query_compiler)
 
     def search(self, query, model_or_queryset, fields=None, operator=None, order_by_relevance=True, partial_match=True):
         return self._search(

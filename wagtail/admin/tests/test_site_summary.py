@@ -36,7 +36,7 @@ class TestPagesSummary(TestCase, WagtailTestUtils):
         self.request = self.client.get('/').wsgi_request
 
     def assertSummaryContains(self, content):
-        summary = PagesSummaryItem(self.request).render()
+        summary = PagesSummaryItem(self.request).render_html()
         self.assertIn(content, summary)
 
     def assertSummaryContainsLinkToPage(self, page_pk):

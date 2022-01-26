@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -48,6 +48,9 @@ msgstr "Este arquivo é demasiado grande (%%s). Tamaño máximo de arquivo %s."
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Este arquivo é demasiado grande. Tamaño máximo de arquivo %s."
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -91,6 +94,9 @@ msgstr "Editar"
 msgid "Edit any image"
 msgstr "Editar calquera imaxe"
 
+msgid "Choose"
+msgstr "Seleccionar"
+
 msgid "title"
 msgstr "título"
 
@@ -112,6 +118,12 @@ msgstr "subido por usuario"
 msgid "tags"
 msgstr "etiquetas"
 
+msgid "image"
+msgstr "Imaxe"
+
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
 msgid "Choose an image"
 msgstr "Seleccionar unha imaxe"
 
@@ -124,9 +136,6 @@ msgstr "Subir"
 msgid "Popular tags"
 msgstr "Etiquetas populares"
 
-msgid "Uploading…"
-msgstr "Subindo…"
-
 msgid "Latest images"
 msgstr "Últimas imaxes"
 
@@ -135,6 +144,9 @@ msgstr "Selecciona un formato"
 
 msgid "Insert image"
 msgstr "Insertar imaxe"
+
+msgid "Uploading…"
+msgstr "Subindo…"
 
 msgid "Change image file:"
 msgstr "Cambiar arquivo de imaxe:"
@@ -150,12 +162,6 @@ msgstr "Gardar"
 
 msgid "Delete image"
 msgstr "Eliminar imaxe"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "¿Seguro que queres eliminar esta imaxe?"
-
-msgid "Yes, delete"
-msgstr "Si, eliminar"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -181,6 +187,9 @@ msgstr "Arquivo non atopado"
 
 msgid "Images"
 msgstr "Imaxes"
+
+msgid "Clear choice"
+msgstr "Borrar selección"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -277,17 +286,14 @@ msgstr ""
 msgid "Image updated."
 msgstr "Imaxe actualizada."
 
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Image permissions"
 msgstr "Permisos da imaxe"
 
 msgid "Add an image permission"
 msgstr "Engadir un permiso á imaxe"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Search images"
 msgstr "Procurar imaxes"

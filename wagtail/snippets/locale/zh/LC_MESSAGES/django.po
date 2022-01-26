@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,15 @@ msgstr "保存"
 
 msgid "Choose"
 msgstr "选择"
+
+msgid "Search"
+msgstr "搜索"
+
+msgid "Title"
+msgstr "标题"
+
+msgid "Saving…"
+msgstr "正在保存"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -51,9 +60,6 @@ msgstr "编辑"
 msgid "Snippets"
 msgstr "片段"
 
-msgid "Title"
-msgstr "标题"
-
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -74,8 +80,26 @@ msgstr "<span>%(snippet_type_name_plural)s</span>片段"
 msgid "Add %(snippet_type_name)s"
 msgstr "添加%(snippet_type_name)s"
 
+msgid "Parent"
+msgstr "上一级"
+
+msgid "Type"
+msgstr "类型"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Edit this page"
+msgstr "编辑这个页面"
+
+msgid "Edit"
+msgstr "编辑"
+
 msgid "The snippet could not be created due to errors."
 msgstr "多个错误导致这个片段无法创建。"
 
 msgid "The snippet could not be saved due to errors."
 msgstr "多个错误导致这个片段无法保存"
+
+msgid "Date"
+msgstr "日期"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -34,11 +34,17 @@ msgstr "Zvoliť"
 msgid "Search"
 msgstr "Hľadať"
 
+msgid "Title"
+msgstr "Titulok"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 "Prepáčte, žiadne snipety nevyhovujú hľadanému výrazu \"<em>%(query_string)s</"
 "em>\""
+
+msgid "Saving…"
+msgstr "Ukladám…"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -54,6 +60,9 @@ msgstr "Nový %(snippet_type_name)s"
 msgid "New"
 msgstr "Nový"
 
+msgid "Actions"
+msgstr "Akcie"
+
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Upraviť %(snippet_type_name)s - %(instance)s"
@@ -63,9 +72,6 @@ msgstr "Upraviť obrázok"
 
 msgid "Snippets"
 msgstr "Snipety"
-
-msgid "Title"
-msgstr "Titulok"
 
 #, python-format
 msgid ""
@@ -118,6 +124,9 @@ msgstr "Snipet nemôže byť vytvorený kvôli chybám."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Snipet nemôže byť uložený kvôli chybám."
+
+msgid "Date"
+msgstr "Dátum"
 
 #, python-format
 msgid "Choose %s"

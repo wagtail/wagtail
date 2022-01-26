@@ -28,6 +28,7 @@ Within the ``models.py`` of one of your apps, create a model that extends ``wagt
 
 .. code-block:: python
 
+    from django.db import models
     from modelcluster.fields import ParentalKey
     from wagtail.admin.edit_handlers import (
         FieldPanel, FieldRowPanel,
@@ -66,7 +67,7 @@ If you do not want your form page type to offer form-to-email functionality, you
 
 You now need to create two templates named ``form_page.html`` and ``form_page_landing.html`` (where ``form_page`` is the underscore-formatted version of the class name). ``form_page.html`` differs from a standard Wagtail template in that it is passed a variable ``form``, containing a Django ``Form`` object, in addition to the usual ``page`` variable. A very basic template for the form would thus be:
 
-.. code-block:: html
+.. code-block:: html+django
 
     {% load wagtailcore_tags %}
     <html>
@@ -84,7 +85,7 @@ You now need to create two templates named ``form_page.html`` and ``form_page_la
         </body>
     </html>
 
-``form_page_landing.html`` is a regular Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
+``form_page_landing.html`` is a standard Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the ``get_landing_page_template`` method (in the same way that you would with ``get_template``).
 
 
 .. _wagtailforms_formsubmissionpanel:

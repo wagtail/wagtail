@@ -770,7 +770,7 @@ class TestPagePermissionTesterCanCopyTo(TestCase):
         event_page_perms = self.event_page.permissions_for_user(user)
         singleton_page_perms = self.singleton_page.permissions_for_user(user)
 
-        # A superuser has full permissions, so these are self explainatory
+        # A superuser has full permissions, so these are self explanatory
         self.assertTrue(event_page_perms.can_copy_to(self.event_page.get_parent()))
         self.assertTrue(board_meetings_page_perms.can_copy_to(self.board_meetings_page.get_parent()))
         # However, SingletonPageViaMaxCount.can_create_at() prevents copying, regardless of a user's permissions

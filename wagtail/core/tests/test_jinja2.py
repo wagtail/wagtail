@@ -2,6 +2,7 @@ from django.http import HttpRequest
 from django.template import engines
 from django.template.loader import render_to_string
 from django.test import TestCase
+from django.utils.safestring import mark_safe
 
 from wagtail import __version__
 from wagtail.core import blocks
@@ -50,6 +51,11 @@ class TestCoreGlobalsAndFilters(TestCase):
     def test_bad_slugurl(self):
         self.assertEqual(
             self.render('{{ slugurl("bad-slug-doesnt-exist") }}', {}), 'None')
+
+    def test_wagtail_site(self):
+        self.assertEqual(
+            self.render('{{ wagtail_site().hostname }}'),
+            'localhost')
 
     def test_wagtail_version(self):
         self.assertEqual(
@@ -182,3 +188,64 @@ class TestIncludeBlockTag(TestCase):
             'language': 'fr',
         })
         self.assertIn('<body>999</body>', result)
+
+    def test_include_block_tag_with_additional_variable(self):
+        """
+        The include_block tag should be able to pass local variables from parent context to the
+        child context
+        """
+        block = blocks.CharBlock(template='tests/blocks/heading_block.html')
+        bound_block = block.bind('bonjour')
+
+        result = render_to_string('tests/jinja2/include_block_tag_with_additional_variable.html', {
+            'test_block': bound_block
+        })
+        self.assertIn('<body><h1 class="important">bonjour</h1></body>', result)
+
+    def test_include_block_html_escaping(self):
+        """
+        Output of include_block should be escaped as per Django autoescaping rules
+        """
+        block = blocks.CharBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/jinja2/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        # {% autoescape off %} should be respected
+        result = render_to_string('tests/blocks/include_block_autoescape_off_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # The same escaping should be applied when passed a plain value rather than a BoundBlock -
+        # a typical situation where this would occur would be rendering an item of a StructBlock,
+        # e.g. {% include_block person_block.first_name %} as opposed to
+        # {% include_block person_block.bound_blocks.first_name %}
+        result = render_to_string('tests/jinja2/include_block_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some &lt;em&gt;evil&lt;/em&gt; HTML</body>', result)
+
+        result = render_to_string('tests/jinja2/include_block_autoescape_off_test.html', {
+            'test_block': 'some <em>evil</em> HTML',
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # Blocks that explicitly return 'safe HTML'-marked values (such as RawHTMLBlock) should
+        # continue to produce unescaped output
+        block = blocks.RawHTMLBlock()
+        bound_block = block.bind(block.to_python('some <em>evil</em> HTML'))
+
+        result = render_to_string('tests/jinja2/include_block_test.html', {
+            'test_block': bound_block,
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)
+
+        # likewise when applied to a plain 'safe HTML' value rather than a BoundBlock
+        result = render_to_string('tests/jinja2/include_block_test.html', {
+            'test_block': mark_safe('some <em>evil</em> HTML'),
+        })
+        self.assertIn('<body>some <em>evil</em> HTML</body>', result)

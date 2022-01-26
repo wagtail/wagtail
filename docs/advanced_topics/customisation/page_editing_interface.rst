@@ -47,7 +47,7 @@ Wagtail provides a general-purpose WYSIWYG editor for creating rich text content
 
 
     class BookPage(Page):
-        book_text = RichTextField()
+        body = RichTextField()
 
         content_panels = Page.content_panels + [
             FieldPanel('body', classname="full"),
@@ -65,8 +65,8 @@ Limiting features in a rich text field
 
 By default, the rich text editor provides users with a wide variety of options for text formatting and inserting embedded content such as images. However, we may wish to restrict a rich text field to a more limited set of features - for example:
 
- * The field might be intended for a short text snippet, such as a summary to be pulled out on index pages, where embedded images or videos would be inappropriate;
- * When page content is defined using :ref:`StreamField <streamfield>`, elements such as headings, images and videos are usually given their own block types, alongside a rich text block type used for ordinary paragraph text; in this case, allowing headings and images to also exist within the rich text content is redundant (and liable to result in inconsistent designs).
+* The field might be intended for a short text snippet, such as a summary to be pulled out on index pages, where embedded images or videos would be inappropriate;
+* When page content is defined using :ref:`StreamField <streamfield>`, elements such as headings, images and videos are usually given their own block types, alongside a rich text block type used for ordinary paragraph text; in this case, allowing headings and images to also exist within the rich text content is redundant (and liable to result in inconsistent designs).
 
 This can be achieved by passing a ``features`` keyword argument to ``RichTextField``, with a list of identifiers for the features you wish to allow:
 
@@ -76,14 +76,14 @@ This can be achieved by passing a ``features`` keyword argument to ``RichTextFie
 
 The feature identifiers provided on a default Wagtail installation are as follows:
 
- * ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
- * ``bold``, ``italic`` - bold / italic text
- * ``ol``, ``ul`` - ordered / unordered lists
- * ``hr`` - horizontal rules
- * ``link`` - page, external and email links
- * ``document-link`` - links to documents
- * ``image`` - embedded images
- * ``embed`` - embedded media (see :ref:`embedded_content`)
+* ``h1``, ``h2``, ``h3``, ``h4``, ``h5``, ``h6`` - heading elements
+* ``bold``, ``italic`` - bold / italic text
+* ``ol``, ``ul`` - ordered / unordered lists
+* ``hr`` - horizontal rules
+* ``link`` - page, external and email links
+* ``document-link`` - links to documents
+* ``image`` - embedded images
+* ``embed`` - embedded media (see :ref:`embedded_content`)
 
 
 We have few additional feature identifiers as well. They are not enabled by default, but you can use them in your list of identifiers. These are as follows:
@@ -94,9 +94,9 @@ We have few additional feature identifiers as well. They are not enabled by defa
 
 The process for creating new features is described in the following pages:
 
-* :doc:`./rich_text_internals`
-* :doc:`./extending_draftail`
-* :doc:`./extending_hallo`
+* :doc:`../../extending/rich_text_internals`
+* :doc:`../../extending/extending_draftail`
+* :doc:`../../extending/extending_hallo`
 
 .. _rich_text_image_formats:
 

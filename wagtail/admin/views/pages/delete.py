@@ -7,6 +7,7 @@ from django.utils.translation import gettext as _
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core import hooks
+from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.models import Page
 
 
@@ -25,7 +26,9 @@ def delete(request, page_id):
 
         if request.method == 'POST':
             parent_id = page.get_parent().id
-            page.delete(user=request.user)
+            action = DeletePageAction(page, user=request.user)
+            # Permission checks are done above, so skip them in execute.
+            action.execute(skip_permission_checks=True)
 
             messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
 

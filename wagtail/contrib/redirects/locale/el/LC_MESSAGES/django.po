@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2022-01-04 00:04+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Type"
+msgstr "Τύπος"
+
+msgid "Permanent"
+msgstr "Μόνιμη"
+
+msgid "All"
+msgstr "Όλα"
 
 msgid "From site"
 msgstr "Από δικτυακό τόπο"
@@ -35,6 +44,10 @@ msgstr "Όλοι οι δικτυακοί τόποι"
 
 msgid "A redirect with this path already exists."
 msgstr "Υπάρχει ήδη μια ανακατεύθυνση (redirect) με αυτό το path."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Υποστηριζόμενες μορφές: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "Προώθηση από"
@@ -87,6 +100,12 @@ msgstr "Θέλετε πράγματι να διαγράψετε αυτή την 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
 
+msgid "Cancel"
+msgstr "Ακύρωση"
+
+msgid "Preview"
+msgstr "Προεπισκόπηση"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Επεξεργασία της %(title)s"
@@ -103,11 +122,11 @@ msgstr "Από"
 msgid "To"
 msgstr "Σε"
 
+msgid "Continue"
+msgstr "Συνέχεια"
+
 msgid "Site"
 msgstr "Ιστότοπος"
-
-msgid "Type"
-msgstr "Τύπος"
 
 msgid "Edit this redirect"
 msgstr "Διόρθωση της ανακατεύθυνσης"

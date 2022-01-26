@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,9 @@ msgstr ""
 msgid "Continue"
 msgstr "Pokračovať"
 
+msgid "Saving…"
+msgstr "Ukladám…"
+
 msgid "Save"
 msgstr "Uložiť"
 
@@ -126,6 +129,9 @@ msgstr "Hľadať"
 #, python-format
 msgid "Search %(name)s"
 msgstr "Hľadať %(name)s"
+
+msgid "Download CSV"
+msgstr "Stiahnuť CSV"
 
 msgid "Filter"
 msgstr "Filter"
@@ -208,3 +214,6 @@ msgstr "Kontrola %s"
 #, python-format
 msgid "Inspecting %s"
 msgstr "Kontrola %s"
+
+msgid "Date"
+msgstr "Dátum"

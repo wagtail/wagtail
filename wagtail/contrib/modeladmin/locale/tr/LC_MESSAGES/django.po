@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-04-21 13:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Cihad GÜNDOĞDU <cihadgundogdu@gmail.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
 "MIME-Version: 1.0\n"
@@ -133,6 +133,12 @@ msgstr "Arama terimi"
 msgid "Search %(name)s"
 msgstr "%(name)s ara"
 
+msgid "Download XLSX"
+msgstr "XLSX İndir"
+
+msgid "Download CSV"
+msgstr "CSV İndir"
+
 msgid "Filter"
 msgstr "Filtrele"
 
@@ -229,3 +235,6 @@ msgstr "İnceleniyor"
 #, python-format
 msgid "Inspecting %s"
 msgstr "%s inceleniyor"
+
+msgid "Date"
+msgstr "Tarih"

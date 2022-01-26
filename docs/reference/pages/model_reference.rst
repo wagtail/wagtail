@@ -111,7 +111,7 @@ Database fields
 
     .. attribute:: locked_by
 
-       (foreign key to user model)
+        (foreign key to user model)
 
         The user who has currently locked the page. Only this user can edit the page.
 
@@ -158,13 +158,19 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 .. class:: Page
     :noindex:
 
+    .. automethod:: get_specific
+
     .. autoattribute:: specific
+
+    .. autoattribute:: specific_deferred
 
     .. autoattribute:: specific_class
 
     .. autoattribute:: cached_content_type
 
     .. automethod:: get_url
+
+    .. automethod:: get_full_url
 
     .. autoattribute:: full_url
 
@@ -250,11 +256,20 @@ In addition to the model fields provided, ``Page`` has many properties and metho
             class HiddenPage(Page):
                 parent_page_types = []
 
+        To allow for a page to be only created under the root page (e.g. for ``HomePage`` models) set the ``parent_page_type`` to ``['wagtailcore.Page']``.
+
+        .. code-block:: python
+
+            class HomePage(Page):
+                parent_page_types = ['wagtailcore.Page']
+
     .. automethod:: can_exist_under
 
     .. automethod:: can_create_at
 
     .. automethod:: can_move_to
+
+    .. automethod:: get_route_paths
 
     .. attribute:: password_required_template
 
@@ -380,9 +395,9 @@ Methods and properties
 
         The scheme part of the URL is calculated based on value of the :attr:`~Site.port` field:
 
-         - 80 = ``http://``
-         - 443 = ``https://``
-         - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
+        - 80 = ``http://``
+        - 443 = ``https://``
+        - Everything else will use the ``http://`` scheme and the port will be appended to the end of the hostname (eg. ``http://mysite.com:8000/``)
 
     .. automethod:: get_site_root_paths
 
@@ -474,9 +489,9 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
- - Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
- - The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
- - You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+- Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
+- The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
+- You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
 ~~~~~~~~~~~~~~~
@@ -813,7 +828,7 @@ Database fields
 
         The workflow state which started this task state.
 
-    .. attribute:: page revision
+    .. attribute:: page_revision
 
         (foreign key to ``PageRevision``)
 
@@ -1027,3 +1042,147 @@ Database fields
         (foreign key to :class:`PageRevision`)
 
         A foreign key to the current page revision.
+
+
+
+``Comment``
+===========
+
+Represents a comment on a page.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: Comment
+
+    .. attribute:: page
+
+        (parental key to :class:`Page`)
+
+        A parental key to the page the comment has been added to.
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user who added this comment.
+
+    .. attribute:: text
+
+        (text)
+
+        The text content of the comment.
+
+    .. attribute:: contentpath
+
+        (text)
+
+        The path to the field or streamfield block the comment is attached to,
+        in the form ``field`` or ``field.streamfield_block_id``.
+
+    .. attribute:: position
+
+        (text)
+
+        An identifier for the position of the comment within its field. The format
+        used is determined by the field.
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        The date/time when the comment was created.
+
+    .. attribute:: updated_at
+
+        (date/time)
+
+        The date/time when the comment was updated.
+
+    .. attribute:: revision_created
+
+        (foreign key to :class:`PageRevision`)
+
+        A foreign key to the revision on which the comment was created.
+
+    .. attribute:: resolved_at
+
+        (date/time)
+
+        The date/time when the comment was resolved, if any.
+
+    .. attribute:: resolved_by
+
+        (foreign key to user model)
+
+        A foreign key to the user who resolved this comment, if any.
+
+
+
+``CommentReply``
+================
+
+Represents a reply to a comment thread.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: CommentReply
+
+    .. attribute:: comment
+
+        (parental key to :class:`Comment`)
+
+        A parental key to the comment that started the thread.
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+        A foreign key to the user who added this comment.
+
+    .. attribute:: text
+
+        (text)
+
+        The text content of the comment.
+
+    .. attribute:: created_at
+
+        (date/time)
+
+        The date/time when the comment was created.
+
+    .. attribute:: updated_at
+
+        (date/time)
+
+        The date/time when the comment was updated.
+
+
+
+``PageSubscription``
+====================
+
+Represents a user's subscription to email notifications about page events.
+Currently only used for comment notifications.
+
+Database fields
+~~~~~~~~~~~~~~~
+
+.. class:: PageSubscription
+
+    .. attribute:: page
+
+        (parental key to :class:`Page`)
+
+    .. attribute:: user
+
+        (foreign key to user model)
+
+    .. attribute:: comment_notifications
+
+        (boolean)
+
+        Whether the user should receive comment notifications for all comments,
+        or just comments in threads they participate in.

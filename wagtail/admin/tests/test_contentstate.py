@@ -3,13 +3,16 @@ import json
 from unittest.mock import patch
 
 from django.test import TestCase
+from draftjs_exporter.dom import DOM
+from draftjs_exporter.html import HTML as HTMLExporter
 
-from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
+from wagtail.admin.rich_text.converters.contentstate import (
+    ContentstateConverter, persist_key_for_block)
 from wagtail.embeds.models import Embed
 
 
-def content_state_equal(v1, v2):
-    "Test whether two contentState structures are equal, ignoring 'key' properties"
+def content_state_equal(v1, v2, match_keys=False):
+    "Test whether two contentState structures are equal, ignoring 'key' properties if match_keys=False"
     if type(v1) != type(v2):
         return False
 
@@ -17,14 +20,14 @@ def content_state_equal(v1, v2):
         if set(v1.keys()) != set(v2.keys()):
             return False
         return all(
-            k == 'key' or content_state_equal(v, v2[k])
+            (k == 'key' and not match_keys) or content_state_equal(v, v2[k], match_keys=match_keys)
             for k, v in v1.items()
         )
     elif isinstance(v1, list):
         if len(v1) != len(v2):
             return False
         return all(
-            content_state_equal(a, b) for a, b in zip(v1, v2)
+            content_state_equal(a, b, match_keys=match_keys) for a, b in zip(v1, v2)
         )
     else:
         return v1 == v2
@@ -33,25 +36,28 @@ def content_state_equal(v1, v2):
 class TestHtmlToContentState(TestCase):
     fixtures = ['test.json']
 
-    def assertContentStateEqual(self, v1, v2):
-        "Assert that two contentState structures are equal, ignoring 'key' properties"
-        self.assertTrue(content_state_equal(v1, v2), "%r does not match %r" % (v1, v2))
+    def assertContentStateEqual(self, v1, v2, match_keys=False):
+        "Assert that two contentState structures are equal, ignoring 'key' properties if match_keys is False"
+        self.assertTrue(
+            content_state_equal(v1, v2, match_keys=match_keys),
+            "%s does not match %s" % (json.dumps(v1, indent=4), json.dumps(v2, indent=4))
+        )
 
     def test_paragraphs(self):
         converter = ContentstateConverter(features=[])
         result = json.loads(converter.from_database_format(
             '''
-            <p>Hello world!</p>
-            <p>Goodbye world!</p>
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
             '''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
             ]
-        })
+        }, match_keys=True)
 
     def test_unknown_block_becomes_paragraph(self):
         converter = ContentstateConverter(features=[])
@@ -186,10 +192,10 @@ class TestHtmlToContentState(TestCase):
         converter = ContentstateConverter(features=['h1', 'ol', 'bold', 'italic'])
         result = json.loads(converter.from_database_format(
             '''
-            <h1>The rules of Fight Club</h1>
+            <h1 data-block-key='00000'>The rules of Fight Club</h1>
             <ol>
-                <li>You do not talk about Fight Club.</li>
-                <li>You <b>do <em>not</em> talk</b> about Fight Club.</li>
+                <li data-block-key='00001'>You do not talk about Fight Club.</li>
+                <li data-block-key='00002'>You <b>do <em>not</em> talk</b> about Fight Club.</li>
             </ol>
             '''
         ))
@@ -197,31 +203,31 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'The rules of Fight Club', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00001', 'entityRanges': []},
                 {
                     'inlineStyleRanges': [
                         {'offset': 4, 'length': 11, 'style': 'BOLD'}, {'offset': 7, 'length': 3, 'style': 'ITALIC'}
                     ],
-                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00000', 'entityRanges': []
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00002', 'entityRanges': []
                 },
             ]
-        })
+        }, match_keys=True)
 
     def test_nested_list(self):
         converter = ContentstateConverter(features=['h1', 'ul'])
         result = json.loads(converter.from_database_format(
             '''
-            <h1>Shopping list</h1>
+            <h1 data-block-key='00000'>Shopping list</h1>
             <ul>
-                <li>Milk</li>
-                <li>
+                <li data-block-key='00001'>Milk</li>
+                <li data-block-key='00002'>
                     Flour
                     <ul>
-                        <li>Plain</li>
-                        <li>Self-raising</li>
+                        <li data-block-key='00003'>Plain</li>
+                        <li data-block-key='00004'>Self-raising</li>
                     </ul>
                 </li>
-                <li>Eggs</li>
+                <li data-block-key='00005'>Eggs</li>
             </ul>
             '''
         ))
@@ -229,24 +235,24 @@ class TestHtmlToContentState(TestCase):
             'entityMap': {},
             'blocks': [
                 {'inlineStyleRanges': [], 'text': 'Shopping list', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Flour', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
-                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Milk', 'depth': 0, 'type': 'unordered-list-item', 'key': '00001', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Flour', 'depth': 0, 'type': 'unordered-list-item', 'key': '00002', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Plain', 'depth': 1, 'type': 'unordered-list-item', 'key': '00003', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Self-raising', 'depth': 1, 'type': 'unordered-list-item', 'key': '00004', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Eggs', 'depth': 0, 'type': 'unordered-list-item', 'key': '00005', 'entityRanges': []},
             ]
-        })
+        }, match_keys=True)
 
     def test_external_link(self):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
             '''
-            <p>an <a href="http://wagtail.io">external</a> link</p>
+            <p>an <a href="http://wagtail.org">external</a> link</p>
             '''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
             },
             'blocks': [
                 {
@@ -259,11 +265,11 @@ class TestHtmlToContentState(TestCase):
     def test_link_in_bare_text(self):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
-            '''an <a href="http://wagtail.io">external</a> link'''
+            '''an <a href="http://wagtail.org">external</a> link'''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}}
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
             },
             'blocks': [
                 {
@@ -276,11 +282,11 @@ class TestHtmlToContentState(TestCase):
     def test_link_at_start_of_bare_text(self):
         converter = ContentstateConverter(features=['link'])
         result = json.loads(converter.from_database_format(
-            '''<a href="http://wagtail.io">an external link</a> and <a href="http://torchbox.com">another</a>'''
+            '''<a href="http://wagtail.org">an external link</a> and <a href="http://torchbox.com">another</a>'''
         ))
         self.assertContentStateEqual(result, {
             'entityMap': {
-                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.io'}},
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}},
                 '1': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://torchbox.com'}},
             },
             'blocks': [
@@ -825,3 +831,233 @@ class TestHtmlToContentState(TestCase):
             ],
             'entityMap': {}
         })
+
+    def test_image_inside_paragraph(self):
+        # In Draftail's data model, images are block-level elements and therefore
+        # split up preceding / following text into their own paragraphs
+        converter = ContentstateConverter(features=['image'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p>before <embed embedtype="image" alt="an image" id="1" format="left" /> after</p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'}
+            ],
+            'entityMap': {
+                '0': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                }
+            }
+        })
+
+    def test_image_inside_style(self):
+        # https://github.com/wagtail/wagtail/issues/4602 - ensure that an <embed> inside
+        # an inline style is handled. This is not valid in Draftail as images are block-level,
+        # but should be handled without errors, splitting the image into its own block
+        converter = ContentstateConverter(features=['image', 'italic'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p><i>before <embed embedtype="image" alt="an image" id="1" format="left" /> after</i></p>
+            <p><i><embed embedtype="image" alt="an image" id="1" format="left" /></i></p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [{'offset': 0, 'length': 6, 'style': 'ITALIC'}], 'entityRanges': [], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [{'offset': 0, 'length': 5, 'style': 'ITALIC'}], 'entityRanges': [], 'depth': 0, 'text': 'after', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [{'offset': 0, 'length': 0, 'style': 'ITALIC'}], 'entityRanges': [], 'depth': 0, 'text': '', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 1, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [{'offset': 0, 'length': 0, 'style': 'ITALIC'}], 'entityRanges': [], 'depth': 0, 'text': '', 'type': 'unstyled'},
+            ],
+            'entityMap': {
+                '0': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                },
+                '1': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                },
+            }
+        })
+
+    def test_image_inside_link(self):
+        # https://github.com/wagtail/wagtail/issues/4602 - ensure that an <embed> inside
+        # a link is handled. This is not valid in Draftail as images are block-level,
+        # but should be handled without errors, splitting the image into its own block
+        converter = ContentstateConverter(features=['image', 'link'])
+        result = json.loads(converter.from_database_format(
+            '''
+            <p><a href="https://wagtail.org">before <embed embedtype="image" alt="an image" id="1" format="left" /> after</a></p>
+            <p><a href="https://wagtail.org"><embed embedtype="image" alt="an image" id="1" format="left" /></a></p>
+            '''
+        ))
+        self.assertContentStateEqual(result, {
+            'blocks': [
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 6}], 'depth': 0, 'text': 'before', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 1, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 0, 'offset': 0, 'length': 5}], 'depth': 0, 'text': 'after', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 2, 'offset': 0, 'length': 0}], 'depth': 0, 'text': '', 'type': 'unstyled'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 3, 'offset': 0, 'length': 1}], 'depth': 0, 'text': ' ', 'type': 'atomic'},
+                {'key': '00000', 'inlineStyleRanges': [], 'entityRanges': [{'key': 2, 'offset': 0, 'length': 0}], 'depth': 0, 'text': '', 'type': 'unstyled'},
+            ],
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.org'}},
+                '1': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                },
+                '2': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'https://wagtail.org'}},
+                '3': {
+                    'data': {'format': 'left', 'alt': 'an image', 'id': '1', 'src': '/media/not-found'},
+                    'mutability': 'IMMUTABLE', 'type': 'IMAGE'
+                },
+            }
+        })
+
+
+class TestContentStateToHtml(TestCase):
+    def test_external_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': 'http://wagtail.org'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p data-block-key="00000">an <a href="http://wagtail.org">external</a> link</p>')
+
+    def test_local_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': '/some/local/path/'}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p data-block-key="00000">an <a href="/some/local/path/">external</a> link</p>')
+
+    def test_reject_javascript_link(self):
+        converter = ContentstateConverter(features=['link'])
+        contentstate_json = json.dumps({
+            'entityMap': {
+                '0': {'mutability': 'MUTABLE', 'type': 'LINK', 'data': {'url': "javascript:alert('oh no')"}}
+            },
+            'blocks': [
+                {
+                    'inlineStyleRanges': [], 'text': 'an external link', 'depth': 0, 'type': 'unstyled', 'key': '00000',
+                    'entityRanges': [{'offset': 3, 'length': 8, 'key': 0}]
+                },
+            ]
+        })
+
+        result = converter.to_database_format(contentstate_json)
+        self.assertEqual(result, '<p data-block-key="00000">an <a>external</a> link</p>')
+
+    def test_paragraphs_retain_keys(self):
+        converter = ContentstateConverter(features=[])
+        contentState = json.dumps({
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
+            ]
+        })
+        result = converter.to_database_format(contentState)
+        self.assertHTMLEqual(result, '''
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
+            ''')
+
+    def test_wrapped_block_retains_key(self):
+        # Test a block which uses a wrapper correctly receives the key defined on the inner element
+        converter = ContentstateConverter(features=['h1', 'ol', 'bold', 'italic'])
+        result = converter.to_database_format(json.dumps({
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'The rules of Fight Club', 'depth': 0, 'type': 'header-one', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00001', 'entityRanges': []},
+                {
+                    'inlineStyleRanges': [],
+                    'text': 'You do not talk about Fight Club.', 'depth': 0, 'type': 'ordered-list-item', 'key': '00002', 'entityRanges': []
+                },
+            ]
+        }))
+        self.assertHTMLEqual(result, '''
+            <h1 data-block-key='00000'>The rules of Fight Club</h1>
+            <ol>
+                <li data-block-key='00001'>You do not talk about Fight Club.</li>
+                <li data-block-key='00002'>You do not talk about Fight Club.</li>
+            </ol>
+        ''')
+
+    def test_wrap_block_function(self):
+        # Draft JS exporter's block_map config can also contain a function to handle a particular block
+        # Test that persist_key_for_block still works with such a function, making the resultant conversion
+        # keep the same block key between html and contentstate
+        exporter_config = {
+            'block_map': {
+                'unstyled': persist_key_for_block(lambda props: DOM.create_element('p', {}, props['children'])),
+            },
+            'style_map': {},
+            'entity_decorators': {},
+            'composite_decorators': [],
+            'engine': DOM.STRING,
+        }
+        contentState = {
+            'entityMap': {},
+            'blocks': [
+                {'inlineStyleRanges': [], 'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []},
+                {'inlineStyleRanges': [], 'text': 'Goodbye world!', 'depth': 0, 'type': 'unstyled', 'key': '00001', 'entityRanges': []},
+            ]
+        }
+        result = HTMLExporter(exporter_config).render(contentState)
+        self.assertHTMLEqual(result, '''
+            <p data-block-key='00000'>Hello world!</p>
+            <p data-block-key='00001'>Goodbye world!</p>
+            ''')
+
+    def test_style_fallback(self):
+        # Test a block which uses an invalid inline style, and will be removed
+        converter = ContentstateConverter(features=[])
+
+        with self.assertLogs(level='WARNING') as log_output:
+            result = converter.to_database_format(json.dumps({
+                'entityMap': {},
+                'blocks': [
+                    {
+                        'inlineStyleRanges': [{'offset': 0, 'length': 12, 'style': 'UNDERLINE'}],
+                        'text': 'Hello world!', 'depth': 0, 'type': 'unstyled', 'key': '00000', 'entityRanges': []
+                    },
+                ]
+            }))
+
+        self.assertHTMLEqual(result, '''
+            <p data-block-key="00000">
+                Hello world!
+            </p>
+        ''')
+        self.assertIn(
+            'Missing config for "UNDERLINE". Deleting style.',
+            log_output.output[0]
+        )

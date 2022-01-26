@@ -22,7 +22,10 @@
             {% csrf_token %}
 
             <ul class="fields">
-                {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                {% block fields %}
+                    {% include "wagtailadmin/shared/field_as_li.html" with field=form.name %}
+                    {% block extra_fields %}{% endblock extra_fields %}
+                {% endblock fields %}
 
                 <li>
                     {% format_permissions permission_bound_field=form.permissions %}

@@ -40,6 +40,35 @@ Page model recipe of to have redirects created automatically when changing a pag
 
 For an editor's guide to the interface, see :ref:`managing_redirects`.
 
+Automatic redirect creation
+===========================
+
+.. versionadded:: 2.16
+
+Wagtail automatically creates permanent redirects for pages (and their descendants) when they are moved or their slug is changed. This helps to preserve SEO rankings of pages over time, and helps site visitors get to the right place when using bookmarks or using outdated links.
+
+Creating redirects for alternative page routes
+----------------------------------------------
+
+If your project uses ``RoutablePageMixin`` to create pages with alternative routes, you might want to consider overriding the ``get_route_paths()`` method for those page types. Adding popular route paths to this list will result in the creation of additional redirects; helping visitors to alternative routes to get to the right place also.
+
+For more information, please see :meth:`~wagtail.core.models.Page.get_route_paths`.
+
+Disabling automatic redirect creation
+-------------------------------------
+
+Wagtail's default implementation works best for small-to-medium sized projects (5000 pages or fewer) that mostly use Wagtail's built-in methods for URL generation.
+
+Overrides to the following ``Page`` methods are respected when generating redirects, but use of specific page fields in those overrides will trigger additional database queries.
+
+* :meth:`~wagtail.core.models.Page.get_url_parts()`
+* :meth:`~wagtail.core.models.Page.get_route_paths()`
+
+If you find the feature is not a good fit for your project, you can disable it by adding the following to your project settings:
+
+.. code-block:: python
+
+  WAGTAILREDIRECTS_AUTO_CREATE = False
 
 Management commands
 ===================
@@ -55,26 +84,26 @@ This command imports and creates redirects from a file supplied by the user.
 
 Options:
 
- - **src**
-   This is the path to the file you wish to import redirects from.
+- **src**
+  This is the path to the file you wish to import redirects from.
 
- - **site**
-   This is the **site** for the site you wish to save redirects to.
+- **site**
+  This is the **site** for the site you wish to save redirects to.
 
- - **permanent**
-   If the redirects imported should be **permanent** (True) or not (False). It's True by default.
+- **permanent**
+  If the redirects imported should be **permanent** (True) or not (False). It's True by default.
 
- - **from**
-   The column index you want to use as redirect from value.
+- **from**
+  The column index you want to use as redirect from value.
 
- - **to**
-   The column index you want to use as redirect to value.
+- **to**
+  The column index you want to use as redirect to value.
 
- - **dry_run**
-   Lets you run a import without doing any changes.
+- **dry_run**
+  Lets you run a import without doing any changes.
 
- - **ask**
-   Lets you inspect and approve each redirect before it is created.
+- **ask**
+  Lets you inspect and approve each redirect before it is created.
 
 
 

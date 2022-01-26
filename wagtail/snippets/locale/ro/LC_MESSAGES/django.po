@@ -5,15 +5,15 @@
 # Translators:
 # Bogdan Mateescu, 2019
 # Dan Braghis, 2014
-# Dan Braghis, 2014-2020
+# Dan Braghis, 2014-2021
 # Dan Braghis, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-11-03 20:22+0000\n"
+"Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,9 @@ msgstr[2] ""
 "\n"
 "Sunt %(counter)s potriviri"
 
+msgid "Title"
+msgstr "Titlu"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -73,8 +76,14 @@ msgstr ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">adăugați unul</a>?"
 
+msgid "Last updated"
+msgstr "Ultima actualizare"
+
+msgid "History"
+msgstr "Istorie"
+
 msgid "Saving…"
-msgstr "În curse de salvare…"
+msgstr "În curs de salvare..."
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
@@ -130,9 +139,6 @@ msgstr "Fragmente"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Selectează toate %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titlu"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -208,6 +214,23 @@ msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s șters."
 msgstr[1] "%(count)d %(snippet_type)s șterse."
 msgstr[2] "%(count)d de %(snippet_type)s șterse."
+
+msgid "Snippet history"
+msgstr "Istorie fragmente"
+
+msgid "Action"
+msgstr "Acțiune"
+
+msgid "Date"
+msgstr "Dată"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editează '%(title)s'"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "Șterge '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

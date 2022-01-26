@@ -1,9 +1,11 @@
 {% load i18n wagtailadmin_tags %}
-<section class="panel summary nice-padding">
-    <h2 class="visuallyhidden">{% trans "Site summary" %}</h2>
-    <ul class="stats">
-        {% for item in summary_items %}
-            {{ item.render }}
-        {% endfor %}
-    </ul>
-</section>
+{% if summary_items %}
+    <section class="panel summary nice-padding">
+        <h2 class="visuallyhidden">{% trans "Site summary" %}</h2>
+        <ul class="stats">
+            {% for item in summary_items %}
+                {% component item %}
+            {% endfor %}
+        </ul>
+    </section>
+{% endif %}

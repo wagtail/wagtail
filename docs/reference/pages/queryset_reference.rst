@@ -8,24 +8,24 @@ All models that inherit from :class:`~wagtail.core.models.Page` are given some e
 Examples
 ========
 
- - Selecting only live pages
+- Selecting only live pages
 
-    .. code-block:: python
+  .. code-block:: python
 
-        live_pages = Page.objects.live()
+      live_pages = Page.objects.live()
 
- - Selecting published EventPages that are descendants of events_index
+- Selecting published EventPages that are descendants of events_index
 
-    .. code-block:: python
+  .. code-block:: python
 
-        events = EventPage.objects.live().descendant_of(events_index)
+      events = EventPage.objects.live().descendant_of(events_index)
 
- - Getting a list of menu items
+- Getting a list of menu items
 
-    .. code-block:: python
+  .. code-block:: python
 
-        # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
-        menu_items = homepage.get_children().live().in_menu()
+      # This gets a QuerySet of live children of the homepage with ``show_in_menus`` set
+      menu_items = homepage.get_children().live().in_menu()
 
 
 Reference
@@ -207,8 +207,11 @@ Reference
 
         .. code-block:: python
 
-            # Find all pages that are of type AbstractEmailForm, or a descendant of it
+            # Find all pages that are of type AbstractEmailForm, or one of it's subclasses
             form_pages = Page.objects.type(AbstractEmailForm)
+
+            # Find all pages that are of type AbstractEmailForm or AbstractEventPage, or one of their subclasses
+            form_and_event_pages = Page.objects.type(AbstractEmailForm, AbstractEventPage)
 
     .. automethod:: not_type
 
@@ -221,14 +224,30 @@ Reference
             # Find all pages that are of the exact type EventPage
             event_pages = Page.objects.exact_type(EventPage)
 
+            # Find all page of the exact type EventPage or NewsPage
+            news_and_events_pages = Page.objects.exact_type(EventPage, NewsPage)
+
+        .. note::
+
+            If you are only interested in pages of a single type, it is clearer (and often more efficient) to use
+            the specific model's manager to get a queryset. For example:
+
+            .. code-block:: python
+
+                event_pages = EventPage.objects.all()
+
     .. automethod:: not_exact_type
 
         Example:
 
         .. code-block:: python
 
-            # Find all pages that are not of the exact type EventPage (but may be a subclass)
-            non_event_pages = Page.objects.not_exact_type(EventPage)
+            # First, find all news and event pages
+            news_and_events = Page.objects.type(NewsPage, EventPage)
+
+            # Now exclude pages with an exact type of EventPage or NewsPage,
+            # leaving only instance of more 'specialist' types
+            specialised_news_and_events = news_and_events.not_exact_type(NewsPage, EventPage)
 
     .. automethod:: unpublish
 
@@ -250,5 +269,19 @@ Reference
             homepage.get_children().specific()
 
         See also: :py:attr:`Page.specific <wagtail.core.models.Page.specific>`
+
+    .. automethod:: defer_streamfields
+
+        Example:
+
+        .. code-block:: python
+
+            # Apply to a queryset to avoid fetching StreamField values
+            # for a specific model
+            EventPage.objects.all().defer_streamfields()
+
+            # Or combine with specific() to avoid fetching StreamField
+            # values for all models
+            homepage.get_children().defer_streamfields().specific()
 
     .. automethod:: first_common_ancestor

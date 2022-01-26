@@ -17,6 +17,9 @@ FORCE_WHITESPACE = 2
 # match one or more consecutive normal spaces, new-lines, tabs and form-feeds
 WHITESPACE_RE = re.compile(r'[ \t\n\f\r]+')
 
+# the attribute name to persist the Draftail block key between FE and db
+BLOCK_KEY_NAME = 'data-block-key'
+
 
 class HandlerState:
     def __init__(self):
@@ -97,7 +100,7 @@ class BlockElementHandler:
         self.block_type = block_type
 
     def create_block(self, name, attrs, state, contentstate):
-        return Block(self.block_type, depth=state.list_depth)
+        return Block(self.block_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME))
 
     def handle_starttag(self, name, attrs, state, contentstate):
         attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
@@ -121,7 +124,7 @@ class ListItemElementHandler(BlockElementHandler):
 
     def create_block(self, name, attrs, state, contentstate):
         assert state.list_item_type is not None, "%s element found outside of an enclosing list element" % name
-        return Block(state.list_item_type, depth=state.list_depth)
+        return Block(state.list_item_type, depth=state.list_depth, key=attrs.get(BLOCK_KEY_NAME))
 
 
 class InlineStyleElementHandler:
@@ -230,13 +233,42 @@ class AtomicBlockEntityElementHandler:
     Handler for elements like <img> that exist as a single immutable item at the block level
     """
     def handle_starttag(self, name, attrs, state, contentstate):
-        # forcibly close any block that illegally contains this one
-        state.current_block = None
+        if state.current_block:
+            # Placing an atomic block inside another block (e.g. a paragraph) is invalid in
+            # contentstate; we will recover from this by forcibly closing the block along with all
+            # of its inline styles / entities, and opening a new identical one afterwards.
+
+            # Construct a new block of the same type and depth as the currently open one; this will
+            # become the new 'current block' after we've added the atomic block.
+            next_block = Block(state.current_block.type, depth=state.current_block.depth)
+
+            for inline_style_range in state.current_inline_styles:
+                # set this inline style to end at the current text position
+                inline_style_range.length = len(state.current_block.text) - inline_style_range.offset
+                # start a new one of the same type, which will begin at the next block
+                new_inline_style = InlineStyleRange(inline_style_range.style)
+                new_inline_style.offset = 0
+                next_block.inline_style_ranges.append(new_inline_style)
+
+            for entity_range in state.current_entity_ranges:
+                # set this inline entity to end at the current text position
+                entity_range.length = len(state.current_block.text) - entity_range.offset
+                # start a new entity range, pointing to the same entity, to begin at the next block
+                new_entity_range = EntityRange(entity_range.key)
+                new_entity_range.offset = 0
+                next_block.entity_ranges.append(new_entity_range)
+
+            state.current_block = None
+        else:
+            next_block = None
 
         if not state.has_preceding_nonatomic_block:
             # if this block is NOT preceded by a non-atomic block,
             # need to insert a spacer paragraph
             add_paragraph_block(state, contentstate)
+            # immediately set this as not the current block, so that any subsequent invocations
+            # of this handler don't think we're inside it
+            state.current_block = None
 
         attr_dict = dict(attrs)  # convert attrs from list of (name, value) tuples to a dict
         entity = self.create_entity(name, attr_dict, state, contentstate)
@@ -250,6 +282,18 @@ class AtomicBlockEntityElementHandler:
         entity_range.length = 1
         block.entity_ranges.append(entity_range)
         state.has_preceding_nonatomic_block = False
+
+        if next_block:
+            # take the replica that we made of the previous block and its inline styles / entities,
+            # and make that the new current block. Now, when we encounter the closing tags for
+            # those styles/entities further on in the document, they will close the range that
+            # began here.
+            contentstate.blocks.append(next_block)
+            state.current_block = next_block
+            state.current_inline_styles = next_block.inline_style_ranges.copy()
+            state.current_entity_ranges = next_block.entity_ranges.copy()
+            state.has_preceding_nonatomic_block = True
+            state.leading_whitespace = STRIP_WHITESPACE
 
     def handle_endtag(self, name, state, contentstate):
         pass

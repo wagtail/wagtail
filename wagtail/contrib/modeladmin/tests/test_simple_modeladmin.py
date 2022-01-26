@@ -1,14 +1,19 @@
+import datetime
+
 from io import BytesIO
 from unittest import mock
 
 from django.contrib.auth.models import Group
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.test import TestCase
+from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
-from wagtail.core.models import Page
+from wagtail.core.models import ModelLogEntry, Page
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.modeladmintest.models import Author, Book, Publisher, RelatedLink, Token
@@ -40,6 +45,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         # There are four books in the test data
         self.assertEqual(response.context['result_count'], 4)
+
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">4 out of 4</span>', html=True)
 
         # User has add permission
         self.assertEqual(response.context['user_can_create'], True)
@@ -101,6 +109,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         # JRR Tolkien has two books in the test data
         self.assertEqual(response.context['result_count'], 2)
 
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 4</span>', html=True)
+
         for book in response.context['object_list']:
             self.assertEqual(book.author_id, 1)
 
@@ -123,6 +134,9 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
 
         # There are two books where the title contains 'of'
         self.assertEqual(response.context['result_count'], 2)
+
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 4</span>', html=True)
 
     def test_search_form_present(self):
         # Test the backend search handler allows the search form to render
@@ -180,11 +194,14 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.context['result_count'], 2)
 
+        # The result count content is shown in the header
+        self.assertContains(response, '<span class="result-count">2 out of 5</span>', html=True)
+
     def test_col_extra_class_names(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         test_html = """
-            <td class="field-first_book for-author-1">The Lord of the Rings</td>
+            <td class="field-first_book for-author-1 title">The Lord of the Rings</td>
         """
         self.assertContains(response, test_html, html=True)
 
@@ -192,7 +209,7 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         test_html = """
-            <td class="field-last_book" data-for_author="1">The Hobbit</td>
+            <td class="field-last_book title" data-for_author="1">The Hobbit</td>
         """
         self.assertContains(response, test_html, html=True)
 
@@ -363,7 +380,14 @@ class TestEditView(TestCase, WagtailTestUtils):
     fixtures = ['modeladmintest_test.json']
 
     def setUp(self):
-        self.login()
+        self.user = self.login()
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Book),
+            label="The Lord of the Rings",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
 
     def get(self, book_id):
         return self.client.get('/admin/modeladmintest/book/edit/%d/' % book_id)
@@ -376,6 +400,15 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'The Lord of the Rings')
+
+        # "Last updated" timestamp should be present
+        self.assertContains(response, 'data-wagtail-tooltip="Sept. 30, 2021, 10:01 a.m."')
+        # History link should be present
+        self.assertContains(response, 'href="/admin/modeladmintest/book/history/1/"')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/modeladmintest/book/edit/1/'
+        self.assertEqual(url_finder.get_edit_url(Book.objects.get(id=1)), expected_url)
 
     def test_non_existent(self):
         response = self.get(100)
@@ -572,6 +605,7 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         # Create a user
         user = self.create_user(username='test2', password='password')
         user.groups.add(Group.objects.get(pk=2))
+        self.user = user
         # Login
         self.login(username='test2', password='password')
 
@@ -593,6 +627,9 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         response = self.client.get('/admin/modeladmintest/book/edit/2/')
         self.assertRedirects(response, '/admin/')
 
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(Book.objects.get(id=2)), None)
+
     def test_delete_get_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/delete/2/')
         self.assertRedirects(response, '/admin/')
@@ -600,6 +637,26 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
     def test_delete_post_permitted(self):
         response = self.client.post('/admin/modeladmintest/book/delete/2/')
         self.assertRedirects(response, '/admin/')
+
+
+class TestHistoryView(TestCase, WagtailTestUtils):
+    fixtures = ['modeladmintest_test.json']
+
+    def setUp(self):
+        self.login()
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Book),
+            label="The Lord of the Rings",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
+
+    def test_simple(self):
+        response = self.client.get('/admin/modeladmintest/book/history/1/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td>Created</td>', html=True)
+        self.assertContains(response, '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">')
 
 
 class TestQuoting(TestCase, WagtailTestUtils):
@@ -645,8 +702,8 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
 
         # check that home breadcrumb link exists
         expected = """
-            <li class="home">
-                <a href="/admin/">
+            <li class="breadcrumb-item home">
+                <a href="/admin/" class="breadcrumb-link">
                     <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
                         <use href="#icon-home"></use>
                     </svg>

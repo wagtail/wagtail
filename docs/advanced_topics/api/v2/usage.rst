@@ -17,9 +17,9 @@ Fetching content
 To fetch content over the API, perform a ``GET`` request against one of the
 following endpoints:
 
- - Pages ``/api/v2/pages/``
- - Images ``/api/v2/images/``
- - Documents ``/api/v2/documents/``
+- Pages ``/api/v2/pages/``
+- Images ``/api/v2/images/``
+- Documents ``/api/v2/documents/``
 
 .. note::
 
@@ -271,11 +271,12 @@ For example, to find a page with the slug "about":
         ]
     }
 
+.. _apiv2_filter_by_tree_position:
+
 Filtering by tree position (pages only)
 ---------------------------------------
 
-Pages can additionally be filtered by their position of the tree. For this,
-there are two parameters you can use: ``?child_of`` and ``?descendant_of``.
+Pages can additionally be filtered by their relation to other pages in the tree.
 
 The ``?child_of`` filter takes the id of a page and filters the list of results
 to contain only direct children of that page.
@@ -322,8 +323,17 @@ id of the homepage to the filter:
         ]
     }
 
-The ``?descendant_of`` filter also takes the id of a page but includes all
-descendants (children of children) instead of just directly children.
+The ``?ancestor_of`` filter takes the id of a page and filters the list
+to only include ancestors of that page (parent, grandparent etc.) all the
+way down to the site's root page.
+
+For example, when combined with the ``type`` filter it can be used to
+find the particular ``blog.BlogIndexPage`` a ``blog.BlogPage`` belongs
+to. By itself, it can be used to to construct a breadcrumb trail from
+the current page back to the site's root page.
+
+The ``?descendant_of`` filter takes the id of a page and filter the list
+to only include descendants of that page (children, grandchildren etc.).
 
 Search
 ------
@@ -342,9 +352,9 @@ Search operator
 The ``search_operator`` specifies how multiple terms in the query should be
 handled. There are two possible values:
 
- - ``and`` - All terms in the search query (excluding stop words) must exist in
-   each result
- - ``or`` - At least one term in the search query must exist in each result
+- ``and`` - All terms in the search query (excluding stop words) must exist in
+  each result
+- ``or`` - At least one term in the search query must exist in each result
 
 The ``or`` operator is generally better than ``and`` as it allows the user to be
 inexact with their query and the ranking algorithm will make sure that
@@ -575,6 +585,10 @@ Pages
         Nests some information about the parent page (only available on detail
         views)
 
+    ``meta.alias_of`` (dictionary)
+
+        If the page marked as an alias return original page id and full url
+
 Images
 ------
 
@@ -617,22 +631,22 @@ Changes since v1
 Breaking changes
 ----------------
 
- - The results list in listing responses has been renamed to ``items`` (was
-   previously either ``pages``, ``images`` or ``documents``)
+- The results list in listing responses has been renamed to ``items`` (was
+  previously either ``pages``, ``images`` or ``documents``)
 
 Major features
 --------------
 
- - The ``fields`` parameter has been improved to allow removing fields, adding
-   all fields and customising nested fields
+- The ``fields`` parameter has been improved to allow removing fields, adding
+  all fields and customising nested fields
 
 Minor features
 --------------
 
- - ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
-   ``show_in_menus`` fields have been added to the pages endpoint
- - ``download_url`` field has been added to the documents endpoint
- - Multiple page types can be specified in ``type`` parameter on pages endpoint
- - ``true`` and ``false`` may now be used when filtering boolean fields
- - ``order`` can now be used in conjunction with ``search``
- - ``search_operator`` parameter was added
+- ``html_url``, ``slug``, ``first_published_at``, ``expires_at`` and
+  ``show_in_menus`` fields have been added to the pages endpoint
+- ``download_url`` field has been added to the documents endpoint
+- Multiple page types can be specified in ``type`` parameter on pages endpoint
+- ``true`` and ``false`` may now be used when filtering boolean fields
+- ``order`` can now be used in conjunction with ``search``
+- ``search_operator`` parameter was added

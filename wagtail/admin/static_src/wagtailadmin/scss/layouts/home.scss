@@ -48,9 +48,14 @@ header {
         li {
             @include column(4);
             margin-bottom: 2em;
+
+            @include media-breakpoint-down(sm) {
+                width: 50%;
+            }
         }
 
-        li:before {
+        li.icon::before,
+        li svg.icon {
             opacity: 0.2;
             font-size: 6em;
             float: left;
@@ -66,6 +71,18 @@ header {
             @include media-breakpoint-down(xs) {
                 font-size: 4em;
             }
+
+            // Media for Windows High Contrast Mode
+            @media (forced-colors: $media-forced-colours) {
+                color: $system-color-link-text;
+                opacity: 1;
+            }
+        }
+
+        li svg.icon {
+            width: 1em;
+            height: 1em;
+            margin-right: 0.5em;
         }
 
         a {

@@ -10,7 +10,7 @@ export const PUSH = 'push';
 export const POP = 'pop';
 
 /**
- * Wrapper arround react-transition-group with default values.
+ * Wrapper around react-transition-group with default values.
  */
 const Transition = ({
   name,

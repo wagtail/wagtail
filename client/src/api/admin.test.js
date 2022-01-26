@@ -25,7 +25,6 @@ describe('admin API', () => {
 
     it('#fields', () => {
       getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
-      // eslint-disable-next-line max-len
       expect(client.get).toBeCalledWith(
         `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`
       );

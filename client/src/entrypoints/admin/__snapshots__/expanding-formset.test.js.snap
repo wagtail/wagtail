@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildExpandingFormset should add an expanded item if the add button is not disabled 1`] = `
+<li
+  data-contentpath-disabled=""
+  data-inline-panel-child=""
+  id="inline_child_form_fields-2"
+>
+  
+          
+  <input
+    id="id_form_fields-2-label"
+    name="form_fields-2-label"
+    type="text"
+  />
+  
+          
+  <input
+    id="id_form_fields-2-id"
+    name="form_fields-2-id"
+    type="hidden"
+  />
+  
+          
+  <input
+    id="id_form_fields-2-DELETE"
+    name="form_fields-2-DELETE"
+    type="hidden"
+  />
+  
+        
+</li>
+`;

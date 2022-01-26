@@ -1,5 +1,12 @@
 {
-  "extends": "wagtail",
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "wagtail",
+    "plugin:@typescript-eslint/recommended"
+  ],
 
   "env": {
     "jest": true
@@ -12,35 +19,78 @@
       }
     }
   },
-
   "rules": {
-    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
+    // note you must disable the base rule as it can report incorrect errors
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
 
   "overrides": [
     {
-        "files": ["*.ts", "*.tsx"],
-
-        "parser": "@typescript-eslint/parser",
-        "plugins": [
-          "@typescript-eslint"
+      // Rules we don’t want to enforce for test and tooling code.
+      "files": ["*.test.ts", "*.test.tsx", "*.test.js", "webpack.config.js"],
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-var-requires": "off"
+      }
+    },
+    {
+      "files": ["docs/_static/**"],
+      "globals": { "$": "readonly" }
+    },
+    {
+      "globals": {
+        "$": "readonly",
+        "addMessage": "readonly",
+        "buildExpandingFormset": "readonly",
+        "cancelSpinner": "readonly",
+        "escapeHtml": "readonly",
+        "insertRichTextDeleteControl": "readonly",
+        "jQuery": "readonly",
+        "jsonData": "readonly",
+        "ModalWorkflow": "readonly",
+        "DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "QUERY_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable",
+        "SNIPPET_CHOOSER_MODAL_ONLOAD_HANDLERS": "writable"
+      },
+      "files": ["wagtail/**/**"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-use-before-define": "off",
+        "camelcase": [
+          "error",
+          {
+            "allow": [
+              "__unused_webpack_module",
+              "__webpack_modules__",
+              "__webpack_require__"
+            ],
+            "properties": "never"
+          }
         ],
-        "extends": [
-          "wagtail",
-          "plugin:@typescript-eslint/recommended"
-        ],
-        "rules": {
-          "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }],
-
-          // note you must disable the base rule as it can report incorrect errors
-          "no-use-before-define": "off",
-          "@typescript-eslint/no-use-before-define": ["error"],
-
-          "@typescript-eslint/explicit-module-boundary-types": "off",
-          "@typescript-eslint/explicit-member-accessibility": "off",
-          "@typescript-eslint/explicit-function-return-type": "off",
-          "@typescript-eslint/no-explicit-any": "off"
-        }
+        "consistent-return": "off",
+        "func-names": "off",
+        "id-length": "off",
+        "indent": "off",
+        "key-spacing": "off",
+        "new-cap": "off",
+        "newline-per-chained-call": "off",
+        "no-param-reassign": "off",
+        "no-underscore-dangle": "off",
+        "object-shorthand": "off",
+        "prefer-arrow-callback": "off",
+        "quote-props": "off",
+        "space-before-function-paren": "off",
+        "vars-on-top": "off"
+      }
     }
   ]
 }

@@ -9,12 +9,42 @@ from django.utils.html import format_html, format_html_join
 from django.utils.safestring import mark_safe
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.telepath import Adapter, register
 
-from .base import Block, DeclarativeSubBlocksMetaclass
-from .utils import js_dict
+from .base import Block, BoundBlock, DeclarativeSubBlocksMetaclass, get_help_icon
 
 
 __all__ = ['BaseStructBlock', 'StructBlock', 'StructValue']
+
+
+class StructBlockValidationError(ValidationError):
+    def __init__(self, block_errors=None):
+        self.block_errors = block_errors
+        super().__init__('Validation error in StructBlock', params=block_errors)
+
+
+class StructBlockValidationErrorAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StructBlockValidationError'
+
+    def js_args(self, error):
+        if error.block_errors is None:
+            return [None]
+        else:
+            return [
+                {
+                    name: error_list.as_data()
+                    for name, error_list in error.block_errors.items()
+                }
+            ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
+
+
+register(StructBlockValidationErrorAdapter(), StructBlockValidationError)
 
 
 class StructValue(collections.OrderedDict):
@@ -37,6 +67,14 @@ class StructValue(collections.OrderedDict):
         ])
 
 
+class PlaceholderBoundBlock(BoundBlock):
+    """
+    Provides a render_form method that outputs a block placeholder, for use in custom form_templates
+    """
+    def render_form(self):
+        return format_html('<div data-structblock-child="{}"></div>', self.block.name)
+
+
 class BaseStructBlock(Block):
 
     def __init__(self, local_blocks=None, **kwargs):
@@ -51,64 +89,19 @@ class BaseStructBlock(Block):
                 block.set_name(name)
                 self.child_blocks[name] = block
 
-        self.child_js_initializers = {}
-        for name, block in self.child_blocks.items():
-            js_initializer = block.js_initializer()
-            if js_initializer is not None:
-                self.child_js_initializers[name] = js_initializer
-
-        self.dependencies = self.child_blocks.values()
-
     def get_default(self):
         """
         Any default value passed in the constructor or self.meta is going to be a dict
         rather than a StructValue; for consistency, we need to convert it to a StructValue
         for StructBlock to work with
         """
-        return self._to_struct_value(self.meta.default.items())
-
-    def js_initializer(self):
-        # skip JS setup entirely if no children have js_initializers
-        if not self.child_js_initializers:
-            return None
-
-        return "StructBlock(%s)" % js_dict(self.child_js_initializers)
-
-    @property
-    def media(self):
-        return forms.Media(js=[versioned_static('wagtailadmin/js/blocks/struct.js')])
-
-    def get_form_context(self, value, prefix='', errors=None):
-        if errors:
-            if len(errors) > 1:
-                # We rely on StructBlock.clean throwing a single ValidationError with a specially crafted
-                # 'params' attribute that we can pull apart and distribute to the child blocks
-                raise TypeError('StructBlock.render_form unexpectedly received multiple errors')
-            error_dict = errors.as_data()[0].params
-        else:
-            error_dict = {}
-
-        bound_child_blocks = collections.OrderedDict([
+        return self._to_struct_value([
             (
                 name,
-                block.bind(value.get(name, block.get_default()),
-                           prefix="%s-%s" % (prefix, name), errors=error_dict.get(name))
+                self.meta.default[name] if name in self.meta.default else block.get_default()
             )
             for name, block in self.child_blocks.items()
         ])
-
-        return {
-            'children': bound_child_blocks,
-            'help_text': getattr(self.meta, 'help_text', None),
-            'classname': self.meta.form_classname,
-            'block_definition': self,
-            'prefix': prefix,
-        }
-
-    def render_form(self, value, prefix='', errors=None):
-        context = self.get_form_context(value, prefix=prefix, errors=errors)
-
-        return mark_safe(render_to_string(self.meta.form_template, context))
 
     def value_from_datadict(self, data, files, prefix):
         return self._to_struct_value([
@@ -132,9 +125,7 @@ class BaseStructBlock(Block):
                 errors[name] = ErrorList([e])
 
         if errors:
-            # The message here is arbitrary - StructBlock.render_form will suppress it
-            # and delegate the errors contained in the 'params' dict to the child blocks instead
-            raise ValidationError('Validation error in StructBlock', params=errors)
+            raise StructBlockValidationError(errors)
 
         return self._to_struct_value(result)
 
@@ -203,6 +194,12 @@ class BaseStructBlock(Block):
             for name, val in value.items()
         ])
 
+    def get_form_state(self, value):
+        return dict([
+            (name, self.child_blocks[name].get_form_state(val))
+            for name, val in value.items()
+        ])
+
     def get_api_representation(self, value, context=None):
         """ Recursively call get_api_representation on children and return as a plain dict """
         return dict([
@@ -244,11 +241,40 @@ class BaseStructBlock(Block):
         return format_html('<dl>\n{}\n</dl>', format_html_join(
             '\n', '    <dt>{}</dt>\n    <dd>{}</dd>', value.items()))
 
+    def render_form_template(self):
+        # Support for custom form_template options in meta. Originally form_template would have been
+        # invoked once for each occurrence of this block in the stream data, but this rendering now
+        # happens client-side, so we need to turn the Django template into one that can be used by
+        # the client-side code. This is done by rendering it up-front with placeholder objects as
+        # child blocks - these return <div data-structblock-child="first-name"></div> from their
+        # render_form_method.
+        # The change to client-side rendering means that the `value` and `errors` arguments on
+        # `get_form_context` no longer receive real data; these are passed the block's default value
+        # and None respectively.
+        context = self.get_form_context(self.get_default(), prefix='__PREFIX__', errors=None)
+        return mark_safe(render_to_string(self.meta.form_template, context))
+
+    def get_form_context(self, value, prefix='', errors=None):
+        return {
+            'children': collections.OrderedDict([
+                (
+                    name,
+                    PlaceholderBoundBlock(block, value.get(name), prefix="%s-%s" % (prefix, name))
+                )
+                for name, block in self.child_blocks.items()
+            ]),
+            'help_text': getattr(self.meta, 'help_text', None),
+            'classname': self.meta.form_classname,
+            'block_definition': self,
+            'prefix': prefix,
+        }
+
     class Meta:
         default = {}
         form_classname = 'struct-block'
-        form_template = 'wagtailadmin/block_forms/struct.html'
+        form_template = None
         value_class = StructValue
+        label_format = None
         # No icon specified here, because that depends on the purpose that the
         # block is being used for. Feel encouraged to specify an icon in your
         # descendant block type
@@ -257,3 +283,39 @@ class BaseStructBlock(Block):
 
 class StructBlock(BaseStructBlock, metaclass=DeclarativeSubBlocksMetaclass):
     pass
+
+
+class StructBlockAdapter(Adapter):
+    js_constructor = 'wagtail.blocks.StructBlock'
+
+    def js_args(self, block):
+        meta = {
+            'label': block.label, 'required': block.required, 'icon': block.meta.icon,
+            'classname': block.meta.form_classname,
+        }
+
+        help_text = getattr(block.meta, 'help_text', None)
+        if help_text:
+            meta['helpText'] = help_text
+            meta['helpIcon'] = get_help_icon()
+
+        if block.meta.form_template:
+            meta['formTemplate'] = block.render_form_template()
+
+        if block.meta.label_format:
+            meta['labelFormat'] = block.meta.label_format
+
+        return [
+            block.name,
+            block.child_blocks.values(),
+            meta,
+        ]
+
+    @cached_property
+    def media(self):
+        return forms.Media(js=[
+            versioned_static('wagtailadmin/js/telepath/blocks.js'),
+        ])
+
+
+register(StructBlockAdapter(), StructBlock)

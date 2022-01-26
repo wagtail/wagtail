@@ -3,6 +3,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.text import capfirst
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.settings.registry import SettingMenuItem
 from wagtail.contrib.settings.views import get_setting_edit_handler
@@ -40,8 +41,13 @@ class TestSettingMenu(TestCase, WagtailTestUtils):
 
     def test_menu_item_icon(self):
         menu_item = SettingMenuItem(IconSetting, icon='tag', classnames='test-class')
-        classnames = set(menu_item.classnames.split(' '))
-        self.assertEqual(classnames, {'icon', 'icon-tag', 'test-class'})
+        self.assertEqual(menu_item.icon_name, 'tag')
+        self.assertEqual(menu_item.classnames, 'test-class')
+
+    def test_menu_item_icon_fontawesome(self):
+        menu_item = SettingMenuItem(IconSetting, icon='fa-suitcase', classnames='test-class')
+        self.assertEqual(menu_item.icon_name, '')
+        self.assertEqual(set(menu_item.classnames.split(' ')), {'icon', 'icon-fa-suitcase', 'test-class'})
 
 
 class BaseTestSettingView(TestCase, WagtailTestUtils):
@@ -60,13 +66,11 @@ class BaseTestSettingView(TestCase, WagtailTestUtils):
 
 class TestSettingCreateView(BaseTestSettingView):
     def setUp(self):
-        self.login()
+        self.user = self.login()
 
     def test_get_edit(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        # there should be a menu item highlighted as active
-        self.assertContains(response, "menu-active")
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -84,6 +88,10 @@ class TestSettingCreateView(BaseTestSettingView):
         setting = TestSetting.objects.get(site=default_site)
         self.assertEqual(setting.title, 'Edited site title')
         self.assertEqual(setting.email, 'test@example.com')
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/settings/tests/testsetting/%d/' % default_site.pk
+        self.assertEqual(url_finder.get_edit_url(setting), expected_url)
 
     def test_file_upload_multipart(self):
         response = self.get(setting=FileUploadSetting)
@@ -106,8 +114,6 @@ class TestSettingEditView(BaseTestSettingView):
     def test_get_edit(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        # there should be a menu item highlighted as active
-        self.assertContains(response, "menu-active")
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsettings:edit', args=['test', 'foo', 1]))

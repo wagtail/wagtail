@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Tatsiana Tsygan <art.tatsiana@gmail.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgstr "Выбраць"
 
 msgid "Search"
 msgstr "Шукаць"
+
+msgid "Title"
+msgstr "Назва"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -69,12 +72,18 @@ msgstr "Вы ўпэўненыя, што жадаеце выдаліць %(count)
 msgid "Yes, delete"
 msgstr "Так, выдаліць"
 
+msgid "No, don't delete"
+msgstr "Не, не выдаляць"
+
 #, python-format
 msgid "New  %(snippet_type_name)s"
 msgstr "Новы %(snippet_type_name)s"
 
 msgid "New"
 msgstr "Новы"
+
+msgid "Actions"
+msgstr "Дзеянні"
 
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
@@ -88,9 +97,6 @@ msgstr "Выкарыстанне"
 
 msgid "Snippets"
 msgstr "Фрагменты"
-
-msgid "Title"
-msgstr "Назва"
 
 #, python-format
 msgid ""
@@ -143,6 +149,13 @@ msgstr "Фрагмент кода не можа быць створана з-з�
 
 msgid "The snippet could not be saved due to errors."
 msgstr "Фрагмент кода не можа быць захавана з-за памылкі."
+
+msgid "Date"
+msgstr "Дата"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Рэдагаваць '%(title)s'"
 
 #, python-format
 msgid "Choose %s"

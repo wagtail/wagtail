@@ -53,7 +53,7 @@ class CopyForm(forms.Form):
                         pages_to_publish_count) % {'count': pages_to_publish_count}
 
                 self.fields['publish_copies'] = forms.BooleanField(
-                    required=False, initial=True, label=label, help_text=help_text
+                    required=False, initial=False, label=label, help_text=help_text
                 )
 
             # Note that only users who can publish in the new parent page can create an alias.
@@ -75,7 +75,7 @@ class CopyForm(forms.Form):
         # check if user is allowed to create a page at given location.
         if not parent_page.permissions_for_user(self.user).can_add_subpage():
             self._errors['new_parent_page'] = self.error_class([
-                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.get_admin_display_title()}
+                _("You do not have permission to copy to page \"%(page_title)s\"") % {'page_title': parent_page.specific_deferred.get_admin_display_title()}
             ])
 
         # Count the pages with the same slug within the context of our copy's parent page
@@ -103,18 +103,47 @@ class PageViewRestrictionForm(BaseViewRestrictionForm):
 
 
 class WagtailAdminPageForm(WagtailAdminModelForm):
+    comment_notifications = forms.BooleanField(widget=forms.CheckboxInput(), required=False)
+
+    # Could be set to False by a subclass constructed by TabbedInterface
+    show_comments_toggle = True
 
     class Meta:
         # (dealing with Treebeard's tree-related fields that really should have
         # been editable=False)
         exclude = ['content_type', 'path', 'depth', 'numchild']
 
-    def __init__(self, data=None, files=None, parent_page=None, *args, **kwargs):
-        super().__init__(data, files, *args, **kwargs)
+    def __init__(self, data=None, files=None, parent_page=None, subscription=None, *args, **kwargs):
+        self.subscription = subscription
+
+        initial = kwargs.pop('initial', {})
+        if self.subscription:
+            initial['comment_notifications'] = subscription.comment_notifications
+
+        super().__init__(data, files, *args, initial=initial, **kwargs)
+
         self.parent_page = parent_page
 
-    def clean(self):
+        if not self.show_comments_toggle:
+            del self.fields['comment_notifications']
 
+    def save(self, commit=True):
+        # Save comment notifications updates to PageSubscription
+        if self.show_comments_toggle and self.subscription:
+            self.subscription.comment_notifications = self.cleaned_data['comment_notifications']
+            if commit:
+                self.subscription.save()
+
+        return super().save(commit=commit)
+
+    def is_valid(self):
+        comments = self.formsets.get('comments')
+        # Remove the comments formset if the management form is invalid
+        if comments and not comments.management_form.is_valid():
+            del self.formsets['comments']
+        return super().is_valid()
+
+    def clean(self):
         cleaned_data = super().clean()
         if 'slug' in self.cleaned_data:
             if not Page._slug_is_available(

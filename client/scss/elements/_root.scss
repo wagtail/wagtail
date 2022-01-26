@@ -1,0 +1,10 @@
+:root {
+    @include define-color('color-primary', #007d7e);
+    @include define-color('color-primary-darker', css-darken(css-adjust-hue(get-color('color-primary'), 1), 4%));
+    @include define-color('color-primary-dark', css-darken(css-adjust-hue(get-color('color-primary'), 1), 7%));
+    @include define-color('color-primary-lighter', css-lighten(css-desaturate(css-adjust-hue(get-color('color-primary'), 1), 46%), 48%));
+    @include define-color('color-primary-light', css-lighten(css-desaturate(css-adjust-hue(get-color('color-primary'), 1), 44%), 58%));
+
+    @include define-color('color-input-focus', css-lighten(css-desaturate(get-color('color-primary'), 40%), 72%));
+    @include define-color('color-input-focus-border', css-lighten(css-saturate(get-color('color-primary'), 12%), 10%));
+}

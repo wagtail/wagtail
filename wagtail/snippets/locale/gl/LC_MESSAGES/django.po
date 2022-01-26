@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2016
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,9 @@ msgstr "Seleccionar"
 
 msgid "Search"
 msgstr "Porcurar"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -54,6 +57,9 @@ msgstr "Novo %(snippet_type_name)s"
 msgid "New"
 msgstr "Novo"
 
+msgid "Actions"
+msgstr "Accións"
+
 #, python-format
 msgid "Editing %(snippet_type_name)s - %(instance)s"
 msgstr "Editando %(snippet_type_name)s - %(instance)s"
@@ -63,9 +69,6 @@ msgstr "Editando"
 
 msgid "Snippets"
 msgstr "Fragmentos"
-
-msgid "Title"
-msgstr "Título"
 
 #, python-format
 msgid ""
@@ -118,6 +121,9 @@ msgstr "O fragmento non puido ser creado debido a errores."
 
 msgid "The snippet could not be saved due to errors."
 msgstr "O fragmento non puido ser gardado debido a erros."
+
+msgid "Date"
+msgstr "Data"
 
 #, python-format
 msgid "Choose %s"

@@ -44,8 +44,8 @@
 
     {% block footer %}
         {% if buttons %}
-            <footer>
-                <div class="button-group">
+            <footer class="footer">
+                <div class="button-group footer__container">
                     {% for button in buttons %}
                         {% include "modeladmin/includes/button.html" %}
                     {% endfor %}

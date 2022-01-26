@@ -60,7 +60,10 @@ class Command(BaseCommand):
                         comparison = get_comparison(revision.page.specific, previous_revision_as_page, current_revision_as_page)
                         has_content_changes = len(comparison) > 0
 
-                    if current_revision_as_page.live_revision_id == previous_revision.id:
+                    if (
+                        current_revision_as_page is not None
+                        and current_revision_as_page.live_revision_id == previous_revision.id
+                    ):
                         # Log the previous revision publishing.
                         self.log_page_action('wagtail.publish', previous_revision, True)
 

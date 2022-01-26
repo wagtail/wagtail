@@ -36,6 +36,8 @@ class FieldsFilter(BaseFilterBackend):
                         value = parse_boolean(value)
                     elif isinstance(field, (models.IntegerField, models.AutoField)):
                         value = int(value)
+                    elif isinstance(field, models.ForeignKey):
+                        value = field.target_field.get_prep_value(value)
                 except ValueError as e:
                     raise BadRequestError("field filter error. '%s' is not a valid value for %s (%s)" % (
                         value,
@@ -159,6 +161,29 @@ class ChildOfFilter(BaseFilterBackend):
             # explorer, which needs to pass the parent page into
             # `construct_explorer_page_queryset` hook functions
             queryset._filtered_by_child_of = parent_page
+
+        return queryset
+
+
+class AncestorOfFilter(BaseFilterBackend):
+    """
+    Implements the ?ancestor filter which limits the set of pages to a
+    particular branch of the page tree.
+    """
+    def filter_queryset(self, request, queryset, view):
+        if 'ancestor_of' in request.GET:
+            try:
+                descendant_page_id = int(request.GET['ancestor_of'])
+                if descendant_page_id < 0:
+                    raise ValueError()
+
+                descendant_page = view.get_base_queryset().get(id=descendant_page_id)
+            except ValueError:
+                raise BadRequestError("ancestor_of must be a positive integer")
+            except Page.DoesNotExist:
+                raise BadRequestError("descendant page doesn't exist")
+
+            queryset = queryset.ancestor_of(descendant_page)
 
         return queryset
 

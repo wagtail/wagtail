@@ -5,6 +5,7 @@ from django.http import Http404, HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import cache_control
 from django.views.decorators.http import etag
 
@@ -120,9 +121,13 @@ def authenticate_with_password(request, restriction_id):
     if request.method == 'POST':
         form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
-            restriction.mark_as_passed(request)
+            return_url = form.cleaned_data['return_url']
 
-            return redirect(form.cleaned_data['return_url'])
+            if not url_has_allowed_host_and_scheme(return_url, request.get_host(), request.is_secure()):
+                return_url = settings.LOGIN_REDIRECT_URL
+
+            restriction.mark_as_passed(request)
+            return redirect(return_url)
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 

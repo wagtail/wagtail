@@ -1,8 +1,11 @@
 import os
 
+from django.utils.translation import gettext_lazy as _
+
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
+BASE_URL = "http://testserver"
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-static')
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, 'tests', 'test-media')
 MEDIA_URL = '/media/'
@@ -12,22 +15,28 @@ TIME_ZONE = 'Asia/Tokyo'
 DATABASES = {
     'default': {
         'ENGINE': os.environ.get('DATABASE_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('DATABASE_NAME', 'wagtail'),
-        'USER': os.environ.get('DATABASE_USER', None),
-        'PASSWORD': os.environ.get('DATABASE_PASS', None),
-        'HOST': os.environ.get('DATABASE_HOST', None),
+        'NAME': os.environ.get('DATABASE_NAME', ':memory:'),
+        'USER': os.environ.get('DATABASE_USER', ''),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', ''),
+        'HOST': os.environ.get('DATABASE_HOST', ''),
+        'PORT': os.environ.get('DATABASE_PORT', ''),
 
         'TEST': {
-            'NAME': os.environ.get('DATABASE_NAME', None),
+            'NAME': os.environ.get('DATABASE_NAME', '')
         }
     }
 }
 
+# Set regular database name when a non-SQLite db is used
+if DATABASES['default']['ENGINE'] != 'django.db.backends.sqlite3':
+    DATABASES['default']['NAME'] = os.environ.get('DATABASE_NAME', 'wagtail')
+
 # Add extra options when mssql is used (on for example appveyor)
 if DATABASES['default']['ENGINE'] == 'sql_server.pyodbc':
     DATABASES['default']['OPTIONS'] = {
-        'driver': 'SQL Server Native Client 11.0',
+        'driver': os.environ.get('DATABASE_DRIVER', 'SQL Server Native Client 11.0'),
         'MARS_Connection': 'True',
+        'host_is_server': True,  # Applies to FreeTDS driver only
     }
 
 
@@ -44,6 +53,7 @@ ROOT_URLCONF = 'wagtail.tests.urls'
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
@@ -102,7 +112,7 @@ MIDDLEWARE = (
 
 INSTALLED_APPS = [
     # Install wagtailredirects with its appconfig
-    # Theres nothing special about wagtailredirects, we just need to have one
+    # There's nothing special about wagtailredirects, we just need to have one
     # app which uses AppConfigs to test that hooks load properly
     'wagtail.contrib.redirects.apps.WagtailRedirectsAppConfig',
 
@@ -113,6 +123,7 @@ INSTALLED_APPS = [
     'wagtail.tests.search',
     'wagtail.tests.modeladmintest',
     'wagtail.tests.i18n',
+    'wagtail.contrib.simple_translation',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.frontend_cache',
@@ -121,6 +132,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.modeladmin',
     'wagtail.contrib.table_block',
     'wagtail.contrib.forms',
+    'wagtail.contrib.typed_table_block',
     'wagtail.search',
     'wagtail.embeds',
     'wagtail.images',
@@ -164,9 +176,11 @@ ALLOWED_HOSTS = ['localhost', 'testserver', 'other.example.com']
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.search.backends.db',
+        'BACKEND': 'wagtail.search.backends.database.fallback',
     }
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 if os.environ.get('USE_EMAIL_USER_MODEL'):
     INSTALLED_APPS.append('wagtail.tests.emailuser')
@@ -227,10 +241,9 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     },
 }
 
-
 WAGTAIL_CONTENT_LANGUAGES = [
-    ("en", "English"),
-    ("fr", "French"),
+    ("en", _("English")),
+    ("fr", _("French")),
 ]
 
 
@@ -242,3 +255,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ]
 }
+
+# Disable redirect autocreation for the majority of tests (to improve efficiency)
+WAGTAILREDIRECTS_AUTO_CREATE = False

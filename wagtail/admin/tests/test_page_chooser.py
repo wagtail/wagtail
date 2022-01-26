@@ -1,12 +1,12 @@
 import json
 
 from django.contrib.auth import get_user_model
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.core.models import Locale, Page, UserPagePermissionsProxy
 from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, SingleEventPage
 from wagtail.tests.utils import WagtailTestUtils
 
@@ -245,11 +245,20 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         self.assertTemplateUsed(response, 'wagtailadmin/chooser/browse.html')
 
         # Look for a link element in the breadcrumbs with the admin title
+        expected = """
+            <li class="breadcrumb-item">
+                <a href="/admin/choose-page/{page_id}/?" class="breadcrumb-link navigate-pages">{page_title}
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                        <use href="#icon-arrow-right"></use>
+                    </svg>
+                </a>
+            </li>
+        """.format(
+            page_id=self.child_page.id,
+            page_title="foobarbaz (simple page)",
+        )
         self.assertTagInHTML(
-            '<li><a href="/admin/choose-page/{page_id}/?" class="navigate-pages">{page_title}</a></li>'.format(
-                page_id=self.child_page.id,
-                page_title="foobarbaz (simple page)",
-            ),
+            expected,
             response.json().get('html')
         )
 
@@ -496,6 +505,11 @@ class TestAutomaticRootPageDetection(TestCase, WagtailTestUtils):
 class TestChooserExternalLink(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
+        self.internal_page = SimplePage(
+            title='About',
+            content='About Foo'
+        )
+        Page.objects.get(pk=2).add_child(instance=self.internal_page)
 
     def get(self, params={}):
         return self.client.get(reverse('wagtailadmin_choose_page_external_link'), params)
@@ -570,6 +584,72 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'external_link_chosen')  # indicates success / post back to calling page
         self.assertEqual(response_json['result']['url'], "/admin/")
         self.assertEqual(response_json['result']['title'], "admin")
+
+    def test_convert_external_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': 'http://localhost/about/', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+        self.assertEqual(response_json['result']['url'], "/about/")
+        self.assertEqual(response_json['result']['id'], self.internal_page.pk)
+
+    def test_convert_external_link_with_query_parameters_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': 'http://localhost/about?test=1', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # Query parameters will get stripped, so the user should get asked to confirm the conversion
+        self.assertEqual(response_json['step'], 'confirm_external_to_internal')
+
+        self.assertEqual(response_json['external']['url'], "http://localhost/about?test=1")
+        self.assertEqual(response_json['internal']['id'], self.internal_page.pk)
+
+    def test_convert_relative_external_link_to_internal_link(self):
+        response = self.post({'external-link-chooser-url': '/about/', 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+        self.assertEqual(response_json['result']['url'], "/about/")
+        self.assertEqual(response_json['result']['id'], self.internal_page.pk)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='')
+    def test_no_conversion_external_to_internal_link_when_disabled(self):
+        url = 'http://localhost/about/'
+        title = 'about'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': title})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+
+        self.assertEqual(response_json['result']['url'], url)
+        self.assertEqual(response_json['result']['title'], title)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='exact')
+    def test_no_confirm_external_to_internal_link_when_exact(self):
+        url = 'http://localhost/about?test=1'
+        title = 'about'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': title})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+        # Query parameters will get stripped, so this link should be left as an external url with the 'exact' setting
+        self.assertEqual(response_json['step'], 'external_link_chosen')
+
+        self.assertEqual(response_json['result']['url'], url)
+        self.assertEqual(response_json['result']['title'], title)
+
+    @override_settings(WAGTAILADMIN_EXTERNAL_LINK_CONVERSION='confirm')
+    def test_convert_external_link_to_internal_link_with_confirm_setting(self):
+        url = 'http://localhost/about/'
+        response = self.post({'external-link-chooser-url': url, 'external-link-chooser-link_text': 'about'})
+        self.assertEqual(response.status_code, 200)
+        response_json = json.loads(response.content.decode())
+
+        # The url is identical, but the conversion setting is set to 'confirm'
+        # so the user should get asked to confirm the conversion
+        self.assertEqual(response_json['step'], 'confirm_external_to_internal')
+
+        self.assertEqual(response_json['external']['url'], url)
+        self.assertEqual(response_json['internal']['id'], self.internal_page.pk)
 
 
 class TestChooserAnchorLink(TestCase, WagtailTestUtils):
@@ -782,3 +862,98 @@ class TestCanChoosePage(TestCase, WagtailTestUtils):
         root = Page.objects.get(url_path='/')
         result = can_choose_page(root, self.permission_proxy, self.desired_classes, can_choose_root=False)
         self.assertFalse(result)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestPageChooserLocaleSelector(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    LOCALE_SELECTOR_HTML = '<a href="javascript:void(0)" aria-label="English" class="c-dropdown__button  u-btn-current">'
+    LOCALE_INDICATOR_HTML = '<use href="#icon-site"></use></svg>\n    English'
+
+    def setUp(self):
+        self.root_page = Page.objects.get(id=2)
+
+        # Add child page
+        self.child_page = SimplePage(title="foobarbaz", content="hello")
+        self.root_page.add_child(instance=self.child_page)
+
+        self.fr_locale = Locale.objects.create(language_code='fr')
+        self.root_page_fr = self.root_page.copy_for_translation(self.fr_locale)
+        self.root_page_fr.title = "Bienvenue"
+        self.root_page_fr.save()
+        self.child_page_fr = self.child_page.copy_for_translation(self.fr_locale)
+        self.child_page_fr.save()
+
+        switch_to_french_url = self.get_choose_page_url(self.fr_locale, parent_page_id=self.child_page_fr.pk)
+        self.LOCALE_SELECTOR_HTML_FR = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+
+        self.login()
+
+    def get(self, parent_page_id):
+        return self.client.get(reverse('wagtailadmin_choose_page_child', args=[parent_page_id]))
+
+    def get_choose_page_url(self, locale=None, parent_page_id=None, html=True):
+        if parent_page_id is not None:
+            url = reverse('wagtailadmin_choose_page_child', args=[parent_page_id])
+        else:
+            url = reverse('wagtailadmin_choose_page')
+
+        suffix = ''
+        if parent_page_id is None:
+            # the locale param should only be appended at the root level
+            if locale is None:
+                locale = self.fr_locale
+            separator = '&amp;' if html else '&'
+            suffix = f'{separator}locale={locale.language_code}'
+        return f"{url}?page_type=wagtailcore.page{suffix}"
+
+    def test_locale_selector_present_in_root_view(self):
+        response = self.client.get(reverse('wagtailadmin_choose_page'))
+        html = response.json().get("html")
+
+        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+
+        switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale)
+        fr_selector = f'<a href="{switch_to_french_url}" aria-label="French" class="u-link is-live">'
+        self.assertIn(fr_selector, html)
+
+    def test_locale_selector(self):
+        response = self.get(self.child_page.pk)
+
+        html = response.json().get("html")
+        self.assertIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertIn(self.LOCALE_SELECTOR_HTML_FR, html)
+
+    def test_locale_selector_without_translation(self):
+        self.child_page_fr.delete()
+
+        response = self.get(self.child_page.pk)
+        html = response.json().get("html")
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)
+
+    def test_locale_selector_with_active_locale(self):
+        switch_to_french_url = self.get_choose_page_url(locale=self.fr_locale, html=False)
+        response = self.client.get(switch_to_french_url)
+        html = response.json().get("html")
+
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(f'data-title="{self.root_page.title}"', html)
+        self.assertIn(self.root_page_fr.title, html)
+        self.assertIn(
+            '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">',
+            html
+        )
+        switch_to_english_url = self.get_choose_page_url(locale=Locale.objects.get(language_code='en'))
+        self.assertIn(
+            f'<a href="{switch_to_english_url}" aria-label="English" class="u-link is-live">',
+            html
+        )
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.get(self.child_page.pk)
+        html = response.json().get("html")
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML, html)
+        self.assertNotIn(self.LOCALE_SELECTOR_HTML_FR, html)

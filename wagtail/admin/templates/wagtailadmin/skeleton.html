@@ -18,7 +18,9 @@
 
     {% block branding_favicon %}{% endblock %}
 </head>
-<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if messages %}has-messages{% endif %} focus-outline-on">
+{% slim_sidebar_enabled as slim_sidebar_enabled %}
+{% sidebar_collapsed as sidebar_collapsed %}
+<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if slim_sidebar_enabled and sidebar_collapsed %}sidebar-collapsed{% endif %} {% if messages %}has-messages{% endif %} focus-outline-on">
     <div data-sprite></div>
     <script>
         function loadIconSprite() {
@@ -78,6 +80,14 @@
             Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">instructions how to enable JavaScript in your web browser</a>.
         {% endblocktrans %}
     </noscript>
+
+    {% block ie11warning %}
+        <div data-ie11-warning hidden>
+            <div class="capabilitymessage">
+                {% blocktrans with url="https://docs.wagtail.org/en/stable/editor_manual/browser_issues.html#ie11" %}Wagtail has removed support for IE11. <a href="{{ url }}">Learn more about IE11 alternatives</a>.{% endblocktrans %}
+            </div>
+        </div>
+    {% endblock %}
 
     {% block js %}{% endblock %}
 

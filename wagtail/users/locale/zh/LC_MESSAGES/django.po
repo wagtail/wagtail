@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -54,6 +54,12 @@ msgstr "输入和上面一样的密码用于验证"
 msgid "Administrator"
 msgstr "管理员"
 
+msgid "Delete"
+msgstr "删除"
+
+msgid "Yes, delete"
+msgstr "是的，删除"
+
 msgid "Editing"
 msgstr "编辑"
 
@@ -62,6 +68,9 @@ msgstr "保存"
 
 msgid "Name"
 msgstr "名字"
+
+msgid "Add"
+msgstr "添加"
 
 msgid "Add user"
 msgstr "添加用户"
@@ -99,8 +108,14 @@ msgstr "无效"
 msgid "User '{0}' created."
 msgstr "用户 '{0}' 已创建"
 
+msgid "Edit"
+msgstr "编辑"
+
 msgid "The user could not be created due to errors."
 msgstr "无法创建用户，页面有错。"
+
+msgid "User '{0}' updated."
+msgstr "用户 '{0}' 已更新"
 
 msgid "The user could not be saved due to errors."
 msgstr "用户无法保存，页面有错。"

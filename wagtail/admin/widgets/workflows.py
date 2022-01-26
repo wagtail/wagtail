@@ -2,6 +2,7 @@ import json
 
 from django import forms
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
@@ -15,7 +16,7 @@ class AdminTaskChooser(AdminChooser):
     link_to_chosen_text = _('Edit this task')
 
     def render_html(self, name, value, attrs):
-        instance, value = self.get_instance_and_id(Task, value)
+        task, value = self.get_instance_and_id(Task, value)
         original_field_html = super().render_html(name, value, attrs)
 
         return render_to_string("wagtailadmin/workflows/widgets/task_chooser.html", {
@@ -23,7 +24,8 @@ class AdminTaskChooser(AdminChooser):
             'original_field_html': original_field_html,
             'attrs': attrs,
             'value': value,
-            'task': instance,
+            'display_title': task.name if task else '',
+            'edit_url': reverse('wagtailadmin_workflows:edit_task', args=[task.id]) if task else '',
         })
 
     def render_js_init(self, id_, name, value):

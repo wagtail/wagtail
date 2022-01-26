@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-28 19:08+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -73,15 +73,6 @@ msgstr "Ja existeix un grup amb aquest nom."
 msgid "You cannot have multiple permission records for the same page."
 msgstr "No podeu tenir diversos registres de permisos per la mateixa pàgina."
 
-msgid "Preferred language"
-msgstr "Llengua preferida"
-
-msgid "Current time zone"
-msgstr "Zona horària actual"
-
-msgid "Upload a profile picture"
-msgstr "Carregar una imatge de perfil"
-
 msgid "submitted notifications"
 msgstr "notificacions enviades"
 
@@ -121,6 +112,15 @@ msgstr "perfil d'usuari"
 msgid "user profiles"
 msgstr "imatges de perfil"
 
+msgid "Delete"
+msgstr "Eliminar"
+
+msgid "Yes, delete"
+msgstr "Sí, suprimir"
+
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
 msgid "Delete group"
 msgstr "Eliminar grup"
 
@@ -156,9 +156,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Segur que voleu eliminar aquest grup?"
 
-msgid "Yes, delete"
-msgstr "Sí, suprimir"
-
 msgid "Add group"
 msgstr "Afegir grup"
 
@@ -185,9 +182,6 @@ msgstr "Afegir"
 
 msgid "Change"
 msgstr "Canviar"
-
-msgid "Delete"
-msgstr "Eliminar"
 
 msgid "Other permissions"
 msgstr "Altres permisos"

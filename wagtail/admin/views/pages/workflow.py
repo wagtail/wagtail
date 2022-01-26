@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_GET
 from django.views.generic import View
@@ -24,7 +24,7 @@ class BaseWorkflowFormView(View):
         self.action_name = action_name
 
         self.redirect_to = request.POST.get('next', None)
-        if not self.redirect_to or not is_safe_url(url=self.redirect_to, allowed_hosts={request.get_host()}):
+        if not self.redirect_to or not url_has_allowed_host_and_scheme(url=self.redirect_to, allowed_hosts={request.get_host()}):
             self.redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
 
         if not self.page.workflow_in_progress:
@@ -88,13 +88,13 @@ class WorkflowAction(BaseWorkflowFormView):
             form = self.form_class(request.POST)
             if form.is_valid():
                 redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
-            elif self.action_modal and request.is_ajax():
+            elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 # show form errors
                 return self.render_modal_form(request, form)
         else:
             redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
 
-        if request.is_ajax():
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
         return redirect(redirect_to)
 
@@ -113,7 +113,7 @@ class CollectWorkflowActionData(BaseWorkflowFormView):
         form = self.form_class(request.POST)
         if form.is_valid():
             return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'cleaned_data': form.cleaned_data})
-        elif self.action_modal and request.is_ajax():
+        elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
             # show form errors
             return self.render_modal_form(request, form)
 
@@ -143,12 +143,12 @@ def confirm_workflow_cancellation(request, page_id):
 @user_passes_test(user_has_any_page_permission)
 def workflow_status(request, page_id):
     page = get_object_or_404(Page, id=page_id)
-
-    if not page.current_workflow_state:
+    current_workflow_state = page.current_workflow_state
+    if not current_workflow_state:
         raise PermissionDenied
 
     workflow_tasks = []
-    workflow_state = page.current_workflow_state
+    workflow_state = current_workflow_state
     if not workflow_state:
         # Show last workflow state
         workflow_state = page.workflow_states.order_by('created_at').last()

@@ -84,8 +84,6 @@ This signal is emitted from a ``Page`` when the page is unpublished.
 ``pre_page_move`` and ``post_page_move``
 ------------------------------------------
 
-.. versionadded:: 2.10
-
 These signals are emitted from a ``Page`` immediately before and after it is moved.
 
 Subscribe to ``pre_page_move`` if you need to know values BEFORE any database changes are applied. For example: Getting the page's previous URL, or that of its descendants.
@@ -129,6 +127,16 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the ``u
     # Register a receiver
     pre_page_move.connect(clear_old_page_urls_from_cache)
 
+``page_slug_changed``
+---------------------
+
+This signal is emitted from a ``Page`` when a change to its slug is published.
+
+The following arguments are emitted by this signal:
+
+:sender: The page ``class``.
+:instance: The updated (and saved), specific ``Page`` instance.
+:instance_before: A copy of the specific ``Page`` instance from **before** the changes were saved.
 
 workflow_submitted
 ------------------

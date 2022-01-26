@@ -9,29 +9,38 @@ from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.db.models import Min, QuerySet
+from django.forms import Media
+from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
 from django.template.loader import render_to_string
 from django.templatetags.static import static
+from django.urls import reverse
+from django.urls.exceptions import NoReverseMatch
 from django.utils import timezone
 from django.utils.encoding import force_str
-from django.utils.html import avoid_wrapping, format_html, format_html_join
+from django.utils.html import avoid_wrapping, format_html, format_html_join, json_script
+from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.localization import get_js_translation_strings
-from wagtail.admin.log_action_registry import registry as log_action_registry
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
+from wagtail.admin.ui import sidebar
+from wagtail.admin.views.bulk_action.registry import bulk_action_registry
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
+from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Locale, Page, PageLogEntry, PageViewRestriction,
+    Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
     UserPagePermissionsProxy)
+from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import escape_script
+from wagtail.core.utils import escape_script, get_content_type_label, get_locales_display_names
 from wagtail.users.utils import get_gravatar_url
 
 
@@ -65,7 +74,7 @@ def main_nav(context):
 
 
 @register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
-def explorer_breadcrumb(context, page, include_self=False):
+def explorer_breadcrumb(context, page, page_perms=None, include_self=True, trailing_arrow=False, show_header_buttons=False):
     user = context['request'].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
@@ -75,7 +84,24 @@ def explorer_breadcrumb(context, page, include_self=False):
         return {'pages': Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific()
+        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific(),
+        'current_page': page,
+        'page_perms': page_perms,
+        'trailing_arrow': trailing_arrow,
+        'show_header_buttons': show_header_buttons,
+    }
+
+
+@register.inclusion_tag('wagtailadmin/shared/move_breadcrumb.html', takes_context=True)
+def move_breadcrumb(context, page_to_move, viewed_page):
+    user = context['request'].user
+    cca = get_explorable_root_page(user)
+    if not cca:
+        return {'pages': Page.objects.none()}
+
+    return {
+        'pages': viewed_page.get_ancestors(inclusive=True).descendant_of(cca, inclusive=True).specific(),
+        'page_to_move_id': page_to_move.id,
     }
 
 
@@ -91,7 +117,36 @@ def search_other(context, current=None):
 
 @register.simple_tag
 def main_nav_js():
-    return admin_menu.media['js']
+    if slim_sidebar_enabled():
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/telepath/telepath.js'),
+                versioned_static('wagtailadmin/js/sidebar.js'),
+            ]
+        )
+
+    else:
+        return Media(
+            js=[
+                versioned_static('wagtailadmin/js/sidebar-legacy.js')
+            ]
+        ) + admin_menu.media['js']
+
+
+@register.simple_tag
+def main_nav_css():
+    if slim_sidebar_enabled():
+        return Media(
+            css={
+                'all': [
+                    versioned_static('wagtailadmin/css/sidebar.css')
+                ]
+            }
+        )
+
+    else:
+        # Legacy sidebar CSS in core.css
+        return admin_menu.media['css']
 
 
 @register.filter("ellipsistrim")
@@ -170,17 +225,17 @@ def test_page_is_public(context, page):
     Usage: {% test_page_is_public page as is_public %}
     Sets 'is_public' to True iff there are no page view restrictions in place on
     this page.
-    Caches the list of page view restrictions in the context, to avoid repeated
+    Caches the list of page view restrictions on the request, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_page_view_restriction_paths' not in context:
-        context['all_page_view_restriction_paths'] = PageViewRestriction.objects.select_related('page').values_list(
+    if not hasattr(context["request"], "all_page_view_restriction_paths"):
+        context['request'].all_page_view_restriction_paths = PageViewRestriction.objects.select_related('page').values_list(
             'page__path', flat=True
         )
 
     is_private = any([
         page.path.startswith(restricted_path)
-        for restricted_path in context['all_page_view_restriction_paths']
+        for restricted_path in context["request"].all_page_view_restriction_paths
     ])
 
     return not is_private
@@ -450,6 +505,73 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {'page': page, 'buttons': buttons}
 
 
+@register.inclusion_tag("wagtailadmin/pages/listing/_button_with_dropdown.html",
+                        takes_context=True)
+def page_header_buttons(context, page, page_perms):
+    next_url = context.request.path
+    button_hooks = hooks.get_hooks('register_page_header_buttons')
+
+    buttons = []
+    for hook in button_hooks:
+        buttons.extend(hook(page, page_perms, next_url))
+
+    buttons.sort()
+    return {
+        'page': page,
+        'buttons': buttons,
+        'title': 'Secondary actions menu',
+        'button_classes': ['c-dropdown__icon'],
+    }
+
+
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
+                        takes_context=True)
+def bulk_action_choices(context, app_label, model_name):
+
+    bulk_actions_list = list(bulk_action_registry.get_bulk_actions_for_model(app_label, model_name))
+    bulk_actions_list.sort(key=lambda x: x.action_priority)
+
+    bulk_action_more_list = []
+    if len(bulk_actions_list) > 4:
+        bulk_action_more_list = bulk_actions_list[4:]
+        bulk_actions_list = bulk_actions_list[:4]
+
+    next_url = get_valid_next_url_from_request(context['request'])
+    if not next_url:
+        next_url = context['request'].path
+
+    bulk_action_buttons = [
+        PageListingButton(
+            action.display_name,
+            reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
+            attrs={'aria-label': action.aria_label},
+            priority=action.action_priority,
+            classes=action.classes | {'bulk-action-btn'},
+        ) for action in bulk_actions_list
+    ]
+
+    if bulk_action_more_list:
+        more_button = ButtonWithDropdown(
+            label=_("More"),
+            attrs={
+                'title': _("View more bulk actions")
+            },
+            classes={'bulk-actions-more', 'dropup'},
+            button_classes={'button', 'button-small'},
+            buttons_data=[{
+                'label': action.display_name,
+                'url': reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
+                'attrs': {'aria-label': action.aria_label},
+                'priority': action.action_priority,
+                'classes': {'bulk-action-btn'},
+            } for action in bulk_action_more_list]
+        )
+        more_button.is_parent = True
+        bulk_action_buttons.append(more_button)
+
+    return {'buttons': bulk_action_buttons}
+
+
 @register.simple_tag
 def message_tags(message):
     level_tag = MESSAGE_TAGS.get(message.level)
@@ -474,14 +596,14 @@ def admin_urlquote(value):
 
 
 @register.simple_tag
-def avatar_url(user, size=50):
+def avatar_url(user, size=50, gravatar_only=False):
     """
     A template tag that receives a user and size and return
-    the appropiate avatar url for that user.
+    the appropriate avatar url for that user.
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+    if not gravatar_only and hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
         return user.wagtail_userprofile.avatar.url
 
     if hasattr(user, 'email'):
@@ -560,7 +682,7 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
     """
     Returns:
          - the time of update if last_update is today, if any prefix is supplied, the output will use it
-         - time since last update othewise. Defaults to the simplified timesince,
+         - time since last update otherwise. Defaults to the simplified timesince,
            but can return the full string if needed
     """
     if last_update.date() == datetime.today().date():
@@ -576,13 +698,6 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
         if use_shorthand:
             return timesince_simple(last_update)
         return _("%(time_period)s ago") % {'time_period': timesince(last_update)}
-
-
-@register.filter
-def format_action_log_message(log_entry):
-    if not isinstance(log_entry, PageLogEntry):
-        return ''
-    return log_action_registry.format_message(log_entry)
 
 
 @register.simple_tag
@@ -630,6 +745,11 @@ def user_display_name(user):
         return ''
 
 
+@register.filter
+def format_content_type(content_type):
+    return get_content_type_label(content_type)
+
+
 @register.simple_tag
 def i18n_enabled():
     return getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
@@ -644,3 +764,87 @@ def locales():
         }
         for locale in Locale.objects.all()
     ])
+
+
+@register.simple_tag
+def locale_label_from_id(locale_id):
+    """
+    Returns the Locale display name given its id.
+    """
+    return get_locales_display_names().get(locale_id)
+
+
+@register.simple_tag()
+def slim_sidebar_enabled():
+    return getattr(settings, 'WAGTAIL_SLIM_SIDEBAR', True)
+
+
+@register.simple_tag(takes_context=True)
+def sidebar_collapsed(context):
+    request = context.get('request')
+    collapsed = request.COOKIES.get('wagtail_sidebar_collapsed', '0')
+    if collapsed == '0':
+        return False
+    return True
+
+
+@register.simple_tag(takes_context=True)
+def sidebar_props(context):
+    request = context['request']
+    search_areas = admin_search_areas.search_items_for_request(request)
+    if search_areas:
+        search_area = search_areas[0]
+    else:
+        search_area = None
+
+    account_menu = [
+        sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
+        sidebar.LinkMenuItem('logout', _("Log out"), reverse('wagtailadmin_logout'), icon_name='logout'),
+    ]
+
+    modules = [
+        sidebar.WagtailBrandingModule(),
+        sidebar.SearchModule(search_area) if search_area else None,
+        sidebar.MainMenuModule(admin_menu.render_component(request), account_menu, request.user),
+    ]
+    modules = [module for module in modules if module is not None]
+
+    return json_script({
+        'modules': JSContext().pack(modules),
+    }, element_id="wagtail-sidebar-props")
+
+
+@register.simple_tag
+def get_comments_enabled():
+    return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)
+
+
+@register.simple_tag
+def resolve_url(url):
+    # Used by wagtailadmin/shared/pagination_nav.html - given an input that may be a URL route
+    # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
+    # an empty / None value), return empty string
+    if not url:
+        return ''
+
+    try:
+        return resolve_url_func(url)
+    except NoReverseMatch:
+        return ''
+
+
+@register.simple_tag(takes_context=True)
+def component(context, obj, fallback_render_method=False):
+    # Render a component by calling its render_html method, passing request and context from the
+    # calling template.
+    # If fallback_render_method is true, objects without a render_html method will have render()
+    # called instead (with no arguments) - this is to provide deprecation path for things that have
+    # been newly upgraded to use the component pattern.
+
+    has_render_html_method = hasattr(obj, 'render_html')
+    if fallback_render_method and not has_render_html_method and hasattr(obj, 'render'):
+        return obj.render()
+    elif not has_render_html_method:
+        raise ValueError("Cannot render %r as a component" % (obj,))
+
+    return obj.render_html(context)

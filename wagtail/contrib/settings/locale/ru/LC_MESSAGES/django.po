@@ -4,6 +4,7 @@
 #
 # Translators:
 # Alexey Trofimov <funkindy@gmail.com>, 2020
+# Anatoly <pandorinpan@gmail.com>, 2021
 # Eugene <eugene.mechanism@gmail.com>, 2016
 # Eugene <eugene.mechanism@gmail.com>, 2016
 # Matt Westcott <matthew@torchbox.com>, 2016
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-08-13 04:58+0000\n"
-"Last-Translator: Alexey Trofimov <funkindy@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-01 14:08+0000\n"
+"Last-Translator: Anatoly <pandorinpan@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"

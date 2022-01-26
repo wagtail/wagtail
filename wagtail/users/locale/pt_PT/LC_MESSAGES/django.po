@@ -5,7 +5,8 @@
 # Translators:
 # Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Luís Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -14,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 17:17+0000\n"
-"Last-Translator: Luís Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -77,15 +78,6 @@ msgid "You cannot have multiple permission records for the same page."
 msgstr ""
 "Não é permitido ter múltiplos registos de permissão para a mesma página. "
 
-msgid "Preferred language"
-msgstr "Idioma preferido"
-
-msgid "Current time zone"
-msgstr "Fuso horário atual"
-
-msgid "Upload a profile picture"
-msgstr "Carregue uma foto de perfil"
-
 msgid "submitted notifications"
 msgstr "notificações enviadas"
 
@@ -103,6 +95,17 @@ msgstr "notificações rejeitadas"
 
 msgid "Receive notification when your page edit is rejected"
 msgstr "Receber notificação quando a sua alteração de página for rejeitada"
+
+msgid "updated comments notifications"
+msgstr "atualizadas as notificações de comentários"
+
+msgid ""
+"Receive notification when comments have been created, resolved, or deleted "
+"on a page that you have subscribed to receive comment notifications on"
+msgstr ""
+"Receba notificações quando comentários são criados, resolvidos, ou apagados "
+"de uma página na qual se encontra sobrescrito(a) para receber notificações "
+"de comentários"
 
 msgid "preferred language"
 msgstr "linguagem preferida"
@@ -124,6 +127,15 @@ msgstr "perfil do utilizador"
 
 msgid "user profiles"
 msgstr "perfis de utilizador"
+
+msgid "Delete"
+msgstr "Apagar"
+
+msgid "Yes, delete"
+msgstr "Sim, apagar"
+
+msgid "No, don't delete"
+msgstr "Não, não eliminar"
 
 msgid "Delete group"
 msgstr "Apagar grupo"
@@ -160,9 +172,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Tem a certeza que quer apagar este grupo?"
 
-msgid "Yes, delete"
-msgstr "Sim, apagar"
-
 msgid "Add group"
 msgstr "Adicionar grupo"
 
@@ -189,9 +198,6 @@ msgstr "Adicionar"
 
 msgid "Change"
 msgstr "Alterar"
-
-msgid "Delete"
-msgstr "Apagar"
 
 msgid "Other permissions"
 msgstr "Outras permissões"

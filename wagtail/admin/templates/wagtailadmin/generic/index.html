@@ -1,14 +1,33 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
-{% block titletag %}{{ view.page_title }}{% endblock %}
+{% load i18n wagtailadmin_tags %}
+
+{% block titletag %}{{ page_title }} {{ page_subtitle }}{% endblock %}
+
 {% block content %}
     {% if can_add %}
         {% url view.add_url_name as add_link %}
-        {% include "wagtailadmin/shared/header.html" with title=view.page_title action_url=add_link action_text=view.add_item_label icon=view.header_icon %}
+        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle action_url=add_link action_text=view.add_item_label icon=header_icon only %}
     {% else %}
-        {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon %}
+        {% include "wagtailadmin/shared/header.html" with title=page_title subtitle=page_subtitle icon=header_icon only %}
     {% endif %}
 
     {% block listing %}
+        <div class="nice-padding">
+            {% component table %}
+
+            {% if is_paginated %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj linkurl=index_url %}
+            {% endif %}
+        </div>
     {% endblock %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {{ media.js }}
+{% endblock %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {{ media.css }}
 {% endblock %}

@@ -1,8 +1,10 @@
+import datetime
 import json
 
 from django.contrib.admin.utils import quote
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.core.exceptions import ValidationError
 from django.core.files.base import ContentFile
@@ -12,18 +14,22 @@ from django.http import HttpRequest, HttpResponse
 from django.test import RequestFactory, TestCase
 from django.test.utils import override_settings
 from django.urls import reverse
+from django.utils.timezone import make_aware
 from taggit.models import Tag
 
+from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
-from wagtail.core.models import Locale, Page
+from wagtail.core.blocks.field_block import FieldBlockAdapter
+from wagtail.core.models import Locale, ModelLogEntry, Page
 from wagtail.snippets.action_menu import ActionMenuItem, get_base_snippet_action_menu_items
 from wagtail.snippets.blocks import SnippetChooserBlock
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
-from wagtail.snippets.widgets import SnippetListingButton
+from wagtail.snippets.widgets import (
+    AdminSnippetChooser, SnippetChooserAdapter, SnippetListingButton)
 from wagtail.tests.snippets.forms import FancySnippetForm
 from wagtail.tests.snippets.models import (
     AlphaSnippet, FancySnippet, FileUploadSnippet, RegisterDecorator, RegisterFunction,
@@ -287,9 +293,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
-        self.assertNotContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
-        self.assertNotContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
+        self.assertNotContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
+        self.assertNotContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(reverse('wagtailsnippets:add',
@@ -297,9 +303,9 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/create.html')
-        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
-        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
+        self.assertContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
+        self.assertContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
     def test_create_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -414,7 +420,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):
@@ -429,6 +435,18 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
 
+    def test_register_snippet_action_menu_item_as_none(self):
+        def hook_func(model):
+            return None
+
+        with self.register_hook('register_snippet_action_menu_item', hook_func):
+            get_base_snippet_action_menu_items.cache_clear()
+
+            response = self.get()
+
+        get_base_snippet_action_menu_items.cache_clear()
+        self.assertEqual(response.status_code, 200)
+
     def test_construct_snippet_action_menu(self):
         class TestSnippetActionMenuItem(ActionMenuItem):
             label = "Test"
@@ -436,7 +454,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(menu_items, request, context):
@@ -454,7 +472,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
             response = self.get()
 
         self.assertContains(response, '<button type="submit" name="test" value="Test" class="button action-secondary"><svg class="icon icon-undo icon" aria-hidden="true" focusable="false"><use href="#icon-undo"></use></svg>Test</button>', html=True)
-        self.assertNotContains(response, 'Save')
+        self.assertNotContains(response, "<em>'Save'</em>")
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -513,6 +531,13 @@ class TestSnippetEditView(BaseTestSnippetEditView):
     def setUp(self):
         super().setUp()
         self.test_snippet = Advert.objects.get(pk=1)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
 
     def test_get_with_limited_permissions(self):
         self.user.is_superuser = False
@@ -528,9 +553,18 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertNotContains(response, '<ul class="tab-nav merged" role="tablist">')
-        self.assertNotContains(response, '<a href="#advert" class="active">Advert</a>', html=True)
-        self.assertNotContains(response, '<a href="#other" class="">Other</a>', html=True)
+        self.assertNotContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
+        self.assertNotContains(response, '<a href="#advert" class="active" data-tab="advert">Advert</a>', html=True)
+        self.assertNotContains(response, '<a href="#other" class="" data-tab="other">Other</a>', html=True)
+
+        # "Last updated" timestamp should be present
+        self.assertContains(response, 'data-wagtail-tooltip="Sept. 30, 2021, 10:01 a.m."')
+        # History link should be present
+        self.assertContains(response, 'href="/admin/snippets/tests/advert/history/%d/"' % self.test_snippet.pk)
+
+        url_finder = AdminURLFinder(self.user)
+        expected_url = '/admin/snippets/tests/advert/edit/%d/' % self.test_snippet.pk
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), expected_url)
 
     def test_non_existant_model(self):
         response = self.client.get(reverse('wagtailsnippets:edit', args=('tests', 'foo', quote(self.test_snippet.pk))))
@@ -550,6 +584,9 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.post(post_data={'text': 'test text',
                                         'url': 'http://www.example.com/'})
         self.assertEqual(response.status_code, 302)
+
+        url_finder = AdminURLFinder(self.user)
+        self.assertEqual(url_finder.get_edit_url(self.test_snippet), None)
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -641,7 +678,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
             icon_name = "undo"
             classname = 'action-secondary'
 
-            def is_shown(self, request, context):
+            def is_shown(self, context):
                 return True
 
         def hook_func(model):
@@ -670,7 +707,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         with self.register_hook('construct_snippet_action_menu', hook_func):
             response = self.get()
 
-        self.assertNotContains(response, 'Save')
+        self.assertNotContains(response, '<em>Save</em>')
 
 
 class TestEditTabbedSnippet(BaseTestSnippetEditView):
@@ -687,9 +724,9 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailsnippets/snippets/edit.html')
-        self.assertContains(response, '<ul class="tab-nav merged" role="tablist">')
-        self.assertContains(response, '<a href="#tab-advert" class="active">Advert</a>', html=True)
-        self.assertContains(response, '<a href="#tab-other" class="">Other</a>', html=True)
+        self.assertContains(response, '<ul data-tab-nav role="tablist" data-current-tab="advert">')
+        self.assertContains(response, '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>', html=True)
+        self.assertContains(response, '<a href="#tab-other" class="" data-tab="other">Other</a>', html=True)
 
 
 class TestEditFileUploadSnippet(BaseTestSnippetEditView):
@@ -981,7 +1018,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
-        self.assertIn('createSnippetChooser("id_advert", "tests/advert");',
+        self.assertIn('createSnippetChooser("id_advert");',
                       self.snippet_chooser_panel.render_as_field())
 
     def test_target_model_autodetected(self):
@@ -1032,20 +1069,50 @@ class TestUsedBy(TestCase):
         self.assertEqual(type(advert.get_usage()[0]), Page)
 
 
+class TestSnippetHistory(TestCase, WagtailTestUtils):
+    fixtures = ['test.json']
+
+    def get(self, params={}):
+        snippet = self.test_snippet
+        args = (snippet._meta.app_label, snippet._meta.model_name, quote(snippet.pk))
+        return self.client.get(reverse('wagtailsnippets:history', args=args), params)
+
+    def setUp(self):
+        self.user = self.login()
+        self.test_snippet = Advert.objects.get(pk=1)
+        ModelLogEntry.objects.create(
+            content_type=ContentType.objects.get_for_model(Advert),
+            label="Test Advert",
+            action='wagtail.create',
+            timestamp=make_aware(datetime.datetime(2021, 9, 30, 10, 1, 0)),
+            object_id='1',
+        )
+
+    def test_simple(self):
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '<td>Created</td>', html=True)
+        self.assertContains(response, '<div class="human-readable-date" title="Sept. 30, 2021, 10:01 a.m.">')
+
+
 class TestSnippetChoose(TestCase, WagtailTestUtils):
     fixtures = ['test.json']
 
     def setUp(self):
         self.login()
+        self.url_args = ['tests', 'advert']
 
     def get(self, params=None):
         return self.client.get(reverse('wagtailsnippets:choose',
-                                       args=('tests', 'advert')),
+                                       args=self.url_args),
                                params or {})
 
     def test_simple(self):
         response = self.get()
         self.assertTemplateUsed(response, 'wagtailsnippets/chooser/choose.html')
+
+        # Check locale filter doesn't exist normally
+        self.assertNotIn('<select id="snippet-chooser-locale" name="lang">', response.json()['html'])
 
     def test_ordering(self):
         """
@@ -1068,6 +1135,30 @@ class TestSnippetChoose(TestCase, WagtailTestUtils):
 
     def test_not_searchable(self):
         self.assertFalse(self.get().context['is_searchable'])
+
+    @override_settings(WAGTAIL_I18N_ENABLED=True)
+    def test_filter_by_locale(self):
+        self.url_args = ['snippetstests', 'translatablesnippet']
+        fr_locale = Locale.objects.create(language_code="fr")
+
+        TranslatableSnippet.objects.create(text="English snippet")
+        TranslatableSnippet.objects.create(text="French snippet", locale=fr_locale)
+
+        response = self.get()
+
+        # Check the filter is added
+        self.assertIn('<select id="snippet-chooser-locale" name="locale_filter">', response.json()['html'])
+
+        # Check both snippets are shown
+        self.assertEqual(len(response.context['items']), 2)
+        self.assertEqual(response.context['items'][0].text, "English snippet")
+        self.assertEqual(response.context['items'][1].text, "French snippet")
+
+        # Now test with a locale selected
+        response = self.get({'locale': 'en'})
+
+        self.assertEqual(len(response.context['items']), 1)
+        self.assertEqual(response.context['items'][0].text, "English snippet")
 
 
 class TestSnippetChooseWithSearchableSnippet(TestCase, WagtailTestUtils):
@@ -1344,18 +1435,24 @@ class TestSnippetChooserBlock(TestCase):
         test_advert = Advert.objects.get(text='test_advert')
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
-    def test_form_render(self):
+    def test_adapt(self):
         block = SnippetChooserBlock(Advert, help_text="pick an advert, any advert")
 
-        empty_form_html = block.render_form(None, 'advert')
-        self.assertInHTML('<input id="advert" name="advert" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createSnippetChooser("advert", "tests/advert");', empty_form_html)
+        block.set_name('test_snippetchooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        test_advert = Advert.objects.get(text='test_advert')
-        test_advert_form_html = block.render_form(test_advert, 'advert')
-        expected_html = '<input id="advert" name="advert" placeholder="" type="hidden" value="%d" />' % test_advert.id
-        self.assertInHTML(expected_html, test_advert_form_html)
-        self.assertIn("pick an advert, any advert", test_advert_form_html)
+        self.assertEqual(js_args[0], 'test_snippetchooserblock')
+        self.assertIsInstance(js_args[1], AdminSnippetChooser)
+        self.assertEqual(js_args[1].target_model, Advert)
+        self.assertEqual(js_args[2], {
+            'label': 'Test snippetchooserblock',
+            'required': True,
+            'icon': 'snippet',
+            'helpText': 'pick an advert, any advert',
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
+        })
 
     def test_form_response(self):
         block = SnippetChooserBlock(Advert)
@@ -1378,6 +1475,18 @@ class TestSnippetChooserBlock(TestCase):
 
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
         self.assertEqual(nonrequired_block.clean(None), None)
+
+
+class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
+    def test_adapt(self):
+        widget = AdminSnippetChooser(Advert)
+
+        js_args = SnippetChooserAdapter().js_args(widget)
+
+        self.assertEqual(len(js_args), 2)
+        self.assertInHTML('<input type="hidden" name="__NAME__" id="__ID__">', js_args[0])
+        self.assertIn('>Choose advert<', js_args[0])
+        self.assertEqual(js_args[1], '__ID__')
 
 
 class TestSnippetListViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
@@ -1467,6 +1576,19 @@ class TestSnippetViewWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertContains(response, 'Used 0 times')
         self.assertContains(response, self.snippet_a.usage_url())
 
+    def test_redirect_to_edit(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/edit/snippet_2F01/', status_code=301)
+
+    def test_redirect_to_delete(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/delete/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/delete/snippet_2F01/', status_code=301)
+
+    @override_settings(WAGTAIL_USAGE_COUNT_ENABLED=True)
+    def test_redirect_to_usage(self):
+        response = self.client.get('/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/snippet_2F01/usage/')
+        self.assertRedirects(response, '/admin/snippets/snippetstests/standardsnippetwithcustomprimarykey/usage/snippet_2F01/', status_code=301)
+
 
 class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
     fixtures = ['test.json']
@@ -1491,18 +1613,24 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         # None should deserialize to None
         self.assertEqual(block.to_python(None), None)
 
-    def test_form_render(self):
+    def test_adapt(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert")
 
-        empty_form_html = block.render_form(None, 'advertwithcustomprimarykey')
-        self.assertInHTML('<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" />', empty_form_html)
-        self.assertIn('createSnippetChooser("advertwithcustomprimarykey", "tests/advertwithcustomprimarykey");', empty_form_html)
+        block.set_name('test_snippetchooserblock')
+        js_args = FieldBlockAdapter().js_args(block)
 
-        test_advert = AdvertWithCustomPrimaryKey.objects.get(pk='advert/01')
-        test_advert_form_html = block.render_form(test_advert, 'advertwithcustomprimarykey')
-        expected_html = '<input id="advertwithcustomprimarykey" name="advertwithcustomprimarykey" placeholder="" type="hidden" value="%s" />' % test_advert.pk
-        self.assertInHTML(expected_html, test_advert_form_html)
-        self.assertIn("pick an advert, any advert", test_advert_form_html)
+        self.assertEqual(js_args[0], 'test_snippetchooserblock')
+        self.assertIsInstance(js_args[1], AdminSnippetChooser)
+        self.assertEqual(js_args[1].target_model, AdvertWithCustomPrimaryKey)
+        self.assertEqual(js_args[2], {
+            'label': 'Test snippetchooserblock',
+            'required': True,
+            'icon': 'snippet',
+            'helpText': 'pick an advert, any advert',
+            'classname': 'field model_choice_field widget-admin_snippet_chooser fieldname-test_snippetchooserblock',
+            'showAddCommentButton': True,
+            'strings': {'ADD_COMMENT': 'Add Comment'}
+        })
 
     def test_form_response(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
@@ -1579,7 +1707,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.assertIn("Choose another advert with custom primary key", field_html)
 
     def test_render_js(self):
-        self.assertIn('createSnippetChooser("id_advertwithcustomprimarykey", "tests/advertwithcustomprimarykey");',
+        self.assertIn('createSnippetChooser("id_advertwithcustomprimarykey");',
                       self.snippet_chooser_panel.render_as_field())
 
     def test_target_model_autodetected(self):

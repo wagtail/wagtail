@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/page-editor.css' %}" />
+    {{ media.css }}
 {% endblock %}
 
 {% block content %}
@@ -25,7 +26,7 @@
 
     {% if panels %}
         {% for panel in panels %}
-            {{ panel.render }}
+            {% component panel fallback_render_method=True %}
         {% endfor %}
     {% else %}
         <p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
@@ -33,25 +34,7 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-$(function() {
-    $('.object.collapsible').each(function() {
-        var $target = $(this);
-        var $content = $target.find('.object-layout');
-        if ($target.hasClass('collapsed') && $target.find('.error-message').length == 0) {
-            $content.hide();
-        }
-
-        $target.find('> .title-wrapper').on('click', function() {
-            if (!$target.hasClass('collapsed')) {
-                $target.addClass('collapsed');
-                $content.hide('slow');
-            } else {
-                $target.removeClass('collapsed');
-                $content.show('show');
-            }
-        });
-    });
-});
-</script>
+{{ block.super }}
+<script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
+{{ media.js }}
 {% endblock %}

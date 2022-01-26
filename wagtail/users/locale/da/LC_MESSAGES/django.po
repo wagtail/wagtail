@@ -1,0 +1,53 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Wagtail\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
+"da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Name"
+msgstr "Navn"
+
+msgid "Add"
+msgstr "Tilføj"
+
+msgid "Page"
+msgstr "Side"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Status"
+msgstr "Status"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Edit"
+msgstr "Rediger"

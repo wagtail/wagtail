@@ -1,45 +1,14 @@
 from datetime import timedelta
 
-from django import VERSION as DJANGO_VERSION
 from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.log_action_registry import LogActionRegistry
 from wagtail.core.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
 from wagtail.tests.testapp.models import SimplePage
 from wagtail.tests.utils import WagtailTestUtils
-
-
-def test_hook(actions):
-    return actions.register_action('test.custom_action', 'Custom action', 'Tested!')
-
-
-class TestAuditLogHooks(TestCase, WagtailTestUtils):
-    def setUp(self):
-        self.root_page = Page.objects.get(id=2)
-
-    def test_register_log_actions_hook(self):
-        # testapp/wagtail_hooks.py defines a 'blockquote' rich text feature with a hallo.js
-        # plugin, via the register_rich_text_features hook; test that we can retrieve it here
-        log_actions = LogActionRegistry()
-        actions = log_actions.get_actions()
-        self.assertIn('wagtail.create', actions)
-
-    def test_action_format_message(self):
-        log_entry = PageLogEntry.objects.log_action(self.root_page, action='test.custom_action')
-
-        log_actions = LogActionRegistry()
-        self.assertEqual(log_actions.format_message(log_entry), "Unknown test.custom_action")
-        self.assertNotIn('test.custom_action', log_actions.get_actions())
-
-        with self.register_hook('register_log_actions', test_hook):
-            log_actions = LogActionRegistry()
-            self.assertIn('test.custom_action', log_actions.get_actions())
-            self.assertEqual(log_actions.format_message(log_entry), "Tested!")
-            self.assertEqual(log_actions.get_action_label('test.custom_action'), 'Custom action')
 
 
 class TestAuditLogAdmin(TestCase, WagtailTestUtils):
@@ -115,30 +84,17 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         self.assertContains(response, "Page scheduled for publishing", 1)
         self.assertContains(response, "Published", 1)
 
-        if DJANGO_VERSION >= (3, 0):
-            self.assertContains(
-                response, "Added the &#x27;Private, accessible to logged-in users&#x27; view restriction"
-            )
-            self.assertContains(
-                response,
-                "Updated the view restriction to &#x27;Private, accessible with the following password&#x27;"
-            )
-            self.assertContains(
-                response,
-                "Removed the &#x27;Private, accessible with the following password&#x27; view restriction"
-            )
-        else:
-            self.assertContains(
-                response, "Added the &#39;Private, accessible to logged-in users&#39; view restriction"
-            )
-            self.assertContains(
-                response,
-                "Updated the view restriction to &#39;Private, accessible with the following password&#39;"
-            )
-            self.assertContains(
-                response,
-                "Removed the &#39;Private, accessible with the following password&#39; view restriction"
-            )
+        self.assertContains(
+            response, "Added the &#x27;Private, accessible to logged-in users&#x27; view restriction"
+        )
+        self.assertContains(
+            response,
+            "Updated the view restriction to &#x27;Private, accessible with the following password&#x27;"
+        )
+        self.assertContains(
+            response,
+            "Removed the &#x27;Private, accessible with the following password&#x27; view restriction"
+        )
 
         self.assertContains(response, 'system', 2)  # create without a user + remove restriction
         self.assertContains(response, 'the_editor', 9)  # 7 entries by editor + 1 in sidebar menu + 1 in filter
@@ -194,6 +150,24 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
 
         self.assertContains(response, 'About', 3)  # create, save draft, delete
         self.assertContains(response, 'Deleted', 2)
+
+    def test_history_with_deleted_user(self):
+        self._update_page(self.hello_page)
+
+        expected_deleted_string = f"user {self.editor.pk} (deleted)"
+        self.editor.delete()
+
+        self.login(user=self.administrator)
+
+        # check page history
+        response = self.client.get(
+            reverse('wagtailadmin_pages:history', kwargs={'page_id': self.hello_page.id})
+        )
+        self.assertContains(response, expected_deleted_string)
+
+        # check site history
+        response = self.client.get(reverse('wagtailadmin_reports:site_history'))
+        self.assertContains(response, expected_deleted_string)
 
     def test_edit_form_has_history_link(self):
         self.hello_page.save_revision()

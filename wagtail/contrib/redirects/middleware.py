@@ -30,7 +30,7 @@ def get_redirect(request, path):
     return redirect
 
 
-# Originally pinched from: https://github.com/django/django/blob/master/django/contrib/redirects/middleware.py
+# Originally pinched from: https://github.com/django/django/blob/main/django/contrib/redirects/middleware.py
 class RedirectMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         # No need to check for a redirect for non-404 responses.

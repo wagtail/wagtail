@@ -1,0 +1,149 @@
+@import '../../../scss/settings/variables';
+
+$color-red-very-dark: #901419;
+$color-amber-0: #e9b04d;
+$color-amber-1: #faecd5;
+
+$color-grey-25: #626262;
+$color-grey-7: #f2f2f2;
+$color-grey-8: #fbfbfb;
+
+$color-comment-separator: #e6e6e6;
+
+$color-box-background: $color-white;
+$color-box-border: $color-grey-3;
+$color-box-border-focused: $color-grey-2;
+$color-box-text: $color-black;
+$color-textarea-background: $color-grey-8;
+$color-textarea-background-focused: #f2fcfc;
+$color-textarea-border: #ccc;
+$color-textarea-border-focused: #00b0b1;
+$color-textarea-placeholder-text: $color-grey-2;
+$box-border-radius: 5px;
+$box-padding: 10px;
+
+@mixin focus-outline {
+    outline: $color-focus-outline solid 3px;
+}
+
+@mixin box {
+    background-color: $color-box-background;
+    border: 1px solid $color-box-border;
+    padding: $box-padding;
+    font-size: 11px;
+    border-radius: $box-border-radius;
+    color: $color-box-text;
+
+    &--focused {
+        border-color: #bbb;
+        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    textarea {
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+        background-color: $color-textarea-background;
+        border: 1px solid $color-textarea-border;
+        box-sizing: border-box;
+        border-radius: 5px;
+        -moz-outline-radius: 8px;
+        color: $color-box-text;
+
+        &::placeholder {
+            color: $color-textarea-placeholder-text;
+            opacity: 1;
+        }
+
+        &:focus {
+            background-color: $color-textarea-background-focused;
+            border-color: $color-textarea-border-focused;
+            outline: unset;
+        }
+    }
+
+    *:focus {
+        @include focus-outline;
+    }
+
+    &__notice-placeholder {
+        position: relative;
+        padding-bottom: 40px;
+    }
+
+    &__notice {
+        background-color: $color-amber-1;
+        position: absolute;
+        left: -$box-padding;
+        bottom: 0;
+        width: calc(100% + #{$box-padding} * 2);
+        padding: 5px 10px;
+        box-sizing: border-box;
+
+        svg.icon {
+            color: $color-amber-0;
+            width: 14px;
+            height: 14px;
+            margin-right: 10px;
+            vertical-align: text-bottom;
+        }
+    }
+
+    > :last-child &__notice {
+        bottom: -$box-padding;
+        border-bottom-left-radius: $box-border-radius;
+        border-bottom-right-radius: $box-border-radius;
+    }
+}
+
+@mixin button {
+    background-color: inherit;
+    border: 1px solid $color-grey-3;
+    border-radius: 3px;
+    -moz-outline-radius: 6px;
+    color: $color-teal;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    height: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    &--primary {
+        color: $color-white;
+        border: 1px solid $color-teal;
+        background-color: $color-teal;
+    }
+
+    &--red {
+        color: $color-white;
+        border: 1px solid $color-red-very-dark;
+        background-color: $color-red-very-dark;
+    }
+
+    &:disabled {
+        opacity: 0.3;
+    }
+
+    // Disable Firefox's focus styling because we add our own.
+    &::-moz-focus-inner {
+        border: 0;
+    }
+}
+
+.comments-list {
+    width: 400px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 50;
+    font-family: 'Open Sans', sans-serif;
+    pointer-events: none;
+}
+
+@import 'components/CommentHeader/style';
+@import 'components/Comment/style';
+@import 'components/CommentReply/style';

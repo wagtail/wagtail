@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -26,6 +26,9 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "Wagtail dokumen"
 
+msgid "Collection"
+msgstr "Koleksi"
+
 msgid "Add"
 msgstr "Menambahkan"
 
@@ -37,6 +40,9 @@ msgstr "Ubah"
 
 msgid "Edit any document"
 msgstr "Ubah dokumen manapun"
+
+msgid "Choose"
+msgstr "Pilih"
 
 msgid "title"
 msgstr "Judul"
@@ -56,6 +62,14 @@ msgstr "Penanda"
 msgid "document"
 msgstr "Dokumen"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)skali"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
 msgid "Choose a document"
 msgstr "Pilih Dokumen"
 
@@ -65,11 +79,18 @@ msgstr "Pencarian"
 msgid "Upload"
 msgstr "Unggah"
 
-msgid "Uploading…"
-msgstr "Mengunggah"
-
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "File"
+msgstr "Berkas"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -80,6 +101,9 @@ msgstr "Anda belum mengunggah dokumen apapun dalam koleksi ini."
 
 msgid "You haven't uploaded any documents."
 msgstr "Anda belum mengunggah dokumen apapun."
+
+msgid "Uploading…"
+msgstr "Mengunggah"
 
 msgid "Change document:"
 msgstr "Ubah dokumen:"
@@ -96,17 +120,6 @@ msgstr "Hapus %(title)s"
 
 msgid "Delete document"
 msgstr "Hapus dokumen"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)skali"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Anda yakin ingin menghapus dokumen ini?"
-
-msgid "Yes, delete"
-msgstr "Ya, hapus"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -129,16 +142,6 @@ msgstr "Pemakaian"
 
 msgid "Documents"
 msgstr "Dokumen"
-
-msgid "Title"
-msgstr "Judul"
-
-msgid "File"
-msgstr "Berkas"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
 
 #, python-format
 msgid ""
@@ -193,12 +196,6 @@ msgstr "Tambah ke koleksi:"
 msgid "Sorry, upload failed."
 msgstr "Maaf, pengunggahan gagal."
 
-msgid "Update"
-msgstr "Perbarui"
-
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "You need a password to access this document."
 msgstr "Anda memerlukan kata sandi untuk mengakses dokumen ini."
 
@@ -207,6 +204,9 @@ msgstr "Izin dokumen"
 
 msgid "Add a document permission"
 msgstr "Tambahkan izin dokumen"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Server Error"
 msgstr "Kesalahan Server"

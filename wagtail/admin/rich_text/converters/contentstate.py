@@ -6,8 +6,10 @@ from draftjs_exporter.defaults import render_children
 from draftjs_exporter.dom import DOM
 from draftjs_exporter.html import HTML as HTMLExporter
 
-from wagtail.admin.rich_text.converters.html_to_contentstate import HtmlToContentStateHandler
+from wagtail.admin.rich_text.converters.html_to_contentstate import (
+    BLOCK_KEY_NAME, HtmlToContentStateHandler)
 from wagtail.core.rich_text import features as feature_registry
+from wagtail.core.whitelist import check_url
 
 
 def link_entity(props):
@@ -21,7 +23,7 @@ def link_entity(props):
         link_props['linktype'] = 'page'
         link_props['id'] = id_
     else:
-        link_props['href'] = props.get('url')
+        link_props['href'] = check_url(props.get('url'))
 
     return DOM.create_element('a', link_props, props['children'])
 
@@ -41,8 +43,46 @@ def block_fallback(props):
 
 def entity_fallback(props):
     type_ = props['entity']['type']
-    logging.warn('Missing config for "%s". Deleting entity' % type_)
+    logging.warning('Missing config for "%s". Deleting entity' % type_)
     return None
+
+
+def style_fallback(props):
+    type_ = props['inline_style_range']['style']
+    logging.warning('Missing config for "%s". Deleting style.' % type_)
+    return props['children']
+
+
+def persist_key_for_block(config):
+    # For any block level element config for draft js exporter, return a config that retains the
+    # block key in a data attribute
+    if isinstance(config, dict):
+        # Wrapper elements don't retain a key - we can keep them in the config as-is
+        new_config = {key: value for key, value in config.items() if key in {'wrapper', 'wrapper_props'}}
+        element = config.get('element')
+        element_props = config.get('props', {})
+    else:
+        # The config is either a simple string element name, or a function
+        new_config = {}
+        element_props = {}
+        element = config
+
+    def element_with_uuid(props):
+        added_props = {BLOCK_KEY_NAME: props['block'].get('key')}
+        try:
+            # See if the element is a function - if so, we can only run it and modify its return value to include the data attribute
+            elt = element(props)
+            if elt is not None:
+                elt.attr.update(added_props)
+            return elt
+        except TypeError:
+            # Otherwise we can do the normal process of creating a DOM element with the right element type
+            # and simply adding the data attribute to its props
+            added_props.update(element_props)
+            return DOM.create_element(element, added_props, props['children'])
+
+    new_config['element'] = element_with_uuid
+    return new_config
 
 
 class ContentstateConverter():
@@ -52,11 +92,13 @@ class ContentstateConverter():
 
         exporter_config = {
             'block_map': {
-                'unstyled': 'p',
+                'unstyled': persist_key_for_block('p'),
                 'atomic': render_children,
                 'fallback': block_fallback,
             },
-            'style_map': {},
+            'style_map': {
+                'FALLBACK': style_fallback,
+            },
             'entity_decorators': {
                 'FALLBACK': entity_fallback,
             },
@@ -73,7 +115,7 @@ class ContentstateConverter():
             rule = feature_registry.get_converter_rule('contentstate', feature)
             if rule is not None:
                 feature_config = rule['to_database_format']
-                exporter_config['block_map'].update(feature_config.get('block_map', {}))
+                exporter_config['block_map'].update({block_type: persist_key_for_block(config) for block_type, config in feature_config.get('block_map', {}).items()})
                 exporter_config['style_map'].update(feature_config.get('style_map', {}))
                 exporter_config['entity_decorators'].update(feature_config.get('entity_decorators', {}))
 

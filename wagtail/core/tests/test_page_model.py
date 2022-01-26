@@ -18,8 +18,9 @@ from django.test.utils import override_settings
 from django.utils import timezone, translation
 from freezegun import freeze_time
 
+from wagtail.core.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.core.models import (
-    Locale, Page, PageLogEntry, PageManager, ParentNotTranslatedError, Site, get_page_models,
+    Comment, Locale, Page, PageLogEntry, PageManager, Site, get_page_models,
     get_translatable_models)
 from wagtail.core.signals import page_published
 from wagtail.tests.testapp.models import (
@@ -28,7 +29,7 @@ from wagtail.tests.testapp.models import (
     CustomPageQuerySet, EventCategory, EventIndex, EventPage, EventPageSpeaker, GenericSnippetPage,
     ManyToManyBlogPage, MTIBasePage, MTIChildPage, MyCustomPage, OneToOnePage,
     PageWithExcludedCopyField, SimpleChildPage, SimplePage, SimpleParentPage, SingleEventPage,
-    SingletonPage, StandardIndex, StreamPage, TaggedPage)
+    SingletonPage, StandardIndex, StreamPage, TaggedGrandchildPage, TaggedPage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -190,7 +191,7 @@ class TestSiteRouting(TestCase):
 
     def test_unrecognised_port_and_unrecognised_host_routes_to_default_site(self):
         # requests with an unrecognised Host: header _and_ an unrecognised port
-        # hould be directed to the default site
+        # should be directed to the default site
         request = HttpRequest()
         request.path = '/'
         request.META['HTTP_HOST'] = self.unrecognised_hostname
@@ -944,6 +945,128 @@ class TestLiveRevision(TestCase):
             )
 
 
+class TestPageGetSpecific(TestCase):
+    fixtures = ['test.json']
+
+    def setUp(self):
+        super().setUp()
+        self.page = Page.objects.get(url_path="/home/about-us/")
+        self.page.foo = 'ABC'
+        self.page.bar = {'key': 'value'}
+        self.page.baz = 999
+
+    def test_default(self):
+        # Field values are fetched from the database, hence the query
+        with self.assertNumQueries(1):
+            result = self.page.get_specific()
+
+        # The returned instance is the correct type
+        self.assertIsInstance(result, SimplePage)
+
+        # Generic page field values can be accessed for free
+        with self.assertNumQueries(0):
+            self.assertEqual(result.id, self.page.id)
+            self.assertEqual(result.title, self.page.title)
+
+        # Specific model fields values are available without additional queries
+        with self.assertNumQueries(0):
+            self.assertTrue(result.content)
+
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_deferred(self):
+        # Field values are NOT fetched from the database, hence no query
+        with self.assertNumQueries(0):
+            result = self.page.get_specific(deferred=True)
+
+        # The returned instance is the correct type
+        self.assertIsInstance(result, SimplePage)
+
+        # Generic page field values can be accessed for free
+        with self.assertNumQueries(0):
+            self.assertEqual(result.id, self.page.id)
+            self.assertEqual(result.title, self.page.title)
+
+        # But, specific model fields values are NOT available without additional queries
+        with self.assertNumQueries(1):
+            self.assertTrue(result.content)
+
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_copy_attrs(self):
+        result = self.page.get_specific(copy_attrs=['foo', 'bar'])
+
+        # foo and bar should have been copied over
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # but baz should not have been
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs=())
+
+        # No non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertFalse(hasattr(result, attr))
+
+    def test_copy_attrs_exclude(self):
+        result = self.page.get_specific(copy_attrs_exclude=['baz'])
+
+        # foo and bar should have been copied over
+        self.assertIs(result.foo, self.page.foo)
+        self.assertIs(result.bar, self.page.bar)
+
+        # but baz should not have been
+        self.assertFalse(hasattr(result, 'baz'))
+
+    def test_copy_attrs_exclude_with_empty_list(self):
+        result = self.page.get_specific(copy_attrs_exclude=())
+
+        # All non-field attributes should have been copied over...
+        for attr in ('foo', 'bar', 'baz'):
+            with self.subTest(attribute=attr):
+                self.assertIs(getattr(result, attr), getattr(self.page, attr))
+
+    def test_specific_cached_property(self):
+        # invoking several times to demonstrate that field values
+        # are fetched only once from the database, and each time the
+        # same object is returned
+        with self.assertNumQueries(1):
+            result = self.page.specific
+            result_2 = self.page.specific
+            result_3 = self.page.specific
+            self.assertIs(result, result_2)
+            self.assertIs(result, result_3)
+
+        self.assertIsInstance(result, SimplePage)
+        # Specific model fields values are available without additional queries
+        with self.assertNumQueries(0):
+            self.assertTrue(result.content)
+
+    def test_specific_deferred_cached_property(self):
+        # invoking several times to demonstrate that the property
+        # returns the same object (without any queries)
+        with self.assertNumQueries(0):
+            result = self.page.specific_deferred
+            result_2 = self.page.specific_deferred
+            result_3 = self.page.specific_deferred
+            self.assertIs(result, result_2)
+            self.assertIs(result, result_3)
+
+        self.assertIsInstance(result, SimplePage)
+        # Specific model fields values are not available without additional queries
+        with self.assertNumQueries(1):
+            self.assertTrue(result.content)
+
+
 class TestCopyPage(TestCase):
     fixtures = ['test.json']
 
@@ -1022,6 +1145,27 @@ class TestCopyPage(TestCase):
         self.assertEqual(
             new_christmas_event.categories.all().in_bulk(),
             christmas_event.categories.all().in_bulk()
+        )
+
+    def test_copy_page_does_not_copy_comments(self):
+        christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        christmas_event.wagtail_admin_comments = [Comment(text='test', user=christmas_event.owner)]
+        christmas_event.save()
+
+        # Copy the page as in `test_copy_page_copies_child_objects()``, but using exclude_fields
+        # to prevent 'advert_placements' from being copied to the new version
+        new_christmas_event = christmas_event.copy(
+            update_attrs={'title': "New christmas event", 'slug': 'new-christmas-event'}
+        )
+
+        # Check that the comments weren't removed from old page
+        self.assertEqual(christmas_event.wagtail_admin_comments.count(), 1, "Comments were removed from the original page")
+
+        # Check that comments were NOT copied over
+        self.assertFalse(
+            new_christmas_event.wagtail_admin_comments.exists(),
+            "Comments were copied"
         )
 
     def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(self):
@@ -1391,6 +1535,36 @@ class TestCopyPage(TestCase):
             for item_id in new_tagged_item_ids
         ]))
 
+    def test_copy_subclassed_page_copies_tags(self):
+        # create and publish a TaggedGrandchildPage under Events
+        event_index = Page.objects.get(url_path='/home/events/')
+        sub_tagged_page = TaggedGrandchildPage(title='My very special tagged page', slug='my-special-tagged-page')
+        sub_tagged_page.tags.add('wagtail', 'bird')
+        event_index.add_child(instance=sub_tagged_page)
+        sub_tagged_page.save_revision().publish()
+
+        old_tagged_item_ids = [item.id for item in sub_tagged_page.tagged_items.all()]
+        # there should be two items here, with defined (truthy) IDs
+        self.assertEqual(len(old_tagged_item_ids), 2)
+        self.assertTrue(all(old_tagged_item_ids))
+
+        # copy to underneath homepage
+        homepage = Page.objects.get(url_path='/home/')
+        new_sub_tagged_page = sub_tagged_page.copy(to=homepage)
+
+        self.assertNotEqual(sub_tagged_page.id, new_sub_tagged_page.id)
+
+        # new page should also have two tags
+        new_tagged_item_ids = [item.id for item in new_sub_tagged_page.tagged_items.all()]
+        self.assertEqual(len(new_tagged_item_ids), 2)
+        self.assertTrue(all(new_tagged_item_ids))
+
+        # new tagged_item IDs should differ from old ones
+        self.assertTrue(all([
+            item_id not in old_tagged_item_ids
+            for item_id in new_tagged_item_ids
+        ]))
+
     def test_copy_page_with_m2m_relations(self):
         # create and publish a ManyToManyBlogPage under Events
         event_index = Page.objects.get(url_path='/home/events/')
@@ -1575,6 +1749,22 @@ class TestCopyPage(TestCase):
             update_attrs={'slug': 'new_slug'}
         )
         self.assertFalse(signal_fired)
+
+    def test_copy_alias_page(self):
+        about_us = SimplePage.objects.get(url_path='/home/about-us/')
+        about_us_alias = about_us.create_alias(update_slug='about-us-alias')
+
+        about_us_alias_copy = about_us_alias.copy(update_attrs={
+            'slug': 'about-us-alias-copy'
+        })
+
+        self.assertIsInstance(about_us_alias_copy, SimplePage)
+        self.assertEqual(about_us_alias_copy.slug, 'about-us-alias-copy')
+        self.assertNotEqual(about_us_alias_copy.id, about_us.id)
+        self.assertEqual(about_us_alias_copy.url_path, '/home/about-us-alias-copy/')
+
+        # The copy should just be a copy of the original page, not an alias
+        self.assertIsNone(about_us_alias_copy.alias_of)
 
 
 class TestCreateAlias(TestCase):
@@ -1972,6 +2162,45 @@ class TestUpdateAliases(TestCase):
         self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
         self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
 
+    def test_update_aliases_publishes_drafts(self):
+        event_page = EventPage.objects.get(url_path='/home/events/christmas/')
+
+        # Unpublish the event page so that the aliases will be created in draft
+        event_page.live = False
+        event_page.has_unpublished_changes = True
+        event_page.save(clean=False)
+
+        alias = event_page.create_alias(update_slug='new-event-page')
+        alias_alias = alias.create_alias(update_slug='new-event-page-2')
+
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        # Publish the event page
+        event_page.live = True
+        event_page.has_unpublished_changes = False
+        event_page.save(clean=False)
+
+        # Nothing should've happened yet
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertFalse(alias.live)
+        self.assertFalse(alias_alias.live)
+
+        PageLogEntry.objects.all().delete()
+
+        event_page.update_aliases()
+
+        # Check that the aliases have been updated
+        alias.refresh_from_db()
+        alias_alias.refresh_from_db()
+        self.assertTrue(alias.live)
+        self.assertTrue(alias_alias.live)
+
+        # Check log entries were created
+        self.assertTrue(PageLogEntry.objects.filter(page=alias, action='wagtail.publish').exists())
+        self.assertTrue(PageLogEntry.objects.filter(page=alias_alias, action='wagtail.publish').exists())
+
 
 class TestCopyForTranslation(TestCase):
     fixtures = ['test.json']
@@ -1990,12 +2219,18 @@ class TestCopyForTranslation(TestCase):
         self.assertEqual(fr_homepage.locale, self.fr_locale)
         self.assertEqual(fr_homepage.translation_key, self.en_homepage.translation_key)
 
-        # At the top level, the langauge code should be appended to the slug
+        # At the top level, the language code should be appended to the slug
         self.assertEqual(fr_homepage.slug, "home-fr")
 
         # Translation must be in draft
         self.assertFalse(fr_homepage.live)
         self.assertTrue(fr_homepage.has_unpublished_changes)
+
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(log_entry.message, "Copied for translation from Root (English)")
 
     def test_copy_homepage_slug_exists(self):
         # This test is the same as test_copy_homepage, but we will create another page with
@@ -2025,6 +2260,12 @@ class TestCopyForTranslation(TestCase):
 
         # The slug should be the same when copying to another tree
         self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
+
+        # Check log
+        log_entry = PageLogEntry.objects.get(action='wagtail.copy_for_translation')
+        self.assertEqual(log_entry.data['source_locale']['language_code'], 'en')
+        self.assertEqual(log_entry.data['page']['locale']['language_code'], 'fr')
+        self.assertEqual(log_entry.message, "Copied for translation from Welcome to the Wagtail test site! (English)")
 
     def test_copy_childpage_without_parent(self):
         # This test is the same as test_copy_childpage but we won't create the parent page first
@@ -2180,7 +2421,7 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         parent1.add_child(instance=SimpleChildPage(title='simple child', slug='simple-child'))
 
         # We already have a `SimpleChildPage` as a child of `parent1`, and since it is limited
-        # to have only 1 child page, we cannot create anoter one. However, we should still be able
+        # to have only 1 child page, we cannot create another one. However, we should still be able
         # to create an instance for this page at a different location (as child of `parent2`)
         self.assertFalse(SimpleChildPage.can_create_at(parent1))
         self.assertTrue(SimpleChildPage.can_create_at(parent2))

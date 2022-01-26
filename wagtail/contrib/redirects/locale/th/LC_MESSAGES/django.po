@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "การกำหนดทิศทางใหม่ของWagtail"
 
+msgid "Type"
+msgstr "แบบ,รูปแบบ"
+
 msgid "From site"
 msgstr "จากเว็บไซด์"
 
@@ -30,6 +33,10 @@ msgstr "ทุกเว็บไซด์"
 
 msgid "A redirect with this path already exists."
 msgstr "การกำหนดทิศทางใหม่นี้มีอยู่แล้ว"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "รูปที่สามารถใช้ได้: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "การกำหนดทิศทางใหม่จาก"
@@ -81,6 +88,9 @@ msgstr "คุณแน่ใจว่าคุณต้องการจะล
 msgid "Yes, delete"
 msgstr "ใช่,ลบทิ้ง"
 
+msgid "Preview"
+msgstr "ภาพตัวอย่าง"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "กำลังแก้ไข %(title)s"
@@ -97,11 +107,11 @@ msgstr "จาก"
 msgid "To"
 msgstr "ถึง"
 
+msgid "Continue"
+msgstr "ต่อ,ต่อเนื่อง"
+
 msgid "Site"
 msgstr "เว็บไซด์"
-
-msgid "Type"
-msgstr "แบบ,รูปแบบ"
 
 msgid "Edit this redirect"
 msgstr "แก้ไขการกำหนดทิศทางนี้"

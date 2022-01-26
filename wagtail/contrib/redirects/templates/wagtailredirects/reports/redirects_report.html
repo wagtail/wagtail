@@ -1,0 +1,14 @@
+{% extends 'wagtailadmin/reports/base_report.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block results %}
+    {% if object_list %}
+        {% include "wagtailredirects/list.html" with redirects=object_list %}
+    {% else %}
+        <p>{% trans "No redirects found." %}</p>
+    {% endif %}
+{% endblock %}
+
+{% block no_results %}
+    <p>{% trans "No redirects found." %}</p>
+{% endblock %}

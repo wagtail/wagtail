@@ -1,0 +1,72 @@
+==========================
+Wagtail 2.14 release notes
+==========================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+New features
+~~~~~~~~~~~~
+
+ * Added ``ancestor_of`` API filter. See :ref:`apiv2_filter_by_tree_position`. (Jaap Roes)
+ * Added support for customising group management views. See :ref:`customising_group_views`. (Jan Seifert)
+ * Added ``full_url`` property to image renditions (Shreyash Srivastava)
+ * Added locale selector when choosing translatable snippets (Karl Hobley)
+ * Added ``WAGTAIL_WORKFLOW_ENABLED`` setting for enabling / disabling moderation workflows globally (Matt Westcott)
+ * Allow specifying ``max_width`` and ``max_height`` on EmbedBlock (Petr Dlouhý)
+ * Add warning when StreamField is used without a StreamFieldPanel (Naomi Morduch Toubman)
+ * Added keyboard and screen reader support to Wagtail user bar (LB Johnston, Storm Heg)
+ * Added instructions on copying and aliasing pages to the editor's guide in documentation (Vlad Podgurschi)
+ * Add Google Data Studio to the list of oEmbed providers (Petr Dlouhý)
+ * Allow ListBlock to raise validation errors that are not attached to an individual child block (Matt Westcott)
+ * Use ``DATETIME_FORMAT`` for localization in templates (Andrew Stone)
+ * Added documentation on multi site, multi instance and multi tenancy setups (Coen Van Der Kamp)
+ * Updated Facebook / Instagram oEmbed endpoints to v11.0 (Thomas Kremmel)
+ * Performance improvements for admin listing pages (Jake Howard, Dan Braghis, Tom Usher)
+
+Bug fixes
+~~~~~~~~~
+
+ * Invalid filter values for foreign key fields in the API now give an error instead of crashing (Tidjani Dia)
+ * Ordering specified in the ``construct_explorer_page_queryset`` hook is now taken into account again by the page explorer API (Andre Fonseca)
+ * Deleting a page from its listing view no longer results in a 404 error (Tidjani Dia)
+ * The Wagtail admin urls will now respect the ``APPEND_SLASH`` setting (Tidjani Dia)
+ * Prevent “Forgotten password” link from overlapping with field on mobile devices (Helen Chapman)
+ * Snippet admin urls are now namespaced to avoid ambiguity with the primary key component of the url (Matt Westcott)
+ * Prevent error on copying pages with ClusterTaggableManager relations and multi-level inheritance (Chris Pollard)
+ * Prevent failure on root page when registering the Page model with ModelAdmin (Jake Howard)
+ * Prevent error when filtering page search results with a malformed content_type (Chris Pollard)
+ * Prevent multiple submissions of "update" form when uploading images / documents (Mike Brown)
+ * Ensure HTML title is populated on project template 404 page (Matt Westcott)
+ * Respect cache_age parameters on embeds (Gordon Pendleton)
+ * Page comparison view now reflects request-level customisations to edit handlers (Matt Westcott)
+ * Add ``block.super`` to remaining ``extra_js`` & ``extra_css`` blocks (Andrew Stone)
+ * Ensure that ``editor`` and ``features`` arguments on RichTextField are preserved by ``clone()`` (Daniel Fairhead)
+ * Rename 'spin' CSS animation to avoid clashes with other libraries (Kevin Gutiérrez)
+ * Prevent crash when copying a page from a section where the user has no publish permission (Karl Hobley)
+ * Ensure that rich text conversion correctly handles images / embeds inside links or inline styles (Matt Westcott)
+
+Upgrade considerations
+======================
+
+Removed support for Django 2.2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Django 2.2 is no longer supported as of this release; please upgrade to Django 3.0 or above before upgrading Wagtail.
+
+User bar with keyboard and screen reader support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Wagtail user bar (“edit bird”) widget now supports keyboard and screen reader navigation. To make the most of this, we now recommend placing the widget near the top of the page ``<body>``, so users can reach it without having to go through the whole page. See :ref:`wagtailuserbar_tag` for more information.
+
+For implementers of custom user bar menu items, we also now require the addition of ``role="menuitem"`` on the ``a`` element to provide the correct semantics. See :ref:`construct_wagtail_userbar` for more information.
+
+Deprecation of Facebook / Instagram oEmbed product
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As of June 2021, the procedure for setting up a Facebook app to handle Facebook / Instagram embedded content (see :ref:`facebook_and_instagram_embeds`) has changed. It is now necessary to activate the "oEmbed Read" feature on the app, and submit it to Facebook for review. Apps that activated the oEmbed Product before June 8, 2021 must be migrated to oEmbed Read by September 7, 2021 to continue working. No change to the Wagtail code or configuration is required.

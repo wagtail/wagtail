@@ -67,7 +67,7 @@ class Command(BaseCommand):
         from_index = options.pop("from")
         to_index = options.pop("to")
         site_id = options.pop("site", None)
-        permament = options.pop("permanent")
+        permanent = options.pop("permanent")
 
         dry_run = options.pop("dry_run", False) or options.pop("dry-run", False)
         format_ = options.pop("format", None)
@@ -139,7 +139,7 @@ class Command(BaseCommand):
                 data = {
                     "old_path": from_link,
                     "redirect_link": to_link,
-                    "is_permanent": permament,
+                    "is_permanent": permanent,
                 }
 
                 if site:

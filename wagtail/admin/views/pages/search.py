@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -12,10 +13,39 @@ from wagtail.search.query import MATCH_ALL
 from wagtail.search.utils import parse_query_string
 
 
+def page_filter_search(q, pages, all_pages=None, ordering=None):
+    # Parse query
+    filters, query = parse_query_string(q, operator='and', zero_terms=MATCH_ALL)
+
+    # Live filter
+    live_filter = filters.get('live') or filters.get('published')
+    live_filter = live_filter and live_filter.lower()
+
+    if live_filter in ['yes', 'true']:
+        if all_pages is not None:
+            all_pages = all_pages.filter(live=True)
+        pages = pages.filter(live=True)
+    elif live_filter in ['no', 'false']:
+        if all_pages is not None:
+            all_pages = all_pages.filter(live=False)
+        pages = pages.filter(live=False)
+
+    # Search
+    if all_pages is not None:
+        all_pages = all_pages.search(query, order_by_relevance=not ordering)
+    pages = pages.search(query, order_by_relevance=not ordering)
+
+    return pages, all_pages
+
+
 @vary_on_headers('X-Requested-With')
 @user_passes_test(user_has_any_page_permission)
 def search(request):
     pages = all_pages = Page.objects.all().prefetch_related('content_type').specific()
+    show_locale_labels = getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    if show_locale_labels:
+        pages = pages.select_related('locale')
+
     q = MATCH_ALL
     content_types = []
     pagination_query_params = QueryDict({}, mutable=True)
@@ -43,7 +73,10 @@ def search(request):
     if 'content_type' in request.GET:
         pagination_query_params['content_type'] = request.GET['content_type']
 
-        app_label, model_name = request.GET['content_type'].split('.')
+        try:
+            app_label, model_name = request.GET['content_type'].split('.')
+        except ValueError:
+            raise Http404
 
         try:
             selected_content_type = ContentType.objects.get_by_natural_key(app_label, model_name)
@@ -60,22 +93,8 @@ def search(request):
             q = form.cleaned_data['q']
             pagination_query_params['q'] = q
 
-            # Parse query
-            filters, query = parse_query_string(q, operator='and', zero_terms=MATCH_ALL)
-
-            # Live filter
-            live_filter = filters.get('live') or filters.get('published')
-            live_filter = live_filter and live_filter.lower()
-            if live_filter in ['yes', 'true']:
-                all_pages = all_pages.filter(live=True)
-                pages = pages.filter(live=True)
-            elif live_filter in ['no', 'false']:
-                all_pages = all_pages.filter(live=False)
-                pages = pages.filter(live=False)
-
-            # Search
-            all_pages = all_pages.search(query, order_by_relevance=not ordering)
-            pages = pages.search(query, order_by_relevance=not ordering)
+            # Parse query and filter
+            pages, all_pages = page_filter_search(q, pages, all_pages, ordering)
 
             # Facets
             if pages.supports_facet:
@@ -90,7 +109,7 @@ def search(request):
     paginator = Paginator(pages, per_page=20)
     pages = paginator.get_page(request.GET.get('p'))
 
-    if request.is_ajax():
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         return TemplateResponse(request, "wagtailadmin/pages/search_results.html", {
             'pages': pages,
             'all_pages': all_pages,
@@ -99,6 +118,7 @@ def search(request):
             'selected_content_type': selected_content_type,
             'ordering': ordering,
             'pagination_query_params': pagination_query_params.urlencode(),
+            'show_locale_labels': show_locale_labels,
         })
     else:
         return TemplateResponse(request, "wagtailadmin/pages/search.html", {
@@ -110,4 +130,5 @@ def search(request):
             'selected_content_type': selected_content_type,
             'ordering': ordering,
             'pagination_query_params': pagination_query_params.urlencode(),
+            'show_locale_labels': show_locale_labels,
         })

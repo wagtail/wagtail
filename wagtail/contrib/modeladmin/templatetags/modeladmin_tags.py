@@ -17,14 +17,14 @@ from django.utils.translation import gettext as _
 register = Library()
 
 
-def items_for_result(view, result):
+def items_for_result(view, result, request):
     """
     Generates the actual list of data.
     """
     modeladmin = view.model_admin
     for field_name in view.list_display:
         empty_value_display = modeladmin.get_empty_value_display(field_name)
-        row_classes = ['field-%s' % field_name]
+        row_classes = ['field-%s' % field_name, 'title']
         try:
             f, attr, value = lookup_field(field_name, result, modeladmin)
         except ObjectDoesNotExist:
@@ -69,12 +69,22 @@ def items_for_result(view, result):
         row_attrs = modeladmin.get_extra_attrs_for_field_col(result, field_name)
         row_attrs['class'] = ' ' . join(row_classes)
         row_attrs_flat = flatatt(row_attrs)
-        yield format_html('<td{}>{}</td>', row_attrs_flat, result_repr)
+        if field_name == modeladmin.get_list_display_add_buttons(request):
+            edit_url = view.url_helper.get_action_url('edit', result.pk)
+            yield format_html(
+                '<td{}><div class="title-wrapper"><a href="{}" title="{}">{}</a></div></td>',
+                row_attrs_flat,
+                edit_url,
+                _('Edit this %s') % view.verbose_name,
+                result_repr
+            )
+        else:
+            yield format_html('<td{}>{}</td>', row_attrs_flat, result_repr)
 
 
-def results(view, object_list):
+def results(view, object_list, request):
     for item in object_list:
-        yield ResultList(None, items_for_result(view, item))
+        yield ResultList(None, items_for_result(view, item, request))
 
 
 @register.inclusion_tag("modeladmin/includes/result_list.html",
@@ -93,7 +103,7 @@ def result_list(context):
     context.update({
         'result_headers': headers,
         'num_sorted_fields': num_sorted_fields,
-        'results': list(results(view, object_list))})
+        'results': list(results(view, object_list, context['request']))})
     return context
 
 
@@ -101,11 +111,13 @@ def result_list(context):
 def pagination_link_previous(current_page, view):
     if current_page.has_previous():
         previous_page_number0 = current_page.previous_page_number() - 1
+        tpl = get_template('wagtailadmin/shared/icon.html')
+        icon_svg = tpl.render({'name': 'arrow-left', 'class_name': 'default'})
         return format_html(
-            '<li class="prev"><a href="%s" class="icon icon-arrow-left">%s'
-            '</a></li>' %
-            (view.get_query_string({view.PAGE_VAR: previous_page_number0}),
-                _('Previous'))
+            '<li class="prev"><a href="{}">{} {}</a></li>',
+            view.get_query_string({view.PAGE_VAR: previous_page_number0}),
+            icon_svg,
+            _('Previous')
         )
     return ''
 
@@ -114,11 +126,13 @@ def pagination_link_previous(current_page, view):
 def pagination_link_next(current_page, view):
     if current_page.has_next():
         next_page_number0 = current_page.next_page_number() - 1
+        tpl = get_template('wagtailadmin/shared/icon.html')
+        icon_svg = tpl.render({'name': 'arrow-right', 'class_name': 'default'})
         return format_html(
-            '<li class="next"><a href="%s" class="icon icon-arrow-right-after"'
-            '>%s</a></li>' %
-            (view.get_query_string({view.PAGE_VAR: next_page_number0}),
-                _('Next'))
+            '<li class="next"><a href="{}">{} {}</a></li>',
+            view.get_query_string({view.PAGE_VAR: next_page_number0}),
+            _('Next'),
+            icon_svg
         )
     return ''
 

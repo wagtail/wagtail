@@ -21,13 +21,50 @@ class TestPageUrlTags(TestCase):
         self.assertContains(response,
                             '<a href="/events/christmas/">Christmas</a>')
 
-    def test_pageurl_fallback(self):
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>''')
-        result = tpl.render(template.Context({'page': None}))
+    def test_pageurl_with_named_url_fallback(self):
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page fallback='fallback' %}">Fallback</a>"""
+        )
+        result = tpl.render(template.Context({"page": None}))
         self.assertIn('<a href="/fallback/">Fallback</a>', result)
 
-    def test_pageurl_fallback_without_valid_fallback(self):
-        tpl = template.Template('''{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>''')
+    def test_pageurl_with_get_absolute_url_object_fallback(self):
+        class ObjectWithURLMethod:
+            def get_absolute_url(self):
+                return "/object-specific-url/"
+
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page fallback=object_with_url_method %}">Fallback</a>"""
+        )
+        result = tpl.render(
+            template.Context({"page": None, "object_with_url_method": ObjectWithURLMethod()})
+        )
+        self.assertIn('<a href="/object-specific-url/">Fallback</a>', result)
+
+    def test_pageurl_with_valid_url_string_fallback(self):
+        """
+        `django.shortcuts.resolve_url` accepts strings containing '.' or '/' as they are.
+        """
+        tpl = template.Template(
+            """
+            {% load wagtailcore_tags %}
+            <a href="{% pageurl page fallback='.' %}">Same page fallback</a>
+            <a href="{% pageurl page fallback='/' %}">Homepage fallback</a>
+            <a href="{% pageurl page fallback='../' %}">Up one step fallback</a>
+            """
+        )
+        result = tpl.render(template.Context({"page": None}))
+        self.assertIn('<a href=".">Same page fallback</a>', result)
+        self.assertIn('<a href="/">Homepage fallback</a>', result)
+        self.assertIn('<a href="../">Up one step fallback</a>', result)
+
+    def test_pageurl_with_invalid_url_string_fallback(self):
+        """
+        Strings not containing '.' or '/', and not matching a named URL will error.
+        """
+        tpl = template.Template(
+            """{% load wagtailcore_tags %}<a href="{% pageurl page fallback='not-existing-endpoint' %}">Fallback</a>"""
+        )
         with self.assertRaises(NoReverseMatch):
             tpl.render(template.Context({'page': None}))
 

@@ -4,6 +4,7 @@
 {% block titletag %}{{ view.page_title }}{% endblock %}
 
 {% block extra_css %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ edit_handler.form.media.css }}
 
@@ -11,6 +12,7 @@
 {% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ edit_handler.form.media.js }}
     {{ edit_handler.html_declarations }}
@@ -20,7 +22,7 @@
 
 {% block content %}
 
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title icon=view.header_icon merged=1 only %}
 
     <form action="{{ view.get_add_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
@@ -36,9 +38,9 @@
         </ul>
 
         {% block footer %}
-            <footer role="contentinfo">
+            <footer class="footer" role="contentinfo">
                 <ul>
-                    <li class="actions">
+                    <li class="actions footer__container">
                         {% block form_actions %}
                             <div class="dropdown dropup dropdown-button match-width">
                                 <button type="submit" class="button action-save button-longrunning" data-clicked-text="{% trans 'Creating…' %}">

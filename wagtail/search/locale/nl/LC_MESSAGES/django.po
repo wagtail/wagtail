@@ -5,15 +5,17 @@
 # Translators:
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
 # benny_AT_it_digin.com <benny@it-digin.com>, 2015
+# Maarten Kling <kling.maarten@gmail.com>, 2015,2018,2020
+# Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-28 18:00+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +24,9 @@ msgstr ""
 "Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail search"
+msgstr "Wagtail zoeken"
+
 msgid "Search term(s)/phrase"
 msgstr "Zoekterm(en)/uitdrukking"
 
@@ -29,11 +34,17 @@ msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Vul de volledige zoekterm in. Een exacte match is nodig om gepromote "
+"Voer de volledige zoekterm in. Een exacte match is nodig om gepromote "
 "resultaten te kunnen tonen, wildcards zijn NIET toegestaan."
 
 msgid "Query Daily Hits"
 msgstr "Aantal dagelijkse zoekopdrachten"
+
+msgid "index entry"
+msgstr "index vermelding"
+
+msgid "index entries"
+msgstr "index vermeldingen"
 
 msgid "Popular search terms"
 msgstr "Populaire zoektermen"
@@ -45,7 +56,7 @@ msgid "Terms"
 msgstr "Termen"
 
 msgid "Views (past week)"
-msgstr "Views (afgelopen week)"
+msgstr "Weergaves (afgelopen week)"
 
 msgid "No results found"
 msgstr "Geen resultaten gevonden"

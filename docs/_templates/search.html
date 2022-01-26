@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+{% set title = _('Search') %}
+
+{% block body %}
+  <noscript>
+  <div id="fallback" class="admonition warning">
+    <p class="last">
+      {% trans trimmed %}Please activate JavaScript to enable the search
+      functionality.{% endtrans %}
+    </p>
+  </div>
+  </noscript>
+
+  <div id="search-results">
+  </div>
+{% endblock %}
+
+{% block footer %}
+{{ super() }}
+<script>
+
+function runSearchPageSearch() {
+  const urlParams = new URLSearchParams(window.location.search)
+  const query = urlParams.get('q')
+
+  const searchResultsContainer = document.getElementById('search-results')
+  addHeadingForQuery(query, searchResultsContainer)
+
+  const docSearch = docSearchReady()
+  const index = docSearch.client.initIndex('wagtail')
+  index.search(
+    query,
+    {
+      hitsPerPage: 50,
+      facetFilters: [getVersionFacetFilter()]
+    }
+  )
+  .then(({ hits }) => addResultsList(hits, query, searchResultsContainer))
+  .catch((error) => console.log(error))
+}
+
+function addHeadingForQuery(query, parentElement) {
+  const searchHeading = document.createElement('h1')
+  searchHeading.textContent = `Search results for “${query}”`
+  parentElement.appendChild(searchHeading)
+}
+
+function addResultsList(hits, query, parentElement) {
+  const searchResultsList = document.createElement('ul')
+  searchResultsList.className = "search"
+  for (hit of hits) {
+    const hitElement = createHitElement(hit, query)
+    searchResultsList.appendChild(hitElement)
+  }
+  parentElement.appendChild(searchResultsList)
+}
+
+function createHitElement(hitData, query) {
+  const pageURL = new URL(hitData.url)
+  pageURL.hash = '';
+  pageURL.searchParams.set('highlight', query);
+  const anchorURL = new URL(hitData.url);
+  anchorURL.searchParams.set('highlight', query);
+  const result = hitData._highlightResult
+
+  const hitListElement = document.createElement('li')
+
+  const hierarchies = Object.values(result.hierarchy);
+  const firstHierarchyLevel = hierarchies[0];
+  const lastHierarchyLevel = hierarchies[hierarchies.length - 1];
+
+  const pageLink = document.createElement('a')
+  hitListElement.appendChild(pageLink)
+  pageLink.innerHTML = firstHierarchyLevel.value
+  pageLink.href = pageURL
+
+  const contextElement = document.createElement('div')
+  hitListElement.appendChild(contextElement)
+  contextElement.className = 'context'
+
+  if (lastHierarchyLevel && lastHierarchyLevel !== firstHierarchyLevel ) {
+    const contextLinkContainer = document.createElement('div')
+    contextElement.appendChild(contextLinkContainer)
+    const contextLink = document.createElement('a')
+    contextLinkContainer.appendChild(contextLink)
+    contextLink.innerHTML = lastHierarchyLevel.value
+    contextLink.href = anchorURL
+  }
+
+  if (result.content) {
+    const contentElement = document.createElement('div')
+    contentElement.innerHTML = result.content.value
+    contextElement.appendChild(contentElement)
+  }
+
+  return hitListElement
+}
+
+window.addEventListener('DOMContentLoaded', runSearchPageSearch)
+</script>
+{% endblock %}

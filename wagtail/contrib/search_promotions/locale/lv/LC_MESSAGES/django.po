@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr "Lūdzu norādiet vismaz vienu rekomendāciju šim meklēšanas vaicājumam"
+
+msgid "page"
+msgstr "lapa"
 
 msgid "Save"
 msgstr "Saglabāt"
@@ -61,6 +64,9 @@ msgstr "Meklēšanas termins(i)"
 
 msgid "Views (past week)"
 msgstr "Skatījumi (pagājusī nedēļa)"
+
+msgid "None"
+msgstr "Nav"
 
 msgid "Edit"
 msgstr "Labot"

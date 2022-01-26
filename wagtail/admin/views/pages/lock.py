@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
@@ -26,7 +26,7 @@ def lock(request, page_id):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)
@@ -52,7 +52,7 @@ def unlock(request, page_id):
 
     # Redirect
     redirect_to = request.POST.get('next', None)
-    if redirect_to and is_safe_url(url=redirect_to, allowed_hosts={request.get_host()}):
+    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
         return redirect(redirect_to)
     else:
         return redirect('wagtailadmin_explore', page.get_parent().id)

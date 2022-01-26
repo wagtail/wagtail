@@ -8,13 +8,16 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
+from django.utils.decorators import method_decorator
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
-from django.views.decorators.vary import vary_on_headers
+from django.views.generic import TemplateView
 
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.models import popular_tags_for_model
+from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.core.models import Collection, Site
 from wagtail.images import get_image_model
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -31,74 +34,90 @@ INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
 USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
 
 
-@permission_checker.require_any('add', 'change', 'delete')
-@vary_on_headers('X-Requested-With')
-def index(request):
-    Image = get_image_model()
+class BaseListingView(TemplateView):
+    @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
+    def get(self, request):
+        return super().get(request)
 
-    # Get images (filtered by user permission)
-    images = permission_policy.instances_user_has_any_permission_for(
-        request.user, ['change', 'delete']
-    ).order_by('-created_at')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    # Search
-    query_string = None
-    if 'q' in request.GET:
-        form = SearchForm(request.GET, placeholder=_("Search images"))
-        if form.is_valid():
-            query_string = form.cleaned_data['q']
+        # Get images (filtered by user permission)
+        images = permission_policy.instances_user_has_any_permission_for(
+            self.request.user, ['change', 'delete']
+        ).order_by('-created_at').select_related('collection')
 
-            images = images.search(query_string)
-    else:
-        form = SearchForm(placeholder=_("Search images"))
+        # Search
+        query_string = None
+        if 'q' in self.request.GET:
+            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data['q']
 
-    # Filter by collection
-    current_collection = None
-    collection_id = request.GET.get('collection_id')
-    if collection_id:
-        try:
-            current_collection = Collection.objects.get(id=collection_id)
-            images = images.filter(collection=current_collection)
-        except (ValueError, Collection.DoesNotExist):
-            pass
+                images = images.search(query_string)
+        else:
+            self.form = SearchForm(placeholder=_("Search images"))
 
-    # Filter by tag
-    current_tag = request.GET.get('tag')
-    if current_tag:
-        try:
-            images = images.filter(tags__name=current_tag)
-        except (AttributeError):
-            current_tag = None
+        # Filter by collection
+        self.current_collection = None
+        collection_id = self.request.GET.get('collection_id')
+        if collection_id:
+            try:
+                self.current_collection = Collection.objects.get(id=collection_id)
+                images = images.filter(collection=self.current_collection)
+            except (ValueError, Collection.DoesNotExist):
+                pass
 
-    paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
-    images = paginator.get_page(request.GET.get('p'))
+        # Filter by tag
+        self.current_tag = self.request.GET.get('tag')
+        if self.current_tag:
+            try:
+                images = images.filter(tags__name=self.current_tag)
+            except (AttributeError):
+                self.current_tag = None
 
-    collections = permission_policy.collections_user_has_any_permission_for(
-        request.user, ['add', 'change']
-    )
-    if len(collections) < 2:
-        collections = None
+        paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
+        images = paginator.get_page(self.request.GET.get('p'))
 
-    # Create response
-    if request.is_ajax():
-        return TemplateResponse(request, 'wagtailimages/images/results.html', {
+        context.update({
             'images': images,
             'query_string': query_string,
             'is_searching': bool(query_string),
+            'next': self.request.get_full_path(),
         })
-    else:
-        return TemplateResponse(request, 'wagtailimages/images/index.html', {
-            'images': images,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
 
-            'search_form': form,
-            'popular_tags': popular_tags_for_model(Image),
-            'current_tag': current_tag,
+        return context
+
+
+class IndexView(BaseListingView):
+    template_name = 'wagtailimages/images/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        collections = permission_policy.collections_user_has_any_permission_for(
+            self.request.user, ['add', 'change']
+        )
+        if len(collections) < 2:
+            collections = None
+
+        Image = get_image_model()
+
+        context.update({
+            'search_form': self.form,
+            'popular_tags': popular_tags_for_model(get_image_model()),
+            'current_tag': self.current_tag,
             'collections': collections,
-            'current_collection': current_collection,
-            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
+            'current_collection': self.current_collection,
+            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
+            'app_label': Image._meta.app_label,
+            'model_name': Image._meta.model_name,
         })
+        return context
+
+
+class ListingResultsView(BaseListingView):
+    template_name = 'wagtailimages/images/results.html'
 
 
 @permission_checker.require('change')
@@ -110,6 +129,8 @@ def edit(request, image_id):
 
     if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
         raise PermissionDenied
+
+    next_url = get_valid_next_url_from_request(request)
 
     if request.method == 'POST':
         original_file = image.file
@@ -136,10 +157,16 @@ def edit(request, image_id):
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
+            edit_url = reverse('wagtailimages:edit', args=(image.id,))
+            redirect_url = 'wagtailimages:index'
+            if next_url:
+                edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
+                redirect_url = next_url
+
             messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit again'))
+                messages.button(edit_url, _('Edit again'))
             ])
-            return redirect('wagtailimages:index')
+            return redirect(redirect_url)
         else:
             messages.error(request, _("The image could not be saved due to errors."))
     else:
@@ -174,6 +201,7 @@ def edit(request, image_id):
         'user_can_delete': permission_policy.user_has_permission_for_instance(
             request.user, 'delete', image
         ),
+        'next': next_url,
     })
 
 
@@ -254,13 +282,16 @@ def delete(request, image_id):
     if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
         raise PermissionDenied
 
+    next_url = get_valid_next_url_from_request(request)
+
     if request.method == 'POST':
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect('wagtailimages:index')
+        return redirect(next_url) if next_url else redirect('wagtailimages:index')
 
     return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
         'image': image,
+        'next': next_url,
     })
 
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
@@ -34,6 +34,9 @@ msgstr "Rediger"
 msgid "Edit any document"
 msgstr "Rediger et hvilket somhelst dokument"
 
+msgid "Choose"
+msgstr "Vælg"
+
 msgid "title"
 msgstr "Titel"
 
@@ -55,6 +58,9 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumenter"
 
+msgid "Yes, delete"
+msgstr "Ja, slet"
+
 msgid "Choose a document"
 msgstr "Vælg et dokument"
 
@@ -63,9 +69,6 @@ msgstr "Søg"
 
 msgid "Upload"
 msgstr "Upload"
-
-msgid "Uploading…"
-msgstr "Uploading..."
 
 #, python-format
 msgid ""
@@ -84,3 +87,41 @@ msgstr[1] ""
 "\n"
 "            Der er %(counter)s der passer\n"
 "        "
+
+msgid "Title"
+msgstr "Titel"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
+
+msgid "Uploading…"
+msgstr "Uploading..."
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Slet %(title)s"
+
+msgid "Editing"
+msgstr "Redigerer"
+
+msgid "Save"
+msgstr "Gem"
+
+msgid "Parent"
+msgstr "Forældre"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Edit this page"
+msgstr "Rediger denne side"
+
+msgid "Delete"
+msgstr "Slet"
+
+msgid "Server Error"
+msgstr "Server Fejl"

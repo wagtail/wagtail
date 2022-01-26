@@ -1,0 +1,11 @@
+{% load wagtailadmin_tags i18n %}
+<li class="footer__container footer__container--hidden" data-unsaved-warning>
+    <div hidden data-unsaved-type="any" class="footer__save-warning footer__emphasise-span-tags">
+        <div>
+            <b hidden data-unsaved-type="edits">{% blocktrans %}You have <span>unsaved edits</span>{% endblocktrans %}</b>
+            <b hidden data-unsaved-type="comments">{% blocktrans %}You have <span>unsaved comments</span>{% endblocktrans %}</b>
+            <b hidden data-unsaved-type="all">{% blocktrans %}You have <span>unsaved edits</span> and <span>comments</span>{% endblocktrans %}</b>
+            <p>{% trans 'Save the page before leaving' %}</p>
+        </div>
+    </div>
+</li>

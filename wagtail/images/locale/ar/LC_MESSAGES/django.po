@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -61,6 +61,12 @@ msgstr "محاذاة لليسار"
 msgid "Right-aligned"
 msgstr "محاذاة لليمين"
 
+msgid "Collection"
+msgstr "مجموعة"
+
+msgid "Alt text"
+msgstr "نص للمساعدة"
+
 msgid "Filter"
 msgstr "ارسح"
 
@@ -103,6 +109,9 @@ msgstr "تحرير"
 msgid "Edit any image"
 msgstr "تحرير أي صورة"
 
+msgid "Choose"
+msgstr "اختر"
+
 msgid "title"
 msgstr "عنوان"
 
@@ -130,6 +139,12 @@ msgstr "صورة"
 msgid "images"
 msgstr "صور"
 
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
 msgid "Choose an image"
 msgstr "اختر صورة"
 
@@ -142,9 +157,6 @@ msgstr "انقل إلى الحاسوب"
 msgid "Popular tags"
 msgstr "علامات دالة شائعة"
 
-msgid "Uploading…"
-msgstr "يتم الرفع…"
-
 msgid "Latest images"
 msgstr "احد الصور"
 
@@ -153,6 +165,9 @@ msgstr "اختر شكلا"
 
 msgid "Insert image"
 msgstr "أدخل صورة"
+
+msgid "Uploading…"
+msgstr "يتم الرفع…"
 
 msgid "Change image file:"
 msgstr "غير ملف الصورة"
@@ -168,12 +183,6 @@ msgstr "احفظ"
 
 msgid "Delete image"
 msgstr "احذف صورة"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "أتريد فعلا حذف هذه الصورة؟"
-
-msgid "Yes, delete"
-msgstr "نعم احذف"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -205,6 +214,9 @@ msgstr "استعمال"
 
 msgid "Images"
 msgstr "صور"
+
+msgid "Clear choice"
+msgstr "محو الاختيار"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -299,17 +311,14 @@ msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع ال�
 msgid "Image updated."
 msgstr "تم تحديث الصورة."
 
-msgid "Update"
-msgstr "جدد"
-
-msgid "Delete"
-msgstr "احذف"
-
 msgid "Image permissions"
 msgstr "أذونات الصور"
 
 msgid "Add an image permission"
 msgstr "إضافة إذن صورة"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Search images"
 msgstr "ابعث صور"

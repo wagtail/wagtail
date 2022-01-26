@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -18,6 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Edit"
+msgstr "Редакция"
+
+msgid "Choose"
+msgstr "Избери"
+
+msgid "Yes, delete"
+msgstr "Да, изтрий го"
 
 msgid "Choose an image"
 msgstr "Изберете изображение"
@@ -52,12 +61,6 @@ msgstr "Запази"
 msgid "Delete image"
 msgstr "Изтрий Изображение"
 
-msgid "Are you sure you want to delete this image?"
-msgstr "Сигурен ли сте, че искате да изтриете Изображението?"
-
-msgid "Yes, delete"
-msgstr "Да, изтрий го"
-
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Редакция на %(title)s"
@@ -68,8 +71,32 @@ msgstr "Редактиране"
 msgid "Images"
 msgstr "Изображения"
 
+msgid "Clear choice"
+msgstr "Изчисти избора"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Preview"
+msgstr "Преглед"
+
 msgid "Title"
 msgstr "Заглавие"
+
+msgid "Parent"
+msgstr "Родител"
+
+msgid "Type"
+msgstr "Вид"
+
+msgid "Status"
+msgstr "Статус"
+
+msgid "Edit this page"
+msgstr "Редактирайте тази страница"
+
+msgid "Delete"
+msgstr "Изтрий"
 
 msgid "Image '{0}' updated."
 msgstr "Изображение '{0}' обновено."

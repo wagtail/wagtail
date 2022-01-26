@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-02 15:35+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
@@ -69,15 +69,6 @@ msgstr "此群組名已被占用。"
 msgid "You cannot have multiple permission records for the same page."
 msgstr "對於同一個頁面你不能設置多重權限"
 
-msgid "Preferred language"
-msgstr "首選語言"
-
-msgid "Current time zone"
-msgstr "當前時區"
-
-msgid "Upload a profile picture"
-msgstr "上傳新的頭像"
-
 msgid "submitted notifications"
 msgstr "提交通知"
 
@@ -117,6 +108,15 @@ msgstr "使用者資料"
 msgid "user profiles"
 msgstr "個人資訊"
 
+msgid "Delete"
+msgstr "刪除"
+
+msgid "Yes, delete"
+msgstr "確認刪除"
+
+msgid "No, don't delete"
+msgstr "否，不刪除"
+
 msgid "Delete group"
 msgstr "刪除群組"
 
@@ -145,9 +145,6 @@ msgstr "刪除群組將會從所有群組成員移除群權限"
 msgid "Are you sure you want to delete this group?"
 msgstr "確定要刪除該群組？"
 
-msgid "Yes, delete"
-msgstr "確認刪除"
-
 msgid "Add group"
 msgstr "新增群群組"
 
@@ -174,9 +171,6 @@ msgstr "新增"
 
 msgid "Change"
 msgstr "更改"
-
-msgid "Delete"
-msgstr "刪除"
 
 msgid "Other permissions"
 msgstr "其他權限"

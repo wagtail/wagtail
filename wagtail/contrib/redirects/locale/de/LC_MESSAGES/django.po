@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Donald Buczek, 2021
 # Ettore Atalan <atalanttore@googlemail.com>, 2016,2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -10,6 +11,7 @@
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
 # karlsander <karlsander@gmail.com>, 2014
+# oliverengel <codeangel@posteo.de>, 2021
 # pcraston <patrick@craston.com>, 2014
 # Patrick Hebner <hebner.tec@gmail.com>, 2020
 # pcraston <patrick@craston.com>, 2014
@@ -21,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-05 18:47+0000\n"
-"Last-Translator: Patrick Hebner <hebner.tec@gmail.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-09-27 08:00+0000\n"
+"Last-Translator: Donald Buczek\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +35,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail redirects"
-msgstr "Wagtail Umleitungen"
+msgstr "Wagtail Weiterleitungen"
+
+msgid "Type"
+msgstr "Typ"
+
+msgid "Permanent"
+msgstr "Permanent"
+
+msgid "Temporary"
+msgstr "Temporär"
+
+msgid "All"
+msgstr "Alle"
 
 msgid "From site"
 msgstr "Von Website"
@@ -96,7 +110,7 @@ msgid "Redirects"
 msgstr "Weiterleitungen"
 
 msgid "Import redirects"
-msgstr "Wichtige Weiterleitungen"
+msgstr "Weiterleitungen importieren"
 
 msgid ""
 "\n"
@@ -176,14 +190,17 @@ msgstr "Fehler"
 msgid "Continue"
 msgstr "Weiter"
 
+msgid "Export redirects"
+msgstr "Weiterleitungen exportieren"
+
 msgid "Site"
 msgstr "Seite"
 
-msgid "Type"
-msgstr "Typ"
-
 msgid "Edit this redirect"
 msgstr "Diese Weiterleitung bearbeiten"
+
+msgid "No redirects found."
+msgstr "Keine Weiterleitungen gefunden."
 
 #, python-format
 msgid ""
@@ -253,3 +270,6 @@ msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
 msgstr[0] "%(total)d Weiterleitung wurde importiert."
 msgstr[1] "%(total)d Weiterleitungen wurden importiert."
+
+msgid "Export Redirects"
+msgstr "Weiterleitungen exportieren"

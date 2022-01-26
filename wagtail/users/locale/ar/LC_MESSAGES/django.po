@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -71,15 +71,6 @@ msgstr "توجد مجموعة بهذا الإسم"
 msgid "You cannot have multiple permission records for the same page."
 msgstr "لا يمكن أن يكون لديك سجلات أذونات متعددة لنفس الصفحة."
 
-msgid "Preferred language"
-msgstr "اللغة المفضلة"
-
-msgid "Current time zone"
-msgstr "المنطقة الزمنية الحالية"
-
-msgid "Upload a profile picture"
-msgstr "تحميل صورة ملف شخصي"
-
 msgid "submitted notifications"
 msgstr "بلاغات مقدمة"
 
@@ -119,6 +110,15 @@ msgstr "ملف تعريفي للمستخدم"
 msgid "user profiles"
 msgstr "ملف تعريفي للمستخدم"
 
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Yes, delete"
+msgstr "نعم, احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
 msgid "Delete group"
 msgstr "احذف المجموعة"
 
@@ -129,9 +129,6 @@ msgstr "حذف هذه المجموعة سوف يلغي تصريحات المجم
 
 msgid "Are you sure you want to delete this group?"
 msgstr "هل تريد فعلا حذف هذه الجماعة؟"
-
-msgid "Yes, delete"
-msgstr "نعم, احذف"
 
 msgid "Add group"
 msgstr "أضف جماعة"
@@ -153,9 +150,6 @@ msgstr "أضف"
 
 msgid "Change"
 msgstr "غيّر"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Other permissions"
 msgstr "تصريحات أخرى"
@@ -225,6 +219,10 @@ msgstr "نشيط"
 
 msgid "Inactive"
 msgstr "غير نشط"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""

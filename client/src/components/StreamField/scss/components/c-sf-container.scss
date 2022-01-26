@@ -1,0 +1,100 @@
+.c-sf-container {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: $children-container-padding 0;
+
+    // TODO: #CSSoverhaul the bse icon style here - the margin - should be reconsidered when
+    // re-building the icon component as part of the CSS  These styles come from global
+    // label styles in css/mixins/_general.scss -@jonnyscholes
+    .c-sf-button__icon {
+        .icon::before {
+            margin: unset;
+        }
+    }
+
+    &__block-container {
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    &--add-in-gutter {
+        @media (min-width: $screen-sm-min) {
+            padding-left: $add-button-size;
+
+            .c-sf-add-button {
+                width: $add-button-size;
+                height: 0;
+                transform: translate(-100%, -$add-button-size / 2);
+                overflow: visible;
+            }
+        }
+    }
+
+    // TODO: Remove these references to classes that are styled by core Wagtail CSS. The best
+    // opportunity for this is probably as part of Wagtails general CSS overhaul. -@jonnyscholes
+    .field {
+        + .field {
+            padding-top: $grid-gutter-width / 2;
+        }
+
+        // TODO: #CSSoverhaul global label styles need to be removed. These styles come from global
+        // label styles in css/_grid.scss -@jonnyscholes
+        label {
+            float: unset; // LEGIT
+            width: unset; // LEGIT
+            max-width: unset; // LEGIT
+            padding: 0; // LEGIT
+
+            &::after {
+                content: ''; // LEGIT
+            }
+
+            input[type='radio'] {
+                margin-bottom: 1.1em;
+                vertical-align: middle;
+
+                /* stylelint-disable-next-line max-nesting-depth */
+                &::before {
+                    top: unset;
+                }
+            }
+        }
+
+        &__label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: $grid-gutter-width / 4;
+        }
+
+        &.required > label::after {
+            content: '*';
+            color: #cd3238;
+            font-weight: 700;
+            display: inline-block;
+            margin-left: 0.5em;
+            line-height: 1em;
+            font-size: 13px;
+        }
+    }
+
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. The default
+    // `.field`/`.field-componet` (or whatever they become) should be full width by default.
+    // -@jonnyscholes
+    .field-content {
+        float: unset;
+        display: block;
+        width: unset;
+
+        textarea {
+            max-width: 100%;
+        }
+    }
+
+    // TODO: #CSSoverhaul This should be fixed as part of Wagtail CSS overhaul. Whatever we do with
+    // `.field`/`.field-content` should take into account help text -@jonnyscholes
+    .help {
+        margin: 8px 0;
+    }
+}

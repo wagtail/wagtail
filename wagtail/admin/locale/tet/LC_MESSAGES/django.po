@@ -7,7 +7,7 @@
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
 # Mario <mario@catalpa.io>, 2019
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020-2021
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019-2020
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,9 @@ msgstr "Halo la publika"
 
 msgid "Delete"
 msgstr "Hamoos"
+
+msgid "Lock"
+msgstr "Xavi"
 
 msgid "Save Draft"
 msgstr "Rai hanesan ezbosu"
@@ -62,9 +65,6 @@ msgstr "Horariu Publikasaun"
 msgid "Privacy"
 msgstr "Privasidade"
 
-msgid "Common page configuration"
-msgstr "Konfigurasaun pagina hotu-hotu"
-
 msgid "Content"
 msgstr "Konteudu"
 
@@ -74,11 +74,29 @@ msgstr "Promove"
 msgid "Settings"
 msgstr "Konfigurasaun"
 
-msgid "Date"
-msgstr "Data"
+msgid "Date from"
+msgstr "Data husi"
 
-msgid "Title"
-msgstr "Titlu"
+msgid "Date to"
+msgstr "Data to'o"
+
+msgid "Preferred language"
+msgstr "Prefere lian"
+
+msgid "Current time zone"
+msgstr "Zona tempu agora dadaun"
+
+msgid "First Name"
+msgstr "Naran Dahuluk"
+
+msgid "Last Name"
+msgstr "Naran Ikus"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Upload a profile picture"
+msgstr "Upload imajen profile"
 
 msgid "Enter password"
 msgstr "Hatama seña"
@@ -90,8 +108,23 @@ msgstr "Hatama ita nia 1%s"
 msgid "Enter your email address to reset your password"
 msgstr "Hatama ita boot nia enderessu email hodi defini fali ita boot nia seña"
 
+msgid "URL"
+msgstr "URL"
+
+msgid "Parent"
+msgstr "Inan-aman"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
+
+msgid "Collection"
+msgstr "Kolleksaun"
+
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Edit"
+msgstr "Hadia"
 
 msgid "New title"
 msgstr "Titlu foun"
@@ -169,105 +202,6 @@ msgstr "Ita boot prezia hatama informasaun nee "
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
 
-msgid "Arabic"
-msgstr "Arabic"
-
-msgid "Catalan"
-msgstr "Catalan"
-
-msgid "Czech"
-msgstr "Czech"
-
-msgid "German"
-msgstr "German"
-
-msgid "Greek"
-msgstr "Greek"
-
-msgid "English"
-msgstr "English"
-
-msgid "Spanish"
-msgstr " Espanhól"
-
-msgid "Finnish"
-msgstr "Finnish"
-
-msgid "French"
-msgstr "Fransa"
-
-msgid "Galician"
-msgstr "Galician"
-
-msgid "Hungarian"
-msgstr "Hungarian"
-
-msgid "Indonesian"
-msgstr "Bahasa"
-
-msgid "Icelandic"
-msgstr "Icelandic"
-
-msgid "Italian"
-msgstr "Italian"
-
-msgid "Japanese"
-msgstr "Japanese"
-
-msgid "Korean"
-msgstr "Korean"
-
-msgid "Lithuanian"
-msgstr "Lithuanian"
-
-msgid "Mongolian"
-msgstr "Mongolian"
-
-msgid "Norwegian Bokmål"
-msgstr "Norwegian Bokmål"
-
-msgid "Netherlands Dutch"
-msgstr "Netherlands Dutch"
-
-msgid "Persian"
-msgstr "Persian"
-
-msgid "Polish"
-msgstr "Polish"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilian Portuguese"
-
-msgid "Portuguese"
-msgstr "Portuguese"
-
-msgid "Romanian"
-msgstr "Romanian"
-
-msgid "Russian"
-msgstr "Russian"
-
-msgid "Swedish"
-msgstr "Sweden"
-
-msgid "Slovak"
-msgstr "Slovak"
-
-msgid "Thai"
-msgstr "Thai"
-
-msgid "Ukrainian"
-msgstr "Ukrainian"
-
-msgid "Chinese (Simplified)"
-msgstr "Chinese (Simplified)"
-
-msgid "Chinese (Traditional)"
-msgstr "Chinese (Traditional)"
-
-msgid "Edit"
-msgstr "Hadia"
-
 msgid "Page"
 msgstr "Pajina"
 
@@ -333,13 +267,22 @@ msgid "Close"
 msgstr "Taka"
 
 msgid "Edit '{title}'"
-msgstr " Edit '{titulu}'"
+msgstr " Edit '{title}'"
 
 msgid "View child pages of '{title}'"
 msgstr "Haree pajina oan sira husi '{title}'"
 
 msgid "Page explorer"
 msgstr "Explora pajina"
+
+msgid "Save"
+msgstr "Rai"
+
+msgid "Dashboard"
+msgstr "Painel kontrolu"
+
+msgid "Edit your account"
+msgstr "Hadia ita nia konta"
 
 msgid "Error 404: Page not found"
 msgstr "Erru 404: Pajina la hetan"
@@ -356,21 +299,6 @@ msgstr "Ba administrasaun Wagtail"
 msgid "Account"
 msgstr "Konta"
 
-msgid "Change profile picture"
-msgstr "Troka imajen perfil"
-
-msgid "Your current profile picture:"
-msgstr "Ita boot nia imagen perfil:"
-
-msgid "Update"
-msgstr "Troka"
-
-msgid "Change email"
-msgstr "Troka email"
-
-msgid "Change name"
-msgstr "Troka naran"
-
 msgid "Change password"
 msgstr "Troka seña"
 
@@ -378,15 +306,6 @@ msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr ""
 "Ita boot labele troka seña iha nee. Favor koalia malu situ administrador."
-
-msgid "Set Time Zone"
-msgstr "Troka Zona Tempu"
-
-msgid "Language Preferences"
-msgstr "Preferensia Lian"
-
-msgid "Notification preferences"
-msgstr "Preferensia Notifikasaun"
 
 msgid "Reset password"
 msgstr "Inisiu troka seña"
@@ -434,17 +353,8 @@ msgstr "Seña muda"
 msgid "Reset your password"
 msgstr "Muda ita nia Seña "
 
-msgid "Dashboard"
-msgstr "Painel kontrolu"
-
 msgid "Menu"
 msgstr "Menu"
-
-msgid "Move up"
-msgstr "Muda ba leten"
-
-msgid "Move down"
-msgstr "Muda ba kraik"
 
 msgid "Explorer"
 msgstr "Explora"
@@ -532,9 +442,6 @@ msgstr ""
 "Konfigurasaun privado determina se mak bele haree dokumentu sira iha "
 "koleksaun nee."
 
-msgid "Save"
-msgstr "Rai"
-
 msgid "Set collection privacy. Current status: Public"
 msgstr "Troka koleksaun privadu. Status agora: Publiku"
 
@@ -566,8 +473,17 @@ msgstr ""
 msgid "Add %(label)s"
 msgstr " Hatama %(label)s"
 
+msgid "Move up"
+msgstr "Muda ba leten"
+
+msgid "Move down"
+msgstr "Muda ba kraik"
+
 msgid "Yes, delete"
 msgstr "Sin, hamoos"
+
+msgid "Update"
+msgstr "Troka"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -578,6 +494,9 @@ msgid ""
 "created will be displayed."
 msgstr ""
 "Nee ita boot nia pajina analisa no informasaun konaba pjaina nia conteudu."
+
+msgid "Title"
+msgstr "Titlu"
 
 msgid "Edit this page"
 msgstr "Hadia pájina ida ne'e"
@@ -590,9 +509,6 @@ msgstr "Ativu"
 
 msgid "Pages awaiting moderation"
 msgstr "Pajina sira hein ba moderasaun"
-
-msgid "Parent"
-msgstr "Inan-aman"
 
 msgid "Type"
 msgstr "Tipu"
@@ -617,6 +533,9 @@ msgstr "Ita boot nia troka sira"
 
 msgid "Status"
 msgstr "Estadu"
+
+msgid "Date"
+msgstr "Data"
 
 msgid "Site summary"
 msgstr "Sumariu Situs"
@@ -649,9 +568,6 @@ msgstr "Tama ba Wagtail"
 
 msgid "Signing in…"
 msgstr "Tama hela..."
-
-msgid "Forgotten it?"
-msgstr "Haluha ida-neʼe?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -743,6 +659,15 @@ msgstr "Hili tipu pajina ita boot hakarek kria."
 msgid "Pages using %(page_type)s"
 msgstr "Pajina uza%(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+msgid "Move"
+msgstr "Muda"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hamoos %(title)s"
@@ -783,9 +708,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Muda %(title)s"
 
-msgid "Move"
-msgstr "Muda"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "ita boot hakarak muda pajina ida nee too  '%(title)s' nia laran?"
@@ -824,9 +746,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "Sin, subar"
-
-msgid "No, don't unpublish"
-msgstr "Lae, la subar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -1128,8 +1047,11 @@ msgstr "Hatama termu buka iha leten"
 msgid "No pages use"
 msgstr "Laiha pajina nebee uza"
 
-msgid "Collection"
-msgstr "Kolleksaun"
+msgid "Download CSV"
+msgstr "Download CSV"
+
+msgid "Filter"
+msgstr "Filtru"
 
 msgid "Locked"
 msgstr "Xavi tiha ona"
@@ -1150,9 +1072,6 @@ msgstr "Uma"
 msgid "All collections"
 msgstr "Koleksaun hotu-hotu"
 
-msgid "Edit your account"
-msgstr "Hadia ita nia konta"
-
 msgid "Account settings"
 msgstr "Konfigurasaun konta"
 
@@ -1165,9 +1084,6 @@ msgstr "Status pajina dadaun"
 msgid "Other searches"
 msgstr "Buka seluk"
 
-msgid "Go to Wagtail admin interface"
-msgstr "Ba pajina administrasaun Wagtail"
-
 msgid "Add a child page"
 msgstr "Hatama pajina oan"
 
@@ -1178,23 +1094,20 @@ msgstr "Hatudu iha Esplorador"
 msgid "by %(modified_by)s"
 msgstr "Husi  %(modified_by)s"
 
+msgid "live"
+msgstr "Hela"
+
+msgid "draft"
+msgstr "Esbosu"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
+
 msgid "Test"
 msgstr "Test"
 
-msgid "Your password has been changed successfully!"
-msgstr "ita boot nia seña troka ona ho sussessu!"
-
-msgid "Your email has been changed successfully!"
-msgstr "ita boot nia email troka ona ho sussessu!"
-
-msgid "Your name has been changed successfully!"
-msgstr "ita boot nia naran troka ona ho sussessu!"
-
-msgid "Your preferences have been updated."
-msgstr "Ita boot nia preferensia atualiza ona."
-
-msgid "Your preferences have been updated successfully!"
-msgstr "Ita boot nia preferensia atualiza ona ho sussessu!"
+msgid "Password"
+msgstr "Seña"
 
 msgid "You have been successfully logged out."
 msgstr "Ita boot sai ona ho sussessu."
@@ -1228,6 +1141,9 @@ msgstr "Ita boot serteza hamoos koleksaun nee?"
 
 msgid "Editing"
 msgstr "Hadia hela"
+
+msgid "View live"
+msgstr "Haree iha situ"
 
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."

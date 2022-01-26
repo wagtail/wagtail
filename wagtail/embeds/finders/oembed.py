@@ -1,10 +1,13 @@
 import json
 import re
 
+from datetime import timedelta
 from urllib import request as urllib_request
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import Request
+
+from django.utils import timezone
 
 from wagtail.embeds.exceptions import EmbedNotFoundException
 from wagtail.embeds.oembed_providers import all_providers
@@ -42,7 +45,7 @@ class OEmbedFinder(EmbedFinder):
     def accept(self, url):
         return self._get_endpoint(url) is not None
 
-    def find_embed(self, url, max_width=None):
+    def find_embed(self, url, max_width=None, max_height=None):
         # Find provider
         endpoint = self._get_endpoint(url)
         if endpoint is None:
@@ -54,15 +57,17 @@ class OEmbedFinder(EmbedFinder):
         params['format'] = 'json'
         if max_width:
             params['maxwidth'] = max_width
+        if max_height:
+            params['maxheight'] = max_height
 
         # Perform request
         request = Request(endpoint + '?' + urlencode(params))
         request.add_header('User-agent', 'Mozilla/5.0')
         try:
             r = urllib_request.urlopen(request)
-        except URLError:
+            oembed = json.loads(r.read().decode('utf-8'))
+        except (URLError, json.decoder.JSONDecodeError):
             raise EmbedNotFoundException
-        oembed = json.loads(r.read().decode('utf-8'))
 
         # Convert photos into HTML
         if oembed['type'] == 'photo':
@@ -71,16 +76,25 @@ class OEmbedFinder(EmbedFinder):
             html = oembed.get('html')
 
         # Return embed as a dict
-        return {
-            'title': oembed['title'] if 'title' in oembed else '',
-            'author_name': oembed['author_name'] if 'author_name' in oembed else '',
-            'provider_name': oembed['provider_name'] if 'provider_name' in oembed else '',
+        result = {
+            'title': oembed.get('title', ''),
+            'author_name': oembed.get('author_name', ''),
+            'provider_name': oembed.get('provider_name', ''),
             'type': oembed['type'],
             'thumbnail_url': oembed.get('thumbnail_url'),
             'width': oembed.get('width'),
             'height': oembed.get('height'),
             'html': html,
         }
+
+        try:
+            cache_age = int(oembed['cache_age'])
+        except (KeyError, TypeError, ValueError):
+            pass
+        else:
+            result['cache_until'] = timezone.now() + timedelta(seconds=cache_age)
+
+        return result
 
 
 embed_finder_class = OEmbedFinder

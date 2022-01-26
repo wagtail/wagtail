@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import override
 
 from wagtail.admin.auth import users_with_page_permission
-from wagtail.core.models import GroupApprovalTask, PageRevision, TaskState, WorkflowState
+from wagtail.core.models import GroupApprovalTask, TaskState, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
@@ -41,6 +41,7 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
         elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
             from_email = settings.DEFAULT_FROM_EMAIL
         else:
+            # We are no longer using the term `webmaster` except in this case, where we continue to match Django's default: https://github.com/django/django/blob/stable/3.2.x/django/conf/global_settings.py#L223
             from_email = 'webmaster@localhost'
 
     connection = kwargs.get('connection', False) or get_connection(
@@ -62,25 +63,29 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     return mail.send()
 
 
-def send_notification(page_revision_id, notification, excluded_user_id):
-    # Get revision
-    revision = PageRevision.objects.get(id=page_revision_id)
-
+def send_moderation_notification(revision, notification, excluded_user=None):
     # Get list of recipients
     if notification == 'submitted':
         # Get list of publishers
         include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
-        recipients = users_with_page_permission(revision.page, 'publish', include_superusers)
+        recipient_users = users_with_page_permission(revision.page, 'publish', include_superusers)
     elif notification in ['rejected', 'approved']:
         # Get submitter
-        recipients = [revision.user]
+        recipient_users = [revision.user]
     else:
         return False
 
+    if excluded_user:
+        recipient_users = [user for user in recipient_users if user != excluded_user]
+
+    return send_notification(recipient_users, notification, {'revision': revision})
+
+
+def send_notification(recipient_users, notification, extra_context):
     # Get list of email addresses
     email_recipients = [
-        recipient for recipient in recipients
-        if recipient.email and recipient.pk != excluded_user_id and getattr(
+        recipient for recipient in recipient_users
+        if recipient.is_active and recipient.email and getattr(
             UserProfile.get_for_user(recipient),
             notification + '_notifications'
         )
@@ -97,9 +102,9 @@ def send_notification(page_revision_id, notification, excluded_user_id):
 
     # Common context to template
     context = {
-        "revision": revision,
         "settings": settings,
     }
+    context.update(extra_context)
 
     connection = get_connection()
 
@@ -202,11 +207,13 @@ class EmailNotificationMixin:
     def get_valid_recipients(self, instance, **kwargs):
         """Filters notification recipients to those allowing the notification type on their UserProfile, and those
         with an email address"""
-
-        return {recipient for recipient in self.get_recipient_users(instance, **kwargs) if recipient.email and getattr(
-            UserProfile.get_for_user(recipient),
-            self.notification + '_notifications'
-        )}
+        return {
+            recipient for recipient in self.get_recipient_users(instance, **kwargs)
+            if recipient.is_active and recipient.email and getattr(
+                UserProfile.get_for_user(recipient),
+                self.notification + '_notifications'
+            )
+        }
 
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates for the email subject and the text and html
@@ -330,6 +337,11 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
             recipients.exclude(pk=triggering_user.pk)
 
         return recipients
+
+    def get_context(self, workflow_state, **kwargs):
+        context = super().get_context(workflow_state, **kwargs)
+        context['requested_by'] = workflow_state.requested_by
+        return context
 
 
 class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):

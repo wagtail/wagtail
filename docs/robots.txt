@@ -1,8 +1,5 @@
 User-agent: *
 
-# Only index `/en/stable/`
-Disallow: /en/v*/
-Disallow: /en/latest/
 Disallow: /*/pdf/
 
-Sitemap: https://docs.wagtail.io/sitemap.xml
+Sitemap: https://docs.wagtail.org/sitemap.xml

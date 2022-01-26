@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -26,6 +26,9 @@ msgstr ""
 msgid "Wagtail documents"
 msgstr "مستندات Wagtail"
 
+msgid "Collection"
+msgstr "مجموعة"
+
 msgid "Add"
 msgstr "أضف"
 
@@ -37,6 +40,9 @@ msgstr "تحرير"
 
 msgid "Edit any document"
 msgstr "تحرير أي وثيقة"
+
+msgid "Choose"
+msgstr "اختر"
 
 msgid "title"
 msgstr "عنوان"
@@ -59,6 +65,22 @@ msgstr "مستند"
 msgid "documents"
 msgstr "وثائق"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "استخدم %(usage_count)s مرة"
+msgstr[1] "استخدم %(usage_count)s مرة"
+msgstr[2] "استخدم %(usage_count)s مرات"
+msgstr[3] "استخدم %(usage_count)s مرة"
+msgstr[4] "استخدم %(usage_count)s مرات"
+msgstr[5] "استخدم %(usage_count)s مرات"
+
+msgid "Yes, delete"
+msgstr "نعم احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
 msgid "Choose a document"
 msgstr "احتر وثيقة"
 
@@ -68,11 +90,18 @@ msgstr "بحث"
 msgid "Upload"
 msgstr "انقل إلى الحاسوب"
 
-msgid "Uploading…"
-msgstr "يتم الرفع…"
-
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "File"
+msgstr "ملف"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -95,6 +124,9 @@ msgstr ""
 "لماذا لا <a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
 "\">تحمل واحد الآن</a>؟"
 
+msgid "Uploading…"
+msgstr "يتم الرفع…"
+
 msgid "Change document:"
 msgstr "غير الوثيقة"
 
@@ -110,22 +142,6 @@ msgstr "حذف %(title)s"
 
 msgid "Delete document"
 msgstr "احذف وثيقة"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "استخدم %(usage_count)s مرة"
-msgstr[1] "استخدم %(usage_count)s مرة"
-msgstr[2] "استخدم %(usage_count)s مرات"
-msgstr[3] "استخدم %(usage_count)s مرة"
-msgstr[4] "استخدم %(usage_count)s مرات"
-msgstr[5] "استخدم %(usage_count)s مرات"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "هل تريد فعلا حذف هذه الوثيقة؟"
-
-msgid "Yes, delete"
-msgstr "نعم احذف"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -148,19 +164,6 @@ msgstr "استعمال"
 
 msgid "Documents"
 msgstr "وثائق"
-
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-msgid "Collection"
-msgstr "مجموعة"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid ""
@@ -223,12 +226,6 @@ msgstr ""
 msgid "Sorry, upload failed."
 msgstr "عذرًا ، أخفق التحميل."
 
-msgid "Update"
-msgstr "حدث"
-
-msgid "Delete"
-msgstr "احذف"
-
 msgid "You need a password to access this document."
 msgstr "أنت بحاجة إلى كلمة مرور للوصول إلى هذا المستند."
 
@@ -237,6 +234,9 @@ msgstr "اذونات الوثيقة"
 
 msgid "Add a document permission"
 msgstr "إضافة إذن وثيقة"
+
+msgid "Delete"
+msgstr "احذف"
 
 msgid "Server Error"
 msgstr "خطا بالخادم"

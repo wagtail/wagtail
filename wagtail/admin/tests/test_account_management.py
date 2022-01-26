@@ -1,22 +1,21 @@
-import os
-import tempfile
+import unittest
 
 import pytz
 
-from django import VERSION as DJANGO_VERSION
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.models import Group, Permission
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core import mail
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
-from django.utils.translation import get_language
 
 from wagtail.admin.localization import (
     WAGTAILADMIN_PROVIDED_LANGUAGES, get_available_admin_languages, get_available_admin_time_zones)
-from wagtail.admin.views.account import change_password
+from wagtail.admin.views.account import account, profile_tab
+from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
@@ -181,7 +180,38 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 403)
 
 
-class TestAccountSection(TestCase, WagtailTestUtils):
+class TestAccountSectionUtilsMixin:
+    def assertPanelActive(self, response, name):
+        panels = set()
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                panels.add(panel.name)
+        self.assertIn(name, panels, "Panel %s not active in response" % name)
+
+    def assertPanelNotActive(self, response, name):
+        panels = set()
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                panels.add(panel.name)
+        self.assertNotIn(name, panels, "Panel %s active in response" % name)
+
+    def post_form(self, extra_post_data):
+        post_data = {
+            'name_email-first_name': 'Test',
+            'name_email-last_name': 'User',
+            'name_email-email': self.user.email,
+            'notifications-submitted_notifications': 'false',
+            'notifications-approved_notifications': 'false',
+            'notifications-rejected_notifications': 'true',
+            'notifications-updated_comments_notifications': 'true',
+            'locale-preferred_language': 'es',
+            'locale-current_time_zone': 'Europe/London',
+        }
+        post_data.update(extra_post_data)
+        return self.client.post(reverse('wagtailadmin_account'), post_data)
+
+
+class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
     """
     This tests that the accounts section is working
     """
@@ -198,72 +228,73 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Check that the user received an account page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
-        # Page should contain a 'Change password' option
-        self.assertContains(response, "Change password")
-        # Page should contain a 'Change email' option
-        self.assertContains(response, "Change email")
 
-    def test_change_email_view(self):
-        """
-        This tests that the change email view responds with a change email page
-        """
-        # Get change email page
-        response = self.client.get(reverse('wagtailadmin_account_change_email'))
+        self.assertPanelActive(response, 'name_email')
+        self.assertPanelActive(response, 'notifications')
+        self.assertPanelActive(response, 'locale')
+        self.assertPanelActive(response, 'password')
 
-        # Check that the user received a change email page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_email.html')
+        # These fields may hide themselves
+        self.assertContains(response, "Email:")
+        self.assertContains(response, "Preferred language:")
+
+        if settings.USE_TZ:
+            self.assertContains(response, "Current time zone:")
+        else:
+            self.assertNotContains(response, "Current time zone:")
+
+        # Form media should be included on the page
+        self.assertContains(response, 'vendor/colorpicker.js')
+
+    def test_change_name_post(self):
+        response = self.post_form({
+            'name_email-first_name': 'Fox',
+            'name_email-last_name': 'Mulder',
+        })
+
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check that the name was changed
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.first_name, 'Fox')
+        self.assertEqual(self.user.last_name, 'Mulder')
 
     def test_change_email_post(self):
-        post_data = {
-            'email': 'test@email.com'
-        }
-
-        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+        response = self.post_form({
+            'name_email-email': 'test@email.com',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the email was changed
-        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.email, 'test@email.com')
 
     def test_change_email_not_valid(self):
-        post_data = {
-            'email': 'test@email'
-        }
-
-        response = self.client.post(reverse('wagtailadmin_account_change_email'), post_data)
+        response = self.post_form({
+            'name_email-email': 'test@email',
+        })
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['form'].errors.keys())
+        self.assertTrue('email' in response.context['panels_by_tab'][profile_tab][0].get_form().errors.keys())
 
-        # Check that the password was not changed
-        self.assertNotEqual(get_user_model().objects.get(pk=self.user.pk).email, post_data['email'])
+        # Check that the email was not changed
+        self.user.refresh_from_db()
+        self.assertNotEqual(self.user.email, 'test@email')
 
     @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
-    def test_account_view_with_email_management_disabled(self):
+    def test_with_email_management_disabled(self):
         # Get account page
         response = self.client.get(reverse('wagtailadmin_account'))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/account.html')
-        # Page should NOT contain a 'Change email' option
-        self.assertNotContains(response, "Change email")
-
-    @override_settings(WAGTAIL_EMAIL_MANAGEMENT_ENABLED=False)
-    def test_change_email_view_disabled(self):
-        """
-        This tests that the change email view responds with a 404
-        when setting WAGTAIL_EMAIL_MANAGEMENT_ENABLED is False
-        """
-        # Get change email page
-        response = self.client.get(reverse('wagtailadmin_account_change_email'))
-
-        # Check that the user received a 404
-        self.assertEqual(response.status_code, 404)
+        self.assertNotContains(response, "Email:")
 
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_account_view_with_password_management_disabled(self):
@@ -275,97 +306,59 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         # Page should NOT contain a 'Change password' option
         self.assertNotContains(response, "Change password")
 
-    def test_change_password_view(self):
-        """
-        This tests that the change password view responds with a change password page
-        """
-        # Get change password page
-        response = self.client.get(reverse('wagtailadmin_account_change_password'))
-
-        # Check that the user received a change password page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_password.html')
-
     @override_settings(WAGTAIL_PASSWORD_MANAGEMENT_ENABLED=False)
     def test_change_password_view_disabled(self):
-        """
-        This tests that the change password view responds with a 404
-        when setting WAGTAIL_PASSWORD_MANAGEMENT_ENABLED is False
-        """
-        # Get change password page
-        response = self.client.get(reverse('wagtailadmin_account_change_password'))
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertPanelNotActive(response, 'password')
 
-        # Check that the user received a 404
-        self.assertEqual(response.status_code, 404)
-
-    def test_change_password_view_post(self):
-        """
-        This posts a new password to the change password view and checks
-        that the users password was changed
-        """
-        # Post new password to change password page
-        post_data = {
-            'old_password': 'password',
-            'new_password1': 'newpassword',
-            'new_password2': 'newpassword',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
+    def test_change_password(self):
+        response = self.post_form({
+            'password-old_password': 'password',
+            'password-new_password1': 'newpassword',
+            'password-new_password2': 'newpassword',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
         # Check that the password was changed
-        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('newpassword'))
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('newpassword'))
 
-    def test_change_password_view_post_password_mismatch(self):
-        """
-        This posts a two passwords that don't match to the password change
-        view and checks that a validation error was raised
-        """
-        # Post new password to change password page
-        post_data = {
-            'new_password1': 'newpassword',
-            'new_password2': 'badpassword',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_password'), post_data)
+    def test_change_password_post_password_mismatch(self):
+        response = self.post_form({
+            'password-old_password': 'password',
+            'password-new_password1': 'newpassword',
+            'password-new_password2': 'badpassword',
+        })
 
         # Check that the user wasn't redirected
         self.assertEqual(response.status_code, 200)
 
+        # Find password panel through context
+        password_panel = None
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                if panel.name == 'password':
+                    password_panel = panel
+                    break
+
         # Check that a validation error was raised
-        self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        if DJANGO_VERSION >= (3, 0):
-            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
-        else:
-            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        password_form = password_panel.get_form()
+        self.assertTrue('new_password2' in password_form.errors.keys())
+        self.assertTrue("The two password fields didn’t match." in password_form.errors['new_password2'])
 
         # Check that the password was not changed
-        self.assertTrue(get_user_model().objects.get(pk=self.user.pk).check_password('password'))
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.check_password('password'))
 
-    def test_notification_preferences_view(self):
-        """
-        This tests that the notification preferences view responds with the
-        notification preferences page
-        """
-        # Get notification preferences page
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-
-        # Check that the user received a notification preferences page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/notification_preferences.html')
-
-    def test_notification_preferences_view_post(self):
-        """
-        This posts to the notification preferences view and checks that the
-        user's profile is updated
-        """
-        # Post new values to the notification preferences page
-        post_data = {
+    def test_change_notifications(self):
+        response = self.post_form({
             'submitted_notifications': 'false',
             'approved_notifications': 'false',
             'rejected_notifications': 'true',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_notification_preferences'), post_data)
+            'updated_comments_notifications': 'true',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
@@ -376,39 +369,18 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertFalse(profile.submitted_notifications)
         self.assertFalse(profile.approved_notifications)
         self.assertTrue(profile.rejected_notifications)
+        self.assertTrue(profile.updated_comments_notifications)
 
-    def test_language_preferences_view(self):
-        """
-        This tests that the language preferences view responds with an index page
-        """
-        # Get account page
-        response = self.client.get(reverse('wagtailadmin_account_language_preferences'))
-
-        # Check that the user received an account page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/language_preferences.html')
-
-        # Page should contain a 'Language Preferences' title
-        self.assertContains(response, "Language Preferences")
-
-        # check that current language preference is indicated in HTML header
-        self.assertContains(response, '<html class="no-js" lang="en" dir="ltr">')
-
-    def test_language_preferences_view_post(self):
-        """
-        This posts to the language preferences view and checks that the
-        user profile is updated
-        """
-        # Post new values to the language preferences page
-        post_data = {
-            'preferred_language': 'es'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+    def test_change_language_preferences(self):
+        response = self.post_form({
+            'locale-preferred_language': 'es',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
 
         # Check that the language preferences are stored
         self.assertEqual(profile.preferred_language, 'es')
@@ -418,56 +390,23 @@ class TestAccountSection(TestCase, WagtailTestUtils):
         self.assertContains(response, '<html class="no-js" lang="es" dir="ltr">')
 
     def test_unset_language_preferences(self):
-        # Post new values to the language preferences page
-        post_data = {
-            'preferred_language': ''
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
+        profile = UserProfile.get_for_user(self.user)
+        profile.preferred_language = 'en'
+        profile.save()
+
+        response = self.post_form({
+            'locale-preferred_language': '',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-
         # Check that the language preferences are stored
+        profile.refresh_from_db()
         self.assertEqual(profile.preferred_language, '')
 
         # Check that the current language is assumed as English
         self.assertEqual(profile.get_preferred_language(), "en")
-
-    def test_language_preferences_reapplies_original_language(self):
-        post_data = {
-            'preferred_language': 'es'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_language_preferences'), post_data)
-        self.assertRedirects(response, reverse('wagtailadmin_account'))
-
-        self.assertEqual(get_language(), "en")
-
-    def test_change_name(self):
-        """
-        This tests that the change name view responds with a change name page
-        """
-        # Get change name page
-        response = self.client.get(reverse('wagtailadmin_account_change_name'))
-
-        # Check that the user received a change name page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_name.html')
-
-    def test_change_name_post(self):
-        post_data = {
-            'first_name': 'Fox',
-            'last_name': 'Mulder',
-        }
-        response = self.client.post(reverse('wagtailadmin_account_change_name'), post_data)
-
-        # Check that the user was redirected to the account page
-        self.assertRedirects(response, reverse('wagtailadmin_account'))
-
-        # Check that the name was changed
-        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).first_name, post_data['first_name'])
-        self.assertEqual(get_user_model().objects.get(pk=self.user.pk).last_name, post_data['last_name'])
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English'), ('es', 'Spanish')])
     def test_available_admin_languages_with_permitted_languages(self):
@@ -478,128 +417,160 @@ class TestAccountSection(TestCase, WagtailTestUtils):
 
     @override_settings(WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')])
     def test_not_show_options_if_only_one_language_is_permitted(self):
-        response = self.client.post(reverse('wagtailadmin_account'))
-        self.assertNotContains(response, 'Language Preferences')
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, "Preferred language:")
 
-    def test_current_time_zone_view(self):
-        """
-        This tests that the current time zone view responds with an index page
-        """
-        # Get account page
-        response = self.client.get(reverse('wagtailadmin_account_current_time_zone'))
-
-        # Check that the user received an account page
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/current_time_zone.html')
-
-        # Page should contain a 'Set Time Zone' title
-        self.assertContains(response, "Set Time Zone")
-
-    def test_current_time_zone_view_post(self):
-        """
-        This posts to the current time zone view and checks that the
-        user profile is updated
-        """
-        # Post new values to the current time zone page
-        post_data = {
-            'current_time_zone': 'Pacific/Fiji'
-        }
-        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
+    def test_change_current_time_zone(self):
+        response = self.post_form({
+            'locale-current_time_zone': 'Pacific/Fiji',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
 
         # Check that the current time zone is stored
         self.assertEqual(profile.current_time_zone, 'Pacific/Fiji')
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_unset_current_time_zone(self):
-        # Post new values to the current time zone page
-        post_data = {
-            'current_time_zone': ''
-        }
-        response = self.client.post(reverse('wagtailadmin_account_current_time_zone'), post_data)
+        response = self.post_form({
+            'locale-current_time_zone': '',
+        })
 
         # Check that the user was redirected to the account page
         self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
 
         # Check that the current time zone are stored
         self.assertEqual(profile.current_time_zone, '')
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
     def test_available_admin_time_zones_with_permitted_time_zones(self):
         self.assertListEqual(get_available_admin_time_zones(),
                              ['Africa/Addis_Ababa', 'America/Argentina/Buenos_Aires'])
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     def test_available_admin_time_zones_by_default(self):
         self.assertListEqual(get_available_admin_time_zones(), pytz.common_timezones)
 
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
     @override_settings(WAGTAIL_USER_TIME_ZONES=['Europe/London'])
     def test_not_show_options_if_only_one_time_zone_is_permitted(self):
-        response = self.client.post(reverse('wagtailadmin_account'))
-        self.assertNotContains(response, 'Set Time Zone')
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, "Current time zone:")
+
+    @unittest.skipIf(settings.USE_TZ, "Timezone support is enabled")
+    def test_not_show_options_if_timezone_support_disabled(self):
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertNotContains(response, "Current time zone:")
+
+    @unittest.skipUnless(settings.USE_TZ, "Timezone support is disabled")
+    @override_settings(
+        WAGTAIL_USER_TIME_ZONES=['Europe/London'],
+        WAGTAILADMIN_PERMITTED_LANGUAGES=[('en', 'English')]
+    )
+    def test_doesnt_render_locale_panel_when_only_one_timezone_and_one_locale_permitted(self):
+        response = self.client.get(reverse('wagtailadmin_account'))
+        self.assertPanelNotActive(response, 'locale')
+
+    def test_sensitive_post_parameters(self):
+        request = RequestFactory().post('wagtailadmin_account', data={})
+        request.user = self.user
+        account(request)
+        self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
+        self.assertEqual(request.sensitive_post_parameters, '__ALL__')
 
 
-class TestAvatarSection(TestCase, WagtailTestUtils):
-    def _create_image(self):
-        from PIL import Image
-
-        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
-            image = Image.new('RGB', (200, 200), 'white')
-            image.save(f, 'JPEG')
-
-        return open(f.name, mode='rb')
-
+class TestAccountUploadAvatar(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
     def setUp(self):
         self.user = self.login()
-        self.avatar = self._create_image()
-        self.other_avatar = self._create_image()
+        self.avatar = get_test_image_file()
+        self.other_avatar = get_test_image_file()
 
-    def tearDown(self):
-        self.avatar.close()
-        self.other_avatar.close()
-
-    def test_avatar_preferences_view(self):
+    def test_account_view(self):
         """
-        This tests that the change user profile(avatar) view responds with an index page
+        This tests that the account view renders a "Upload a profile picture:" field
         """
-        response = self.client.get(reverse('wagtailadmin_account_change_avatar'))
+        response = self.client.get(reverse('wagtailadmin_account'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/account/change_avatar.html')
-        self.assertContains(response, "Change profile picture")
+        self.assertContains(response, "Upload a profile picture:")
 
     def test_set_custom_avatar_stores_and_get_custom_avatar(self):
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar': self.avatar},
-                                    follow=True)
+        response = self.post_form({
+            'avatar-avatar': SimpleUploadedFile('other.png', self.other_avatar.file.getvalue())
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
 
-        self.assertEqual(response.status_code, 200)
-
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
-        self.assertIn(os.path.basename(self.avatar.name), profile.avatar.url)
+        profile = UserProfile.get_for_user(self.user)
+        profile.refresh_from_db()
+        self.assertIn('other.png', profile.avatar.url)
 
     def test_user_upload_another_image_removes_previous_one(self):
-        response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                    {'avatar': self.avatar},
-                                    follow=True)
-        self.assertEqual(response.status_code, 200)
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
 
-        profile = UserProfile.get_for_user(get_user_model().objects.get(pk=self.user.pk))
         old_avatar_path = profile.avatar.path
 
         # Upload a new avatar
-        new_response = self.client.post(reverse('wagtailadmin_account_change_avatar'),
-                                        {'avatar': self.other_avatar},
-                                        follow=True)
-        self.assertEqual(new_response.status_code, 200)
+        response = self.post_form({
+            'avatar-avatar': SimpleUploadedFile('other.png', self.other_avatar.file.getvalue())
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('other.png', profile.avatar.url)
 
         # Check old avatar doesn't exist anymore in filesystem
         with self.assertRaises(FileNotFoundError):
             open(old_avatar_path)
+
+    def test_no_value_preserves_current_avatar(self):
+        """
+        Tests that submitting a blank value for avatar doesn't remove it.
+        """
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
+
+        # Upload a new avatar
+        response = self.post_form({})
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('test.png', profile.avatar.url)
+
+    def test_clear_removes_current_avatar(self):
+        """
+        Tests that submitting a blank value for avatar doesn't remove it.
+        """
+        profile = UserProfile.get_for_user(self.user)
+        profile.avatar = self.avatar
+        profile.save()
+
+        # Upload a new avatar
+        response = self.post_form({
+            'avatar-clear': 'on'
+        })
+        # Check that the user was redirected to the account page
+        self.assertRedirects(response, reverse('wagtailadmin_account'))
+
+        # Check the avatar was changed
+        profile.refresh_from_db()
+        self.assertIn('test.png', profile.avatar.url)
 
 
 class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
@@ -613,18 +584,29 @@ class TestAccountManagementForNonModerator(TestCase, WagtailTestUtils):
 
         self.login(username='submitter', password='password')
 
-    def test_notification_preferences_form_is_reduced_for_non_moderators(self):
+    def test_notification_preferences_panel_reduced_for_non_moderators(self):
         """
         This tests that a user without publish permissions is not shown the
         notification preference for 'submitted' items
         """
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-        self.assertIn('approved_notifications', response.context['form'].fields.keys())
-        self.assertIn('rejected_notifications', response.context['form'].fields.keys())
-        self.assertNotIn('submitted_notifications', response.context['form'].fields.keys())
+        response = self.client.get(reverse('wagtailadmin_account'))
+
+        # Find notifications panel through context
+        notifications_panel = None
+        for panelset in response.context['panels_by_tab'].values():
+            for panel in panelset:
+                if panel.name == 'notifications':
+                    notifications_panel = panel
+                    break
+
+        notifications_form = notifications_panel.get_form()
+        self.assertIn('approved_notifications', notifications_form.fields.keys())
+        self.assertIn('rejected_notifications', notifications_form.fields.keys())
+        self.assertNotIn('submitted_notifications', notifications_form.fields.keys())
+        self.assertIn('updated_comments_notifications', notifications_form.fields.keys())
 
 
-class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
+class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixin):
     """
     Tests for users with no edit/publish permissions at all
     """
@@ -642,27 +624,12 @@ class TestAccountManagementForAdminOnlyUser(TestCase, WagtailTestUtils):
 
         self.login(username='admin_only_user', password='password')
 
-    def test_notification_preferences_view_redirects_for_admin_only_users(self):
+    def test_notification_preferences_not_rendered_for_admin_only_users(self):
         """
-        Test that the user is not shown the notification preferences view but instead
-        redirected to the account page
+        Test that the user is not shown the notification preferences panel
         """
-        response = self.client.get(reverse('wagtailadmin_account_notification_preferences'))
-        self.assertRedirects(response, reverse('wagtailadmin_account'))
-
-    def test_notification_preferences_link_not_shown_for_admin_only_users(self):
-        """
-        Test that the user is not even shown the link to the notification
-        preferences view
-        """
-        expected_url = reverse('wagtailadmin_account_notification_preferences')
-
         response = self.client.get(reverse('wagtailadmin_account'))
-        account_urls = [item['url'] for item in response.context['items']]
-        self.assertFalse(expected_url in account_urls)
-        self.assertNotContains(response, expected_url)
-        # safety check that checking for absence/presence of urls works
-        self.assertContains(response, reverse('wagtailadmin_home'))
+        self.assertPanelNotActive(response, 'notifications')
 
 
 class TestPasswordReset(TestCase, WagtailTestUtils):
@@ -722,7 +689,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
     def test_password_reset_view_post_invalid_email(self):
         """
-        This posts an incalid email address to the password reset view and
+        This posts an invalid email address to the password reset view and
         checks that the password reset form raises a validation error
         """
         post_data = {
@@ -754,10 +721,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.password_reset_uid = force_str(urlsafe_base64_encode(force_bytes(self.user.pk)))
 
         # Create url_args
-        if DJANGO_VERSION >= (3, 0):
-            token = auth_views.PasswordResetConfirmView.reset_url_token
-        else:
-            token = auth_views.INTERNAL_RESET_URL_TOKEN
+        token = auth_views.PasswordResetConfirmView.reset_url_token
 
         self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
 
@@ -839,11 +803,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
 
         # Check that a validation error was raised
         self.assertTrue('new_password2' in response.context['form'].errors.keys())
-
-        if DJANGO_VERSION >= (3, 0):
-            self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
-        else:
-            self.assertTrue("The two password fields didn't match." in response.context['form'].errors['new_password2'])
+        self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('password'))
@@ -869,10 +829,3 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Check that the user received a password reset complete page
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'wagtailadmin/account/password_reset/complete.html')
-
-    def test_password_reset_sensitive_post_parameters(self):
-        request = RequestFactory().post('wagtailadmin_password_reset_confirm', data={})
-        request.user = get_user_model().objects.get(email='test@email.com')
-        change_password(request)
-        self.assertTrue(hasattr(request, 'sensitive_post_parameters'))
-        self.assertEqual(request.sensitive_post_parameters, '__ALL__')

@@ -7,7 +7,8 @@
         "noUnusedParameters": true,
         "strictNullChecks": true,
         "esModuleInterop": true,
-        "allowJs": true
+        "allowJs": true,
+        "downlevelIteration": true
     },
     "files": [
         "client/src/index.ts",

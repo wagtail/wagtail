@@ -7,29 +7,58 @@
 
     .breadcrumb {
         margin: -1.2em 0 2em;  // sass linter complains about $desktop-nice-padding here because of unit mismatch
-        margin-left: -$desktop-nice-padding;
-        margin-right: -$desktop-nice-padding;
         padding-left: calc(#{$desktop-nice-padding} - 2em);
 
         @include media-breakpoint-up(sm) {
             margin-top: -1.8em;
+            margin-left: -$desktop-nice-padding;
+            margin-right: -$desktop-nice-padding;
         }
     }
 
     .modal .breadcrumb {
         margin: 0;
+        padding-left: 0.5em;
         background-color: transparent;
+
+        .breadcrumb-item {
+            padding-left: 0;
+            padding-right: 0;
+        }
 
         a {
             color: $color-grey-2;
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+
+            &:hover {
+                color: $color-white;
+            }
         }
 
         li:hover {
-            background-color: $color-grey-4;
+            background-color: transparent;
         }
 
-        .home {
-            padding-left: 0;
+        .home_icon {
+            margin-left: 0;
+        }
+
+        div.c-dropdown__button.u-btn-current {
+            color: $color-grey-2;
+
+            &:hover {
+                background-color: transparent;
+                cursor: default;
+            }
+        }
+
+        .status-tag {
+            margin-bottom: 0;
+        }
+
+        .u-link {
+            color: $color-white;
         }
     }
 
@@ -146,9 +175,8 @@
         z-index: 1;
         top: $object-title-height;
         margin-top: 0;
-        padding-top: 1em;
-        padding-right: $grid-gutter-width / 2;
-        padding-left: 3em;
+        margin-bottom: -1em;
+        padding: 1em ($grid-gutter-width / 2) 1em 3em;
         opacity: 1;
 
         .icon-help {
@@ -270,13 +298,8 @@
 
     // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
     &.stream-field {
-        background-color: #f6f6f6;
         padding-left: 20px;
         padding-right: 20px;
-
-        &.required .field > label:after {
-            display: none;
-        }
 
         .object-layout_big-part {
             max-width: 100%;
@@ -340,7 +363,7 @@
             border-bottom: 1px solid $color-white;
         }
 
-        // wrapper around add button for mutliple objects. Default version is wordless plus button for contracted groups of fields
+        // wrapper around add button for multiple objects. Default version is wordless plus button for contracted groups of fields
         .add {
             @include transition(background-color 0.2s ease);
             position: relative;
@@ -425,7 +448,7 @@
     }
 }
 
-// Footer control bar for perfoming actions on the page
+// Footer control bar for performing actions on the page
 footer .actions {
     .button {
         font-weight: 600;
@@ -520,6 +543,7 @@ footer .preview {
         .object-help {
             padding-bottom: 40px;
             margin-left: 10px;
+            margin-bottom: 0;
             opacity: 0;
         }
 
@@ -568,6 +592,23 @@ footer .preview {
             margin: 0 0 0 -50px;
         }
     }
+
+    // Make room for comments on the right when enabled
+    .tab-content--comments-enabled .object {
+        padding-right: 27%;
+
+        &.full {
+            padding-right: 36%;
+        }
+
+        @include media-breakpoint-up(lg) {
+            padding-right: 30%;
+
+            &.full {
+                padding-right: 36%;
+            }
+        }
+    }
 }
 
 .button.button--live {
@@ -611,6 +652,7 @@ footer .preview {
 
     .icon {
         fill: $color-grey-3;
+        padding-right: 0.5em;
     }
 
     .in_progress {
@@ -632,5 +674,17 @@ footer .preview {
 
     .cancelled .icon {
         fill: $color-red-dark;
+    }
+}
+
+// Media for Windows High Contrast
+
+@media (forced-colors: $media-forced-colours) {
+    .object {
+        border-top: 1px solid GrayText;
+
+        .object-help {
+            margin-bottom: 0;
+        }
     }
 }

@@ -5,11 +5,13 @@ from collections import defaultdict
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import CharField, Q
+from django.db.models import CharField, Prefetch, Q
+from django.db.models.expressions import Exists, OuterRef
 from django.db.models.functions import Length, Substr
-from django.db.models.query import BaseIterable
+from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.core.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
 
@@ -135,6 +137,18 @@ class TreeQuerySet(MP_NodeQuerySet):
 
 
 class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
+    def __init__(self, *args, **kwargs):
+        """Set custom instance attributes"""
+        super().__init__(*args, **kwargs)
+        # set by defer_streamfields()
+        self._defer_streamfields = False
+
+    def _clone(self):
+        """Ensure clones inherit custom attribute values."""
+        clone = super()._clone()
+        clone._defer_streamfields = self._defer_streamfields
+        return clone
+
     def live_q(self):
         return Q(live=True)
 
@@ -180,43 +194,44 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.page_q(other))
 
-    def type_q(self, klass):
-        content_types = ContentType.objects.get_for_models(*[
+    def type_q(self, *types):
+        all_subclasses = set(
             model for model in apps.get_models()
-            if issubclass(model, klass)
-        ]).values()
+            if issubclass(model, types)
+        )
+        content_types = ContentType.objects.get_for_models(*all_subclasses)
+        return Q(content_type__in=list(content_types.values()))
 
-        return Q(content_type__in=list(content_types))
-
-    def type(self, model):
+    def type(self, *types):
         """
         This filters the QuerySet to only contain pages that are an instance
-        of the specified model (including subclasses).
+        of the specified model(s) (including subclasses).
         """
-        return self.filter(self.type_q(model))
+        return self.filter(self.type_q(*types))
 
-    def not_type(self, model):
+    def not_type(self, *types):
         """
-        This filters the QuerySet to not contain any pages which are an instance of the specified model.
+        This filters the QuerySet to exclude any pages which are an instance of the specified model(s).
         """
-        return self.exclude(self.type_q(model))
+        return self.exclude(self.type_q(*types))
 
-    def exact_type_q(self, klass):
-        return Q(content_type=ContentType.objects.get_for_model(klass))
+    def exact_type_q(self, *types):
+        content_types = ContentType.objects.get_for_models(*types)
+        return Q(content_type__in=list(content_types.values()))
 
-    def exact_type(self, model):
+    def exact_type(self, *types):
         """
-        This filters the QuerySet to only contain pages that are an instance of the specified model
+        This filters the QuerySet to only contain pages that are an instance of the specified model(s)
         (matching the model exactly, not subclasses).
         """
-        return self.filter(self.exact_type_q(model))
+        return self.filter(self.exact_type_q(*types))
 
-    def not_exact_type(self, model):
+    def not_exact_type(self, *types):
         """
-        This filters the QuerySet to not contain any pages which are an instance of the specified model
+        This filters the QuerySet to exclude any pages which are an instance of the specified model(s)
         (matching the model exactly, not subclasses).
         """
-        return self.exclude(self.exact_type_q(model))
+        return self.exclude(self.exact_type_q(*types))
 
     def public_q(self):
         from wagtail.core.models import PageViewRestriction
@@ -344,15 +359,27 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         for page in self.live():
             page.unpublish()
 
+    def defer_streamfields(self):
+        """
+        Apply to a queryset to prevent fetching/decoding of StreamField values on
+        evaluation. Useful when working with potentially large numbers of results,
+        where StreamField values are unlikely to be needed. For example, when
+        generating a sitemap or a long list of page links.
+        """
+        clone = self._clone()
+        clone._defer_streamfields = True  # used by specific_iterator()
+        streamfield_names = self.model.get_streamfield_names()
+        if not streamfield_names:
+            return clone
+        return clone.defer(*streamfield_names)
+
     def specific(self, defer=False):
         """
         This efficiently gets all the specific pages for the queryset, using
         the minimum number of queries.
 
-        When the "defer" keyword argument is set to True, only the basic page
-        fields will be loaded and all specific fields will be deferred. It
-        will still generate a query for each page type though (this may be
-        improved to generate only a single query in a future release).
+        When the "defer" keyword argument is set to True, only generic page
+        field values will be loaded and all specific fields will be deferred.
         """
         clone = self._clone()
         if defer:
@@ -392,6 +419,57 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from the results.
         """
         return self.exclude(self.translation_of_q(page, inclusive))
+
+    def prefetch_workflow_states(self):
+        """
+        Performance optimisation for listing pages.
+        Prefetches the active workflow states on each page in this queryset.
+        Used by `workflow_in_progress` and `current_workflow_progress` properties on
+        `wagtailcore.models.Page`.
+        """
+        from .models import WorkflowState
+
+        workflow_states = WorkflowState.objects.active().select_related(
+            "current_task_state__task"
+        )
+
+        return self.prefetch_related(
+            Prefetch(
+                "workflow_states",
+                queryset=workflow_states,
+                to_attr="_current_workflow_states",
+            )
+        )
+
+    def annotate_approved_schedule(self):
+        """
+        Performance optimisation for listing pages.
+        Annotates each page with the existence of an approved go live time.
+        Used by `approved_schedule` property on `wagtailcore.models.Page`.
+        """
+        from .models import PageRevision
+
+        return self.annotate(
+            _approved_schedule=Exists(
+                PageRevision.objects.exclude(approved_go_live_at__isnull=True).filter(
+                    page__pk=OuterRef("pk")
+                )
+            )
+        )
+
+    def annotate_site_root_state(self):
+        """
+        Performance optimisation for listing pages.
+        Annotates each object with whether it is a root page of any site.
+        Used by `is_site_root` method on `wagtailcore.models.Page`.
+        """
+        return self.annotate(
+            _is_site_root=Exists(
+                Site.objects.filter(
+                    root_page__translation_key=OuterRef("translation_key")
+                )
+            )
+        )
 
 
 def specific_iterator(qs, defer=False):
@@ -435,6 +513,8 @@ def specific_iterator(qs, defer=False):
             # Defer all specific fields
             fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
             pages = pages.only(*fields)
+        elif qs._defer_streamfields:
+            pages = pages.defer_streamfields()
 
         pages_for_type = {page.pk: page for page in pages}
         pages_by_type[content_type] = pages_for_type
@@ -474,6 +554,17 @@ class SpecificIterable(BaseIterable):
         return specific_iterator(self.queryset)
 
 
-class DeferredSpecificIterable(BaseIterable):
+class DeferredSpecificIterable(ModelIterable):
     def __iter__(self):
-        return specific_iterator(self.queryset, defer=True)
+        for obj in super().__iter__():
+            if obj.specific_class:
+                yield obj.specific_deferred
+            else:
+                warnings.warn(
+                    "A specific version of the following page could not be returned "
+                    "because the specific page model is not present on the active "
+                    f"branch: <Page id='{obj.id}' title='{obj.title}' "
+                    f"type='{obj.content_type}'>",
+                    category=RuntimeWarning
+                )
+                yield obj

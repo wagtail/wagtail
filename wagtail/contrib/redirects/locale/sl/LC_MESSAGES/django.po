@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Type"
+msgstr "Tip"
+
 msgid "From site"
 msgstr "Iz spletnega mesta"
 
@@ -28,6 +31,10 @@ msgstr "Vsa spletna mesta"
 
 msgid "A redirect with this path already exists."
 msgstr "Preusmeritev za to pot že obstaja."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Podprte oblike zapisa: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "Preusmeritev iz"
@@ -76,6 +83,9 @@ msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
+msgid "Preview"
+msgstr "Predogled"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Urejanje %(title)s"
@@ -94,9 +104,6 @@ msgstr "Na"
 
 msgid "Site"
 msgstr "Spletno mesto"
-
-msgid "Type"
-msgstr "Tip"
 
 msgid "Edit this redirect"
 msgstr "Uredi preusmeritev"

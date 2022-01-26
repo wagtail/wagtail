@@ -1,14 +1,14 @@
 .breadcrumb {
     @include unlist();
     @include clearfix();
-    overflow: hidden;
     padding-top: 1.4em;
     font-size: 0.85em;
     line-height: 1.5em;
     margin-left: 2em;
     background: $color-teal;
 
-    li {
+    li,
+    .breadcrumb-item {
         display: block;
         float: left;
         position: relative;
@@ -20,9 +20,22 @@
             background: $color-teal-dark;
         }
 
+        &.breadcrumb-dropdown {
+            padding: 0;
+            font-size: initial;
+        }
+
+        .t-default .u-btn-current {
+            color: inherit;
+            background: rgba(0, 91, 94, 0.6);
+            font-size: 1.15em;
+            border: 0;
+            line-height: 1.6;
+        }
     }
 
-    a {
+    li > a,
+    .breadcrumb-link {
         color: $color-white;
         display: block;
         padding: calc(0.5em - 4px) 1em;

@@ -107,11 +107,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/import_summary.html")
             self.assertEqual(Redirect.objects.all().count(), 2)
 
     def test_permanent_setting(self):
@@ -138,11 +134,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/import_summary.html")
             self.assertFalse(Redirect.objects.first().is_permanent)
 
     def test_site_setting(self):
@@ -175,11 +167,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/import_summary.html")
             self.assertEqual(Redirect.objects.count(), 2)
             self.assertEqual(Redirect.objects.first().site, new_site)
 
@@ -198,10 +186,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
             import_response = self.post_import(
                 {
@@ -213,11 +198,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 follow=True,
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/index.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/index.html")
             self.assertEqual(Redirect.objects.all().count(), 3)
 
     def test_import_xlsx(self):
@@ -235,10 +216,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
             import_response = self.post_import(
                 {
@@ -250,11 +228,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 follow=True,
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/index.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/index.html")
             self.assertEqual(Redirect.objects.all().count(), 3)
 
     def test_unicode_error_when_importing(self):
@@ -302,10 +276,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                     "site": 99,
                 }
             )
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
     def test_import_tsv(self):
         f = "{}/files/example.tsv".format(TEST_ROOT)
@@ -322,10 +293,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
             import_response = self.post_import(
                 {
@@ -336,11 +304,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/import_summary.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/import_summary.html")
             self.assertEqual(Redirect.objects.all().count(), 2)
 
     @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='cache')
@@ -359,10 +323,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
             import_response = self.post_import(
                 {
@@ -374,11 +335,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 follow=True,
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/index.html",
-            )
-
+            self.assertTemplateUsed(import_response, "wagtailredirects/index.html")
             self.assertEqual(Redirect.objects.all().count(), 3)
 
     @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='cache')
@@ -397,10 +354,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(response, "wagtailredirects/confirm_import.html")
 
             import_response = self.post_import(
                 {
@@ -409,7 +363,4 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 }
             )
 
-            self.assertEqual(
-                import_response.templates[0].name,
-                "wagtailredirects/confirm_import.html",
-            )
+            self.assertTemplateUsed(import_response, "wagtailredirects/confirm_import.html")

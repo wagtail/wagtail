@@ -3,10 +3,13 @@ import json
 from django import forms
 from django.forms import widgets
 from django.template.loader import render_to_string
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.models import Page
+from wagtail.core.telepath import register
+from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.utils.widgets import WidgetWithScript
 
 
@@ -24,7 +27,8 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     is_hidden = False
 
     def get_instance(self, model_class, value):
-        # helper method for cleanly turning 'value' into an instance object
+        # helper method for cleanly turning 'value' into an instance object.
+        # DEPRECATED - subclasses should override WidgetWithScript.get_value_data instead
         if value is None:
             return None
 
@@ -34,6 +38,7 @@ class AdminChooser(WidgetWithScript, widgets.Input):
             return None
 
     def get_instance_and_id(self, model_class, value):
+        # DEPRECATED - subclasses should override WidgetWithScript.get_value_data instead
         if value is None:
             return (None, None)
         elif isinstance(value, model_class):
@@ -84,7 +89,7 @@ class AdminPageChooser(AdminChooser):
 
         self.user_perms = user_perms
         self.target_models = list(target_models or [Page])
-        self.can_choose_root = can_choose_root
+        self.can_choose_root = bool(can_choose_root)
 
     def _get_lowest_common_page_class(self):
         """
@@ -97,42 +102,64 @@ class AdminPageChooser(AdminChooser):
         else:
             return Page
 
-    def render_html(self, name, value, attrs):
-        model_class = self._get_lowest_common_page_class()
+    @property
+    def model_names(self):
+        return [
+            '{app}.{model}'.format(app=model._meta.app_label, model=model._meta.model_name)
+            for model in self.target_models
+        ]
 
-        instance, value = self.get_instance_and_id(model_class, value)
+    @property
+    def client_options(self):
+        # a JSON-serializable representation of the configuration options needed for the
+        # client-side behaviour of this widget
+        return {
+            'model_names': self.model_names,
+            'can_choose_root': self.can_choose_root,
+            'user_perms': self.user_perms,
+        }
 
-        original_field_html = super().render_html(name, value, attrs)
+    def get_value_data(self, value):
+        if value is None:
+            return None
+        elif isinstance(value, Page):
+            page = value.specific
+        else:  # assume page ID
+            model_class = self._get_lowest_common_page_class()
+            try:
+                page = model_class.objects.get(pk=value)
+            except model_class.DoesNotExist:
+                return None
+
+            page = page.specific
+
+        parent_page = page.get_parent()
+        return {
+            'id': page.pk,
+            'display_title': page.get_admin_display_title(),
+            'parent_id': parent_page.pk if parent_page else None,
+            'edit_url': reverse('wagtailadmin_pages:edit', args=[page.pk]),
+        }
+
+    def render_html(self, name, value_data, attrs):
+        value_data = value_data or {}
+        original_field_html = super().render_html(name, value_data.get('id'), attrs)
 
         return render_to_string("wagtailadmin/widgets/page_chooser.html", {
             'widget': self,
             'original_field_html': original_field_html,
             'attrs': attrs,
-            'value': value,
-            'page': instance,
+            'value': bool(value_data),  # only used by chooser.html to identify blank values
+            'display_title': value_data.get('display_title', ''),
+            'edit_url': value_data.get('edit_url', ''),
         })
 
-    def render_js_init(self, id_, name, value):
-        if isinstance(value, Page):
-            page = value
-        else:
-            # Value is an ID look up object
-            model_class = self._get_lowest_common_page_class()
-            page = self.get_instance(model_class, value)
-
-        parent = page.get_parent() if page else None
-
-        return "createPageChooser({id}, {model_names}, {parent}, {can_choose_root}, {user_perms});".format(
+    def render_js_init(self, id_, name, value_data):
+        value_data = value_data or {}
+        return "createPageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
-            model_names=json.dumps([
-                '{app}.{model}'.format(
-                    app=model._meta.app_label,
-                    model=model._meta.model_name)
-                for model in self.target_models
-            ]),
-            parent=json.dumps(parent.id if parent else None),
-            can_choose_root=('true' if self.can_choose_root else 'false'),
-            user_perms=json.dumps(self.user_perms),
+            parent=json.dumps(value_data.get('parent_id')),
+            options=json.dumps(self.client_options),
         )
 
     @property
@@ -141,3 +168,17 @@ class AdminPageChooser(AdminChooser):
             versioned_static('wagtailadmin/js/page-chooser-modal.js'),
             versioned_static('wagtailadmin/js/page-chooser.js'),
         ])
+
+
+class PageChooserAdapter(WidgetAdapter):
+    js_constructor = 'wagtail.widgets.PageChooser'
+
+    def js_args(self, widget):
+        return [
+            widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
+            widget.id_for_label('__ID__'),
+            widget.client_options,
+        ]
+
+
+register(PageChooserAdapter(), AdminPageChooser)

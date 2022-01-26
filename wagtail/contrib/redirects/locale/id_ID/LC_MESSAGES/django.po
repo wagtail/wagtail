@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,12 @@ msgstr ""
 msgid "Wagtail redirects"
 msgstr "Wagtail pengalihan"
 
+msgid "Type"
+msgstr "Tipe"
+
+msgid "All"
+msgstr "Semua"
+
 msgid "From site"
 msgstr "Dari situs"
 
@@ -30,6 +36,10 @@ msgstr "Semua situs"
 
 msgid "A redirect with this path already exists."
 msgstr "Pengalihan dengan jalur ini sudah ada."
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Format yang didukung: %(supported_formats)s."
 
 msgid "redirect from"
 msgstr "pengalihan dari"
@@ -81,6 +91,9 @@ msgstr "Apakah Anda yakin untuk menghapus pengalihan ini?"
 msgid "Yes, delete"
 msgstr "Ya, hapus"
 
+msgid "Preview"
+msgstr "Pratinjau"
+
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Mengubah%(title)s"
@@ -97,11 +110,11 @@ msgstr "Dari"
 msgid "To"
 msgstr "Ke"
 
+msgid "Continue"
+msgstr "Lanjut"
+
 msgid "Site"
 msgstr "Situs"
-
-msgid "Type"
-msgstr "Tipe"
 
 msgid "Edit this redirect"
 msgstr "Ubah pengalihan ini"

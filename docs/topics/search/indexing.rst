@@ -51,8 +51,8 @@ Wagtail also provides a command for rebuilding the index from scratch.
 
 It is recommended to run this command once a week and at the following times:
 
- - whenever any pages have been created through a script (after an import, for example)
- - whenever any changes have been made to models or search configuration
+- whenever any pages have been created through a script (after an import, for example)
+- whenever any changes have been made to models or search configuration
 
 The search may not return any results while this command is running, so avoid running it at peak times.
 
@@ -65,11 +65,6 @@ The search may not return any results while this command is running, so avoid ru
 
 Indexing extra fields
 =====================
-
-.. warning::
-
-    Indexing extra fields is only supported by the :ref:`wagtailsearch_backends_elasticsearch` and :ref:`wagtailsearch_backends_postgresql`.  Indexing extra fields is not supported by the :ref:`wagtailsearch_backends_database`. If you're using the database backend, any other fields you define via ``search_fields`` will be ignored.
-
 
 Fields must be explicitly added to the ``search_fields`` property of your ``Page``-derived model, in order for you to be able to search/filter on them. This is done by overriding ``search_fields`` to append a list of extra ``SearchField``/``FilterField`` objects to it.
 
@@ -110,12 +105,25 @@ These are used for performing full-text searches on your models, usually for tex
 Options
 ```````
 
- - **partial_match** (``boolean``) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default, so a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
- - **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
- - **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
+- **partial_match** (``boolean``) - Setting this to true allows results to be matched on parts of words. For example, this is set on the title field by default, so a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
+- **boost** (``int/float``) - This allows you to set fields as being more important than others. Setting this to a high number on a field will cause pages with matches in that field to be ranked higher. By default, this is set to 2 on the Page title field and 1 on all other fields.
+- **es_extra** (``dict``) - This field is to allow the developer to set or override any setting on the field in the Elasticsearch mapping. Use this if you want to make use of any Elasticsearch features that are not yet supported in Wagtail.
 
 
 .. _wagtailsearch_index_filterfield:
+
+``index.AutocompleteField``
+---------------------------
+
+These are used for autocomplete queries which match partial words. For example, a page titled ``Hello World!`` will be found if the user only types ``Hel`` into the search box.
+
+This takes the exact same options as ``index.SearchField`` (with the exception of ``partial_match``, which has no effect).
+
+
+.. tip::
+
+   Only index fields that are displayed in the search results with ``index.AutocompleteField``. This allows users to see any words that were partial-matched on.
+
 
 ``index.FilterField``
 ---------------------
@@ -181,9 +189,9 @@ It works the other way around as well. You can index an author's books, allowing
 Indexing callables and other attributes
 ---------------------------------------
 
- .. note::
+.. note::
 
-     This is not supported in the :ref:`wagtailsearch_backends_database`
+    This is not supported in the :ref:`wagtailsearch_backends_database`
 
 
 Search/filter fields do not need to be Django model fields. They can also be any method or attribute on your model class.

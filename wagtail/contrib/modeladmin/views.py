@@ -6,14 +6,13 @@ from django import forms
 from django.contrib.admin import FieldListFilter
 from django.contrib.admin.options import IncorrectLookupParameters
 from django.contrib.admin.utils import (
-    get_fields_from_path, label_for_field, lookup_field, lookup_needs_distinct,
-    prepare_lookup_value, quote, unquote)
+    get_fields_from_path, label_for_field, lookup_field, prepare_lookup_value, quote, unquote)
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import (
     FieldDoesNotExist, ImproperlyConfigured, ObjectDoesNotExist, PermissionDenied,
     SuspiciousOperation)
 from django.core.paginator import InvalidPage, Paginator
-from django.db import models
+from django.db import models, transaction
 from django.db.models.fields.related import ManyToManyField, OneToOneRel
 from django.shortcuts import get_object_or_404, redirect
 from django.template.defaultfilters import filesizeformat
@@ -24,25 +23,34 @@ from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
+from django.views.generic.list import MultipleObjectMixin
 
 from wagtail.admin import messages
+from wagtail.admin.ui.tables import Column, DateColumn, Table, UserColumn
+from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
+from wagtail.core.log_actions import log
+from wagtail.core.log_actions import registry as log_registry
 
 from .forms import ParentChooserForm
 
 
 try:
-    from django.db.models.sql.constants import QUERY_TERMS
+    from django.contrib.admin.utils import lookup_spawns_duplicates
 except ImportError:
-    # Django 2.1+ does not have QUERY_TERMS anymore
-    QUERY_TERMS = {
-        'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
-        'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
-        'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
-        'search', 'second', 'startswith', 'week_day', 'year',
-    }
+    # fallback for Django <4.0
+    from django.contrib.admin.utils import lookup_needs_distinct as lookup_spawns_duplicates
+
+
+QUERY_TERMS = {
+    'contains', 'day', 'endswith', 'exact', 'gt', 'gte', 'hour',
+    'icontains', 'iendswith', 'iexact', 'in', 'iregex', 'isnull',
+    'istartswith', 'lt', 'lte', 'minute', 'month', 'range', 'regex',
+    'search', 'second', 'startswith', 'week_day', 'year',
+}
 
 
 class WMABaseView(TemplateView):
@@ -197,10 +205,10 @@ class ModelFormView(WMABaseView, FormView):
         return _("The %s could not be created due to errors.") % model_name
 
     def form_valid(self, form):
-        instance = form.save()
+        self.instance = form.save()
         messages.success(
-            self.request, self.get_success_message(instance),
-            buttons=self.get_success_message_buttons(instance)
+            self.request, self.get_success_message(self.instance),
+            buttons=self.get_success_message_buttons(self.instance)
         )
         return redirect(self.get_success_url())
 
@@ -255,7 +263,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
     IGNORED_PARAMS = (ORDER_VAR, ORDER_TYPE_VAR, SEARCH_VAR, EXPORT_VAR)
 
     # sortable_by is required by the django.contrib.admin.templatetags.admin_list.result_headers
-    # template tag as of Django 2.1 - see https://docs.djangoproject.com/en/2.1/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
+    # template tag - see https://docs.djangoproject.com/en/stable/ref/contrib/admin/#django.contrib.admin.ModelAdmin.sortable_by
     sortable_by = None
 
     @method_decorator(login_required)
@@ -388,8 +396,8 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
                     # Check if we need to use distinct()
                     use_distinct = (
-                        use_distinct or lookup_needs_distinct(self.opts,
-                                                              field_path))
+                        use_distinct or lookup_spawns_duplicates(self.opts, field_path)
+                    )
                 if spec and spec.has_output():
                     filter_specs.append(spec)
 
@@ -403,7 +411,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
             for key, value in lookup_params.items():
                 lookup_params[key] = prepare_lookup_value(key, value)
                 use_distinct = (
-                    use_distinct or lookup_needs_distinct(self.opts, key))
+                    use_distinct or lookup_spawns_duplicates(self.opts, key))
             return (
                 filter_specs, bool(filter_specs), lookup_params, use_distinct
             )
@@ -651,7 +659,7 @@ class IndexView(SpreadsheetExportMixin, WMABaseView):
 
 
 class CreateView(ModelFormView):
-    page_title = _('New')
+    page_title = gettext_lazy('New')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_create(user)
@@ -675,6 +683,11 @@ class CreateView(ModelFormView):
             return redirect(self.url_helper.get_action_url('choose_parent'))
         return super().dispatch(request, *args, **kwargs)
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        log(instance=self.instance, action='wagtail.create')
+        return response
+
     def get_meta_title(self):
         return _('Create new %s') % self.verbose_name
 
@@ -686,7 +699,7 @@ class CreateView(ModelFormView):
 
 
 class EditView(ModelFormView, InstanceSpecificView):
-    page_title = _('Editing')
+    page_title = gettext_lazy('Editing')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_edit_obj(user, self.instance)
@@ -713,6 +726,13 @@ class EditView(ModelFormView, InstanceSpecificView):
                 self.request.user, self.instance)
         }
         context.update(kwargs)
+        if self.model_admin.history_view_enabled:
+            context['latest_log_entry'] = log_registry.get_logs_for_instance(self.instance).first()
+            context['history_url'] = self.url_helper.get_action_url('history', quote(self.instance.pk))
+        else:
+            context['latest_log_entry'] = None
+            context['history_url'] = None
+
         return super().get_context_data(**context)
 
     def get_error_message(self):
@@ -721,6 +741,11 @@ class EditView(ModelFormView, InstanceSpecificView):
 
     def get_template_names(self):
         return self.model_admin.get_edit_template()
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        log(instance=self.instance, action='wagtail.edit')
+        return response
 
 
 class ChooseParentView(WMABaseView):
@@ -761,7 +786,7 @@ class ChooseParentView(WMABaseView):
 
 
 class DeleteView(InstanceSpecificView):
-    page_title = _('Delete')
+    page_title = gettext_lazy('Delete')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_delete_obj(user, self.instance)
@@ -793,7 +818,9 @@ class DeleteView(InstanceSpecificView):
             msg = _("%(model_name)s '%(instance)s' deleted.") % {
                 'model_name': self.verbose_name, 'instance': self.instance
             }
-            self.delete_instance()
+            with transaction.atomic():
+                log(instance=self.instance, action='wagtail.delete')
+                self.delete_instance()
             messages.success(request, msg)
             return redirect(self.index_url)
         except models.ProtectedError:
@@ -826,7 +853,7 @@ class DeleteView(InstanceSpecificView):
 
 class InspectView(InstanceSpecificView):
 
-    page_title = _('Inspecting')
+    page_title = gettext_lazy('Inspecting')
 
     def check_action_permitted(self, user):
         return self.permission_helper.user_can_inspect_obj(user, self.instance)
@@ -930,7 +957,7 @@ class InspectView(InstanceSpecificView):
     def get_fields_dict(self):
         """
         Return a list of `label`/`value` dictionaries to represent the
-        fiels named by the model_admin class's `get_inspect_view_fields` method
+        fields named by the model_admin class's `get_inspect_view_fields` method
         """
         fields = []
         for field_name in self.model_admin.get_inspect_view_fields():
@@ -948,3 +975,36 @@ class InspectView(InstanceSpecificView):
 
     def get_template_names(self):
         return self.model_admin.get_inspect_template()
+
+
+class HistoryView(MultipleObjectMixin, WagtailAdminTemplateMixin, InstanceSpecificView):
+    page_title = gettext_lazy('History')
+    paginate_by = 50
+    columns = [
+        Column('message', label=gettext_lazy("Action")),
+        UserColumn('user', blank_display_name='system'),
+        DateColumn('timestamp', label=gettext_lazy("Date")),
+    ]
+
+    def get_page_subtitle(self):
+        return str(self.instance)
+
+    def get_template_names(self):
+        return self.model_admin.get_history_template()
+
+    def get_queryset(self):
+        return log_registry.get_logs_for_instance(self.instance).prefetch_related('user__wagtail_userprofile')
+
+    def get_context_data(self, **kwargs):
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+        index_url = self.url_helper.get_action_url('history', quote(self.instance.pk))
+        table = Table(
+            self.columns, context['object_list'], base_url=index_url, ordering=self.get_ordering()
+        )
+
+        context['table'] = table
+        context['media'] = table.media
+        context['index_url'] = index_url
+        context['is_paginated'] = True
+        return context

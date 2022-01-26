@@ -3,7 +3,7 @@ JavaScript coding guidelines
 
 Write JavaScript according to the `Airbnb Styleguide <https://github.com/airbnb/javascript>`_, with some exceptions:
 
--  Use soft-tabs with a four space indent. Spaces are the only way to
+-  Use soft-tabs with a two space indent. Spaces are the only way to
    guarantee code renders the same in any person's environment.
 -  We accept ``snake_case`` in object properties, such as
    ``ajaxResponse.page_title``, however camelCase or UPPER_CASE should be used

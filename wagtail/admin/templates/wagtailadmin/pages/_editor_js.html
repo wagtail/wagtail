@@ -16,9 +16,11 @@
     window.unicodeSlugsEnabled = {% if unicode_slugs_enabled %}true{% else %}false{% endif %};
 </script>
 
+<script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/comments.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor/rangy-core.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor/mousetrap.min.js' %}"></script>
-<script src="{% versioned_static 'wagtailadmin/js/expanding_formset.js' %}"></script>
+<script src="{% versioned_static 'wagtailadmin/js/expanding-formset.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/modal-workflow.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/page-editor.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor/xregexp.min.js' %}"></script>
@@ -27,5 +29,4 @@
 <script src="{% versioned_static 'wagtailadmin/js/workflow-status.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/lock-unlock-action.js' %}"></script>
 <script src="{% versioned_static 'wagtailadmin/js/vendor/bootstrap-tooltip.js' %}"></script>
-
 {% hook_output 'insert_editor_js' %}

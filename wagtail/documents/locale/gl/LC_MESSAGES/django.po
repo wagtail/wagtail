@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# fooflare <amos.oviedo@gmail.com>, 2014
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
-# fooflare <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: gl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Collection"
+msgstr "Colección"
 
 msgid "Add"
 msgstr "Engadir"
@@ -32,6 +35,9 @@ msgstr "Editar"
 
 msgid "Edit any document"
 msgstr "Editar calquera documento"
+
+msgid "Choose"
+msgstr "Seleccionar"
 
 msgid "title"
 msgstr "título"
@@ -51,6 +57,9 @@ msgstr "etiquetas"
 msgid "document"
 msgstr "documento"
 
+msgid "Yes, delete"
+msgstr "Si, eliminar"
+
 msgid "Choose a document"
 msgstr "Seleccionar un documento"
 
@@ -60,15 +69,21 @@ msgstr "Procurar"
 msgid "Upload"
 msgstr "Subir"
 
-msgid "Uploading…"
-msgstr "Subindo…"
-
 msgid "Latest documents"
 msgstr "Últimos documentos"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "File"
+msgstr "Arquivo"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
+
+msgid "Uploading…"
+msgstr "Subindo…"
 
 msgid "Change document:"
 msgstr "Cambiar documento:"
@@ -85,12 +100,6 @@ msgstr "Eliminar %(title)s"
 
 msgid "Delete document"
 msgstr "Eliminar documento"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "¿Seguro que queres eliminar este documento?"
-
-msgid "Yes, delete"
-msgstr "Si, eliminar"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -110,12 +119,6 @@ msgstr "Arquivo non atopado"
 
 msgid "Documents"
 msgstr "Documentos"
-
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Arquivo"
 
 #, python-format
 msgid ""
@@ -170,17 +173,14 @@ msgstr "Engadir á colección:"
 msgid "Sorry, upload failed."
 msgstr "Síntoo, a subida fallou."
 
-msgid "Update"
-msgstr "Actualizar"
-
-msgid "Delete"
-msgstr "Eliminar"
-
 msgid "Document permissions"
 msgstr "Permisos do documento"
 
 msgid "Add a document permission"
 msgstr "Engadir un permiso ao documento"
+
+msgid "Delete"
+msgstr "Eliminar"
 
 msgid "Server Error"
 msgstr "Erro do Servidor"

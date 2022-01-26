@@ -37,12 +37,36 @@ describe('Button', () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
-  it('dismisses clicks', () => {
+  it('dismisses click with no href', () => {
+    // If no href is set, it should prevent default
     const preventDefault = jest.fn();
     shallow(<Button />).simulate('click', {
       preventDefault,
       stopPropagation() {},
     });
     expect(preventDefault).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not dismiss click if href is set', () => {
+    const preventDefault = jest.fn();
+    shallow(<Button href="/admin/" />).simulate('click', {
+      preventDefault,
+      stopPropagation() {},
+    });
+    expect(preventDefault).toHaveBeenCalledTimes(0);
+  });
+
+  it('calls navigate instead of default behaviour if provided', () => {
+    // If "href" and a navigate handler is provided, it should call that navigate handler and prevent default
+    const preventDefault = jest.fn();
+    const navigate = jest.fn();
+
+    shallow(<Button href="/admin/" navigate={navigate} />).simulate('click', {
+      preventDefault,
+      stopPropagation() {},
+    });
+    expect(preventDefault).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('/admin/');
   });
 });

@@ -3,9 +3,10 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Benjamin Thurm, 2018
+# fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
+# oliverengel <codeangel@posteo.de>, 2021
 # Jannis, 2015
 # Jannis Vajen, 2015
 # Bohreromir, 2019
@@ -15,16 +16,16 @@
 # Moritz Pfeiffer <moritz@alp-phone.ch>, 2016,2018
 # Peter Dreuw <archandha@gmx.net>, 2019
 # Raphael Stolt <raphael.stolt@gmail.com>, 2016
-# Tim - <Scriptim@gmx.de>, 2020
+# Scriptim <Scriptim@gmx.de>, 2020
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-11-04 11:35+0000\n"
+"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +65,9 @@ msgstr[1] ""
 "\n"
 "Es gibt %(counter)s Ergebnisse."
 
+msgid "Title"
+msgstr "Titel"
+
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -78,6 +82,12 @@ msgstr ""
 "Sie haben noch keine %(snippet_type_name)s Schnipsel erstellt. Warum <a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">erstellen Sie nicht jetzt eins</a>?"
+
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+msgid "History"
+msgstr "Historie"
 
 msgid "Saving…"
 msgstr "Speichern…"
@@ -138,9 +148,6 @@ msgstr "Schnipsel"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Wähle alle %(snippet_type_name_plural)s"
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -215,6 +222,20 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s gelöscht."
 msgstr[1] "%(count)d %(snippet_type)s gelöscht."
+
+msgid "Action"
+msgstr "Aktion"
+
+msgid "Date"
+msgstr "Datum"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "'%(title)s' bearbeiten"
+
+#, python-format
+msgid "Delete '%(title)s'"
+msgstr "'%(title)s' löschen"
 
 #, python-format
 msgid "Choose %s"

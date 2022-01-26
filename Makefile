@@ -1,10 +1,11 @@
-.PHONY: clean-pyc develop
+.PHONY: clean-pyc develop lint test coverage
 
 help:
 	@echo "clean-pyc - remove Python file artifacts"
+	@echo "develop - install development dependencies"
 	@echo "lint - check style with flake8"
-	@echo "test - run tests quickly with the default Python"
-	@echo "coverage - check code coverage quickly with the default Python"
+	@echo "test - run tests"
+	@echo "coverage - check code coverage"
 
 clean-pyc:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -28,11 +29,8 @@ lint:
 test:
 	python runtests.py
 
-test-all:
-	tox
-
 coverage:
-	coverage run --source wagtail setup.py
+	coverage run --source wagtail runtests.py
 	coverage report -m
 	coverage html
-	open htmlcov/index.html
+	open coverage_html_report/index.html

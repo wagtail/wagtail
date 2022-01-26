@@ -1,3 +1,5 @@
+{% load wagtailadmin_tags i18n %}
+
 {% comment %}
     Either the chosen or unchosen div will be shown, depending on the presence
     of the 'blank' class on the container.
@@ -5,11 +7,13 @@
     Any element with the 'action-choose' class will open the page chooser modal
     when clicked.
 {% endcomment %}
-
 <div id="{{ attrs.id }}-chooser" class="chooser {% block chooser_class %}page-chooser{% endblock %} {% if not value %}blank{% endif %}" {% block chooser_attributes %}{% endblock %}>
 
     <div class="chosen">
-        {% block chosen_state_view %}{% endblock %}
+        {% block chosen_icon %}{% endblock chosen_icon %}
+        {% block chosen_state_view %}
+            <span class="title">{{ display_title }}</span>
+        {% endblock %}
 
         <ul class="actions">
             {% if not widget.is_required and widget.show_clear_link %}
@@ -19,7 +23,7 @@
             {% if widget.show_edit_link %}
                 <li>
                     {% block edit_link %}
-                        <a href="{% block edit_chosen_item_url %}#{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a>
+                        <a href="{% block edit_chosen_item_url %}{{ edit_url }}{% endblock %}" class="edit-link button button-small button-secondary" target="_blank" rel="noopener noreferrer">{{ widget.link_to_chosen_text }}</a>
                     {% endblock %}
                 </li>
             {% endif %}
@@ -27,9 +31,9 @@
     </div>
 
     <div class="unchosen">
+        {% block unchosen_icon %}{% endblock unchosen_icon %}
         <button type="button" class="button action-choose button-small button-secondary">{{ widget.choose_one_text }}</button>
     </div>
-
 </div>
 
 {{ original_field_html }}

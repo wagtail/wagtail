@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-01-20 20:14+0000\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -60,6 +60,12 @@ msgstr "Rata kiri"
 msgid "Right-aligned"
 msgstr "Rata kanan"
 
+msgid "Collection"
+msgstr "Koleksi"
+
+msgid "Alt text"
+msgstr "Teks alt"
+
 msgid "Filter"
 msgstr "Saring"
 
@@ -102,6 +108,9 @@ msgstr "Ubah"
 msgid "Edit any image"
 msgstr "Ubah gambar apa saja"
 
+msgid "Choose"
+msgstr "Pilih"
+
 msgid "title"
 msgstr "judul"
 
@@ -129,6 +138,14 @@ msgstr "gambar"
 msgid "images"
 msgstr "gambar-gambar"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Digunakan %(usage_count)s kali"
+
+msgid "Yes, delete"
+msgstr "Ya, hapus"
+
 msgid "Choose an image"
 msgstr "Pilih sebuah gambar"
 
@@ -140,9 +157,6 @@ msgstr "Unggah"
 
 msgid "Popular tags"
 msgstr "Tag Populer"
-
-msgid "Uploading…"
-msgstr "Mengunggah..."
 
 #, python-format
 msgid ""
@@ -166,6 +180,9 @@ msgstr "Pilih format"
 msgid "Insert image"
 msgstr "Masukkan gambar"
 
+msgid "Uploading…"
+msgstr "Mengunggah..."
+
 msgid "Change image file:"
 msgstr "Ubah berkas gambar:"
 
@@ -180,17 +197,6 @@ msgstr "Simpan"
 
 msgid "Delete image"
 msgstr "Hapus gambar"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Digunakan %(usage_count)s kali"
-
-msgid "Are you sure you want to delete this image?"
-msgstr "Apakah Anda yakin untuk menghapus gambar ini?"
-
-msgid "Yes, delete"
-msgstr "Ya, hapus"
 
 #, python-format
 msgid "Editing image %(title)s"
@@ -222,6 +228,9 @@ msgstr "Penggunaan"
 
 msgid "Images"
 msgstr "Gambar"
+
+msgid "Clear choice"
+msgstr "Kosongkan pilihan"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -318,17 +327,14 @@ msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
 msgid "Image updated."
 msgstr "Gambar telah diperbarui."
 
-msgid "Update"
-msgstr "Perbarui"
-
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "Image permissions"
 msgstr "Izin gambar"
 
 msgid "Add an image permission"
 msgstr "Tambahkan izin gambar"
+
+msgid "Delete"
+msgstr "Hapus"
 
 msgid "Search images"
 msgstr "Cari gambar"

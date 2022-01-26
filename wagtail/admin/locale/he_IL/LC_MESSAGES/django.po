@@ -4,15 +4,16 @@
 #
 # Translators:
 # Adi Ron <adi@bnop.co>, 2019
-# bjesus <bjesus@gmail.com>, 2015
+# 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 <5628a6f4d3ab86b48aef276247790766_814>, 2015
 # lior abazon <abazon@v15.org.il>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-10-23 11:36+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: 2ba49a64a97dc0c30b67cbb6522d98c8_d0a1309 "
+"<5628a6f4d3ab86b48aef276247790766_814>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -43,14 +44,14 @@ msgstr "ממשק הניהול של Wagtail"
 msgid "You do not have permission to access the admin"
 msgstr "אין לך הרשאות גישה לממשק הניהול"
 
+msgid "None"
+msgstr "אף אחת"
+
 msgid "Scheduled publishing"
 msgstr "פרסום מתוזמן"
 
 msgid "Privacy"
 msgstr "פרטיות"
-
-msgid "Common page configuration"
-msgstr "הגדרת עמוד בסיסית"
 
 msgid "Content"
 msgstr "תוכן"
@@ -61,11 +62,14 @@ msgstr "קידום"
 msgid "Settings"
 msgstr "הגדרות"
 
-msgid "Date"
-msgstr "תאריך"
+msgid "First Name"
+msgstr "שם פרטי"
 
-msgid "Title"
-msgstr "כותרת"
+msgid "Last Name"
+msgstr "שם משפחה"
+
+msgid "Email"
+msgstr "דואר אלקטרוני"
 
 msgid "Enter password"
 msgstr "הזינו סיסמה"
@@ -76,6 +80,18 @@ msgstr "הזינו את ה%s שלכם"
 
 msgid "Enter your email address to reset your password"
 msgstr "הזינו את כתובת הדוא\"ל שלכם כדי לאתחל את הסיסמה"
+
+msgid "URL"
+msgstr "כתובת "
+
+msgid "Parent"
+msgstr "הורה"
+
+msgid "Add"
+msgstr "הוספה"
+
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -151,14 +167,23 @@ msgstr "ערך לחיפוש"
 msgid "This field is required."
 msgstr "שדה חובה"
 
-msgid "Edit"
-msgstr "עריכה"
+msgid "Page"
+msgstr "עמוד"
+
+msgid "Pages"
+msgstr "עמודים"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Dashboard"
+msgstr "לוח מחוונים"
+
+msgid "Edit your account"
+msgstr "ערכו את חשבונכם"
 
 msgid "Account"
 msgstr "חשבון"
-
-msgid "Update"
-msgstr "עדכן"
 
 msgid "Change password"
 msgstr "שינוי סיסמה"
@@ -166,9 +191,6 @@ msgstr "שינוי סיסמה"
 msgid ""
 "Your password can't be changed here. Please contact a site administrator."
 msgstr "אי אפשר לשנות את הסיסמה. נא לפנות למנהל האתר."
-
-msgid "Notification preferences"
-msgstr "העדפות התראות"
 
 msgid "Reset password"
 msgstr "איתחול סיסמה"
@@ -191,17 +213,8 @@ msgstr "איתחול סיסמה"
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
 
-msgid "Dashboard"
-msgstr "לוח מחוונים"
-
 msgid "Menu"
 msgstr "תפריט"
-
-msgid "Move up"
-msgstr "עברו מעלה"
-
-msgid "Move down"
-msgstr "עברו מטה"
 
 msgid "Explorer"
 msgstr "סיור"
@@ -233,9 +246,6 @@ msgstr "הוסיפו קישור חיצוני"
 msgid "You can edit the privacy settings on:"
 msgstr "ניתן לערוך את הגדרת הפרטיות ב:"
 
-msgid "Save"
-msgstr "שמור"
-
 msgid "Public"
 msgstr "ציבורי"
 
@@ -249,8 +259,17 @@ msgstr "שם"
 msgid "Add %(label)s"
 msgstr "הוסף %(label)s "
 
+msgid "Move up"
+msgstr "עברו מעלה"
+
+msgid "Move down"
+msgstr "עברו מטה"
+
 msgid "Yes, delete"
 msgstr "כן, מחק"
+
+msgid "Update"
+msgstr "עדכן"
 
 #, python-format
 msgid "Welcome to the %(site_name)s Wagtail CMS"
@@ -260,6 +279,9 @@ msgid ""
 "This is your dashboard on which helpful information about content you've "
 "created will be displayed."
 msgstr "זהו לוח המחוונים, על גביו יופיע מידע מועיל לגבי תוכן שתצרו"
+
+msgid "Title"
+msgstr "כותרת"
 
 msgid "Edit this page"
 msgstr "ערכו עמוד זה"
@@ -272,9 +294,6 @@ msgstr "חי"
 
 msgid "Pages awaiting moderation"
 msgstr "עמוד ממתין לעריכה"
-
-msgid "Parent"
-msgstr "הורה"
 
 msgid "Type"
 msgstr "סוג"
@@ -297,6 +316,9 @@ msgstr "עריכות אחרונות"
 msgid "Status"
 msgstr "מצב"
 
+msgid "Date"
+msgstr "תאריך"
+
 msgid "Site summary"
 msgstr "סיכום אתר"
 
@@ -312,9 +334,6 @@ msgstr "התחברות לWagtail"
 
 msgid "Signing in…"
 msgstr "מתחבר..."
-
-msgid "Forgotten it?"
-msgstr "שכחתם את זה?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -360,6 +379,9 @@ msgstr "שינויי הפרטיות תקפים גם על כל תת-העמודי�
 msgid "Publishing…"
 msgstr "מפרסם..."
 
+msgid "Saving…"
+msgstr "שומר..."
+
 msgid "Save draft"
 msgstr "שמור טיוטה"
 
@@ -376,6 +398,9 @@ msgstr "בחרו איזה סוג עמוד תרצו ליצור"
 #, python-format
 msgid "Pages using %(page_type)s"
 msgstr "עמודים מסוג %(page_type)s"
+
+msgid "Move"
+msgstr "העברה"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -410,9 +435,6 @@ msgstr[3] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "הזזת %(title)s"
-
-msgid "Move"
-msgstr "העברה"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -460,6 +482,9 @@ msgstr "חדש "
 #, python-format
 msgid "Editing %(page_type)s: %(title)s"
 msgstr "עריכת %(page_type)s: %(title)s"
+
+msgid "User"
+msgstr "משתמש"
 
 #, python-format
 msgid "Exploring %(title)s"
@@ -521,8 +546,17 @@ msgstr "הכנס מונח לחיפוש"
 msgid "No pages use"
 msgstr "אף עמוד בשימוש"
 
+msgid "Download CSV"
+msgstr "הורד CSV"
+
+msgid "Filter"
+msgstr "מסנן"
+
 msgid "Locked"
 msgstr "נעול"
+
+msgid "Edit this item"
+msgstr "ערוך פריט זה"
 
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
@@ -531,17 +565,11 @@ msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
 msgid "Home"
 msgstr "לעמוד הבית "
 
-msgid "Edit your account"
-msgstr "ערכו את חשבונכם"
-
 msgid "Log out"
 msgstr "התנתקות"
 
 msgid "Other searches"
 msgstr "חיפושים אחרים"
-
-msgid "Go to Wagtail admin interface"
-msgstr "כניסה למערך המנהל של Wagtail "
 
 msgid "Add a child page"
 msgstr "הוספת תת-עמוד"
@@ -550,8 +578,20 @@ msgstr "הוספת תת-עמוד"
 msgid "by %(modified_by)s"
 msgstr "מאת %(modified_by)s"
 
-msgid "Your password has been changed successfully!"
-msgstr "סיסמתכם שונתה בהצלחה!"
+msgid "live"
+msgstr "לייב"
+
+msgid "draft"
+msgstr "טיוטה"
+
+msgid "live + draft"
+msgstr "לייב + טיוטה"
+
+msgid "Password"
+msgstr "סיסמא"
+
+msgid "Editing"
+msgstr "עריכה"
 
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "עמוד {0} ותת העמודים {1} הועתקו "
@@ -607,12 +647,6 @@ msgstr "עמוד {0} הוזז"
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
 
-msgid "Change the password you use to log in."
-msgstr "שינוי הסיסמה עבור התחברות"
-
-msgid "Choose which email notifications to receive."
-msgstr "בחרו אילו התראות דואר אלקטרוני לקבל"
-
 msgid "Choose an item"
 msgstr "בחרו פריט"
 
@@ -621,9 +655,6 @@ msgstr "בחרו פריט נוסף"
 
 msgid "Clear choice"
 msgstr "נקה בחירה"
-
-msgid "Edit this item"
-msgstr "ערוך פריט זה"
 
 msgid "Choose another page"
 msgstr "בחרו עמוד נוסף"

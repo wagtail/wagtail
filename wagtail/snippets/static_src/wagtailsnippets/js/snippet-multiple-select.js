@@ -21,7 +21,7 @@ var updateDeleteButton = function(anySelected, newState) {
         // hide button and add url
         $deleteButton.removeClass('u-hidden');
         var url = $deleteButton.data('url');
-        url = url + $.param({id: ids}, true);
+        url = url + $.param({ id: ids }, true);
         $deleteButton.attr('href', url);
     } else {
         // show button and remove url
@@ -92,7 +92,7 @@ var onListingCheckboxClick = function() {
         var setToValue = $target.prop('checked');
         var currentState = buildSelectedState();
         var id = null;
-        if ( $target.hasClass('toggle-select-row') ) {
+        if ($target.hasClass('toggle-select-row')) {
             id = $target.attr('value');
         }
         var newState = updateSelectedState(currentState, setToValue, id);
@@ -100,4 +100,4 @@ var onListingCheckboxClick = function() {
     });
 };
 
-$( document ).ready(onListingCheckboxClick);
+$(document).ready(onListingCheckboxClick);

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 12:34+0100\n"
-"PO-Revision-Date: 2020-11-02 15:42+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"Last-Translator: Yeh Yen-Ke <yyken@outlook.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,12 @@ msgstr ""
 
 msgid "Wagtail redirects"
 msgstr "Wagtail 重定向"
+
+msgid "Type"
+msgstr "類型"
+
+msgid "All"
+msgstr "全部"
 
 msgid "From site"
 msgstr "來自站點"
@@ -33,6 +39,10 @@ msgstr "使用此路徑的重定向已被占用。"
 
 msgid "File to import"
 msgstr "匯入檔案"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "支持的格式：%(supported_formats)s。"
 
 msgid "redirect from"
 msgstr "重定向自"
@@ -121,9 +131,6 @@ msgstr "繼續"
 
 msgid "Site"
 msgstr "站點"
-
-msgid "Type"
-msgstr "類型"
 
 msgid "Edit this redirect"
 msgstr "編輯重定向"

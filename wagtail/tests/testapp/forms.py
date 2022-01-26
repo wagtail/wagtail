@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.widgets import AdminDateInput
@@ -35,3 +36,14 @@ class AdminStarDateInput(AdminDateInput):
     # the media of the parent class
     class Media:
         js = ['vendor/star_date.js']
+
+
+class FavouriteColourForm(forms.ModelForm):
+    # for testing that form media from account settings panels gets included
+    # on the form page
+    class Meta:
+        model = get_user_model()
+        fields = []
+
+    class Media:
+        js = ['vendor/colorpicker.js']

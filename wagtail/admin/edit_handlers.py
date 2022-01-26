@@ -2,19 +2,27 @@ import functools
 import re
 
 from django import forms
+from django.apps import apps
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
+from django.core.signals import setting_changed
 from django.db.models.fields import CharField, TextField
+from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
+from modelcluster.models import get_serializable_data_for_fields
 from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
+from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
+from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.core.models import COMMENTS_RELATION_NAME, Page
 from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
 from wagtail.utils.decorators import cached_classmethod
 
@@ -59,6 +67,7 @@ def get_form_for_model(
     }
 
     metaclass = type(form_class)
+
     return metaclass(class_name, (form_class,), form_class_attrs)
 
 
@@ -358,13 +367,30 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/edit_handlers/tabbed_interface.html"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, show_comments_toggle=None, **kwargs):
         self.base_form_class = kwargs.pop('base_form_class', None)
         super().__init__(*args, **kwargs)
+        if show_comments_toggle is not None:
+            self.show_comments_toggle = show_comments_toggle
+        else:
+            self.show_comments_toggle = 'comment_notifications' in self.required_fields()
+
+    def get_form_class(self):
+        form_class = super().get_form_class()
+
+        # Set show_comments_toggle attribute on form class
+        return type(
+            form_class.__name__,
+            (form_class, ),
+            {
+                'show_comments_toggle': self.show_comments_toggle
+            }
+        )
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs['base_form_class'] = self.base_form_class
+        kwargs['show_comments_toggle'] = self.show_comments_toggle
         return kwargs
 
 
@@ -424,6 +450,7 @@ class FieldPanel(EditHandler):
         widget = kwargs.pop('widget', None)
         if widget is not None:
             self.widget = widget
+        self.comments_enabled = not kwargs.pop('disable_comments', False)
         super().__init__(*args, **kwargs)
         self.field_name = field_name
 
@@ -466,6 +493,7 @@ class FieldPanel(EditHandler):
             'self': self,
             self.TEMPLATE_VAR: self,
             'field': self.bound_field,
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }))
 
     field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
@@ -474,6 +502,7 @@ class FieldPanel(EditHandler):
         return mark_safe(render_to_string(self.field_template, {
             'field': self.bound_field,
             'field_type': self.field_type(),
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }))
 
     def required_fields(self):
@@ -531,7 +560,10 @@ class FieldPanel(EditHandler):
 
     def on_form_bound(self):
         self.bound_field = self.form[self.field_name]
-        self.heading = self.heading or self.bound_field.label
+        if self.heading:
+            self.bound_field.label = self.heading
+        else:
+            self.heading = self.bound_field.label
         self.help_text = self.bound_field.help_text
 
     def __repr__(self):
@@ -574,6 +606,7 @@ class BaseChooserPanel(FieldPanel):
             'field': self.bound_field,
             self.object_type_name: instance_obj,
             'is_chosen': bool(instance_obj),  # DEPRECATED - passed to templates for backwards compatibility only
+            'show_add_comment_button': self.comments_enabled and getattr(self.bound_field.field.widget, 'show_add_comment_button', True),
         }
         return mark_safe(render_to_string(self.field_template, context))
 
@@ -789,26 +822,124 @@ class PrivacyModalPanel(EditHandler):
         )
 
 
+class CommentPanel(EditHandler):
+
+    def required_fields(self):
+        # Adds the comment notifications field to the form.
+        # Note, this field is defined directly on WagtailAdminPageForm.
+        return ['comment_notifications']
+
+    def required_formsets(self):
+        # add the comments formset
+        # we need to pass in the current user for validation on the formset
+        # this could alternatively be done on the page form itself if we added the
+        # comments formset there, but we typically only add fields via edit handlers
+        current_user = getattr(self.request, 'user', None)
+
+        class CommentReplyFormWithRequest(CommentReplyForm):
+            user = current_user
+
+        class CommentFormWithRequest(CommentForm):
+            user = current_user
+
+            class Meta:
+                formsets = {
+                    'replies': {
+                        'form': CommentReplyFormWithRequest
+                    }
+                }
+
+        return {
+            COMMENTS_RELATION_NAME: {
+                'form': CommentFormWithRequest,
+                'fields': ['text', 'contentpath', 'position'],
+                'formset_name': 'comments',
+            }
+        }
+
+    template = "wagtailadmin/edit_handlers/comments/comment_panel.html"
+    declarations_template = "wagtailadmin/edit_handlers/comments/comment_declarations.html"
+
+    def html_declarations(self):
+        return render_to_string(self.declarations_template)
+
+    def get_context(self):
+        def user_data(user):
+            return {
+                'name': user_display_name(user),
+                'avatar_url': avatar_url(user)
+            }
+
+        user = getattr(self.request, 'user', None)
+        user_pks = {user.pk}
+        serialized_comments = []
+        bound = self.form.is_bound
+        comment_formset = self.form.formsets.get('comments')
+        comment_forms = comment_formset.forms if comment_formset else []
+        for form in comment_forms:
+            # iterate over comments to retrieve users (to get display names) and serialized versions
+            replies = []
+            for reply_form in form.formsets['replies'].forms:
+                user_pks.add(reply_form.instance.user_id)
+                reply_data = get_serializable_data_for_fields(reply_form.instance)
+                reply_data['deleted'] = reply_form.cleaned_data.get('DELETE', False) if bound else False
+                replies.append(reply_data)
+            user_pks.add(form.instance.user_id)
+            data = get_serializable_data_for_fields(form.instance)
+            data['deleted'] = form.cleaned_data.get('DELETE', False) if bound else False
+            data['resolved'] = form.cleaned_data.get('resolved', False) if bound else form.instance.resolved_at is not None
+            data['replies'] = replies
+            serialized_comments.append(data)
+
+        authors = {
+            str(user.pk): user_data(user)
+            for user in get_user_model().objects.filter(pk__in=user_pks).select_related('wagtail_userprofile')
+        }
+
+        comments_data = {
+            'comments': serialized_comments,
+            'user': user.pk,
+            'authors': authors
+        }
+
+        return {
+            'comments_data': comments_data,
+        }
+
+    def render(self):
+        panel = render_to_string(self.template, self.get_context())
+        return panel
+
+
 # Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
-Page.content_panels = [
-    FieldPanel('title', classname="full title"),
-]
+def set_default_page_edit_handlers(cls):
+    cls.content_panels = [
+        FieldPanel('title', classname="full title"),
+    ]
 
-Page.promote_panels = [
-    MultiFieldPanel([
-        FieldPanel('slug'),
-        FieldPanel('seo_title'),
-        FieldPanel('show_in_menus'),
-        FieldPanel('search_description'),
-    ], gettext_lazy('Common page configuration')),
-]
+    cls.promote_panels = [
+        MultiFieldPanel([
+            FieldPanel('slug'),
+            FieldPanel('seo_title'),
+            FieldPanel('search_description'),
+        ], gettext_lazy('For search engines')),
+        MultiFieldPanel([
+            FieldPanel('show_in_menus'),
+        ], gettext_lazy('For site menus')),
+    ]
 
-Page.settings_panels = [
-    PublishingPanel(),
-    PrivacyModalPanel(),
-]
+    cls.settings_panels = [
+        PublishingPanel(),
+        PrivacyModalPanel(),
+    ]
 
-Page.base_form_class = WagtailAdminPageForm
+    if getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True):
+        cls.settings_panels.append(CommentPanel())
+
+    cls.base_form_class = WagtailAdminPageForm
+
+
+set_default_page_edit_handlers(Page)
 
 
 @cached_classmethod
@@ -842,7 +973,23 @@ def get_edit_handler(cls):
 Page.get_edit_handler = get_edit_handler
 
 
+@receiver(setting_changed)
+def reset_page_edit_handler_cache(**kwargs):
+    """
+    Clear page edit handler cache when global WAGTAILADMIN_COMMENTS_ENABLED settings are changed
+    """
+    if kwargs["setting"] == 'WAGTAILADMIN_COMMENTS_ENABLED':
+        set_default_page_edit_handlers(Page)
+        for model in apps.get_models():
+            if issubclass(model, Page):
+                model.get_edit_handler.cache_clear()
+
+
 class StreamFieldPanel(FieldPanel):
+    def __init__(self, *args, **kwargs):
+        disable_comments = kwargs.pop('disable_comments', True)
+        super().__init__(*args, **kwargs, disable_comments=disable_comments)
+
     def classes(self):
         classes = super().classes()
         classes.append("stream-field")
@@ -854,9 +1001,6 @@ class StreamFieldPanel(FieldPanel):
 
         return classes
 
-    def html_declarations(self):
-        return self.block_def.all_html_declarations()
-
     def get_comparison_class(self):
         return compare.StreamFieldComparison
 
@@ -864,7 +1008,3 @@ class StreamFieldPanel(FieldPanel):
         # a StreamField may consist of many input fields, so it's not meaningful to
         # attach the label to any specific one
         return ""
-
-    def on_model_bound(self):
-        super().on_model_bound()
-        self.block_def = self.db_field.stream_block
