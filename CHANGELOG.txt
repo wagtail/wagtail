@@ -1,7 +1,7 @@
 Changelog
 =========
 
-2.15.3 (xx.xx.xxxx) - IN DEVELOPMENT
+2.15.3 (26.01.2022)
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Implement correct check for SQLite installations without full-text search support (Matt Westcott)
