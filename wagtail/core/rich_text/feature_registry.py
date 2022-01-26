@@ -8,7 +8,7 @@ class FeatureRegistry:
     whitelist / convert HTML tags, and how to enable the feature on various editors.
 
     This information may come from diverse sources - for example, wagtailimages might define
-    an 'images' feature and a hallo.js plugin for it, while a third-party module might
+    an 'images' feature and a Draftail plugin for it, while a third-party module might
     define a TinyMCE plugin for the same feature. The information is therefore collected into
     this registry via the 'register_rich_text_features' hook.
     """
@@ -17,7 +17,7 @@ class FeatureRegistry:
         # Has the register_rich_text_features hook been run for this registry?
         self.has_scanned_for_features = False
 
-        # a dict of dicts, one for each editor (hallo.js, TinyMCE etc); each dict is a mapping
+        # a dict of dicts, one for each editor (draftail.js, TinyMCE etc); each dict is a mapping
         # of feature names to 'plugin' objects that define how to implement that feature
         # (e.g. paths to JS files to import). The API of that plugin object is not defined
         # here, and is specific to each editor.

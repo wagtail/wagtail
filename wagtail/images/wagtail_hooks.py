@@ -11,7 +11,6 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
-from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -75,19 +74,6 @@ def editor_js():
 def register_image_feature(features):
     # define a handler for converting <embed embedtype="image"> tags into frontend HTML
     features.register_embed_type(ImageEmbedHandler)
-
-    # define a hallo.js plugin to use when the 'image' feature is active
-    features.register_editor_plugin(
-        "hallo",
-        "image",
-        HalloPlugin(
-            name="hallowagtailimage",
-            js=[
-                "wagtailimages/js/image-chooser-modal.js",
-                "wagtailimages/js/hallo-plugins/hallo-wagtailimage.js",
-            ],
-        ),
-    )
 
     # define how to convert between editorhtml's representation of images and
     # the database representation

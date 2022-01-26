@@ -13,7 +13,6 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
-from wagtail.admin.rich_text import HalloPlugin
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
 from wagtail.core import hooks
@@ -81,17 +80,6 @@ def editor_js():
 def register_document_feature(features):
     features.register_link_type(DocumentLinkHandler)
 
-    features.register_editor_plugin(
-        "hallo",
-        "document-link",
-        HalloPlugin(
-            name="hallowagtaildoclink",
-            js=[
-                "wagtaildocs/js/document-chooser-modal.js",
-                "wagtaildocs/js/hallo-plugins/hallo-wagtaildoclink.js",
-            ],
-        ),
-    )
     features.register_editor_plugin(
         "draftail",
         "document-link",
