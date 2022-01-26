@@ -58,6 +58,12 @@ Changelog
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
 
 
+2.15.3 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Implement correct check for SQLite installations without full-text search support (Matt Westcott)
+
+
 2.15.2 (18.01.2022)
 ~~~~~~~~~~~~~~~~~~~
 
