@@ -546,22 +546,22 @@ class TestRichTextBlock(TestCase):
         )
 
     def test_adapter(self):
-        from wagtail.admin.rich_text import HalloRichTextArea
+        from wagtail.tests.testapp.rich_text import CustomRichTextArea
 
-        block = blocks.RichTextBlock(editor="hallo")
+        block = blocks.RichTextBlock(editor="custom")
 
         block.set_name("test_richtextblock")
         js_args = FieldBlockAdapter().js_args(block)
 
         self.assertEqual(js_args[0], "test_richtextblock")
-        self.assertIsInstance(js_args[1], HalloRichTextArea)
+        self.assertIsInstance(js_args[1], CustomRichTextArea)
         self.assertEqual(
             js_args[2],
             {
+                "classname": "field char_field widget-custom_rich_text_area fieldname-test_richtextblock",
+                "icon": "doc-full",
                 "label": "Test richtextblock",
                 "required": True,
-                "icon": "doc-full",
-                "classname": "field char_field widget-hallo_rich_text_area fieldname-test_richtextblock",
                 "showAddCommentButton": True,
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
@@ -587,16 +587,6 @@ class TestRichTextBlock(TestCase):
                 "showAddCommentButton": False,  # Draftail manages its own comments
                 "strings": {"ADD_COMMENT": "Add Comment"},
             },
-        )
-
-    def test_get_form_state(self):
-        block = blocks.RichTextBlock(editor="hallo")
-        value = RichText('<p>Merry <a linktype="page" id="4">Christmas</a>!</p>')
-        form_state = block.get_form_state(value)
-
-        self.assertEqual(
-            form_state,
-            '<p>Merry <a data-linktype="page" data-id="4" data-parent-id="3" href="/events/christmas/">Christmas</a>!</p>',
         )
 
     def test_validate_required_richtext_block(self):

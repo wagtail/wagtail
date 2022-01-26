@@ -16,3 +16,15 @@ class CustomRichTextArea(WidgetWithScript, widgets.Textarea):
     @property
     def media(self):
         return Media(js=["vendor/custom_editor.js"])
+
+
+class LegacyRichTextArea(WidgetWithScript, widgets.Textarea):
+    def get_panel(self):
+        return RichTextFieldPanel
+
+    def render_js_init(self, id_, name, value):
+        return "legacyEditorInitScript({0});".format(json.dumps(id_))
+
+    @property
+    def media(self):
+        return Media(js=["vendor/legacy_editor.js"])
