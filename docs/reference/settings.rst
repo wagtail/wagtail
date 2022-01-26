@@ -820,16 +820,16 @@ Rich text
                 'features': ['h2', 'bold', 'italic', 'link', 'document-link']
             }
         },
-        'legacy': {
-            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
+        'secondary': {
+            'WIDGET': 'some.external.RichTextEditor',
         }
     }
 
-Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='legacy')``. Within each configuration block, the following fields are recognised:
+Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='secondary')``. Within each configuration block, the following fields are recognised:
 
- * ``WIDGET``: The rich text widget implementation to use. Wagtail provides two implementations: ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup) and ``wagtail.admin.rich_text.HalloRichTextArea`` (deprecated; works directly at the HTML level). Other widgets may be provided by third-party packages.
+ * ``WIDGET``: The rich text widget implementation to use. Wagtail provides ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
 
- * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
+ * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but ``DraftailRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
 
