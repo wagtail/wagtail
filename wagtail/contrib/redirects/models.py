@@ -60,7 +60,7 @@ class Redirect(models.Model):
                 return base_url
             try:
                 page.resolve_subpage(self.redirect_page_route_path)
-            except Resolver404:
+            except (AttributeError, Resolver404):
                 return base_url
             return base_url.rstrip("/") + self.redirect_page_route_path
         elif self.redirect_link:
