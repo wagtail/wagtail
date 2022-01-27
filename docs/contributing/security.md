@@ -12,7 +12,7 @@ Mail sent to that address reaches a subset of the core team, who can forward sec
 
 Once you've submitted an issue via email, you should receive an acknowledgement from a member of the security team within 48 hours, and depending on the action to be taken, you may receive further followup emails.
 
-If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0x6ba1e1a86e0f8ce8`, and this public key is available from most commonly-used keyservers.
+If you want to send an encrypted email (optional), the public key ID for <security@wagtail.org> is `0xbed227b4daf93ff9`, and this public key is available from most commonly-used keyservers.
 
 Django security issues should be reported directly to the Django Project, following [Django\'s security policies](https://docs.djangoproject.com/en/dev/internals/security/) (upon which Wagtail\'s own policies are based).
 
