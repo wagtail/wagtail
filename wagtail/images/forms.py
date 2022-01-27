@@ -4,12 +4,12 @@ from django.forms.models import modelform_factory
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
-from wagtail.admin import widgets
 from wagtail.admin.forms.collections import (
     BaseCollectionMemberForm,
     CollectionChoiceField,
     collection_member_permission_formset_factory,
 )
+from wagtail.admin.widgets import AdminTagWidget
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
@@ -42,7 +42,7 @@ class BaseImageForm(BaseCollectionMemberForm):
         # so that when editing, we don't get the 'currently: ...' banner which is
         # a bit pointless here
         widgets = {
-            "tags": widgets.AdminTagWidget,
+            "tags": AdminTagWidget,
             "file": forms.FileInput(),
             "focal_point_x": forms.HiddenInput(attrs={"class": "focal_point_x"}),
             "focal_point_y": forms.HiddenInput(attrs={"class": "focal_point_y"}),
@@ -75,10 +75,23 @@ def get_image_form(model):
         # and when only one collection exists, it will get hidden anyway.
         fields = list(fields) + ["collection"]
 
+    BaseForm = get_image_base_form()
+
+    # If the base form specifies the 'tags' widget as a plain unconfigured AdminTagWidget,
+    # substitute one that correctly passes the tag model used on the image model.
+    # (If the widget has been overridden via WAGTAILIMAGES_IMAGE_FORM_BASE, leave it
+    # alone and trust that they know what they're doing)
+    widgets = None
+    if BaseForm._meta.widgets.get("tags") == AdminTagWidget:
+        tag_model = model._meta.get_field("tags").related_model
+        widgets = BaseForm._meta.widgets.copy()
+        widgets["tags"] = AdminTagWidget(tag_model=tag_model)
+
     return modelform_factory(
         model,
-        form=get_image_base_form(),
+        form=BaseForm,
         fields=fields,
+        widgets=widgets,
         formfield_callback=formfield_for_dbfield,
     )
 

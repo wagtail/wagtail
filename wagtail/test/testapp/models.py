@@ -1734,3 +1734,22 @@ class CustomRestaurantDocument(AbstractDocument):
         through=TaggedRestaurantDocument,
     )
     admin_form_fields = Document.admin_form_fields
+
+
+# Custom image model with a custom tag field
+class TaggedRestaurantImage(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_images", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey(
+        to="tests.CustomRestaurantImage",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
+class CustomRestaurantImage(AbstractImage):
+    tags = TaggableManager(
+        help_text=None, blank=True, verbose_name="tags", through=TaggedRestaurantImage
+    )
+    admin_form_fields = Image.admin_form_fields
