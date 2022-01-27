@@ -1712,3 +1712,25 @@ class DeadlyStreamPage(Page):
 # (so that it's possible to use them in foreign key definitions, for example)
 ReimportedImageModel = get_image_model()
 ReimportedDocumentModel = get_document_model()
+
+
+# Custom document model with a custom tag field
+class TaggedRestaurantDocument(ItemBase):
+    tag = models.ForeignKey(
+        RestaurantTag, related_name="tagged_documents", on_delete=models.CASCADE
+    )
+    content_object = models.ForeignKey(
+        to="tests.CustomRestaurantDocument",
+        on_delete=models.CASCADE,
+        related_name="tagged_items",
+    )
+
+
+class CustomRestaurantDocument(AbstractDocument):
+    tags = TaggableManager(
+        help_text=None,
+        blank=True,
+        verbose_name="tags",
+        through=TaggedRestaurantDocument,
+    )
+    admin_form_fields = Document.admin_form_fields
