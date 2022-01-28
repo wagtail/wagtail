@@ -170,6 +170,7 @@ class TestRedirects(TestCase):
             title="Routable Page",
             live=True,
         ))
+        contact_page = Page.objects.get(url_path='/home/contact-us/')
 
         # test redirect with a VALID route path
         models.Redirect.add_redirect(old_path='/old-path-one', redirect_to=routable_page, page_route_path='/render-method-test-custom-template/')
@@ -179,7 +180,14 @@ class TestRedirects(TestCase):
         # test redirect with an INVALID route path
         models.Redirect.add_redirect(old_path='/old-path-two', redirect_to=routable_page, page_route_path='/invalid-route/')
         response = self.client.get('/old-path-two/', HTTP_HOST='test.example.com')
+        # we should still make it to the correct page
         self.assertRedirects(response, '/routable-page/', status_code=301, fetch_redirect_response=False)
+
+        # test redirect with route path for a non-routable page
+        models.Redirect.add_redirect(old_path="/old-path-three", redirect_to=contact_page, page_route_path="/route-to-nowhere/")
+        response = self.client.get('/old-path-three/', HTTP_HOST='test.example.com')
+        # we should still make it to the correct page
+        self.assertRedirects(response, "/contact-us/", status_code=301, fetch_redirect_response=False)
 
     def test_redirect_from_any_site(self):
         contact_page = Page.objects.get(url_path='/home/contact-us/')

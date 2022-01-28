@@ -182,17 +182,11 @@ class TestAuthentication(TestCase, WagtailTestUtils):
 
 class TestAccountSectionUtilsMixin:
     def assertPanelActive(self, response, name):
-        panels = set()
-        for panelset in response.context['panels_by_tab'].values():
-            for panel in panelset:
-                panels.add(panel.name)
+        panels = {panel.name for panelset in response.context['panels_by_tab'].values() for panel in panelset}
         self.assertIn(name, panels, "Panel %s not active in response" % name)
 
     def assertPanelNotActive(self, response, name):
-        panels = set()
-        for panelset in response.context['panels_by_tab'].values():
-            for panel in panelset:
-                panels.add(panel.name)
+        panels = {panel.name for panelset in response.context['panels_by_tab'].values() for panel in panelset}
         self.assertNotIn(name, panels, "Panel %s active in response" % name)
 
     def post_form(self, extra_post_data):
