@@ -6,14 +6,14 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # LB (Ben Johnston) <mail@lb.ee>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021
+# Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-25 19:33+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-23 07:40+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -181,19 +181,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Ultimi documenti"
 
-msgid "Title"
-msgstr "Titolo"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created"
-msgstr "Creato"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s fa"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -261,8 +248,21 @@ msgstr "Documenti"
 msgid "Select all documents in listing"
 msgstr "Seleziona tutti i documenti dalla lista"
 
+msgid "Title"
+msgstr "Titolo"
+
+msgid "File"
+msgstr "File"
+
+msgid "Created"
+msgstr "Creato"
+
 msgid "Select document"
 msgstr "Seleziona documento"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s fa"
 
 #, python-format
 msgid ""
@@ -399,18 +399,24 @@ msgstr[1] "%(num_parent_objects)d documenti sono stati eliminati"
 msgid "Server Error"
 msgstr "Errore del Server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Segnala questo errore all'amministratore del tuo sito web con le seguenti "
+"informazioni:"
 
 msgid "Search documents"
 msgstr "Cerca documenti"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' aggiunto."
 
 msgid "The document could not be saved due to errors."
 msgstr "Il documento non può essere salvato a causa di errori."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' aggiornato"
 
@@ -418,6 +424,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "File non trovato. Prova a cambiare l'origine o elimina il documento."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminato."
 

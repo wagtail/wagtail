@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-16 23:39+0000\n"
-"Last-Translator: Iuri L. Machado\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -184,19 +184,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Arquivo"
-
-msgid "Created"
-msgstr "Criado"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s atrás"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -264,8 +251,21 @@ msgstr "Documentos"
 msgid "Select all documents in listing"
 msgstr "Selecionar todos os documentos da lista"
 
+msgid "Title"
+msgstr "Título"
+
+msgid "File"
+msgstr "Arquivo"
+
+msgid "Created"
+msgstr "Criado"
+
 msgid "Select document"
 msgstr "Selecionar documento"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s atrás"
 
 #, python-format
 msgid ""
@@ -404,18 +404,17 @@ msgstr[1] "%(num_parent_objects)ddocumentos foram excluídos"
 msgid "Server Error"
 msgstr "Erro de servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
-
 msgid "Search documents"
 msgstr "Buscar documentos"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' adicionado."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento não pôde ser salvo devido à erros."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' atualizado"
 
@@ -425,6 +424,7 @@ msgstr ""
 "Este arquivo não pode ser encontrado. Por favor altere a fonte ou remova o "
 "documento"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' apagado."
 

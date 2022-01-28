@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>, 2021\n"
 "Language-Team: Icelandic (Iceland) (https://www.transifex.com/torchbox/"
@@ -59,9 +59,11 @@ msgstr "Notkun"
 msgid "Add locale"
 msgstr "Bæta við þýðingu"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Þýðing '{0}' búin til."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Þýðing '{0}' uppfærð."
 
@@ -71,6 +73,7 @@ msgstr "Ekki var hægt að vista þýðingu þar sem hún stóðst ekki villupr�
 msgid "Delete locale"
 msgstr "Eyða þýðingu"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Þýðingu '{0}' eytt."
 

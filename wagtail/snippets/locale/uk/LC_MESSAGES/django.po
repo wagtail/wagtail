@@ -5,14 +5,15 @@
 # Translators:
 # Sergiy Shkodenko <shkodenkosergiy@gmail.com>, 2018
 # Vladyslav Herasymenko <drimacus182@gmail.com>, 2020
-# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-18 07:30+0000\n"
-"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/torchbox/wagtail/language/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -64,9 +65,6 @@ msgstr[3] ""
 "\n"
 "            Знайдено %(counter)s збігів\n"
 "        "
-
-msgid "Title"
-msgstr "Заголовок"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -147,6 +145,9 @@ msgstr "Уривки"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Вибрати всі %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Заголовок"
 
 #, python-format
 msgid "Select %(snippet)s"

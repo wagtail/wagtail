@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Naglis Jonaitis\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
@@ -243,21 +243,25 @@ msgstr "Grupės"
 msgid "Search groups"
 msgstr "Ieškoti grupių"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupė '{0}' sukurta."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupė '{0}' atnaujinta."
 
 msgid "The group could not be saved due to errors."
 msgstr "Ši grupė negali būti išsaugota dėl klaidų."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupė '{0}' ištrinta."
 
 msgid "Search users"
 msgstr "Ieškoti vartotojų"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Vartotojas '{0}' sukurtas."
 
@@ -267,12 +271,14 @@ msgstr "Redaguoti"
 msgid "The user could not be created due to errors."
 msgstr "Šis vartotojas negalėjo būti sukurtas dėl klaidų."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Vartotojas '{0}' atnaujintas."
 
 msgid "The user could not be saved due to errors."
 msgstr "Šis vartotojas negali būti išsaugotas dėl klaidų."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Vartotojas '{0}' ištrintas."
 

@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 09:37+0000\n"
-"Last-Translator: UP\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -317,12 +317,6 @@ msgstr "Ponastavi geslo"
 
 msgid "Upload a profile picture:"
 msgstr "Naloži profilno sliko:"
-
-msgid "Menu"
-msgstr "Meni"
-
-msgid "Explorer"
-msgstr "Raziskovalec"
 
 msgid "Internal link"
 msgstr "Interna povezava"
@@ -721,9 +715,6 @@ msgstr "Razišči podrejene strani od '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj podrejeno stran v '%(title)s'"
 
-msgid "Add child page"
-msgstr "Dodaj podrejeno stran"
-
 msgid "Sites menu"
 msgstr "Meniji strani"
 
@@ -764,16 +755,6 @@ msgstr "Trenutni status:"
 
 msgid "Set page privacy"
 msgstr "Nastavi zasebnost objave"
-
-#, python-format
-msgid "Revisions of %(title)s"
-msgstr "Različice od %(title)s"
-
-msgid "Revisions of"
-msgstr "Različice od"
-
-msgid "No revision of this page exist"
-msgstr "Druge različice strani ne obstajajo"
 
 msgid "Enter a search term above"
 msgstr "Vnesite iskalni niz v zgornje polje"
@@ -870,9 +851,11 @@ msgstr "Zbirke"
 msgid "Editing"
 msgstr "Urejanje"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stran '{0}' kopirana."
 
@@ -882,36 +865,45 @@ msgstr "Poglej osnutek"
 msgid "View live"
 msgstr "Ogled v živo"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stran '{0}' izbrisana."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stran '{0}' je posodobljena."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stran '{0}' je objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
 
@@ -921,21 +913,27 @@ msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
 msgid "The page could not be saved due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stran '{0}' trenutno ne čaka na potrditev."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stran '{0}' objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stran '{0}' premaknjena."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
@@ -945,8 +943,8 @@ msgstr "Zgodovina mesta"
 msgid "Locked pages"
 msgstr "Zaklenjene strani"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
+msgid "Add child page"
+msgstr "Dodaj podrejeno stran"
 
 msgid "Locked Pages"
 msgstr "Zaklenjene strani"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
@@ -57,6 +57,9 @@ msgstr "preusmeri na stran"
 
 msgid "redirect to any URL"
 msgstr "preusmeri na katerikoli URL"
+
+msgid "created at"
+msgstr "ustvarjeno"
 
 msgid "redirect"
 msgstr "preusmeritev"
@@ -124,6 +127,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Iskanje po preusmeritvah"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Preusmeritev '{0}' posodobljena."
 
@@ -133,9 +137,11 @@ msgstr "Uredi"
 msgid "The redirect could not be saved due to errors."
 msgstr "Preusmeritve, zaradi napak, ni bilo možno shraniti."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Preusmeritev '{0}' izbrisana."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Preusmeritev '{0}' dodana."
 

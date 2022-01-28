@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 11:54+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -248,6 +248,7 @@ msgstr "Valitse vähintään yksi ryhmä."
 msgid "All types"
 msgstr "Kaikki tyypit"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Tähän sivuun on määritetty työnkulku '{0}'."
 
@@ -329,9 +330,11 @@ msgstr "Puuttuva asiakirja"
 msgid "Close"
 msgstr "Sulje"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Muokkaa '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Näytä sivun '{title}' alasivut"
 
@@ -407,9 +410,11 @@ msgstr "Muokkaa tiliäsi"
 msgid "1 page selected"
 msgstr "1 sivu valittu"
 
+#, python-brace-format
 msgid "{0} pages selected"
 msgstr "{0} sivua valittu"
 
+#, python-brace-format
 msgid "All {0} pages on this screen selected"
 msgstr "Kaikki {0} sivua tässä näytössä valittu"
 
@@ -419,9 +424,11 @@ msgstr "Kaikki listauksen sivut valittu"
 msgid "1 document selected"
 msgstr "1 asiakirja valittu"
 
+#, python-brace-format
 msgid "{0} documents selected"
 msgstr "{0} asiakirjaa valittu"
 
+#, python-brace-format
 msgid "All {0} documents on this screen selected"
 msgstr "Kaikki {0} asiakirjaa tässä näytössä valittu"
 
@@ -431,9 +438,11 @@ msgstr "Kaikki listauksen asiakirjat valittu"
 msgid "1 image selected"
 msgstr "1 kuva valittu"
 
+#, python-brace-format
 msgid "{0} images selected"
 msgstr "{0} kuvaa valittu"
 
+#, python-brace-format
 msgid "All {0} images on this screen selected"
 msgstr "Kaikki {0} kuvaa tässä näytössä valittu"
 
@@ -443,9 +452,11 @@ msgstr "Kaikki listauksen kuvat valittu"
 msgid "1 user selected"
 msgstr "1 käyttäjä valittu"
 
+#, python-brace-format
 msgid "{0} users selected"
 msgstr "{0} käyttäjää valittu"
 
+#, python-brace-format
 msgid "All {0} users on this screen selected"
 msgstr "Kaikki {0} käyttäjää tässä näytössä valittu"
 
@@ -455,9 +466,11 @@ msgstr "Kaikki listauksen käyttäjät valittu"
 msgid "1 item selected"
 msgstr "1 tietue valittu"
 
+#, python-brace-format
 msgid "{0} items selected"
 msgstr "{0} items tietuetta valittu"
 
+#, python-brace-format
 msgid "All {0} items on this screen selected"
 msgstr "Kaikki {0} tietuetta tässä näytössä valittu"
 
@@ -542,9 +555,6 @@ msgstr "Lähetä profiilikuva:"
 msgid "Reset to default"
 msgstr "Palauta oletusarvoon"
 
-msgid "Menu"
-msgstr "Valikko"
-
 msgid "Go back"
 msgstr "Siirry takaisin"
 
@@ -556,9 +566,6 @@ msgstr "Valitse rivi"
 
 msgid "Select all"
 msgstr "Valitse kaikki"
-
-msgid "Explorer"
-msgstr "Sivuselain"
 
 msgid "Internal link"
 msgstr "Sisäinen linkki"
@@ -1397,9 +1404,6 @@ msgstr "Selaa sivun %(title)s alasivuja"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lisää alasivu sivulle '%(title)s'"
 
-msgid "Add child page"
-msgstr "Lisää alasivu"
-
 msgid "Sites menu"
 msgstr "Sivustot-valikko"
 
@@ -1546,29 +1550,6 @@ msgid "No, don't unschedule"
 msgstr "Ei, älä poista ajastusta"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Kohteen %(title)s revisiot"
-
-msgid "Revisions of"
-msgstr "Revisiot:"
-
-msgid "Revision date"
-msgstr "Revision päivämäärä"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "tekijä"
-
-msgid "Scheduled for"
-msgstr "Ajastettu ajalle"
-
-msgid "No revisions of this page exist"
-msgstr "Tästä sivusta ei ole revisioita"
-
-msgid "No revision of this page exist"
-msgstr "Sivusta ei ole revisioita"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1664,6 +1645,9 @@ msgstr "Kokoelman hallinnan oikeudet"
 msgid "Add a collection permission"
 msgstr "Lisää kokoelman oikeus"
 
+msgid "No pages found."
+msgstr "Sivuja ei löytynyt."
+
 msgid "No pages match this report's criteria."
 msgstr "Raportin hakuehtoja vastaavia sivuja ei löytynyt."
 
@@ -1678,9 +1662,6 @@ msgstr "Suodatin"
 
 msgid "Apply filters"
 msgstr "Toteuta suodatukset"
-
-msgid "No pages found."
-msgstr "Sivuja ei löytynyt."
 
 msgid "Locking status"
 msgstr "Lukitsemisen tila"
@@ -2017,9 +1998,11 @@ msgstr "Lisää kokoelma"
 msgid "Add collection"
 msgstr "Lisää kokoelma"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kokoelma '{0}' luotu."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kokoelma '{0}' päivitetty."
 
@@ -2029,6 +2012,7 @@ msgstr "Kokoelmaa ei voitu päivittää virheiden takia."
 msgid "Delete collection"
 msgstr "Poista kokoelma"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kokoelma '{0}' poistettu."
 
@@ -2067,12 +2051,15 @@ msgstr "1 sivu on julkaistu"
 msgid "%(num_parent_objects)d pages have been published"
 msgstr "%(num_parent_objects)d sivua on julkaistu"
 
+#, python-brace-format
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Sivu '{0}' on muunnettu tavalliseksi sivuksi."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sivu '{0}' ja {1} alasivua kopioitu."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sivu '{0}' kopioitu."
 
@@ -2082,27 +2069,33 @@ msgstr "Näytä luonnos"
 msgid "View live"
 msgstr "Näytä julkaistu"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sivu '{0}' luotu."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sivu '{0}' luotu ja ajastettu julkaistavaksi."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Sivu '{0}' luotu ja julkaistu."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sivu '{0}' luotu ja lähetetty tarkastettavaksi."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sivua ei voitu luoda validointivirheiden vuoksi."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sivu '{0}' poistettu."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sivu odottaa parhaillaan tarkastusta"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sivu '{0}' päivitetty."
 
@@ -2124,15 +2117,19 @@ msgstr "Tämä sivu odottaa parhaillaan tarkastusta."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Vain tämän tehtävän tarkastajat voivat muokata sivua."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sivu '{0}' on ajastettu julkaistavaksi."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sivu '{0}' julkaistu."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sivu '{0}' on lähetetty tarkastettavaksi."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Työnkulku sivulla '{0}' on käynnistetty uudelleen."
 
@@ -2145,24 +2142,29 @@ msgstr "Sivua ei voitu tallentaa validointivirheiden vuoksi"
 msgid "Hide commenting actions"
 msgstr "Piilota kommentointitoiminnot"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sivu '{0}' ei ole enää lukittu."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sivu '{0}' ei odota parhaillaan tarkastusta."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sivu '{0}' julkaistu"
 
 msgid "Failed to send approval notifications"
 msgstr "Hyväksyntäilmoitusten lähettäminen epäonnistui"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sivu '{0}' julkaisu hylättiin."
 
 msgid "Failed to send rejection notifications"
 msgstr "Hylkäysilmoitusten lähetys epäonnistui"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -2170,6 +2172,7 @@ msgstr ""
 "Lyhytnimi '{0}' on jo käytössä tällä isäntäsivulla. Valitse lyhytnimi, joka "
 "ei ole käytössä"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sivu '{0}' siirretty."
 
@@ -2179,9 +2182,11 @@ msgstr "Aikaisin"
 msgid "Latest"
 msgstr "Viimeisin"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "sivun \"{1}\" revisio {0}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sivu '{0}' piilotettu"
 
@@ -2224,12 +2229,14 @@ msgstr "Lisää työnkulku"
 msgid "New workflow"
 msgstr "Uusi työnkulku"
 
+#, python-brace-format
 msgid "Workflow '{0}' created."
 msgstr "Työnkulku '{0}' luotu."
 
 msgid "Editing workflow"
 msgstr "Muokataan työnkulkua"
 
+#, python-brace-format
 msgid "Workflow '{0}' updated."
 msgstr "Työnkulku '{0}' päivitetty."
 
@@ -2242,24 +2249,29 @@ msgstr "Ota käyttöön"
 msgid "Disable workflow"
 msgstr "Poista työnkulku käytöstä"
 
+#, python-brace-format
 msgid "Workflow '{0}' disabled."
 msgstr "Työnkulku '{0}' poistettu käytöstä."
 
+#, python-brace-format
 msgid "Workflow '{0}' enabled."
 msgstr "Työnkulku '{0}' otettu käyttöön."
 
+#, python-brace-format
 msgid "Workflow removed from Page '{0}'."
 msgstr "Työnkulku poistettu sivulta '{0}'."
 
 msgid "New workflow task"
 msgstr "Uusi työnkulun tehtävä"
 
+#, python-brace-format
 msgid "Task '{0}' created."
 msgstr "Tehtävä '{0}' luotu."
 
 msgid "Editing workflow task"
 msgstr "Muokataan työnkulun tehtävää"
 
+#, python-brace-format
 msgid "Task '{0}' updated."
 msgstr "Tehtävä '{0}' päivitetty."
 
@@ -2270,14 +2282,13 @@ msgstr "Muokataan %(task_type)s"
 msgid "Disable task"
 msgstr "Poista tehtävä käytöstä"
 
+#, python-brace-format
 msgid "Task '{0}' disabled."
 msgstr "Tehtävä '{0}' poistettu käytöstä."
 
+#, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Tehtävä '{0}' otettu käyttöön."
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2290,6 +2301,9 @@ msgstr "Esikatsele sivun '%(title)s' vedosta"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Katso sivun '%(title)s' esillä olevaa versiota"
+
+msgid "Add child page"
+msgstr "Lisää alasivu"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

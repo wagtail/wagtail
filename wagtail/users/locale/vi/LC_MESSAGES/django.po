@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2022-01-06 06:05+0000\n"
 "Last-Translator: Vu Pham\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
@@ -125,21 +125,25 @@ msgstr "Nhóm"
 msgid "Search groups"
 msgstr "Tìm nhóm"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Nhóm '{0}' đã được tạo."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Nhóm '{0}' đã được cập nhật."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nhóm không thể lưu vì lỗi."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Nhóm '{0}' đã được xoá."
 
 msgid "Search users"
 msgstr "Tìm người dùng"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Người dùng '{0}' đã được tạo."
 
@@ -149,6 +153,7 @@ msgstr "Biên tập"
 msgid "The user could not be created due to errors."
 msgstr "Không thể tạo người dùng vì lỗi."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Người dùng '{0}' đã được cập nhật."
 

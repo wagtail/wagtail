@@ -4,15 +4,16 @@
 #
 # Translators:
 # Asger Sørensen <asger.soerensen@live.com>, 2016
+# Benjamin Bach <benjaoming@gmail.com>, 2022
 # Mads Kronborg <madskronborg99@gmail.com>, 2018
 # MRostgaard <Mrostgaard@gmail.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: MRostgaard <Mrostgaard@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-24 16:53+0000\n"
+"Last-Translator: Benjamin Bach <benjaoming@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -27,17 +28,39 @@ msgstr "Udgiv"
 msgid "Submit for moderation"
 msgstr "Indsend til moderation"
 
+msgid "Cancel workflow "
+msgstr "Annuller arbejdsgang"
+
 msgid "Unpublish"
 msgstr "Afpublicer"
 
 msgid "Delete"
 msgstr "Slet"
 
+msgid "Lock"
+msgstr "Lås"
+
+msgid "Apply editor lock"
+msgstr "Aktivér redaktør-lås"
+
+msgid "Unlock"
+msgstr "Lås op"
+
+msgid "Save Draft"
+msgstr "Gem skitse"
+
 msgid "Page locked"
 msgstr "Siden er låst"
 
+#, python-format
+msgid "%(label)s and Publish"
+msgstr "%(label)s og Publicér"
+
 msgid "Wagtail admin"
 msgstr "Wagtail admin"
+
+msgid "Sorry, you do not have permission to access this area."
+msgstr "Beklager, du har ikke rettigheder til at tilgå dette område"
 
 msgid "You do not have permission to access the admin"
 msgstr "Du mangler rettigheden til, at bruge admin-interfacet"
@@ -51,6 +74,12 @@ msgstr "Planlagt udgivning"
 msgid "Privacy"
 msgstr "Privatliv"
 
+msgid "For search engines"
+msgstr "Til søgemaskiner"
+
+msgid "For site menus"
+msgstr "For site-menuer"
+
 msgid "Content"
 msgstr "Indhold"
 
@@ -59,6 +88,33 @@ msgstr "Promover"
 
 msgid "Settings"
 msgstr "Indstillinger"
+
+msgid "Date from"
+msgstr "Dato fra"
+
+msgid "Date to"
+msgstr "Dato til"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "Preferred language"
+msgstr "Foretrukket sprog"
+
+msgid "Current time zone"
+msgstr "Nuværende tidszone"
+
+msgid "First Name"
+msgstr "Fornavn"
+
+msgid "Last Name"
+msgstr "Efternavn"
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "Upload a profile picture"
+msgstr "Upload et profilbillede"
 
 msgid "Enter password"
 msgstr "Skriv adgangskode"
@@ -225,6 +281,7 @@ msgstr ""
 msgid "Close"
 msgstr "Luk"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Rediger '{title}'"
 
@@ -308,12 +365,6 @@ msgstr "Gendan kodeord"
 
 msgid "Reset your password"
 msgstr "Gendan dit kodeord"
-
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Explorer"
 
 msgid "Internal link"
 msgstr "Internt link"
@@ -687,9 +738,6 @@ msgstr "Udforsk undersider af '%(title)s'?"
 msgid "Add a child page to '%(title)s'"
 msgstr "Tilføj en underside til '%(title)s'"
 
-msgid "Add child page"
-msgstr "Tilføj en underside"
-
 msgid "Sites menu"
 msgstr "Sidemenu"
 
@@ -786,10 +834,6 @@ msgstr[1] ""
 "%(counter)s felter op.\n"
 "                                                        "
 
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "af"
-
 msgid "Locked"
 msgstr "Låst"
 
@@ -827,9 +871,11 @@ msgstr "Test"
 msgid "Editing"
 msgstr "Redigerer"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "SIde '{0}' og {1} undersider blev kopieret."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "SIde '{0}' kopieret."
 
@@ -839,21 +885,27 @@ msgstr "Vis skitse"
 msgid "View live"
 msgstr "Vis live"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Side  '{0}' lavet."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Side '{0}' slettet."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Side '{0}' er blevet opdateret."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Side '{0}' er blevet udgivet."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Side '{0}' er blivet indsendt til moderation."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "SIde '{0}' flyttet."
 
@@ -863,8 +915,12 @@ msgstr "Tidligste"
 msgid "Latest"
 msgstr "Seneste"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "SIde '{0}' afpubliceret."
+
+msgid "Add child page"
+msgstr "Tilføj en underside"
 
 msgid "Bulleted list"
 msgstr "Liste med prikker"

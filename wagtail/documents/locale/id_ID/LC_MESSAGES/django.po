@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -82,16 +82,6 @@ msgstr "Unggah"
 msgid "Latest documents"
 msgstr "Dokumen terbaru"
 
-msgid "Title"
-msgstr "Judul"
-
-msgid "File"
-msgstr "Berkas"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s yang lalu"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Maaf, tidak ada dokumen yang cocok \"<em>%(query_string)s</em>\""
@@ -142,6 +132,16 @@ msgstr "Pemakaian"
 
 msgid "Documents"
 msgstr "Dokumen"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "File"
+msgstr "Berkas"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s yang lalu"
 
 #, python-format
 msgid ""
@@ -211,18 +211,17 @@ msgstr "Hapus"
 msgid "Server Error"
 msgstr "Kesalahan Server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
-
 msgid "Search documents"
 msgstr "Cari dokumen"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumen '{0}' ditambahkan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumen tidak dapat tersimpan dikarenakan oleh error."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumen '{0}' diperbarui."
 
@@ -231,6 +230,7 @@ msgid ""
 msgstr ""
 "Berkas tidak dapat ditemukan. Mohon untuk mengganti sumber atau hapus dokumen"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumen '{0}' dihapus."
 

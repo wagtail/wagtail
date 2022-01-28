@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-10-10 17:05+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -178,6 +178,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Pretraži promovirane rezultate"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Izbor urednika za '{0}' je stvoren."
 
@@ -187,6 +188,7 @@ msgstr "Uredi"
 msgid "Recommendations have not been created due to errors"
 msgstr "Nije moguće stvoriti preporuke zbog grešaka"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Izbor urednika za '{0}' je ažuriran."
 

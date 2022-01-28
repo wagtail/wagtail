@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Maris Serzans <maris.serzans@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Latvian (http://www.transifex.com/torchbox/wagtail/language/"
 "lv/)\n"
 "MIME-Version: 1.0\n"
@@ -91,14 +91,17 @@ msgstr "Nav novirzījumu, kas atbilst \"<em>%(query_string)s</em>\""
 msgid "Search redirects"
 msgstr "Meklēt novirzījumus"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Novirzījums '{0}' atjaunots."
 
 msgid "Edit"
 msgstr "Labot"
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Novirzījums '{0}' dzēsts."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Novirzījums '{0}' pievienots."

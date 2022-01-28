@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matas Dailyda <matas@dailyda.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -250,6 +250,7 @@ msgstr "Atgrąžinti"
 msgid "Close"
 msgstr "Uždaryti"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
 
@@ -334,17 +335,11 @@ msgstr "Slaptažodžio atstatymas"
 msgid "Reset your password"
 msgstr "Atstatyti savo slaptažodį"
 
-msgid "Menu"
-msgstr "Meniu"
-
 msgid "Go back"
 msgstr "Grįžti atgal"
 
 msgid "Select all"
 msgstr "Pažymėti visas"
-
-msgid "Explorer"
-msgstr "Naršyklė"
 
 msgid "Internal link"
 msgstr "Vidinė nuoroda"
@@ -867,9 +862,6 @@ msgstr "Naršyti vidinius '%(title)s' puslapius"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridėti vidinį puslapį į '%(title)s'"
 
-msgid "Add child page"
-msgstr "Pridėti vidinį puslapį"
-
 msgid "Sites menu"
 msgstr "Tinklalapių meniu"
 
@@ -1008,29 +1000,6 @@ msgid "No, don't unschedule"
 msgstr "Ne, planuoti"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "%(title)s revizijos"
-
-msgid "Revisions of"
-msgstr "Revizijos"
-
-msgid "Revision date"
-msgstr "Revizijos data"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "pagal"
-
-msgid "Scheduled for"
-msgstr "Planuoti"
-
-msgid "No revisions of this page exist"
-msgstr "Jokios šio puslapio revizijos neegzistuoja"
-
-msgid "No revision of this page exist"
-msgstr "Jokia šio puslapio revizija neegzistuoja"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1153,9 +1122,11 @@ msgstr "Pridėti kolekciją"
 msgid "Add collection"
 msgstr "Pridėti kolekciją"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcija '{0}' sukurta."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcija '{0}' atnaujinta."
 
@@ -1165,6 +1136,7 @@ msgstr "Kolekcija negalėjo būti išsaugota dėl klaidų."
 msgid "Delete collection"
 msgstr "Ištrinti kolekciją"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcija '{0}' ištrinta."
 
@@ -1174,9 +1146,11 @@ msgstr "Ar tikrai norite ištrinti šią kolekciją?"
 msgid "Editing"
 msgstr "Redaguojama"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Puslapis '{0}' ir  '{1}' vidiniai puslapiai atkopijuoti."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Puslapis '{0}' nukopijuotas."
 
@@ -1186,36 +1160,45 @@ msgstr "Žiūrėti juodraštį"
 msgid "View live"
 msgstr "Žiūrėti veikiantį"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Puslapis '{0}' sukurtas."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Puslapis '{0}' sukurtas ir suplanuotas publikavimui."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Puslapis '{0}' sukurtas ir publikuotas."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Puslapis '{0}' sukurtas ir pateiktas moderavimui."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Puslapis negalėjo būti sukurtas dėl validavimo klaidų"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Puslapis '{0}' ištrintas."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Šis puslapis laukia moderavimo"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Puslapis '{0}' buvo atnaujintas."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Puslapis '{0}' buvo suplanuotas publikavimui."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Puslapis '{0}' buvo publikuotas."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Puslapis '{0}' buvo pateiktas moderavimui."
 
@@ -1225,24 +1208,29 @@ msgstr "Puslapis negalėjo būti išsaugotas nes yra užrakintas"
 msgid "The page could not be saved due to validation errors"
 msgstr "Puslapis negalėjo būti išsaugotas dėl validavimo klaidų"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Puslapis '{0}' dabar atrakintas."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Puslapis '{0}' dabar nelaukia moderavimo."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Puslapis '{0}' publikuotas."
 
 msgid "Failed to send approval notifications"
 msgstr "Nepavyko nusiųsti patvirtinimo pranešimų"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Puslapis '{0}' publikavimui atmestas."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nepavyko nusiųsti atmetimo pranešimų"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Puslapis '{0}' buvo perkeltas."
 
@@ -1252,9 +1240,11 @@ msgstr "Naujausias"
 msgid "Latest"
 msgstr "Vėliausias"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revizija {0} iš \"{1}\""
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Puslapis '{0}' nebepublikuojamas."
 
@@ -1264,10 +1254,8 @@ msgstr "Išjungti"
 msgid "Enable"
 msgstr "Įjungti"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Praneškite apie šią klaidą savo tinklalapio administratoriui su sekančia "
-"informacija:"
+msgid "Add child page"
+msgstr "Pridėti vidinį puslapį"
 
 #, python-format
 msgid "Heading %(level)d"

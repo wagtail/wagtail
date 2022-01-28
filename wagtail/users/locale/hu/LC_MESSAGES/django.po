@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2018-2022
 # B N <biczoxd@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-12-14 15:57+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 15:10+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -308,7 +308,7 @@ msgid "Select all users in listing"
 msgstr "Összes felhasználó kiválasztása a listában"
 
 msgid "Username"
-msgstr "Felhasználünév"
+msgstr "Felhasználónév"
 
 msgid "Level"
 msgstr "Szint"
@@ -409,21 +409,25 @@ msgstr "Csoportok"
 msgid "Search groups"
 msgstr "Csoportok keresése"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Csoport létrehozva: '{0}'"
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Csoport frissítve: '{0}'"
 
 msgid "The group could not be saved due to errors."
 msgstr "Hiba történt a csoport mentése közben."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Csoport törölve: '{0}'"
 
 msgid "Search users"
 msgstr "Felhasználók keresése"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Felhasználó létrehozva: '{0}'"
 
@@ -433,12 +437,14 @@ msgstr "Szerkeszt"
 msgid "The user could not be created due to errors."
 msgstr "Hiba történt a felhasználó létrehozása közben."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Felhasználó frissítve: '{0}'"
 
 msgid "The user could not be saved due to errors."
 msgstr "Hiba történt a felhasználó mentése közben."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Felhasználó törölve: '{0}'"
 

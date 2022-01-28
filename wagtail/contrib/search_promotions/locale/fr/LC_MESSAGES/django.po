@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-28 09:54+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
@@ -188,6 +188,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Rechercher des résultats améliorés"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Résultat amélioré pour '{0}' créé."
 
@@ -197,6 +198,7 @@ msgstr "Modifier"
 msgid "Recommendations have not been created due to errors"
 msgstr "Les recommandations ne peuvent être créées du fait d'erreurs"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Résultat amélioré pour '{0}' mis à jour."
 

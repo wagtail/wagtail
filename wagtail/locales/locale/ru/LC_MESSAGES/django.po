@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: sergeybe <sergeybe@gmail.com>, 2020\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
@@ -61,9 +61,11 @@ msgstr "Использование"
 msgid "Add locale"
 msgstr "Добавить локаль"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Локаль '{0}' создана."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Локаль '{0}' обновлена."
 
@@ -73,6 +75,7 @@ msgstr "Локаль не может быть сохранена из-за ош�
 msgid "Delete locale"
 msgstr "Удалить локаль"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Локаль '{0}' удалена."
 

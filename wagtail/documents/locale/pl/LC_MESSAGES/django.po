@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 15:51+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -126,19 +126,6 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Najnowsze dokumenty"
 
-msgid "Title"
-msgstr "Tytuł"
-
-msgid "File"
-msgstr "Plik"
-
-msgid "Created"
-msgstr "Utworzone"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s temu"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -202,6 +189,19 @@ msgstr "Użycie"
 
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Tytuł"
+
+msgid "File"
+msgstr "Plik"
+
+msgid "Created"
+msgstr "Utworzone"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s temu"
 
 #, python-format
 msgid ""
@@ -316,18 +316,17 @@ msgstr "Usuń"
 msgid "Server Error"
 msgstr "Błąd serwera"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
-
 msgid "Search documents"
 msgstr "Szukaj dokumentów"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dodano dokument '{0}'."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nie mógł zostać zapisany z powodu błędów."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Uaktualniono dokument '{0}'"
 
@@ -336,6 +335,7 @@ msgid ""
 msgstr ""
 "Plik nie mógł zostać odnaleziony. Proszę zmień źródło lub usuń dokument"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Usunięto dokument '{0}'"
 

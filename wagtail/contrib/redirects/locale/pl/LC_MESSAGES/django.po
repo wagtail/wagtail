@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 09:39+0000\n"
-"Last-Translator: Łukasz Bołdys (Lukasz Boldys)\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
+"Last-Translator: Miłosz Miśkiewicz\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -84,6 +84,9 @@ msgstr "przekieruj na stronę"
 
 msgid "redirect to any URL"
 msgstr "przekieruj na dowolny adres URL"
+
+msgid "created at"
+msgstr "utworzono dnia"
 
 msgid "temporary"
 msgstr "tymczasowy"
@@ -235,6 +238,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Szukaj przekierowań"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Uaktualniono przekierowanie '{0}'."
 
@@ -244,9 +248,11 @@ msgstr "Edytuj"
 msgid "The redirect could not be saved due to errors."
 msgstr "Przekierowanie nie mogło zostać zapisane z powodu błędów."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Usunięto przekierowanie '{0}'."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Przekierowanie '{0}' dodane."
 

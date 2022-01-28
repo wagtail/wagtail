@@ -6,16 +6,16 @@
 # Coen van der Kamp <cvanderkamp@gmail.com>, 2020
 # Maarten Kling <kling.maarten@gmail.com>, 2015,2018
 # Meteor0id, 2018
-# Storm Heg <storm@stormbase.digital>, 2021
+# Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
 # Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-12-09 08:10+0000\n"
-"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 17:04+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -75,14 +75,30 @@ msgid ""
 "(the 'Redirect from') and index the new page instead."
 msgstr ""
 "Aanbevolen. Permanente doorverwijzingen zorgen ervoor dat zoekmachines de "
-"oude pagina (\"stuur door vanaf\") vergeten en in plaats daarvan de nieuwe "
+"oude pagina (\"verwijs door vanaf\") vergeten en in plaats daarvan de nieuwe "
 "pagina indexeren."
 
 msgid "redirect to a page"
 msgstr "stuur door naar een pagina"
 
+msgid "target page route"
+msgstr "Doelpagina route"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Optioneel. Specificeer een route op de doelpagina om naar door te verwijzen. "
+"Laat leeg om de standaard route te gebruiken."
+
 msgid "redirect to any URL"
 msgstr "stuur door naar een specifiek adres"
+
+msgid "automatically created"
+msgstr "automatisch aangemaakt"
+
+msgid "created at"
+msgstr "gemaakt op"
 
 msgid "temporary"
 msgstr "tijdelijk"
@@ -225,6 +241,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Zoek doorverwijzingen"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Doorverwijzing '{0}' gewijzigd."
 
@@ -234,9 +251,11 @@ msgstr "Wijzig"
 msgid "The redirect could not be saved due to errors."
 msgstr "De doorverwijzing kon niet worden opgeslagen door fouten."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Doorverwijzing '{0}' verwijderd."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Doorverwijzing '{0}' toegevoegd."
 

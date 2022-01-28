@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -59,6 +59,9 @@ msgstr "การกำหนดหน้าใหม่"
 
 msgid "redirect to any URL"
 msgstr "การกำหนด URL อันไหนก็ได้"
+
+msgid "created at"
+msgstr "ถูกสร้างที่"
 
 msgid "temporary"
 msgstr "ชั่วคราว"
@@ -145,6 +148,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "ค้นหาหลายการกำหนดทิศทาง"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "การกำหนดทิศทาง'{0}'ถูกอัพเดทแล้ว"
 
@@ -154,9 +158,11 @@ msgstr "แก้ไข"
 msgid "The redirect could not be saved due to errors."
 msgstr "การกำหนดทิศทางไม่สามารถเซฟได้ในขณะที่เกิดข้อผิดพลาด"
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "การกำหนดทิศทาง'{0}'ถูกลบทิ้งแล้ว"
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "การกำหนดทิศทาง'{0}'ถูกเพิ่มแล้ว"
 

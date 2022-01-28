@@ -4,13 +4,13 @@
 #
 # Translators:
 # Arnar Tumi Þorsteinsson <arnartumi@gmail.com>, 2015-2018,2021
-# saevarom <saevar@saevar.is>, 2015,2019-2021
+# saevarom <saevar@saevar.is>, 2015,2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-18 09:26+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-22 17:34+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -314,6 +314,23 @@ msgstr "Vista"
 msgid "Delete image"
 msgstr "Eyða mynd"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Ertu viss um að þú viljir eyða þessari mynd?\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Ertu viss um að þú viljir eyða þessum myndum?\n"
+"                "
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Breyti mynd %(title)s"
@@ -461,7 +478,9 @@ msgstr "Því miður tókst ekki að hlaða upp myndunum."
 msgid "Server Error"
 msgstr "Villa á netþjóni"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Image updated."
@@ -512,6 +531,7 @@ msgstr[1] "%(num_parent_objects)d myndum hefur verið eytt"
 msgid "Search images"
 msgstr "Leita að myndum"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Mynd '{0}' uppfærð."
 
@@ -527,9 +547,11 @@ msgid ""
 msgstr ""
 "Upprunamyndin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Mynd '{0}' eydd."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Mynd '{0}' bætt við."
 

@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 18:25+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -362,6 +362,7 @@ msgstr ""
 "Det kan bara finnas en pågående eller behöver förändringar "
 "arbetsflödesstatus per sida."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Arbetsflöde '{0}' på Sida '{1}': {2}"
 
@@ -392,6 +393,7 @@ msgstr "färdigställdes vid"
 msgid "finished by"
 msgstr "färdigställdes av"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Uppgift '{0}' på Sidorevision '{1}': {2}"
 
@@ -406,6 +408,9 @@ msgstr "sidloggpost"
 
 msgid "page log entries"
 msgstr "sidloggposter"
+
+msgid "Draft saved"
+msgstr "Utkast sparat"
 
 msgid "comment"
 msgstr "kommentar"
@@ -585,11 +590,8 @@ msgstr "Skapa"
 msgid "Created"
 msgstr "Skapad"
 
-msgid "Save draft"
-msgstr "Spara utkast"
-
-msgid "Draft saved"
-msgstr "Utkast sparat"
+msgid "Edited"
+msgstr "Redigerad"
 
 msgid "Deleted"
 msgstr "Raderad"

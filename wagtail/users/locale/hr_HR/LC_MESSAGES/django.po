@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -317,21 +317,25 @@ msgstr "Grupe"
 msgid "Search groups"
 msgstr "Pretraži grupe"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupa '{0}' je stvorena."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupa '{0}' je ažurirana."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nije moguće sačuvati grupu zbog grešaka."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupa '{0}' je izbrisana."
 
 msgid "Search users"
 msgstr "Pretraži korisnike"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Korisnik '{0}' je stvoren."
 
@@ -341,12 +345,14 @@ msgstr "Uredi"
 msgid "The user could not be created due to errors."
 msgstr "Nije moguće stvoriti korisnika zbog grešaka."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Korisnik '{0}' je ažuriran."
 
 msgid "The user could not be saved due to errors."
 msgstr "Nije moguće sačuvati korisnika zbog grešaka."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Korisnik '{0}' je izbrisan."
 

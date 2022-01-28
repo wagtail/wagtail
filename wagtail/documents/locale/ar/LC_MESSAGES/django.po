@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -93,16 +93,6 @@ msgstr "انقل إلى الحاسوب"
 msgid "Latest documents"
 msgstr "وثائق أخيرة"
 
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "ملف"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "قبل %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "عذرًا ، لا توجد مستندات تطابق \"<em>%(query_string)s</em>\""
@@ -164,6 +154,16 @@ msgstr "استعمال"
 
 msgid "Documents"
 msgstr "وثائق"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "File"
+msgstr "ملف"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "قبل %(time_period)s"
 
 #, python-format
 msgid ""
@@ -241,18 +241,17 @@ msgstr "احذف"
 msgid "Server Error"
 msgstr "خطا بالخادم"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
-
 msgid "Search documents"
 msgstr "ابحث وثائق"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "اضيف '{0}' مستند"
 
 msgid "The document could not be saved due to errors."
 msgstr "كان من غير الممكن حفظ الوثيقة بسبب أخطاء"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "تحديث '{0}'  مستند"
 
@@ -261,6 +260,7 @@ msgid ""
 msgstr ""
 "كان من غبر الممكن العثور على الوثيقة. من فضلك غير المصدر أو احذف الوثيقة"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "حذف '{0}' مستند"
 

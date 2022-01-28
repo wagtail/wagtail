@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-26 12:59+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Laszlo Molnar <lazlowmiller@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -358,6 +358,7 @@ msgstr ""
 "Egy oldal esetén csak egyetlen folyamatban vagy változtatás szükséges "
 "munkafolyamat állapot lehet"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "'{0}' munkafolyamat a(z) '{1}' oldalon: {2}"
 
@@ -388,6 +389,7 @@ msgstr "befejezve: "
 msgid "finished by"
 msgstr "befejező: "
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "'{0}' feladat a(z) '{1}' oldal verzión: {2}"
 
@@ -402,6 +404,9 @@ msgstr "oldal naplóbejegyzés"
 
 msgid "page log entries"
 msgstr "oldal naplóbejegyzések"
+
+msgid "Draft saved"
+msgstr "Vázlat elmentve"
 
 msgid "comment"
 msgstr "megjegyzés"
@@ -580,11 +585,8 @@ msgstr "Létrehozás"
 msgid "Created"
 msgstr "Létrehozva"
 
-msgid "Save draft"
-msgstr "Vázlat mentése"
-
-msgid "Draft saved"
-msgstr "Vázlat elmentve"
+msgid "Edited"
+msgstr "Szerkesztve"
 
 msgid "Deleted"
 msgstr "Törölve"

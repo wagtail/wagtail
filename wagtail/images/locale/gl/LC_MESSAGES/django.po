@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -279,10 +279,6 @@ msgstr "Síntoo, a subida fallou."
 msgid "Server Error"
 msgstr "Erro do Servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informar deste erro ao teu administrador da web coa seguinte información:"
-
 msgid "Image updated."
 msgstr "Imaxe actualizada."
 
@@ -298,6 +294,7 @@ msgstr "Eliminar"
 msgid "Search images"
 msgstr "Procurar imaxes"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaxe '{0}' actualizada."
 
@@ -314,9 +311,11 @@ msgstr ""
 "O imaxe fonte non puido ser atopado. Por favor, cambia a fonte ou elimina a "
 "imaxe."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaxe '{0}' eliminada."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaxe '{0}' engadida."
 

@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 01:43+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 15:29+0000\n"
+"Last-Translator: Favo Yang <favoyang@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -167,19 +167,6 @@ msgstr[0] ""
 msgid "Latest documents"
 msgstr "最新文档"
 
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
-msgid "Created"
-msgstr "创建时间"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 之前"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "对不起。没找到符合\"<em>%(query_string)s</em>\"的文档"
@@ -245,8 +232,21 @@ msgstr "文档"
 msgid "Select all documents in listing"
 msgstr "选择列表中的所有文档"
 
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
+
+msgid "Created"
+msgstr "创建时间"
+
 msgid "Select document"
 msgstr "选择文档"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 之前"
 
 #, python-format
 msgid ""
@@ -374,18 +374,22 @@ msgstr[0] "已删除%(num_parent_objects)d个文档"
 msgid "Server Error"
 msgstr "服务器错误"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "将此错误报告给你的网络管理员，包含如下信息："
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "向系统管理员报告错误并提供以下信息："
 
 msgid "Search documents"
 msgstr "搜索文档"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}' 已添加"
 
 msgid "The document could not be saved due to errors."
 msgstr "无法保存文档，出现错误。"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "文档'{0}' 已更新"
 
@@ -393,6 +397,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "无法找到文件。请修改源或者删除文档。"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}' 已删除"
 

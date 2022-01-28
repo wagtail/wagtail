@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: Myagmarjav Enkhbileg <miigaa.lucky@gmail.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -49,6 +49,9 @@ msgstr "хуудас руу чиглүүлэх"
 
 msgid "redirect to any URL"
 msgstr "ямар ч URL руу чиглүүлэх"
+
+msgid "created at"
+msgstr "үүссэн "
 
 msgid "temporary"
 msgstr "түр зуурын"
@@ -140,6 +143,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Дахин чиглүүлэлт хайх"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "'{0}' чиглүүлэлт шинэчлэгдлээ."
 
@@ -149,9 +153,11 @@ msgstr "Засах"
 msgid "The redirect could not be saved due to errors."
 msgstr "Дараах алдаанаас болж чиглүүлэлт хадгалагдсангүй."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "'{0}' чиглүүлэлт устлаа."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "'{0}' чиглүүлэлт нэмэгдлээ."
 

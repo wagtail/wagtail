@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -30,9 +30,6 @@ msgstr "Избери"
 
 msgid "Search"
 msgstr "Търсене"
-
-msgid "Title"
-msgstr "Заглавие"
 
 #, python-format
 msgid "Are you sure you want to delete this %(snippet_type_name)s?"
@@ -57,6 +54,9 @@ msgstr "Редактиране"
 
 msgid "Snippets"
 msgstr "Откъси от код"
+
+msgid "Title"
+msgstr "Заглавие"
 
 #, python-format
 msgid ""

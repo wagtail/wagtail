@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-10-28 10:07+0000\n"
 "Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
@@ -183,6 +183,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Resultats de cerca promocionats"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Selecció de l'editor per a '{0}' creada."
 
@@ -192,6 +193,7 @@ msgstr "Editar"
 msgid "Recommendations have not been created due to errors"
 msgstr "No s'han creat les recomanacions a causa d'errors"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Selecció de l'editor per '{0}' actualitzada."
 

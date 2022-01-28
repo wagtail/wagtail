@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-12-17 19:23+0000\n"
-"Last-Translator: Vu Pham\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -49,9 +49,6 @@ msgstr "Tìm kiếm"
 msgid "Upload"
 msgstr "Đăng tải"
 
-msgid "Title"
-msgstr "Tiêu đề"
-
 msgid "Uploading…"
 msgstr "Đang đăng tải..."
 
@@ -71,6 +68,9 @@ msgstr "Chỉnh sửa"
 msgid "Save"
 msgstr "Lưu"
 
+msgid "Title"
+msgstr "Tiêu đề"
+
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -80,5 +80,6 @@ msgstr "Xoá"
 msgid "Server Error"
 msgstr "Lỗi Hệ thống"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Văn bản '{0}' đã được xóa."

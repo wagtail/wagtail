@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -124,15 +124,18 @@ msgstr "服务错误"
 msgid "Delete"
 msgstr "删除"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新"
 
 msgid "The image could not be saved due to errors."
 msgstr "图片 因为有错不能被保存"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "图片 '{0}' 已删除."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "图片 '{0}' 已添加."
 

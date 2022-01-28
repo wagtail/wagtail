@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Martin Sandström <martin@marteinn.se>, 2020
+# Martin Sandström <martin@marteinn.se>, 2020,2022
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2015,2017,2021
 # Thomas Kunambi <kunambi@gmail.com>, 2015
@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-21 22:02+0000\n"
-"Last-Translator: Thomas Kunambi <kunambi@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 13:50+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -78,8 +78,24 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "omdirigera till en sida"
 
+msgid "target page route"
+msgstr "Sökväg för målsida"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Ange valfritt en sökväg på den målsida du vill göra en ompekning till. Lämna "
+"tomt för att omdirigera till sidans standardsökväg."
+
 msgid "redirect to any URL"
 msgstr "omdirigera till valfri URL"
+
+msgid "automatically created"
+msgstr "automatiskt skapad"
+
+msgid "created at"
+msgstr "skapad vid"
 
 msgid "temporary"
 msgstr "temporär"
@@ -221,6 +237,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Sökomdirigeringar"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Omdirigering '{0}' uppdaterades."
 
@@ -230,9 +247,11 @@ msgstr "Redigera"
 msgid "The redirect could not be saved due to errors."
 msgstr "Omdirigeringen kunde inte sparas p.g.a. fel."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Omdirigering '{0}' raderad."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Omdirigering '{0}' skapad."
 

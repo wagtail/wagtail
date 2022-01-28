@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 11:30+0000\n"
-"Last-Translator: saevarom <saevar@saevar.is>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Arnar Tumi Þorsteinsson <arnartumi@gmail.com>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
 "MIME-Version: 1.0\n"
@@ -356,6 +356,7 @@ msgstr ""
 "Aðeins eitt vinnuflæði með stöðuna \"í gangi\" eða \"þarfnast breytinga\" má "
 "vera á hverri síðu."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Vinnuflæði '{0}' á síðu '{1}': {2}"
 
@@ -386,6 +387,7 @@ msgstr "endaði"
 msgid "finished by"
 msgstr "endar"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Skref '{0}' á síðu útgáfu '{1}': {2}"
 
@@ -400,6 +402,9 @@ msgstr "atburðaskráning síðu"
 
 msgid "page log entries"
 msgstr "atburðaskráningar síðu"
+
+msgid "Draft saved"
+msgstr "Drög vistuð"
 
 msgid "comment"
 msgstr "athugasemd"
@@ -578,11 +583,8 @@ msgstr "Búa til"
 msgid "Created"
 msgstr "Bjó til"
 
-msgid "Save draft"
-msgstr "Vista drög"
-
-msgid "Draft saved"
-msgstr "Drög vistuð"
+msgid "Edited"
+msgstr "Breytt"
 
 msgid "Deleted"
 msgstr "Eytt"

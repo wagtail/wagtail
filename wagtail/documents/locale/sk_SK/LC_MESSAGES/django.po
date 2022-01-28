@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -74,16 +74,6 @@ msgstr "Nahrať"
 msgid "Latest documents"
 msgstr "Posledné dokumenty"
 
-msgid "Title"
-msgstr "Titulok"
-
-msgid "File"
-msgstr "Súbor"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s dozadu"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -127,6 +117,16 @@ msgstr "Súbor nebol nájdený"
 
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Titulok"
+
+msgid "File"
+msgstr "Súbor"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s dozadu"
 
 #, python-format
 msgid ""
@@ -197,18 +197,17 @@ msgstr "Vymazať"
 msgid "Server Error"
 msgstr "Chyba servera"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
-
 msgid "Search documents"
 msgstr "Hľadať dokumenty"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' pridaný."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nemohol byť uložený kvôli chybám."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' bol aktualizovaný"
 
@@ -216,6 +215,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Súbor nebol nájdený. Prosím aktualizujte zdroj alebo zmažte dokument"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' bol zmazaný."
 

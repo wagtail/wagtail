@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -72,6 +72,7 @@ msgstr "תוצאות מקודמות "
 msgid "None"
 msgstr "אף אחת"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "בחירת העורך עבור '{0}' נוצרה"
 
@@ -81,6 +82,7 @@ msgstr "ערוך"
 msgid "Recommendations have not been created due to errors"
 msgstr "המלצות לא נשמרו בעקבות שגיאה"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "בחירת העורך עבור '{0}' עודכנה"
 

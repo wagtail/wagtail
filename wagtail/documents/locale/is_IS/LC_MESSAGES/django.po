@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-18 09:26+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-22 17:33+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -174,19 +174,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Síðustu skrár"
 
-msgid "Title"
-msgstr "Titill"
-
-msgid "File"
-msgstr "Skrá"
-
-msgid "Created"
-msgstr "Búið til"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s síðan"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Því miður eru engar skrár sem passa við \"<em>%(query_string)s</em>\""
@@ -253,8 +240,21 @@ msgstr "Skrár"
 msgid "Select all documents in listing"
 msgstr "Velja öll skjöl"
 
+msgid "Title"
+msgstr "Titill"
+
+msgid "File"
+msgstr "Skrá"
+
+msgid "Created"
+msgstr "Búið til"
+
 msgid "Select document"
 msgstr "Velja skjal"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s síðan"
 
 #, python-format
 msgid ""
@@ -391,18 +391,22 @@ msgstr[1] "%(num_parent_objects)d skjölum hefur verið eytt"
 msgid "Server Error"
 msgstr "Villa á vefþjóni"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Search documents"
 msgstr "Leita að skrám"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Skrá '{0}' bætt við."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Skrá '{0}' uppfærð"
 
@@ -410,6 +414,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."
 

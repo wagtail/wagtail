@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
@@ -362,9 +362,6 @@ msgstr "アップロードに失敗しました。"
 msgid "Server Error"
 msgstr "サーバーエラー"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "次の情報を添えて、このエラーを管理者に報告してください:"
-
 msgid "Image updated."
 msgstr "画像が更新されました。"
 
@@ -380,6 +377,7 @@ msgstr "削除"
 msgid "Search images"
 msgstr "画像を検索"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "画像 '{0}' がアップロードされました。"
 
@@ -396,9 +394,11 @@ msgstr ""
 "画像のソースファイルが見つかりませんでした。ソースを変更するか画像を削除して"
 "ください。"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "画像 '{0}' が削除されました。"
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "画像 '{0}' が追加されました。 "
 

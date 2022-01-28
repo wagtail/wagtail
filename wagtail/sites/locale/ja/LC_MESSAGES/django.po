@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -48,9 +48,11 @@ msgstr "デフォルト"
 msgid "Add site"
 msgstr "サイトを追加"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "'{0}'のサイトが作成されました。"
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "'{0}'のサイトが更新されました。"
 
@@ -60,6 +62,7 @@ msgstr "エラーが発生したため、サイトを保存できませんでし
 msgid "Delete site"
 msgstr "サイトを削除"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "'{0}'のサイトを削除しました。"
 

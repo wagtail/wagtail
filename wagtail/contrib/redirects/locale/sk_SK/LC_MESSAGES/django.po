@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
@@ -63,6 +63,9 @@ msgstr "presmerovať na stránku"
 
 msgid "redirect to any URL"
 msgstr "presmerovať na ľubovoľné URL"
+
+msgid "created at"
+msgstr "vytvorené"
 
 msgid "temporary"
 msgstr "dočasné"
@@ -136,6 +139,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hľadať presmerovania"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Presmerovanie '{0}' bolo aktualizované."
 
@@ -145,9 +149,11 @@ msgstr "Upraviť"
 msgid "The redirect could not be saved due to errors."
 msgstr "Presmerovanie nemôže byť uložené kvôli chybám."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Presmerovanie '{0}' bolo zmazané."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Presmerovanie '{0}' bolo pridané."
 

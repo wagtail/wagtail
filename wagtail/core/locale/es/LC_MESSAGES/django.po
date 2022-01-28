@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-29 16:05+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -373,6 +373,7 @@ msgstr ""
 "Solo puede haber uno en progreso o necesita cambios en el estado del flujo "
 "de trabajo por página"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Flujo de trabajo '{0}' en Página '{1}': {2}"
 
@@ -403,6 +404,7 @@ msgstr "terminado el"
 msgid "finished by"
 msgstr "finalizado por"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Tarea '{0}' en Revisión de Página '{1}': {2}"
 
@@ -417,6 +419,9 @@ msgstr "entrada de registro de página"
 
 msgid "page log entries"
 msgstr "entradas de registro de página"
+
+msgid "Draft saved"
+msgstr "Borrador guardado"
 
 msgid "comment"
 msgstr "comentario"
@@ -596,11 +601,8 @@ msgstr "Crear"
 msgid "Created"
 msgstr "Creado"
 
-msgid "Save draft"
-msgstr "Guardar borrador"
-
-msgid "Draft saved"
-msgstr "Borrador guardado"
+msgid "Edited"
+msgstr "Editado"
 
 msgid "Deleted"
 msgstr "Eliminado"

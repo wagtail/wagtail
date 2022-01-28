@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 12:03+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -113,19 +113,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Tuoreimmat dokumentit"
 
-msgid "Title"
-msgstr "Otsikko"
-
-msgid "File"
-msgstr "Tiedosto"
-
-msgid "Created"
-msgstr "Luotu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sitten"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -189,6 +176,19 @@ msgstr "Käyttö"
 
 msgid "Documents"
 msgstr "Dokumentit"
+
+msgid "Title"
+msgstr "Otsikko"
+
+msgid "File"
+msgstr "Tiedosto"
+
+msgid "Created"
+msgstr "Luotu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sitten"
 
 #, python-format
 msgid ""
@@ -295,18 +295,17 @@ msgstr "Poista"
 msgid "Server Error"
 msgstr "Palvelinvirhe"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
-
 msgid "Search documents"
 msgstr "Hae dokumentteja"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentti '{0}' lisätty."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenttia ei voitu tallentaa virheiden vuoksi."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentti '{0}' päivitetty"
 
@@ -314,6 +313,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Tiedostoa ei löydy. Vaihda lähde tai poista dokumentti"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentti '{0}' poistettu."
 

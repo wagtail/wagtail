@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-16 18:51+0000\n"
-"Last-Translator: Iuri L. Machado\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Douglas Miranda <douglasmirandasilva@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -370,6 +370,7 @@ msgstr ""
 "Pode haver apenas um em andamento ou precisa alterar o estado do workflow "
 "por página."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "O Workflow '{0}' na Página '{1}': {2}"
 
@@ -400,6 +401,7 @@ msgstr "terminou às"
 msgid "finished by"
 msgstr "terminado por"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "A tarefa '{0}' na Revisão de Página '{1}': {2}"
 
@@ -414,6 +416,9 @@ msgstr "entrada de log de página"
 
 msgid "page log entries"
 msgstr "entradas de log de página"
+
+msgid "Draft saved"
+msgstr "Rascunho salvo"
 
 msgid "comment"
 msgstr "comentário"
@@ -593,11 +598,8 @@ msgstr "Criar"
 msgid "Created"
 msgstr "Criado"
 
-msgid "Save draft"
-msgstr "Salvar rascunho"
-
-msgid "Draft saved"
-msgstr "Rascunho salvo"
+msgid "Edited"
+msgstr "Editado"
 
 msgid "Deleted"
 msgstr "Excluído"

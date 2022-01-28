@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 15:28+0000\n"
-"Last-Translator: Hiroki Sawano\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -255,6 +255,7 @@ msgstr "1グループ以上を選択してください"
 msgid "All types"
 msgstr "全タイプ"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "このページは既に'{0}'が割り振られているワークフローがあります。"
 
@@ -336,9 +337,11 @@ msgstr "失われたドキュメント"
 msgid "Close"
 msgstr "閉じる"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "'{title}'を編集します"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "'{title}'の子ページを閲覧する"
 
@@ -480,12 +483,6 @@ msgstr "プロフィール画像をアップロード"
 
 msgid "Reset to default"
 msgstr "デフォルトに戻す"
-
-msgid "Menu"
-msgstr "メニュー"
-
-msgid "Explorer"
-msgstr "エクスプローラー"
 
 msgid "Internal link"
 msgstr "内部リンク"
@@ -1118,9 +1115,6 @@ msgstr "%(title)sの子ページを閲覧"
 msgid "Add a child page to '%(title)s'"
 msgstr "%(title)sに子ページを追加"
 
-msgid "Add child page"
-msgstr "子ページを追加"
-
 msgid "Sites menu"
 msgstr "サイトメニュー"
 
@@ -1246,29 +1240,6 @@ msgstr "はい、予定外です"
 
 msgid "No, don't unschedule"
 msgstr "いいえ、予定外にしないです"
-
-#, python-format
-msgid "Revisions of %(title)s"
-msgstr "%(title)sの改定"
-
-msgid "Revisions of"
-msgstr "の改定"
-
-msgid "Revision date"
-msgstr "改定日"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "によって"
-
-msgid "Scheduled for"
-msgstr "のために予定されている"
-
-msgid "No revisions of this page exist"
-msgstr "このページの改定は存在しません。"
-
-msgid "No revision of this page exist"
-msgstr "このページの改定は存在しません。"
 
 #, python-format
 msgid ""
@@ -1427,9 +1398,11 @@ msgstr "1 コレクションを追加済み"
 msgid "Add collection"
 msgstr "コレクションを追加済み"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "'{0}'コレクションを作成済み"
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "'{0}'コレクションを更新済み"
 
@@ -1439,6 +1412,7 @@ msgstr "エラーが発生したため、コレクションを保存できませ
 msgid "Delete collection"
 msgstr "コレクションを削除します"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "'{0}'コレクションを削除済み"
 
@@ -1448,9 +1422,11 @@ msgstr "コレクションを完全に削除しますか"
 msgid "Editing"
 msgstr "編集中"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "ページ：'{0}' とサブページ：'{1}'が複製されました。 "
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "ページ：'{0}' がコピーされました。"
 
@@ -1460,36 +1436,45 @@ msgstr "下書きを閲覧"
 msgid "View live"
 msgstr "閲覧"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "ページ：'{0}' が作成されました。"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "ページ'{0}' が作成され、公開予定が設定されました。"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "ページ：'{0}' が作成され、公開されました。"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "'{0}' が作成され、承認待ちです。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "このページはエラーにより作成できませんでした。"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "ページ：'{0}' が削除されました。"
 
 msgid "This page is currently awaiting moderation"
 msgstr "このページは現在承認待ちです。"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "ページ：'{0}' の更新が完了しました。"
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "ページ'{0}'の公開が予定されました。"
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "ページ：'{0}' が公開されました。"
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr ""
 "88%match\n"
@@ -1501,24 +1486,29 @@ msgstr "このページはロックされているため、保存できません
 msgid "The page could not be saved due to validation errors"
 msgstr "このページはエラーにより保存できませんでした。"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "ページ：'{0}' のロックが解除されました。"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "ページ：'{0}' は現在承認待ちではありません。"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "ページ：'{0}' が公開されました。"
 
 msgid "Failed to send approval notifications"
 msgstr "承認通信を送信できない"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "ページ：'{0}' の公開が拒否されました。"
 
 msgid "Failed to send rejection notifications"
 msgstr "拒否通信を送信できない"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -1526,6 +1516,7 @@ msgstr ""
 "スラッグ '{0}' は既に選択した親ページで使用されています。 スラッグが重複しな"
 "いことを確認したのち、再度操作を行ってください。"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "ページ：'{0}' が除去されました。"
 
@@ -1535,9 +1526,11 @@ msgstr "最も早い"
 msgid "Latest"
 msgstr "最新"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"のリビジョン{0}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "ページ：'{0}' が非公開に設定されました。"
 
@@ -1577,6 +1570,7 @@ msgstr "ワークフローの編集"
 msgid "Disable workflow"
 msgstr "ワークフローを無効化"
 
+#, python-brace-format
 msgid "Workflow removed from Page '{0}'."
 msgstr "ページ '{0}'から削除されたワークフロー"
 
@@ -1586,8 +1580,8 @@ msgstr "ワークフローの新規タスク"
 msgid "Editing workflow task"
 msgstr "ワークフローのタスクを編集"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "次の情報を添えて、このエラーを管理者に報告してください:"
+msgid "Add child page"
+msgstr "子ページを追加"
 
 msgid "Bulleted list"
 msgstr "箇条書きにされたリスト"

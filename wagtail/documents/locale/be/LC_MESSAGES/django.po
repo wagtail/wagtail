@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Belarusian (http://www.transifex.com/torchbox/wagtail/"
 "language/be/)\n"
@@ -112,19 +112,6 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Апошнія дакументы"
 
-msgid "Title"
-msgstr "Назва"
-
-msgid "File"
-msgstr "Файл"
-
-msgid "Created"
-msgstr "Створаны"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s таму"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -187,6 +174,19 @@ msgstr "Выкарыстоўванне"
 
 msgid "Documents"
 msgstr "Дакументы"
+
+msgid "Title"
+msgstr "Назва"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Створаны"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s таму"
 
 #, python-format
 msgid ""
@@ -293,19 +293,17 @@ msgstr "Выдаліць"
 msgid "Server Error"
 msgstr "Памылка сервера"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Паведаміце аб гэтай памылцы адміністратару і пакажыце наступную інфармацыю:"
-
 msgid "Search documents"
 msgstr "Пошул дакументаў"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Дакумент '{0}' даданы."
 
 msgid "The document could not be saved due to errors."
 msgstr "Дакумент на можа быць захаваны з-за памылак."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Дакумент '{0}' абноўлены"
 
@@ -313,6 +311,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл не знойдзены. Калі ласка, змяніце крыніцу ці выдаліце дакумент."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Дакумент '{0}' выдалены."
 

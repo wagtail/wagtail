@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-19 15:35+0000\n"
-"Last-Translator: Iuri L. Machado\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -473,9 +473,6 @@ msgstr "Desculpe, o carregamento falhou."
 msgid "Server Error"
 msgstr "Erro de servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Relatar este erro ao seu webmaster com as seguintes informações:"
-
 msgid "Image updated."
 msgstr "Imagem atualizada."
 
@@ -524,6 +521,7 @@ msgstr[1] "%(num_parent_objects)dimagens foram excluídas"
 msgid "Search images"
 msgstr "Buscar imagens"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imagem '{0}' enviada."
 
@@ -540,9 +538,11 @@ msgstr ""
 "O arquivo de imagem não pode ser encontrado. Por favor altere a fonte ou "
 "delete a imagem."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imagem '{0}' apagada."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imagem '{0}' adicionada."
 

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -335,6 +335,7 @@ msgstr ""
 "Tēra pea kōtahi anake e haere ana, a, ka hiahia te mahi pūheke ngā kōrure "
 "rānei ki ia whārangi."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Mahi pūheke '{0}' kī whārangi '{1}': {2}"
 
@@ -365,6 +366,7 @@ msgstr "I mutu ī"
 msgid "finished by"
 msgstr "I mutu a"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Mahi '{0}' kī te whakahou-a-whārangi '{1}': {2}"
 
@@ -529,6 +531,9 @@ msgstr[1] "%(count)s tuhanga kohikohinga"
 
 msgid "Created"
 msgstr "Hangaia"
+
+msgid "Edited"
+msgstr "Kua whakarerekē"
 
 msgid "Unpublish"
 msgstr "whakakore te whakaputa"

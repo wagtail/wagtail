@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -391,9 +391,6 @@ msgstr "Nažalost, prijenos nije uspio."
 msgid "Server Error"
 msgstr "Greška na poslužitelju"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Prijavite ovu grešku vašem webmasteru sa slijedećim informacijama:"
-
 msgid "Image updated."
 msgstr "Slika je ažurirana."
 
@@ -409,6 +406,7 @@ msgstr "Izbriši"
 msgid "Search images"
 msgstr "Pretraži slike"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Slika '{0}' je ažurirana."
 
@@ -424,9 +422,11 @@ msgid ""
 msgstr ""
 "Izvorna slika nije pronađena. Molimo promijenite izvor ili izbrišite sliku."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Slika '{0}' je izbrisana."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Slika '{0}' je dodana."
 

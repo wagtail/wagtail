@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -269,21 +269,25 @@ msgstr "Grupu sira"
 msgid "Search groups"
 msgstr "Buka grupu sira"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupu '{0}' kria ona."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupu '{0}' troka ona."
 
 msgid "The group could not be saved due to errors."
 msgstr "Grupu labele rai tamba erru."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupu '{0}' hamoos ona."
 
 msgid "Search users"
 msgstr "Buka usuariu"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Usuariu '{0}' kria ona"
 
@@ -293,12 +297,14 @@ msgstr "Hadia"
 msgid "The user could not be created due to errors."
 msgstr "Usuariu labele kria tamba erru."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Usuariu '{0}' troka ona"
 
 msgid "The user could not be saved due to errors."
 msgstr "Usuariu labele rai tamba erru."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Usuariu '{0}' hamoos ona."
 

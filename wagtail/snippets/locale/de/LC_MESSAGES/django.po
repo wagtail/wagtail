@@ -4,6 +4,7 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2017,2019
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # oliverengel <codeangel@posteo.de>, 2021
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 11:35+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-22 15:37+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -64,9 +65,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "Es gibt %(counter)s Ergebnisse."
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -149,6 +147,9 @@ msgstr "Schnipsel"
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Wähle alle %(snippet_type_name_plural)s"
 
+msgid "Title"
+msgstr "Titel"
+
 #, python-format
 msgid "Select %(snippet)s"
 msgstr "Wähle %(snippet)s"
@@ -222,6 +223,9 @@ msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] "%(count)d %(snippet_type)s gelöscht."
 msgstr[1] "%(count)d %(snippet_type)s gelöscht."
+
+msgid "Snippet history"
+msgstr "Schnipselhistorie"
 
 msgid "Action"
 msgstr "Aktion"

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 17:26+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -48,9 +48,11 @@ msgstr "Default"
 msgid "Add site"
 msgstr "Voeg site toe"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' aangemaakt."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' bijgewerkt."
 
@@ -60,6 +62,7 @@ msgstr "De site kon vanwege fouten niet worden opgeslagen."
 msgid "Delete site"
 msgstr "Verwijder site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' verwijderd."
 

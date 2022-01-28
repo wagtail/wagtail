@@ -6,15 +6,15 @@
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2018
 # giammi <gian-maria.daffre@giammi.org>, 2018
 # Guglielmo Celata <guglielmo.celata@gmail.com>, 2019
-# Marco Badan <marco.badan@gmail.com>, 2021
+# Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 # Stefano Marchetto <airbatum@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-06 10:11+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-23 07:42+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -322,6 +322,23 @@ msgstr "Salva"
 msgid "Delete image"
 msgstr "Elimina immagine"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Sei sicuro di voler eliminare questa immagine?\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Sei sicuro di voler eliminare queste immagini?\n"
+"                "
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Modifica immagine %(title)s"
@@ -469,8 +486,12 @@ msgstr "Spiacente, caricamento fallito."
 msgid "Server Error"
 msgstr "Errore del server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Presenta questo errore al tuo webmaster con le seguenti informazioni:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Segnala questo errore all'amministratore del tuo sito web con le seguenti "
+"informazioni:"
 
 msgid "Image updated."
 msgstr "Immagine aggiornata."
@@ -521,6 +542,7 @@ msgstr[1] "%(num_parent_objects)d immagini sono state eliminate"
 msgid "Search images"
 msgstr "Cerca immagini"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Immagine '{0}' aggiornata."
 
@@ -537,9 +559,11 @@ msgstr ""
 "Il file dell'immagine non è stato trovato. Cambia il file oppure elimina "
 "l'immagine."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Immagine '{0}' eliminata."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Immagine '{0}' aggiunta."
 

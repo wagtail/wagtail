@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
 "language/tr_TR/)\n"
@@ -106,16 +106,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "En yeni belgeler"
 
-msgid "Title"
-msgstr "Başlık"
-
-msgid "File"
-msgstr "Dosya"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s önce"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Üzgünüm, \"<em>%(query_string)s</em>\" ile eşleşen belge yok"
@@ -178,6 +168,16 @@ msgstr "Kullanım"
 
 msgid "Documents"
 msgstr "Belgeler"
+
+msgid "Title"
+msgstr "Başlık"
+
+msgid "File"
+msgstr "Dosya"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s önce"
 
 #, python-format
 msgid ""
@@ -277,18 +277,17 @@ msgstr "Sil"
 msgid "Server Error"
 msgstr "Sunucu Hatası"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Bu hatayı site yöneticinize, şu bilgiyle bildirin:"
-
 msgid "Search documents"
 msgstr "Belgelerde ara"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "'{0}' belgesi eklendi."
 
 msgid "The document could not be saved due to errors."
 msgstr "Hata nediyle belge kaydedilemedi."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "'{0}' belgesi güncellendi"
 
@@ -296,6 +295,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Belge bulunamıyor. Lütfen kaynağı değiştirin ya da belgeyi silin"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' belgesi silindi."
 

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>, 2021\n"
 "Language-Team: Italian (https://www.transifex.com/torchbox/teams/8009/it/)\n"
@@ -59,9 +59,11 @@ msgstr "Utilizzo"
 msgid "Add locale"
 msgstr "Aggiungi localizzazione"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Localizzazione '{0}' creata."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Localizzazione '{0}' aggiornata."
 
@@ -71,6 +73,7 @@ msgstr "La localizzazione non può essere salvata per errori."
 msgid "Delete locale"
 msgstr "Elimina localizzazione."
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Localizzazione '{0}' eliminata."
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
@@ -72,12 +72,6 @@ msgstr "Subir"
 msgid "Latest documents"
 msgstr "Últimos documentos"
 
-msgid "Title"
-msgstr "Título"
-
-msgid "File"
-msgstr "Arquivo"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Sentímolo, ningún documento contén \"<em>%(query_string)s</em>\""
@@ -119,6 +113,12 @@ msgstr "Arquivo non atopado"
 
 msgid "Documents"
 msgstr "Documentos"
+
+msgid "Title"
+msgstr "Título"
+
+msgid "File"
+msgstr "Arquivo"
 
 #, python-format
 msgid ""
@@ -185,19 +185,17 @@ msgstr "Eliminar"
 msgid "Server Error"
 msgstr "Erro do Servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informar deste erro ao teu administrador da web coa seguinte información:"
-
 msgid "Search documents"
 msgstr "Procurar documentos"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documento '{0}' engadido."
 
 msgid "The document could not be saved due to errors."
 msgstr "O documento non puido ser gardado debido a erros."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documento '{0}' actualizado"
 
@@ -207,6 +205,7 @@ msgstr ""
 "O arquivo non puido ser atopado. Por favor, cambia a fonte ou elimina o "
 "documento."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documento '{0}' eliminado."
 

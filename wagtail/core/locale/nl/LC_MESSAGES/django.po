@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2022-01-05 12:57+0000\n"
-"Last-Translator: Harmen <sigmo@sigmo.nl>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: mahulst\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -365,6 +365,7 @@ msgstr ""
 "Er mag maar één in behandeling of heeft wijziging nodig workflow-status zijn "
 "per pagina."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Workflow '{0}' op pagina '{1}': {2}"
 
@@ -395,6 +396,7 @@ msgstr "Afgerond op"
 msgid "finished by"
 msgstr "Afgerond door"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Taak '{0}' op pagina-revisie '{1}': {2}"
 
@@ -409,6 +411,9 @@ msgstr "pagina-logboekvermelding"
 
 msgid "page log entries"
 msgstr "pagina-logboekvermeldingen"
+
+msgid "Draft saved"
+msgstr "Concept opgeslagen"
 
 msgid "comment"
 msgstr "opmerking"
@@ -588,11 +593,8 @@ msgstr "Aanmaken"
 msgid "Created"
 msgstr "Aangemaakt"
 
-msgid "Save draft"
-msgstr "Bewaar concept"
-
-msgid "Draft saved"
-msgstr "Concept opgeslagen"
+msgid "Edited"
+msgstr "Gewijzigd"
 
 msgid "Deleted"
 msgstr "Verwijderd"

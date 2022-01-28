@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -29,9 +29,6 @@ msgstr "选择"
 
 msgid "Search"
 msgstr "搜索"
-
-msgid "Title"
-msgstr "标题"
 
 msgid "Saving…"
 msgstr "正在保存"
@@ -59,6 +56,9 @@ msgstr "编辑"
 
 msgid "Snippets"
 msgstr "片段"
+
+msgid "Title"
+msgstr "标题"
 
 #, python-format
 msgid ""

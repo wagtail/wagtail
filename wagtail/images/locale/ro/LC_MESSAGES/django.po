@@ -4,13 +4,13 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2016,2018-2021
+# Dan Braghis, 2014-2016,2018-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 20:19+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 16:23+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -332,6 +332,27 @@ msgstr "Salvează"
 msgid "Delete image"
 msgstr "Șterge imagine"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"                Sigur doriți să ștergeți această imagine?\n"
+"            "
+msgstr[1] ""
+"\n"
+"                Sigur doriți să ștergeți aceste imagini?\n"
+"            "
+msgstr[2] ""
+"\n"
+"                Sigur doriți să ștergeți aceste imagini?\n"
+"            "
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editare imagine %(title)s"
@@ -482,8 +503,12 @@ msgstr "Încărcarea a eșuat."
 msgid "Server Error"
 msgstr "Eroare de server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Raportează această eroare admistratorului site-ului cu următoarele "
+"informații:"
 
 msgid "Image updated."
 msgstr "Imaginea a fost actualizată."
@@ -536,6 +561,7 @@ msgstr[2] "%(num_parent_objects)d imagini au fost șterse"
 msgid "Search images"
 msgstr "Caută imagini"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imaginea '{0}' a fost actualizată."
 
@@ -552,9 +578,11 @@ msgstr ""
 "Fișierul sursă al imaginii nu a fost găsit. Schimbă sursa sau sterge "
 "imaginea."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imaginea '{0}' a fost ștearsă."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imaginea '{0}' a fost adăugată."
 

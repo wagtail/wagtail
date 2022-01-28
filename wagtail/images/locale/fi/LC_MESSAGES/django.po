@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 12:09+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -464,9 +464,6 @@ msgstr "Pahoittelut, siirto epäonnistui."
 msgid "Server Error"
 msgstr "Palvelinvirhe"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportoi tämä virhe sivuston ylläpitäjälle seuraavan tiedon kanssa:"
-
 msgid "Image updated."
 msgstr "Kuva päivitetty."
 
@@ -515,6 +512,7 @@ msgstr[1] "%(num_parent_objects)d kuvaa on poistettu"
 msgid "Search images"
 msgstr "Hae kuvia"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Kuva '{0}' päivitetty."
 
@@ -531,9 +529,11 @@ msgstr ""
 "Valittua kuvatiedostoa ei löytynyt. Ole hyvä ja valitse toinen kuvatiedosto "
 "tai poista kuva."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Kuva '{0}' poistettu."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Kuva '{0}' lisätty."
 

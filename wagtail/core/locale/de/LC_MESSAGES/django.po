@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2022-01-17 11:34+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-27 09:29+0000\n"
 "Last-Translator: th3hamm0r <stefan@hammerworxx.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
@@ -322,6 +322,9 @@ msgstr "Arbeitsabläufe"
 msgid "groups"
 msgstr "Gruppen"
 
+msgid "Request changes"
+msgstr "Änderungen anfordern"
+
 msgid "Approve"
 msgstr "Freigeben"
 
@@ -353,6 +356,7 @@ msgstr "angefragt von"
 msgid "current task state"
 msgstr "Aktueller Zustand der Aufgabe"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Arbeitsablauf ‚{0}‘ auf Seite ‚{1}‘: {2}"
 
@@ -394,6 +398,9 @@ msgstr "Seitenprotokolleintrag"
 
 msgid "page log entries"
 msgstr "Seitenprotokolleinträge"
+
+msgid "Draft saved"
+msgstr "Entwurf gespeichert"
 
 msgid "comment"
 msgstr "Kommentar"
@@ -556,17 +563,20 @@ msgstr "Französisch"
 msgid "German"
 msgstr "Deutsch"
 
+#, python-format
+msgid "%(count)s descendant collection"
+msgid_plural "%(count)s descendant collections"
+msgstr[0] "%(count)s untergeordnete Sammlung"
+msgstr[1] "%(count)s untergeordnete Sammlungen"
+
 msgid "Create"
 msgstr "Erstellen"
 
 msgid "Created"
 msgstr "Erstellt"
 
-msgid "Save draft"
-msgstr "Entwurf speichern"
-
-msgid "Draft saved"
-msgstr "Entwurf gespeichert"
+msgid "Edited"
+msgstr "Bearbeitet"
 
 msgid "Deleted"
 msgstr "Gelöscht"
@@ -657,6 +667,13 @@ msgstr "Einen Alias erstellt"
 msgid "Convert alias into ordinary page"
 msgstr "Diesen Alias in eine reguläre Seite konvertieren"
 
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "Alias '%(title)s' in eine reguläre Seite konvertiert"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Einen Alias in eine reguläre Seite konvertiert"
+
 msgid "Move"
 msgstr "Verschieben"
 
@@ -669,6 +686,10 @@ msgstr "Verschoben"
 
 msgid "Reorder"
 msgstr "Umsortieren"
+
+#, python-format
+msgid "Reordered under '%(parent)s'"
+msgstr "Unter '%(parent)s' umsortiert"
 
 msgid "Reordered"
 msgstr "Umsortiert"
@@ -722,14 +743,63 @@ msgstr "Einen Kommentar hinzugefügt"
 msgid "Edit comment"
 msgstr "Kommentar bearbeiten"
 
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Ein Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
+
+msgid "Edited a comment"
+msgstr "Ein Kommentar bearbeitet"
+
 msgid "Delete comment"
 msgstr "Kommentar löschen"
+
+#, python-format
+msgid "Deleted a comment on field %(field)s: \"%(text)s\""
+msgstr "Ein Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
+
+msgid "Deleted a comment"
+msgstr "Ein Kommentar gelöscht"
 
 msgid "Resolve comment"
 msgstr "Kommentar auflösen"
 
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Ein Kommentar beim Feld %(field)s gelöst: \"%(text)s\""
+
+msgid "Resolved a comment"
+msgstr "Ein Kommentar gelöst"
+
 msgid "Reply to comment"
 msgstr "Auf Kommentar antworten"
+
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Auf ein Kommentar beim Feld %(field)s geantwortet: \"%(text)s\""
+
+msgid "Replied to a comment"
+msgstr "Auf ein Kommentar geantwortet"
+
+msgid "Edit reply to comment"
+msgstr "Antwort zum Kommentar bearbeiten"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Eine Antwort zum Kommentar beim Feld %(field)s bearbeitet: \"%(text)s\""
+
+msgid "Edited a reply"
+msgstr "Eine Antwort bearbeitet"
+
+msgid "Delete reply to comment"
+msgstr "Antwort zum Kommentar löschen"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Eine Antwort zum Kommentar beim Feld %(field)s gelöscht: \"%(text)s\""
+
+msgid "Deleted a reply"
+msgstr "Eine Antwort gelöscht"
 
 msgid "Workflow: start"
 msgstr "Arbeitsablauf: Start"

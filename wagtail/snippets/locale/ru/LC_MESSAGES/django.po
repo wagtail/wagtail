@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-16 14:47+0000\n"
 "Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -63,9 +63,6 @@ msgstr[2] ""
 msgstr[3] ""
 "\n"
 "Найдено %(counter)s совпадений"
-
-msgid "Title"
-msgstr "Заголовок"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -145,6 +142,9 @@ msgstr "Фрагменты"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Выбрать все %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Заголовок"
 
 #, python-format
 msgid "Select %(snippet)s"

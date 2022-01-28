@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-25 07:49+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
@@ -178,6 +178,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Premierade sökresultat"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Redaktörens val för '{0}' skapad. "
 
@@ -187,6 +188,7 @@ msgstr "Redigera"
 msgid "Recommendations have not been created due to errors"
 msgstr "Rekommendationer kunde inte läggas till p.g.a. fel"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Redaktörens val för '{0}' uppdaterad. "
 
