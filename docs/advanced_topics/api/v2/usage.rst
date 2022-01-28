@@ -478,6 +478,9 @@ This can also be used across relationships. For example,
 ``?fields=body,feed_image(width,height)`` will nest the ``width`` and ``height``
 of the image in the response.
 
+Notice if you use fields in combination with ``child_of`` you need the ``type``
+parameter to get results.
+
 All fields
 ^^^^^^^^^^
 
