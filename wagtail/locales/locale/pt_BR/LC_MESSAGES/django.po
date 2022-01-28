@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Iuri L. Machado, 2021\n"
 "Language-Team: Portuguese (Brazil) (https://www.transifex.com/torchbox/"
@@ -61,9 +61,11 @@ msgstr "Uso"
 msgid "Add locale"
 msgstr "Adicionar idioma"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Idioma '{0}' criado."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Idioma '{0}' atualizado."
 
@@ -73,6 +75,7 @@ msgstr "O idioma não pode ser salvo devido a erros."
 msgid "Delete locale"
 msgstr "Excluir idioma"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Idioma '{0}' excluído."
 

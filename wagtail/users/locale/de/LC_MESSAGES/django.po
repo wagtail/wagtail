@@ -4,6 +4,7 @@
 #
 # Translators:
 # fd3e232e7013009a14520c2bc2e16691_e19811b, 2018
+# oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2016-2017,2019-2020
 # Vorlif <flori@vorlif.org>, 2015
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Bohreromir\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 17:16+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -140,14 +141,75 @@ msgstr "Benutzerprofil"
 msgid "user profiles"
 msgstr "Benutzerprofile"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "1 Benutzer die Rolle zuordnen"
+msgstr[1] "%(counter)s Benutzern die Rolle zuordnen"
+
+msgid "Assign role"
+msgstr "Rolle zuordnen"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr ""
+"Sind Sie sicher, dass Sie diesen Benutzern diese Rolle zuordnen möchten?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Sie haben nicht die Berechtigung, diesen Benutzer zu bearbeiten"
+msgstr[1] "Sie haben nicht die Berechtigung, diese Benutzer zu bearbeiten"
+
+msgid "Yes, assign"
+msgstr "Ja, zuordnen"
+
+msgid "No, don't assign"
+msgstr "Nein, nicht zuordnen"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "1 Benutzer löschen"
+msgstr[1] "%(counter)s Benutzer löschen"
+
 msgid "Delete"
 msgstr "Löschen"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Sind Sie sicher, dass Sie diese Benutzer löschen möchten?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Sie haben nicht die Berechtigung, diesen Benutzer zu löschen"
+msgstr[1] "Sie haben nicht die Berechtigung, diese Benutzer zu löschen"
 
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
 msgid "No, don't delete"
 msgstr "Nein, nicht löschen"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Aktiven Status für 1 Benutzer ändern"
+msgstr[1] "Aktiven Zustand für %(counter)s Benutzer ändern"
+
+msgid "Set active state"
+msgstr "Aktiven Zustand festlegen"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Sind Sie sicher, dass Sie für diesen Benutzern den aktiven Zustand ändern "
+"möchten?"
+
+msgid "You cannot change your own active status"
+msgstr "Sie können nicht Ihren eigenen aktiven Zustand ändern"
+
+msgid "Yes, change state"
+msgstr "Ja, Zustand ändern"
+
+msgid "No, don't change state"
+msgstr "Nein, Zustand nicht ändern."
 
 msgid "Delete group"
 msgstr "Gruppe löschen"
@@ -209,6 +271,9 @@ msgstr "Hinzufügen"
 msgid "Change"
 msgstr "Ändern"
 
+msgid "Custom permissions"
+msgstr "Benutzerdefinierte Berechtigungen"
+
 msgid "Other permissions"
 msgstr "Andere Berechtigung"
 
@@ -259,6 +324,9 @@ msgstr "Benutzer"
 
 msgid "Add a user"
 msgstr "Einen Benutzer hinzufügen"
+
+msgid "Select all users in listing"
+msgstr "Alle Benutzer in der Aufzählung auswählen"
 
 msgid "Username"
 msgstr "Benutzername"
@@ -322,27 +390,64 @@ msgstr ""
 "Es sind keine Benutzer eingerichtet. Warum nicht <a href="
 "\"%(wagtailusers_add_url)s\">einige anlegen</a>?"
 
+msgid "Assign role to selected users"
+msgstr "Rolle dem ausgewählten Benutzer zuordnen"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d Benutzer wurde als %(role)s zugeordnet"
+msgstr[1] "%(num_parent_objects)d Benutzer wurden als %(role)s zugeordnet"
+
+msgid "Delete selected users"
+msgstr "Ausgewählte Benutzer löschen"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d Benutzer wurde gelöscht"
+msgstr[1] "%(num_parent_objects)d Benutzer wurden gelöscht"
+
+msgid "Change the active state for selected users"
+msgstr "Aktiven Zustand für ausgewählte Benutzer ändern"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d Benutzer wurde als aktiv markiert"
+msgstr[1] "%(num_parent_objects)d Benutzer wurden als aktive markiert"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d Benutzer wurde als inaktive markiert"
+msgstr[1] "%(num_parent_objects)d Benutzer wurden als inaktive markiert"
+
 msgid "Groups"
 msgstr "Gruppen"
 
 msgid "Search groups"
 msgstr "Gruppe suchen"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Gruppe ‚{0}‘ erstellt."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Gruppe ‚{0}‘ aktualisiert."
 
 msgid "The group could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte die Gruppe nicht gespeichert werden."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Gruppe ‚{0}‘ gelöscht."
 
 msgid "Search users"
 msgstr "Benutzer suchen"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Benutzer ‚{0}‘ erstellt."
 
@@ -352,12 +457,14 @@ msgstr "Bearbeiten"
 msgid "The user could not be created due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht erstellt werden."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Benutzer ‚{0}‘ aktualisiert."
 
 msgid "The user could not be saved due to errors."
 msgstr "Aufgrund von Fehlern konnte der Benutzer nicht gespeichert werden."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Benutzer ‚{0}‘ gelöscht."
 

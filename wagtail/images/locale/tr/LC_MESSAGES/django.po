@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Turkish (http://www.transifex.com/torchbox/wagtail/language/"
 "tr/)\n"
@@ -375,9 +375,6 @@ msgstr "Üzgünüm, yükleme başarısız oldu."
 msgid "Server Error"
 msgstr "Sunucu Hatası"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Bu hatayı site yöneticine şu bilgiyle bildirin:"
-
 msgid "Image updated."
 msgstr "Resim güncellendi."
 
@@ -393,6 +390,7 @@ msgstr "Sil"
 msgid "Search images"
 msgstr "Resimlerde ara"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Resim '{0}' güncellendi."
 
@@ -409,9 +407,11 @@ msgstr ""
 "Kaynak resim dosyası bulunamadı. Lütfen ya kaynağı değiştirin ya da resmi "
 "silin."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Resim '{0}' silindi."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Resim '{0}' eklendi."
 

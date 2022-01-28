@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 06:59+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-28 13:19+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -191,19 +191,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Derniers documents"
 
-msgid "Title"
-msgstr "Titre"
-
-msgid "File"
-msgstr "Fichier"
-
-msgid "Created"
-msgstr "Créé(e)"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "il y a %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Désolé, aucun document ne correspond à \"<em>%(query_string)s</em>\""
@@ -269,8 +256,21 @@ msgstr "Documents"
 msgid "Select all documents in listing"
 msgstr "Sélectionner tous les documents dans la liste"
 
+msgid "Title"
+msgstr "Titre"
+
+msgid "File"
+msgstr "Fichier"
+
+msgid "Created"
+msgstr "Créé(e)"
+
 msgid "Select document"
 msgstr "Sélectionner le document"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "il y a %(time_period)s"
 
 #, python-format
 msgid ""
@@ -416,19 +416,23 @@ msgstr[1] "%(num_parent_objects)d documents ont été supprimés"
 msgid "Server Error"
 msgstr "Erreur du serveur"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr ""
 "Signalez cette erreur à votre webmaster avec les informations suivantes :"
 
 msgid "Search documents"
 msgstr "Rechercher des documents"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' ajouté."
 
 msgid "The document could not be saved due to errors."
 msgstr "Le document ne peut être enregistré du fait d'erreurs."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' mis à jour"
 
@@ -438,6 +442,7 @@ msgstr ""
 "Le fichier n'a pas été trouvé. Veuillez changer la source ou supprimer le "
 "document."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' supprimé."
 

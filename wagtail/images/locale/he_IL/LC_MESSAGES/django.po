@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
@@ -193,6 +193,7 @@ msgstr "מחק"
 msgid "Search images"
 msgstr "חיפוש תמונות "
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "תמונה '{0}' עודכנה "
 
@@ -207,9 +208,11 @@ msgid ""
 "the image."
 msgstr "קובץ תמונת המקור לא ניתן למציאה. אנא שנו את המקור או מחקו את התמונה."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "תמונה '{0}' נמחקה "
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "תמונה '{0}' הוספה"
 

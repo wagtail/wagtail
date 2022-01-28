@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -47,9 +47,6 @@ msgstr[0] ""
 "\n"
 " มี %(counter)s ที่ตรงกัน\n"
 " "
-
-msgid "Title"
-msgstr "หัวข้อ,หัวเรื่อง"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -110,6 +107,9 @@ msgstr "การใช้"
 
 msgid "Snippets"
 msgstr "เกร็ดเล็กเกร็ดน้อย"
+
+msgid "Title"
+msgstr "หัวข้อ,หัวเรื่อง"
 
 #, python-format
 msgid ""

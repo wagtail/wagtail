@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
 "MIME-Version: 1.0\n"
@@ -273,9 +273,11 @@ msgstr "پرونده گم شده"
 msgid "Close"
 msgstr "بستن"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "ویرایش '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "دیدن صفحات فرزند {title}"
 
@@ -361,12 +363,6 @@ msgstr "بازنشانی رمزعبور"
 
 msgid "Reset your password"
 msgstr "رمزعبور را بازنشانی کنید"
-
-msgid "Menu"
-msgstr "منو"
-
-msgid "Explorer"
-msgstr "کاوشگر"
 
 msgid "Internal link"
 msgstr "لینک درونی"
@@ -928,9 +924,6 @@ msgstr "کاوش زیرصفحه های «%(title)s»"
 msgid "Add a child page to '%(title)s'"
 msgstr "افزودن زیرصفحه به «%(title)s»"
 
-msgid "Add child page"
-msgstr "افزودن زیرصفحه"
-
 msgid "Sites menu"
 msgstr "منوی سایت‌ها"
 
@@ -1071,29 +1064,6 @@ msgid "No, don't unschedule"
 msgstr "نه، زمان بندی را حذف نکن"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "%(title)s بازبینی"
-
-msgid "Revisions of"
-msgstr "بازبینی های"
-
-msgid "Revision date"
-msgstr "تاریخ بازبینی"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "توسط"
-
-msgid "Scheduled for"
-msgstr "زمانبندی شده برای"
-
-msgid "No revisions of this page exist"
-msgstr "برای این صفحه هیچ بازبینی وجود ندارد"
-
-msgid "No revision of this page exist"
-msgstr "بازبینی این صفحه پیدا نشد"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1133,6 +1103,9 @@ msgstr "درخواست شده توسط"
 msgid "Started at"
 msgstr "شروع شده در"
 
+msgid "No pages found."
+msgstr "صفحه‌ای یافت نشد"
+
 msgid "No pages match this report's criteria."
 msgstr "هیچ صفحه‌ای با نیازهای این گزارش همخوانی ندارد."
 
@@ -1144,9 +1117,6 @@ msgstr "دانلود CSV"
 
 msgid "Filter"
 msgstr "فیلتر"
-
-msgid "No pages found."
-msgstr "صفحه‌ای یافت نشد"
 
 msgid "Locking status"
 msgstr "وضعیت قفل"
@@ -1305,9 +1275,11 @@ msgstr "افزودن مجموعه"
 msgid "Add collection"
 msgstr "افزودن مجموعه"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "مجموعه '{0}' ایجاد شد."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "مجموعه '{0}' بروزرسانی شد."
 
@@ -1317,6 +1289,7 @@ msgstr "به دلیل بروز خطا امکان ذخیره مجموعه وجو�
 msgid "Delete collection"
 msgstr "حذف مجموعه"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "مجموعه  '{0}' حذف شد."
 
@@ -1326,9 +1299,11 @@ msgstr "آیا میخواهید این مجموعه را حذف کنید؟"
 msgid "Editing"
 msgstr "ویرایش"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "صفحه '{0}' و '{1}' زیرصفحه آن کپی شدند."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "صفحه '{0}' کپی شد."
 
@@ -1338,27 +1313,33 @@ msgstr "دیدن پیشنویس"
 msgid "View live"
 msgstr " دیدن صفحه منتشر شده"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "صفحه '{0}' ایجاد شد."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "صفحه  '{0}' ایجاد و برای انتشار برنامه ریزی شد."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "صفحه '{0}' ایجاد و انتشار یافت."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "صفحه '{0}' ایجاد و برای نظارت فرستاده شد."
 
 msgid "The page could not be created due to validation errors"
 msgstr "به دلیل بروز خطا صفحه ایجاد نشد."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "صفحه '{0}' حذف شد."
 
 msgid "This page is currently awaiting moderation"
 msgstr "این در انتظار نظارت است"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "صفحه '{0}' بروزرسانی شد."
 
@@ -1374,12 +1355,15 @@ msgstr "<b>صفحه {} توسط <b>{}</b> در <b>{}</b> قفل شد."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>صفحه '{}' قفل شده است.</b>"
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "صفحه '{0}' برای انتشار زمانبندی شد."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "صفحه '{0}' انتشار یافت."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "صفحه '{0}' برای نظارت فرستاده شد."
 
@@ -1389,24 +1373,29 @@ msgstr "بدلیل قفل بودن صفحه امکان ذخیره وجود ند�
 msgid "The page could not be saved due to validation errors"
 msgstr "صفحه به دلیل وجود خطاهای معتبرسازی ذخیره نمی‌شود"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "صفحه '{0}' باز شده است."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "صفحه '{0}' در انتظار نظارت است."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "صفحه '{0}' انتشار یافت."
 
 msgid "Failed to send approval notifications"
 msgstr "فرستادن آگاهسازی تایید ناموفق بود"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "صفحه '{0}' برای انتشار رد شد."
 
 msgid "Failed to send rejection notifications"
 msgstr "فرستادن آگاهسازی رد انتشار ناموفق بود"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -1414,6 +1403,7 @@ msgstr ""
 "اسلاگ {0} در حال حاضر توسط صفحه‌ی والد درحال استفاده است. لطفا مطمئن شوید "
 "اسلاگ یکتاست و دوباره امتحان کنید"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "صفحه '{0}' انتقال یافت."
 
@@ -1423,9 +1413,11 @@ msgstr "اولین"
 msgid "Latest"
 msgstr "آخرین"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "بازبینی {0} از {1}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "صفحه '{0}' لغو انتشار شد."
 
@@ -1434,9 +1426,6 @@ msgstr "نمایش"
 
 msgid "Awaiting my review"
 msgstr "منتظر بازنگری من"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "گزارش این خطا به وبمستر با اطلاعات زیر:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1449,6 +1438,9 @@ msgstr "پیش نمایش نسخه پیش نویس %(title)s"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "دیدن نسخه منتشر شده‌ی %(title)s"
+
+msgid "Add child page"
+msgstr "افزودن زیرصفحه"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

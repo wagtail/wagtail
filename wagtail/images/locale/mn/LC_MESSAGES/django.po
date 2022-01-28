@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -306,6 +306,7 @@ msgstr "Устгах"
 msgid "Search images"
 msgstr "Зураг хайх"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' зураг засагдлаа."
 
@@ -320,9 +321,11 @@ msgid ""
 "the image."
 msgstr "Эх зураг олдсонгүй. Эх зургийг солих эсвэл устгана уу."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' зураг устлаа."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' зураг нэмэгдлээ."
 

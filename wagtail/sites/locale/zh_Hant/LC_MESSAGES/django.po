@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -45,9 +45,11 @@ msgstr "預設"
 msgid "Add site"
 msgstr "新增站點"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "站點 '{0}' 已創建。"
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "站點 '{0}' 已更新。"
 
@@ -57,6 +59,7 @@ msgstr "此站點無法儲存，出現錯誤。"
 msgid "Delete site"
 msgstr "刪除站點"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "站點 '{0}' 已刪除。"
 

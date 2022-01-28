@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 20:00+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -362,6 +362,7 @@ msgstr ""
 "Numai un statut de în progres sau necesită schimbări este permis pentru o "
 "pagină."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Fluxul de lucru '{0}' în pagina '{1}': {2}"
 
@@ -392,6 +393,7 @@ msgstr "terminat la"
 msgid "finished by"
 msgstr "terminat de"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Sarcina '{0}' la revizia paginii '{1}': {2}"
 
@@ -406,6 +408,9 @@ msgstr "intrare jurnal de pagină"
 
 msgid "page log entries"
 msgstr "intrări jurnal de pagină"
+
+msgid "Draft saved"
+msgstr "Ciornă salvată"
 
 msgid "comment"
 msgstr "comentariu"
@@ -587,11 +592,8 @@ msgstr "Creeare"
 msgid "Created"
 msgstr "A creat"
 
-msgid "Save draft"
-msgstr "Salvare ciornă"
-
-msgid "Draft saved"
-msgstr "Ciornă salvată"
+msgid "Edited"
+msgstr "Editat"
 
 msgid "Deleted"
 msgstr "A șters"

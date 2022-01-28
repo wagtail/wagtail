@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -62,6 +62,9 @@ msgstr "mengalihkan ke sebuah halaman"
 
 msgid "redirect to any URL"
 msgstr "mengalihkan ke URL apa saja"
+
+msgid "created at"
+msgstr "dibuat pada"
 
 msgid "temporary"
 msgstr "sementara"
@@ -135,6 +138,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Pengalihan pencarian"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Pengalihan '{0}' diperbarui."
 
@@ -144,9 +148,11 @@ msgstr "Ubah"
 msgid "The redirect could not be saved due to errors."
 msgstr "Pengalihan tidak dapat disimpan karena suatu kesalahan."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Pengalihan '{0}' dihapus."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Pengalihan '{0}' ditambah."
 

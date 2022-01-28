@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-26 06:13+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Karl Hobley <karl@torchbox.com>\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
 "MIME-Version: 1.0\n"
@@ -374,6 +374,7 @@ msgstr ""
 "Il ne peut y avoir qu'un seul état de workflow « en cours » ou « "
 "modifications nécessaires » par page"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Workflow '{0}' sur la page '{1}' : {2}"
 
@@ -404,6 +405,7 @@ msgstr "terminé à"
 msgid "finished by"
 msgstr "terminé par"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Tâche '{0}' sur la version de page '{1}' : {2}"
 
@@ -418,6 +420,9 @@ msgstr "entrée de journal de page"
 
 msgid "page log entries"
 msgstr "entrées de journal de page"
+
+msgid "Draft saved"
+msgstr "Brouillon sauvegardé"
 
 msgid "comment"
 msgstr "commentaire"
@@ -599,11 +604,8 @@ msgstr "Créer"
 msgid "Created"
 msgstr "Créé(e)"
 
-msgid "Save draft"
-msgstr "Enregistrer le brouillon"
-
-msgid "Draft saved"
-msgstr "Brouillon sauvegardé"
+msgid "Edited"
+msgstr "Modifié"
 
 msgid "Deleted"
 msgstr "Supprimée"

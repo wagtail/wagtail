@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-07-16 07:34+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
+"Last-Translator: Aarni Koskela\n"
 "Language-Team: Finnish (http://www.transifex.com/torchbox/wagtail/language/"
 "fi/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,9 @@ msgstr "uudelleenohjaa sivulle"
 
 msgid "redirect to any URL"
 msgstr "uudelleenohjaa URL-osoitteeseen"
+
+msgid "created at"
+msgstr "luotu"
 
 msgid "temporary"
 msgstr "tilapäinen"
@@ -224,6 +227,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Hae uudelleenohjauksia"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Uudelleenohjaus '{0}' päivitetty."
 
@@ -233,9 +237,11 @@ msgstr "Muokkaa"
 msgid "The redirect could not be saved due to errors."
 msgstr "Uudelleenohjausta ei voitu tallentaa virheiden vuoksi."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Uudelleenohjaus '{0}' poistettu."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Uudelleenohjaus '{0}' lisätty."
 

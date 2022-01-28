@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2022-01-04 10:21+0000\n"
-"Last-Translator: Dimitri Fekas\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -304,9 +304,6 @@ msgstr "Συγγνώμη, η μεταφόρτωση απέτυχε."
 msgid "Server Error"
 msgstr "Σφάλμα"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
-
 msgid "Image updated."
 msgstr "Ενημέρωση εικόνας"
 
@@ -322,6 +319,7 @@ msgstr "Διαγραφή"
 msgid "Search images"
 msgstr "Αναζήτηση εικόνων"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Η εικόνα '{0}' ενημερώθηκε."
 
@@ -338,9 +336,11 @@ msgstr ""
 "Το αρχείο προέλευσης της εικόνας δεν θα μπορεσε να βρεθεί. Παρακαλούμε να "
 "αλλάξετε την πηγή ή να διαγράψετε την εικόνα."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Η εικόνα '{0}' διαγράφηκε."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Η εικόνα '{0}' δημιουργήθηκε."
 

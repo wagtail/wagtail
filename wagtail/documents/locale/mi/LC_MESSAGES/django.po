@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
@@ -101,19 +101,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Pukapuka hōu"
 
-msgid "Title"
-msgstr "Taitara"
-
-msgid "File"
-msgstr "Kōnae"
-
-msgid "Created"
-msgstr "Hangaia"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s mai rā anō"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -177,6 +164,19 @@ msgstr "Whakamahi"
 
 msgid "Documents"
 msgstr "Ngā pukapuka"
+
+msgid "Title"
+msgstr "Taitara"
+
+msgid "File"
+msgstr "Kōnae"
+
+msgid "Created"
+msgstr "Hangaia"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s mai rā anō"
 
 #, python-format
 msgid ""
@@ -278,18 +278,17 @@ msgstr "Muku"
 msgid "Server Error"
 msgstr "Hapa rorohiko"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
-
 msgid "Search documents"
 msgstr "Haha ngā pukapuka"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Pukapuka '{0}' kua tāpiri."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Pukapuka '{0}' kua whakahou"
 
@@ -299,6 +298,7 @@ msgstr ""
 "Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
 "pukapuka rānei."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Pukapuka '{0}' kua mukuhia."
 

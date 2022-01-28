@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-08 18:56+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Eugene <eugene.mechanism@gmail.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -375,6 +375,7 @@ msgstr ""
 "Только один прогресс выполнения или нужно изменить состояние для каждой "
 "страницы."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Процесс выполнения '{0}' на Странице '{1}': {2} "
 
@@ -405,6 +406,7 @@ msgstr "завершен в"
 msgid "finished by"
 msgstr "закончен"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Задача '{0}' на Ревизии Страницы '{1}': {2}"
 
@@ -419,6 +421,9 @@ msgstr "страница записи журнала"
 
 msgid "page log entries"
 msgstr "страница записей журнала"
+
+msgid "Draft saved"
+msgstr "Черновик сохранен"
 
 msgid "comment"
 msgstr "комментарий"
@@ -600,11 +605,8 @@ msgstr "Создать"
 msgid "Created"
 msgstr "Создан"
 
-msgid "Save draft"
-msgstr "Сохранить черновик"
-
-msgid "Draft saved"
-msgstr "Черновик сохранен"
+msgid "Edited"
+msgstr "Редактировано"
 
 msgid "Deleted"
 msgstr "Удален"

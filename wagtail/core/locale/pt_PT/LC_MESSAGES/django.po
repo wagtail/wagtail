@@ -10,14 +10,14 @@
 # Luís Tiago Favas <al62006@utad.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-12-03 20:58+0000\n"
-"Last-Translator: Diogo Gomes\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-26 20:20+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -50,7 +50,7 @@ msgid "Duplicate"
 msgstr "Duplicado"
 
 msgid "Delete"
-msgstr "Eliminar"
+msgstr "Apagar"
 
 msgid "Add"
 msgstr "Adicionar"
@@ -78,10 +78,10 @@ msgid "title"
 msgstr "título"
 
 msgid "The page title as you'd like it to be seen by the public"
-msgstr "O título da página como você gostaria que fosse visto pelo público"
+msgstr "O título da página como gostaria que fosse visto pelo público"
 
 msgid "slug"
-msgstr "\"slug\""
+msgstr "referência"
 
 msgid ""
 "The name of the page as it will appear in URLs e.g http://domain.com/blog/"
@@ -106,7 +106,7 @@ msgid "owner"
 msgstr "dono"
 
 msgid "title tag"
-msgstr "etiqueta do titulo"
+msgstr "tag de titulo"
 
 msgid ""
 "The name of the page displayed on search engine results as the clickable "
@@ -165,7 +165,7 @@ msgid "live revision"
 msgstr "revisão ao vivo"
 
 msgid "This slug is already in use"
-msgstr "Este “slug” já está a ser utilizado"
+msgstr "Esta referência já está a ser utilizada"
 
 msgid "scheduled"
 msgstr "agendado"
@@ -231,7 +231,7 @@ msgid "Publish any page"
 msgstr "Publicar qualquer página"
 
 msgid "Bulk delete"
-msgstr "Apagar vários"
+msgstr "Apagar em bloco"
 
 msgid "Delete pages with children"
 msgstr "Apagar páginas com filhas"
@@ -240,7 +240,7 @@ msgid "Lock"
 msgstr "Trancar"
 
 msgid "Lock/unlock pages you've locked"
-msgstr "Trancar/destrancar páginas que tu trancaste"
+msgstr "Trancar/destrancar páginas que trancou"
 
 msgid "Unlock"
 msgstr "Destrancada"
@@ -368,6 +368,7 @@ msgstr ""
 "Apenas pode existir um em progresso ou necessita alterações no estado do "
 "fluxo de trabalho por página"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Fluxo de trabalho '{0}' na Página '{1}': {2}"
 
@@ -398,6 +399,7 @@ msgstr "acabado a"
 msgid "finished by"
 msgstr "acabado por"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Tarefa '{0}' na Página Revista '{1}': {2}"
 
@@ -412,6 +414,9 @@ msgstr "entrada no diário da página"
 
 msgid "page log entries"
 msgstr "entradas no diário da página"
+
+msgid "Draft saved"
+msgstr "Rascunho gravado"
 
 msgid "comment"
 msgstr "comentário"
@@ -439,7 +444,7 @@ msgstr "A ação de registo '{}' não foi registada."
 
 #, python-format
 msgid "user %(id)s (deleted)"
-msgstr "utilizador %(id)s (eliminado)"
+msgstr "utilizador %(id)s (apagado)"
 
 msgid "system"
 msgstr "sistema"
@@ -447,6 +452,12 @@ msgstr "sistema"
 #, python-format
 msgid "Unknown %(action)s"
 msgstr "Desconhecido %(action)s"
+
+msgid "model log entry"
+msgstr "entrada de registo de modelo"
+
+msgid "model log entries"
+msgstr "entradas de registo de modelo"
 
 msgid "collection"
 msgstr "coleção"
@@ -519,7 +530,7 @@ msgid ""
 "before you can save this site as default."
 msgstr ""
 "O %(hostname)s já está configurado como site pré-definido. Tem de remover "
-"essa configuração antes de poder guardar este site como pré-definido."
+"essa configuração antes de poder gravar este site como pré-definido."
 
 msgid "Public"
 msgstr "Público"
@@ -586,14 +597,11 @@ msgstr "Criar"
 msgid "Created"
 msgstr "Criado"
 
-msgid "Save draft"
-msgstr "Guardar rascunho"
-
-msgid "Draft saved"
-msgstr "Rascunho guardado"
+msgid "Edited"
+msgstr "Alterado"
 
 msgid "Deleted"
-msgstr "Eliminado"
+msgstr "Apagado"
 
 msgid "Published"
 msgstr "Publicado"
@@ -668,17 +676,24 @@ msgid "Copied for translation"
 msgstr "Copiado para tradução"
 
 msgid "Create alias"
-msgstr "Criar pseudónimo"
+msgstr "Criar atalho"
 
 #, python-format
 msgid "Created an alias of %(title)s"
-msgstr "Criado um pseudónimo para %(title)s"
+msgstr "Foi criado um atalho para %(title)s"
 
 msgid "Created an alias"
-msgstr "Criado um pseudónimo"
+msgstr "Foi criado um atalho"
 
 msgid "Convert alias into ordinary page"
-msgstr "Converter pseudónimo numa página normal"
+msgstr "Converter atalho numa página normal"
+
+#, python-format
+msgid "Converted the alias '%(title)s' into an ordinary page"
+msgstr "O atalho '%(title)s' foi convertido numa página normal"
+
+msgid "Converted an alias into an ordinary page"
+msgstr "Atalho convertido em página normal"
 
 msgid "Move"
 msgstr "Mover"
@@ -769,21 +784,29 @@ msgstr "Restrição de visualização removida"
 msgid "Add comment"
 msgstr "Adicionar comentário"
 
+#, python-format
+msgid "Added a comment on field %(field)s: \"%(text)s\""
+msgstr "Foi adicionado um comentário ao campo%(field)s: \"%(text)s\""
+
 msgid "Added a comment"
 msgstr "Adicionou um comentário"
 
 msgid "Edit comment"
-msgstr "Editar comentário"
+msgstr "Alterar comentário"
+
+#, python-format
+msgid "Edited a comment on field %(field)s: \"%(text)s\""
+msgstr "Foi alterado um comentário no campo%(field)s: \"%(text)s\""
 
 msgid "Edited a comment"
-msgstr "Editou um comentário"
+msgstr "Foi alterado um comentário "
 
 msgid "Delete comment"
 msgstr "Apagar comentário"
 
 #, python-format
 msgid "Deleted a comment on field %(field)s: \"%(text)s\""
-msgstr "Eliminado um comentário no campo%(field)s: \"%(text)s\""
+msgstr "Foi apagado um comentário no campo%(field)s: \"%(text)s\""
 
 msgid "Deleted a comment"
 msgstr "Apagou um comentário"
@@ -791,23 +814,40 @@ msgstr "Apagou um comentário"
 msgid "Resolve comment"
 msgstr "Resolver comentário"
 
+#, python-format
+msgid "Resolved a comment on field %(field)s: \"%(text)s\""
+msgstr "Resolvido um comentário no campo%(field)s: \"%(text)s\""
+
 msgid "Resolved a comment"
 msgstr "Resolveu um comentário"
 
 msgid "Reply to comment"
 msgstr "Responder a comentário"
 
+#, python-format
+msgid "Replied to comment on field %(field)s: \"%(text)s\""
+msgstr "Foi respondido um comentário no campo%(field)s: \"%(text)s\""
+
 msgid "Replied to a comment"
 msgstr "Respondeu a um comentário"
 
 msgid "Edit reply to comment"
-msgstr "Editar resposta a comentário"
+msgstr "Alterar resposta a comentário"
+
+#, python-format
+msgid "Edited a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr ""
+"Foi alterada uma resposta a um comentário no campo%(field)s: \"%(text)s\""
 
 msgid "Edited a reply"
-msgstr "Editou uma resposta"
+msgstr "Resposta foi alterada"
 
 msgid "Delete reply to comment"
 msgstr "Apagar resposta a comentário"
+
+#, python-format
+msgid "Deleted a reply to a comment on field %(field)s: \"%(text)s\""
+msgstr "Apagada uma resposta a um comentário no campo%(field)s: \"%(text)s\""
 
 msgid "Deleted a reply"
 msgstr "Apagou uma resposta"

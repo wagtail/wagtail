@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>, 2020\n"
 "Language-Team: Swedish (https://www.transifex.com/torchbox/teams/8009/sv/)\n"
@@ -58,9 +58,11 @@ msgstr "Användning"
 msgid "Add locale"
 msgstr "Lägg till översättning"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Översättning '{0}' skapad."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Översättning '{0}' uppdaterad."
 
@@ -70,6 +72,7 @@ msgstr "Översättning kunde inte raderas p.g.a fel."
 msgid "Delete locale"
 msgstr "Radera översättning"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Översättning '{0}' raderad."
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
@@ -58,12 +58,6 @@ msgstr "上传"
 msgid "Latest documents"
 msgstr "最新文档"
 
-msgid "Title"
-msgstr "标题"
-
-msgid "File"
-msgstr "文件"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "对不起，没有文档匹配\"<em>%(query_string)s</em>\""
@@ -106,6 +100,12 @@ msgstr "未找到文件"
 msgid "Documents"
 msgstr "文档"
 
+msgid "Title"
+msgstr "标题"
+
+msgid "File"
+msgstr "文件"
+
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
@@ -141,15 +141,18 @@ msgstr "服务错误"
 msgid "Search documents"
 msgstr "查找文档"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "文档'{0}'已添加"
 
 msgid "The document could not be saved due to errors."
 msgstr "有错，文档无法保存。"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "文档'{0}'已更新"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "文档'{0}'已删除"
 

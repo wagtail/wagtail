@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-28 18:01+0000\n"
 "Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
@@ -55,9 +55,6 @@ msgstr[1] ""
 "\n"
 "            Er zijn %(counter)s overeenkomsten\n"
 "        "
-
-msgid "Title"
-msgstr "Titel"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -138,6 +135,9 @@ msgstr "Snippets"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Selecteer alle %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Titel"
 
 #, python-format
 msgid "Select %(snippet)s"

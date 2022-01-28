@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2022-01-04 23:31+0000\n"
-"Last-Translator: Dimitri Fekas\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -90,19 +90,6 @@ msgstr "Ανέβασμα"
 msgid "Latest documents"
 msgstr "Τελευταία έγγραφα"
 
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-msgid "Created"
-msgstr "Δημιουργήθηκε"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -148,6 +135,19 @@ msgstr "Χρήση"
 
 msgid "Documents"
 msgstr "Έγγραφα"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "File"
+msgstr "Αρχείο"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid ""
@@ -217,18 +217,17 @@ msgstr "Διαγραφή"
 msgid "Server Error"
 msgstr "Σφάλμα"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
-
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
 
@@ -238,6 +237,7 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
 

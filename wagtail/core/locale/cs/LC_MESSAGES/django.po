@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Jiri Stepanek <stepiiicz@gmail.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
 "MIME-Version: 1.0\n"
@@ -360,6 +360,7 @@ msgstr ""
 "Smí být jen jediný postup se stavem \"probíhá\" nebo \"vyžaduje úpravy\" pro "
 "danou stránku."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Postup '{0}' na stránce '{1}': {2}"
 
@@ -390,6 +391,7 @@ msgstr "dokončeno v"
 msgid "finished by"
 msgstr "dokončeno (kým)"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Úloha '{0}' pro Stránku Verze '{1}': {2}"
 
@@ -404,6 +406,9 @@ msgstr "položka logu pro stránku"
 
 msgid "page log entries"
 msgstr "položky logu pro stránku"
+
+msgid "Draft saved"
+msgstr "Návrh byl uložen"
 
 msgid "comment"
 msgstr "komentář"
@@ -574,11 +579,8 @@ msgstr "Vytvořit"
 msgid "Created"
 msgstr "Vytvořeno"
 
-msgid "Save draft"
-msgstr "Uložit návrh"
-
-msgid "Draft saved"
-msgstr "Návrh byl uložen"
+msgid "Edited"
+msgstr "Upraveno"
 
 msgid "Deleted"
 msgstr "Zrušeno"

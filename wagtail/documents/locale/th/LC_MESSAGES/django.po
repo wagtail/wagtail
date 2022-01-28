@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -96,16 +96,6 @@ msgstr[0] ""
 msgid "Latest documents"
 msgstr "เอกสารอันล่าสุด"
 
-msgid "Title"
-msgstr "หัวเรื่อง,หัวข้อ"
-
-msgid "File"
-msgstr "ไฟล์,แฟ้ม"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s ที่ผ่านมา"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "ขออภัย,ไม่มีเอกสารที่ตรงกัน \"<em>%(query_string)s</em>\""
@@ -168,6 +158,16 @@ msgstr "การใช้"
 
 msgid "Documents"
 msgstr "เอกสาร"
+
+msgid "Title"
+msgstr "หัวเรื่อง,หัวข้อ"
+
+msgid "File"
+msgstr "ไฟล์,แฟ้ม"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s ที่ผ่านมา"
 
 #, python-format
 msgid ""
@@ -245,18 +245,17 @@ msgstr "ลบ"
 msgid "Server Error"
 msgstr "เซฟเวอร์เกิดข้อผิดพลาด"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์โดยให้ทำตามข้อมูลนี้"
-
 msgid "Search documents"
 msgstr "ค้นหาเอกสาร"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "เอกสาร'{0} 'เพิ่มเติมเรียบร้อยแล้ว"
 
 msgid "The document could not be saved due to errors."
 msgstr "เอกสารไม่สามารถถูกเซฟได้ในระหว่างที่เกิดข้อผิดพลาด"
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "เอกสาร '{0}'อัพเดทเรียบร้อยแล้ว"
 
@@ -264,6 +263,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "ไม่พบไฟล์นี้ กรุณาเปลี่ยนต้นฉบับหรือลบเอกสารทิ้ง"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "เอกสาร '{0}' ถูกลบเรียบร้อยแล้ว"
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 18:26+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-22 06:14+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -177,19 +177,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Senaste dokument"
 
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created"
-msgstr "Skapades"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s sedan"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ledsen, inga dokument matchar \"<em>%(query_string)s</em>\""
@@ -256,8 +243,21 @@ msgstr "Dokument"
 msgid "Select all documents in listing"
 msgstr "Välj alla dokument i listan"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Skapades"
+
 msgid "Select document"
 msgstr "Välj dokument"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s sedan"
 
 #, python-format
 msgid ""
@@ -393,19 +393,24 @@ msgstr[1] "%(num_parent_objects)d dokument har raderats"
 msgid "Server Error"
 msgstr "Serverfel"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr ""
-"Rapportera det här felet till din webadministratör med följande information:"
+"Rapportera detta fel till din webbplatsadministratör med följande "
+"information:"
 
 msgid "Search documents"
 msgstr "Sök dokument"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' lades till."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunde inte sparas p.g.a. fel."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' laddades upp"
 
@@ -414,6 +419,7 @@ msgid ""
 msgstr ""
 "Filen kunde inte hittas. Vänligen ändra källan eller ta bort dokumentet."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' borttaget."
 

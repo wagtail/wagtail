@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Naglis Jonaitis, 2020\n"
 "Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
@@ -61,9 +61,11 @@ msgstr "Panaudojimas"
 msgid "Add locale"
 msgstr "Pridėti lokalę"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Lokalė '{0}' sukurta."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Lokalė '{0}' atnaujinta."
 
@@ -73,6 +75,7 @@ msgstr "Ši lokalė negali būti išsaugota dėl klaidų."
 msgid "Delete locale"
 msgstr "Ištrinti lokalę"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Lokalė '{0}' ištrinta."
 

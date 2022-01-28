@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Loic Teixeira, 2021\n"
 "Language-Team: French (https://www.transifex.com/torchbox/teams/8009/fr/)\n"
@@ -58,9 +58,11 @@ msgstr "Utilisation"
 msgid "Add locale"
 msgstr "Ajouter la région"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Région '{0}' créée."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Région '{0}' mise à jour."
 
@@ -70,6 +72,7 @@ msgstr "La région ne peut être enregistrée du fait d'erreurs."
 msgid "Delete locale"
 msgstr "Supprimer région"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Région '{0}' supprimée."
 

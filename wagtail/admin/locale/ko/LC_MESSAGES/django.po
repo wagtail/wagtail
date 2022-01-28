@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Kyungil Choi <hanpama@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
 "MIME-Version: 1.0\n"
@@ -274,9 +274,11 @@ msgstr "문서 없음"
 msgid "Close"
 msgstr "닫기"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "'{title}' 수정"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr " '{title}' 페이지의 하위 페이지 보기"
 
@@ -362,12 +364,6 @@ msgstr "비밀번호 초기화"
 
 msgid "Reset your password"
 msgstr "비밀번호 초기화"
-
-msgid "Menu"
-msgstr "메뉴"
-
-msgid "Explorer"
-msgstr "탐색기"
 
 msgid "Internal link"
 msgstr "내부 링크"
@@ -898,9 +894,6 @@ msgstr "'%(title)s' 의 하위 페이지 탐색"
 msgid "Add a child page to '%(title)s'"
 msgstr "'%(title)s' 에 대한 하위 페이지 추가"
 
-msgid "Add child page"
-msgstr "하위 페이지 추가"
-
 msgid "Sites menu"
 msgstr "사이트 메뉴"
 
@@ -1019,29 +1012,6 @@ msgid "No, don't unschedule"
 msgstr "아니요, 취소하지 않습니다"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "%(title)s의 수정안"
-
-msgid "Revisions of"
-msgstr "수정안 -"
-
-msgid "Revision date"
-msgstr "수정안 작성일"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "작성자:"
-
-msgid "Scheduled for"
-msgstr "예약 게시:"
-
-msgid "No revisions of this page exist"
-msgstr "이 페이지는 수정안이 없습니다"
-
-msgid "No revision of this page exist"
-msgstr "이 페이지는 수정안이 없습니다"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1063,6 +1033,9 @@ msgstr "위의 검색어를 입력하세요"
 msgid "No pages use"
 msgstr "사용하는 페이지가 없습니다"
 
+msgid "No pages found."
+msgstr "찾은 페이지 없음."
+
 msgid "No pages match this report's criteria."
 msgstr "리포트 조건에 맞는 페이지가 없습니다."
 
@@ -1074,9 +1047,6 @@ msgstr "CSV 다운로드"
 
 msgid "Filter"
 msgstr "필터"
-
-msgid "No pages found."
-msgstr "찾은 페이지 없음."
 
 msgid "Locking status"
 msgstr "잠금 상태"
@@ -1220,9 +1190,11 @@ msgstr "모음 추가"
 msgid "Add collection"
 msgstr "모음 추가"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "'{0}' 모음이 생성됨."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "'{0}' 모음이 수정됨."
 
@@ -1232,6 +1204,7 @@ msgstr "이 모음은 오류로 인해 저장하지 못했습니다."
 msgid "Delete collection"
 msgstr "모음 삭제"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "'{0}' 모음이 삭제됨."
 
@@ -1241,9 +1214,11 @@ msgstr "이 모음을 지우려는 것이 확실한가요?"
 msgid "Editing"
 msgstr "수정"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "'{0}' 페이지 그리고 {1} 개의 하위페이지가 복사되었습니다"
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "'{0}' 페이지가 복사 되었습니다"
 
@@ -1253,27 +1228,33 @@ msgstr "임시저장 보기"
 msgid "View live"
 msgstr "라이브 보기"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "'{0}' 페이지가 생성되었습니다"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "'{0}' 페이지가 생성되었고 게시하도록 예약되었습니다."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "'{0}' 페이지가 생성 및 게시되었습니다"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "'{0}' 페이지가 생성되고 검토에 의해 제출되었습니다"
 
 msgid "The page could not be created due to validation errors"
 msgstr "이 페이지는 오류에 의해 생성될 수 없습니다"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "'{0}' 페이지가 삭제되었습니다"
 
 msgid "This page is currently awaiting moderation"
 msgstr "이 페이지는 현재 검토를 기다리고 있습니다"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "'{0}' 페이지가 수정되었습니다."
 
@@ -1289,12 +1270,15 @@ msgstr "<b>'{}' 페이지의 잠금</b>이 <b>{}</b>에 의해 <b>{}</b>에 적�
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>'{}' 페이지가 잠김</b>."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "'{0}' 페이지를 게시하도록 예약했습니다."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "'{0}' 페이지가 게시되었습니다."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "'{0}' 페이지를 검토할 수 있도록 제출했습니다."
 
@@ -1304,24 +1288,29 @@ msgstr "이 페이지는 잠겨 있으므로 저장할 수 없습니다"
 msgid "The page could not be saved due to validation errors"
 msgstr "이 페이지는 오류에 의해 저장할 수 없습니다"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "'{0}' 페이지의 잠금을 풀었습니다."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "'{0}' 페이지는 현재 검토를 기다리고 있지 않습니다"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "'{0}' 페이지가 게시되었습니다"
 
 msgid "Failed to send approval notifications"
 msgstr "승인 알림 보내기 실패"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "'{0}' 페이지는 게시가 거절되었습니다"
 
 msgid "Failed to send rejection notifications"
 msgstr "거절 알림 보내기 실패"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -1329,6 +1318,7 @@ msgstr ""
 "'{0}' 슬러그는 이미 선택된 상위 페이지가 사용중입니다. 슬러그가 유일한지 확"
 "인 후 다시 시도하십시오"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "'{0}' 페이지가 이동하였습니다"
 
@@ -1338,14 +1328,13 @@ msgstr "최초"
 msgid "Latest"
 msgstr "최근"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "\"{1}\"의 수정안 {0}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "'{0}' 페이지의 게시가 해제 되었습니다"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1358,6 +1347,9 @@ msgstr "'%(title)s'의 초고 버전 미리보기"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "'%(title)s'의 라이브 버전 보기"
+
+msgid "Add child page"
+msgstr "하위 페이지 추가"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

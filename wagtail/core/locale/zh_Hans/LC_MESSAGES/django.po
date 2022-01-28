@@ -19,9 +19,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 11:54+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: hanfeng <appweb.cn@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -356,6 +356,7 @@ msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr "每个页面只能有一个进行中或需要修改的工作流状态。"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "工作流‘{0}’在页面‘{1}’： {2}"
 
@@ -386,6 +387,7 @@ msgstr "完成于"
 msgid "finished by"
 msgstr "完成人"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "任务'{0}'在页面修订版本 '{1}': {2}"
 
@@ -400,6 +402,9 @@ msgstr "页面日志条目"
 
 msgid "page log entries"
 msgstr "页面日志条目"
+
+msgid "Draft saved"
+msgstr "已保存草稿"
 
 msgid "comment"
 msgstr "评论"
@@ -572,11 +577,8 @@ msgstr "创建"
 msgid "Created"
 msgstr "已创建"
 
-msgid "Save draft"
-msgstr "保存草稿"
-
-msgid "Draft saved"
-msgstr "已保存草稿"
+msgid "Edited"
+msgstr "已编辑"
 
 msgid "Deleted"
 msgstr "已删除"

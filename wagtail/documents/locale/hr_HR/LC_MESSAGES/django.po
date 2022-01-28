@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
@@ -106,19 +106,6 @@ msgstr[2] ""
 msgid "Latest documents"
 msgstr "Najnoviji dokumenti"
 
-msgid "Title"
-msgstr "Naslov"
-
-msgid "File"
-msgstr "Datoteka"
-
-msgid "Created"
-msgstr "Stvoreno"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "Prije %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -182,6 +169,19 @@ msgstr "Upotreba"
 
 msgid "Documents"
 msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Naslov"
+
+msgid "File"
+msgstr "Datoteka"
+
+msgid "Created"
+msgstr "Stvoreno"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "Prije %(time_period)s"
 
 #, python-format
 msgid ""
@@ -286,18 +286,17 @@ msgstr "Izbriši"
 msgid "Server Error"
 msgstr "Greška na poslužitelju"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Prijavite ovu grešku vašem webmasteru sa slijedećim informacijama:"
-
 msgid "Search documents"
 msgstr "Pretraži dokumente"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' je dodan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Nije moguće sačuvati dokument zbog grešaka."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' je ažuriran"
 
@@ -306,6 +305,7 @@ msgid ""
 msgstr ""
 "Datoteka nije pronađena. Molimo promijenite izvor ili izbrišite dokument."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' je izbrisan."
 

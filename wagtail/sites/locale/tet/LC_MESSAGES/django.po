@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
@@ -47,9 +47,11 @@ msgstr "Estandar"
 msgid "Add site"
 msgstr "Aumenta site"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' kria ona"
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Situs '{0}' atualiza ona"
 
@@ -59,6 +61,7 @@ msgstr "Site nee la bele rai tamba iha erru sira."
 msgid "Delete site"
 msgstr "Hamoos situs"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' hamoos ona"
 

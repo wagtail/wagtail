@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -142,6 +142,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "搜索推廣結果"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "為'{0}'的編輯精選已被創建。"
 
@@ -151,6 +152,7 @@ msgstr "編輯"
 msgid "Recommendations have not been created due to errors"
 msgstr "無法創建推薦，出現錯誤。"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "為'{0}'的編輯精選已被更新。"
 

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-27 07:32+0000\n"
-"Last-Translator: UP\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -75,16 +75,6 @@ msgstr "Prenos"
 msgid "Latest documents"
 msgstr "Zadnji dokumenti"
 
-msgid "Title"
-msgstr "Naziv"
-
-msgid "File"
-msgstr "Datoteka"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s nazaj"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
@@ -123,6 +113,16 @@ msgstr "Datoteka ne obstaja"
 
 msgid "Documents"
 msgstr "Dokumenti"
+
+msgid "Title"
+msgstr "Naziv"
+
+msgid "File"
+msgstr "Datoteka"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s nazaj"
 
 #, python-format
 msgid ""
@@ -189,18 +189,17 @@ msgstr "Izbriši"
 msgid "Server Error"
 msgstr "Napaka na strežniku"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
-
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' dodan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenta, zaradi napak, ni bilo možno shraniti."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' prenesen"
 
@@ -210,6 +209,7 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' izbrisan."
 

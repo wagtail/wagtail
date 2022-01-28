@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: dellax <michalnebbia@gmail.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
@@ -33,9 +33,6 @@ msgstr "Zvoliť"
 
 msgid "Search"
 msgstr "Hľadať"
-
-msgid "Title"
-msgstr "Titulok"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -72,6 +69,9 @@ msgstr "Upraviť obrázok"
 
 msgid "Snippets"
 msgstr "Snipety"
+
+msgid "Title"
+msgstr "Titulok"
 
 #, python-format
 msgid ""

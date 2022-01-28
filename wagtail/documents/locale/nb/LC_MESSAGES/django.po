@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
@@ -103,19 +103,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Siste dokumenter"
 
-msgid "Title"
-msgstr "Tittel"
-
-msgid "File"
-msgstr "Fil"
-
-msgid "Created"
-msgstr "Opprettet"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s siden"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Beklager, ingen dokumenter samsvarer med <em>\"%(query_string)s\"</em>"
@@ -178,6 +165,19 @@ msgstr "Bruk"
 
 msgid "Documents"
 msgstr "Dokumenter"
+
+msgid "Title"
+msgstr "Tittel"
+
+msgid "File"
+msgstr "Fil"
+
+msgid "Created"
+msgstr "Opprettet"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s siden"
 
 #, python-format
 msgid ""
@@ -278,18 +278,17 @@ msgstr "Slett"
 msgid "Server Error"
 msgstr "Serverfeil"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
-
 msgid "Search documents"
 msgstr "Søk i dokumenter"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokumentet \"{0}\" er lagt til."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumentet kunne ikke lagres grunnet feil."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumentet \"{0}\" er oppdatert"
 
@@ -297,6 +296,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Filen ble ikke funnet. Endre kilde for dokumentet eller slett det"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokumentet \"{0}\" er slettet."
 

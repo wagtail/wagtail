@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Eirik Krogstad <eirikkr@gmail.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
@@ -52,9 +52,6 @@ msgstr[1] ""
 "\n"
 "            Det er %(counter)s treff\n"
 "        "
-
-msgid "Title"
-msgstr "Tittel"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -126,6 +123,9 @@ msgstr "Snutter"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Velg alle %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Tittel"
 
 #, python-format
 msgid "Select %(snippet)s"

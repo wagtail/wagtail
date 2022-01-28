@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -46,9 +46,11 @@ msgstr "Taunoa"
 msgid "Add site"
 msgstr "Tāpiri pae"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Pae nama '{0}' e hanga"
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Pae nama '{0}' kua whakahou"
 
@@ -58,6 +60,7 @@ msgstr "Ehara ka taea te puritia kī te pae nei, he raruraru "
 msgid "Delete site"
 msgstr "Mukuhia pae"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Pae nama '{0}' kua mukuhia"
 

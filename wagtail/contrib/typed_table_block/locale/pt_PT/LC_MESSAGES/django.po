@@ -5,15 +5,16 @@
 #
 # Translators:
 # Diogo Gomes, 2021
+# Tiago Henriques <trinosauro@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:05+0000\n"
-"Last-Translator: Diogo Gomes, 2021\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>, 2022\n"
 "Language-Team: Portuguese (Portugal) (https://www.transifex.com/torchbox/"
 "teams/8009/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -35,10 +36,10 @@ msgid "Insert column"
 msgstr "Inserir coluna"
 
 msgid "Delete column"
-msgstr "Eliminar coluna"
+msgstr "Apagar coluna"
 
 msgid "Insert row"
 msgstr "Inserir linha"
 
 msgid "Delete row"
-msgstr "Eliminar linha"
+msgstr "Apagar linha"

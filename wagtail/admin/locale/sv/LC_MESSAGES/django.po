@@ -8,7 +8,7 @@
 # Elias Johnstone <eli87as@gmail.com>, 2020
 # Hannes Lohmander <c.hannes.l@gmail.com>, 2015
 # Jim Brouzoulis <jim.brouzoulis@chalmers.se>, 2017
-# Martin Sandström <martin@marteinn.se>, 2020-2021
+# Martin Sandström <martin@marteinn.se>, 2020-2022
 # Oscar Fröberg <oscfr657@gmail.com>, 2020
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018-2019
 # Thomas Kunambi <kunambi@gmail.com>, 2016-2017,2020-2021
@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 18:24+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 06:30+0000\n"
 "Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
@@ -269,6 +269,7 @@ msgstr "Vänligen välj minst en grupp"
 msgid "All types"
 msgstr "Alla typer"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Denna sida har redan arbetsflöde '{0}' tilldelat."
 
@@ -350,9 +351,11 @@ msgstr "Dokument saknas"
 msgid "Close"
 msgstr "Stäng"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Redigera '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Visa undersidor av '{title}'"
 
@@ -419,6 +422,12 @@ msgstr "Spara sidan för att spara denna kommentar"
 msgid "Save the page to save this reply"
 msgstr "Spara sidan för att spara detta svar"
 
+msgid "Toggle sidebar"
+msgstr "Växla sidorad"
+
+msgid "Main menu"
+msgstr "Huvudmeny"
+
 msgid "Dashboard"
 msgstr "Instrumentpanel"
 
@@ -428,9 +437,11 @@ msgstr "Redigera ditt konto"
 msgid "1 page selected"
 msgstr "1 sida vald"
 
+#, python-brace-format
 msgid "{0} pages selected"
 msgstr "{0} sidor valda"
 
+#, python-brace-format
 msgid "All {0} pages on this screen selected"
 msgstr "Alla {0} sidor i denna vy är valda"
 
@@ -440,9 +451,11 @@ msgstr "Alla sidor i listan är valda"
 msgid "1 document selected"
 msgstr "1 dokument har valts"
 
+#, python-brace-format
 msgid "{0} documents selected"
 msgstr "{0} dokument har valts"
 
+#, python-brace-format
 msgid "All {0} documents on this screen selected"
 msgstr "Alla {0} dokument i denna vy har valts"
 
@@ -452,9 +465,11 @@ msgstr "Alla dokument i listan valda"
 msgid "1 image selected"
 msgstr "1 bild har valts"
 
+#, python-brace-format
 msgid "{0} images selected"
 msgstr "{0} bilder valda"
 
+#, python-brace-format
 msgid "All {0} images on this screen selected"
 msgstr "Alla {0} bilder i denna vy har valts"
 
@@ -464,9 +479,11 @@ msgstr "Alla bilder i lista valda"
 msgid "1 user selected"
 msgstr "1 användare har valts"
 
+#, python-brace-format
 msgid "{0} users selected"
 msgstr "{0} användare valda"
 
+#, python-brace-format
 msgid "All {0} users on this screen selected"
 msgstr "Alla {0} användare i denna vy valda"
 
@@ -476,9 +493,11 @@ msgstr "Alla användare i lista valda"
 msgid "1 item selected"
 msgstr "1 objekt har valts"
 
+#, python-brace-format
 msgid "{0} items selected"
 msgstr "{0} objekt valda"
 
+#, python-brace-format
 msgid "All {0} items on this screen selected"
 msgstr "Alla {0} objekt i denna vy är valda"
 
@@ -564,9 +583,6 @@ msgstr "Ladda upp profilbild:"
 msgid "Reset to default"
 msgstr "Återställ till standard"
 
-msgid "Menu"
-msgstr "Meny"
-
 msgid "Go back"
 msgstr "Gå tillbaka"
 
@@ -578,9 +594,6 @@ msgstr "Välj rad"
 
 msgid "Select all"
 msgstr "Välj alla"
-
-msgid "Explorer"
-msgstr "Utforskare"
 
 msgid "Internal link"
 msgstr "Intern länk"
@@ -879,6 +892,9 @@ msgstr "Inväntar din granskning"
 msgid "Tasks"
 msgstr "Uppgifter"
 
+msgid "Task submitted by"
+msgstr "Uppgift inskickad av"
+
 msgid "Sign in"
 msgstr "Logga in"
 
@@ -889,6 +905,9 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Logga in till Wagtail"
+
+msgid "Remember me"
+msgstr "Kom ihåg mig"
 
 msgid "Signing in…"
 msgstr "Loggar in..."
@@ -1631,9 +1650,6 @@ msgstr "Utforska undersidor till '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Lägg till en undersida till '%(title)s'"
 
-msgid "Add child page"
-msgstr "Lägg till undersida"
-
 msgid "Sites menu"
 msgstr "Sajtmeny"
 
@@ -1789,29 +1805,6 @@ msgid "No, don't unschedule"
 msgstr "Nej, behåll schemaläggning"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revisioner utav %(title)s"
-
-msgid "Revisions of"
-msgstr "Revisioner av"
-
-msgid "Revision date"
-msgstr "Revisionsdatum"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "av"
-
-msgid "Scheduled for"
-msgstr "Schemalagd till"
-
-msgid "No revisions of this page exist"
-msgstr "Inga revisioner av den här sidan existerar"
-
-msgid "No revision of this page exist"
-msgstr "Ingen revision av den här sidan existerar"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1944,6 +1937,25 @@ msgstr "Samling hantering rättigheter"
 msgid "Add a collection permission"
 msgstr "Lägg till rättighet för samling"
 
+msgid "Last published"
+msgstr "Senast publicerad"
+
+msgid "Last published by"
+msgstr "Senast publicerad av"
+
+#, python-format
+msgid ""
+"\n"
+"                                    %(time_period)s ago\n"
+"                                "
+msgstr ""
+"\n"
+"                                    %(time_period)s sedan\n"
+"                                "
+
+msgid "No pages found."
+msgstr "Inga sidor funna"
+
 msgid "No pages match this report's criteria."
 msgstr "Inga sidor matchade kriterierna för denna rapport."
 
@@ -1958,9 +1970,6 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Filtrera"
-
-msgid "No pages found."
-msgstr "Inga sidor funna"
 
 msgid "Locking status"
 msgstr "Låsstatus"
@@ -2379,9 +2388,11 @@ msgstr "Lägg till en samling"
 msgid "Add collection"
 msgstr "Addera samling"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Samling '{0}' skapad."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Samling '{0}' uppdaterad."
 
@@ -2391,6 +2402,7 @@ msgstr "Samlingen kunde inte sparas pga fel."
 msgid "Delete collection"
 msgstr "Radera samling"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Samling '{0}' raderad."
 
@@ -2503,12 +2515,15 @@ msgstr[1] ""
 "%(num_parent_objects)d sidor och %(num_child_objects)d undersidor har blivit "
 "avpublicerade"
 
+#, python-brace-format
 msgid "Page '{0}' has been converted into an ordinary page."
 msgstr "Sida '{0}' har blivit konverterad till en vanlig sida."
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Sida '{0}' och {1} undersida kopierad."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Sida '{0}' kopierad."
 
@@ -2518,30 +2533,37 @@ msgstr "Se utkast"
 msgid "View live"
 msgstr "Visa publicerad"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Sida '{0}' skapad."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Sida '{0}' skapad och schemalagd för publicering."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Sida '{0}' skapad och publicerad."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Sida '{0}' skapad och inlämnad för moderering."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Sidan kunde ej bli skapad p.g.a. valideringsfel"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Sida '{0}' raderad."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Sidan väntar på moderering"
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with version from {1}."
 msgstr "Sidan '{0}' har blivit ersatt med version från {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Sida '{0}' har blivit uppdaterad."
 
@@ -2566,30 +2588,38 @@ msgstr "Denna sida väntar på <b>'{}'</b> i arbetsflödet <b>'{}'</b> ."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Endast granskare för denna uppgift kan redigera sidan."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Arbetsflöde på sida '{0}' har avbrutits."
 
+#, python-brace-format
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr ""
 "Versionen från {0} av sida '{1}' har blivit schemalagd för publicering."
 
+#, python-brace-format
 msgid "Page '{0}' is live and this version has been scheduled for publishing."
 msgstr ""
 "Sida '{0}' är publicerad och denna version har blivit schemalagd för "
 "publicering."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Sida '{0}' har blivit schemalagd för publicering."
 
+#, python-brace-format
 msgid "Version from {0} of page '{1}' has been published."
 msgstr "Versionen från {0} av sida '{1}' har blivit publicerad."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Sida '{0}' har blivit publicerad."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Sida '{0}' har blivit inlämnad för moderering."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Arbetsflödet på sidan '{0}' har startats om."
 
@@ -2602,24 +2632,29 @@ msgstr "Sidan kunde inte sparas p.g.a. valideringsfel"
 msgid "Hide commenting actions"
 msgstr "Göm kommenteringshandlingar"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Sida '{0}' är nu olåst."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Sida '{0}' publicerad."
 
 msgid "Failed to send approval notifications"
 msgstr "Misslyckades att skicka godkännande notifieringar"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Sida '{0}' avvisad för publicering."
 
 msgid "Failed to send rejection notifications"
 msgstr "Misslyckades att skicka nekande notifieringar"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -2627,6 +2662,7 @@ msgstr ""
 "URL-fragmenten '{0}' är redan i användning av den valda huvudsidan. Se till "
 "att URL-fragmentet är unik och försök igen."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Sida '{0}' flyttad."
 
@@ -2644,17 +2680,30 @@ msgstr "Tidigast"
 msgid "Latest"
 msgstr "Senast"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revision {0} av \"{1}\""
 
+#, python-brace-format
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Version {0} av \"{1}\" ej schemalagt."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Sida '{0}' opublicerad."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Sidan '{0}' väntar för närvarande inte på moderering i uppift '{1}'."
+
+msgid "Last published before"
+msgstr "Senast publicerad innan"
+
+msgid "Aging pages"
+msgstr "Äldre sidor"
+
+msgid "Last published at"
+msgstr "Senast publicerad vid"
 
 msgid "Site history"
 msgstr "Sajthistorik"
@@ -2701,12 +2750,14 @@ msgstr "Lägg till arbetsflöde"
 msgid "New workflow"
 msgstr "Nytt arbetsflöde"
 
+#, python-brace-format
 msgid "Workflow '{0}' created."
 msgstr "Arbetsflöde '{0}' skapad."
 
 msgid "Editing workflow"
 msgstr "Redigerar arbetsflöde"
 
+#, python-brace-format
 msgid "Workflow '{0}' updated."
 msgstr "Arbetsflöde '{0}' uppdaterades."
 
@@ -2719,6 +2770,7 @@ msgstr "Aktivera"
 msgid "Disable workflow"
 msgstr "Inaktivera arbetsflöde"
 
+#, python-brace-format
 msgid "Workflow '{0}' disabled."
 msgstr "Arbetsflöde '{0}' inaktiverat."
 
@@ -2736,21 +2788,25 @@ msgstr[1] ""
 "Detta arbetsflöde pågår på %(states_in_progress)d sidor. Inaktivering av "
 "detta arbetsflöde avbryter moderering på dessa sidor.."
 
+#, python-brace-format
 msgid "Workflow '{0}' enabled."
 msgstr "Arbetsflöde '{0}' aktiverat."
 
+#, python-brace-format
 msgid "Workflow removed from Page '{0}'."
 msgstr "Arbetsflöde togs bort från Sida '{0}'."
 
 msgid "New workflow task"
 msgstr "Ny arbetsflödesuppgift"
 
+#, python-brace-format
 msgid "Task '{0}' created."
 msgstr "Uppgift '{0}' skapad."
 
 msgid "Editing workflow task"
 msgstr "Redigerar arbetsflödesuppgift"
 
+#, python-brace-format
 msgid "Task '{0}' updated."
 msgstr "Uppgift '{0}' uppdaterad."
 
@@ -2761,6 +2817,7 @@ msgstr "Redigerar %(task_type)s"
 msgid "Disable task"
 msgstr "Inaktivera uppgift"
 
+#, python-brace-format
 msgid "Task '{0}' disabled."
 msgstr "Uppgift '{0}' inaktiverad.."
 
@@ -2782,12 +2839,16 @@ msgstr[1] ""
 "denna uppgift resulterar i att den hoppas över i moderatorns arbetsflöde och "
 "kommer inte längre bli valbar när arbetsflöde redigeras."
 
+#, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Uppgift '{0}' aktiverad."
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr ""
-"Rapportera det här felet till din webadministratör med följande information:"
+"Rapportera detta fel till din webbplatsadministratör med följande "
+"information:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2800,6 +2861,9 @@ msgstr "Förhandsvisa utkast till version av '%(title)s'"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Visa live-version av '%(title)s'"
+
+msgid "Add child page"
+msgstr "Lägg till undersida"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

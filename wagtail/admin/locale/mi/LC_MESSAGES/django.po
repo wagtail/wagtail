@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -248,6 +248,7 @@ msgstr "Kōwhiri koa he rōpū kōtahi."
 msgid "All types"
 msgstr "Ngā momo katoa"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Kua whakarite a mahi pūheke '{0}' ki te whārangi nei."
 
@@ -326,9 +327,11 @@ msgstr "Kua ngaro te pukapuka"
 msgid "Close"
 msgstr "Kōpani"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Whakarerekē '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
 
@@ -412,12 +415,6 @@ msgstr "Kupu muna kia tautuhi anō"
 
 msgid "Reset your password"
 msgstr "Tautuhi anō tō kupu muna"
-
-msgid "Menu"
-msgstr "Tahua"
-
-msgid "Explorer"
-msgstr "Kaihōpara"
 
 msgid "Internal link"
 msgstr "Hono taiwhenua"
@@ -688,9 +685,6 @@ msgstr "Whakakite"
 
 msgid "Awaiting my review"
 msgstr "E tatari ana mō tōku arotake"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
 
 #, python-format
 msgid "Edit '%(title)s'"

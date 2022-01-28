@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: David Llop\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -291,6 +291,7 @@ msgstr "sol·licitat per"
 msgid "current task state"
 msgstr "estat de la tasca actual"
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Fluxe de treball '{0}' a la Pàgina '{1}': {2}"
 
@@ -321,6 +322,7 @@ msgstr "finalitzat el"
 msgid "finished by"
 msgstr "finalitzat per"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Tasca '{0}' a la Revisió de Pàgina '{1}': {2}"
 
@@ -335,6 +337,9 @@ msgstr "entrada de registre de pàgina"
 
 msgid "page log entries"
 msgstr "entrades de registre de pàgina"
+
+msgid "Draft saved"
+msgstr "S'ha desat l'esborrany"
 
 msgid "log entry"
 msgstr "entrada de registre"
@@ -470,11 +475,8 @@ msgstr "Crear"
 msgid "Created"
 msgstr "Creada"
 
-msgid "Save draft"
-msgstr "Desa esborrany"
-
-msgid "Draft saved"
-msgstr "S'ha desat l'esborrany"
+msgid "Edited"
+msgstr "Editat"
 
 msgid "Deleted"
 msgstr "Suprimida"

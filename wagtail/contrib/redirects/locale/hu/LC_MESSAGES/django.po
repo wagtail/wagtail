@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-21 06:18+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 15:09+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -75,8 +75,24 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "átirányítás oldalra"
 
+msgid "target page route"
+msgstr "céloldal alpontja"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcionálisan megadhatja, hogy az adott oldalon belül hova irányítódjon a "
+"látogató. Üresen hagyva az alapértelmezett alpontra kerül."
+
 msgid "redirect to any URL"
 msgstr "átirányítás bármilyen URL-re"
+
+msgid "automatically created"
+msgstr "automatikusan létrehozva"
+
+msgid "created at"
+msgstr "létrehozás ideje"
 
 msgid "temporary"
 msgstr "átmeneti"
@@ -219,6 +235,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Átirányítások keresése"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "'{0}' átirányítás módosítva."
 
@@ -228,9 +245,11 @@ msgstr "Szerkeszt"
 msgid "The redirect could not be saved due to errors."
 msgstr "Hiba történt az átirányítás mentése közben."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "'{0}' átirányítás törölve. "
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "'{0}' átirányítás hozzáadva."
 

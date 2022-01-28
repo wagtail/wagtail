@@ -4,6 +4,7 @@
 #
 # Translators:
 # Benedikt Willi <ben.willi@gmail.com>, 2020
+# oliverengel <codeangel@posteo.de>, 2022
 # Ettore Atalan <atalanttore@googlemail.com>, 2019-2020
 # Henrik Kröger <hedwig@riseup.net>, 2016,2018
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014
@@ -22,9 +23,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 15:55+0000\n"
-"Last-Translator: Krzysztof Jeziorny <github@jeziorny.net>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-22 15:24+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +79,31 @@ msgstr "Dokument"
 msgid "documents"
 msgstr "Dokumente"
 
+#, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Tags zu 1 Dokument hinzufügen"
+msgstr[1] "Schlagwörter zu %(counter)s Dokumenten hinzufügen"
+
+msgid "Add tags to documents"
+msgstr "Schlagwörter zu Dokumenten hinzufügen"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] ""
+"Sind Sie sich sicher, dass Sie das folgende Dokument taggen möchten?"
+msgstr[1] ""
+"Sind Sie sich sicher, dass Sie das die folgenden Dokumente taggen möchten?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] ""
+"Sie haben nicht die Berechtigung, zu diesem Dokument Schlagwörter "
+"hinzuzufügen."
+msgstr[1] ""
+"Sie haben nicht die Berechtigung, diesen Dokumenten Schlagwörter "
+"hinzuzufügen."
+
 msgid "Yes, add"
 msgstr "Ja, hinzufügen"
 
@@ -85,10 +111,58 @@ msgid "No, don't add"
 msgstr "Nein, nicht hinzufügen"
 
 #, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "1 Dokument zur neuen Sammlung hinzufügen"
+msgstr[1] "%(counter)s Dokumente zur neuen Sammlung hinzufügen"
+
+msgid "Add documents to collection"
+msgstr "Dokumente zur Sammlung hinzufügen"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"Sind Sie sich sicher, dass Sie das folgende Dokument der ausgewälten "
+"Sammlung hinzufügen möchten?"
+msgstr[1] ""
+"Sind Sie sich sicher, dass Sie die folgenden Dokumente der ausgewälten "
+"Sammlung hinzufügen möchten?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] ""
+"Sie haben nicht die Berechtigung, dieses Dokument einer Sammlung hinzuzufügen"
+msgstr[1] ""
+"Sie haben nicht die Berechtigung, diese Dokumente einer Sammlung hinzuzufügen"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "1 Dokument löschen"
+msgstr[1] "%(counter)s Dokumente löschen"
+
+msgid "Delete documents"
+msgstr "Dokumente löschen"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Sind Sie sich sicher, dass Sie dieses Dokument löschen möchten?"
+msgstr[1] "Sind Sie sich sicher, dass Sie diese Dokumente löschen möchten?"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "%(usage_count)s mal benutzt"
 msgstr[1] "%(usage_count)s mal benutzt"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Sie haben nicht die Berechtigung, dieses Dokument zu löschen"
+msgstr[1] "Sie haben nicht die Berechtigung, diese Dokumente zu löschen"
 
 msgid "Yes, delete"
 msgstr "Ja, Löschen"
@@ -125,19 +199,6 @@ msgstr[1] ""
 
 msgid "Latest documents"
 msgstr "Neueste Dokumente"
-
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "Datei"
-
-msgid "Created"
-msgstr "Erstellt"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "vor %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -201,6 +262,25 @@ msgstr "Benutzung"
 
 msgid "Documents"
 msgstr "Dokumente"
+
+msgid "Select all documents in listing"
+msgstr "Alle Dokumente in der Aufzählung auswählen"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "Datei"
+
+msgid "Created"
+msgstr "Erstellt"
+
+msgid "Select document"
+msgstr "Dokument auswählen"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "vor %(time_period)s"
 
 #, python-format
 msgid ""
@@ -295,29 +375,66 @@ msgstr "Dokumenten-Berechtigungen"
 msgid "Add a document permission"
 msgstr "Einfügen einer Dokumenten-Berechtigung"
 
+msgid "Tag"
+msgstr "Schlagwort"
+
+msgid "Add tags to the selected documents"
+msgstr "Schlagwörter zu den ausgewählten Dokumenten hinzufügen"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] ""
+"Neue Schlagwörter wurden %(num_parent_objects)d Dokument hinzugefügt"
+msgstr[1] ""
+"Neue Schlagwörter wurden %(num_parent_objects)d Dokumenten hinzugefügt"
+
 msgid "Add to collection"
 msgstr "Zur Sammlung hinzufügen"
+
+msgid "Add selected documents to collection"
+msgstr "Die ausgewählten Dokumente der Sammlung hinzufügen"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d Dokument wurde %(collection)s hinzugefügt"
+msgstr[1] "%(num_parent_objects)d Dokumente wurden %(collection)s hinzugefügt"
 
 msgid "Delete"
 msgstr "Löschen"
 
+msgid "Delete selected documents"
+msgstr "Ausgwählte Dokumente löschen"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d Dokument wurde gelöscht"
+msgstr[1] "%(num_parent_objects)d Dokumente wurden gelöscht"
+
 msgid "Server Error"
 msgstr "Server-Fehler"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr ""
-"Melden Sie diesen Fehler Ihrem Webseitenverwalter mit der folgenden "
+"Melden Sie diesen Fehler Ihrem Webseitenadministrator mit der folgenden "
 "Information:"
 
 msgid "Search documents"
 msgstr "Nach Dokumenten suchen"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument ‚{0}‘ wurde hinzugefügt."
 
 msgid "The document could not be saved due to errors."
 msgstr "Aufgrund eines Fehlers konnte das Dokument nicht gespeichert werden."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument ‚{0}‘ aktualisiert"
 
@@ -327,6 +444,7 @@ msgstr ""
 "Die Datei konnte nicht gefunden werden. Bitte ändern Sie die Quelle oder "
 "löschen Sie das Dokument "
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument ‚{0}‘ gelöscht."
 

@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -119,19 +119,6 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Poslední dokumenty"
 
-msgid "Title"
-msgstr "Název"
-
-msgid "File"
-msgstr "Soubor"
-
-msgid "Created"
-msgstr "Vytvořeno"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "před %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -194,6 +181,19 @@ msgstr "Použití"
 
 msgid "Documents"
 msgstr "Dokumenty"
+
+msgid "Title"
+msgstr "Název"
+
+msgid "File"
+msgstr "Soubor"
+
+msgid "Created"
+msgstr "Vytvořeno"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "před %(time_period)s"
 
 #, python-format
 msgid ""
@@ -307,18 +307,17 @@ msgstr "Smazat"
 msgid "Server Error"
 msgstr "Chyba serveru"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahlašte tuto chybu správci serveru s následujícími informacemi:"
-
 msgid "Search documents"
 msgstr "Hledat v dokumentech"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' byl přidán."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokument nelze uložit, zkontrolujte správné vyplnění polí."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' byl upraven"
 
@@ -328,6 +327,7 @@ msgstr ""
 "Zdrojový soubor dokumentu není možné nalézt. Prosím změňte zdroj nebo "
 "dokument smažte."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' byl smazán."
 

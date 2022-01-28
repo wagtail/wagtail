@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>, 2021\n"
 "Language-Team: Maori (https://www.transifex.com/torchbox/teams/8009/mi/)\n"
@@ -58,9 +58,11 @@ msgstr "Whakamahi"
 msgid "Add locale"
 msgstr "Tāpiri rohe"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Rohe '{0}' e hanga"
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Rohe '{0}' kua whakahou"
 
@@ -70,6 +72,7 @@ msgstr "Ehara ka taea te puritia kī te rohe nei, he raruraru "
 msgid "Delete locale"
 msgstr "Mukuhia rohe"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Rohe '{0}' kua mukuhia"
 

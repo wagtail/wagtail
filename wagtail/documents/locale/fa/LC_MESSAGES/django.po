@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
 "fa/)\n"
@@ -80,16 +80,6 @@ msgstr "آپلود"
 msgid "Latest documents"
 msgstr "آخرین اسناد"
 
-msgid "Title"
-msgstr "عنوان"
-
-msgid "File"
-msgstr "فایل"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s پیش"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "متاسفانه سندی حاوی «<em>%(query_string)s</em>» پیدا نشد."
@@ -131,6 +121,16 @@ msgstr "فایل پیدا نشد"
 
 msgid "Documents"
 msgstr "اسناد"
+
+msgid "Title"
+msgstr "عنوان"
+
+msgid "File"
+msgstr "فایل"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s پیش"
 
 #, python-format
 msgid ""
@@ -200,18 +200,17 @@ msgstr "حذف"
 msgid "Server Error"
 msgstr "خطای سرور"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "این خطا را همراه با اطلاعات زیر به پشتیبانتان ارائه دهید:"
-
 msgid "Search documents"
 msgstr "جستجوی سندها"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "سند '{0}' افزوده شد."
 
 msgid "The document could not be saved due to errors."
 msgstr "به دلیل بروز خطا سند ذخیره نگردید."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "سند '{0}' بروزرسانی شد"
 
@@ -219,6 +218,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "فایل پیدا نشد. لطفا منبع یکی را تغییر دهید یا سند را حذف نمایید"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "سند '{0}' حذف شد."
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-16 13:08+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -48,9 +48,6 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "總共 %(counter)s 符合"
-
-msgid "Title"
-msgstr "標題"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -127,6 +124,9 @@ msgstr "片段"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "全選 %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "標題"
 
 #, python-format
 msgid "Select %(snippet)s"

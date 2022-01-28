@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -367,9 +367,6 @@ msgstr "죄송합니다, 업로드가 실패하였습니다."
 msgid "Server Error"
 msgstr "서버 오류"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
-
 msgid "Image updated."
 msgstr "이미지 수정됨."
 
@@ -385,6 +382,7 @@ msgstr "삭제"
 msgid "Search images"
 msgstr "이미지 검색"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' 이미지가 업데이트 되었습니다."
 
@@ -401,9 +399,11 @@ msgstr ""
 "소스 이미지 파일을 찾을 수 없습니다. 소스를 변경하거나 이미지를 삭제하여 주시"
 "기 바랍니다."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' 이미지가 삭제되었습니다."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' 이미지가 추가 되었습니다."
 

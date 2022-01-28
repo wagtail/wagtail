@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -332,6 +332,7 @@ msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr "Lehel võib olla ainult üks pooleli või vajab muudatusi töövoo olek."
 
+#, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
 msgstr "Töövoog '{0}' lehel '{1}': {2}"
 
@@ -362,6 +363,7 @@ msgstr "valmis kell"
 msgid "finished by"
 msgstr "valmis"
 
+#, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
 msgstr "Ülesanne '{0}' lehe redaktsioonil '{1}': {2}"
 
@@ -376,6 +378,9 @@ msgstr "lehelogi kirje"
 
 msgid "page log entries"
 msgstr "lehelogi kirjed"
+
+msgid "Draft saved"
+msgstr "Mustand on salvestatud"
 
 msgid "timestamp (UTC)"
 msgstr "ajatempel (UTC)"
@@ -523,11 +528,8 @@ msgstr "Loo"
 msgid "Created"
 msgstr "Loodud"
 
-msgid "Save draft"
-msgstr "Salvesta mustand"
-
-msgid "Draft saved"
-msgstr "Mustand on salvestatud"
+msgid "Edited"
+msgstr "Redigeeritud"
 
 msgid "Deleted"
 msgstr "Kustutatud"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
 "ko/)\n"
@@ -99,19 +99,6 @@ msgstr[0] ""
 msgid "Latest documents"
 msgstr "최근 문서"
 
-msgid "Title"
-msgstr "제목"
-
-msgid "File"
-msgstr "파일"
-
-msgid "Created"
-msgstr "생성일"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s 전"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "죄송합니다. <em>\"%(query_string)s\"</em> 와 연관된 문서가 없습니다"
@@ -173,6 +160,19 @@ msgstr "사용"
 
 msgid "Documents"
 msgstr "문서"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "File"
+msgstr "파일"
+
+msgid "Created"
+msgstr "생성일"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s 전"
 
 #, python-format
 msgid ""
@@ -267,18 +267,17 @@ msgstr "삭제"
 msgid "Server Error"
 msgstr "서버 오류"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "이 오류를 다음의 정보와 함께 웹마스터에게 알려 주시기 바랍니다:"
-
 msgid "Search documents"
 msgstr "문서 검색"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "'{0}' 문서가 추가 되었습니다."
 
 msgid "The document could not be saved due to errors."
 msgstr "에러로 인해 문서를 저장할 수 없습니다."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "'{0}' 문서가 추가 되었습니다."
 
@@ -287,6 +286,7 @@ msgid ""
 msgstr ""
 "파일을 찾을 수 없습니다. 소스를 변경하거나 파일을 삭제하여 주시기 바랍니다."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' 문서가 삭제 되었습니다."
 

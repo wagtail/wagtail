@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -212,6 +212,7 @@ msgstr "Koretake"
 msgid "%(time_period)s ago"
 msgstr "%(time_period)s mai rā anō"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Kai whakamahi '{0}' e hanga."
 

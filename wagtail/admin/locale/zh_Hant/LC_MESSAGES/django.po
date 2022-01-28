@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 12:59+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -233,6 +233,7 @@ msgstr "請至少選擇一個組。"
 msgid "All types"
 msgstr "所有類型"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "此頁面已指派至工作流程 '{0}'"
 
@@ -309,9 +310,11 @@ msgstr "遺失文件"
 msgid "Close"
 msgstr "關閉"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "編輯 '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "檢視 '{title}' 子頁面"
 
@@ -351,6 +354,7 @@ msgstr "編輯帳號"
 msgid "1 page selected"
 msgstr "已選擇1頁面"
 
+#, python-brace-format
 msgid "{0} pages selected"
 msgstr "已選擇{0}頁面"
 
@@ -422,9 +426,6 @@ msgstr "重置密碼"
 msgid "Reset to default"
 msgstr "重置為預設值"
 
-msgid "Menu"
-msgstr "選單"
-
 msgid "Go back"
 msgstr "返回"
 
@@ -433,9 +434,6 @@ msgstr "選擇列"
 
 msgid "Select all"
 msgstr "全選"
-
-msgid "Explorer"
-msgstr "資源管理"
 
 msgid "Internal link"
 msgstr "內部連結"
@@ -1104,9 +1102,6 @@ msgstr "查看'%(title)s'的子頁面"
 msgid "Add a child page to '%(title)s'"
 msgstr "為'%(title)s'新增子頁面"
 
-msgid "Add child page"
-msgstr "新增子頁面"
-
 msgid "Sites menu"
 msgstr "站點菜單"
 
@@ -1246,29 +1241,6 @@ msgstr "是的，取消定時發佈"
 
 msgid "No, don't unschedule"
 msgstr "否，不取消預定發佈"
-
-#, python-format
-msgid "Revisions of %(title)s"
-msgstr "%(title)s 的修訂"
-
-msgid "Revisions of"
-msgstr "修訂"
-
-msgid "Revision date"
-msgstr "修訂時間"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "修訂人"
-
-msgid "Scheduled for"
-msgstr "定時發佈"
-
-msgid "No revisions of this page exist"
-msgstr "當前頁面沒有修訂記錄"
-
-msgid "No revision of this page exist"
-msgstr "當前頁面沒有修訂記錄"
 
 #, python-format
 msgid ""
@@ -1547,9 +1519,11 @@ msgstr "新增一個集合"
 msgid "Add collection"
 msgstr "新增集合"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "集合 '{0}' 已創建"
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "集合 '{0}' 已更新"
 
@@ -1559,6 +1533,7 @@ msgstr "無法保存集合，出現錯誤。"
 msgid "Delete collection"
 msgstr "刪除集合"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "集合 '{0}' 已刪除"
 
@@ -1568,9 +1543,11 @@ msgstr "確定刪除此集合？"
 msgid "Editing"
 msgstr "正在編輯"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "頁面 '{0}' 和 {1} 個子頁面已複製。"
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "頁面'{0}'已複製。"
 
@@ -1580,27 +1557,33 @@ msgstr "查看草稿"
 msgid "View live"
 msgstr "即時查看"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "頁面'{0}'已創建"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "頁面 {0} 已創建並計劃發佈中。"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "頁面'{0}'已創建並發佈。"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "頁面 '{0}' 已創建並提交審核。"
 
 msgid "The page could not be created due to validation errors"
 msgstr "驗證錯誤，頁面無法創建。"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "頁面'{0}'已刪除"
 
 msgid "This page is currently awaiting moderation"
 msgstr "頁面等待審核中"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "頁面 '{0}' 已被更新。"
 
@@ -1610,18 +1593,23 @@ msgstr "此頁面目前等待審核中"
 msgid "Only reviewers for this task can edit the page."
 msgstr "儘此作業之審核者可編輯此頁面"
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "已取消頁面 '{0}' 之工作流程"
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "頁面 {0} 已預定發佈時間。"
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "頁面 '{0}' 已經發佈。"
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "頁面 '{0}' 已提交審核。"
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "已重啟頁面  '{0}' 之工作流程"
 
@@ -1631,24 +1619,29 @@ msgstr "頁面無法保存，已被鎖定。"
 msgid "The page could not be saved due to validation errors"
 msgstr "頁面無法保存。出現驗證錯誤。"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "頁面 '{0}'已解鎖。"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "頁面 '{0}'目前不在等待審核。"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "頁面'{0}'已發佈"
 
 msgid "Failed to send approval notifications"
 msgstr "發送批準通知失敗。"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "頁面 '{0}'審核失敗"
 
 msgid "Failed to send rejection notifications"
 msgstr "發送駁回通知失敗。"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "頁面 '{0}' 已移動。"
 
@@ -1658,9 +1651,11 @@ msgstr "最早的"
 msgid "Latest"
 msgstr "最近的"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr " \"{1}\"的修訂版本{0}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "頁面'{0}'已取消發佈。"
 
@@ -1703,12 +1698,14 @@ msgstr "增加工作流程"
 msgid "New workflow"
 msgstr "新增工作流程"
 
+#, python-brace-format
 msgid "Workflow '{0}' created."
 msgstr "已建立工作流程 '{0}'"
 
 msgid "Editing workflow"
 msgstr "編輯工作流程"
 
+#, python-brace-format
 msgid "Workflow '{0}' updated."
 msgstr "已更新流程 '{0}'"
 
@@ -1721,24 +1718,29 @@ msgstr "啟用"
 msgid "Disable workflow"
 msgstr "禁用工作流程"
 
+#, python-brace-format
 msgid "Workflow '{0}' disabled."
 msgstr "已禁用工作流程 '{0}'"
 
+#, python-brace-format
 msgid "Workflow '{0}' enabled."
 msgstr "已啟用流程 '{0}'"
 
+#, python-brace-format
 msgid "Workflow removed from Page '{0}'."
 msgstr "已移除頁面 '{0}' 之工作流程"
 
 msgid "New workflow task"
 msgstr "新增工作流程作業"
 
+#, python-brace-format
 msgid "Task '{0}' created."
 msgstr "已建立作業 '{0}'"
 
 msgid "Editing workflow task"
 msgstr "編輯工作流程作業"
 
+#, python-brace-format
 msgid "Task '{0}' updated."
 msgstr "已更新作業 '{0}'"
 
@@ -1749,14 +1751,13 @@ msgstr "編輯 %(task_type)s"
 msgid "Disable task"
 msgstr "禁用作業"
 
+#, python-brace-format
 msgid "Task '{0}' disabled."
 msgstr "已禁用作業 '{0}'"
 
+#, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "已啟用作業 '{0}'"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "將此錯誤報告給你的網路管理員，包含如下信息："
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1765,6 +1766,9 @@ msgstr "編輯 '%(title)s'"
 #, python-format
 msgid "Preview draft version of '%(title)s'"
 msgstr "預覽草稿版本 '%(title)s'"
+
+msgid "Add child page"
+msgstr "新增子頁面"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

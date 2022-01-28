@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
@@ -66,13 +66,6 @@ msgstr "Lae, Labele hamoos"
 msgid "Search"
 msgstr "Buka"
 
-msgid "Title"
-msgstr "Titlu"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "1%(time_period)s liuba"
-
 msgid "Change document:"
 msgstr "Troka dokumentu"
 
@@ -105,6 +98,13 @@ msgstr "Uza"
 msgid "Documents"
 msgstr "Dokumentu sira"
 
+msgid "Title"
+msgstr "Titlu"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "1%(time_period)s liuba"
+
 #, python-format
 msgid "Usage of %(title)s"
 msgstr "%(title)s uza iha nee"
@@ -133,6 +133,7 @@ msgstr "Servidor erru"
 msgid "Search documents"
 msgstr "Buka documentu"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dkumentu '{0}' hatama ona"
 

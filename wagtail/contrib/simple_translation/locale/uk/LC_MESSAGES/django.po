@@ -5,16 +5,17 @@
 #
 # Translators:
 # Anastasiia La, 2021
-# Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021
+# d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 <5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Yuri Fabirovsky <yfabirovsky@gmail.com>, 2021\n"
+"Last-Translator: d55ee35323c0c760f088259cd23b1b6d_9e8a7d1 "
+"<5459f3ae99ecdd5ed0be0220acd46004_1019581>, 2021\n"
 "Language-Team: Ukrainian (https://www.transifex.com/torchbox/teams/8009/"
 "uk/)\n"
 "MIME-Version: 1.0\n"
@@ -76,12 +77,15 @@ msgstr "{} локалі"
 msgid "Translate page"
 msgstr "Перекласти сторінку"
 
+#, python-brace-format
 msgid "The page '{page_title}' was successfully created in {locales}"
 msgstr "Сторінка '{page_title}' була успішно створена в {locales}"
 
+#, python-brace-format
 msgid "Translate {model_name}"
 msgstr "Перекласти {model_name}"
 
+#, python-brace-format
 msgid "Successfully created {locales} for {model_name} '{object}'"
 msgstr "Успішно створено {locales} для {model_name} '{object}'"
 

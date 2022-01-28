@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Korean (http://www.transifex.com/torchbox/wagtail/language/"
@@ -48,9 +48,11 @@ msgstr "기본값"
 msgid "Add site"
 msgstr "사이트 추가"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "'{0}' 사이트를 생성했습니다."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "'{0}' 사이트를 수정했습니다."
 
@@ -60,6 +62,7 @@ msgstr "에러로 인해 사이트를 저장하지 못했습니다."
 msgid "Delete site"
 msgstr "사이트 삭제"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "'{0}' 사이트를 삭제했습니다."
 

@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -249,6 +249,7 @@ msgstr "Molimo odaberite barem jednu grupu"
 msgid "All types"
 msgstr "Sve vrste"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Ovoj stranici je već prirdružen tijek rada '{0}'."
 
@@ -326,9 +327,11 @@ msgstr "Nedostaje dokument"
 msgid "Close"
 msgstr "Zatvori"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Uredi '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Pogledaj djecu stranice '{title}'"
 
@@ -423,12 +426,6 @@ msgstr "Ponovno postavljanje lozinke"
 
 msgid "Reset your password"
 msgstr "Ponovno postavite vašu lozinku"
-
-msgid "Menu"
-msgstr "Izbornik"
-
-msgid "Explorer"
-msgstr "Pretraživač"
 
 msgid "Internal link"
 msgstr "Unutarnja poveznica"
@@ -1282,25 +1279,6 @@ msgid "No, don't unschedule"
 msgstr "Ne, nemoj otkazati"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revizije %(title)s"
-
-msgid "Revisions of"
-msgstr "Revizije"
-
-msgid "Revision date"
-msgstr "Datum revizije"
-
-msgid "Scheduled for"
-msgstr "Zakazano za"
-
-msgid "No revisions of this page exist"
-msgstr "Revizije za ovu stranicu ne postoje"
-
-msgid "No revision of this page exist"
-msgstr "Revizija za ovu stranicu ne postoji"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1394,6 +1372,9 @@ msgstr "Odobren zadatak"
 msgid "Incomplete task"
 msgstr "Nepotpun zadatak"
 
+msgid "No pages found."
+msgstr "Nema pronađenih stranica."
+
 msgid "Download XLSX"
 msgstr "Preuzmi XLSX"
 
@@ -1405,9 +1386,6 @@ msgstr "Filter"
 
 msgid "Apply filters"
 msgstr "Primjeni filtere"
-
-msgid "No pages found."
-msgstr "Nema pronađenih stranica."
 
 msgid "Locking status"
 msgstr "Status zaključavanja"
@@ -1747,9 +1725,11 @@ msgstr "Dodaj zbirku"
 msgid "Add collection"
 msgstr "Dodaj zbirku"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Zbirka '{0}' je stvorena."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Zbirka '{0}' je ažurirana."
 
@@ -1759,6 +1739,7 @@ msgstr "Nije moguće sačuvati zbirku zbog grešaka."
 msgid "Delete collection"
 msgstr "Izbriši zbirku"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Zbirka '{0}' je izbrisana."
 
@@ -1768,9 +1749,11 @@ msgstr "Jeste li sigurni da želite izbrisati zbirku?"
 msgid "Editing"
 msgstr "Uređivanje"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stranica '{0}' i podstranice '{1}' su kopirane."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stranica '{0}' je kopirana."
 
@@ -1780,24 +1763,30 @@ msgstr "Pogledaj skicu"
 msgid "View live"
 msgstr "Pogledaj uživo"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stranica '{0}' je stvorena."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stranica '{0}' je stvorena i zakazano joj je objavljivanje."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stranica '{0}' je stvorena i objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stranica '{0}' je stvorena i poslana na moderiranje."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Nije moguće stvoriti stranicu zbog grešaka"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stranica '{0}' je izbrisana."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stanica '{0}' je ažurirana."
 
@@ -1816,27 +1805,34 @@ msgstr "<b>Stranica '{}' je zaključana</b>."
 msgid "This page is awaiting <b>'{}'</b> in the <b>'{}'</b> workflow."
 msgstr "Ova stranica čeka <b>'{}'</b> u tijeku rada <b>'{}'</b>."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Tijek rada na stranici '{0}' je otkazan."
 
+#, python-brace-format
 msgid "Page '{0}' is live and this version has been scheduled for publishing."
 msgstr "Stranica '{0}' postoji uživo i ovoj verziji je zakazano objavljivanje."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stranici '{0}' je zakazano objavljivanje."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stranica '{0}' je objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stranica '{0}' je poslana na moderiranje."
 
 msgid "The page could not be saved as it is locked"
 msgstr "Nije moguće sačuvati stranicu budući da je zaključana"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stranica '{0}' je otključana."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stranica '{0}' je objavljena."
 
@@ -1846,6 +1842,7 @@ msgstr "Neuspjelo slanje obavijesti odobrenja"
 msgid "Failed to send rejection notifications"
 msgstr "Neuspjelo slanje odbijenica"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stranica '{0}' je premještena."
 
@@ -1863,12 +1860,15 @@ msgstr "Najranije"
 msgid "Latest"
 msgstr "Najnovije"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revizija {0} od \"{1}\""
 
+#, python-brace-format
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Verzija {0} od \"{1}\" je otkazana."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stranica '{0}' je odjavljena."
 
@@ -1914,12 +1914,14 @@ msgstr "Dodaj tijek rada"
 msgid "New workflow"
 msgstr "Novi tijek rada"
 
+#, python-brace-format
 msgid "Workflow '{0}' created."
 msgstr "Tijek rada '{0}' je stvoren."
 
 msgid "Editing workflow"
 msgstr "Uređivanje tijeka rada"
 
+#, python-brace-format
 msgid "Workflow '{0}' updated."
 msgstr "Tijek rada '{0}' je ažuriran."
 
@@ -1932,6 +1934,7 @@ msgstr "Omogući"
 msgid "Disable workflow"
 msgstr "Onemogući tijek rada"
 
+#, python-brace-format
 msgid "Workflow '{0}' disabled."
 msgstr "Tijek rada '{0}' je onemogućen."
 
@@ -1952,18 +1955,21 @@ msgstr[2] ""
 "%(states_in_progress)d stranica je u ovome tijeku rada. Onemogućivanje ovog "
 "tijeka će otkazati moderaciju na tim stranicama."
 
+#, python-brace-format
 msgid "Workflow '{0}' enabled."
 msgstr "Tijek rada '{0}' je omogućen."
 
 msgid "New workflow task"
 msgstr "Novi zadatak tijeka rada"
 
+#, python-brace-format
 msgid "Task '{0}' created."
 msgstr "Zadatak '{0}' je stvoren."
 
 msgid "Editing workflow task"
 msgstr "Uređivanje zadatak tijeka rada"
 
+#, python-brace-format
 msgid "Task '{0}' updated."
 msgstr "Zadatak '{0}' je ažuriran."
 
@@ -1974,14 +1980,13 @@ msgstr "Uređivanje %(task_type)s"
 msgid "Disable task"
 msgstr "Onemogući zadatak"
 
+#, python-brace-format
 msgid "Task '{0}' disabled."
 msgstr "Zadatak '{0}' je onemogućen."
 
+#, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Zadatak '{0}' je omogućen."
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Prijavite ovu grešku vašem webmasteru sa slijedećim informacijama:"
 
 #, python-format
 msgid "Edit '%(title)s'"

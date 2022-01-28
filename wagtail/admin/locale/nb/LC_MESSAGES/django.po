@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Stein Strindhaug <stein.strindhaug@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/torchbox/wagtail/"
 "language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -276,9 +276,11 @@ msgstr "Manglende dokument"
 msgid "Close"
 msgstr "Lukk"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Endre '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Vis undersider av «{title}»"
 
@@ -366,12 +368,6 @@ msgstr "Passordnullstilling"
 
 msgid "Reset your password"
 msgstr "Nullstill ditt passord"
-
-msgid "Menu"
-msgstr "Meny"
-
-msgid "Explorer"
-msgstr "Utforsker"
 
 msgid "Internal link"
 msgstr "Intern lenke"
@@ -935,9 +931,6 @@ msgstr "Utforsk undersider av \"%(title)s\""
 msgid "Add a child page to '%(title)s'"
 msgstr "Legg en underside til \"%(title)s\""
 
-msgid "Add child page"
-msgstr "Legg til underside"
-
 msgid "Sites menu"
 msgstr "Nettsteder-meny"
 
@@ -1074,29 +1067,6 @@ msgid "No, don't unschedule"
 msgstr "Nei, ikke avbryt"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revisjoner av %(title)s"
-
-msgid "Revisions of"
-msgstr "Revisjoner av"
-
-msgid "Revision date"
-msgstr "Revisjonsdato"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "av"
-
-msgid "Scheduled for"
-msgstr "Planlagt publisert"
-
-msgid "No revisions of this page exist"
-msgstr "Det finnes ingen revisjoner av denne siden"
-
-msgid "No revision of this page exist"
-msgstr "Det finnes ingen revisjoner av denne siden"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1123,6 +1093,9 @@ msgstr "Skriv inn en søkestreng over"
 msgid "No pages use"
 msgstr "Ingen sider bruker"
 
+msgid "No pages found."
+msgstr "Ingen sider funnet."
+
 msgid "No pages match this report's criteria."
 msgstr "Ingen sider passer med denne rapportens kriterier."
 
@@ -1134,9 +1107,6 @@ msgstr "Last ned CSV"
 
 msgid "Filter"
 msgstr "Filter"
-
-msgid "No pages found."
-msgstr "Ingen sider funnet."
 
 msgid "Locking status"
 msgstr "Låsestatus"
@@ -1278,9 +1248,11 @@ msgstr "Legg til en samling"
 msgid "Add collection"
 msgstr "Legg til samling"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Samlingen \"{0}\" er opprettet."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Samlingen \"{0}\" er oppdatert."
 
@@ -1290,6 +1262,7 @@ msgstr "Samlingen kunne ikke lagres grunnet feil."
 msgid "Delete collection"
 msgstr "Slett samlingen"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Samlingen \"{0}\" er slettet."
 
@@ -1299,9 +1272,11 @@ msgstr "Er du sikker på at du vil slette denne samlingen?"
 msgid "Editing"
 msgstr "Redigerer"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Siden \"{0}\" og {1} undersider kopiert."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Siden \"{0}\" kopiert."
 
@@ -1311,27 +1286,33 @@ msgstr "Vis kladd"
 msgid "View live"
 msgstr "Vis publisert"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Siden \"{0}\" er opprettet."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Siden \"{0}\" er opprettet og planlagt for publisering."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Siden \"{0}\" er opprettet og publisert."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Siden \"{0}\" er opprettet og sendt til godkjenning."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Siden kunne ikke opprettes grunnet valideringsfeil."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Siden \"{0}\" er slettet."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Denne siden påventer godkjenning"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Siden \"{0}\" er oppdatert."
 
@@ -1347,12 +1328,15 @@ msgstr "<b>Siden '{}' ble låst</b> av <b>{}</b> den <b>{}</b>."
 msgid "<b>Page '{}' is locked</b>."
 msgstr "<b>Siden '{}' er låst</b>."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Siden \"{0}\" er planlagt for publisering."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Siden \"{0}\" er publisert."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Siden \"{0}\" er sendt til godkjenning."
 
@@ -1362,24 +1346,29 @@ msgstr "Siden kunne ikke lagres fordi den er låst"
 msgid "The page could not be saved due to validation errors"
 msgstr "Siden kunne ikke lagres grunnet valideringsfeil"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Siden \"{0}\" er nå ulåst."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Siden \"{0}\" påventer ikke godkjenning."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Siden \"{0}\" er publisert."
 
 msgid "Failed to send approval notifications"
 msgstr "Klarte ikke å sende varsel om godkjenninger"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Siden \"{0}\" ble avvist for publikasjon."
 
 msgid "Failed to send rejection notifications"
 msgstr "Klarte ikke å sende varsel om avvisninger"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -1387,6 +1376,7 @@ msgstr ""
 "Permalenken '{0}' finnes allerede under den valgte foreldersiden. Sørg for "
 "at permalenken er unik og prøv igjen"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Siden \"{0}\" er flyttet."
 
@@ -1396,14 +1386,13 @@ msgstr "Tidligste"
 msgid "Latest"
 msgstr "Siste"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revisjon {0} av \"{1}\""
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Siden \"{0}\" er avpublisert."
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Rapporter denne feilen til de webansvarlige med følgende info:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -1416,6 +1405,9 @@ msgstr "Forhåndsvis kladd av «%(title)s»"
 #, python-format
 msgid "View live version of '%(title)s'"
 msgstr "Vis publisert versjon av  «%(title)s»"
+
+msgid "Add child page"
+msgstr "Legg til underside"
 
 #, python-format
 msgid "Add a child page to '%(title)s' "

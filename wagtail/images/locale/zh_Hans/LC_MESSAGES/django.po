@@ -5,6 +5,7 @@
 # Translators:
 # hanfeng <appweb.cn@gmail.com>, 2014-2015
 # Ed <724195301@qq.com>, 2018
+# Favo Yang <favoyang@gmail.com>, 2022
 # Feng Wang <wangfeng.w@gmail.com>, 2015
 # First Last <abc+github@mynook.info>, 2019
 # Yin Guanhao <sopium@mysterious.site>, 2020
@@ -15,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-04 01:38+0000\n"
-"Last-Translator: 汇民 王 <whuim@qq.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 15:32+0000\n"
+"Last-Translator: Favo Yang <favoyang@gmail.com>\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/torchbox/wagtail/"
 "language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -297,6 +298,18 @@ msgstr "保存"
 msgid "Delete image"
 msgstr "删除图片"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"删除这些图像？"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "编辑图片%(title)s"
@@ -439,8 +452,10 @@ msgstr "对不起啊，上传失败。"
 msgid "Server Error"
 msgstr "服务器错误"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "将此错误报告给你的网站管理员，包含如下信息："
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "向系统管理员报告错误并提供以下信息："
 
 msgid "Image updated."
 msgstr "图片已更新。"
@@ -487,6 +502,7 @@ msgstr[0] "已删除%(num_parent_objects)d个图片"
 msgid "Search images"
 msgstr "搜索图片"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "图片 '{0}' 已更新。"
 
@@ -501,9 +517,11 @@ msgid ""
 "the image."
 msgstr "无法找到图片源文件。请修改源文件或者删除图片。"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "图片'{0}' 已删除。"
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "图片'{0}'已添加"
 

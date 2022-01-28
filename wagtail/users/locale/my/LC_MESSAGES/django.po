@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Burmese (http://www.transifex.com/torchbox/wagtail/language/"
@@ -155,21 +155,25 @@ msgstr "အဖွဲ့များ"
 msgid "Search groups"
 msgstr "အဖွဲ့များကို ရှာပါ"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}'အဖွဲ့ကို ဖန်တီးပြီးပါပြီ။"
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "'{0}'အဖွဲ့ကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The group could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အဖွဲ့ကို မသိမ်းဆည်းနိုင်ပါ။"
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "'{0}'အဖွဲ့ကို ဖျက်သိမ်းပြီးပါပြီ။"
 
 msgid "Search users"
 msgstr "အသုံးပြုသူများကို ရှာပါ"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "'{0}'အသုံးပြုသူကို ဖန်တီးပြီးပါပြီ။"
 
@@ -179,12 +183,14 @@ msgstr "ပြင်ဆင်ပါ"
 msgid "The user could not be created due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မဖန်တီးနိုင်ပါ။"
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "'{0}'အသုံးပြုသူကို မြှင့်တင်ပြီးပါပြီ။"
 
 msgid "The user could not be saved due to errors."
 msgstr "အမှားအယွင်းများကြောင့် အသုံးပြုသူကို မသိမ်းဆည်းနိုင်ပါ။"
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}'အသုံးပြုသူကို ဖျက်သိမ်းပြီးပါပြီ။"
 

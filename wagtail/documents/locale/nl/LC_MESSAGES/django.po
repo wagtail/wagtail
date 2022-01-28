@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 18:07+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 18:27+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -183,19 +183,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Nieuwste documenten"
 
-msgid "Title"
-msgstr "Titel"
-
-msgid "File"
-msgstr "File"
-
-msgid "Created"
-msgstr "Aangemaakt"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s geleden"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -263,8 +250,21 @@ msgstr "Documenten"
 msgid "Select all documents in listing"
 msgstr "Selecteer alle documenten in lijst"
 
+msgid "Title"
+msgstr "Titel"
+
+msgid "File"
+msgstr "File"
+
+msgid "Created"
+msgstr "Aangemaakt"
+
 msgid "Select document"
 msgstr "Selecteer document"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s geleden"
 
 #, python-format
 msgid ""
@@ -402,19 +402,22 @@ msgstr[1] "%(num_parent_objects)d documenten zijn verwijderd"
 msgid "Server Error"
 msgstr "Server Error"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Rapporteer deze foutmelding aan uw webmaster met de volgende informatie:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Meld deze fout aan uw websitebeheerder, en vermeld het volgende:"
 
 msgid "Search documents"
 msgstr "Zoek documenten"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' toegevoegd."
 
 msgid "The document could not be saved due to errors."
 msgstr "Het document kon vanwege fouten niet worden opgeslagen."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' is bijgewerkt"
 
@@ -424,6 +427,7 @@ msgstr ""
 "Het bestand kon niet worden gevonden. Kies een ander bronbestand of "
 "verwijder het document."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' verwijderd."
 

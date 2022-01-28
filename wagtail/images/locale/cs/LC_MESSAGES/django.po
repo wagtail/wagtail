@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Czech (http://www.transifex.com/torchbox/wagtail/language/"
 "cs/)\n"
@@ -411,9 +411,6 @@ msgstr "Nahrání obrázků na server selhalo."
 msgid "Server Error"
 msgstr "Chyba serveru"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahlašte tuto chybu správci serveru s následujícími informacemi:"
-
 msgid "Image updated."
 msgstr "Obrázek aktualizován."
 
@@ -429,6 +426,7 @@ msgstr "Smazat"
 msgid "Search images"
 msgstr "Hledat obrázky"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Obrázek '{0}' byl upraven."
 
@@ -445,9 +443,11 @@ msgstr ""
 "Zdrojový soubor obrázku není možné nalézt. Prosím změňte zdroj nebo obrázek "
 "smažte."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Obrázek '{0}' byl smazán."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Obrázek '{0}' byl přidán."
 

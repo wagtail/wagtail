@@ -4,13 +4,13 @@
 #
 # Translators:
 # Bogdan Mateescu, 2019
-# Dan Braghis, 2014-2021
+# Dan Braghis, 2014-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-11-03 20:12+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 16:22+0000\n"
 "Last-Translator: Dan Braghis\n"
 "Language-Team: Romanian (http://www.transifex.com/torchbox/wagtail/language/"
 "ro/)\n"
@@ -191,19 +191,6 @@ msgstr[2] ""
 msgid "Latest documents"
 msgstr "Documente recente"
 
-msgid "Title"
-msgstr "Titlu"
-
-msgid "File"
-msgstr "Fișier"
-
-msgid "Created"
-msgstr "Creat la"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s în urmă"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -272,8 +259,21 @@ msgstr "Documente"
 msgid "Select all documents in listing"
 msgstr "Selectează toate documentele din listă"
 
+msgid "Title"
+msgstr "Titlu"
+
+msgid "File"
+msgstr "Fișier"
+
+msgid "Created"
+msgstr "Creat la"
+
 msgid "Select document"
 msgstr "Selecteaă document"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s în urmă"
 
 #, python-format
 msgid ""
@@ -420,18 +420,24 @@ msgstr[2] "%(num_parent_objects)d documente au fost șterse"
 msgid "Server Error"
 msgstr "Eroare de server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Raportează această eroare webmasterului cu următoarele informații:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Raportează această eroare admistratorului site-ului cu următoarele "
+"informații:"
 
 msgid "Search documents"
 msgstr "Caută documente"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Documentul '{0}' a fost adăugat."
 
 msgid "The document could not be saved due to errors."
 msgstr "Documentul nu a fost salvat din cauza erorilor."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Documentul '{0}' a fost actualizat."
 
@@ -439,6 +445,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Fișierul nu a fost găsit. Schimbă sursa sau sterge documentul"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Documentul '{0}' a fost șters."
 

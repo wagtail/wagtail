@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Mariano de Deus <dedeus_mariano@yahoo.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -266,9 +266,11 @@ msgstr "Dokumentu lakon"
 msgid "Close"
 msgstr "Taka"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr " Edit '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Haree pajina oan sira husi '{title}'"
 
@@ -352,12 +354,6 @@ msgstr "Seña muda"
 
 msgid "Reset your password"
 msgstr "Muda ita nia Seña "
-
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Explora"
 
 msgid "Internal link"
 msgstr "Ligasaun interna"
@@ -882,9 +878,6 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 msgid "Add a child page to '%(title)s'"
 msgstr "Aumenta pajina iha '%(title)s' okos"
 
-msgid "Add child page"
-msgstr "Aumenta pajina iha okos"
-
 msgid "Sites menu"
 msgstr "Munu situs"
 
@@ -1003,29 +996,6 @@ msgid "No, don't unschedule"
 msgstr "Lae, la hamoos"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revizaun husi %(title)s"
-
-msgid "Revisions of"
-msgstr "Revizaun husi"
-
-msgid "Revision date"
-msgstr "Revisaun data"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "husi"
-
-msgid "Scheduled for"
-msgstr "Orariu ba"
-
-msgid "No revisions of this page exist"
-msgstr "Laiha revizaun ba pajina nee"
-
-msgid "No revision of this page exist"
-msgstr "Laiha revizaun ba pajina nee"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1121,9 +1091,11 @@ msgstr "Hatama Koleksaun"
 msgid "Add collection"
 msgstr "Hatama Koleksaun"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Koleksaun '{0}' kria ona."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Koleksaun '{0}' hadia ona."
 
@@ -1133,6 +1105,7 @@ msgstr "Koleksaun iha erru, labele rai"
 msgid "Delete collection"
 msgstr "Hamoos Koleksaun"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Koleksaun '{0}' hamoos ona."
 
@@ -1145,11 +1118,16 @@ msgstr "Hadia hela"
 msgid "View live"
 msgstr "Haree iha situ"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."
 
 msgid "Latest"
 msgstr " Mak tardi liu"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr " revizaun {0} hosi \"{1}\""
+
+msgid "Add child page"
+msgstr "Aumenta pajina iha okos"
