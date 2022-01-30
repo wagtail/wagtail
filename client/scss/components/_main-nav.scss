@@ -515,7 +515,7 @@ body.explorer-open {
 
 // Avoiding a stacking context for the content-wrapper saves us a world
 // of pain when dealing with overlays that are appended to the end of
-// <body>, eg Hallo & calendars. As long as content-wrapper remains floated,
+// <body>, e.g. calendars. As long as content-wrapper remains floated,
 // the z-index shouldn't be required.
 
 // .content-wrapper {

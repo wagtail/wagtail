@@ -243,16 +243,6 @@
     }
   }
 
-  .halloeditor {
-    padding-top: 1em; // to provide space for editor buttons
-    padding-bottom: 1em;
-
-    &.expanded {
-      padding-top: 5em; // to provide space for editor buttons
-      padding-bottom: 2em;
-    }
-  }
-
   &.required {
     > .title-wrapper label:after {
       content: '*';
@@ -276,16 +266,6 @@
       padding: 0;
     }
 
-    .halloeditor {
-      padding-top: 3em; // to provide space for editor buttons
-      padding-bottom: 3em;
-
-      &.expanded {
-        padding-top: 5em; // to provide space for editor buttons
-        padding-bottom: 5em;
-      }
-    }
-
     .error-message {
       @include nice-padding();
       padding-bottom: 2em;
@@ -293,8 +273,7 @@
 
     .error,
     .error input:not([type='submit']),
-    .error textarea,
-    .error .halloeditor {
+    .error textarea {
       background-color: $color-input-error-bg;
     }
   }
@@ -431,8 +410,7 @@
 // Custom styles that make some fields look more important
 .full {
   input:not([type='submit']),
-  textarea,
-  .halloeditor {
+  textarea {
     @include nice-padding;
     border-radius: 0;
     padding-top: 1.5em;
@@ -444,8 +422,7 @@
 
 .title {
   input:not([type='submit']),
-  textarea,
-  .halloeditor {
+  textarea {
     font-size: 2em;
     font-family: $font-sans;
   }
@@ -564,8 +541,7 @@ footer .preview {
       }
 
       input:not([type='submit']),
-      textarea,
-      .halloeditor {
+      textarea {
         border-width: 0 1px;
       }
 
