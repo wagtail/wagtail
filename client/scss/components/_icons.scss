@@ -23,27 +23,13 @@
 }
 
 .icon:before,
-.icon:after,
-.hallotoolbar [class^='icon-'],
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class^='icon-']:before {
+.icon:after {
   @include icon(); // from _mixins.scss
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
-.icon:after,
-.hallotoolbar [class^='icon-']:after,
-.hallotoolbar [class^='icon-']:after {
+.icon:after {
   text-align: right;
-}
-
-// stylelint-disable-next-line no-duplicate-selectors
-.hallotoolbar [class^='icon-'],
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class*=' icon-']:before,
-.hallotoolbar [class^='icon-']:before {
-  vertical-align: -10%;
-  margin-right: 0;
 }
 
 // =============================================================================

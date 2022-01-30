@@ -182,15 +182,6 @@ module.exports = function exports(env, argv) {
     'panels',
     'draftail.scss',
   );
-  sassEntry[getOutputPath('admin', 'css', 'panels/hallo')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'panels',
-    'hallo.scss',
-  );
   sassEntry[getOutputPath('admin', 'css', 'panels/streamfield')] = path.resolve(
     'wagtail',
     'admin',
