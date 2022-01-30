@@ -193,24 +193,6 @@ window.telepath.register(
   DraftailRichTextArea,
 );
 
-class BoundHalloRichTextArea extends BoundWidget {
-  setState(state) {
-    this.input.val(state);
-    this.input.siblings('[data-hallo-editor]').html(state);
-  }
-  focus() {
-    /* not implemented (leave blank so we don't try to focus the hidden field) */
-  }
-}
-
-class HalloRichTextArea extends Widget {
-  boundWidgetClass = BoundHalloRichTextArea;
-}
-window.telepath.register(
-  'wagtail.widgets.HalloRichTextArea',
-  HalloRichTextArea,
-);
-
 class BaseDateTimeWidget extends Widget {
   constructor(options) {
     this.options = options;

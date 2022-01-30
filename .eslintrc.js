@@ -119,7 +119,6 @@ module.exports = {
         buildExpandingFormset: 'readonly',
         cancelSpinner: 'readonly',
         escapeHtml: 'readonly',
-        insertRichTextDeleteControl: 'readonly',
         jQuery: 'readonly',
         jsonData: 'readonly',
         ModalWorkflow: 'readonly',
