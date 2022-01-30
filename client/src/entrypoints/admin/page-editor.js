@@ -1,17 +1,6 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/cleanForSlug';
 
-window.halloPlugins = {};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function registerHalloPlugin(name, opts) {
-  // lgtm[js/unused-local-variable]
-  /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
-  Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
-  compatibility, without throwing an error on later versions. */
-}
-window.registerHalloPlugin = registerHalloPlugin;
-
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
   const self = {};
