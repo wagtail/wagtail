@@ -32,7 +32,7 @@ jobs:
 
   frontend:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
     steps:
       - checkout
       - restore_cache:
@@ -109,11 +109,9 @@ jobs:
 
   nightly-build:
     docker:
-      - image: cimg/python:3.8.11
+      - image: cimg/python:3.8.11-node
     steps:
       - checkout
-      - run: cd ~ && wget https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.gz
-      - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v14.17.5-linux-x64.tar.gz
       - run: pip install --user wheel boto3
       - run: npm install
       - run: npm run build
