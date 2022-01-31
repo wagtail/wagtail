@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
 import { Provider } from 'react-redux';
 
-import { IS_IE11, STRINGS } from '../../config/wagtailConfig';
+import { STRINGS } from '../../config/wagtailConfig';
 
 import Icon from '../Icon/Icon';
 
@@ -115,8 +115,7 @@ const initEditor = (selector, options, currentScript) => {
     showUndoControl: { description: STRINGS.UNDO },
     showRedoControl: { description: STRINGS.REDO },
     maxListNesting: 4,
-    // Draft.js + IE 11 presents some issues with pasting rich text. Disable rich paste there.
-    stripPastedStyles: IS_IE11,
+    stripPastedStyles: false,
     ...options,
     blockTypes: blockTypes.map(wrapWagtailIcon),
     inlineStyles: inlineStyles.map(wrapWagtailIcon),
