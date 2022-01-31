@@ -4,9 +4,10 @@ root = true
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
-
-[*.{css,js,json,py,yml,rst,md}]
 indent_style = space
+
+[Makefile]
+indent_style = tab
 
 [*.{js,py}]
 charset = utf-8
