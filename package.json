@@ -95,7 +95,6 @@
     "focus-trap-react": "^8.4.2",
     "immer": "^9.0.6",
     "js-cookie": "^2.2.1",
-    "postcss-calc": "^7.0.5",
     "prop-types": "^15.6.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
