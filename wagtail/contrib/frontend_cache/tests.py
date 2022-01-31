@@ -153,7 +153,7 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['azure_cdn'], AzureCdnBackend)
 
         # purge()
-        backends['azure_cdn'].purge('http://www.wagtail.io/home/events/christmas/?test=1')
+        backends['azure_cdn'].purge('http://www.wagtail.org/home/events/christmas/?test=1')
         make_purge_call_mock.assert_called_once()
         call_args = tuple(make_purge_call_mock.call_args)[0]
         self.assertEqual(len(call_args), 2)
@@ -163,7 +163,7 @@ class TestBackendConfiguration(TestCase):
 
         # purge_batch()
         backends['azure_cdn'].purge_batch([
-            'http://www.wagtail.io/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
+            'http://www.wagtail.org/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
         ])
         make_purge_call_mock.assert_called_once()
         call_args = tuple(make_purge_call_mock.call_args)[0]
@@ -185,7 +185,7 @@ class TestBackendConfiguration(TestCase):
         self.assertIsInstance(backends['azure_front_door'], AzureFrontDoorBackend)
 
         # purge()
-        backends['azure_front_door'].purge('http://www.wagtail.io/home/events/christmas/?test=1')
+        backends['azure_front_door'].purge('http://www.wagtail.org/home/events/christmas/?test=1')
         make_purge_call_mock.assert_called_once()
         call_args = tuple(make_purge_call_mock.call_args)[0]
         self.assertIsInstance(call_args[0], FrontDoorManagementClient)
@@ -195,7 +195,7 @@ class TestBackendConfiguration(TestCase):
 
         # purge_batch()
         backends['azure_front_door'].purge_batch([
-            'http://www.wagtail.io/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
+            'http://www.wagtail.org/home/events/christmas/?test=1', 'http://torchbox.com/blog/'
         ])
         make_purge_call_mock.assert_called_once()
         call_args = tuple(make_purge_call_mock.call_args)[0]
