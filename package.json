@@ -90,7 +90,6 @@
   },
   "dependencies": {
     "core-js": "^2.5.3",
-    "dateformat": "^2.2.0",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
     "draftjs-filters": "^2.5.0",
