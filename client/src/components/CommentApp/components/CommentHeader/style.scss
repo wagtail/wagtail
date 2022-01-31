@@ -40,9 +40,7 @@
     }
 
     > button,
-    > details > summary,
-    .details-fallback > .details-fallback__summary {
-      // IE11 uses divs instead with these classes
+    > details > summary {
       // Hides triangle on Firefox
       list-style-type: none;
       // Hides triangle on Chrome
@@ -54,7 +52,6 @@
       position: relative;
       background-color: unset;
       border: unset;
-      -moz-outline-radius: 10px;
       padding: 0;
       box-sizing: border-box;
 
@@ -71,9 +68,7 @@
       }
     }
 
-    > details,
-    > .details-fallback {
-      // IE11 uses divs instead with these classes
+    > details {
       position: relative;
 
       > div {
@@ -85,9 +80,7 @@
 
     &--more {
       > button,
-      > details > summary,
-      > .details-fallback > .details-fallback__summary {
-        // IE11 uses divs instead with these classes
+      > details > summary {
         color: #767676;
 
         // stylelint-disable-next-line max-nesting-depth
@@ -139,13 +132,4 @@
 .comment--mode-deleting .comment-header,
 .comment-reply--mode-deleting .comment-header {
   opacity: 0.5;
-}
-
-// IE11 only uses these classes
-.details-fallback .comment-header__more-actions {
-  display: none;
-}
-
-.details-fallback--open .comment-header__more-actions {
-  display: block;
 }
