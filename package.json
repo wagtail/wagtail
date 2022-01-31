@@ -89,13 +89,10 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
-    "core-js": "^2.5.3",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
     "draftjs-filters": "^2.5.0",
-    "element-closest": "^2.0.2",
     "focus-trap-react": "^8.4.2",
-    "formdata-polyfill": "^3.0.20",
     "immer": "^9.0.6",
     "js-cookie": "^2.2.1",
     "postcss-calc": "^7.0.5",
@@ -108,9 +105,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "telepath-unpack": "^0.0.3",
-    "url-search-params-polyfill": "^8.1.1",
-    "uuid": "^8.3.2",
-    "whatwg-fetch": "^2.0.3"
+    "uuid": "^8.3.2"
   },
   "scripts": {
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
