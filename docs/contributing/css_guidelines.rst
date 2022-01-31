@@ -6,7 +6,8 @@ Our CSS is written in `Sass <https://sass-lang.com/>`_, using the SCSS syntax.
 Linting and formatting SCSS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
+Wagtail uses `stylelint <https://stylelint.io/>`_ for linting,
+and `Prettier <https://prettier.io/>`_ for formatting.
 You'll need Node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install --no-save``
 
@@ -26,7 +27,13 @@ below, plus a little more.
 Formatting code
 ---------------
 
-If you want to autofix errors, you can run that command directly with:
+For Prettier auto-formatting, run:
+
+.. code-block:: console
+
+    $ npm run format
+
+If you want to autofix linting errors:
 
 .. code-block:: console
 
