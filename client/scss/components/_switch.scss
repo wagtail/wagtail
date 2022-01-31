@@ -77,7 +77,6 @@ $switch-color-middle-grey: #777;
 
   [type='checkbox']:focus + &__toggle {
     outline: $color-focus-outline solid $switch-outline;
-    -moz-outline-radius: $switch-outline-radius;
   }
 
   [type='checkbox'] {
