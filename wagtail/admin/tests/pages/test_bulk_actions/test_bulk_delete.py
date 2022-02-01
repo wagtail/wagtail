@@ -81,7 +81,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         for child_page in self.pages_to_be_deleted:
             # check if the pages to be deleted and number of descendant pages are displayed
             needle = "<li>"
-            needle += '<a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a>'.format(
+            needle += '<a href="{edit_page_url}" target="_blank" rel="noreferrer">{page_title}</a>'.format(
                 edit_page_url=reverse("wagtailadmin_pages:edit", args=[child_page.id]),
                 page_title=child_page.title,
             )

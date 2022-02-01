@@ -978,7 +978,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
         link_to_live = (
-            '<a href="/hello-world/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
+            '<a href="/hello-world/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
             '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        '
             'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         )
@@ -1010,7 +1010,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
 
         link_to_live = (
-            '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noopener noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
+            '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
             '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        '
             'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         )
