@@ -14,12 +14,12 @@ const initSubmenus = () => {
   );
   const activeClass = 'submenu-active';
 
-  [...subMenuTriggers].forEach((subMenuTrigger) => {
+  subMenuTriggers.forEach((subMenuTrigger) => {
     subMenuTrigger.addEventListener('click', (clickEvent) => {
       const submenuContainer = subMenuTrigger.parentNode;
 
       primaryNavContainer.classList.remove(activeClass);
-      [...subMenuTriggers].forEach((sm) => sm.classList.remove(activeClass));
+      subMenuTriggers.forEach((sm) => sm.classList.remove(activeClass));
 
       primaryNavContainer.classList.toggle(activeClass);
       submenuContainer.classList.toggle(activeClass);
@@ -35,8 +35,7 @@ const initSubmenus = () => {
       });
 
       document.addEventListener('keydown', (e) => {
-        // IE11 uses "Esc" instead of "Escape"
-        if (e.key === 'Escape' || e.key === 'Esc') {
+        if (e.key === 'Escape') {
           primaryNavContainer.classList.remove(activeClass);
           submenuContainer.classList.remove(activeClass);
         }
