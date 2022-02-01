@@ -359,11 +359,11 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         expected = """
             <li class="breadcrumb-item home">
                 <a href="/admin/" class="breadcrumb-link">
-                    <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-home home_icon" aria-hidden="true">
                         <use href="#icon-home"></use>
                     </svg>
                     <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -390,11 +390,11 @@ class TestHeaderBreadcrumbs(TestCase, WagtailTestUtils):
         expected = """
             <li class="breadcrumb-item home">
                 <a href="/admin/" class="breadcrumb-link">
-                    <svg class="icon icon-home home_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-home home_icon" aria-hidden="true">
                         <use href="#icon-home"></use>
                     </svg>
                     <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>

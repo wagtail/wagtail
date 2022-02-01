@@ -393,7 +393,7 @@ class TestBreadcrumb(TestCase, WagtailTestUtils):
             """
             <li class="breadcrumb-item">
                 <a class="breadcrumb-link" href="%s"><span class="title">Secret plans (simple page)</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -623,11 +623,11 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         expected = """
             <li class="home breadcrumb-item">
                 <a class="breadcrumb-link" href="/admin/pages/">
-                    <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-site home_icon" aria-hidden="true">
                         <use href="#icon-site"></use>
                     </svg>
                     <span class="visuallyhidden">Root</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -638,7 +638,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
             <li class="breadcrumb-item">
                 <a class="breadcrumb-link" href="/admin/pages/4/">
                     <span class="title">Welcome to example.com!</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -649,7 +649,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
             <li class="breadcrumb-item">
                 <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -666,11 +666,11 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
         expected = """
             <li class="home breadcrumb-item">
                 <a class="breadcrumb-link" href="/admin/pages/4/">
-                    <svg class="icon icon-site home_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-site home_icon" aria-hidden="true">
                         <use href="#icon-site"></use>
                     </svg>
                     <span class="visuallyhidden">Home</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>
@@ -681,7 +681,7 @@ class TestExplorablePageVisibility(TestCase, WagtailTestUtils):
             <li class="breadcrumb-item">
                 <a class="breadcrumb-link" href="/admin/pages/5/">
                     <span class="title">Content</span>
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>

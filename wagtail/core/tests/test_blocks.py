@@ -1887,8 +1887,8 @@ class TestStructBlock(SimpleTestCase):
                 "icon": "placeholder",
                 "classname": "struct-block",
                 "helpIcon": (
-                    '<svg class="icon icon-help default" aria-hidden="true" '
-                    'focusable="false"><use href="#icon-help"></use></svg>'
+                    '<svg class="icon icon-help default" aria-hidden="true">'
+                    '<use href="#icon-help"></use></svg>'
                 ),
                 "helpText": "Self-promotion is encouraged",
             },
@@ -1912,8 +1912,8 @@ class TestStructBlock(SimpleTestCase):
                 "icon": "placeholder",
                 "classname": "struct-block",
                 "helpIcon": (
-                    '<svg class="icon icon-help default" aria-hidden="true" '
-                    'focusable="false"><use href="#icon-help"></use></svg>'
+                    '<svg class="icon icon-help default" aria-hidden="true">'
+                    '<use href="#icon-help"></use></svg>'
                 ),
                 "helpText": "Self-promotion is encouraged",
             },

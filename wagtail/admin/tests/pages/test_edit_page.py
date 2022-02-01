@@ -979,7 +979,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         link_to_live = (
             '<a href="/hello-world/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        '
+            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
             'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
@@ -1011,7 +1011,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         link_to_live = (
             '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true" focusable="false"><use href="#icon-link-external"></use></svg>\n\n        '
+            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
             'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
         )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
@@ -1158,16 +1158,16 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         publish_button = """
             <button type="submit" name="action-publish" value="action-publish" class="button button-longrunning " data-clicked-text="Publishing…">
-                <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-upload"></use></svg>
+                <svg class="icon icon-upload button-longrunning__icon" aria-hidden="true"><use href="#icon-upload"></use></svg>
 
-                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg><em>Publish</em>
+                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg><em>Publish</em>
             </button>
         """
         save_button = """
             <button type="submit" class="button action-save button-longrunning " data-clicked-text="Saving…" >
-                <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true" focusable="false"><use href="#icon-draft"></use></svg>
+                <svg class="icon icon-draft button-longrunning__icon" aria-hidden="true"><use href="#icon-draft"></use></svg>
 
-                <svg class="icon icon-spinner icon" aria-hidden="true" focusable="false"><use href="#icon-spinner"></use></svg>
+                <svg class="icon icon-spinner icon" aria-hidden="true"><use href="#icon-spinner"></use></svg>
                 <em>Save draft</em>
             </button>
         """
