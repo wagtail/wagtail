@@ -99,11 +99,12 @@
   margin-right: 0.2em;
 }
 
-// Applies given rules on hover, except for touch screens.
-// Relies on feature detection to add a no-touch class on the html element.
+// Applies given rules on hover, for devices that support hover.
 @mixin hover {
-  .no-touch &:hover {
-    @content;
+  @media (hover: hover) {
+    a:hover {
+      @content;
+    }
   }
 }
 
