@@ -133,7 +133,7 @@ class TestUserbarAddLink(TestCase, WagtailTestUtils):
         )
         needle = f"""
             <a href="{expected_url}" target="_parent" role="menuitem">
-                <svg class="icon icon-plus wagtail-action-icon" aria-hidden="true" focusable="false">
+                <svg class="icon icon-plus wagtail-action-icon" aria-hidden="true">
                     <use href="#icon-plus"></use>
                 </svg>
                 Add a child page

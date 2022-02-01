@@ -35,7 +35,7 @@ class TestSearchAreas(BaseSearchAreaTestCase):
         search_url = reverse("wagtailadmin_pages:search")
         query = "Hello"
         base_css = "search--custom-class"
-        icon = '<svg class="icon icon-custom filter-options__icon" aria-hidden="true" focusable="false"><use href="#icon-custom"></use></svg>'
+        icon = '<svg class="icon icon-custom filter-options__icon" aria-hidden="true"><use href="#icon-custom"></use></svg>'
         test_string = (
             '<a href="/customsearch/?q=%s" class="%s" is-custom="true">%sMy Search</a>'
         )

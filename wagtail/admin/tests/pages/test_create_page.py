@@ -1028,7 +1028,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertContains(
             response,
             '<button type="submit" name="action-submit" value="Submit for moderation" class="button">'
-            '<svg class="icon icon-resubmit icon" aria-hidden="true" focusable="false"><use href="#icon-resubmit"></use></svg>'
+            '<svg class="icon icon-resubmit icon" aria-hidden="true"><use href="#icon-resubmit"></use></svg>'
             "Submit for moderation</button>",
         )
 

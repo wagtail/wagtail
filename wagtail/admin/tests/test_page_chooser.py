@@ -258,7 +258,7 @@ class TestChooserBrowseChild(TestCase, WagtailTestUtils):
         expected = """
             <li class="breadcrumb-item">
                 <a href="/admin/choose-page/{page_id}/?" class="breadcrumb-link navigate-pages">{page_title}
-                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true" focusable="false">
+                    <svg class="icon icon-arrow-right arrow_right_icon" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </a>

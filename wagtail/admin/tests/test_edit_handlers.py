@@ -494,7 +494,7 @@ class TestObjectList(TestCase):
 
         # result should include help text for children
         self.assertInHTML(
-            '<div class="object-help help"> <svg class="icon icon-help default" aria-hidden="true" focusable="false"><use href="#icon-help"></use></svg> Not required if event is on a single day</div>',
+            '<div class="object-help help"> <svg class="icon icon-help default" aria-hidden="true"><use href="#icon-help"></use></svg> Not required if event is on a single day</div>',
             result,
         )
 
