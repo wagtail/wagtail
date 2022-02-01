@@ -94,12 +94,7 @@ window.comments = (() => {
       this.setOnClickHandler(localId);
     }
     onDelete() {
-      // IE11
-      if (!this.node.remove) {
-        this.node.parentNode.removeChild(this.node);
-      } else {
-        this.node.remove();
-      }
+      this.node.remove();
       if (this.unsubscribe) {
         this.unsubscribe();
       }
@@ -275,9 +270,9 @@ window.comments = (() => {
       STRINGS,
     );
 
-    Array.from(
-      formElement.querySelectorAll('[data-component="add-comment-button"]'),
-    ).forEach(initAddCommentButton);
+    formElement
+      .querySelectorAll('[data-component="add-comment-button"]')
+      .forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
     const tabNavElement = formElement.querySelector('[data-tab-nav]');

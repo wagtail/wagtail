@@ -2,7 +2,7 @@
 
 function LockUnlockAction(csrfToken, next) {
   const actionElements = document.querySelectorAll('[data-locking-action]');
-  [...actionElements].forEach((buttonElement) => {
+  actionElements.forEach((buttonElement) => {
     buttonElement.addEventListener(
       'click',
       (e) => {
