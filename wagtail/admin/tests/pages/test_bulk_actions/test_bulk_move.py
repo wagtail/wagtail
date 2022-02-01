@@ -98,7 +98,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
         self.assertInHTML("<p>Are you sure you want to move these pages?</p>", html)
 
         self.assertInHTML(
-            '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">Hello world! (simple page)</a></li>'.format(
+            '<li><a href="{edit_page_url}" target="_blank" rel="noreferrer">Hello world! (simple page)</a></li>'.format(
                 edit_page_url=reverse(
                     "wagtailadmin_pages:edit", args=[self.test_page_b.id]
                 ),
@@ -175,7 +175,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         for child_page in self.pages_to_be_moved:
             self.assertInHTML(
-                '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
+                '<li><a href="{edit_page_url}" target="_blank" rel="noreferrer">{page_title}</a></li>'.format(
                     edit_page_url=reverse(
                         "wagtailadmin_pages:edit", args=[child_page.id]
                     ),
@@ -204,7 +204,7 @@ class TestBulkMove(TestCase, WagtailTestUtils):
 
         for child_page in self.pages_to_be_moved:
             self.assertInHTML(
-                '<li><a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a></li>'.format(
+                '<li><a href="{edit_page_url}" target="_blank" rel="noreferrer">{page_title}</a></li>'.format(
                     edit_page_url=reverse(
                         "wagtailadmin_pages:edit", args=[child_page.id]
                     ),

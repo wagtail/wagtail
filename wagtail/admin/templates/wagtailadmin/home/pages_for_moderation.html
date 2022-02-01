@@ -55,7 +55,7 @@
                                         <li><a href="{% url 'wagtailadmin_pages:edit' revision.page.id %}" class="button button-small button-secondary">{% trans 'Edit' %}</a></li>
                                     {% endif %}
                                     {% if revision.page.is_previewable %}
-                                        <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noopener noreferrer">{% trans 'Preview' %}</a></li>
+                                        <li><a href="{% url 'wagtailadmin_pages:preview_for_moderation' revision.id %}" class="button button-small button-secondary" target="_blank" rel="noreferrer">{% trans 'Preview' %}</a></li>
                                     {% endif %}
                                 </ul>
                             </td>

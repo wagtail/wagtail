@@ -235,7 +235,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             attrs={
                 "aria-label": _("Preview draft version of '%(title)s'")
                 % {"title": page.get_admin_display_title()},
-                "rel": "noopener noreferrer",
+                "rel": "noreferrer",
             },
             priority=20,
         )
@@ -244,7 +244,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
             _("View live"),
             page.url,
             attrs={
-                "rel": "noopener noreferrer",
+                "rel": "noreferrer",
                 "aria-label": _("View live version of '%(title)s'")
                 % {"title": page.get_admin_display_title()},
             },
@@ -289,7 +289,7 @@ def page_listing_buttons(page, page_perms, is_parent=False, next_url=None):
         next_url=next_url,
         attrs={
             "target": "_blank",
-            "rel": "noopener noreferrer",
+            "rel": "noreferrer",
             "title": _("View more options for '%(title)s'")
             % {"title": page.get_admin_display_title()},
         },

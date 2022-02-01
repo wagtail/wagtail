@@ -106,7 +106,7 @@ class TooltipEntity extends Component {
                   href={url}
                   title={url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noreferrer"
                   className="Tooltip__link"
                 >
                   {shortenLabel(label)}
