@@ -14,7 +14,13 @@ export function cleanForSlug(val, useURLify) {
 
   // just do the "replace"
   if (window.unicodeSlugsEnabled) {
-    return val.replace(/\s/g, '-').replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '').toLowerCase();
+    return val
+      .replace(/\s/g, '-')
+      .replace(/[&/\\#,+()$~%.'":`@^!*?<>{}]/g, '')
+      .toLowerCase();
   }
-  return val.replace(/\s/g, '-').replace(/[^A-Za-z0-9\-_]/g, '').toLowerCase();
+  return val
+    .replace(/\s/g, '-')
+    .replace(/[^A-Za-z0-9\-_]/g, '')
+    .toLowerCase();
 }

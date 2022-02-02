@@ -19,7 +19,8 @@ class PuppeteerEnvironment extends NodeEnvironment {
       throw new Error('wsEndpoint not found');
     }
 
-    this.global.TEST_ORIGIN = process.env.TEST_ORIGIN ?? 'http://localhost:8000';
+    this.global.TEST_ORIGIN =
+      process.env.TEST_ORIGIN ?? 'http://localhost:8000';
 
     // connect to puppeteer
     this.global.browser = await puppeteer.connect({

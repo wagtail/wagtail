@@ -19,7 +19,7 @@ const mockProps = {
       },
       children: {
         count: 0,
-      }
+      },
     },
   },
   onClick: () => {},

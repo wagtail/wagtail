@@ -2,174 +2,174 @@
 @import '../../../../../../client/scss/tools';
 
 h1 {
-    font-weight: 300;
-    font-size: 2.2em;
+  font-weight: 300;
+  font-size: 2.2em;
 }
 
 header {
-    .col1 {
-        width: 50px;
-        margin-right: 1em;
-        padding: 0;
+  .col1 {
+    width: 50px;
+    margin-right: 1em;
+    padding: 0;
 
-        // make way for the nav-menu button on mobile
-        @include media-breakpoint-down(xs) {
-            position: relative;
-            left: $mobile-nav-indent;
-        }
+    // make way for the nav-menu button on mobile
+    @include media-breakpoint-down(xs) {
+      position: relative;
+      left: $mobile-nav-indent;
     }
+  }
 
-    h1,
-    .user-name {
-        color: $color-white;
-    }
+  h1,
+  .user-name {
+    color: $color-white;
+  }
 
-    .user-name {
-        text-transform: none;
-        font-size: 1.3em;
-        font-weight: 600;
-    }
+  .user-name {
+    text-transform: none;
+    font-size: 1.3em;
+    font-weight: 600;
+  }
 }
 
 .panel {
-    margin-bottom: 4em;
+  margin-bottom: 4em;
 }
 
 .summary {
+  @include clearfix();
+  margin-bottom: 2em;
+  padding-top: 2em;
+
+  ul.stats {
     @include clearfix();
-    margin-bottom: 2em;
-    padding-top: 2em;
+    @include unlist();
+    width: 100%;
+    margin-left: -$padding;
 
-    ul.stats {
-        @include clearfix();
-        @include unlist();
-        width: 100%;
-        margin-left: -$padding;
+    li {
+      @include column(4);
+      margin-bottom: 2em;
 
-        li {
-            @include column(4);
-            margin-bottom: 2em;
-
-            @include media-breakpoint-down(sm) {
-                width: 50%;
-            }
-        }
-
-        li.icon::before,
-        li svg.icon {
-            opacity: 0.2;
-            font-size: 6em;
-            float: left;
-
-            @include media-breakpoint-down(md) {
-                font-size: 5em;
-            }
-
-            @include media-breakpoint-down(sm) {
-                font-size: 4.5em;
-            }
-
-            @include media-breakpoint-down(xs) {
-                font-size: 4em;
-            }
-
-            // Media for Windows High Contrast Mode
-            @media (forced-colors: $media-forced-colours) {
-                color: $system-color-link-text;
-                opacity: 1;
-            }
-        }
-
-        li svg.icon {
-            width: 1em;
-            height: 1em;
-            margin-right: 0.5em;
-        }
-
-        a {
-            position: relative;
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
-        span {
-            font-family: $font-sans;
-            display: block;
-            font-size: 4em;
-            line-height: 1em;
-            font-weight: 300;
-
-            @include media-breakpoint-down(md) {
-                font-size: 3em;
-            }
-
-            @include media-breakpoint-down(sm) {
-                font-size: 2.5em;
-            }
-
-            @include media-breakpoint-down(xs) {
-                font-size: 2em;
-            }
-        }
+      @include media-breakpoint-down(sm) {
+        width: 50%;
+      }
     }
 
-    .search-bar {
-        @include clearfix();
-        border-top: 1px solid $color-grey-4;
-        padding: 1em 0 0;
+    li.icon::before,
+    li svg.icon {
+      opacity: 0.2;
+      font-size: 6em;
+      float: left;
 
-        h2 {
-            display: inline-block;
-            margin-right: 1em;
-        }
+      @include media-breakpoint-down(md) {
+        font-size: 5em;
+      }
 
-        .fields {
-            display: inline-block;
-            clear: none;
-        }
+      @include media-breakpoint-down(sm) {
+        font-size: 4.5em;
+      }
 
-        .field {
-            display: inline-block;
-        }
+      @include media-breakpoint-down(xs) {
+        font-size: 4em;
+      }
 
-        label {
-            display: inline-block;
-        }
-
-        input {
-            background-color: $color-white;
-        }
+      // Media for Windows High Contrast Mode
+      @media (forced-colors: $media-forced-colours) {
+        color: $system-color-link-text;
+        opacity: 1;
+      }
     }
+
+    li svg.icon {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+    }
+
+    a {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    span {
+      font-family: $font-sans;
+      display: block;
+      font-size: 4em;
+      line-height: 1em;
+      font-weight: 300;
+
+      @include media-breakpoint-down(md) {
+        font-size: 3em;
+      }
+
+      @include media-breakpoint-down(sm) {
+        font-size: 2.5em;
+      }
+
+      @include media-breakpoint-down(xs) {
+        font-size: 2em;
+      }
+    }
+  }
+
+  .search-bar {
+    @include clearfix();
+    border-top: 1px solid $color-grey-4;
+    padding: 1em 0 0;
+
+    h2 {
+      display: inline-block;
+      margin-right: 1em;
+    }
+
+    .fields {
+      display: inline-block;
+      clear: none;
+    }
+
+    .field {
+      display: inline-block;
+    }
+
+    label {
+      display: inline-block;
+    }
+
+    input {
+      background-color: $color-white;
+    }
+  }
 }
 
 .object.collapsible .object-layout .title-wrapper::before {
-    display: none;
+  display: none;
 }
 
 .object-layout {
-    // enforce flex display at all screen sizes
-    display: flex;
-    flex-flow: row-reverse wrap;
+  // enforce flex display at all screen sizes
+  display: flex;
+  flex-flow: row-reverse wrap;
 
-    .listing--push-top {
-        margin-top: 3em;
+  .listing--push-top {
+    margin-top: 3em;
 
-        thead {
-            display: table-row-group;
-            margin-bottom: 0;
-        }
+    thead {
+      display: table-row-group;
+      margin-bottom: 0;
     }
+  }
 
-    .listing {
-        margin-bottom: 0;
-    }
+  .listing {
+    margin-bottom: 0;
+  }
 
-    .listing tbody {
-        border-bottom: 0;
-    }
+  .listing tbody {
+    border-bottom: 0;
+  }
 }
 
 .task .icon {
-    margin-left: -1.75em; // pull out the icon so it aligns with no-icon text
+  margin-left: -1.75em; // pull out the icon so it aligns with no-icon text
 }

@@ -1,91 +1,94 @@
 // stylelint-disable declaration-no-important
 .sidebar-menu-item {
-    $root: &;
-    @include transition(border-color $menu-transition-duration ease);
+  $root: &;
+  @include transition(border-color $menu-transition-duration ease);
+  position: relative;
+
+  &__link {
+    @include transition(
+      border-color $menu-transition-duration ease,
+      background-color $menu-transition-duration ease
+    );
     position: relative;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    border-left: 3px solid transparent;
 
-    &__link {
-        @include transition(border-color $menu-transition-duration ease, background-color $menu-transition-duration ease);
-        position: relative;
-        display: block;
-        width: 100%;
-        box-sizing: border-box;
-        white-space: nowrap;
-        border-left: 3px solid transparent;
+    -webkit-font-smoothing: auto;
+    border: 0;
+    background: transparent;
+    text-align: left;
+    color: $color-menu-text;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 400;
 
-        -webkit-font-smoothing: auto;
-        border: 0;
-        background: transparent;
-        text-align: left;
-        color: $color-menu-text;
-        padding: 11px 20px;
-        font-size: 13px;
-        font-weight: 400;
-
-        // Note, font-weights lower than normal,
-        // and font-size smaller than 1em (80% ~= 12.8px),
-        // makes the strokes thinner than 1px on non-retina screens
-        // making the text semi-transparent
-        &:hover,
-        &:focus {
-            background-color: $nav-item-hover-bg;
-            color: $color-white;
-            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        &:before {
-            font-size: 1rem;
-            vertical-align: -15%;
-            margin-right: 0.5em;
-        }
-
-        // only really used for spinners and settings menu
-        &:after {
-            font-size: 1.5em;
-            margin: 0;
-            position: absolute;
-            right: 0.5em;
-            top: 0.5em;
-            margin-top: 0;
-        }
-
-        // Disable icon margin, this is instead applied to the left of the .menuitem-label
-        // This is because SVG icons and legacy icons apply this margin differently,
-        // we could remove this override when we remove legacy icons
-        .icon {
-            margin-right: 0 !important;
-        }
+    // Note, font-weights lower than normal,
+    // and font-size smaller than 1em (80% ~= 12.8px),
+    // makes the strokes thinner than 1px on non-retina screens
+    // making the text semi-transparent
+    &:hover,
+    &:focus {
+      background-color: $nav-item-hover-bg;
+      color: $color-white;
+      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
     }
 
-    &--in-sub-menu {
-        #{$root}__link {
-            // Links inside a submenu should have normal wrapping
-            white-space: normal;
-        }
-
-        &:hover {
-            background-color: rgba(100, 100, 100, 0.2);
-        }
+    &:before {
+      font-size: 1rem;
+      vertical-align: -15%;
+      margin-right: 0.5em;
     }
 
-    &--active {
-        background: $nav-item-active-bg;
-        text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-
-        > a {
-            border-left-color: $color-salmon;
-            color: $color-white;
-        }
+    // only really used for spinners and settings menu
+    &:after {
+      font-size: 1.5em;
+      margin: 0;
+      position: absolute;
+      right: 0.5em;
+      top: 0.5em;
+      margin-top: 0;
     }
+
+    // Disable icon margin, this is instead applied to the left of the .menuitem-label
+    // This is because SVG icons and legacy icons apply this margin differently,
+    // we could remove this override when we remove legacy icons
+    .icon {
+      margin-right: 0 !important;
+    }
+  }
+
+  &--in-sub-menu {
+    #{$root}__link {
+      // Links inside a submenu should have normal wrapping
+      white-space: normal;
+    }
+
+    &:hover {
+      background-color: rgba(100, 100, 100, 0.2);
+    }
+  }
+
+  &--active {
+    background: $nav-item-active-bg;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+
+    > a {
+      border-left-color: $color-salmon;
+      color: $color-white;
+    }
+  }
 }
 
 .menuitem-label {
-    @include transition(opacity $menu-transition-duration ease);
-    margin-left: 0.5em;
+  @include transition(opacity $menu-transition-duration ease);
+  margin-left: 0.5em;
 }
 
 .sidebar--slim {
-    .menuitem-label {
-        opacity: 0;
-    }
+  .menuitem-label {
+    opacity: 0;
+  }
 }

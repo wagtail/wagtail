@@ -90,7 +90,7 @@ export function addComment(comment: Comment): AddCommentAction {
 
 export function updateComment(
   commentId: number,
-  update: CommentUpdate
+  update: CommentUpdate,
 ): UpdateCommentAction {
   return {
     type: UPDATE_COMMENT,
@@ -113,22 +113,24 @@ export function resolveComment(commentId: number): ResolveCommentAction {
   };
 }
 
-
 export function setFocusedComment(
   commentId: number | null,
-  { updatePinnedComment, forceFocus } = { updatePinnedComment: false, forceFocus: false }
+  { updatePinnedComment, forceFocus } = {
+    updatePinnedComment: false,
+    forceFocus: false,
+  },
 ): SetFocusedCommentAction {
   return {
     type: SET_FOCUSED_COMMENT,
     commentId,
     updatePinnedComment,
-    forceFocus
+    forceFocus,
   };
 }
 
 export function addReply(
   commentId: number,
-  reply: CommentReply
+  reply: CommentReply,
 ): AddReplyAction {
   return {
     type: ADD_REPLY,
@@ -140,7 +142,7 @@ export function addReply(
 export function updateReply(
   commentId: number,
   replyId: number,
-  update: CommentReplyUpdate
+  update: CommentReplyUpdate,
 ): UpdateReplyAction {
   return {
     type: UPDATE_REPLY,
@@ -152,7 +154,7 @@ export function updateReply(
 
 export function deleteReply(
   commentId: number,
-  replyId: number
+  replyId: number,
 ): DeleteReplyAction {
   return {
     type: DELETE_REPLY,
@@ -161,7 +163,9 @@ export function deleteReply(
   };
 }
 
-export function invalidateContentPath(contentPath: string): InvalidateContentPathAction {
+export function invalidateContentPath(
+  contentPath: string,
+): InvalidateContentPathAction {
   return {
     type: INVALIDATE_CONTENT_PATH,
     contentPath,

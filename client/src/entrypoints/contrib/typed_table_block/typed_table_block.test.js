@@ -27,17 +27,28 @@ class DummyWidgetDefinition {
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
-    $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
+    $(placeholder).replaceWith(
+      `<p name="${name}" id="${id}">${widgetName}</p>`,
+    );
     return {
-      setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
-      focus() { focus(widgetName); },
+      setState(state) {
+        setState(widgetName, state);
+      },
+      getState() {
+        getState(widgetName);
+        return `state: ${widgetName} - ${name}`;
+      },
+      getValue() {
+        getValue(widgetName);
+        return `value: ${widgetName} - ${name}`;
+      },
+      focus() {
+        focus(widgetName);
+      },
       idForLabel: id,
     };
   }
 }
-
 
 describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
   let blockDef;
@@ -61,8 +72,9 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         label: 'Test Block A',
         required: true,
         icon: 'placeholder',
-        classname: 'field char_field widget-text_input fieldname-test_charblock'
-      }
+        classname:
+          'field char_field widget-text_input fieldname-test_charblock',
+      },
     );
     childBlockB = new FieldBlockDefinition(
       'test_block_b',
@@ -71,8 +83,9 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
         label: 'Test Block B',
         required: true,
         icon: 'pilcrow',
-        classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
-      }
+        classname:
+          'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+      },
     );
 
     blockDef = new TypedTableBlockDefinition(
@@ -98,21 +111,22 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
           INSERT_ROW: 'Insert row',
           DELETE_ROW: 'Delete row',
         },
-      }
+      },
     );
 
     // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
-    boundBlock = blockDef.render(document.getElementById('placeholder'), 'mytable', {
-      columns: [
-        { type: 'test_block_a', heading: 'Item' },
-        { type: 'test_block_b', heading: 'Quantity' },
-      ],
-      rows: [
-        { values: ['Cheese', 3] },
-        { values: ['Peas', 5] },
-      ]
-    });
+    boundBlock = blockDef.render(
+      document.getElementById('placeholder'),
+      'mytable',
+      {
+        columns: [
+          { type: 'test_block_a', heading: 'Item' },
+          { type: 'test_block_b', heading: 'Quantity' },
+        ],
+        rows: [{ values: ['Cheese', 3] }, { values: ['Peas', 5] }],
+      },
+    );
   });
 
   test('it renders correctly', () => {
@@ -125,14 +139,18 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
     boundBlock.clear();
     expect(boundBlock.columns.length).toBe(0);
     expect(boundBlock.rows.length).toBe(0);
-    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('0');
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe(
+      '0',
+    );
     expect(document.getElementsByName('mytable-row-count')[0].value).toBe('0');
   });
 
   test('supports inserting columns', () => {
     boundBlock.insertColumn(1, childBlockA);
     expect(boundBlock.columns.length).toBe(3);
-    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('3');
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe(
+      '3',
+    );
   });
 
   test('supports deleting columns', () => {
@@ -141,14 +159,18 @@ describe('wagtail.contrib.typed_table_block.blocks.TypedTableBlock', () => {
 
     // column count field still counts deleted columns (as it's used by the server-side code
     // to find out the maximum column ID to look for)
-    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('2');
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe(
+      '2',
+    );
   });
 
   test('counts deleted columns in column-count hidden field', () => {
     boundBlock.deleteColumn(0);
     boundBlock.insertColumn(1, childBlockA);
     expect(boundBlock.columns.length).toBe(2);
-    expect(document.getElementsByName('mytable-column-count')[0].value).toBe('3');
+    expect(document.getElementsByName('mytable-column-count')[0].value).toBe(
+      '3',
+    );
   });
 
   test('supports inserting rows', () => {

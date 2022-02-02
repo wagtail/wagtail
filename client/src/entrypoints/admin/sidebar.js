@@ -7,13 +7,28 @@ import { WagtailBrandingModuleDefinition } from '../../components/Sidebar/module
 import { SearchModuleDefinition } from '../../components/Sidebar/modules/Search';
 import { MainMenuModuleDefinition } from '../../components/Sidebar/modules/MainMenu';
 
-window.telepath.register('wagtail.sidebar.LinkMenuItem', LinkMenuItemDefinition);
+window.telepath.register(
+  'wagtail.sidebar.LinkMenuItem',
+  LinkMenuItemDefinition,
+);
 window.telepath.register('wagtail.sidebar.SubMenuItem', SubMenuItemDefinition);
-window.telepath.register('wagtail.sidebar.PageExplorerMenuItem', PageExplorerMenuItemDefinition);
+window.telepath.register(
+  'wagtail.sidebar.PageExplorerMenuItem',
+  PageExplorerMenuItemDefinition,
+);
 
-window.telepath.register('wagtail.sidebar.WagtailBrandingModule', WagtailBrandingModuleDefinition);
-window.telepath.register('wagtail.sidebar.SearchModule', SearchModuleDefinition);
-window.telepath.register('wagtail.sidebar.MainMenuModule', MainMenuModuleDefinition);
+window.telepath.register(
+  'wagtail.sidebar.WagtailBrandingModule',
+  WagtailBrandingModuleDefinition,
+);
+window.telepath.register(
+  'wagtail.sidebar.SearchModule',
+  SearchModuleDefinition,
+);
+window.telepath.register(
+  'wagtail.sidebar.MainMenuModule',
+  MainMenuModuleDefinition,
+);
 
 document.addEventListener('DOMContentLoaded', () => {
   initSidebar();

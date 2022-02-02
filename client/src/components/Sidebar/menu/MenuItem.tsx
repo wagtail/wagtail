@@ -23,4 +23,3 @@ export interface MenuItemProps<T> {
   dispatch(action: MenuAction): void;
   navigate(url: string): Promise<void>;
 }
-

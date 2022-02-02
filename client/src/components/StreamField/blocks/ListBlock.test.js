@@ -26,12 +26,24 @@ class DummyWidgetDefinition {
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
-    $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
+    $(placeholder).replaceWith(
+      `<p name="${name}" id="${id}">${widgetName}</p>`,
+    );
     return {
-      setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
-      focus() { focus(widgetName); },
+      setState(state) {
+        setState(widgetName, state);
+      },
+      getState() {
+        getState(widgetName);
+        return `state: ${widgetName} - ${name}`;
+      },
+      getValue() {
+        getValue(widgetName);
+        return `value: ${widgetName} - ${name}`;
+      },
+      focus() {
+        focus(widgetName);
+      },
       idForLabel: id,
     };
   }
@@ -43,7 +55,6 @@ class ValidationError {
   }
 }
 
-
 /* ListBlock should not call setError on its children with a null value; FieldBlock handles this
 gracefully, so define a custom one that doesn't
 */
@@ -51,7 +62,9 @@ gracefully, so define a custom one that doesn't
 class ParanoidFieldBlock extends FieldBlock {
   setError(errorList) {
     if (!errorList) {
-      throw new Error('ParanoidFieldBlock.setError was passed a null errorList');
+      throw new Error(
+        'ParanoidFieldBlock.setError was passed a null errorList',
+      );
     }
     return super.setError(errorList);
   }
@@ -59,7 +72,13 @@ class ParanoidFieldBlock extends FieldBlock {
 
 class ParanoidFieldBlockDefinition extends FieldBlockDefinition {
   render(placeholder, prefix, initialState, initialError) {
-    return new ParanoidFieldBlock(this, placeholder, prefix, initialState, initialError);
+    return new ParanoidFieldBlock(
+      this,
+      placeholder,
+      prefix,
+      initialState,
+      initialError,
+    );
   }
 }
 
@@ -84,8 +103,9 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           label: '',
           required: true,
           icon: 'pilcrow',
-          classname: 'field char_field widget-admin_auto_height_text_input fieldname-'
-        }
+          classname:
+            'field char_field widget-admin_auto_height_text_input fieldname-',
+        },
       ),
       null,
       {
@@ -101,7 +121,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
         },
-      }
+      },
     );
 
     // Render it
@@ -139,7 +159,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(getValue.mock.calls.length).toBe(2);
     expect(value).toEqual([
       'value: The widget - the-prefix-0-value',
-      'value: The widget - the-prefix-1-value'
+      'value: The widget - the-prefix-1-value',
     ]);
   });
 
@@ -147,15 +167,27 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundBlock.getState();
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual([
-      { value: 'state: The widget - the-prefix-0-value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'state: The widget - the-prefix-1-value', id: '22222222-2222-2222-2222-222222222222' },
+      {
+        value: 'state: The widget - the-prefix-0-value',
+        id: '11111111-1111-1111-1111-111111111111',
+      },
+      {
+        value: 'state: The widget - the-prefix-1-value',
+        id: '22222222-2222-2222-2222-222222222222',
+      },
     ]);
   });
 
   test('setState() creates new widgets', () => {
     boundBlock.setState([
-      { value: 'Changed first value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'Changed second value', id: '22222222-2222-2222-2222-222222222222' },
+      {
+        value: 'Changed first value',
+        id: '11111111-1111-1111-1111-111111111111',
+      },
+      {
+        value: 'Changed second value',
+        id: '22222222-2222-2222-2222-222222222222',
+      },
       { value: 'Third value', id: '33333333-3333-3333-3333-333333333333' },
     ]);
 
@@ -187,9 +219,18 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     const state = boundBlock.getState();
     expect(getState.mock.calls.length).toBe(3);
     expect(state).toEqual([
-      { value: 'state: The widget - the-prefix-0-value', id: '11111111-1111-1111-1111-111111111111' },
-      { value: 'state: The widget - the-prefix-1-value', id: '22222222-2222-2222-2222-222222222222' },
-      { value: 'state: The widget - the-prefix-2-value', id: '33333333-3333-3333-3333-333333333333' },
+      {
+        value: 'state: The widget - the-prefix-0-value',
+        id: '11111111-1111-1111-1111-111111111111',
+      },
+      {
+        value: 'state: The widget - the-prefix-1-value',
+        id: '22222222-2222-2222-2222-222222222222',
+      },
+      {
+        value: 'state: The widget - the-prefix-2-value',
+        id: '33333333-3333-3333-3333-333333333333',
+      },
     ]);
   });
 
@@ -232,11 +273,8 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
   test('setError passes error messages to children', () => {
     boundBlock.setError([
       new ListBlockValidationError(
-        [
-          null,
-          [new ValidationError(['Not as good as the first one'])],
-        ],
-        []
+        [null, [new ValidationError(['Not as good as the first one'])]],
+        [],
       ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
@@ -246,9 +284,7 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     boundBlock.setError([
       new ListBlockValidationError(
         [null, null],
-        [
-          new ValidationError(['At least three blocks are required']),
-        ]
+        [new ValidationError(['At least three blocks are required'])],
       ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
@@ -266,8 +302,9 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
         label: '',
         required: true,
         icon: 'pilcrow',
-        classname: 'field char_field widget-admin_auto_height_text_input fieldname-'
-      }
+        classname:
+          'field char_field widget-admin_auto_height_text_input fieldname-',
+      },
     ),
     null,
     {
@@ -284,25 +321,41 @@ describe('telepath: wagtail.blocks.ListBlock with maxNum set', () => {
         DUPLICATE: 'Duplicate',
         ADD: 'Add',
       },
-    }
+    },
   );
 
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
 
     // Test menu
-    expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button[data-streamfield-list-add]')
+        .getAttribute('disabled'),
+    ).toBe(null);
   };
 
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
 
     // Test menu
-    expect(document.querySelector('button[data-streamfield-list-add]').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button[data-streamfield-list-add]')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
   };
 
   test('test can add block when under limit', () => {

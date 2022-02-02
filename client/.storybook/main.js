@@ -1,9 +1,7 @@
 module.exports = {
-  "stories": [
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "core": {
-    "builder": "webpack5"
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  core: {
+    builder: 'webpack5',
   },
   webpackFinal: (config) => {
     config.resolve.fallback.crypto = false;
@@ -12,17 +10,17 @@ module.exports = {
       {
         test: /\.(scss|css)$/,
         use: [
-          "style-loader",
-          "css-loader",
+          'style-loader',
+          'css-loader',
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: ["autoprefixer", "cssnano"],
+                plugins: ['autoprefixer', 'cssnano'],
               },
             },
           },
-          "sass-loader",
+          'sass-loader',
         ],
       },
     ];

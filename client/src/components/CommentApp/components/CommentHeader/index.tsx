@@ -1,5 +1,3 @@
- 
-
 import dateFormat from 'dateformat';
 import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import Icon from '../../../Icon/Icon';
@@ -11,41 +9,39 @@ import { Author } from '../../state/comments';
 
 // Details/Summary components that just become <details>/<summary> tags
 // except for IE11 where they become <div> tags to allow us to style them
-const Details: React.FunctionComponent<React.ComponentPropsWithoutRef<'details'>> = (
-  ({ children, open, ...extraProps }) => {
-    if (IS_IE11) {
-      return (
-        <div className={'details-fallback' + (open ? ' details-fallback--open' : '')} {...extraProps}>
-          {children}
-        </div>
-      );
-    }
-
-    return (
-      <details open={open} {...extraProps}>
-        {children}
-      </details>
-    );
-  }
-);
-
-const Summary: React.FunctionComponent<React.ComponentPropsWithoutRef<'summary'>> = ({ children, ...extraProps }) => {
+const Details: React.FunctionComponent<
+  React.ComponentPropsWithoutRef<'details'>
+> = ({ children, open, ...extraProps }) => {
   if (IS_IE11) {
     return (
-      <button
-        className="details-fallback__summary"
+      <div
+        className={'details-fallback' + (open ? ' details-fallback--open' : '')}
         {...extraProps}
       >
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <details open={open} {...extraProps}>
+      {children}
+    </details>
+  );
+};
+
+const Summary: React.FunctionComponent<
+  React.ComponentPropsWithoutRef<'summary'>
+> = ({ children, ...extraProps }) => {
+  if (IS_IE11) {
+    return (
+      <button className="details-fallback__summary" {...extraProps}>
         {children}
       </button>
     );
   }
 
-  return (
-    <summary {...extraProps}>
-      {children}
-    </summary>
-  );
+  return <summary {...extraProps}>{children}</summary>;
 };
 
 interface CommentReply {
@@ -65,7 +61,14 @@ interface CommentHeaderProps {
 }
 
 export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
-  commentReply, store, strings, onResolve, onEdit, onDelete, descriptionId, focused
+  commentReply,
+  store,
+  strings,
+  onResolve,
+  onEdit,
+  onDelete,
+  descriptionId,
+  focused,
 }) => {
   const { author, date } = commentReply;
 
@@ -115,7 +118,11 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
   }, [menuOpen]);
 
   const handleClickOutside = (e: MouseEvent) => {
-    if (menuContainerRef.current && e.target instanceof Node && !menuContainerRef.current.contains(e.target)) {
+    if (
+      menuContainerRef.current &&
+      e.target instanceof Node &&
+      !menuContainerRef.current.contains(e.target)
+    ) {
       setMenuOpen(false);
     }
   };
@@ -130,8 +137,11 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
-        {(onEdit || onDelete || onResolve) &&
-          <div className="comment-header__action comment-header__action--more" ref={menuContainerRef}>
+        {(onEdit || onDelete || onResolve) && (
+          <div
+            className="comment-header__action comment-header__action--more"
+            ref={menuContainerRef}
+          >
             <Details open={menuOpen} onClick={toggleMenu}>
               <Summary
                 aria-label={strings.MORE_ACTIONS}
@@ -143,20 +153,47 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                 <Icon name="ellipsis-v" />
               </Summary>
 
-              <div className="comment-header__more-actions" role="menu" ref={menuRef}>
-                {onEdit && <button type="button" role="menuitem" onClick={onClickEdit}>{strings.EDIT}</button>}
-                {onDelete && <button type="button" role="menuitem" onClick={onClickDelete}>{strings.DELETE}</button>}
-                {onResolve && <button type="button" role="menuitem" onClick={onClickResolve}>{strings.RESOLVE}</button>}
+              <div
+                className="comment-header__more-actions"
+                role="menu"
+                ref={menuRef}
+              >
+                {onEdit && (
+                  <button type="button" role="menuitem" onClick={onClickEdit}>
+                    {strings.EDIT}
+                  </button>
+                )}
+                {onDelete && (
+                  <button type="button" role="menuitem" onClick={onClickDelete}>
+                    {strings.DELETE}
+                  </button>
+                )}
+                {onResolve && (
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={onClickResolve}
+                  >
+                    {strings.RESOLVE}
+                  </button>
+                )}
               </div>
             </Details>
           </div>
-        }
+        )}
       </div>
-      {author && author.avatarUrl &&
-        <img className="comment-header__avatar" src={author.avatarUrl} role="presentation" />}
+      {author && author.avatarUrl && (
+        <img
+          className="comment-header__avatar"
+          src={author.avatarUrl}
+          role="presentation"
+        />
+      )}
       <span id={descriptionId}>
         <p className="comment-header__author">{author ? author.name : ''}</p>
-        <p className="comment-header__date">{dateFormat(date, 'd mmm yyyy HH:MM')}</p>
+        <p className="comment-header__date">
+          {dateFormat(date, 'd mmm yyyy HH:MM')}
+        </p>
       </span>
     </div>
   );

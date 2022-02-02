@@ -11,10 +11,13 @@ class ActionButton {
   }
 
   render(container) {
-    const label = this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
+    const label =
+      this.sequenceChild.strings[this.labelIdentifier] || this.labelIdentifier;
 
     this.dom = $(`
-      <button type="button" class="c-sf-block__actions__single" title="${h(label)}">
+      <button type="button" class="c-sf-block__actions__single" title="${h(
+        label,
+      )}">
         <svg class="icon icon-${h(this.icon)}" aria-hidden="true">
           <use href="#icon-${h(this.icon)}"></use>
         </svg>
@@ -23,7 +26,7 @@ class ActionButton {
 
     this.dom.on('click', () => {
       if (this.onClick) this.onClick();
-      return false;  // don't propagate to header's onclick event (which collapses the block)
+      return false; // don't propagate to header's onclick event (which collapses the block)
     });
 
     $(container).append(this.dom);
@@ -98,7 +101,16 @@ class DeleteButton extends ActionButton {
 }
 
 export class BaseSequenceChild extends EventEmitter {
-  constructor(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
+  constructor(
+    blockDef,
+    placeholder,
+    prefix,
+    index,
+    id,
+    initialState,
+    sequence,
+    opts,
+  ) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
     this.prefix = prefix;
@@ -111,22 +123,34 @@ export class BaseSequenceChild extends EventEmitter {
     this.strings = (opts && opts.strings) || {};
 
     const dom = $(`
-      <div aria-hidden="false" ${this.id ? `data-contentpath="${h(this.id)}"` : 'data-contentpath-disabled'}>
+      <div aria-hidden="false" ${
+        this.id
+          ? `data-contentpath="${h(this.id)}"`
+          : 'data-contentpath-disabled'
+      }>
         <input type="hidden"  name="${this.prefix}-deleted" value="">
         <input type="hidden" name="${this.prefix}-order" value="${index}">
-        <input type="hidden" name="${this.prefix}-type" value="${h(this.type || '')}">
-        <input type="hidden" name="${this.prefix}-id" value="${h(this.id || '')}">
+        <input type="hidden" name="${this.prefix}-type" value="${h(
+      this.type || '',
+    )}">
+        <input type="hidden" name="${this.prefix}-id" value="${h(
+      this.id || '',
+    )}">
 
         <div>
           <div class="c-sf-container__block-container">
             <div class="c-sf-block">
               <div data-block-header class="c-sf-block__header c-sf-block__header--collapsible">
-                <svg class="icon icon-${h(this.blockDef.meta.icon)} c-sf-block__header__icon" aria-hidden="true">
+                <svg class="icon icon-${h(
+                  this.blockDef.meta.icon,
+                )} c-sf-block__header__icon" aria-hidden="true">
                   <use href="#icon-${h(this.blockDef.meta.icon)}"></use>
                 </svg>
                 <h3 data-block-title class="c-sf-block__header__title"></h3>
                 <div class="c-sf-block__actions" data-block-actions>
-                  <span class="c-sf-block__type">${h(this.blockDef.meta.label)}</span>
+                  <span class="c-sf-block__type">${h(
+                    this.blockDef.meta.label,
+                  )}</span>
                 </div>
               </div>
               <div data-block-content class="c-sf-block__content" aria-hidden="false">
@@ -158,7 +182,11 @@ export class BaseSequenceChild extends EventEmitter {
     this.addActionButton(new DuplicateButton(this));
     this.addActionButton(new DeleteButton(this));
 
-    this.block = this.blockDef.render(blockElement, this.prefix + '-value', initialState);
+    this.block = this.blockDef.render(
+      blockElement,
+      this.prefix + '-value',
+      initialState,
+    );
 
     if (this.collapsed) {
       this.collapse();
@@ -195,9 +223,7 @@ export class BaseSequenceChild extends EventEmitter {
   markDeleted({ animate = false }) {
     this.deletedInput.val('1');
     if (animate) {
-      $(this.element).slideUp().dequeue()
-        .fadeOut()
-        .attr('aria-hidden', 'true');
+      $(this.element).slideUp().dequeue().fadeOut().attr('aria-hidden', 'true');
     } else {
       $(this.element).hide().attr('aria-hidden', 'true');
     }
@@ -254,14 +280,22 @@ export class BaseSequenceChild extends EventEmitter {
     const label = this.getTextLabel({ maxLength: 50 });
     this.titleElement.text(label || '');
     this.collapsed = true;
-    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
+    this.contentElement
+      .get(0)
+      .dispatchEvent(
+        new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
+      );
   }
 
   expand() {
     this.contentElement.show().attr('aria-hidden', 'false');
     this.titleElement.text('');
     this.collapsed = false;
-    this.contentElement.get(0).dispatchEvent(new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }));
+    this.contentElement
+      .get(0)
+      .dispatchEvent(
+        new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
+      );
   }
 
   toggleCollapsedState() {
@@ -297,10 +331,18 @@ export class BaseInsertionControl {
   }
 }
 
-
 export class BaseSequenceBlock {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
+  _createChild(
+    blockDef,
+    placeholder,
+    prefix,
+    index,
+    id,
+    initialState,
+    sequence,
+    opts,
+  ) {
     throw new Error('not implemented');
   }
 
@@ -324,15 +366,13 @@ export class BaseSequenceBlock {
     const placeholder = document.createElement('div');
     this.sequenceContainer.append(placeholder);
     this.inserters = [
-      this._createInsertionControl(
-        placeholder, {
-          index: 0,
-          onRequestInsert: (newIndex, opts) => {
-            this._onRequestInsert(newIndex, opts);
-          },
-          strings: this.blockDef.meta.strings,
-        }
-      )
+      this._createInsertionControl(placeholder, {
+        index: 0,
+        onRequestInsert: (newIndex, opts) => {
+          this._onRequestInsert(newIndex, opts);
+        },
+        strings: this.blockDef.meta.strings,
+      }),
     ];
 
     this.blockCountChanged();
@@ -341,7 +381,9 @@ export class BaseSequenceBlock {
   _onRequestInsert(index, opts) {
     /* handler for an 'insert new block' action */
     const [blockDef, initialState, id] = this._getChildDataForInsertion(opts);
-    const newChild = this._insert(blockDef, initialState, id || null, index, { animate: true });
+    const newChild = this._insert(blockDef, initialState, id || null, index, {
+      animate: true,
+    });
     // focus the newly added field if we can do so without obtrusive UI behaviour
     newChild.focus({ soft: true });
   }
@@ -378,29 +420,36 @@ export class BaseSequenceBlock {
       this.inserters[i].setIndex(i + 1);
     }
 
-    const child = this._createChild(childBlockDef, blockPlaceholder, prefix, index, id, initialState, this, {
-      animate,
-      collapsed,
-      strings: this.blockDef.meta.strings,
-    });
+    const child = this._createChild(
+      childBlockDef,
+      blockPlaceholder,
+      prefix,
+      index,
+      id,
+      initialState,
+      this,
+      {
+        animate,
+        collapsed,
+        strings: this.blockDef.meta.strings,
+      },
+    );
     this.children.splice(index, 0, child);
 
-    const inserter = this._createInsertionControl(
-      inserterPlaceholder, {
-        index: index + 1,
-        onRequestInsert: (newIndex, inserterOpts) => {
-          this._onRequestInsert(newIndex, inserterOpts);
-        },
-        strings: this.blockDef.meta.strings,
-        animate,
-      }
-    );
+    const inserter = this._createInsertionControl(inserterPlaceholder, {
+      index: index + 1,
+      onRequestInsert: (newIndex, inserterOpts) => {
+        this._onRequestInsert(newIndex, inserterOpts);
+      },
+      strings: this.blockDef.meta.strings,
+      animate,
+    });
     this.inserters.splice(index + 1, 0, inserter);
 
     this.countInput.val(this.blockCounter);
 
-    const isFirstChild = (index === 0);
-    const isLastChild = (index === this.children.length - 1);
+    const isFirstChild = index === 0;
+    const isLastChild = index === this.children.length - 1;
     if (!isFirstChild) {
       child.enableMoveUp();
       if (isLastChild) {
@@ -517,11 +566,11 @@ export class BaseSequenceBlock {
   }
 
   getState() {
-    return this.children.map(child => child.getState());
+    return this.children.map((child) => child.getState());
   }
 
   getValue() {
-    return this.children.map(child => child.getValue());
+    return this.children.map((child) => child.getValue());
   }
 
   getTextLabel(opts) {
@@ -536,7 +585,7 @@ export class BaseSequenceBlock {
           // always use the first child, truncated as necessary
           result = childLabel;
         } else {
-          const newResult = (result + ', ' + childLabel);
+          const newResult = result + ', ' + childLabel;
           if (maxLength && newResult.length > maxLength - 1) {
             // too long, so don't add this; return the current list with an ellipsis instead
             if (!result.endsWith('…')) result += '…';

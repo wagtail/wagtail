@@ -5,7 +5,7 @@ $.widget('IKS.hallohr', {
     editable: null,
     toolbar: null,
     uuid: '',
-    buttonCssClass: null
+    buttonCssClass: null,
   },
   populateToolbar(toolbar) {
     const buttonset = $('<span class="' + this.widgetName + '"></span>');
@@ -16,10 +16,10 @@ $.widget('IKS.hallohr', {
       label: 'Horizontal rule',
       command: 'insertHorizontalRule',
       icon: 'icon-horizontalrule',
-      cssClass: this.options.buttonCssClass
+      cssClass: this.options.buttonCssClass,
     });
     buttonset.append(buttonElement);
     buttonset.hallobuttonset();
     return toolbar.append(buttonset);
-  }
+  },
 });

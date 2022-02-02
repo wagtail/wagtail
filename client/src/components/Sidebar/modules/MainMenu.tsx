@@ -12,29 +12,31 @@ export function renderMenu(
   slim: boolean,
   state: MenuState,
   dispatch: (action: MenuAction) => void,
-  navigate: (url: string) => Promise<void>
+  navigate: (url: string) => Promise<void>,
 ) {
   return (
     <>
-      {items.map(item => item.render({
-        path: `${path}.${item.name}`,
-        slim,
-        state,
-        dispatch,
-        navigate,
-      }))}
+      {items.map((item) =>
+        item.render({
+          path: `${path}.${item.name}`,
+          slim,
+          state,
+          dispatch,
+          navigate,
+        }),
+      )}
     </>
   );
 }
 
 interface SetActivePath {
-  type: 'set-active-path',
-  path: string,
+  type: 'set-active-path';
+  path: string;
 }
 
 interface SetNavigationPath {
-  type: 'set-navigation-path',
-  path: string,
+  type: 'set-navigation-path';
+  path: string;
 }
 
 export type MenuAction = SetActivePath | SetNavigationPath;
@@ -67,8 +69,16 @@ interface MenuProps {
   navigate(url: string): Promise<void>;
 }
 
-export const Menu: React.FunctionComponent<MenuProps> = (
-  { menuItems, accountMenuItems, user, expandingOrCollapsing, slim, currentPath, strings, navigate }) => {
+export const Menu: React.FunctionComponent<MenuProps> = ({
+  menuItems,
+  accountMenuItems,
+  user,
+  expandingOrCollapsing,
+  slim,
+  currentPath,
+  strings,
+  navigate,
+}) => {
   // navigationPath and activePath are two dot-delimited path's referencing a menu item
   // They are created by concatenating the name fields of all the menu/sub-menu items leading to the relevant one.
   // For example, the "Users" item in the "Settings" sub-menu would have the path 'settings.users'
@@ -123,7 +133,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
       if (e.key === 'Escape' || e.key === 'Esc') {
         dispatch({
           type: 'set-navigation-path',
-          path: ''
+          path: '',
         });
       }
     };
@@ -135,7 +145,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
       if (!isInside) {
         dispatch({
           type: 'set-navigation-path',
-          path: ''
+          path: '',
         });
       }
     };
@@ -156,7 +166,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
     if (expandingOrCollapsing) {
       dispatch({
         type: 'set-navigation-path',
-        path: ''
+        path: '',
       });
     }
   }, [expandingOrCollapsing]);
@@ -177,10 +187,9 @@ export const Menu: React.FunctionComponent<MenuProps> = (
     }
   };
 
-  const className = (
-    'sidebar-main-menu'
-    + (accountSettingsOpen ? ' sidebar-main-menu--open-footer' : '')
-  );
+  const className =
+    'sidebar-main-menu' +
+    (accountSettingsOpen ? ' sidebar-main-menu--open-footer' : '');
 
   return (
     <>
@@ -189,7 +198,12 @@ export const Menu: React.FunctionComponent<MenuProps> = (
           {renderMenu('', menuItems, slim, state, dispatch, navigate)}
         </ul>
       </nav>
-      <div className={'sidebar-footer' + (accountSettingsOpen ? ' sidebar-footer--open' : '')}>
+      <div
+        className={
+          'sidebar-footer' +
+          (accountSettingsOpen ? ' sidebar-footer--open' : '')
+        }
+      >
         <button
           className="sidebar-footer__account"
           title={strings.EDIT_YOUR_ACCOUNT}
@@ -205,7 +219,7 @@ export const Menu: React.FunctionComponent<MenuProps> = (
             <div className="sidebar-footer__account-label">{user.name}</div>
             <Icon
               className="sidebar-footer__account-icon"
-              name={(accountSettingsOpen ? 'arrow-down' : 'arrow-up')}
+              name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
             />
           </div>
         </button>
@@ -222,14 +236,14 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
   menuItems: MenuItemDefinition[];
   accountMenuItems: MenuItemDefinition[];
   user: {
-      name: string;
-      avatarUrl: string;
+    name: string;
+    avatarUrl: string;
   };
 
   constructor(
     menuItems: MenuItemDefinition[],
     accountMenuItems: MenuItemDefinition[],
-    user: MainMenuModuleDefinition['user']
+    user: MainMenuModuleDefinition['user'],
   ) {
     this.menuItems = menuItems;
     this.accountMenuItems = accountMenuItems;

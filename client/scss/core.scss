@@ -41,14 +41,12 @@ OTHER PREFIXES
 
 ==============================================================================*/
 
-
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
 */
 
 @import 'settings';
-
 
 /* TOOLS
 These are functions and mixins.
@@ -57,14 +55,12 @@ These are functions and mixins.
 
 @import 'tools';
 
-
 /* GENERIC
 This is for resets and other rules that affect large collections of bare elements.
 * Changes to them should be very rare.
 */
 
 // @import 'generic/generic';
-
 
 /* ELEMENTS
 These are base styles for bare HTML elements.
@@ -76,7 +72,6 @@ These are base styles for bare HTML elements.
 @import 'elements/forms';
 @import 'elements/root';
 
-
 /* OBJECTS
 These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 * This is for grids, wrappers, and other non-consmetic layout utilities.
@@ -85,7 +80,6 @@ These are classes related to layout, known as 'objects' in ITCSS or OOCSS.
 
 @import 'objects/objects';
 @import 'objects/avatar';
-
 
 /* COMPONENTS
 These are classes for components.
@@ -147,7 +141,6 @@ These are classes that provide overrides.
 @import 'overrides/vendor.datetimepicker';
 @import 'overrides/vendor.tagit';
 
-
 // UTILITIES: classes that do one simple thing.
 @import 'overrides/utilities.hidden';
 @import 'overrides/utilities.text';
@@ -158,7 +151,6 @@ These are classes that provide overrides.
 // Legacy utilities
 @import 'overrides/utilities.text.legacy';
 @import 'overrides/utilities.legacy';
-
 
 // PAGES: page-specific overrides
 @import 'overrides/pages.homepage';

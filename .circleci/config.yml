@@ -12,9 +12,9 @@ jobs:
           key: pipenv-v1-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
-            if [[ ! -e ".venv" ]]; then
-                pipenv install -e .[testing]
-            fi
+          if [[ ! -e ".venv" ]]; then
+              pipenv install -e .[testing]
+          fi
       - save_cache:
           key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
@@ -39,9 +39,9 @@ jobs:
           key: frontend-v1-{{ checksum "package-lock.json" }}
       # Only install if node_modules wasn’t cached.
       - run: |
-            if [[ ! -e "node_modules" ]]; then
-                npm install --no-save --no-optional --no-audit --no-fund --progress=false
-            fi
+          if [[ ! -e "node_modules" ]]; then
+              npm install --no-save --no-optional --no-audit --no-fund --progress=false
+          fi
       - save_cache:
           paths:
             - node_modules
@@ -73,9 +73,9 @@ jobs:
           key: pipenv-v1-{{ checksum "setup.py" }}
       # Only install if .venv wasn’t cached.
       - run: |
-            if [[ ! -e ".venv" ]]; then
-                pipenv install -e .[testing]
-            fi
+          if [[ ! -e ".venv" ]]; then
+              pipenv install -e .[testing]
+          fi
       - save_cache:
           key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
@@ -84,9 +84,9 @@ jobs:
           key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
       # Only install if node_modules wasn’t cached.
       - run: |
-            if [[ ! -e "client/tests/integration/node_modules" ]]; then
-                npm --prefix ./client/tests/integration ci
-            fi
+          if [[ ! -e "client/tests/integration/node_modules" ]]; then
+              npm --prefix ./client/tests/integration ci
+          fi
       - save_cache:
           key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
           paths:
@@ -123,22 +123,22 @@ jobs:
       - run: python scripts/nightly/upload.py
 
 workflows:
-    version: 2
-    test:
-      jobs:
-        - backend
-        - frontend
-        - ui_tests:
-            requires:
-              - frontend
+  version: 2
+  test:
+    jobs:
+      - backend
+      - frontend
+      - ui_tests:
+          requires:
+            - frontend
 
-    nightly:
-      jobs:
-        - nightly-build
-      triggers:
-        - schedule:
-            cron: "0 0 * * *"
-            filters:
-              branches:
-                only:
-                  - main
+  nightly:
+    jobs:
+      - nightly-build
+    triggers:
+      - schedule:
+          cron: '0 0 * * *'
+          filters:
+            branches:
+              only:
+                - main

@@ -41,7 +41,7 @@ test('New comment added to state', () => {
   const newState = reducer(basicCommentsState, commentAction);
   expect(newState.comments.get(newComment.localId)).toBe(newComment);
   expect(newState.remoteCommentCount).toBe(
-    basicCommentsState.remoteCommentCount
+    basicCommentsState.remoteCommentCount,
   );
 });
 
@@ -68,13 +68,13 @@ test('Remote comment added to state', () => {
   const newState = reducer(basicCommentsState, commentAction);
   expect(newState.comments.get(newComment.localId)).toBe(newComment);
   expect(newState.remoteCommentCount).toBe(
-    basicCommentsState.remoteCommentCount + 1
+    basicCommentsState.remoteCommentCount + 1,
   );
 });
 
 test('Existing comment updated', () => {
   const commentUpdate: CommentUpdate = {
-    mode: 'editing'
+    mode: 'editing',
   };
   const updateAction = actions.updateComment(1, commentUpdate);
   const newState = reducer(basicCommentsState, updateAction);
@@ -111,7 +111,7 @@ test('Remote comment deleted', () => {
   expect(newState.focusedComment).toBe(null);
   expect(newState.pinnedComment).toBe(null);
   expect(newState.remoteCommentCount).toBe(
-    basicCommentsState.remoteCommentCount
+    basicCommentsState.remoteCommentCount,
   );
 });
 
@@ -127,12 +127,15 @@ test('Remote comment resolved', () => {
   expect(newState.focusedComment).toBe(null);
   expect(newState.pinnedComment).toBe(null);
   expect(newState.remoteCommentCount).toBe(
-    basicCommentsState.remoteCommentCount
+    basicCommentsState.remoteCommentCount,
   );
 });
 
 test('Comment focused', () => {
-  const focusAction = actions.setFocusedComment(4, { updatePinnedComment: true, forceFocus: true });
+  const focusAction = actions.setFocusedComment(4, {
+    updatePinnedComment: true,
+    forceFocus: true,
+  });
   const newState = reducer(basicCommentsState, focusAction);
   expect(newState.focusedComment).toBe(4);
   expect(newState.pinnedComment).toBe(4);
@@ -140,7 +143,10 @@ test('Comment focused', () => {
 });
 
 test('Invalid comment not focused', () => {
-  const focusAction = actions.setFocusedComment(9000, { updatePinnedComment: true, forceFocus: true });
+  const focusAction = actions.setFocusedComment(9000, {
+    updatePinnedComment: true,
+    forceFocus: true,
+  });
   const newState = reducer(basicCommentsState, focusAction);
   expect(newState.focusedComment).toBe(basicCommentsState.focusedComment);
   expect(newState.pinnedComment).toBe(basicCommentsState.pinnedComment);
@@ -194,7 +200,9 @@ test('Remote reply added', () => {
     expect(stateReply).toBeDefined();
     expect(stateReply).toBe(reply);
     if (originalComment) {
-      expect(comment.remoteReplyCount).toBe(originalComment.remoteReplyCount + 1);
+      expect(comment.remoteReplyCount).toBe(
+        originalComment.remoteReplyCount + 1,
+      );
     }
   }
 });

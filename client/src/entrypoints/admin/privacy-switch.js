@@ -15,8 +15,14 @@ $(() => {
             return false;
           });
 
-          const restrictionTypePasswordField = $("input[name='restriction_type'][value='password']", modal.body);
-          const restrictionTypeGroupsField = $("input[name='restriction_type'][value='groups']", modal.body);
+          const restrictionTypePasswordField = $(
+            "input[name='restriction_type'][value='password']",
+            modal.body,
+          );
+          const restrictionTypeGroupsField = $(
+            "input[name='restriction_type'][value='groups']",
+            modal.body,
+          );
           const passwordField = $('.password-field', modal.body);
           const groupsFields = $('#groups-fields', modal.body);
 
@@ -34,24 +40,31 @@ $(() => {
           }
           refreshFormFields();
 
-          $("input[name='restriction_type']", modal.body).on('change', refreshFormFields);
+          $("input[name='restriction_type']", modal.body).on(
+            'change',
+            refreshFormFields,
+          );
         },
         set_privacy_done(modal, jsonData) {
           modal.respond('setPermission', jsonData.is_public);
           modal.close();
-        }
+        },
       },
       responses: {
         setPermission(isPublic) {
           if (isPublic) {
             $('.privacy-indicator').removeClass('private').addClass('public');
-            $('.privacy-indicator-tag').addClass('u-hidden').attr('aria-hidden', 'true');
+            $('.privacy-indicator-tag')
+              .addClass('u-hidden')
+              .attr('aria-hidden', 'true');
           } else {
             $('.privacy-indicator').removeClass('public').addClass('private');
-            $('.privacy-indicator-tag').removeClass('u-hidden').attr('aria-hidden', 'false');
+            $('.privacy-indicator-tag')
+              .removeClass('u-hidden')
+              .attr('aria-hidden', 'false');
           }
-        }
-      }
+        },
+      },
     });
     return false;
   });

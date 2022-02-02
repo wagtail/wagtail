@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -11,9 +9,9 @@ import ExplorerPanel from './ExplorerPanel';
 
 interface ExplorerProps {
   isVisible: boolean;
-  depth: number,
-  currentPageId: number | null,
-  nodes: NodeState,
+  depth: number;
+  currentPageId: number | null;
+  nodes: NodeState;
   onClose(): void;
   gotoPage(id: number, transition: number): void;
 }
@@ -25,15 +23,16 @@ const Explorer: React.FunctionComponent<ExplorerProps> = ({
   nodes,
   gotoPage,
   onClose,
-}) => ((isVisible && currentPageId) ? (
-  <ExplorerPanel
-    depth={depth}
-    page={nodes[currentPageId]}
-    nodes={nodes}
-    gotoPage={gotoPage}
-    onClose={onClose}
-  />
-) : null);
+}) =>
+  isVisible && currentPageId ? (
+    <ExplorerPanel
+      depth={depth}
+      page={nodes[currentPageId]}
+      nodes={nodes}
+      gotoPage={gotoPage}
+      onClose={onClose}
+    />
+  ) : null;
 
 const mapStateToProps = (state: State) => ({
   isVisible: state.explorer.isVisible,
@@ -43,7 +42,8 @@ const mapStateToProps = (state: State) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  gotoPage: (id: number, transition: number) => dispatch(actions.gotoPage(id, transition)),
+  gotoPage: (id: number, transition: number) =>
+    dispatch(actions.gotoPage(id, transition)),
   onClose: () => dispatch(actions.closeExplorer()),
 });
 

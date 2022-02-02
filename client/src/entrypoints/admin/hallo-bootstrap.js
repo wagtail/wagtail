@@ -2,7 +2,9 @@ import $ from 'jquery';
 
 function makeHalloRichTextEditable(id, plugins) {
   const input = $('#' + id);
-  const editor = $('<div class="halloeditor" data-hallo-editor></div>').html(input.val());
+  const editor = $('<div class="halloeditor" data-hallo-editor></div>').html(
+    input.val(),
+  );
   editor.insertBefore(input);
   input.hide();
 
@@ -13,9 +15,11 @@ function makeHalloRichTextEditable(id, plugins) {
     and spans will be removed anyway by our whitelisting)
     */
     // eslint-disable-next-line func-names
-    $('span[style]', editor).filter(function () {
-      return this.attributes.length === 1;
-    }).removeAttr('style');
+    $('span[style]', editor)
+      .filter(function () {
+        return this.attributes.length === 1;
+      })
+      .removeAttr('style');
     removeStylingPending = false;
   }
 
@@ -29,27 +33,30 @@ function makeHalloRichTextEditable(id, plugins) {
 
   const closestObj = input.closest('.object');
 
-  editor.hallo({
-    toolbar: 'halloToolbarFixed',
-    toolbarCssClass: (closestObj.hasClass('full')) ? 'full' : '',
-    /* use the passed-in plugins arg */
-    plugins: plugins
-  }).on('hallomodified', (event, data) => {
-    input.val(data.content);
-    if (!removeStylingPending) {
-      setTimeout(removeStyling, 100);
-      removeStylingPending = true;
-    }
-  }).on('paste drop', () => {
-    setTimeout(() => {
-      removeStyling();
-      setModified();
-    }, 1);
-  /* Animate the fields open when you click into them. */
-  })
+  editor
+    .hallo({
+      toolbar: 'halloToolbarFixed',
+      toolbarCssClass: closestObj.hasClass('full') ? 'full' : '',
+      /* use the passed-in plugins arg */
+      plugins: plugins,
+    })
+    .on('hallomodified', (event, data) => {
+      input.val(data.content);
+      if (!removeStylingPending) {
+        setTimeout(removeStyling, 100);
+        removeStylingPending = true;
+      }
+    })
+    .on('paste drop', () => {
+      setTimeout(() => {
+        removeStyling();
+        setModified();
+      }, 1);
+      /* Animate the fields open when you click into them. */
+    })
     .on('halloactivated', (event) => {
       $(event.target).addClass('expanded', 200, () => {
-      /* Hallo's toolbar will reposition itself on the scroll event.
+        /* Hallo's toolbar will reposition itself on the scroll event.
       This is useful since animating the fields can cause it to be
       positioned badly initially. */
         $(window).trigger('scroll');
@@ -74,13 +81,15 @@ function setupLinkTooltips(elem) {
     },
     trigger: 'hover',
     placement: 'bottom',
-    selector: 'a'
+    selector: 'a',
   });
 }
 window.setupLinkTooltips = setupLinkTooltips;
 
 function insertRichTextDeleteControl(elem) {
-  const anchor = $('<a class="icon icon-cross text-replace halloembed__delete">Delete</a>');
+  const anchor = $(
+    '<a class="icon icon-cross text-replace halloembed__delete">Delete</a>',
+  );
   $(elem).addClass('halloembed').prepend(anchor);
   anchor.on('click', () => {
     const widget = $(elem).parent('[data-hallo-editor]').data('IKS-hallo');

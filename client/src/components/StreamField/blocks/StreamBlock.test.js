@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { StreamBlockDefinition, StreamBlockValidationError } from './StreamBlock';
+import {
+  StreamBlockDefinition,
+  StreamBlockValidationError,
+} from './StreamBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -26,12 +29,24 @@ class DummyWidgetDefinition {
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
-    $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
+    $(placeholder).replaceWith(
+      `<p name="${name}" id="${id}">${widgetName}</p>`,
+    );
     return {
-      setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
-      focus() { focus(widgetName); },
+      setState(state) {
+        setState(widgetName, state);
+      },
+      getState() {
+        getState(widgetName);
+        return `state: ${widgetName} - ${name}`;
+      },
+      getValue() {
+        getValue(widgetName);
+        return `value: ${widgetName} - ${name}`;
+      },
+      focus() {
+        focus(widgetName);
+      },
       idForLabel: id,
     };
   }
@@ -58,28 +73,33 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
     const blockDef = new StreamBlockDefinition(
       '',
       [
-        ['', [
-          new FieldBlockDefinition(
-            'test_block_a',
-            new DummyWidgetDefinition('Block A widget'),
-            {
-              label: 'Test Block A',
-              required: true,
-              icon: 'placeholder',
-              classname: 'field char_field widget-text_input fieldname-test_charblock'
-            }
-          ),
-          new FieldBlockDefinition(
-            'test_block_b',
-            new DummyWidgetDefinition('Block B widget'),
-            {
-              label: 'Test Block B',
-              required: true,
-              icon: 'pilcrow',
-              classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
-            }
-          ),
-        ]]
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A widget'),
+              {
+                label: 'Test Block A',
+                required: true,
+                icon: 'placeholder',
+                classname:
+                  'field char_field widget-text_input fieldname-test_charblock',
+              },
+            ),
+            new FieldBlockDefinition(
+              'test_block_b',
+              new DummyWidgetDefinition('Block B widget'),
+              {
+                label: 'Test Block B',
+                required: true,
+                icon: 'pilcrow',
+                classname:
+                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+              },
+            ),
+          ],
+        ],
       ],
       {
         test_block_a: 'Block A options',
@@ -102,7 +122,7 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
         },
-      }
+      },
     );
 
     // Render it
@@ -111,12 +131,12 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
   });
@@ -155,12 +175,12 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'value: Block A widget - the-prefix-0-value'
+        value: 'value: Block A widget - the-prefix-0-value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'value: Block B widget - the-prefix-1-value'
+        value: 'value: Block B widget - the-prefix-1-value',
       },
     ]);
   });
@@ -172,12 +192,12 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'state: Block A widget - the-prefix-0-value'
+        value: 'state: Block A widget - the-prefix-0-value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'state: Block B widget - the-prefix-1-value'
+        value: 'state: Block B widget - the-prefix-1-value',
       },
     ]);
   });
@@ -187,17 +207,17 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'Changed first value'
+        value: 'Changed first value',
       },
       {
         id: '3',
         type: 'test_block_b',
-        value: 'Third value'
+        value: 'Third value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Changed second value'
+        value: 'Changed second value',
       },
     ]);
 
@@ -232,17 +252,17 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'state: Block A widget - the-prefix-0-value'
+        value: 'state: Block A widget - the-prefix-0-value',
       },
       {
         id: '3',
         type: 'test_block_b',
-        value: 'state: Block B widget - the-prefix-1-value'
+        value: 'state: Block B widget - the-prefix-1-value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'state: Block B widget - the-prefix-2-value'
+        value: 'state: Block B widget - the-prefix-2-value',
       },
     ]);
   });
@@ -289,7 +309,8 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
         {
           /* block error */
           1: [new ValidationError(['Not as good as the first one'])],
-        }),
+        },
+      ),
     ]);
     expect(document.body.innerHTML).toMatchSnapshot();
   });
@@ -310,28 +331,33 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
     const blockDef = new StreamBlockDefinition(
       '',
       [
-        ['', [
-          new FieldBlockDefinition(
-            'test_block_a',
-            new DummyWidgetDefinition('Block A widget'),
-            {
-              label: 'Test Block <A>',
-              required: true,
-              icon: 'placeholder',
-              classname: 'field char_field widget-text_input fieldname-test_charblock'
-            }
-          ),
-          new FieldBlockDefinition(
-            'test_block_b',
-            new DummyWidgetDefinition('Block B widget'),
-            {
-              label: 'Test Block <B>',
-              required: true,
-              icon: 'pilcrow',
-              classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
-            }
-          ),
-        ]]
+        [
+          '',
+          [
+            new FieldBlockDefinition(
+              'test_block_a',
+              new DummyWidgetDefinition('Block A widget'),
+              {
+                label: 'Test Block <A>',
+                required: true,
+                icon: 'placeholder',
+                classname:
+                  'field char_field widget-text_input fieldname-test_charblock',
+              },
+            ),
+            new FieldBlockDefinition(
+              'test_block_b',
+              new DummyWidgetDefinition('Block B widget'),
+              {
+                label: 'Test Block <B>',
+                required: true,
+                icon: 'pilcrow',
+                classname:
+                  'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+              },
+            ),
+          ],
+        ],
       ],
       {
         test_block_a: 'Block A options',
@@ -354,7 +380,7 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
           DUPLICATE: 'Duplicate',
           ADD: 'Add',
         },
-      }
+      },
     );
 
     // Render it
@@ -363,12 +389,12 @@ describe('telepath: wagtail.blocks.StreamBlock with labels that need escaping', 
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
   });
@@ -384,28 +410,33 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
   const blockDef = new StreamBlockDefinition(
     '',
     [
-      ['', [
-        new FieldBlockDefinition(
-          'test_block_a',
-          new DummyWidgetDefinition('Block A widget'),
-          {
-            label: 'Test Block <A>',
-            required: true,
-            icon: 'placeholder',
-            classname: 'field char_field widget-text_input fieldname-test_charblock'
-          }
-        ),
-        new FieldBlockDefinition(
-          'test_block_b',
-          new DummyWidgetDefinition('Block B widget'),
-          {
-            label: 'Test Block <B>',
-            required: true,
-            icon: 'pilcrow',
-            classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
-          }
-        ),
-      ]]
+      [
+        '',
+        [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname:
+                'field char_field widget-text_input fieldname-test_charblock',
+            },
+          ),
+          new FieldBlockDefinition(
+            'test_block_b',
+            new DummyWidgetDefinition('Block B widget'),
+            {
+              label: 'Test Block <B>',
+              required: true,
+              icon: 'pilcrow',
+              classname:
+                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+            },
+          ),
+        ],
+      ],
     ],
     {
       test_block_a: 'Block A options',
@@ -428,25 +459,41 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
         DUPLICATE: 'Duplicate',
         ADD: 'Add',
       },
-    }
+    },
   );
 
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
 
     // Test menu
-    expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button[data-streamblock-menu-open]')
+        .getAttribute('disabled'),
+    ).toBe(null);
   };
 
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
 
     // Test menu
-    expect(document.querySelector('button[data-streamblock-menu-open]').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button[data-streamblock-menu-open]')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
   };
 
   test('test can add block when under limit', () => {
@@ -455,12 +502,12 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
     boundBlock.inserters[0].open();
@@ -474,17 +521,17 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
       {
         id: '3',
         type: 'test_block_b',
-        value: 'Third value'
+        value: 'Third value',
       },
     ]);
     boundBlock.inserters[0].open();
@@ -498,23 +545,26 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
 
-    boundBlock.insert({
-      id: '3',
-      type: 'test_block_b',
-      value: 'Third value'
-    }, 2);
+    boundBlock.insert(
+      {
+        id: '3',
+        type: 'test_block_b',
+        value: 'Third value',
+      },
+      2,
+    );
 
     assertCannotAddBlock();
   });
@@ -525,17 +575,17 @@ describe('telepath: wagtail.blocks.StreamBlock with maxNum set', () => {
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
       {
         id: '3',
         type: 'test_block_b',
-        value: 'Third value'
+        value: 'Third value',
       },
     ]);
     boundBlock.inserters[0].open();
@@ -553,28 +603,33 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
   const blockDef = new StreamBlockDefinition(
     '',
     [
-      ['', [
-        new FieldBlockDefinition(
-          'test_block_a',
-          new DummyWidgetDefinition('Block A widget'),
-          {
-            label: 'Test Block <A>',
-            required: true,
-            icon: 'placeholder',
-            classname: 'field char_field widget-text_input fieldname-test_charblock'
-          }
-        ),
-        new FieldBlockDefinition(
-          'test_block_b',
-          new DummyWidgetDefinition('Block B widget'),
-          {
-            label: 'Test Block <B>',
-            required: true,
-            icon: 'pilcrow',
-            classname: 'field char_field widget-admin_auto_height_text_input fieldname-test_textblock'
-          }
-        ),
-      ]]
+      [
+        '',
+        [
+          new FieldBlockDefinition(
+            'test_block_a',
+            new DummyWidgetDefinition('Block A widget'),
+            {
+              label: 'Test Block <A>',
+              required: true,
+              icon: 'placeholder',
+              classname:
+                'field char_field widget-text_input fieldname-test_charblock',
+            },
+          ),
+          new FieldBlockDefinition(
+            'test_block_b',
+            new DummyWidgetDefinition('Block B widget'),
+            {
+              label: 'Test Block <B>',
+              required: true,
+              icon: 'pilcrow',
+              classname:
+                'field char_field widget-admin_auto_height_text_input fieldname-test_textblock',
+            },
+          ),
+        ],
+      ],
     ],
     {
       test_block_a: 'Block A options',
@@ -591,8 +646,8 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       minNum: null,
       blockCounts: {
         test_block_a: {
-          max_num: 2
-        }
+          max_num: 2,
+        },
       },
       strings: {
         MOVE_UP: 'Move up',
@@ -601,25 +656,41 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
         DUPLICATE: 'Duplicate',
         ADD: 'Add',
       },
-    }
+    },
   );
 
   const assertCanAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toBe(null);
 
     // Test menu item
-    expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toBe(null);
+    expect(
+      document
+        .querySelector('button.action-add-block-test_block_a')
+        .getAttribute('disabled'),
+    ).toBe(null);
   };
 
   const assertCannotAddBlock = () => {
     // Test duplicate button
     // querySelector always returns the first element it sees so this only checks the first block
-    expect(document.querySelector('button[title="Duplicate"]').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button[title="Duplicate"]')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
 
     // Test menu item
-    expect(document.querySelector('button.action-add-block-test_block_a').getAttribute('disabled')).toEqual('disabled');
+    expect(
+      document
+        .querySelector('button.action-add-block-test_block_a')
+        .getAttribute('disabled'),
+    ).toEqual('disabled');
   };
 
   test('single instance allows creation of new block and duplication', () => {
@@ -628,12 +699,12 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
     boundBlock.inserters[0].open();
@@ -647,17 +718,17 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
       {
         id: '3',
         type: 'test_block_a',
-        value: 'Third value'
+        value: 'Third value',
       },
     ]);
     boundBlock.inserters[0].open();
@@ -671,23 +742,26 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
     ]);
     boundBlock.inserters[0].open();
 
     assertCanAddBlock();
 
-    boundBlock.insert({
-      id: '3',
-      type: 'test_block_a',
-      value: 'Third value'
-    }, 2);
+    boundBlock.insert(
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value',
+      },
+      2,
+    );
 
     assertCannotAddBlock();
   });
@@ -698,17 +772,17 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
       {
         id: '1',
         type: 'test_block_a',
-        value: 'First value'
+        value: 'First value',
       },
       {
         id: '2',
         type: 'test_block_b',
-        value: 'Second value'
+        value: 'Second value',
       },
       {
         id: '3',
         type: 'test_block_a',
-        value: 'Third value'
+        value: 'Third value',
       },
     ]);
     boundBlock.inserters[0].open();

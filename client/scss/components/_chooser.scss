@@ -9,84 +9,88 @@ overridden here? hmm.
 */
 
 .chooser {
-    // We show the 'chosen' state...
-    @include clearfix();
+  // We show the 'chosen' state...
+  @include clearfix();
 
-    input[type=text] {
-        float: left;
-        width: 50%;
-        margin-right: 1em;
+  input[type='text'] {
+    float: left;
+    width: 50%;
+    margin-right: 1em;
+  }
+
+  .chosen {
+    display: block;
+  }
+
+  .unchosen,
+  .chosen {
+    position: relative;
+
+    .icon {
+      color: $color-grey-3;
+      @include svg-icon(2.5em);
+      vertical-align: middle;
+      margin-right: 0.625rem;
     }
 
-    .chosen {
-        display: block;
+    // TODO: [icon-font] remove when the Wagtail icon font is removed
+    &:before {
+      vertical-align: middle;
+      font-family: $font-wagtail-icons;
+      content: '';
+      // position: relative
+      display: inline-block;
+      // float: left;
+      color: $color-grey-3;
+      line-height: 1em;
+      font-size: 2.5em;
+      margin-right: 0.3em;
     }
+  }
 
-    .unchosen,
+  .unchosen {
+    display: none;
+  }
+
+  .actions {
+    @include clearfix;
+    overflow: hidden;
+
+    li {
+      float: left;
+      margin: 0.3em;
+    }
+  }
+
+  // ...unless the .page-chooser has the 'blank' class set
+  &.blank {
     .chosen {
-        position: relative;
-
-        .icon {
-            color: $color-grey-3;
-            @include svg-icon(2.5em);
-            vertical-align: middle;
-            margin-right: 0.625rem;
-        }
-
-        // TODO: [icon-font] remove when the Wagtail icon font is removed
-        &:before {
-            vertical-align: middle;
-            font-family: $font-wagtail-icons;
-            content: '';
-            // position: relative
-            display: inline-block;
-            // float: left;
-            color: $color-grey-3;
-            line-height: 1em;
-            font-size: 2.5em;
-            margin-right: 0.3em;
-        }
+      display: none;
     }
 
     .unchosen {
-        display: none;
+      display: block;
     }
-
-    .actions {
-        @include clearfix;
-        overflow: hidden;
-
-        li {
-            float: left;
-            margin: 0.3em;
-        }
-    }
-
-    // ...unless the .page-chooser has the 'blank' class set
-    &.blank {
-        .chosen { display: none; }
-
-        .unchosen { display: block; }
-    }
+  }
 }
 
 // standard way of doing a chooser where the chosen object's title is overlaid
 .page-chooser,
 .snippet-chooser,
 .document-chooser {
-    .chosen {
-        .title {
-            color: $color-grey-1;
-            // display: block;
-            padding-left: 1em;
-            display: inline-block;
-        }
-
-        .actions {
-            clear: both;
-            padding-top: 0.6em;
-        }
+  .chosen {
+    .title {
+      color: $color-grey-1;
+      // display: block;
+      padding-left: 1em;
+      display: inline-block;
     }
+
+    .actions {
+      clear: both;
+      padding-top: 0.6em;
+    }
+  }
 }
 
 // TODO: [icon-font] remove when the Wagtail icon font is removed
@@ -94,37 +98,37 @@ overridden here? hmm.
 .snippet-chooser,
 .document-chooser,
 .image-chooser {
-    .unchosen,
-    .chosen {
-        &:before {
-            display: none;
-        }
+  .unchosen,
+  .chosen {
+    &:before {
+      display: none;
     }
+  }
 }
 
 .image-chooser {
-    .chosen {
-        padding-left: $thumbnail-width;
+  .chosen {
+    padding-left: $thumbnail-width;
 
-        &:before {
-            display: inline-block;
-        }
-
-        .preview-image {
-            float: left;
-            margin-left: -($thumbnail-width);
-            margin-right: 1em;
-            max-width: $thumbnail-width;
-
-            // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
-            // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
-            // where images are store off-site with higher rendering times.
-            img {
-                max-width: $thumbnail-width;
-                max-height: $thumbnail-width;
-                height: auto;
-                width: auto;
-            }
-        }
+    &:before {
+      display: inline-block;
     }
+
+    .preview-image {
+      float: left;
+      margin-left: -($thumbnail-width);
+      margin-right: 1em;
+      max-width: $thumbnail-width;
+
+      // Resize standard Wagtail thumbnail size (165x165) to 130 for space-saving purposes.
+      // We could request a 130x130 rendition, but that's just unnecessary and burdens installations
+      // where images are store off-site with higher rendering times.
+      img {
+        max-width: $thumbnail-width;
+        max-height: $thumbnail-width;
+        height: auto;
+        width: auto;
+      }
+    }
+  }
 }

@@ -1,5 +1,3 @@
- 
-
 import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
@@ -13,8 +11,14 @@ interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
 }
 
-export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
-  { path, item, slim, state, dispatch, navigate }) => {
+export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
+  path,
+  item,
+  slim,
+  state,
+  dispatch,
+  navigate,
+}) => {
   const isOpen = state.navigationPath.startsWith(path);
   const isActive = isOpen || state.activePath.startsWith(path);
   const depth = path.split('.').length;
@@ -52,16 +56,14 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
     e.preventDefault();
   };
 
-  const className = (
-    'sidebar-menu-item sidebar-sub-menu-item'
-    + (isActive ? ' sidebar-menu-item--active' : '')
-    + (isOpen ? ' sidebar-sub-menu-item--open' : '')
-  );
+  const className =
+    'sidebar-menu-item sidebar-sub-menu-item' +
+    (isActive ? ' sidebar-menu-item--active' : '') +
+    (isOpen ? ' sidebar-sub-menu-item--open' : '');
 
-  const sidebarTriggerIconClassName = (
-    'sidebar-sub-menu-trigger-icon'
-    + (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '')
-  );
+  const sidebarTriggerIconClassName =
+    'sidebar-sub-menu-trigger-icon' +
+    (isOpen ? ' sidebar-sub-menu-trigger-icon--open' : '');
 
   return (
     <li className={className}>
@@ -71,20 +73,33 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = (
         aria-haspopup="true"
         aria-expanded={isOpen ? 'true' : 'false'}
       >
-        {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
+        {item.iconName && (
+          <Icon name={item.iconName} className="icon--menuitem" />
+        )}
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
       </button>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
-          <h2 id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`} className={item.classNames}>
-            {item.iconName && <Icon name={item.iconName} className="icon--submenu-header" />}
+          <h2
+            id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}
+            className={item.classNames}
+          >
+            {item.iconName && (
+              <Icon name={item.iconName} className="icon--submenu-header" />
+            )}
             {item.label}
           </h2>
-          <ul aria-labelledby={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}>
+          <ul
+            aria-labelledby={`wagtail-sidebar-submenu${path
+              .split('.')
+              .join('-')}-title`}
+          >
             {renderMenu(path, item.menuItems, slim, state, dispatch, navigate)}
           </ul>
-          {item.footerText && <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>}
+          {item.footerText && (
+            <p className="sidebar-sub-menu-panel__footer">{item.footerText}</p>
+          )}
         </div>
       </SidebarPanel>
     </li>
@@ -107,7 +122,7 @@ export class SubMenuItemDefinition implements MenuItemDefinition {
       classnames = undefined,
       footer_text: footerText = '',
     }: any,
-    menuItems: MenuItemDefinition[]
+    menuItems: MenuItemDefinition[],
   ) {
     this.name = name;
     this.label = label;

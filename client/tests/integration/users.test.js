@@ -7,7 +7,7 @@ describe('Users', () => {
     const toggle = await page.$('[aria-label="Select all"]');
     await toggle.click();
     await expect(page).toPassAxeTests({
-      exclude: '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar'
+      exclude: '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar',
     });
   });
 });

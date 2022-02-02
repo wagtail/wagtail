@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
 
@@ -13,11 +11,20 @@ interface SelectLocaleProps {
   gotoPage(id: number, transition: number): void;
 }
 
-const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({ locale, translations, gotoPage }) => {
-  const options = wagtailConfig.LOCALES
-    .filter(({ code }) => code === locale || translations.get(code))
+const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({
+  locale,
+  translations,
+  gotoPage,
+}) => {
+  const options = wagtailConfig.LOCALES.filter(
+    ({ code }) => code === locale || translations.get(code),
+  )
     /* eslint-disable-next-line camelcase */
-    .map(({ code, display_name }) => <option key={code} value={code}>{display_name}</option>);
+    .map(({ code, display_name }) => (
+      <option key={code} value={code}>
+        {display_name}
+      </option>
+    ));
 
   const onChange = (e) => {
     e.preventDefault();
@@ -29,7 +36,9 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({ locale, tran
 
   return (
     <div className="c-page-explorer__header__select">
-      <select value={locale} onChange={onChange} disabled={options.length < 2}>{options}</select>
+      <select value={locale} onChange={onChange} disabled={options.length < 2}>
+        {options}
+      </select>
       <span />
     </div>
   );
@@ -38,7 +47,7 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({ locale, tran
 interface PageExplorerHeaderProps {
   page: PageState;
   depth: number;
-  onClick(e: any): void
+  onClick(e: any): void;
   gotoPage(id: number, transition: number): void;
   navigate(url: string): Promise<void>;
 }
@@ -47,8 +56,13 @@ interface PageExplorerHeaderProps {
  * The bar at the top of the explorer, displaying the current level
  * and allowing access back to the parent level.
  */
-const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = (
-  { page, depth, onClick, gotoPage, navigate }) => {
+const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = ({
+  page,
+  depth,
+  onClick,
+  gotoPage,
+  navigate,
+}) => {
   const isRoot = depth === 0;
   const isSiteRoot = page.id === 0;
 
@@ -68,10 +82,16 @@ const PageExplorerHeader: React.FunctionComponent<PageExplorerHeaderProps> = (
           <span>{page.admin_display_title || STRINGS.PAGES}</span>
         </div>
       </Button>
-      {!isSiteRoot && page.meta.locale &&
-      page.translations &&
-      page.translations.size > 0 &&
-        <SelectLocale locale={page.meta.locale} translations={page.translations} gotoPage={gotoPage} />}
+      {!isSiteRoot &&
+        page.meta.locale &&
+        page.translations &&
+        page.translations.size > 0 && (
+          <SelectLocale
+            locale={page.meta.locale}
+            translations={page.translations}
+            gotoPage={gotoPage}
+          />
+        )}
     </div>
   );
 };

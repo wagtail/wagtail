@@ -2,7 +2,10 @@ import $ from 'jquery';
 
 const ajaxifyTaskCreateTab = (modal, jsonData) => {
   // eslint-disable-next-line func-names
-  $('#new a.task-type-choice, #new a.choose-different-task-type', modal.body).on('click', function () {
+  $(
+    '#new a.task-type-choice, #new a.choose-different-task-type',
+    modal.body,
+  ).on('click', function () {
     modal.loadUrl(this.href);
     return false;
   });
@@ -20,11 +23,21 @@ const ajaxifyTaskCreateTab = (modal, jsonData) => {
       dataType: 'text',
       success: modal.loadResponseText,
       error(response, textStatus, errorThrown) {
-        const message = jsonData.error_message + '<br />' + errorThrown + ' - ' + response.status;
+        const message =
+          jsonData.error_message +
+          '<br />' +
+          errorThrown +
+          ' - ' +
+          response.status;
         $('#new', modal.body).append(
           '<div class="help-block help-critical">' +
-          '<strong>' + jsonData.error_label + ': </strong>' + message + '</div>');
-      }
+            '<strong>' +
+            jsonData.error_label +
+            ': </strong>' +
+            message +
+            '</div>',
+        );
+      },
     });
 
     return false;
@@ -114,6 +127,6 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   reshow_create_tab(modal, jsonData) {
     $('#new', modal.body).html(jsonData.htmlFragment);
     ajaxifyTaskCreateTab(modal, jsonData);
-  }
+  },
 };
 window.TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = TASK_CHOOSER_MODAL_ONLOAD_HANDLERS;

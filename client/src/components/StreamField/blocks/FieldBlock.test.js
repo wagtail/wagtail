@@ -30,12 +30,24 @@ class DummyWidgetDefinition {
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
-    $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
+    $(placeholder).replaceWith(
+      `<p name="${name}" id="${id}">${widgetName}</p>`,
+    );
     return {
-      setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
-      focus() { focus(widgetName); },
+      setState(state) {
+        setState(widgetName, state);
+      },
+      getState() {
+        getState(widgetName);
+        return `state: ${widgetName} - ${name}`;
+      },
+      getValue() {
+        getValue(widgetName);
+        return `value: ${widgetName} - ${name}`;
+      },
+      focus() {
+        focus(widgetName);
+      },
       idForLabel: id,
     };
   }
@@ -71,9 +83,10 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname: 'field char_field widget-text_input fieldname-test_charblock',
-        helpText: 'drink <em>more</em> water'
-      }
+        classname:
+          'field char_field widget-text_input fieldname-test_charblock',
+        helpText: 'drink <em>more</em> water',
+      },
     );
 
     // Render it
@@ -81,7 +94,7 @@ describe('telepath: wagtail.blocks.FieldBlock', () => {
     boundBlock = blockDef.render(
       $('#placeholder'),
       'the-prefix',
-      'Test initial state'
+      'Test initial state',
     );
   });
 
@@ -157,13 +170,14 @@ describe('telepath: wagtail.blocks.FieldBlock with comments enabled', () => {
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname: 'field char_field widget-text_input fieldname-test_charblock',
+        classname:
+          'field char_field widget-text_input fieldname-test_charblock',
         helpText: 'drink <em>more</em> water',
         showAddCommentButton: true,
         strings: {
-          ADD_COMMENT: 'Add Comment'
-        }
-      }
+          ADD_COMMENT: 'Add Comment',
+        },
+      },
     );
 
     // Render it
@@ -171,7 +185,7 @@ describe('telepath: wagtail.blocks.FieldBlock with comments enabled', () => {
     boundBlock = blockDef.render(
       $('#placeholder'),
       'the-prefix',
-      'Test initial state'
+      'Test initial state',
     );
   });
 
@@ -199,9 +213,10 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
         label: 'Test Field',
         required: true,
         icon: 'placeholder',
-        classname: 'field char_field widget-text_input fieldname-test_charblock',
-        helpText: 'drink <em>more</em> water'
-      }
+        classname:
+          'field char_field widget-text_input fieldname-test_charblock',
+        helpText: 'drink <em>more</em> water',
+      },
     );
 
     // Render it
@@ -209,7 +224,7 @@ describe('telepath: wagtail.blocks.FieldBlock catches widget render errors', () 
     boundBlock = blockDef.render(
       $('#placeholder'),
       'the-prefix',
-      'Test initial state'
+      'Test initial state',
     );
   });
 

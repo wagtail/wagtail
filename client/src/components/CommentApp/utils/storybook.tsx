@@ -1,11 +1,7 @@
 import React from 'react';
 
 import { Store } from '../state';
-import {
-  addComment,
-  setFocusedComment,
-  addReply,
-} from '../actions/comments';
+import { addComment, setFocusedComment, addReply } from '../actions/comments';
 import {
   Author,
   Comment,
@@ -35,7 +31,7 @@ export function RenderCommentsForStorybook({
   const layout = new LayoutController();
 
   const commentsToRender: Comment[] = Array.from(
-    state.comments.comments.values()
+    state.comments.comments.values(),
   );
 
   const commentsRendered = commentsToRender.map((comment) => (
@@ -47,7 +43,8 @@ export function RenderCommentsForStorybook({
         author || {
           id: 1,
           name: 'Admin',
-          avatarUrl: 'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
+          avatarUrl:
+            'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
         }
       }
       comment={comment}
@@ -57,9 +54,7 @@ export function RenderCommentsForStorybook({
     />
   ));
 
-  return (
-    <ol className="comments-list">{commentsRendered}</ol>
-  );
+  return <ol className="comments-list">{commentsRendered}</ol>;
 }
 
 interface AddTestCommentOptions extends NewCommentOptions {
@@ -69,7 +64,7 @@ interface AddTestCommentOptions extends NewCommentOptions {
 
 export function addTestComment(
   store: Store,
-  options: AddTestCommentOptions
+  options: AddTestCommentOptions,
 ): number {
   const commentId = getNextCommentId();
 
@@ -78,7 +73,8 @@ export function addTestComment(
   const author = options.author || {
     id: 1,
     name: 'Admin',
-    avatarUrl: 'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
+    avatarUrl:
+      'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
   };
 
   // We must have a remoteId unless the comment is being created
@@ -93,8 +89,16 @@ export function addTestComment(
 
   store.dispatch(
     addComment(
-      newComment('test', '', commentId, null, author, Date.now(), addCommentOptions)
-    )
+      newComment(
+        'test',
+        '',
+        commentId,
+        null,
+        author,
+        Date.now(),
+        addCommentOptions,
+      ),
+    ),
   );
 
   if (options.focused) {
@@ -112,13 +116,14 @@ interface AddTestReplyOptions extends NewReplyOptions {
 export function addTestReply(
   store: Store,
   commentId: number,
-  options: AddTestReplyOptions
+  options: AddTestReplyOptions,
 ) {
   const addReplyOptions = options;
   const author = options.author || {
     id: 1,
     name: 'Admin',
-    avatarUrl: 'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
+    avatarUrl:
+      'https://gravatar.com/avatar/e31ec811942afbf7b9ce0ac5affe426f?s=200&d=robohash&r=x',
   };
 
   if (!options.remoteId) {
@@ -126,6 +131,9 @@ export function addTestReply(
   }
 
   store.dispatch(
-    addReply(commentId, newCommentReply(1, author, Date.now(), addReplyOptions))
+    addReply(
+      commentId,
+      newCommentReply(1, author, Date.now(), addReplyOptions),
+    ),
   );
 }

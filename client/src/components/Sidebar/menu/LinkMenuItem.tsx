@@ -1,24 +1,18 @@
- 
-
 import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
 
-export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDefinition>> = (
-  { item, path, state, dispatch, navigate }) => {
+export const LinkMenuItem: React.FunctionComponent<
+  MenuItemProps<LinkMenuItemDefinition>
+> = ({ item, path, state, dispatch, navigate }) => {
   const isCurrent = state.activePath === path;
   const isActive = state.activePath.startsWith(path);
   const isInSubMenu = path.split('.').length > 2;
 
   const onClick = (e: React.MouseEvent) => {
     // Do not capture click events with modifier keys or non-main buttons.
-    if (
-      e.ctrlKey ||
-      e.shiftKey ||
-      e.metaKey ||
-      (e.button && e.button !== 0)
-    ) {
+    if (e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button !== 0)) {
       return;
     }
 
@@ -39,11 +33,10 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
     });
   };
 
-  const className = (
-    'sidebar-menu-item'
-    + (isActive ? ' sidebar-menu-item--active' : '')
-    + (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '')
-  );
+  const className =
+    'sidebar-menu-item' +
+    (isActive ? ' sidebar-menu-item--active' : '') +
+    (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
   return (
     <li className={className}>
@@ -53,7 +46,9 @@ export const LinkMenuItem: React.FunctionComponent<MenuItemProps<LinkMenuItemDef
         onClick={onClick}
         className={`sidebar-menu-item__link ${item.classNames}`}
       >
-        {item.iconName && <Icon name={item.iconName} className="icon--menuitem" />}
+        {item.iconName && (
+          <Icon name={item.iconName} className="icon--menuitem" />
+        )}
         <span className="menuitem-label">{item.label}</span>
       </a>
     </li>
@@ -67,7 +62,13 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
   iconName: string | null;
   classNames?: string;
 
-  constructor({ name, label, url, icon_name: iconName = null, classnames = undefined }) {
+  constructor({
+    name,
+    label,
+    url,
+    icon_name: iconName = null,
+    classnames = undefined,
+  }) {
     this.name = name;
     this.label = label;
     this.url = url;

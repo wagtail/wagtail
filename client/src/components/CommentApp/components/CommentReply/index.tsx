@@ -1,24 +1,22 @@
- 
-
 import React from 'react';
 
 import type { Store } from '../../state';
 import type { Comment, CommentReply, Author } from '../../state/comments';
 import { updateReply, deleteReply } from '../../actions/comments';
 import type { TranslatableStrings } from '../../main';
-import { CommentHeader }  from '../CommentHeader';
+import { CommentHeader } from '../CommentHeader';
 import TextArea from '../TextArea';
 import Icon from '../../../Icon/Icon';
 
 export async function saveCommentReply(
   comment: Comment,
   reply: CommentReply,
-  store: Store
+  store: Store,
 ) {
   store.dispatch(
     updateReply(comment.localId, reply.localId, {
       mode: 'saving',
-    })
+    }),
   );
 
   try {
@@ -27,7 +25,7 @@ export async function saveCommentReply(
         mode: 'default',
         text: reply.newText,
         author: reply.author,
-      })
+      }),
     );
   } catch (err) {
     /* eslint-disable-next-line no-console */
@@ -35,7 +33,7 @@ export async function saveCommentReply(
     store.dispatch(
       updateReply(comment.localId, reply.localId, {
         mode: 'save_error',
-      })
+      }),
     );
   }
 }
@@ -43,12 +41,12 @@ export async function saveCommentReply(
 async function deleteCommentReply(
   comment: Comment,
   reply: CommentReply,
-  store: Store
+  store: Store,
 ) {
   store.dispatch(
     updateReply(comment.localId, reply.localId, {
       mode: 'deleting',
-    })
+    }),
   );
 
   try {
@@ -57,7 +55,7 @@ async function deleteCommentReply(
     store.dispatch(
       updateReply(comment.localId, reply.localId, {
         mode: 'delete_error',
-      })
+      }),
     );
   }
 }
@@ -79,7 +77,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
       store.dispatch(
         updateReply(comment.localId, reply.localId, {
           newText: value,
-        })
+        }),
       );
     };
 
@@ -95,7 +93,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
         updateReply(comment.localId, reply.localId, {
           mode: 'default',
           newText: reply.text,
-        })
+        }),
       );
     };
 
@@ -139,7 +137,12 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
 
     return (
       <>
-        <CommentHeader commentReply={reply} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={reply}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment-reply__text">{reply.text}</p>
         <div className="comment-reply__progress">{strings.SAVING}</div>
       </>
@@ -157,7 +160,12 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
 
     return (
       <>
-        <CommentHeader commentReply={reply} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={reply}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment-reply__text">{reply.text}</p>
         <div className="comment-reply__error">
           {strings.SAVE_ERROR}
@@ -188,13 +196,18 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
       store.dispatch(
         updateReply(comment.localId, reply.localId, {
           mode: 'default',
-        })
+        }),
       );
     };
 
     return (
       <>
-        <CommentHeader commentReply={reply} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={reply}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment-reply__text">{reply.text}</p>
         <div className="comment-reply__confirm-delete">
           {strings.CONFIRM_DELETE_COMMENT}
@@ -222,7 +235,12 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
 
     return (
       <>
-        <CommentHeader commentReply={reply} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={reply}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment-reply__text">{reply.text}</p>
         <div className="comment-reply__progress">{strings.DELETING}</div>
       </>
@@ -244,13 +262,18 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
       store.dispatch(
         updateReply(comment.localId, reply.localId, {
           mode: 'default',
-        })
+        }),
       );
     };
 
     return (
       <>
-        <CommentHeader commentReply={reply} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={reply}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment-reply__text">{reply.text}</p>
         <div className="comment-reply__error">
           {strings.DELETE_ERROR}
@@ -279,13 +302,16 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     // Show edit/delete buttons if this reply was authored by the current user
     let onEdit;
     let onDelete;
-    if (reply.author === null || this.props.user && this.props.user.id === reply.author.id) {
+    if (
+      reply.author === null ||
+      (this.props.user && this.props.user.id === reply.author.id)
+    ) {
       onEdit = () => {
         store.dispatch(
           updateReply(comment.localId, reply.localId, {
             mode: 'editing',
             newText: reply.text,
-          })
+          }),
         );
       };
 
@@ -293,7 +319,7 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
         store.dispatch(
           updateReply(comment.localId, reply.localId, {
             mode: 'delete_confirm',
-          })
+          }),
         );
       };
     }
@@ -315,14 +341,14 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
           focused={isFocused}
         />
         <p className="comment-reply__text">{reply.text}</p>
-        {notice &&
+        {notice && (
           <div className="comment__notice-placeholder">
             <div className="comment__notice" role="status">
               <Icon name="info-circle" />
               {notice}
             </div>
           </div>
-        }
+        )}
       </>
     );
   }
@@ -331,33 +357,33 @@ export default class CommentReplyComponent extends React.Component<CommentReplyP
     let inner: React.ReactFragment;
 
     switch (this.props.reply.mode) {
-    case 'editing':
-      inner = this.renderEditing();
-      break;
+      case 'editing':
+        inner = this.renderEditing();
+        break;
 
-    case 'saving':
-      inner = this.renderSaving();
-      break;
+      case 'saving':
+        inner = this.renderSaving();
+        break;
 
-    case 'save_error':
-      inner = this.renderSaveError();
-      break;
+      case 'save_error':
+        inner = this.renderSaveError();
+        break;
 
-    case 'delete_confirm':
-      inner = this.renderDeleteConfirm();
-      break;
+      case 'delete_confirm':
+        inner = this.renderDeleteConfirm();
+        break;
 
-    case 'deleting':
-      inner = this.renderDeleting();
-      break;
+      case 'deleting':
+        inner = this.renderDeleting();
+        break;
 
-    case 'delete_error':
-      inner = this.renderDeleteError();
-      break;
+      case 'delete_error':
+        inner = this.renderDeleteError();
+        break;
 
-    default:
-      inner = this.renderDefault();
-      break;
+      default:
+        inner = this.renderDefault();
+        break;
     }
 
     return (

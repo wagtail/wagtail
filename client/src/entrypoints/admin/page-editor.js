@@ -4,14 +4,16 @@ import { cleanForSlug } from '../../utils/cleanForSlug';
 window.halloPlugins = {};
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function registerHalloPlugin(name, opts) {  // lgtm[js/unused-local-variable]
+function registerHalloPlugin(name, opts) {
+  // lgtm[js/unused-local-variable]
   /* Obsolete - used on Wagtail <1.12 to register plugins for the hallo.js editor.
   Defined here so that third-party plugins can continue to call it to provide Wagtail <1.12
   compatibility, without throwing an error on later versions. */
 }
 window.registerHalloPlugin = registerHalloPlugin;
 
-function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
+function InlinePanel(opts) {
+  // lgtm[js/unused-local-variable]
   const self = {};
 
   // eslint-disable-next-line func-names
@@ -34,17 +36,21 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     $('#' + deleteInputId + '-button').on('click', () => {
       /* set 'deleted' form field to true */
       $('#' + deleteInputId).val('1');
-      $('#' + childId).addClass('deleted').slideUp(() => {
-        self.updateMoveButtonDisabledStates();
-        self.updateAddButtonState();
-        self.setHasContent();
-      });
+      $('#' + childId)
+        .addClass('deleted')
+        .slideUp(() => {
+          self.updateMoveButtonDisabledStates();
+          self.updateAddButtonState();
+          self.setHasContent();
+        });
     });
 
     if (opts.canOrder) {
       $('#' + prefix + '-move-up').on('click', () => {
         const currentChild = $('#' + childId);
-        const currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
+        const currentChildOrderElem = currentChild.children(
+          'input[name$="-ORDER"]',
+        );
         const currentChildOrder = currentChildOrderElem.val();
 
         /* find the previous visible 'inline_child' li before this one */
@@ -65,7 +71,9 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
 
       $('#' + prefix + '-move-down').on('click', () => {
         const currentChild = $('#' + childId);
-        const currentChildOrderElem = currentChild.children('input[name$="-ORDER"]');
+        const currentChildOrderElem = currentChild.children(
+          'input[name$="-ORDER"]',
+        );
         const currentChildOrder = currentChildOrderElem.val();
 
         /* find the next visible 'inline_child' li after this one */
@@ -89,13 +97,17 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
      message so that it doesn't count towards the number of errors on the tab at the
      top of the page. */
     if ($('#' + deleteInputId).val() === '1') {
-      $('#' + childId).addClass('deleted').hide(0, () => {
-        self.updateMoveButtonDisabledStates();
-        self.updateAddButtonState();
-        self.setHasContent();
-      });
+      $('#' + childId)
+        .addClass('deleted')
+        .hide(0, () => {
+          self.updateMoveButtonDisabledStates();
+          self.updateAddButtonState();
+          self.setHasContent();
+        });
 
-      $('#' + childId).find('.error-message').remove();
+      $('#' + childId)
+        .find('.error-message')
+        .remove();
     }
   };
 
@@ -120,7 +132,9 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
   // eslint-disable-next-line func-names
   self.updateAddButtonState = function () {
     if (opts.maxForms) {
-      const forms = $('> [data-inline-panel-child]', self.formsUl).not('.deleted');
+      const forms = $('> [data-inline-panel-child]', self.formsUl).not(
+        '.deleted',
+      );
       const addButton = $('#' + opts.formsetPrefix + '-ADD');
 
       if (forms.length >= opts.maxForms) {
@@ -142,30 +156,43 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
     parent.addClass('moving').css('height', parent.height());
 
     // eslint-disable-next-line func-names
-    children.each(function () {
-      $(this).css('top', $(this).position().top);
-    }).addClass('moving');
+    children
+      .each(function () {
+        $(this).css('top', $(this).position().top);
+      })
+      .addClass('moving');
 
     // animate swapping around
-    item1.animate({
-      top: item2.position().top
-    }, 200, () => {
-      parent.removeClass('moving').removeAttr('style');
-      children.removeClass('moving').removeAttr('style');
-    });
+    item1.animate(
+      {
+        top: item2.position().top,
+      },
+      200,
+      () => {
+        parent.removeClass('moving').removeAttr('style');
+        children.removeClass('moving').removeAttr('style');
+      },
+    );
 
-    item2.animate({
-      top: item1.position().top
-    }, 200, () => {
-      parent.removeClass('moving').removeAttr('style');
-      children.removeClass('moving').removeAttr('style');
-    });
+    item2.animate(
+      {
+        top: item1.position().top,
+      },
+      200,
+      () => {
+        parent.removeClass('moving').removeAttr('style');
+        children.removeClass('moving').removeAttr('style');
+      },
+    );
   };
 
   // eslint-disable-next-line no-undef
   buildExpandingFormset(opts.formsetPrefix, {
     onAdd(formCount) {
-      const newChildPrefix = opts.emptyChildFormPrefix.replace(/__prefix__/g, formCount);
+      const newChildPrefix = opts.emptyChildFormPrefix.replace(
+        /__prefix__/g,
+        formCount,
+      );
       self.initChildControls(newChildPrefix);
       if (opts.canOrder) {
         /* NB form hidden inputs use 0-based index and only increment formCount *after* this function is run.
@@ -178,7 +205,7 @@ function InlinePanel(opts) {  // lgtm[js/unused-local-variable]
       self.updateAddButtonState();
 
       if (opts.onAdd) opts.onAdd();
-    }
+    },
   });
 
   return self;
@@ -195,7 +222,7 @@ function initSlugAutoPopulate() {
     /* slug should only follow the title field if its value matched the title's value at the time of focus */
     const currentSlug = $('#id_slug').val();
     const slugifiedTitle = cleanForSlug(this.value, true);
-    slugFollowsTitle = (currentSlug === slugifiedTitle);
+    slugFollowsTitle = currentSlug === slugifiedTitle;
   });
 
   // eslint-disable-next-line func-names
@@ -229,13 +256,16 @@ function initErrorDetection() {
       errorSections[parentSection.attr('id')] = 0;
     }
 
-    errorSections[parentSection.attr('id')] = errorSections[parentSection.attr('id')] + 1;
+    errorSections[parentSection.attr('id')] =
+      errorSections[parentSection.attr('id')] + 1;
   });
 
   // now identify them on each tab
   // eslint-disable-next-line guard-for-in
   for (const index in errorSections) {
-    $('[data-tab-nav] a[href="#' + index + '"]').addClass('errors').attr('data-count', errorSections[index]);
+    $('[data-tab-nav] a[href="#' + index + '"]')
+      .addClass('errors')
+      .attr('data-count', errorSections[index]);
   }
 }
 window.initErrorDetection = initErrorDetection;
@@ -285,7 +315,7 @@ $(() => {
       method: 'POST',
       data: new FormData($form[0]),
       processData: false,
-      contentType: false
+      contentType: false,
     });
   }
 
@@ -296,12 +326,14 @@ $(() => {
       // and deleted (DOMSubtreeModified event), and we need to delay
       // setPreviewData when typing to avoid useless extra AJAX requests
       // (so we postpone setPreviewData when keyup occurs).
-       
+
       // TODO: Replace DOMSubtreeModified with a MutationObserver.
-      $form.on('change keyup DOMSubtreeModified', () => {
-        clearTimeout(autoUpdatePreviewDataTimeout);
-        autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
-      }).trigger('change');
+      $form
+        .on('change keyup DOMSubtreeModified', () => {
+          clearTimeout(autoUpdatePreviewDataTimeout);
+          autoUpdatePreviewDataTimeout = setTimeout(setPreviewData, 1000);
+        })
+        .trigger('change');
     }
   });
 
@@ -315,22 +347,24 @@ $(() => {
     const previewWindow = window.open('', thisPreviewUrl);
     previewWindow.focus();
 
-    setPreviewData().done((data) => {
-      if (data.is_valid) {
-        previewWindow.document.location = thisPreviewUrl;
-      } else {
+    setPreviewData()
+      .done((data) => {
+        if (data.is_valid) {
+          previewWindow.document.location = thisPreviewUrl;
+        } else {
+          window.focus();
+          previewWindow.close();
+
+          // TODO: Stop sending the form, as it removes file data.
+          $form.trigger('submit');
+        }
+      })
+      .fail(() => {
+        // eslint-disable-next-line no-alert
+        alert('Error while sending preview data.');
         window.focus();
         previewWindow.close();
-         
-        // TODO: Stop sending the form, as it removes file data.
-        $form.trigger('submit');
-      }
-    }).fail(() => {
-      // eslint-disable-next-line no-alert
-      alert('Error while sending preview data.');
-      window.focus();
-      previewWindow.close();
-    })
+      })
       .always(() => {
         $icon.addClass('icon-view').removeClass('icon-spinner');
       });
@@ -346,7 +380,7 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
     all: formDirty && commentsDirty,
     any: anyDirty,
     comments: commentsDirty && !formDirty,
-    edits: formDirty && !commentsDirty
+    edits: formDirty && !commentsDirty,
   };
 
   let hiding = false;
