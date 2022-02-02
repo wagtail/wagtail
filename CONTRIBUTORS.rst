@@ -560,6 +560,7 @@ Contributors
 * Jason Attwood
 * Vladimir Tananko
 * Rizwan Mansuri
+* Dennis McGregor
 
 Translators
 ===========

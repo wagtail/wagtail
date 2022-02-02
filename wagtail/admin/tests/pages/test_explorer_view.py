@@ -220,6 +220,22 @@ class TestPageExplorer(TestCase, WagtailTestUtils):
         # Check that we got the last page
         self.assertEqual(response.context['pages'].number, response.context['pages'].paginator.num_pages)
 
+    @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
+    def test_no_thousand_separators_in_bulk_action_checkbox(self):
+        """
+        Test that the USE_THOUSAND_SEPARATOR setting does mess up object IDs in
+        bulk actions checkboxes
+        """
+        self.root_page.add_child(instance=SimplePage(
+            pk=1000,
+            title="Page 1000",
+            slug="page-1000",
+            content="hello",
+        ))
+        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        expected = 'data-object-id="1000"'
+        self.assertContains(response, expected)
+
     def test_listing_uses_specific_models(self):
         # SingleEventPage has custom URL routing; the 'live' link in the listing
         # should show the custom URL, which requires us to use the specific version
