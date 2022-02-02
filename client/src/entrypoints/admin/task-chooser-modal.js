@@ -1,11 +1,10 @@
 import $ from 'jquery';
 
 const ajaxifyTaskCreateTab = (modal, jsonData) => {
-  // eslint-disable-next-line func-names
   $(
     '#new a.task-type-choice, #new a.choose-different-task-type',
     modal.body,
-  ).on('click', function () {
+  ).on('click', function onClickNew() {
     modal.loadUrl(this.href);
     return false;
   });

@@ -14,8 +14,8 @@ function makeHalloRichTextEditable(id, plugins) {
     (we don't remove the span entirely as that messes with the cursor position,
     and spans will be removed anyway by our whitelisting)
     */
-    // eslint-disable-next-line func-names
     $('span[style]', editor)
+      // eslint-disable-next-line func-names
       .filter(function () {
         return this.attributes.length === 1;
       })

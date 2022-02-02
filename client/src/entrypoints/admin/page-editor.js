@@ -155,9 +155,8 @@ function InlinePanel(opts) {
     // to prevent the containercollapsing while its children go absolute
     parent.addClass('moving').css('height', parent.height());
 
-    // eslint-disable-next-line func-names
     children
-      .each(function () {
+      .each(function moveChildTop() {
         $(this).css('top', $(this).position().top);
       })
       .addClass('moving');

@@ -16,15 +16,15 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({
   translations,
   gotoPage,
 }) => {
+  /* eslint-disable camelcase */
   const options = wagtailConfig.LOCALES.filter(
     ({ code }) => code === locale || translations.get(code),
-  )
-    /* eslint-disable-next-line camelcase */
-    .map(({ code, display_name }) => (
-      <option key={code} value={code}>
-        {display_name}
-      </option>
-    ));
+  ).map(({ code, display_name }) => (
+    <option key={code} value={code}>
+      {display_name}
+    </option>
+  ));
+  /* eslint-enable camelcase */
 
   const onChange = (e) => {
     e.preventDefault();

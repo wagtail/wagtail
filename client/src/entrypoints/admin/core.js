@@ -388,13 +388,11 @@ $(() => {
   });
 
   /* Dropzones */
-  // eslint-disable-next-line func-names
   $('.drop-zone')
-    .on('dragover', function () {
+    .on('dragover', function onDragOver() {
       $(this).addClass('hovered');
-      // eslint-disable-next-line func-names
     })
-    .on('dragleave dragend drop', function () {
+    .on('dragleave dragend drop', function onDragLeave() {
       $(this).removeClass('hovered');
     });
 

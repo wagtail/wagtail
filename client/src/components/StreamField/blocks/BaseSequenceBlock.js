@@ -332,7 +332,7 @@ export class BaseInsertionControl {
 }
 
 export class BaseSequenceBlock {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   _createChild(
     blockDef,
     placeholder,
@@ -346,15 +346,14 @@ export class BaseSequenceBlock {
     throw new Error('not implemented');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _createInsertionControl(placeholder, opts) {
     throw new Error('not implemented');
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _getChildDataForInsertion(opts) {
     throw new Error('not implemented');
   }
+  /* eslint-enable @typescript-eslint/no-unused-vars */
 
   clear() {
     this.countInput.val(0);

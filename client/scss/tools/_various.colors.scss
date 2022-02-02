@@ -22,11 +22,9 @@
   --#{$name}-hue: #{$h};
   --#{$name}-saturation: #{$s};
   --#{$name}-lightness: #{$l};
-  --#{$name}: hsl(
-    #{var(--#{$name}-hue),
-    var(--#{$name}-saturation),
-    var(--#{$name}-lightness)}
-  );
+  // Prettier causes a linting issue when reformatting this.
+  /* prettier-ignore */
+  --#{$name}: hsl(#{ var(--#{$name}-hue), var(--#{$name}-saturation), var(--#{$name}-lightness) });
 }
 
 @function get-color($name) {
