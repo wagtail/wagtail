@@ -553,6 +553,7 @@ Contributors
 * Justin Michalicek
 * Vu Pham
 * Rizwan Mansuri
+* Dennis McGregor
 
 Translators
 ===========
