@@ -54,8 +54,7 @@ jobs:
             - wagtail
       - run: npm run lint:js
       - run: npm run lint:css
-      # TODO Remove || true and enforce a successful exit code.
-      - run: npm run lint:format || true
+      - run: npm run lint:format
       - run: npm run test:unit:coverage -- --runInBand
       - run: bash <(curl -s https://codecov.io/bash) -F frontend
 
