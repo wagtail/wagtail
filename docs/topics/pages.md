@@ -4,7 +4,7 @@
 Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the :class:`wagtail.core.models.Page` class.
 ```
 
-As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/3.1/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
+As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/stable/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
 ```eval_rst
 .. note::
