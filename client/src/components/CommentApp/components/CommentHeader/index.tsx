@@ -1,4 +1,3 @@
-import dateFormat from 'dateformat';
 import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
@@ -6,6 +5,12 @@ import { TranslatableStrings } from '../../main';
 import { IS_IE11 } from '../../../../config/wagtailConfig';
 
 import { Author } from '../../state/comments';
+
+const dateOptions: Intl.DateTimeFormatOptions | any = {
+  dateStyle: 'medium',
+  timeStyle: 'short',
+};
+const dateTimeFormat = new Intl.DateTimeFormat([], dateOptions);
 
 // Details/Summary components that just become <details>/<summary> tags
 // except for IE11 where they become <div> tags to allow us to style them
@@ -134,6 +139,8 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
     };
   }, []);
 
+  const dateISO = new Date(date).toISOString();
+
   return (
     <div className="comment-header">
       <div className="comment-header__actions">
@@ -192,7 +199,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
       <span id={descriptionId}>
         <p className="comment-header__author">{author ? author.name : ''}</p>
         <p className="comment-header__date">
-          {dateFormat(date, 'd mmm yyyy HH:MM')}
+          <time dateTime={dateISO}>{dateTimeFormat.format(date)}</time>
         </p>
       </span>
     </div>
