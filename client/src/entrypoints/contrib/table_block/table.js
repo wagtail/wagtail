@@ -23,7 +23,10 @@ function initTable(id, tableOptions) {
   };
   const getHeight = function () {
     const tableParent = $('#' + id).parent();
-    return tableParent.find('.htCore').height() + (tableParent.find('.input').height() * 2);
+    return (
+      tableParent.find('.htCore').height() +
+      tableParent.find('.input').height() * 2
+    );
   };
   const resizeTargets = ['.input > .handsontable', '.wtHider', '.wtHolder'];
   const resizeHeight = function (height) {
@@ -38,7 +41,9 @@ function initTable(id, tableOptions) {
     });
     const parentDiv = $('.widget-table_input').parent();
     parentDiv.find('.field-content').width(width);
-    parentDiv.find('.fieldname-table .field-content .field-content').width('80%');
+    parentDiv
+      .find('.fieldname-table .field-content .field-content')
+      .width('80%');
   }
 
   try {
@@ -49,7 +54,10 @@ function initTable(id, tableOptions) {
 
   if (dataForForm !== null) {
     if (dataForForm.hasOwnProperty('first_row_is_table_header')) {
-      tableHeaderCheckbox.prop('checked', dataForForm.first_row_is_table_header);
+      tableHeaderCheckbox.prop(
+        'checked',
+        dataForForm.first_row_is_table_header,
+      );
     }
     if (dataForForm.hasOwnProperty('first_col_is_header')) {
       colHeaderCheckbox.prop('checked', dataForForm.first_col_is_header);
@@ -59,12 +67,15 @@ function initTable(id, tableOptions) {
     }
   }
 
-  if (!tableOptions.hasOwnProperty('width') || !tableOptions.hasOwnProperty('height')) {
+  if (
+    !tableOptions.hasOwnProperty('width') ||
+    !tableOptions.hasOwnProperty('height')
+  ) {
     // Size to parent .sequence-member-inner width if width is not given in tableOptions
     $(window).on('resize', () => {
       hot.updateSettings({
         width: getWidth(),
-        height: getHeight()
+        height: getHeight(),
       });
       resizeWidth('100%');
     });
@@ -78,7 +89,7 @@ function initTable(id, tableOptions) {
         cellsClassnames.push({
           row: meta[i].row,
           col: meta[i].col,
-          className: meta[i].className
+          className: meta[i].className,
         });
       }
     }
@@ -86,18 +97,20 @@ function initTable(id, tableOptions) {
   };
 
   const persist = function () {
-    hiddenStreamInput.val(JSON.stringify({
-      data: hot.getData(),
-      cell: getCellsClassnames(),
-      first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
-      first_col_is_header: colHeaderCheckbox.prop('checked'),
-      table_caption: tableCaption.val()
-    }));
+    hiddenStreamInput.val(
+      JSON.stringify({
+        data: hot.getData(),
+        cell: getCellsClassnames(),
+        first_row_is_table_header: tableHeaderCheckbox.prop('checked'),
+        first_col_is_header: colHeaderCheckbox.prop('checked'),
+        table_caption: tableCaption.val(),
+      }),
+    );
   };
 
   const cellEvent = function (change, source) {
     if (source === 'loadData') {
-      return;  // don't save this change
+      return; // don't save this change
     }
 
     persist();
@@ -209,7 +222,7 @@ class TableInput {
             <input type="text" id="${id}-handsontable-col-caption" name="handsontable-col-caption" />
           </div>
           <p class="help">
-            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']  }
+            ${this.strings['A heading that identifies the overall topic of the table, and is useful for screen reader users']}
           </p>
         </div>
       </div>

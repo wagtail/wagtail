@@ -17,11 +17,19 @@ import {
   Modifier,
   RawDraftContentState,
   RichUtils,
-  SelectionState
+  SelectionState,
 } from 'draft-js';
 import type { DraftEditorLeaf } from 'draft-js/lib/DraftEditorLeaf.react';
 import { filterInlineStyles } from 'draftjs-filters';
-import React, { MutableRefObject, ReactNode, ReactText, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  MutableRefObject,
+  ReactNode,
+  ReactText,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
 import { STRINGS } from '../../../config/wagtailConfig';
@@ -56,10 +64,10 @@ export class DraftailInlineAnnotation implements Annotation {
    * Create an inline annotation
    * @param {Element} field - an element to provide the fallback position for comments without any inline decorators
    */
-  field: Element
-  decoratorRefs: Map<DecoratorRef, BlockKey>
-  focusedBlockKey: BlockKey
-  cachedMedianRef: DecoratorRef | null
+  field: Element;
+  decoratorRefs: Map<DecoratorRef, BlockKey>;
+  focusedBlockKey: BlockKey;
+  cachedMedianRef: DecoratorRef | null;
 
   constructor(field: Element) {
     this.field = field;
@@ -90,7 +98,8 @@ export class DraftailInlineAnnotation implements Annotation {
   }
   static getMedianRef(refArray: Array<DecoratorRef>) {
     const refs = refArray.sort(
-      (firstRef, secondRef) => this.getHeightForRef(firstRef) - this.getHeightForRef(secondRef)
+      (firstRef, secondRef) =>
+        this.getHeightForRef(firstRef) - this.getHeightForRef(secondRef),
     );
     const length = refs.length;
     if (length > 0) {
@@ -111,13 +120,13 @@ export class DraftailInlineAnnotation implements Annotation {
       // if the highlight has somehow been split up
       medianRef = DraftailInlineAnnotation.getMedianRef(
         Array.from(this.decoratorRefs.keys()).filter(
-          (ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey
-        )
+          (ref) => this.decoratorRefs.get(ref) === this.focusedBlockKey,
+        ),
       );
     } else if (!this.cachedMedianRef) {
       // Our cache is empty - try to update it
       medianRef = DraftailInlineAnnotation.getMedianRef(
-        Array.from(this.decoratorRefs.keys())
+        Array.from(this.decoratorRefs.keys()),
       );
       this.cachedMedianRef = medianRef;
     } else {
@@ -130,22 +139,28 @@ export class DraftailInlineAnnotation implements Annotation {
   }
 }
 
-
-function applyInlineStyleToRange({ contentState, style, blockKey, start, end }:
-  {contentState: ContentState,
-    style: string,
-    blockKey: BlockKey,
-    start: number,
-    end: number}
-) {
-  return Modifier.applyInlineStyle(contentState,
+function applyInlineStyleToRange({
+  contentState,
+  style,
+  blockKey,
+  start,
+  end,
+}: {
+  contentState: ContentState;
+  style: string;
+  blockKey: BlockKey;
+  start: number;
+  end: number;
+}) {
+  return Modifier.applyInlineStyle(
+    contentState,
     new SelectionState({
       anchorKey: blockKey,
       anchorOffset: start,
       focusKey: blockKey,
-      focusOffset: end
+      focusOffset: end,
     }),
-    style
+    style,
   );
 }
 
@@ -158,11 +173,16 @@ function getFullSelectionState(contentState: ContentState) {
     anchorKey: contentState.getFirstBlock().getKey(),
     anchorOffset: 0,
     focusKey: lastBlock.getKey(),
-    focusOffset: lastBlock.getLength()
+    focusOffset: lastBlock.getLength(),
   });
 }
 
-function addNewComment(editorState: EditorState, fieldNode: Element, commentApp: CommentApp, contentPath: string) {
+function addNewComment(
+  editorState: EditorState,
+  fieldNode: Element,
+  commentApp: CommentApp,
+  contentPath: string,
+) {
   let state = editorState;
   const annotation = new DraftailInlineAnnotation(fieldNode);
   const commentId = commentApp.makeComment(annotation, contentPath, '[]');
@@ -170,40 +190,47 @@ function addNewComment(editorState: EditorState, fieldNode: Element, commentApp:
   // If the selection is collapsed, add the comment highlight on the whole field
   state = EditorState.acceptSelection(
     editorState,
-    selection.isCollapsed() ? getFullSelectionState(editorState.getCurrentContent()) : selection
+    selection.isCollapsed()
+      ? getFullSelectionState(editorState.getCurrentContent())
+      : selection,
   );
 
-  return (
-    EditorState.acceptSelection(
-      RichUtils.toggleInlineStyle(
-        state,
-        `${COMMENT_STYLE_IDENTIFIER}${commentId}`
-      ),
-      selection
-    )
+  return EditorState.acceptSelection(
+    RichUtils.toggleInlineStyle(
+      state,
+      `${COMMENT_STYLE_IDENTIFIER}${commentId}`,
+    ),
+    selection,
   );
 }
 
 interface ControlProps {
-  getEditorState: () => EditorState,
-  onChange: (editorState: EditorState) => void
+  getEditorState: () => EditorState;
+  onChange: (editorState: EditorState) => void;
 }
 
-function getCommentControl(commentApp: CommentApp, contentPath: string, fieldNode: Element) {
+function getCommentControl(
+  commentApp: CommentApp,
+  contentPath: string,
+  fieldNode: Element,
+) {
   return ({ getEditorState, onChange }: ControlProps) => (
     <span className="Draftail-CommentControl" data-comment-add>
       <ToolbarButton
         name="comment"
         active={false}
-        title={`${STRINGS.ADD_A_COMMENT}\n${IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'}`}
+        title={`${STRINGS.ADD_A_COMMENT}\n${
+          IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
+        }`}
         icon={
           <>
-            <Icon name="comment-large-outline" /> <Icon name="comment-large-reversed" />
+            <Icon name="comment-large-outline" />{' '}
+            <Icon name="comment-large-reversed" />
           </>
         }
         onClick={() => {
           onChange(
-            addNewComment(getEditorState(), fieldNode, commentApp, contentPath)
+            addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
           );
         }}
       />
@@ -222,50 +249,59 @@ function getIdForCommentStyle(style: string) {
 function findCommentStyleRanges(
   contentBlock: ContentBlock,
   callback: (start: number, end: number) => void,
-  filterFn?: (metadata: CharacterMetadata) => boolean) {
+  filterFn?: (metadata: CharacterMetadata) => boolean,
+) {
   // Find comment style ranges that do not overlap an existing entity
-  const filterFunction = filterFn || ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
+  const filterFunction =
+    filterFn ||
+    ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
   const entityRanges: Array<[number, number]> = [];
   contentBlock.findEntityRanges(
-    character => character.getEntity() !== null,
-    (start, end) => entityRanges.push([start, end])
+    (character) => character.getEntity() !== null,
+    (start, end) => entityRanges.push([start, end]),
   );
-  contentBlock.findStyleRanges(
-    filterFunction,
-    (start, end) => {
-      const interferingEntityRanges = entityRanges.filter(value => value[1] > start).filter(value => value[0] < end);
-      let currentPosition = start;
-      interferingEntityRanges.forEach((value) => {
-        const [entityStart, entityEnd] = value;
-        if (entityStart > currentPosition) {
-          callback(currentPosition, entityStart);
-        }
-        currentPosition = entityEnd;
-      });
-      if (currentPosition < end) {
-        callback(start, end);
+  contentBlock.findStyleRanges(filterFunction, (start, end) => {
+    const interferingEntityRanges = entityRanges
+      .filter((value) => value[1] > start)
+      .filter((value) => value[0] < end);
+    let currentPosition = start;
+    interferingEntityRanges.forEach((value) => {
+      const [entityStart, entityEnd] = value;
+      if (entityStart > currentPosition) {
+        callback(currentPosition, entityStart);
       }
+      currentPosition = entityEnd;
+    });
+    if (currentPosition < end) {
+      callback(start, end);
     }
-  );
+  });
 }
 
-
-export function updateCommentPositions({ editorState, comments, commentApp }:
-  {
-    editorState: EditorState,
-    comments: Array<Comment>,
-    commentApp: CommentApp
-  }) {
+export function updateCommentPositions({
+  editorState,
+  comments,
+  commentApp,
+}: {
+  editorState: EditorState;
+  comments: Array<Comment>;
+  commentApp: CommentApp;
+}) {
   // Construct a map of comment id -> array of style ranges
   const commentPositions = new Map();
 
-  editorState.getCurrentContent().getBlocksAsArray().forEach(
-    (block) => {
+  editorState
+    .getCurrentContent()
+    .getBlocksAsArray()
+    .forEach((block) => {
       const key = block.getKey();
-      block.findStyleRanges((metadata) => metadata.getStyle().some(styleIsComment),
+      block.findStyleRanges(
+        (metadata) => metadata.getStyle().some(styleIsComment),
         (start, end) => {
-          block.getInlineStyleAt(start).filter(styleIsComment).forEach(
-            (style) => {
+          block
+            .getInlineStyleAt(start)
+            .filter(styleIsComment)
+            .forEach((style) => {
               // We have already filtered out any undefined styles, so cast here
               const id = getIdForCommentStyle(style as string);
               let existingPosition = commentPositions.get(id);
@@ -275,29 +311,30 @@ export function updateCommentPositions({ editorState, comments, commentApp }:
               existingPosition.push({
                 key: key,
                 start: start,
-                end: end
+                end: end,
               });
               commentPositions.set(id, existingPosition);
-            }
-          );
-        });
-    }
-  );
-
-
-  comments.filter(comment => comment.annotation).forEach((comment) => {
-    // if a comment has an annotation - ie the field has it inserted - update its position
-    const newPosition = commentPositions.get(comment.localId);
-    const serializedNewPosition = newPosition ? JSON.stringify(newPosition) : '[]';
-    if (comment.position !== serializedNewPosition) {
-      commentApp.store.dispatch(
-        commentApp.actions.updateComment(
-          comment.localId,
-          { position: serializedNewPosition }
-        )
+            });
+        },
       );
-    }
-  });
+    });
+
+  comments
+    .filter((comment) => comment.annotation)
+    .forEach((comment) => {
+      // if a comment has an annotation - ie the field has it inserted - update its position
+      const newPosition = commentPositions.get(comment.localId);
+      const serializedNewPosition = newPosition
+        ? JSON.stringify(newPosition)
+        : '[]';
+      if (comment.position !== serializedNewPosition) {
+        commentApp.store.dispatch(
+          commentApp.actions.updateComment(comment.localId, {
+            position: serializedNewPosition,
+          }),
+        );
+      }
+    });
 }
 
 /**
@@ -305,7 +342,9 @@ export function updateCommentPositions({ editorState, comments, commentApp }:
  * has the fewest style ranges within the block, or null if no comment exists at the offset
  */
 export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
-  const styles = block.getInlineStyleAt(offset).filter(styleIsComment) as Immutable.OrderedSet<string>;
+  const styles = block
+    .getInlineStyleAt(offset)
+    .filter(styleIsComment) as Immutable.OrderedSet<string>;
   let styleToUse: string;
   const styleCount = styles.count();
   if (styleCount === 0) {
@@ -322,15 +361,20 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
     // this casting should be removed
     let styleFreq = styles.map((style) => {
       let counter = 0;
-      findCommentStyleRanges(block,
-        () => { counter = counter + 1; },
-        (metadata) => metadata.getStyle().some(rangeStyle => rangeStyle === style)
+      findCommentStyleRanges(
+        block,
+        () => {
+          counter = counter + 1;
+        },
+        (metadata) =>
+          metadata.getStyle().some((rangeStyle) => rangeStyle === style),
       );
       return [style, counter];
     }) as unknown as Immutable.OrderedSet<[string, number]>;
 
-    styleFreq =  styleFreq.sort(
-      (firstStyleCount, secondStyleCount) => firstStyleCount[1] - secondStyleCount[1]
+    styleFreq = styleFreq.sort(
+      (firstStyleCount, secondStyleCount) =>
+        firstStyleCount[1] - secondStyleCount[1],
     ) as Immutable.OrderedSet<[string, number]>;
 
     styleToUse = styleFreq.first()[0];
@@ -341,8 +385,8 @@ export function findLeastCommonCommentId(block: ContentBlock, offset: number) {
 }
 
 interface DecoratorProps {
-  contentState: ContentState,
-  children?: Array<DraftEditorLeaf>
+  contentState: ContentState;
+  children?: Array<DraftEditorLeaf>;
 }
 
 function getCommentDecorator(commentApp: CommentApp) {
@@ -358,11 +402,10 @@ function getCommentDecorator(commentApp: CommentApp) {
     const blockKey: BlockKey = children[0].props.block.getKey();
     const start: number = children[0].props.start;
 
-    const commentId = useMemo(
-      () => {
-        const block = contentState.getBlockForKey(blockKey);
-        return findLeastCommonCommentId(block, start);
-      }, [blockKey, start]);
+    const commentId = useMemo(() => {
+      const block = contentState.getBlockForKey(blockKey);
+      return findLeastCommonCommentId(block, start);
+    }, [blockKey, start]);
     const annotationNode = useRef(null);
     useEffect(() => {
       // Add a ref to the annotation, allowing the comment to float alongside the attached text.
@@ -379,9 +422,7 @@ function getCommentDecorator(commentApp: CommentApp) {
     }, [commentId, annotationNode, blockKey]);
 
     if (!enabled) {
-      return <>
-        {children}
-      </>;
+      return <>{children}</>;
     }
 
     const onClick = () => {
@@ -390,7 +431,11 @@ function getCommentDecorator(commentApp: CommentApp) {
         return;
       }
       const annotation = commentApp.layout.commentAnnotations.get(commentId);
-      if (annotation && annotation instanceof DraftailInlineAnnotation  && annotationNode) {
+      if (
+        annotation &&
+        annotation instanceof DraftailInlineAnnotation &&
+        annotationNode
+      ) {
         annotation.setFocusedBlockKey(blockKey);
       }
 
@@ -398,8 +443,8 @@ function getCommentDecorator(commentApp: CommentApp) {
       commentApp.store.dispatch(
         commentApp.actions.setFocusedComment(commentId, {
           updatePinnedComment: true,
-          forceFocus: false
-        })
+          forceFocus: false,
+        }),
       );
     };
     return (
@@ -417,7 +462,10 @@ function getCommentDecorator(commentApp: CommentApp) {
   return CommentDecorator;
 }
 
-function forceResetEditorState(editorState: EditorState, replacementContent?: ContentState) {
+function forceResetEditorState(
+  editorState: EditorState,
+  replacementContent?: ContentState,
+) {
   const content = replacementContent || editorState.getCurrentContent();
   const state = EditorState.set(
     EditorState.createWithContent(content, editorState.getDecorator()),
@@ -425,8 +473,8 @@ function forceResetEditorState(editorState: EditorState, replacementContent?: Co
       selection: editorState.getSelection(),
       undoStack: editorState.getUndoStack(),
       redoStack: editorState.getRedoStack(),
-      inlineStyleOverride: editorState.getInlineStyleOverride()
-    }
+      inlineStyleOverride: editorState.getInlineStyleOverride(),
+    },
   );
   return EditorState.acceptSelection(state, state.getSelection());
 }
@@ -435,39 +483,43 @@ export function addCommentsToEditor(
   contentState: ContentState,
   comments: Comment[],
   commentApp: CommentApp,
-  getAnnotation: () => Annotation
+  getAnnotation: () => Annotation,
 ) {
   let newContentState = contentState;
-  comments.filter(comment => !comment.annotation).forEach((comment) => {
-    commentApp.updateAnnotation(getAnnotation(), comment.localId);
-    const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
-    try {
-      const positions = JSON.parse(comment.position);
-      positions.forEach((position) => {
-        newContentState = applyInlineStyleToRange({
-          contentState: newContentState,
-          blockKey: position.key,
-          start: position.start,
-          end: position.end,
-          style
+  comments
+    .filter((comment) => !comment.annotation)
+    .forEach((comment) => {
+      commentApp.updateAnnotation(getAnnotation(), comment.localId);
+      const style = `${COMMENT_STYLE_IDENTIFIER}${comment.localId}`;
+      try {
+        const positions = JSON.parse(comment.position);
+        positions.forEach((position) => {
+          newContentState = applyInlineStyleToRange({
+            contentState: newContentState,
+            blockKey: position.key,
+            start: position.start,
+            end: position.end,
+            style,
+          });
         });
-      });
-    } catch (err) {
-      /* eslint-disable no-console */
-      console.error(`Error loading comment position for comment ${comment.localId}`);
-      console.error(err);
-      /* esline-enable no-console */
-    }
-  });
+      } catch (err) {
+        /* eslint-disable no-console */
+        console.error(
+          `Error loading comment position for comment ${comment.localId}`,
+        );
+        console.error(err);
+        /* esline-enable no-console */
+      }
+    });
   return newContentState;
 }
 
-type Direction = 'RTL' | 'LTR'
+type Direction = 'RTL' | 'LTR';
 
 function handleArrowAtContentEnd(
   state: EditorState,
   setEditorState: (newState: EditorState) => void,
-  direction: Direction
+  direction: Direction,
 ) {
   // If at the end of content and pressing in the same direction as the text, remove the comment style from
   // further typing
@@ -476,49 +528,53 @@ function handleArrowAtContentEnd(
   const lastBlock = newState.getCurrentContent().getLastBlock();
   const textDirection = newState.getDirectionMap().get(lastBlock.getKey());
 
-  if (!(
-    textDirection === direction
-    && selection.isCollapsed()
-    && selection.getAnchorKey() === lastBlock.getKey()
-    && selection.getAnchorOffset() === lastBlock.getLength()
-  )) {
+  if (
+    !(
+      textDirection === direction &&
+      selection.isCollapsed() &&
+      selection.getAnchorKey() === lastBlock.getKey() &&
+      selection.getAnchorOffset() === lastBlock.getLength()
+    )
+  ) {
     return;
   }
   setEditorState(
     EditorState.setInlineStyleOverride(
       newState,
-      newState.getCurrentInlineStyle().filter(style => !styleIsComment(style)) as DraftInlineStyle
-    )
+      newState
+        .getCurrentInlineStyle()
+        .filter((style) => !styleIsComment(style)) as DraftInlineStyle,
+    ),
   );
 }
 
 interface InlineStyle {
-  label?: string,
-  description?: string,
-  icon?: string | string[] | Node,
-  type: string,
-  style?: Record<string, string | number | ReactText | undefined >
+  label?: string;
+  description?: string;
+  icon?: string | string[] | Node;
+  type: string;
+  style?: Record<string, string | number | ReactText | undefined>;
 }
 
 interface ColorConfigProp {
-  standardHighlight: string,
-  overlappingHighlight: string,
-  focusedHighlight: string
+  standardHighlight: string;
+  overlappingHighlight: string;
+  focusedHighlight: string;
 }
 
 interface CommentableEditorProps {
-  commentApp: CommentApp,
-  fieldNode: Element,
-  contentPath: string,
-  rawContentState: RawDraftContentState,
-  onSave: (rawContent: RawDraftContentState) => void,
-  inlineStyles: Array<InlineStyle>,
-  editorRef: (editor: ReactNode) => void
-  colorConfig: ColorConfigProp
-  isCommentShortcut: (e: React.KeyboardEvent) => boolean
+  commentApp: CommentApp;
+  fieldNode: Element;
+  contentPath: string;
+  rawContentState: RawDraftContentState;
+  onSave: (rawContent: RawDraftContentState) => void;
+  inlineStyles: Array<InlineStyle>;
+  editorRef: (editor: ReactNode) => void;
+  colorConfig: ColorConfigProp;
+  isCommentShortcut: (e: React.KeyboardEvent) => boolean;
   // Unfortunately the EditorPlugin type isn't exported in our version of 'draft-js-plugins-editor'
-  plugins?: Record<string, unknown>[]
-  controls?: Array<(props: ControlProps) => JSX.Element>
+  plugins?: Record<string, unknown>[];
+  controls?: Array<(props: ControlProps) => JSX.Element>;
 }
 
 function CommentableEditor({
@@ -536,33 +592,35 @@ function CommentableEditor({
   ...options
 }: CommentableEditorProps) {
   const [editorState, setEditorState] = useState(() =>
-    createEditorStateFromRaw(rawContentState)
+    createEditorStateFromRaw(rawContentState),
   );
   const CommentControl = useMemo(
     () => getCommentControl(commentApp, contentPath, fieldNode),
-    [commentApp, contentPath, fieldNode]
+    [commentApp, contentPath, fieldNode],
   );
   const commentsSelector = useMemo(
     () => commentApp.utils.selectCommentsForContentPathFactory(contentPath),
-    [contentPath, commentApp]
+    [contentPath, commentApp],
   );
-  const CommentDecorator = useMemo(() => getCommentDecorator(commentApp), [
-    commentApp,
-  ]);
+  const CommentDecorator = useMemo(
+    () => getCommentDecorator(commentApp),
+    [commentApp],
+  );
   const comments = useSelector(commentsSelector, shallowEqual);
   const enabled = useSelector(commentApp.selectors.selectEnabled);
   const focusedId = useSelector(commentApp.selectors.selectFocused);
 
-  const ids = useMemo(() => comments.map((comment) => comment.localId), [
-    comments,
-  ]);
+  const ids = useMemo(
+    () => comments.map((comment) => comment.localId),
+    [comments],
+  );
 
   const commentStyles: Array<InlineStyle> = useMemo(
     () =>
       ids.map((id) => ({
-        type: `${COMMENT_STYLE_IDENTIFIER}${id}`
+        type: `${COMMENT_STYLE_IDENTIFIER}${id}`,
       })),
-    [ids]
+    [ids],
   );
 
   const [uniqueStyleId, setUniqueStyleId] = useState(0);
@@ -574,16 +632,17 @@ function CommentableEditor({
     // Only trigger a focus-related rerender if the current focused comment is inside the field, or the previous one was
     const validFocusChange =
       previousFocused !== focusedId &&
-      ((previousFocused && previousIds && previousIds.includes(previousFocused)) ||
-        focusedId && ids.includes(focusedId));
+      ((previousFocused &&
+        previousIds &&
+        previousIds.includes(previousFocused)) ||
+        (focusedId && ids.includes(focusedId)));
 
     if (
       !validFocusChange &&
       previousEnabled === enabled &&
-      (
-        previousIds === ids ||
-        (previousIds.length === ids.length && previousIds.every((value, index) => value === ids[index]))
-      )
+      (previousIds === ids ||
+        (previousIds.length === ids.length &&
+          previousIds.every((value, index) => value === ids[index])))
     ) {
       return;
     }
@@ -593,7 +652,7 @@ function CommentableEditor({
       inlineStyles
         .map((style) => style.type)
         .concat(ids.map((id) => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
-      editorState.getCurrentContent()
+      editorState.getCurrentContent(),
     );
     // Force reset the editor state to ensure redecoration, and apply a new (blank) inline style to force
     // inline style rerender. This must be entirely new for the rerender to trigger, hence the unique
@@ -606,9 +665,9 @@ function CommentableEditor({
         Modifier.applyInlineStyle(
           filteredContent,
           getFullSelectionState(filteredContent),
-          `STYLE_RERENDER_${uniqueStyleId}`
-        )
-      )
+          `STYLE_RERENDER_${uniqueStyleId}`,
+        ),
+      ),
     );
     setUniqueStyleId((id) => (id + 1) % 200);
   }, [focusedId, enabled, inlineStyles, ids, editorState]);
@@ -617,7 +676,10 @@ function CommentableEditor({
     // if there are any comments without annotations, we need to add them to the EditorState
     const contentState = editorState.getCurrentContent();
     const newContentState = addCommentsToEditor(
-      contentState, comments, commentApp, () => new DraftailInlineAnnotation(fieldNode)
+      contentState,
+      comments,
+      commentApp,
+      () => new DraftailInlineAnnotation(fieldNode),
     );
     if (contentState !== newContentState) {
       setEditorState(forceResetEditorState(editorState, newContentState));
@@ -633,19 +695,16 @@ function CommentableEditor({
       editorState,
       filterInlineStyles(
         inlineStyles.map((style) => style.type),
-        editorState.getCurrentContent()
+        editorState.getCurrentContent(),
       ),
-      'change-inline-style'
+      'change-inline-style',
     );
-    timeoutRef.current = window.setTimeout(
-      () => {
-        onSave(serialiseEditorStateToRaw(filteredEditorState));
+    timeoutRef.current = window.setTimeout(() => {
+      onSave(serialiseEditorStateToRaw(filteredEditorState));
 
-        // Next, update comment positions in the redux store
-        updateCommentPositions({ editorState, comments, commentApp });
-      },
-      250
-    );
+      // Next, update comment positions in the redux store
+      updateCommentPositions({ editorState, comments, commentApp });
+    }, 250);
     return () => {
       window.clearTimeout(timeoutRef.current);
     };
@@ -659,21 +718,27 @@ function CommentableEditor({
         if (['undo', 'redo'].includes(state.getLastChangeType())) {
           const filteredContent = filterInlineStyles(
             inlineStyles
-              .map(style => style.type)
-              .concat(ids.map(id => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
-            state.getCurrentContent()
+              .map((style) => style.type)
+              .concat(ids.map((id) => `${COMMENT_STYLE_IDENTIFIER}${id}`)),
+            state.getCurrentContent(),
           );
           newEditorState = forceResetEditorState(state, filteredContent);
         } else if (state.getLastChangeType() === 'split-block') {
           const content = newEditorState.getCurrentContent();
           const selection = newEditorState.getSelection();
-          const style = content.getBlockForKey(selection.getAnchorKey()).getInlineStyleAt(selection.getAnchorOffset());
+          const style = content
+            .getBlockForKey(selection.getAnchorKey())
+            .getInlineStyleAt(selection.getAnchorOffset());
           // If starting a new paragraph (and not splitting an existing comment)
           // ensure any new text entered doesn't get a comment style
-          if (!style.some(styleName => styleIsComment(styleName))) {
+          if (!style.some((styleName) => styleIsComment(styleName))) {
             newEditorState = EditorState.setInlineStyleOverride(
               newEditorState,
-              newEditorState.getCurrentInlineStyle().filter(styleName => !styleIsComment(styleName)) as DraftInlineStyle
+              newEditorState
+                .getCurrentInlineStyle()
+                .filter(
+                  (styleName) => !styleIsComment(styleName),
+                ) as DraftInlineStyle,
             );
           }
         }
@@ -682,89 +747,101 @@ function CommentableEditor({
       editorState={editorState}
       controls={enabled ? controls.concat([CommentControl]) : controls}
       inlineStyles={inlineStyles.concat(commentStyles)}
-      plugins={plugins.concat([{
-        decorators: [{
-          strategy: (
-            block: ContentBlock, callback: (start: number, end: number) => void
-          ) => findCommentStyleRanges(block, callback),
-          component: CommentDecorator,
-        }],
-        keyBindingFn: (e: React.KeyboardEvent) => {
-          if (isCommentShortcut(e)) {
-            return 'comment';
-          }
-          return undefined;
-        },
-        onRightArrow: (_: React.KeyboardEvent, { getEditorState }) => {
-          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
-          // when draftail upgrades, this logic can be moved there
-
-          handleArrowAtContentEnd(getEditorState(), setEditorState, 'LTR');
-        },
-        onLeftArrow: (_: React.KeyboardEvent, { getEditorState }) => {
-          // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
-          // when draftail upgrades, this logic can be moved there
-
-          handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
-        },
-        handleKeyCommand: (command: string, state: EditorState) => {
-          if (enabled && command === 'comment') {
-            const selection = state.getSelection();
-            const content = state.getCurrentContent();
-            if (selection.isCollapsed()) {
-              // We might be trying to focus an existing comment - check if we're in a comment range
-              const id = findLeastCommonCommentId(
-                content.getBlockForKey(selection.getAnchorKey()),
-                selection.getAnchorOffset()
-              );
-              if (id) {
-                // Focus the comment
-                commentApp.store.dispatch(
-                  commentApp.actions.setFocusedComment(id, { updatePinnedComment: true, forceFocus: true })
-                );
-                return 'handled';
-              }
+      plugins={plugins.concat([
+        {
+          decorators: [
+            {
+              strategy: (
+                block: ContentBlock,
+                callback: (start: number, end: number) => void,
+              ) => findCommentStyleRanges(block, callback),
+              component: CommentDecorator,
+            },
+          ],
+          keyBindingFn: (e: React.KeyboardEvent) => {
+            if (isCommentShortcut(e)) {
+              return 'comment';
             }
-            // Otherwise, add a new comment
-            setEditorState(addNewComment(state, fieldNode, commentApp, contentPath));
-            return 'handled';
-          }
-          return 'not-handled';
-        },
-        customStyleFn: (styleSet: DraftInlineStyle) => {
-          if (!enabled) {
             return undefined;
-          }
-          // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
-          // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
-          // this casting should be removed
-          const localCommentStyles = styleSet.filter(styleIsComment) as Immutable.OrderedSet<string>;
-          const numStyles = localCommentStyles.count();
-          if (numStyles > 0) {
-            // There is at least one comment in the range
-            const commentIds = localCommentStyles.map(
-              style => getIdForCommentStyle(style as string)
-            ) as unknown as Immutable.OrderedSet<number>;
-            let background = standardHighlight;
-            if (focusedId && commentIds.has(focusedId)) {
-              // Use the focused colour if one of the comments is focused
-              background = focusedHighlight;
+          },
+          onRightArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+            // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+            // when draftail upgrades, this logic can be moved there
+
+            handleArrowAtContentEnd(getEditorState(), setEditorState, 'LTR');
+          },
+          onLeftArrow: (_: React.KeyboardEvent, { getEditorState }) => {
+            // In later versions of draft-js, this is deprecated and can be handled via handleKeyCommand instead
+            // when draftail upgrades, this logic can be moved there
+
+            handleArrowAtContentEnd(getEditorState(), setEditorState, 'RTL');
+          },
+          handleKeyCommand: (command: string, state: EditorState) => {
+            if (enabled && command === 'comment') {
+              const selection = state.getSelection();
+              const content = state.getCurrentContent();
+              if (selection.isCollapsed()) {
+                // We might be trying to focus an existing comment - check if we're in a comment range
+                const id = findLeastCommonCommentId(
+                  content.getBlockForKey(selection.getAnchorKey()),
+                  selection.getAnchorOffset(),
+                );
+                if (id) {
+                  // Focus the comment
+                  commentApp.store.dispatch(
+                    commentApp.actions.setFocusedComment(id, {
+                      updatePinnedComment: true,
+                      forceFocus: true,
+                    }),
+                  );
+                  return 'handled';
+                }
+              }
+              // Otherwise, add a new comment
+              setEditorState(
+                addNewComment(state, fieldNode, commentApp, contentPath),
+              );
+              return 'handled';
+            }
+            return 'not-handled';
+          },
+          customStyleFn: (styleSet: DraftInlineStyle) => {
+            if (!enabled) {
+              return undefined;
+            }
+            // Use of casting in this function is due to issue #1563 in immutable-js, which causes operations like
+            // map and filter to lose type information on the results. It should be fixed in v4: when we upgrade,
+            // this casting should be removed
+            const localCommentStyles = styleSet.filter(
+              styleIsComment,
+            ) as Immutable.OrderedSet<string>;
+            const numStyles = localCommentStyles.count();
+            if (numStyles > 0) {
+              // There is at least one comment in the range
+              const commentIds = localCommentStyles.map((style) =>
+                getIdForCommentStyle(style as string),
+              ) as unknown as Immutable.OrderedSet<number>;
+              let background = standardHighlight;
+              if (focusedId && commentIds.has(focusedId)) {
+                // Use the focused colour if one of the comments is focused
+                background = focusedHighlight;
+                return {
+                  'background-color': background,
+                  'color': standardHighlight,
+                };
+              } else if (numStyles > 1) {
+                // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
+                // to indicate that
+                background = overlappingHighlight;
+              }
               return {
                 'background-color': background,
-                'color': standardHighlight
               };
-            } else if (numStyles > 1) {
-              // Otherwise if we're in a region with overlapping comments, use a slightly darker colour than usual
-              // to indicate that
-              background = overlappingHighlight;
             }
-            return {
-              'background-color': background
-            };
-          }
-          return undefined;
-        }
-      }])}
+            return undefined;
+          },
+        },
+      ])}
       {...options}
     />
   );

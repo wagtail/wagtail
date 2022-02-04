@@ -49,7 +49,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           data: {
             // eslint-disable-next-line id-length
             q: query,
-            results_only: true
+            results_only: true,
           },
           success(data) {
             request = null;
@@ -59,7 +59,7 @@ const PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           },
           error() {
             request = null;
-          }
+          },
         });
       } else {
         /* search box is empty - restore original page browser HTML */

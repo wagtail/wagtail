@@ -3,14 +3,15 @@ import $ from 'jquery';
 $.widget('IKS.hallowagtaillink', {
   options: {
     uuid: '',
-    editable: null
+    editable: null,
   },
   populateToolbar(toolbar) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const widget = this;
     // eslint-disable-next-line func-names
     const getEnclosingLink = function () {
-      const node = widget.options.editable.getSelection().commonAncestorContainer;
+      const node =
+        widget.options.editable.getSelection().commonAncestorContainer;
       return $(node).parents('a').get(0);
     };
 
@@ -25,7 +26,7 @@ $.widget('IKS.hallowagtaillink', {
       command: null,
       queryState() {
         return addButton.hallobutton('checked', !!getEnclosingLink());
-      }
+      },
     });
     addButton.on('click', () => {
       let href;
@@ -65,7 +66,8 @@ $.widget('IKS.hallowagtaillink', {
           url = window.chooserUrls.anchorLinkChooser;
           href = href.replace('#', '');
           urlParams.link_url = href;
-        } else if (!linkType) {  /* external link */
+        } else if (!linkType) {
+          /* external link */
           url = window.chooserUrls.externalLinkChooser;
           urlParams.link_url = href;
         }
@@ -99,7 +101,8 @@ $.widget('IKS.hallowagtaillink', {
               // eslint-disable-next-line func-names
               $('a[href]', anchor).each(function () {
                 const parent = this.parentNode;
-                while (this.firstChild) parent.insertBefore(this.firstChild, this);
+                while (this.firstChild)
+                  parent.insertBefore(this.firstChild, this);
                 parent.removeChild(this);
               });
 
@@ -123,14 +126,17 @@ $.widget('IKS.hallowagtaillink', {
               anchor.removeAttribute('data-linktype');
             }
 
-            if (pageData.prefer_this_title_as_link_text || !linkHasExistingContent) {
+            if (
+              pageData.prefer_this_title_as_link_text ||
+              !linkHasExistingContent
+            ) {
               // overwrite existing link content with the returned 'title' text
               anchor.innerText = pageData.title;
             }
 
             return widget.options.editable.element.trigger('change');
-          }
-        }
+          },
+        },
       });
     });
     buttonSet.append(addButton);
@@ -147,7 +153,7 @@ $.widget('IKS.hallowagtaillink', {
           return cancelButton.hallobutton('enable');
         }
         return cancelButton.hallobutton('disable');
-      }
+      },
     });
     cancelButton.on('click', () => {
       var enclosingLink;
@@ -173,5 +179,5 @@ $.widget('IKS.hallowagtaillink', {
 
     buttonSet.hallobuttonset();
     toolbar.append(buttonSet);
-  }
+  },
 });

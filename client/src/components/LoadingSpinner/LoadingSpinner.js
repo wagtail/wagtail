@@ -7,7 +7,8 @@ import Icon from '../../components/Icon/Icon';
  */
 const LoadingSpinner = () => (
   <span>
-    <Icon name="spinner" className="c-spinner" />{` ${STRINGS.LOADING}`}
+    <Icon name="spinner" className="c-spinner" />
+    {` ${STRINGS.LOADING}`}
   </span>
 );
 

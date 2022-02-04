@@ -1,4 +1,4 @@
-@use "sass:math";
+@use 'sass:math';
 
 $grid-gutter-width: 30px !default;
 $header-padding-horizontal: 4px !default;
@@ -33,4 +33,5 @@ $screen-xs-max: 799px !default;
 $screen-sm-min: 800px !default;
 $screen-l-min: 1075px !default;
 $add-panel-gutter: 8px !default;
-$font-sans: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji" !default;
+$font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji' !default;

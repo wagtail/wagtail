@@ -54,8 +54,8 @@ export function newCommentReply(
     remoteId = null,
     mode = 'default',
     text = '',
-    deleted = false
-  }: NewReplyOptions
+    deleted = false,
+  }: NewReplyOptions,
 ): CommentReply {
   return {
     localId,
@@ -130,7 +130,7 @@ export function newComment(
     resolved = false,
     deleted = false,
     replies = new Map(),
-  }: NewCommentOptions
+  }: NewCommentOptions,
 ): Comment {
   return {
     contentpath,
@@ -150,7 +150,7 @@ export function newComment(
     resolved,
     remoteReplyCount: Array.from(replies.values()).reduce(
       (n, reply) => (reply.remoteId !== null ? n + 1 : n),
-      0
+      0,
     ),
   };
 }
@@ -174,142 +174,145 @@ export const INITIAL_STATE: CommentsState = {
   remoteCommentCount: 0,
 };
 
-export const reducer = produce((draft: CommentsState, action: actions.Action) => {
-  /* eslint-disable no-param-reassign */
-  const deleteComment = (comment: Comment) => {
-    if (!comment.remoteId) {
-      // If the comment doesn't exist in the database, there's no need to keep it around locally
-      draft.comments.delete(comment.localId);
-    } else {
-      comment.deleted = true;
-    }
+export const reducer = produce(
+  (draft: CommentsState, action: actions.Action) => {
+    /* eslint-disable no-param-reassign */
+    const deleteComment = (comment: Comment) => {
+      if (!comment.remoteId) {
+        // If the comment doesn't exist in the database, there's no need to keep it around locally
+        draft.comments.delete(comment.localId);
+      } else {
+        comment.deleted = true;
+      }
 
-    // Unset focusedComment if the focused comment is the one being deleted
-    if (draft.focusedComment === comment.localId) {
-      draft.focusedComment = null;
-      draft.forceFocus = false;
-    }
-    if (draft.pinnedComment === comment.localId) {
-      draft.pinnedComment = null;
-    }
-  };
+      // Unset focusedComment if the focused comment is the one being deleted
+      if (draft.focusedComment === comment.localId) {
+        draft.focusedComment = null;
+        draft.forceFocus = false;
+      }
+      if (draft.pinnedComment === comment.localId) {
+        draft.pinnedComment = null;
+      }
+    };
 
-  const resolveComment = (comment: Comment) => {
-    if (!comment.remoteId) {
-      // If the comment doesn't exist in the database, there's no need to keep it around locally
-      draft.comments.delete(comment.localId);
-    } else {
-      comment.resolved = true;
-    }
-    // Unset focusedComment if the focused comment is the one being resolved
-    if (draft.focusedComment === comment.localId) {
-      draft.focusedComment = null;
-    }
-    if (draft.pinnedComment === comment.localId) {
-      draft.pinnedComment = null;
-    }
-  };
+    const resolveComment = (comment: Comment) => {
+      if (!comment.remoteId) {
+        // If the comment doesn't exist in the database, there's no need to keep it around locally
+        draft.comments.delete(comment.localId);
+      } else {
+        comment.resolved = true;
+      }
+      // Unset focusedComment if the focused comment is the one being resolved
+      if (draft.focusedComment === comment.localId) {
+        draft.focusedComment = null;
+      }
+      if (draft.pinnedComment === comment.localId) {
+        draft.pinnedComment = null;
+      }
+    };
 
-  switch (action.type) {
-  case actions.ADD_COMMENT: {
-    draft.comments.set(action.comment.localId, action.comment);
-    if (action.comment.remoteId) {
-      draft.remoteCommentCount += 1;
-    }
-    break;
-  }
-  case actions.UPDATE_COMMENT: {
-    const comment = draft.comments.get(action.commentId);
-    if (comment) {
-      if (action.update.newText && action.update.newText.length === 0) {
+    switch (action.type) {
+      case actions.ADD_COMMENT: {
+        draft.comments.set(action.comment.localId, action.comment);
+        if (action.comment.remoteId) {
+          draft.remoteCommentCount += 1;
+        }
         break;
       }
-      update(comment, action.update);
-    }
-    break;
-  }
-  case actions.DELETE_COMMENT: {
-    const comment = draft.comments.get(action.commentId);
-    if (!comment) {
-      break;
-    }
-
-    deleteComment(comment);
-    break;
-  }
-  case actions.RESOLVE_COMMENT: {
-    const comment = draft.comments.get(action.commentId);
-    if (!comment) {
-      break;
-    }
-
-    resolveComment(comment);
-    break;
-  }
-  case actions.SET_FOCUSED_COMMENT: {
-    if ((action.commentId === null) || (draft.comments.has(action.commentId))) {
-      draft.focusedComment = action.commentId;
-      if (action.updatePinnedComment) {
-        draft.pinnedComment = action.commentId;
+      case actions.UPDATE_COMMENT: {
+        const comment = draft.comments.get(action.commentId);
+        if (comment) {
+          if (action.update.newText && action.update.newText.length === 0) {
+            break;
+          }
+          update(comment, action.update);
+        }
+        break;
       }
-      draft.forceFocus = action.forceFocus;
-    }
-    break;
-  }
-  case actions.ADD_REPLY: {
-    const comment = draft.comments.get(action.commentId);
-    if ((!comment) || action.reply.text.length === 0) {
-      break;
-    }
-    if (action.reply.remoteId) {
-      comment.remoteReplyCount += 1;
-    }
-    comment.replies.set(action.reply.localId, action.reply);
-    break;
-  }
-  case actions.UPDATE_REPLY: {
-    const comment = draft.comments.get(action.commentId);
-    if (!comment) {
-      break;
-    }
-    const reply = comment.replies.get(action.replyId);
-    if (!reply) {
-      break;
-    }
-    if (action.update.newText && action.update.newText.length === 0) {
-      break;
-    }
-    update(reply, action.update);
-    break;
-  }
-  case actions.DELETE_REPLY: {
-    const comment = draft.comments.get(action.commentId);
-    if (!comment) {
-      break;
-    }
-    const reply = comment.replies.get(action.replyId);
-    if (!reply) {
-      break;
-    }
-    if (!reply.remoteId) {
-      // The reply doesn't exist in the database, so we don't need to store it locally
-      comment.replies.delete(reply.localId);
-    } else {
-      reply.deleted = true;
-    }
-    break;
-  }
-  case actions.INVALIDATE_CONTENT_PATH: {
-    // Delete any comments that exist in the contentpath
-    const comments = draft.comments;
-    for (const comment of comments.values()) {
-      if (comment.contentpath.startsWith(action.contentPath)) {
+      case actions.DELETE_COMMENT: {
+        const comment = draft.comments.get(action.commentId);
+        if (!comment) {
+          break;
+        }
+
+        deleteComment(comment);
+        break;
+      }
+      case actions.RESOLVE_COMMENT: {
+        const comment = draft.comments.get(action.commentId);
+        if (!comment) {
+          break;
+        }
+
         resolveComment(comment);
+        break;
       }
+      case actions.SET_FOCUSED_COMMENT: {
+        if (action.commentId === null || draft.comments.has(action.commentId)) {
+          draft.focusedComment = action.commentId;
+          if (action.updatePinnedComment) {
+            draft.pinnedComment = action.commentId;
+          }
+          draft.forceFocus = action.forceFocus;
+        }
+        break;
+      }
+      case actions.ADD_REPLY: {
+        const comment = draft.comments.get(action.commentId);
+        if (!comment || action.reply.text.length === 0) {
+          break;
+        }
+        if (action.reply.remoteId) {
+          comment.remoteReplyCount += 1;
+        }
+        comment.replies.set(action.reply.localId, action.reply);
+        break;
+      }
+      case actions.UPDATE_REPLY: {
+        const comment = draft.comments.get(action.commentId);
+        if (!comment) {
+          break;
+        }
+        const reply = comment.replies.get(action.replyId);
+        if (!reply) {
+          break;
+        }
+        if (action.update.newText && action.update.newText.length === 0) {
+          break;
+        }
+        update(reply, action.update);
+        break;
+      }
+      case actions.DELETE_REPLY: {
+        const comment = draft.comments.get(action.commentId);
+        if (!comment) {
+          break;
+        }
+        const reply = comment.replies.get(action.replyId);
+        if (!reply) {
+          break;
+        }
+        if (!reply.remoteId) {
+          // The reply doesn't exist in the database, so we don't need to store it locally
+          comment.replies.delete(reply.localId);
+        } else {
+          reply.deleted = true;
+        }
+        break;
+      }
+      case actions.INVALIDATE_CONTENT_PATH: {
+        // Delete any comments that exist in the contentpath
+        const comments = draft.comments;
+        for (const comment of comments.values()) {
+          if (comment.contentpath.startsWith(action.contentPath)) {
+            resolveComment(comment);
+          }
+        }
+        break;
+      }
+      default:
+        break;
     }
-    break;
-  }
-  default:
-    break;
-  }
-}, INITIAL_STATE);
+  },
+  INITIAL_STATE,
+);

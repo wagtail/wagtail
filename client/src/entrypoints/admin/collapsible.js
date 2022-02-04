@@ -9,9 +9,12 @@ function initCollapsibleBlocks() {
       $content
         .get(0)
         .dispatchEvent(
-          new CustomEvent('commentAnchorVisibilityChange', { bubbles: true })
+          new CustomEvent('commentAnchorVisibilityChange', { bubbles: true }),
         );
-    if ($target.hasClass('collapsed') && $target.find('.error-message').length === 0) {
+    if (
+      $target.hasClass('collapsed') &&
+      $target.find('.error-message').length === 0
+    ) {
       $content.hide({
         complete: onAnimationComplete,
       });

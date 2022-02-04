@@ -17,7 +17,9 @@ describe('Button', () => {
   });
 
   it('#accessibleLabel', () => {
-    expect(shallow(<Button accessibleLabel="I am here in the shadows" />)).toMatchSnapshot();
+    expect(
+      shallow(<Button accessibleLabel="I am here in the shadows" />),
+    ).toMatchSnapshot();
   });
 
   it('#dialogTrigger', () => {
@@ -25,7 +27,9 @@ describe('Button', () => {
   });
 
   it('#target', () => {
-    expect(shallow(<Button target="_blank" rel="noopener noreferrer" />)).toMatchSnapshot();
+    expect(
+      shallow(<Button target="_blank" rel="noopener noreferrer" />),
+    ).toMatchSnapshot();
   });
 
   it('is clickable', () => {

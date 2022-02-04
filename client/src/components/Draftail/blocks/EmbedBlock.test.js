@@ -21,8 +21,8 @@ describe('EmbedBlock', () => {
             },
             onChange: () => {},
           }}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -39,8 +39,8 @@ describe('EmbedBlock', () => {
             },
             onChange: () => {},
           }}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 });

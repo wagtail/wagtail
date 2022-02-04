@@ -7,10 +7,12 @@ describe.skip('Editbird', () => {
     const trigger = await page.$('[aria-controls="wagtail-userbar-items"]');
     await Promise.all([
       trigger.click(),
-      page.waitForSelector('[aria-labelledby="wagtail-userbar-trigger"]', { visible: true }),
+      page.waitForSelector('[aria-labelledby="wagtail-userbar-trigger"]', {
+        visible: true,
+      }),
     ]);
     await expect(page).toPassAxeTests({
-      exclude: '[role="menuitem"]'
+      exclude: '[role="menuitem"]',
     });
   });
 });

@@ -1,109 +1,108 @@
 .bulk-actions-filter-checkbox {
-    .table-headers & {
-        > div {
-            display: flex;
-            align-items: center;
-        }
-
-        .c-dropdown__button {
-            padding-left: 0.3rem;
-        }
-
-        .bulk-actions-choices,
-        .bulk-actions-choices > ul {
-            display: flex;
-            align-items: center;
-        }
-
-        .bulk-actions-choices li {
-            margin: 0 0.5em;
-        }
-
-        .bulk-actions-choices span {
-            text-transform: none;
-        }
+  .table-headers & {
+    > div {
+      display: flex;
+      align-items: center;
     }
+
+    .c-dropdown__button {
+      padding-left: 0.3rem;
+    }
+
+    .bulk-actions-choices,
+    .bulk-actions-choices > ul {
+      display: flex;
+      align-items: center;
+    }
+
+    .bulk-actions-choices li {
+      margin: 0 0.5em;
+    }
+
+    .bulk-actions-choices span {
+      text-transform: none;
+    }
+  }
 }
 
-
 .bulk-actions-choices {
-    &.footer {
-        @include transition(transform 0.1s ease 0.1s);
+  &.footer {
+    @include transition(transform 0.1s ease 0.1s);
 
-        &.hidden {
-            transform: translateY(200px);
-            visibility: hidden;
-        }
-
-        .button {
-            font-weight: 600;
-        }
-
-        .bulk-actions-more {
-            .button {
-                border: 0;
-            }
-
-            .button:not(:hover) {
-                color: $color-teal;
-            }
-
-            .c-dropdown__button {
-                text-transform: uppercase;
-            }
-
-            .c-dropdown__menu {
-                bottom: 50px;
-                flex-direction: column;
-            }
-        }
-
-        .bulk-actions-more.is-open {
-            .c-dropdown__menu.u-toggle {
-                display: flex;
-            }
-        }
+    &.hidden {
+      transform: translateY(200px);
+      visibility: hidden;
     }
 
-    .footer__container {
+    .button {
+      font-weight: 600;
+    }
+
+    .bulk-actions-more {
+      .button {
+        border: 0;
+      }
+
+      .button:not(:hover) {
+        color: $color-teal;
+      }
+
+      .c-dropdown__button {
+        text-transform: uppercase;
+      }
+
+      .c-dropdown__menu {
+        bottom: 50px;
+        flex-direction: column;
+      }
+    }
+
+    .bulk-actions-more.is-open {
+      .c-dropdown__menu.u-toggle {
         display: flex;
-        justify-content: space-around;
-        width: 100%;
-        align-items: center;
-        padding: 1.25em;
-        border-radius: 4px 4px 0 0;
-        margin-left: 30px;
-
-        input[type='checkbox'] {
-            margin-right: 1.25em;
-        }
-
-        .bulk-actions-buttons {
-            border-left: 1px solid $color-grey-2;
-            padding-left: 1.5em;
-
-            .bulk-action-btn {
-                max-width: 160px;
-                overflow-x: hidden;
-                text-overflow: ellipsis;
-            }
-        }
-
-        .num-objects {
-            text-transform: none;
-            margin: 0 5px;
-        }
-
-        .num-objects-in-listing {
-            color: $color-teal-light;
-            background-color: transparent;
-            border: 0;
-            font-family: $font-sans;
-            padding: 0;
-        }
-
-        .button:not(:hover) {
-            background-color: $color-white;
-        }
+      }
     }
+  }
+
+  .footer__container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+    padding: 1.25em;
+    border-radius: 4px 4px 0 0;
+    margin-left: 30px;
+
+    input[type='checkbox'] {
+      margin-right: 1.25em;
+    }
+
+    .bulk-actions-buttons {
+      border-left: 1px solid $color-grey-2;
+      padding-left: 1.5em;
+
+      .bulk-action-btn {
+        max-width: 160px;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    .num-objects {
+      text-transform: none;
+      margin: 0 5px;
+    }
+
+    .num-objects-in-listing {
+      color: $color-teal-light;
+      background-color: transparent;
+      border: 0;
+      font-family: $font-sans;
+      padding: 0;
+    }
+
+    .button:not(:hover) {
+      background-color: $color-white;
+    }
+  }
 }

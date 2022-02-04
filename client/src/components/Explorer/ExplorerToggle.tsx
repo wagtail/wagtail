@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -16,11 +14,11 @@ interface ExplorerToggleProps {
 /**
  * A Button which toggles the explorer.
  */
-const ExplorerToggle: React.FunctionComponent<ExplorerToggleProps> = ({ children, onToggle }) => (
-  <Button
-    dialogTrigger={true}
-    onClick={onToggle}
-  >
+const ExplorerToggle: React.FunctionComponent<ExplorerToggleProps> = ({
+  children,
+  onToggle,
+}) => (
+  <Button dialogTrigger={true} onClick={onToggle}>
     <Icon name="folder-open-inverse" className="icon--menuitem" />
     {children}
     <Icon name="arrow-right" className="icon--submenu-trigger" />
@@ -38,4 +36,8 @@ const mergeProps = (_stateProps, dispatchProps, ownProps) => ({
   onToggle: dispatchProps.onToggle.bind(null, ownProps.startPage),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ExplorerToggle);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+)(ExplorerToggle);

@@ -8,9 +8,11 @@ const initIE11Warning = () => {
     return;
   }
 
-  const warnings = [].slice.call(document.querySelectorAll('[data-ie11-warning]'));
+  const warnings = [].slice.call(
+    document.querySelectorAll('[data-ie11-warning]'),
+  );
 
-  warnings.forEach(warning => {
+  warnings.forEach((warning) => {
     // eslint-disable-next-line no-param-reassign
     warning.hidden = false;
   });

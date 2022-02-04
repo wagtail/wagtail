@@ -2,73 +2,73 @@
 @import '../../../../../../client/scss/tools';
 
 .report {
-    display: grid;
-    grid-template-columns: auto;
-    grid-column-gap: 50px;
-    margin-left: 50px;
-    margin-right: 50px;
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
 
-    &--has-filters {
-        grid-template-columns: auto 300px;
+  &--has-filters {
+    grid-template-columns: auto 300px;
+  }
+
+  &__results {
+    grid-column-start: col-start 1 col-end 2;
+
+    &--text {
+      margin: 0 0.5em 0.5em 0;
+
+      + .status-tag {
+        margin-left: 0;
+      }
     }
 
-    &__results {
-        grid-column-start: col-start 1 col-end 2;
+    &--comment {
+      display: block;
+    }
+  }
 
-        &--text {
-            margin: 0 0.5em 0.5em 0;
+  &__filters {
+    grid-column-start: col-start -2 col-end -1;
 
-            + .status-tag {
-                margin-left: 0;
-            }
-        }
+    button[type='submit'] {
+      display: block;
+      margin-bottom: 20px;
+    }
 
-        &--comment {
-            display: block;
-        }
+    input[type='checkbox'] {
+      display: block;
+      width: unset;
+      height: unset;
+      margin-bottom: 10px;
+    }
+
+    // Get rid of Wagtail's overrides
+    label {
+      float: unset;
+      display: block;
+      width: unset;
+      padding-top: 1.2em;
+    }
+  }
+
+  &__actions > div {
+    float: right;
+    display: block;
+    margin-right: 10px;
+  }
+
+  @include media-breakpoint-down(sm) {
+    &--has-filters {
+      grid-template-columns: auto;
     }
 
     &__filters {
-        grid-column-start: col-start -2 col-end -1;
-
-        button[type='submit'] {
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        input[type='checkbox'] {
-            display: block;
-            width: unset;
-            height: unset;
-            margin-bottom: 10px;
-        }
-
-        // Get rid of Wagtail's overrides
-        label {
-            float: unset;
-            display: block;
-            width: unset;
-            padding-top: 1.2em;
-        }
+      grid-row: 1;
     }
 
-    &__actions > div {
-        float: right;
-        display: block;
-        margin-right: 10px;
+    form {
+      margin-bottom: 1em;
     }
-
-    @include media-breakpoint-down(sm) {
-        &--has-filters {
-            grid-template-columns: auto;
-        }
-
-        &__filters {
-            grid-row: 1;
-        }
-
-        form {
-            margin-bottom: 1em;
-        }
-    }
+  }
 }

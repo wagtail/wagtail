@@ -2,9 +2,7 @@ describe('Editor', () => {
   const globalEditorExcludes =
     '.skiplink, .sidebar__collapse-toggle, #wagtail-sidebar, li[aria-controls^="tab-"]';
   beforeAll(async () => {
-    await page.goto(
-      `${TEST_ORIGIN}/admin/pages/add/demosite/standardpage/2/`
-    );
+    await page.goto(`${TEST_ORIGIN}/admin/pages/add/demosite/standardpage/2/`);
   });
 
   it('has the right heading', async () => {

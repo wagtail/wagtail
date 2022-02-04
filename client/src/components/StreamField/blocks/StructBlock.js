@@ -20,13 +20,15 @@ export class StructBlock {
       const html = blockDef.meta.formTemplate.replace(/__PREFIX__/g, prefix);
       const dom = $(html);
       $(placeholder).replaceWith(dom);
-      this.blockDef.childBlockDefs.forEach(childBlockDef => {
-        const childBlockElement = dom.find('[data-structblock-child="' + childBlockDef.name + '"]').get(0);
+      this.blockDef.childBlockDefs.forEach((childBlockDef) => {
+        const childBlockElement = dom
+          .find('[data-structblock-child="' + childBlockDef.name + '"]')
+          .get(0);
         const childBlock = childBlockDef.render(
           childBlockElement,
           prefix + '-' + childBlockDef.name,
           state[childBlockDef.name],
-          initialError?.blockErrors[childBlockDef.name]
+          initialError?.blockErrors[childBlockDef.name],
         );
         this.childBlocks[childBlockDef.name] = childBlock;
       });
@@ -49,21 +51,25 @@ export class StructBlock {
         `);
       }
 
-      this.blockDef.childBlockDefs.forEach(childBlockDef => {
+      this.blockDef.childBlockDefs.forEach((childBlockDef) => {
         const childDom = $(`
-          <div class="field ${childBlockDef.meta.required ? 'required' : ''}" data-contentpath="${childBlockDef.name}">
+          <div class="field ${
+            childBlockDef.meta.required ? 'required' : ''
+          }" data-contentpath="${childBlockDef.name}">
             <label class="field__label">${h(childBlockDef.meta.label)}</label>
             <div data-streamfield-block></div>
           </div>
         `);
         dom.append(childDom);
-        const childBlockElement = childDom.find('[data-streamfield-block]').get(0);
+        const childBlockElement = childDom
+          .find('[data-streamfield-block]')
+          .get(0);
         const labelElement = childDom.find('label').get(0);
         const childBlock = childBlockDef.render(
           childBlockElement,
           prefix + '-' + childBlockDef.name,
           state[childBlockDef.name],
-          initialError?.blockErrors[childBlockDef.name]
+          initialError?.blockErrors[childBlockDef.name],
         );
 
         this.childBlocks[childBlockDef.name] = childBlock;
@@ -87,7 +93,6 @@ export class StructBlock {
     }
     const error = errorList[0];
 
-     
     for (const blockName in error.blockErrors) {
       if (error.blockErrors.hasOwnProperty(blockName)) {
         this.childBlocks[blockName].setError(error.blockErrors[blockName]);
@@ -117,17 +122,20 @@ export class StructBlock {
     if (this.blockDef.meta.labelFormat) {
       /* use labelFormat - regexp replace any field references like '{first_name}'
       with the text label of that sub-block */
-      return this.blockDef.meta.labelFormat.replace(/\{(\w+)\}/g, (tag, blockName) => {
-        const block = this.childBlocks[blockName];
-        if (block.getTextLabel) {
-          /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
+      return this.blockDef.meta.labelFormat.replace(
+        /\{(\w+)\}/g,
+        (tag, blockName) => {
+          const block = this.childBlocks[blockName];
+          if (block.getTextLabel) {
+            /* to be strictly correct, we should be adjusting opts.maxLength to account for the overheads
           in the format string, and dividing the remainder across all the placeholders in the string,
           rather than just passing opts on to the child. But that would get complicated, and this is
           better than nothing... */
-          return block.getTextLabel(opts);
-        }
-        return '';
-      });
+            return block.getTextLabel(opts);
+          }
+          return '';
+        },
+      );
     }
 
     /* if no labelFormat specified, just try each child block in turn until we find one that provides a label */
@@ -158,6 +166,12 @@ export class StructBlockDefinition {
   }
 
   render(placeholder, prefix, initialState, initialError) {
-    return new StructBlock(this, placeholder, prefix, initialState, initialError);
+    return new StructBlock(
+      this,
+      placeholder,
+      prefix,
+      initialState,
+      initialError,
+    );
   }
 }

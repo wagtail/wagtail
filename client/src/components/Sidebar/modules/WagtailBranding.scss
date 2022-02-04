@@ -2,143 +2,149 @@
 
 // Wagging animation
 @keyframes tail-wag {
-    from {
-        transform: rotate(-3deg);
-    }
+  from {
+    transform: rotate(-3deg);
+  }
 
-    to {
-        transform: rotate(7deg);
-    }
+  to {
+    transform: rotate(7deg);
+  }
 }
 
 .sidebar-wagtail-branding {
-    $root: &;
-    position: relative;
-    display: block;
-    align-items: center;
-    color: #aaa;
-    -webkit-font-smoothing: auto;
-    margin: 1.8em auto 2.5em;
-    text-align: center;
-    width: 100px;
-    height: 100px;
-    transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1), width $menu-transition-duration ease, height $menu-transition-duration ease, padding-top $menu-transition-duration ease;
-    box-sizing: border-box;
-    overflow: hidden;
+  $root: &;
+  position: relative;
+  display: block;
+  align-items: center;
+  color: #aaa;
+  -webkit-font-smoothing: auto;
+  margin: 1.8em auto 2.5em;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  transition: transform 150ms cubic-bezier(0.28, 0.15, 0, 2.1),
+    width $menu-transition-duration ease, height $menu-transition-duration ease,
+    padding-top $menu-transition-duration ease;
+  box-sizing: border-box;
+  overflow: hidden;
 
+  &:hover {
+    color: $color-white;
+    transform: rotate(4deg);
+  }
+
+  // Reduce overall size when in slim mode
+  .sidebar--slim & {
+    width: 60px;
+    transform: none;
+  }
+
+  // Remove background on 404 page
+  .page404__bg & {
+    background-color: transparent;
+  }
+
+  // Set wagging styles
+  &--wagging {
     &:hover {
-        color: $color-white;
-        transform: rotate(4deg);
-    }
+      transform: rotate(8deg);
+      transition: transform 1.2s ease;
 
-    // Reduce overall size when in slim mode
-    .sidebar--slim & {
-        width: 60px;
-        transform: none;
-    }
-
-    // Remove background on 404 page
-    .page404__bg & {
-        background-color: transparent;
-    }
-
-    // Set wagging styles
-    &--wagging {
-        &:hover {
-            transform: rotate(8deg);
-            transition: transform 1.2s ease;
-
-            #{$root}__icon {
-                // stylelint-disable max-nesting-depth
-                &[data-part='tail'] {
-                    animation: tail-wag 0.09s alternate;
-                    animation-iteration-count: infinite;
-                }
-
-                // TODO: Fix legacy specificity issues
-                &[data-part='eye--open'] {
-                    display: none !important;
-                }
-
-                &[data-part='eye--closed'] {
-                    display: inline !important;
-                }
-            }
-        }
-    }
-
-    // Bird wrapper
-    &__icon-wrapper {
-        margin: auto;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100px;
-        height: 100px;
-        background-color: #3a3a3a;
-        border-radius: 50%;
-        transition: left $menu-transition-duration ease, top $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease;
-
-        .sidebar--slim & {
-            left: -10px;
-            top: 10px;
-            width: 80px;
-            height: 80px;
-        }
-
-        .page404__bg & {
-            width: auto;
-            height: auto;
-            position: static;
-        }
-    }
-
-    // Bird icons
-    &__icon {
-        display: block;
-        left: 0;
-        top: 0;
-        width: 70%;
-        height: 70%;
-        position: absolute;
-        margin: auto;
-        bottom: 0;
-        right: 0;
-        transition: left $menu-transition-duration ease, width $menu-transition-duration ease, height $menu-transition-duration ease;
-
-        .sidebar--slim & {
-            left: -10px;
-            width: 70%;
-            height: 70%;
+      #{$root}__icon {
+        // stylelint-disable max-nesting-depth
+        &[data-part='tail'] {
+          animation: tail-wag 0.09s alternate;
+          animation-iteration-count: infinite;
         }
 
         // TODO: Fix legacy specificity issues
         &[data-part='eye--open'] {
-            display: inline !important;
+          display: none !important;
         }
 
         &[data-part='eye--closed'] {
-            display: none !important;
+          display: inline !important;
         }
+      }
     }
+  }
+
+  // Bird wrapper
+  &__icon-wrapper {
+    margin: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100px;
+    height: 100px;
+    background-color: #3a3a3a;
+    border-radius: 50%;
+    transition: left $menu-transition-duration ease,
+      top $menu-transition-duration ease, width $menu-transition-duration ease,
+      height $menu-transition-duration ease;
+
+    .sidebar--slim & {
+      left: -10px;
+      top: 10px;
+      width: 80px;
+      height: 80px;
+    }
+
+    .page404__bg & {
+      width: auto;
+      height: auto;
+      position: static;
+    }
+  }
+
+  // Bird icons
+  &__icon {
+    display: block;
+    left: 0;
+    top: 0;
+    width: 70%;
+    height: 70%;
+    position: absolute;
+    margin: auto;
+    bottom: 0;
+    right: 0;
+    transition: left $menu-transition-duration ease,
+      width $menu-transition-duration ease,
+      height $menu-transition-duration ease;
+
+    .sidebar--slim & {
+      left: -10px;
+      width: 70%;
+      height: 70%;
+    }
+
+    // TODO: Fix legacy specificity issues
+    &[data-part='eye--open'] {
+      display: inline !important;
+    }
+
+    &[data-part='eye--closed'] {
+      display: none !important;
+    }
+  }
 }
 
 .sidebar-custom-branding {
-    display: block;
-    align-items: center;
-    color: #aaa;
-    -webkit-font-smoothing: auto;
-    position: relative;
-    margin: 2em auto;
-    text-align: center;
-    padding: 10px 0;
-    transition: padding $menu-transition-duration ease;
+  display: block;
+  align-items: center;
+  color: #aaa;
+  -webkit-font-smoothing: auto;
+  position: relative;
+  margin: 2em auto;
+  text-align: center;
+  padding: 10px 0;
+  transition: padding $menu-transition-duration ease;
 
-    &:hover {
-        color: $color-white;
-    }
+  &:hover {
+    color: $color-white;
+  }
 
-    @at-root .sidebar--slim #{&} {
-        padding: 40px 0;
-    }
+  @at-root .sidebar--slim #{&} {
+    padding: 40px 0;
+  }
 }

@@ -1,161 +1,161 @@
 .tab-nav {
-    @include row();
+  @include row();
+  padding: 0;
+  background: $color-grey-4;
+
+  li {
+    list-style-type: none;
+    width: 33%;
+    float: left;
     padding: 0;
-    background: $color-grey-4;
+    position: relative;
+    margin-right: 2px;
 
-    li {
-        list-style-type: none;
-        width: 33%;
-        float: left;
-        padding: 0;
-        position: relative;
-        margin-right: 2px;
-
-        &:first-of-type {
-            padding-left: $desktop-nice-padding;
-            margin-left: 0;
-        }
+    &:first-of-type {
+      padding-left: $desktop-nice-padding;
+      margin-left: 0;
     }
+  }
 
-    h2 {
-        margin: 0;
-        font-size: inherit;
+  h2 {
+    margin: 0;
+    font-size: inherit;
+  }
+
+  a {
+    @include transition(border-color 0.2s ease);
+    background-color: $color-teal-darker;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    padding: 0.6em 0.7em 0.8em;
+    color: $color-white;
+    border-top: 0.3em solid $color-teal-darker;
+    max-height: 1.44em;
+    overflow: hidden;
+
+    &:hover {
+      color: $color-white;
+      border-top-color: rgba(0, 0, 0, 0.35);
     }
+  }
 
-    a {
-        @include transition(border-color 0.2s ease);
-        background-color: $color-teal-darker;
-        text-transform: uppercase;
-        font-weight: 600;
-        text-decoration: none;
-        display: block;
-        padding: 0.6em 0.7em 0.8em;
-        color: $color-white;
-        border-top: 0.3em solid $color-teal-darker;
-        max-height: 1.44em;
-        overflow: hidden;
-
-        &:hover {
-            color: $color-white;
-            border-top-color: rgba(0, 0, 0, 0.35);
-        }
+  a.errors {
+    &:after {
+      border-radius: 50px;
+      box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      right: -0.5em;
+      top: -0.5em;
+      z-index: 5;
+      min-width: 0.9em;
+      color: $color-white;
+      background: $color-red;
+      content: attr(data-count);
+      padding: 0 0.3em;
+      line-height: 1.4em;
+      text-align: center;
+      font-size: 0.8em;
     }
+  }
 
-    a.errors {
-        &:after {
-            border-radius: 50px;
-            box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            right: -0.5em;
-            top: -0.5em;
-            z-index: 5;
-            min-width: 0.9em;
-            color: $color-white;
-            background: $color-red;
-            content: attr(data-count);
-            padding: 0 0.3em;
-            line-height: 1.4em;
-            text-align: center;
-            font-size: 0.8em;
-        }
-    }
+  li.active a {
+    box-shadow: none;
+    color: $color-grey-1;
+    background-color: $color-white;
+    border-top: 0.3em solid $color-grey-1;
+  }
 
-    li.active a {
-        box-shadow: none;
-        color: $color-grey-1;
-        background-color: $color-white;
-        border-top: 0.3em solid $color-grey-1;
-    }
+  // For cases where tab-nav should merge with header
+  &.merged {
+    margin-top: 0;
+    background-color: $color-header-bg;
+  }
 
-    // For cases where tab-nav should merge with header
-    &.merged {
-        margin-top: 0;
-        background-color: $color-header-bg;
-    }
+  li.right {
+    float: right;
+    margin-right: 0;
+    margin-left: 2px;
+  }
 
-    li.right {
-        float: right;
-        margin-right: 0;
-        margin-left: 2px;
-    }
+  li.wide {
+    width: unset;
+  }
 
-    li.wide {
-        width: unset;
-    }
-
-    .right {
-        max-height: 1.44em;
-        overflow: visible;
-    }
+  .right {
+    max-height: 1.44em;
+    overflow: visible;
+  }
 }
 
 .tab-content {
-    > section {
-        display: none;
-        padding-top: 1em;
+  > section {
+    display: none;
+    padding-top: 1em;
 
-        &.active {
-            display: block;
-        }
+    &.active {
+      display: block;
     }
+  }
 
-    .page-locked & {
-        cursor: not-allowed;
-        user-select: none;
+  .page-locked & {
+    cursor: not-allowed;
+    user-select: none;
 
-        > * {
-            pointer-events: none;
-        }
+    > * {
+      pointer-events: none;
     }
+  }
 }
 
 @include media-breakpoint-up(sm) {
-    .tab-nav {
-        // For cases where tab-nav should merge with header
-        &.merged {
-            background-color: $color-header-bg;
-        }
-
-        li {
-            width: auto;
-            padding: 0;
-        }
-
-        a {
-            padding-left: $mobile-nice-padding;
-            padding-right: $mobile-nice-padding;
-        }
-
-        li.settings a {
-            padding-left: 2em;
-            padding-right: 2em;
-        }
+  .tab-nav {
+    // For cases where tab-nav should merge with header
+    &.merged {
+      background-color: $color-header-bg;
     }
 
-    .modal-content .tab-nav li {
-        padding: 0;
-        min-width: 0;
-
-        &:first-of-type {
-            padding-left: $desktop-nice-padding;
-        }
+    li {
+      width: auto;
+      padding: 0;
     }
+
+    a {
+      padding-left: $mobile-nice-padding;
+      padding-right: $mobile-nice-padding;
+    }
+
+    li.settings a {
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+  }
+
+  .modal-content .tab-nav li {
+    padding: 0;
+    min-width: 0;
+
+    &:first-of-type {
+      padding-left: $desktop-nice-padding;
+    }
+  }
 }
 
 @include media-breakpoint-down(xs) {
-    // To allow tabs on the edit page to be editable
-    .tab-nav li:first-of-type {
-        padding-left: 1.6em;
-    }
+  // To allow tabs on the edit page to be editable
+  .tab-nav li:first-of-type {
+    padding-left: 1.6em;
+  }
 
-    .tab-nav li {
-        width: auto;
-    }
+  .tab-nav li {
+    width: auto;
+  }
 }
 
 // Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
-    .tab-nav li.active a {
-        border-bottom: 0.3em solid $system-color-link-text;
-    }
+  .tab-nav li.active a {
+    border-bottom: 0.3em solid $system-color-link-text;
+  }
 }

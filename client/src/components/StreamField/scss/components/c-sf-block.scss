@@ -9,180 +9,182 @@
 // However, the new classes adequately sanitise streamfield only CSS so am leaving this for
 // now to avoid blocking the release of the new Streamfield. -@jonnyscholes
 .c-sf-block {
-    flex: 1 1 auto;
-    margin: $block-margin-vertical $block-margin-horizontal;
-    border: 1px solid $block-border-color;
-    border-radius: $border-radius;
-    background: #fff;
-    transition: border-color $hover-transition-duration ease-in-out;
-    transition-property: border-color, box-shadow;
+  flex: 1 1 auto;
+  margin: $block-margin-vertical $block-margin-horizontal;
+  border: 1px solid $block-border-color;
+  border-radius: $border-radius;
+  background: #fff;
+  transition: border-color $hover-transition-duration ease-in-out;
+  transition-property: border-color, box-shadow;
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: $header-padding-vertical $header-padding-horizontal;
-        user-select: none;
-        transition: background-color $hover-transition-duration ease-in-out;
-        cursor: default;
-        border-top-left-radius: $border-radius;
-        border-top-right-radius: $border-radius;
-        min-height: 30px;
-        background: $header-background;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $header-padding-vertical $header-padding-horizontal;
+    user-select: none;
+    transition: background-color $hover-transition-duration ease-in-out;
+    cursor: default;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    min-height: 30px;
+    background: $header-background;
 
-        @media (min-width: $screen-sm-min) {
-            padding-left: $content-padding-horizontal - $header-gutter;
-        }
-
-        &--collapsible {
-            cursor: pointer;
-        }
-
-        &--sortable {
-            cursor: grab;
-        }
-
-        &__title,
-        &__icon {
-            color: $header-text-color;
-        }
-
-        &__title {
-            display: inline-block;
-            flex: 1 10 auto;
-            margin: 0;
-            font-size: 12px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-        }
-
-        &__icon {
-            width: 20px;
-            height: 20px;
-            margin: 0 $header-gutter;
-            transition: color $hover-transition-duration ease-in-out;
-        }
+    @media (min-width: $screen-sm-min) {
+      padding-left: $content-padding-horizontal - $header-gutter;
     }
 
-    &__content {
-        &-inner {
-            padding: $content-padding-vertical $content-padding-horizontal;
-        }
+    &--collapsible {
+      cursor: pointer;
     }
 
-    &__actions {
-        flex: 0 1 auto;
-        display: flex;
-        align-items: center;
-        white-space: nowrap;
-        overflow-x: hidden;
-
-        &__single {
-            appearance: none;
-            border: 0 none;
-            background: none;
-            cursor: pointer;
-            color: $header-text-color;
-            opacity: 1;
-            transition: opacity $hover-transition-duration ease-in-out, color $hover-transition-duration ease-in-out, background-color $hover-transition-duration ease-in-out;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            line-height: 1;
-            font-size: $action-font-size;
-            text-align: center;
-            padding: 0;
-
-            &:not(:last-of-type) {
-                margin-right: 3px;
-            }
-
-            &:focus,
-            &:hover {
-                color: #333;
-                background-color: rgba(0, 0, 0, 0.05);
-            }
-
-            svg.icon {
-                width: 1em;
-                height: 1em;
-                vertical-align: middle;
-            }
-
-            &[disabled] {
-                opacity: 0.2;
-                pointer-events: none;
-            }
-        }
+    &--sortable {
+      cursor: grab;
     }
 
-    &__type {
-        margin: 0 $header-gutter;
-        text-align: right;
-        font-size: 12px;
-        color: $header-text-color;
-        user-select: none;
-        vertical-align: 2px;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
+    &__title,
+    &__icon {
+      color: $header-text-color;
     }
 
-    &.c-sf-block--error {
-        border-color: $error-border-color;
+    &__title {
+      display: inline-block;
+      flex: 1 10 auto;
+      margin: 0;
+      font-size: 12px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
 
-        > .c-sf-block__header {
-            background: $error-background-color;
-        }
+    &__icon {
+      width: 20px;
+      height: 20px;
+      margin: 0 $header-gutter;
+      transition: color $hover-transition-duration ease-in-out;
+    }
+  }
 
-        &:hover,
-        &:focus {
-            border-color: $error-border-color-focus;
+  &__content {
+    &-inner {
+      padding: $content-padding-vertical $content-padding-horizontal;
+    }
+  }
 
-            > .c-sf-block__header {
-                background: $error-background-color;
-            }
-        }
+  &__actions {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow-x: hidden;
 
-        // Duplicated because of
-        // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
-        &:focus-within {
-            border-color: $error-border-color-focus;
+    &__single {
+      appearance: none;
+      border: 0 none;
+      background: none;
+      cursor: pointer;
+      color: $header-text-color;
+      opacity: 1;
+      transition: opacity $hover-transition-duration ease-in-out,
+        color $hover-transition-duration ease-in-out,
+        background-color $hover-transition-duration ease-in-out;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      line-height: 1;
+      font-size: $action-font-size;
+      text-align: center;
+      padding: 0;
 
-            > .c-sf-block__header {
-                background: $error-background-color;
-            }
-        }
+      &:not(:last-of-type) {
+        margin-right: 3px;
+      }
+
+      &:focus,
+      &:hover {
+        color: #333;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      svg.icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: middle;
+      }
+
+      &[disabled] {
+        opacity: 0.2;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &__type {
+    margin: 0 $header-gutter;
+    text-align: right;
+    font-size: 12px;
+    color: $header-text-color;
+    user-select: none;
+    vertical-align: 2px;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.c-sf-block--error {
+    border-color: $error-border-color;
+
+    > .c-sf-block__header {
+      background: $error-background-color;
     }
 
     &:hover,
     &:focus {
-        border-color: $block-border-color-focus;
-        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+      border-color: $error-border-color-focus;
 
-        > .c-sf-block__header {
-            background: $block-hover-background;
-
-            .c-sf-block__header__title,
-            .c-sf-block__actions__single {
-                color: $header-text-color-focus;
-            }
-        }
+      > .c-sf-block__header {
+        background: $error-background-color;
+      }
     }
 
     // Duplicated because of
     // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
     &:focus-within {
-        border-color: $block-border-color-focus;
-        box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+      border-color: $error-border-color-focus;
 
-        > .c-sf-block__header {
-            background: $block-hover-background;
-
-            .c-sf-block__header__title,
-            .c-sf-block__actions__single {
-                color: $header-text-color-focus;
-            }
-        }
+      > .c-sf-block__header {
+        background: $error-background-color;
+      }
     }
+  }
+
+  &:hover,
+  &:focus {
+    border-color: $block-border-color-focus;
+    box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+
+    > .c-sf-block__header {
+      background: $block-hover-background;
+
+      .c-sf-block__header__title,
+      .c-sf-block__actions__single {
+        color: $header-text-color-focus;
+      }
+    }
+  }
+
+  // Duplicated because of
+  // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/16651302/
+  &:focus-within {
+    border-color: $block-border-color-focus;
+    box-shadow: 3px 2px 3px -1px rgba(0, 0, 0, 0.1);
+
+    > .c-sf-block__header {
+      background: $block-hover-background;
+
+      .c-sf-block__header__title,
+      .c-sf-block__actions__single {
+        color: $header-text-color-focus;
+      }
+    }
+  }
 }

@@ -9,8 +9,8 @@ describe('EditorFallback', () => {
       shallow(
         <EditorFallback field={document.createElement('input')}>
           test
-        </EditorFallback>
-      )
+        </EditorFallback>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -19,7 +19,7 @@ describe('EditorFallback', () => {
     field.value = 'test value';
 
     const wrapper = shallow(
-      <EditorFallback field={field}>test</EditorFallback>
+      <EditorFallback field={field}>test</EditorFallback>,
     );
 
     field.value = 'new test value';
@@ -39,7 +39,7 @@ describe('EditorFallback', () => {
       const wrapper = shallow(
         <EditorFallback field={document.createElement('input')}>
           test
-        </EditorFallback>
+        </EditorFallback>,
       );
 
       wrapper.setState({
@@ -53,7 +53,7 @@ describe('EditorFallback', () => {
       const wrapper = shallow(
         <EditorFallback field={document.createElement('input')}>
           test
-        </EditorFallback>
+        </EditorFallback>,
       );
 
       wrapper
@@ -74,7 +74,7 @@ describe('EditorFallback', () => {
       const wrapper = shallow(
         <EditorFallback field={document.createElement('input')}>
           test
-        </EditorFallback>
+        </EditorFallback>,
       );
 
       wrapper
@@ -93,7 +93,7 @@ describe('EditorFallback', () => {
       const wrapper = shallow(
         <EditorFallback field={document.createElement('input')}>
           test
-        </EditorFallback>
+        </EditorFallback>,
       );
 
       const error = new Error('test');
@@ -125,7 +125,7 @@ describe('EditorFallback', () => {
       };
 
       const wrapper = shallow(
-        <EditorFallback field={field}>test</EditorFallback>
+        <EditorFallback field={field}>test</EditorFallback>,
       );
 
       const error = new Error('test');

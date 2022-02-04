@@ -14,8 +14,8 @@ describe('initFocusOutline', () => {
     initFocusOutline();
     window.dispatchEvent(
       Object.assign(new Event('keydown'), {
-        keyCode: 9
-      })
+        keyCode: 9,
+      }),
     );
     expect(document.body.className).toBe('focus-outline-on');
   });
@@ -29,8 +29,8 @@ describe('initFocusOutline', () => {
   it('removes styles when using a mouse', () => {
     window.dispatchEvent(
       Object.assign(new Event('keydown'), {
-        keyCode: 9
-      })
+        keyCode: 9,
+      }),
     );
     window.dispatchEvent(new Event('mousedown'));
     expect(document.body.className).toBe('focus-outline-off');
@@ -39,8 +39,8 @@ describe('initFocusOutline', () => {
   it('removes styles when using a touch screen', () => {
     window.dispatchEvent(
       Object.assign(new Event('keydown'), {
-        keyCode: 9
-      })
+        keyCode: 9,
+      }),
     );
     window.dispatchEvent(new Event('touchstart'));
     expect(document.body.className).toBe('focus-outline-off');

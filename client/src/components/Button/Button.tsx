@@ -1,5 +1,3 @@
- 
-
 import * as React from 'react';
 
 const handleClick = (
@@ -7,7 +5,7 @@ const handleClick = (
   onClick: ((e: React.MouseEvent) => void) | undefined,
   preventDefault: boolean,
   navigate: (url: string) => Promise<void>,
-  e: React.MouseEvent
+  e: React.MouseEvent,
 ) => {
   if (preventDefault && href === '#') {
     e.preventDefault();
@@ -52,9 +50,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
 }) => {
   const hasText = React.Children.count(children) > 0;
   const accessibleElt = accessibleLabel ? (
-    <span className="visuallyhidden">
-      {accessibleLabel}
-    </span>
+    <span className="visuallyhidden">{accessibleLabel}</span>
   ) : null;
 
   return (

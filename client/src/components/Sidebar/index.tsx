@@ -26,7 +26,9 @@ export function initSidebar() {
 
     const collapsedCookie: any = Cookies.get(SIDEBAR_COLLAPSED_COOKIE_NAME);
     // Cast to boolean
-    const collapsed = !((collapsedCookie === undefined || collapsedCookie === '0'));
+    const collapsed = !(
+      collapsedCookie === undefined || collapsedCookie === '0'
+    );
 
     const onExpandCollapse = (_collapsed: boolean) => {
       if (_collapsed) {
@@ -50,7 +52,7 @@ export function initSidebar() {
       element,
       () => {
         document.body.classList.add('ready');
-      }
+      },
     );
   }
 }

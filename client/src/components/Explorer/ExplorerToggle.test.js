@@ -12,13 +12,15 @@ describe('ExplorerToggle', () => {
   });
 
   it('basic', () => {
-    expect(shallow((
-      <ExplorerToggle store={store}>
-        <span>
-          To infinity and beyond!
-        </span>
-      </ExplorerToggle>
-    )).find('ExplorerToggle').dive()).toMatchSnapshot();
+    expect(
+      shallow(
+        <ExplorerToggle store={store}>
+          <span>To infinity and beyond!</span>
+        </ExplorerToggle>,
+      )
+        .find('ExplorerToggle')
+        .dive(),
+    ).toMatchSnapshot();
   });
 
   describe('actions', () => {

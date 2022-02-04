@@ -9,20 +9,23 @@ describe('buildExpandingFormset', () => {
     expect(window.buildExpandingFormset).toBeDefined();
   });
 
-
   it('should add an expanded item if the add button is not disabled', () => {
     const prefix = 'id_form_fields';
     document.body.innerHTML = `
     <div class="object" id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
-        ${[0, 1].map(id => `
+        ${[0, 1].map(
+          (id) => `
         <li id="inline_child_form_fields-${id}" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-${id}-label" value="Subject" id="id_form_fields-${id}-label">
-          <input type="hidden" name="form_fields-${id}-id" value="${id + 1}" id="id_form_fields-${id}-id">
+          <input type="hidden" name="form_fields-${id}-id" value="${
+            id + 1
+          }" id="id_form_fields-${id}-id">
           <input type="hidden" name="form_fields-${id}-DELETE" id="id_form_fields-${id}-DELETE">
         </li>
-        `)}
+        `,
+        )}
       </ul>
       <button class="button" id="${prefix}-ADD" type="button">
         Add form fields
@@ -40,7 +43,9 @@ describe('buildExpandingFormset', () => {
     const onInit = jest.fn();
 
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('2');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      2,
+    );
     expect(onAdd).not.toHaveBeenCalled();
     expect(onInit).not.toHaveBeenCalled();
 
@@ -54,21 +59,30 @@ describe('buildExpandingFormset', () => {
     expect(onInit).toHaveBeenNthCalledWith(2, 1);
 
     // click the 'add' button
-    document.getElementById(`${prefix}-ADD`).dispatchEvent(new MouseEvent('click'));
+    document
+      .getElementById(`${prefix}-ADD`)
+      .dispatchEvent(new MouseEvent('click'));
 
     // check that template was generated and additional onInit / onAdd called
     expect(onAdd).toHaveBeenCalledWith(2); // zero indexed
     expect(onInit).toHaveBeenCalledTimes(3);
     expect(onInit).toHaveBeenLastCalledWith(2);
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('3');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(3);
-
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      3,
+    );
 
     // check template was created into a new form item or malformed
-    expect(document.getElementById('inline_child_form_fields-__prefix__')).toBeNull();
-    const newFormHtml = document.getElementById(`inline_child_form_fields-${2}`);
+    expect(
+      document.getElementById('inline_child_form_fields-__prefix__'),
+    ).toBeNull();
+    const newFormHtml = document.getElementById(
+      `inline_child_form_fields-${2}`,
+    );
     expect(newFormHtml.querySelectorAll('[id*="__prefix__"]')).toHaveLength(0);
-    expect(newFormHtml.querySelectorAll(`[id*="form_fields-${2}"]`)).toHaveLength(3);
+    expect(
+      newFormHtml.querySelectorAll(`[id*="form_fields-${2}"]`),
+    ).toHaveLength(3);
 
     expect(newFormHtml).toMatchSnapshot();
   });
@@ -79,13 +93,17 @@ describe('buildExpandingFormset', () => {
     <div class="object" id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
-        ${[0, 1].map(id => `
+        ${[0, 1].map(
+          (id) => `
         <li id="inline_child_form_fields-${id}" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-${id}-label" value="Subject" id="id_form_fields-${id}-label">
-          <input type="hidden" name="form_fields-${id}-id" value="${id + 1}" id="id_form_fields-${id}-id">
+          <input type="hidden" name="form_fields-${id}-id" value="${
+            id + 1
+          }" id="id_form_fields-${id}-id">
           <input type="hidden" name="form_fields-${id}-DELETE" id="id_form_fields-${id}-DELETE">
         </li>
-        `)}
+        `,
+        )}
       </ul>
       <button class="button disabled" id="${prefix}-ADD" type="button">
         Add form fields (DISABLED)
@@ -103,7 +121,9 @@ describe('buildExpandingFormset', () => {
     const onInit = jest.fn();
 
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('2');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      2,
+    );
     expect(onAdd).not.toHaveBeenCalled();
     expect(onInit).not.toHaveBeenCalled();
 
@@ -116,16 +136,22 @@ describe('buildExpandingFormset', () => {
     expect(onInit).toHaveBeenNthCalledWith(2, 1);
 
     // click the 'add' button
-    document.getElementById(`${prefix}-ADD`).dispatchEvent(new MouseEvent('click'));
+    document
+      .getElementById(`${prefix}-ADD`)
+      .dispatchEvent(new MouseEvent('click'));
 
     // check that no template was generated and additional onInit / onAdd not called
     expect(onAdd).not.toHaveBeenCalled();
     expect(onInit).toHaveBeenCalledTimes(2);
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('2');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      2,
+    );
 
     // check template was not created into a new form item or malformed
-    expect(document.getElementById('inline_child_form_fields-__prefix__')).toBeNull();
+    expect(
+      document.getElementById('inline_child_form_fields-__prefix__'),
+    ).toBeNull();
   });
 
   it('should replace the __prefix__ correctly for nested formset templates', () => {
@@ -148,18 +174,21 @@ describe('buildExpandingFormset', () => {
 <-/script>
     `;
 
-
     document.body.innerHTML = `
     <div class="object" id="content">
       <input type="hidden" name="form_fields-TOTAL_FORMS" value="2" id="${prefix}-TOTAL_FORMS">
       <ul id="${prefix}-FORMS">
-        ${[0, 1].map(id => `
+        ${[0, 1].map(
+          (id) => `
         <li id="inline_child_form_fields-${id}" data-inline-panel-child data-contentpath-disabled>
           <input type="text" name="form_fields-${id}-label" value="Subject" id="id_form_fields-${id}-label">
-          <input type="hidden" name="form_fields-${id}-id" value="${id + 1}" id="id_form_fields-${id}-id">
+          <input type="hidden" name="form_fields-${id}-id" value="${
+            id + 1
+          }" id="id_form_fields-${id}-id">
           <input type="hidden" name="form_fields-${id}-DELETE" id="id_form_fields-${id}-DELETE">
         </li>
-        `)}
+        `,
+        )}
       </ul>
       <button class="button" id="${prefix}-ADD" type="button">
         Add Venue
@@ -174,12 +203,13 @@ describe('buildExpandingFormset', () => {
       </script>
     </div>`;
 
-
     const onAdd = jest.fn();
     const onInit = jest.fn();
 
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('2');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(2);
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      2,
+    );
     expect(onAdd).not.toHaveBeenCalled();
     expect(onInit).not.toHaveBeenCalled();
 
@@ -193,21 +223,29 @@ describe('buildExpandingFormset', () => {
     expect(onInit).toHaveBeenNthCalledWith(2, 1);
 
     // click the 'add' button
-    document.getElementById(`${prefix}-ADD`).dispatchEvent(new MouseEvent('click'));
+    document
+      .getElementById(`${prefix}-ADD`)
+      .dispatchEvent(new MouseEvent('click'));
 
     // check that template was generated and additional onInit / onAdd called
     expect(onAdd).toHaveBeenCalledWith(2); // zero indexed
     expect(onInit).toHaveBeenCalledTimes(3);
     expect(onInit).toHaveBeenLastCalledWith(2);
     expect(document.getElementById(`${prefix}-TOTAL_FORMS`).value).toEqual('3');
-    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(3);
+    expect(document.querySelectorAll('[data-inline-panel-child]')).toHaveLength(
+      3,
+    );
 
     // check the nested template was created with the correct prefixes
-    const newTemplate = document.getElementById(`${prefix}-2-events-EMPTY_FORM_TEMPLATE`);
+    const newTemplate = document.getElementById(
+      `${prefix}-2-events-EMPTY_FORM_TEMPLATE`,
+    );
     expect(newTemplate).toBeTruthy();
-    expect(newTemplate.textContent).toContain('id="id_venues-2-events-__prefix__-DELETE-button"');
     expect(newTemplate.textContent).toContain(
-      '<input type="text" name="venues-2-events-__prefix__-name" id="id_venues-2-events-__prefix__-name">'
+      'id="id_venues-2-events-__prefix__-DELETE-button"',
+    );
+    expect(newTemplate.textContent).toContain(
+      '<input type="text" name="venues-2-events-__prefix__-name" id="id_venues-2-events-__prefix__-name">',
     );
   });
 });

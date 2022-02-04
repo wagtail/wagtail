@@ -1,92 +1,95 @@
 body.wy-body-for-nav {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    line-height: 1.5em;
-    color: #333; /*$color-grey-1*/
-    background-color: #e6e6e6; /*$color-grey-4*/
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    Arial, sans-serif;
+  line-height: 1.5em;
+  color: #333; /*$color-grey-1*/
+  background-color: #e6e6e6; /*$color-grey-4*/
 }
 
 nav.wy-nav-side {
-    background-color: #333;  /*color-grey-1*/
+  background-color: #333; /*color-grey-1*/
 }
 
 .body--autocomplete-open .wy-nav-side {
-    position: absolute;
-    overflow: visible;
+  position: absolute;
+  overflow: visible;
 }
 
 .body--autocomplete-open .wy-side-scroll {
-    overflow: visible;
+  overflow: visible;
 }
 
 div.wy-side-nav-search {
-    background-color: #007d7e; /*color-teal*/
+  background-color: #007d7e; /*color-teal*/
 }
 
 .wy-nav-top {
-    background-color: #007d7e; /*color-teal*/
+  background-color: #007d7e; /*color-teal*/
 }
 
-.wy-side-nav-search>a:hover, .wy-side-nav-search .wy-dropdown>a:hover {
-    background: None; /*background for logo*/
+.wy-side-nav-search > a:hover,
+.wy-side-nav-search .wy-dropdown > a:hover {
+  background: None; /*background for logo*/
 }
 
-.wy-side-nav-search>div.version {
-    color: white;
+.wy-side-nav-search > div.version {
+  color: white;
 }
 
-.wy-side-nav-search input[type=text] {
-    border-color: #d9d9d9; /*color-grey-3*/
+.wy-side-nav-search input[type='text'] {
+  border-color: #d9d9d9; /*color-grey-3*/
 }
 
 .logo {
-    transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
+  transition: all 0.25s cubic-bezier(0.28, 0.15, 0, 2.1);
 }
 
 .logo:hover {
-    transform: rotate(4deg);
+  transform: rotate(4deg);
 }
 
 details {
-    margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 /* Wagtail Space */
 a.wagtailspace {
-    background: #00676a;
-    color: white;
-    padding: 15px;
-    border-radius: 6px;
-    margin-bottom: 1.25em;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  background: #00676a;
+  color: white;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 1.25em;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .wagtailspace svg {
-    margin-right: 1em;
-    width: 56px;
+  margin-right: 1em;
+  width: 56px;
 }
 
 .wagtailspace div {
-    text-align: left;
-    flex-grow: 2;
+  text-align: left;
+  flex-grow: 2;
 }
 
 .wagtailspace strong {
-    font-size: 1.25em;
+  font-size: 1.25em;
 }
 
 .wagtailspace .close {
-    margin-left: 1em;
-    margin-bottom: 1em;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.25em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.25em;
 }
 
 /* Bounce the UFO on hover  */
 @-webkit-keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(0);
   }
   50% {
@@ -95,7 +98,8 @@ a.wagtailspace {
 }
 
 @keyframes bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -104,8 +108,8 @@ a.wagtailspace {
 }
 
 a.wagtailspace:hover svg {
-  -webkit-animation-duration: .5s;
-  animation-duration: .5s;
+  -webkit-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-timing-function: linear;
