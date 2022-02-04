@@ -6,6 +6,7 @@ Changelog
 
 * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas)
 * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
+* Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
 
 
 2.16 (xx.xx.xxxx) - IN DEVELOPMENT
