@@ -3,10 +3,30 @@ name: Wagtail CI
 on:
   push:
     paths-ignore:
-    - 'docs/**'
+      - '.circleci/**'
+      - 'docs/**'
+      - '.readthedocs.yml'
+      - '.squash.yml'
+      - 'CHANGELOG.txt'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTORS.rst'
+      - 'LICENSE'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'SPONSORS.md'
   pull_request:
     paths-ignore:
-    - 'docs/**'
+      - '.circleci/**'
+      - 'docs/**'
+      - '.readthedocs.yml'
+      - '.squash.yml'
+      - 'CHANGELOG.txt'
+      - 'CODE_OF_CONDUCT.md'
+      - 'CONTRIBUTORS.rst'
+      - 'LICENSE'
+      - 'README.md'
+      - 'SECURITY.md'
+      - 'SPONSORS.md'
 
 
 # Our test suite should cover:
