@@ -199,8 +199,28 @@ const defaultState: State = {};
 export default function nodes(state = defaultState, action: Action) {
   switch (action.type) {
   case OPEN_EXPLORER: {
-    return Object.assign({}, state, {
-      [action.payload.id]: Object.assign({}, defaultPageState),
+    let newState = state;
+    let locale: string | null = null;
+    const translations = new Map();
+
+    if (action.payload.id === 1) {
+      // Create shadow root pages for each locale. These hold the children for each locale.
+      // The default page holds the children for the "All" option.
+      locale = '*';
+      translations.set('*', 1);
+      wagtailConfig.LOCALES.forEach(({ code }) => {
+        translations.set(code, `${action.payload.id}-${code}`);
+      });
+
+      wagtailConfig.LOCALES.forEach(({ code }) => {
+        newState = Object.assign({}, newState, {
+          [`${action.payload.id}-${code}`]: Object.assign({}, defaultPageState, { locale: code, translations }),
+        });
+      });
+    }
+
+    return Object.assign({}, newState, {
+      [action.payload.id]: Object.assign({}, defaultPageState, { locale, translations }),
     });
   }
 

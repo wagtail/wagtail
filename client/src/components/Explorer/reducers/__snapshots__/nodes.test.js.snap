@@ -11,6 +11,7 @@ Object {
     "isError": true,
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
+    "locale": "*",
     "meta": Object {
       "children": Object {},
       "parent": null,
@@ -19,6 +20,61 @@ Object {
         "live": false,
         "status": "",
       },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-en": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "en",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-fr": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "fr",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
     },
   },
 }
@@ -63,6 +119,7 @@ Object {
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
+    "locale": "*",
     "meta": Object {
       "children": Object {},
       "parent": null,
@@ -71,6 +128,61 @@ Object {
         "live": false,
         "status": "",
       },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-en": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "en",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-fr": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "fr",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
     },
   },
   "3": Object {
@@ -144,6 +256,7 @@ Object {
     "isError": true,
     "isFetchingChildren": false,
     "isFetchingTranslations": true,
+    "locale": "*",
     "meta": Object {
       "children": Object {},
       "parent": null,
@@ -152,6 +265,61 @@ Object {
         "live": false,
         "status": "",
       },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-en": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "en",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-fr": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "fr",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
     },
   },
 }
@@ -192,6 +360,7 @@ Object {
     "isError": false,
     "isFetchingChildren": false,
     "isFetchingTranslations": false,
+    "locale": "*",
     "meta": Object {
       "children": Object {},
       "parent": null,
@@ -200,6 +369,61 @@ Object {
         "live": false,
         "status": "",
       },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-en": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "en",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
+    },
+  },
+  "1-fr": Object {
+    "children": Object {
+      "count": 0,
+      "items": Array [],
+    },
+    "id": 0,
+    "isError": false,
+    "isFetchingChildren": false,
+    "isFetchingTranslations": false,
+    "locale": "fr",
+    "meta": Object {
+      "children": Object {},
+      "parent": null,
+      "status": Object {
+        "has_unpublished_changes": true,
+        "live": false,
+        "status": "",
+      },
+    },
+    "translations": Map {
+      "*" => 1,
+      "en" => "1-en",
+      "fr" => "1-fr",
     },
   },
 }
