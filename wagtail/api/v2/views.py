@@ -13,6 +13,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
 from wagtail.core.models import Page, Site
+from wagtail.core.utils import WAGTAIL_API_TRAILING_SLASH
 
 from .filters import (
     AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
@@ -336,10 +337,11 @@ class BaseAPIViewSet(GenericViewSet):
         """
         This returns a list of URL patterns for the endpoint
         """
+        trailing_slash = '/' if WAGTAIL_API_TRAILING_SLASH else ''
         return [
-            path('', cls.as_view({'get': 'listing_view'}), name='listing'),
-            path('<int:pk>/', cls.as_view({'get': 'detail_view'}), name='detail'),
-            path('find/', cls.as_view({'get': 'find_view'}), name='find'),
+            path(f'{trailing_slash}', cls.as_view({'get': 'listing_view'}), name='listing'),
+            path(f'/<int:pk>{trailing_slash}', cls.as_view({'get': 'detail_view'}), name='detail'),
+            path(f'/find{trailing_slash}', cls.as_view({'get': 'find_view'}), name='find'),
         ]
 
     @classmethod

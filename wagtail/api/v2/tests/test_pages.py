@@ -1422,3 +1422,18 @@ class TestPageCacheInvalidation(TestCase):
         Page.objects.get(id=2).save_revision()
 
         purge.assert_not_called()
+
+@override_settings(
+    WAGTAIL_API_TRAILING_SLASH=False,
+    WAGTAIL_APPEND_SLASH=False,
+    APPEND_SLASH=False,
+    WAGTAILAPI_BASE_URL='http://api.example.com',
+)
+class TestTrailingSlash(TestCase):
+    def test_endpoint_fails_with_slash(self):
+        response = self.client.get('http://api.example.com/api/main/pages/2/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_endpoint_succedes_without_slash(self):
+        response = self.client.get('http://api.example.com/api/main/pages/2')
+        self.assertEqual(response.status_code, 404)

@@ -28,6 +28,7 @@ logger = logging.getLogger(__name__)
 
 WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
 
+WAGTAIL_API_TRAILING_SLASH = getattr(settings, 'WAGTAIL_API_TRAILING_SLASH', True)
 
 def camelcase_to_underscore(str):
     # https://djangosnippets.org/snippets/585/
