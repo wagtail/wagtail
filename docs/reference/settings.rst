@@ -773,11 +773,11 @@ Default is true, setting this to false will disable full text search on all endp
 
 Requires ``wagtailfrontendcache`` app to be installed, indicates the API should use the frontend cache.
 
-``WAGATAIL_API_APPEND_SLASH``
+``WAGTAIL_API_TRAILING_SLASH``
 -----------------------------
 .. code-block:: python
 
-    WAGTAIL_API_APPEND_SLASH = False
+    WAGTAIL_API_TRAILING_SLASH = False
 
 Default is true, setting this to false will disable the default API ViewSet ending in a slash.
 
