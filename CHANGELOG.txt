@@ -13,6 +13,7 @@ Changelog
  * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
  * Remove redirect auto-creation recipe from documentation as this feature is now supported in Wagtail core (Andy Babic)
  * Remove IE11 warnings (Gianluca De Cola)
+ * Remove the legacy Hallo rich text editor as it has moved to an external package (LB (Ben Johnston))
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
