@@ -34,9 +34,11 @@ install_requires = [
     "requests>=2.11.1,<3.0",
     "l18n>=2018.5",
     "xlsxwriter>=1.2.8,<4.0",
-    "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
     "telepath>=0.1.1,<1",
+    "tablib>=0.14.0",
+    # optional tablib dependencies
+    "xlrd", "xlwt", "openpyxl>=2.6.0",
 ]
 
 # Testing dependencies
