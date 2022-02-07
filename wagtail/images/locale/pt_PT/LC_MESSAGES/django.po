@@ -4,8 +4,8 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Luís Tiago Favas <al62006@utad.eu>, 2020
-# Luís Tiago Favas <al62006@utad.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-26 20:32+0000\n"
+"PO-Revision-Date: 2022-01-29 23:40+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -57,7 +57,7 @@ msgstr "Este ficheiro é demasiado grande (%%s). Tamanho máximo %s."
 
 #, python-format
 msgid "This file has too many pixels (%%s). Maximum pixels %s."
-msgstr "A imagem tem demasiados pixeis (%%s). O máximo de pixeis é %s."
+msgstr "O ficheiro tem demasiados píxeis (%%s). O máximo de píxeis é %s."
 
 #, python-format
 msgid "This file is too big. Maximum filesize %s."
@@ -86,8 +86,8 @@ msgstr "Texto alternativo"
 
 msgid "Please add some alt text for your image or mark it as decorative"
 msgstr ""
-"Por favor adicione algum texto alternativo para a sua imagem ou marque-a "
-"como decorativa"
+"Por favor adicione um texto alternativo para a sua imagem ou marque-a como "
+"decorativa"
 
 msgid "Filter"
 msgstr "Filtro"
@@ -135,7 +135,7 @@ msgid "Choose"
 msgstr "Escolher"
 
 msgid "Select images in choosers"
-msgstr "Selecionar imagens das escolhas"
+msgstr "Selecionar imagens nas escolhas"
 
 msgid "title"
 msgstr "título"
@@ -300,12 +300,12 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "        <span>%(total)s</span> Imagem <span class=\"visuallyhidden\">criada "
-"no %(site_name)s</span>\n"
+"em %(site_name)s</span>\n"
 "    "
 msgstr[1] ""
 "\n"
 "        <span>%(total)s</span> Imagens <span class=\"visuallyhidden"
-"\">criadas no %(site_name)s</span>\n"
+"\">criadas em %(site_name)s</span>\n"
 "    "
 
 msgid "Change image file:"
@@ -351,7 +351,7 @@ msgid "URL Generator"
 msgstr "Gerador de URL"
 
 msgid "Focal point"
-msgstr "Ponto de foco"
+msgstr "Ponto de enfoque"
 
 msgid "(optional)"
 msgstr "(opcional)"
@@ -360,14 +360,14 @@ msgid ""
 "To define this image's most important region, drag a box over the image "
 "above."
 msgstr ""
-"Para definir a área mais importante da imagem, arraste uma caixa por cima da "
-"imagem."
+"Para definir a área mais importante da imagem, arraste uma caixa sobre a "
+"imagem acima."
 
 msgid "Current focal point shown"
 msgstr "A visualizar ponto de enfoque atual"
 
 msgid "Remove focal area"
-msgstr "Remover ponto de foco"
+msgstr "Retirar ponto de enfoque"
 
 msgid "Max dimensions"
 msgstr "Dimensões máximas"
@@ -490,7 +490,8 @@ msgstr "Erro no Servidor"
 msgid ""
 "Report this error to your website administrator with the following "
 "information:"
-msgstr "Reporte este erro ao seu webmaster com a seguinte informação:"
+msgstr ""
+"Reporte este erro ao administrador do seu site com a seguinte informação:"
 
 msgid "Image updated."
 msgstr "Imagem atualizada."

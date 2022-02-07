@@ -11,7 +11,7 @@
 # Gilson Filho <me@gilsondev.in>, 2014
 # Gladson <gladsonbrito@gmail.com>, 2014,2017
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016,2019
-# Iuri L. Machado, 2021
+# Iuri L. Machado, 2021-2022
 # Joao Garcia <joaosdgarcia@gmail.com>, 2017
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
@@ -22,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2022-01-29 01:35+0000\n"
+"Last-Translator: Iuri L. Machado\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -427,6 +427,12 @@ msgstr "Salve a página para salvar este comentário"
 
 msgid "Save the page to save this reply"
 msgstr "Salve a página para salvar esta resposta"
+
+msgid "Toggle sidebar"
+msgstr "Alternar barra lateral"
+
+msgid "Main menu"
+msgstr "Menu principal"
 
 msgid "Dashboard"
 msgstr "Painel"
@@ -890,6 +896,9 @@ msgstr "Aguardando sua revisão"
 msgid "Tasks"
 msgstr "Tarefas"
 
+msgid "Task submitted by"
+msgstr "Tarefa submetida por"
+
 msgid "Sign in"
 msgstr "Entrar"
 
@@ -900,6 +909,9 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Entrar no Wagtail"
+
+msgid "Remember me"
+msgstr "Lembrar-me"
 
 msgid "Signing in…"
 msgstr "Entrando..."
@@ -1924,6 +1936,22 @@ msgstr "Permissões de gerenciamento de coleção"
 msgid "Add a collection permission"
 msgstr "Adicionar uma permissão de coleção"
 
+msgid "Last published"
+msgstr "Última publicação"
+
+msgid "Last published by"
+msgstr "Última publicação por"
+
+#, python-format
+msgid ""
+"\n"
+"                                    %(time_period)s ago\n"
+"                                "
+msgstr ""
+"\n"
+"                                    %(time_period)s atrás\n"
+"                                "
+
 msgid "No pages found."
 msgstr "Nenhuma página encontrada."
 
@@ -2674,6 +2702,15 @@ msgstr "Página '{0}' despublicada."
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "A página '{0}' não está aguardando moderação na tarefa '{1}'."
 
+msgid "Last published before"
+msgstr "Publicado pela última vez antes de"
+
+msgid "Aging pages"
+msgstr "Páginas antigas"
+
+msgid "Last published at"
+msgstr "Publicado pela última vez em"
+
 msgid "Site history"
 msgstr "Histórico do site"
 
@@ -2811,6 +2848,12 @@ msgstr[1] ""
 #, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Tarefa '{0}' habilitada."
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informe este erro ao administrador do seu site com as seguintes informações:"
 
 #, python-format
 msgid "Edit '%(title)s'"

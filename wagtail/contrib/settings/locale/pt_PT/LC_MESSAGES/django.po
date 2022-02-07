@@ -4,14 +4,14 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2016
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Tiago Henriques <trinosauro@gmail.com>, 2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-26 19:15+0000\n"
+"PO-Revision-Date: 2022-01-28 19:11+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -49,7 +49,7 @@ msgstr ""
 
 #, python-format
 msgid "%(setting_type)s updated."
-msgstr "%(setting_type)satualizado."
+msgstr "%(setting_type)satualizada."
 
 msgid "The setting could not be saved due to errors."
 msgstr "A configuração não pôde ser gravada devido a erros."
