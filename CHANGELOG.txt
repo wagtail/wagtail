@@ -9,7 +9,7 @@ Changelog
 * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
 
 
-2.16 (xx.xx.xxxx) - IN DEVELOPMENT
+2.16 (07.02.2022)
 ~~~~~~~~~~~~~~~~~
 
  * Added support for Django 4.0
