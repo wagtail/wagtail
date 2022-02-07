@@ -6,7 +6,7 @@
 # Thiago Cangussu <cng.thg@gmail.com>, 2014
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
-# Iuri L. Machado, 2021
+# Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2016-2021
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2022-01-29 01:36+0000\n"
+"Last-Translator: Iuri L. Machado\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -325,6 +325,23 @@ msgstr "Salvar"
 msgid "Delete image"
 msgstr "Apagar imagem"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Tem certeza de que deseja apagar esta imagem?\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Tem certeza de que deseja excluir essas imagens?\n"
+"                "
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Editando imagem %(title)s"
@@ -472,6 +489,12 @@ msgstr "Desculpe, o carregamento falhou."
 
 msgid "Server Error"
 msgstr "Erro de servidor"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informe este erro ao administrador do seu site com as seguintes informações:"
 
 msgid "Image updated."
 msgstr "Imagem atualizada."

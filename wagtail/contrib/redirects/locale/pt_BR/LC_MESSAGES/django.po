@@ -7,7 +7,7 @@
 # Claudemiro Alves Feitosa Neto <dimiro1@gmail.com>, 2015
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Guilherme Nabanete <neoheartz@gmail.com>, 2016
-# Iuri L. Machado, 2021
+# Iuri L. Machado, 2021-2022
 # João Luiz Lorencetti <me@dirtycoder.net>, 2016
 # Luiz Boaretto <lboaretto@gmail.com>, 2018
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
@@ -17,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:15+0000\n"
-"Last-Translator: Luiz Boaretto <lboaretto@gmail.com>\n"
+"PO-Revision-Date: 2022-01-29 01:37+0000\n"
+"Last-Translator: Iuri L. Machado\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -84,8 +84,21 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "redirecionar para uma página"
 
+msgid "target page route"
+msgstr "rota da página de destino"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcionalmente, especifique uma rota na página de destino para a qual "
+"redirecionar. Deixe em branco para redirecionar para a rota de página padrão."
+
 msgid "redirect to any URL"
 msgstr "redirecionar para qualquer URL"
+
+msgid "automatically created"
+msgstr "criado automaticamente"
 
 msgid "created at"
 msgstr "criado em"

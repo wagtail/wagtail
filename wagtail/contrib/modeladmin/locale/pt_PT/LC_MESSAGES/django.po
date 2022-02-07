@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Tiago Henriques <trinosauro@gmail.com>, 2016,2022
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-26 19:49+0000\n"
+"PO-Revision-Date: 2022-01-29 23:40+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail ModelAdmin"
-msgstr "Wagtail ModelAdmin"
+msgstr "ModelAdmin Wagtail "
 
 msgid "Parent page"
 msgstr "Página-mãe"
@@ -105,7 +105,7 @@ msgid ""
 msgstr ""
 "'%(instance_name)s' é neste momento referenciado por outros objetos, e não "
 "pode ser apagado sem comprometer a integridade dos dados. Para apagar "
-"corretamente, remova primeiro as referências dos seguintes objetos e tente "
+"corretamente, retire primeiro as referências dos seguintes objetos e tente "
 "novamente:"
 
 msgid "Go back to listing"
@@ -137,8 +137,7 @@ msgstr "%(result_count)s de %(all_count)s"
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr ""
-"Lamento, mas não existem %(name)s que correspondam aos parâmetros da sua "
-"pesquisa."
+"Lamento, mas não há %(name)s que correspondam aos parâmetros da sua pesquisa."
 
 msgid "Search for"
 msgstr "Pesquisar por"

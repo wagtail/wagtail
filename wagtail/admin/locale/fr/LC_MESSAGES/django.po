@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-28 13:19+0000\n"
+"PO-Revision-Date: 2022-01-28 13:20+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -2716,6 +2716,9 @@ msgstr ""
 
 msgid "Last published before"
 msgstr "Dernière publication avant"
+
+msgid "Aging pages"
+msgstr "Pages vieillissantes"
 
 msgid "Last published at"
 msgstr "Dernière publication le"
