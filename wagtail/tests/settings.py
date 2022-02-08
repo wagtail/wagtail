@@ -196,9 +196,8 @@ else:
     WAGTAIL_USER_CUSTOM_FIELDS = ['country', 'attachment']
 
 if os.environ.get('DATABASE_ENGINE') == 'django.db.backends.postgresql':
-    INSTALLED_APPS += ('wagtail.contrib.postgres_search',)
     WAGTAILSEARCH_BACKENDS['postgresql'] = {
-        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'BACKEND': 'wagtail.search.backends.database',
         'AUTO_UPDATE': False,
         'SEARCH_CONFIG': 'english'
     }

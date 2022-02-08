@@ -59,18 +59,6 @@ Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the 
 WAGTAIL_SITE_NAME = 'My Example Site'
 ```
 
-<!--- RemovedInWagtail217Warning (wagtail.search.backends.database will be made the default and will not need to be added explicitly here) -->
-
-Add the `WAGTAILSEARCH_BACKENDS` setting to enable full-text searching:
-
-```python
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
-    }
-}
-```
-
 Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
 
 ## URL configuration
