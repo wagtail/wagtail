@@ -28,10 +28,6 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
           'image': {'max_num': 5},
       })
 
-   .. versionadded:: 2.13
-
-       The ``min_num``, ``max_num`` and ``block_counts`` arguments were added. Previously, these were only available on the ``StreamBlock`` definition.
-
 
 Block options
 -------------

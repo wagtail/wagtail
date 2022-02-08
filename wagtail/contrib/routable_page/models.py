@@ -122,8 +122,6 @@ class RoutablePageMixin:
 
     def render(self, request, *args, template=None, context_overrides=None, **kwargs):
         """
-        .. versionadded:: 2.11
-
         This method replicates what ``Page.serve()`` usually does when ``RoutablePageMixin``
         is not used. By default, ``Page.get_template()`` is called to derive the template
         to use for rendering, and ``Page.get_context()`` is always called to gather the

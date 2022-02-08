@@ -91,10 +91,6 @@ A form template for a StructBlock must include the output of ``render_form`` for
         {% endfor %}
     </div>
 
-.. versionadded:: 2.13
-
-    The ``data-contentpath`` attribute is now required on a containing element around the ``render_form`` output.
-
 
 Additional JavaScript on ``StructBlock`` forms
 ----------------------------------------------
