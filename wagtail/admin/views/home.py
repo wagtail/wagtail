@@ -1,7 +1,5 @@
 import itertools
 
-from warnings import warn
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import permission_required
@@ -18,7 +16,6 @@ from wagtail.admin.ui.components import Component
 from wagtail.core import hooks
 from wagtail.core.models import (
     Page, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
-from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 
 User = get_user_model()
@@ -183,20 +180,7 @@ def home(request):
     media = Media()
 
     for panel in panels:
-        if hasattr(panel, 'render') and not hasattr(panel, 'render_html'):
-            # NOTE: when this deprecation warning is removed the 'fallback_render_method=True' in
-            # wagtailadmin/home.html should be removed too
-            message = (
-                "Homepage panel %r should provide a render_html method. "
-                "See https://docs.wagtail.org/en/stable/releases/2.15.html#template-components-2-15"
-                % panel
-            )
-            warn(message, category=RemovedInWagtail217Warning)
-
-        # RemovedInWagtail217Warning: this hasattr check can be removed when support for
-        # non-component-based panels ends
-        if hasattr(panel, 'media'):
-            media += panel.media
+        media += panel.media
 
     site_details = get_site_for_user(request.user)
 
