@@ -26,7 +26,7 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 ### Getting started
 
-Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
+Wagtail works with [Python 3.0+](https://www.python.org/downloads/), on any platform.
 
 To get started with Wagtail, run the following in a virtual environment:
 
