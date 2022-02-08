@@ -16,8 +16,8 @@ describe('Tooltip', () => {
       shallow(
         <Tooltip target={target} direction="top">
           Test
-        </Tooltip>
-      )
+        </Tooltip>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -26,8 +26,8 @@ describe('Tooltip', () => {
       shallow(
         <Tooltip target={target} direction="left">
           Test
-        </Tooltip>
-      )
+        </Tooltip>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -36,8 +36,8 @@ describe('Tooltip', () => {
       shallow(
         <Tooltip target={target} direction="top-left">
           Test
-        </Tooltip>
-      )
+        </Tooltip>,
+      ),
     ).toMatchSnapshot();
   });
 });

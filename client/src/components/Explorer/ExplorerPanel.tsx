@@ -1,5 +1,3 @@
- 
-
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
 
@@ -30,7 +28,10 @@ interface ExplorerPanelState {
  * The main panel of the page explorer menu, with heading,
  * menu items, and special states.
  */
-class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelState> {
+class ExplorerPanel extends React.Component<
+  ExplorerPanelProps,
+  ExplorerPanelState
+> {
   constructor(props) {
     super(props);
 
@@ -54,14 +55,18 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
   }
 
   componentDidMount() {
-    document.querySelector('[data-explorer-menu-item]')?.classList.add('submenu-active');
+    document
+      .querySelector('[data-explorer-menu-item]')
+      ?.classList.add('submenu-active');
     document.body.classList.add('explorer-open');
     document.addEventListener('mousedown', this.clickOutside);
     document.addEventListener('touchend', this.clickOutside);
   }
 
   componentWillUnmount() {
-    document.querySelector('[data-explorer-menu-item]')?.classList.remove('submenu-active');
+    document
+      .querySelector('[data-explorer-menu-item]')
+      ?.classList.remove('submenu-active');
     document.body.classList.remove('explorer-open');
     document.removeEventListener('mousedown', this.clickOutside);
     document.removeEventListener('touchend', this.clickOutside);
@@ -157,20 +162,27 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
 
     return (
       <FocusTrap
-        paused={paused || !page || page.isFetchingChildren || page.isFetchingTranslations}
+        paused={
+          paused ||
+          !page ||
+          page.isFetchingChildren ||
+          page.isFetchingTranslations
+        }
         focusTrapOptions={{
           initialFocus: '.c-explorer__header__title',
           onDeactivate: onClose,
         }}
       >
-        <div
-          role="dialog"
-          className="explorer"
-        >
+        <div role="dialog" className="explorer">
           <Button className="c-explorer__close">
             {STRINGS.CLOSE_EXPLORER}
           </Button>
-          <Transition name={transition} className="c-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+          <Transition
+            name={transition}
+            className="c-explorer"
+            component="nav"
+            label={STRINGS.PAGE_EXPLORER}
+          >
             <div key={depth} className="c-transition-group">
               <ExplorerHeader
                 depth={depth}
@@ -181,7 +193,9 @@ class ExplorerPanel extends React.Component<ExplorerPanelProps, ExplorerPanelSta
 
               {this.renderChildren()}
 
-              {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+              {page.isError ||
+              (page.children.items &&
+                page.children.count > MAX_EXPLORER_PAGES) ? (
                 <PageCount page={page} />
               ) : null}
             </div>

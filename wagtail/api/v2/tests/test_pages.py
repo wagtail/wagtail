@@ -12,6 +12,7 @@ from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
 from wagtail.core.models import Locale, Page, Site
+from wagtail.core.models.view_restrictions import BaseViewRestriction
 from wagtail.tests.demosite import models
 from wagtail.tests.testapp.models import StreamPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -75,7 +76,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
         total_count = get_total_page_count()
 
         page = models.BlogIndexPage.objects.get(id=5)
-        page.view_restrictions.create(password='test')
+        page.view_restrictions.create(restriction_type=BaseViewRestriction.PASSWORD, password='test')
 
         new_total_count = get_total_page_count()
         self.assertNotEqual(total_count, new_total_count)

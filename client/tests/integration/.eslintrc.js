@@ -12,10 +12,10 @@ module.exports = {
   env: {
     jest: true,
     browser: true,
-    node: true
+    node: true,
   },
   globals: {
     page: 'readonly',
-    TEST_ORIGIN: 'readonly'
+    TEST_ORIGIN: 'readonly',
   },
 };

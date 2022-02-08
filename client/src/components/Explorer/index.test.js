@@ -17,7 +17,8 @@ describe('Explorer index', () => {
     });
 
     it('works', () => {
-      document.body.innerHTML = '<div><div id="e"></div><div id="t">Test</div></div>';
+      document.body.innerHTML =
+        '<div><div id="e"></div><div id="t">Test</div></div>';
       const explorerNode = document.querySelector('#e');
       const toggleNode = document.querySelector('#t');
 

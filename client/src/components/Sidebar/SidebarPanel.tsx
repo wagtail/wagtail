@@ -1,5 +1,3 @@
- 
-
 import * as React from 'react';
 
 export interface SidebarPanelProps {
@@ -9,13 +7,17 @@ export interface SidebarPanelProps {
   widthPx?: number;
 }
 
-export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = (
-  { isVisible, isOpen, depth, widthPx, children }) => {
-  const className = (
-    'sidebar-panel'
-    + (isVisible ? ' sidebar-panel--visible' : '')
-    + (isOpen ? ' sidebar-panel--open' : '')
-  );
+export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = ({
+  isVisible,
+  isOpen,
+  depth,
+  widthPx,
+  children,
+}) => {
+  const className =
+    'sidebar-panel' +
+    (isVisible ? ' sidebar-panel--visible' : '') +
+    (isOpen ? ' sidebar-panel--open' : '');
 
   let zIndex = -depth * 2;
 

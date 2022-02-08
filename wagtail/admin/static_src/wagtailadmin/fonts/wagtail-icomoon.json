@@ -6,19 +6,13 @@
         "paths": [
           "M327.030 64c-13.576 0-25.455 3.392-33.939 13.576-8.485 8.485-13.576 18.667-13.576 32.243v106.909h-108.606c-13.575 0-25.454 3.392-33.939 13.576-8.484 8.484-13.576 18.666-13.576 32.242v651.636c0 13.576 5.088 23.757 13.576 32.243 8.485 10.182 20.364 13.576 33.939 13.576h526.061c13.576 0 25.455-3.392 33.939-13.576 8.485-8.485 13.576-18.667 13.576-32.243v-106.909h108.606c13.575 0 25.454-3.392 33.939-13.576 8.484-8.484 13.576-18.666 13.576-32.242v-434.424c0-13.576-3.392-27.152-10.182-42.424-6.788-15.272-13.576-28.849-23.758-37.333l-151.030-151.030c-8.485-8.485-20.364-16.97-35.636-23.757-16.97-6.788-30.545-8.485-44.122-8.485zM342.303 125.091h247.757v201.939c0 13.576 5.088 23.757 13.575 32.243 8.486 10.182 20.364 13.576 32.243 13.576h201.94v373.333h-495.515zM652.849 128.483c8.485 3.392 15.272 6.788 18.666 11.879l152.728 151.030c3.392 3.392 6.788 10.181 10.182 20.363h-181.576zM186.182 277.816h93.333v483.636c0 13.576 5.088 23.757 13.576 32.242 8.484 10.182 20.364 13.576 33.939 13.576h354.666v91.636h-495.515z"
         ],
-        "attrs": [
-          {}
-        ],
+        "attrs": [{}],
         "isMulticolor": false,
         "isMulticolor2": false,
         "grid": 14,
-        "tags": [
-          "duplicate"
-        ]
+        "tags": ["duplicate"]
       },
-      "attrs": [
-        {}
-      ],
+      "attrs": [{}],
       "properties": {
         "order": 37,
         "id": 78,
@@ -38,9 +32,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "text-height"
-        ],
+        "tags": ["text-height"],
         "defaultCode": 57414,
         "grid": 14
       },
@@ -65,10 +57,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "chain-broken",
-          "unlink"
-        ],
+        "tags": ["chain-broken", "unlink"],
         "defaultCode": 57415,
         "grid": 14
       },
@@ -93,9 +82,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "table"
-        ],
+        "tags": ["table"],
         "defaultCode": 57416,
         "grid": 14
       },
@@ -127,9 +114,7 @@
         ],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "logout"
-        ],
+        "tags": ["logout"],
         "defaultCode": 57417,
         "grid": 14
       },
@@ -161,9 +146,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "strikethrough"
-        ],
+        "tags": ["strikethrough"],
         "defaultCode": 57418,
         "grid": 14
       },
@@ -188,9 +171,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "superscript"
-        ],
+        "tags": ["superscript"],
         "defaultCode": 57419,
         "grid": 14
       },
@@ -215,9 +196,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "subscript"
-        ],
+        "tags": ["subscript"],
         "defaultCode": 57420,
         "grid": 14
       },
@@ -252,10 +231,7 @@
             }
           ]
         },
-        "tags": [
-          "quotes-left",
-          "ldquo"
-        ],
+        "tags": ["quotes-left", "ldquo"],
         "defaultCode": 57344,
         "grid": 16
       },
@@ -309,12 +285,7 @@
             }
           ]
         },
-        "tags": [
-          "embed",
-          "code",
-          "html",
-          "xml"
-        ],
+        "tags": ["embed", "code", "html", "xml"],
         "defaultCode": 57345,
         "grid": 16
       },
@@ -359,10 +330,7 @@
             }
           ]
         },
-        "tags": [
-          "pilcrow",
-          "wysiwyg"
-        ],
+        "tags": ["pilcrow", "wysiwyg"],
         "defaultCode": 57346,
         "grid": 16
       },
@@ -401,11 +369,7 @@
             }
           ]
         },
-        "tags": [
-          "marquee",
-          "square",
-          "dashed"
-        ],
+        "tags": ["marquee", "square", "dashed"],
         "defaultCode": 57347,
         "grid": 16
       },
@@ -434,9 +398,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "user"
-        ],
+        "tags": ["user"],
         "defaultCode": 57348,
         "grid": 16
       },
@@ -461,9 +423,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "eye"
-        ],
+        "tags": ["eye"],
         "defaultCode": 57349,
         "grid": 16
       },
@@ -488,9 +448,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "eye-slash"
-        ],
+        "tags": ["eye-slash"],
         "defaultCode": 57350,
         "grid": 16
       },
@@ -516,9 +474,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "globe"
-        ],
+        "tags": ["globe"],
         "defaultCode": 57351,
         "grid": 16
       },
@@ -543,11 +499,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "clock",
-          "time",
-          "schedule"
-        ],
+        "tags": ["clock", "time", "schedule"],
         "defaultCode": 57352,
         "grid": 16
       },
@@ -573,9 +525,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "lock39 copy"
-        ],
+        "tags": ["lock39 copy"],
         "defaultCode": 57353,
         "grid": 16
       },
@@ -601,9 +551,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "lock39-open"
-        ],
+        "tags": ["lock39-open"],
         "defaultCode": 57354,
         "grid": 16
       },
@@ -628,9 +576,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          "form"
-        ],
+        "tags": ["form"],
         "defaultCode": 57355,
         "grid": 16
       },
@@ -727,9 +673,7 @@
         "attrs": [],
         "isMulticolor": false,
         "isMulticolor2": false,
-        "tags": [
-          ""
-        ],
+        "tags": [""],
         "defaultCode": 57359,
         "grid": 16
       },

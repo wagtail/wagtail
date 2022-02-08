@@ -22,12 +22,21 @@ export class FieldBlock {
     this.element = dom[0];
 
     try {
-      this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+      this.widget = this.blockDef.widget.render(
+        widgetElement,
+        prefix,
+        prefix,
+        initialState,
+      );
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
       this.setError([
-        { messages: ['This widget failed to render, please check the console for details'] }
+        {
+          messages: [
+            'This widget failed to render, please check the console for details',
+          ],
+        },
       ]);
       return;
     }
@@ -37,7 +46,7 @@ export class FieldBlock {
     if (this.blockDef.meta.helpText) {
       const helpElement = document.createElement('p');
       helpElement.classList.add('help');
-      helpElement.innerHTML = this.blockDef.meta.helpText;  // unescaped, as per Django conventions
+      helpElement.innerHTML = this.blockDef.meta.helpText; // unescaped, as per Django conventions
       this.element.querySelector('.field-content').appendChild(helpElement);
     }
 
@@ -48,18 +57,20 @@ export class FieldBlock {
 
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
-      addCommentButtonElement.setAttribute('aria-label', blockDef.meta.strings.ADD_COMMENT);
+      addCommentButtonElement.setAttribute(
+        'aria-label',
+        blockDef.meta.strings.ADD_COMMENT,
+      );
       addCommentButtonElement.setAttribute('data-comment-add', '');
       addCommentButtonElement.classList.add('button');
       addCommentButtonElement.classList.add('button-secondary');
       addCommentButtonElement.classList.add('button-small');
       addCommentButtonElement.classList.add('u-hidden');
-      addCommentButtonElement.innerHTML = (
-        '<svg class="icon icon-comment-add initial icon-default" aria-hidden="true" focusable="false">'
-        + '<use href="#icon-comment-add"></use></svg>'
-        + '<svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true" focusable="false">'
-        + '<use href="#icon-comment-add-reversed"></use></svg>'
-      );
+      addCommentButtonElement.innerHTML =
+        '<svg class="icon icon-comment-add initial icon-default" aria-hidden="true" focusable="false">' +
+        '<use href="#icon-comment-add"></use></svg>' +
+        '<svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true" focusable="false">' +
+        '<use href="#icon-comment-add-reversed"></use></svg>';
       fieldCommentControlElement.appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
     }
@@ -76,14 +87,18 @@ export class FieldBlock {
   }
 
   setError(errorList) {
-    this.element.querySelectorAll(':scope > .field-content > .error-message').forEach(element => element.remove());
+    this.element
+      .querySelectorAll(':scope > .field-content > .error-message')
+      .forEach((element) => element.remove());
 
     if (errorList) {
       this.element.classList.add('error');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList.map(error => `<span>${h(error.messages[0])}</span>`).join('');
+      errorElement.innerHTML = errorList
+        .map((error) => `<span>${h(error.messages[0])}</span>`)
+        .join('');
       this.element.querySelector('.field-content').appendChild(errorElement);
     } else {
       this.element.classList.remove('error');
@@ -120,6 +135,12 @@ export class FieldBlockDefinition {
   }
 
   render(placeholder, prefix, initialState, initialError) {
-    return new FieldBlock(this, placeholder, prefix, initialState, initialError);
+    return new FieldBlock(
+      this,
+      placeholder,
+      prefix,
+      initialState,
+      initialError,
+    );
   }
 }

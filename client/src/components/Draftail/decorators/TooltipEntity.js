@@ -59,8 +59,14 @@ class TooltipEntity extends Component {
     this.setState({
       showTooltipAt: {
         container: container,
-        top: rect.top - containerRect.top - (document.documentElement.scrollTop || document.body.scrollTop),
-        left: rect.left - containerRect.left - (document.documentElement.scrollLeft || document.body.scrollLeft),
+        top:
+          rect.top -
+          containerRect.top -
+          (document.documentElement.scrollTop || document.body.scrollTop),
+        left:
+          rect.left -
+          containerRect.left -
+          (document.documentElement.scrollLeft || document.body.scrollLeft),
         width: rect.width,
         height: rect.height,
       },
@@ -72,12 +78,7 @@ class TooltipEntity extends Component {
   }
 
   render() {
-    const {
-      children,
-      icon,
-      label,
-      url,
-    } = this.props;
+    const { children, icon, label, url } = this.props;
     const { showTooltipAt } = this.state;
 
     return (
@@ -112,10 +113,7 @@ class TooltipEntity extends Component {
                 </a>
               ) : null}
 
-              <button
-                className="button Tooltip__button"
-                onClick={this.onEdit}
-              >
+              <button className="button Tooltip__button" onClick={this.onEdit}>
                 Edit
               </button>
 

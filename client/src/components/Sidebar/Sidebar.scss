@@ -1,116 +1,119 @@
 @mixin sidebar-toggle() {
-    @include transition(background-color $menu-transition-duration ease);
+  @include transition(background-color $menu-transition-duration ease);
 
-    position: absolute;
-    top: $sidebar-toggle-spacing;
-    left: $sidebar-toggle-spacing;
-    color: $color-white;
-    width: $sidebar-toggle-size;
-    height: $sidebar-toggle-size;
-    box-sizing: border-box;
-    background: transparent;
-    place-items: center;
-    padding: 0;
-    border-radius: 50%;
-    border: 1px solid transparent;
+  position: absolute;
+  top: $sidebar-toggle-spacing;
+  left: $sidebar-toggle-spacing;
+  color: $color-white;
+  width: $sidebar-toggle-size;
+  height: $sidebar-toggle-size;
+  box-sizing: border-box;
+  background: transparent;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid transparent;
 
-    &:hover {
-        background-color: #3a3a3a;
-        color: #ccc;
+  &:hover {
+    background-color: #3a3a3a;
+    color: #ccc;
+  }
+
+  svg {
+    width: 15px;
+    height: 16px;
+  }
+
+  .has-messages & {
+    top: $sidebar-toggle-spacing + 70px;
+
+    @include media-breakpoint-up(sm) {
+      top: $sidebar-toggle-spacing;
     }
-
-    svg {
-        width: 15px;
-        height: 16px;
-    }
-
-    .has-messages & {
-        top: $sidebar-toggle-spacing + 70px;
-
-        @include media-breakpoint-up(sm) {
-            top: $sidebar-toggle-spacing;
-        }
-    }
+  }
 }
 
 .sidebar {
-    position: fixed;
-    left: 0;
-    width: $menu-width;
-    float: left;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  left: 0;
+  width: $menu-width;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: $nav-grey-3;
+  z-index: 300;
+
+  @include transition(
+    width $menu-transition-duration ease,
+    left $menu-transition-duration ease
+  );
+
+  @media (forced-colors: $media-forced-colours) {
+    border-inline-end: 1px solid transparent;
+  }
+
+  &--slim {
+    width: $menu-width-slim;
+  }
+
+  // The sidebar can move completely off-screen in mobile mode for extra room
+  &--hidden {
+    left: -$menu-width;
+  }
+
+  &__inner {
     height: 100%;
     background: $nav-grey-3;
-    z-index: 300;
+    // On medium, make it possible for the nav links to scroll.
+    display: flex;
+    flex-flow: column nowrap;
+  }
 
-    @include transition(width $menu-transition-duration ease, left $menu-transition-duration ease);
+  &__collapse-toggle {
+    @include sidebar-toggle;
+    display: grid;
+  }
 
-    @media (forced-colors: $media-forced-colours) {
-        border-inline-end: 1px solid transparent;
-    }
+  // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
+  &--mobile &__collapse-toggle {
+    display: none;
+  }
 
-    &--slim {
-        width: $menu-width-slim;
-    }
-
-    // The sidebar can move completely off-screen in mobile mode for extra room
-    &--hidden {
-        left: -$menu-width;
-    }
-
-    &__inner {
-        height: 100%;
-        background: $nav-grey-3;
-        // On medium, make it possible for the nav links to scroll.
-        display: flex;
-        flex-flow: column nowrap;
-    }
-
-    &__collapse-toggle {
-        @include sidebar-toggle;
-        display: grid;
-    }
-
-    // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
-    &--mobile &__collapse-toggle {
-        display: none;
-    }
-
-    // This element should cover all the area beneath the collapse toggle
-    // It's only used to attach mouse enter/exit event handlers to control peeking
-    &__peek-hover-area {
-        margin-top: $sidebar-toggle-size;
-        display: grid;
-        grid-template-columns: 1fr;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
+  // This element should cover all the area beneath the collapse toggle
+  // It's only used to attach mouse enter/exit event handlers to control peeking
+  &__peek-hover-area {
+    margin-top: $sidebar-toggle-size;
+    display: grid;
+    grid-template-columns: 1fr;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
 }
 
 // This is a separate component as it needs to display in the header
 .sidebar-nav-toggle {
-    @include sidebar-toggle;
-    display: none;  // Nav toggle is for mobile only
-    z-index: 305;
+  @include sidebar-toggle;
+  display: none; // Nav toggle is for mobile only
+  z-index: 305;
+
+  &:hover {
+    background: var(--color-primary-dark);
+    color: #fff;
+  }
+
+  &--mobile {
+    display: grid;
+  }
+
+  &--open {
+    position: fixed;
 
     &:hover {
-        background: var(--color-primary-dark);
-        color: #fff;
+      background-color: #3a3a3a;
+      color: #ccc;
     }
-
-    &--mobile {
-        display: grid;
-    }
-
-    &--open {
-        position: fixed;
-
-        &:hover {
-            background-color: #3a3a3a;
-            color: #ccc;
-        }
-    }
+  }
 }
 
 // stylelint-disable no-invalid-position-at-import-rule

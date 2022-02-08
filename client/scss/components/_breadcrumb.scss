@@ -1,90 +1,89 @@
 .breadcrumb {
-    @include unlist();
-    @include clearfix();
-    padding-top: 1.4em;
-    font-size: 0.85em;
-    line-height: 1.5em;
-    margin-left: 2em;
-    background: $color-teal;
+  @include unlist();
+  @include clearfix();
+  padding-top: 1.4em;
+  font-size: 0.85em;
+  line-height: 1.5em;
+  margin-left: 2em;
+  background: $color-teal;
 
-    li,
-    .breadcrumb-item {
-        display: block;
-        float: left;
-        position: relative;
-        text-decoration: none;
-        white-space: nowrap;
-        padding: 4px;
+  li,
+  .breadcrumb-item {
+    display: block;
+    float: left;
+    position: relative;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 4px;
 
-        &:hover {
-            background: $color-teal-dark;
-        }
-
-        &.breadcrumb-dropdown {
-            padding: 0;
-            font-size: initial;
-        }
-
-        .t-default .u-btn-current {
-            color: inherit;
-            background: rgba(0, 91, 94, 0.6);
-            font-size: 1.15em;
-            border: 0;
-            line-height: 1.6;
-        }
+    &:hover {
+      background: $color-teal-dark;
     }
 
-    li > a,
-    .breadcrumb-link {
-        color: $color-white;
-        display: block;
-        padding: calc(0.5em - 4px) 1em;
-        white-space: nowrap;
-        line-height: 1.6em;
-
-        &:hover {
-            background: $color-teal-dark;
-            color: $color-white;
-
-            .arrow_right_icon {
-                color: $color-teal;
-            }
-        }
-
-        .title {
-            display: inline-block;
-            max-width: 11.8em;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            vertical-align: bottom;
-        }
+    &.breadcrumb-dropdown {
+      padding: 0;
+      font-size: initial;
     }
+
+    .t-default .u-btn-current {
+      color: inherit;
+      background: rgba(0, 91, 94, 0.6);
+      font-size: 1.15em;
+      border: 0;
+      line-height: 1.6;
+    }
+  }
+
+  li > a,
+  .breadcrumb-link {
+    color: $color-white;
+    display: block;
+    padding: calc(0.5em - 4px) 1em;
+    white-space: nowrap;
+    line-height: 1.6em;
+
+    &:hover {
+      background: $color-teal-dark;
+      color: $color-white;
+
+      .arrow_right_icon {
+        color: $color-teal;
+      }
+    }
+
+    .title {
+      display: inline-block;
+      max-width: 11.8em;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      vertical-align: bottom;
+    }
+  }
+
+  .home_icon {
+    @include svg-icon(1em);
+    transform: scale(1.5) translate(0, 0.1em);
+  }
+
+  .arrow_right_icon {
+    @include svg-icon(1em);
+    color: $color-teal-dark;
+    transform: scale(1.75) translate(0.3em, 0.1em);
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding-top: 0;
+    background: $color-teal-darker;
+    margin-left: -($desktop-nice-padding);
+    margin-right: -($desktop-nice-padding);
 
     .home_icon {
-        @include svg-icon(1em);
-        transform: scale(1.5) translate(0, 0.1em);
+      margin-left: 1.25em;
     }
 
     .arrow_right_icon {
-        @include svg-icon(1em);
-        color: $color-teal-dark;
-        transform: scale(1.75) translate(0.3em, 0.1em);
+      color: $color-teal;
     }
-
-    @include media-breakpoint-up(sm) {
-        padding-top: 0;
-        background: $color-teal-darker;
-        margin-left: -($desktop-nice-padding);
-        margin-right: -($desktop-nice-padding);
-
-        .home_icon {
-            margin-left: 1.25em;
-        }
-
-        .arrow_right_icon {
-            color: $color-teal;
-        }
-    }
+  }
 }
-

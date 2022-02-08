@@ -10,21 +10,21 @@ const initSubmenus = () => {
   }
 
   const subMenuTriggers = document.querySelectorAll(
-    '[data-nav-primary-submenu-trigger]'
+    '[data-nav-primary-submenu-trigger]',
   );
   const activeClass = 'submenu-active';
 
-  [...subMenuTriggers].forEach(subMenuTrigger => {
-    subMenuTrigger.addEventListener('click', clickEvent => {
+  [...subMenuTriggers].forEach((subMenuTrigger) => {
+    subMenuTrigger.addEventListener('click', (clickEvent) => {
       const submenuContainer = subMenuTrigger.parentNode;
 
       primaryNavContainer.classList.remove(activeClass);
-      [...subMenuTriggers].forEach(sm => sm.classList.remove(activeClass));
+      [...subMenuTriggers].forEach((sm) => sm.classList.remove(activeClass));
 
       primaryNavContainer.classList.toggle(activeClass);
       submenuContainer.classList.toggle(activeClass);
 
-      document.addEventListener('mousedown', e => {
+      document.addEventListener('mousedown', (e) => {
         if (
           !submenuContainer.contains(e.target) &&
           subMenuTrigger !== e.target
@@ -34,7 +34,7 @@ const initSubmenus = () => {
         }
       });
 
-      document.addEventListener('keydown', e => {
+      document.addEventListener('keydown', (e) => {
         // IE11 uses "Esc" instead of "Escape"
         if (e.key === 'Escape' || e.key === 'Esc') {
           primaryNavContainer.classList.remove(activeClass);

@@ -1,88 +1,88 @@
-@use "sass:color";
-@use "sass:map";
+@use 'sass:color';
+@use 'sass:map';
 // Help text formatters
 .help-block {
-    padding: 1em;
-    margin: 1em 0;
-    clear: both;
-    color: $color-text-base;
+  padding: 1em;
+  margin: 1em 0;
+  clear: both;
+  color: $color-text-base;
 
-    p {
-        margin-top: 0;
+  p {
+    margin-top: 0;
 
-        &:last-child {
-            margin-bottom: 0;
-        }
+    &:last-child {
+      margin-bottom: 0;
     }
+  }
 
-    a {
-        color: $color-link;
-    }
+  a {
+    color: $color-link;
+  }
 }
 
 .help-info,
 .help-warning,
 .help-critical {
-    border-radius: 3px;
-    padding-left: 3.5em;
-    position: relative;
+  border-radius: 3px;
+  padding-left: 3.5em;
+  position: relative;
 
-    &:before {
-        font-family: $font-wagtail-icons;
-        position: absolute;
-        left: 1em;
-        top: 0.7em;
-        content: map.get($icons, 'help');
-        font-size: 1.4em;
-    }
+  &:before {
+    font-family: $font-wagtail-icons;
+    position: absolute;
+    left: 1em;
+    top: 0.7em;
+    content: map.get($icons, 'help');
+    font-size: 1.4em;
+  }
 }
 
 .help-info {
-    background-color: color.adjust($color-blue, $lightness: 30%);
+  background-color: color.adjust($color-blue, $lightness: 30%);
 
-    &:before {
-        color: $color-blue;
-    }
+  &:before {
+    color: $color-blue;
+  }
 }
 
 .help-warning {
-    background-color: color.adjust($color-orange, $lightness: 30%);
+  background-color: color.adjust($color-orange, $lightness: 30%);
 
-    &:before {
-        color: $color-orange;
-        content: map.get($icons, 'warning');
-    }
+  &:before {
+    color: $color-orange;
+    content: map.get($icons, 'warning');
+  }
 }
 
 .help-critical {
-    background-color: color.adjust($color-red, $lightness: 40%);
+  background-color: color.adjust($color-red, $lightness: 40%);
 
-    &:before {
-        color: $color-red;
-        content: map.get($icons, 'warning');
-    }
+  &:before {
+    color: $color-red;
+    content: map.get($icons, 'warning');
+  }
 }
 
 // Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
-    .help-block {
-        forced-color-adjust: none;
-        border: 1px solid $system-color-link-text; // ensure visible separation in Windows High Contrast mode
-        background-color: transparent;
-        color: $color-white;
+  .help-block {
+    forced-color-adjust: none;
+    border: 1px solid $system-color-link-text; // ensure visible separation in Windows High Contrast mode
+    background-color: transparent;
+    color: $color-white;
 
-        &:before {
-            color: currentColor;
-        }
+    &:before {
+      color: currentColor;
     }
+  }
 
-    .help-warning {
-        color: $color-text-warning-forced-color;
-        border-color: $color-text-warning-forced-color;
-    }
+  .help-warning {
+    color: $color-text-warning-forced-color;
+    border-color: $color-text-warning-forced-color;
+  }
 
-    .help-critical {
-        color: $color-text-error-forced-color;
-        border-color: $color-text-error-forced-color;
-    }
+  .help-critical {
+    color: $color-text-error-forced-color;
+    border-color: $color-text-error-forced-color;
+  }
 }

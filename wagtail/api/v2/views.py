@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.core.models import Page, Site
+from wagtail.core.models import Page, PageViewRestriction, Site
 
 from .filters import (
     AncestorOfFilter, ChildOfFilter, DescendantOfFilter, FieldsFilter, LocaleFilter, OrderingFilter,
@@ -443,18 +443,17 @@ class PagesAPIViewSet(BaseAPIViewSet):
         """
         # Get all live pages
         queryset = Page.objects.all().live()
-        # if user is not authenticated return only public pages
-        if not self.request.user.is_authenticated:
-            queryset &= queryset.public()
-        else:  # get pages that are accessible to logged-in users or users in specific groups
-            for page in queryset:
-                restrictions = page.get_view_restrictions().order_by('page__depth')
-                if restrictions:
-                    if restrictions[0].restriction_type == "groups":
-                        if not restrictions[0].groups.filter(id__in=self.request.user.groups.all()).exists():
-                            queryset &= queryset.exclude(id=page.id)
-                    # if restriction_type is login, nothing to do since user is_authenticated
-        # TODO: handle "Private, accessible with the following password" privacy option
+
+        # Exclude pages that the user doesn't have access to
+        restricted_pages = [
+            restriction.page
+            for restriction in PageViewRestriction.objects.all().select_related('page')
+            if not restriction.accept_request(self.request)
+        ]
+
+        # Exclude the restricted pages and their descendants from the queryset
+        for restricted_page in restricted_pages:
+            queryset = queryset.not_descendant_of(restricted_page, inclusive=True)
 
         # Filter by site
         site = Site.find_for_request(self.request)

@@ -229,8 +229,6 @@ Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy 
 Comments
 ========
 
-.. versionadded:: 2.13
-
 ``WAGTAILADMIN_COMMENTS_ENABLED``
 ---------------------------------
 

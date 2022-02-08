@@ -7,10 +7,10 @@ export const SIDEBAR_TRANSITION_DURATION = 150;
 
 export interface Strings {
   DASHBOARD: string;
-  EDIT_YOUR_ACCOUNT: string,
-  SEARCH: string,
-  TOGGLE_SIDEBAR: string,
-  MAIN_MENU: string,
+  EDIT_YOUR_ACCOUNT: string;
+  SEARCH: string;
+  TOGGLE_SIDEBAR: string;
+  MAIN_MENU: string;
 }
 
 export interface ModuleRenderContext {
@@ -35,8 +35,14 @@ export interface SidebarProps {
   onExpandCollapse?(collapsed: boolean);
 }
 
-export const Sidebar: React.FunctionComponent<SidebarProps> = (
-  { modules, currentPath, collapsedOnLoad, strings, navigate, onExpandCollapse }) => {
+export const Sidebar: React.FunctionComponent<SidebarProps> = ({
+  modules,
+  currentPath,
+  collapsedOnLoad,
+  strings,
+  navigate,
+  onExpandCollapse,
+}) => {
   // 'collapsed' is a persistent state that is controlled by the arrow icon at the top
   // It records the user's general preference for a collapsed/uncollapsed menu
   // This is just a hint though, and we may still collapse the menu if the screen is too small
@@ -85,7 +91,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   const slim = collapsed && !peeking && !isMobile;
 
   // 'expandingOrCollapsing' is set to true whilst the the menu is transitioning between slim and expanded layouts
-  const [expandingOrCollapsing, setExpandingOrCollapsing] = React.useState(false);
+  const [expandingOrCollapsing, setExpandingOrCollapsing] =
+    React.useState(false);
   React.useEffect(() => {
     setExpandingOrCollapsing(true);
     const finishTimeout = setTimeout(() => {
@@ -155,25 +162,25 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
   }, [mouseHover, focused]);
 
   // Render modules
-  const renderedModules = modules.map(
-    (module, index) => module.render({
+  const renderedModules = modules.map((module, index) =>
+    module.render({
       key: index,
       slim,
       expandingOrCollapsing,
       currentPath,
       strings,
-      navigate
-    })
+      navigate,
+    }),
   );
 
   return (
     <>
       <div
         className={
-          'sidebar'
-          + (slim ? ' sidebar--slim' : '')
-          + (isMobile ? ' sidebar--mobile' : '')
-          + ((isMobile && !visibleOnMobile) ? ' sidebar--hidden' : '')
+          'sidebar' +
+          (slim ? ' sidebar--slim' : '') +
+          (isMobile ? ' sidebar--mobile' : '') +
+          (isMobile && !visibleOnMobile ? ' sidebar--hidden' : '')
         }
       >
         <div className="sidebar__inner">
@@ -183,7 +190,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
             aria-expanded={!slim}
             className="button sidebar__collapse-toggle"
           >
-            {collapsed ? <Icon name="angle-double-right" /> : <Icon name="angle-double-left" />}
+            {collapsed ? (
+              <Icon name="angle-double-right" />
+            ) : (
+              <Icon name="angle-double-left" />
+            )}
           </button>
 
           <div
@@ -202,9 +213,9 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = (
         aria-label={strings.TOGGLE_SIDEBAR}
         aria-expanded={visibleOnMobile}
         className={
-          'button sidebar-nav-toggle'
-          + (isMobile ? ' sidebar-nav-toggle--mobile' : '')
-          + (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
+          'button sidebar-nav-toggle' +
+          (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
+          (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
         }
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}

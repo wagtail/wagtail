@@ -96,4 +96,4 @@ You can also find more resources from the community on [Awesome Wagtail](https:/
 ## Tip
 
 We are working on a collection of Wagtail tutorials and best practices.
-Please tweet [\@WagtailCMS](https://twitter.com/WagtailCMS) or [contact us directly](mailto:hello@wagtail.io) to share your Wagtail HOWTOs, development notes or site launches.
+Please tweet [\@WagtailCMS](https://twitter.com/WagtailCMS) or [contact us directly](mailto:hello@wagtail.org) to share your Wagtail HOWTOs, development notes or site launches.

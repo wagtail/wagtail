@@ -24,6 +24,7 @@ lint:
 	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
 	npm run lint:css --silent
 	npm run lint:js --silent
+	npm run lint:format --silent
 	doc8 docs
 
 test:

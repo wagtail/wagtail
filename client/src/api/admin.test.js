@@ -8,10 +8,7 @@ const stubResult = {
       verbose_name: 'Test',
     },
   },
-  items: [
-    { meta: { type: 'test' } },
-    { meta: { type: 'foo' } },
-  ],
+  items: [{ meta: { type: 'test' } }, { meta: { type: 'foo' } }],
 };
 
 client.get = jest.fn(() => Promise.resolve(stubResult));
@@ -20,27 +17,29 @@ describe('admin API', () => {
   describe('getPageChildren', () => {
     it('works', () => {
       getPageChildren(3);
-      expect(client.get).toBeCalledWith(`${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent`);
+      expect(client.get).toBeCalledWith(
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent`,
+      );
     });
 
     it('#fields', () => {
       getPageChildren(3, { fields: ['title', 'latest_revision_created_at'] });
       expect(client.get).toBeCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent,title%2Clatest_revision_created_at`,
       );
     });
 
     it('#onlyWithChildren', () => {
       getPageChildren(3, { onlyWithChildren: true });
       expect(client.get).toBeCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&has_children=1`
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&has_children=1`,
       );
     });
 
     it('#offset', () => {
       getPageChildren(3, { offset: 5 });
       expect(client.get).toBeCalledWith(
-        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&offset=5`
+        `${ADMIN_API.PAGES}?child_of=3&for_explorer=1&fields=parent&offset=5`,
       );
     });
   });

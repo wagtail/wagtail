@@ -6,7 +6,9 @@ import '../../../../wagtail/admin/static_src/wagtailadmin/js/vendor/bootstrap-mo
 import './modal-workflow';
 
 $.get = jest.fn().mockImplementation((url, data, cb) => {
-  cb(JSON.stringify({ html: `<div id="url">${url}</div>`, data, step: 'start' }));
+  cb(
+    JSON.stringify({ html: `<div id="url">${url}</div>`, data, step: 'start' }),
+  );
   return { fail: jest.fn() };
 });
 
@@ -123,7 +125,11 @@ describe('modal-workflow', () => {
     expect(modalWorkflow).toBeInstanceOf(Object);
 
     // important: see mock implementation above, returning a response with injected data to validate behaviour
-    const response = { data: urlParams, html: '<div id="url">path/to/endpoint</div>', step: 'start' };
+    const response = {
+      data: urlParams,
+      html: '<div id="url">path/to/endpoint</div>',
+      step: 'start',
+    };
     expect(onload.start).toHaveBeenCalledWith(modalWorkflow, response);
   });
 });

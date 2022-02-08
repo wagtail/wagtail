@@ -1,25 +1,25 @@
-@use "sass:string";
+@use 'sass:string';
 
 @font-face {
-    font-family: 'wagtail';
-    src: url('../fonts/wagtail.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'wagtail';
+  src: url('../fonts/wagtail.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
 // Set SVG icons to use the current text color in the location they appear as
 // their default fill color. Can be overridden for a specific icon by either
 // the color or fill properties.
 .icon {
-    fill: currentColor;
+  fill: currentColor;
 }
 
 .icon.teal {
-    color: $color-teal;
+  color: $color-teal;
 }
 
 .icon.white {
-    color: #fff;
+  color: #fff;
 }
 
 .icon:before,
@@ -27,14 +27,14 @@
 .hallotoolbar [class^='icon-'],
 .hallotoolbar [class*=' icon-']:before,
 .hallotoolbar [class^='icon-']:before {
-    @include icon(); // from _mixins.scss
+  @include icon(); // from _mixins.scss
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
 .icon:after,
 .hallotoolbar [class^='icon-']:after,
 .hallotoolbar [class^='icon-']:after {
-    text-align: right;
+  text-align: right;
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
@@ -42,150 +42,149 @@
 .hallotoolbar [class*=' icon-']:before,
 .hallotoolbar [class*=' icon-']:before,
 .hallotoolbar [class^='icon-']:before {
-    vertical-align: -10%;
-    margin-right: 0;
+  vertical-align: -10%;
+  margin-right: 0;
 }
-
 
 // =============================================================================
 // Icon factory methods
 // =============================================================================
 
 @each $icon, $content in $icons {
-    .icon-#{$icon}:before {
-        content: string.quote(#{$content});
-    }
+  .icon-#{$icon}:before {
+    content: string.quote(#{$content});
+  }
 }
 
 @each $icon, $content in $icons-after {
-    .icon-#{$icon}:after {
-        content: string.quote(#{$content});
-    }
+  .icon-#{$icon}:after {
+    content: string.quote(#{$content});
+  }
 }
-
 
 // =============================================================================
 // Custom config for various icons
 // =============================================================================
 .icon-download {
-    // Credit: Icon made by Freepik from Flaticon.com
+  // Credit: Icon made by Freepik from Flaticon.com
 }
 
 .icon-view:before,
-.icon-no-view:before {  // icon-font
-    vertical-align: -3.5px;
-    font-size: 1.1rem;
+.icon-no-view:before {
+  // icon-font
+  vertical-align: -3.5px;
+  font-size: 1.1rem;
 }
 
 .icon-spinner:after,
-.icon-spinner:before {  // iconfont
-    width: 1em;
-    animation: spin-wag 0.5s infinite linear;
-    display: inline-block;
+.icon-spinner:before {
+  // iconfont
+  width: 1em;
+  animation: spin-wag 0.5s infinite linear;
+  display: inline-block;
 }
 
-svg.icon-spinner { // TODO: leave only class when iconfont styles are removed
-    animation: spin-wag 0.5s infinite linear;
+svg.icon-spinner {
+  // TODO: leave only class when iconfont styles are removed
+  animation: spin-wag 0.5s infinite linear;
 }
 
 .icon-horizontalrule:before {
-    font-family: $font-sans;
+  font-family: $font-sans;
 }
-
 
 .icon-larger:before {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
-.icon.text-replace { // iconfont
-    font-size: 0;
-    line-height: 0;
-    overflow: hidden;
+.icon.text-replace {
+  // iconfont
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
 
-    &:before {
-        margin-right: 0;
-        font-size: 1rem;
-        display: inline-block;
-        width: 100%;
-        line-height: 1.2em;
-        text-align: center;
-        vertical-align: middle;
-    }
+  &:before {
+    margin-right: 0;
+    font-size: 1rem;
+    display: inline-block;
+    width: 100%;
+    line-height: 1.2em;
+    text-align: center;
+    vertical-align: middle;
+  }
 }
 
 .text-replace {
-    font-size: 0;
-    line-height: 0;
-    overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+  overflow: hidden;
 
-    .icon {
-        @include svg-icon(1rem, middle);
-    }
+  .icon {
+    @include svg-icon(1rem, middle);
+  }
 }
 
 @keyframes spin-wag {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-
-
 .icon-spinner:after {
-    display: inline-block;
-    line-height: 1;
+  display: inline-block;
+  line-height: 1;
 }
 
 // CSS-only circled question mark.
 // <span class="icon-help-inverse" aria-hidden="true"></span>
 .icon-help-inverse {
-    $size: 15px;
+  $size: 15px;
 
-    &:before {
-        display: inline-block;
-        width: $size;
-        height: $size;
-        line-height: $size;
-        font-size: 1.1em;
-        text-align: center;
-        border-radius: 100%;
-        color: $color-grey-2;
-        border: 1px solid currentColor;
-    }
+  &:before {
+    display: inline-block;
+    width: $size;
+    height: $size;
+    line-height: $size;
+    font-size: 1.1em;
+    text-align: center;
+    border-radius: 100%;
+    color: $color-grey-2;
+    border: 1px solid currentColor;
+  }
 }
 
 // stylelint-disable-next-line no-duplicate-selectors
 .icon {
-    &.initial {
-        @include svg-icon(1em);
-        vertical-align: initial;
-    }
+  &.initial {
+    @include svg-icon(1em);
+    vertical-align: initial;
+  }
 
-    &.default {
-        @include svg-icon(1.5em);
-    }
+  &.default {
+    @include svg-icon(1.5em);
+  }
 
-    &--flipped {
-        transform: scaleX(-1);
-    }
+  &--flipped {
+    transform: scaleX(-1);
+  }
 }
 
 .icon.locale-error {
-    vertical-align: text-top;
-    margin-right: 0.5em;
-    width: 1.5em;
-    height: 1.5em;
-    color: $color-red;
+  vertical-align: text-top;
+  margin-right: 0.5em;
+  width: 1.5em;
+  height: 1.5em;
+  color: $color-red;
 }
 
 // Media for Windows High Contrast mode
 
 @media (forced-colors: $media-forced-colours) {
-    .icon {
-        fill: $system-color-link-text;
-    }
+  .icon {
+    fill: $system-color-link-text;
+  }
 }

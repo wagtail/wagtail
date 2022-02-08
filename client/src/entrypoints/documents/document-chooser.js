@@ -62,8 +62,8 @@ function createDocumentChooser(id) {
         responses: {
           documentChosen: (result) => {
             chooser.setState(result);
-          }
-        }
+          },
+        },
       });
     },
 

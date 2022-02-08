@@ -18,8 +18,8 @@ function createTaskChooser(id) {
           taskName.text(data.name);
           chooserElement.removeClass('blank');
           editAction.attr('href', data.edit_url);
-        }
-      }
+        },
+      },
     });
   });
 }

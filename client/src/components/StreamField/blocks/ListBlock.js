@@ -2,7 +2,11 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { BaseSequenceBlock, BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
+import {
+  BaseSequenceBlock,
+  BaseSequenceChild,
+  BaseInsertionControl,
+} from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
@@ -42,7 +46,9 @@ class InsertPosition extends BaseInsertionControl {
     const animate = opts && opts.animate;
 
     const button = $(`
-      <button type="button" title="${h(opts.strings.ADD)}" data-streamfield-list-add
+      <button type="button" title="${h(
+        opts.strings.ADD,
+      )}" data-streamfield-list-add
           class="c-sf-add-button c-sf-add-button--visible">
         <i aria-hidden="true">+</i>
       </button>
@@ -78,7 +84,9 @@ export class ListBlock extends BaseSequenceBlock {
 
     const dom = $(`
       <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
-        <input type="hidden" name="${h(prefix)}-count" data-streamfield-list-count value="0">
+        <input type="hidden" name="${h(
+          prefix,
+        )}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
       </div>
@@ -104,7 +112,7 @@ export class ListBlock extends BaseSequenceBlock {
     this.container = dom;
     this.setState(initialState || []);
     if (this.blockDef.meta.collapsed) {
-      this.children.forEach(block => {
+      this.children.forEach((block) => {
         block.collapse();
       });
     }
@@ -133,8 +141,26 @@ export class ListBlock extends BaseSequenceBlock {
     return [blockDef, initialState];
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
-    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
+  _createChild(
+    blockDef,
+    placeholder,
+    prefix,
+    index,
+    id,
+    initialState,
+    sequence,
+    opts,
+  ) {
+    return new ListChild(
+      blockDef,
+      placeholder,
+      prefix,
+      index,
+      id,
+      initialState,
+      sequence,
+      opts,
+    );
   }
 
   _createInsertionControl(placeholder, opts) {
@@ -171,7 +197,13 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
-    return this._insert(this.blockDef.childBlockDef, value, opts?.id, index, opts);
+    return this._insert(
+      this.blockDef.childBlockDef,
+      value,
+      opts?.id,
+      index,
+      opts,
+    );
   }
 
   duplicateBlock(index, opts) {
@@ -192,11 +224,13 @@ export class ListBlock extends BaseSequenceBlock {
 
     // Non block errors
     const container = this.container[0];
-    container.querySelectorAll(':scope > .help-block.help-critical').forEach(element => element.remove());
+    container
+      .querySelectorAll(':scope > .help-block.help-critical')
+      .forEach((element) => element.remove());
 
     if (error.nonBlockErrors.length > 0) {
       // Add a help block for each error raised
-      error.nonBlockErrors.forEach(nonBlockError => {
+      error.nonBlockErrors.forEach((nonBlockError) => {
         const errorElement = document.createElement('p');
         errorElement.classList.add('help-block');
         errorElement.classList.add('help-critical');

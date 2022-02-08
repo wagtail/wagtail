@@ -1,4 +1,4 @@
-@use "sass:color";
+@use 'sass:color';
 // paths
 
 // We can't use absolute paths here, because those are dependent on Django's
@@ -19,11 +19,15 @@ $desktop-nice-padding: 50px;
 
 // screen breakpoints
 $breakpoints: (
-    xs: 0,
-    sm: 50em,    // 800px
-    md: 56.25em, // 900px
-    lg: 75em,    // 1200px
-    xl: 100em,   // 1440px
+  xs: 0,
+  sm: 50em,
+  // 800px
+  md: 56.25em,
+  // 900px
+  lg: 75em,
+  // 1200px
+  xl: 100em,
+  // 1440px
 );
 
 // colours
@@ -62,7 +66,10 @@ $color-fieldset-hover: $color-grey-5;
 $color-input-border: $color-grey-4;
 $color-input-focus: var(--color-input-focus);
 $color-input-focus-border: var(--color-input-focus-border);
-$color-input-error-bg: color.adjust(color.adjust($color-red, $saturation: 28%), $lightness: 45%);
+$color-input-error-bg: color.adjust(
+  color.adjust($color-red, $saturation: 28%),
+  $lightness: 45%
+);
 
 $color-button: $color-teal;
 $color-button-hover: $color-teal-darker;
@@ -71,7 +78,10 @@ $color-button-yes-hover: color.adjust($color-button-yes, $lightness: -8%);
 $color-button-no: $color-red-dark;
 $color-button-no-hover: color.adjust($color-button-no, $lightness: -20%);
 $color-button-warning: $color-orange-dark;
-$color-button-warning-hover: color.adjust($color-button-warning, $lightness: -20%);
+$color-button-warning-hover: color.adjust(
+  $color-button-warning,
+  $lightness: -20%
+);
 
 $color-link: $color-teal-darker;
 $color-link-hover: $color-teal-dark;
@@ -95,7 +105,8 @@ $system-color-link-text: LinkText;
 $system-color-button-text: ButtonText;
 
 // Fonts
-$font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+$font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 // Legacy icon font, to be removed in the near future.
 $font-wagtail-icons: wagtail;
 
@@ -145,5 +156,13 @@ $nav-search-focus-bg: $nav-item-hover-bg;
 
 // Form Errors
 $color-text-error: color.change($color-red, $saturation: 69%, $lightness: 52%);
-$color-text-error-forced-color: color.change($color-red, $saturation: 100%, $lightness: 50%);
-$color-text-warning-forced-color: color.change($color-orange, $saturation: 100%, $lightness: 70%);
+$color-text-error-forced-color: color.change(
+  $color-red,
+  $saturation: 100%,
+  $lightness: 50%
+);
+$color-text-warning-forced-color: color.change(
+  $color-orange,
+  $saturation: 100%,
+  $lightness: 70%
+);

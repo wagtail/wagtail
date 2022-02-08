@@ -13,7 +13,7 @@ describe('Link', () => {
           data: {
             url: 'http://www.example.com/',
           },
-        }
+        },
       },
       blocks: [
         {
@@ -24,21 +24,23 @@ describe('Link', () => {
               offset: 0,
               length: 4,
               key: 0,
-            }
-          ]
-        }
-      ]
+            },
+          ],
+        },
+      ],
     });
-    expect(shallow((
-      <Link
-        contentState={content}
-        entityKey="1"
-        onEdit={() => {}}
-        onRemove={() => {}}
-      >
-        test
-      </Link>
-    ))).toMatchSnapshot();
+    expect(
+      shallow(
+        <Link
+          contentState={content}
+          entityKey="1"
+          onEdit={() => {}}
+          onRemove={() => {}}
+        >
+          test
+        </Link>,
+      ),
+    ).toMatchSnapshot();
   });
 
   describe('getLinkAttributes', () => {
@@ -78,7 +80,10 @@ describe('Link', () => {
     });
 
     it('no data', () => {
-      expect(getLinkAttributes({})).toMatchObject({ url: null, label: 'Broken link' });
+      expect(getLinkAttributes({})).toMatchObject({
+        url: null,
+        label: 'Broken link',
+      });
     });
   });
 });

@@ -2,7 +2,11 @@
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { BaseSequenceBlock, BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
+import {
+  BaseSequenceBlock,
+  BaseSequenceChild,
+  BaseInsertionControl,
+} from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
@@ -44,7 +48,9 @@ class StreamBlockMenu extends BaseInsertionControl {
 
     const dom = $(`
       <div>
-        <button data-streamblock-menu-open type="button" title="${h(opts.strings.ADD)}"
+        <button data-streamblock-menu-open type="button" title="${h(
+          opts.strings.ADD,
+        )}"
             class="c-sf-add-button c-sf-add-button--visible">
           <i aria-hidden="true">+</i>
         </button>
@@ -79,15 +85,21 @@ class StreamBlockMenu extends BaseInsertionControl {
 
     this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
       if (group) {
-        const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(group);
+        const heading = $('<h4 class="c-sf-add-panel__group-title"></h4>').text(
+          group,
+        );
         this.innerContainer.append(heading);
       }
       const grid = $('<div class="c-sf-add-panel__grid"></div>');
       this.innerContainer.append(grid);
-      blockDefs.forEach(blockDef => {
+      blockDefs.forEach((blockDef) => {
         const button = $(`
-          <button type="button" class="c-sf-button action-add-block-${h(blockDef.name)}">
-            <svg class="icon icon-${h(blockDef.meta.icon)} c-sf-button__icon" aria-hidden="true">
+          <button type="button" class="c-sf-button action-add-block-${h(
+            blockDef.name,
+          )}">
+            <svg class="icon icon-${h(
+              blockDef.meta.icon,
+            )} c-sf-button__icon" aria-hidden="true">
               <use href="#icon-${h(blockDef.meta.icon)}"></use>
             </svg>
             ${h(blockDef.meta.label)}
@@ -104,8 +116,11 @@ class StreamBlockMenu extends BaseInsertionControl {
     });
 
     // Disable buttons for any disabled block types
-    this.disabledBlockTypes.forEach(blockType => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    this.disabledBlockTypes.forEach((blockType) => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
+        'disabled',
+        'true',
+      );
     });
   }
 
@@ -127,8 +142,11 @@ class StreamBlockMenu extends BaseInsertionControl {
 
     // Disable/enable individual block type buttons
     $('button', this.innerContainer).removeAttr('disabled');
-    disabledBlockTypes.forEach(blockType => {
-      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr('disabled', 'true');
+    disabledBlockTypes.forEach((blockType) => {
+      $(`button.action-add-block-${h(blockType)}`, this.innerContainer).attr(
+        'disabled',
+        'true',
+      );
     });
   }
 
@@ -174,7 +192,9 @@ export class StreamBlock extends BaseSequenceBlock {
 
     const dom = $(`
       <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
-        <input type="hidden" name="${h(prefix)}-count" data-streamfield-stream-count value="0">
+        <input type="hidden" name="${h(
+          prefix,
+        )}-count" data-streamfield-stream-count value="0">
         <div data-streamfield-stream-container></div>
       </div>
     `);
@@ -210,7 +230,7 @@ export class StreamBlock extends BaseSequenceBlock {
     this.sequenceContainer = dom.find('[data-streamfield-stream-container]');
     this.setState(initialState || []);
     if (this.blockDef.meta.collapsed) {
-      this.children.forEach(block => {
+      this.children.forEach((block) => {
         block.collapse();
       });
     }
@@ -230,20 +250,24 @@ export class StreamBlock extends BaseSequenceBlock {
     super.blockCountChanged();
     this.canAddBlock = true;
 
-    if (typeof this.blockDef.meta.maxNum === 'number' && this.children.length >= this.blockDef.meta.maxNum) {
+    if (
+      typeof this.blockDef.meta.maxNum === 'number' &&
+      this.children.length >= this.blockDef.meta.maxNum
+    ) {
       this.canAddBlock = false;
     }
 
     // If we can add blocks, check if there are any block types that have count limits
     this.disabledBlockTypes = new Set();
     if (this.canAddBlock) {
-       
       for (const blockType in this.blockDef.meta.blockCounts) {
         if (this.blockDef.meta.blockCounts.hasOwnProperty(blockType)) {
           const counts = this.blockDef.meta.blockCounts[blockType];
 
           if (typeof counts.max_num === 'number') {
-            const currentBlockCount = this.children.filter(child => child.type === blockType).length;
+            const currentBlockCount = this.children.filter(
+              (child) => child.type === blockType,
+            ).length;
 
             if (currentBlockCount >= counts.max_num) {
               this.disabledBlockTypes.add(blockType);
@@ -254,7 +278,8 @@ export class StreamBlock extends BaseSequenceBlock {
     }
 
     for (let i = 0; i < this.children.length; i++) {
-      const canDuplicate = this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
+      const canDuplicate =
+        this.canAddBlock && !this.disabledBlockTypes.has(this.children[i].type);
 
       if (canDuplicate) {
         this.children[i].enableDuplication();
@@ -263,12 +288,33 @@ export class StreamBlock extends BaseSequenceBlock {
       }
     }
     for (let i = 0; i < this.inserters.length; i++) {
-      this.inserters[i].setNewBlockRestrictions(this.canAddBlock, this.disabledBlockTypes);
+      this.inserters[i].setNewBlockRestrictions(
+        this.canAddBlock,
+        this.disabledBlockTypes,
+      );
     }
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
-    return new StreamChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
+  _createChild(
+    blockDef,
+    placeholder,
+    prefix,
+    index,
+    id,
+    initialState,
+    sequence,
+    opts,
+  ) {
+    return new StreamChild(
+      blockDef,
+      placeholder,
+      prefix,
+      index,
+      id,
+      initialState,
+      sequence,
+      opts,
+    );
   }
 
   _createInsertionControl(placeholder, opts) {
@@ -318,11 +364,13 @@ export class StreamBlock extends BaseSequenceBlock {
 
     // Non block errors
     const container = this.container[0];
-    container.querySelectorAll(':scope > .help-block.help-critical').forEach(element => element.remove());
+    container
+      .querySelectorAll(':scope > .help-block.help-critical')
+      .forEach((element) => element.remove());
 
     if (error.nonBlockErrors.length > 0) {
       // Add a help block for each error raised
-      error.nonBlockErrors.forEach(nonBlockError => {
+      error.nonBlockErrors.forEach((nonBlockError) => {
         const errorElement = document.createElement('p');
         errorElement.classList.add('help-block');
         errorElement.classList.add('help-critical');
@@ -332,7 +380,7 @@ export class StreamBlock extends BaseSequenceBlock {
     }
 
     // Block errors
-     
+
     for (const blockIndex in error.blockErrors) {
       if (error.blockErrors.hasOwnProperty(blockIndex)) {
         this.children[blockIndex].setError(error.blockErrors[blockIndex]);
@@ -349,7 +397,7 @@ export class StreamBlockDefinition {
     this.childBlockDefsByName = {};
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.groupedChildBlockDefs.forEach(([group, blockDefs]) => {
-      blockDefs.forEach(blockDef => {
+      blockDefs.forEach((blockDef) => {
         this.childBlockDefsByName[blockDef.name] = blockDef;
       });
     });
@@ -357,6 +405,12 @@ export class StreamBlockDefinition {
   }
 
   render(placeholder, prefix, initialState, initialError) {
-    return new StreamBlock(this, placeholder, prefix, initialState, initialError);
+    return new StreamBlock(
+      this,
+      placeholder,
+      prefix,
+      initialState,
+      initialError,
+    );
   }
 }

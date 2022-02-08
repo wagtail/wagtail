@@ -5,20 +5,20 @@
 // should ideally use the insert_editor_css hook to pass in their own custom CSS to have those
 // images render within the rich text area in the same styles that would appear on the front-end.
 .richtext-image {
-    // close as possible to match line-height space above p
-    margin-top: 3px;
+  // close as possible to match line-height space above p
+  margin-top: 3px;
 
-    &.small {
-        max-width: 45%;
-    }
+  &.small {
+    max-width: 45%;
+  }
 
-    &.left {
-        float: left;
-        margin-right: 16px;
-    }
+  &.left {
+    float: left;
+    margin-right: 16px;
+  }
 
-    &.right {
-        float: right;
-        margin-left: 16px;
-    }
+  &.right {
+    float: right;
+    margin-left: 16px;
+  }
 }

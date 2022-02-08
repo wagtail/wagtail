@@ -95,7 +95,7 @@ setup(
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
 designers and developers.\n\n\
-For more details, see https://wagtail.io, https://docs.wagtail.org and \
+For more details, see https://wagtail.org, https://docs.wagtail.org and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
         'Development Status :: 5 - Production/Stable',

@@ -1,11 +1,9 @@
- 
-
 import * as React from 'react';
 import { ModuleDefinition, Strings } from '../Sidebar';
 
 export interface LogoImages {
   mobileLogo: string;
-  desktopLogoBody: string
+  desktopLogoBody: string;
   desktopLogoTail: string;
   desktopLogoEyeOpen: string;
   desktopLogoEyeClosed: string;
@@ -29,20 +27,15 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   const brandingLogo = React.useMemo(
     () =>
       document.querySelector<HTMLTemplateElement>(
-        '[data-wagtail-sidebar-branding-logo]'
+        '[data-wagtail-sidebar-branding-logo]',
       ),
-    []
+    [],
   );
   const hasCustomBranding = brandingLogo && brandingLogo.innerHTML !== '';
 
   const onClick = (e: React.MouseEvent) => {
     // Do not capture click events with modifier keys or non-main buttons.
-    if (
-      e.ctrlKey ||
-      e.shiftKey ||
-      e.metaKey ||
-      (e.button && e.button !== 0)
-    ) {
+    if (e.ctrlKey || e.shiftKey || e.metaKey || (e.button && e.button !== 0)) {
       return;
     }
 
@@ -59,7 +52,9 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
         href={homeUrl}
         aria-label={strings.DASHBOARD}
         aria-current={currentPath === homeUrl ? 'page' : undefined}
-        dangerouslySetInnerHTML={{ __html: brandingLogo ? brandingLogo.innerHTML : '' }}
+        dangerouslySetInnerHTML={{
+          __html: brandingLogo ? brandingLogo.innerHTML : '',
+        }}
       />
     );
   }
@@ -73,7 +68,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
 
   const onMouseMove = (e: React.MouseEvent) => {
     const mouseX = e.pageX;
-    const dir: 'r' | 'l' = (mouseX > lastMouseX.current) ? 'r' : 'l';
+    const dir: 'r' | 'l' = mouseX > lastMouseX.current ? 'r' : 'l';
 
     if (mouseX !== lastMouseX.current && dir !== lastDir.current) {
       dirChangeCount.current += 1;
@@ -92,23 +87,43 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
     dirChangeCount.current = 0;
   };
 
-  const desktopClassName = (
-    'sidebar-wagtail-branding'
-    + (isWagging ? ' sidebar-wagtail-branding--wagging' : '')
-  );
+  const desktopClassName =
+    'sidebar-wagtail-branding' +
+    (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
     <a
-      className={desktopClassName} href={homeUrl} aria-label={strings.DASHBOARD}
+      className={desktopClassName}
+      href={homeUrl}
+      aria-label={strings.DASHBOARD}
       aria-current={currentPath === homeUrl ? 'page' : undefined}
-      onClick={onClick} onMouseMove={onMouseMove} onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
     >
       <div className="sidebar-wagtail-branding__icon-wrapper">
-        <img className="sidebar-wagtail-branding__icon" data-part="body" src={images.desktopLogoBody} alt="" />
-        <img className="sidebar-wagtail-branding__icon" data-part="tail" src={images.desktopLogoTail} alt="" />
-        <img className="sidebar-wagtail-branding__icon" data-part="eye--open" src={images.desktopLogoEyeOpen} alt="" />
         <img
-          className="sidebar-wagtail-branding__icon" data-part="eye--closed" src={images.desktopLogoEyeClosed}
+          className="sidebar-wagtail-branding__icon"
+          data-part="body"
+          src={images.desktopLogoBody}
+          alt=""
+        />
+        <img
+          className="sidebar-wagtail-branding__icon"
+          data-part="tail"
+          src={images.desktopLogoTail}
+          alt=""
+        />
+        <img
+          className="sidebar-wagtail-branding__icon"
+          data-part="eye--open"
+          src={images.desktopLogoEyeOpen}
+          alt=""
+        />
+        <img
+          className="sidebar-wagtail-branding__icon"
+          data-part="eye--closed"
+          src={images.desktopLogoEyeClosed}
           alt=""
         />
       </div>
@@ -126,9 +141,15 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
   }
 
   render({ strings, key, navigate, currentPath }) {
-    return (<WagtailBranding
-      key={key} homeUrl={this.homeUrl} images={this.images}
-      strings={strings} navigate={navigate} currentPath={currentPath}
-    />);
+    return (
+      <WagtailBranding
+        key={key}
+        homeUrl={this.homeUrl}
+        images={this.images}
+        strings={strings}
+        navigate={navigate}
+        currentPath={currentPath}
+      />
+    );
   }
 }

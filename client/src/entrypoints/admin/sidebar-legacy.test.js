@@ -19,7 +19,8 @@ describe('sidebar-legacy', () => {
   });
 
   it('init with DOM', () => {
-    document.body.innerHTML = '<div data-explorer-menu></div><div data-explorer-start-page></div>';
+    document.body.innerHTML =
+      '<div data-explorer-menu></div><div data-explorer-start-page></div>';
     listener();
     expect(Explorer.initExplorer).toHaveBeenCalled();
   });

@@ -40,12 +40,13 @@ global.wagtailConfig = {
     RELOAD_EDITOR: 'Reload saved content',
     SHOW_LATEST_CONTENT: 'Show latest content',
     SHOW_ERROR: 'Show error',
-    EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
+    EDITOR_CRASH:
+      'The editor just crashed. Content has been reset to the last saved version.',
     BROKEN_LINK: 'Broken link',
     MISSING_DOCUMENT: 'Missing document',
     CLOSE: 'Close',
-    EDIT_PAGE: 'Edit \'{title}\'',
-    VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
+    EDIT_PAGE: "Edit '{title}'",
+    VIEW_CHILD_PAGES_OF_PAGE: "View child pages of '{title}'",
     PAGE_EXPLORER: 'Page explorer',
     SAVE: 'Save',
     SAVING: 'Saving...',
@@ -72,14 +73,14 @@ global.wagtailConfig = {
   LOCALES: [
     {
       code: 'en',
-      display_name: 'English'
+      display_name: 'English',
     },
     {
       code: 'fr',
-      display_nam: 'French'
-    }
+      display_nam: 'French',
+    },
   ],
-  ACTIVE_LOCALE: 'en'
+  ACTIVE_LOCALE: 'en',
 };
 
 global.wagtailVersion = '1.6a1';

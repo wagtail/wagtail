@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Tiago Henriques <trinosauro@gmail.com>, 2022
 #
 #, fuzzy
@@ -27,10 +27,10 @@ msgid "Wagtail locales"
 msgstr "Regiões do Wagtail"
 
 msgid "Language"
-msgstr "Linguagem"
+msgstr "Língua"
 
 msgid "Select a new language"
-msgstr "Selecione uma nova linguagem"
+msgstr "Selecione uma nova língua"
 
 msgid "This locale's language code is not supported"
 msgstr "O código de língua desta região não é permitido"
@@ -39,14 +39,14 @@ msgid "Yes, delete"
 msgstr "Sim, apagar"
 
 msgid "Back"
-msgstr "Retornar"
+msgstr "Voltar"
 
 msgid ""
 "This locale's current language code is not supported. Please choose a new "
 "language or delete this locale."
 msgstr ""
-"O código de linguagem deste dialeto não é permitido. Por favor escolha uma "
-"nova língua ou apague esta região."
+"O código de língua desta região não é permitido. Por favor escolha uma nova "
+"língua ou apague esta região."
 
 msgid "Locales"
 msgstr "Regiões"

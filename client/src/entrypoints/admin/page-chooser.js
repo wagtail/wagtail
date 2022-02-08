@@ -21,7 +21,7 @@ function createPageChooser(id, openAtParentId, options) {
       id: input.val(),
       parentId: openAtParentId,
       adminTitle: pageTitle.text(),
-      editUrl: editLink.attr('href')
+      editUrl: editLink.attr('href'),
     };
   }
 
@@ -81,8 +81,8 @@ function createPageChooser(id, openAtParentId, options) {
         responses: {
           pageChosen: (result) => {
             chooser.setState(result);
-          }
-        }
+          },
+        },
       });
     },
 

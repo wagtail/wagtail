@@ -1,4 +1,4 @@
 python:
-    version: 3.7
-    pip_install: true
+  version: 3.7
+  pip_install: true
 requirements_file: null

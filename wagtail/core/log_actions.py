@@ -1,12 +1,9 @@
 import uuid
 
-from warnings import warn
-
 from asgiref.local import Local
 from django.utils.functional import LazyObject
 
 from wagtail.core import hooks
-from wagtail.utils.deprecation import RemovedInWagtail217Warning
 
 
 class LogFormatter:
@@ -22,14 +19,7 @@ class LogFormatter:
     comment = ''
 
     def format_message(self, log_entry):
-        if callable(self.message):
-            # RemovedInWagtail217Warning - support for callable messages will be dropped.
-            # For Wagtail <2.15, a callable passed as 'message' will be called with the log entry's 'data' property.
-            # (In 2.14 there was also a takes_log_entry attribute on the callable to specify passing the whole
-            # log entry object rather than just data, but this was undocumented)
-            return self.message(log_entry.data)
-        else:
-            return self.message
+        return self.message
 
     def format_comment(self, log_entry):
         return self.comment
@@ -120,13 +110,6 @@ class LogActionRegistry:
             # register_action has been invoked as register_action(action, label, message); create a LogFormatter
             # subclass and register that
             label, message = args
-
-            if callable(message):
-                warn(
-                    "Passing a callable message to register_action is deprecated; create a LogFormatter subclass instead.",
-                    category=RemovedInWagtail217Warning
-                )
-
             formatter_cls = type('_LogFormatter', (LogFormatter, ), {'label': label, 'message': message})
             register_formatter_class(formatter_cls)
         else:

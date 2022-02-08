@@ -22,14 +22,21 @@ describe('telepath: wagtail.widgets.Widget', () => {
       _type: 'wagtail.widgets.Widget',
       _args: [
         '<input type="text" name="__NAME__" maxlength="255" id="__ID__">',
-        '__ID__'
-      ]
+        '__ID__',
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', 'The Value');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      'The Value',
+    );
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe('<input type="text" name="the-name" maxlength="255" id="the-id">');
+    expect(document.body.innerHTML).toBe(
+      '<input type="text" name="the-name" maxlength="255" id="the-id">',
+    );
     expect(document.querySelector('input').value).toBe('The Value');
   });
 
@@ -73,10 +80,15 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
             <input type="radio" name="__NAME__" value="coffee" id="__ID___1"> Coffee</label>
           </li>
         </ul>`,
-        '__ID___0'
-      ]
+        '__ID___0',
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', 'tea');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      'tea',
+    );
   });
 
   test('it renders correctly', () => {
@@ -103,7 +115,9 @@ describe('telepath: wagtail.widgets.RadioSelect', () => {
     boundWidget.focus();
 
     // Note: This widget always focuses the last element
-    expect(document.activeElement).toBe(document.querySelector('input[value="coffee"]'));
+    expect(document.activeElement).toBe(
+      document.querySelector('input[value="coffee"]'),
+    );
   });
 });
 
@@ -117,12 +131,14 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
     // Unpack and render a radio select widget
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.CheckboxInput',
-      _args: [
-        '<input type="checkbox" name="__NAME__" id="__ID__">',
-        '__ID__'
-      ]
+      _args: ['<input type="checkbox" name="__NAME__" id="__ID__">', '__ID__'],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'sugar', 'id-sugar', true);
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'sugar',
+      'id-sugar',
+      true,
+    );
   });
 
   test('it renders correctly', () => {
@@ -148,7 +164,9 @@ describe('telepath: wagtail.widgets.CheckboxInput', () => {
   test('focus() focuses the checkbox', () => {
     boundWidget.focus();
 
-    expect(document.activeElement).toBe(document.querySelector('input[id="id-sugar"]'));
+    expect(document.activeElement).toBe(
+      document.querySelector('input[id="id-sugar"]'),
+    );
   });
 });
 
@@ -167,10 +185,15 @@ describe('telepath: wagtail.widgets.Select', () => {
           <option value="1">Option 1</option>
           <option value="2">Option 2</option>
         </select>`,
-        '__ID__'
-      ]
+        '__ID__',
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', '1');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      '1',
+    );
   });
 
   test('it renders correctly', () => {
@@ -225,15 +248,15 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
         {
           model_names: ['wagtailcore.page'],
           can_choose_root: false,
-          user_perms: null
-        }
-      ]
+          user_perms: null,
+        },
+      ],
     });
     boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', {
       id: 60,
       parentId: 1,
       adminTitle: 'Welcome to the Wagtail Bakery!',
-      editUrl: '/admin/pages/60/edit/'
+      editUrl: '/admin/pages/60/edit/',
     });
   });
 
@@ -251,7 +274,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
       id: 60,
       parentId: 1,
       adminTitle: 'Welcome to the Wagtail Bakery!',
-      editUrl: '/admin/pages/60/edit/'
+      editUrl: '/admin/pages/60/edit/',
     });
   });
 
@@ -260,7 +283,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
       id: 34,
       parentId: 3,
       adminTitle: 'Anadama',
-      editUrl: '/admin/pages/34/edit/'
+      editUrl: '/admin/pages/34/edit/',
     });
     expect(document.body.innerHTML).toMatchSnapshot();
     expect(document.querySelector('input').value).toBe('34');
@@ -276,7 +299,9 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
     boundWidget.focus();
 
     // Note: This widget always focuses the unchosen button, even if it has a value
-    expect(document.activeElement).toBe(document.querySelector('.unchosen button'));
+    expect(document.activeElement).toBe(
+      document.querySelector('.unchosen button'),
+    );
   });
 });
 
@@ -294,20 +319,29 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
       _type: 'wagtail.widgets.AdminAutoHeightTextInput',
       _args: [
         '<textarea name="__NAME__" cols="40" rows="1" id="__ID__"></textarea>',
-        '__ID__'
-      ]
+        '__ID__',
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', 'The Value');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      'The Value',
+    );
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe('<textarea name="the-name" cols="40" rows="1" id="the-id"></textarea>');
+    expect(document.body.innerHTML).toBe(
+      '<textarea name="the-name" cols="40" rows="1" id="the-id"></textarea>',
+    );
     expect(document.querySelector('textarea').value).toBe('The Value');
   });
 
   test('window.autosize was called', () => {
     expect(window.autosize.mock.calls.length).toBe(1);
-    expect(window.autosize.mock.calls[0][0].get(0)).toBe(document.querySelector('textarea'));
+    expect(window.autosize.mock.calls[0][0].get(0)).toBe(
+      document.querySelector('textarea'),
+    );
   });
 
   test('getValue() returns the current value', () => {
@@ -333,23 +367,28 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
 
   const TEST_VALUE = JSON.stringify({
-    blocks: [{
-      key: 't30wm',
-      type: 'unstyled',
-      depth: 0,
-      text: 'Test Bold Italic',
-      inlineStyleRanges: [{
-        offset: 5,
-        length: 4,
-        style: 'BOLD'
-      }, {
-        offset: 10,
-        length: 6,
-        style: 'ITALIC'
-      }],
-      entityRanges: []
-    }],
-    entityMap: {}
+    blocks: [
+      {
+        key: 't30wm',
+        type: 'unstyled',
+        depth: 0,
+        text: 'Test Bold Italic',
+        inlineStyleRanges: [
+          {
+            offset: 5,
+            length: 4,
+            style: 'BOLD',
+          },
+          {
+            offset: 10,
+            length: 6,
+            style: 'ITALIC',
+          },
+        ],
+        entityRanges: [],
+      },
+    ],
+    entityMap: {},
   });
 
   beforeEach(() => {
@@ -359,52 +398,67 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     // Unpack and render a Draftail input
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.DraftailRichTextArea',
-      _args: [{
-        entityTypes: [{
-          _dict: {
-            type: 'LINK',
-            icon: 'link',
-            description: 'Link',
-            attributes: ['url', 'id', 'parentId'],
-            whitelist: {
-              href: '^(http:|https:|undefined$)'
-            }
-          },
-        }, {
-          _dict: {
-            type: 'IMAGE',
-            icon: 'image',
-            description: 'Image',
-            attributes: ['id', 'src', 'alt', 'format'],
-            whitelist: {
-              id: true
-            }
-          },
-        }],
-        enableHorizontalRule: true,
-        inlineStyles: [{
-          _dict: {
-            type: 'BOLD',
-            icon: 'bold',
-            description: 'Bold'
-          },
-        }, {
-          _dict: {
-            type: 'ITALIC',
-            icon: 'italic',
-            description: 'Italic'
-          },
-        }],
-        blockTypes: [{
-          _dict: {
-            label: 'H2',
-            type: 'header-two',
-            description: 'Heading 2'
-          },
-        }]
-      }]
+      _args: [
+        {
+          entityTypes: [
+            {
+              _dict: {
+                type: 'LINK',
+                icon: 'link',
+                description: 'Link',
+                attributes: ['url', 'id', 'parentId'],
+                whitelist: {
+                  href: '^(http:|https:|undefined$)',
+                },
+              },
+            },
+            {
+              _dict: {
+                type: 'IMAGE',
+                icon: 'image',
+                description: 'Image',
+                attributes: ['id', 'src', 'alt', 'format'],
+                whitelist: {
+                  id: true,
+                },
+              },
+            },
+          ],
+          enableHorizontalRule: true,
+          inlineStyles: [
+            {
+              _dict: {
+                type: 'BOLD',
+                icon: 'bold',
+                description: 'Bold',
+              },
+            },
+            {
+              _dict: {
+                type: 'ITALIC',
+                icon: 'italic',
+                description: 'Italic',
+              },
+            },
+          ],
+          blockTypes: [
+            {
+              _dict: {
+                label: 'H2',
+                type: 'header-two',
+                description: 'Heading 2',
+              },
+            },
+          ],
+        },
+      ],
     });
-    boundWidget = widgetDef.render(document.getElementById('placeholder'), 'the-name', 'the-id', TEST_VALUE);
+    boundWidget = widgetDef.render(
+      document.getElementById('placeholder'),
+      'the-name',
+      'the-id',
+      TEST_VALUE,
+    );
   });
 
   test('it renders correctly', () => {
@@ -422,15 +476,17 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
 
   test('setState() changes the current state', () => {
     const NEW_VALUE = JSON.stringify({
-      blocks: [{
-        key: 't30wm',
-        type: 'unstyled',
-        depth: 0,
-        text: 'New value',
-        inlineStyleRanges: [],
-        entityRanges: []
-      }],
-      entityMap: {}
+      blocks: [
+        {
+          key: 't30wm',
+          type: 'unstyled',
+          depth: 0,
+          text: 'New value',
+          inlineStyleRanges: [],
+          entityRanges: [],
+        },
+      ],
+      entityMap: {},
     });
 
     expect(() => {
@@ -443,7 +499,9 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     jest.useFakeTimers();
     boundWidget.focus();
     jest.runAllTimers();
-    expect(document.activeElement).toBe(document.querySelector('.public-DraftEditor-content'));
+    expect(document.activeElement).toBe(
+      document.querySelector('.public-DraftEditor-content'),
+    );
   });
 });
 
@@ -459,16 +517,25 @@ describe('telepath: wagtail.widgets.DateInput', () => {
     // Render
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.AdminDateInput',
-      _args: [{
-        dayOfWeekStart: 0,
-        format: 'Y-m-d'
-      }]
+      _args: [
+        {
+          dayOfWeekStart: 0,
+          format: 'Y-m-d',
+        },
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', '2021-01-19');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      '2021-01-19',
+    );
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe('<input type="text" name="the-name" id="the-id">');
+    expect(document.body.innerHTML).toBe(
+      '<input type="text" name="the-name" id="the-id">',
+    );
     expect(document.querySelector('input').value).toBe('2021-01-19');
   });
 
@@ -477,7 +544,7 @@ describe('telepath: wagtail.widgets.DateInput', () => {
     expect(window.initDateChooser.mock.calls[0][0]).toBe('the-id');
     expect(window.initDateChooser.mock.calls[0][1]).toEqual({
       dayOfWeekStart: 0,
-      format: 'Y-m-d'
+      format: 'Y-m-d',
     });
   });
 
@@ -512,16 +579,25 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
     // Render
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.AdminTimeInput',
-      _args: [{
-        format: 'H:i',
-        formatTime: 'H:i'
-      }]
+      _args: [
+        {
+          format: 'H:i',
+          formatTime: 'H:i',
+        },
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', '11:59');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      '11:59',
+    );
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe('<input type="text" name="the-name" id="the-id">');
+    expect(document.body.innerHTML).toBe(
+      '<input type="text" name="the-name" id="the-id">',
+    );
     expect(document.querySelector('input').value).toBe('11:59');
   });
 
@@ -530,7 +606,7 @@ describe('telepath: wagtail.widgets.TimeInput', () => {
     expect(window.initTimeChooser.mock.calls[0][0]).toBe('the-id');
     expect(window.initTimeChooser.mock.calls[0][1]).toEqual({
       format: 'H:i',
-      formatTime: 'H:i'
+      formatTime: 'H:i',
     });
   });
 
@@ -565,17 +641,26 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
     // Render
     const widgetDef = window.telepath.unpack({
       _type: 'wagtail.widgets.AdminDateTimeInput',
-      _args: [{
-        dayOfWeekStart: 0,
-        format: 'Y-m-d H:i',
-        formatTime: 'H:i'
-      }]
+      _args: [
+        {
+          dayOfWeekStart: 0,
+          format: 'Y-m-d H:i',
+          formatTime: 'H:i',
+        },
+      ],
     });
-    boundWidget = widgetDef.render($('#placeholder'), 'the-name', 'the-id', '2021-01-19 11:59');
+    boundWidget = widgetDef.render(
+      $('#placeholder'),
+      'the-name',
+      'the-id',
+      '2021-01-19 11:59',
+    );
   });
 
   test('it renders correctly', () => {
-    expect(document.body.innerHTML).toBe('<input type="text" name="the-name" id="the-id">');
+    expect(document.body.innerHTML).toBe(
+      '<input type="text" name="the-name" id="the-id">',
+    );
     expect(document.querySelector('input').value).toBe('2021-01-19 11:59');
   });
 
@@ -585,7 +670,7 @@ describe('telepath: wagtail.widgets.DateTimeInput', () => {
     expect(window.initDateTimeChooser.mock.calls[0][1]).toEqual({
       dayOfWeekStart: 0,
       format: 'Y-m-d H:i',
-      formatTime: 'H:i'
+      formatTime: 'H:i',
     });
   });
 

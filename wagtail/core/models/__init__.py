@@ -629,15 +629,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     def get_specific(self, deferred=False, copy_attrs=None, copy_attrs_exclude=None):
         """
-        .. versionadded:: 2.12
-
         Return this page in its most specific subclassed form.
-
-        .. versionchanged:: 2.13
-            * When ``copy_attrs`` is not supplied, all known non-field attribute
-              values are copied to the returned object. Previously, no non-field
-              values would be copied.
-            * The ``copy_attrs_exclude`` option was added.
 
         By default, a database query is made to fetch all field values for the
         specific object. If you only require access to custom methods or other
@@ -723,8 +715,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @cached_property
     def specific_deferred(self):
         """
-        .. versionadded:: 2.12
-
         Returns this page in its most specific subclassed form without any
         additional field values being fetched from the database. The result
         is cached in memory.
@@ -751,8 +741,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     @property
     def cached_content_type(self):
         """
-        .. versionadded:: 2.10
-
         Return this page's ``content_type`` value from the ``ContentType``
         model's cached manager, which will avoid a database query if the
         object is already in memory.

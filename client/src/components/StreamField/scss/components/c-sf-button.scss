@@ -1,37 +1,38 @@
 .c-sf-button {
-    flex: 1 1 200px;
-    margin: $add-panel-gutter;
-    appearance: none;
-    color: #333;
-    line-height: 1.833;
-    font-weight: 600;
-    font-size: 12px;
-    font-family: $font-sans;
-    text-align: left;
-    background: #eee;
-    padding: $type-button-padding-vertical $type-button-padding-horizontal;
-    border: 1px solid #e6e6e6;
-    border-radius: $border-radius;
-    outline: none;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color $hover-transition-duration ease-in-out, color $hover-transition-duration ease-in-out;
+  flex: 1 1 200px;
+  margin: $add-panel-gutter;
+  appearance: none;
+  color: #333;
+  line-height: 1.833;
+  font-weight: 600;
+  font-size: 12px;
+  font-family: $font-sans;
+  text-align: left;
+  background: #eee;
+  padding: $type-button-padding-vertical $type-button-padding-horizontal;
+  border: 1px solid #e6e6e6;
+  border-radius: $border-radius;
+  outline: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color $hover-transition-duration ease-in-out,
+    color $hover-transition-duration ease-in-out;
 
-    &:hover,
-    &:focus {
-        color: #fff;
-        background-color: $teal;
-    }
+  &:hover,
+  &:focus {
+    color: #fff;
+    background-color: $teal;
+  }
 
-    &[disabled] {
-        opacity: 0.2;
-        pointer-events: none;
-    }
+  &[disabled] {
+    opacity: 0.2;
+    pointer-events: none;
+  }
 
-    &__icon {
-        width: 16px;
-        height: 16px;
-        margin-right: 0.5em;
-        vertical-align: text-top;
-    }
+  &__icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.5em;
+    vertical-align: text-top;
+  }
 }

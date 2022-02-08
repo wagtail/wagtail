@@ -3,11 +3,10 @@ name: Wagtail CI
 on:
   push:
     paths-ignore:
-    - 'docs/**'
+      - 'docs/**'
   pull_request:
     paths-ignore:
-    - 'docs/**'
-
+      - 'docs/**'
 
 # Our test suite should cover:
 # - all supported databases against current Python and Django
@@ -36,8 +35,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.9"
-            django: "Django>=4.0,<4.1"
+          - python: '3.9'
+            django: 'Django>=4.0,<4.1'
 
     steps:
       - uses: actions/checkout@v2
@@ -62,22 +61,22 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.7"
-            django: "Django>=3.2,<3.3"
+          - python: '3.7'
+            django: 'Django>=3.2,<3.3'
             experimental: false
-          - python: "3.10"
-            django: "Django>=4.0,<4.1"
+          - python: '3.10'
+            django: 'Django>=4.0,<4.1'
             notz: notz
             experimental: false
-          - python: "3.10"
-            django: "Django>=4.0,<4.1"
+          - python: '3.10'
+            django: 'Django>=4.0,<4.1'
             experimental: false
             emailuser: emailuser
-          - python: "3.10"
-            django: "git+https://github.com/django/django.git@stable/4.0.x#egg=Django"
+          - python: '3.10'
+            django: 'git+https://github.com/django/django.git@stable/4.0.x#egg=Django'
             experimental: true
-          - python: "3.10"
-            django: "git+https://github.com/django/django.git@main#egg=Django"
+          - python: '3.10'
+            django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
 
     services:
@@ -116,11 +115,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.8"
-            django: "Django>=3.2,<3.3"
+          - python: '3.8'
+            django: 'Django>=3.2,<3.3'
             experimental: false
-          - python: "3.9"
-            django: "Django>=4.0,<4.1"
+          - python: '3.9'
+            django: 'Django>=4.0,<4.1'
             experimental: false
 
     services:
@@ -150,7 +149,7 @@ jobs:
           ./runtests.py
         env:
           DATABASE_ENGINE: django.db.backends.mysql
-          DATABASE_HOST: "127.0.0.1"
+          DATABASE_HOST: '127.0.0.1'
           DATABASE_USER: root
 
   # https://github.com/elastic/elastic-github-actions doesn't work for Elasticsearch 5,
@@ -160,8 +159,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.7"
-            django: "Django>=3.2,<3.3"
+          - python: '3.7'
+            django: 'Django>=3.2,<3.3'
     steps:
       - name: Configure sysctl limits
         run: |
@@ -200,8 +199,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.9"
-            django: "Django>=4.0,<4.1"
+          - python: '3.9'
+            django: 'Django>=4.0,<4.1'
             emailuser: emailuser
     steps:
       - name: Configure sysctl limits
@@ -244,8 +243,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.7"
-            django: "Django>=3.2,<3.3"
+          - python: '3.7'
+            django: 'Django>=3.2,<3.3'
 
     services:
       postgres:
@@ -293,8 +292,8 @@ jobs:
     strategy:
       matrix:
         include:
-          - python: "3.8"
-            django: "Django>=4.0,<4.1"
+          - python: '3.8'
+            django: 'Django>=4.0,<4.1'
             experimental: false
 
     services:

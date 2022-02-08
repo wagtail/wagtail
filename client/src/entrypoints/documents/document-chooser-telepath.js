@@ -15,4 +15,7 @@ class DocumentChooser {
     return chooser;
   }
 }
-window.telepath.register('wagtail.documents.widgets.DocumentChooser', DocumentChooser);
+window.telepath.register(
+  'wagtail.documents.widgets.DocumentChooser',
+  DocumentChooser,
+);

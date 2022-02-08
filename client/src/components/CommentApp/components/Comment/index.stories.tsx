@@ -41,7 +41,8 @@ export function commentFromSomeoneElse() {
     author: {
       id: 2,
       name: 'Someone else',
-      avatarUrl: 'https://gravatar.com/avatar/31c3d5cc27d1faa321c2413589e8a53f?s=200&d=robohash&r=x',
+      avatarUrl:
+        'https://gravatar.com/avatar/31c3d5cc27d1faa321c2413589e8a53f?s=200&d=robohash&r=x',
     },
   });
 
@@ -72,8 +73,8 @@ export function commentFromSomeoneWithAReallyLongName() {
     author: {
       id: 1,
       name: 'This person has a really long name and it should wrap to the next line',
-      avatarUrl: 'https://gravatar.com/avatar/31c3d5cc27d1faa321c2413589e8a53f?s=200&d=robohash&r=x',
-
+      avatarUrl:
+        'https://gravatar.com/avatar/31c3d5cc27d1faa321c2413589e8a53f?s=200&d=robohash&r=x',
     },
   });
 

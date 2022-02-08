@@ -26,7 +26,7 @@ function createImageChooser(id) {
         url: previewImage.attr('src'),
         width: previewImage.attr('width'),
         height: previewImage.attr('height'),
-      }
+      },
     };
   }
 
@@ -42,7 +42,7 @@ function createImageChooser(id) {
           width: newState.preview.width,
           height: newState.preview.height,
           alt: newState.title,
-          title: newState.title
+          title: newState.title,
         });
         chooserElement.removeClass('blank');
         editLink.attr('href', newState.edit_link);
@@ -81,7 +81,7 @@ function createImageChooser(id) {
 
     clear: () => {
       chooser.setState(null);
-    }
+    },
   };
 
   /* hook up chooser API to the buttons */

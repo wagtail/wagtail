@@ -14,7 +14,7 @@ describe('Document', () => {
             url: '/example.pdf',
             filename: 'example.pdf',
           },
-        }
+        },
       },
       blocks: [
         {
@@ -25,21 +25,23 @@ describe('Document', () => {
               offset: 0,
               length: 4,
               key: 0,
-            }
-          ]
-        }
-      ]
+            },
+          ],
+        },
+      ],
     });
-    expect(shallow((
-      <Document
-        contentState={content}
-        entityKey="1"
-        onEdit={() => {}}
-        onRemove={() => {}}
-      >
-        test
-      </Document>
-    ))).toMatchSnapshot();
+    expect(
+      shallow(
+        <Document
+          contentState={content}
+          entityKey="1"
+          onEdit={() => {}}
+          onRemove={() => {}}
+        >
+          test
+        </Document>,
+      ),
+    ).toMatchSnapshot();
   });
 
   it('no data', () => {
@@ -47,7 +49,7 @@ describe('Document', () => {
       entityMap: {
         2: {
           type: 'DOCUMENT',
-        }
+        },
       },
       blocks: [
         {
@@ -58,20 +60,22 @@ describe('Document', () => {
               offset: 0,
               length: 4,
               key: 0,
-            }
-          ]
-        }
-      ]
+            },
+          ],
+        },
+      ],
     });
-    expect(shallow((
-      <Document
-        contentState={content}
-        entityKey="2"
-        onEdit={() => {}}
-        onRemove={() => {}}
-      >
-        test
-      </Document>
-    ))).toMatchSnapshot();
+    expect(
+      shallow(
+        <Document
+          contentState={content}
+          entityKey="2"
+          onEdit={() => {}}
+          onRemove={() => {}}
+        >
+          test
+        </Document>,
+      ),
+    ).toMatchSnapshot();
   });
 });

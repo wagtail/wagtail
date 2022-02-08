@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 
 import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
@@ -28,7 +26,10 @@ interface PageExplorerPanelState {
  * The main panel of the page explorer menu, with heading,
  * menu items, and special states.
  */
-class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExplorerPanelState> {
+class PageExplorerPanel extends React.Component<
+  PageExplorerPanelProps,
+  PageExplorerPanelState
+> {
   constructor(props) {
     super(props);
 
@@ -118,7 +119,12 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     const { transition } = this.state;
 
     return (
-      <Transition name={transition} className="c-page-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+      <Transition
+        name={transition}
+        className="c-page-explorer"
+        component="nav"
+        label={STRINGS.PAGE_EXPLORER}
+      >
         <div key={depth} className="c-transition-group">
           <PageExplorerHeader
             depth={depth}
@@ -130,7 +136,8 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
 
           {this.renderChildren()}
 
-          {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+          {page.isError ||
+          (page.children.items && page.children.count > MAX_EXPLORER_PAGES) ? (
             <PageCount page={page} />
           ) : null}
         </div>

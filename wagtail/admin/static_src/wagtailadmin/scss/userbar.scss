@@ -1,7 +1,7 @@
-@use "sass:color";
-@use "sass:map";
-@use "sass:math";
-@use "sass:string";
+@use 'sass:color';
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:string';
 
 @import '../../../../../client/scss/settings';
 @import '../../../../../client/scss/tools';
@@ -17,265 +17,256 @@ $box-shadow-props: 0 0 1px 0 rgba(107, 214, 230, 1);
 $max-items: 12;
 $userbar-radius: 6px;
 
-
 // Classnames will start with this parameter, eg .wagtail-
 $namespace: 'wagtail';
 
 // Possible positions for the userbar to exist in. These are set through the
 // {% wagtailuserbar 'bottom-left' %} template tag.
 $positions: (
-    'top-left': (
-        'vertical': 'top',
-        'horizontal': 'left',
-        'arrow': 'bottom'
-    ),
-    'top-right': (
-        'vertical': 'top',
-        'horizontal': 'right',
-        'arrow': 'bottom'
-    ),
-    'bottom-left': (
-        'vertical': 'bottom',
-        'horizontal': 'left',
-        'arrow': 'top'
-    ),
-    'bottom-right': (
-        'vertical': 'bottom',
-        'horizontal': 'right',
-        'arrow': 'top'
-    )
+  'top-left': (
+    'vertical': 'top',
+    'horizontal': 'left',
+    'arrow': 'bottom',
+  ),
+  'top-right': (
+    'vertical': 'top',
+    'horizontal': 'right',
+    'arrow': 'bottom',
+  ),
+  'bottom-left': (
+    'vertical': 'bottom',
+    'horizontal': 'left',
+    'arrow': 'top',
+  ),
+  'bottom-right': (
+    'vertical': 'bottom',
+    'horizontal': 'right',
+    'arrow': 'top',
+  ),
 );
 
 // =============================================================================
 // Wagtail userbar proper
 // =============================================================================
 .#{$namespace}-userbar-reset {
-    all: initial;
+  all: initial;
 }
-
 
 .#{$namespace}-userbar {
-    position: fixed;
-    z-index: 9999;
-    // stylelint-disable-next-line declaration-no-important
-    font-size: initial !important;
-    line-height: initial;
-    margin: 0;
-    padding: 0;
-    display: block;
-    border: 0;
-    width: auto;
-    height: auto;
+  position: fixed;
+  z-index: 9999;
+  // stylelint-disable-next-line declaration-no-important
+  font-size: initial !important;
+  line-height: initial;
+  margin: 0;
+  padding: 0;
+  display: block;
+  border: 0;
+  width: auto;
+  height: auto;
 
-    &-icon {
-        @include svg-icon(2em);
-    }
+  &-icon {
+    @include svg-icon(2em);
+  }
 }
 
-
 @media print {
-    .#{$namespace}-userbar {
-        display: none;
-    }
+  .#{$namespace}-userbar {
+    display: none;
+  }
 }
 
 // stylelint-disable declaration-no-important
 .#{$namespace}-userbar-trigger {
-    all: initial;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: $size-home-button;
-    height: $size-home-button;
-    margin: 0 !important;
+  all: initial;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $size-home-button;
+  height: $size-home-button;
+  margin: 0 !important;
+  overflow: hidden;
+  background-color: $color-white;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  color: $color-black;
+  padding: 0 !important;
+  cursor: pointer;
+  box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+  text-decoration: none !important;
+  position: relative;
+
+  .#{$namespace}-userbar-help-text {
+    // Visually hide the help text
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
     overflow: hidden;
-    background-color: $color-white;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    color: $color-black;
-    padding: 0 !important;
-    cursor: pointer;
-    box-shadow: $box-shadow-props, 0 1px 10px 0 rgba(107, 214, 230, 0.7);
-    transition: all 0.2s ease-in-out;
-    font-size: 16px;
-    text-decoration: none !important;
-    position: relative;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
 
-    .#{$namespace}-userbar-help-text {
-        // Visually hide the help text
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-    }
+  .#{$namespace}-icon:before {
+    transition: color 0.2s ease;
+    font-size: 32px;
+    width: auto;
+    margin: 0;
+  }
 
-    .#{$namespace}-icon:before {
-        transition: color 0.2s ease;
-        font-size: 32px;
-        width: auto;
-        margin: 0;
-    }
-
-    &:focus {
-        outline: $color-focus-outline solid 3px;
-    }
+  &:focus {
+    outline: $color-focus-outline solid 3px;
+  }
 }
 
 .#{$namespace}-userbar-items {
-    all: revert;
-    display: block;
-    list-style: none;
-    position: absolute;
-    margin: 0;
-    min-width: 210px;
-    visibility: hidden;
-    font-family: $font-sans;
-    font-size: 14px;
-    box-sizing: border-box;
-    padding-left: 0;
-    text-decoration: none;
+  all: revert;
+  display: block;
+  list-style: none;
+  position: absolute;
+  margin: 0;
+  min-width: 210px;
+  visibility: hidden;
+  font-family: $font-sans;
+  font-size: 14px;
+  box-sizing: border-box;
+  padding-left: 0;
+  text-decoration: none;
 
-    .#{$namespace}-userbar.is-active & {
-        visibility: visible;
-    }
+  .#{$namespace}-userbar.is-active & {
+    visibility: visible;
+  }
 }
 
 // Arrow
 .#{$namespace}-userbar-items:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    opacity: 0;
-    border: solid $width-arrow transparent;
-    transition-duration: 0.15s;
-    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border: solid $width-arrow transparent;
+  transition-duration: 0.15s;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
 
-    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
-    @media (prefers-reduced-motion: reduce) {
-        transition: none !important;
-    }
+  // stylelint-disable-next-line scss/media-feature-value-dollar-variable
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+  }
 
-    .#{$namespace}-userbar.is-active & {
-        opacity: 1;
-        transform: translateY(0);
-        transition-delay: 0.3s;
-    }
+  .#{$namespace}-userbar.is-active & {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+  }
 }
-
 
 .#{$namespace}-userbar-nav {
-    background: transparent !important;
-    padding: 0;
-    margin: 0 !important;
-    display: block !important;
+  background: transparent !important;
+  padding: 0;
+  margin: 0 !important;
+  display: block !important;
 
-    .#{$namespace}-action {
-
-        background: transparent;
-    }
+  .#{$namespace}-action {
+    background: transparent;
+  }
 }
 
-
-
 .#{$namespace}-userbar__item {
-    all: revert;
-    margin: 0;
-    background-color: $color-grey-1;
-    opacity: 0;
-    overflow: hidden;
-    transition-duration: 0.125s;
-    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
-    font-family: $font-sans;
-    font-size: 16px !important;
+  all: revert;
+  margin: 0;
+  background-color: $color-grey-1;
+  opacity: 0;
+  overflow: hidden;
+  transition-duration: 0.125s;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  font-family: $font-sans;
+  font-size: 16px !important;
+  text-decoration: none !important;
+
+  // stylelint-disable-next-line scss/media-feature-value-dollar-variable
+  @media (prefers-reduced-motion: reduce) {
+    transition: none !important;
+
+    // Force disable transitions for all items
+    transition-delay: 0s !important;
+  }
+
+  &:first-child {
+    border-top-left-radius: $userbar-radius;
+    border-top-right-radius: $userbar-radius;
+  }
+
+  &:last-child {
+    border-bottom-right-radius: $userbar-radius;
+    border-bottom-left-radius: $userbar-radius;
+  }
+
+  & + & {
+    border-top: 1px solid color.adjust($color-grey-1, $lightness: -3%);
+  }
+
+  a,
+  .#{$namespace}-action {
+    color: #aaa;
+    display: block;
     text-decoration: none !important;
+    transform: none !important;
+    transition: none !important;
+    margin: 0 !important;
+    font-size: 14px !important;
 
-    // stylelint-disable-next-line scss/media-feature-value-dollar-variable
-    @media (prefers-reduced-motion: reduce) {
-        transition: none !important;
-
-        // Force disable transitions for all items
-        transition-delay: 0s !important;
+    &:hover,
+    &:focus {
+      color: $color-white;
+      background-color: rgba(100, 100, 100, 0.15);
     }
 
-    &:first-child {
-        border-top-left-radius: $userbar-radius;
-        border-top-right-radius: $userbar-radius;
+    &:focus {
+      outline: $color-focus-outline solid 3px;
     }
 
-    &:last-child {
-        border-bottom-right-radius: $userbar-radius;
-        border-bottom-left-radius: $userbar-radius;
+    &-icon {
+      @include svg-icon(1.1em, middle);
+      margin-right: 0.5em;
+      fill: currentColor;
     }
+  }
 
-    & + & {
-        border-top: 1px solid color.adjust($color-grey-1, $lightness: -3%);
+  .#{$namespace}-icon {
+    position: relative;
+
+    &:before {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 14px;
     }
+  }
 
+  a,
+  button {
+    font-size: 14px !important;
+    text-align: left;
+    padding: 0.8em;
+  }
 
-    a,
-    .#{$namespace}-action {
-        color: #aaa;
-        display: block;
-        text-decoration: none !important;
-        transform: none !important;
-        transition: none !important;
-        margin: 0 !important;
-        font-size: 14px !important;
-
-        &:hover,
-        &:focus {
-            color: $color-white;
-            background-color: rgba(100, 100, 100, 0.15);
-        }
-
-        &:focus {
-            outline: $color-focus-outline solid 3px;
-        }
-
-        &-icon {
-            @include svg-icon(1.1em, middle);
-            margin-right: 0.5em;
-            fill: currentColor;
-        }
-
-    }
-
-    .#{$namespace}-icon {
-        position: relative;
-
-        &:before {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            left: 14px;
-        }
-    }
-
-    a,
-    button {
-        font-size: 14px !important;
-        text-align: left;
-        padding: 0.8em;
-    }
-
-    button {
-        border: 0;
-        width: 100%;
-        background-color: transparent;
-        outline: none;
-    }
+  button {
+    border: 0;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+  }
 }
 
 //Media for Windows High Contrast
 
 @media (forced-colors: $media-forced-colours) {
-    .#{$namespace}-userbar-icon {
-        fill: $system-color-link-text;
-    }
+  .#{$namespace}-userbar-icon {
+    fill: $system-color-link-text;
+  }
 }
 
 // =============================================================================
@@ -283,61 +274,61 @@ $positions: (
 // =============================================================================
 
 @each $pos, $attrs in $positions {
-    $vertical: map.get($attrs, vertical);
-    $horizontal: map.get($attrs, horizontal);
-    $arrow: map.get($attrs, arrow);
+  $vertical: map.get($attrs, vertical);
+  $horizontal: map.get($attrs, horizontal);
+  $arrow: map.get($attrs, arrow);
 
-    .#{$namespace}-userbar--#{$pos} {
-        #{$vertical}: $position;
-        #{$horizontal}: $position;
+  .#{$namespace}-userbar--#{$pos} {
+    #{$vertical}: $position;
+    #{$horizontal}: $position;
 
-        .#{$namespace}-userbar-items {
-            #{$vertical}: 100%;
-            #{$horizontal}: 0;
-            padding-#{$vertical}: $width-arrow * 2;
-        }
-
-        .#{$namespace}-userbar-nav .#{$namespace}-userbar__item {
-            @if $vertical == 'bottom' {
-                transform: translateY(1em);
-            } @else {
-                transform: translateY(-1em);
-            }
-        }
-
-        .#{$namespace}-userbar-items:after {
-            #{$vertical}: 2px;
-            #{$horizontal}: math.div($size-home-button, 2) - math.div($width-arrow, 2);
-            border-#{$arrow}-color: $color-grey-1;
-
-            @if $vertical == 'bottom' {
-                transform: translateY(-$width-arrow);
-            }
-            @if $vertical == 'top' {
-                transform: translateY($width-arrow);
-            }
-        }
-
-        &.is-active .#{$namespace}-userbar__item {
-            @for $i from 1 through $max-items {
-                // stylelint-disable max-nesting-depth
-
-                @if $vertical == 'bottom' {
-                    &:nth-last-child(#{$i}) {
-                        transition-delay: 0.05s * $i;
-                    }
-                }
-
-                @if $vertical == 'top' {
-                    &:nth-child(#{$i}) {
-                        transition-delay: 0.05s * $i;
-                    }
-                }
-            }
-        }
+    .#{$namespace}-userbar-items {
+      #{$vertical}: 100%;
+      #{$horizontal}: 0;
+      padding-#{$vertical}: $width-arrow * 2;
     }
-}
 
+    .#{$namespace}-userbar-nav .#{$namespace}-userbar__item {
+      @if $vertical == 'bottom' {
+        transform: translateY(1em);
+      } @else {
+        transform: translateY(-1em);
+      }
+    }
+
+    .#{$namespace}-userbar-items:after {
+      #{$vertical}: 2px;
+      #{$horizontal}: math.div($size-home-button, 2) -
+        math.div($width-arrow, 2);
+      border-#{$arrow}-color: $color-grey-1;
+
+      @if $vertical == 'bottom' {
+        transform: translateY(-$width-arrow);
+      }
+      @if $vertical == 'top' {
+        transform: translateY($width-arrow);
+      }
+    }
+
+    &.is-active .#{$namespace}-userbar__item {
+      @for $i from 1 through $max-items {
+        // stylelint-disable max-nesting-depth
+
+        @if $vertical == 'bottom' {
+          &:nth-last-child(#{$i}) {
+            transition-delay: 0.05s * $i;
+          }
+        }
+
+        @if $vertical == 'top' {
+          &:nth-child(#{$i}) {
+            transition-delay: 0.05s * $i;
+          }
+        }
+      }
+    }
+  }
+}
 
 // =============================================================================
 // States
@@ -345,6 +336,6 @@ $positions: (
 
 // Active state for the list items comes last.
 .#{$namespace}-userbar.is-active .#{$namespace}-userbar__item {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }

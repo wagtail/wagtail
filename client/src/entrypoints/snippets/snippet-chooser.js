@@ -80,7 +80,6 @@ function createSnippetChooser(id) {
     clear: () => {
       chooser.setState(null);
     },
-
   };
 
   $('.action-choose', chooserElement).on('click', () => {

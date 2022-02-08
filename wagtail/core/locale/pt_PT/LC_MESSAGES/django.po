@@ -6,8 +6,8 @@
 # Diogo Gomes, 2021
 # Diogo Silva <diogo_silva30@hotmail.com>, 2021
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Luís Tiago Favas <al62006@utad.eu>, 2020
-# Luís Tiago Favas <al62006@utad.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-26 20:20+0000\n"
+"PO-Revision-Date: 2022-01-31 22:42+0000\n"
 "Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
@@ -41,13 +41,13 @@ msgid "The maximum number of items is %d"
 msgstr "O numero máximo de itens é %d"
 
 msgid "Move up"
-msgstr "Mover para cima"
+msgstr "Subir"
 
 msgid "Move down"
-msgstr "Mover para baixo"
+msgstr "Descer"
 
 msgid "Duplicate"
-msgstr "Duplicado"
+msgstr "Duplicar"
 
 msgid "Delete"
 msgstr "Apagar"
@@ -57,13 +57,13 @@ msgstr "Adicionar"
 
 #, python-format
 msgid "%(label)s: this block has no options."
-msgstr "%(label)s: este bloco não contêm opções"
+msgstr "%(label)s: este bloco não tem opções"
 
 msgid "This block has no options."
 msgstr "Este bloco não tem opções."
 
 msgid "This field is required."
-msgstr "Este campo é obrigatório"
+msgstr "Este campo é obrigatório."
 
 msgid "Password"
 msgstr "Senha"
@@ -72,7 +72,7 @@ msgid "The password you have entered is not correct. Please try again."
 msgstr "Introduziu uma senha incorreta. Por favor tente novamente."
 
 msgid "Comment"
-msgstr "Comentário"
+msgstr "Comentar"
 
 msgid "title"
 msgstr "título"
@@ -112,8 +112,8 @@ msgid ""
 "The name of the page displayed on search engine results as the clickable "
 "headline."
 msgstr ""
-"O nome da página mostrado nos resultados de motores de pesquisa como o "
-"cabeçalho com a hiperligação "
+"O nome da página apresentado nos resultados dos motores de busca como título "
+"clicável."
 
 msgid "show in menus"
 msgstr "mostrar nos menus"
@@ -125,14 +125,14 @@ msgstr ""
 "automaticamente"
 
 msgid "meta description"
-msgstr "descrição meta"
+msgstr "meta-descrição"
 
 msgid ""
 "The descriptive text displayed underneath a headline in search engine "
 "results."
 msgstr ""
-"O texto descritivo mostrado por debaixo do cabeçalho nos resultados de um "
-"motor de pesquisa"
+"O texto descritivo apresentado por debaixo dum título nos resultados do "
+"motor de busca."
 
 msgid "go live date/time"
 msgstr "publicar em data/hora"
@@ -147,22 +147,22 @@ msgid "locked"
 msgstr "trancado"
 
 msgid "locked at"
-msgstr "trancado a"
+msgstr "bloqueado a"
 
 msgid "locked by"
-msgstr "trancado por"
+msgstr "bloqueado por"
 
 msgid "first published at"
 msgstr "primeira publicação em"
 
 msgid "last published at"
-msgstr "ultima alteração a"
+msgstr "última publicação a"
 
 msgid "latest revision created at"
 msgstr "última versão criada em"
 
 msgid "live revision"
-msgstr "revisão ao vivo"
+msgstr "versão publicada"
 
 msgid "This slug is already in use"
 msgstr "Esta referência já está a ser utilizada"
@@ -180,7 +180,7 @@ msgid "live + scheduled"
 msgstr "publicada + agendada"
 
 msgid "live + in moderation"
-msgstr "ao vivo + em moderação"
+msgstr "publicada + em moderação"
 
 msgid "live + draft"
 msgstr "publicada + rascunho"
@@ -243,10 +243,10 @@ msgid "Lock/unlock pages you've locked"
 msgstr "Trancar/destrancar páginas que trancou"
 
 msgid "Unlock"
-msgstr "Destrancada"
+msgstr "Desbloquear"
 
 msgid "Unlock any page"
-msgstr "Destrancar qualquer página"
+msgstr "Desbloquear qualquer página"
 
 msgid "group"
 msgstr "grupo"
@@ -276,16 +276,16 @@ msgid "workflow pages"
 msgstr "páginas de fluxo de trabalho"
 
 msgid "workflow_tasks"
-msgstr "tarefas_de_fluxo_de_trabalho"
+msgstr "tarefas de fluxo de trabalho"
 
 msgid "task"
 msgstr "tarefa"
 
 msgid "workflow task order"
-msgstr "ordem das tarefas do fluxo de trabalho"
+msgstr "ordem de tarefas de fluxo de trabalho"
 
 msgid "workflow task orders"
-msgstr "ordens das tarefas do fluxo de trabalho"
+msgstr "ordens de tarefas de fluxo de trabalho"
 
 msgid "name"
 msgstr "nome"
@@ -298,7 +298,7 @@ msgid ""
 "it from existing workflows."
 msgstr ""
 "Tarefas ativas podem ser adicionadas a fluxos de trabalho. Desativar uma "
-"tarefa não a remove de fluxos de trabalho existentes."
+"tarefa não a retira de fluxos de trabalho existentes."
 
 msgid "tasks"
 msgstr "tarefas"
@@ -308,7 +308,7 @@ msgid ""
 "remove it from existing pages."
 msgstr ""
 "Fluxos de trabalho ativos podem ser adicionados a páginas. Desativar um "
-"fluxo de trabalho não o remove de páginas existentes."
+"fluxo de trabalho não o retira de páginas existentes."
 
 msgid "workflows"
 msgstr "fluxos de trabalho"
@@ -320,11 +320,11 @@ msgid ""
 "Pages at this step in a workflow will be moderated or approved by these "
 "groups of users"
 msgstr ""
-"Páginas neste estado do fluxo de trabalho serão moderadas ou aprovadas por "
+"Páginas neste passo do fluxo de trabalho irão ser moderadas ou aprovadas por "
 "estes grupos de utilizadores"
 
 msgid "Request changes"
-msgstr "Requisitar alterações"
+msgstr "Solicitar mudanças"
 
 msgid "Approve"
 msgstr "Aprovar"
@@ -333,22 +333,22 @@ msgid "Approve with comment"
 msgstr "Aprovar com comentário"
 
 msgid "Members of the chosen Wagtail Groups can approve this task"
-msgstr "Membros escolhidos dos grupos Wagtail podem aprovar esta tarefa"
+msgstr "Membros dos Grupos de Wagtail escolhidos podem aprovar esta tarefa"
 
 msgid "Group approval task"
-msgstr "Aprovação da tarefa de grupo"
+msgstr "Tarefa de aprovação de grupo"
 
 msgid "Group approval tasks"
-msgstr "Aprovação de tarefas de grupo"
+msgstr "Tarefas de apovação de grupo"
 
 msgid "In progress"
-msgstr "Em progresso"
+msgstr "A decorrer"
 
 msgid "Approved"
 msgstr "Aprovado"
 
 msgid "Needs changes"
-msgstr "Necessita alterações"
+msgstr "Precisa de mudanças"
 
 msgid "Cancelled"
 msgstr "Cancelado"
@@ -357,7 +357,7 @@ msgid "status"
 msgstr "estado"
 
 msgid "requested by"
-msgstr "requisitado por"
+msgstr "solicitado por"
 
 msgid "current task state"
 msgstr "estado atual da tarefa"
@@ -365,8 +365,8 @@ msgstr "estado atual da tarefa"
 msgid ""
 "There may only be one in progress or needs changes workflow state per page."
 msgstr ""
-"Apenas pode existir um em progresso ou necessita alterações no estado do "
-"fluxo de trabalho por página"
+"Só pode haver um estado de fluxo de trabalho a decorrer ou a precisar de "
+"mudanças por página."
 
 #, python-brace-format
 msgid "Workflow '{0}' on Page '{1}': {2}"
@@ -385,7 +385,7 @@ msgid "Rejected"
 msgstr "Rejeitado"
 
 msgid "Skipped"
-msgstr "Passado à frente"
+msgstr "Saltado"
 
 msgid "workflow state"
 msgstr "estado do fluxo de trabalho"
@@ -394,14 +394,14 @@ msgid "started at"
 msgstr "iniciado a"
 
 msgid "finished at"
-msgstr "acabado a"
+msgstr "terminado a"
 
 msgid "finished by"
-msgstr "acabado por"
+msgstr "terminado por"
 
 #, python-brace-format
 msgid "Task '{0}' on Page Revision '{1}': {2}"
-msgstr "Tarefa '{0}' na Página Revista '{1}': {2}"
+msgstr "Tarefa '{0}' na Versão de Página '{1}': {2}"
 
 msgid "Task state"
 msgstr "Estado da tarefa"
@@ -410,10 +410,10 @@ msgid "Task states"
 msgstr "Estados da tarefa"
 
 msgid "page log entry"
-msgstr "entrada no diário da página"
+msgstr "entrada no diário de página"
 
 msgid "page log entries"
-msgstr "entradas no diário da página"
+msgstr "entradas no diário de página"
 
 msgid "Draft saved"
 msgstr "Rascunho gravado"
@@ -425,13 +425,13 @@ msgid "comments"
 msgstr "comentários"
 
 msgid "comment reply"
-msgstr "comentar resposta"
+msgstr "resposta a comentário"
 
 msgid "comment replies"
-msgstr "comentar respostas"
+msgstr "respostas a comentários"
 
 msgid "timestamp (UTC)"
-msgstr "marca temporal (UTC)"
+msgstr "carimbo temporal (TUC)"
 
 msgid "log entry"
 msgstr "entrada no diário"
@@ -440,7 +440,7 @@ msgid "log entries"
 msgstr "entradas no diário"
 
 msgid "The log action '{}' has not been registered."
-msgstr "A ação de registo '{}' não foi registada."
+msgstr "A ação de diário '{}' não foi registada."
 
 #, python-format
 msgid "user %(id)s (deleted)"
@@ -451,22 +451,22 @@ msgstr "sistema"
 
 #, python-format
 msgid "Unknown %(action)s"
-msgstr "Desconhecido %(action)s"
+msgstr "%(action)s desconhecido"
 
 msgid "model log entry"
-msgstr "entrada de registo de modelo"
+msgstr "entrada no diário de modelo"
 
 msgid "model log entries"
-msgstr "entradas de registo de modelo"
+msgstr "entradas no diário de modelo"
 
 msgid "collection"
 msgstr "coleção"
 
 msgid "collection view restriction"
-msgstr "restrição de visualização da coleção"
+msgstr "restrição da vista de coleção"
 
 msgid "collection view restrictions"
-msgstr "restrições de visualização da coleção"
+msgstr "restrições da vista de coleção"
 
 msgid "collections"
 msgstr "coleções"
@@ -478,7 +478,7 @@ msgid "group collection permission"
 msgstr "permissão de coleção de grupo"
 
 msgid "group collection permissions"
-msgstr "permissões de grupo da coleção"
+msgstr "permissões da coleção de grupo"
 
 msgid "hostname"
 msgstr "nome do servidor"
@@ -522,7 +522,7 @@ msgid "sites"
 msgstr "sites"
 
 msgid "default"
-msgstr "padrão"
+msgstr "pré-definição"
 
 #, python-format
 msgid ""
@@ -589,22 +589,22 @@ msgstr "Alemão"
 msgid "%(count)s descendant collection"
 msgid_plural "%(count)s descendant collections"
 msgstr[0] "%(count)s coleção descendente"
-msgstr[1] "%(count)s coleções decendentes"
+msgstr[1] "%(count)s coleções descendentes"
 
 msgid "Create"
 msgstr "Criar"
 
 msgid "Created"
-msgstr "Criado"
+msgstr "Criada"
 
 msgid "Edited"
-msgstr "Alterado"
+msgstr "Alterada"
 
 msgid "Deleted"
 msgstr "Apagado"
 
 msgid "Published"
-msgstr "Publicado"
+msgstr "Publicada"
 
 msgid "Publish scheduled draft"
 msgstr "Publicar rascunho agendado"
@@ -613,22 +613,22 @@ msgid "Published scheduled draft"
 msgstr "Rascunho agendado publicado"
 
 msgid "Unpublish"
-msgstr "Retirar de publicação"
+msgstr "Despublicar"
 
 msgid "Unpublished"
-msgstr "Retirado de publicação"
+msgstr "Despublicada"
 
 msgid "Unpublish scheduled draft"
-msgstr "Não publicar o rascunho agendado"
+msgstr "Despublicar rascunho agendado"
 
 msgid "Unpublished scheduled draft"
-msgstr "Rascunho agendado não publicado"
+msgstr "Rascunho agendado despublicado"
 
 msgid "Locked"
-msgstr "Trancada"
+msgstr "Bloqueado"
 
 msgid "Unlocked"
-msgstr "Destrancada"
+msgstr "Desbloqueada"
 
 msgid "Reject"
 msgstr "Rejeitar"
@@ -638,10 +638,10 @@ msgstr "Renomear"
 
 #, python-format
 msgid "Renamed from '%(old)s' to '%(new)s'"
-msgstr "Nome alterado de '%(old)s' para '%(new)s'"
+msgstr "Renomeada de '%(old)s' para '%(new)s'"
 
 msgid "Renamed"
-msgstr "Nome alterado"
+msgstr "Renomeada"
 
 msgid "Revert"
 msgstr "Reverter"
@@ -650,30 +650,30 @@ msgstr "Reverter"
 msgid ""
 "Reverted to previous revision with id %(revision_id)s from %(created_at)s"
 msgstr ""
-"Reverter para a versão anterior com id %(revision_id)s de %(created_at)s"
+"Revertida para a versão anterior com id %(revision_id)s de %(created_at)s"
 
 msgid "Reverted to previous revision"
-msgstr "Voltar para a versão anterior"
+msgstr "Revertida para versão anterior"
 
 msgid "Copy"
 msgstr "Copiar"
 
 #, python-format
 msgid "Copied from %(title)s"
-msgstr "Copiado de %(title)s"
+msgstr "Copiada de %(title)s"
 
 msgid "Copied"
-msgstr "Copiado"
+msgstr "Copiada"
 
 msgid "Copy for translation"
-msgstr "Cópiar para tradução"
+msgstr "Copiar para tradução"
 
 #, python-format
 msgid "Copied for translation from %(title)s (%(locale)s)"
-msgstr "Copiado para tradução de%(title)s(%(locale)s)"
+msgstr "Copiada para tradução de%(title)s (%(locale)s)"
 
 msgid "Copied for translation"
-msgstr "Copiado para tradução"
+msgstr "Copiada para tradução"
 
 msgid "Create alias"
 msgstr "Criar atalho"
@@ -700,20 +700,20 @@ msgstr "Mover"
 
 #, python-format
 msgid "Moved from '%(old_parent)s' to '%(new_parent)s'"
-msgstr "Movido de '%(old_parent)s' para '%(new_parent)s'"
+msgstr "Movida de '%(old_parent)s' para '%(new_parent)s'"
 
 msgid "Moved"
-msgstr "Movido"
+msgstr "Movida"
 
 msgid "Reorder"
 msgstr "Reordenar"
 
 #, python-format
 msgid "Reordered under '%(parent)s'"
-msgstr "Reordenado em '%(parent)s'"
+msgstr "Reordenada sob '%(parent)s'"
 
 msgid "Reordered"
-msgstr "Reordenado"
+msgstr "Reordenada"
 
 msgid "Schedule publication"
 msgstr "Agendar publicação"
@@ -723,7 +723,7 @@ msgid ""
 "Revision %(revision_id)s from %(created_at)s scheduled for publishing at "
 "%(go_live_at)s."
 msgstr ""
-"Revisão %(revision_id)s de %(created_at)s agendado para publicação a "
+"Versão %(revision_id)s de %(created_at)s agendada para publicação a "
 "%(go_live_at)s"
 
 #, python-format
@@ -734,22 +734,22 @@ msgid "Page scheduled for publishing"
 msgstr "Página agendada para publicação"
 
 msgid "Unschedule publication"
-msgstr "Retirar da agenda a publicação"
+msgstr "Desmarcar publicação"
 
 #, python-format
 msgid ""
 "Revision %(revision_id)s from %(created_at)s unscheduled from publishing at "
 "%(go_live_at)s."
 msgstr ""
-"Revisão %(revision_id)s de %(created_at)s retirada do agendamento de "
-"publicação a %(go_live_at)s."
+"Versão %(revision_id)s de %(created_at)s desmarcada para publicação a "
+"%(go_live_at)s."
 
 #, python-format
 msgid "Page unscheduled for publishing at %(go_live_at)s"
-msgstr "Página retirada de agenda de publicação a %(go_live_at)s"
+msgstr "Publicação a %(go_live_at)s desmarcada"
 
 msgid "Page unscheduled from publishing"
-msgstr "Página retirada da agenda de publicação"
+msgstr "Publicação de página desmarcada"
 
 msgid "Add view restrictions"
 msgstr "Adicionar restrições de visualização"
@@ -772,14 +772,14 @@ msgid "Updated view restriction"
 msgstr "Restrição de visualização atualizada"
 
 msgid "Remove view restrictions"
-msgstr "Remover restrições de visualização"
+msgstr "Retirar restrições de visualização"
 
 #, python-format
 msgid "Removed the '%(restriction)s' view restriction"
-msgstr "Removida restrição de visualização '%(restriction)s'"
+msgstr "Retirar restrição de visualização '%(restriction)s'"
 
 msgid "Removed view restriction"
-msgstr "Restrição de visualização removida"
+msgstr "Restrição de visualização retirada"
 
 msgid "Add comment"
 msgstr "Adicionar comentário"
@@ -853,7 +853,7 @@ msgid "Deleted a reply"
 msgstr "Apagou uma resposta"
 
 msgid "Workflow: start"
-msgstr "Fluxo de trabalho: iniciado"
+msgstr "Fluxo de trabalho: iniciar"
 
 #, python-format
 msgid "'%(workflow)s' started. Next step '%(task)s'"
@@ -867,11 +867,11 @@ msgstr "Fluxo de trabalho: aprovar tarefa"
 
 #, python-format
 msgid "Approved at '%(task)s'. Next step '%(next_task)s'"
-msgstr "Aprovado '%(task)s'. Próximo passo '%(next_task)s'"
+msgstr "Aprovado em '%(task)s'. Próximo passo '%(next_task)s'"
 
 #, python-format
 msgid "Approved at '%(task)s'. '%(workflow)s' complete"
-msgstr "Aprovado a '%(task)s'. Completo '%(workflow)s'"
+msgstr "Aprovado em '%(task)s'. '%(workflow)s' completado"
 
 msgid "Workflow task approved"
 msgstr "Tarefa do fluxo de trabalho aprovada"
@@ -881,29 +881,28 @@ msgstr "Fluxo de trabalho: rejeitar tarefa"
 
 #, python-format
 msgid "Rejected at '%(task)s'. Changes requested"
-msgstr "Rejeitado '%(task)s'. Alterações requisitadas"
+msgstr "Rejeitado em '%(task)s'. Mudanças solicitadas"
 
 msgid "Workflow task rejected. Workflow complete"
 msgstr ""
-"Tarefa do fluxo de trabalho rejeitada. O fluxo de trabalho está completo"
+"Tarefa do fluxo de trabalho rejeitada. O fluxo de trabalho foi completado"
 
 msgid "Workflow: resume task"
-msgstr "Fluxo de trabalho: resumir tarefa"
+msgstr "Fluxo de trabalho: retomar tarefa"
 
 #, python-format
 msgid "Resubmitted '%(task)s'. Workflow resumed'"
-msgstr "Submissão repetida '%(task)s'. Fluxo de trabalho resumido'"
+msgstr "Reenviada '%(task)s'. Fluxo de trabalho retomado'"
 
 msgid "Workflow task resubmitted. Workflow resumed"
-msgstr ""
-"Tarefa do fluxo de trabalho submetida novamente. Fluxo de trabalho resumido"
+msgstr "Tarefa do fluxo de trabalho reenviada. Fluxo de trabalho retomado"
 
 msgid "Workflow: cancel"
 msgstr "Fluxo de trabalho: cancelar"
 
 #, python-format
 msgid "Cancelled '%(workflow)s' at '%(task)s'"
-msgstr "'%(workflow)s' cancelado devido a '%(task)s'"
+msgstr "'%(workflow)s' cancelado em '%(task)s'"
 
 msgid "Workflow cancelled"
 msgstr "Fluxo de trabalho cancelado"

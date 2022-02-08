@@ -20,7 +20,7 @@ export const initFocusOutline = () => {
   window.addEventListener('mousedown', removeFocusOutline);
   window.addEventListener('touchstart', removeFocusOutline);
 
-  window.addEventListener('keydown', e => {
+  window.addEventListener('keydown', (e) => {
     const isTabKey = e.keyCode === 9;
 
     if (isTabKey) {
