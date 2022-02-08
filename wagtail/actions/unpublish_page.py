@@ -47,7 +47,7 @@ class UnpublishPageAction(UnpublishAction):
 
     def _after_unpublish(self, object):
         for alias in object.aliases.all():
-            alias.unpublish()
+            alias.unpublish(log_action=False)
 
         page_unpublished.send(sender=object.specific_class, instance=object.specific)
 
