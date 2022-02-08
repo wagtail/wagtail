@@ -2,11 +2,11 @@ from django.forms import Media, MediaDefiningClass
 from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.text import slugify
 
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
 from wagtail.core import hooks
+from wagtail.core.utils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):
@@ -17,7 +17,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.url = url
         self.classnames = classnames
         self.icon_name = icon_name
-        self.name = (name or slugify(str(label)))
+        self.name = (name or cautious_slugify(str(label)))
         self.order = order
 
         if attrs:
