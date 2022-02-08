@@ -93,7 +93,9 @@ class TestAuditLog(TestCase):
         self.home_page.save()
         alias = self.home_page.create_alias(update_slug="the-alias")
         self.assertTrue(alias.live)
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.publish').count(), 0)
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.publish").count(), 0
+        )
 
     def test_page_edit(self):
         # Directly saving a revision should not yield a log entry
@@ -123,7 +125,9 @@ class TestAuditLog(TestCase):
         self.home_page.create_alias(update_slug="the-alias")
         revision = self.home_page.save_revision()
         revision.publish()
-        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.publish').count(), 1)
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.publish").count(), 1
+        )
 
     def test_page_rename(self):
         # Should not log a name change when publishing the first revision
@@ -156,6 +160,13 @@ class TestAuditLog(TestCase):
     def test_page_unpublish(self):
         self.home_page.unpublish()
         self.assertEqual(PageLogEntry.objects.count(), 1)
+        self.assertEqual(
+            PageLogEntry.objects.filter(action="wagtail.unpublish").count(), 1
+        )
+
+    def test_page_unpublish_doesnt_log_for_aliases(self):
+        self.home_page.create_alias(update_slug="the-alias")
+        self.home_page.unpublish()
         self.assertEqual(
             PageLogEntry.objects.filter(action="wagtail.unpublish").count(), 1
         )
