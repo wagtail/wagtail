@@ -16,8 +16,6 @@ def make_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--deprecation', choices=['all', 'pending', 'imminent', 'none'], default='imminent')
     parser.add_argument('--postgres', action='store_true')
-    parser.add_argument('--elasticsearch5', action='store_true')
-    parser.add_argument('--elasticsearch6', action='store_true')
     parser.add_argument('--elasticsearch7', action='store_true')
     parser.add_argument('--emailuser', action='store_true')
     parser.add_argument('--disabletimezone', action='store_true')
@@ -51,13 +49,7 @@ def runtests():
     if args.postgres:
         os.environ['DATABASE_ENGINE'] = 'django.db.backends.postgresql'
 
-    if args.elasticsearch5:
-        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
-        os.environ.setdefault('ELASTICSEARCH_VERSION', '5')
-    elif args.elasticsearch6:
-        os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
-        os.environ.setdefault('ELASTICSEARCH_VERSION', '6')
-    elif args.elasticsearch7:
+    if args.elasticsearch7:
         os.environ.setdefault('ELASTICSEARCH_URL', 'http://localhost:9200')
         os.environ.setdefault('ELASTICSEARCH_VERSION', '7')
 

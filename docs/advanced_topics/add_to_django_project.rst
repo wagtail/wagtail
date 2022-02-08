@@ -347,7 +347,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   # Replace the search backend
   #WAGTAILSEARCH_BACKENDS = {
   #  'default': {
-  #    'BACKEND': 'wagtail.search.backends.elasticsearch5',
+  #    'BACKEND': 'wagtail.search.backends.elasticsearch7',
   #    'INDEX': 'myapp'
   #  }
   #}
