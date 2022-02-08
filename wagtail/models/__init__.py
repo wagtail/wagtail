@@ -1736,18 +1736,14 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         else:
             return self.specific
 
-    def update_aliases(
-        self, *, revision=None, user=None, _content=None, _updated_ids=None
-    ):
+    def update_aliases(self, *, revision=None, _content=None, _updated_ids=None):
         """
         Publishes all aliases that follow this page with the latest content from this page.
 
         This is called by Wagtail whenever a page with aliases is published.
 
-        :param revision: The revision of the original page that we are updating to (used for logging purposes).
-        :type revision: Revision, optional
-        :param user: The user who is publishing (used for logging purposes).
-        :type user: User, optional
+        :param revision: The revision of the original page that we are updating to (used for logging purposes)
+        :type revision: PageRevision, optional
         """
         specific_self = self.specific
 
@@ -1836,13 +1832,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 instance=alias_updated,
                 revision=revision,
                 alias=True,
-            )
-
-            # Log the publish of the alias
-            log(
-                instance=alias_updated,
-                action="wagtail.publish",
-                user=user,
             )
 
             # Update any aliases of that alias
