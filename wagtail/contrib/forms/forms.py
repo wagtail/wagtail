@@ -108,7 +108,12 @@ class FormBuilder:
         for field in self.fields:
             options = self.get_field_options(field)
             create_field = self.get_create_field_function(field.field_type)
-            formfields[field.clean_name] = create_field(field, options)
+
+            # If the field hasn't been saved to the database yet (e.g. we are previewing
+            # a FormPage with unsaved changes) it won't have a clean_name as this is
+            # set in FormField.save.
+            clean_name = field.clean_name or get_field_clean_name(field.label)
+            formfields[clean_name] = create_field(field, options)
 
         return formfields
 
