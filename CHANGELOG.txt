@@ -9,6 +9,12 @@ Changelog
 * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
 
 
+2.16.1 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
+
+
 2.16 (07.02.2022)
 ~~~~~~~~~~~~~~~~~
 

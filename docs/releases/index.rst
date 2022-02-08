@@ -6,6 +6,7 @@ Release notes
 
    upgrading
    2.17
+   2.16.1
    2.16
    2.15.3
    2.15.2
