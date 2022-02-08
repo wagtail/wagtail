@@ -1,0 +1,16 @@
+=============================================
+Wagtail 2.16.1 release notes - IN DEVELOPMENT
+=============================================
+
+.. contents::
+    :local:
+    :depth: 1
+
+
+What's new
+==========
+
+Bug fixes
+~~~~~~~~~
+
+ * Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
