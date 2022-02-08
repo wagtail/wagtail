@@ -11,6 +11,7 @@ If you're happy to develop on a virtual machine, the `vagrant-wagtail-develop <h
 
 If you'd prefer to set up all the components manually, read on. These instructions assume that you're familiar with using pip and virtualenv to manage Python packages.
 
+Use pre-commit to automatically run code checks with every commit.
 
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

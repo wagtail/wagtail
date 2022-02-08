@@ -11,3 +11,26 @@ repos:
     hooks:
       - id: flake8
         language_version: python3
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.8.0
+    hooks:
+      - id: eslint
+        additional_dependencies:
+          - eslint@7.2.0
+          - eslint-config-airbnb@18.2.1
+          - eslint-plugin-import@2.23.4
+          - eslint-plugin-jsx-a11y@6.4.1
+          - eslint-plugin-react@7.24.0
+          - eslint-plugin-react-hooks@4.3.0
+          - '@babel/core@7.16.7'
+          - '@babel/preset-env@7.14.2'
+          - '@babel/preset-react@7.10.1'
+          - '@wagtail/eslint-config-wagtail@0.4.0'
+          - babel-eslint@10.0.3
+  - repo: https://github.com/awebdeveloper/pre-commit-stylelint
+    rev: 0.0.2
+    hooks:
+      - id: stylelint
+        additional_dependencies:
+          - stylelint@14.2.0
+          - '@wagtail/stylelint-config-wagtail@0.3.2'
