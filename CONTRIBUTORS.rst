@@ -561,6 +561,7 @@ Contributors
 * Vladimir Tananko
 * Rizwan Mansuri
 * Dennis McGregor
+* Joshua Munn
 
 Translators
 ===========

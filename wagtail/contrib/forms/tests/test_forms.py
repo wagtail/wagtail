@@ -3,6 +3,7 @@ from django import forms
 from django.test import TestCase
 
 from wagtail.contrib.forms.forms import FormBuilder
+from wagtail.contrib.forms.utils import get_field_clean_name
 from wagtail.core.models import Page
 from wagtail.tests.testapp.models import (
     ExtendedFormField,
@@ -194,6 +195,32 @@ class TestFormBuilder(TestCase):
         self.assertIsInstance(
             form_class.base_fields["a_hidden_field"].widget, forms.HiddenInput
         )
+
+    def test_unsaved_fields_in_form_builder_formfields(self):
+        """Ensure unsaved FormField instances are added to FormBuilder.formfields dict
+        with a clean_name as the key.
+        """
+        unsaved_field_1 = FormField(
+            page=self.form_page,
+            sort_order=14,
+            label="Unsaved field 1",
+            field_type="singleline",
+            required=True,
+        )
+        self.form_page.form_fields.add(unsaved_field_1)
+
+        unsaved_field_2 = FormField(
+            page=self.form_page,
+            sort_order=15,
+            label="Unsaved field 2",
+            field_type="singleline",
+            required=True,
+        )
+        self.form_page.form_fields.add(unsaved_field_2)
+
+        fb = FormBuilder(self.form_page.get_form_fields())
+        self.assertIn(get_field_clean_name(unsaved_field_1.label), fb.formfields)
+        self.assertIn(get_field_clean_name(unsaved_field_2.label), fb.formfields)
 
 
 class TestCustomFormBuilder(TestCase):
