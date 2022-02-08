@@ -199,13 +199,6 @@ class CreatePageAliasAction:
                     else None,
                 },
             )
-            if alias.live:
-                # Log the publish
-                log(
-                    instance=alias,
-                    action="wagtail.publish",
-                    user=user,
-                )
 
         logger.info(
             'Page alias created: "%s" id=%d from=%d', alias.title, alias.id, page.id
