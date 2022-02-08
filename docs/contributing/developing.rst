@@ -333,10 +333,21 @@ To do this, you can run the following command to see the changes automatically a
 .. _DATABASES: https://docs.djangoproject.com/en/stable/ref/settings/#databases
 
 
-Committing changes to the repository
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Automatically lint and code format on commits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`Pre-commit <https://pre-commit.com/>`_ is configured to automatically run code linting and formatting checks with every commit. You can run this inside of your container by using the command ``pre-commit`` command.
+`Pre-commit <https://pre-commit.com/>`_ is configured to automatically run code linting and formatting checks with every commit. You can run this manually inside of your virtual environment by:
 
-Alternatively having pre-commit setup on your local computer will also run the pre-commit hooks on every commit. Local installation can be done by one of the methods mentioned in the `pre-commit documentation <https://pre-commit.com/#installation>`_
-Then run ``pre-commit install`` to install pre-commit into your git hooks. pre-commit will now run on every commit.
+.. code-block:: console
+
+    $ pre-commit
+
+Alternatively having pre-commit setup on your local computer will also run the pre-commit hooks on every commit.
+Local installation can be done by one of the methods mentioned in the `pre-commit documentation <https://pre-commit.com/#installation>`_
+To install pre-commit into your git hooks run:
+
+.. code-block:: console
+
+    $ pre-commit install
+
+pre-commit should now run on every commit you make.
