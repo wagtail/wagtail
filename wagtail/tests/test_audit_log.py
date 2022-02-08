@@ -88,6 +88,13 @@ class TestAuditLog(TestCase):
         self.assertEqual(log_entry.content_type, page.content_type)
         self.assertEqual(log_entry.label, page.get_admin_display_title())
 
+    def test_alias_create_from_published_page_doesnt_log_publish_action(self):
+        self.home_page.live = True
+        self.home_page.save()
+        alias = self.home_page.create_alias(update_slug="the-alias")
+        self.assertTrue(alias.live)
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.publish').count(), 0)
+
     def test_page_edit(self):
         # Directly saving a revision should not yield a log entry
         self.home_page.save_revision()
