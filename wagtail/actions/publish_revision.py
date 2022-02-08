@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING, Optional
 
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
@@ -8,6 +11,9 @@ from wagtail.log_actions import log
 from wagtail.permission_policies.base import ModelPermissionPolicy
 from wagtail.signals import published
 from wagtail.utils.timestamps import ensure_utc
+
+if TYPE_CHECKING:
+    from wagtail.models import Revision
 
 logger = logging.getLogger("wagtail")
 
@@ -36,7 +42,12 @@ class PublishRevisionAction:
     """
 
     def __init__(
-        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+        self,
+        revision: Revision,
+        user=None,
+        changed: bool = True,
+        log_action: bool = True,
+        previous_revision: Optional[Revision] = None,
     ):
         self.revision = revision
         self.object = self.revision.as_object()
@@ -90,7 +101,13 @@ class PublishRevisionAction:
                 workflow_state.cancel(user=self.user)
 
     def _publish_revision(
-        self, revision, object, user, changed, log_action, previous_revision
+        self,
+        revision: Revision,
+        object,
+        user,
+        changed,
+        log_action: bool,
+        previous_revision: Optional[Revision] = None,
     ):
         from wagtail.models import Revision
 

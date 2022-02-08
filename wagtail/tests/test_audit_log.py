@@ -112,6 +112,12 @@ class TestAuditLog(TestCase):
             PageLogEntry.objects.filter(action="wagtail.publish").count(), 1
         )
 
+    def test_page_publish_doesnt_log_for_aliases(self):
+        self.home_page.create_alias(update_slug="the-alias")
+        revision = self.home_page.save_revision()
+        revision.publish()
+        self.assertEqual(PageLogEntry.objects.filter(action='wagtail.publish').count(), 1)
+
     def test_page_rename(self):
         # Should not log a name change when publishing the first revision
         revision = self.home_page.save_revision()
