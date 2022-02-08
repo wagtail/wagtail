@@ -858,7 +858,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook('before_delete_snippet', hook_func):
@@ -875,7 +875,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook('before_delete_snippet', hook_func):
@@ -897,7 +897,7 @@ class TestSnippetDelete(TestCase, WagtailTestUtils):
 
         def hook_func(request, instances):
             self.assertIsInstance(request, HttpRequest)
-            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"])
+            self.assertQuerysetEqual(instances, ["<Advert: Test hook>"], transform=repr)
             return HttpResponse("Overridden!")
 
         with self.register_hook('after_delete_snippet', hook_func):
