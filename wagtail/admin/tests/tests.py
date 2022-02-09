@@ -270,7 +270,7 @@ class TestMenuItem(TestCase, WagtailTestUtils):
 
     def test_menuitem_reverse_lazy_url_pass(self):
         menuitem = MenuItem(_('Test'), reverse_lazy('wagtailadmin_home'))
-        self.assertEqual(menuitem.is_active(self.request), True)
+        self.assertIs(menuitem.is_active(self.request), True)
 
 
 class TestUserPassesTestPermissionDecorator(TestCase, WagtailTestUtils):

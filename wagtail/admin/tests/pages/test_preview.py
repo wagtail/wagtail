@@ -133,7 +133,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # Check the user can refresh the preview
         preview_session_key = 'wagtail-preview-tests-eventpage-{}'.format(self.home_page.id)
-        self.assertTrue(preview_session_key in self.client.session)
+        self.assertIn(preview_session_key, self.client.session)
 
         response = self.client.get(preview_url)
 
@@ -155,7 +155,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
         # Check the user can refresh the preview
         preview_session_key = 'wagtail-preview-{}'.format(self.event_page.id)
-        self.assertTrue(preview_session_key in self.client.session)
+        self.assertIn(preview_session_key, self.client.session)
 
         response = self.client.get(preview_url)
 
@@ -238,7 +238,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
             # Check the user can refresh the preview
             preview_session_key = 'wagtail-preview-tests-eventpage-{}'.format(self.home_page.id)
-            self.assertTrue(preview_session_key in self.client.session)
+            self.assertIn(preview_session_key, self.client.session)
 
             response = self.client.get(preview_url)
 
@@ -259,7 +259,7 @@ class TestPreview(TestCase, WagtailTestUtils):
 
             # Check the user can refresh the preview
             preview_session_key = 'wagtail-preview-tests-eventpage-{}'.format(self.home_page.id)
-            self.assertTrue(preview_session_key in self.client.session)
+            self.assertIn(preview_session_key, self.client.session)
 
             response = self.client.get(preview_url)
 

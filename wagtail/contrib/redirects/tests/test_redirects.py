@@ -362,7 +362,7 @@ class TestRedirects(TestCase):
         self.assertEqual(redirect.link, redirect_to)
 
         # should use is_permanent kwarg
-        self.assertEqual(redirect.is_permanent, False)
+        self.assertIs(redirect.is_permanent, False)
 
     def test_add_redirect_with_page(self):
         add_redirect = models.Redirect.add_redirect
@@ -383,7 +383,7 @@ class TestRedirects(TestCase):
         self.assertEqual(redirect.link, redirect_to.url)
 
         # should default is_permanent to True
-        self.assertEqual(redirect.is_permanent, True)
+        self.assertIs(redirect.is_permanent, True)
 
 
 class TestRedirectsIndexView(TestCase, WagtailTestUtils):
@@ -458,7 +458,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/')
-        self.assertEqual(redirects.first().site, None)
+        self.assertIsNone(redirects.first().site)
 
     def test_add_with_site(self):
         localhost = Site.objects.get(hostname='localhost')
@@ -549,7 +549,7 @@ class TestRedirectsAddView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'https://www.google.com/search?q=this+is+a+very+long+url+because+it+has+a+huge+search+term+appended+to+the+end+of+it+even+though+someone+should+really+not+be+doing+something+so+crazy+without+first+seeing+a+psychiatrist')
-        self.assertEqual(redirects.first().site, None)
+        self.assertIsNone(redirects.first().site)
 
 
 class TestRedirectsEditView(TestCase, WagtailTestUtils):
@@ -594,7 +594,7 @@ class TestRedirectsEditView(TestCase, WagtailTestUtils):
         redirects = models.Redirect.objects.filter(old_path='/test')
         self.assertEqual(redirects.count(), 1)
         self.assertEqual(redirects.first().redirect_link, 'http://www.test.com/ive-been-edited')
-        self.assertEqual(redirects.first().site, None)
+        self.assertIsNone(redirects.first().site)
 
     def test_edit_with_site(self):
         localhost = Site.objects.get(hostname='localhost')

@@ -107,11 +107,11 @@ class TestPageUrlTags(TestCase):
     def test_bad_slugurl(self):
         # no 'request' object in context
         result = slugurl(template.Context({}), 'bad-slug-doesnt-exist')
-        self.assertEqual(result, None)
+        self.assertIsNone(result)
 
         # 'request' object in context, but no 'site' attribute
         result = slugurl(context=template.Context({'request': HttpRequest()}), slug='bad-slug-doesnt-exist')
-        self.assertEqual(result, None)
+        self.assertIsNone(result)
 
     @override_settings(ALLOWED_HOSTS=['testserver', 'localhost', 'site2.example.com'])
     def test_slugurl_tag_returns_url_for_current_site(self):

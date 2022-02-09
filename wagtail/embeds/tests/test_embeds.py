@@ -98,7 +98,7 @@ class TestGetFinders(TestCase):
         self.assertEqual(finders[0].app_id, '1234567890')
         self.assertEqual(finders[0].app_secret, 'abcdefghijklmnop')
         # omitscript defaults to False
-        self.assertEqual(finders[0].omitscript, False)
+        self.assertIs(finders[0].omitscript, False)
 
     @override_settings(WAGTAILEMBEDS_FINDERS=[
         {
@@ -115,7 +115,7 @@ class TestGetFinders(TestCase):
         self.assertEqual(finders[0].app_id, '1234567890')
         self.assertEqual(finders[0].app_secret, 'abcdefghijklmnop')
         # omitscript defaults to False
-        self.assertEqual(finders[0].omitscript, False)
+        self.assertIs(finders[0].omitscript, False)
 
 
 class TestEmbeds(TestCase):
@@ -225,7 +225,7 @@ class TestEmbeds(TestCase):
         embed = get_embed('www.test.com/1234', max_width=400, finder=self.dummy_finder_invalid_width)
 
         # Width must be set to None
-        self.assertEqual(embed.width, None)
+        self.assertIsNone(embed.width)
 
     def test_no_html(self):
         def no_html_finder(url, max_width=None, max_height=None):
@@ -714,7 +714,7 @@ class TestEmbedBlock(TestCase):
 
         # empty values should yield None
         empty_block_val = block.to_python('')
-        self.assertEqual(empty_block_val, None)
+        self.assertIsNone(empty_block_val)
 
     def test_serialize(self):
         block = EmbedBlock(required=False)
@@ -781,17 +781,17 @@ class TestEmbedBlock(TestCase):
 
         # empty value should result in None
         empty_val = block.value_from_datadict({'myembed': ''}, {}, prefix='myembed')
-        self.assertEqual(empty_val, None)
+        self.assertIsNone(empty_val)
 
     def test_default(self):
         block1 = EmbedBlock()
-        self.assertEqual(block1.get_default(), None)
+        self.assertIsNone(block1.get_default())
 
         block2 = EmbedBlock(default='')
-        self.assertEqual(block2.get_default(), None)
+        self.assertIsNone(block2.get_default())
 
         block3 = EmbedBlock(default=None)
-        self.assertEqual(block3.get_default(), None)
+        self.assertIsNone(block3.get_default())
 
         block4 = EmbedBlock(default='http://www.example.com/foo')
         self.assertIsInstance(block4.get_default(), EmbedValue)

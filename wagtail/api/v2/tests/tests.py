@@ -318,22 +318,22 @@ class TestParseBoolean(TestCase):
     def test_valid_true(self):
         parsed = parse_boolean('true')
 
-        self.assertEqual(parsed, True)
+        self.assertIs(parsed, True)
 
     def test_valid_false(self):
         parsed = parse_boolean('false')
 
-        self.assertEqual(parsed, False)
+        self.assertIs(parsed, False)
 
     def test_valid_1(self):
         parsed = parse_boolean('1')
 
-        self.assertEqual(parsed, True)
+        self.assertIs(parsed, True)
 
     def test_valid_0(self):
         parsed = parse_boolean('0')
 
-        self.assertEqual(parsed, False)
+        self.assertIs(parsed, False)
 
     # BAD STUFF
 

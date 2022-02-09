@@ -183,7 +183,7 @@ class TestInternationalisationTags(TestCase):
 
     def test_locales(self):
         locales_output = locales_tag()
-        self.assertTrue(isinstance(locales_output, str))
+        self.assertIsInstance(locales_output, str)
         self.assertEqual(
             json.loads(locales_output),
             [

@@ -1082,7 +1082,7 @@ class TestPageDetail(TestCase):
         content = json.loads(response.content.decode('UTF-8'))
 
         self.assertIn('related_links', content)
-        self.assertEqual(content['feed_image'], None)
+        self.assertIsNone(content['feed_image'])
 
     def test_page_with_missing_page_model(self):
         # Create a ContentType that doesn't correspond to a real model

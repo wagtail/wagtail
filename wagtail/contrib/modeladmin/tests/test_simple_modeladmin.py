@@ -50,7 +50,7 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, '<span class="result-count">4 out of 4</span>', html=True)
 
         # User has add permission
-        self.assertEqual(response.context['user_can_create'], True)
+        self.assertIs(response.context['user_can_create'], True)
 
     def test_csv_export(self):
         # Export the whole queryset
@@ -253,7 +253,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
             'name': 'Sharper Collins'
         })
         publisher = Publisher.objects.get(name='Sharper Collins')
-        self.assertEqual(publisher.headquartered_in, None)
+        self.assertIsNone(publisher.headquartered_in)
 
     def test_post_invalid(self):
         initial_book_count = Book.objects.count()
@@ -628,7 +628,7 @@ class TestEditorAccess(TestCase, WagtailTestUtils):
         self.assertRedirects(response, '/admin/')
 
         url_finder = AdminURLFinder(self.user)
-        self.assertEqual(url_finder.get_edit_url(Book.objects.get(id=2)), None)
+        self.assertIsNone(url_finder.get_edit_url(Book.objects.get(id=2)))
 
     def test_delete_get_permitted(self):
         response = self.client.get('/admin/modeladmintest/book/delete/2/')

@@ -1136,21 +1136,21 @@ class TestPublishPageAction(AdminAPITestCase):
 
     def test_publish_page(self):
         unpublished_page = Page.objects.get(slug="tentative-unpublished-event")
-        self.assertEqual(unpublished_page.first_published_at, None)
+        self.assertIsNone(unpublished_page.first_published_at)
         self.assertEqual(
             unpublished_page.first_published_at, unpublished_page.last_published_at
         )
-        self.assertEqual(unpublished_page.live, False)
+        self.assertIs(unpublished_page.live, False)
 
         response = self.get_response(unpublished_page.id)
         self.assertEqual(response.status_code, 200)
 
         unpublished_page.refresh_from_db()
-        self.assertNotEqual(unpublished_page.first_published_at, None)
+        self.assertIsNotNone(unpublished_page.first_published_at)
         self.assertEqual(
             unpublished_page.first_published_at, unpublished_page.last_published_at
         )
-        self.assertEqual(unpublished_page.live, True)
+        self.assertIs(unpublished_page.live, True)
 
     def test_publish_insufficient_permissions(self):
         self.user.is_superuser = False
@@ -1446,9 +1446,9 @@ class TestCreatePageAliasAction(AdminAPITestCase):
         )
 
         # Check that the event exists in both places
-        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
-        self.assertNotEqual(
-            old_christmas_event, None, "Child pages were removed from original page"
+        self.assertIsNotNone(new_christmas_event, "Child pages weren't copied")
+        self.assertIsNotNone(
+            old_christmas_event, "Child pages were removed from original page"
         )
 
         # Check that the url path was updated

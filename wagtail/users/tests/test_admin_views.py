@@ -782,9 +782,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
         self.assertEqual(user.first_name, 'Edited')
         # Check that the user is no longer superuser
-        self.assertEqual(user.is_superuser, False)
+        self.assertIs(user.is_superuser, False)
         # Check that the user is no longer active
-        self.assertEqual(user.is_active, False)
+        self.assertIs(user.is_active, False)
 
     def test_edit_and_make_superuser(self):
         response = self.post({
@@ -805,9 +805,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         user = get_user_model().objects.get(pk=self.test_user.pk)
 
         # Check that the user is now superuser
-        self.assertEqual(user.is_superuser, True)
+        self.assertIs(user.is_superuser, True)
         # Check that the user is now active
-        self.assertEqual(user.is_active, True)
+        self.assertIs(user.is_active, True)
 
     def test_edit_self(self):
         response = self.post({
@@ -829,9 +829,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.first_name, 'Edited Myself')
 
         # Check that the user is still superuser
-        self.assertEqual(user.is_superuser, True)
+        self.assertIs(user.is_superuser, True)
         # Check that the user is still active
-        self.assertEqual(user.is_active, True)
+        self.assertIs(user.is_active, True)
 
     def test_editing_own_password_does_not_log_out(self):
         response = self.post({
@@ -882,9 +882,9 @@ class TestUserEditView(TestCase, WagtailTestUtils):
         self.assertEqual(user.first_name, 'Edited Myself')
 
         # Check that the user is still superuser
-        self.assertEqual(user.is_superuser, True)
+        self.assertIs(user.is_superuser, True)
         # Check that the user is still active
-        self.assertEqual(user.is_active, True)
+        self.assertIs(user.is_active, True)
 
     @unittest.skipUnless(settings.AUTH_USER_MODEL == 'customuser.CustomUser', "Only applicable to CustomUser")
     @override_settings(
@@ -1089,7 +1089,7 @@ class TestUserEditViewForNonSuperuser(TestCase, WagtailTestUtils):
         self.assertEqual(user.first_name, "Escalating")
 
         # Check that the user did not escalate its is_superuser status
-        self.assertEqual(user.is_superuser, False)
+        self.assertIs(user.is_superuser, False)
 
 
 class TestGroupIndexView(TestCase, WagtailTestUtils):

@@ -310,9 +310,7 @@ class TestPageQuerySet(TestCase):
 
         # Check that all objects are EventPages or SimplePages
         for page in pages:
-            self.assertTrue(
-                isinstance(page.specific, (EventPage, SimplePage))
-            )
+            self.assertIsInstance(page.specific, (EventPage, SimplePage))
 
         # Check that "someone elses event" is in the results
         event = Page.objects.get(url_path='/home/events/someone-elses-event/')
@@ -347,9 +345,7 @@ class TestPageQuerySet(TestCase):
 
         # Check that no objects are EventPages or SimplePages
         for page in pages:
-            self.assertFalse(
-                isinstance(page.specific, (EventPage, SimplePage))
-            )
+            self.assertNotIsInstance(page.specific, (EventPage, SimplePage))
 
         # Check that "About us" is NOT in the results
         about_us = Page.objects.get(url_path='/home/about-us/')

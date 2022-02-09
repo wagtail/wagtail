@@ -212,13 +212,13 @@ class TestTableBlock(TestCase):
         """
         # TableBlock with default table_options
         block1 = TableBlock()
-        self.assertEqual(block1.is_html_renderer(), False)
+        self.assertIs(block1.is_html_renderer(), False)
 
         # TableBlock with altered table_options
         new_options = self.default_table_options.copy()
         new_options['renderer'] = 'html'
         block2 = TableBlock(table_options=new_options)
-        self.assertEqual(block2.is_html_renderer(), True)
+        self.assertIs(block2.is_html_renderer(), True)
 
     def test_searchable_content(self):
         value = {'first_row_is_table_header': False, 'first_col_is_header': False,
@@ -357,7 +357,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         self.assertEqual(table_options_menu_true['contextMenu'], default_context_menu)
         # confirm menu is removed if False is passed in
         table_options_menu_false = TableBlock(table_options={'contextMenu': False}).table_options
-        self.assertEqual(table_options_menu_false['contextMenu'], False)
+        self.assertIs(table_options_menu_false['contextMenu'], False)
         # confirm if list passed in, it is used
         table_options_menu_list = TableBlock(table_options={'contextMenu': ['undo', 'redo']}).table_options
         self.assertEqual(table_options_menu_list['contextMenu'], ['undo', 'redo'])
@@ -378,7 +378,7 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
 
         # check value that is not part of the defaults
         block_3_opts = TableBlock(table_options={'allowEmpty': False}).table_options
-        self.assertEqual(block_3_opts['allowEmpty'], False)
+        self.assertIs(block_3_opts['allowEmpty'], False)
 
     def test_adapt(self):
         block = TableBlock()

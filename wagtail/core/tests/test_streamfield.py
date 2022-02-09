@@ -500,6 +500,6 @@ class TestStreamFieldCountValidation(TestCase):
 
         # passing None from StreamField should cancel limits set at the block level
         field = StreamField(TestStreamBlock, min_num=None, max_num=None, block_counts=None)
-        self.assertEqual(field.stream_block.meta.min_num, None)
-        self.assertEqual(field.stream_block.meta.max_num, None)
-        self.assertEqual(field.stream_block.meta.block_counts, None)
+        self.assertIsNone(field.stream_block.meta.min_num)
+        self.assertIsNone(field.stream_block.meta.max_num)
+        self.assertIsNone(field.stream_block.meta.block_counts)

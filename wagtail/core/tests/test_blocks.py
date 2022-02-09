@@ -325,9 +325,9 @@ class TestBooleanBlock(unittest.TestCase):
     def test_get_form_state(self):
         block = blocks.BooleanBlock(required=False)
         form_state = block.get_form_state(True)
-        self.assertEqual(form_state, True)
+        self.assertIs(form_state, True)
         form_state = block.get_form_state(False)
-        self.assertEqual(form_state, False)
+        self.assertIs(form_state, False)
 
 
 class TestBlockQuoteBlock(unittest.TestCase):
@@ -1592,11 +1592,11 @@ class TestStructBlock(SimpleTestCase):
             'link': 'http://www.wagtail.org',
         }), prefix='mylink')
 
-        self.assertTrue(isinstance(context['children'], collections.OrderedDict))
+        self.assertIsInstance(context['children'], collections.OrderedDict)
         self.assertEqual(len(context['children']), 2)
-        self.assertTrue(isinstance(context['children']['title'], blocks.BoundBlock))
+        self.assertIsInstance(context['children']['title'], blocks.BoundBlock)
         self.assertEqual(context['children']['title'].value, "Wagtail site")
-        self.assertTrue(isinstance(context['children']['link'], blocks.BoundBlock))
+        self.assertIsInstance(context['children']['link'], blocks.BoundBlock)
         self.assertEqual(context['children']['link'].value, 'http://www.wagtail.org')
         self.assertEqual(context['block_definition'], block)
         self.assertEqual(context['prefix'], 'mylink')
@@ -1749,8 +1749,8 @@ class TestStructBlock(SimpleTestCase):
 
         self.assertEqual(struct_val['title'], "Torchbox")
         self.assertEqual(struct_val['link'], "http://www.torchbox.com")
-        self.assertTrue(isinstance(struct_val, blocks.StructValue))
-        self.assertTrue(isinstance(struct_val.bound_blocks['link'].block, blocks.URLBlock))
+        self.assertIsInstance(struct_val, blocks.StructValue)
+        self.assertIsInstance(struct_val.bound_blocks['link'].block, blocks.URLBlock)
 
     def test_value_omitted_from_data(self):
         block = blocks.StructBlock([
@@ -1779,7 +1779,7 @@ class TestStructBlock(SimpleTestCase):
         event = event_block.to_python({'title': 'Birthday party'})
 
         self.assertEqual(event['guest_speaker']['first_name'], 'Ed')
-        self.assertTrue(isinstance(event['guest_speaker'], blocks.StructValue))
+        self.assertIsInstance(event['guest_speaker'], blocks.StructValue)
 
     def test_default_value_is_distinct_instance(self):
         """
@@ -1835,7 +1835,7 @@ class TestStructBlock(SimpleTestCase):
 
         value = block.to_python({'title': 'Torchbox', 'link': 'http://www.torchbox.com/'})
         clean_value = block.clean(value)
-        self.assertTrue(isinstance(clean_value, blocks.StructValue))
+        self.assertIsInstance(clean_value, blocks.StructValue)
         self.assertEqual(clean_value['title'], 'Torchbox')
 
         value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
@@ -1927,7 +1927,7 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
 
         value = block.to_python({'title': 'Torchbox', 'link': 'http://www.torchbox.com/'})
         clean_value = block.clean(value)
-        self.assertTrue(isinstance(clean_value, CustomStructValue))
+        self.assertIsInstance(clean_value, CustomStructValue)
         self.assertEqual(clean_value['title'], 'Torchbox')
 
         value = block.to_python({'title': 'Torchbox', 'link': 'not a url'})
@@ -3077,7 +3077,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         struct_value = block.to_python({'author': 'Bob'})
         stream_value = struct_value['article']
 
-        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertIsInstance(stream_value, blocks.StreamValue)
         self.assertEqual(len(stream_value), 1)
         self.assertEqual(stream_value[0].block_type, 'heading')
         self.assertEqual(stream_value[0].value, 'A default heading')
@@ -3102,7 +3102,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         struct_value = block.to_python({'author': 'Bob'})
         stream_value = struct_value['article']
 
-        self.assertTrue(isinstance(stream_value, blocks.StreamValue))
+        self.assertIsInstance(stream_value, blocks.StreamValue)
         self.assertEqual(len(stream_value), 1)
         self.assertEqual(stream_value[0].block_type, 'heading')
         self.assertEqual(stream_value[0].value, 'A different default heading')
@@ -3115,11 +3115,9 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         value2 = block.to_python([{'type': 'text', 'value': 'hello'}])
         value3 = block.to_python([{'type': 'text', 'value': 'goodbye'}])
 
-        self.assertTrue(value1 == value2)
-        self.assertFalse(value1 != value2)
+        self.assertEqual(value1, value2)
 
-        self.assertFalse(value1 == value3)
-        self.assertTrue(value1 != value3)
+        self.assertNotEqual(value1, value3)
 
     def test_adapt_considers_group_attribute(self):
         """If group attributes are set in Block Meta classes, make sure the blocks are grouped together"""
@@ -3590,7 +3588,7 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.get_prep_value(christmas_page), christmas_page.id)
 
         # None should serialize to None
-        self.assertEqual(block.get_prep_value(None), None)
+        self.assertIsNone(block.get_prep_value(None))
 
     def test_deserialize(self):
         """The serialized value of a PageChooserBlock (an ID) should deserialize to a Page object"""
@@ -3600,7 +3598,7 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(block.to_python(christmas_page.id), christmas_page)
 
         # None should deserialize to None
-        self.assertEqual(block.to_python(None), None)
+        self.assertIsNone(block.to_python(None))
 
     def test_adapt(self):
         from wagtail.admin.widgets.chooser import AdminPageChooser
@@ -3672,7 +3670,7 @@ class TestPageChooserBlock(TestCase):
         self.assertEqual(value, christmas_page)
 
         empty_value = block.value_from_datadict({'page': ''}, {}, 'page')
-        self.assertEqual(empty_value, None)
+        self.assertIsNone(empty_value)
 
     def test_clean(self):
         required_block = blocks.PageChooserBlock()
@@ -3684,7 +3682,7 @@ class TestPageChooserBlock(TestCase):
             required_block.clean(None)
 
         self.assertEqual(nonrequired_block.clean(christmas_page), christmas_page)
-        self.assertEqual(nonrequired_block.clean(None), None)
+        self.assertIsNone(nonrequired_block.clean(None))
 
     def test_target_model_default(self):
         block = blocks.PageChooserBlock()
@@ -3832,7 +3830,7 @@ class TestStaticBlock(unittest.TestCase):
     def test_get_default(self):
         block = blocks.StaticBlock()
         default_value = block.get_default()
-        self.assertEqual(default_value, None)
+        self.assertIsNone(default_value)
 
     def test_render(self):
         block = blocks.StaticBlock(template='tests/blocks/posts_static_block.html')
@@ -3842,12 +3840,12 @@ class TestStaticBlock(unittest.TestCase):
     def test_serialize(self):
         block = blocks.StaticBlock()
         result = block.get_prep_value(None)
-        self.assertEqual(result, None)
+        self.assertIsNone(result)
 
     def test_deserialize(self):
         block = blocks.StaticBlock()
         result = block.to_python(None)
-        self.assertEqual(result, None)
+        self.assertIsNone(result)
 
 
 class TestDateBlock(TestCase):

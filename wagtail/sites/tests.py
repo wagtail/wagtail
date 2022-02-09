@@ -51,7 +51,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
         # we should have loaded with a single site
         self.assertEqual(self.localhost.hostname, 'localhost')
         self.assertEqual(self.localhost.port, 80)
-        self.assertEqual(self.localhost.is_default_site, True)
+        self.assertIs(self.localhost.is_default_site, True)
         self.assertEqual(self.localhost.root_page, self.home_page)
 
     def test_simple(self):
@@ -82,7 +82,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
 
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(bool(response.context['form'].errors), True)
+        self.assertIs(bool(response.context['form'].errors), True)
 
         # Check that the site was not created
         sites = Site.objects.filter(hostname='also_default')
@@ -113,7 +113,7 @@ class TestSiteCreateView(TestCase, WagtailTestUtils):
 
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(bool(response.context['form'].errors), True)
+        self.assertIs(bool(response.context['form'].errors), True)
 
         # Check that the site was not created, still only one localhost entry
         self.assertEqual(Site.objects.filter(hostname='localhost').count(), 1)
@@ -188,7 +188,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))
         # Check that the site is no longer default
-        self.assertEqual(Site.objects.get(id=self.localhost.id).is_default_site, False)
+        self.assertIs(Site.objects.get(id=self.localhost.id).is_default_site, False)
 
         # Now make the second site default
         response = self.post(
@@ -201,7 +201,7 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
         # Should redirect back to index
         self.assertRedirects(response, reverse('wagtailsites:index'))
         # Check that the second site is now set as default
-        self.assertEqual(Site.objects.get(id=second_site.id).is_default_site, True)
+        self.assertIs(Site.objects.get(id=second_site.id).is_default_site, True)
 
     def test_making_a_second_site_the_default_not_allowed(self):
         second_site = Site.objects.create(
@@ -218,11 +218,11 @@ class TestSiteEditView(TestCase, WagtailTestUtils):
 
         # Should return the form with errors
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(bool(response.context['form'].errors), True)
+        self.assertIs(bool(response.context['form'].errors), True)
 
         # Check that the site was not editd
 
-        self.assertEqual(Site.objects.get(id=second_site.id).is_default_site, False)
+        self.assertIs(Site.objects.get(id=second_site.id).is_default_site, False)
 
 
 class TestSiteDeleteView(TestCase, WagtailTestUtils):

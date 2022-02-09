@@ -46,9 +46,9 @@ class TestImageTag(TestCase):
         result = self.render_image_tag(self.image, 'width-400')
 
         # Check that all the required HTML attributes are set
-        self.assertTrue('width="400"' in result)
-        self.assertTrue('height="300"' in result)
-        self.assertTrue('alt="Test image"' in result)
+        self.assertIn('width="400"', result)
+        self.assertIn('height="300"', result)
+        self.assertIn('alt="Test image"', result)
 
     def test_image_tag_none(self):
         result = self.render_image_tag(None, "width-500")
@@ -70,9 +70,9 @@ class TestImageTag(TestCase):
         result = self.render_image_tag_as(self.image, 'width-400')
 
         # Check that all the required HTML attributes are set
-        self.assertTrue('width="400"' in result)
-        self.assertTrue('height="300"' in result)
-        self.assertTrue('alt="Test image"' in result)
+        self.assertIn('width="400"', result)
+        self.assertIn('height="300"', result)
+        self.assertIn('alt="Test image"', result)
 
     def render_image_tag_with_extra_attributes(self, image, title):
         temp = template.Template(
@@ -86,11 +86,11 @@ class TestImageTag(TestCase):
         result = self.render_image_tag_with_extra_attributes(self.image, 'My Wonderful Title')
 
         # Check that all the required HTML attributes are set
-        self.assertTrue('width="400"' in result)
-        self.assertTrue('height="300"' in result)
-        self.assertTrue('class="photo"' in result)
-        self.assertTrue('alt="Alternate"' in result)
-        self.assertTrue('title="my wonderful title"' in result)
+        self.assertIn('width="400"', result)
+        self.assertIn('height="300"', result)
+        self.assertIn('class="photo"', result)
+        self.assertIn('alt="Alternate"', result)
+        self.assertIn('title="my wonderful title"', result)
 
     def render_image_tag_with_filters(self, image):
         temp = template.Template(
@@ -101,13 +101,13 @@ class TestImageTag(TestCase):
 
     def test_image_tag_with_filters(self):
         result = self.render_image_tag_with_filters(self.image)
-        self.assertTrue('width="400"' in result)
-        self.assertTrue('height="300"' in result)
+        self.assertIn('width="400"', result)
+        self.assertIn('height="300"', result)
 
     def test_image_tag_with_chained_filters(self):
         result = self.render_image_tag(self.image, 'fill-200x200 height-150')
-        self.assertTrue('width="150"' in result)
-        self.assertTrue('height="150"' in result)
+        self.assertIn('width="150"', result)
+        self.assertIn('height="150"', result)
 
     def test_filter_specs_must_match_allowed_pattern(self):
         with self.assertRaises(template.TemplateSyntaxError):
@@ -662,7 +662,7 @@ class TestDifferentUpload(TestCase):
 
         # The files should be uploaded based on it's content, not just
         # it's filename
-        self.assertFalse(image.file.url == second_image.file.url)
+        self.assertNotEqual(image.file.url, second_image.file.url)
 
 
 class TestGetImageModel(WagtailTestUtils, TestCase):

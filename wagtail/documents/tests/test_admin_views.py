@@ -357,7 +357,7 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         url_finder = AdminURLFinder(self.user)
-        self.assertEqual(url_finder.get_edit_url(self.document), None)
+        self.assertIsNone(url_finder.get_edit_url(self.document))
 
     def test_post_with_limited_permissions(self):
         self.user.is_superuser = False

@@ -56,7 +56,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_home'))
 
         # Check that the user was logged in
-        self.assertTrue('_auth_user_id' in self.client.session)
+        self.assertIn('_auth_user_id', self.client.session)
         self.assertEqual(
             str(self.client.session['_auth_user_id']),
             str(get_user_model().objects.get(email='test@email.com').pk)
@@ -109,7 +109,7 @@ class TestAuthentication(TestCase, WagtailTestUtils):
         self.assertRedirects(response, reverse('wagtailadmin_login'))
 
         # Check that the user was logged out
-        self.assertFalse('_auth_user_id' in self.client.session)
+        self.assertNotIn('_auth_user_id', self.client.session)
 
     def test_not_logged_in_redirect(self):
         """
@@ -275,7 +275,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['panels_by_tab'][profile_tab][0].get_form().errors.keys())
+        self.assertIn('email', response.context['panels_by_tab'][profile_tab][0].get_form().errors.keys())
 
         # Check that the email was not changed
         self.user.refresh_from_db()
@@ -339,8 +339,8 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         # Check that a validation error was raised
         password_form = password_panel.get_form()
-        self.assertTrue('new_password2' in password_form.errors.keys())
-        self.assertTrue("The two password fields didn’t match." in password_form.errors['new_password2'])
+        self.assertIn('new_password2', password_form.errors.keys())
+        self.assertIn("The two password fields didn’t match.", password_form.errors['new_password2'])
 
         # Check that the password was not changed
         self.user.refresh_from_db()
@@ -695,8 +695,8 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('email' in response.context['form'].errors.keys())
-        self.assertTrue("Enter a valid email address." in response.context['form'].errors['email'])
+        self.assertIn('email', response.context['form'].errors.keys())
+        self.assertIn("Enter a valid email address.", response.context['form'].errors['email'])
 
         # Check that an email was not sent
         self.assertEqual(len(mail.outbox), 0)
@@ -796,8 +796,8 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # Check that a validation error was raised
-        self.assertTrue('new_password2' in response.context['form'].errors.keys())
-        self.assertTrue("The two password fields didn’t match." in response.context['form'].errors['new_password2'])
+        self.assertIn('new_password2', response.context['form'].errors.keys())
+        self.assertIn("The two password fields didn’t match.", response.context['form'].errors['new_password2'])
 
         # Check that the password was not changed
         self.assertTrue(get_user_model().objects.get(email='test@email.com').check_password('password'))

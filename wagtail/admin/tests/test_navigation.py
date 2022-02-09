@@ -82,4 +82,4 @@ class TestExplorablePages(TestCase, WagtailTestUtils):
     def test_nonadmin_with_no_page_perms_cannot_explore(self):
         User = get_user_model()
         user = User.objects.get(email='mary@example.com')
-        self.assertEqual(get_explorable_root_page(user), None)
+        self.assertIsNone(get_explorable_root_page(user))

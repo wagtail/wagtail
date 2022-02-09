@@ -538,7 +538,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'external_link_chosen')
         self.assertEqual(response_json['result']['url'], "http://www.example.com/")
         self.assertEqual(response_json['result']['title'], "example")  # When link text is given, it is used
-        self.assertEqual(response_json['result']['prefer_this_title_as_link_text'], True)
+        self.assertIs(response_json['result']['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
         response = self.post({'external-link-chooser-url': 'http://www.example.com/'})
@@ -547,7 +547,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(response_json['step'], 'external_link_chosen')
         self.assertEqual(response_json['result']['url'], "http://www.example.com/")
         self.assertEqual(response_json['result']['title'], "http://www.example.com/")  # When no text is given, it uses the url
-        self.assertEqual(response_json['result']['prefer_this_title_as_link_text'], False)
+        self.assertIs(response_json['result']['prefer_this_title_as_link_text'], False)
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
@@ -558,7 +558,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "http://www.example.com/")
         self.assertEqual(result['title'], "example")
         # no change to link text, so prefer the existing link/selection content where available
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
         response = self.post(
             {'external-link-chooser-url': 'http://www.example.com/', 'external-link-chooser-link_text': 'new example'},  # POST data
@@ -568,7 +568,7 @@ class TestChooserExternalLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "http://www.example.com/")
         self.assertEqual(result['title'], "new example")
         # link text has changed, so tell the caller to use it
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
     def test_invalid_url(self):
         response = self.post({'external-link-chooser-url': 'ntp://www.example.com', 'external-link-chooser-link_text': 'example'})
@@ -681,14 +681,14 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "#exampleanchor")
         self.assertEqual(result['title'], "Example Anchor Text")  # When link text is given, it is used
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
         response = self.post({'anchor-link-chooser-url': 'exampleanchor'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "#exampleanchor")
         self.assertEqual(result['title'], "exampleanchor")  # When no link text is given, it uses anchor
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
@@ -699,7 +699,7 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "#exampleanchor2")
         self.assertEqual(result['title'], "exampleanchor2")
         # no change to link text, so prefer the existing link/selection content where available
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
         response = self.post(
             {'anchor-link-chooser-url': 'exampleanchor2', 'anchor-link-chooser-link_text': 'Example Anchor Test 2.1'},  # POST data
@@ -709,7 +709,7 @@ class TestChooserAnchorLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "#exampleanchor2")
         self.assertEqual(result['title'], "Example Anchor Test 2.1")
         # link text has changed, so tell the caller to use it
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
 
 class TestChooserEmailLink(TestCase, WagtailTestUtils):
@@ -741,14 +741,14 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "mailto:example@example.com")
         self.assertEqual(result['title'], "contact")  # When link text is given, it is used
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
         response = self.post({'email-link-chooser-email_address': 'example@example.com'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "mailto:example@example.com")
         self.assertEqual(result['title'], "example@example.com")  # When no link text is given, it uses the email
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
@@ -759,7 +759,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "mailto:example2@example.com")
         self.assertEqual(result['title'], "example")
         # no change to link text, so prefer the existing link/selection content where available
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
         response = self.post(
             {'email-link-chooser-email_address': 'example2@example.com', 'email-link-chooser-link_text': 'new example'},  # POST data
@@ -769,7 +769,7 @@ class TestChooserEmailLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "mailto:example2@example.com")
         self.assertEqual(result['title'], "new example")
         # link text has changed, so tell the caller to use it
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
 
 class TestChooserPhoneLink(TestCase, WagtailTestUtils):
@@ -801,14 +801,14 @@ class TestChooserPhoneLink(TestCase, WagtailTestUtils):
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "tel:+123456789")
         self.assertEqual(result['title'], "call")
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
     def test_create_link_without_text(self):
         response = self.post({'phone-link-chooser-phone_number': '+123456789'})
         result = json.loads(response.content.decode())['result']
         self.assertEqual(result['url'], "tel:+123456789")
         self.assertEqual(result['title'], "+123456789")  # When no link text is given, it uses the phone number
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
     def test_notice_changes_to_link_text(self):
         response = self.post(
@@ -819,7 +819,7 @@ class TestChooserPhoneLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "tel:+222222222")
         self.assertEqual(result['title'], "example")
         # no change to link text, so prefer the existing link/selection content where available
-        self.assertEqual(result['prefer_this_title_as_link_text'], False)
+        self.assertIs(result['prefer_this_title_as_link_text'], False)
 
         response = self.post(
             {'phone-link-chooser-phone_number': '+222222222', 'phone-link-chooser-link_text': 'new example'},  # POST data
@@ -829,7 +829,7 @@ class TestChooserPhoneLink(TestCase, WagtailTestUtils):
         self.assertEqual(result['url'], "tel:+222222222")
         self.assertEqual(result['title'], "new example")
         # link text has changed, so tell the caller to use it
-        self.assertEqual(result['prefer_this_title_as_link_text'], True)
+        self.assertIs(result['prefer_this_title_as_link_text'], True)
 
 
 class TestCanChoosePage(TestCase, WagtailTestUtils):

@@ -38,7 +38,7 @@ class TestGetIndexedInstance(TestCase):
         # We've told it not to index anything with the title "Don't index me"
         # get_indexed_instance should return None
         indexed_instance = index.get_indexed_instance(obj.book_ptr)
-        self.assertEqual(indexed_instance, None)
+        self.assertIsNone(indexed_instance)
 
 
 @mock.patch('wagtail.search.tests.DummySearchBackend', create=True)

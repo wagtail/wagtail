@@ -189,7 +189,7 @@ class WagtailTestUtils:
                 msg_prefix + "Found %d instances of '%s' in response (expected %d)" % (real_count, needle, count)
             )
         else:
-            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in response" % needle)
+            self.assertNotEqual(real_count, 0, msg_prefix + "Couldn't find '%s' in response" % needle)
 
     def assertNotInHTML(self, needle, haystack, msg_prefix=''):
         self.assertInHTML(needle, haystack, count=0, msg_prefix=msg_prefix)
@@ -213,4 +213,4 @@ class WagtailTestUtils:
                 msg_prefix + "Found %d instances of '%s' in template script (expected %d)" % (real_count, needle, count)
             )
         else:
-            self.assertTrue(real_count != 0, msg_prefix + "Couldn't find '%s' in template script" % needle)
+            self.assertNotEqual(real_count, 0, msg_prefix + "Couldn't find '%s' in template script" % needle)

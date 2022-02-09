@@ -271,11 +271,11 @@ class TestRouting(TestCase):
         root = Page.objects.get(url_path='/')
         default_site = Site.objects.get(is_default_site=True)
 
-        self.assertEqual(root.get_url_parts(), None)
-        self.assertEqual(root.full_url, None)
-        self.assertEqual(root.url, None)
-        self.assertEqual(root.relative_url(default_site), None)
-        self.assertEqual(root.get_site(), None)
+        self.assertIsNone(root.get_url_parts())
+        self.assertIsNone(root.full_url)
+        self.assertIsNone(root.url)
+        self.assertIsNone(root.relative_url(default_site))
+        self.assertIsNone(root.get_site())
 
     @override_settings(ALLOWED_HOSTS=['localhost', 'testserver', 'events.example.com', 'second-events.example.com'])
     def test_urls_with_multiple_sites(self):
@@ -366,8 +366,8 @@ class TestRouting(TestCase):
             homepage.get_url_parts(),
             (default_site.id, None, None)
         )
-        self.assertEqual(homepage.full_url, None)
-        self.assertEqual(homepage.url, None)
+        self.assertIsNone(homepage.full_url)
+        self.assertIsNone(homepage.url)
 
     def test_request_routing(self):
         homepage = Page.objects.get(url_path='/home/')
@@ -1334,7 +1334,7 @@ class TestCopyPage(TestCase):
             )
 
         # Check that the new revision is not scheduled
-        self.assertEqual(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at, None)
+        self.assertIsNone(new_christmas_event.revisions.order_by('created_at').first().approved_go_live_at)
 
     def test_copy_page_doesnt_copy_revisions_if_told_not_to_do_so(self):
         christmas_event = EventPage.objects.get(url_path='/home/events/christmas/')
@@ -1380,8 +1380,8 @@ class TestCopyPage(TestCase):
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
 
         # Check that the event exists in both places
-        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
-        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+        self.assertIsNotNone(new_christmas_event, "Child pages weren't copied")
+        self.assertIsNotNone(old_christmas_event, "Child pages were removed from original page")
 
         # Check that the url path was updated
         self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')
@@ -1887,8 +1887,8 @@ class TestCreateAlias(TestCase):
         new_christmas_event = new_events_index.get_children().filter(slug='christmas').first()
 
         # Check that the event exists in both places
-        self.assertNotEqual(new_christmas_event, None, "Child pages weren't copied")
-        self.assertNotEqual(old_christmas_event, None, "Child pages were removed from original page")
+        self.assertIsNotNone(new_christmas_event, "Child pages weren't copied")
+        self.assertIsNotNone(old_christmas_event, "Child pages were removed from original page")
 
         # Check that the url path was updated
         self.assertEqual(new_christmas_event.url_path, '/home/new-events-index/christmas/')

@@ -321,7 +321,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
         self.assertEqual(page.go_live_at.date(), go_live_at.date())
         self.assertEqual(page.expire_at.date(), expire_at.date())
-        self.assertEqual(page.expired, False)
+        self.assertIs(page.expired, False)
         self.assertTrue(page.status_string, "draft")
 
         # No revisions with approved_go_live_at
@@ -428,7 +428,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         page = Page.objects.get(path__startswith=self.root_page.path, slug='hello-world').specific
         self.assertEqual(page.go_live_at.date(), go_live_at.date())
         self.assertEqual(page.expire_at.date(), expire_at.date())
-        self.assertEqual(page.expired, False)
+        self.assertIs(page.expired, False)
 
         # A revision with approved_go_live_at should exist now
         self.assertTrue(PageRevision.objects.filter(page=page).exclude(approved_go_live_at__isnull=True).exists())
