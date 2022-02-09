@@ -167,15 +167,17 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         de = Locale.objects.get(language_code="de").id
         data = {"locales": [de], "include_subtree": True}
         self.login()
-        response = self.client.post(url, data)
+        response = self.client.post(url, data, follow=True)
 
-        assert response.status_code == 302
-        assert response.url == f"/admin/pages/{self.en_blog_index.get_parent().id}/"
+        translated_page = self.en_blog_index.get_translation(de)
+        self.assertRedirects(
+            response, reverse("wagtailadmin_pages:edit", args=[translated_page.pk])
+        )
 
-        response = self.client.get(response.url)  # follow the redirect
-        assert [msg.message for msg in response.context["messages"]] == [
-            "The page 'Blog' was successfully created in German"
-        ]
+        self.assertIn(
+            "The page 'Blog' was successfully created in German",
+            [msg.message for msg in response.context["messages"]],
+        )
 
     def test_submit_page_translation_view_test_post_multiple_locales(self):
         # Needs an extra page to hit recursive function
@@ -260,6 +262,27 @@ class TestSubmitSnippetTranslationView(WagtailTestUtils, TestCase):
         }
         self.assertEqual(
             view.get_success_url(), "/admin/snippets/some_app/some_model/edit/99/"
+        )
+
+    def test_get_success_url_for_single_locale(self):
+        view = SubmitSnippetTranslationView()
+        view.object = self.en_snippet
+        view.kwargs = {
+            "app_label": "some_app",
+            "model_name": "some_model",
+            "pk": 99,
+        }
+
+        self.assertEqual(
+            view.get_success_url(view.object),
+            reverse(
+                "wagtailsnippets:edit",
+                args=[
+                    "some_app",
+                    "some_model",
+                    view.object.pk,
+                ],
+            ),
         )
 
     def test_get_success_message(self):
