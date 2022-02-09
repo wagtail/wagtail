@@ -602,7 +602,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         url_finder = AdminURLFinder(self.user)
-        self.assertEqual(url_finder.get_edit_url(self.image), None)
+        self.assertIsNone(url_finder.get_edit_url(self.image))
 
     def test_edit_with_new_image_file(self):
         file_content = get_test_image_file().file.getvalue()

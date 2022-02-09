@@ -324,7 +324,7 @@ class TestBalancedReduce(SimpleTestCase):
 
         self.assertRaises(RuntimeError, balanced_reduce, add, TestFailingIter())
 
-        self.assertEqual(balanced_reduce(add, [], None), None)
+        self.assertIsNone(balanced_reduce(add, [], None))
         self.assertEqual(balanced_reduce(add, [], 42), 42)
 
         class BadSeq:

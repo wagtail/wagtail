@@ -70,7 +70,7 @@ class TestSubmitTranslationView(WagtailTestUtils, TestCase):
         view.request = self.factory.get("/path/does/not/matter/")
         view.object = self.en_homepage
         context = view.get_context_data()
-        self.assertTrue("form" in context.keys())
+        self.assertIn("form", context.keys())
         self.assertIsInstance(context["form"], SubmitTranslationForm)
 
     def test_dispatch_as_anon(self):

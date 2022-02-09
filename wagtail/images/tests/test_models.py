@@ -40,7 +40,7 @@ class TestImage(TestCase):
         self.assertTrue(self.image.get_rect(), Rect(0, 0, 640, 480))
 
     def test_get_focal_point(self):
-        self.assertEqual(self.image.get_focal_point(), None)
+        self.assertIsNone(self.image.get_focal_point())
 
         # Add a focal point to the image
         self.image.focal_point_x = 100
@@ -63,10 +63,10 @@ class TestImage(TestCase):
         self.assertTrue(self.image.has_focal_point())
 
     def test_set_focal_point(self):
-        self.assertEqual(self.image.focal_point_x, None)
-        self.assertEqual(self.image.focal_point_y, None)
-        self.assertEqual(self.image.focal_point_width, None)
-        self.assertEqual(self.image.focal_point_height, None)
+        self.assertIsNone(self.image.focal_point_x)
+        self.assertIsNone(self.image.focal_point_y)
+        self.assertIsNone(self.image.focal_point_width)
+        self.assertIsNone(self.image.focal_point_height)
 
         self.image.set_focal_point(Rect(100, 150, 200, 350))
 
@@ -77,10 +77,10 @@ class TestImage(TestCase):
 
         self.image.set_focal_point(None)
 
-        self.assertEqual(self.image.focal_point_x, None)
-        self.assertEqual(self.image.focal_point_y, None)
-        self.assertEqual(self.image.focal_point_width, None)
-        self.assertEqual(self.image.focal_point_height, None)
+        self.assertIsNone(self.image.focal_point_x)
+        self.assertIsNone(self.image.focal_point_y)
+        self.assertIsNone(self.image.focal_point_width)
+        self.assertIsNone(self.image.focal_point_height)
 
     def test_is_stored_locally(self):
         self.assertTrue(self.image.is_stored_locally())
@@ -157,7 +157,7 @@ class TestImageQuerySet(TestCase):
                 image.title: [tag.name for tag in image.tags.all()]
                 for image in Image.get_indexed_objects()
             }
-            self.assertTrue('aardvark' in results['Test image 0'])
+            self.assertIn('aardvark', results['Test image 0'])
 
 
 class TestImagePermissions(TestCase, WagtailTestUtils):

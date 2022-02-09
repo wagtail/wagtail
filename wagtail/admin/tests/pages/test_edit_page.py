@@ -216,7 +216,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         url_finder = AdminURLFinder(self.user)
-        self.assertEqual(url_finder.get_edit_url(self.event_page), None)
+        self.assertIsNone(url_finder.get_edit_url(self.event_page))
 
     def test_page_edit_post(self):
         # Tests simple editing

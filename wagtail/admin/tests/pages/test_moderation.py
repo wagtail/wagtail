@@ -225,10 +225,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on
-        self.assertEqual(self.submitter_profile.rejected_notifications, True)
+        self.assertIs(self.submitter_profile.rejected_notifications, True)
 
         # Check that the vanilla profile has approved notifications on
-        self.assertEqual(self.submitter_profile.approved_notifications, True)
+        self.assertIs(self.submitter_profile.approved_notifications, True)
 
     def test_approved_notifications(self):
         # Set up the page version

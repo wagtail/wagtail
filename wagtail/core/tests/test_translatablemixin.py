@@ -80,8 +80,8 @@ class TestTranslatableMixin(TestCase):
             self.main_instance, "get_translation"
         ) as mock_get_translation:
             mock_get_translation.side_effect = self.main_instance.DoesNotExist
-            self.assertEqual(
-                self.main_instance.get_translation_or_none(self.another_locale), None
+            self.assertIsNone(
+                self.main_instance.get_translation_or_none(self.another_locale)
             )
 
     def test_has_translation_when_exists(self):

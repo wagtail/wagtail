@@ -99,7 +99,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_pages:copy', args=(self.test_page.id, )), post_data)
         form = response.context['form']
         self.assertFalse(form.is_valid())
-        self.assertTrue('new_parent_page' in form.errors)
+        self.assertIn('new_parent_page', form.errors)
 
     def test_page_copy_post(self):
         post_data = {
@@ -119,7 +119,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
 
         # Check that the copy exists
-        self.assertNotEqual(page_copy, None)
+        self.assertIsNotNone(page_copy)
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
@@ -152,7 +152,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
 
         # Check that the copy exists
-        self.assertNotEqual(page_copy, None)
+        self.assertIsNotNone(page_copy)
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
@@ -167,12 +167,12 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check the the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug='child-page').first()
-        self.assertNotEqual(child_copy, None)
+        self.assertIsNotNone(child_copy)
         self.assertFalse(child_copy.live)
         self.assertTrue(child_copy.has_unpublished_changes)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
-        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertIsNotNone(unpublished_child_copy)
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
@@ -197,7 +197,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
 
         # Check that the copy exists
-        self.assertNotEqual(page_copy, None)
+        self.assertIsNotNone(page_copy)
 
         # Check that the copy is live
         self.assertTrue(page_copy.live)
@@ -212,12 +212,12 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check the the child pages
         # The child_copy should be live but the unpublished_child_copy shouldn't
         child_copy = page_copy.get_children().filter(slug='child-page').first()
-        self.assertNotEqual(child_copy, None)
+        self.assertIsNotNone(child_copy)
         self.assertTrue(child_copy.live)
         self.assertTrue(child_copy.has_unpublished_changes)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
-        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertIsNotNone(unpublished_child_copy)
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)
 
@@ -339,7 +339,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         page_copy = self.test_page.get_children().filter(slug=post_data['new_slug']).first()
 
         # Check that the copy exists with the good slug
-        self.assertNotEqual(page_copy, None)
+        self.assertIsNotNone(page_copy)
         self.assertEqual(page_copy.slug, post_data['new_slug'])
 
     def test_page_copy_no_publish_permission(self):
@@ -388,7 +388,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         page_copy = self.root_page.get_children().filter(slug='hello-world-2').first()
 
         # Check that the copy exists
-        self.assertNotEqual(page_copy, None)
+        self.assertIsNotNone(page_copy)
 
         # Check that the copy is not live
         self.assertFalse(page_copy.live)
@@ -402,11 +402,11 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check the the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug='child-page').first()
-        self.assertNotEqual(child_copy, None)
+        self.assertIsNotNone(child_copy)
         self.assertFalse(child_copy.live)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
-        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertIsNotNone(unpublished_child_copy)
         self.assertFalse(unpublished_child_copy.live)
 
         # treebeard should report no consistency problems with the tree
@@ -542,13 +542,13 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check the the child pages
         # Neither of them should be live
         child_copy = page_copy.get_children().filter(slug='child-page').first()
-        self.assertNotEqual(child_copy, None)
+        self.assertIsNotNone(child_copy)
         self.assertEqual(child_copy.alias_of, self.test_child_page.page_ptr)
         self.assertTrue(child_copy.live)
         self.assertFalse(child_copy.has_unpublished_changes)
 
         unpublished_child_copy = page_copy.get_children().filter(slug='unpublished-child-page').first()
-        self.assertNotEqual(unpublished_child_copy, None)
+        self.assertIsNotNone(unpublished_child_copy)
         self.assertEqual(unpublished_child_copy.alias_of, self.test_unpublished_child_page.page_ptr)
         self.assertFalse(unpublished_child_copy.live)
         self.assertTrue(unpublished_child_copy.has_unpublished_changes)

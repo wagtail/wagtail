@@ -183,7 +183,7 @@ class TestFormsIndex(TestCase, WagtailTestUtils):
         response = self.client.get(reverse('wagtailforms:index'))
 
         # Check that the user cannot see the form page
-        self.assertFalse(self.form_page in response.context['form_pages'])
+        self.assertNotIn(self.form_page, response.context['form_pages'])
 
     def test_can_see_forms_with_permission(self):
         response = self.client.get(reverse('wagtailforms:index'))
@@ -443,7 +443,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
             'wagtailforms:list_submissions', args=(self.form_page.id,)))
         # check default ordering, most recent responses first
         first_row_values = response.context['data_rows'][0]['fields']
-        self.assertTrue('this is a fairly new message' in first_row_values)
+        self.assertIn('this is a fairly new message', first_row_values)
 
     def test_list_submissions_url_params_ordering_recent_first(self):
         response = self.client.get(reverse(
@@ -453,7 +453,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         )
         # check ordering matches '-submit_time' (most recent first)
         first_row_values = response.context['data_rows'][0]['fields']
-        self.assertTrue('this is a fairly new message' in first_row_values)
+        self.assertIn('this is a fairly new message', first_row_values)
 
     def test_list_submissions_url_params_ordering_oldest_first(self):
         response = self.client.get(reverse(
@@ -463,7 +463,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         )
         # check ordering matches 'submit_time' (oldest first)
         first_row_values = response.context['data_rows'][0]['fields']
-        self.assertTrue('this is a really old message' in first_row_values)
+        self.assertIn('this is a really old message', first_row_values)
 
 
 class TestFormsSubmissionsListLegacyFieldName(TestCase, WagtailTestUtils):
@@ -1352,7 +1352,7 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         # check ordering matches default which is overridden to be 'submit_time' (oldest first)
         response = self.client.get(reverse('wagtailforms:list_submissions', args=(self.form_page.id,)))
         first_row_values = response.context['data_rows'][0]['fields']
-        self.assertTrue('Old chocolate idea' in first_row_values)
+        self.assertIn('Old chocolate idea', first_row_values)
 
 
 class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):

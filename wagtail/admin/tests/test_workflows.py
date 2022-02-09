@@ -356,7 +356,7 @@ class TestWorkflowsEditView(TestCase, WagtailTestUtils):
 
     def test_admin_url_finder(self):
         editor_url_finder = AdminURLFinder(self.editor)
-        self.assertEqual(editor_url_finder.get_edit_url(self.workflow), None)
+        self.assertIsNone(editor_url_finder.get_edit_url(self.workflow))
         moderator_url_finder = AdminURLFinder(self.moderator)
         expected_url = '/admin/workflows/edit/%d/' % self.workflow.pk
         self.assertEqual(moderator_url_finder.get_edit_url(self.workflow), expected_url)
@@ -699,7 +699,7 @@ class TestEditTaskView(TestCase, WagtailTestUtils):
 
     def test_admin_url_finder(self):
         editor_url_finder = AdminURLFinder(self.editor)
-        self.assertEqual(editor_url_finder.get_edit_url(self.task), None)
+        self.assertIsNone(editor_url_finder.get_edit_url(self.task))
         moderator_url_finder = AdminURLFinder(self.moderator)
         expected_url = '/admin/workflows/tasks/edit/%d/' % self.task.pk
         self.assertEqual(moderator_url_finder.get_edit_url(self.task), expected_url)
@@ -1284,10 +1284,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on
-        self.assertEqual(self.submitter_profile.rejected_notifications, True)
+        self.assertIs(self.submitter_profile.rejected_notifications, True)
 
         # Check that the vanilla profile has approved notifications on
-        self.assertEqual(self.submitter_profile.approved_notifications, True)
+        self.assertIs(self.submitter_profile.approved_notifications, True)
 
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=True)
     def test_submitted_email_notifications_sent(self):
@@ -1522,7 +1522,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_workflows:disable', args=(self.workflow.pk,)))
         self.assertEqual(response.status_code, 302)
         self.workflow.refresh_from_db()
-        self.assertEqual(self.workflow.active, False)
+        self.assertIs(self.workflow.active, False)
         states = WorkflowState.objects.filter(page=self.page, workflow=self.workflow)
         self.assertEqual(states.filter(status=WorkflowState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=WorkflowState.STATUS_CANCELLED).count(), 1)
@@ -1559,7 +1559,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_workflows:disable_task', args=(self.task_1.pk,)))
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
-        self.assertEqual(self.task_1.active, False)
+        self.assertIs(self.task_1.active, False)
         states = TaskState.objects.filter(workflow_state__page=self.page, task=self.task_1.task_ptr)
         self.assertEqual(states.filter(status=TaskState.STATUS_IN_PROGRESS).count(), 0)
         self.assertEqual(states.filter(status=TaskState.STATUS_CANCELLED).count(), 1)
@@ -1575,7 +1575,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_workflows:enable', args=(self.workflow.pk,)))
         self.assertEqual(response.status_code, 302)
         self.workflow.refresh_from_db()
-        self.assertEqual(self.workflow.active, True)
+        self.assertIs(self.workflow.active, True)
 
     def test_enable_task(self):
         self.login(self.superuser)
@@ -1585,7 +1585,7 @@ class TestDisableViews(TestCase, WagtailTestUtils):
         response = self.client.post(reverse('wagtailadmin_workflows:enable_task', args=(self.task_1.pk,)))
         self.assertEqual(response.status_code, 302)
         self.task_1.refresh_from_db()
-        self.assertEqual(self.task_1.active, True)
+        self.assertIs(self.task_1.active, True)
 
 
 class TestTaskChooserView(TestCase, WagtailTestUtils):

@@ -106,22 +106,22 @@ class TestWorkflows(TestCase):
     def test_workflow_methods_generate_no_queries_when_disabled(self):
         homepage = Page.objects.get(url_path='/home/')
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.has_workflow, False)
+            self.assertIs(homepage.has_workflow, False)
 
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.get_workflow(), None)
+            self.assertIsNone(homepage.get_workflow())
 
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.workflow_in_progress, False)
+            self.assertIs(homepage.workflow_in_progress, False)
 
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.current_workflow_state, None)
+            self.assertIsNone(homepage.current_workflow_state)
 
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.current_workflow_task_state, None)
+            self.assertIsNone(homepage.current_workflow_task_state)
 
         with self.assertNumQueries(0):
-            self.assertEqual(homepage.current_workflow_task, None)
+            self.assertIsNone(homepage.current_workflow_task)
 
     @freeze_time("2017-01-01 12:00:00")
     def test_start_workflow_on_page(self):
@@ -148,7 +148,7 @@ class TestWorkflows(TestCase):
             self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0, tzinfo=pytz.utc))
         else:
             self.assertEqual(task_state.started_at, datetime.datetime(2017, 1, 1, 12, 0, 0))
-        self.assertEqual(task_state.finished_at, None)
+        self.assertIsNone(task_state.finished_at)
 
     @override_settings(WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH=True)
     def test_publishing_page_cancels_workflow_when_cancel_on_publish_true(self):

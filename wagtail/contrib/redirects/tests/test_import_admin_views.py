@@ -44,7 +44,7 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
             "input_format": "0",
         })
 
-        self.assertTrue("import_file" in response.context["form"].errors)
+        self.assertIn("import_file", response.context["form"].errors)
 
     def test_non_valid_format_returns_error(self):
         f = "{}/files/example.yaml".format(TEST_ROOT)
@@ -246,8 +246,8 @@ class TestImportAdminViews(TestCase, WagtailTestUtils):
                 },
                 follow=True,
             )
-            self.assertTrue(
-                b"Imported file has a wrong encoding:" in response.content
+            self.assertIn(
+                b"Imported file has a wrong encoding:", response.content
             )
 
     def test_not_valid_method_for_import_file(self):

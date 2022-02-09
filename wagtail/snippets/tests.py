@@ -586,7 +586,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertEqual(response.status_code, 302)
 
         url_finder = AdminURLFinder(self.user)
-        self.assertEqual(url_finder.get_edit_url(self.test_snippet), None)
+        self.assertIsNone(url_finder.get_edit_url(self.test_snippet))
 
     def test_edit_invalid(self):
         response = self.post(post_data={'foo': 'bar'})
@@ -1418,7 +1418,7 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.get_prep_value(test_advert), test_advert.id)
 
         # None should serialize to None
-        self.assertEqual(block.get_prep_value(None), None)
+        self.assertIsNone(block.get_prep_value(None))
 
     def test_deserialize(self):
         """The serialized value of a SnippetChooserBlock (an ID) should deserialize to a snippet instance"""
@@ -1428,7 +1428,7 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(block.to_python(test_advert.id), test_advert)
 
         # None should deserialize to None
-        self.assertEqual(block.to_python(None), None)
+        self.assertIsNone(block.to_python(None))
 
     def test_reference_model_by_string(self):
         block = SnippetChooserBlock('tests.Advert')
@@ -1462,7 +1462,7 @@ class TestSnippetChooserBlock(TestCase):
         self.assertEqual(value, test_advert)
 
         empty_value = block.value_from_datadict({'advert': ''}, {}, 'advert')
-        self.assertEqual(empty_value, None)
+        self.assertIsNone(empty_value)
 
     def test_clean(self):
         required_block = SnippetChooserBlock(Advert)
@@ -1474,7 +1474,7 @@ class TestSnippetChooserBlock(TestCase):
             required_block.clean(None)
 
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
-        self.assertEqual(nonrequired_block.clean(None), None)
+        self.assertIsNone(nonrequired_block.clean(None))
 
 
 class TestAdminSnippetChooserWidget(TestCase, WagtailTestUtils):
@@ -1601,7 +1601,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         self.assertEqual(block.get_prep_value(test_advert), test_advert.pk)
 
         # None should serialize to None
-        self.assertEqual(block.get_prep_value(None), None)
+        self.assertIsNone(block.get_prep_value(None))
 
     def test_deserialize(self):
         """The serialized value of a SnippetChooserBlock (an ID) should deserialize to a snippet instance"""
@@ -1611,7 +1611,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         self.assertEqual(block.to_python(test_advert.pk), test_advert)
 
         # None should deserialize to None
-        self.assertEqual(block.to_python(None), None)
+        self.assertIsNone(block.to_python(None))
 
     def test_adapt(self):
         block = SnippetChooserBlock(AdvertWithCustomPrimaryKey, help_text="pick an advert, any advert")
@@ -1640,7 +1640,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
         self.assertEqual(value, test_advert)
 
         empty_value = block.value_from_datadict({'advertwithcustomprimarykey': ''}, {}, 'advertwithcustomprimarykey')
-        self.assertEqual(empty_value, None)
+        self.assertIsNone(empty_value)
 
     def test_clean(self):
         required_block = SnippetChooserBlock(AdvertWithCustomPrimaryKey)
@@ -1652,7 +1652,7 @@ class TestSnippetChooserBlockWithCustomPrimaryKey(TestCase):
             required_block.clean(None)
 
         self.assertEqual(nonrequired_block.clean(test_advert), test_advert)
-        self.assertEqual(nonrequired_block.clean(None), None)
+        self.assertIsNone(nonrequired_block.clean(None))
 
 
 class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
