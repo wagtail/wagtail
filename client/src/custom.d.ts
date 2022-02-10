@@ -6,6 +6,8 @@ declare global {
     telepath: any;
   }
 
+  // Get text
+
   // Wagtail globals
 
   interface WagtailConfig {
@@ -26,7 +28,39 @@ declare global {
 
       display_name: string;
     }[];
-    STRINGS: any;
   }
   const wagtailConfig: WagtailConfig;
+
+  // Django i18n utilities
+
+  // https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#gettext
+  function gettext(text: string): string;
+
+  // https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#ngettext
+  function ngettext(singular: string, plural: string, count: number): string;
+
+  // https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#get-format
+  type FormatType =
+    | 'DATE_FORMAT'
+    | 'DATE_INPUT_FORMATS'
+    | 'DATETIME_FORMAT'
+    | 'DATETIME_INPUT_FORMATS'
+    | 'DECIMAL_SEPARATOR'
+    | 'FIRST_DAY_OF_WEEK'
+    | 'MONTH_DAY_FORMAT'
+    | 'NUMBER_GROUPING'
+    | 'SHORT_DATE_FORMAT'
+    | 'SHORT_DATETIME_FORMAT'
+    | 'THOUSAND_SEPARATOR'
+    | 'TIME_FORMAT'
+    | 'TIME_INPUT_FORMATS'
+    | 'YEAR_MONTH_FORMAT';
+
+  function get_format(formatType: FormatType): string;
+
+  // https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#gettext_noop
+  function gettext_noop(text: string): string;
+
+  // https://docs.djangoproject.com/en/3.1/topics/i18n/translation/#pluralidx
+  function pluralidx(count: number): boolean;
 }

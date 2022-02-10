@@ -44,7 +44,6 @@ export function initSidebar() {
     ReactDOM.render(
       <Sidebar
         modules={props.modules}
-        strings={wagtailConfig.STRINGS}
         collapsedOnLoad={collapsed}
         currentPath={window.location.pathname}
         navigate={navigate}

@@ -5,8 +5,6 @@ possibly after several navigation steps
 
 import $ from 'jquery';
 
-/* global wagtailConfig */
-
 /* eslint-disable */
 function ModalWorkflow(opts) {
   /* options passed in 'opts':
@@ -35,7 +33,7 @@ function ModalWorkflow(opts) {
   const container = $(
     '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
       iconClose +
-      wagtailConfig.STRINGS.CLOSE +
+      gettext('Close') +
       '</button>\n      <div class="modal-body"></div>\n    </div><!-- /.modal-content -->\n  </div><!-- /.modal-dialog -->\n</div>',
   );
 
