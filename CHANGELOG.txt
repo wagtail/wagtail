@@ -16,6 +16,7 @@ Changelog
  * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
  * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
  * Fix: Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
+ * Fix: Prevent error on creating automatic redirects for sites with non-standard ports (Matt Westcott)
 
 
 2.16 (07.02.2022)
