@@ -75,6 +75,14 @@ Changelog
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
 
 
+2.15.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Fix syntax when logging image rendition generation (Jake Howard)
+
+
 2.15.3 (26.01.2022)
 ~~~~~~~~~~~~~~~~~~~
 
