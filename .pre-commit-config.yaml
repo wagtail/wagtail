@@ -38,6 +38,7 @@ repos:
     rev: v14.2.0
     hooks:
       - id: stylelint
+        files: \.scss$
         additional_dependencies:
           - stylelint@14.2.0
           - "@wagtail/stylelint-config-wagtail@0.3.2"
