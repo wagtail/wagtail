@@ -31,12 +31,22 @@ class StreamChild extends BaseSequenceChild {
     };
   }
 
+  setState({ type, value, id }) {
+    this.type = type;
+    this.block.setState(value);
+    this.id = id;
+  }
+
   getValue() {
     return {
       type: this.type,
       value: this.block.getValue(),
       id: this.id,
     };
+  }
+
+  split(valueBefore, valueAfter, opts) {
+    this.sequence.splitBlock(this.index, valueBefore, valueAfter, opts);
   }
 }
 
@@ -344,6 +354,24 @@ export class StreamBlock extends BaseSequenceBlock {
     const animate = opts && opts.animate;
     childState.id = null;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
+    // focus the newly added field if we can do so without obtrusive UI behaviour
+    this.children[index + 1].focus({ soft: true });
+  }
+
+  splitBlock(index, valueBefore, valueAfter, opts) {
+    const child = this.children[index];
+    const animate = opts && opts.animate;
+    const initialState = child.getState();
+    child.setState({
+      type: initialState.type,
+      id: initialState.id,
+      value: valueBefore,
+    });
+    this.insert(
+      { type: initialState.type, id: null, value: valueAfter },
+      index + 1,
+      { animate, collapsed: child.collapsed },
+    );
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }
