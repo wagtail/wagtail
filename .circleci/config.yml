@@ -24,10 +24,10 @@ jobs:
       # Filter out known false positives, while preserving normal output and error codes.
       # See https://github.com/motet-a/jinjalint/issues/18.
       # And https://circleci.com/docs/2.0/configuration-reference/#default-shell-options.
-      - run: git ls-files '*.html' | xargs pipenv run djhtml --check || true
+      - run: git ls-files '*.html' | xargs pipenv run djhtml --check
       - run:
           shell: /bin/bash -e
-          command: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+          command: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:76' | tee /dev/tty | wc -l | grep -q '0'
       - run: pipenv run doc8 docs
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
