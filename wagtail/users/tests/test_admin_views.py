@@ -1516,7 +1516,7 @@ class TestGroupEditView(TestCase, WagtailTestUtils):
         )
         self.assertEqual(
             set(page_permissions_formset.forms[0]['permission_types'].value()),
-            set(['add', 'edit'])
+            {'add', 'edit'}
         )
 
         # add edit permission on home

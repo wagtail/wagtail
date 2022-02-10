@@ -52,7 +52,7 @@ class BackendTests(WagtailTestUtils):
         Note: This is different to assertSetEqual in that duplicate results are taken
         into account.
         """
-        self.assertListEqual(list(sorted(a)), list(sorted(b)))
+        self.assertListEqual(sorted(a), sorted(b))
 
     # SEARCH TESTS
 

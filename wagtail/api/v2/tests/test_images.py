@@ -326,7 +326,7 @@ class TestImageListing(TestCase):
 
         image_id_list = self.get_image_id_list(content)
 
-        self.assertEqual(set(image_id_list), set([5]))
+        self.assertEqual(set(image_id_list), {5})
 
     def test_search_with_order(self):
         response = self.get_response(search='james', order='title')
