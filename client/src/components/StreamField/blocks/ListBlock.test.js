@@ -270,6 +270,25 @@ describe('telepath: wagtail.blocks.ListBlock', () => {
     expect(document.body.innerHTML).toMatchSnapshot();
   });
 
+  test('blocks can be split', () => {
+    boundBlock.splitBlock(0, 'first', 'value');
+
+    expect(setState.mock.calls.length).toBe(1);
+    expect(constructor.mock.calls[0][0]).toBe('The widget');
+    expect(setState.mock.calls[0][1]).toBe('first');
+
+    expect(constructor.mock.calls.length).toBe(3);
+
+    expect(constructor.mock.calls[2][0]).toBe('The widget');
+    expect(constructor.mock.calls[2][1]).toEqual({
+      name: 'the-prefix-2-value',
+      id: 'the-prefix-2-value',
+      initialState: 'value',
+    });
+
+    expect(document.body.innerHTML).toMatchSnapshot();
+  });
+
   test('setError passes error messages to children', () => {
     boundBlock.setError([
       new ListBlockValidationError(

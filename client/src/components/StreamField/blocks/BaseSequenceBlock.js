@@ -189,6 +189,12 @@ export class BaseSequenceChild extends EventEmitter {
       enableEvent: 'enableDuplication',
       disableEvent: 'disableDuplication',
     });
+    capabilities.set('split', {
+      enabled: false,
+      fn: this.split,
+      enableEvent: 'enableDuplication',
+      disableEvent: 'disableDuplication',
+    });
 
     this.block = this.blockDef.render(
       blockElement,

@@ -32,6 +32,19 @@ class ListChild extends BaseSequenceChild {
   getValue() {
     return this.block.getValue();
   }
+
+  setState({ value, id }) {
+    this.block.setState(value);
+    this.id = id;
+  }
+
+  setValue(value) {
+    this.block.setState(value);
+  }
+
+  split(valueBefore, valueAfter, opts) {
+    this.sequence.splitBlock(this.index, valueBefore, valueAfter, opts);
+  }
 }
 
 class InsertPosition extends BaseInsertionControl {
@@ -213,6 +226,15 @@ export class ListBlock extends BaseSequenceBlock {
     const childState = child.getState().value;
     const animate = opts && opts.animate;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
+    this.children[index + 1].focus({ soft: true });
+  }
+
+  splitBlock(index, valueBefore, valueAfter, opts) {
+    const child = this.children[index];
+    const animate = opts && opts.animate;
+    child.setValue(valueBefore);
+    this.insert(valueAfter, index + 1, { animate, collapsed: child.collapsed });
+    // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }
 
