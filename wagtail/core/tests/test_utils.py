@@ -5,11 +5,11 @@ from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Site
 from wagtail.core.utils import (
     accepts_kwarg, camelcase_to_underscore, cautious_slugify, find_available_slug,
-    get_content_languages, get_supported_content_language_variant, multigetattr, safe_snake_case,
-    string_to_ascii)
+    get_content_languages, get_dummy_request, get_supported_content_language_variant, multigetattr,
+    safe_snake_case, string_to_ascii)
 
 
 class TestCamelCaseToUnderscore(TestCase):
@@ -354,3 +354,23 @@ class TestMultigetattr(TestCase):
         with self.assertRaises(SuspiciousOperation):
             multigetattr(self.thing, 'poke')
         self.assertFalse(self.thing.poke_was_called)
+
+
+class TestGetDummyRequest(TestCase):
+    def test_standard_port(self):
+        site = Site.objects.first()
+        site.hostname = 'other.example.com'
+        site.port = 80
+        site.save()
+
+        request = get_dummy_request(site=site)
+        self.assertEqual(request.get_host(), 'other.example.com')
+
+    def test_non_standard_port(self):
+        site = Site.objects.first()
+        site.hostname = 'other.example.com'
+        site.port = 8888
+        site.save()
+
+        request = get_dummy_request(site=site)
+        self.assertEqual(request.get_host(), 'other.example.com:8888')
