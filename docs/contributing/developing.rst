@@ -331,3 +331,15 @@ To do this, you can run the following command to see the changes automatically a
 
 .. _Databases documentation: https://docs.djangoproject.com/en/stable/ref/databases/
 .. _DATABASES: https://docs.djangoproject.com/en/stable/ref/settings/#databases
+
+
+Automatically lint and code format on commits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`pre-commit <https://pre-commit.com/>`_ is configured to automatically run code linting and formatting checks with every commit. To install pre-commit into your git hooks run:
+
+.. code-block:: console
+
+    $ pre-commit install
+
+pre-commit should now run on every commit you make.
