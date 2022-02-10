@@ -15,6 +15,7 @@ Changelog
  * Fix: Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
  * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
  * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
 
 
 2.16 (07.02.2022)
