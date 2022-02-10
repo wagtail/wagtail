@@ -60,6 +60,13 @@ module.exports = {
     jest: true,
     browser: true,
   },
+  globals: {
+    gettext: 'readonly',
+    ngettext: 'readonly',
+    get_format: 'readonly',
+    gettext_noop: 'readonly',
+    pluralidx: 'readonly',
+  },
   rules: {
     'no-underscore-dangle': [
       'error',

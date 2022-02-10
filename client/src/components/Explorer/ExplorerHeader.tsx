@@ -1,5 +1,5 @@
 import React from 'react';
-import { ADMIN_URLS, STRINGS } from '../../config/wagtailConfig';
+import { ADMIN_URLS } from '../../config/wagtailConfig';
 
 import Button from '../../components/Button/Button';
 import Icon from '../../components/Icon/Icon';
@@ -76,7 +76,7 @@ const ExplorerHeader: React.FunctionComponent<ExplorerHeaderProps> = ({
             name={isRoot ? 'home' : 'arrow-left'}
             className="icon--explorer-header"
           />
-          <span>{page.admin_display_title || STRINGS.PAGES}</span>
+          <span>{page.admin_display_title || gettext('Pages')}</span>
         </div>
       </Button>
       {!isSiteRoot &&

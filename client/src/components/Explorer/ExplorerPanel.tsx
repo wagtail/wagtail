@@ -1,7 +1,7 @@
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
 
-import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import Button from '../Button/Button';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
@@ -122,7 +122,7 @@ class ExplorerPanel extends React.Component<
     if (!page.isFetchingChildren && !page.children.items) {
       children = (
         <div key="empty" className="c-explorer__placeholder">
-          {STRINGS.NO_RESULTS}
+          {gettext('No results')}
         </div>
       );
     } else {
@@ -149,7 +149,7 @@ class ExplorerPanel extends React.Component<
         ) : null}
         {page.isError ? (
           <div key="error" className="c-explorer__placeholder">
-            {STRINGS.SERVER_ERROR}
+            {gettext('Server Error')}
           </div>
         ) : null}
       </div>
@@ -175,13 +175,13 @@ class ExplorerPanel extends React.Component<
       >
         <div role="dialog" className="explorer">
           <Button className="c-explorer__close">
-            {STRINGS.CLOSE_EXPLORER}
+            {gettext('Close explorer')}
           </Button>
           <Transition
             name={transition}
             className="c-explorer"
             component="nav"
-            label={STRINGS.PAGE_EXPLORER}
+            label={gettext('Page explorer')}
           >
             <div key={depth} className="c-transition-group">
               <ExplorerHeader

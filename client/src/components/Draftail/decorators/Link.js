@@ -5,8 +5,6 @@ import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
 
-import { STRINGS } from '../../../config/wagtailConfig';
-
 const LINK_ICON = <Icon name="link" />;
 const BROKEN_LINK_ICON = <Icon name="warning" />;
 const MAIL_ICON = <Icon name="mail" />;
@@ -23,7 +21,7 @@ export const getLinkAttributes = (data) => {
 
   if (!url) {
     icon = BROKEN_LINK_ICON;
-    label = STRINGS.BROKEN_LINK;
+    label = gettext('Broken link');
   } else if (data.id) {
     icon = LINK_ICON;
     label = url;

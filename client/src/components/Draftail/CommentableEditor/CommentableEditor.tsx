@@ -32,7 +32,6 @@ import React, {
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
-import { STRINGS } from '../../../config/wagtailConfig';
 import Icon from '../../Icon/Icon';
 
 const { isOptionKeyCommand } = KeyBindingUtil;
@@ -219,7 +218,7 @@ function getCommentControl(
       <ToolbarButton
         name="comment"
         active={false}
-        title={`${STRINGS.ADD_A_COMMENT}\n${
+        title={`${gettext('Add a comment')}\n${
           IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
         }`}
         icon={
@@ -452,7 +451,7 @@ function getCommentDecorator(commentApp: CommentApp) {
         role="button"
         ref={annotationNode}
         onClick={onClick}
-        aria-label={STRINGS.FOCUS_COMMENT}
+        aria-label={gettext('Focus comment')}
         data-annotation
       >
         {children}
