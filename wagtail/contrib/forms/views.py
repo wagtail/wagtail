@@ -55,7 +55,6 @@ class SafePaginateListView(ListView):
         except InvalidPage:
             page = paginator.page(1)
             return (paginator, page, page.object_list, page.has_other_pages())
-        return super().paginage_queryset(queryset, page_size)
 
 
 class FormPagesListView(SafePaginateListView):
