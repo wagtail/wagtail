@@ -1,13 +1,13 @@
 {% load i18n wagtailadmin_tags %}
 <li data-inline-panel-child id="inline_child_{{ child.form.prefix }}" data-contentpath-disabled>
     {% if child.form.non_field_errors %}
-    <ul>
-        {% for error in child.form.non_field_errors %}
-            <li class="error-message">
-                <span>{{ error|escape }}</span>
-            </li>
-        {% endfor %}
-    </ul>
+        <ul>
+            {% for error in child.form.non_field_errors %}
+                <li class="error-message">
+                    <span>{{ error|escape }}</span>
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
     <ul class="controls">
         {% if can_order %}

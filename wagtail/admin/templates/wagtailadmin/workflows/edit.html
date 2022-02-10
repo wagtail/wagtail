@@ -43,7 +43,7 @@
                         {% if workflow.active %}
                             <div class="top-padding">
                                 <p class="help-block help-info">
-                                {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                                    {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
                                     {% blocktrans trimmed %}
                                         Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
                                         See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.

@@ -14,9 +14,9 @@
             {% elif forloop.last %}
                 <li class="breadcrumb-item">
                     <a class="breadcrumb-link" href="{% url 'wagtailadmin_explore' page.id %}"><span class="title">{{ page.get_admin_display_title }}</span>
-                    {% if trailing_arrow %}
-                        {% icon name="arrow-right" class_name="arrow_right_icon" %}
-                    {% endif %}
+                        {% if trailing_arrow %}
+                            {% icon name="arrow-right" class_name="arrow_right_icon" %}
+                        {% endif %}
                     </a>
                 </li>
 

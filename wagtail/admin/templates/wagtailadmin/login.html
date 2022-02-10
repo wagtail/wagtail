@@ -28,65 +28,65 @@
 
         <form action="{% url 'wagtailadmin_login' %}" method="post" autocomplete="off" novalidate>
             {% block login_form %}
-            {% csrf_token %}
+                {% csrf_token %}
 
-            {% url 'wagtailadmin_home' as home_url %}
-            <input type="hidden" name="next" value="{{ next|default:home_url }}" />
+                {% url 'wagtailadmin_home' as home_url %}
+                <input type="hidden" name="next" value="{{ next|default:home_url }}" />
 
-            <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
+                <h1>{% block branding_login %}{% trans "Sign in to Wagtail" %}{% endblock %}</h1>
 
-            <div class="fields-wrapper">
-                <ul class="fields">
-                    {% block fields %}
-                    <li class="full">
-                        <div class="field iconfield">
-                            {{ form.username.label_tag }}
-                            <div class="input icon-user">
-                                {{ form.username }}
-                            </div>
-                        </div>
-                    </li>
-                    <li class="full">
-                        <div class="field iconfield">
-                            {{ form.password.label_tag }}
-                            <div class="input icon-password">
-                                {{ form.password }}
-                            </div>
-                        </div>
-                    </li>
+                <div class="fields-wrapper">
+                    <ul class="fields">
+                        {% block fields %}
+                            <li class="full">
+                                <div class="field iconfield">
+                                    {{ form.username.label_tag }}
+                                    <div class="input icon-user">
+                                        {{ form.username }}
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="full">
+                                <div class="field iconfield">
+                                    {{ form.password.label_tag }}
+                                    <div class="input icon-password">
+                                        {{ form.password }}
+                                    </div>
+                                </div>
+                            </li>
 
-                    {% block extra_fields %}
-                    {% for field_name, field in form.extra_fields %}
-                    <li class="full">
-                        {{ field.label_tag }}
-                        <div class="field iconfield">
-                            {{ field }}
-                        </div>
-                    </li>
-                    {% endfor %}
-                    {% endblock extra_fields %}
+                            {% block extra_fields %}
+                                {% for field_name, field in form.extra_fields %}
+                                    <li class="full">
+                                        {{ field.label_tag }}
+                                        <div class="field iconfield">
+                                            {{ field }}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            {% endblock extra_fields %}
 
-                    <li class="checkbox">
-                        <div class="field">
-                            <label><input name="remember" type="checkbox" />{% trans "Remember me" %}</label>
-                        </div>
-                    </li>
-                    {% endblock %}
-
-                    <li class="submit">
-                        {% block submit_buttons %}
-                        <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
+                            <li class="checkbox">
+                                <div class="field">
+                                    <label><input name="remember" type="checkbox" />{% trans "Remember me" %}</label>
+                                </div>
+                            </li>
                         {% endblock %}
-                    </li>
-                </ul>
 
-                {% if show_password_reset %}
-                    <p class="help">
-                        <a class="help__link" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
-                    </p>
-                {% endif %}
-            </div>
-        {% endblock %}
+                        <li class="submit">
+                            {% block submit_buttons %}
+                                <button type="submit" class="button button-longrunning" data-clicked-text="{% trans 'Signing in…' %}">{% icon name="spinner" %}<em>{% trans 'Sign in' %}</em></button>
+                            {% endblock %}
+                        </li>
+                    </ul>
+
+                    {% if show_password_reset %}
+                        <p class="help">
+                            <a class="help__link" href="{% url 'wagtailadmin_password_reset' %}" aria-label="{% trans 'Reset your password' %}">{% trans "Forgotten password?" %}</a>
+                        </p>
+                    {% endif %}
+                </div>
+            {% endblock %}
         </form>
 
         {% block below_login %}{% endblock %}
@@ -95,10 +95,10 @@
 {% endblock %}
 
 {% block extra_js %}
-{{ block.super }}
-<script>
-    $(function(){
-        $('form input[name=username]').trigger('focus');
-    })
-</script>
+    {{ block.super }}
+    <script>
+        $(function(){
+            $('form input[name=username]').trigger('focus');
+        })
+    </script>
 {% endblock %}
