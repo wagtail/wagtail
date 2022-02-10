@@ -58,6 +58,7 @@ testing_extras = [
     'flake8>=3.6.0',
     'isort==5.6.4',  # leave this pinned - it tends to change rules between patch releases
     'flake8-blind-except==0.1.1',
+    'flake8-comprehensions==3.8.0',
     'flake8-print==2.0.2',
     'doc8==0.8.1',
     'flake8-assertive==2.0.0',
