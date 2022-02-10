@@ -2115,7 +2115,7 @@ class TestGenerateURLView(TestCase, WagtailTestUtils):
         # Check JSON
         content_json = json.loads(response.content.decode())
 
-        self.assertEqual(set(content_json.keys()), set(['url', 'preview_url']))
+        self.assertEqual(set(content_json.keys()), {'url', 'preview_url'})
 
         expected_url = 'http://localhost/images/%(signature)s/%(image_id)d/fill-800x600/' % {
             'signature': urllib.parse.quote(generate_signature(self.image.id, 'fill-800x600'), safe=urlquote_safechars),

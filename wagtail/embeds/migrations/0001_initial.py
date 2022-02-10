@@ -36,6 +36,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='embed',
-            unique_together=set([('url', 'max_width')]),
+            unique_together={('url', 'max_width')},
         ),
     ]

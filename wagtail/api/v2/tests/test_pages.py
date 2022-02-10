@@ -855,7 +855,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
         page_id_list = self.get_page_id_list(content)
 
         # Check that the items are the blog index and three blog pages
-        self.assertEqual(set(page_id_list), set([5, 16, 18, 19]))
+        self.assertEqual(set(page_id_list), {5, 16, 18, 19})
 
     def test_search_with_type(self):
         response = self.get_response(type='demosite.BlogEntryPage', search='blog')
@@ -863,7 +863,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
 
         page_id_list = self.get_page_id_list(content)
 
-        self.assertEqual(set(page_id_list), set([16, 18, 19]))
+        self.assertEqual(set(page_id_list), {16, 18, 19})
 
     def test_search_with_filter(self):
         response = self.get_response(title="Another blog post", search='blog', order='title')
@@ -920,7 +920,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
 
         page_id_list = self.get_page_id_list(content)
 
-        self.assertEqual(set(page_id_list), set([18]))
+        self.assertEqual(set(page_id_list), {18})
 
     def test_search_operator_or(self):
         response = self.get_response(type='demosite.BlogEntryPage', search='blog again', search_operator='or')
@@ -928,7 +928,7 @@ class TestPageListing(TestCase, WagtailTestUtils):
 
         page_id_list = self.get_page_id_list(content)
 
-        self.assertEqual(set(page_id_list), set([16, 18, 19]))
+        self.assertEqual(set(page_id_list), {16, 18, 19})
 
     def test_empty_searches_work(self):
         response = self.get_response(search='')

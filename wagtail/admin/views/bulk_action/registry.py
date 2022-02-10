@@ -4,7 +4,7 @@ from wagtail.core import hooks
 
 class BulkActionRegistry:
     def __init__(self):
-        self.actions = dict()  # {app_name: {model_name: {action_name: action_class]}}
+        self.actions = {}  # {app_name: {model_name: {action_name: action_class]}}
         self.has_scanned_for_bulk_actions = False
 
     def _scan_for_bulk_actions(self):

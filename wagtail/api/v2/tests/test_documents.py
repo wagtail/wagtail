@@ -326,7 +326,7 @@ class TestDocumentListing(TestCase):
 
         document_id_list = self.get_document_id_list(content)
 
-        self.assertEqual(set(document_id_list), set([2]))
+        self.assertEqual(set(document_id_list), {2})
 
     def test_search_with_order(self):
         response = self.get_response(search='james', order='title')

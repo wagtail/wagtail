@@ -648,7 +648,7 @@ class AbstractRendition(ImageFileMixin, models.Model):
         errors = super(AbstractRendition, cls).check(**kwargs)
         if not cls._meta.abstract:
             if not any(
-                set(constraint) == set(['image', 'filter_spec', 'focal_point_key'])
+                set(constraint) == {'image', 'filter_spec', 'focal_point_key'}
                 for constraint in cls._meta.unique_together
             ):
                 errors.append(

@@ -153,7 +153,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='site',
-            unique_together=set([('hostname', 'port')]),
+            unique_together={('hostname', 'port')},
         ),
         migrations.AddField(
             model_name='grouppagepermission',

@@ -1265,7 +1265,7 @@ class TestCopyPage(TestCase):
 
         # Also, check that the child objects in the new revision are given new IDs
         old_speakers_ids = set(christmas_event.speakers.values_list('id', flat=True))
-        new_speakers_ids = set(speaker['pk'] for speaker in new_revision_content['speakers'])
+        new_speakers_ids = {speaker['pk'] for speaker in new_revision_content['speakers']}
         self.assertFalse(
             old_speakers_ids.intersection(new_speakers_ids),
             "Child objects in revisions were not given a new primary key"

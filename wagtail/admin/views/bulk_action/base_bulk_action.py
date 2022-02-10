@@ -26,7 +26,7 @@ class BulkAction(ABC, FormView):
     def aria_label(self):
         pass
 
-    extras = dict()
+    extras = {}
     action_priority = 100
     models = []
     classes = set()

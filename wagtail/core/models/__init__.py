@@ -1209,7 +1209,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Get number of unique sites in root paths
         # Note: there may be more root paths to sites if there are multiple languages
-        num_sites = len(set(root_path[0] for root_path in self._get_site_root_paths(request)))
+        num_sites = len({root_path[0] for root_path in self._get_site_root_paths(request)})
 
         if (current_site is not None and site_id == current_site.id) or num_sites == 1:
             # the site matches OR we're only running a single site, so a local URL is sufficient
@@ -2275,10 +2275,10 @@ class PagePermissionTester:
         self.page_is_root = page.depth == 1  # Equivalent to page.is_root()
 
         if self.user.is_active and not self.user.is_superuser:
-            self.permissions = set(
+            self.permissions = {
                 perm.permission_type for perm in user_perms.permissions
                 if self.page.path.startswith(perm.page.path)
-            )
+            }
 
     def user_has_lock(self):
         return self.page.locked_by_id == self.user.pk
@@ -3411,7 +3411,7 @@ class PageLogEntryQuerySet(LogEntryQuerySet):
         # for reporting purposes, pages of all types are combined under a single "Page"
         # object type
         if self.exists():
-            return set([ContentType.objects.get_for_model(Page).pk])
+            return {ContentType.objects.get_for_model(Page).pk}
         else:
             return set()
 

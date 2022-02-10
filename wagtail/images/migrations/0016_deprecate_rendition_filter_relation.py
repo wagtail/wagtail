@@ -51,6 +51,6 @@ class Migration(migrations.Migration):
 
         migrations.AlterUniqueTogether(
             name='rendition',
-            unique_together=set([('image', 'filter_spec', 'focal_point_key')]),
+            unique_together={('image', 'filter_spec', 'focal_point_key')},
         ),
     ]

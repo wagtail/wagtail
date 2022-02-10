@@ -30,7 +30,7 @@ def get_boosts():
 def determine_boosts_weights(boosts=()):
     if not boosts:
         boosts = get_boosts()
-    boosts = list(sorted(boosts, reverse=True))
+    boosts = sorted(boosts, reverse=True)
     min_boost = boosts[-1]
     if len(boosts) <= WEIGHTS_COUNT:
         return list(zip_longest(boosts, WEIGHTS, fillvalue=min(min_boost, 0)))

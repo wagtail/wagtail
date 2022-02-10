@@ -1779,7 +1779,7 @@ class TestWorkflowUsageView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
 
-        object_set = set(page.id for page in response.context['used_by'].object_list)
+        object_set = {page.id for page in response.context['used_by'].object_list}
         self.assertIn(self.root_page.id, object_set)
         self.assertIn(self.home_page.id, object_set)
         self.assertNotIn(self.child_page_with_another_workflow.id, object_set)

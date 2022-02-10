@@ -189,23 +189,23 @@ class BaseStructBlock(Block):
 
     def get_prep_value(self, value):
         """ Recursively call get_prep_value on children and return as a plain dict """
-        return dict([
-            (name, self.child_blocks[name].get_prep_value(val))
+        return {
+            name: self.child_blocks[name].get_prep_value(val)
             for name, val in value.items()
-        ])
+        }
 
     def get_form_state(self, value):
-        return dict([
-            (name, self.child_blocks[name].get_form_state(val))
+        return {
+            name: self.child_blocks[name].get_form_state(val)
             for name, val in value.items()
-        ])
+        }
 
     def get_api_representation(self, value, context=None):
         """ Recursively call get_api_representation on children and return as a plain dict """
-        return dict([
-            (name, self.child_blocks[name].get_api_representation(val, context=context))
+        return {
+            name: self.child_blocks[name].get_api_representation(val, context=context)
             for name, val in value.items()
-        ])
+        }
 
     def get_searchable_content(self, value):
         content = []

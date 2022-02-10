@@ -23,6 +23,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='grouppagepermission',
-            unique_together=set([('group', 'page', 'permission_type')]),
+            unique_together={('group', 'page', 'permission_type')},
         ),
     ]

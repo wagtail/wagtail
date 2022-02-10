@@ -52,7 +52,7 @@ class BackendTests(WagtailTestUtils):
         Note: This is different to assertSetEqual in that duplicate results are taken
         into account.
         """
-        self.assertListEqual(list(sorted(a)), list(sorted(b)))
+        self.assertListEqual(sorted(a), sorted(b))
 
     # SEARCH TESTS
 
@@ -425,7 +425,7 @@ class BackendTests(WagtailTestUtils):
         # Offset the results
         results = results[3:]
 
-        self.assertListEqual(list(r.title for r in results), [
+        self.assertListEqual([r.title for r in results], [
             "The Fellowship of the Ring",
             "The Return of the King",
             "A Game of Thrones",
@@ -531,7 +531,7 @@ class BackendTests(WagtailTestUtils):
         # Limit the results
         results = results[:3]
 
-        self.assertEqual(list(r.title for r in results), [
+        self.assertEqual([r.title for r in results], [
             # "Foundation"
             "The Hobbit",
             "The Two Towers",

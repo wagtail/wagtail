@@ -152,13 +152,13 @@ class TestFillOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.FillOperation
 
     filter_spec_tests = [
-        ('fill-800x600', dict(width=800, height=600, crop_closeness=0)),
-        ('hello-800x600', dict(width=800, height=600, crop_closeness=0)),
-        ('fill-800x600-c0', dict(width=800, height=600, crop_closeness=0)),
-        ('fill-800x600-c100', dict(width=800, height=600, crop_closeness=1)),
-        ('fill-800x600-c50', dict(width=800, height=600, crop_closeness=0.5)),
-        ('fill-800x600-c1000', dict(width=800, height=600, crop_closeness=1)),
-        ('fill-800000x100', dict(width=800000, height=100, crop_closeness=0)),
+        ('fill-800x600', {"width": 800, "height": 600, "crop_closeness": 0}),
+        ('hello-800x600', {"width": 800, "height": 600, "crop_closeness": 0}),
+        ('fill-800x600-c0', {"width": 800, "height": 600, "crop_closeness": 0}),
+        ('fill-800x600-c100', {"width": 800, "height": 600, "crop_closeness": 1}),
+        ('fill-800x600-c50', {"width": 800, "height": 600, "crop_closeness": 0.5}),
+        ('fill-800x600-c1000', {"width": 800, "height": 600, "crop_closeness": 1}),
+        ('fill-800000x100', {"width": 800000, "height": 100, "crop_closeness": 0}),
     ]
 
     filter_spec_error_tests = [
@@ -173,33 +173,33 @@ class TestFillOperation(ImageTransformOperationTestCase):
 
     run_tests = [
         # Basic usage
-        ('fill-800x600', dict(width=1000, height=1000), [
+        ('fill-800x600', {"width": 1000, "height": 1000}, [
             ('crop', (0, 125, 1000, 875)),
             ('resize', (800, 600)),
         ]),
 
         # Basic usage with an oddly-sized original image
         # This checks for a rounding precision issue (#968)
-        ('fill-200x200', dict(width=539, height=720), [
+        ('fill-200x200', {"width": 539, "height": 720}, [
             ('crop', (0, 90, 539, 630)),
             ('resize', (200, 200)),
         ]),
 
         # Closeness shouldn't have any effect when used without a focal point
-        ('fill-800x600-c100', dict(width=1000, height=1000), [
+        ('fill-800x600-c100', {"width": 1000, "height": 1000}, [
             ('crop', (0, 125, 1000, 875)),
             ('resize', (800, 600)),
         ]),
 
         # Should always crop towards focal point. Even if no closeness is set
-        ('fill-80x60', dict(
-            width=1000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
+        ('fill-80x60', {
+            "width": 1000,
+            "height": 1000,
+            "focal_point_x": 1000,
+            "focal_point_y": 500,
+            "focal_point_width": 0,
+            "focal_point_height": 0,
+        }, [
             # Crop the largest possible crop box towards the focal point
             ('crop', (0, 125, 1000, 875)),
 
@@ -208,14 +208,14 @@ class TestFillOperation(ImageTransformOperationTestCase):
         ]),
 
         # Should crop as close as possible without upscaling
-        ('fill-80x60-c100', dict(
-            width=1000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
+        ('fill-80x60-c100', {
+            "width": 1000,
+            "height": 1000,
+            "focal_point_x": 1000,
+            "focal_point_y": 500,
+            "focal_point_width": 0,
+            "focal_point_height": 0,
+        }, [
             # Crop as close as possible to the focal point
             ('crop', (920, 470, 1000, 530)),
 
@@ -224,27 +224,27 @@ class TestFillOperation(ImageTransformOperationTestCase):
 
         # Ditto with a wide image
         # Using a different filter so method name doesn't clash
-        ('fill-100x60-c100', dict(
-            width=2000,
-            height=1000,
-            focal_point_x=2000,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
+        ('fill-100x60-c100', {
+            "width": 2000,
+            "height": 1000,
+            "focal_point_x": 2000,
+            "focal_point_y": 500,
+            "focal_point_width": 0,
+            "focal_point_height": 0,
+        }, [
             # Crop to the right hand side
             ('crop', (1900, 470, 2000, 530)),
         ]),
 
         # Make sure that the crop box never enters the focal point
-        ('fill-50x50-c100', dict(
-            width=2000,
-            height=1000,
-            focal_point_x=1000,
-            focal_point_y=500,
-            focal_point_width=100,
-            focal_point_height=20,
-        ), [
+        ('fill-50x50-c100', {
+            "width": 2000,
+            "height": 1000,
+            "focal_point_x": 1000,
+            "focal_point_y": 500,
+            "focal_point_width": 100,
+            "focal_point_height": 20,
+        }, [
             # Crop a 100x100 box around the entire focal point
             ('crop', (950, 450, 1050, 550)),
 
@@ -253,19 +253,19 @@ class TestFillOperation(ImageTransformOperationTestCase):
         ]),
 
         # Test that the image is never upscaled
-        ('fill-1000x800', dict(width=100, height=100), [
+        ('fill-1000x800', {"width": 100, "height": 100}, [
             ('crop', (0, 10, 100, 90)),
         ]),
 
         # Test that the crop closeness gets capped to prevent upscaling
-        ('fill-1000x800-c100', dict(
-            width=1500,
-            height=1000,
-            focal_point_x=750,
-            focal_point_y=500,
-            focal_point_width=0,
-            focal_point_height=0,
-        ), [
+        ('fill-1000x800-c100', {
+            "width": 1500,
+            "height": 1000,
+            "focal_point_x": 750,
+            "focal_point_y": 500,
+            "focal_point_width": 0,
+            "focal_point_height": 0,
+        }, [
             # Crop a 1000x800 square out of the image as close to the
             # focal point as possible. Will not zoom too far in to
             # prevent upscaling
@@ -275,14 +275,14 @@ class TestFillOperation(ImageTransformOperationTestCase):
         # Test for an issue where a ZeroDivisionError would occur when the
         # focal point size, image size and filter size match
         # See: #797
-        ('fill-1500x1500-c100', dict(
-            width=1500,
-            height=1500,
-            focal_point_x=750,
-            focal_point_y=750,
-            focal_point_width=1500,
-            focal_point_height=1500,
-        ), [
+        ('fill-1500x1500-c100', {
+            "width": 1500,
+            "height": 1500,
+            "focal_point_x": 750,
+            "focal_point_y": 750,
+            "focal_point_width": 1500,
+            "focal_point_height": 1500,
+        }, [
             # This operation could probably be optimised out
             ('crop', (0, 0, 1500, 1500)),
         ]),
@@ -290,25 +290,25 @@ class TestFillOperation(ImageTransformOperationTestCase):
 
         # A few tests for single pixel images
 
-        ('fill-100x100', dict(
-            width=1,
-            height=1,
-        ), [
+        ('fill-100x100', {
+            "width": 1,
+            "height": 1,
+        }, [
             ('crop', (0, 0, 1, 1)),
         ]),
 
         # This one once gave a ZeroDivisionError
-        ('fill-100x150', dict(
-            width=1,
-            height=1,
-        ), [
+        ('fill-100x150', {
+            "width": 1,
+            "height": 1,
+        }, [
             ('crop', (0, 0, 1, 1)),
         ]),
 
-        ('fill-150x100', dict(
-            width=1,
-            height=1,
-        ), [
+        ('fill-150x100', {
+            "width": 1,
+            "height": 1,
+        }, [
             ('crop', (0, 0, 1, 1)),
         ]),
     ]
@@ -321,8 +321,8 @@ class TestMinMaxOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.MinMaxOperation
 
     filter_spec_tests = [
-        ('min-800x600', dict(method='min', width=800, height=600)),
-        ('max-800x600', dict(method='max', width=800, height=600)),
+        ('min-800x600', {"method": 'min', "width": 800, "height": 600}),
+        ('max-800x600', {"method": 'max', "width": 800, "height": 600}),
     ]
 
     filter_spec_error_tests = [
@@ -337,19 +337,19 @@ class TestMinMaxOperation(ImageTransformOperationTestCase):
 
     run_tests = [
         # Basic usage of min
-        ('min-800x600', dict(width=1000, height=1000), [
+        ('min-800x600', {"width": 1000, "height": 1000}, [
             ('resize', (800, 800)),
         ]),
         # Basic usage of max
-        ('max-800x600', dict(width=1000, height=1000), [
+        ('max-800x600', {"width": 1000, "height": 1000}, [
             ('resize', (600, 600)),
         ]),
         # Resize doesn't try to set zero height
-        ('max-400x400', dict(width=1000, height=1), [
+        ('max-400x400', {"width": 1000, "height": 1}, [
             ('resize', (400, 1)),
         ]),
         # Resize doesn't try to set zero width
-        ('max-400x400', dict(width=1, height=1000), [
+        ('max-400x400', {"width": 1, "height": 1000}, [
             ('resize', (1, 400)),
         ]),
     ]
@@ -362,8 +362,8 @@ class TestWidthHeightOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.WidthHeightOperation
 
     filter_spec_tests = [
-        ('width-800', dict(method='width', size=800)),
-        ('height-600', dict(method='height', size=600)),
+        ('width-800', {"method": 'width', "size": 800}),
+        ('height-600', {"method": 'height', "size": 600}),
     ]
 
     filter_spec_error_tests = [
@@ -375,19 +375,19 @@ class TestWidthHeightOperation(ImageTransformOperationTestCase):
 
     run_tests = [
         # Basic usage of width
-        ('width-400', dict(width=1000, height=500), [
+        ('width-400', {"width": 1000, "height": 500}, [
             ('resize', (400, 200)),
         ]),
         # Basic usage of height
-        ('height-400', dict(width=1000, height=500), [
+        ('height-400', {"width": 1000, "height": 500}, [
             ('resize', (800, 400)),
         ]),
         # Resize doesn't try to set zero height
-        ('width-400', dict(width=1000, height=1), [
+        ('width-400', {"width": 1000, "height": 1}, [
             ('resize', (400, 1)),
         ]),
         # Resize doesn't try to set zero width
-        ('height-400', dict(width=1, height=800), [
+        ('height-400', {"width": 1, "height": 800}, [
             ('resize', (1, 400)),
         ]),
     ]
@@ -400,8 +400,8 @@ class TestScaleOperation(ImageTransformOperationTestCase):
     operation_class = image_operations.ScaleOperation
 
     filter_spec_tests = [
-        ('scale-100', dict(method='scale', percent=100)),
-        ('scale-50', dict(method='scale', percent=50)),
+        ('scale-100', {"method": 'scale', "percent": 100}),
+        ('scale-50', {"method": 'scale', "percent": 50}),
     ]
 
     filter_spec_error_tests = [
@@ -413,23 +413,23 @@ class TestScaleOperation(ImageTransformOperationTestCase):
 
     run_tests = [
         # Basic almost a no-op of scale
-        ('scale-100', dict(width=1000, height=500), [
+        ('scale-100', {"width": 1000, "height": 500}, [
             ('resize', (1000, 500)),
         ]),
         # Basic usage of scale
-        ('scale-50', dict(width=1000, height=500), [
+        ('scale-50', {"width": 1000, "height": 500}, [
             ('resize', (500, 250)),
         ]),
         # Rounded usage of scale
-        ('scale-83.0322', dict(width=1000, height=500), [
+        ('scale-83.0322', {"width": 1000, "height": 500}, [
             ('resize', (int(1000 * 0.830322), int(500 * 0.830322))),
         ]),
         # Resize doesn't try to set zero height
-        ('scale-50', dict(width=1000, height=1), [
+        ('scale-50', {"width": 1000, "height": 1}, [
             ('resize', (500, 1)),
         ]),
         # Resize doesn't try to set zero width
-        ('scale-50', dict(width=1, height=500), [
+        ('scale-50', {"width": 1, "height": 500}, [
             ('resize', (1, 250)),
         ]),
     ]

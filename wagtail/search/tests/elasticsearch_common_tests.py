@@ -90,7 +90,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
         # Even though they both start with "Java", this should not match the "JavaScript" books
         results = self.backend.search("JavaBeans", models.Book)
-        self.assertSetEqual(set(r.title for r in results), set())
+        self.assertSetEqual({r.title for r in results}, set())
 
     def test_search_with_hyphen(self):
         """

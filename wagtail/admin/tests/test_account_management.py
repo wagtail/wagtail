@@ -717,7 +717,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         # Create url_args
         token = auth_views.PasswordResetConfirmView.reset_url_token
 
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token=token)
+        self.url_kwargs = {"uidb64": self.password_reset_uid, "token": token}
 
         # Add token to session object
         s = self.client.session
@@ -733,7 +733,7 @@ class TestPasswordReset(TestCase, WagtailTestUtils):
         self.setup_password_reset_confirm_tests()
 
         # Create invalid url_args
-        self.url_kwargs = dict(uidb64=self.password_reset_uid, token="invalid-token")
+        self.url_kwargs = {"uidb64": self.password_reset_uid, "token": "invalid-token"}
 
         # Get password reset confirm page
         response = self.client.get(reverse('wagtailadmin_password_reset_confirm', kwargs=self.url_kwargs))

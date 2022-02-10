@@ -5,7 +5,7 @@ class BaseItem:
     template = 'wagtailadmin/userbar/item_base.html'
 
     def render(self, request):
-        return render_to_string(self.template, dict(self=self, request=request), request=request)
+        return render_to_string(self.template, {"self": self, "request": request}, request=request)
 
 
 class AdminItem(BaseItem):

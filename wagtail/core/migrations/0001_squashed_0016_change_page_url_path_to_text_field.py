@@ -266,7 +266,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='grouppagepermission',
-            unique_together=set([('group', 'page', 'permission_type')]),
+            unique_together={('group', 'page', 'permission_type')},
         ),
         migrations.AlterModelOptions(
             name='grouppagepermission',
@@ -342,7 +342,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='site',
-            unique_together=set([('hostname', 'port')]),
+            unique_together={('hostname', 'port')},
         ),
         migrations.AlterModelOptions(
             name='site',

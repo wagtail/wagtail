@@ -31,10 +31,10 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 html_theme = 'sphinx_wagtail_theme'
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
-html_theme_options = dict(
-    project_name="Wagtail Documentation",
-    github_url="https://github.com/wagtail/wagtail/blob/main/docs/"
-)
+html_theme_options = {
+    "project_name": "Wagtail Documentation",
+    "github_url": "https://github.com/wagtail/wagtail/blob/main/docs/"
+}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

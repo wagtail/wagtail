@@ -351,7 +351,7 @@ class TestTabbedInterface(TestCase):
     def test_required_fields(self):
         # required_fields should report the set of form fields to be rendered recursively by children of TabbedInterface
         result = set(self.event_page_tabbed_interface.required_fields())
-        self.assertEqual(result, set(['title', 'date_from', 'date_to']))
+        self.assertEqual(result, {'title', 'date_from', 'date_to'})
 
     def test_render_form_content(self):
         EventPageForm = self.event_page_tabbed_interface.get_form_class()
