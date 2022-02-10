@@ -12,7 +12,10 @@ Changelog
 2.16.1 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
- * Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
+ * Fix: Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
+ * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
 
 
 2.16 (07.02.2022)
@@ -71,6 +74,14 @@ Changelog
  * Fix: Prevent opening choosers multiple times for Image, Page, Document, Snippet (LB (Ben Johnston))
  * Fix: Ensure subsequent changes to styles files are picked up by Gulp watch (Jason Attwood)
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
+
+
+2.15.4 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Fix syntax when logging image rendition generation (Jake Howard)
 
 
 2.15.3 (26.01.2022)
