@@ -7,6 +7,7 @@ from django.urls import include, path, re_path
 from django.views.decorators.cache import never_cache
 from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
+from django.views.i18n import JavaScriptCatalog
 
 from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
@@ -83,6 +84,11 @@ urlpatterns = [
     ),
     path("account/", account.account, name="wagtailadmin_account"),
     path("logout/", account.LogoutView.as_view(), name="wagtailadmin_logout"),
+    path(
+        "jsi18n/",
+        JavaScriptCatalog.as_view(packages=["wagtail.admin"]),
+        name="wagtailadmin_javascript_catalog",
+    ),
 ]
 
 
