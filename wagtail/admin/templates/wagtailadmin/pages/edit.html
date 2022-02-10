@@ -23,77 +23,77 @@
         <ul class="row header-meta">
             {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
             {% if page.get_latest_revision %}
-            <li>
-                <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">
-                    {% icon "history" class_name="default" %}
-                    {% trans "History" %}
-                </a>
-            </li>
+                <li>
+                    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">
+                        {% icon "history" class_name="default" %}
+                        {% trans "History" %}
+                    </a>
+                </li>
             {% endif %}
             <li class="header-meta--type">
                 {% icon name="doc-empty-inverse" class_name="default" %}
                 {{ content_type.model_class.get_verbose_name }}
             </li>
             {% if locale %}
-            <li class="header-meta--locale">
-                {% include "wagtailadmin/shared/locale_selector.html" %}
-            </li>
+                <li class="header-meta--locale">
+                    {% include "wagtailadmin/shared/locale_selector.html" %}
+                </li>
             {% endif %}
         </ul>
     </header>
 
     {% block form %}
-    <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        {% csrf_token %}
+        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
 
-        <input type="hidden" name="next" value="{{ next }}">
-        {{ edit_handler.render_form_content }}
+            <input type="hidden" name="next" value="{{ next }}">
+            {{ edit_handler.render_form_content }}
 
-        {% if is_revision %}
-            <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
-        {% endif %}
+            {% if is_revision %}
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
+            {% endif %}
 
-        <footer class="footer">
-            <ul>
-                <li class="footer__container">
-                    <nav aria-label="{% trans 'Actions' %}">
-                        <ul>
-                            <li class="actions actions--primary">
-                                <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                            {{ action_menu.render_html }}
-                                </div>
-                            </li>
-
-                            {% if preview_modes %}
-                                <li class="preview">
-                            {% trans 'Preview' as preview_label %}
-                            {% if preview_modes|length > 1 %}
-                                <div class="dropdown dropup dropdown-button match-width">
-                                    {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                    <ul>
-                                        {% for mode_name, mode_display_name in preview_modes %}
-                                            <li>
-                                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            {% else %}
-                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                            {% endif %}
+            <footer class="footer">
+                <ul>
+                    <li class="footer__container">
+                        <nav aria-label="{% trans 'Actions' %}">
+                            <ul>
+                                <li class="actions actions--primary">
+                                    <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                                        {{ action_menu.render_html }}
+                                    </div>
                                 </li>
-                            {% endif %}
 
-                            {% block extra_footer_actions %}
-                            {% endblock %}
-                        </ul>
-                    </nav>
-                </li>
-                {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
-            </ul>
-        </footer>
-    </form>
+                                {% if preview_modes %}
+                                    <li class="preview">
+                                        {% trans 'Preview' as preview_label %}
+                                        {% if preview_modes|length > 1 %}
+                                            <div class="dropdown dropup dropdown-button match-width">
+                                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                                <ul>
+                                                    {% for mode_name, mode_display_name in preview_modes %}
+                                                        <li>
+                                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% else %}
+                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
+
+                                {% block extra_footer_actions %}
+                                {% endblock %}
+                            </ul>
+                        </nav>
+                    </li>
+                    {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+                </ul>
+            </footer>
+        </form>
     {% endblock %}
 
 {% endblock %}
@@ -130,34 +130,34 @@
 
         $(function() {
             {% if publishing_will_cancel_workflow %}
-            /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
-            let cancellationConfirmed = false;
-            $('[name=action-publish]').click((e) => {
-                if (!cancellationConfirmed) {
-                    e.stopImmediatePropagation();
-                    e.preventDefault();
-                    ModalWorkflow({
-                        'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
-                        'onload': {
-                            'confirm': function(modal, jsonData) {
-                                $('[data-confirm-cancellation]', modal.body).click((event) => {
+                /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
+                let cancellationConfirmed = false;
+                $('[name=action-publish]').click((e) => {
+                    if (!cancellationConfirmed) {
+                        e.stopImmediatePropagation();
+                        e.preventDefault();
+                        ModalWorkflow({
+                            'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
+                            'onload': {
+                                'confirm': function(modal, jsonData) {
+                                    $('[data-confirm-cancellation]', modal.body).click((event) => {
+                                        cancellationConfirmed = true;
+                                        modal.close();
+                                        e.currentTarget.click();
+                                    })
+                                    $('[data-cancel-dialog]', modal.body).click((event) => {
+                                        modal.close();
+                                    })
+                                },
+                                'no_confirmation_needed': function(modal, jsonData) {
+                                    modal.close();
                                     cancellationConfirmed = true;
-                                    modal.close();
                                     e.currentTarget.click();
-                                })
-                                $('[data-cancel-dialog]', modal.body).click((event) => {
-                                    modal.close();
-                                })
+                                }
                             },
-                            'no_confirmation_needed': function(modal, jsonData) {
-                                modal.close();
-                                cancellationConfirmed = true;
-                                e.currentTarget.click();
-                            }
-                        },
-                    });
-                }
-            });
+                        });
+                    }
+                });
             {% endif %}
 
             /* Make user confirm before leaving the editor if there are unsaved changes */
@@ -191,8 +191,8 @@
 
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
-            // Initialise comments UI
-            window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
+                // Initialise comments UI
+                window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
             {% endif %}
         });
     </script>

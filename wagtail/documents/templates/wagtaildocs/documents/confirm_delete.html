@@ -17,9 +17,9 @@
         <p>
             {# This message will only appear in the singular, but we specify a plural so it can share the translation string with confirm_bulk_delete.html #}
             {% blocktrans trimmed count counter=1 %}
-            Are you sure you want to delete this document?
+                Are you sure you want to delete this document?
             {% plural %}
-            Are you sure you want to delete these documents?
+                Are you sure you want to delete these documents?
             {% endblocktrans %}
         </p>
         <form action="{% url 'wagtaildocs:delete' document.id %}" method="POST">

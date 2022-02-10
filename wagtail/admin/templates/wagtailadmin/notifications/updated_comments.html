@@ -37,20 +37,20 @@
     {% endif %}
 
     {% if replied_comments %}
-    <h3>{% trans "New replies" %}</h3>
+        <h3>{% trans "New replies" %}</h3>
 
-    <ul>
-        {% for thread in replied_comments %}
-            <li>{% trans 'New replies to:' %} {{ thread.comment.text }}
-                <ul>
-                    {% for reply in thread.replies %}
-                        <li>{{ reply.text }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
+        <ul>
+            {% for thread in replied_comments %}
+                <li>{% trans 'New replies to:' %} {{ thread.comment.text }}
+                    <ul>
+                        {% for reply in thread.replies %}
+                            <li>{{ reply.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
     <p>{% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
 {% endblock %}

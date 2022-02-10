@@ -2,9 +2,9 @@
 {% load wagtailadmin_tags i18n %}
 {% block titletag %}
     {% if count == 1 %}
-      {% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }}{% endblocktrans %} - {{ instances|first }}
+        {% blocktrans with snippet_type_name=model_opts.verbose_name %}Delete {{ snippet_type_name }}{% endblocktrans %} - {{ instances|first }}
     {% else %}
-      {{ count }} {{ model_opts.verbose_name_plural|capfirst }}
+        {{ count }} {{ model_opts.verbose_name_plural|capfirst }}
     {% endif %}
 {% endblock %}
 {% block content %}
@@ -28,7 +28,7 @@
             <p>{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Are you sure you want to delete {{ count }} {{ snippet_type_name }}?{% endblocktrans %}</p>
             <ul>
                 {% for instance in instances %}
-                <li>{{ instance }}</li>
+                    <li>{{ instance }}</li>
                 {% endfor %}
             </ul>
         {% endif %}

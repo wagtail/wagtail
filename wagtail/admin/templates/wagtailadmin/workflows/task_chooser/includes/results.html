@@ -2,11 +2,11 @@
 {% if tasks %}
     {% if search_form.is_searching %}
         <h2 role="alert">
-        {% blocktrans count counter=tasks.paginator.count %}
-            There is {{ counter }} match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
+            {% blocktrans count counter=tasks.paginator.count %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
         </h2>
     {% else %}
         <h2>{% trans "Tasks" %}</h2>
@@ -64,12 +64,12 @@
         <p role="alert">{% blocktrans %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         <p>
-        {% trans "You haven't created any tasks." %}
-        {% if can_create %}
-            {% blocktrans %}
-                Why not <a class="create-one-now" href="#">create one now</a>?
-            {% endblocktrans %}
-        {% endif %}
+            {% trans "You haven't created any tasks." %}
+            {% if can_create %}
+                {% blocktrans %}
+                    Why not <a class="create-one-now" href="#">create one now</a>?
+                {% endblocktrans %}
+            {% endif %}
         </p>
     {% endif %}
 {% endif %}

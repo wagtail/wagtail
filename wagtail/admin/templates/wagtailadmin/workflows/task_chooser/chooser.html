@@ -3,17 +3,17 @@
 {% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="thumbtack" %}
 
 {% if can_create %}
-<ul class="tab-nav merged" data-tab-nav>
-    <li class="active"><a href="#new">{% trans "New" %}</a></li>
-    <li><a href="#existing">{% trans "Existing" %}</a></li>
-</ul>
+    <ul class="tab-nav merged" data-tab-nav>
+        <li class="active"><a href="#new">{% trans "New" %}</a></li>
+        <li><a href="#existing">{% trans "Existing" %}</a></li>
+    </ul>
 {% endif %}
 
 <div class="tab-content">
     {% if can_create %}
-    <section id="new" class="active nice-padding">
-        {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
-    </section>
+        <section id="new" class="active nice-padding">
+            {% include "wagtailadmin/workflows/task_chooser/includes/create_tab.html" %}
+        </section>
     {% endif %}
     <section id="existing" class="nice-padding{% if not can_create %} active{% endif %}">
         <form class="task-search search-bar" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>

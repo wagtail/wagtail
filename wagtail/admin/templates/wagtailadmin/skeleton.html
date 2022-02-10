@@ -3,98 +3,98 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
 <html class="no-js" lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
-<head>
-    <meta charset="utf-8" />
-    <title>{% block branding_title %}Wagtail{% endblock %} - {% block titletag %}{% endblock %}</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex" />
+    <head>
+        <meta charset="utf-8" />
+        <title>{% block branding_title %}Wagtail{% endblock %} - {% block titletag %}{% endblock %}</title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="robots" content="noindex" />
 
-    <script src="{% versioned_static 'wagtailadmin/js/vendor/modernizr-2.6.2.min.js' %}"></script>
+        <script src="{% versioned_static 'wagtailadmin/js/vendor/modernizr-2.6.2.min.js' %}"></script>
 
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/normalize.css' %}" />
+        <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/normalize.css' %}" />
 
-    {% block css %}{% endblock %}
+        {% block css %}{% endblock %}
 
-    {% block branding_favicon %}{% endblock %}
-</head>
-{% slim_sidebar_enabled as slim_sidebar_enabled %}
-{% sidebar_collapsed as sidebar_collapsed %}
-<body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if slim_sidebar_enabled and sidebar_collapsed %}sidebar-collapsed{% endif %} {% if messages %}has-messages{% endif %} focus-outline-on">
-    <div data-sprite></div>
-    <script>
-        function loadIconSprite() {
-            var spriteURL = '{% url "wagtailadmin_sprite" %}';
-            var revisionKey = 'wagtail:spriteRevision';
-            var dataKey = 'wagtail:spriteData';
-            var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
+        {% block branding_favicon %}{% endblock %}
+    </head>
+    {% slim_sidebar_enabled as slim_sidebar_enabled %}
+    {% sidebar_collapsed as sidebar_collapsed %}
+    <body id="wagtail" class="{% block bodyclass %}{% endblock %} {% if slim_sidebar_enabled and sidebar_collapsed %}sidebar-collapsed{% endif %} {% if messages %}has-messages{% endif %} focus-outline-on">
+        <div data-sprite></div>
+        <script>
+            function loadIconSprite() {
+                var spriteURL = '{% url "wagtailadmin_sprite" %}';
+                var revisionKey = 'wagtail:spriteRevision';
+                var dataKey = 'wagtail:spriteData';
+                var isLocalStorage = 'localStorage' in window && typeof window.localStorage !== 'undefined';
 
-            var insertIt = function (data) {
-                var spriteContainer = document.body.querySelector('[data-sprite]');
-                spriteContainer.innerHTML = data;
-            }
-
-            var insert = function (data) {
-                if (document.body) {
-                    insertIt(data)
-                } else {
-                    document.addEventListener('DOMContentLoaded', insertIt.bind(null, data));
+                var insertIt = function (data) {
+                    var spriteContainer = document.body.querySelector('[data-sprite]');
+                    spriteContainer.innerHTML = data;
                 }
-            }
 
-            if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
-                var data = localStorage.getItem(dataKey);
-                if (data) {
-                    insert(data);
-                    return true;
-                }
-            }
-
-            try {
-                var request = new XMLHttpRequest();
-                request.open('GET', spriteURL, true);
-                request.onload = function () {
-                    if (request.status >= 200 && request.status < 400) {
-                        data = request.responseText;
-                        insert(data);
-                        if (isLocalStorage) {
-                            localStorage.setItem(dataKey, data);
-                            localStorage.setItem(revisionKey, spriteURL);
-                        }
+                var insert = function (data) {
+                    if (document.body) {
+                        insertIt(data)
+                    } else {
+                        document.addEventListener('DOMContentLoaded', insertIt.bind(null, data));
                     }
                 }
-                request.send();
-            } catch (e) {
-                console.error(e);
-            }
-        }
-        loadIconSprite();
-    </script>
 
-    <!--[if lt IE 9]>
+                if (isLocalStorage && localStorage.getItem(revisionKey) === spriteURL) {
+                    var data = localStorage.getItem(dataKey);
+                    if (data) {
+                        insert(data);
+                        return true;
+                    }
+                }
+
+                try {
+                    var request = new XMLHttpRequest();
+                    request.open('GET', spriteURL, true);
+                    request.onload = function () {
+                        if (request.status >= 200 && request.status < 400) {
+                            data = request.responseText;
+                            insert(data);
+                            if (isLocalStorage) {
+                                localStorage.setItem(dataKey, data);
+                                localStorage.setItem(revisionKey, spriteURL);
+                            }
+                        }
+                    }
+                    request.send();
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            loadIconSprite();
+        </script>
+
+        <!--[if lt IE 9]>
         <p class="capabilitymessage">{% blocktrans %}You are using an <strong>outdated</strong> browser not supported by this software. Please <a href="https://browsehappy.com/">upgrade your browser</a>.{% endblocktrans %}</p>
     <![endif]-->
-    <noscript class="capabilitymessage">
-        {% blocktrans %}
-            JavaScript is required to use Wagtail, but it is currently disabled.<br />
-            Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">instructions how to enable JavaScript in your web browser</a>.
-        {% endblocktrans %}
-    </noscript>
+        <noscript class="capabilitymessage">
+            {% blocktrans %}
+                JavaScript is required to use Wagtail, but it is currently disabled.<br />
+                Here are the <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">instructions how to enable JavaScript in your web browser</a>.
+            {% endblocktrans %}
+        </noscript>
 
-    {% block ie11warning %}
-        <div data-ie11-warning hidden>
-            <div class="capabilitymessage">
-                {% blocktrans with url="https://docs.wagtail.org/en/stable/editor_manual/browser_issues.html#ie11" %}Wagtail has removed support for IE11. <a href="{{ url }}">Learn more about IE11 alternatives</a>.{% endblocktrans %}
+        {% block ie11warning %}
+            <div data-ie11-warning hidden>
+                <div class="capabilitymessage">
+                    {% blocktrans with url="https://docs.wagtail.org/en/stable/editor_manual/browser_issues.html#ie11" %}Wagtail has removed support for IE11. <a href="{{ url }}">Learn more about IE11 alternatives</a>.{% endblocktrans %}
+                </div>
             </div>
+        {% endblock %}
+
+        {% block js %}{% endblock %}
+
+        <a class="skiplink button" href="#main" data-skiplink>{% trans 'Skip to main content' %}</a>
+
+        <div class="wrapper">
+            {% block furniture %}{% endblock %}
         </div>
-    {% endblock %}
-
-    {% block js %}{% endblock %}
-
-    <a class="skiplink button" href="#main" data-skiplink>{% trans 'Skip to main content' %}</a>
-
-    <div class="wrapper">
-       {% block furniture %}{% endblock %}
-    </div>
-</body>
+    </body>
 </html>

@@ -7,7 +7,7 @@
 
     <div class="nice-padding">
         <p>This workflow is currently in progress on {{ workflow_states_in_progress }} pages. Deleting this workflow will cancel moderation on these page.
-        Are you sure you want to delete this workflow?</p>
+            Are you sure you want to delete this workflow?</p>
         <form action="{{ view.get_delete_url }}" method="POST">
             {% csrf_token %}
             <input type="submit" value="{% trans 'Yes, delete' %}" class="button serious" />

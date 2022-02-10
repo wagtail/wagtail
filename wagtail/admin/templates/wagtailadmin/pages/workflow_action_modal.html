@@ -3,7 +3,7 @@
 
 <div class="nice-padding">
     {% include "wagtailadmin/shared/non_field_errors.html" %}
-    
+
     <form action="{{ submit_url }}" method="POST" novalidate>
         {% csrf_token %}
         <ul class="fields">

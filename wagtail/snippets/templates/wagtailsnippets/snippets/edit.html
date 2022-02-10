@@ -27,14 +27,14 @@
         </div>
 
         {% if uc_enabled %}
-        <div class="col2 ">
-            <dl>
+            <div class="col2 ">
+                <dl>
                     <dt>{% trans "Usage" %}</dt>
                     <dd>
                         <a href="{{ instance.usage_url }}">{% blocktrans count usage_count=instance.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                     </dd>
-            </dl>
-        </div>
+                </dl>
+            </div>
         {% endif %}
     </div>
 

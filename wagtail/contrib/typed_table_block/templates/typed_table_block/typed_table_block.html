@@ -3,17 +3,17 @@
     <thead>
         <tr>
             {% for col in value.columns %}
-            <th scope="col">{{ col.heading }}</th>
+                <th scope="col">{{ col.heading }}</th>
             {% endfor %}
         </tr>
     </thead>
     <tbody>
         {% for row in value.rows %}
-        <tr>
-            {% for block in row %}
-            <td>{% include_block block %}</td>
-            {% endfor %}
-        </tr>
+            <tr>
+                {% for block in row %}
+                    <td>{% include_block block %}</td>
+                {% endfor %}
+            </tr>
         {% endfor %}
     </tbody>
 </table>
