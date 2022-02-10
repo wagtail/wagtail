@@ -51,10 +51,10 @@ class BaseSearchQueryCompiler:
 
     def _get_filterable_field(self, field_attname):
         # Get field
-        field = dict(
-            (field.get_attname(self.queryset.model), field)
+        field = {
+            field.get_attname(self.queryset.model): field
             for field in self.queryset.model.get_filterable_search_fields()
-        ).get(field_attname, None)
+        }.get(field_attname, None)
 
         return field
 

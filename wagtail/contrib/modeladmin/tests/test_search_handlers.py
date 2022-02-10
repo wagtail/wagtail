@@ -88,14 +88,14 @@ class TestSearchBackendHandler(TestCase):
         queryset = self.get_queryset()
         search_kwargs = search_handler.search_queryset(queryset, 'test')
         self.assertTrue(mocked_method.called)
-        self.assertEqual(search_kwargs, dict(
-            query='test',
-            model_or_queryset=queryset,
-            fields=None,
-            operator=None,
-            order_by_relevance=True,
-            partial_match=True,
-        ))
+        self.assertEqual(search_kwargs, {
+            "query": 'test',
+            "model_or_queryset": queryset,
+            "fields": None,
+            "operator": None,
+            "order_by_relevance": True,
+            "partial_match": True,
+        })
 
     @patch('wagtail.contrib.modeladmin.helpers.search.get_search_backend', return_value=FakeSearchBackend())
     def test_search_queryset_with_search_fields(self, mocked_method):
@@ -106,14 +106,14 @@ class TestSearchBackendHandler(TestCase):
         queryset = self.get_queryset()
         search_kwargs = search_handler.search_queryset(queryset, 'test')
         self.assertTrue(mocked_method.called)
-        self.assertEqual(search_kwargs, dict(
-            query='test',
-            model_or_queryset=queryset,
-            fields=search_fields,
-            operator=None,
-            order_by_relevance=True,
-            partial_match=True,
-        ))
+        self.assertEqual(search_kwargs, {
+            "query": 'test',
+            "model_or_queryset": queryset,
+            "fields": search_fields,
+            "operator": None,
+            "order_by_relevance": True,
+            "partial_match": True,
+        })
 
     @patch('wagtail.contrib.modeladmin.helpers.search.get_search_backend', return_value=FakeSearchBackend())
     def test_search_queryset_preserve_order(self, get_search_backend):
@@ -121,14 +121,14 @@ class TestSearchBackendHandler(TestCase):
         queryset = self.get_queryset()
 
         search_kwargs = search_handler.search_queryset(queryset, 'Lord', preserve_order=True)
-        self.assertEqual(search_kwargs, dict(
-            query='Lord',
-            model_or_queryset=queryset,
-            fields=None,
-            operator=None,
-            order_by_relevance=False,
-            partial_match=True,
-        ))
+        self.assertEqual(search_kwargs, {
+            "query": 'Lord',
+            "model_or_queryset": queryset,
+            "fields": None,
+            "operator": None,
+            "order_by_relevance": False,
+            "partial_match": True,
+        })
 
     def test_show_search_form(self):
         search_handler = self.get_search_handler(search_fields=None)

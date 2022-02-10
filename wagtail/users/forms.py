@@ -1,4 +1,5 @@
 from itertools import groupby
+from typing import Set, Union, Any
 
 from django import forms
 from django.conf import settings
@@ -20,7 +21,7 @@ from wagtail.core.models import (
 User = get_user_model()
 
 # The standard fields each user model is expected to have, as a minimum.
-standard_fields = set(['email', 'first_name', 'last_name', 'is_superuser', 'groups'])
+standard_fields = {'email', 'first_name', 'last_name', 'is_superuser', 'groups'}
 # Custom fields
 if hasattr(settings, 'WAGTAIL_USER_CUSTOM_FIELDS'):
     custom_fields = set(settings.WAGTAIL_USER_CUSTOM_FIELDS)
@@ -172,7 +173,7 @@ class UserForm(UsernameForm):
 class UserCreationForm(UserForm):
     class Meta:
         model = User
-        fields = set([User.USERNAME_FIELD]) | standard_fields | custom_fields
+        fields = {User.USERNAME_FIELD} | standard_fields | custom_fields
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }
@@ -191,7 +192,7 @@ class UserEditForm(UserForm):
 
     class Meta:
         model = User
-        fields = set([User.USERNAME_FIELD, "is_active"]) | standard_fields | custom_fields
+        fields = {User.USERNAME_FIELD, "is_active"} | standard_fields | custom_fields
         widgets = {
             'groups': forms.CheckboxSelectMultiple
         }

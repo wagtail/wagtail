@@ -15,7 +15,7 @@ class BM25(Func):
     def __init__(
         self
     ):
-        expressions = tuple()
+        expressions = ()
         super().__init__(*expressions)
 
     def as_sql(self, compiler: SQLCompiler, connection: BaseDatabaseWrapper, function=None, template=None):

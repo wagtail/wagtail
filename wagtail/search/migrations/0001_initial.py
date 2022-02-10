@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='querydailyhits',
-            unique_together=set([('query', 'date')]),
+            unique_together={('query', 'date')},
         ),
         migrations.AddField(
             model_name='editorspick',

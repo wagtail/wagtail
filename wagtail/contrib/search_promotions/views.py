@@ -64,7 +64,7 @@ def index(request):
             'queries': queries,
             'query_string': query_string,
             'search_form': SearchForm(
-                data=dict(q=query_string) if query_string else None, placeholder=_("Search promoted results")
+                data={"q": query_string} if query_string else None, placeholder=_("Search promoted results")
             ),
         })
 
@@ -175,7 +175,7 @@ def edit(request, query_id):
                     # specific errors will be displayed within form fields
 
     else:
-        query_form = search_forms.QueryForm(initial=dict(query_string=query.query_string))
+        query_form = search_forms.QueryForm(initial={"query_string": query.query_string})
         searchpicks_formset = forms.SearchPromotionsFormSet(instance=query)
 
     return TemplateResponse(request, 'wagtailsearchpromotions/edit.html', {

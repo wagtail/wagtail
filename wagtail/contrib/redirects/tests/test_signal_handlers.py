@@ -60,7 +60,7 @@ class TestAutocreateRedirects(TestCase, WagtailTestUtils):
 
         # gather all of the redirects that were created
         redirects = Redirect.objects.all()
-        redirect_page_ids = set(r.redirect_page_id for r in redirects)
+        redirect_page_ids = {r.redirect_page_id for r in redirects}
 
         # a redirect should have been created for the page itself
         self.assertIn(test_subject.id, redirect_page_ids)

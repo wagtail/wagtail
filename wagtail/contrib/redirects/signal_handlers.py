@@ -73,9 +73,9 @@ def autocreate_redirects_on_page_move(
 
     # This value is used to prevent creation redirects that link
     # from one site to another
-    new_site_ids = set(
+    new_site_ids = {
         item.site_id for item in instance._get_relevant_site_root_paths(cache_object=instance)
-    )
+    }
 
     # Determine sites to create redirects for
     sites = Site.objects.exclude(root_page=instance).filter(id__in=[

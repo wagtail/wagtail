@@ -211,7 +211,7 @@ def account(request):
     panels = [panel for panel in panels if panel.is_active()]
 
     # Get tabs and order them
-    tabs = list(set(panel.tab for panel in panels))
+    tabs = list({panel.tab for panel in panels})
     tabs.sort(key=lambda tab: tab.order)
 
     # Get dict of tabs to ordered panels

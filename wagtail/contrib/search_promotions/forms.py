@@ -19,7 +19,7 @@ class SearchPromotionForm(forms.ModelForm):
         fields = ('query', 'page', 'description')
 
         widgets = {
-            'description': forms.Textarea(attrs=dict(rows=3)),
+            'description': forms.Textarea(attrs={"rows": 3}),
         }
 
 

@@ -687,7 +687,7 @@ class ModelAdminGroup(WagtailRegisterable):
         Utilised by Wagtail's 'register_admin_urls' hook to register urls for
         used by any associated ModelAdmin instances
         """
-        urls = tuple()
+        urls = ()
         for instance in self.modeladmin_instances:
             urls += instance.get_admin_urls_for_registration()
         return urls

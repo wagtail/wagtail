@@ -68,7 +68,7 @@ def index(request):
             'redirects': redirects,
             'query_string': query_string,
             'search_form': SearchForm(
-                data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
+                data={"q": query_string} if query_string else None, placeholder=_("Search redirects")
             ),
             'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
         })
@@ -173,7 +173,7 @@ def start_import(request):
             "wagtailredirects/choose_import_file.html",
             {
                 'search_form': SearchForm(
-                    data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
+                    data={"q": query_string} if query_string else None, placeholder=_("Search redirects")
                 ),
                 "form": form,
             },

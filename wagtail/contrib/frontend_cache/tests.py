@@ -35,7 +35,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['varnish']))
+        self.assertEqual(set(backends.keys()), {'varnish'})
         self.assertIsInstance(backends['varnish'], HTTPBackend)
 
         self.assertEqual(backends['varnish'].cache_scheme, 'http')
@@ -52,7 +52,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['cloudflare']))
+        self.assertEqual(set(backends.keys()), {'cloudflare'})
         self.assertIsInstance(backends['cloudflare'], CloudflareBackend)
 
         self.assertEqual(backends['cloudflare'].cloudflare_email, 'test@test.com')
@@ -67,7 +67,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['cloudfront']))
+        self.assertEqual(set(backends.keys()), {'cloudfront'})
         self.assertIsInstance(backends['cloudfront'], CloudfrontBackend)
 
         self.assertEqual(backends['cloudfront'].cloudfront_distribution_id, 'frontend')
@@ -82,7 +82,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        self.assertEqual(set(backends.keys()), {'azure_cdn'})
         self.assertIsInstance(backends['azure_cdn'], AzureCdnBackend)
         self.assertEqual(backends['azure_cdn']._resource_group_name, 'test-resource-group')
         self.assertEqual(backends['azure_cdn']._cdn_profile_name, 'wagtail-io-profile')
@@ -97,7 +97,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertEqual(set(backends.keys()), {'azure_front_door'})
         self.assertIsInstance(backends['azure_front_door'], AzureFrontDoorBackend)
         self.assertEqual(backends['azure_front_door']._resource_group_name, 'test-resource-group')
         self.assertEqual(backends['azure_front_door']._front_door_name, 'wagtail-io-front-door')
@@ -114,7 +114,7 @@ class TestBackendConfiguration(TestCase):
                 'CREDENTIALS': mock_credentials,
             },
         })
-        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        self.assertEqual(set(backends.keys()), {'azure_cdn'})
         client = backends['azure_cdn']._get_client()
         self.assertIsInstance(client, CdnManagementClient)
         self.assertEqual(client.config.subscription_id, 'fake-subscription-id')
@@ -132,7 +132,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
         client = backends['azure_front_door']._get_client()
-        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertEqual(set(backends.keys()), {'azure_front_door'})
         self.assertIsInstance(client, FrontDoorManagementClient)
         self.assertEqual(client.config.subscription_id, 'fake-subscription-id')
         self.assertIs(client.config.credentials, mock_credentials)
@@ -149,7 +149,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['azure_cdn']))
+        self.assertEqual(set(backends.keys()), {'azure_cdn'})
         self.assertIsInstance(backends['azure_cdn'], AzureCdnBackend)
 
         # purge()
@@ -181,7 +181,7 @@ class TestBackendConfiguration(TestCase):
             },
         })
 
-        self.assertEqual(set(backends.keys()), set(['azure_front_door']))
+        self.assertEqual(set(backends.keys()), {'azure_front_door'})
         self.assertIsInstance(backends['azure_front_door'], AzureFrontDoorBackend)
 
         # purge()
@@ -242,7 +242,7 @@ class TestBackendConfiguration(TestCase):
                 'LOCATION': 'http://localhost:8000',
             },
         })
-        self.assertEqual(set(backends.keys()), set(['varnish']))
+        self.assertEqual(set(backends.keys()), {'varnish'})
         self.assertIsInstance(backends['varnish'], HTTPBackend)
         # and mocked urlopen that may or may not raise network-related exception
         urlopen_mock.side_effect = urlopen_side_effect
@@ -293,7 +293,7 @@ class TestBackendConfiguration(TestCase):
             }
         })
 
-        self.assertEqual(set(backends.keys()), set(['varnish', 'cloudflare']))
+        self.assertEqual(set(backends.keys()), {'varnish', 'cloudflare'})
 
     def test_filter(self):
         backends = get_backends(backend_settings={
@@ -309,13 +309,13 @@ class TestBackendConfiguration(TestCase):
             }
         }, backends=['cloudflare'])
 
-        self.assertEqual(set(backends.keys()), set(['cloudflare']))
+        self.assertEqual(set(backends.keys()), {'cloudflare'})
 
     @override_settings(WAGTAILFRONTENDCACHE_LOCATION='http://localhost:8000')
     def test_backwards_compatibility(self):
         backends = get_backends()
 
-        self.assertEqual(set(backends.keys()), set(['default']))
+        self.assertEqual(set(backends.keys()), {'default'})
         self.assertIsInstance(backends['default'], HTTPBackend)
         self.assertEqual(backends['default'].cache_scheme, 'http')
         self.assertEqual(backends['default'].cache_netloc, 'localhost:8000')

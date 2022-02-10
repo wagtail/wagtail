@@ -204,7 +204,7 @@ class TestSetPrivacyView(TestCase, WagtailTestUtils):
         # Check that the groups are set correctly
         self.assertEqual(
             set(PageViewRestriction.objects.get(page=self.public_page).groups.all()),
-            set([self.group, self.group2])
+            {self.group, self.group2}
         )
 
     def test_set_group_restriction_password_unset(self):

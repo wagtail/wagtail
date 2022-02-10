@@ -25,6 +25,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='groupcollectionpermission',
-            unique_together=set([('group', 'collection', 'permission')]),
+            unique_together={('group', 'collection', 'permission')},
         ),
     ]

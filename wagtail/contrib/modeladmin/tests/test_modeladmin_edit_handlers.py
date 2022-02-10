@@ -22,7 +22,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         which have been defined via model Person.edit_handler"""
         response = self.client.get('/admin/modeladmintest/person/create/')
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
+            list(response.context['form'].fields),
             ['first_name', 'last_name', 'phone_number']
         )
 
@@ -53,7 +53,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         which have been defined via model Friend.panels"""
         response = self.client.get('/admin/modeladmintest/friend/create/')
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
+            list(response.context['form'].fields),
             ['first_name', 'phone_number']
         )
 
@@ -62,7 +62,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         which have been defined via model VisitorAdmin.edit_handler"""
         response = self.client.get('/admin/modeladmintest/visitor/create/')
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
+            list(response.context['form'].fields),
             ['last_name', 'phone_number', 'address']
         )
 
@@ -71,7 +71,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         which have been defined via model ContributorAdmin.panels"""
         response = self.client.get('/admin/modeladmintest/contributor/create/')
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
+            list(response.context['form'].fields),
             ['last_name', 'phone_number', 'address']
         )
 
@@ -86,7 +86,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(
-            [field_name for field_name in form.fields],
+            list(form.fields),
             ['first_name', 'last_name', 'phone_number']
         )
 
@@ -104,7 +104,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(
-            [field_name for field_name in form.fields],
+            list(form.fields),
             ['last_name', 'phone_number', 'address']
         )
 
@@ -126,6 +126,6 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(
-            [field_name for field_name in form.fields],
+            list(form.fields),
             ['phone_number', 'address']
         )

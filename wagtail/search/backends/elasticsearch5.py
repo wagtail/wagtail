@@ -196,9 +196,9 @@ class Elasticsearch5Mapping:
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': dict(type=self.keyword_type, store=True, include_in_all=False),
-            'content_type': dict(type=self.keyword_type, include_in_all=False),
-            self.edgengrams_field_name: dict(type=self.text_type, include_in_all=False),
+            'pk': {"type": self.keyword_type, "store": True, "include_in_all": False},
+            'content_type': {"type": self.keyword_type, "include_in_all": False},
+            self.edgengrams_field_name: {"type": self.text_type, "include_in_all": False},
         }
         fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
@@ -208,9 +208,10 @@ class Elasticsearch5Mapping:
             fields['pk']['index'] = 'not_analyzed'
             fields['content_type']['index'] = 'not_analyzed'
 
-        fields.update(dict(
-            self.get_field_mapping(field) for field in self.model.get_search_fields()
-        ))
+        fields.update({
+            self.get_field_mapping(field)[0]: self.get_field_mapping(field)[1]
+            for field in self.model.get_search_fields()
+        })
 
         return {
             self.get_document_type(): {
@@ -239,7 +240,7 @@ class Elasticsearch5Mapping:
 
     def get_document(self, obj):
         # Build document
-        doc = dict(pk=str(obj.pk), content_type=self.get_all_content_types())
+        doc = {"pk": str(obj.pk), "content_type": self.get_all_content_types()}
         edgengrams = []
         for field in self.model.get_search_fields():
             value = field.get_value(obj)

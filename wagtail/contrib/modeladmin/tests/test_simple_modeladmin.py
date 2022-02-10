@@ -246,7 +246,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.assertIn('name', response.content.decode('UTF-8'))
         self.assertNotIn('headquartered_in', response.content.decode('UTF-8'))
         self.assertEqual(
-            [ii for ii in response.context['form'].fields],
+            list(response.context['form'].fields),
             ['name']
         )
         self.client.post('/admin/modeladmintest/publisher/create/', {
