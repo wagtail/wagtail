@@ -345,7 +345,7 @@ class TestPageQuerySet(TestCase):
 
         # Check that no objects are EventPages or SimplePages
         for page in pages:
-            self.assertIsNotInstance(page.specific, (EventPage, SimplePage))
+            self.assertNotIsInstance(page.specific, (EventPage, SimplePage))
 
         # Check that "About us" is NOT in the results
         about_us = Page.objects.get(url_path='/home/about-us/')

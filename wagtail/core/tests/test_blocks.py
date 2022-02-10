@@ -3116,9 +3116,7 @@ class TestStreamBlock(WagtailTestUtils, SimpleTestCase):
         value3 = block.to_python([{'type': 'text', 'value': 'goodbye'}])
 
         self.assertEqual(value1, value2)
-        self.assertNotEqual(value1, value2)
 
-        self.assertEqual(value1, value3)
         self.assertNotEqual(value1, value3)
 
     def test_adapt_considers_group_attribute(self):
