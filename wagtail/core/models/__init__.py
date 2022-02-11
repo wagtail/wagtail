@@ -3473,7 +3473,7 @@ class GroupApprovalTask(Task):
         if self.groups.filter(id__in=user.groups.all()).exists() or user.is_superuser:
             return [
                 ('reject', _("Request changes"), True),
-                ('approve', _("Approve"), False),
+                ('approve', _("Approve and publish"), False),
                 ('approve', _("Approve with comment"), True),
             ]
 
