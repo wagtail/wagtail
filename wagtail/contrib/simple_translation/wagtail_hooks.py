@@ -1,3 +1,6 @@
+from typing import List
+
+from django.conf import settings
 from django.contrib.admin.utils import quote
 from django.contrib.auth.models import Permission
 from django.urls import include, path, reverse
@@ -5,7 +8,7 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.core import hooks
-from wagtail.core.models import Locale, TranslatableMixin
+from wagtail.core.models import Locale, Page, TranslatableMixin
 from wagtail.snippets.widgets import SnippetListingButton
 
 from .views import SubmitPageTranslationView, SubmitSnippetTranslationView
@@ -76,3 +79,16 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
                 attrs={"aria-label": _("Translate '%(title)s'") % {"title": str(snippet)}},
                 priority=100,
             )
+
+
+@hooks.register("construct_synced_page_tree_list")
+def construct_synced_page_tree_list(pages: List[Page], action: str):
+    if not getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
+        return
+
+    page_list = {}
+    if action == "unpublish":
+        for page in pages:
+            page_list[page] = Page.objects.translation_of(page, inclusive=False).filter(alias_of__isnull=True)
+
+    return page_list
