@@ -1,6 +1,12 @@
 default_language_version:
   node: system
 repos:
+  - repo: https://github.com/psf/black
+    rev: 22.1.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: ['--target-version', 'py37']
   - repo: https://github.com/timothycrosley/isort
     # isort config is in setup.cfg
     rev: 5.6.4
