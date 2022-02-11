@@ -51,10 +51,10 @@ class SafePaginateListView(ListView):
             if page_number > paginator.num_pages:
                 page_number = paginator.num_pages  # page out of range, show last page
             page = paginator.page(page_number)
-            return (paginator, page, page.object_list, page.has_other_pages())
         except InvalidPage:
             page = paginator.page(1)
-            return (paginator, page, page.object_list, page.has_other_pages())
+        finally:
+            return paginator, page, page.object_list, page.has_other_pages()
 
 
 class FormPagesListView(SafePaginateListView):
