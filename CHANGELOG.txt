@@ -9,8 +9,8 @@ Changelog
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
 
 
-2.16.1 (xx.xx.xxxx) - IN DEVELOPMENT
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2.16.1 (11.02.2022)
+~~~~~~~~~~~~~~~~~~~
 
  * Fix: Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
  * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
