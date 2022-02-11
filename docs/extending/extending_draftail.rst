@@ -81,6 +81,7 @@ Blocks are nearly as simple as inline styles:
 
 .. code-block:: python
 
+    import wagtail.admin.rich_text.editors.draftail.features as draftail_features
     from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
 
     @hooks.register('register_rich_text_features')
