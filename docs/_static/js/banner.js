@@ -28,7 +28,7 @@ $(() => {
 
   if (
     !hasCookie('wagtailspaceClosed', 'true') &&
-    new Date() < new Date(2022, 2, 16)
+    new Date() < new Date(2022, 2, 26)
   ) {
     $('main').prepend($wagtailspace);
     $wagtailspace.find('.wagtailspace-close').click(() => {
