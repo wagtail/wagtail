@@ -38,3 +38,7 @@ repos:
         additional_dependencies:
           - stylelint@14.2.0
           - '@wagtail/stylelint-config-wagtail@0.3.2'
+  - repo: https://github.com/rtts/djhtml
+    rev: v1.4.13
+    hooks:
+      - id: djhtml

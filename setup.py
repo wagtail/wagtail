@@ -66,6 +66,9 @@ testing_extras = [
     # For templates linting
     'jinjalint>=0.5',
 
+    # For template indenting
+    'djhtml==1.4.13',
+
     # Pipenv hack to fix broken dependency causing CircleCI failures
     'docutils==0.15',
 
