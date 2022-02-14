@@ -86,7 +86,11 @@ class WagtailRegisterable:
         return False
 
 
-class ModelAdmin(WagtailRegisterable):
+class ModelAdminBase(type):
+    pass
+
+
+class ModelAdmin(WagtailRegisterable, metaclass=ModelAdminBase):
     """
     The core modeladmin class. It provides an alternative means to
     list and manage instances of a given 'model' within Wagtail's admin area.
@@ -651,7 +655,11 @@ class ModelAdmin(WagtailRegisterable):
             register_admin_url_finder(self.model, finder_class)
 
 
-class ModelAdminGroup(WagtailRegisterable):
+class ModelAdminGroupBase(type):
+    pass
+
+
+class ModelAdminGroup(WagtailRegisterable, metaclass=ModelAdminGroupBase):
     """
     Acts as a container for grouping together mutltiple PageModelAdmin and
     SnippetModelAdmin instances. Creates a menu item with a SubMenu for
