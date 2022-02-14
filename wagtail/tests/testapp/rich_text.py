@@ -15,6 +15,4 @@ class CustomRichTextArea(WidgetWithScript, widgets.Textarea):
 
     @property
     def media(self):
-        return Media(js=[
-            'vendor/custom_editor.js'
-        ])
+        return Media(js=["vendor/custom_editor.js"])

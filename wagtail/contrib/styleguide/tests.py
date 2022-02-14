@@ -9,7 +9,7 @@ class TestStyleGuide(TestCase, WagtailTestUtils):
         self.login()
 
     def test_styleguide(self):
-        response = self.client.get(reverse('wagtailstyleguide'))
+        response = self.client.get(reverse("wagtailstyleguide"))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailstyleguide/base.html')
+        self.assertTemplateUsed(response, "wagtailstyleguide/base.html")

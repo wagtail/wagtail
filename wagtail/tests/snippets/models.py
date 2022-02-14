@@ -10,11 +10,11 @@ from wagtail.snippets.models import register_snippet
 
 from .forms import FancySnippetForm
 
-
 # AlphaSnippet and ZuluSnippet are for testing ordering of
 # snippets when registering.  They are named as such to ensure
 # their ordering is clear.  They are registered during testing
 # to ensure specific [in]correct register ordering
+
 
 # AlphaSnippet is registered during TestSnippetOrdering
 class AlphaSnippet(models.Model):
@@ -34,6 +34,7 @@ class ZuluSnippet(models.Model):
 
 # Register model as snippet using register_snippet as both a function and a decorator
 
+
 class RegisterFunction(models.Model):
     pass
 
@@ -48,12 +49,13 @@ class RegisterDecorator(models.Model):
 
 # A snippet model that inherits from index.Indexed can be searched on
 
+
 @register_snippet
 class SearchableSnippet(index.Indexed, models.Model):
     text = models.CharField(max_length=255)
 
     search_fields = [
-        index.SearchField('text'),
+        index.SearchField("text"),
     ]
 
     def __str__(self):
@@ -76,18 +78,20 @@ class FileUploadSnippet(models.Model):
 
 
 class RichTextSection(models.Model):
-    snippet = ParentalKey('MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)
+    snippet = ParentalKey(
+        "MultiSectionRichTextSnippet", related_name="sections", on_delete=models.CASCADE
+    )
     body = RichTextField()
 
     panels = [
-        FieldPanel('body'),
+        FieldPanel("body"),
     ]
 
 
 @register_snippet
 class MultiSectionRichTextSnippet(ClusterableModel):
     panels = [
-        InlinePanel('sections'),
+        InlinePanel("sections"),
     ]
 
 

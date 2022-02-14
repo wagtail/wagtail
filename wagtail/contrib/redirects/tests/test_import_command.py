@@ -1,6 +1,5 @@
 import os
 import tempfile
-
 from io import StringIO
 from unittest.mock import patch
 
@@ -10,7 +9,6 @@ from django.test import TestCase
 
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.core.models import Site
-
 
 TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 

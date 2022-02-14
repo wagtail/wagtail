@@ -18,7 +18,9 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         # Create pages to unpublish
         self.root_page = Page.objects.get(id=2)
         self.child_pages = [
-            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}")
+            SimplePage(
+                title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}"
+            )
             for i in range(1, 5)
         ]
         # first three child pages will be unpublished
@@ -27,10 +29,20 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         for child_page in self.child_pages:
             self.root_page.add_child(instance=child_page)
 
-        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "unpublish",
+                ),
+            )
+            + "?"
+        )
         for child_page in self.pages_to_be_unpublished:
-            self.url += f'&id={child_page.id}'
-        self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            self.url += f"&id={child_page.id}"
+        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
 
         # Login
         self.user = self.login()
@@ -44,14 +56,25 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         # Check that the user received an unpublish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html"
+        )
 
     def test_unpublish_view_invalid_page_id(self):
         """
         This tests that the unpublish view returns an error if the page id is invalid
         """
         # Request confirm unpublish page but with illegal page id
-        response = self.client.get(reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )))
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "unpublish",
+                ),
+            )
+        )
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -63,7 +86,9 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
@@ -75,10 +100,14 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML("<p>You don't have permission to unpublish these pages</p>", html)
+        self.assertInHTML(
+            "<p>You don't have permission to unpublish these pages</p>", html
+        )
 
         for child_page in self.pages_to_be_unpublished:
-            self.assertInHTML('<li>{page_title}</li>'.format(page_title=child_page.title), html)
+            self.assertInHTML(
+                "<li>{page_title}</li>".format(page_title=child_page.title), html
+            )
 
     def test_unpublish_view_post(self):
         """
@@ -107,14 +136,13 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         for i, child_page in enumerate(self.pages_to_be_unpublished):
             mock_call = mock_handler.mock_calls[i][2]
-            self.assertEqual(mock_call['sender'], child_page.specific_class)
-            self.assertEqual(mock_call['instance'], child_page)
-            self.assertIsInstance(mock_call['instance'], child_page.specific_class)
+            self.assertEqual(mock_call["sender"], child_page.specific_class)
+            self.assertEqual(mock_call["instance"], child_page)
+            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
 
     def test_after_unpublish_page(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'unpublish')
+            self.assertEqual(action_type, "unpublish")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
@@ -122,7 +150,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
             return HttpResponse("Overridden!")
 
-        with self.register_hook('after_bulk_action', hook_func):
+        with self.register_hook("after_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)
@@ -133,9 +161,8 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
             self.assertEqual(child_page.status_string, _("draft"))
 
     def test_before_unpublish_page(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'unpublish')
+            self.assertEqual(action_type, "unpublish")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
@@ -143,7 +170,7 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
             return HttpResponse("Overridden!")
 
-        with self.register_hook('before_bulk_action', hook_func):
+        with self.register_hook("before_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)
@@ -158,9 +185,15 @@ class TestBulkUnpublish(TestCase, WagtailTestUtils):
 
         # Check that the user received an unpublish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html"
+        )
         # Check the form does not contain the checkbox field include_descendants
-        self.assertContains(response, '<input type="checkbox" name="include_descendants" id="id_include_descendants">', count=0)
+        self.assertContains(
+            response,
+            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+            count=0,
+        )
 
 
 class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
@@ -169,7 +202,9 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
         self.root_page = Page.objects.get(id=2)
 
         self.child_pages = [
-            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}")
+            SimplePage(
+                title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}"
+            )
             for i in range(1, 5)
         ]
         # first three child pages will be unpublished
@@ -180,21 +215,39 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
-            self.pages_to_be_unpublished[0]: [SimplePage(title="Hello world!-a", slug="hello-world-a", content="hello-a")],
+            self.pages_to_be_unpublished[0]: [
+                SimplePage(
+                    title="Hello world!-a", slug="hello-world-a", content="hello-a"
+                )
+            ],
             self.pages_to_be_unpublished[1]: [
-                SimplePage(title="Hello world!-b", slug="hello-world-b", content="hello-b"),
-                SimplePage(title="Hello world!-c", slug="hello-world-c", content="hello-c")
-            ]
+                SimplePage(
+                    title="Hello world!-b", slug="hello-world-b", content="hello-b"
+                ),
+                SimplePage(
+                    title="Hello world!-c", slug="hello-world-c", content="hello-c"
+                ),
+            ],
         }
 
         for child_page, grandchild_pages in self.grandchildren_pages.items():
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
-        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'unpublish', )) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "unpublish",
+                ),
+            )
+            + "?"
+        )
         for child_page in self.pages_to_be_unpublished:
-            self.url += f'&id={child_page.id}'
-        self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            self.url += f"&id={child_page.id}"
+        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
 
         self.user = self.login()
 
@@ -207,16 +260,21 @@ class TestBulkUnpublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Check that the user received an unpublish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_unpublish.html"
+        )
         # Check the form contains the checkbox field include_descendants
-        self.assertContains(response, '<input type="checkbox" name="include_descendants" id="id_include_descendants">')
+        self.assertContains(
+            response,
+            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+        )
 
     def test_unpublish_include_children_view_post(self):
         """
         This posts to the unpublish view and checks that the page and its descendants were unpublished
         """
         # Post to the unpublish page
-        response = self.client.post(self.url, {'include_descendants': 'on'})
+        response = self.client.post(self.url, {"include_descendants": "on"})
 
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)

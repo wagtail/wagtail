@@ -8,9 +8,9 @@ from wagtail.core.models import BootstrapTranslatableModel
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0055_page_locale_fields'),
+        ("wagtailcore", "0055_page_locale_fields"),
     ]
 
     operations = [
-        BootstrapTranslatableModel('wagtailcore.Page'),
+        BootstrapTranslatableModel("wagtailcore.Page"),
     ]

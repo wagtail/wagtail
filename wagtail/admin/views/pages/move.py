@@ -30,8 +30,7 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
         target.can_choose = page_perms.can_move_to(target)
 
         target.can_descend = (
-            not(target == page_to_move
-                or target.is_child_of(page_to_move))
+            not (target == page_to_move or target.is_child_of(page_to_move))
             and target.get_children_count()
         )
 
@@ -39,13 +38,17 @@ def move_choose_destination(request, page_to_move_id, viewed_page_id=None):
 
     # Pagination
     paginator = Paginator(child_pages, per_page=50)
-    child_pages = paginator.get_page(request.GET.get('p'))
+    child_pages = paginator.get_page(request.GET.get("p"))
 
-    return TemplateResponse(request, 'wagtailadmin/pages/move_choose_destination.html', {
-        'page_to_move': page_to_move,
-        'viewed_page': viewed_page,
-        'child_pages': child_pages,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/move_choose_destination.html",
+        {
+            "page_to_move": page_to_move,
+            "viewed_page": viewed_page,
+            "child_pages": child_pages,
+        },
+    )
 
 
 def move_confirm(request, page_to_move_id, destination_id):
@@ -56,33 +59,52 @@ def move_confirm(request, page_to_move_id, destination_id):
     if not Page._slug_is_available(page_to_move.slug, destination, page=page_to_move):
         messages.error(
             request,
-            _("The slug '{0}' is already in use at the selected parent page. Make sure the slug is unique and try again").format(page_to_move.slug)
+            _(
+                "The slug '{0}' is already in use at the selected parent page. Make sure the slug is unique and try again"
+            ).format(page_to_move.slug),
         )
-        return redirect('wagtailadmin_pages:move_choose_destination', page_to_move.id, destination.id)
+        return redirect(
+            "wagtailadmin_pages:move_choose_destination",
+            page_to_move.id,
+            destination.id,
+        )
 
-    for fn in hooks.get_hooks('before_move_page'):
+    for fn in hooks.get_hooks("before_move_page"):
         result = fn(request, page_to_move, destination)
-        if hasattr(result, 'status_code'):
+        if hasattr(result, "status_code"):
             return result
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # any invalid moves *should* be caught by the permission check in the action class,
         # so don't bother to catch InvalidMoveToDescendant
-        action = MovePageAction(page_to_move, destination, pos='last-child', user=request.user)
+        action = MovePageAction(
+            page_to_move, destination, pos="last-child", user=request.user
+        )
         action.execute()
 
-        messages.success(request, _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()), buttons=[
-            messages.button(reverse('wagtailadmin_pages:edit', args=(page_to_move.id,)), _('Edit'))
-        ])
+        messages.success(
+            request,
+            _("Page '{0}' moved.").format(page_to_move.get_admin_display_title()),
+            buttons=[
+                messages.button(
+                    reverse("wagtailadmin_pages:edit", args=(page_to_move.id,)),
+                    _("Edit"),
+                )
+            ],
+        )
 
-        for fn in hooks.get_hooks('after_move_page'):
+        for fn in hooks.get_hooks("after_move_page"):
             result = fn(request, page_to_move)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
-        return redirect('wagtailadmin_explore', destination.id)
+        return redirect("wagtailadmin_explore", destination.id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_move.html', {
-        'page_to_move': page_to_move,
-        'destination': destination,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/confirm_move.html",
+        {
+            "page_to_move": page_to_move,
+            "destination": destination,
+        },
+    )

@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0044_merge_20191203_0116'),
+        ("tests", "0044_merge_20191203_0116"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='customformpagesubmission',
-            options={'verbose_name': 'form submission', 'verbose_name_plural': 'form submissions'},
+            name="customformpagesubmission",
+            options={
+                "verbose_name": "form submission",
+                "verbose_name_plural": "form submissions",
+            },
         ),
     ]

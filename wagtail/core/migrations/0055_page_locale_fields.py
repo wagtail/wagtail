@@ -7,22 +7,28 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0054_initial_locale'),
+        ("wagtailcore", "0054_initial_locale"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='translation_key',
+            model_name="page",
+            name="translation_key",
             field=models.UUIDField(editable=False, null=True),
         ),
         migrations.AddField(
-            model_name='page',
-            name='locale',
-            field=models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.Locale'),
+            model_name="page",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.Locale",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='page',
-            unique_together={('translation_key', 'locale')},
+            name="page",
+            unique_together={("translation_key", "locale")},
         ),
     ]

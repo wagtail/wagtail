@@ -5,7 +5,6 @@ from django.core.exceptions import PermissionDenied
 from wagtail.core.log_actions import log
 from wagtail.core.signals import page_unpublished
 
-
 logger = logging.getLogger("wagtail.core")
 
 
@@ -67,7 +66,9 @@ class UnpublishPageAction:
             if log_action:
                 log(
                     instance=page,
-                    action=log_action if isinstance(log_action, str) else "wagtail.unpublish",
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.unpublish",
                     user=user,
                 )
 

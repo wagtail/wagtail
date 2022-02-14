@@ -11,5 +11,8 @@ class BlockDodgyUserAgentMiddleware(MiddlewareMixin):
     # response back to the user.
 
     def process_request(self, request):
-        if not request.path.startswith('/admin/') and request.META.get('HTTP_USER_AGENT') == 'EvilHacker':
+        if (
+            not request.path.startswith("/admin/")
+            and request.META.get("HTTP_USER_AGENT") == "EvilHacker"
+        ):
             return HttpResponseForbidden("Forbidden")

@@ -11,6 +11,13 @@ class TestBulkActionDispatcher(TestCase, WagtailTestUtils):
         self.user = self.login()
 
     def test_bulk_action_invalid_action(self):
-        url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'ships', ))
+        url = reverse(
+            "wagtail_bulk_action",
+            args=(
+                "wagtailcore",
+                "page",
+                "ships",
+            ),
+        )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)

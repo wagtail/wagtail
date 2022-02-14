@@ -11,14 +11,16 @@ from wagtail.core import hooks
 
 @total_ordering
 class SearchArea(metaclass=MediaDefiningClass):
-    template = 'wagtailadmin/shared/search_area.html'
+    template = "wagtailadmin/shared/search_area.html"
 
-    def __init__(self, label, url, name=None, classnames='', icon_name='', attrs=None, order=1000):
+    def __init__(
+        self, label, url, name=None, classnames="", icon_name="", attrs=None, order=1000
+    ):
         self.label = label
         self.url = url
         self.classnames = classnames
         self.icon_name = icon_name
-        self.name = (name or slugify(str(label)))
+        self.name = name or slugify(str(label))
         self.order = order
 
         if attrs:
@@ -46,16 +48,20 @@ class SearchArea(metaclass=MediaDefiningClass):
             return self.name == current
 
     def render_html(self, request, query, current=None):
-        return render_to_string(self.template, {
-            'name': self.name,
-            'url': self.url,
-            'classnames': self.classnames,
-            'icon_name': self.icon_name,
-            'attr_string': self.attr_string,
-            'label': self.label,
-            'active': self.is_active(request, current),
-            'query_string': query
-        }, request=request)
+        return render_to_string(
+            self.template,
+            {
+                "name": self.name,
+                "url": self.url,
+                "classnames": self.classnames,
+                "icon_name": self.icon_name,
+                "attr_string": self.attr_string,
+                "label": self.label,
+                "active": self.is_active(request, current),
+                "query_string": query,
+            },
+            request=request,
+        )
 
 
 class Search:
@@ -71,7 +77,11 @@ class Search:
         return [item for item in self.registered_search_areas if item.is_shown(request)]
 
     def active_search(self, request, current=None):
-        return [item for item in self.search_items_for_request(request) if item.is_active(request, current)]
+        return [
+            item
+            for item in self.search_items_for_request(request)
+            if item.is_active(request, current)
+        ]
 
     @property
     def media(self):
@@ -85,9 +95,9 @@ class Search:
 
         # Get query parameter
         form = SearchForm(request.GET)
-        query = ''
+        query = ""
         if form.is_valid():
-            query = form.cleaned_data['q']
+            query = form.cleaned_data["q"]
 
         # provide a hook for modifying the search area, if construct_hook_name has been set
         if self.construct_hook_name:
@@ -98,7 +108,10 @@ class Search:
         for item in search_areas:
             rendered_search_areas.append(item.render_html(request, query, current))
 
-        return mark_safe(''.join(rendered_search_areas))
+        return mark_safe("".join(rendered_search_areas))
 
 
-admin_search_areas = Search(register_hook_name='register_admin_search_area', construct_hook_name='construct_search')
+admin_search_areas = Search(
+    register_hook_name="register_admin_search_area",
+    construct_hook_name="construct_search",
+)

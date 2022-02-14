@@ -27,15 +27,14 @@ from wagtail.images.permissions import permission_policy
 from wagtail.images.utils import generate_signature
 from wagtail.search import index as search_index
 
-
 permission_checker = PermissionPolicyChecker(permission_policy)
 
-INDEX_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_INDEX_PAGE_SIZE', 20)
-USAGE_PAGE_SIZE = getattr(settings, 'WAGTAILIMAGES_USAGE_PAGE_SIZE', 20)
+INDEX_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_INDEX_PAGE_SIZE", 20)
+USAGE_PAGE_SIZE = getattr(settings, "WAGTAILIMAGES_USAGE_PAGE_SIZE", 20)
 
 
 class BaseListingView(TemplateView):
-    @method_decorator(permission_checker.require_any('add', 'change', 'delete'))
+    @method_decorator(permission_checker.require_any("add", "change", "delete"))
     def get(self, request):
         return super().get(request)
 
@@ -43,16 +42,20 @@ class BaseListingView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         # Get images (filtered by user permission)
-        images = permission_policy.instances_user_has_any_permission_for(
-            self.request.user, ['change', 'delete']
-        ).order_by('-created_at').select_related('collection')
+        images = (
+            permission_policy.instances_user_has_any_permission_for(
+                self.request.user, ["change", "delete"]
+            )
+            .order_by("-created_at")
+            .select_related("collection")
+        )
 
         # Search
         query_string = None
-        if 'q' in self.request.GET:
+        if "q" in self.request.GET:
             self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
             if self.form.is_valid():
-                query_string = self.form.cleaned_data['q']
+                query_string = self.form.cleaned_data["q"]
 
                 images = images.search(query_string)
         else:
@@ -60,7 +63,7 @@ class BaseListingView(TemplateView):
 
         # Filter by collection
         self.current_collection = None
-        collection_id = self.request.GET.get('collection_id')
+        collection_id = self.request.GET.get("collection_id")
         if collection_id:
             try:
                 self.current_collection = Collection.objects.get(id=collection_id)
@@ -69,7 +72,7 @@ class BaseListingView(TemplateView):
                 pass
 
         # Filter by tag
-        self.current_tag = self.request.GET.get('tag')
+        self.current_tag = self.request.GET.get("tag")
         if self.current_tag:
             try:
                 images = images.filter(tags__name=self.current_tag)
@@ -77,66 +80,74 @@ class BaseListingView(TemplateView):
                 self.current_tag = None
 
         paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
-        images = paginator.get_page(self.request.GET.get('p'))
+        images = paginator.get_page(self.request.GET.get("p"))
 
-        context.update({
-            'images': images,
-            'query_string': query_string,
-            'is_searching': bool(query_string),
-            'next': self.request.get_full_path(),
-        })
+        context.update(
+            {
+                "images": images,
+                "query_string": query_string,
+                "is_searching": bool(query_string),
+                "next": self.request.get_full_path(),
+            }
+        )
 
         return context
 
 
 class IndexView(BaseListingView):
-    template_name = 'wagtailimages/images/index.html'
+    template_name = "wagtailimages/images/index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         collections = permission_policy.collections_user_has_any_permission_for(
-            self.request.user, ['add', 'change']
+            self.request.user, ["add", "change"]
         )
         if len(collections) < 2:
             collections = None
 
         Image = get_image_model()
 
-        context.update({
-            'search_form': self.form,
-            'popular_tags': popular_tags_for_model(get_image_model()),
-            'current_tag': self.current_tag,
-            'collections': collections,
-            'current_collection': self.current_collection,
-            'user_can_add': permission_policy.user_has_permission(self.request.user, 'add'),
-            'app_label': Image._meta.app_label,
-            'model_name': Image._meta.model_name,
-        })
+        context.update(
+            {
+                "search_form": self.form,
+                "popular_tags": popular_tags_for_model(get_image_model()),
+                "current_tag": self.current_tag,
+                "collections": collections,
+                "current_collection": self.current_collection,
+                "user_can_add": permission_policy.user_has_permission(
+                    self.request.user, "add"
+                ),
+                "app_label": Image._meta.app_label,
+                "model_name": Image._meta.model_name,
+            }
+        )
         return context
 
 
 class ListingResultsView(BaseListingView):
-    template_name = 'wagtailimages/images/results.html'
+    template_name = "wagtailimages/images/results.html"
 
 
-@permission_checker.require('change')
+@permission_checker.require("change")
 def edit(request, image_id):
     Image = get_image_model()
     ImageForm = get_image_form(Image)
 
     image = get_object_or_404(Image, id=image_id)
 
-    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
         raise PermissionDenied
 
     next_url = get_valid_next_url_from_request(request)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         original_file = image.file
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
-            if 'file' in form.changed_data:
+            if "file" in form.changed_data:
                 # Set new image file size
                 image.file_size = image.file.size
 
@@ -147,7 +158,7 @@ def edit(request, image_id):
 
             form.save()
 
-            if 'file' in form.changed_data:
+            if "file" in form.changed_data:
                 # if providing a new image file, delete the old one and all renditions.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
@@ -157,15 +168,17 @@ def edit(request, image_id):
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
-            edit_url = reverse('wagtailimages:edit', args=(image.id,))
-            redirect_url = 'wagtailimages:index'
+            edit_url = reverse("wagtailimages:edit", args=(image.id,))
+            redirect_url = "wagtailimages:index"
             if next_url:
                 edit_url = f"{edit_url}?{urlencode({'next': next_url})}"
                 redirect_url = next_url
 
-            messages.success(request, _("Image '{0}' updated.").format(image.title), buttons=[
-                messages.button(edit_url, _('Edit again'))
-            ])
+            messages.success(
+                request,
+                _("Image '{0}' updated.").format(image.title),
+                buttons=[messages.button(edit_url, _("Edit again"))],
+            )
             return redirect(redirect_url)
         else:
             messages.error(request, _("The image could not be saved due to errors."))
@@ -174,7 +187,7 @@ def edit(request, image_id):
 
     # Check if we should enable the frontend url generator
     try:
-        reverse('wagtailimages_serve', args=('foo', '1', 'bar'))
+        reverse("wagtailimages_serve", args=("foo", "1", "bar"))
         url_generator_enabled = True
     except NoReverseMatch:
         url_generator_enabled = False
@@ -182,45 +195,63 @@ def edit(request, image_id):
     if image.is_stored_locally():
         # Give error if image file doesn't exist
         if not os.path.isfile(image.file.path):
-            messages.error(request, _(
-                "The source image file could not be found. Please change the source or delete the image."
-            ).format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:delete', args=(image.id,)), _('Delete'))
-            ])
+            messages.error(
+                request,
+                _(
+                    "The source image file could not be found. Please change the source or delete the image."
+                ).format(image.title),
+                buttons=[
+                    messages.button(
+                        reverse("wagtailimages:delete", args=(image.id,)), _("Delete")
+                    )
+                ],
+            )
 
     try:
         filesize = image.get_file_size()
     except SourceImageIOError:
         filesize = None
 
-    return TemplateResponse(request, "wagtailimages/images/edit.html", {
-        'image': image,
-        'form': form,
-        'url_generator_enabled': url_generator_enabled,
-        'filesize': filesize,
-        'user_can_delete': permission_policy.user_has_permission_for_instance(
-            request.user, 'delete', image
-        ),
-        'next': next_url,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailimages/images/edit.html",
+        {
+            "image": image,
+            "form": form,
+            "url_generator_enabled": url_generator_enabled,
+            "filesize": filesize,
+            "user_can_delete": permission_policy.user_has_permission_for_instance(
+                request.user, "delete", image
+            ),
+            "next": next_url,
+        },
+    )
 
 
 def url_generator(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
         raise PermissionDenied
 
-    form = URLGeneratorForm(initial={
-        'filter_method': 'original',
-        'width': image.width,
-        'height': image.height,
-    })
+    form = URLGeneratorForm(
+        initial={
+            "filter_method": "original",
+            "width": image.width,
+            "height": image.height,
+        }
+    )
 
-    return TemplateResponse(request, "wagtailimages/images/url_generator.html", {
-        'image': image,
-        'form': form,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailimages/images/url_generator.html",
+        {
+            "image": image,
+            "form": form,
+        },
+    )
 
 
 def generate_url(request, image_id, filter_spec):
@@ -229,27 +260,26 @@ def generate_url(request, image_id, filter_spec):
     try:
         image = Image.objects.get(id=image_id)
     except Image.DoesNotExist:
-        return JsonResponse({
-            'error': "Cannot find image."
-        }, status=404)
+        return JsonResponse({"error": "Cannot find image."}, status=404)
 
     # Check if this user has edit permission on this image
-    if not permission_policy.user_has_permission_for_instance(request.user, 'change', image):
-        return JsonResponse({
-            'error': "You do not have permission to generate a URL for this image."
-        }, status=403)
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "change", image
+    ):
+        return JsonResponse(
+            {"error": "You do not have permission to generate a URL for this image."},
+            status=403,
+        )
 
     # Parse the filter spec to make sure its valid
     try:
         Filter(spec=filter_spec).operations
     except InvalidFilterSpecError:
-        return JsonResponse({
-            'error': "Invalid filter spec."
-        }, status=400)
+        return JsonResponse({"error": "Invalid filter spec."}, status=400)
 
     # Generate url
     signature = generate_signature(image_id, filter_spec)
-    url = reverse('wagtailimages_serve', args=(signature, image_id, filter_spec))
+    url = reverse("wagtailimages_serve", args=(signature, image_id, filter_spec))
 
     # Get site root url
     try:
@@ -258,9 +288,11 @@ def generate_url(request, image_id, filter_spec):
         site_root_url = Site.objects.first().root_url
 
     # Generate preview url
-    preview_url = reverse('wagtailimages:preview', args=(image_id, filter_spec))
+    preview_url = reverse("wagtailimages:preview", args=(image_id, filter_spec))
 
-    return JsonResponse({'url': site_root_url + url, 'preview_url': preview_url}, status=200)
+    return JsonResponse(
+        {"url": site_root_url + url, "preview_url": preview_url}, status=200
+    )
 
 
 def preview(request, image_id, filter_spec):
@@ -269,38 +301,46 @@ def preview(request, image_id, filter_spec):
     try:
         response = HttpResponse()
         image = Filter(spec=filter_spec).run(image, response)
-        response['Content-Type'] = 'image/' + image.format_name
+        response["Content-Type"] = "image/" + image.format_name
         return response
     except InvalidFilterSpecError:
-        return HttpResponse("Invalid filter spec: " + filter_spec, content_type='text/plain', status=400)
+        return HttpResponse(
+            "Invalid filter spec: " + filter_spec, content_type="text/plain", status=400
+        )
 
 
-@permission_checker.require('delete')
+@permission_checker.require("delete")
 def delete(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
-    if not permission_policy.user_has_permission_for_instance(request.user, 'delete', image):
+    if not permission_policy.user_has_permission_for_instance(
+        request.user, "delete", image
+    ):
         raise PermissionDenied
 
     next_url = get_valid_next_url_from_request(request)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         image.delete()
         messages.success(request, _("Image '{0}' deleted.").format(image.title))
-        return redirect(next_url) if next_url else redirect('wagtailimages:index')
+        return redirect(next_url) if next_url else redirect("wagtailimages:index")
 
-    return TemplateResponse(request, "wagtailimages/images/confirm_delete.html", {
-        'image': image,
-        'next': next_url,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailimages/images/confirm_delete.html",
+        {
+            "image": image,
+            "next": next_url,
+        },
+    )
 
 
-@permission_checker.require('add')
+@permission_checker.require("add")
 def add(request):
     ImageModel = get_image_model()
     ImageForm = get_image_form(ImageModel)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         image = ImageModel(uploaded_by_user=request.user)
         form = ImageForm(request.POST, request.FILES, instance=image, user=request.user)
         if form.is_valid():
@@ -317,27 +357,36 @@ def add(request):
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
 
-            messages.success(request, _("Image '{0}' added.").format(image.title), buttons=[
-                messages.button(reverse('wagtailimages:edit', args=(image.id,)), _('Edit'))
-            ])
-            return redirect('wagtailimages:index')
+            messages.success(
+                request,
+                _("Image '{0}' added.").format(image.title),
+                buttons=[
+                    messages.button(
+                        reverse("wagtailimages:edit", args=(image.id,)), _("Edit")
+                    )
+                ],
+            )
+            return redirect("wagtailimages:index")
         else:
             messages.error(request, _("The image could not be created due to errors."))
     else:
         form = ImageForm(user=request.user)
 
-    return TemplateResponse(request, "wagtailimages/images/add.html", {
-        'form': form,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailimages/images/add.html",
+        {
+            "form": form,
+        },
+    )
 
 
 def usage(request, image_id):
     image = get_object_or_404(get_image_model(), id=image_id)
 
     paginator = Paginator(image.get_usage(), per_page=USAGE_PAGE_SIZE)
-    used_by = paginator.get_page(request.GET.get('p'))
+    used_by = paginator.get_page(request.GET.get("p"))
 
-    return TemplateResponse(request, "wagtailimages/images/usage.html", {
-        'image': image,
-        'used_by': used_by
-    })
+    return TemplateResponse(
+        request, "wagtailimages/images/usage.html", {"image": image, "used_by": used_by}
+    )

@@ -7,14 +7,18 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0003_taggeditem_add_unique_index'),
-        ('demosite', '0002_capitalizeverbose'),
+        ("taggit", "0003_taggeditem_add_unique_index"),
+        ("demosite", "0002_capitalizeverbose"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogentrypagetag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='taggit.tag'),
+            model_name="blogentrypagetag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="%(app_label)s_%(class)s_items",
+                to="taggit.tag",
+            ),
         ),
     ]

@@ -14,7 +14,6 @@ from wagtail.core.utils import multigetattr
 
 
 class Column(metaclass=MediaDefiningClass):
-
     class Header:
         # Helper object used for rendering column headers in templates -
         # behaves as a component (i.e. it has a render_html method) but delegates rendering
@@ -39,10 +38,12 @@ class Column(metaclass=MediaDefiningClass):
     header_template_name = "wagtailadmin/tables/column_header.html"
     cell_template_name = "wagtailadmin/tables/cell.html"
 
-    def __init__(self, name, label=None, accessor=None, classname=None, sort_key=None, width=None):
+    def __init__(
+        self, name, label=None, accessor=None, classname=None, sort_key=None, width=None
+    ):
         self.name = name
         self.accessor = accessor or name
-        self.label = label or capfirst(name.replace('_', ' '))
+        self.label = label or capfirst(name.replace("_", " "))
         self.classname = classname
         self.sort_key = sort_key
         self.header = Column.Header(self)
@@ -52,14 +53,14 @@ class Column(metaclass=MediaDefiningClass):
         """
         Compiles the context dictionary to pass to the header template when rendering the column header
         """
-        table = parent_context['table']
+        table = parent_context["table"]
         return {
-            'column': self,
-            'table': table,
-            'is_orderable': bool(self.sort_key),
-            'is_ascending': self.sort_key and table.ordering == self.sort_key,
-            'is_descending': self.sort_key and table.ordering == ('-' + self.sort_key),
-            'request': parent_context.get('request'),
+            "column": self,
+            "table": table,
+            "is_orderable": bool(self.sort_key),
+            "is_ascending": self.sort_key and table.ordering == self.sort_key,
+            "is_descending": self.sort_key and table.ordering == ("-" + self.sort_key),
+            "request": parent_context.get("request"),
         }
 
     @cached_property
@@ -93,10 +94,10 @@ class Column(metaclass=MediaDefiningClass):
         the given instance
         """
         return {
-            'instance': instance,
-            'column': self,
-            'value': self.get_value(instance),
-            'request': parent_context.get('request'),
+            "instance": instance,
+            "column": self,
+            "value": self.get_value(instance),
+            "request": parent_context.get("request"),
         }
 
     def render_cell_html(self, instance, parent_context):
@@ -114,14 +115,21 @@ class Column(metaclass=MediaDefiningClass):
         return Column.Cell(self, instance)
 
     def __repr__(self):
-        return "<%s.%s: %s>" % (self.__class__.__module__, self.__class__.__qualname__, self.name)
+        return "<%s.%s: %s>" % (
+            self.__class__.__module__,
+            self.__class__.__qualname__,
+            self.name,
+        )
 
 
 class TitleColumn(Column):
     """A column where data is styled as a title and wrapped in a link"""
+
     cell_template_name = "wagtailadmin/tables/title_cell.html"
 
-    def __init__(self, name, url_name=None, get_url=None, link_classname=None, **kwargs):
+    def __init__(
+        self, name, url_name=None, get_url=None, link_classname=None, **kwargs
+    ):
         super().__init__(name, **kwargs)
         self.url_name = url_name
         self._get_url_func = get_url
@@ -129,8 +137,8 @@ class TitleColumn(Column):
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
-        context['link_url'] = self.get_link_url(instance, parent_context)
-        context['link_classname'] = self.link_classname
+        context["link_url"] = self.get_link_url(instance, parent_context)
+        context["link_classname"] = self.link_classname
         return context
 
     def get_link_url(self, instance, parent_context):
@@ -142,6 +150,7 @@ class TitleColumn(Column):
 
 class StatusFlagColumn(Column):
     """Represents a boolean value as a status tag (or lack thereof, if the corresponding label is None)"""
+
     cell_template_name = "wagtailadmin/tables/status_flag_cell.html"
 
     def __init__(self, name, true_label=None, false_label=None, **kwargs):
@@ -152,42 +161,41 @@ class StatusFlagColumn(Column):
 
 class DateColumn(Column):
     """Outputs a date in human-readable format"""
+
     cell_template_name = "wagtailadmin/tables/date_cell.html"
 
 
 class UserColumn(Column):
     """Outputs the username and avatar for a user"""
+
     cell_template_name = "wagtailadmin/tables/user_cell.html"
 
-    def __init__(self, name, blank_display_name='', **kwargs):
+    def __init__(self, name, blank_display_name="", **kwargs):
         super().__init__(name, **kwargs)
         self.blank_display_name = blank_display_name
 
     def get_cell_context_data(self, instance, parent_context):
         context = super().get_cell_context_data(instance, parent_context)
 
-        user = context['value']
+        user = context["value"]
         if user:
             try:
                 full_name = user.get_full_name().strip()
             except AttributeError:
-                full_name = ''
-            context['display_name'] = full_name or user.get_username()
+                full_name = ""
+            context["display_name"] = full_name or user.get_username()
         else:
-            context['display_name'] = self.blank_display_name
+            context["display_name"] = self.blank_display_name
         return context
 
 
 class Table(Component):
     template_name = "wagtailadmin/tables/table.html"
-    classname = 'listing'
-    header_row_classname = ''
+    classname = "listing"
+    header_row_classname = ""
 
     def __init__(self, columns, data, template_name=None, base_url=None, ordering=None):
-        self.columns = OrderedDict([
-            (column.name, column)
-            for column in columns
-        ])
+        self.columns = OrderedDict([(column.name, column) for column in columns])
         self.data = data
         if template_name:
             self.template_name = template_name
@@ -196,8 +204,8 @@ class Table(Component):
 
     def get_context_data(self, parent_context):
         context = super().get_context_data(parent_context)
-        context['table'] = self
-        context['request'] = parent_context.get('request')
+        context["table"] = self
+        context["request"] = parent_context.get("request")
         return context
 
     @property

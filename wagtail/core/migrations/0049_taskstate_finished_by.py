@@ -9,13 +9,20 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailcore', '0048_add_default_workflows'),
+        ("wagtailcore", "0048_add_default_workflows"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='taskstate',
-            name='finished_by',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='finished_task_states', to=settings.AUTH_USER_MODEL, verbose_name='finished by'),
+            model_name="taskstate",
+            name="finished_by",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="finished_task_states",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="finished by",
+            ),
         ),
     ]

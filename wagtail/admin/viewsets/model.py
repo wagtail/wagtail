@@ -2,7 +2,10 @@ from django.core.exceptions import ImproperlyConfigured
 from django.forms.models import modelform_factory
 from django.urls import path
 
-from wagtail.admin.admin_url_finder import ModelAdminURLFinder, register_admin_url_finder
+from wagtail.admin.admin_url_finder import (
+    ModelAdminURLFinder,
+    register_admin_url_finder,
+)
 from wagtail.admin.views import generic
 from wagtail.core.permissions import ModelPermissionPolicy
 
@@ -26,9 +29,9 @@ class ModelViewSet(ViewSet):
         return self.index_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name('index'),
-            add_url_name=self.get_url_name('add'),
-            edit_url_name=self.get_url_name('edit'),
+            index_url_name=self.get_url_name("index"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
             header_icon=self.icon,
         )
 
@@ -38,9 +41,9 @@ class ModelViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             form_class=self.get_form_class(),
-            index_url_name=self.get_url_name('index'),
-            add_url_name=self.get_url_name('add'),
-            edit_url_name=self.get_url_name('edit'),
+            index_url_name=self.get_url_name("index"),
+            add_url_name=self.get_url_name("add"),
+            edit_url_name=self.get_url_name("edit"),
             header_icon=self.icon,
         )
 
@@ -50,9 +53,9 @@ class ModelViewSet(ViewSet):
             model=self.model,
             permission_policy=self.permission_policy,
             form_class=self.get_form_class(for_update=True),
-            index_url_name=self.get_url_name('index'),
-            edit_url_name=self.get_url_name('edit'),
-            delete_url_name=self.get_url_name('delete'),
+            index_url_name=self.get_url_name("index"),
+            edit_url_name=self.get_url_name("edit"),
+            delete_url_name=self.get_url_name("delete"),
             header_icon=self.icon,
         )
 
@@ -61,8 +64,8 @@ class ModelViewSet(ViewSet):
         return self.delete_view_class.as_view(
             model=self.model,
             permission_policy=self.permission_policy,
-            index_url_name=self.get_url_name('index'),
-            delete_url_name=self.get_url_name('delete'),
+            index_url_name=self.get_url_name("index"),
+            delete_url_name=self.get_url_name("delete"),
             header_icon=self.icon,
         )
 
@@ -70,8 +73,8 @@ class ModelViewSet(ViewSet):
         return db_field.formfield(**kwargs)
 
     def get_form_class(self, for_update=False):
-        fields = getattr(self, 'form_fields', None)
-        exclude = getattr(self, 'exclude_form_fields', None)
+        fields = getattr(self, "form_fields", None)
+        exclude = getattr(self, "exclude_form_fields", None)
 
         if fields is None and exclude is None:
             raise ImproperlyConfigured(
@@ -83,21 +86,25 @@ class ModelViewSet(ViewSet):
             self.model,
             formfield_callback=self.formfield_for_dbfield,
             fields=fields,
-            exclude=exclude
+            exclude=exclude,
         )
 
     def get_urlpatterns(self):
         return super().get_urlpatterns() + [
-            path('', self.index_view, name='index'),
-            path('new/', self.add_view, name='add'),
-            path('<int:pk>/', self.edit_view, name='edit'),
-            path('<int:pk>/delete/', self.delete_view, name='delete'),
+            path("", self.index_view, name="index"),
+            path("new/", self.add_view, name="add"),
+            path("<int:pk>/", self.edit_view, name="edit"),
+            path("<int:pk>/delete/", self.delete_view, name="delete"),
         ]
 
     def on_register(self):
         super().on_register()
-        url_finder_class = type('_ModelAdminURLFinder', (ModelAdminURLFinder, ), {
-            'permission_policy': self.permission_policy,
-            'edit_url_name': self.get_url_name('edit')
-        })
+        url_finder_class = type(
+            "_ModelAdminURLFinder",
+            (ModelAdminURLFinder,),
+            {
+                "permission_policy": self.permission_policy,
+                "edit_url_name": self.get_url_name("edit"),
+            },
+        )
         register_admin_url_finder(self.model, url_finder_class)

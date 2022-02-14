@@ -14,7 +14,9 @@ class Format:
         self.filter_spec = filter_spec
 
     def __str__(self):
-        return f'"{self.name}", "{self.label}", "{self.classnames}", "{self.filter_spec}"'
+        return (
+            f'"{self.name}", "{self.label}", "{self.classnames}", "{self.filter_spec}"'
+        )
 
     def __repr__(self):
         return f"Format({self})"
@@ -25,10 +27,10 @@ class Format:
         when outputting this image within a rich text editor field
         """
         return {
-            'data-embedtype': "image",
-            'data-id': image.id,
-            'data-format': self.name,
-            'data-alt': escape(alt_text),
+            "data-embedtype": "image",
+            "data-id": image.id,
+            "data-format": self.name,
+            "data-alt": escape(alt_text),
         }
 
     def image_to_editor_html(self, image, alt_text):
@@ -41,9 +43,9 @@ class Format:
             extra_attributes = {}
         rendition = get_rendition_or_not_found(image, self.filter_spec)
 
-        extra_attributes['alt'] = escape(alt_text)
+        extra_attributes["alt"] = escape(alt_text)
         if self.classnames:
-            extra_attributes['class'] = "%s" % escape(self.classnames)
+            extra_attributes["class"] = "%s" % escape(self.classnames)
 
         return rendition.img_tag(extra_attributes)
 
@@ -90,11 +92,17 @@ _searched_for_image_formats = False
 def search_for_image_formats():
     global _searched_for_image_formats
     if not _searched_for_image_formats:
-        list(get_app_submodules('image_formats'))
+        list(get_app_submodules("image_formats"))
         _searched_for_image_formats = True
 
 
 # Define default image formats
-register_image_format(Format('fullwidth', _('Full width'), 'richtext-image full-width', 'width-800'))
-register_image_format(Format('left', _('Left-aligned'), 'richtext-image left', 'width-500'))
-register_image_format(Format('right', _('Right-aligned'), 'richtext-image right', 'width-500'))
+register_image_format(
+    Format("fullwidth", _("Full width"), "richtext-image full-width", "width-800")
+)
+register_image_format(
+    Format("left", _("Left-aligned"), "richtext-image left", "width-500")
+)
+register_image_format(
+    Format("right", _("Right-aligned"), "richtext-image right", "width-500")
+)

@@ -8,19 +8,27 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('wagtailadmin', '0001_create_admin_access_permissions'),
+        ("wagtailadmin", "0001_create_admin_access_permissions"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Admin',
+            name="Admin",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
             ],
             options={
-                'permissions': [('access_admin', 'Can access Wagtail admin')],
-                'managed': False,
-                'default_permissions': [],
+                "permissions": [("access_admin", "Can access Wagtail admin")],
+                "managed": False,
+                "default_permissions": [],
             },
         ),
     ]

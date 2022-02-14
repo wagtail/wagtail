@@ -23,69 +23,65 @@ def index(request, parent_page_id=None):
 
     # If this page isn't a descendant of the user's explorable root page,
     # then redirect to that explorable root page instead.
-    if not (
-        parent_page.pk == root_page.pk
-        or parent_page.is_descendant_of(root_page)
-    ):
-        return redirect('wagtailadmin_explore', root_page.pk)
+    if not (parent_page.pk == root_page.pk or parent_page.is_descendant_of(root_page)):
+        return redirect("wagtailadmin_explore", root_page.pk)
 
     parent_page = parent_page.specific
 
     user_perms = UserPagePermissionsProxy(request.user)
     pages = (
-        parent_page.get_children().prefetch_related(
-            "content_type", "sites_rooted_here"
-        )
+        parent_page.get_children().prefetch_related("content_type", "sites_rooted_here")
         & user_perms.explorable_pages()
     )
 
     # Get page ordering
-    ordering = request.GET.get('ordering', '-latest_revision_created_at')
+    ordering = request.GET.get("ordering", "-latest_revision_created_at")
     if ordering not in [
-        'title',
-        '-title',
-        'content_type',
-        '-content_type',
-        'live', '-live',
-        'latest_revision_created_at',
-        '-latest_revision_created_at',
-        'ord'
+        "title",
+        "-title",
+        "content_type",
+        "-content_type",
+        "live",
+        "-live",
+        "latest_revision_created_at",
+        "-latest_revision_created_at",
+        "ord",
     ]:
-        ordering = '-latest_revision_created_at'
+        ordering = "-latest_revision_created_at"
 
-    if ordering == 'ord':
+    if ordering == "ord":
         # preserve the native ordering from get_children()
         pass
-    elif ordering == 'latest_revision_created_at':
+    elif ordering == "latest_revision_created_at":
         # order by oldest revision first.
         # Special case NULL entries - these should go at the top of the list.
         # Do this by annotating with Count('latest_revision_created_at'),
         # which returns 0 for these
         pages = pages.annotate(
-            null_position=Count('latest_revision_created_at')
-        ).order_by('null_position', 'latest_revision_created_at')
-    elif ordering == '-latest_revision_created_at':
+            null_position=Count("latest_revision_created_at")
+        ).order_by("null_position", "latest_revision_created_at")
+    elif ordering == "-latest_revision_created_at":
         # order by oldest revision first.
         # Special case NULL entries - these should go at the end of the list.
         pages = pages.annotate(
-            null_position=Count('latest_revision_created_at')
-        ).order_by('-null_position', '-latest_revision_created_at')
+            null_position=Count("latest_revision_created_at")
+        ).order_by("-null_position", "-latest_revision_created_at")
     else:
         pages = pages.order_by(ordering)
 
     # Don't paginate if sorting by page order - all pages must be shown to
     # allow drag-and-drop reordering
-    do_paginate = ordering != 'ord'
+    do_paginate = ordering != "ord"
 
     # We want specific page instances, but do not need streamfield values here
     pages = pages.defer_streamfields().specific()
 
     # allow hooks defer_streamfieldsyset
-    for hook in hooks.get_hooks('construct_explorer_page_queryset'):
+    for hook in hooks.get_hooks("construct_explorer_page_queryset"):
         pages = hook(parent_page, pages, request)
 
     # Annotate queryset with various states to be used later for performance optimisations
-    if getattr(settings, 'WAGTAIL_WORKFLOW_ENABLED', True):
+    if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
         pages = pages.prefetch_workflow_states()
 
     pages = pages.annotate_site_root_state().annotate_approved_schedule()
@@ -93,36 +89,42 @@ def index(request, parent_page_id=None):
     # Pagination
     if do_paginate:
         paginator = Paginator(pages, per_page=50)
-        pages = paginator.get_page(request.GET.get('p'))
+        pages = paginator.get_page(request.GET.get("p"))
 
-    show_ordering_column = request.GET.get('ordering') == 'ord'
+    show_ordering_column = request.GET.get("ordering") == "ord"
 
     context = {
-        'parent_page': parent_page.specific,
-        'ordering': ordering,
-        'pagination_query_params': "ordering=%s" % ordering,
-        'pages': pages,
-        'do_paginate': do_paginate,
-        'locale': None,
-        'translations': [],
-        'show_ordering_column': show_ordering_column,
-        'show_bulk_actions': not show_ordering_column,
-        'show_locale_labels': False,
+        "parent_page": parent_page.specific,
+        "ordering": ordering,
+        "pagination_query_params": "ordering=%s" % ordering,
+        "pages": pages,
+        "do_paginate": do_paginate,
+        "locale": None,
+        "translations": [],
+        "show_ordering_column": show_ordering_column,
+        "show_bulk_actions": not show_ordering_column,
+        "show_locale_labels": False,
     }
 
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         if not parent_page.is_root():
-            context.update({
-                'locale': parent_page.locale,
-                'translations': [
-                    {
-                        'locale': translation.locale,
-                        'url': reverse('wagtailadmin_explore', args=[translation.id]),
-                    }
-                    for translation in parent_page.get_translations().only('id', 'locale').select_related('locale')
-                ],
-            })
+            context.update(
+                {
+                    "locale": parent_page.locale,
+                    "translations": [
+                        {
+                            "locale": translation.locale,
+                            "url": reverse(
+                                "wagtailadmin_explore", args=[translation.id]
+                            ),
+                        }
+                        for translation in parent_page.get_translations()
+                        .only("id", "locale")
+                        .select_related("locale")
+                    ],
+                }
+            )
         else:
-            context['show_locale_labels'] = True
+            context["show_locale_labels"] = True
 
-    return TemplateResponse(request, 'wagtailadmin/pages/index.html', context)
+    return TemplateResponse(request, "wagtailadmin/pages/index.html", context)

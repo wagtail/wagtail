@@ -6,16 +6,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0059_apply_collection_ordering'),
+        ("wagtailcore", "0059_apply_collection_ordering"),
     ]
 
     operations = [
         migrations.RemoveConstraint(
-            model_name='workflowstate',
-            name='unique_in_progress_workflow',
+            model_name="workflowstate",
+            name="unique_in_progress_workflow",
         ),
         migrations.AddConstraint(
-            model_name='workflowstate',
-            constraint=models.UniqueConstraint(condition=models.Q(status__in=('in_progress', 'needs_changes')), fields=('page',), name='unique_in_progress_workflow'),
+            model_name="workflowstate",
+            constraint=models.UniqueConstraint(
+                condition=models.Q(status__in=("in_progress", "needs_changes")),
+                fields=("page",),
+                name="unique_in_progress_workflow",
+            ),
         ),
     ]

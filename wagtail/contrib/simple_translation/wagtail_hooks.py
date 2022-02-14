@@ -39,15 +39,22 @@ def register_admin_urls():
 
 @hooks.register("register_permissions")
 def register_submit_translation_permission():
-    return Permission.objects.filter(content_type__app_label="simple_translation", codename="submit_translation")
+    return Permission.objects.filter(
+        content_type__app_label="simple_translation", codename="submit_translation"
+    )
 
 
 @hooks.register("register_page_listing_more_buttons")
 def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
-    if page_perms.user.has_perm("simple_translation.submit_translation") and not page.is_root():
+    if (
+        page_perms.user.has_perm("simple_translation.submit_translation")
+        and not page.is_root()
+    ):
         # If there's at least one locale that we haven't translated into yet, show "Translate this page" button
         has_locale_to_translate_to = Locale.objects.exclude(
-            id__in=page.get_translations(inclusive=True).values_list("locale_id", flat=True)
+            id__in=page.get_translations(inclusive=True).values_list(
+                "locale_id", flat=True
+            )
         ).exists()
 
         if has_locale_to_translate_to:
@@ -59,10 +66,14 @@ def page_listing_more_buttons(page, page_perms, is_parent=False, next_url=None):
 def register_snippet_listing_buttons(snippet, user, next_url=None):
     model = type(snippet)
 
-    if issubclass(model, TranslatableMixin) and user.has_perm("simple_translation.submit_translation"):
+    if issubclass(model, TranslatableMixin) and user.has_perm(
+        "simple_translation.submit_translation"
+    ):
         # If there's at least one locale that we haven't translated into yet, show "Translate" button
         has_locale_to_translate_to = Locale.objects.exclude(
-            id__in=snippet.get_translations(inclusive=True).values_list("locale_id", flat=True)
+            id__in=snippet.get_translations(inclusive=True).values_list(
+                "locale_id", flat=True
+            )
         ).exists()
 
         if has_locale_to_translate_to:
@@ -73,6 +84,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             yield SnippetListingButton(
                 _("Translate"),
                 url,
-                attrs={"aria-label": _("Translate '%(title)s'") % {"title": str(snippet)}},
+                attrs={
+                    "aria-label": _("Translate '%(title)s'") % {"title": str(snippet)}
+                },
                 priority=100,
             )

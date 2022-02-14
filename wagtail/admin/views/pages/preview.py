@@ -26,29 +26,36 @@ def view_draft(request, page_id):
 
 
 class PreviewOnEdit(View):
-    http_method_names = ('post', 'get')
+    http_method_names = ("post", "get")
     preview_expiration_timeout = 60 * 60 * 24  # seconds
-    session_key_prefix = 'wagtail-preview-'
+    session_key_prefix = "wagtail-preview-"
 
     def remove_old_preview_data(self):
         expiration = time() - self.preview_expiration_timeout
         expired_keys = [
-            k for k, v in self.request.session.items()
-            if k.startswith(self.session_key_prefix) and v[1] < expiration]
+            k
+            for k, v in self.request.session.items()
+            if k.startswith(self.session_key_prefix) and v[1] < expiration
+        ]
         # Removes the session key gracefully
         for k in expired_keys:
             self.request.session.pop(k)
 
     @property
     def session_key(self):
-        return '{}{}'.format(self.session_key_prefix, self.kwargs['page_id'])
+        return "{}{}".format(self.session_key_prefix, self.kwargs["page_id"])
 
     def get_page(self):
-        return get_object_or_404(Page,
-                                 id=self.kwargs["page_id"]).get_latest_revision_as_page()
+        return get_object_or_404(
+            Page, id=self.kwargs["page_id"]
+        ).get_latest_revision_as_page()
 
     def get_form(self, page, query_dict):
-        form_class = page.get_edit_handler().bind_to(instance=page, request=self.request).get_form_class()
+        form_class = (
+            page.get_edit_handler()
+            .bind_to(instance=page, request=self.request)
+            .get_form_class()
+        )
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:
@@ -62,21 +69,19 @@ class PreviewOnEdit(View):
         request.session[self.session_key] = request.POST.urlencode(), time()
         self.remove_old_preview_data()
         form = self.get_form(self.get_page(), request.POST)
-        return JsonResponse({'is_valid': form.is_valid()})
+        return JsonResponse({"is_valid": form.is_valid()})
 
     def error_response(self, page):
         return TemplateResponse(
-            self.request, 'wagtailadmin/pages/preview_error.html',
-            {'page': page}
+            self.request, "wagtailadmin/pages/preview_error.html", {"page": page}
         )
 
     def get(self, request, *args, **kwargs):
         page = self.get_page()
 
-        post_data, timestamp = self.request.session.get(self.session_key,
-                                                        (None, None))
+        post_data, timestamp = self.request.session.get(self.session_key, (None, None))
         if not isinstance(post_data, str):
-            post_data = ''
+            post_data = ""
         form = self.get_form(page, QueryDict(post_data))
 
         if not form.is_valid():
@@ -85,7 +90,7 @@ class PreviewOnEdit(View):
         form.save(commit=False)
 
         try:
-            preview_mode = request.GET.get('mode', page.default_preview_mode)
+            preview_mode = request.GET.get("mode", page.default_preview_mode)
         except IndexError:
             raise PermissionDenied
 
@@ -95,11 +100,11 @@ class PreviewOnEdit(View):
 class PreviewOnCreate(PreviewOnEdit):
     @property
     def session_key(self):
-        return '{}{}-{}-{}'.format(
+        return "{}{}-{}-{}".format(
             self.session_key_prefix,
-            self.kwargs['content_type_app_name'],
-            self.kwargs['content_type_model_name'],
-            self.kwargs['parent_page_id'],
+            self.kwargs["content_type_app_name"],
+            self.kwargs["content_type_model_name"],
+            self.kwargs["parent_page_id"],
         )
 
     def get_page(self):
@@ -108,7 +113,8 @@ class PreviewOnCreate(PreviewOnEdit):
         parent_page_id = self.kwargs["parent_page_id"]
         try:
             content_type = ContentType.objects.get_by_natural_key(
-                content_type_app_name, content_type_model_name)
+                content_type_app_name, content_type_model_name
+            )
         except ContentType.DoesNotExist:
             raise Http404
 

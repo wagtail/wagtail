@@ -1,6 +1,5 @@
 import copy
 import json
-
 from collections import OrderedDict
 from urllib.parse import urlparse
 
@@ -12,9 +11,19 @@ from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
 from wagtail.search.index import (
-    AutocompleteField, FilterField, Indexed, RelatedFields, SearchField, class_is_indexed)
+    AutocompleteField,
+    FilterField,
+    Indexed,
+    RelatedFields,
+    SearchField,
+    class_is_indexed,
+)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.utils.utils import deep_update
 
@@ -44,43 +53,43 @@ def get_model_root(model):
 
 
 class Elasticsearch5Mapping:
-    all_field_name = '_all'
+    all_field_name = "_all"
 
     # Was originally named '_partials' but renamed '_edgengrams' when we added Elasticsearch 6 support
     # The ES 5 backend still uses the old name for backwards compatibility
-    edgengrams_field_name = '_partials'
+    edgengrams_field_name = "_partials"
 
     type_map = {
-        'AutoField': 'integer',
-        'BinaryField': 'binary',
-        'BooleanField': 'boolean',
-        'CharField': 'string',
-        'CommaSeparatedIntegerField': 'string',
-        'DateField': 'date',
-        'DateTimeField': 'date',
-        'DecimalField': 'double',
-        'FileField': 'string',
-        'FilePathField': 'string',
-        'FloatField': 'double',
-        'IntegerField': 'integer',
-        'BigIntegerField': 'long',
-        'IPAddressField': 'string',
-        'GenericIPAddressField': 'string',
-        'NullBooleanField': 'boolean',
-        'PositiveIntegerField': 'integer',
-        'PositiveSmallIntegerField': 'integer',
-        'SlugField': 'string',
-        'SmallIntegerField': 'integer',
-        'TextField': 'string',
-        'TimeField': 'date',
+        "AutoField": "integer",
+        "BinaryField": "binary",
+        "BooleanField": "boolean",
+        "CharField": "string",
+        "CommaSeparatedIntegerField": "string",
+        "DateField": "date",
+        "DateTimeField": "date",
+        "DecimalField": "double",
+        "FileField": "string",
+        "FilePathField": "string",
+        "FloatField": "double",
+        "IntegerField": "integer",
+        "BigIntegerField": "long",
+        "IPAddressField": "string",
+        "GenericIPAddressField": "string",
+        "NullBooleanField": "boolean",
+        "PositiveIntegerField": "integer",
+        "PositiveSmallIntegerField": "integer",
+        "SlugField": "string",
+        "SmallIntegerField": "integer",
+        "TextField": "string",
+        "TimeField": "date",
     }
 
-    keyword_type = 'keyword'
-    text_type = 'text'
+    keyword_type = "keyword"
+    text_type = "text"
     set_index_not_analyzed_on_filter_fields = False
     edgengram_analyzer_config = {
-        'analyzer': 'edgengram_analyzer',
-        'search_analyzer': 'standard',
+        "analyzer": "edgengram_analyzer",
+        "search_analyzer": "standard",
     }
 
     def __init__(self, model):
@@ -103,14 +112,19 @@ class Elasticsearch5Mapping:
         definition_model = field.get_definition_model(self.model)
 
         if definition_model != root_model:
-            prefix = definition_model._meta.app_label.lower() + '_' + definition_model.__name__.lower() + '__'
+            prefix = (
+                definition_model._meta.app_label.lower()
+                + "_"
+                + definition_model.__name__.lower()
+                + "__"
+            )
         else:
-            prefix = ''
+            prefix = ""
 
         if isinstance(field, FilterField):
-            return prefix + field.get_attname(self.model) + '_filter'
+            return prefix + field.get_attname(self.model) + "_filter"
         elif isinstance(field, AutocompleteField):
-            return prefix + field.get_attname(self.model) + '_edgengrams'
+            return prefix + field.get_attname(self.model) + "_edgengrams"
         elif isinstance(field, SearchField):
             return prefix + field.get_attname(self.model)
         elif isinstance(field, RelatedFields):
@@ -123,7 +137,7 @@ class Elasticsearch5Mapping:
         For example: "wagtailcore.Page"
                      "myapp.MyModel"
         """
-        return self.model._meta.app_label + '.' + self.model.__name__
+        return self.model._meta.app_label + "." + self.model.__name__
 
     def get_all_content_types(self):
         """
@@ -147,48 +161,50 @@ class Elasticsearch5Mapping:
 
     def get_field_mapping(self, field):
         if isinstance(field, RelatedFields):
-            mapping = {'type': 'nested', 'properties': {}}
+            mapping = {"type": "nested", "properties": {}}
             nested_model = field.get_field(self.model).related_model
             nested_mapping = type(self)(nested_model)
 
             for sub_field in field.fields:
-                sub_field_name, sub_field_mapping = nested_mapping.get_field_mapping(sub_field)
-                mapping['properties'][sub_field_name] = sub_field_mapping
+                sub_field_name, sub_field_mapping = nested_mapping.get_field_mapping(
+                    sub_field
+                )
+                mapping["properties"][sub_field_name] = sub_field_mapping
 
             return self.get_field_column_name(field), mapping
         else:
-            mapping = {'type': self.type_map.get(field.get_type(self.model), 'string')}
+            mapping = {"type": self.type_map.get(field.get_type(self.model), "string")}
 
             if isinstance(field, SearchField):
-                if mapping['type'] == 'string':
-                    mapping['type'] = self.text_type
+                if mapping["type"] == "string":
+                    mapping["type"] = self.text_type
 
                 if field.boost:
-                    mapping['boost'] = field.boost
+                    mapping["boost"] = field.boost
 
                 if field.partial_match:
                     mapping.update(self.edgengram_analyzer_config)
 
-                mapping['include_in_all'] = True
+                mapping["include_in_all"] = True
 
             if isinstance(field, AutocompleteField):
-                mapping['type'] = self.text_type
-                mapping['include_in_all'] = False
+                mapping["type"] = self.text_type
+                mapping["include_in_all"] = False
                 mapping.update(self.edgengram_analyzer_config)
 
             elif isinstance(field, FilterField):
-                if mapping['type'] == 'string':
-                    mapping['type'] = self.keyword_type
+                if mapping["type"] == "string":
+                    mapping["type"] = self.keyword_type
 
                 if self.set_index_not_analyzed_on_filter_fields:
                     # Not required on ES5 as that uses the "keyword" type for
                     # filtered string fields
-                    mapping['index'] = 'not_analyzed'
+                    mapping["index"] = "not_analyzed"
 
-                mapping['include_in_all'] = False
+                mapping["include_in_all"] = False
 
-            if 'es_extra' in field.kwargs:
-                for key, value in field.kwargs['es_extra'].items():
+            if "es_extra" in field.kwargs:
+                for key, value in field.kwargs["es_extra"].items():
                     mapping[key] = value
 
             return self.get_field_column_name(field), mapping
@@ -196,31 +212,36 @@ class Elasticsearch5Mapping:
     def get_mapping(self):
         # Make field list
         fields = {
-            'pk': {"type": self.keyword_type, "store": True, "include_in_all": False},
-            'content_type': {"type": self.keyword_type, "include_in_all": False},
-            self.edgengrams_field_name: {"type": self.text_type, "include_in_all": False},
+            "pk": {"type": self.keyword_type, "store": True, "include_in_all": False},
+            "content_type": {"type": self.keyword_type, "include_in_all": False},
+            self.edgengrams_field_name: {
+                "type": self.text_type,
+                "include_in_all": False,
+            },
         }
         fields[self.edgengrams_field_name].update(self.edgengram_analyzer_config)
 
         if self.set_index_not_analyzed_on_filter_fields:
             # Not required on ES5 as that uses the "keyword" type for
             # filtered string fields
-            fields['pk']['index'] = 'not_analyzed'
-            fields['content_type']['index'] = 'not_analyzed'
+            fields["pk"]["index"] = "not_analyzed"
+            fields["content_type"]["index"] = "not_analyzed"
 
-        fields.update({
-            self.get_field_mapping(field)[0]: self.get_field_mapping(field)[1]
-            for field in self.model.get_search_fields()
-        })
+        fields.update(
+            {
+                self.get_field_mapping(field)[0]: self.get_field_mapping(field)[1]
+                for field in self.model.get_search_fields()
+            }
+        )
 
         return {
             self.get_document_type(): {
-                'properties': fields,
+                "properties": fields,
             }
         }
 
     def get_document_id(self, obj):
-        return obj.indexed_get_toplevel_content_type() + ':' + str(obj.pk)
+        return obj.indexed_get_toplevel_content_type() + ":" + str(obj.pk)
 
     def _get_nested_document(self, fields, obj):
         doc = {}
@@ -233,7 +254,9 @@ class Elasticsearch5Mapping:
             doc[mapping.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(
+                field, AutocompleteField
+            ):
                 edgengrams.append(value)
 
         return doc, edgengrams
@@ -250,26 +273,35 @@ class Elasticsearch5Mapping:
                     nested_docs = []
 
                     for nested_obj in value.all():
-                        nested_doc, extra_edgengrams = self._get_nested_document(field.fields, nested_obj)
+                        nested_doc, extra_edgengrams = self._get_nested_document(
+                            field.fields, nested_obj
+                        )
                         nested_docs.append(nested_doc)
                         edgengrams.extend(extra_edgengrams)
 
                     value = nested_docs
                 elif isinstance(value, models.Model):
-                    value, extra_edgengrams = self._get_nested_document(field.fields, value)
+                    value, extra_edgengrams = self._get_nested_document(
+                        field.fields, value
+                    )
                     edgengrams.extend(extra_edgengrams)
             elif isinstance(field, FilterField):
                 if isinstance(value, (models.Manager, models.QuerySet)):
-                    value = list(value.values_list('pk', flat=True))
+                    value = list(value.values_list("pk", flat=True))
                 elif isinstance(value, models.Model):
                     value = value.pk
                 elif isinstance(value, (list, tuple)):
-                    value = [item.pk if isinstance(item, models.Model) else item for item in value]
+                    value = [
+                        item.pk if isinstance(item, models.Model) else item
+                        for item in value
+                    ]
 
             doc[self.get_field_column_name(field)] = value
 
             # Check if this field should be added into _edgengrams
-            if (isinstance(field, SearchField) and field.partial_match) or isinstance(field, AutocompleteField):
+            if (isinstance(field, SearchField) and field.partial_match) or isinstance(
+                field, AutocompleteField
+            ):
                 edgengrams.append(value)
 
         # Add partials to document
@@ -278,12 +310,12 @@ class Elasticsearch5Mapping:
         return doc
 
     def __repr__(self):
-        return '<ElasticsearchMapping: %s>' % (self.model.__name__, )
+        return "<ElasticsearchMapping: %s>" % (self.model.__name__,)
 
 
 class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     mapping_class = Elasticsearch5Mapping
-    DEFAULT_OPERATOR = 'or'
+    DEFAULT_OPERATOR = "or"
 
     def __init__(self, *args, **kwargs):
         super(Elasticsearch5SearchQueryCompiler, self).__init__(*args, **kwargs)
@@ -292,10 +324,15 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
         # Convert field names into index column names
         if self.fields:
             fields = []
-            searchable_fields = {f.field_name: f for f in self.queryset.model.get_searchable_search_fields()}
+            searchable_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_searchable_search_fields()
+            }
             for field_name in self.fields:
                 if field_name in searchable_fields:
-                    field_name = self.mapping.get_field_column_name(searchable_fields[field_name])
+                    field_name = self.mapping.get_field_column_name(
+                        searchable_fields[field_name]
+                    )
 
                 fields.append(field_name)
 
@@ -306,65 +343,61 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
     def _process_lookup(self, field, lookup, value):
         column_name = self.mapping.get_field_column_name(field)
 
-        if lookup == 'exact':
+        if lookup == "exact":
             if value is None:
                 return {
-                    'missing': {
-                        'field': column_name,
+                    "missing": {
+                        "field": column_name,
                     }
                 }
             else:
                 return {
-                    'term': {
+                    "term": {
                         column_name: value,
                     }
                 }
 
-        if lookup == 'isnull':
+        if lookup == "isnull":
             query = {
-                'exists': {
-                    'field': column_name,
+                "exists": {
+                    "field": column_name,
                 }
             }
 
             if value:
-                query = {
-                    'bool': {
-                        'mustNot': query
-                    }
-                }
+                query = {"bool": {"mustNot": query}}
 
             return query
 
-        if lookup in ['startswith', 'prefix']:
+        if lookup in ["startswith", "prefix"]:
             return {
-                'prefix': {
+                "prefix": {
                     column_name: value,
                 }
             }
 
-        if lookup in ['gt', 'gte', 'lt', 'lte']:
+        if lookup in ["gt", "gte", "lt", "lte"]:
             return {
-                'range': {
+                "range": {
                     column_name: {
                         lookup: value,
                     }
                 }
             }
 
-        if lookup == 'range':
+        if lookup == "range":
             lower, upper = value
 
             return {
-                'range': {
+                "range": {
                     column_name: {
-                        'gte': lower,
-                        'lte': upper,
+                        "gte": lower,
+                        "lte": upper,
                     }
                 }
             }
 
-        if lookup == 'in':
+        if lookup == "in":
             if isinstance(value, Query):
                 db_alias = self.queryset._db or DEFAULT_DB_ALIAS
                 resultset = value.get_compiler(db_alias).execute_sql(result_type=MULTI)
@@ -373,7 +406,7 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             elif not isinstance(value, list):
                 value = list(value)
             return {
-                'terms': {
+                "terms": {
                     column_name: value,
                 }
             }
@@ -382,69 +415,45 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
         if filters:
             if len(filters) == 1:
                 filter_out = filters[0]
-            elif connector == 'AND':
+            elif connector == "AND":
                 filter_out = {
-                    'bool': {
-                        'must': [
-                            fil for fil in filters if fil is not None
-                        ]
-                    }
+                    "bool": {"must": [fil for fil in filters if fil is not None]}
                 }
-            elif connector == 'OR':
+            elif connector == "OR":
                 filter_out = {
-                    'bool': {
-                        'should': [
-                            fil for fil in filters if fil is not None
-                        ]
-                    }
+                    "bool": {"should": [fil for fil in filters if fil is not None]}
                 }
 
             if negated:
-                filter_out = {
-                    'bool': {
-                        'mustNot': filter_out
-                    }
-                }
+                filter_out = {"bool": {"mustNot": filter_out}}
 
             return filter_out
 
     def _compile_plaintext_query(self, query, fields, boost=1.0):
-        match_query = {
-            'query': query.query_string
-        }
+        match_query = {"query": query.query_string}
 
-        if query.operator != 'or':
-            match_query['operator'] = query.operator
+        if query.operator != "or":
+            match_query["operator"] = query.operator
 
         if boost != 1.0:
-            match_query['boost'] = boost
+            match_query["boost"] = boost
 
         if len(fields) == 1:
-            return {
-                'match': {
-                    fields[0]: match_query
-                }
-            }
+            return {"match": {fields[0]: match_query}}
         else:
-            match_query['fields'] = fields
+            match_query["fields"] = fields
 
-            return {
-                'multi_match': match_query
-            }
+            return {"multi_match": match_query}
 
     def _compile_phrase_query(self, query, fields):
         if len(fields) == 1:
-            return {
-                'match_phrase': {
-                    fields[0]: query.query_string
-                }
-            }
+            return {"match_phrase": {fields[0]: query.query_string}}
         else:
             return {
-                'multi_match': {
-                    'query': query.query_string,
-                    'fields': fields,
-                    'type': 'phrase',
+                "multi_match": {
+                    "query": query.query_string,
+                    "fields": fields,
+                    "type": "phrase",
                 }
             }
 
@@ -453,14 +462,14 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             match_all_query = {}
 
             if boost != 1.0:
-                match_all_query['boost'] = boost
+                match_all_query["boost"] = boost
 
-            return {'match_all': match_all_query}
+            return {"match_all": match_all_query}
 
         elif isinstance(query, And):
             return {
-                'bool': {
-                    'must': [
+                "bool": {
+                    "must": [
                         self._compile_query(child_query, field, boost)
                         for child_query in query.subqueries
                     ]
@@ -469,8 +478,8 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(query, Or):
             return {
-                'bool': {
-                    'should': [
+                "bool": {
+                    "should": [
                         self._compile_query(child_query, field, boost)
                         for child_query in query.subqueries
                     ]
@@ -479,9 +488,7 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(query, Not):
             return {
-                'bool': {
-                    'mustNot': self._compile_query(query.subquery, field, boost)
-                }
+                "bool": {"mustNot": self._compile_query(query.subquery, field, boost)}
             }
 
         elif isinstance(query, PlainText):
@@ -495,8 +502,9 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         else:
             raise NotImplementedError(
-                '`%s` is not supported by the Elasticsearch search backend.'
-                % query.__class__.__name__)
+                "`%s` is not supported by the Elasticsearch search backend."
+                % query.__class__.__name__
+            )
 
     def get_inner_query(self):
         if self.remapped_fields:
@@ -508,17 +516,13 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
-            return {
-                'bool': {
-                    'mustNot': {'match_all': {}}
-                }
-            }
+            return {"bool": {"mustNot": {"match_all": {}}}}
 
         # Handle MatchAll and PlainText separately as they were supported
         # before "search query classes" was implemented and we'd like to
         # keep the query the same as before
         if isinstance(self.query, MatchAll):
-            return {'match_all': {}}
+            return {"match_all": {}}
 
         elif isinstance(self.query, PlainText):
             return self._compile_plaintext_query(self.query, fields)
@@ -537,22 +541,14 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
                 for field in fields:
                     field_queries.append(self._compile_query(self.query, field))
 
-                return {
-                    'dis_max': {
-                        'queries': field_queries
-                    }
-                }
+                return {"dis_max": {"queries": field_queries}}
 
     def get_content_type_filter(self):
         # Query content_type using a "match" query. See comment in
         # Elasticsearch5Mapping.get_document for more details
         content_type = self.mapping_class(self.queryset.model).get_content_type()
 
-        return {
-            'match': {
-                'content_type': content_type
-            }
-        }
+        return {"match": {"content_type": content_type}}
 
     def get_filters(self):
         filters = []
@@ -573,16 +569,16 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
 
         if len(filters) == 1:
             return {
-                'bool': {
-                    'must': inner_query,
-                    'filter': filters[0],
+                "bool": {
+                    "must": inner_query,
+                    "filter": filters[0],
                 }
             }
         elif len(filters) > 1:
             return {
-                'bool': {
-                    'must': inner_query,
-                    'filter': filters,
+                "bool": {
+                    "must": inner_query,
+                    "filter": filters,
                 }
             }
         else:
@@ -600,15 +596,13 @@ class Elasticsearch5SearchQueryCompiler(BaseSearchQueryCompiler):
             for reverse, field in self._get_order_by():
                 column_name = self.mapping.get_field_column_name(field)
 
-                sort.append({
-                    column_name: 'desc' if reverse else 'asc'
-                })
+                sort.append({column_name: "desc" if reverse else "asc"})
 
             return sort
 
         else:
             # Order by pk field
-            return ['pk']
+            return ["pk"]
 
     def __repr__(self):
         return json.dumps(self.get_query())
@@ -622,10 +616,15 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
         # Note: this overrides Elasticsearch5SearchQueryCompiler by using autocomplete fields instead of searchable fields
         if self.fields:
             fields = []
-            autocomplete_fields = {f.field_name: f for f in self.queryset.model.get_autocomplete_search_fields()}
+            autocomplete_fields = {
+                f.field_name: f
+                for f in self.queryset.model.get_autocomplete_search_fields()
+            }
             for field_name in self.fields:
                 if field_name in autocomplete_fields:
-                    field_name = self.mapping.get_field_column_name(autocomplete_fields[field_name])
+                    field_name = self.mapping.get_field_column_name(
+                        autocomplete_fields[field_name]
+                    )
 
                 fields.append(field_name)
 
@@ -638,21 +637,19 @@ class ElasticsearchAutocompleteQueryCompilerImpl:
 
         if len(fields) == 0:
             # No fields. Return a query that'll match nothing
-            return {
-                'bool': {
-                    'mustNot': {'match_all': {}}
-                }
-            }
+            return {"bool": {"mustNot": {"match_all": {}}}}
 
         return self._compile_plaintext_query(self.query, fields)
 
 
-class Elasticsearch5AutocompleteQueryCompiler(Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl):
+class Elasticsearch5AutocompleteQueryCompiler(
+    Elasticsearch5SearchQueryCompiler, ElasticsearchAutocompleteQueryCompilerImpl
+):
     pass
 
 
 class Elasticsearch5SearchResults(BaseSearchResults):
-    fields_param_name = 'stored_fields'
+    fields_param_name = "stored_fields"
     supports_facet = True
 
     def facet(self, field_name):
@@ -660,46 +657,53 @@ class Elasticsearch5SearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
-                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
-                field_name=field_name
+                'Cannot facet search results with field "'
+                + field_name
+                + "\". Please add index.FilterField('"
+                + field_name
+                + "') to "
+                + self.query_compiler.queryset.model.__name__
+                + ".search_fields.",
+                field_name=field_name,
             )
 
         # Build body
         body = self._get_es_body()
         column_name = self.query_compiler.mapping.get_field_column_name(field)
 
-        body['aggregations'] = {
+        body["aggregations"] = {
             field_name: {
-                'terms': {
-                    'field': column_name,
-                    'missing': 0,
+                "terms": {
+                    "field": column_name,
+                    "missing": 0,
                 }
             }
         }
 
         # Send to Elasticsearch
         response = self.backend.es.search(
-            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
+            index=self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
             body=body,
             size=0,
         )
 
-        return OrderedDict([
-            (bucket['key'] if bucket['key'] != 0 else None, bucket['doc_count'])
-            for bucket in response['aggregations'][field_name]['buckets']
-        ])
+        return OrderedDict(
+            [
+                (bucket["key"] if bucket["key"] != 0 else None, bucket["doc_count"])
+                for bucket in response["aggregations"][field_name]["buckets"]
+            ]
+        )
 
     def _get_es_body(self, for_count=False):
-        body = {
-            'query': self.query_compiler.get_query()
-        }
+        body = {"query": self.query_compiler.get_query()}
 
         if not for_count:
             sort = self.query_compiler.get_sort()
 
             if sort is not None:
-                body['sort'] = sort
+                body["sort"] = sort
 
         return body
 
@@ -708,8 +712,8 @@ class Elasticsearch5SearchResults(BaseSearchResults):
         Yields Django model instances from a page of hits returned by Elasticsearch
         """
         # Get pks from results
-        pks = [hit['fields']['pk'][0] for hit in hits]
-        scores = {str(hit['fields']['pk'][0]): hit['_score'] for hit in hits}
+        pks = [hit["fields"]["pk"][0] for hit in hits]
+        scores = {str(hit["fields"]["pk"][0]): hit["_score"] for hit in hits}
 
         # Initialise results dictionary
         results = {str(pk): None for pk in pks}
@@ -738,17 +742,21 @@ class Elasticsearch5SearchResults(BaseSearchResults):
         use_scroll = limit is None or limit > PAGE_SIZE
 
         params = {
-            'index': self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
-            'body': self._get_es_body(),
-            '_source': False,
-            self.fields_param_name: 'pk',
+            "index": self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
+            "body": self._get_es_body(),
+            "_source": False,
+            self.fields_param_name: "pk",
         }
 
         if use_scroll:
-            params.update({
-                'scroll': '2m',
-                'size': PAGE_SIZE,
-            })
+            params.update(
+                {
+                    "scroll": "2m",
+                    "size": PAGE_SIZE,
+                }
+            )
 
             # The scroll API doesn't support offset, manually skip the first results
             skip = self.start
@@ -757,7 +765,7 @@ class Elasticsearch5SearchResults(BaseSearchResults):
             page = self.backend.es.search(**params)
 
             while True:
-                hits = page['hits']['hits']
+                hits = page["hits"]["hits"]
 
                 if len(hits) == 0:
                     break
@@ -783,22 +791,24 @@ class Elasticsearch5SearchResults(BaseSearchResults):
                     skip -= len(hits)
 
                 # Fetch next page of results
-                if '_scroll_id' not in page:
+                if "_scroll_id" not in page:
                     break
 
-                page = self.backend.es.scroll(scroll_id=page['_scroll_id'], scroll='2m')
+                page = self.backend.es.scroll(scroll_id=page["_scroll_id"], scroll="2m")
 
             # Clear the scroll
-            if '_scroll_id' in page:
-                self.backend.es.clear_scroll(scroll_id=page['_scroll_id'])
+            if "_scroll_id" in page:
+                self.backend.es.clear_scroll(scroll_id=page["_scroll_id"])
         else:
-            params.update({
-                'from_': self.start,
-                'size': limit or PAGE_SIZE,
-            })
+            params.update(
+                {
+                    "from_": self.start,
+                    "size": limit or PAGE_SIZE,
+                }
+            )
 
             # Send to Elasticsearch
-            hits = self.backend.es.search(**params)['hits']['hits']
+            hits = self.backend.es.search(**params)["hits"]["hits"]
 
             # Get results
             for result in self._get_results_from_hits(hits):
@@ -807,9 +817,11 @@ class Elasticsearch5SearchResults(BaseSearchResults):
     def _do_count(self):
         # Get count
         hit_count = self.backend.es.count(
-            index=self.backend.get_index_for_model(self.query_compiler.queryset.model).name,
+            index=self.backend.get_index_for_model(
+                self.query_compiler.queryset.model
+            ).name,
             body=self._get_es_body(for_count=True),
-        )['count']
+        )["count"]
 
         # Add limits
         hit_count -= self.start
@@ -870,8 +882,10 @@ class Elasticsearch5Index:
         self.es.indices.put_mapping(
             # pass update_all_types=True as a workaround to avoid "Can't redefine search field" errors -
             # see https://github.com/wagtail/wagtail/issues/2968
-            index=self.name, doc_type=mapping.get_document_type(), body=mapping.get_mapping(),
-            update_all_types=True
+            index=self.name,
+            doc_type=mapping.get_document_type(),
+            body=mapping.get_mapping(),
+            update_all_types=True,
         )
 
     def add_item(self, item):
@@ -884,7 +898,10 @@ class Elasticsearch5Index:
 
         # Add document to index
         self.es.index(
-            self.name, mapping.get_document_type(), mapping.get_document(item), id=mapping.get_document_id(item)
+            self.name,
+            mapping.get_document_type(),
+            mapping.get_document(item),
+            id=mapping.get_document_id(item),
         )
 
     def add_items(self, model, items):
@@ -900,8 +917,8 @@ class Elasticsearch5Index:
         for item in items:
             # Create the action
             action = {
-                '_type': doc_type,
-                '_id': mapping.get_document_id(item),
+                "_type": doc_type,
+                "_id": mapping.get_document_id(item),
             }
             action.update(mapping.get_document(item))
             actions.append(action)
@@ -959,8 +976,7 @@ class ElasticsearchAtomicIndexRebuilder(ElasticsearchIndexRebuilder):
     def __init__(self, index):
         self.alias = index
         self.index = index.backend.index_class(
-            index.backend,
-            self.alias.name + '_' + get_random_string(7).lower()
+            index.backend, self.alias.name + "_" + get_random_string(7).lower()
         )
 
     def reset_index(self):
@@ -1023,45 +1039,37 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
     catch_indexing_errors = True
 
     settings = {
-        'settings': {
-            'analysis': {
-                'analyzer': {
-                    'ngram_analyzer': {
-                        'type': 'custom',
-                        'tokenizer': 'lowercase',
-                        'filter': ['asciifolding', 'ngram']
+        "settings": {
+            "analysis": {
+                "analyzer": {
+                    "ngram_analyzer": {
+                        "type": "custom",
+                        "tokenizer": "lowercase",
+                        "filter": ["asciifolding", "ngram"],
                     },
-                    'edgengram_analyzer': {
-                        'type': 'custom',
-                        'tokenizer': 'lowercase',
-                        'filter': ['asciifolding', 'edgengram']
-                    }
+                    "edgengram_analyzer": {
+                        "type": "custom",
+                        "tokenizer": "lowercase",
+                        "filter": ["asciifolding", "edgengram"],
+                    },
                 },
-                'tokenizer': {
-                    'ngram_tokenizer': {
-                        'type': 'nGram',
-                        'min_gram': 3,
-                        'max_gram': 15,
+                "tokenizer": {
+                    "ngram_tokenizer": {
+                        "type": "nGram",
+                        "min_gram": 3,
+                        "max_gram": 15,
                     },
-                    'edgengram_tokenizer': {
-                        'type': 'edgeNGram',
-                        'min_gram': 2,
-                        'max_gram': 15,
-                        'side': 'front'
-                    }
+                    "edgengram_tokenizer": {
+                        "type": "edgeNGram",
+                        "min_gram": 2,
+                        "max_gram": 15,
+                        "side": "front",
+                    },
                 },
-                'filter': {
-                    'ngram': {
-                        'type': 'nGram',
-                        'min_gram': 3,
-                        'max_gram': 15
-                    },
-                    'edgengram': {
-                        'type': 'edgeNGram',
-                        'min_gram': 1,
-                        'max_gram': 15
-                    }
-                }
+                "filter": {
+                    "ngram": {"type": "nGram", "min_gram": 3, "max_gram": 15},
+                    "edgengram": {"type": "edgeNGram", "min_gram": 1, "max_gram": 15},
+                },
             }
         }
     }
@@ -1070,17 +1078,17 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         super(Elasticsearch5SearchBackend, self).__init__(params)
 
         # Get settings
-        self.hosts = params.pop('HOSTS', None)
-        self.index_name = params.pop('INDEX', 'wagtail')
-        self.timeout = params.pop('TIMEOUT', 10)
+        self.hosts = params.pop("HOSTS", None)
+        self.index_name = params.pop("INDEX", "wagtail")
+        self.timeout = params.pop("TIMEOUT", 10)
 
-        if params.pop('ATOMIC_REBUILD', False):
+        if params.pop("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
         else:
             self.rebuilder_class = self.basic_rebuilder_class
 
         # If HOSTS is not set, convert URLS setting to HOSTS
-        es_urls = params.pop('URLS', ['http://localhost:9200'])
+        es_urls = params.pop("URLS", ["http://localhost:9200"])
         if self.hosts is None:
             self.hosts = []
 
@@ -1091,40 +1099,46 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
             for url in es_urls:
                 parsed_url = urlparse(url)
 
-                use_ssl = parsed_url.scheme == 'https'
+                use_ssl = parsed_url.scheme == "https"
                 port = parsed_url.port or (443 if use_ssl else 80)
 
                 http_auth = None
                 if parsed_url.username is not None and parsed_url.password is not None:
                     http_auth = (parsed_url.username, parsed_url.password)
 
-                self.hosts.append({
-                    'host': parsed_url.hostname,
-                    'port': port,
-                    'url_prefix': parsed_url.path,
-                    'use_ssl': use_ssl,
-                    'verify_certs': use_ssl,
-                    'http_auth': http_auth,
-                })
+                self.hosts.append(
+                    {
+                        "host": parsed_url.hostname,
+                        "port": port,
+                        "url_prefix": parsed_url.path,
+                        "use_ssl": use_ssl,
+                        "verify_certs": use_ssl,
+                        "http_auth": http_auth,
+                    }
+                )
 
-        self.settings = copy.deepcopy(self.settings)  # Make the class settings attribute as instance settings attribute
+        self.settings = copy.deepcopy(
+            self.settings
+        )  # Make the class settings attribute as instance settings attribute
         self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
 
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
-        options = params.pop('OPTIONS', {})
+        options = params.pop("OPTIONS", {})
 
-        self.es = Elasticsearch(
-            hosts=self.hosts,
-            timeout=self.timeout,
-            **options)
+        self.es = Elasticsearch(hosts=self.hosts, timeout=self.timeout, **options)
 
     def get_index_for_model(self, model):
         # Split models up into separate indices based on their root model.
         # For example, all page-derived models get put together in one index,
         # while images and documents each have their own index.
         root_model = get_model_root(model)
-        index_suffix = '__' + root_model._meta.app_label.lower() + '_' + root_model.__name__.lower()
+        index_suffix = (
+            "__"
+            + root_model._meta.app_label.lower()
+            + "_"
+            + root_model.__name__.lower()
+        )
 
         return self.index_class(self, self.index_name + index_suffix)
 

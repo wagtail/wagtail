@@ -7,13 +7,20 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0057_page_locale_fields_notnull'),
+        ("wagtailcore", "0057_page_locale_fields_notnull"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='page',
-            name='alias_of',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='aliases', to='wagtailcore.Page'),
+            model_name="page",
+            name="alias_of",
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="aliases",
+                to="wagtailcore.Page",
+            ),
         ),
     ]

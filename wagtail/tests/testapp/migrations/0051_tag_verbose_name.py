@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0050_customimagewithauthor_customrenditionwithauthor'),
+        ("tests", "0050_customimagewithauthor_customrenditionwithauthor"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='restauranttag',
-            name='name',
-            field=models.CharField(max_length=100, unique=True, verbose_name='name'),
+            model_name="restauranttag",
+            name="name",
+            field=models.CharField(max_length=100, unique=True, verbose_name="name"),
         ),
         migrations.AlterField(
-            model_name='restauranttag',
-            name='slug',
-            field=models.SlugField(max_length=100, unique=True, verbose_name='slug'),
+            model_name="restauranttag",
+            name="slug",
+            field=models.SlugField(max_length=100, unique=True, verbose_name="slug"),
         ),
     ]

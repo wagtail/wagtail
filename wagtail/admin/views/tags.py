@@ -17,9 +17,9 @@ def autocomplete(request, app_name=None, model_name=None):
     else:
         tag_model = Tag
 
-    term = request.GET.get('term', None)
+    term = request.GET.get("term", None)
     if term:
-        tags = tag_model.objects.filter(name__istartswith=term).order_by('name')
+        tags = tag_model.objects.filter(name__istartswith=term).order_by("name")
     else:
         tags = tag_model.objects.none()
 

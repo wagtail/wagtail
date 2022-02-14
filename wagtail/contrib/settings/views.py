@@ -10,7 +10,10 @@ from django.utils.translation import gettext as _
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
-    ObjectList, TabbedInterface, extract_panel_definitions_from_model_class)
+    ObjectList,
+    TabbedInterface,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.core.log_actions import log
 from wagtail.core.models import Site
 
@@ -32,10 +35,10 @@ def get_model_from_url_params(app_name, model_name):
 
 @lru_cache()
 def get_setting_edit_handler(model):
-    if hasattr(model, 'edit_handler'):
+    if hasattr(model, "edit_handler"):
         edit_handler = model.edit_handler
     else:
-        panels = extract_panel_definitions_from_model_class(model, ['site'])
+        panels = extract_panel_definitions_from_model_class(model, ["site"])
         edit_handler = ObjectList(panels)
     return edit_handler.bind_to(model=model)
 
@@ -46,9 +49,12 @@ def edit_current_site(request, app_name, model_name):
     site_request = Site.find_for_request(request)
     site = site_request or Site.objects.first()
     if not site:
-        messages.error(request, _("This setting could not be opened because there is no site defined."))
-        return redirect('wagtailadmin_home')
-    return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
+        messages.error(
+            request,
+            _("This setting could not be opened because there is no site defined."),
+        )
+        return redirect("wagtailadmin_home")
+    return redirect("wagtailsettings:edit", app_name, model_name, site.pk)
 
 
 def edit(request, app_name, model_name, site_pk):
@@ -64,22 +70,20 @@ def edit(request, app_name, model_name, site_pk):
     edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
             with transaction.atomic():
                 form.save()
-                log(instance, 'wagtail.edit')
+                log(instance, "wagtail.edit")
 
             messages.success(
                 request,
-                _("%(setting_type)s updated.") % {
-                    'setting_type': capfirst(setting_type_name),
-                    'instance': instance
-                }
+                _("%(setting_type)s updated.")
+                % {"setting_type": capfirst(setting_type_name), "instance": instance},
             )
-            return redirect('wagtailsettings:edit', app_name, model_name, site.pk)
+            return redirect("wagtailsettings:edit", app_name, model_name, site.pk)
         else:
             messages.validation_error(
                 request, _("The setting could not be saved due to errors."), form
@@ -94,13 +98,17 @@ def edit(request, app_name, model_name, site_pk):
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
 
-    return TemplateResponse(request, 'wagtailsettings/edit.html', {
-        'opts': model._meta,
-        'setting_type_name': setting_type_name,
-        'instance': instance,
-        'edit_handler': edit_handler,
-        'form': form,
-        'site': site,
-        'site_switcher': site_switcher,
-        'tabbed': isinstance(edit_handler, TabbedInterface),
-    })
+    return TemplateResponse(
+        request,
+        "wagtailsettings/edit.html",
+        {
+            "opts": model._meta,
+            "setting_type_name": setting_type_name,
+            "instance": instance,
+            "edit_handler": edit_handler,
+            "form": form,
+            "site": site,
+            "site_switcher": site_switcher,
+            "tabbed": isinstance(edit_handler, TabbedInterface),
+        },
+    )

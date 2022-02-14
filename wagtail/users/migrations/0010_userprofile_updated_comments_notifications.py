@@ -6,13 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailusers', '0009_userprofile_verbose_name_plural'),
+        ("wagtailusers", "0009_userprofile_verbose_name_plural"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='updated_comments_notifications',
-            field=models.BooleanField(default=True, help_text='Receive notification when comments have been created, resolved, or deleted on a page that you have subscribed to receive comment notifications on', verbose_name='updated comments notifications'),
+            model_name="userprofile",
+            name="updated_comments_notifications",
+            field=models.BooleanField(
+                default=True,
+                help_text="Receive notification when comments have been created, resolved, or deleted on a page that you have subscribed to receive comment notifications on",
+                verbose_name="updated comments notifications",
+            ),
         ),
     ]

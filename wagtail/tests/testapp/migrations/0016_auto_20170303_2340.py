@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0015_auto_20170210_2058'),
+        ("tests", "0015_auto_20170210_2058"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='advertwithtabbedinterface',
-            options={'ordering': ('text',)},
+            name="advertwithtabbedinterface",
+            options={"ordering": ("text",)},
         ),
     ]
