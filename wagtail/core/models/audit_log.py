@@ -5,7 +5,6 @@ wagtail.core.models module or specific models such as Page.
 """
 
 import json
-
 from collections import defaultdict
 
 from django.conf import settings
@@ -25,7 +24,7 @@ class LogEntryQuerySet(models.QuerySet):
         """
         Returns a set of user IDs of users who have created at least one log entry in this QuerySet
         """
-        return set(self.order_by().values_list('user_id', flat=True).distinct())
+        return set(self.order_by().values_list("user_id", flat=True).distinct())
 
     def get_users(self):
         """
@@ -34,13 +33,15 @@ class LogEntryQuerySet(models.QuerySet):
         The returned queryset is ordered by the username.
         """
         User = get_user_model()
-        return User.objects.filter(pk__in=self.get_user_ids()).order_by(User.USERNAME_FIELD)
+        return User.objects.filter(pk__in=self.get_user_ids()).order_by(
+            User.USERNAME_FIELD
+        )
 
     def get_content_type_ids(self):
         """
         Returns a set of IDs of content types with logged actions in this QuerySet
         """
-        return set(self.order_by().values_list('content_type_id', flat=True).distinct())
+        return set(self.order_by().values_list("content_type_id", flat=True).distinct())
 
     def filter_on_content_type(self, content_type):
         # custom method for filtering by content type, to allow overriding on log entry models
@@ -60,7 +61,9 @@ class LogEntryQuerySet(models.QuerySet):
         for log_entry in log_entries:
             ids_by_content_type[log_entry.content_type_id].append(log_entry.object_id)
 
-        instances_by_id = {}  # lookup of (content_type_id, stringified_object_id) to instance
+        instances_by_id = (
+            {}
+        )  # lookup of (content_type_id, stringified_object_id) to instance
         for content_type_id, object_ids in ids_by_content_type.items():
             model = ContentType.objects.get_for_id(content_type_id).model_class()
             model_instances = model.objects.in_bulk(object_ids)
@@ -92,16 +95,21 @@ class BaseLogEntryManager(models.Manager):
         :return: The new log entry
         """
         if instance.pk is None:
-            raise ValueError("Attempted to log an action for object %r with empty primary key" % (instance, ))
+            raise ValueError(
+                "Attempted to log an action for object %r with empty primary key"
+                % (instance,)
+            )
 
-        data = kwargs.pop('data', '')
-        title = kwargs.pop('title', None)
+        data = kwargs.pop("data", "")
+        title = kwargs.pop("title", None)
         if not title:
             title = self.get_instance_title(instance)
 
-        timestamp = kwargs.pop('timestamp', timezone.now())
+        timestamp = kwargs.pop("timestamp", timezone.now())
         return self.model.objects.create(
-            content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
             label=title,
             action=action,
             timestamp=timestamp,
@@ -135,18 +143,21 @@ class BaseLogEntry(models.Model):
     content_type = models.ForeignKey(
         ContentType,
         models.SET_NULL,
-        verbose_name=_('content type'),
-        blank=True, null=True,
-        related_name='+',
+        verbose_name=_("content type"),
+        blank=True,
+        null=True,
+        related_name="+",
     )
     label = models.TextField()
 
     action = models.CharField(max_length=255, blank=True, db_index=True)
     data_json = models.TextField(blank=True)
-    timestamp = models.DateTimeField(verbose_name=_('timestamp (UTC)'), db_index=True)
+    timestamp = models.DateTimeField(verbose_name=_("timestamp (UTC)"), db_index=True)
     uuid = models.UUIDField(
-        blank=True, null=True, editable=False,
-        help_text="Log entries that happened as part of the same user action are assigned the same UUID"
+        blank=True,
+        null=True,
+        editable=False,
+        help_text="Log entries that happened as part of the same user action are assigned the same UUID",
     )
 
     user = models.ForeignKey(
@@ -155,7 +166,7 @@ class BaseLogEntry(models.Model):
         blank=True,
         on_delete=models.DO_NOTHING,
         db_constraint=False,
-        related_name='+',
+        related_name="+",
     )
 
     # Flags for additional context to the 'action' made by the user (or system).
@@ -166,9 +177,9 @@ class BaseLogEntry(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('log entry')
-        verbose_name_plural = _('log entries')
-        ordering = ['-timestamp']
+        verbose_name = _("log entry")
+        verbose_name_plural = _("log entries")
+        ordering = ["-timestamp"]
 
     def save(self, *args, **kwargs):
         self.full_clean()
@@ -176,11 +187,19 @@ class BaseLogEntry(models.Model):
 
     def clean(self):
         if not log_action_registry.action_exists(self.action):
-            raise ValidationError({'action': _("The log action '{}' has not been registered.").format(self.action)})
+            raise ValidationError(
+                {
+                    "action": _("The log action '{}' has not been registered.").format(
+                        self.action
+                    )
+                }
+            )
 
     def __str__(self):
         return "LogEntry %d: '%s' on '%s'" % (
-            self.pk, self.action, self.object_verbose_name()
+            self.pk,
+            self.action,
+            self.object_verbose_name(),
         )
 
     @cached_property
@@ -194,16 +213,16 @@ class BaseLogEntry(models.Model):
             user = self.user
             if user is None:
                 # User has been deleted. Using a string placeholder as the user id could be non-numeric
-                return _('user %(id)s (deleted)') % {'id': self.user_id}
+                return _("user %(id)s (deleted)") % {"id": self.user_id}
 
             try:
                 full_name = user.get_full_name().strip()
             except AttributeError:
-                full_name = ''
+                full_name = ""
             return full_name or user.get_username()
 
         else:
-            return _('system')
+            return _("system")
 
     @cached_property
     def data(self):
@@ -235,14 +254,14 @@ class BaseLogEntry(models.Model):
         if self.formatter:
             return self.formatter.format_message(self)
         else:
-            return _('Unknown %(action)s') % {'action': self.action}
+            return _("Unknown %(action)s") % {"action": self.action}
 
     @cached_property
     def comment(self):
         if self.formatter:
             return self.formatter.format_comment(self)
         else:
-            return ''
+            return ""
 
 
 class ModelLogEntryManager(BaseLogEntryManager):
@@ -252,8 +271,10 @@ class ModelLogEntryManager(BaseLogEntryManager):
 
     def for_instance(self, instance):
         return self.filter(
-            content_type=ContentType.objects.get_for_model(instance, for_concrete_model=False),
-            object_id=str(instance.pk)
+            content_type=ContentType.objects.get_for_model(
+                instance, for_concrete_model=False
+            ),
+            object_id=str(instance.pk),
         )
 
 
@@ -261,16 +282,20 @@ class ModelLogEntry(BaseLogEntry):
     """
     Simple logger for generic Django models
     """
+
     object_id = models.CharField(max_length=255, blank=False, db_index=True)
 
     objects = ModelLogEntryManager()
 
     class Meta:
-        ordering = ['-timestamp', '-id']
-        verbose_name = _('model log entry')
-        verbose_name_plural = _('model log entries')
+        ordering = ["-timestamp", "-id"]
+        verbose_name = _("model log entry")
+        verbose_name_plural = _("model log entries")
 
     def __str__(self):
         return "ModelLogEntry %d: '%s' on '%s' with id %s" % (
-            self.pk, self.action, self.object_verbose_name(), self.object_id
+            self.pk,
+            self.action,
+            self.object_verbose_name(),
+            self.object_id,
         )

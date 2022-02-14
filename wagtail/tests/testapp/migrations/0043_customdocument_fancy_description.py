@@ -7,13 +7,13 @@ import wagtail.core.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0042_simplechildpage_simpleparentpage'),
+        ("tests", "0042_simplechildpage_simpleparentpage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customdocument',
-            name='fancy_description',
+            model_name="customdocument",
+            name="fancy_description",
             field=wagtail.core.fields.RichTextField(blank=True),
         ),
     ]

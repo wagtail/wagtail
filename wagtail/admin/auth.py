@@ -1,9 +1,7 @@
 import types
-
 from functools import wraps
 
 import l18n
-
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
@@ -24,7 +22,9 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
     # Find GroupPagePermission records of the given type that apply to this page or an ancestor
     ancestors_and_self = list(page.get_ancestors()) + [page]
-    perm = GroupPagePermission.objects.filter(permission_type=permission_type, page__in=ancestors_and_self)
+    perm = GroupPagePermission.objects.filter(
+        permission_type=permission_type, page__in=ancestors_and_self
+    )
     q = Q(groups__page_permissions__in=perm)
 
     # Include superusers
@@ -36,13 +36,13 @@ def users_with_page_permission(page, permission_type, include_superusers=True):
 
 def permission_denied(request):
     """Return a standard 'permission denied' response"""
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
         raise PermissionDenied
 
     from wagtail.admin import messages
 
-    messages.error(request, _('Sorry, you do not have permission to access this area.'))
-    return redirect('wagtailadmin_home')
+    messages.error(request, _("Sorry, you do not have permission to access this area."))
+    return redirect("wagtailadmin_home")
 
 
 def user_passes_test(test):
@@ -50,6 +50,7 @@ def user_passes_test(test):
     Given a test function that takes a user object and returns a boolean,
     return a view decorator that denies access to the user if the test returns false.
     """
+
     def decorator(view_func):
         # decorator takes the view function, and returns the view wrapped in
         # a permission check
@@ -74,6 +75,7 @@ def permission_required(permission_name):
     more meaningful 'permission denied' response than just redirecting to the login page.
     (The latter doesn't work anyway because Wagtail doesn't define LOGIN_URL...)
     """
+
     def test(user):
         return user.has_perm(permission_name)
 
@@ -86,6 +88,7 @@ def any_permission_required(*perms):
     Decorator that accepts a list of permission names, and allows the user
     to pass if they have *any* of the permissions in the list
     """
+
     def test(user):
         for perm in perms:
             if user.has_perm(perm):
@@ -101,6 +104,7 @@ class PermissionPolicyChecker:
     Provides a view decorator that enforces the given permission policy,
     returning the wagtailadmin 'permission denied' response if permission not granted
     """
+
     def __init__(self, policy):
         self.policy = policy
 
@@ -142,14 +146,16 @@ def user_has_any_page_permission(user):
 
 
 def reject_request(request):
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
         raise PermissionDenied
 
     # import redirect_to_login here to avoid circular imports on model files that import
     # wagtail.admin.auth, specifically where custom user models are involved
     from django.contrib.auth.views import redirect_to_login as auth_redirect_to_login
+
     return auth_redirect_to_login(
-        request.get_full_path(), login_url=reverse('wagtailadmin_login'))
+        request.get_full_path(), login_url=reverse("wagtailadmin_login")
+    )
 
 
 def require_admin_access(view_func):
@@ -160,11 +166,13 @@ def require_admin_access(view_func):
         if user.is_anonymous:
             return reject_request(request)
 
-        if user.has_perms(['wagtailadmin.access_admin']):
+        if user.has_perms(["wagtailadmin.access_admin"]):
             try:
                 preferred_language = None
-                if hasattr(user, 'wagtail_userprofile'):
-                    preferred_language = user.wagtail_userprofile.get_preferred_language()
+                if hasattr(user, "wagtail_userprofile"):
+                    preferred_language = (
+                        user.wagtail_userprofile.get_preferred_language()
+                    )
                     l18n.set_language(preferred_language)
                     time_zone = user.wagtail_userprofile.get_current_time_zone()
                     activate_tz(time_zone)
@@ -188,20 +196,22 @@ def require_admin_access(view_func):
                                 with override(preferred_language):
                                     return render()
 
-                            response.render = types.MethodType(overridden_render, response)
+                            response.render = types.MethodType(
+                                overridden_render, response
+                            )
                             # decorate the response render method with the override context manager
                         return response
                     else:
                         return view_func(request, *args, **kwargs)
 
             except PermissionDenied:
-                if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                if request.headers.get("x-requested-with") == "XMLHttpRequest":
                     raise
 
                 return permission_denied(request)
 
-        if not request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            messages.error(request, _('You do not have permission to access the admin'))
+        if not request.headers.get("x-requested-with") == "XMLHttpRequest":
+            messages.error(request, _("You do not have permission to access the admin"))
 
         return reject_request(request)
 

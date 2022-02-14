@@ -8,19 +8,32 @@ import wagtail.contrib.routable_page.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0028_merge'),
-        ('routablepagetests', '0001_initial'),
+        ("wagtailcore", "0028_merge"),
+        ("routablepagetests", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='RoutablePageWithOverriddenIndexRouteTest',
+            name="RoutablePageWithOverriddenIndexRouteTest",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, 'wagtailcore.page'),
+            bases=(
+                wagtail.contrib.routable_page.models.RoutablePageMixin,
+                "wagtailcore.page",
+            ),
         ),
     ]

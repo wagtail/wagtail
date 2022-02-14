@@ -3,7 +3,6 @@
 from wagtail import __version__
 from wagtail.utils.setup import assets, check_bdist_egg, sdist
 
-
 try:
     from setuptools import find_packages, setup
 except ImportError:
@@ -42,61 +41,56 @@ install_requires = [
 # Testing dependencies
 testing_extras = [
     # Required for running the tests
-    'python-dateutil>=2.7',
-    'pytz>=2014.7',
-    'elasticsearch>=5.0,<6.0',
-    'Jinja2>=2.11,<3.0',
-    'boto3>=1.16,<1.17',
-    'freezegun>=0.3.8',
-    'openpyxl>=2.6.4',
-    'Unidecode>=0.04.14,<2.0',
-    'azure-mgmt-cdn>=5.1,<6.0',
-    'azure-mgmt-frontdoor>=0.3,<0.4',
-
+    "python-dateutil>=2.7",
+    "pytz>=2014.7",
+    "elasticsearch>=5.0,<6.0",
+    "Jinja2>=2.11,<3.0",
+    "boto3>=1.16,<1.17",
+    "freezegun>=0.3.8",
+    "openpyxl>=2.6.4",
+    "Unidecode>=0.04.14,<2.0",
+    "azure-mgmt-cdn>=5.1,<6.0",
+    "azure-mgmt-frontdoor>=0.3,<0.4",
     # For coverage and PEP8 linting
-    'coverage>=3.7.0',
-    'black==22.1.0',
-    'flake8>=3.6.0',
-    'isort==5.6.4',  # leave this pinned - it tends to change rules between patch releases
-    'flake8-blind-except==0.1.1',
-    'flake8-comprehensions==3.8.0',
-    'flake8-print==2.0.2',
-    'doc8==0.8.1',
-    'flake8-assertive==2.0.0',
-
+    "coverage>=3.7.0",
+    "black==22.1.0",
+    "flake8>=3.6.0",
+    "isort==5.6.4",  # leave this pinned - it tends to change rules between patch releases
+    "flake8-blind-except==0.1.1",
+    "flake8-comprehensions==3.8.0",
+    "flake8-print==2.0.2",
+    "doc8==0.8.1",
+    "flake8-assertive==2.0.0",
     # For templates linting
-    'jinjalint>=0.5',
-
+    "jinjalint>=0.5",
     # For template indenting
-    'djhtml==1.4.13',
-
+    "djhtml==1.4.13",
     # Pipenv hack to fix broken dependency causing CircleCI failures
-    'docutils==0.15',
-
+    "docutils==0.15",
     # for validating string formats in .po translation files
-    'polib>=1.1,<2.0',
+    "polib>=1.1,<2.0",
 ]
 
 # Documentation dependencies
 documentation_extras = [
-    'pyenchant>=3.1.1,<4',
-    'sphinxcontrib-spelling>=5.4.0,<6',
-    'Sphinx>=1.5.2',
-    'sphinx-autobuild>=0.6.0',
-    'sphinx-wagtail-theme==5.0.4',
-    'recommonmark>=0.7.1',
+    "pyenchant>=3.1.1,<4",
+    "sphinxcontrib-spelling>=5.4.0,<6",
+    "Sphinx>=1.5.2",
+    "sphinx-autobuild>=0.6.0",
+    "sphinx-wagtail-theme==5.0.4",
+    "recommonmark>=0.7.1",
 ]
 
 setup(
-    name='wagtail',
+    name="wagtail",
     version=__version__,
-    description='A Django content management system.',
-    author='Wagtail core team + contributors',
-    author_email='hello@wagtail.org',  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
-    url='https://wagtail.org/',
+    description="A Django content management system.",
+    author="Wagtail core team + contributors",
+    author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
+    url="https://wagtail.org/",
     packages=find_packages(),
     include_package_data=True,
-    license='BSD',
+    license="BSD",
     long_description="Wagtail is an open source content management \
 system built on Django, with a strong community and commercial support. \
 It’s focused on user experience, and offers precise control for \
@@ -104,37 +98,34 @@ designers and developers.\n\n\
 For more details, see https://wagtail.org, https://docs.wagtail.org and \
 https://github.com/wagtail/wagtail/.",
     classifiers=[
-        'Development Status :: 5 - Production/Stable',
-        'Environment :: Web Environment',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9',
-        'Programming Language :: Python :: 3.10',
-        'Framework :: Django',
-        'Framework :: Django :: 3.2',
-        'Framework :: Django :: 4.0',
-        'Framework :: Wagtail',
-        'Topic :: Internet :: WWW/HTTP :: Site Management',
+        "Development Status :: 5 - Production/Stable",
+        "Environment :: Web Environment",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: BSD License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Framework :: Django",
+        "Framework :: Django :: 3.2",
+        "Framework :: Django :: 4.0",
+        "Framework :: Wagtail",
+        "Topic :: Internet :: WWW/HTTP :: Site Management",
     ],
-    python_requires='>=3.7',
+    python_requires=">=3.7",
     install_requires=install_requires,
-    extras_require={
-        'testing': testing_extras,
-        'docs': documentation_extras
-    },
+    extras_require={"testing": testing_extras, "docs": documentation_extras},
     entry_points="""
             [console_scripts]
             wagtail=wagtail.bin.wagtail:main
     """,
     zip_safe=False,
     cmdclass={
-        'sdist': sdist,
-        'bdist_egg': check_bdist_egg,
-        'assets': assets,
+        "sdist": sdist,
+        "bdist_egg": check_bdist_egg,
+        "assets": assets,
     },
 )

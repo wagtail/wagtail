@@ -16,9 +16,7 @@ class Vector:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return 'Vector(x: %d, y: %d)' % (
-            self.x, self.y
-        )
+        return "Vector(x: %d, y: %d)" % (self.x, self.y)
 
 
 class Rect:
@@ -162,10 +160,18 @@ class Rect:
         br_transformed = transform.transform_vector(Vector(self.right, self.bottom))
 
         # Find extents of the transformed corners
-        left = min([tl_transformed.x, tr_transformed.x, bl_transformed.x, br_transformed.x])
-        right = max([tl_transformed.x, tr_transformed.x, bl_transformed.x, br_transformed.x])
-        top = min([tl_transformed.y, tr_transformed.y, bl_transformed.y, br_transformed.y])
-        bottom = max([tl_transformed.y, tr_transformed.y, bl_transformed.y, br_transformed.y])
+        left = min(
+            [tl_transformed.x, tr_transformed.x, bl_transformed.x, br_transformed.x]
+        )
+        right = max(
+            [tl_transformed.x, tr_transformed.x, bl_transformed.x, br_transformed.x]
+        )
+        top = min(
+            [tl_transformed.y, tr_transformed.y, bl_transformed.y, br_transformed.y]
+        )
+        bottom = max(
+            [tl_transformed.y, tr_transformed.y, bl_transformed.y, br_transformed.y]
+        )
 
         return Rect(left, top, right, bottom)
 
@@ -179,8 +185,11 @@ class Rect:
         return tuple(self) == tuple(other)
 
     def __repr__(self):
-        return 'Rect(left: %d, top: %d, right: %d, bottom: %d)' % (
-            self.left, self.top, self.right, self.bottom
+        return "Rect(left: %d, top: %d, right: %d, bottom: %d)" % (
+            self.left,
+            self.top,
+            self.right,
+            self.bottom,
         )
 
     @classmethod

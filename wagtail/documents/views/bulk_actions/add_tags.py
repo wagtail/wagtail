@@ -19,12 +19,12 @@ class AddTagsBulkAction(DocumentBulkAction):
     form_class = TagForm
 
     def check_perm(self, document):
-        return self.permission_policy.user_has_permission_for_instance(self.request.user, 'change', document)
+        return self.permission_policy.user_has_permission_for_instance(
+            self.request.user, "change", document
+        )
 
     def get_execution_context(self):
-        return {
-            'tags': self.cleaned_form.cleaned_data['tags'].split(',')
-        }
+        return {"tags": self.cleaned_form.cleaned_data["tags"].split(",")}
 
     @classmethod
     def execute_action(cls, objects, tags=[], **kwargs):
@@ -40,7 +40,5 @@ class AddTagsBulkAction(DocumentBulkAction):
         return ngettext(
             "New tags have been added to %(num_parent_objects)d document",
             "New tags have been added to %(num_parent_objects)d documents",
-            num_parent_objects
-        ) % {
-            'num_parent_objects': num_parent_objects
-        }
+            num_parent_objects,
+        ) % {"num_parent_objects": num_parent_objects}

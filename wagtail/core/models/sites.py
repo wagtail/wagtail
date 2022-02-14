@@ -19,41 +19,47 @@ class SiteManager(models.Manager):
         return self.get(hostname=hostname, port=port)
 
 
-SiteRootPath = namedtuple('SiteRootPath', 'site_id root_path root_url language_code')
+SiteRootPath = namedtuple("SiteRootPath", "site_id root_path root_url language_code")
 
 
 class Site(models.Model):
-    hostname = models.CharField(verbose_name=_('hostname'), max_length=255, db_index=True)
+    hostname = models.CharField(
+        verbose_name=_("hostname"), max_length=255, db_index=True
+    )
     port = models.IntegerField(
-        verbose_name=_('port'),
+        verbose_name=_("port"),
         default=80,
         help_text=_(
             "Set this to something other than 80 if you need a specific port number to appear in URLs"
             " (e.g. development on port 8000). Does not affect request handling (so port forwarding still works)."
-        )
+        ),
     )
     site_name = models.CharField(
-        verbose_name=_('site name'),
+        verbose_name=_("site name"),
         max_length=255,
         blank=True,
-        help_text=_("Human-readable name for the site.")
+        help_text=_("Human-readable name for the site."),
     )
-    root_page = models.ForeignKey('Page', verbose_name=_('root page'), related_name='sites_rooted_here',
-                                  on_delete=models.CASCADE)
+    root_page = models.ForeignKey(
+        "Page",
+        verbose_name=_("root page"),
+        related_name="sites_rooted_here",
+        on_delete=models.CASCADE,
+    )
     is_default_site = models.BooleanField(
-        verbose_name=_('is default site'),
+        verbose_name=_("is default site"),
         default=False,
         help_text=_(
             "If true, this site will handle requests for all other hostnames that do not have a site entry of their own"
-        )
+        ),
     )
 
     objects = SiteManager()
 
     class Meta:
-        unique_together = ('hostname', 'port')
-        verbose_name = _('site')
-        verbose_name_plural = _('sites')
+        unique_together = ("hostname", "port")
+        verbose_name = _("site")
+        verbose_name_plural = _("sites")
 
     def natural_key(self):
         return (self.hostname, self.port)
@@ -61,10 +67,7 @@ class Site(models.Model):
     def __str__(self):
         default_suffix = " [{}]".format(_("default"))
         if self.site_name:
-            return (
-                self.site_name
-                + (default_suffix if self.is_default_site else "")
-            )
+            return self.site_name + (default_suffix if self.is_default_site else "")
         else:
             return (
                 self.hostname
@@ -93,9 +96,9 @@ class Site(models.Model):
         if request is None:
             return None
 
-        if not hasattr(request, '_wagtail_site'):
+        if not hasattr(request, "_wagtail_site"):
             site = Site._find_for_request(request)
-            setattr(request, '_wagtail_site', site)
+            setattr(request, "_wagtail_site", site)
         return request._wagtail_site
 
     @staticmethod
@@ -113,11 +116,11 @@ class Site(models.Model):
     @property
     def root_url(self):
         if self.port == 80:
-            return 'http://%s' % self.hostname
+            return "http://%s" % self.hostname
         elif self.port == 443:
-            return 'https://%s' % self.hostname
+            return "https://%s" % self.hostname
         else:
-            return 'http://%s:%d' % (self.hostname, self.port)
+            return "http://%s:%d" % (self.hostname, self.port)
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude)
@@ -131,13 +134,15 @@ class Site(models.Model):
         else:
             if self.is_default_site and self.pk != default.pk:
                 raise ValidationError(
-                    {'is_default_site': [
-                        _(
-                            "%(hostname)s is already configured as the default site."
-                            " You must unset that before you can save this site as default."
-                        )
-                        % {'hostname': default.hostname}
-                    ]}
+                    {
+                        "is_default_site": [
+                            _(
+                                "%(hostname)s is already configured as the default site."
+                                " You must unset that before you can save this site as default."
+                            )
+                            % {"hostname": default.hostname}
+                        ]
+                    }
                 )
 
     @staticmethod
@@ -154,7 +159,7 @@ class Site(models.Model):
         - `root_url` - The scheme/domain name of the site (for example 'https://www.example.com/')
         - `language_code` - The language code of the site (for example 'en')
         """
-        result = cache.get('wagtail_site_root_paths')
+        result = cache.get("wagtail_site_root_paths")
 
         # Wagtail 2.11 changed the way site root paths were stored. This can cause an upgraded 2.11
         # site to break when loading cached site root paths that were cached with 2.10.2 or older
@@ -163,15 +168,33 @@ class Site(models.Model):
         if result is None or any(len(site_record) == 3 for site_record in result):
             result = []
 
-            for site in Site.objects.select_related('root_page', 'root_page__locale').order_by('-root_page__url_path', '-is_default_site', 'hostname'):
-                if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
-                    result.extend([
-                        SiteRootPath(site.id, root_page.url_path, site.root_url, root_page.locale.language_code)
-                        for root_page in site.root_page.get_translations(inclusive=True).select_related('locale')
-                    ])
+            for site in Site.objects.select_related(
+                "root_page", "root_page__locale"
+            ).order_by("-root_page__url_path", "-is_default_site", "hostname"):
+                if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+                    result.extend(
+                        [
+                            SiteRootPath(
+                                site.id,
+                                root_page.url_path,
+                                site.root_url,
+                                root_page.locale.language_code,
+                            )
+                            for root_page in site.root_page.get_translations(
+                                inclusive=True
+                            ).select_related("locale")
+                        ]
+                    )
                 else:
-                    result.append(SiteRootPath(site.id, site.root_page.url_path, site.root_url, site.root_page.locale.language_code))
+                    result.append(
+                        SiteRootPath(
+                            site.id,
+                            site.root_page.url_path,
+                            site.root_url,
+                            site.root_page.locale.language_code,
+                        )
+                    )
 
-            cache.set('wagtail_site_root_paths', result, 3600)
+            cache.set("wagtail_site_root_paths", result, 3600)
 
         return result

@@ -1,10 +1,14 @@
 import django_filters
-
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_filters.widgets import SuffixedMultiWidget
 
-from wagtail.admin.widgets import AdminDateInput, BooleanButtonSelect, ButtonSelect, FilteredSelect
+from wagtail.admin.widgets import (
+    AdminDateInput,
+    BooleanButtonSelect,
+    ButtonSelect,
+    FilteredSelect,
+)
 from wagtail.core.utils import get_content_type_label
 
 
@@ -12,11 +16,15 @@ class DateRangePickerWidget(SuffixedMultiWidget):
     """
     A widget allowing a start and end date to be picked.
     """
-    template_name = 'wagtailadmin/widgets/daterange_input.html'
-    suffixes = ['after', 'before']
+
+    template_name = "wagtailadmin/widgets/daterange_input.html"
+    suffixes = ["after", "before"]
 
     def __init__(self, attrs=None):
-        widgets = (AdminDateInput(attrs={'placeholder': _("Date from")}), AdminDateInput(attrs={'placeholder': _("Date to")}))
+        widgets = (
+            AdminDateInput(attrs={"placeholder": _("Date from")}),
+            AdminDateInput(attrs={"placeholder": _("Date to")}),
+        )
         super().__init__(widgets, attrs)
 
     def decompress(self, value):
@@ -31,11 +39,12 @@ class FilteredModelChoiceIterator(django_filters.fields.ModelChoiceIterator):
     returns (value, label, filter_value) so that FilteredSelect can drop filter_value into
     the data-filter-value attribute.
     """
+
     def choice(self, obj):
         return (
             self.field.prepare_value(obj),
             self.field.label_from_instance(obj),
-            self.field.get_filter_value(obj)
+            self.field.get_filter_value(obj),
         )
 
 
@@ -50,12 +59,13 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
         returns a queryset of related objects, or a function which accepts the model instance and
         returns such a queryset.
     """
+
     widget = FilteredSelect
     iterator = FilteredModelChoiceIterator
 
     def __init__(self, *args, **kwargs):
-        self.filter_accessor = kwargs.pop('filter_accessor')
-        filter_field = kwargs.pop('filter_field')
+        self.filter_accessor = kwargs.pop("filter_accessor")
+        filter_field = kwargs.pop("filter_field")
         super().__init__(*args, **kwargs)
         self.widget.filter_field = filter_field
 
@@ -73,7 +83,7 @@ class FilteredModelChoiceField(django_filters.fields.ModelChoiceField):
 
         # Turn this queryset into a list of IDs that will become the 'data-filter-value' used to
         # filter this listing
-        return queryset.values_list('pk', flat=True)
+        return queryset.values_list("pk", flat=True)
 
 
 class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
@@ -81,23 +91,22 @@ class FilteredModelChoiceFilter(django_filters.ModelChoiceFilter):
 
 
 class WagtailFilterSet(django_filters.FilterSet):
-
     @classmethod
     def filter_for_lookup(cls, field, lookup_type):
         filter_class, params = super().filter_for_lookup(field, lookup_type)
 
         if filter_class == django_filters.ChoiceFilter:
-            params.setdefault('widget', ButtonSelect)
-            params.setdefault('empty_label', _("All"))
+            params.setdefault("widget", ButtonSelect)
+            params.setdefault("empty_label", _("All"))
 
         elif filter_class in [django_filters.DateFilter, django_filters.DateTimeFilter]:
-            params.setdefault('widget', AdminDateInput)
+            params.setdefault("widget", AdminDateInput)
 
         elif filter_class == django_filters.DateFromToRangeFilter:
-            params.setdefault('widget', DateRangePickerWidget)
+            params.setdefault("widget", DateRangePickerWidget)
 
         elif filter_class == django_filters.BooleanFilter:
-            params.setdefault('widget', BooleanButtonSelect)
+            params.setdefault("widget", BooleanButtonSelect)
 
         return filter_class, params
 
@@ -107,6 +116,7 @@ class ContentTypeModelChoiceField(django_filters.fields.ModelChoiceField):
     Custom ModelChoiceField for ContentType, to show the model verbose name as the label rather
     than the default 'wagtailcore | page' representation of a ContentType
     """
+
     def label_from_instance(self, obj):
         return get_content_type_label(obj)
 

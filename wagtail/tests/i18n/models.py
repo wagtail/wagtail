@@ -38,12 +38,18 @@ class ClusterableTestModel(TranslatableMixin, ClusterableModel):
 
 
 class ClusterableTestModelChild(Orderable):
-    parent = ParentalKey(ClusterableTestModel, on_delete=models.CASCADE, related_name='children')
+    parent = ParentalKey(
+        ClusterableTestModel, on_delete=models.CASCADE, related_name="children"
+    )
     field = models.TextField()
 
 
 class ClusterableTestModelTranslatableChild(TranslatableMixin, Orderable):
-    parent = ParentalKey(ClusterableTestModel, on_delete=models.CASCADE, related_name='translatable_children')
+    parent = ParentalKey(
+        ClusterableTestModel,
+        on_delete=models.CASCADE,
+        related_name="translatable_children",
+    )
     field = models.TextField()
 
     class Meta(TranslatableMixin.Meta, Orderable.Meta):

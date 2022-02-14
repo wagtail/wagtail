@@ -27,15 +27,15 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     authentication_classes = [SessionAuthentication]
 
     actions = {
-        'convert_alias': ConvertAliasPageAPIAction,
-        'copy': CopyPageAPIAction,
-        'delete': DeletePageAPIAction,
-        'publish': PublishPageAPIAction,
-        'unpublish': UnpublishPageAPIAction,
-        'move': MovePageAPIAction,
-        'copy_for_translation': CopyForTranslationAPIAction,
-        'create_alias': CreatePageAliasAPIAction,
-        'revert_to_page_revision': RevertToPageRevisionAPIAction,
+        "convert_alias": ConvertAliasPageAPIAction,
+        "copy": CopyPageAPIAction,
+        "delete": DeletePageAPIAction,
+        "publish": PublishPageAPIAction,
+        "unpublish": UnpublishPageAPIAction,
+        "move": MovePageAPIAction,
+        "copy_for_translation": CopyForTranslationAPIAction,
+        "create_alias": CreatePageAliasAPIAction,
+        "revert_to_page_revision": RevertToPageRevisionAPIAction,
     }
 
     # Add has_children and for_explorer filters
@@ -45,41 +45,40 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
     ]
 
     meta_fields = PagesAPIViewSet.meta_fields + [
-        'latest_revision_created_at',
-        'status',
-        'children',
-        'descendants',
-        'parent',
-        'ancestors',
-        'translations',
+        "latest_revision_created_at",
+        "status",
+        "children",
+        "descendants",
+        "parent",
+        "ancestors",
+        "translations",
     ]
 
     body_fields = PagesAPIViewSet.body_fields + [
-        'admin_display_title',
+        "admin_display_title",
     ]
 
     listing_default_fields = PagesAPIViewSet.listing_default_fields + [
-        'latest_revision_created_at',
-        'status',
-        'children',
-        'admin_display_title',
+        "latest_revision_created_at",
+        "status",
+        "children",
+        "admin_display_title",
     ]
 
     # Allow the parent field to appear on listings
     detail_only_fields = []
 
-    known_query_parameters = PagesAPIViewSet.known_query_parameters.union([
-        'for_explorer',
-        'has_children'
-    ])
+    known_query_parameters = PagesAPIViewSet.known_query_parameters.union(
+        ["for_explorer", "has_children"]
+    )
 
     @classmethod
     def get_detail_default_fields(cls, model):
         detail_default_fields = super().get_detail_default_fields(model)
 
         # When i18n is disabled, remove "translations" from default fields
-        if not getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
-            detail_default_fields.remove('translations')
+        if not getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            detail_default_fields.remove("translations")
 
         return detail_default_fields
 
@@ -111,21 +110,23 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         types = OrderedDict()
 
         for name, model in self.seen_types.items():
-            types[name] = OrderedDict([
-                ('verbose_name', model._meta.verbose_name),
-                ('verbose_name_plural', model._meta.verbose_name_plural),
-            ])
+            types[name] = OrderedDict(
+                [
+                    ("verbose_name", model._meta.verbose_name),
+                    ("verbose_name_plural", model._meta.verbose_name_plural),
+                ]
+            )
 
         return types
 
     def listing_view(self, request):
         response = super().listing_view(request)
-        response.data['__types'] = self.get_type_info()
+        response.data["__types"] = self.get_type_info()
         return response
 
     def detail_view(self, request, pk):
         response = super().detail_view(request, pk)
-        response.data['__types'] = self.get_type_info()
+        response.data["__types"] = self.get_type_info()
         return response
 
     def action_view(self, request, pk, action_name):
@@ -148,7 +149,13 @@ class PagesAdminAPIViewSet(PagesAPIViewSet):
         This returns a list of URL patterns for the endpoint
         """
         urlpatterns = super().get_urlpatterns()
-        urlpatterns.extend([
-            path('<int:pk>/action/<str:action_name>/', cls.as_view({'post': 'action_view'}), name='action'),
-        ])
+        urlpatterns.extend(
+            [
+                path(
+                    "<int:pk>/action/<str:action_name>/",
+                    cls.as_view({"post": "action_view"}),
+                    name="action",
+                ),
+            ]
+        )
         return urlpatterns

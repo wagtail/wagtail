@@ -23,12 +23,19 @@ class BaseWorkflowFormView(View):
         self.page = get_object_or_404(Page, id=page_id)
         self.action_name = action_name
 
-        self.redirect_to = request.POST.get('next', None)
-        if not self.redirect_to or not url_has_allowed_host_and_scheme(url=self.redirect_to, allowed_hosts={request.get_host()}):
-            self.redirect_to = reverse('wagtailadmin_pages:edit', args=[page_id])
+        self.redirect_to = request.POST.get("next", None)
+        if not self.redirect_to or not url_has_allowed_host_and_scheme(
+            url=self.redirect_to, allowed_hosts={request.get_host()}
+        ):
+            self.redirect_to = reverse("wagtailadmin_pages:edit", args=[page_id])
 
         if not self.page.workflow_in_progress:
-            messages.error(request, _("The page '{0}' is not currently awaiting moderation.").format(self.page.get_admin_display_title()))
+            messages.error(
+                request,
+                _("The page '{0}' is not currently awaiting moderation.").format(
+                    self.page.get_admin_display_title()
+                ),
+            )
             return redirect(self.redirect_to)
 
         self.task_state = get_object_or_404(TaskState, id=task_state_id)
@@ -37,7 +44,7 @@ class BaseWorkflowFormView(View):
         self.task = self.task_state.task.specific
 
         actions = self.task.get_actions(self.page, request.user)
-        self.action_verbose_name = ''
+        self.action_verbose_name = ""
         action_available = False
         self.action_modal = False
 
@@ -68,38 +75,65 @@ class BaseWorkflowFormView(View):
 
     def render_modal_form(self, request, form):
         return render_modal_workflow(
-            request, 'wagtailadmin/pages/workflow_action_modal.html', None, {
-                'page': self.page,
-                'form': form,
-                'action': self.action_name,
-                'action_verbose': self.action_verbose_name,
-                'task_state': self.task_state,
-                'submit_url': self.get_submit_url(),
+            request,
+            "wagtailadmin/pages/workflow_action_modal.html",
+            None,
+            {
+                "page": self.page,
+                "form": form,
+                "action": self.action_name,
+                "action_verbose": self.action_verbose_name,
+                "task_state": self.task_state,
+                "submit_url": self.get_submit_url(),
             },
-            json_data={'step': 'action'}
+            json_data={"step": "action"},
         )
 
 
 class WorkflowAction(BaseWorkflowFormView):
     """Provides a modal view to enter additional data for the specified workflow action on GET,
     or perform the specified action on POST"""
+
     def post(self, request, page_id, action_name, task_state_id):
         if self.form_class:
             form = self.form_class(request.POST)
             if form.is_valid():
-                redirect_to = self.task.on_action(self.task_state, request.user, self.action_name, **form.cleaned_data) or self.redirect_to
-            elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                redirect_to = (
+                    self.task.on_action(
+                        self.task_state,
+                        request.user,
+                        self.action_name,
+                        **form.cleaned_data,
+                    )
+                    or self.redirect_to
+                )
+            elif (
+                self.action_modal
+                and request.headers.get("x-requested-with") == "XMLHttpRequest"
+            ):
                 # show form errors
                 return self.render_modal_form(request, form)
         else:
-            redirect_to = self.task.on_action(self.task_state, request.user, self.action_name) or self.redirect_to
+            redirect_to = (
+                self.task.on_action(self.task_state, request.user, self.action_name)
+                or self.redirect_to
+            )
 
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'redirect': redirect_to})
+        if request.headers.get("x-requested-with") == "XMLHttpRequest":
+            return render_modal_workflow(
+                request,
+                "",
+                None,
+                {},
+                json_data={"step": "success", "redirect": redirect_to},
+            )
         return redirect(redirect_to)
 
     def get_submit_url(self):
-        return reverse('wagtailadmin_pages:workflow_action', args=(self.page.id, self.action_name, self.task_state.id))
+        return reverse(
+            "wagtailadmin_pages:workflow_action",
+            args=(self.page.id, self.action_name, self.task_state.id),
+        )
 
 
 class CollectWorkflowActionData(BaseWorkflowFormView):
@@ -109,16 +143,29 @@ class CollectWorkflowActionData(BaseWorkflowFormView):
     the calling view can subsequently perform the action as part of its own processing
     (for example, approving moderation while making an edit).
     """
+
     def post(self, request, page_id, action_name, task_state_id):
         form = self.form_class(request.POST)
         if form.is_valid():
-            return render_modal_workflow(request, '', None, {}, json_data={'step': 'success', 'cleaned_data': form.cleaned_data})
-        elif self.action_modal and request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return render_modal_workflow(
+                request,
+                "",
+                None,
+                {},
+                json_data={"step": "success", "cleaned_data": form.cleaned_data},
+            )
+        elif (
+            self.action_modal
+            and request.headers.get("x-requested-with") == "XMLHttpRequest"
+        ):
             # show form errors
             return self.render_modal_form(request, form)
 
     def get_submit_url(self):
-        return reverse('wagtailadmin_pages:collect_workflow_action_data', args=(self.page.id, self.action_name, self.task_state.id))
+        return reverse(
+            "wagtailadmin_pages:collect_workflow_action_data",
+            args=(self.page.id, self.action_name, self.task_state.id),
+        )
 
 
 def confirm_workflow_cancellation(request, page_id):
@@ -126,16 +173,24 @@ def confirm_workflow_cancellation(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     workflow_state = page.current_workflow_state
 
-    if (not workflow_state) or not getattr(settings, 'WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH', True):
-        return render_modal_workflow(request, '', None, {}, json_data={'step': 'no_confirmation_needed'})
+    if (not workflow_state) or not getattr(
+        settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+    ):
+        return render_modal_workflow(
+            request, "", None, {}, json_data={"step": "no_confirmation_needed"}
+        )
 
     return render_modal_workflow(
-        request, 'wagtailadmin/pages/confirm_workflow_cancellation.html', None, {
-            'needs_changes': workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES,
-            'task': workflow_state.current_task_state.task.name,
-            'workflow': workflow_state.workflow.name,
+        request,
+        "wagtailadmin/pages/confirm_workflow_cancellation.html",
+        None,
+        {
+            "needs_changes": workflow_state.status
+            == WorkflowState.STATUS_NEEDS_CHANGES,
+            "task": workflow_state.current_task_state.task.name,
+            "workflow": workflow_state.workflow.name,
         },
-        json_data={'step': 'confirm'}
+        json_data={"step": "confirm"},
     )
 
 
@@ -151,17 +206,24 @@ def workflow_status(request, page_id):
     workflow_state = current_workflow_state
     if not workflow_state:
         # Show last workflow state
-        workflow_state = page.workflow_states.order_by('created_at').last()
+        workflow_state = page.workflow_states.order_by("created_at").last()
 
     if workflow_state:
         workflow_tasks = workflow_state.all_tasks_with_state()
 
-    return render_modal_workflow(request, 'wagtailadmin/workflows/workflow_status.html', None, {
-        'page': page,
-        'workflow_state': workflow_state,
-        'current_task_state': workflow_state.current_task_state if workflow_state else None,
-        'workflow_tasks': workflow_tasks,
-    })
+    return render_modal_workflow(
+        request,
+        "wagtailadmin/workflows/workflow_status.html",
+        None,
+        {
+            "page": page,
+            "workflow_state": workflow_state,
+            "current_task_state": workflow_state.current_task_state
+            if workflow_state
+            else None,
+            "workflow_tasks": workflow_tasks,
+        },
+    )
 
 
 @require_GET
@@ -172,10 +234,17 @@ def preview_revision_for_task(request, page_id, task_id):
     page = get_object_or_404(Page, id=page_id)
     task = get_object_or_404(Task, id=task_id).specific
     try:
-        task_state = TaskState.objects.get(page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS)
+        task_state = TaskState.objects.get(
+            page_revision__page=page, task=task, status=TaskState.STATUS_IN_PROGRESS
+        )
     except TaskState.DoesNotExist:
-        messages.error(request, _("The page '{0}' is not currently awaiting moderation in task '{1}'.").format(page.get_admin_display_title(), task.name))
-        return redirect('wagtailadmin_home')
+        messages.error(
+            request,
+            _(
+                "The page '{0}' is not currently awaiting moderation in task '{1}'."
+            ).format(page.get_admin_display_title(), task.name),
+        )
+        return redirect("wagtailadmin_home")
 
     revision = task_state.page_revision
 
@@ -186,6 +255,8 @@ def preview_revision_for_task(request, page_id, task_id):
 
     # TODO: provide workflow actions within this view
 
-    return page_to_view.make_preview_request(request, page.default_preview_mode, extra_request_attrs={
-        'revision_id': revision.id
-    })
+    return page_to_view.make_preview_request(
+        request,
+        page.default_preview_mode,
+        extra_request_attrs={"revision_id": revision.id},
+    )

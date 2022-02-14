@@ -1,5 +1,4 @@
 import unittest
-
 from datetime import date
 from io import StringIO
 
@@ -27,15 +26,19 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         from wagtail.search.backends.base import FilterError
 
         with self.assertRaises(FilterError):
-            list(self.backend.search("Hello", models.Book.objects.filter(title__iregex='h(ea)llo')))
+            list(
+                self.backend.search(
+                    "Hello", models.Book.objects.filter(title__iregex="h(ea)llo")
+                )
+            )
 
     def test_partial_search(self):
         results = self.backend.search("Java", models.Book)
 
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "JavaScript: The Definitive Guide",
-            "JavaScript: The good parts"
-        ])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["JavaScript: The Definitive Guide", "JavaScript: The good parts"],
+        )
 
     def test_disabled_partial_search(self):
         results = self.backend.search("Java", models.Book, partial_match=False)
@@ -47,26 +50,23 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         # returned no results
         results = self.backend.search("JavaScript", models.Book, partial_match=False)
 
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "JavaScript: The Definitive Guide",
-            "JavaScript: The good parts"
-        ])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["JavaScript: The Definitive Guide", "JavaScript: The good parts"],
+        )
 
     def test_child_partial_search(self):
         # Note: Expands to "Westeros". Which is in a field on Novel.setting
         results = self.backend.search("Wes", models.Book)
 
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "A Game of Thrones",
-            "A Storm of Swords",
-            "A Clash of Kings"
-        ])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["A Game of Thrones", "A Storm of Swords", "A Clash of Kings"],
+        )
 
     def test_ascii_folding(self):
         book = models.Book.objects.create(
-            title="Ĥéllø",
-            publication_date=date(2017, 10, 19),
-            number_of_pages=1
+            title="Ĥéllø", publication_date=date(2017, 10, 19), number_of_pages=1
         )
 
         index = self.backend.get_index_for_model(models.Book)
@@ -75,18 +75,16 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
 
         results = self.backend.search("Hello", models.Book)
 
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "Ĥéllø"
-        ])
+        self.assertUnsortedListEqual([r.title for r in results], ["Ĥéllø"])
 
     def test_query_analyser(self):
         # This is testing that fields that use edgengram_analyzer as their index analyser do not
         # have it also as their query analyser
         results = self.backend.search("JavaScript", models.Book)
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "JavaScript: The Definitive Guide",
-            "JavaScript: The good parts"
-        ])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["JavaScript: The Definitive Guide", "JavaScript: The good parts"],
+        )
 
         # Even though they both start with "Java", this should not match the "JavaScript" books
         results = self.backend.search("JavaBeans", models.Book)
@@ -102,7 +100,7 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         book = models.Book.objects.create(
             title="Harry Potter and the Half-Blood Prince",
             publication_date=date(2009, 7, 15),
-            number_of_pages=607
+            number_of_pages=607,
         )
 
         index = self.backend.get_index_for_model(models.Book)
@@ -110,21 +108,29 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         index.refresh()
 
         results = self.backend.search("Half-Blood", models.Book)
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "Harry Potter and the Half-Blood Prince",
-        ])
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            [
+                "Harry Potter and the Half-Blood Prince",
+            ],
+        )
 
     def test_and_operator_with_single_field(self):
         # Testing for bug #1859
-        results = self.backend.search("JavaScript", models.Book, operator='and', fields=['title'])
-        self.assertUnsortedListEqual([r.title for r in results], [
-            "JavaScript: The Definitive Guide",
-            "JavaScript: The good parts"
-        ])
+        results = self.backend.search(
+            "JavaScript", models.Book, operator="and", fields=["title"]
+        )
+        self.assertUnsortedListEqual(
+            [r.title for r in results],
+            ["JavaScript: The Definitive Guide", "JavaScript: The good parts"],
+        )
 
     def test_update_index_command_schema_only(self):
         management.call_command(
-            'update_index', backend_name=self.backend_name, schema_only=True, stdout=StringIO()
+            "update_index",
+            backend_name=self.backend_name,
+            schema_only=True,
+            stdout=StringIO(),
         )
 
         # This should not give any results
@@ -141,7 +147,13 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         # Tests that fetching more than 100 results uses the scroll API
         books = []
         for i in range(150):
-            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+            books.append(
+                models.Book.objects.create(
+                    title="Book {}".format(i),
+                    publication_date=date(2017, 10, 21),
+                    number_of_pages=i,
+                )
+            )
 
         index = self.backend.get_index_for_model(models.Book)
         index.add_items(models.Book, books)
@@ -153,7 +165,13 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
     def test_slice_more_than_one_hundred_results(self):
         books = []
         for i in range(150):
-            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+            books.append(
+                models.Book.objects.create(
+                    title="Book {}".format(i),
+                    publication_date=date(2017, 10, 21),
+                    number_of_pages=i,
+                )
+            )
 
         index = self.backend.get_index_for_model(models.Book)
         index.add_items(models.Book, books)
@@ -167,7 +185,13 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         # which will skip the first page if the first result is on the second page
         books = []
         for i in range(150):
-            books.append(models.Book.objects.create(title="Book {}".format(i), publication_date=date(2017, 10, 21), number_of_pages=i))
+            books.append(
+                models.Book.objects.create(
+                    title="Book {}".format(i),
+                    publication_date=date(2017, 10, 21),
+                    number_of_pages=i,
+                )
+            )
 
         index = self.backend.get_index_for_model(models.Book)
         index.add_items(models.Book, books)

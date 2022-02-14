@@ -7,16 +7,20 @@ from wagtail.admin.staticfiles import versioned_static
 class WagtailJSContextBase(JSContextBase):
     @property
     def base_media(self):
-        return forms.Media(js=[
-            versioned_static(self.telepath_js_path),
-        ])
+        return forms.Media(
+            js=[
+                versioned_static(self.telepath_js_path),
+            ]
+        )
 
 
 class WagtailAdapterRegistry(AdapterRegistry):
     js_context_base_class = WagtailJSContextBase
 
 
-registry = WagtailAdapterRegistry(telepath_js_path='wagtailadmin/js/telepath/telepath.js')
+registry = WagtailAdapterRegistry(
+    telepath_js_path="wagtailadmin/js/telepath/telepath.js"
+)
 JSContext = registry.js_context_class
 
 
@@ -54,11 +58,16 @@ def adapter(js_constructor, base=Adapter):
                     self.foo,
                 ]
     """
+
     def _wrapper(cls):
-        ClassAdapter = type(cls.__name__ + 'Adapter', (base, ), {
-            'js_constructor': js_constructor,
-            'js_args': lambda self, obj: obj.js_args(),
-        })
+        ClassAdapter = type(
+            cls.__name__ + "Adapter",
+            (base,),
+            {
+                "js_constructor": js_constructor,
+                "js_args": lambda self, obj: obj.js_args(),
+            },
+        )
 
         register(ClassAdapter(), cls)
 

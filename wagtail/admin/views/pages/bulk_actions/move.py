@@ -9,32 +9,43 @@ from wagtail.core.models import Page
 
 
 class BulkMovePageChooser(widgets.AdminPageChooser):
-    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
-        self.pages_to_move = kwargs.pop('pages_to_move', [])
-        super().__init__(target_models=target_models, can_choose_root=can_choose_root, user_perms=user_perms, **kwargs)
+    def __init__(
+        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
+    ):
+        self.pages_to_move = kwargs.pop("pages_to_move", [])
+        super().__init__(
+            target_models=target_models,
+            can_choose_root=can_choose_root,
+            user_perms=user_perms,
+            **kwargs,
+        )
 
     @widgets.AdminPageChooser.client_options.getter
     def client_options(self):
         return {
-            'model_names': self.model_names,
-            'can_choose_root': self.can_choose_root,
-            'user_perms': self.user_perms,
-            'target_pages': self.pages_to_move,
-            'match_subclass': False
+            "model_names": self.model_names,
+            "can_choose_root": self.can_choose_root,
+            "user_perms": self.user_perms,
+            "target_pages": self.pages_to_move,
+            "match_subclass": False,
         }
 
 
 class MoveForm(forms.Form):
-
     def __init__(self, *args, **kwargs):
-        destination = kwargs.pop('destination')
-        target_parent_models = kwargs.pop('target_parent_models')
-        pages_to_move = kwargs.pop('pages_to_move')
+        destination = kwargs.pop("destination")
+        target_parent_models = kwargs.pop("target_parent_models")
+        pages_to_move = kwargs.pop("pages_to_move")
         super().__init__(*args, **kwargs)
-        self.fields['chooser'] = forms.ModelChoiceField(
+        self.fields["chooser"] = forms.ModelChoiceField(
             initial=destination,
             queryset=Page.objects.all(),
-            widget=BulkMovePageChooser(can_choose_root=True, user_perms='move_to', target_models=target_parent_models, pages_to_move=pages_to_move),
+            widget=BulkMovePageChooser(
+                can_choose_root=True,
+                user_perms="move_to",
+                target_models=target_parent_models,
+                pages_to_move=pages_to_move,
+            ),
             label=_("Select a new parent page"),
         )
 
@@ -55,9 +66,9 @@ class MoveBulkAction(PageBulkAction):
 
     def get_form_kwargs(self):
         ctx = super().get_form_kwargs()
-        ctx['destination'] = self.destination or Page.get_first_root_node()
-        ctx['target_parent_models'] = self.target_parent_models
-        ctx['pages_to_move'] = self.pages_to_move
+        ctx["destination"] = self.destination or Page.get_first_root_node()
+        ctx["target_parent_models"] = self.target_parent_models
+        ctx["pages_to_move"] = self.pages_to_move
         return ctx
 
     def check_perm(self, page):
@@ -67,15 +78,13 @@ class MoveBulkAction(PageBulkAction):
         success_message = ngettext(
             "%(num_pages)d page has been moved",
             "%(num_pages)d pages have been moved",
-            num_parent_objects
-        ) % {
-            'num_pages': num_parent_objects
-        }
+            num_parent_objects,
+        ) % {"num_pages": num_parent_objects}
         return success_message
 
     def object_context(self, obj):
         context = super().object_context(obj)
-        context['child_pages'] = context['item'].get_descendants().count()
+        context["child_pages"] = context["item"].get_descendants().count()
         return context
 
     def get_actionable_objects(self):
@@ -83,9 +92,13 @@ class MoveBulkAction(PageBulkAction):
         request = self.request
 
         if objects:
-            self.target_parent_models = set(objects[0].specific_class.allowed_parent_page_models())
+            self.target_parent_models = set(
+                objects[0].specific_class.allowed_parent_page_models()
+            )
             for obj in objects:
-                self.target_parent_models.intersection_update(set(obj.specific_class.allowed_parent_page_models()))
+                self.target_parent_models.intersection_update(
+                    set(obj.specific_class.allowed_parent_page_models())
+                )
 
         self.pages_to_move = [page.id for page in objects]
 
@@ -93,14 +106,19 @@ class MoveBulkAction(PageBulkAction):
             if len(self.target_parent_models) == 0:
                 return [], {
                     **objects_without_access,
-                    'pages_without_common_parent_page': [
-                        {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                    "pages_without_common_parent_page": [
+                        {
+                            "item": page,
+                            "can_edit": page.permissions_for_user(
+                                self.request.user
+                            ).can_edit(),
+                        }
                         for page in objects
                     ],
                 }
             return objects, objects_without_access
 
-        destination = self.cleaned_form.cleaned_data['chooser']
+        destination = self.cleaned_form.cleaned_data["chooser"]
         pages = []
         pages_without_destination_access = []
         pages_with_duplicate_slugs = []
@@ -115,31 +133,41 @@ class MoveBulkAction(PageBulkAction):
 
         return pages, {
             **objects_without_access,
-            'pages_without_destination_access': [
-                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+            "pages_without_destination_access": [
+                {
+                    "item": page,
+                    "can_edit": page.permissions_for_user(self.request.user).can_edit(),
+                }
                 for page in pages_without_destination_access
             ],
             "pages_with_duplicate_slugs": [
-                {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()}
+                {
+                    "item": page,
+                    "can_edit": page.permissions_for_user(self.request.user).can_edit(),
+                }
                 for page in pages_with_duplicate_slugs
             ],
         }
 
     def prepare_action(self, pages, pages_without_access):
         request = self.request
-        destination = self.cleaned_form.cleaned_data['chooser']
-        if pages_without_access['pages_without_destination_access'] or pages_without_access['pages_with_duplicate_slugs']:
+        destination = self.cleaned_form.cleaned_data["chooser"]
+        if (
+            pages_without_access["pages_without_destination_access"]
+            or pages_without_access["pages_with_duplicate_slugs"]
+        ):
             # this will be picked up by the form
             self.destination = destination
-            return TemplateResponse(request, self.template_name, {
-                'destination': destination,
-                **self.get_context_data()
-            })
+            return TemplateResponse(
+                request,
+                self.template_name,
+                {"destination": destination, **self.get_context_data()},
+            )
 
     def get_execution_context(self):
         return {
             **super().get_execution_context(),
-            'destination': self.cleaned_form.cleaned_data['chooser'],
+            "destination": self.cleaned_form.cleaned_data["chooser"],
         }
 
     @classmethod
@@ -148,6 +176,6 @@ class MoveBulkAction(PageBulkAction):
         if destination is None:
             return
         for page in objects:
-            page.move(destination, pos='last-child', user=user)
+            page.move(destination, pos="last-child", user=user)
             num_parent_objects += 1
         return num_parent_objects, 0

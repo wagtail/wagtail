@@ -1,6 +1,5 @@
 from django.dispatch import Signal
 
-
 # Page signals
 
 # provides args: instance, revision

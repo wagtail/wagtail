@@ -15,14 +15,21 @@ class FormSubmissionsPanel(EditHandler):
         submission_count = submissions.count()
 
         if not submission_count:
-            return ''
+            return ""
 
-        return mark_safe(render_to_string(self.template, {
-            'self': self,
-            'submission_count': submission_count,
-            'last_submit_time': submissions.order_by('submit_time').last().submit_time,
-        }))
+        return mark_safe(
+            render_to_string(
+                self.template,
+                {
+                    "self": self,
+                    "submission_count": submission_count,
+                    "last_submit_time": submissions.order_by("submit_time")
+                    .last()
+                    .submit_time,
+                },
+            )
+        )
 
     def on_model_bound(self):
         if not self.heading:
-            self.heading = _('%s submissions') % self.model.get_verbose_name()
+            self.heading = _("%s submissions") % self.model.get_verbose_name()

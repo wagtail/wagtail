@@ -12,7 +12,7 @@ class BadRequestError(Exception):
 
 
 def get_base_url(request=None):
-    base_url = getattr(settings, 'WAGTAILAPI_BASE_URL', None)
+    base_url = getattr(settings, "WAGTAILAPI_BASE_URL", None)
 
     if base_url is None and request:
         site = Site.find_for_request(request)
@@ -23,11 +23,11 @@ def get_base_url(request=None):
         # We only want the scheme and netloc
         base_url_parsed = urlparse(force_str(base_url))
 
-        return base_url_parsed.scheme + '://' + base_url_parsed.netloc
+        return base_url_parsed.scheme + "://" + base_url_parsed.netloc
 
 
 def get_full_url(request, path):
-    base_url = get_base_url(request) or ''
+    base_url = get_base_url(request) or ""
     return base_url + path
 
 
@@ -41,7 +41,7 @@ def get_object_detail_url(router, request, model, pk):
 def page_models_from_string(string):
     page_models = []
 
-    for sub_string in string.split(','):
+    for sub_string in string.split(","):
         page_model = resolve_model_string(sub_string)
 
         if not issubclass(page_model, Page):
@@ -110,39 +110,59 @@ def parse_fields_parameter(fields_str):
         while fields_str:
             char = fields_str[0]
 
-            if char in ['(', ')', ',']:
+            if char in ["(", ")", ","]:
                 if not ident:
-                    raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+                    raise FieldsParameterParseError(
+                        "unexpected char '%s' at position %d"
+                        % (char, get_position(fields_str))
+                    )
 
-                if ident in ['*', '_'] and char == '(':
+                if ident in ["*", "_"] and char == "(":
                     # * and _ cannot have nested fields
-                    raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+                    raise FieldsParameterParseError(
+                        "unexpected char '%s' at position %d"
+                        % (char, get_position(fields_str))
+                    )
 
                 return ident, negated, fields_str
 
-            elif char == '-':
+            elif char == "-":
                 if not first_char:
-                    raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+                    raise FieldsParameterParseError(
+                        "unexpected char '%s' at position %d"
+                        % (char, get_position(fields_str))
+                    )
 
                 negated = True
 
-            elif char in ['*', '_']:
-                if ident and char == '*':
-                    raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+            elif char in ["*", "_"]:
+                if ident and char == "*":
+                    raise FieldsParameterParseError(
+                        "unexpected char '%s' at position %d"
+                        % (char, get_position(fields_str))
+                    )
 
                 ident += char
 
-            elif char.isalnum() or char == '_':
-                if ident == '*':
+            elif char.isalnum() or char == "_":
+                if ident == "*":
                     # * can only be on its own
-                    raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+                    raise FieldsParameterParseError(
+                        "unexpected char '%s' at position %d"
+                        % (char, get_position(fields_str))
+                    )
 
                 ident += char
 
             elif char.isspace():
-                raise FieldsParameterParseError("unexpected whitespace at position %d" % get_position(fields_str))
+                raise FieldsParameterParseError(
+                    "unexpected whitespace at position %d" % get_position(fields_str)
+                )
             else:
-                raise FieldsParameterParseError("unexpected char '%s' at position %d" % (char, get_position(fields_str)))
+                raise FieldsParameterParseError(
+                    "unexpected char '%s' at position %d"
+                    % (char, get_position(fields_str))
+                )
 
             first_char = False
             fields_str = fields_str[1:]
@@ -159,54 +179,70 @@ def parse_fields_parameter(fields_str):
             ident, negated, fields_str = parse_field_identifier(fields_str)
 
             # Some checks specific to '*' and '_'
-            if ident in ['*', '_']:
+            if ident in ["*", "_"]:
                 if not is_first:
-                    raise FieldsParameterParseError("'%s' must be in the first position" % ident)
+                    raise FieldsParameterParseError(
+                        "'%s' must be in the first position" % ident
+                    )
 
                 if negated:
                     raise FieldsParameterParseError("'%s' cannot be negated" % ident)
 
-            if fields_str and fields_str[0] == '(':
+            if fields_str and fields_str[0] == "(":
                 if negated:
                     # Negated fields cannot contain subfields
-                    raise FieldsParameterParseError("unexpected char '(' at position %d" % get_position(fields_str))
+                    raise FieldsParameterParseError(
+                        "unexpected char '(' at position %d" % get_position(fields_str)
+                    )
 
-                sub_fields, fields_str = parse_fields(fields_str[1:], expect_close_bracket=True)
+                sub_fields, fields_str = parse_fields(
+                    fields_str[1:], expect_close_bracket=True
+                )
 
             if is_first:
                 first_ident = ident
             else:
                 # Negated fields can't be used with '_'
-                if first_ident == '_' and negated:
+                if first_ident == "_" and negated:
                     # _,foo is allowed but _,-foo is not
-                    raise FieldsParameterParseError("negated fields with '_' doesn't make sense")
+                    raise FieldsParameterParseError(
+                        "negated fields with '_' doesn't make sense"
+                    )
 
                 # Additional fields without sub fields can't be used with '*'
-                if first_ident == '*' and not negated and not sub_fields:
+                if first_ident == "*" and not negated and not sub_fields:
                     # *,foo(bar) and *,-foo are allowed but *,foo is not
-                    raise FieldsParameterParseError("additional fields with '*' doesn't make sense")
+                    raise FieldsParameterParseError(
+                        "additional fields with '*' doesn't make sense"
+                    )
 
             fields.append((ident, negated, sub_fields))
 
-            if fields_str and fields_str[0] == ')':
+            if fields_str and fields_str[0] == ")":
                 if not expect_close_bracket:
-                    raise FieldsParameterParseError("unexpected char ')' at position %d" % get_position(fields_str))
+                    raise FieldsParameterParseError(
+                        "unexpected char ')' at position %d" % get_position(fields_str)
+                    )
 
                 return fields, fields_str[1:]
 
-            if fields_str and fields_str[0] == ',':
+            if fields_str and fields_str[0] == ",":
                 fields_str = fields_str[1:]
 
                 # A comma can not exist immediately before another comma or the end of the string
-                if not fields_str or fields_str[0] == ',':
-                    raise FieldsParameterParseError("unexpected char ',' at position %d" % get_position(fields_str))
+                if not fields_str or fields_str[0] == ",":
+                    raise FieldsParameterParseError(
+                        "unexpected char ',' at position %d" % get_position(fields_str)
+                    )
 
             is_first = False
 
         if expect_close_bracket:
             # This parser should've exited with a close bracket but instead we
             # hit the end of the input. Raise an error
-            raise FieldsParameterParseError("unexpected end of input (did you miss out a close bracket?)")
+            raise FieldsParameterParseError(
+                "unexpected end of input (did you miss out a close bracket?)"
+            )
 
         return fields, fields_str
 
@@ -224,9 +260,9 @@ def parse_boolean(value):
     '1'      => True
     '0'      => False
     """
-    if value in ['true', '1']:
+    if value in ["true", "1"]:
         return True
-    elif value in ['false', '0']:
+    elif value in ["false", "0"]:
         return False
     else:
         raise ValueError("expected 'true' or 'false', got '%s'" % value)

@@ -4,27 +4,35 @@ from django.utils import timezone
 
 from wagtail.core.models import PageRevision
 
-
 try:
     from wagtail.core.models import WorkflowState
+
     workflow_support = True
 except ImportError:
     workflow_support = False
 
 
 class Command(BaseCommand):
-    help = 'Delete page revisions which are not the latest revision for a page, published or scheduled to be published, or in moderation'
+    help = "Delete page revisions which are not the latest revision for a page, published or scheduled to be published, or in moderation"
 
     def add_arguments(self, parser):
-        parser.add_argument('--days', type=int, help="Only delete revisions older than this number of days")
+        parser.add_argument(
+            "--days",
+            type=int,
+            help="Only delete revisions older than this number of days",
+        )
 
     def handle(self, *args, **options):
-        days = options.get('days')
+        days = options.get("days")
 
         revisions_deleted = purge_revisions(days=days)
 
         if revisions_deleted:
-            self.stdout.write(self.style.SUCCESS('Successfully deleted %s revisions' % revisions_deleted))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    "Successfully deleted %s revisions" % revisions_deleted
+                )
+            )
         else:
             self.stdout.write("No revisions deleted")
 
@@ -35,12 +43,14 @@ def purge_revisions(days=None):
         submitted_for_moderation=True
     ).exclude(
         # and exclude revisions with an approved_go_live_at date
-        approved_go_live_at__isnull=False)
+        approved_go_live_at__isnull=False
+    )
 
     if workflow_support:
         purgeable_revisions = purgeable_revisions.exclude(
             # and exclude revisions linked to an in progress or needs changes workflow state
-            Q(task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS) | Q(task_states__workflow_state__status=WorkflowState.STATUS_NEEDS_CHANGES)
+            Q(task_states__workflow_state__status=WorkflowState.STATUS_IN_PROGRESS)
+            | Q(task_states__workflow_state__status=WorkflowState.STATUS_NEEDS_CHANGES)
         )
 
     if days:

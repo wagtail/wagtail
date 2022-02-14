@@ -20,15 +20,19 @@ class Button:
         self.priority = priority
 
     def render(self):
-        attrs = {'href': self.url, 'class': ' '.join(sorted(self.classes)), 'title': self.label}
+        attrs = {
+            "href": self.url,
+            "class": " ".join(sorted(self.classes)),
+            "title": self.label,
+        }
         attrs.update(self.attrs)
-        return format_html('<a{}>{}</a>', flatatt(attrs), self.label)
+        return format_html("<a{}>{}</a>", flatatt(attrs), self.label)
 
     def __str__(self):
         return self.render()
 
     def __repr__(self):
-        return '<Button: {}>'.format(self.label)
+        return "<Button: {}>".format(self.label)
 
     def __lt__(self, other):
         if not isinstance(other, Button):
@@ -38,18 +42,20 @@ class Button:
     def __eq__(self, other):
         if not isinstance(other, Button):
             return NotImplemented
-        return (self.label == other.label
-                and self.url == other.url
-                and self.classes == other.classes
-                and self.attrs == other.attrs
-                and self.priority == other.priority)
+        return (
+            self.label == other.label
+            and self.url == other.url
+            and self.classes == other.classes
+            and self.attrs == other.attrs
+            and self.priority == other.priority
+        )
 
 
 # Base class for all listing buttons
 # This is also used by SnippetListingButton defined in wagtail.snippets.widgets
 class ListingButton(Button):
     def __init__(self, label, url, classes=set(), **kwargs):
-        classes = {'button', 'button-small', 'button-secondary'} | set(classes)
+        classes = {"button", "button-small", "button-secondary"} | set(classes)
         super().__init__(label, url, classes=classes, **kwargs)
 
 
@@ -67,10 +73,10 @@ class BaseDropdownMenuButton(Button):
 
     def get_context_data(self):
         return {
-            'buttons': self.dropdown_buttons,
-            'label': self.label,
-            'title': self.attrs.get('title'),
-            'is_parent': self.is_parent
+            "buttons": self.dropdown_buttons,
+            "label": self.label,
+            "title": self.attrs.get("title"),
+            "is_parent": self.is_parent,
         }
 
     def render(self):
@@ -78,17 +84,17 @@ class BaseDropdownMenuButton(Button):
 
 
 class ButtonWithDropdown(BaseDropdownMenuButton):
-    template_name = 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
 
     def __init__(self, *args, **kwargs):
-        self.button_classes = kwargs.pop('button_classes', set())
-        self.buttons_data = kwargs.pop('buttons_data', [])
+        self.button_classes = kwargs.pop("button_classes", set())
+        self.buttons_data = kwargs.pop("buttons_data", [])
         super().__init__(*args, **kwargs)
 
     def get_context_data(self):
         context = super().get_context_data()
-        context['button_classes'] = self.button_classes
-        context['classes'] = self.classes
+        context["button_classes"] = self.button_classes
+        context["classes"] = self.classes
         return context
 
     @cached_property
@@ -97,9 +103,11 @@ class ButtonWithDropdown(BaseDropdownMenuButton):
 
 
 class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
-    template_name = 'wagtailadmin/pages/listing/_button_with_dropdown.html'
+    template_name = "wagtailadmin/pages/listing/_button_with_dropdown.html"
 
-    def __init__(self, label, hook_name, page, page_perms, is_parent, next_url=None, **kwargs):
+    def __init__(
+        self, label, hook_name, page, page_perms, is_parent, next_url=None, **kwargs
+    ):
         self.hook_name = hook_name
         self.page = page
         self.page_perms = page_perms
@@ -118,7 +126,9 @@ class ButtonWithDropdownFromHook(BaseDropdownMenuButton):
 
         buttons = []
         for hook in button_hooks:
-            buttons.extend(hook(self.page, self.page_perms, self.is_parent, self.next_url))
+            buttons.extend(
+                hook(self.page, self.page_perms, self.is_parent, self.next_url)
+            )
 
         buttons.sort()
         return buttons

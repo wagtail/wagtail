@@ -1,6 +1,5 @@
 import operator
 import re
-
 from functools import partial
 
 from django.apps import apps
@@ -9,7 +8,6 @@ from django.db import connections
 from wagtail.search.index import RelatedFields, SearchField
 
 from .query import MATCH_NONE, Phrase, PlainText
-
 
 NOT_SET = object()
 
@@ -79,7 +77,7 @@ def normalise_query_string(query_string):
     query_string = query_string.lower()
 
     # Remove leading, trailing and multiple spaces
-    query_string = re.sub(' +', ' ', query_string).strip()
+    query_string = re.sub(" +", " ", query_string).strip()
 
     return query_string
 
@@ -90,9 +88,9 @@ def separate_filters_from_query(query_string):
     filters = {}
     for match_object in re.finditer(filters_regexp, query_string):
         key, value = match_object.groups()
-        filters[key] = value.strip("\"")
+        filters[key] = value.strip('"')
 
-    query_string = re.sub(filters_regexp, '', query_string).strip()
+    query_string = re.sub(filters_regexp, "", query_string).strip()
 
     return filters, query_string
 
@@ -122,12 +120,14 @@ def parse_query_string(query_string, operator=None, zero_terms=MATCH_NONE):
             if is_phrase:
                 tokens.append(Phrase(part))
             else:
-                tokens.append(PlainText(part, operator=operator or PlainText.DEFAULT_OPERATOR))
+                tokens.append(
+                    PlainText(part, operator=operator or PlainText.DEFAULT_OPERATOR)
+                )
 
         is_phrase = not is_phrase
 
     if tokens:
-        if operator == 'or':
+        if operator == "or":
             search_query = OR(tokens)
         else:
             search_query = AND(tokens)
@@ -141,8 +141,11 @@ def get_descendant_models(model):
     """
     Returns all descendants of a model, including the model itself.
     """
-    descendant_models = {other_model for other_model in apps.get_models()
-                         if issubclass(other_model, model)}
+    descendant_models = {
+        other_model
+        for other_model in apps.get_models()
+        if issubclass(other_model, model)
+    }
     descendant_models.add(model)
     return descendant_models
 
@@ -150,6 +153,7 @@ def get_descendant_models(model):
 def get_content_type_pk(model):
     # We import it locally because this file is loaded before apps are ready.
     from django.contrib.contenttypes.models import ContentType
+
     return ContentType.objects.get_for_model(model).pk
 
 
@@ -158,9 +162,13 @@ def get_ancestors_content_types_pks(model):
     Returns content types ids for the ancestors of this model, excluding it.
     """
     from django.contrib.contenttypes.models import ContentType
-    return [ct.pk for ct in
-            ContentType.objects.get_for_models(*model._meta.get_parent_list())
-            .values()]
+
+    return [
+        ct.pk
+        for ct in ContentType.objects.get_for_models(
+            *model._meta.get_parent_list()
+        ).values()
+    ]
 
 
 def get_descendants_content_types_pks(model):
@@ -168,9 +176,13 @@ def get_descendants_content_types_pks(model):
     Returns content types ids for the descendants of this model, including it.
     """
     from django.contrib.contenttypes.models import ContentType
-    return [ct.pk for ct in
-            ContentType.objects.get_for_models(*get_descendant_models(model))
-            .values()]
+
+    return [
+        ct.pk
+        for ct in ContentType.objects.get_for_models(
+            *get_descendant_models(model)
+        ).values()
+    ]
 
 
 def get_search_fields(search_fields):
@@ -183,5 +195,8 @@ def get_search_fields(search_fields):
 
 
 def get_postgresql_connections():
-    return [connection for connection in connections.all()
-            if connection.vendor == 'postgresql']
+    return [
+        connection
+        for connection in connections.all()
+        if connection.vendor == "postgresql"
+    ]

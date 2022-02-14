@@ -12,6 +12,7 @@ class FeatureRegistry:
     define a TinyMCE plugin for the same feature. The information is therefore collected into
     this registry via the 'register_rich_text_features' hook.
     """
+
     def __init__(self):
         # Has the register_rich_text_features hook been run for this registry?
         self.has_scanned_for_features = False
@@ -51,7 +52,7 @@ class FeatureRegistry:
         return self.default_features
 
     def _scan_for_features(self):
-        for fn in hooks.get_hooks('register_rich_text_features'):
+        for fn in hooks.get_hooks("register_rich_text_features"):
             fn(self)
         self.has_scanned_for_features = True
 
@@ -100,7 +101,11 @@ class FeatureRegistry:
     @staticmethod
     def function_as_entity_handler(identifier, fn):
         """Supports legacy registering of entity handlers as functions."""
-        return type('EntityHandlerRegisteredAsFunction', (object,), {
-            'identifier': identifier,
-            'expand_db_attributes': staticmethod(fn),
-        })
+        return type(
+            "EntityHandlerRegisteredAsFunction",
+            (object,),
+            {
+                "identifier": identifier,
+                "expand_db_attributes": staticmethod(fn),
+            },
+        )

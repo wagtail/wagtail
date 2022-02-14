@@ -13,6 +13,7 @@ class PermissionCheckedMixin:
     * any_permission_required (a list of action names - the user must have
       one or more of those permissions)
     """
+
     permission_policy = None
     permission_required = None
     any_permission_required = None

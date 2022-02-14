@@ -4,46 +4,73 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='AlphaSnippet',
+            name="AlphaSnippet",
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
-                ('text', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                ("text", models.CharField(max_length=255)),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='RegisterDecorator',
+            name="RegisterDecorator",
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='RegisterFunction',
+            name="RegisterFunction",
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='ZuluSnippet',
+            name="ZuluSnippet",
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
-                ('text', models.CharField(max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                        primary_key=True,
+                    ),
+                ),
+                ("text", models.CharField(max_length=255)),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
     ]

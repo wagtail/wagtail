@@ -23,20 +23,28 @@ class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):
         Site.objects.create(is_default_site=True, root_page=self.root_page)
 
         # Create a large piece of body text
-        body = '[' + ','.join(['{"type": "text", "value": "%s"}' % ('foo' * 2000)] * 100) + ']'
+        body = (
+            "["
+            + ",".join(['{"type": "text", "value": "%s"}' % ("foo" * 2000)] * 100)
+            + "]"
+        )
 
         # Create 50 simple pages with long content fields
         for i in range(50):
-            self.root_page.add_child(instance=StreamPage(
-                title="Page {}".format(i + 1),
-                slug=str(i + 1),
-                body=body,
-            ))
+            self.root_page.add_child(
+                instance=StreamPage(
+                    title="Page {}".format(i + 1),
+                    slug=str(i + 1),
+                    body=body,
+                )
+            )
 
         self.login()
 
     def bench(self):
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
 
         # Check the response was good
         self.assertEqual(response.status_code, 200)
@@ -61,19 +69,23 @@ class BenchPageExplorerWithCustomURLPages(Benchmark, WagtailTestUtils, TestCase)
 
         # Create 50 blog pages
         for i in range(50):
-            self.root_page.add_child(instance=SingleEventPage(
-                title="Event {}".format(i + 1),
-                slug=str(i + 1),
-                date_from=timezone.now(),
-                audience="public",
-                location="reykjavik",
-                cost="cost",
-            ))
+            self.root_page.add_child(
+                instance=SingleEventPage(
+                    title="Event {}".format(i + 1),
+                    slug=str(i + 1),
+                    date_from=timezone.now(),
+                    audience="public",
+                    location="reykjavik",
+                    cost="cost",
+                )
+            )
 
         self.login()
 
     def bench(self):
-        response = self.client.get(reverse('wagtailadmin_explore', args=(self.root_page.id, )))
+        response = self.client.get(
+            reverse("wagtailadmin_explore", args=(self.root_page.id,))
+        )
 
         # Check the response was good
         self.assertEqual(response.status_code, 200)

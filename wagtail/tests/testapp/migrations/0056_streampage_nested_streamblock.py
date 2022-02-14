@@ -9,13 +9,38 @@ import wagtail.tests.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0055_eventpage_childobject_i18n'),
+        ("tests", "0055_eventpage_childobject_i18n"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='streampage',
-            name='body',
-            field=wagtail.core.fields.StreamField([('text', wagtail.core.blocks.CharBlock()), ('rich_text', wagtail.core.blocks.RichTextBlock()), ('image', wagtail.tests.testapp.models.ExtendedImageChooserBlock()), ('product', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock()), ('price', wagtail.core.blocks.CharBlock())])), ('raw_html', wagtail.core.blocks.RawHTMLBlock()), ('books', wagtail.core.blocks.StreamBlock([('title', wagtail.core.blocks.CharBlock()), ('author', wagtail.core.blocks.CharBlock())]))]),
+            model_name="streampage",
+            name="body",
+            field=wagtail.core.fields.StreamField(
+                [
+                    ("text", wagtail.core.blocks.CharBlock()),
+                    ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                    ("image", wagtail.tests.testapp.models.ExtendedImageChooserBlock()),
+                    (
+                        "product",
+                        wagtail.core.blocks.StructBlock(
+                            [
+                                ("name", wagtail.core.blocks.CharBlock()),
+                                ("price", wagtail.core.blocks.CharBlock()),
+                            ]
+                        ),
+                    ),
+                    ("raw_html", wagtail.core.blocks.RawHTMLBlock()),
+                    (
+                        "books",
+                        wagtail.core.blocks.StreamBlock(
+                            [
+                                ("title", wagtail.core.blocks.CharBlock()),
+                                ("author", wagtail.core.blocks.CharBlock()),
+                            ]
+                        ),
+                    ),
+                ]
+            ),
         ),
     ]

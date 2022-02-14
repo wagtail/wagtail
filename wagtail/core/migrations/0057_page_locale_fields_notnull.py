@@ -8,18 +8,23 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0056_page_locale_fields_populate'),
+        ("wagtailcore", "0056_page_locale_fields_populate"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='page',
-            name='locale',
-            field=models.ForeignKey(editable=False, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.Locale'),
+            model_name="page",
+            name="locale",
+            field=models.ForeignKey(
+                editable=False,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.Locale",
+            ),
         ),
         migrations.AlterField(
-            model_name='page',
-            name='translation_key',
+            model_name="page",
+            name="translation_key",
             field=models.UUIDField(default=uuid.uuid4, editable=False),
         ),
     ]

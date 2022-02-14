@@ -7,28 +7,48 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0011_userprofile'),
+        ("tests", "0011_userprofile"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='PanelSettings',
+            name="PanelSettings",
             fields=[
-                ('testsetting_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='tests.TestSetting')),
+                (
+                    "testsetting_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="tests.TestSetting",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('tests.testsetting',),
+            bases=("tests.testsetting",),
         ),
         migrations.CreateModel(
-            name='TabbedSettings',
+            name="TabbedSettings",
             fields=[
-                ('testsetting_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='tests.TestSetting')),
+                (
+                    "testsetting_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="tests.TestSetting",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('tests.testsetting',),
+            bases=("tests.testsetting",),
         ),
     ]

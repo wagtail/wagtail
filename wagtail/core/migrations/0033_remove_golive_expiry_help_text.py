@@ -6,18 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0032_add_bulk_delete_page_permission'),
+        ("wagtailcore", "0032_add_bulk_delete_page_permission"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='page',
-            name='expire_at',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='expiry date/time'),
+            model_name="page",
+            name="expire_at",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="expiry date/time"
+            ),
         ),
         migrations.AlterField(
-            model_name='page',
-            name='go_live_at',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='go live date/time'),
+            model_name="page",
+            name="go_live_at",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="go live date/time"
+            ),
         ),
     ]

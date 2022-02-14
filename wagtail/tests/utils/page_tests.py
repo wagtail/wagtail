@@ -9,6 +9,7 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
     """
     A set of asserts to help write tests for your own Wagtail site.
     """
+
     def setUp(self):
         super().setUp()
         self.login()
@@ -23,9 +24,16 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         classes being tested.
         """
         if not self._testCanCreateAt(parent_model, child_model):
-            msg = self._formatMessage(msg, "Can not create a %s.%s under a %s.%s" % (
-                child_model._meta.app_label, child_model._meta.model_name,
-                parent_model._meta.app_label, parent_model._meta.model_name))
+            msg = self._formatMessage(
+                msg,
+                "Can not create a %s.%s under a %s.%s"
+                % (
+                    child_model._meta.app_label,
+                    child_model._meta.model_name,
+                    parent_model._meta.app_label,
+                    parent_model._meta.model_name,
+                ),
+            )
             raise self.failureException(msg)
 
     def assertCanNotCreateAt(self, parent_model, child_model, msg=None):
@@ -35,9 +43,16 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         classes being tested.
         """
         if self._testCanCreateAt(parent_model, child_model):
-            msg = self._formatMessage(msg, "Can create a %s.%s under a %s.%s" % (
-                child_model._meta.app_label, child_model._meta.model_name,
-                parent_model._meta.app_label, parent_model._meta.model_name))
+            msg = self._formatMessage(
+                msg,
+                "Can create a %s.%s under a %s.%s"
+                % (
+                    child_model._meta.app_label,
+                    child_model._meta.model_name,
+                    parent_model._meta.app_label,
+                    parent_model._meta.model_name,
+                ),
+            )
             raise self.failureException(msg)
 
     def assertCanCreate(self, parent, child_model, data, msg=None):
@@ -51,39 +66,61 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         """
         self.assertCanCreateAt(parent.specific_class, child_model)
 
-        if 'slug' not in data and 'title' in data:
-            data['slug'] = slugify(data['title'])
-        data['action-publish'] = 'action-publish'
+        if "slug" not in data and "title" in data:
+            data["slug"] = slugify(data["title"])
+        data["action-publish"] = "action-publish"
 
-        add_url = reverse('wagtailadmin_pages:add', args=[
-            child_model._meta.app_label, child_model._meta.model_name, parent.pk])
+        add_url = reverse(
+            "wagtailadmin_pages:add",
+            args=[child_model._meta.app_label, child_model._meta.model_name, parent.pk],
+        )
         response = self.client.post(add_url, data, follow=True)
 
         if response.status_code != 200:
-            msg = self._formatMessage(msg, 'Creating a %s.%s returned a %d' % (
-                child_model._meta.app_label, child_model._meta.model_name, response.status_code))
+            msg = self._formatMessage(
+                msg,
+                "Creating a %s.%s returned a %d"
+                % (
+                    child_model._meta.app_label,
+                    child_model._meta.model_name,
+                    response.status_code,
+                ),
+            )
             raise self.failureException(msg)
 
         if response.redirect_chain == []:
-            if 'form' not in response.context:
-                msg = self._formatMessage(msg, 'Creating a page failed unusually')
+            if "form" not in response.context:
+                msg = self._formatMessage(msg, "Creating a page failed unusually")
                 raise self.failureException(msg)
-            form = response.context['form']
+            form = response.context["form"]
             if not form.errors:
-                msg = self._formatMessage(msg, 'Creating a page failed for an unknown reason')
+                msg = self._formatMessage(
+                    msg, "Creating a page failed for an unknown reason"
+                )
                 raise self.failureException(msg)
 
-            errors = '\n'.join('  %s:\n    %s' % (field, '\n    '.join(errors))
-                               for field, errors in sorted(form.errors.items()))
-            msg = self._formatMessage(msg, 'Validation errors found when creating a %s.%s:\n%s' % (
-                child_model._meta.app_label, child_model._meta.model_name, errors))
+            errors = "\n".join(
+                "  %s:\n    %s" % (field, "\n    ".join(errors))
+                for field, errors in sorted(form.errors.items())
+            )
+            msg = self._formatMessage(
+                msg,
+                "Validation errors found when creating a %s.%s:\n%s"
+                % (child_model._meta.app_label, child_model._meta.model_name, errors),
+            )
             raise self.failureException(msg)
 
-        explore_url = reverse('wagtailadmin_explore', args=[parent.pk])
+        explore_url = reverse("wagtailadmin_explore", args=[parent.pk])
         if response.redirect_chain != [(explore_url, 302)]:
-            msg = self._formatMessage(msg, 'Creating a page %s.%s didn\'t redirect the user to the explorer, but to %s' % (
-                child_model._meta.app_label, child_model._meta.model_name,
-                response.redirect_chain))
+            msg = self._formatMessage(
+                msg,
+                "Creating a page %s.%s didn't redirect the user to the explorer, but to %s"
+                % (
+                    child_model._meta.app_label,
+                    child_model._meta.model_name,
+                    response.redirect_chain,
+                ),
+            )
             raise self.failureException(msg)
 
     def assertAllowedSubpageTypes(self, parent_model, child_models, msg=None):
@@ -96,9 +133,8 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         ``Page.parent_page_types``.
         """
         self.assertEqual(
-            set(parent_model.allowed_subpage_models()),
-            set(child_models),
-            msg=msg)
+            set(parent_model.allowed_subpage_models()), set(child_models), msg=msg
+        )
 
     def assertAllowedParentPageTypes(self, child_model, parent_models, msg=None):
         """
@@ -110,6 +146,5 @@ class WagtailPageTests(WagtailTestUtils, TestCase):
         ``Page.subpage_types``.
         """
         self.assertEqual(
-            set(child_model.allowed_parent_page_models()),
-            set(parent_models),
-            msg=msg)
+            set(child_model.allowed_parent_page_models()), set(parent_models), msg=msg
+        )

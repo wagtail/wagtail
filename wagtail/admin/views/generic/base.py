@@ -8,10 +8,10 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
     Provides accessors for page title, subtitle and header icon.
     """
 
-    page_title = ''
-    page_subtitle = ''
-    header_icon = ''
-    template_name = 'wagtailadmin/generic/base.html'
+    page_title = ""
+    page_subtitle = ""
+    header_icon = ""
+    template_name = "wagtailadmin/generic/base.html"
 
     def get_page_title(self):
         return self.page_title
@@ -24,7 +24,7 @@ class WagtailAdminTemplateMixin(TemplateResponseMixin, ContextMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_title'] = self.get_page_title()
-        context['page_subtitle'] = self.get_page_subtitle()
-        context['header_icon'] = self.get_header_icon()
+        context["page_title"] = self.get_page_title()
+        context["page_subtitle"] = self.get_page_subtitle()
+        context["header_icon"] = self.get_header_icon()
         return context

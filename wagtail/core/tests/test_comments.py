@@ -14,14 +14,14 @@ class CommentTestingUtils:
         return Comment.objects.create(
             page=self.page,
             user=get_user_model().objects.first(),
-            text='test',
-            contentpath='title',
+            text="test",
+            contentpath="title",
             revision_created=revision_created,
         )
 
 
 class TestRevisionDeletion(CommentTestingUtils, TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         super().setUp()

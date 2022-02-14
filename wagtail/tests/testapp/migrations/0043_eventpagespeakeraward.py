@@ -8,22 +8,40 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0042_simplechildpage_simpleparentpage'),
+        ("tests", "0042_simplechildpage_simpleparentpage"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EventPageSpeakerAward',
+            name="EventPageSpeakerAward",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('name', models.CharField(max_length=255, verbose_name='Award name')),
-                ('date_awarded', models.DateField(blank=True, null=True)),
-                ('speaker', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='awards', to='tests.EventPageSpeaker')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("name", models.CharField(max_length=255, verbose_name="Award name")),
+                ("date_awarded", models.DateField(blank=True, null=True)),
+                (
+                    "speaker",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="awards",
+                        to="tests.EventPageSpeaker",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

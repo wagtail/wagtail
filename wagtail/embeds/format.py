@@ -9,12 +9,15 @@ def embed_to_frontend_html(url, max_width=None, max_height=None):
         embed = embeds.get_embed(url, max_width, max_height)
 
         # Render template
-        return render_to_string('wagtailembeds/embed_frontend.html', {
-            'embed': embed,
-        })
+        return render_to_string(
+            "wagtailembeds/embed_frontend.html",
+            {
+                "embed": embed,
+            },
+        )
     except EmbedException:
         # silently ignore failed embeds, rather than letting them crash the page
-        return ''
+        return ""
 
 
 def embed_to_editor_html(url):
@@ -22,6 +25,9 @@ def embed_to_editor_html(url):
     # catching EmbedException is the responsibility of the caller
 
     # Render template
-    return render_to_string('wagtailembeds/embed_editor.html', {
-        'embed': embed,
-    })
+    return render_to_string(
+        "wagtailembeds/embed_editor.html",
+        {
+            "embed": embed,
+        },
+    )

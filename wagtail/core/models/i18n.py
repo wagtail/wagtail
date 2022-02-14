@@ -11,7 +11,10 @@ from django.utils.encoding import force_str
 from modelcluster.fields import ParentalKey
 
 from wagtail.core.signals import pre_validate_delete
-from wagtail.core.utils import get_content_languages, get_supported_content_language_variant
+from wagtail.core.utils import (
+    get_content_languages,
+    get_supported_content_language_variant,
+)
 
 from .copying import _copy
 
@@ -28,7 +31,9 @@ class LocaleManager(models.Manager):
         """
         Gets a Locale from a language code.
         """
-        return self.get(language_code=get_supported_content_language_variant(language_code))
+        return self.get(
+            language_code=get_supported_content_language_variant(language_code)
+        )
 
 
 class Locale(models.Model):
@@ -86,7 +91,9 @@ class Locale(models.Model):
 
 class TranslatableMixin(models.Model):
     translation_key = models.UUIDField(default=uuid.uuid4, editable=False)
-    locale = models.ForeignKey(Locale, on_delete=models.PROTECT, related_name="+", editable=False)
+    locale = models.ForeignKey(
+        Locale, on_delete=models.PROTECT, related_name="+", editable=False
+    )
 
     class Meta:
         abstract = True
@@ -100,14 +107,20 @@ class TranslatableMixin(models.Model):
         # Raise error if subclass has removed the unique_together constraint
         # No need to check this on multi-table-inheritance children though as it only needs to be applied to
         # the table that has the translation_key/locale fields
-        if is_translation_model and ("translation_key", "locale") not in cls._meta.unique_together:
+        if (
+            is_translation_model
+            and ("translation_key", "locale") not in cls._meta.unique_together
+        ):
             errors.append(
                 checks.Error(
-                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields"
-                    .format(cls._meta.app_label, cls.__name__),
-                    hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(cls.__name__),
+                    "{0}.{1} is missing a unique_together constraint for the translation key and locale fields".format(
+                        cls._meta.app_label, cls.__name__
+                    ),
+                    hint="Add ('translation_key', 'locale') to {}.Meta.unique_together".format(
+                        cls.__name__
+                    ),
                     obj=cls,
-                    id='wagtailcore.E003',
+                    id="wagtailcore.E003",
                 )
             )
 
@@ -166,7 +179,9 @@ class TranslatableMixin(models.Model):
         """
         Returns True if a translation exists in the specified locale.
         """
-        return self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
+        return (
+            self.get_translations(inclusive=True).filter(locale_id=pk(locale)).exists()
+        )
 
     def copy_for_translation(self, locale):
         """
@@ -204,7 +219,8 @@ class TranslatableMixin(models.Model):
             parent_id = parental_keys[0].value_from_object(self)
             return (
                 parental_keys[0]
-                .related_model.objects.defer().select_related("locale")
+                .related_model.objects.defer()
+                .select_related("locale")
                 .get(id=parent_id)
                 .locale
             )
@@ -244,7 +260,9 @@ def bootstrap_translatable_model(model, locale):
 class BootstrapTranslatableModel(migrations.RunPython):
     def __init__(self, model_string, language_code=None):
         if language_code is None:
-            language_code = get_supported_content_language_variant(settings.LANGUAGE_CODE)
+            language_code = get_supported_content_language_variant(
+                settings.LANGUAGE_CODE
+            )
 
         def forwards(apps, schema_editor):
             model = apps.get_model(model_string)
@@ -274,6 +292,7 @@ class BootstrapTranslatableMixin(TranslatableMixin):
      - Run makemigrations again
      - Migrate!
     """
+
     translation_key = models.UUIDField(null=True, editable=False)
     locale = models.ForeignKey(
         Locale, on_delete=models.PROTECT, null=True, related_name="+", editable=False

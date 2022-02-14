@@ -12,12 +12,12 @@ from wagtail.core.models import GroupApprovalTask, TaskState, WorkflowState
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.users.models import UserProfile
 
-
-logger = logging.getLogger('wagtail.admin')
+logger = logging.getLogger("wagtail.admin")
 
 
 class OpenedConnection:
     """Context manager for mail connections to ensure they are closed when manually opened"""
+
     def __init__(self, connection):
         self.connection = connection
 
@@ -36,40 +36,46 @@ def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     Custom from_email handling and special Auto-Submitted header.
     """
     if not from_email:
-        if hasattr(settings, 'WAGTAILADMIN_NOTIFICATION_FROM_EMAIL'):
+        if hasattr(settings, "WAGTAILADMIN_NOTIFICATION_FROM_EMAIL"):
             from_email = settings.WAGTAILADMIN_NOTIFICATION_FROM_EMAIL
-        elif hasattr(settings, 'DEFAULT_FROM_EMAIL'):
+        elif hasattr(settings, "DEFAULT_FROM_EMAIL"):
             from_email = settings.DEFAULT_FROM_EMAIL
         else:
             # We are no longer using the term `webmaster` except in this case, where we continue to match Django's default: https://github.com/django/django/blob/stable/3.2.x/django/conf/global_settings.py#L223
-            from_email = 'webmaster@localhost'
+            from_email = "webmaster@localhost"
 
-    connection = kwargs.get('connection', False) or get_connection(
-        username=kwargs.get('auth_user', None),
-        password=kwargs.get('auth_password', None),
-        fail_silently=kwargs.get('fail_silently', None),
+    connection = kwargs.get("connection", False) or get_connection(
+        username=kwargs.get("auth_user", None),
+        password=kwargs.get("auth_password", None),
+        fail_silently=kwargs.get("fail_silently", None),
     )
     multi_alt_kwargs = {
-        'connection': connection,
-        'headers': {
-            'Auto-Submitted': 'auto-generated',
-        }
+        "connection": connection,
+        "headers": {
+            "Auto-Submitted": "auto-generated",
+        },
     }
-    mail = EmailMultiAlternatives(subject, message, from_email, recipient_list, **multi_alt_kwargs)
-    html_message = kwargs.get('html_message', None)
+    mail = EmailMultiAlternatives(
+        subject, message, from_email, recipient_list, **multi_alt_kwargs
+    )
+    html_message = kwargs.get("html_message", None)
     if html_message:
-        mail.attach_alternative(html_message, 'text/html')
+        mail.attach_alternative(html_message, "text/html")
 
     return mail.send()
 
 
 def send_moderation_notification(revision, notification, excluded_user=None):
     # Get list of recipients
-    if notification == 'submitted':
+    if notification == "submitted":
         # Get list of publishers
-        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
-        recipient_users = users_with_page_permission(revision.page, 'publish', include_superusers)
-    elif notification in ['rejected', 'approved']:
+        include_superusers = getattr(
+            settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
+        )
+        recipient_users = users_with_page_permission(
+            revision.page, "publish", include_superusers
+        )
+    elif notification in ["rejected", "approved"]:
         # Get submitter
         recipient_users = [revision.user]
     else:
@@ -78,16 +84,18 @@ def send_moderation_notification(revision, notification, excluded_user=None):
     if excluded_user:
         recipient_users = [user for user in recipient_users if user != excluded_user]
 
-    return send_notification(recipient_users, notification, {'revision': revision})
+    return send_notification(recipient_users, notification, {"revision": revision})
 
 
 def send_notification(recipient_users, notification, extra_context):
     # Get list of email addresses
     email_recipients = [
-        recipient for recipient in recipient_users
-        if recipient.is_active and recipient.email and getattr(
-            UserProfile.get_for_user(recipient),
-            notification + '_notifications'
+        recipient
+        for recipient in recipient_users
+        if recipient.is_active
+        and recipient.email
+        and getattr(
+            UserProfile.get_for_user(recipient), notification + "_notifications"
         )
     ]
 
@@ -96,9 +104,9 @@ def send_notification(recipient_users, notification, extra_context):
         return True
 
     # Get template
-    template_subject = 'wagtailadmin/notifications/' + notification + '_subject.txt'
-    template_text = 'wagtailadmin/notifications/' + notification + '.txt'
-    template_html = 'wagtailadmin/notifications/' + notification + '.html'
+    template_subject = "wagtailadmin/notifications/" + notification + "_subject.txt"
+    template_text = "wagtailadmin/notifications/" + notification + ".txt"
+    template_html = "wagtailadmin/notifications/" + notification + ".html"
 
     # Common context to template
     context = {
@@ -124,16 +132,23 @@ def send_notification(recipient_users, notification, extra_context):
                     email_content = render_to_string(template_text, context).strip()
 
                 kwargs = {}
-                if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-                    kwargs['html_message'] = render_to_string(template_html, context)
+                if getattr(settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False):
+                    kwargs["html_message"] = render_to_string(template_html, context)
 
                 # Send email
-                send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
+                send_mail(
+                    email_subject,
+                    email_content,
+                    [recipient.email],
+                    connection=open_connection,
+                    **kwargs,
+                )
                 sent_count += 1
             except Exception:
                 logger.exception(
                     "Failed to send notification email '%s' to %s",
-                    email_subject, recipient.email
+                    email_subject,
+                    recipient.email,
                 )
 
     return sent_count == len(email_recipients)
@@ -141,10 +156,10 @@ def send_notification(recipient_users, notification, extra_context):
 
 class Notifier:
     """Generic class for sending event notifications: callable, intended to be connected to a signal to send
-    notifications using rendered templates. """
+    notifications using rendered templates."""
 
-    notification = ''
-    template_directory = 'wagtailadmin/notifications/'
+    notification = ""
+    template_directory = "wagtailadmin/notifications/"
 
     def __init__(self, valid_classes):
         # the classes of the calling instance that the notifier can handle
@@ -159,19 +174,19 @@ class Notifier:
         return set()
 
     def get_template_base_prefix(self, instance, **kwargs):
-        return camelcase_to_underscore(type(instance).__name__) + '_'
+        return camelcase_to_underscore(type(instance).__name__) + "_"
 
     def get_context(self, instance, **kwargs):
-        return {'settings': settings}
+        return {"settings": settings}
 
     def get_template_set(self, instance, **kwargs):
         """Return a dictionary of template paths for the templates: by default, a text message"""
         template_base = self.get_template_base_prefix(instance) + self.notification
 
-        template_text = self.template_directory + template_base + '.txt'
+        template_text = self.template_directory + template_base + ".txt"
 
         return {
-            'text': template_text,
+            "text": template_text,
         }
 
     def send_notifications(self, template_set, context, recipients, **kwargs):
@@ -208,10 +223,13 @@ class EmailNotificationMixin:
         """Filters notification recipients to those allowing the notification type on their UserProfile, and those
         with an email address"""
         return {
-            recipient for recipient in self.get_recipient_users(instance, **kwargs)
-            if recipient.is_active and recipient.email and getattr(
+            recipient
+            for recipient in self.get_recipient_users(instance, **kwargs)
+            if recipient.is_active
+            and recipient.email
+            and getattr(
                 UserProfile.get_for_user(recipient),
-                self.notification + '_notifications'
+                self.notification + "_notifications",
             )
         }
 
@@ -220,14 +238,14 @@ class EmailNotificationMixin:
         alternatives"""
         template_base = self.get_template_base_prefix(instance) + self.notification
 
-        template_subject = self.template_directory + template_base + '_subject.txt'
-        template_text = self.template_directory + template_base + '.txt'
-        template_html = self.template_directory + template_base + '.html'
+        template_subject = self.template_directory + template_base + "_subject.txt"
+        template_text = self.template_directory + template_base + ".txt"
+        template_html = self.template_directory + template_base + ".html"
 
         return {
-            'subject': template_subject,
-            'text': template_text,
-            'html': template_html,
+            "subject": template_subject,
+            "text": template_text,
+            "html": template_html,
         }
 
     def send_emails(self, template_set, context, recipients, **kwargs):
@@ -245,22 +263,39 @@ class EmailNotificationMixin:
                         context["user"] = recipient
 
                         # Translate text to the recipient language settings
-                        with override(recipient.wagtail_userprofile.get_preferred_language()):
+                        with override(
+                            recipient.wagtail_userprofile.get_preferred_language()
+                        ):
                             # Get email subject and content
-                            email_subject = render_to_string(template_set['subject'], context).strip()
-                            email_content = render_to_string(template_set['text'], context).strip()
+                            email_subject = render_to_string(
+                                template_set["subject"], context
+                            ).strip()
+                            email_content = render_to_string(
+                                template_set["text"], context
+                            ).strip()
 
                         kwargs = {}
-                        if getattr(settings, 'WAGTAILADMIN_NOTIFICATION_USE_HTML', False):
-                            kwargs['html_message'] = render_to_string(template_set['html'], context)
+                        if getattr(
+                            settings, "WAGTAILADMIN_NOTIFICATION_USE_HTML", False
+                        ):
+                            kwargs["html_message"] = render_to_string(
+                                template_set["html"], context
+                            )
 
                         # Send email
-                        send_mail(email_subject, email_content, [recipient.email], connection=open_connection, **kwargs)
+                        send_mail(
+                            email_subject,
+                            email_content,
+                            [recipient.email],
+                            connection=open_connection,
+                            **kwargs,
+                        )
                         sent_count += 1
                     except Exception:
                         logger.exception(
                             "Failed to send notification email '%s' to %s",
-                            email_subject, recipient.email
+                            email_subject,
+                            recipient.email,
                         )
         except (TimeoutError, ConnectionError):
             logger.exception("Mail connection error, notification sending skipped")
@@ -279,18 +314,18 @@ class BaseWorkflowStateEmailNotifier(EmailNotificationMixin, Notifier):
 
     def get_context(self, workflow_state, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
-        context['page'] = workflow_state.page
-        context['workflow'] = workflow_state.workflow
+        context["page"] = workflow_state.page
+        context["workflow"] = workflow_state.workflow
         return context
 
 
 class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
     """A notifier to send email updates for WorkflowState approval events"""
 
-    notification = 'approved'
+    notification = "approved"
 
     def get_recipient_users(self, workflow_state, **kwargs):
-        triggering_user = kwargs.get('user', None)
+        triggering_user = kwargs.get("user", None)
         recipients = {}
         requested_by = workflow_state.requested_by
         if requested_by != triggering_user:
@@ -302,10 +337,10 @@ class WorkflowStateApprovalEmailNotifier(BaseWorkflowStateEmailNotifier):
 class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
     """A notifier to send email updates for WorkflowState rejection events"""
 
-    notification = 'rejected'
+    notification = "rejected"
 
     def get_recipient_users(self, workflow_state, **kwargs):
-        triggering_user = kwargs.get('user', None)
+        triggering_user = kwargs.get("user", None)
         recipients = {}
         requested_by = workflow_state.requested_by
         if requested_by != triggering_user:
@@ -316,21 +351,23 @@ class WorkflowStateRejectionEmailNotifier(BaseWorkflowStateEmailNotifier):
     def get_context(self, workflow_state, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
         task_state = workflow_state.current_task_state.specific
-        context['task'] = task_state.task
-        context['task_state'] = task_state
-        context['comment'] = task_state.get_comment()
+        context["task"] = task_state.task
+        context["task_state"] = task_state
+        context["comment"] = task_state.get_comment()
         return context
 
 
 class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
     """A notifier to send email updates for WorkflowState submission events"""
 
-    notification = 'submitted'
+    notification = "submitted"
 
     def get_recipient_users(self, workflow_state, **kwargs):
-        triggering_user = kwargs.get('user', None)
+        triggering_user = kwargs.get("user", None)
         recipients = get_user_model().objects.none()
-        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        include_superusers = getattr(
+            settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
+        )
         if include_superusers:
             recipients = get_user_model().objects.filter(is_superuser=True)
         if triggering_user:
@@ -340,7 +377,7 @@ class WorkflowStateSubmissionEmailNotifier(BaseWorkflowStateEmailNotifier):
 
     def get_context(self, workflow_state, **kwargs):
         context = super().get_context(workflow_state, **kwargs)
-        context['requested_by'] = workflow_state.requested_by
+        context["requested_by"] = workflow_state.requested_by
         return context
 
 
@@ -351,24 +388,30 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
         super().__init__((TaskState,))
 
     def can_handle(self, instance, **kwargs):
-        if super().can_handle(instance, **kwargs) and isinstance(instance.task.specific, GroupApprovalTask):
+        if super().can_handle(instance, **kwargs) and isinstance(
+            instance.task.specific, GroupApprovalTask
+        ):
             return True
         return False
 
     def get_context(self, task_state, **kwargs):
         context = super().get_context(task_state, **kwargs)
-        context['page'] = task_state.workflow_state.page
-        context['task'] = task_state.task.specific
+        context["page"] = task_state.workflow_state.page
+        context["task"] = task_state.task.specific
         return context
 
     def get_recipient_users(self, task_state, **kwargs):
-        triggering_user = kwargs.get('user', None)
+        triggering_user = kwargs.get("user", None)
 
-        group_members = get_user_model().objects.filter(groups__in=task_state.task.specific.groups.all())
+        group_members = get_user_model().objects.filter(
+            groups__in=task_state.task.specific.groups.all()
+        )
 
         recipients = group_members
 
-        include_superusers = getattr(settings, 'WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS', True)
+        include_superusers = getattr(
+            settings, "WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS", True
+        )
         if include_superusers:
             superusers = get_user_model().objects.filter(is_superuser=True)
             recipients = recipients | superusers
@@ -379,7 +422,9 @@ class BaseGroupApprovalTaskStateEmailNotifier(EmailNotificationMixin, Notifier):
         return recipients
 
 
-class GroupApprovalTaskStateSubmissionEmailNotifier(BaseGroupApprovalTaskStateEmailNotifier):
+class GroupApprovalTaskStateSubmissionEmailNotifier(
+    BaseGroupApprovalTaskStateEmailNotifier
+):
     """A notifier to send email updates for GroupApprovalTask submission events"""
 
-    notification = 'submitted'
+    notification = "submitted"

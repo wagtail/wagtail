@@ -25,7 +25,7 @@ def _extract_field_data(source, exclude_fields=None):
         if field.many_to_many:
             if isinstance(field, ParentalManyToManyField):
                 parental_field = getattr(source, field.name)
-                if hasattr(parental_field, 'all'):
+                if hasattr(parental_field, "all"):
                     values = parental_field.all()
                     if values:
                         data_dict[field.name] = values
@@ -60,10 +60,20 @@ def _copy_m2m_relations(source, target, exclude_fields=None, update_attrs=None):
 
     for field in source._meta.get_fields():
         # Copy m2m relations. Ignore explicitly excluded fields, reverse relations, and Parental m2m fields.
-        if field.many_to_many and field.name not in exclude_fields and not field.auto_created and not isinstance(field, ParentalManyToManyField):
+        if (
+            field.many_to_many
+            and field.name not in exclude_fields
+            and not field.auto_created
+            and not isinstance(field, ParentalManyToManyField)
+        ):
             try:
                 # Do not copy m2m links with a through model that has a ParentalKey to the model being copied - these will be copied as child objects
-                through_model_parental_links = [field for field in field.through._meta.get_fields() if isinstance(field, ParentalKey) and issubclass(source.__class__, field.related_model)]
+                through_model_parental_links = [
+                    field
+                    for field in field.through._meta.get_fields()
+                    if isinstance(field, ParentalKey)
+                    and issubclass(source.__class__, field.related_model)
+                ]
                 if through_model_parental_links:
                     continue
             except AttributeError:
@@ -89,7 +99,9 @@ def _copy(source, exclude_fields=None, update_attrs=None):
             setattr(target, field, value)
 
     if isinstance(source, ClusterableModel):
-        child_object_map = source.copy_all_child_relations(target, exclude=exclude_fields)
+        child_object_map = source.copy_all_child_relations(
+            target, exclude=exclude_fields
+        )
     else:
         child_object_map = {}
 
