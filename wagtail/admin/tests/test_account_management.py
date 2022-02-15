@@ -434,7 +434,7 @@ class TestAccountSection(TestCase, WagtailTestUtils, TestAccountSectionUtilsMixi
 
         # check that the updated language preference is now indicated in HTML header
         response = self.client.get(reverse("wagtailadmin_home"))
-        self.assertContains(response, '<html class="no-js" lang="es" dir="ltr">')
+        self.assertContains(response, '<html lang="es" dir="ltr">')
 
     def test_unset_language_preferences(self):
         profile = UserProfile.get_for_user(self.user)
