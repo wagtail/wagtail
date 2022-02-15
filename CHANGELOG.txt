@@ -9,6 +9,7 @@ Changelog
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
  * Lint with flake8-comprehensions and flake8-assertive (Mads Jensen)
  * Switch the Wagtail branding font to a system font stack (Steven Steinwand)
+ * Add black configuration and reformat code using it (Dan Braghis)
 
 
 2.16.1 (11.02.2022)
