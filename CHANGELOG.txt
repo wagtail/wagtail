@@ -10,6 +10,7 @@ Changelog
  * Lint with flake8-comprehensions and flake8-assertive (Mads Jensen)
  * Switch the Wagtail branding font to a system font stack (Steven Steinwand)
  * Add black configuration and reformat code using it (Dan Braghis)
+ * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
 
 
 2.16.1 (11.02.2022)
