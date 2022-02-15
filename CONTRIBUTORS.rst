@@ -562,6 +562,7 @@ Contributors
 * Rizwan Mansuri
 * Dennis McGregor
 * Joshua Munn
+* Gianluca De Cola
 
 Translators
 ===========
