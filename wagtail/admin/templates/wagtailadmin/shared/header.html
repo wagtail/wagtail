@@ -18,7 +18,7 @@
 <header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
     <div class="row{% if not tabbed %} nice-padding{% endif %}">
-        <div class="left">c
+        <div class="left">
             <div class="col header-title">
                 <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
                     {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
