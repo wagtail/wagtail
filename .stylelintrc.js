@@ -17,7 +17,7 @@ module.exports = {
     'no-invalid-position-at-import-rule': [
       true,
       {
-        ignoreAtRules: ['tailwind'],
+        ignoreAtRules: ['tailwind', 'use'],
       },
     ],
     // Would be valuable for strict BEM components but is too hard to enforce with legacy code.
