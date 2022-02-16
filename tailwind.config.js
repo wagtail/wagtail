@@ -1,5 +1,10 @@
 module.exports = {
-  content: ['./wagtail/**/*.{html,js,jsx,ts,tsx}'],
+  content: [
+    './{wagtail/templates/**/*.html',
+    './{wagtail/static_src/**/*.{js,jsx,ts,tsx}',
+    './{client/**/*.{html,js,jsx,ts,tsx}',
+    './{docs/**/*.{html,js,jsx,ts,tsx}',
+  ],
   prefix: 'w-',
   theme: {
     extend: {},
