@@ -36,8 +36,6 @@ Usage
 
 Once installed, a new menu item called "Redirects" should appear in the "Settings" menu. This is where you can add arbitrary redirects to your site.
 
-Page model recipe of to have redirects created automatically when changing a page's slug, see :ref:`page_model_auto_redirects_recipe`.
-
 For an editor's guide to the interface, see :ref:`managing_redirects`.
 
 Automatic redirect creation
