@@ -9,11 +9,29 @@
     <div class="nice-padding">
         <p>
             {% trans 'Are you sure you want to delete this page?' %}
-            {% if descendant_count %}
+
+            {% if descendant_count and translation_count %}
                 {% blocktrans count counter=descendant_count %}
-                    This will also delete one more subpage.
+                    Deleting this page will also delete {{ descendant_count }} subpage,
                 {% plural %}
-                    This will also delete {{ descendant_count }} more subpages.
+                    Deleting this page will also delete {{ descendant_count }} more subpages,
+                {% endblocktrans %}
+                {% blocktrans count counter=translation_count %}
+                    {{ translation_count }} translation of this page and their combined {{ combined_subpages }} subpages.
+                {% plural %}
+                    {{ translation_count }} translations of this page and their combined {{ combined_subpages }} subpages.
+                {% endblocktrans %}
+            {% elif descendant_count %}
+                {% blocktrans count counter=descendant_count %}
+                    Deleting this page will also delete {{ descendant_count }} subpage.
+                {% plural %}
+                    Deleting this page will also delete {{ descendant_count }} more subpages.
+                {% endblocktrans %}
+            {% elif translation_count %}
+                {% blocktrans count counter=translation_count %}
+                    Deleting this page will also delete {{ translation_count }} translation of this page.
+                {% plural %}
+                    Deleting this page will also delete {{ translation_count }} translations of this page.
                 {% endblocktrans %}
             {% endif %}
         </p>
