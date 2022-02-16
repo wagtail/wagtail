@@ -11,10 +11,12 @@ and `Prettier <https://prettier.io/>`_ for formatting.
 You'll need Node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install --no-save``
 
-Tailwindcss
------------
-Wagtail now has the ability to use utility classes from the tailwindcss package based off values set in our tailwind.config.js file.
-To use these utilities you will need to prefix your class names with `w-` to avoid interfering with other predefined styles of similar names.
+Tailwind CSS
+-------------
+
+Wagtail uses utility classes via Tailwind, generated based on values set in the ``tailwind.config.js`` file.
+
+To use these utilities you will need to prefix your class names with ``w-`` to avoid interfering with other predefined styles of similar names.
 
 
 Linting code
