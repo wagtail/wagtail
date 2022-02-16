@@ -17,17 +17,23 @@ def delete(request, page_id):
         raise PermissionDenied
 
     with transaction.atomic():
-        for fn in hooks.get_hooks('before_delete_page'):
+        for fn in hooks.get_hooks("before_delete_page"):
             result = fn(request, page)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
         next_url = get_valid_next_url_from_request(request)
         parent_page_translations = page.get_parent().get_translations()
-        translations_to_delete = [page for page in page.get_translations() if page.get_parent() in parent_page_translations]
-        translation_descendant_count = sum([p.get_descendants().count() for p in translations_to_delete])
+        translations_to_delete = [
+            page
+            for page in page.get_translations()
+            if page.get_parent() in parent_page_translations
+        ]
+        translation_descendant_count = sum(
+            [p.get_descendants().count() for p in translations_to_delete]
+        )
 
-        if request.method == 'POST':
+        if request.method == "POST":
             parent_id = page.get_parent().id
             action = DeletePageAction(page, user=request.user)
             # Permission checks are done above, so skip them in execute.
@@ -37,24 +43,33 @@ def delete(request, page_id):
             # Delete translated pages. Alias pages are incldued in `get_translations()`
             for translated_page in page.get_translations():
                 if translated_page.get_parent() in parent_page_translations:
-                    DeletePageAction(translated_page, user=request.user).execute(skip_permission_checks=True)
+                    DeletePageAction(translated_page, user=request.user).execute(
+                        skip_permission_checks=True
+                    )
 
-            messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
+            messages.success(
+                request, _("Page '{0}' deleted.").format(page.get_admin_display_title())
+            )
 
-            for fn in hooks.get_hooks('after_delete_page'):
+            for fn in hooks.get_hooks("after_delete_page"):
                 result = fn(request, page)
-                if hasattr(result, 'status_code'):
+                if hasattr(result, "status_code"):
                     return result
 
             if next_url:
                 return redirect(next_url)
-            return redirect('wagtailadmin_explore', parent_id)
+            return redirect("wagtailadmin_explore", parent_id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_delete.html', {
-        'page': page,
-        'descendant_count': page.get_descendant_count(),
-        'next': next_url,
-        "translation_count": len(translations_to_delete),
-        "translation_descendant_count": translation_descendant_count,
-        "combined_subpages": page.get_descendant_count() + translation_descendant_count,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/confirm_delete.html",
+        {
+            "page": page,
+            "descendant_count": page.get_descendant_count(),
+            "next": next_url,
+            "translation_count": len(translations_to_delete),
+            "translation_descendant_count": translation_descendant_count,
+            "combined_subpages": page.get_descendant_count()
+            + translation_descendant_count,
+        },
+    )
