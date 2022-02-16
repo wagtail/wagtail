@@ -1,8 +1,8 @@
 module.exports = {
   content: [
     './wagtail/**!(static)/*.{html,js,jsx,ts,tsx}', // Avoid purging compiled static assets
-    './client/**/*.{html,js,jsx,ts,tsx}',
-    './docs/**/*.{html,js,jsx,ts,tsx}',
+    './client/**/*.{html,js,ts,tsx}',
+    './docs/**/*.{html,js,ts,tsx}',
   ],
   prefix: 'w-',
   theme: {
