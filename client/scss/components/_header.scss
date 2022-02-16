@@ -1,11 +1,9 @@
 @use 'sass:math';
 
 header {
-  //TODO: Remove this testing element
-  @apply bg-green-300;
-
   padding-top: 1em;
   padding-bottom: 1em;
+  background-color: $color-header-bg;
   margin-bottom: 2em;
   color: $color-white;
 

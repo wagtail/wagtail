@@ -40,11 +40,17 @@ OTHER PREFIXES
 └────────┴─────────┘
 
 ==============================================================================*/
+// This needs to be disabled in order for tailwind to be the first import in the list.
 
-// Commented out so eslint was happy
-//@tailwind base;
-//@tailwind components;
-//@tailwind utilities;
+/* TAILWIND BASE
+This is all the base styling and components for tailwind.
+They are placed before everything else so
+Only the classes used in markup and css will be compiled into the final stylesheet.
+*/
+
+//@tailwind base; /* Preflight is injected here TODO: Consider enabling after the new page editor design has finished */
+@tailwind components;
+@tailwind utilities;
 
 /* SETTINGS
 These are variables, maps, and fonts.
