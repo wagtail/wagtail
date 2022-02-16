@@ -4,6 +4,9 @@ module.exports = {
     './client/**/*.{html,js,ts,tsx}',
     './docs/**/*.{html,js,ts,tsx}',
   ],
+  corePlugins: {
+    preflight: false,
+  },
   prefix: 'w-',
   theme: {
     extend: {},

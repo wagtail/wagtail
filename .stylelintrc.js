@@ -1,12 +1,6 @@
 module.exports = {
   extends: '@wagtail/stylelint-config-wagtail',
   rules: {
-    'no-invalid-position-at-import-rule': [
-      true,
-      {
-        ignoreAtRules: ['tailwind'],
-      },
-    ],
     'scss/at-rule-no-unknown': [
       true,
       {
@@ -18,6 +12,12 @@ module.exports = {
           'screen',
           'layer',
         ],
+      },
+    ],
+    'no-invalid-position-at-import-rule': [
+      true,
+      {
+        ignoreAtRules: ['tailwind'],
       },
     ],
     // Would be valuable for strict BEM components but is too hard to enforce with legacy code.

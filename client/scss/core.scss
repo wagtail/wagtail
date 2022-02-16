@@ -42,15 +42,13 @@ OTHER PREFIXES
 ==============================================================================*/
 
 /* TAILWIND BASE
-This is all the base styling and components for tailwind.
-They are placed before everything else so other classes will be able to overwrite or add to tailwinds component layer.
-Unused styles created within tailwinds component layer won't be compiled into the compiled stylesheet
+These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
+Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
 https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 */
 
-//@tailwind base; /* Preflight is injected here TODO: Consider enabling after the new page editor improvements have finished */
+@tailwind base;
 @tailwind components;
-@tailwind utilities;
 
 /* SETTINGS
 These are variables, maps, and fonts.
@@ -166,3 +164,6 @@ These are classes that provide overrides.
 // PAGES: page-specific overrides
 @import 'overrides/pages.homepage';
 @import 'overrides/pages.page-explorer';
+
+// TAILWIND: This is at the bottom so it can take precedence over other css classes
+@tailwind utilities;
