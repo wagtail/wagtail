@@ -4,7 +4,7 @@ module.exports = {
     'no-invalid-position-at-import-rule': [
       true,
       {
-        ignoreAtRules: ['tailwind', 'import'],
+        ignoreAtRules: ['tailwind'],
       },
     ],
     'scss/at-rule-no-unknown': [
