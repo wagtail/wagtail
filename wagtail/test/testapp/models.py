@@ -773,7 +773,10 @@ EXTENDED_CHOICES = FORM_FIELD_CHOICES + (("ipaddress", "IP Address"),)
 
 
 class ExtendedFormField(AbstractFormField):
-    """Override the field_type field with extended choices."""
+    """
+    Override the field_type field with extended choices
+    and a custom clean_name override.
+    """
 
     page = ParentalKey(
         "FormPageWithCustomFormBuilder",
@@ -783,6 +786,19 @@ class ExtendedFormField(AbstractFormField):
     field_type = models.CharField(
         verbose_name="field type", max_length=16, choices=EXTENDED_CHOICES
     )
+
+    def get_field_clean_name(self):
+        clean_name = super().get_field_clean_name()
+
+        # scoping to field type to easily test behaviour in isolation
+        if self.field_type == "number":
+            return f"number_field--{clean_name}"
+
+        # scoping to field label to easily test duplicate behaviour in isolation
+        if "duplicate" in self.label:
+            return "test duplicate"
+
+        return clean_name
 
 
 class CustomFormBuilder(FormBuilder):

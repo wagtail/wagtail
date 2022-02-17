@@ -121,6 +121,16 @@ class AbstractFormField(Orderable):
         FieldPanel("default_value", classname="formbuilder-default"),
     ]
 
+    def get_field_clean_name(self):
+        """
+        Prepare an ascii safe lower_snake_case variant of the field name to use as the field key.
+        This key is used to reference the field responses in the JSON store and as the field name in forms.
+        Called for new field creation, validation of duplicate labels and form previews.
+        When called, does not have access to the Page, nor its own id as the record is not yet created.
+        """
+
+        return get_field_clean_name(self.label)
+
     def save(self, *args, **kwargs):
         """
         When new fields are created, generate a template safe ascii name to use as the
@@ -132,7 +142,7 @@ class AbstractFormField(Orderable):
 
         is_new = self.pk is None
         if is_new:
-            clean_name = get_field_clean_name(self.label)
+            clean_name = self.get_field_clean_name()
             self.clean_name = clean_name
 
         super().save(*args, **kwargs)
