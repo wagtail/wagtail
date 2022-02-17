@@ -3,6 +3,9 @@ import '../draftail';
 import './telepath';
 import './widgets';
 
+import { createEditorStateFromRaw } from 'draftail';
+import { EditorState } from 'draft-js';
+
 import $ from 'jquery';
 window.$ = $;
 
@@ -366,7 +369,7 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
 describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
 
-  const TEST_VALUE = JSON.stringify({
+  const TEST_RAW = {
     blocks: [
       {
         key: 't30wm',
@@ -389,7 +392,8 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
       },
     ],
     entityMap: {},
-  });
+  };
+  const TEST_VALUE = JSON.stringify(TEST_RAW);
 
   beforeEach(() => {
     // Create a placeholder to render the widget
@@ -471,11 +475,23 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   });
 
   test('getState() returns the current state', () => {
-    expect(boundWidget.getState()).toBe(TEST_VALUE);
+    const state = createEditorStateFromRaw(TEST_RAW);
+    let retrievedState = boundWidget.getState();
+    // Ignore selection, which is altered from the original state by Draftail,
+    // (TODO: figure out why this happens)
+    // and decorator, which is added to by CommentableEditor
+    retrievedState = EditorState.acceptSelection(
+      retrievedState,
+      state.getSelection(),
+    );
+    retrievedState = EditorState.set(retrievedState, {
+      decorator: state.getDecorator(),
+    });
+    expect(retrievedState).toStrictEqual(state);
   });
 
   test('setState() changes the current state', () => {
-    const NEW_VALUE = JSON.stringify({
+    const NEW_VALUE = {
       blocks: [
         {
           key: 't30wm',
@@ -487,11 +503,21 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
         },
       ],
       entityMap: {},
-    });
+    };
+    const NEW_STATE = createEditorStateFromRaw(NEW_VALUE);
+    boundWidget.setState(NEW_STATE);
 
-    expect(() => {
-      boundWidget.setState(NEW_VALUE);
-    }).toThrowError('DraftailRichTextArea.setState is not implemented');
+    let retrievedState = boundWidget.getState();
+    // Ignore selection, which is altered from the original state by Draftail,
+    // and decorator, which is added to by CommentableEditor
+    retrievedState = EditorState.acceptSelection(
+      retrievedState,
+      NEW_STATE.getSelection(),
+    );
+    retrievedState = EditorState.set(retrievedState, {
+      decorator: NEW_STATE.getDecorator(),
+    });
+    expect(retrievedState).toStrictEqual(NEW_STATE);
   });
 
   test('focus() focuses the text input', () => {
