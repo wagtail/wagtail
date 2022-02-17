@@ -78,28 +78,27 @@ def sendfile(
 
     response = _sendfile(request, filename, mimetype=mimetype)
     if attachment:
-        if attachment_filename is None:
-            attachment_filename = os.path.basename(filename)
         parts = ["attachment"]
-        if attachment_filename:
-            from django.utils.encoding import force_str
-
-            from wagtail.core.utils import string_to_ascii
-
-            attachment_filename = force_str(attachment_filename)
-            ascii_filename = string_to_ascii(attachment_filename)
-            parts.append('filename="%s"' % ascii_filename)
-
-            if ascii_filename != attachment_filename:
-                from urllib.parse import quote
-
-                quoted_filename = quote(attachment_filename)
-                parts.append("filename*=UTF-8''%s" % quoted_filename)
-
-        response["Content-Disposition"] = "; ".join(parts)
     else:
-        response["Content-Disposition"] = "inline"
+        parts = ["inline"]
+    if attachment_filename is None:
+        attachment_filename = os.path.basename(filename)
+    if attachment_filename:
+        from django.utils.encoding import force_str
 
+        from wagtail.core.utils import string_to_ascii
+
+        attachment_filename = force_str(attachment_filename)
+        ascii_filename = string_to_ascii(attachment_filename)
+        parts.append('filename="%s"' % ascii_filename)
+
+        if ascii_filename != attachment_filename:
+            from urllib.parse import quote
+
+            quoted_filename = quote(attachment_filename)
+            parts.append("filename*=UTF-8''%s" % quoted_filename)
+
+    response["Content-Disposition"] = "; ".join(parts)
     response["Content-length"] = os.path.getsize(filename)
     response["Content-Type"] = mimetype
     response["Content-Encoding"] = encoding or guessed_encoding
