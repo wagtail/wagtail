@@ -51,7 +51,7 @@ class TestServeView(TestCase):
     def test_inline_content_disposition_header(self):
         self.assertEqual(
             self.get(self.pdf_document)['Content-Disposition'],
-            'inline')
+            'inline; filename="{}"'.format(self.pdf_document.filename))
 
     @mock.patch('wagtail.documents.views.serve.hooks')
     @mock.patch('wagtail.documents.views.serve.get_object_or_404')
