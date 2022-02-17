@@ -1695,3 +1695,42 @@ class TestDuplicateFormFieldLabels(TestCase, WagtailTestUtils):
             response,
             text="There is another field with the label LOW EARTH ORBIT, please change one of them.",
         )
+
+    def test_adding_duplicate_form_labels_using_override_clean_name(self):
+        """
+        Ensure form submission fails when attempting to create labels that will resolve
+        to the same clean_name that already exists when using a custom `get_field_clean_name` method
+        """
+
+        post_data = {
+            "title": "Form page!",
+            "content": "Some content",
+            "slug": "contact-us",
+            "form_fields-TOTAL_FORMS": "3",
+            "form_fields-INITIAL_FORMS": "3",
+            "form_fields-MIN_NUM_FORMS": "0",
+            "form_fields-MAX_NUM_FORMS": "1000",
+            "form_fields-0-id": "",
+            "form_fields-0-label": "duplicate 1",
+            "form_fields-0-field_type": "singleline",
+            "form_fields-1-id": "",
+            "form_fields-1-label": "duplicate 2",
+            "form_fields-1-field_type": "singleline",
+            "form_fields-2-id": "",
+            "form_fields-2-label": "bar",
+            "form_fields-2-field_type": "singleline",
+        }
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:add",
+                args=("tests", "formpagewithcustomformbuilder", self.root_page.id),
+            ),
+            post_data,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.assertContains(
+            response,
+            text="There is another field with the label duplicate 1, please change one of them.",
+        )
