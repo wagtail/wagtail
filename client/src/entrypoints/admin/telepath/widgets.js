@@ -7,7 +7,6 @@ class BoundWidget {
     this.idForLabel = idForLabel;
     this.setState(initialState);
     this.parentCapabilities = parentCapabilities || new Map();
-    console.log(this);
   }
   getValue() {
     return this.input.val();
@@ -175,10 +174,10 @@ class DraftailRichTextArea {
         return input.value;
       },
       getState() {
-        return input.value;
+        return input.draftailEditor.getEditorState();
       },
-      setState() {
-        throw new Error('DraftailRichTextArea.setState is not implemented');
+      setState(editorState) {
+        input.draftailEditor.onChange(editorState);
       },
       getTextLabel(opts) {
         const maxLength = opts && opts.maxLength;
