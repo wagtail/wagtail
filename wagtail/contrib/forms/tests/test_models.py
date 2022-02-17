@@ -4,7 +4,6 @@ import unittest
 
 from django import VERSION as DJANGO_VERSION
 from django.core import mail
-from django.core.checks import Info
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
@@ -19,7 +18,6 @@ from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
     FormField,
-    FormFieldWithCustomSubmission,
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
@@ -809,75 +807,3 @@ class TestNonHtmlExtension(TestCase):
         self.assertEqual(
             form_page.landing_page_template, "tests/form_page_landing.jade"
         )
-
-
-class TestLegacyFormFieldCleanNameChecks(TestCase, WagtailTestUtils):
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        self.login(username="siteeditor", password="password")
-        self.form_page = Page.objects.get(
-            url_path="/home/contact-us-one-more-time/"
-        ).specific
-
-    def test_form_field_clean_name_update_on_checks(self):
-        fields_before_checks = [
-            (
-                field.label,
-                field.clean_name,
-            )
-            for field in FormFieldWithCustomSubmission.objects.all()
-        ]
-
-        self.assertEqual(
-            fields_before_checks,
-            [
-                ("Your email", ""),
-                ("Your message", ""),
-                ("Your choices", ""),
-            ],
-        )
-
-        # running checks should show an info message AND update blank clean_name values
-
-        messages = FormFieldWithCustomSubmission.check()
-
-        self.assertEqual(
-            messages,
-            [
-                Info(
-                    "Added `clean_name` on 3 form field(s)",
-                    obj=FormFieldWithCustomSubmission,
-                )
-            ],
-        )
-
-        fields_after_checks = [
-            (
-                field.label,
-                field.clean_name,
-            )
-            for field in FormFieldWithCustomSubmission.objects.all()
-        ]
-
-        self.assertEqual(
-            fields_after_checks,
-            [
-                ("Your email", "your-email"),  # kebab case, legacy format
-                ("Your message", "your-message"),
-                ("Your choices", "your-choices"),
-            ],
-        )
-
-        # running checks again should return no messages as fields no longer need changing
-        self.assertEqual(FormFieldWithCustomSubmission.check(), [])
-
-        # creating a new field should use the non-legacy clean_name format
-
-        field = FormFieldWithCustomSubmission.objects.create(
-            page=self.form_page,
-            label="Your FAVOURITE #number",
-            field_type="number",
-        )
-
-        self.assertEqual(field.clean_name, "your_favourite_number")

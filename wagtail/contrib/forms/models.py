@@ -3,13 +3,10 @@ import json
 import os
 
 from django.conf import settings
-from django.core.checks import Info
-from django.core.exceptions import FieldError
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db import DatabaseError, models
+from django.db import models
 from django.template.response import TemplateResponse
 from django.utils.formats import date_format
-from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.mail import send_mail
@@ -141,45 +138,6 @@ class AbstractFormField(Orderable):
             self.clean_name = clean_name
 
         super().save(*args, **kwargs)
-
-    @classmethod
-    def _migrate_legacy_clean_name(cls):
-        """
-        Ensure that existing data stored will be accessible via the legacy clean_name.
-        When checks run, replace any blank clean_name values with the unidecode conversion.
-        """
-
-        try:
-            objects = cls.objects.filter(clean_name__exact="")
-            if objects.count() == 0:
-                return None
-
-        except (FieldError, DatabaseError):
-            # attempting to query on clean_name before field has been added
-            return None
-
-        try:
-            from unidecode import unidecode
-        except ImportError as error:
-            description = "You have form submission data that was created on an older version of Wagtail and requires the unidecode library to retrieve it correctly. Please install the unidecode package."
-            raise Exception(description) from error
-
-        for obj in objects:
-            legacy_clean_name = str(slugify(str(unidecode(obj.label))))
-            obj.clean_name = legacy_clean_name
-            obj.save()
-
-        return Info("Added `clean_name` on %s form field(s)" % objects.count(), obj=cls)
-
-    @classmethod
-    def check(cls, **kwargs):
-        errors = super().check(**kwargs)
-
-        messages = cls._migrate_legacy_clean_name()
-        if messages:
-            errors.append(messages)
-
-        return errors
 
     class Meta:
         abstract = True

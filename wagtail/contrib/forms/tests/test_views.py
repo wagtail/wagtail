@@ -5,7 +5,6 @@ from io import BytesIO
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from django.core.checks import Info
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
@@ -520,49 +519,6 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         # check ordering matches 'submit_time' (oldest first)
         first_row_values = response.context["data_rows"][0]["fields"]
         self.assertIn("this is a really old message", first_row_values)
-
-
-class TestFormsSubmissionsListLegacyFieldName(TestCase, WagtailTestUtils):
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        self.login(username="siteeditor", password="password")
-        self.form_page = Page.objects.get(
-            url_path="/home/contact-us-one-more-time/"
-        ).specific
-
-        # running checks should show an info message AND update blank clean_name values
-
-        messages = FormFieldWithCustomSubmission.check()
-
-        self.assertEqual(
-            messages,
-            [
-                Info(
-                    "Added `clean_name` on 3 form field(s)",
-                    obj=FormFieldWithCustomSubmission,
-                )
-            ],
-        )
-
-        # check clean_name has been updated
-        self.assertEqual(
-            FormFieldWithCustomSubmission.objects.all()[0].clean_name, "your-email"
-        )
-
-    def test_list_submissions(self):
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
-        )
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
-        self.assertEqual(len(response.context["data_rows"]), 2)
-
-        # check display of list values within form submissions
-        self.assertContains(response, "old@example.com")
-        self.assertContains(response, "new@example.com")
 
 
 class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
