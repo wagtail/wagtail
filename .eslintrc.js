@@ -100,6 +100,7 @@ module.exports = {
         '*.stories.js',
         '*.stories.tsx',
         'storybook/**/*',
+        'tailwind.config.js',
       ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
