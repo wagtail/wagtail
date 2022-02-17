@@ -187,7 +187,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)
 
-        # do a unidecode in the filename and then
+        # convert the filename to simple ascii characters and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
         filename = "".join(
             (i if ord(i) < 128 else "_") for i in string_to_ascii(filename)
