@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
@@ -23,29 +24,34 @@ def delete(request, page_id):
                 return result
 
         next_url = get_valid_next_url_from_request(request)
-        parent_page_translations = page.get_parent().get_translations()
-        translations_to_delete = [
-            page
-            for page in page.get_translations()
-            if page.get_parent() in parent_page_translations
-        ]
-        translation_descendant_count = sum(
-            [p.get_descendants().count() for p in translations_to_delete]
-        )
+
+        pages_to_delete = {page}
+
+        # The `construct_synced_page_tree_list` hook returns translation and
+        # alias pages when the action is set to "delete"
+        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+                fn_pages = fn([page], "delete")
+                if fn_pages and isinstance(fn_pages, dict):
+                    for additional_pages in fn_pages.values():
+                        pages_to_delete.update(additional_pages)
+
+        pages_to_delete = list(pages_to_delete)
 
         if request.method == "POST":
             parent_id = page.get_parent().id
+            # Delete the source page.
             action = DeletePageAction(page, user=request.user)
             # Permission checks are done above, so skip them in execute.
             action.execute(skip_permission_checks=True)
 
-            # Only delete translated pages and alias pages if they have the same source page
-            # Delete translated pages. Alias pages are incldued in `get_translations()`
-            for translated_page in page.get_translations():
-                if translated_page.get_parent() in parent_page_translations:
-                    DeletePageAction(translated_page, user=request.user).execute(
-                        skip_permission_checks=True
-                    )
+            # Delete translation and alias pages if they have the same parent page.
+            parent_page_translations = page.get_parent().get_translations()
+            for _page in pages_to_delete:
+                if _page.get_parent() in parent_page_translations:
+                    action = DeletePageAction(_page, user=request.user)
+                    # Permission checks are done above, so skip them in execute.
+                    action.execute(skip_permission_checks=True)
 
             messages.success(
                 request, _("Page '{0}' deleted.").format(page.get_admin_display_title())
@@ -67,9 +73,11 @@ def delete(request, page_id):
             "page": page,
             "descendant_count": page.get_descendant_count(),
             "next": next_url,
-            "translation_count": len(translations_to_delete),
-            "translation_descendant_count": translation_descendant_count,
+            "translation_count": len(pages_to_delete),
+            "translation_descendant_count": sum(
+                [p.get_descendants().count() for p in pages_to_delete]
+            ),
             "combined_subpages": page.get_descendant_count()
-            + translation_descendant_count,
+            + len(pages_to_delete),
         },
     )
