@@ -1,17 +1,17 @@
-Form builder customisation
-==========================
+# Form builder customisation
 
+```eval_rst
 For a basic usage example see :ref:`form_builder_usage`.
+```
 
-Custom ``related_name`` for form fields
----------------------------------------
+## Custom `related_name` for form fields
 
-If you want to change ``related_name`` for form fields
-(by default ``AbstractForm`` and ``AbstractEmailForm`` expect ``form_fields`` to be defined),
-you will need to override the ``get_form_fields`` method.
+If you want to change `related_name` for form fields
+(by default `AbstractForm` and `AbstractEmailForm` expect ``form_fields`` to be defined),
+you will need to override the `get_form_fields` method.
 You can do this as shown below.
 
-.. code-block:: python
+```python
 
     from modelcluster.fields import ParentalKey
     from wagtail.admin.edit_handlers import (
@@ -45,19 +45,19 @@ You can do this as shown below.
 
         def get_form_fields(self):
             return self.custom_form_fields.all()
+```
 
-Custom form submission model
-----------------------------
+## Custom form submission model
 
 If you need to save additional data, you can use a custom form submission model.
 To do this, you need to:
 
-* Define a model that extends ``wagtail.contrib.forms.models.AbstractFormSubmission``.
-* Override the ``get_submission_class`` and ``process_form_submission`` methods in your page model.
+* Define a model that extends `wagtail.contrib.forms.models.AbstractFormSubmission`.
+* Override the `get_submission_class` and `process_form_submission` methods in your page model.
 
 Example:
 
-.. code-block:: python
+```python
 
     import json
 
@@ -107,18 +107,19 @@ Example:
     class CustomFormSubmission(AbstractFormSubmission):
         user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+```
 
-Add custom data to CSV export
------------------------------
+## Add custom data to CSV export
 
 If you want to add custom data to the CSV export, you will need to:
 
-* Override the ``get_data_fields`` method in page model.
-* Override ``get_data`` in the submission model.
+* Override the `get_data_fields` method in page model.
+* Override `get_data` in the submission model.
 
-The following example shows how to add a username to the CSV export:
+The example below shows how to add a username to the CSV export.
+Note that this code also changes the submissions list view.
 
-.. code-block:: python
+```python
 
     import json
 
@@ -183,19 +184,16 @@ The following example shows how to add a username to the CSV export:
             })
 
             return form_data
+```
 
-
-Note that this code also changes the submissions list view.
-
-Check that a submission already exists for a user
--------------------------------------------------
+## Check that a submission already exists for a user
 
 If you want to prevent users from filling in a form more than once,
-you need to override the ``serve`` method in your page model.
+you need to override the `serve` method in your page model.
 
 Example:
 
-.. code-block:: python
+```python
 
     import json
 
@@ -258,11 +256,12 @@ Example:
 
         class Meta:
             unique_together = ('page', 'user')
+```
 
 
 Your template should look like this:
 
-.. code-block:: django
+```html+django
 
     {% load wagtailcore_tags %}
     <html>
@@ -288,14 +287,14 @@ Your template should look like this:
             {% endif %}
         </body>
     </html>
+```
 
 
-Multi-step form
----------------
+## Multi-step form
 
 The following example shows how to create a multi-step form.
 
-.. code-block:: python
+```python
 
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     from django.shortcuts import render
@@ -406,12 +405,12 @@ The following example shows how to create a multi-step form.
                 self.template,
                 context
             )
-
+```
 
 
 Your template for this form page should look like this:
 
-.. code-block:: django
+```html+django
 
     {% load wagtailcore_tags %}
     <html>
@@ -429,21 +428,21 @@ Your template for this form page should look like this:
             </form>
         </body>
     </html>
+```
 
 
 Note that the example shown before allows the user to return to a previous step,
 or to open a second step without submitting the first step.
 Depending on your requirements, you may need to add extra checks.
 
-Show results
-------------
+## Show results
 
 If you are implementing polls or surveys, you may want to show results after submission.
 The following example demonstrates how to do this.
 
 First, you need to collect results as shown below:
 
-.. code-block:: python
+```python
 
     from modelcluster.fields import ParentalKey
     from wagtail.admin.edit_handlers import (
@@ -515,11 +514,11 @@ First, you need to collect results as shown below:
                 'results': results,
             })
             return context
-
+```
 
 Next, you need to transform your template to display the results:
 
-.. code-block:: django
+```html+django
 
     {% load wagtailcore_tags %}
     <html>
@@ -545,22 +544,21 @@ Next, you need to transform your template to display the results:
             </form>
         </body>
     </html>
-
+```
 
 You can also show the results on the landing page.
 
-Custom landing page redirect
-----------------------------
+## Custom landing page redirect
 
-You can override the ``render_landing_page`` method on your `FormPage` to change what is rendered when a form submits.
+You can override the `render_landing_page` method on your `FormPage` to change what is rendered when a form submits.
 
 In this example below we have added a `thank_you_page` field that enables custom redirects after a form submits to the selected page.
 
-When overriding the ``render_landing_page`` method, we check if there is a linked `thank_you_page` and then redirect to it if it exists.
+When overriding the `render_landing_page` method, we check if there is a linked `thank_you_page` and then redirect to it if it exists.
 
-Finally, we add a URL param of `id` based on the ``form_submission`` if it exists.
+Finally, we add a URL param of `id` based on the `form_submission` if it exists.
 
-.. code-block:: python
+```python
 
     from django.shortcuts import redirect
     from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
@@ -602,17 +600,19 @@ Finally, we add a URL param of `id` based on the ``form_submission`` if it exist
                 FieldPanel('subject'),
             ], 'Email'),
         ]
+```
 
-Customise form submissions listing in Wagtail Admin
----------------------------------------------------
+## Customise form submissions listing in Wagtail Admin
 
-The Admin listing of form submissions can be customised by setting the attribute ``submissions_list_view_class`` on your FormPage model.
+The Admin listing of form submissions can be customised by setting the attribute `submissions_list_view_class` on your FormPage model.
 
+```eval_rst
 The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of Django's class based :class:`~django.views.generic.list.ListView`.
+```
 
 Example:
 
-.. code-block:: python
+```python
 
     from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
     from wagtail.contrib.forms.views import SubmissionsListView
@@ -644,28 +644,28 @@ Example:
         thank_you_text = RichTextField(blank=True)
 
         # content_panels = ...
+```
 
-Adding a custom field type
---------------------------
+## Adding a custom field type
 
-First, make the new field type available in the page editor by changing your ``FormField`` model.
+First, make the new field type available in the page editor by changing your `FormField` model.
 
-* Create a new set of choices which includes the original ``FORM_FIELD_CHOICES`` along with new field types you want to make available.
-* Each choice must contain a unique key and a human readable name of the field, e.g. ``('slug', 'URL Slug')``
-* Override the ``field_type`` field in your ``FormField`` model with ``choices`` attribute using these choices.
-* You will need to run ``./manage.py makemigrations`` and ``./manage.py migrate`` after this step.
+* Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
+* Each choice must contain a unique key and a human readable name of the field, e.g. `('slug', 'URL Slug')`
+* Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
+* You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
 
 Then, create and use a new form builder class.
 
-* Define a new form builder class that extends the ``FormBuilder`` class.
+* Define a new form builder class that extends the `FormBuilder` class.
 * Add a method that will return a created Django form field for the new field type.
-* Its name must be in the format: ``create_<field_type_key>_field``, e.g. ``create_slug_field``
-* Override the ``form_builder`` attribute in your form page model to use your new form builder class.
+* Its name must be in the format: `create_<field_type_key>_field`, e.g. `create_slug_field`
+* Override the `form_builder` attribute in your form page model to use your new form builder class.
 
 Example:
 
-.. code-block:: python
+```python
 
     from django import forms
     from django.db import models
@@ -704,24 +704,26 @@ Example:
 
         # use custom form builder defined above
         form_builder = CustomFormBuilder
+```
 
 
+```eval_rst
 .. _form_builder_render_email:
+```
 
-Custom ``render_email`` method
-------------------------------
+## Custom `render_email` method
 
-If you want to change the content of the email that is sent when a form submits you can override the ``render_email`` method.
+If you want to change the content of the email that is sent when a form submits you can override the `render_email` method.
 
 
 To do this, you need to:
 
-* Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
-* Override the ``render_email`` method in your page model.
+* Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+* Override the `render_email` method in your page model.
 
 Example:
 
-.. code-block:: python
+```python
 
     from datetime import date
     # ... additional wagtail imports
@@ -751,24 +753,24 @@ Example:
             content = '\n'.join(content)
 
             return content
+```
 
 
-Custom ``send_mail`` method
----------------------------
+## Custom `send_mail` method
 
-If you want to change the subject or some other part of how an email is sent when a form submits you can override the ``send_mail`` method.
+If you want to change the subject or some other part of how an email is sent when a form submits you can override the `send_mail` method.
 
 
 To do this, you need to:
 
-* Ensure you have your form model defined that extends ``wagtail.contrib.forms.models.AbstractEmailForm``.
-* In your models.py file, import the ``wagtail.admin.mail.send_mail`` function.
-* Override the ``send_mail`` method in your page model.
+* Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+* In your models.py file, import the `wagtail.admin.mail.send_mail` function.
+* Override the `send_mail` method in your page model.
 
 
 Example:
 
-.. code-block:: python
+```python
 
     from datetime import date
     # ... additional wagtail imports
@@ -790,4 +792,4 @@ Example:
             subject = f"{self.subject} - {submitted_date_str}"
 
             send_mail(subject, self.render_email(form), addresses, self.from_address,)
-
+```
