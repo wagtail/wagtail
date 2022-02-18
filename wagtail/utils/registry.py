@@ -2,7 +2,43 @@ from django.core.exceptions import ImproperlyConfigured
 from django.db import models
 
 
-class ModelFieldRegistry:
+class ObjectTypeRegistry:
+    """
+    Implements a lookup table for mapping objects to values according to the object type.
+    The most specific type according to the object's inheritance chain is selected.
+    """
+
+    def __init__(self):
+        # values in this dict will be returned if the field type exactly matches an item here
+        self.values_by_exact_class = {}
+
+        # values in this dict will be returned if any class in the field's inheritance chain
+        # matches, preferring more specific subclasses
+        self.values_by_class = {}
+
+    def register(self, cls, value=None, exact_class=False):
+        if exact_class:
+            self.values_by_exact_class[cls] = value
+        else:
+            self.values_by_class[cls] = value
+
+    def get(self, obj):
+        value = None
+        if obj.__class__ in self.values_by_exact_class:
+            value = self.values_by_exact_class[obj.__class__]
+        else:
+            for klass in obj.__class__.mro():
+                if klass in self.values_by_class:
+                    value = self.values_by_class[klass]
+                    break
+
+        if callable(value) and not isinstance(value, type):
+            value = value(obj)
+
+        return value
+
+
+class ModelFieldRegistry(ObjectTypeRegistry):
     """
     Handles the recurring pattern where we need to register different values for different
     model field types, and retrieve the one that most closely matches a given model field,
@@ -17,14 +53,8 @@ class ModelFieldRegistry:
     """
 
     def __init__(self):
-        # values in this dict will be returned if the field type exactly matches an item here
-        self.values_by_exact_class = {}
-
-        # values in this dict will be returned if any class in the field's inheritance chain
-        # matches, preferring more specific subclasses
-        self.values_by_class = {
-            models.ForeignKey: self.foreign_key_lookup,
-        }
+        super().__init__()
+        self.values_by_class[models.ForeignKey] = self.foreign_key_lookup
 
         # values in this dict will be returned if the field is a foreign key to a related
         # model in here, matching most specific subclass first
@@ -38,25 +68,8 @@ class ModelFieldRegistry:
                 raise ImproperlyConfigured(
                     "The 'to' argument on ModelFieldRegistry.register is only valid for ForeignKey fields"
                 )
-        elif exact_class:
-            self.values_by_exact_class[field_class] = value
         else:
-            self.values_by_class[field_class] = value
-
-    def get(self, field):
-        value = None
-        if field.__class__ in self.values_by_exact_class:
-            value = self.values_by_exact_class[field.__class__]
-        else:
-            for klass in field.__class__.mro():
-                if klass in self.values_by_class:
-                    value = self.values_by_class[klass]
-                    break
-
-        if callable(value) and not isinstance(value, type):
-            value = value(field)
-
-        return value
+            super().register(field_class, value=value, exact_class=exact_class)
 
     def foreign_key_lookup(self, field):
         value = None
