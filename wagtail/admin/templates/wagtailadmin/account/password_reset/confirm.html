@@ -30,6 +30,7 @@
 
                             {% if form.new_password1.errors %}
                                 <div class="help-block help-critical">
+                                    {% icon name='warning' %}
                                     {% for error in form.new_password1.errors %}
                                         <p class="error">{{ error }}</p>
                                     {% endfor %}
@@ -44,6 +45,7 @@
 
                             {% if form.new_password2.errors %}
                                 <div class="help-block help-critical">
+                                    {% icon name='warning' %}
                                     {% for error in form.new_password2.errors %}
                                         <p class="error">{{ error }}</p>
                                     {% endfor %}

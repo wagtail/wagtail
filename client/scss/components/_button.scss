@@ -243,7 +243,13 @@
       font-style: normal;
     }
 
-    &.button-longrunning-active span {
+    &-active {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-active span {
       // iconfont
       transform: scale(1);
       visibility: visible;
@@ -269,17 +275,14 @@
       display: none;
     }
 
-    &.button-longrunning-active svg.icon-spinner {
+    &-active svg.icon-spinner {
       @include svg-icon();
-
-      transform: scale(1);
       display: inline-block;
       opacity: 0.8;
       padding: 0;
-      margin-right: 0.5em;
     }
 
-    &.button-longrunning-active .button-longrunning__icon {
+    &-active .button-longrunning__icon {
       display: none;
     }
   }

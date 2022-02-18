@@ -90,7 +90,7 @@
     bottom: 0;
     width: 1.5em;
     font-family: $font-wagtail-icons;
-    content: map.get($icons, 'arrow-down');
+    content: map.get($icons, 'arrow-down'); // UI-Redesign: to be removed
     border: 1px solid $color-input-border;
     border-width: 0 0 0 1px;
     text-align: center;
@@ -130,6 +130,7 @@
     color: $color-text-error-forced-color;
   }
 
+  // UI-Redesign: to be added via js and styled here
   &::before {
     font-family: $font-wagtail-icons;
     vertical-align: -10%;
@@ -243,19 +244,19 @@ label.required:after {
 .date_field,
 .date_time_field {
   .input:before {
-    content: map.get($icons, 'date');
+    content: map.get($icons, 'date'); // UI-Redesign: To be removed
   }
 }
 
 .time_field {
   .input:before {
-    content: map.get($icons, 'time');
+    content: map.get($icons, 'time'); // UI-Redesign: To be removed
   }
 }
 
 .url_field {
   .input:before {
-    content: map.get($icons, 'link');
+    content: map.get($icons, 'link'); // UI-Redesign: To be removed
   }
 }
 
@@ -271,7 +272,8 @@ label.required:after {
 .multiple_choice_field .input li,
 .choice_field .input li {
   label {
-    display: block;
+    display: inline-flex;
+    align-items: center;
     width: auto;
     float: none;
     padding-top: 0; // Negates padding added to label for the group of fields as a whole
@@ -531,8 +533,8 @@ li.inline:first-child {
       }
 
       > svg {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
         color: $color-teal;
 
         @media (forced-colors: $media-forced-colours) {

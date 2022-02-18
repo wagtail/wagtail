@@ -226,6 +226,7 @@
       text-shadow: none;
       font-family: $font-wagtail-icons;
       text-transform: none;
+      // UI Redesign: To be removed in page editor redesign
       content: map.get($icons, 'arrow-down');
       text-align: center;
       display: block;
@@ -302,6 +303,7 @@
   // special panel for the publishing fields, requires a bit more pizzazz
   &.publishing {
     > .title-wrapper:before {
+      // UI Redesign: To be removed in page editor redesign
       content: map.get($icons, 'date');
       font-size: 1.8rem;
       line-height: 1.4em;
@@ -311,6 +313,7 @@
 
   &.privacy {
     > .title-wrapper:before {
+      // UI Redesign: To be removed in page editor redesign
       content: map.get($icons, 'view');
     }
   }
@@ -392,6 +395,7 @@
 
     .title-wrapper {
       &:before {
+        // UI Redesign: To be removed in page editor redesign
         content: map.get($icons, 'collapse-up');
         cursor: pointer;
       }
@@ -400,6 +404,7 @@
     &.collapsed {
       .title-wrapper {
         &:before {
+          // UI Redesign: To be removed in page editor redesign
           content: map.get($icons, 'collapse-down');
         }
       }

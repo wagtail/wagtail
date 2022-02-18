@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if show_search %}
     <form id="changelist-search" class="col search-form" action="{{ view.index_url }}" method="get">
         <ul class="fields">
@@ -6,7 +6,8 @@
                 <div class="field char_field text_input field-small iconfield">
                     <label for="id_q" class="visuallyhidden">{% trans 'Search for' %}</label>
                     <div class="field-content">
-                        <div class="input icon-search ">
+                        <div class="input">
+                            {% icon name="search" %}
                             <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
                             <span></span>
                         </div>

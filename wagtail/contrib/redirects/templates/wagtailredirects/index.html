@@ -37,7 +37,7 @@
                     <form class="col search-form" action="{% url "wagtailredirects:index" %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                         <ul class="fields">
                             {% for field in search_form %}
-                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+                                {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
                             {% endfor %}
                             <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
                         </ul>

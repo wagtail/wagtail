@@ -256,17 +256,6 @@
     &:active {
       background-color: $nav-item-active-bg;
     }
-
-    &:before {
-      font-family: $font-wagtail-icons;
-      font-weight: 200;
-      text-transform: none;
-      content: map.get($icons, 'search');
-      display: block;
-      height: 100%;
-      line-height: 3.3em;
-      padding: 0 1em;
-    }
   }
 }
 

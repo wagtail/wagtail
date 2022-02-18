@@ -38,6 +38,7 @@
             {% endfor %}
             <li>
                 <div class="help-block help-info">
+                    {% icon name='help' %}
                     {% for workflow in object.active_workflows %}
                         {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
                         <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}

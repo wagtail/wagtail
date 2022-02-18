@@ -47,6 +47,14 @@ header {
     float: right;
   }
 
+  .search-form .icon {
+    @include svg-icon(1.3rem);
+    color: $nav-search-color;
+    position: absolute;
+    top: 0.3em;
+    left: 0.5em;
+  }
+
   // For case where content below header should merge with it
   &.merged {
     margin-bottom: 0;
