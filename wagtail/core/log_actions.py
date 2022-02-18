@@ -4,6 +4,7 @@ from asgiref.local import Local
 from django.utils.functional import LazyObject
 
 from wagtail.core import hooks
+from wagtail.utils.registry import ObjectTypeRegistry
 
 
 class LogFormatter:
@@ -86,7 +87,7 @@ class LogActionRegistry:
         self.choices = []
 
         # Tracks which LogEntry model should be used for a given object class
-        self.log_entry_models_by_type = {}
+        self.log_entry_models_by_type = ObjectTypeRegistry()
 
         # All distinct log entry models registered with register_model
         self.log_entry_models = set()
@@ -99,7 +100,7 @@ class LogActionRegistry:
             self.has_scanned_for_actions = True
 
     def register_model(self, cls, log_entry_model):
-        self.log_entry_models_by_type[cls] = log_entry_model
+        self.log_entry_models_by_type.register(cls, value=log_entry_model)
         self.log_entry_models.add(log_entry_model)
 
     def register_action(self, action, *args):
@@ -142,11 +143,7 @@ class LogActionRegistry:
 
     def get_log_model_for_model(self, model):
         self.scan_for_actions()
-
-        for cls in model.__mro__:
-            log_entry_model = self.log_entry_models_by_type.get(cls)
-            if log_entry_model:
-                return log_entry_model
+        return self.log_entry_models_by_type.get_by_type(model)
 
     def get_log_model_for_instance(self, instance):
         if isinstance(instance, LazyObject):
