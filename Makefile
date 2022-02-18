@@ -22,7 +22,7 @@ lint:
 	isort --check-only --diff .
 	# Filter out known false positives, while preserving normal output and error codes.
 	# See https://github.com/motet-a/jinjalint/issues/18.
-	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:76' | tee /dev/tty | wc -l | grep -q '0'
 	git ls-files '*.html' | xargs djhtml --check
 	npm run lint:css --silent
 	npm run lint:js --silent
