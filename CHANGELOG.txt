@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
+
+
 2.16.1 (11.02.2022)
 ~~~~~~~~~~~~~~~~~~~
 
