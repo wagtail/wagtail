@@ -2,13 +2,6 @@ import '../tests/stubs';
 
 import '../../wagtail/admin/static_src/wagtailadmin/scss/core.scss';
 import '../../wagtail/admin/static_src/wagtailadmin/scss/sidebar.scss';
+import './preview.scss';
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
-  },
-};
+window.PATTERN_LIBRARY_API = '/pattern-library/api/v1/render-pattern';
