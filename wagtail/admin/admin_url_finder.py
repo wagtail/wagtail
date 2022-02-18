@@ -3,6 +3,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
 from wagtail.core.hooks import search_for_hooks
+from wagtail.utils.registry import ObjectTypeRegistry
 
 """
 A mechanism for finding the admin edit URL for an arbitrary object instance, optionally applying
@@ -76,12 +77,11 @@ class NullAdminURLFinder:
         return None
 
 
-FINDER_CLASSES_BY_MODEL = {}
+finder_classes = ObjectTypeRegistry()
 
 
 def register_admin_url_finder(model, handler):
-    global FINDER_CLASSES_BY_MODEL
-    FINDER_CLASSES_BY_MODEL[model] = handler
+    finder_classes.register(model, value=handler)
 
 
 class AdminURLFinder:
@@ -100,15 +100,7 @@ class AdminURLFinder:
             # do we already have a finder for this model and user?
             finder = self.finders_by_model[model]
         except KeyError:
-            finder_class = NullAdminURLFinder
-            # check all superclasses of model for a registered finder class
-            for cls in model.__mro__:
-                try:
-                    finder_class = FINDER_CLASSES_BY_MODEL[cls]
-                    break
-                except KeyError:
-                    continue
-
+            finder_class = finder_classes.get(instance) or NullAdminURLFinder
             finder = finder_class(self.user)
             self.finders_by_model[model] = finder
 
