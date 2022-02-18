@@ -5,6 +5,6 @@ const origin = process.env.TEST_ORIGIN ?? 'http://localhost:8000';
 
 module.exports = middleware.createDjangoAPIMiddleware({
   origin,
-  // Must match the urls.py pattern for the pattern library.
-  apiPath: '/pattern-library/',
+  // Must match the patterns in urls.py.
+  apiPath: ['/pattern-library/', '/static/wagtailadmin/'],
 });

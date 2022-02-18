@@ -1,52 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import { renderPattern } from 'storybook-django';
-
-const fetchIconTemplate = () =>
-  renderPattern(
-    window.PATTERN_LIBRARY_API,
-    'wagtailadmin/shared/icon.html',
-    {
-      name: '__icon__',
-    },
-    {},
-  ).then((res) => res.text());
+import { getTemplatePattern } from '../../../../../client/storybook/TemplatePattern';
 
 /**
  * Displays all icons within our sprite.
  */
-const Icons = () => {
+const Icons = ({ color }: { color: string }) => {
   const [template, setTemplate] = useState<string>('');
-  const [icons, setIcons] = useState<string[]>([]);
 
   useEffect(() => {
-    const sprite = document.querySelector('[data-sprite]');
-    if (sprite) {
-      const symbols = Array.from(sprite.querySelectorAll('symbol'));
-      setIcons(symbols.map((s) => s.id.replace('icon-', '')));
-    }
-
-    fetchIconTemplate().then((html) => setTemplate(html));
+    getTemplatePattern(
+      'wagtailadmin/shared/icon.html',
+      { name: '__icon__' },
+      {},
+      (html) => setTemplate(html),
+    );
   }, []);
 
   return (
-    <ul>
-      {icons.map((icon) => (
-        <li key={icon}>
+    <>
+      {window.WAGTAIL_ICONS.map((icon) => (
+        <div key={icon}>
           <span
             dangerouslySetInnerHTML={{
-              __html: template.replace(/__icon__/g, icon),
+              __html: template
+                .replace(/__icon__/g, icon)
+                .replace(/<svg/, `<svg style="fill: ${color};"`),
             }}
           />
           <code>{`{% icon name="${icon}" %}`}</code>
-        </li>
+        </div>
       ))}
-    </ul>
+    </>
   );
 };
 
 export default {
-  title: 'Shared / Icons',
-  component: Icons,
+  argTypes: {
+    color: {
+      description: 'Only intended for demo purposes',
+    },
+  },
 };
 
-export const All = () => <Icons />;
+export const icons = (args) => <Icons {...args} />;
+
+icons.args = {
+  color: 'currentColor',
+};

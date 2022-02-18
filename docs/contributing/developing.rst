@@ -282,6 +282,23 @@ This must be done after every change to the source files. To watch the source fi
 
     $ npm start
 
+Using the pattern library
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail’s UI component library is built with `Storybook <https://storybook.js.org/>`_ and `django-pattern-library <https://github.com/torchbox/django-pattern-library>`_. To run it locally,
+
+.. code-block:: console
+
+    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ # Assumes the current environment contains a valid installation of Wagtail for local development.
+    $ ./wagtail/tests/manage.py migrate
+    $ ./wagtail/tests/manage.py createcachetable
+    $ ./wagtail/tests/manage.py runserver 0:8000
+    $ # In a separate terminal:
+    $ npm run storybook
+
+The last command will start Storybook at ``http://localhost:6006/``. It will proxy specific requests to Django at ``http://localhost:8000`` by default. Use the ``TEST_ORIGIN`` environment variable to use a different port for Django: ``TEST_ORIGIN=http://localhost:9000 npm run storybook``.
+
 Compiling the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

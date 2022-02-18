@@ -3,5 +3,5 @@ declare module '*.md';
 declare module '*.html';
 
 interface Window {
-  PATTERN_LIBRARY_API: string;
+  WAGTAIL_ICONS: string[];
 }

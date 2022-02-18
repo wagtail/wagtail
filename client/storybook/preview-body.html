@@ -1,7 +1,0 @@
-<div data-sprite></div>
-<script>
-    // Load icon sprite into the DOM, just like in the Wagtail admin.
-    window.fetch('/pattern-library/api/v1/sprite')
-        .then((res) => res.text())
-        .then((html) => document.querySelector('[data-sprite]').innerHTML = html);
-</script>

@@ -13,7 +13,7 @@ from wagtail import __semver__
 class assets_mixin:
     def compile_assets(self):
         try:
-            subprocess.check_call(["npm", "run", "dist"])
+            subprocess.check_call(["npm", "run", "build"])
         except (OSError, subprocess.CalledProcessError) as e:
             print("Error compiling assets: " + str(e))  # noqa
             raise SystemExit(1)
