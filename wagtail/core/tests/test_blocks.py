@@ -2231,9 +2231,6 @@ class TestStructBlockWithCustomStructValue(SimpleTestCase):
         class LinkStructValue(blocks.StructValue):
             pass
 
-        class StylingMixinStructValue(blocks.StructValue):
-            pass
-
         class LinkBlock(blocks.StructBlock):
             title = blocks.CharBlock()
             link = blocks.URLBlock()
