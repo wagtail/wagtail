@@ -22,15 +22,18 @@ class ObjectTypeRegistry:
         else:
             self.values_by_class[cls] = value
 
+    def get_by_type(self, cls):
+        try:
+            return self.values_by_exact_class[cls]
+        except KeyError:
+            for ancestor in cls.mro():
+                try:
+                    return self.values_by_class[ancestor]
+                except KeyError:
+                    pass
+
     def get(self, obj):
-        value = None
-        if obj.__class__ in self.values_by_exact_class:
-            value = self.values_by_exact_class[obj.__class__]
-        else:
-            for klass in obj.__class__.mro():
-                if klass in self.values_by_class:
-                    value = self.values_by_class[klass]
-                    break
+        value = self.get_by_type(obj.__class__)
 
         if callable(value) and not isinstance(value, type):
             value = value(obj)
