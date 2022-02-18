@@ -1,0 +1,14 @@
+@import '../scss/settings';
+@import '../scss/tools';
+
+// Fix compatibility issue with Wagtail’s headings.
+h1,
+h2 {
+  text-transform: initial;
+}
+
+// Fix compatibility issue with Wagtail’s tag implementation.
+.sbdocs .tag,
+.sbdocs .tag::before {
+  all: revert;
+}

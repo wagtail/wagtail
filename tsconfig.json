@@ -10,5 +10,6 @@
     "allowJs": true,
     "downlevelIteration": true
   },
-  "files": ["client/src/index.ts", "client/src/custom.d.ts"]
+  "include": ["src", "wagtail"],
+  "exclude": ["mode_modules", "static"]
 }

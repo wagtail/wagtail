@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse
 from django.urls import include, path
@@ -41,6 +42,11 @@ urlpatterns = [
     path("testapp/", include(testapp_urls)),
     path("fallback/", lambda: HttpResponse("ok"), name="fallback"),
 ]
+
+if apps.is_installed("pattern_library"):
+    urlpatterns += [
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
 
 urlpatterns += staticfiles_urlpatterns()
 
