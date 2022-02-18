@@ -1,7 +1,10 @@
 @import '../scss/settings';
 @import '../scss/tools';
 
-// Fix compatibility issue with Wagtail’s headings.
+body {
+  font-size: 1rem;
+}
+
 h1,
 h2 {
   text-transform: initial;
@@ -11,4 +14,8 @@ h2 {
 .sbdocs .tag,
 .sbdocs .tag::before {
   all: revert;
+}
+
+.icon {
+  @include svg-icon(1.5em);
 }
