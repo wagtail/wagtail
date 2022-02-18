@@ -261,6 +261,4 @@ const colors = {
   },
 };
 
-module.exports = {
-  ...colors,
-};
+module.exports = colors;
