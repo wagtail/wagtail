@@ -120,7 +120,7 @@
     "test:unit:watch": "jest --watch",
     "test:unit:coverage": "jest --coverage",
     "test:integration": "./client/tests/integration/node_modules/.bin/jest --config ./client/tests/integration/jest.config.js",
-    "storybook": "start-storybook -c client/.storybook -p 6006",
-    "build-storybook": "build-storybook -c client/.storybook"
+    "storybook": "start-storybook -c client/storybook -p 6006",
+    "build-storybook": "build-storybook -c client/storybook"
   }
 }
