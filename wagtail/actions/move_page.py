@@ -25,25 +25,19 @@ class MovePageAction:
         self.pos = pos
         self.user = user
 
-    def check(self, skip_permission_checks=False):
+    def check(self, parent_after, skip_permission_checks=False):
         if self.user and not skip_permission_checks:
-            if not self.page.permissions_for_user(self.user).can_move_to(self.target):
+            if not self.page.permissions_for_user(self.user).can_move_to(parent_after):
                 raise MovePagePermissionError(
                     "You do not have permission to move the page to the target specified."
                 )
 
-    def _move_page(self, page, target, pos=None):
+    def _move_page(self, page, target, parent_after):
         from wagtail.models import Page
-
-        # Determine old and new parents
-        parent_before = page.get_parent()
-        if pos in ("first-child", "last-child", "sorted-child"):
-            parent_after = target
-        else:
-            parent_after = target.get_parent()
 
         # Determine old and new url_paths
         # Fetching new object to avoid affecting `page`
+        parent_before = page.get_parent()
         old_page = Page.objects.get(id=page.id)
         old_url_path = old_page.url_path
         new_url_path = old_page.set_url_path(parent=parent_after)
@@ -62,7 +56,7 @@ class MovePageAction:
         # Only commit when all descendants are properly updated
         with transaction.atomic():
             # Allow treebeard to update `path` values
-            MP_MoveHandler(page, target, pos).process()
+            MP_MoveHandler(page, target, self.pos).process()
 
             # Treebeard's move method doesn't actually update the in-memory instance,
             # so we need to work with a freshly loaded one now
@@ -103,6 +97,11 @@ class MovePageAction:
         logger.info('Page moved: "%s" id=%d path=%s', page.title, page.id, new_url_path)
 
     def execute(self, skip_permission_checks=False):
-        self.check(skip_permission_checks=skip_permission_checks)
+        if self.pos in ("first-child", "last-child", "sorted-child"):
+            parent_after = self.target
+        else:
+            parent_after = self.target.get_parent()
 
-        return self._move_page(self.page, self.target, pos=self.pos)
+        self.check(parent_after, skip_permission_checks=skip_permission_checks)
+
+        return self._move_page(self.page, self.target, parent_after)
