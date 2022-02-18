@@ -3,3 +3,6 @@ graft wagtail
 prune wagtail/wagtailadmin/static_src
 global-exclude __pycache__
 global-exclude *.py[co]
+global-exclude *.stories.js
+global-exclude *.stories.tsx
+recursive-exclude wagtail/ *.md

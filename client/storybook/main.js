@@ -1,12 +1,21 @@
 module.exports = {
-  stories: ['../../client/**/*.stories.*', '../../wagtail/**/*.stories.*'],
-  addons: ['@storybook/addon-docs'],
+  stories: [
+    '../../client/**/*.stories.mdx',
+    '../../client/**/*.stories.@(js|tsx)',
+    {
+      directory: '../../wagtail/admin/templates/wagtailadmin/shared/',
+      titlePrefix: 'Shared',
+      files: '*.stories.*',
+    },
+    '../../wagtail/**/*.stories.*',
+  ],
+  addons: ['@storybook/addon-docs', '@storybook/addon-controls'],
+  framework: '@storybook/react',
   core: {
     builder: 'webpack5',
   },
   webpackFinal: (config) => {
     /* eslint-disable no-param-reassign */
-    config.resolve.fallback.crypto = false;
 
     const rules = [
       {
@@ -33,6 +42,7 @@ module.exports = {
 
     config.module.rules = config.module.rules.concat(rules);
 
+    // Allow using path magic variables to reduce boilerplate in stories.
     config.node = {
       __filename: true,
       __dirname: true,

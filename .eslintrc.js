@@ -92,7 +92,15 @@ module.exports = {
   overrides: [
     {
       // Rules we don’t want to enforce for test and tooling code.
-      files: ['*.test.ts', '*.test.tsx', '*.test.js', 'webpack.config.js'],
+      files: [
+        '*.test.ts',
+        '*.test.tsx',
+        '*.test.js',
+        'webpack.config.js',
+        '*.stories.js',
+        '*.stories.tsx',
+        'storybook/**/*',
+      ],
       rules: {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-var-requires': 'off',

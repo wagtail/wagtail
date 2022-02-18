@@ -5,14 +5,13 @@ body {
   font-size: 1rem;
 }
 
-h1,
-h2 {
-  text-transform: initial;
-}
-
-// Fix compatibility issue with Wagtail’s tag implementation.
+// Fix compatibility issue with Wagtail styles.
 .sbdocs .tag,
-.sbdocs .tag::before {
+.sbdocs .tag::before,
+h1,
+h2,
+code,
+textarea {
   all: revert;
 }
 
