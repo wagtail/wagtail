@@ -675,14 +675,8 @@ class ModelAdminGroup(WagtailRegisterable, metaclass=ModelAdminGroupBase):
     menu_icon = None
 
     def __init__(self):
-        """
-        When initialising, instantiate the classes within 'items', and assign
-        the instances to a 'modeladmin_instances' attribute for convenient
-        access later
-        """
+        # Populated by wagtail.contrib.modeladmin.register
         self.modeladmin_instances = []
-        for ModelAdminClass in self.items:
-            self.modeladmin_instances.append(ModelAdminClass(parent=self))
 
     def get_menu_label(self):
         return self.menu_label or self.get_app_label_from_subitems()
