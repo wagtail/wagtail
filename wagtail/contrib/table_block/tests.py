@@ -17,27 +17,33 @@ from .blocks import TableInput
 class TestTableBlock(TestCase):
     def setUp(self):
         self.default_table_options = {
-            'minSpareRows': 0,
-            'startRows': 3,
-            'startCols': 3,
-            'colHeaders': False,
-            'rowHeaders': False,
-            'contextMenu': True,
-            'editor': 'text',
-            'stretchH': 'all',
-            'height': 108,
-            'language': 'en',
-            'renderer': 'text',
-            'autoColumnSize': False,
+            "minSpareRows": 0,
+            "startRows": 3,
+            "startCols": 3,
+            "colHeaders": False,
+            "rowHeaders": False,
+            "contextMenu": True,
+            "editor": "text",
+            "stretchH": "all",
+            "height": 108,
+            "language": "en",
+            "renderer": "text",
+            "autoColumnSize": False,
         }
 
     def test_table_block_render(self):
         """
         Test a generic render.
         """
-        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
-                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
-                          [None, None, None]]}
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["Test 1", "Test 2", "Test 3"],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
         block = TableBlock()
         result = block.render(value)
         expected = """
@@ -51,17 +57,25 @@ class TestTableBlock(TestCase):
         """
 
         self.assertHTMLEqual(result, expected)
-        self.assertIn('Test 2', result)
+        self.assertIn("Test 2", result)
 
     def test_table_block_alignment_render(self):
         """
         Test a generic render with some cells aligned.
         """
-        value = {'first_row_is_table_header': True, 'first_col_is_header': False,
-                 'cell': [{'row': 0, 'col': 1, 'className': 'htLeft'},
-                          {'row': 1, 'col': 1, 'className': 'htRight'}],
-                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
-                          [None, None, None]]}
+        value = {
+            "first_row_is_table_header": True,
+            "first_col_is_header": False,
+            "cell": [
+                {"row": 0, "col": 1, "className": "htLeft"},
+                {"row": 1, "col": 1, "className": "htRight"},
+            ],
+            "data": [
+                ["Test 1", "Test 2", "Test 3"],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
         block = TableBlock()
         result = block.render(value)
         expected = """
@@ -77,22 +91,20 @@ class TestTableBlock(TestCase):
         """
 
         self.assertHTMLEqual(result, expected)
-        self.assertIn('Test 2', result)
+        self.assertIn("Test 2", result)
 
     def test_render_empty_table(self):
         """
         An empty table should render okay.
         """
         block = TableBlock()
-        result = block.render({
-            'first_row_is_table_header': False,
-            'first_col_is_header': False,
-            'data': [
-                [None, None, None],
-                [None, None, None],
-                [None, None, None]
-            ]
-        })
+        result = block.render(
+            {
+                "first_row_is_table_header": False,
+                "first_col_is_header": False,
+                "data": [[None, None, None], [None, None, None], [None, None, None]],
+            }
+        )
         expected = """
             <table>
                 <tbody>
@@ -109,9 +121,15 @@ class TestTableBlock(TestCase):
         Ensure that raw html doesn't render
         by default.
         """
-        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
-                 'data': [['<p><strong>Test</strong></p>', None, None], [None, None, None],
-                          [None, None, None]]}
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["<p><strong>Test</strong></p>", None, None],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
 
         expected = """
             <table>
@@ -131,8 +149,11 @@ class TestTableBlock(TestCase):
         """
         Ensure that row headers are properly rendered.
         """
-        value = {'first_row_is_table_header': True, 'first_col_is_header': False,
-                 'data': [['Foo', 'Bar', 'Baz'], [None, None, None], [None, None, None]]}
+        value = {
+            "first_row_is_table_header": True,
+            "first_col_is_header": False,
+            "data": [["Foo", "Bar", "Baz"], [None, None, None], [None, None, None]],
+        }
 
         expected = """
             <table>
@@ -153,8 +174,15 @@ class TestTableBlock(TestCase):
         """
         Ensure that column headers are properly rendered.
         """
-        value = {'first_row_is_table_header': False, 'first_col_is_header': True,
-                 'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": True,
+            "data": [
+                ["Foo", "Bar", "Baz"],
+                ["one", "two", "three"],
+                ["four", "five", "six"],
+            ],
+        }
 
         expected = """
             <table>
@@ -173,8 +201,15 @@ class TestTableBlock(TestCase):
         """
         Test row and column headers at the same time.
         """
-        value = {'first_row_is_table_header': True, 'first_col_is_header': True,
-                 'data': [['Foo', 'Bar', 'Baz'], ['one', 'two', 'three'], ['four', 'five', 'six']]}
+        value = {
+            "first_row_is_table_header": True,
+            "first_col_is_header": True,
+            "data": [
+                ["Foo", "Bar", "Baz"],
+                ["one", "two", "three"],
+                ["four", "five", "six"],
+            ],
+        }
 
         expected = """
             <table>
@@ -196,8 +231,11 @@ class TestTableBlock(TestCase):
         Make sure we get back good json and make
         sure it translates back to python.
         """
-        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
-                 'data': [['Foo', 1, None], [3.5, 'Bar', 'Baz']]}
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [["Foo", 1, None], [3.5, "Bar", "Baz"]],
+        }
         block = TableBlock()
         expected_json = '{"first_row_is_table_header": false, "first_col_is_header": false, "data": [["Foo", 1, null], [3.5, "Bar", "Baz"]]}'
         returned_json = block.value_for_form(value)
@@ -212,21 +250,36 @@ class TestTableBlock(TestCase):
         """
         # TableBlock with default table_options
         block1 = TableBlock()
-        self.assertEqual(block1.is_html_renderer(), False)
+        self.assertIs(block1.is_html_renderer(), False)
 
         # TableBlock with altered table_options
         new_options = self.default_table_options.copy()
-        new_options['renderer'] = 'html'
+        new_options["renderer"] = "html"
         block2 = TableBlock(table_options=new_options)
-        self.assertEqual(block2.is_html_renderer(), True)
+        self.assertIs(block2.is_html_renderer(), True)
 
     def test_searchable_content(self):
-        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
-                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, 'Bar', None],
-                          [None, 'Foo', None]]}
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["Test 1", "Test 2", "Test 3"],
+                [None, "Bar", None],
+                [None, "Foo", None],
+            ],
+        }
         block = TableBlock()
         content = block.get_searchable_content(value)
-        self.assertEqual(content, ['Test 1', 'Test 2', 'Test 3', 'Bar', 'Foo', ])
+        self.assertEqual(
+            content,
+            [
+                "Test 1",
+                "Test 2",
+                "Test 3",
+                "Bar",
+                "Foo",
+            ],
+        )
 
     def test_searchable_content_for_null_block(self):
         value = None
@@ -241,12 +294,16 @@ class TestTableBlock(TestCase):
         """
         block = TableBlock(template="tests/blocks/table_block_with_caption.html")
 
-        value = {'first_row_is_table_header': False, 'first_col_is_header': False,
-                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
-                          [None, None, None]]}
-        result = block.render(value, context={
-            'caption': "A fascinating table."
-        })
+        value = {
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["Test 1", "Test 2", "Test 3"],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
+        result = block.render(value, context={"caption": "A fascinating table."})
         self.assertIn("Test 1", result)
         self.assertIn("<div>A fascinating table.</div>", result)
 
@@ -254,10 +311,16 @@ class TestTableBlock(TestCase):
         """
         Test a generic render with caption.
         """
-        value = {'table_caption': 'caption', 'first_row_is_table_header': False,
-                 'first_col_is_header': False,
-                 'data': [['Test 1', 'Test 2', 'Test 3'], [None, None, None],
-                          [None, None, None]]}
+        value = {
+            "table_caption": "caption",
+            "first_row_is_table_header": False,
+            "first_col_is_header": False,
+            "data": [
+                ["Test 1", "Test 2", "Test 3"],
+                [None, None, None],
+                [None, None, None],
+            ],
+        }
         block = TableBlock()
         result = block.render(value)
         expected = """
@@ -271,7 +334,7 @@ class TestTableBlock(TestCase):
             </table>
         """
         self.assertHTMLEqual(result, expected)
-        self.assertIn('Test 2', result)
+        self.assertIn("Test 2", result)
 
     def test_empty_table_block_is_not_rendered(self):
         """
@@ -280,32 +343,31 @@ class TestTableBlock(TestCase):
         value = None
         block = TableBlock()
         result = block.render(value)
-        expected = ''
+        expected = ""
 
         self.assertHTMLEqual(result, expected)
-        self.assertNotIn('None', result)
+        self.assertNotIn("None", result)
 
 
 class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
-
     def setUp(self):
         # test value for table data
         self.value = {
-            'first_row_is_table_header': True,
-            'first_col_is_header': True,
-            'data': [
-                ['Ship', 'Type', 'Status'],
-                ['Galactica', 'Battlestar', 'Active'],
-                ['Valkyrie', 'Battlestar', 'Destroyed'],
-                ['Cylon Basestar', 'Basestar', 'Active'],
-                ['Brenik', 'Small Military Vessel', 'Destroyed'],
-            ]
+            "first_row_is_table_header": True,
+            "first_col_is_header": True,
+            "data": [
+                ["Ship", "Type", "Status"],
+                ["Galactica", "Battlestar", "Active"],
+                ["Valkyrie", "Battlestar", "Destroyed"],
+                ["Cylon Basestar", "Basestar", "Active"],
+                ["Brenik", "Small Military Vessel", "Destroyed"],
+            ],
         }
         # set language from testing environment
         language = translation.get_language()
 
         self.default_table_options = DEFAULT_TABLE_OPTIONS.copy()
-        self.default_table_options['language'] = language
+        self.default_table_options["language"] = language
 
     def test_default_table_options(self):
         """
@@ -317,11 +379,19 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         # check that default_table_options used on self
         self.assertEqual(self.default_table_options, block.table_options)
         # check a few individual keys from DEFAULT_TABLE_OPTIONS
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['startRows'], block.table_options['startRows'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['colHeaders'], block.table_options['colHeaders'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['contextMenu'], block.table_options['contextMenu'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['editor'], block.table_options['editor'])
-        self.assertEqual(DEFAULT_TABLE_OPTIONS['stretchH'], block.table_options['stretchH'])
+        self.assertEqual(
+            DEFAULT_TABLE_OPTIONS["startRows"], block.table_options["startRows"]
+        )
+        self.assertEqual(
+            DEFAULT_TABLE_OPTIONS["colHeaders"], block.table_options["colHeaders"]
+        )
+        self.assertEqual(
+            DEFAULT_TABLE_OPTIONS["contextMenu"], block.table_options["contextMenu"]
+        )
+        self.assertEqual(DEFAULT_TABLE_OPTIONS["editor"], block.table_options["editor"])
+        self.assertEqual(
+            DEFAULT_TABLE_OPTIONS["stretchH"], block.table_options["stretchH"]
+        )
 
     def test_table_options_language(self):
         """
@@ -329,73 +399,86 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         """
         # default must always contain a language value
         block = TableBlock()
-        self.assertIn('language', block.table_options)
+        self.assertIn("language", block.table_options)
         # French
-        translation.activate('fr-fr')
+        translation.activate("fr-fr")
         block_fr = TableBlock()
-        self.assertEqual('fr-fr', block_fr.table_options['language'])
-        translation.activate('it')
+        self.assertEqual("fr-fr", block_fr.table_options["language"])
+        translation.activate("it")
         # Italian
         block_it = TableBlock()
-        self.assertEqual('it', block_it.table_options['language'])
+        self.assertEqual("it", block_it.table_options["language"])
         # table_options with language provided, different to environment
-        block_with_lang = TableBlock(table_options={'language': 'ja'})
-        self.assertNotEqual('it', block_with_lang.table_options['language'])
-        self.assertEqual('ja', block_with_lang.table_options['language'])
-        translation.activate('en')
+        block_with_lang = TableBlock(table_options={"language": "ja"})
+        self.assertNotEqual("it", block_with_lang.table_options["language"])
+        self.assertEqual("ja", block_with_lang.table_options["language"])
+        translation.activate("en")
 
     def test_table_options_context_menu(self):
         """
         Test how contextMenu is set to default.
         """
-        default_context_menu = list(DEFAULT_TABLE_OPTIONS['contextMenu'])  # create copy
+        default_context_menu = list(DEFAULT_TABLE_OPTIONS["contextMenu"])  # create copy
         # confirm the default is correct
         table_options = TableBlock().table_options
-        self.assertEqual(table_options['contextMenu'], default_context_menu)
+        self.assertEqual(table_options["contextMenu"], default_context_menu)
         # confirm that when custom option is True, default is still used
-        table_options_menu_true = TableBlock(table_options={'contextMenu': True}).table_options
-        self.assertEqual(table_options_menu_true['contextMenu'], default_context_menu)
+        table_options_menu_true = TableBlock(
+            table_options={"contextMenu": True}
+        ).table_options
+        self.assertEqual(table_options_menu_true["contextMenu"], default_context_menu)
         # confirm menu is removed if False is passed in
-        table_options_menu_false = TableBlock(table_options={'contextMenu': False}).table_options
-        self.assertEqual(table_options_menu_false['contextMenu'], False)
+        table_options_menu_false = TableBlock(
+            table_options={"contextMenu": False}
+        ).table_options
+        self.assertIs(table_options_menu_false["contextMenu"], False)
         # confirm if list passed in, it is used
-        table_options_menu_list = TableBlock(table_options={'contextMenu': ['undo', 'redo']}).table_options
-        self.assertEqual(table_options_menu_list['contextMenu'], ['undo', 'redo'])
+        table_options_menu_list = TableBlock(
+            table_options={"contextMenu": ["undo", "redo"]}
+        ).table_options
+        self.assertEqual(table_options_menu_list["contextMenu"], ["undo", "redo"])
         # test if empty array passed in
-        table_options_menu_list = TableBlock(table_options={'contextMenu': []}).table_options
-        self.assertEqual(table_options_menu_list['contextMenu'], [])
+        table_options_menu_list = TableBlock(
+            table_options={"contextMenu": []}
+        ).table_options
+        self.assertEqual(table_options_menu_list["contextMenu"], [])
 
     def test_table_options_others(self):
         """
         Test simple options overrides get passed correctly.
         """
-        block_1_opts = TableBlock(table_options={'startRows': 5, 'startCols': 2}).table_options
-        self.assertEqual(block_1_opts['startRows'], 5)
-        self.assertEqual(block_1_opts['startCols'], 2)
+        block_1_opts = TableBlock(
+            table_options={"startRows": 5, "startCols": 2}
+        ).table_options
+        self.assertEqual(block_1_opts["startRows"], 5)
+        self.assertEqual(block_1_opts["startCols"], 2)
 
-        block_2_opts = TableBlock(table_options={'stretchH': 'none'}).table_options
-        self.assertEqual(block_2_opts['stretchH'], 'none')
+        block_2_opts = TableBlock(table_options={"stretchH": "none"}).table_options
+        self.assertEqual(block_2_opts["stretchH"], "none")
 
         # check value that is not part of the defaults
-        block_3_opts = TableBlock(table_options={'allowEmpty': False}).table_options
-        self.assertEqual(block_3_opts['allowEmpty'], False)
+        block_3_opts = TableBlock(table_options={"allowEmpty": False}).table_options
+        self.assertIs(block_3_opts["allowEmpty"], False)
 
     def test_adapt(self):
         block = TableBlock()
 
-        block.set_name('test_tableblock')
+        block.set_name("test_tableblock")
         js_args = FieldBlockAdapter().js_args(block)
 
-        self.assertEqual(js_args[0], 'test_tableblock')
+        self.assertEqual(js_args[0], "test_tableblock")
         self.assertIsInstance(js_args[1], TableInput)
-        self.assertEqual(js_args[2], {
-            'label': 'Test tableblock',
-            'required': True,
-            'icon': 'table',
-            'classname': 'field char_field widget-table_input fieldname-test_tableblock',
-            'showAddCommentButton': True,
-            'strings': {'ADD_COMMENT': 'Add Comment'}
-        })
+        self.assertEqual(
+            js_args[2],
+            {
+                "label": "Test tableblock",
+                "required": True,
+                "icon": "table",
+                "classname": "field char_field widget-table_input fieldname-test_tableblock",
+                "showAddCommentButton": True,
+                "strings": {"ADD_COMMENT": "Add Comment"},
+            },
+        )
 
     def test_searchable_content(self):
         """
@@ -403,30 +486,31 @@ class TestTableBlockForm(WagtailTestUtils, SimpleTestCase):
         """
         block = TableBlock()
         search_content = block.get_searchable_content(value=self.value)
-        self.assertIn('Galactica', search_content)
-        self.assertIn('Brenik', search_content)
+        self.assertIn("Galactica", search_content)
+        self.assertIn("Brenik", search_content)
 
 
 # TODO(telepath) replace this with a functional test
 class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
     def setUp(self):
         self.value = {
-            'first_row_is_table_header': True,
-            'first_col_is_header': True,
-            'data': [
-                ['Ship', 'Type', 'Status'],
-                ['Galactica', 'Battlestar', 'Active'],
-                ['Valkyrie', 'Battlestar', 'Destroyed'],
-                ['Cylon Basestar', 'Basestar', 'Active'],
-                ['Brenik', 'Small Military Vessel', 'Destroyed'],
-            ]
+            "first_row_is_table_header": True,
+            "first_col_is_header": True,
+            "data": [
+                ["Ship", "Type", "Status"],
+                ["Galactica", "Battlestar", "Active"],
+                ["Valkyrie", "Battlestar", "Destroyed"],
+                ["Cylon Basestar", "Basestar", "Active"],
+                ["Brenik", "Small Military Vessel", "Destroyed"],
+            ],
         }
         self.root_page = Page.objects.get(id=2)
         table_block_page_instance = TableBlockStreamPage(
-            title='Ships',
-            table=json.dumps([{'type': 'table', 'value': self.value}])
+            title="Ships", table=json.dumps([{"type": "table", "value": self.value}])
         )
-        self.table_block_page = self.root_page.add_child(instance=table_block_page_instance)
+        self.table_block_page = self.root_page.add_child(
+            instance=table_block_page_instance
+        )
         self.user = self.login()
 
     @unittest.expectedFailure
@@ -434,13 +518,18 @@ class TestTableBlockPageEdit(TestCase, WagtailTestUtils):
         """
         Test that edit page loads with saved table data and correct init function.
         """
-        response = self.client.get(reverse('wagtailadmin_pages:edit', args=(self.table_block_page.id,)))
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=(self.table_block_page.id,))
+        )
         # check page + field renders
-        self.assertContains(response, '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">')
+        self.assertContains(
+            response,
+            '<div data-contentpath="table" class="field char_field widget-table_input fieldname-table">',
+        )
         # check data
-        self.assertContains(response, 'Battlestar')
-        self.assertContains(response, 'Galactica')
+        self.assertContains(response, "Battlestar")
+        self.assertContains(response, "Galactica")
         # check init
         self.assertContains(response, 'initTable("table\\u002D0\\u002Dvalue"')
-        self.assertContains(response, 'minSpareRows')
-        self.assertContains(response, 'startRows')
+        self.assertContains(response, "minSpareRows")
+        self.assertContains(response, "startRows")

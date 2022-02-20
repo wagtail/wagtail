@@ -6,7 +6,10 @@ from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
 from wagtail.api.v2.utils import BadRequestError
-from wagtail.core.actions.create_alias import CreatePageAliasAction, CreatePageAliasIntegrityError
+from wagtail.core.actions.create_alias import (
+    CreatePageAliasAction,
+    CreatePageAliasIntegrityError,
+)
 from wagtail.core.models import Page
 
 from .base import APIAction

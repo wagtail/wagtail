@@ -6,8 +6,12 @@ from django.test import TestCase
 
 from wagtail.core.models import Locale
 from wagtail.tests.i18n.models import (
-    ClusterableTestModel, ClusterableTestModelChild, ClusterableTestModelTranslatableChild,
-    InheritedTestModel, TestModel)
+    ClusterableTestModel,
+    ClusterableTestModelChild,
+    ClusterableTestModelTranslatableChild,
+    InheritedTestModel,
+    TestModel,
+)
 
 
 def make_test_instance(model=None, **kwargs):
@@ -29,9 +33,7 @@ class TestTranslatableMixin(TestCase):
         self.another_locale = Locale.objects.get(language_code="fr")
 
         # add the main model
-        self.main_instance = make_test_instance(
-            locale=self.locale, title="Main Model"
-        )
+        self.main_instance = make_test_instance(locale=self.locale, title="Main Model")
 
         # add a translated model
         self.translated_model = make_test_instance(
@@ -80,8 +82,8 @@ class TestTranslatableMixin(TestCase):
             self.main_instance, "get_translation"
         ) as mock_get_translation:
             mock_get_translation.side_effect = self.main_instance.DoesNotExist
-            self.assertEqual(
-                self.main_instance.get_translation_or_none(self.another_locale), None
+            self.assertIsNone(
+                self.main_instance.get_translation_or_none(self.another_locale)
             )
 
     def test_has_translation_when_exists(self):
@@ -125,8 +127,10 @@ class TestTranslatableMixin(TestCase):
                 ClusterableTestModelChild(field="A non-translatable child object"),
             ],
             translatable_children=[
-                ClusterableTestModelTranslatableChild(field="A translatable child object"),
-            ]
+                ClusterableTestModelTranslatableChild(
+                    field="A translatable child object"
+                ),
+            ],
         )
 
         copy = instance.copy_for_translation(locale=self.another_locale)
@@ -147,7 +151,10 @@ class TestTranslatableMixin(TestCase):
         self.assertEqual(copy_translatable_child.field, "A translatable child object")
 
         # Check the translatable child's locale was updated but translation key is the same
-        self.assertEqual(copy_translatable_child.translation_key, instance_translatable_child.translation_key)
+        self.assertEqual(
+            copy_translatable_child.translation_key,
+            instance_translatable_child.translation_key,
+        )
         self.assertEqual(copy_translatable_child.locale, self.another_locale)
 
 
@@ -156,11 +163,11 @@ class TestLocalized(TestCase):
         self.en_locale = Locale.objects.get()
         self.fr_locale = Locale.objects.create(language_code="fr")
 
-        self.en_instance = make_test_instance(
-            locale=self.en_locale, title="Main Model"
-        )
+        self.en_instance = make_test_instance(locale=self.en_locale, title="Main Model")
         self.fr_instance = make_test_instance(
-            locale=self.fr_locale, translation_key=self.en_instance.translation_key, title="Main Model"
+            locale=self.fr_locale,
+            translation_key=self.en_instance.translation_key,
+            title="Main Model",
         )
 
     def test_localized_same_language(self):
@@ -189,4 +196,4 @@ class TestSystemChecks(TestCase):
 
         self.assertEqual(len(errors), 1)
         self.assertIsInstance(errors[0], checks.Error)
-        self.assertEqual(errors[0].id, 'wagtailcore.E003')
+        self.assertEqual(errors[0].id, "wagtailcore.E003")

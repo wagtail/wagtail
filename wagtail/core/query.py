@@ -1,6 +1,5 @@
 import posixpath
 import warnings
-
 from collections import defaultdict
 
 from django.apps import apps
@@ -19,8 +18,9 @@ class TreeQuerySet(MP_NodeQuerySet):
     """
     Extends Treebeard's MP_NodeQuerySet with additional useful tree-related operations.
     """
+
     def delete(self):
-        """Redefine the delete method unbound, so we can set the queryset_only parameter. """
+        """Redefine the delete method unbound, so we can set the queryset_only parameter."""
         super().delete()
 
     delete.queryset_only = True
@@ -108,7 +108,9 @@ class TreeQuerySet(MP_NodeQuerySet):
         return self.exclude(self.parent_of_q(other))
 
     def sibling_of_q(self, other, inclusive=True):
-        q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(depth=other.depth)
+        q = Q(path__startswith=self.model._get_parent_path_from_path(other.path)) & Q(
+            depth=other.depth
+        )
 
         if not inclusive:
             q &= ~Q(pk=other.pk)
@@ -195,10 +197,9 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         return self.exclude(self.page_q(other))
 
     def type_q(self, *types):
-        all_subclasses = set(
-            model for model in apps.get_models()
-            if issubclass(model, types)
-        )
+        all_subclasses = {
+            model for model in apps.get_models() if issubclass(model, types)
+        }
         content_types = ContentType.objects.get_for_models(*all_subclasses)
         return Q(content_type__in=list(content_types.values()))
 
@@ -237,7 +238,7 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         from wagtail.core.models import PageViewRestriction
 
         q = Q()
-        for restriction in PageViewRestriction.objects.select_related('page').all():
+        for restriction in PageViewRestriction.objects.select_related("page").all():
             q &= ~self.descendant_of_q(restriction.page, inclusive=True)
         return q
 
@@ -307,22 +308,29 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         # An empty queryset has no ancestors. This is a problem
         if not self.exists():
             if strict:
-                raise self.model.DoesNotExist('Can not find ancestor of empty queryset')
+                raise self.model.DoesNotExist("Can not find ancestor of empty queryset")
             return self.model.get_first_root_node()
 
         if include_self:
             # Get all the paths of the matched pages.
-            paths = self.order_by().values_list('path', flat=True)
+            paths = self.order_by().values_list("path", flat=True)
         else:
             # Find all the distinct parent paths of all matched pages.
             # The empty `.order_by()` ensures that `Page.path` is not also
             # selected to order the results, which makes `.distinct()` works.
-            paths = self.order_by()\
-                .annotate(parent_path=Substr(
-                    'path', 1, Length('path') - self.model.steplen,
-                    output_field=CharField(max_length=255)))\
-                .values_list('parent_path', flat=True)\
+            paths = (
+                self.order_by()
+                .annotate(
+                    parent_path=Substr(
+                        "path",
+                        1,
+                        Length("path") - self.model.steplen,
+                        output_field=CharField(max_length=255),
+                    )
+                )
+                .values_list("parent_path", flat=True)
                 .distinct()
+            )
 
         # This method works on anything, not just file system paths.
         common_parent_path = posixpath.commonprefix(paths)
@@ -334,12 +342,12 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         if extra_chars != 0:
             common_parent_path = common_parent_path[:-extra_chars]
 
-        if common_parent_path == '':
+        if common_parent_path == "":
             # This should only happen when there are multiple trees,
             # a situation that Wagtail does not support;
             # or when the root node itself is part of the queryset.
             if strict:
-                raise self.model.DoesNotExist('No common ancestor found!')
+                raise self.model.DoesNotExist("No common ancestor found!")
 
             # Assuming the situation is the latter, just return the root node.
             # The root node is not its own ancestor, so this is technically
@@ -482,22 +490,23 @@ def specific_iterator(qs, defer=False):
     from wagtail.core.models import Page
 
     annotation_aliases = qs.query.annotations.keys()
-    values = qs.values('pk', 'content_type', *annotation_aliases)
+    values = qs.values("pk", "content_type", *annotation_aliases)
 
     annotations_by_pk = defaultdict(list)
     if annotation_aliases:
         # Extract annotation results keyed by pk so we can reapply to fetched pages.
         for data in values:
-            annotations_by_pk[data['pk']] = {k: v for k, v in data.items() if k in annotation_aliases}
+            annotations_by_pk[data["pk"]] = {
+                k: v for k, v in data.items() if k in annotation_aliases
+            }
 
-    pks_and_types = [[v['pk'], v['content_type']] for v in values]
+    pks_and_types = [[v["pk"], v["content_type"]] for v in values]
     pks_by_type = defaultdict(list)
     for pk, content_type in pks_and_types:
         pks_by_type[content_type].append(pk)
 
     # Content types are cached by ID, so this will not run any queries.
-    content_types = {pk: ContentType.objects.get_for_id(pk)
-                     for _, pk in pks_and_types}
+    content_types = {pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types}
 
     # Get the specific instances of all pages, one model class at a time.
     pages_by_type = {}
@@ -511,27 +520,34 @@ def specific_iterator(qs, defer=False):
 
         if defer:
             # Defer all specific fields
-            fields = [field.attname for field in Page._meta.get_fields() if field.concrete]
+            fields = [
+                field.attname for field in Page._meta.get_fields() if field.concrete
+            ]
             pages = pages.only(*fields)
         elif qs._defer_streamfields:
             pages = pages.defer_streamfields()
 
         pages_for_type = {page.pk: page for page in pages}
         pages_by_type[content_type] = pages_for_type
-        missing_pks.extend(
-            pk for pk in pks if pk not in pages_for_type
-        )
+        missing_pks.extend(pk for pk in pks if pk not in pages_for_type)
 
     # Fetch generic pages to supplement missing items
     if missing_pks:
-        generic_pages = Page.objects.filter(pk__in=missing_pks).select_related('content_type').in_bulk()
+        generic_pages = (
+            Page.objects.filter(pk__in=missing_pks)
+            .select_related("content_type")
+            .in_bulk()
+        )
         warnings.warn(
             "Specific versions of the following pages could not be found. "
             "This is most likely because a database migration has removed "
-            "the relevant table or record since the page was created:\n{}".format([
-                {'id': p.id, 'title': p.title, 'type': p.content_type}
-                for p in generic_pages.values()
-            ]), category=RuntimeWarning
+            "the relevant table or record since the page was created:\n{}".format(
+                [
+                    {"id": p.id, "title": p.title, "type": p.content_type}
+                    for p in generic_pages.values()
+                ]
+            ),
+            category=RuntimeWarning,
         )
     else:
         generic_pages = {}
@@ -565,6 +581,6 @@ class DeferredSpecificIterable(ModelIterable):
                     "because the specific page model is not present on the active "
                     f"branch: <Page id='{obj.id}' title='{obj.title}' "
                     f"type='{obj.content_type}'>",
-                    category=RuntimeWarning
+                    category=RuntimeWarning,
                 )
                 yield obj

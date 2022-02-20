@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailembeds', '0003_capitalizeverbose'),
+        ("wagtailembeds", "0003_capitalizeverbose"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='embed',
-            options={'verbose_name': 'embed', 'verbose_name_plural': 'embeds'},
+            name="embed",
+            options={"verbose_name": "embed", "verbose_name_plural": "embeds"},
         ),
     ]

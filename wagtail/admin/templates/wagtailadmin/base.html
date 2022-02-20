@@ -5,37 +5,37 @@
     {% slim_sidebar_enabled as slim_sidebar_enabled %}
     <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
     {% if slim_sidebar_enabled %}
-    {% sidebar_props %}
-    <aside id="wagtail-sidebar" data-wagtail-sidebar></aside>
+        {% sidebar_props %}
+        <aside id="wagtail-sidebar" data-wagtail-sidebar></aside>
     {% else %}
-    <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
-        <div class="inner">
-            <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
-                {# Mobile-only logo: #}
-                <div class="wagtail-logo-container__mobile u-hidden@sm">
-                    <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
-                </div>
+        <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
+            <div class="inner">
+                <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
+                    {# Mobile-only logo: #}
+                    <div class="wagtail-logo-container__mobile u-hidden@sm">
+                        <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
+                    </div>
 
-                {# Desktop logo (animated): #}
-                {% include "wagtailadmin/shared/animated_logo.html" %}
-                <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
-            </a>
+                    {# Desktop logo (animated): #}
+                    {% include "wagtailadmin/shared/animated_logo.html" %}
+                    <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
+                </a>
 
-            {% menu_search %}
-            {% main_nav %}
-        </div>
-        <div class="explorer__wrapper" data-explorer-menu></div>
-    </aside>
-    {# Backwards-compatibility for branding_logo customisations in legacy sidebar. #}
-    {# RemovedInWagtail218Warning Remove when removing the legacy sidebar. #}
-    <script>
-        const branding_logo = document.querySelector('[data-wagtail-sidebar-branding-logo]');
-        const legacySidebar = document.querySelector('[data-nav-primary]');
-        if (branding_logo && branding_logo.innerHTML && legacySidebar) {
-            const link = legacySidebar.querySelector('a');
-            link.innerHTML = `${branding_logo.innerHTML}<span class="u-hidden@sm">{% trans "Dashboard" %}</span>`;
-        }
-    </script>
+                {% menu_search %}
+                {% main_nav %}
+            </div>
+            <div class="explorer__wrapper" data-explorer-menu></div>
+        </aside>
+        {# Backwards-compatibility for branding_logo customisations in legacy sidebar. #}
+        {# RemovedInWagtail218Warning Remove when removing the legacy sidebar. #}
+        <script>
+            const branding_logo = document.querySelector('[data-wagtail-sidebar-branding-logo]');
+            const legacySidebar = document.querySelector('[data-nav-primary]');
+            if (branding_logo && branding_logo.innerHTML && legacySidebar) {
+                const link = legacySidebar.querySelector('a');
+                link.innerHTML = `${branding_logo.innerHTML}<span class="u-hidden@sm">{% trans "Dashboard" %}</span>`;
+            }
+        </script>
     {% endif %}
 
     <main class="content-wrapper" role="main" id="main">
@@ -46,17 +46,17 @@
                     <ul>
                         {% for message in messages %}
                             <li class="{% message_tags message %}">
-                              {% if message.level_tag == "error" %}
-                                {# There is no error icon, use warning icon instead #}
-                                {% icon name="warning" class_name="messages-icon" %}
-                              {% elif message.extra_tags == "lock" %}
-                                {% icon name="lock" class_name="messages-icon" %}
-                              {% elif message.extra_tags == "unlock" %}
-                                {% icon name="lock-open" class_name="messages-icon" %}
-                              {% else %}
-                                {% icon name=message.level_tag class_name="messages-icon" %}
-                              {% endif %}
-                              {{ message|safe }}
+                                {% if message.level_tag == "error" %}
+                                    {# There is no error icon, use warning icon instead #}
+                                    {% icon name="warning" class_name="messages-icon" %}
+                                {% elif message.extra_tags == "lock" %}
+                                    {% icon name="lock" class_name="messages-icon" %}
+                                {% elif message.extra_tags == "unlock" %}
+                                    {% icon name="lock-open" class_name="messages-icon" %}
+                                {% else %}
+                                    {% icon name=message.level_tag class_name="messages-icon" %}
+                                {% endif %}
+                                {{ message|safe }}
                             </li>
                         {% endfor %}
                     </ul>
@@ -64,7 +64,7 @@
             </div>
 
             {% if not slim_sidebar_enabled %}
-            <button type="button" id="nav-toggle" class="nav-toggle icon button unbutton" ><span class="visuallyhidden">{% trans "Toggle sidebar" %}</span></button>
+                <button type="button" id="nav-toggle" class="nav-toggle icon button unbutton" ><span class="visuallyhidden">{% trans "Toggle sidebar" %}</span></button>
             {% endif %}
             {% block content %}{% endblock %}
         </div>

@@ -3,6 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 
 class WagtailRoutablePageAppConfig(AppConfig):
-    name = 'wagtail.contrib.routable_page'
-    label = 'wagtailroutablepage'
+    name = "wagtail.contrib.routable_page"
+    label = "wagtailroutablepage"
     verbose_name = _("Wagtail routablepage")

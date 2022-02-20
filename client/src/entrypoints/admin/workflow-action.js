@@ -15,7 +15,8 @@ function ActivateWorkflowActionsForDashboard(csrfToken) {
   const workflowActionElements = document.querySelectorAll(
     '[data-workflow-action-url]',
   );
-  [...workflowActionElements].forEach((buttonElement) => {
+
+  workflowActionElements.forEach((buttonElement) => {
     buttonElement.addEventListener(
       'click',
       (e) => {
@@ -68,7 +69,8 @@ function ActivateWorkflowActionsForEditView(formSelector) {
   const workflowActionElements = document.querySelectorAll(
     '[data-workflow-action-name]',
   );
-  [...workflowActionElements].forEach((buttonElement) => {
+
+  workflowActionElements.forEach((buttonElement) => {
     buttonElement.addEventListener(
       'click',
       (e) => {

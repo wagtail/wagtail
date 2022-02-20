@@ -14,40 +14,37 @@
 
 import os
 import sys
-
 from datetime import datetime
 
 import django
 import sphinx_wagtail_theme
-
 from recommonmark.transform import AutoStructify
 
 from wagtail import VERSION, __version__
 
-
 # on_rtd is whether we are on readthedocs.org, this line of code grabbed from docs.readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+on_rtd = os.environ.get("READTHEDOCS", None) == "True"
 
-html_theme = 'sphinx_wagtail_theme'
+html_theme = "sphinx_wagtail_theme"
 html_theme_path = [sphinx_wagtail_theme.get_html_theme_path()]
 
-html_theme_options = dict(
-    project_name="Wagtail Documentation",
-    github_url="https://github.com/wagtail/wagtail/blob/main/docs/"
-)
+html_theme_options = {
+    "project_name": "Wagtail Documentation",
+    "github_url": "https://github.com/wagtail/wagtail/blob/main/docs/",
+}
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-sys.path.insert(0, os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath(".."))
 
 # Autodoc may need to import some models modules which require django settings
 # be configured
-os.environ['DJANGO_SETTINGS_MODULE'] = 'wagtail.tests.settings'
+os.environ["DJANGO_SETTINGS_MODULE"] = "wagtail.tests.settings"
 django.setup()
 
 # Use SQLite3 database engine so it doesn't attempt to use psycopg2 on RTD
-os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
+os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 
 # -- General configuration ------------------------------------------------
 
@@ -58,37 +55,37 @@ os.environ['DATABASE_ENGINE'] = 'django.db.backends.sqlite3'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
-    'recommonmark',
-    'sphinx_wagtail_theme',
+    "sphinx.ext.autodoc",
+    "sphinx.ext.intersphinx",
+    "recommonmark",
+    "sphinx_wagtail_theme",
 ]
 
 if not on_rtd:
-    extensions.append('sphinxcontrib.spelling')
+    extensions.append("sphinxcontrib.spelling")
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = '.rst'
+source_suffix = ".rst"
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = "index"
 
 # General information about the project.
-project = 'Wagtail Documentation'
-copyright = f'{datetime.now().year}, Torchbox and contributors'
+project = "Wagtail Documentation"
+copyright = f"{datetime.now().year}, Torchbox and contributors"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
 # The short X.Y version.
-version = '{}.{}'.format(VERSION[0], VERSION[1])
+version = "{}.{}".format(VERSION[0], VERSION[1])
 # The full version, including alpha/beta/rc tags.
 release = __version__
 
@@ -104,7 +101,7 @@ release = __version__
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build', 'README.md']
+exclude_patterns = ["_build", "README.md"]
 
 # The reST default role (used for this markup: `text`) to use for all
 # documents.
@@ -122,7 +119,7 @@ exclude_patterns = ['_build', 'README.md']
 # show_authors = False
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'default'
+pygments_style = "default"
 
 # A list of ignored prefixes for module index sorting.
 # modindex_common_prefix = []
@@ -132,12 +129,15 @@ pygments_style = 'default'
 
 # splhinxcontrib.spelling settings
 
-spelling_lang = 'en_GB'
-spelling_word_list_filename = 'spelling_wordlist.txt'
+spelling_lang = "en_GB"
+spelling_word_list_filename = "spelling_wordlist.txt"
 
 # sphinx.ext.intersphinx settings
 intersphinx_mapping = {
-    'django': ('https://docs.djangoproject.com/en/stable/', 'https://docs.djangoproject.com/en/stable/_objects/')
+    "django": (
+        "https://docs.djangoproject.com/en/stable/",
+        "https://docs.djangoproject.com/en/stable/_objects/",
+    )
 }
 
 # -- Options for HTML output ----------------------------------------------
@@ -161,17 +161,17 @@ intersphinx_mapping = {
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = 'favicon.ico'
+html_favicon = "favicon.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
-html_extra_path = ['robots.txt']
+html_extra_path = ["robots.txt"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -218,17 +218,15 @@ html_use_index = False
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'Wagtaildoc'
+htmlhelp_basename = "Wagtaildoc"
 
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     # 'papersize': 'letterpaper',
-
     # The font size ('10pt', '11pt' or '12pt').
     # 'pointsize': '10pt',
-
     # Additional stuff for the LaTeX preamble.
     # 'preamble': '',
 }
@@ -237,13 +235,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (
-        'index',
-        'Wagtail.tex',
-        'Wagtail Documentation',
-        'Torchbox',
-        'manual'
-    ),
+    ("index", "Wagtail.tex", "Wagtail Documentation", "Torchbox", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -270,10 +262,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ('index', 'wagtail', u'Wagtail Documentation',
-     [u'Torchbox'], 1)
-]
+man_pages = [("index", "wagtail", "Wagtail Documentation", ["Torchbox"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -285,13 +274,13 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (
-        'index',
-        'Wagtail',
-        'Wagtail Documentation',
-        'Torchbox',
-        'Wagtail',
-        'One line description of project.',
-        'Miscellaneous'
+        "index",
+        "Wagtail",
+        "Wagtail Documentation",
+        "Torchbox",
+        "Wagtail",
+        "One line description of project.",
+        "Miscellaneous",
     ),
 ]
 
@@ -309,12 +298,15 @@ texinfo_documents = [
 
 
 def setup(app):
-    app.add_css_file('css/custom.css')
-    app.add_js_file('js/banner.js')
+    app.add_js_file("js/banner.js")
 
-    github_doc_root = 'https://github.com/wagtail/wagtail/tree/main/docs/'
+    github_doc_root = "https://github.com/wagtail/wagtail/tree/main/docs/"
 
-    app.add_config_value('recommonmark_config', {
-        'url_resolver': lambda url: github_doc_root + url,
-    }, True)
+    app.add_config_value(
+        "recommonmark_config",
+        {
+            "url_resolver": lambda url: github_doc_root + url,
+        },
+        True,
+    )
     app.add_transform(AutoStructify)

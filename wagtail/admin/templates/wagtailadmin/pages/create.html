@@ -17,11 +17,11 @@
         </div>
 
         {% if locale %}
-        <ul class="row header-meta">
-            <li class="header-meta--locale">
-                {% include "wagtailadmin/shared/locale_selector.html" %}
-            </li>
-        </ul>
+            <ul class="row header-meta">
+                <li class="header-meta--locale">
+                    {% include "wagtailadmin/shared/locale_selector.html" %}
+                </li>
+            </ul>
         {% endif %}
     </header>
 
@@ -130,8 +130,8 @@
 
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
-            // Initialise comments UI
-            window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
+                // Initialise comments UI
+                window.comments.initCommentsInterface(document.getElementById('page-edit-form'));
             {% endif %}
         });
     </script>

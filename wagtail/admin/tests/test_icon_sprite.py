@@ -12,8 +12,8 @@ class TestIconSprite(TestCase):
         self.assertTrue(bool(re.match(r"^[a-z0-9]{8}$", result)))
 
     def test_hash_var(self):
-        self.assertTrue(isinstance(sprite_hash, str))
-        self.assertTrue(len(sprite_hash) == 8)
+        self.assertIsInstance(sprite_hash, str)
+        self.assertEqual(len(sprite_hash), 8)
 
     def test_url(self):
         url = reverse("wagtailadmin_sprite")
@@ -21,4 +21,6 @@ class TestIconSprite(TestCase):
 
     def test_view(self):
         response = self.client.get(reverse("wagtailadmin_sprite"))
-        self.assertTrue("Content-Type: text/html; charset=utf-8" in str(response.serialize_headers()))
+        self.assertIn(
+            "Content-Type: text/html; charset=utf-8", str(response.serialize_headers())
+        )

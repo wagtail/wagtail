@@ -9,7 +9,7 @@ class CommentReplyForm(WagtailAdminModelForm):
     user = None
 
     class Meta:
-        fields = ('text',)
+        fields = ("text",)
 
     def clean(self):
         cleaned_data = super().clean()
@@ -22,7 +22,9 @@ class CommentReplyForm(WagtailAdminModelForm):
             if any(field for field in self.changed_data):
                 # includes DELETION_FIELD_NAME, as users cannot delete each other's individual comment replies
                 # if deleting a whole thread, this should be done by deleting the parent Comment instead
-                self.add_error(None, ValidationError(_("You cannot edit another user's comment.")))
+                self.add_error(
+                    None, ValidationError(_("You cannot edit another user's comment."))
+                )
         return cleaned_data
 
 
@@ -30,6 +32,7 @@ class CommentForm(WagtailAdminModelForm):
     """
     This is designed to be subclassed and have the user overridden to enable user-based validation within the edit handler system
     """
+
     user = None
 
     resolved = BooleanField(required=False)
@@ -42,14 +45,20 @@ class CommentForm(WagtailAdminModelForm):
             self.instance.user = user
         elif self.instance.user != user:
             # trying to edit someone else's comment
-            if any(field for field in self.changed_data if field not in ['resolved', 'position']):
+            if any(
+                field
+                for field in self.changed_data
+                if field not in ["resolved", "position"]
+            ):
                 # users can resolve each other's base comments and change their positions within a field
-                self.add_error(None, ValidationError(_("You cannot edit another user's comment.")))
+                self.add_error(
+                    None, ValidationError(_("You cannot edit another user's comment."))
+                )
         return cleaned_data
 
     def save(self, *args, **kwargs):
-        if self.cleaned_data.get('resolved', False):
-            if not getattr(self.instance, 'resolved_at'):
+        if self.cleaned_data.get("resolved", False):
+            if not getattr(self.instance, "resolved_at"):
                 self.instance.resolved_at = now()
                 self.instance.resolved_by = self.user
         else:

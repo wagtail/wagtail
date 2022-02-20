@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0043_customdocument_fancy_description'),
-        ('tests', '0043_eventpagespeakeraward'),
+        ("tests", "0043_customdocument_fancy_description"),
+        ("tests", "0043_eventpagespeakeraward"),
     ]
 
-    operations = [
-    ]
+    operations = []

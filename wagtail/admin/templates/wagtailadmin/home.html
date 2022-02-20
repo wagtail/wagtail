@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block extra_js %}
-{{ block.super }}
-<script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
-{{ media.js }}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
+    {{ media.js }}
 {% endblock %}

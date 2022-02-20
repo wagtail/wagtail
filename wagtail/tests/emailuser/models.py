@@ -1,29 +1,35 @@
 import uuid
 
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 
 
 class EmailUserManager(BaseUserManager):
-    def _create_user(self, email, password,
-                     is_staff, is_superuser, **extra_fields):
+    def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
         """
         Creates and saves a User with the given email and password.
         """
         email = self.normalize_email(email)
-        user = self.model(email=email, is_staff=is_staff, is_active=True,
-                          is_superuser=is_superuser, **extra_fields)
+        user = self.model(
+            email=email,
+            is_staff=is_staff,
+            is_active=True,
+            is_superuser=is_superuser,
+            **extra_fields,
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_user(self, email=None, password=None, **extra_fields):
-        return self._create_user(email, password, False, False,
-                                 **extra_fields)
+        return self._create_user(email, password, False, False, **extra_fields)
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password, True, True,
-                                 **extra_fields)
+        return self._create_user(email, password, True, True, **extra_fields)
 
 
 class EmailUser(AbstractBaseUser, PermissionsMixin):
@@ -36,12 +42,12 @@ class EmailUser(AbstractBaseUser, PermissionsMixin):
 
     is_superuser = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     objects = EmailUserManager()
 
     def get_full_name(self):
-        return self.first_name + ' ' + self.last_name
+        return self.first_name + " " + self.last_name
 
     def get_short_name(self):
         return self.first_name

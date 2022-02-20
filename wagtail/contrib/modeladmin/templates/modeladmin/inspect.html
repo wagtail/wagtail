@@ -30,10 +30,10 @@
                 {% block fields_output %}
                     {% if fields %}
                         <dl>
-                        {% for field in fields %}
-                            <dt class="{{ field.type|lower }}">{{ field.label }}</dt>
-                            <dd>{{ field.value }}</dd>
-                        {% endfor %}
+                            {% for field in fields %}
+                                <dt class="{{ field.type|lower }}">{{ field.label }}</dt>
+                                <dd>{{ field.value }}</dd>
+                            {% endfor %}
                         </dl>
                     {% endif %}
                 {% endblock %}

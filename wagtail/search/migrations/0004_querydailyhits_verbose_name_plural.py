@@ -6,12 +6,15 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailsearch', '0003_remove_editors_pick'),
+        ("wagtailsearch", "0003_remove_editors_pick"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='querydailyhits',
-            options={'verbose_name': 'Query Daily Hits', 'verbose_name_plural': 'Query Daily Hits'},
+            name="querydailyhits",
+            options={
+                "verbose_name": "Query Daily Hits",
+                "verbose_name_plural": "Query Daily Hits",
+            },
         ),
     ]

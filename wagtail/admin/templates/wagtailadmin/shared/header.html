@@ -25,7 +25,7 @@
         <div class="left">
             <div class="col header-title">
                 <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
-                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+                    {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
@@ -43,7 +43,7 @@
                 {% if action_url %}
                     <div class="actionbutton">
                         {% with action_icon|default:'plus' as action_icon_name %}
-                        <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
+                            <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
                         {% endwith %}
                     </div>
                 {% endif %}

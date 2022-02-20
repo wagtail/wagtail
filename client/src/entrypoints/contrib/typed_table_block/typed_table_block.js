@@ -64,12 +64,14 @@ export class TypedTableBlock {
             <tfoot>
               <tr>
                 <td class="control-cell">
-                  <button type="button"
+                  <button
+                    type="button"
                     class="button button-small button-secondary button--icon text-replace prepend-row"
-                    aria-label="${h(strings.ADD_ROW)}" title="${h(
-      strings.ADD_ROW,
-    )}" data-add-row>
-                    <svg class="icon icon-plus icon" aria-hidden="true" focusable="false">
+                    data-add-row
+                    aria-label="${h(strings.ADD_ROW)}"
+                    title="${h(strings.ADD_ROW)}"
+                  >
+                    <svg class="icon icon-plus icon" aria-hidden="true">
                       <use href="#icon-plus"></use>
                     </svg>
                   </button></td>
@@ -234,7 +236,7 @@ export class TypedTableBlock {
       class="button button-secondary button-small button--icon text-replace prepend-column"
       aria-label="${h(this.blockDef.meta.strings.INSERT_COLUMN)}"
       title="${h(this.blockDef.meta.strings.INSERT_COLUMN)}">
-        <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>`);
     $(newHeaderCell).append(prependColumnButton);
     prependColumnButton.on('click', () => {
@@ -256,7 +258,7 @@ export class TypedTableBlock {
       class="button button-secondary button-small button--icon text-replace no delete-column"
       aria-label="${h(this.blockDef.meta.strings.DELETE_COLUMN)}"
       title="${h(this.blockDef.meta.strings.DELETE_COLUMN)}">
-        <svg class="icon icon-bin icon" aria-hidden="true" focusable="false"><use href="#icon-bin"></use></svg>
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button>`);
     $(newHeaderCell).append(deleteColumnButton);
     deleteColumnButton.on('click', () => {
@@ -286,8 +288,10 @@ export class TypedTableBlock {
     this.addRowButton.show();
     this.appendColumnButton
       .html(
-        '<svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>',
+        '<svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>',
       )
+      .addClass('button--icon text-replace white')
+      .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .addClass('button--icon text-replace white')
       .attr('aria-label', this.blockDef.meta.strings.ADD_COLUMN)
       .attr('title', this.blockDef.meta.strings.ADD_COLUMN);
@@ -349,7 +353,7 @@ export class TypedTableBlock {
       class="button button-secondary button-small button--icon text-replace prepend-row"
       aria-label="${h(this.blockDef.meta.strings.INSERT_ROW)}"
       title="${h(this.blockDef.meta.strings.INSERT_ROW)}">
-        <svg class="icon icon-plus icon" aria-hidden="true" focusable="false"><use href="#icon-plus"></use></svg>
+        <svg class="icon icon-plus icon" aria-hidden="true"><use href="#icon-plus"></use></svg>
       </button>`);
     $(controlCellBefore).append(prependRowButton);
     prependRowButton.on('click', () => {
@@ -385,7 +389,7 @@ export class TypedTableBlock {
       class="button button-secondary button-small button--icon text-replace no delete-row"
       aria-label="${h(this.blockDef.meta.strings.DELETE_ROW)}"
       title="${h(this.blockDef.meta.strings.DELETE_ROW)}">
-        <svg class="icon icon-bin icon" aria-hidden="true" focusable="false"><use href="#icon-bin"></use></svg>
+        <svg class="icon icon-bin icon" aria-hidden="true"><use href="#icon-bin"></use></svg>
       </button>`);
     $(controlCellAfter).append(deleteRowButton);
     deleteRowButton.on('click', () => {

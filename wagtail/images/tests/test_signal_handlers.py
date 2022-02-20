@@ -7,7 +7,7 @@ from wagtail.images.tests.utils import get_test_image_file
 
 
 class TestFilesDeletedForDefaultModels(TransactionTestCase):
-    '''
+    """
     Because we expect file deletion to only happen once a transaction is
     successfully committed, we must run these tests using TransactionTestCase
     per the following documentation:
@@ -18,7 +18,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         callbacks will never be run. If you need to test the results of an
         on_commit() callback, use a TransactionTestCase instead.
         https://docs.djangoproject.com/en/1.10/topics/db/transactions/#use-in-tests
-    '''
+    """
 
     def setUp(self):
         # Required to create root collection because the TransactionTestCase
@@ -27,14 +27,16 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
         Collection.objects.get_or_create(
             name="Root",
-            path='0001',
+            path="0001",
             depth=1,
             numchild=0,
         )
 
     def test_image_file_deleted_oncommit(self):
         with transaction.atomic():
-            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
+            image = get_image_model().objects.create(
+                title="Test Image", file=get_test_image_file()
+            )
             filename = image.file.name
             self.assertTrue(image.file.storage.exists(filename))
             image.delete()
@@ -43,8 +45,10 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
 
     def test_rendition_file_deleted_oncommit(self):
         with transaction.atomic():
-            image = get_image_model().objects.create(title="Test Image", file=get_test_image_file())
-            rendition = image.get_rendition('original')
+            image = get_image_model().objects.create(
+                title="Test Image", file=get_test_image_file()
+            )
+            rendition = image.get_rendition("original")
             filename = rendition.file.name
             self.assertTrue(rendition.file.storage.exists(filename))
             rendition.delete()
@@ -52,7 +56,7 @@ class TestFilesDeletedForDefaultModels(TransactionTestCase):
         self.assertFalse(rendition.file.storage.exists(filename))
 
 
-@override_settings(WAGTAILIMAGES_IMAGE_MODEL='tests.CustomImage')
+@override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.CustomImage")
 class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
     def setUp(self):
         # Required to create root collection because the TransactionTestCase
@@ -61,7 +65,7 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
         # ref: https://docs.djangoproject.com/en/1.10/topics/testing/overview/#rollback-emulation
         Collection.objects.get_or_create(
             name="Root",
-            path='0001',
+            path="0001",
             depth=1,
             numchild=0,
         )
@@ -73,4 +77,6 @@ class TestFilesDeletedForCustomModels(TestFilesDeletedForDefaultModels):
 
     def test_image_model(self):
         cls = get_image_model()
-        self.assertEqual('%s.%s' % (cls._meta.app_label, cls.__name__), 'tests.CustomImage')
+        self.assertEqual(
+            "%s.%s" % (cls._meta.app_label, cls.__name__), "tests.CustomImage"
+        )

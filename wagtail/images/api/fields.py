@@ -25,6 +25,7 @@ class ImageRenditionField(Field):
         "error": "SourceImageIOError"
     }
     """
+
     def __init__(self, filter_spec, *args, **kwargs):
         self.filter_spec = filter_spec
         super().__init__(*args, **kwargs)
@@ -33,13 +34,17 @@ class ImageRenditionField(Field):
         try:
             thumbnail = image.get_rendition(self.filter_spec)
 
-            return OrderedDict([
-                ('url', thumbnail.url),
-                ('width', thumbnail.width),
-                ('height', thumbnail.height),
-                ('alt', thumbnail.alt),
-            ])
+            return OrderedDict(
+                [
+                    ("url", thumbnail.url),
+                    ("width", thumbnail.width),
+                    ("height", thumbnail.height),
+                    ("alt", thumbnail.alt),
+                ]
+            )
         except SourceImageIOError:
-            return OrderedDict([
-                ('error', 'SourceImageIOError'),
-            ])
+            return OrderedDict(
+                [
+                    ("error", "SourceImageIOError"),
+                ]
+            )

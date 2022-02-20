@@ -12,7 +12,7 @@ class TestPostgresStemming(TestCase):
     def setUp(self):
         backend_name = "wagtail.search.backends.database.postgres"
         for conf in settings.WAGTAILSEARCH_BACKENDS.values():
-            if conf['BACKEND'] == backend_name:
+            if conf["BACKEND"] == backend_name:
                 break
         else:
             raise unittest.SkipTest("Only for %s" % backend_name)
@@ -21,13 +21,10 @@ class TestPostgresStemming(TestCase):
 
     def test_ru_stemming(self):
         with connection.cursor() as cursor:
-            cursor.execute(
-                "SET default_text_search_config TO 'pg_catalog.russian'"
-            )
+            cursor.execute("SET default_text_search_config TO 'pg_catalog.russian'")
 
         ru_book = models.Book.objects.create(
-            title="Голубое сало", publication_date="1999-05-01",
-            number_of_pages=352
+            title="Голубое сало", publication_date="1999-05-01", number_of_pages=352
         )
         self.backend.add(ru_book)
 

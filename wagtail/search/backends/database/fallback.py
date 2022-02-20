@@ -7,10 +7,13 @@ from django.db.models import Count
 from django.db.models.expressions import Value
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import AND, OR
-
 
 # This file implements a database search backend using basic substring matching, and no
 # database-specific full-text search capabilities. It will be used in the following cases:
@@ -167,7 +170,7 @@ class DatabaseSearchResults(BaseSearchResults):
         else:
             queryset = queryset.filter(q)
 
-        return queryset.distinct()[self.start: self.stop]
+        return queryset.distinct()[self.start : self.stop]
 
     def _do_search(self):
         queryset = self.get_queryset()

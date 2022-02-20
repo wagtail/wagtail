@@ -3,14 +3,14 @@ from django.db.models.expressions import Expression, Value
 
 
 class LexemeCombinable(Expression):
-    BITAND = '&'
-    BITOR = '|'
+    BITAND = "&"
+    BITOR = "|"
 
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
             raise TypeError(
-                'Lexeme can only be combined with other Lexemes, '
-                'got {}.'.format(type(other))
+                "Lexeme can only be combined with other Lexemes, "
+                "got {}.".format(type(other))
             )
         if reversed:
             return CombinedLexeme(other, connector, self)
@@ -35,7 +35,9 @@ class LexemeCombinable(Expression):
 class Lexeme(LexemeCombinable, Value):
     _output_field = SearchQueryField()
 
-    def __init__(self, value, output_field=None, *, invert=False, prefix=False, weight=None):
+    def __init__(
+        self, value, output_field=None, *, invert=False, prefix=False, weight=None
+    ):
         self.prefix = prefix
         self.invert = invert
         self.weight = weight
@@ -46,16 +48,16 @@ class Lexeme(LexemeCombinable, Value):
 
         template = "%s"
 
-        label = ''
+        label = ""
         if self.prefix:
-            label += '*'
+            label += "*"
         if self.weight:
             label += self.weight
 
         if label:
-            param = '{}:{}'.format(param, label)
+            param = "{}:{}".format(param, label)
         if self.invert:
-            param = '!{}'.format(param)
+            param = "!{}".format(param)
 
         return template, [param]
 
@@ -77,6 +79,6 @@ class CombinedLexeme(LexemeCombinable):
         rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = '({} {} {})'.format(lsql, self.connector, rsql)
+        combined_sql = "({} {} {})".format(lsql, self.connector, rsql)
         combined_value = combined_sql % tuple(value_params)
-        return '%s', [combined_value]
+        return "%s", [combined_value]

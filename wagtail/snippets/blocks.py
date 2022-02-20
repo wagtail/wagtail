@@ -16,6 +16,7 @@ class SnippetChooserBlock(ChooserBlock):
     @cached_property
     def widget(self):
         from wagtail.snippets.widgets import AdminSnippetChooser
+
         return AdminSnippetChooser(self.target_model)
 
     def get_form_state(self, value):
@@ -24,9 +25,9 @@ class SnippetChooserBlock(ChooserBlock):
             return None
         else:
             return {
-                'id': value_data['id'],
-                'edit_link': value_data['edit_url'],
-                'string': value_data['string'],
+                "id": value_data["id"],
+                "edit_link": value_data["edit_url"],
+                "string": value_data["string"],
             }
 
     class Meta:

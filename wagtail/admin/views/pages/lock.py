@@ -22,14 +22,16 @@ def lock(request, page_id):
         page.locked = True
         page.locked_by = request.user
         page.locked_at = timezone.now()
-        page.save(user=request.user, log_action='wagtail.lock')
+        page.save(user=request.user, log_action="wagtail.lock")
 
     # Redirect
-    redirect_to = request.POST.get('next', None)
-    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
+    redirect_to = request.POST.get("next", None)
+    if redirect_to and url_has_allowed_host_and_scheme(
+        url=redirect_to, allowed_hosts={request.get_host()}
+    ):
         return redirect(redirect_to)
     else:
-        return redirect('wagtailadmin_explore', page.get_parent().id)
+        return redirect("wagtailadmin_explore", page.get_parent().id)
 
 
 @require_POST
@@ -46,13 +48,19 @@ def unlock(request, page_id):
         page.locked = False
         page.locked_by = None
         page.locked_at = None
-        page.save(user=request.user, log_action='wagtail.unlock')
+        page.save(user=request.user, log_action="wagtail.unlock")
 
-        messages.success(request, _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()), extra_tags='unlock')
+        messages.success(
+            request,
+            _("Page '{0}' is now unlocked.").format(page.get_admin_display_title()),
+            extra_tags="unlock",
+        )
 
     # Redirect
-    redirect_to = request.POST.get('next', None)
-    if redirect_to and url_has_allowed_host_and_scheme(url=redirect_to, allowed_hosts={request.get_host()}):
+    redirect_to = request.POST.get("next", None)
+    if redirect_to and url_has_allowed_host_and_scheme(
+        url=redirect_to, allowed_hosts={request.get_host()}
+    ):
         return redirect(redirect_to)
     else:
-        return redirect('wagtailadmin_explore', page.get_parent().id)
+        return redirect("wagtailadmin_explore", page.get_parent().id)

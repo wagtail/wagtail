@@ -17,7 +17,7 @@ class AlternateImageForm(BaseImageForm):
             **BaseImageForm.Meta.widgets,
             "tags": OverriddenWidget,
             "file": OverriddenWidget,
-            "form_only_field": AdminDateTimeInput
+            "form_only_field": AdminDateTimeInput,
         }
 
 
@@ -28,5 +28,5 @@ class AlternateDocumentForm(BaseDocumentForm):
         widgets = {
             "tags": OverriddenWidget,
             "file": OverriddenWidget,
-            "form_only_field": AdminDateTimeInput
+            "form_only_field": AdminDateTimeInput,
         }

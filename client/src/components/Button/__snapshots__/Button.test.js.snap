@@ -38,7 +38,7 @@ exports[`Button #target 1`] = `
   className=""
   href="#"
   onClick={[Function]}
-  rel="noopener noreferrer"
+  rel="noreferrer"
   target="_blank"
 />
 `;

@@ -1,6 +1,5 @@
 from wagtail.core.models import Task
 
-
 TASK_TYPES = []
 
 

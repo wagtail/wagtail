@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailembeds', '0008_allow_long_urls'),
+        ("wagtailembeds", "0008_allow_long_urls"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='embed',
-            name='cache_until',
+            model_name="embed",
+            name="cache_until",
             field=models.DateTimeField(blank=True, db_index=True, null=True),
         ),
     ]

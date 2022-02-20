@@ -10,14 +10,16 @@ from wagtail.core.utils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):
-    template = 'wagtailadmin/shared/menu_item.html'
+    template = "wagtailadmin/shared/menu_item.html"
 
-    def __init__(self, label, url, name=None, classnames='', icon_name='', attrs=None, order=1000):
+    def __init__(
+        self, label, url, name=None, classnames="", icon_name="", attrs=None, order=1000
+    ):
         self.label = label
         self.url = url
         self.classnames = classnames
         self.icon_name = icon_name
-        self.name = (name or cautious_slugify(str(label)))
+        self.name = name or cautious_slugify(str(label))
         self.order = order
 
         if attrs:
@@ -38,13 +40,13 @@ class MenuItem(metaclass=MediaDefiningClass):
     def get_context(self, request):
         """Defines context for the template, overridable to use more data"""
         return {
-            'name': self.name,
-            'url': self.url,
-            'classnames': self.classnames,
-            'icon_name': self.icon_name,
-            'attr_string': self.attr_string,
-            'label': self.label,
-            'active': self.is_active(request)
+            "name": self.name,
+            "url": self.url,
+            "classnames": self.classnames,
+            "icon_name": self.icon_name,
+            "attr_string": self.attr_string,
+            "label": self.label,
+            "active": self.is_active(request),
         }
 
     def render_html(self, request):
@@ -52,7 +54,13 @@ class MenuItem(metaclass=MediaDefiningClass):
         return render_to_string(self.template, context, request=request)
 
     def render_component(self, request):
-        return LinkMenuItemComponent(self.name, self.label, self.url, icon_name=self.icon_name, classnames=self.classnames)
+        return LinkMenuItemComponent(
+            self.name,
+            self.label,
+            self.url,
+            icon_name=self.icon_name,
+            classnames=self.classnames,
+        )
 
 
 class Menu:
@@ -68,7 +76,9 @@ class Menu:
     @property
     def registered_menu_items(self):
         if self._registered_menu_items is None:
-            self._registered_menu_items = [fn() for fn in hooks.get_hooks(self.register_hook_name)]
+            self._registered_menu_items = [
+                fn() for fn in hooks.get_hooks(self.register_hook_name)
+            ]
         return self._registered_menu_items
 
     def menu_items_for_request(self, request):
@@ -82,7 +92,11 @@ class Menu:
         return items
 
     def active_menu_items(self, request):
-        return [item for item in self.menu_items_for_request(request) if item.is_active(request)]
+        return [
+            item
+            for item in self.menu_items_for_request(request)
+            if item.is_active(request)
+        ]
 
     @property
     def media(self):
@@ -96,7 +110,7 @@ class Menu:
         rendered_menu_items = []
         for item in sorted(menu_items, key=lambda i: i.order):
             rendered_menu_items.append(item.render_html(request))
-        return mark_safe(''.join(rendered_menu_items))
+        return mark_safe("".join(rendered_menu_items))
 
     def render_component(self, request):
         menu_items = self.menu_items_for_request(request)
@@ -107,12 +121,13 @@ class Menu:
 
 
 class SubmenuMenuItem(MenuItem):
-    template = 'wagtailadmin/shared/menu_submenu_item.html'
+    template = "wagtailadmin/shared/menu_submenu_item.html"
 
     """A MenuItem which wraps an inner Menu object"""
+
     def __init__(self, label, menu, **kwargs):
         self.menu = menu
-        super().__init__(label, '#', **kwargs)
+        super().__init__(label, "#", **kwargs)
 
     def is_shown(self, request):
         # show the submenu if one or more of its children is shown
@@ -123,12 +138,18 @@ class SubmenuMenuItem(MenuItem):
 
     def get_context(self, request):
         context = super().get_context(request)
-        context['menu_html'] = self.menu.render_html(request)
-        context['request'] = request
+        context["menu_html"] = self.menu.render_html(request)
+        context["request"] = request
         return context
 
     def render_component(self, request):
-        return SubMenuItemComponent(self.name, self.label, self.menu.render_component(request), icon_name=self.icon_name, classnames=self.classnames)
+        return SubMenuItemComponent(
+            self.name,
+            self.label,
+            self.menu.render_component(request),
+            icon_name=self.icon_name,
+            classnames=self.classnames,
+        )
 
 
 class AdminOnlyMenuItem(MenuItem):
@@ -138,6 +159,15 @@ class AdminOnlyMenuItem(MenuItem):
         return request.user.is_superuser
 
 
-admin_menu = Menu(register_hook_name='register_admin_menu_item', construct_hook_name='construct_main_menu')
-settings_menu = Menu(register_hook_name='register_settings_menu_item', construct_hook_name='construct_settings_menu')
-reports_menu = Menu(register_hook_name='register_reports_menu_item', construct_hook_name='construct_reports_menu')
+admin_menu = Menu(
+    register_hook_name="register_admin_menu_item",
+    construct_hook_name="construct_main_menu",
+)
+settings_menu = Menu(
+    register_hook_name="register_settings_menu_item",
+    construct_hook_name="construct_settings_menu",
+)
+reports_menu = Menu(
+    register_hook_name="register_reports_menu_item",
+    construct_hook_name="construct_reports_menu",
+)

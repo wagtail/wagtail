@@ -6,29 +6,34 @@ from wagtail.core.models import Page, Site
 
 
 class TestTable(TestCase):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.rf = RequestFactory()
 
     def render_component(self, obj):
-        request = self.rf.get('/')
+        request = self.rf.get("/")
         template = Template("{% load wagtailadmin_tags %}{% component obj %}")
-        return template.render(Context({'request': request, 'obj': obj}))
+        return template.render(Context({"request": request, "obj": obj}))
 
     def test_table_render(self):
         data = [
-            {'first_name': 'Paul', 'last_name': 'Simon'},
-            {'first_name': 'Art', 'last_name': 'Garfunkel'},
+            {"first_name": "Paul", "last_name": "Simon"},
+            {"first_name": "Art", "last_name": "Garfunkel"},
         ]
 
-        table = Table([
-            Column('first_name'),
-            Column('last_name'),
-        ], data)
+        table = Table(
+            [
+                Column("first_name"),
+                Column("last_name"),
+            ],
+            data,
+        )
 
         html = self.render_component(table)
-        self.assertHTMLEqual(html, '''
+        self.assertHTMLEqual(
+            html,
+            """
             <table class="listing">
                 <thead>
                     <tr><th>First name</th><th>Last name</th></tr>
@@ -38,21 +43,27 @@ class TestTable(TestCase):
                     <tr><td>Art</td><td>Garfunkel</td></tr>
                 </tbody>
             </table>
-        ''')
+        """,
+        )
 
     def test_table_render_with_width(self):
         data = [
-            {'first_name': 'Paul', 'last_name': 'Simon'},
-            {'first_name': 'Art', 'last_name': 'Garfunkel'},
+            {"first_name": "Paul", "last_name": "Simon"},
+            {"first_name": "Art", "last_name": "Garfunkel"},
         ]
 
-        table = Table([
-            Column('first_name'),
-            Column('last_name', width='75%'),
-        ], data)
+        table = Table(
+            [
+                Column("first_name"),
+                Column("last_name", width="75%"),
+            ],
+            data,
+        )
 
         html = self.render_component(table)
-        self.assertHTMLEqual(html, '''
+        self.assertHTMLEqual(
+            html,
+            """
             <table class="listing">
                 <col />
                 <col width="75%" />
@@ -64,21 +75,35 @@ class TestTable(TestCase):
                     <tr><td>Art</td><td>Garfunkel</td></tr>
                 </tbody>
             </table>
-        ''')
+        """,
+        )
 
     def test_title_column(self):
         root_page = Page.objects.filter(depth=2).first()
-        blog = Site.objects.create(hostname='blog.example.com', site_name='My blog', root_page=root_page)
-        gallery = Site.objects.create(hostname='gallery.example.com', site_name='My gallery', root_page=root_page)
+        blog = Site.objects.create(
+            hostname="blog.example.com", site_name="My blog", root_page=root_page
+        )
+        gallery = Site.objects.create(
+            hostname="gallery.example.com", site_name="My gallery", root_page=root_page
+        )
         data = [blog, gallery]
 
-        table = Table([
-            TitleColumn('hostname', url_name='wagtailsites:edit', link_classname='choose-site'),
-            Column('site_name', label="Site name"),
-        ], data)
+        table = Table(
+            [
+                TitleColumn(
+                    "hostname",
+                    url_name="wagtailsites:edit",
+                    link_classname="choose-site",
+                ),
+                Column("site_name", label="Site name"),
+            ],
+            data,
+        )
 
         html = self.render_component(table)
-        self.assertHTMLEqual(html, '''
+        self.assertHTMLEqual(
+            html,
+            """
             <table class="listing">
                 <thead>
                     <tr><th>Hostname</th><th>Site name</th></tr>
@@ -102,21 +127,26 @@ class TestTable(TestCase):
                     </tr>
                 </tbody>
             </table>
-        ''' % (blog.pk, gallery.pk))
+        """
+            % (blog.pk, gallery.pk),
+        )
 
     def test_column_media(self):
         class FancyColumn(Column):
             class Media:
-                js = ['js/gradient-fill.js']
+                js = ["js/gradient-fill.js"]
 
         data = [
-            {'first_name': 'Paul', 'last_name': 'Simon'},
-            {'first_name': 'Art', 'last_name': 'Garfunkel'},
+            {"first_name": "Paul", "last_name": "Simon"},
+            {"first_name": "Art", "last_name": "Garfunkel"},
         ]
 
-        table = Table([
-            FancyColumn('first_name'),
-            Column('last_name'),
-        ], data)
+        table = Table(
+            [
+                FancyColumn("first_name"),
+                Column("last_name"),
+            ],
+            data,
+        )
 
-        self.assertIn('src="/static/js/gradient-fill.js"', str(table.media['js']))
+        self.assertIn('src="/static/js/gradient-fill.js"', str(table.media["js"]))

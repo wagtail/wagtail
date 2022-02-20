@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0050_workflow_rejected_to_needs_changes'),
+        ("wagtailcore", "0050_workflow_rejected_to_needs_changes"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='taskstate',
-            name='comment',
+            model_name="taskstate",
+            name="comment",
             field=models.TextField(blank=True),
         ),
     ]

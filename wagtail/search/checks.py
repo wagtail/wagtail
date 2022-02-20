@@ -1,7 +1,7 @@
 from django.core.checks import Warning, register
 
 
-@register('search')
+@register("search")
 def page_search_fields_check(app_configs, **kwargs):
     """Checks each page model with search_fields to core fields are included"""
     from wagtail.core.models import Page, get_page_models
@@ -14,13 +14,16 @@ def page_search_fields_check(app_configs, **kwargs):
         if not all(field in cls.search_fields for field in Page.search_fields[:10]):
             errors.append(
                 Warning(
-                    'Core Page fields missing in `search_fields`',
-                    hint=' '.join([
-                        'Ensure that {} extends the Page model search fields',
-                        '`search_fields = Page.search_fields + [...]`'
-                    ]).format(cls.__name__),
+                    "Core Page fields missing in `search_fields`",
+                    hint=" ".join(
+                        [
+                            "Ensure that {} extends the Page model search fields",
+                            "`search_fields = Page.search_fields + [...]`",
+                        ]
+                    ).format(cls.__name__),
                     obj=cls,
-                    id='wagtailsearch.W001'
-                ))
+                    id="wagtailsearch.W001",
+                )
+            )
 
     return errors

@@ -1,11 +1,13 @@
 import os
 
 import tablib
-
 from django.core.management.base import BaseCommand
 
 from wagtail.contrib.redirects.forms import RedirectForm
-from wagtail.contrib.redirects.utils import get_format_cls_by_extension, get_supported_extensions
+from wagtail.contrib.redirects.utils import (
+    get_format_cls_by_extension,
+    get_supported_extensions,
+)
 from wagtail.core.models import Site
 
 
@@ -14,10 +16,15 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            "--src", help="Path to file", type=str, required=True,
+            "--src",
+            help="Path to file",
+            type=str,
+            required=True,
         )
         parser.add_argument(
-            "--site", help="The site where redirects will be associated", type=int,
+            "--site",
+            help="The site where redirects will be associated",
+            type=int,
         )
         parser.add_argument(
             "--permanent",
@@ -32,7 +39,10 @@ class Command(BaseCommand):
             type=int,
         )
         parser.add_argument(
-            "--to", help="The column where to read to link", default=1, type=int,
+            "--to",
+            help="The column where to read to link",
+            default=1,
+            type=int,
         )
         parser.add_argument(
             "--dry_run",
@@ -109,7 +119,7 @@ class Command(BaseCommand):
 
             sample_data = tablib.Dataset(
                 *imported_data[: min(len(imported_data), 4)],
-                headers=imported_data.headers
+                headers=imported_data.headers,
             )
 
             try:
@@ -150,7 +160,10 @@ class Command(BaseCommand):
                     error = form.errors.as_text().replace("\n", "")
                     self.stdout.write(
                         "{}. Error: {} -> {} (Reason: {})".format(
-                            total, from_link, to_link, error,
+                            total,
+                            from_link,
+                            to_link,
+                            error,
                         )
                     )
                     errors.append(error)
@@ -159,7 +172,9 @@ class Command(BaseCommand):
                 if ask:
                     answer = get_input(
                         "{}. Found {} -> {} Create? Y/n: ".format(
-                            total, from_link, to_link,
+                            total,
+                            from_link,
+                            to_link,
                         )
                     )
 
@@ -167,7 +182,13 @@ class Command(BaseCommand):
                         skipped += 1
                         continue
                 else:
-                    self.stdout.write("{}. {} -> {}".format(total, from_link, to_link,))
+                    self.stdout.write(
+                        "{}. {} -> {}".format(
+                            total,
+                            from_link,
+                            to_link,
+                        )
+                    )
 
                 if dry_run:
                     successes += 1

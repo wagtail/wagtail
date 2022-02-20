@@ -3,7 +3,6 @@ import inspect
 import logging
 import re
 import unicodedata
-
 from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
 
 from anyascii import anyascii
@@ -20,18 +19,19 @@ from django.utils.encoding import force_str
 from django.utils.text import slugify
 from django.utils.translation import check_for_language, get_supported_language_variant
 
-
 if TYPE_CHECKING:
     from wagtail.core.models import Site
 
 logger = logging.getLogger(__name__)
 
-WAGTAIL_APPEND_SLASH = getattr(settings, 'WAGTAIL_APPEND_SLASH', True)
+WAGTAIL_APPEND_SLASH = getattr(settings, "WAGTAIL_APPEND_SLASH", True)
 
 
 def camelcase_to_underscore(str):
     # https://djangosnippets.org/snippets/585/
-    return re.sub('(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))', '_\\1', str).lower().strip('_')
+    return (
+        re.sub("(((?<=[a-z])[A-Z])|([A-Z](?![A-Z]|$)))", "_\\1", str).lower().strip("_")
+    )
 
 
 def string_to_ascii(value):
@@ -50,7 +50,7 @@ def get_model_string(model):
 
     This an be reversed with the `resolve_model_string` function
     """
-    return model._meta.app_label + '.' + model.__name__
+    return model._meta.app_label + "." + model.__name__
 
 
 def resolve_model_string(model_string, default_app=None):
@@ -70,9 +70,11 @@ def resolve_model_string(model_string, default_app=None):
                 app_label = default_app
                 model_name = model_string
             else:
-                raise ValueError("Can not resolve {0!r} into a model. Model names "
-                                 "should be in the form app_label.model_name".format(
-                                     model_string), model_string)
+                raise ValueError(
+                    "Can not resolve {0!r} into a model. Model names "
+                    "should be in the form app_label.model_name".format(model_string),
+                    model_string,
+                )
 
         return apps.get_model(app_label, model_name)
 
@@ -80,10 +82,12 @@ def resolve_model_string(model_string, default_app=None):
         return model_string
 
     else:
-        raise ValueError("Can not resolve {0!r} into a model".format(model_string), model_string)
+        raise ValueError(
+            "Can not resolve {0!r} into a model".format(model_string), model_string
+        )
 
 
-SCRIPT_RE = re.compile(r'<(-*)/script>')
+SCRIPT_RE = re.compile(r"<(-*)/script>")
 
 
 def escape_script(text):
@@ -92,10 +96,10 @@ def escape_script(text):
     accidentally closing it. A '-' character will be inserted for each time it is escaped:
     `<-/script>`, `<--/script>` etc.
     """
-    return SCRIPT_RE.sub(r'<-\1/script>', text)
+    return SCRIPT_RE.sub(r"<-\1/script>", text)
 
 
-SLUGIFY_RE = re.compile(r'[^\w\s-]', re.UNICODE)
+SLUGIFY_RE = re.compile(r"[^\w\s-]", re.UNICODE)
 
 
 def cautious_slugify(value):
@@ -113,16 +117,16 @@ def cautious_slugify(value):
     # characters to be split into 'base character' + 'accent modifier'; the latter will
     # be stripped out by the regexp, resulting in an ASCII-clean character that doesn't
     # need to be escaped
-    value = unicodedata.normalize('NFKD', value)
+    value = unicodedata.normalize("NFKD", value)
 
     # Strip out characters that aren't letterlike, underscores or hyphens,
     # using the same regexp that slugify uses. This ensures that non-ASCII non-letters
     # (e.g. accent modifiers, fancy punctuation) get stripped rather than escaped
-    value = SLUGIFY_RE.sub('', value)
+    value = SLUGIFY_RE.sub("", value)
 
     # Encode as ASCII, escaping non-ASCII characters with backslashreplace, then convert
     # back to a unicode string (which is what slugify expects)
-    value = value.encode('ascii', 'backslashreplace').decode('ascii')
+    value = value.encode("ascii", "backslashreplace").decode("ascii")
 
     # Pass to slugify to perform final conversion (whitespace stripping, applying
     # mark_safe); this will also strip out the backslashes from the 'backslashreplace'
@@ -189,7 +193,7 @@ class InvokeViaAttributeShortcut:
     obj.get_page_url('terms_and_conditions')
     """
 
-    __slots__ = 'obj', 'method_name'
+    __slots__ = "obj", "method_name"
 
     def __init__(self, obj, method_name):
         self.obj = obj
@@ -237,7 +241,7 @@ def get_content_languages():
     """
     Cache of settings.WAGTAIL_CONTENT_LANGUAGES in a dictionary for easy lookups by key.
     """
-    content_languages = getattr(settings, 'WAGTAIL_CONTENT_LANGUAGES', None)
+    content_languages = getattr(settings, "WAGTAIL_CONTENT_LANGUAGES", None)
     languages = dict(settings.LANGUAGES)
 
     if content_languages is None:
@@ -267,7 +271,9 @@ def get_content_languages():
         if language_code not in languages:
             raise ImproperlyConfigured(
                 "The language {} is specified in WAGTAIL_CONTENT_LANGUAGES but not LANGUAGES. "
-                "WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.".format(language_code)
+                "WAGTAIL_CONTENT_LANGUAGES must be a subset of LANGUAGES.".format(
+                    language_code
+                )
             )
 
     return dict(content_languages)
@@ -317,8 +323,7 @@ def get_locales_display_names() -> dict:
     from wagtail.core.models import Locale  # inlined to avoid circular imports
 
     locales_map = {
-        locale.pk: locale.get_display_name()
-        for locale in Locale.objects.all()
+        locale.pk: locale.get_display_name() for locale in Locale.objects.all()
     }
     return locales_map
 
@@ -346,7 +351,7 @@ def multigetattr(item, accessor):
 
     current = item
 
-    for bit in accessor.split('.'):
+    for bit in accessor.split("."):
         try:  # dictionary lookup
             current = current[bit]
         # ValueError/IndexError are for numpy.array lookup on
@@ -371,7 +376,7 @@ def multigetattr(item, accessor):
                     )
 
         if callable(current):
-            if getattr(current, 'alters_data', False):
+            if getattr(current, "alters_data", False):
                 raise SuspiciousOperation(
                     "Cannot call %r from multigetattr" % (current,)
                 )
@@ -382,7 +387,7 @@ def multigetattr(item, accessor):
     return current
 
 
-def get_dummy_request(path: str = "/", site: 'Site' = None) -> HttpRequest:
+def get_dummy_request(path: str = "/", site: "Site" = None) -> HttpRequest:
     """
     Return a simple ``HttpRequest`` instance that can be passed to
     ``Page.get_url()`` and other methods to benefit from improved performance
@@ -397,8 +402,6 @@ def get_dummy_request(path: str = "/", site: 'Site' = None) -> HttpRequest:
     SERVER_PORT = 80
     if site:
         SERVER_NAME = site.hostname
-        if site.port not in [80, 443]:
-            SERVER_NAME += f":{site.port}"
         SERVER_PORT = site.port
     elif settings.ALLOWED_HOSTS == ["*"]:
         SERVER_NAME = "example.com"
@@ -420,6 +423,7 @@ class BatchProcessor:
     ``process()`` when you're done adding items, otherwise the final batch
     of objects will not be processed.
     """
+
     def __init__(self, max_size: int):
         self.max_size = max_size
         self.items = []
@@ -486,7 +490,9 @@ class BatchCreator(BatchProcessor):
 
     model: ModelBase = None
 
-    def __init__(self, max_size: int, *, model: ModelBase = None, ignore_conflicts=False):
+    def __init__(
+        self, max_size: int, *, model: ModelBase = None, ignore_conflicts=False
+    ):
         super().__init__(max_size)
         self.ignore_conflicts = ignore_conflicts
         self.created_count = 0
@@ -517,7 +523,11 @@ class BatchCreator(BatchProcessor):
         """
         if not self.items:
             return None
-        self.created_count += len(self.model.objects.bulk_create(self.items, ignore_conflicts=self.ignore_conflicts))
+        self.created_count += len(
+            self.model.objects.bulk_create(
+                self.items, ignore_conflicts=self.ignore_conflicts
+            )
+        )
 
     def get_summary(self):
         opts = self.model._meta

@@ -16,31 +16,30 @@ from wagtail.images.tests import urls as wagtailimages_test_urls
 from wagtail.tests.testapp import urls as testapp_urls
 from wagtail.tests.testapp.models import EventSitemap
 
-
-api_router = WagtailAPIRouter('wagtailapi_v2')
-api_router.register_endpoint('pages', PagesAPIViewSet)
-api_router.register_endpoint('images', ImagesAPIViewSet)
-api_router.register_endpoint('documents', DocumentsAPIViewSet)
+api_router = WagtailAPIRouter("wagtailapi_v2")
+api_router.register_endpoint("pages", PagesAPIViewSet)
+api_router.register_endpoint("images", ImagesAPIViewSet)
+api_router.register_endpoint("documents", DocumentsAPIViewSet)
 
 
 urlpatterns = [
-    path('admin/', include(wagtailadmin_urls)),
-    path('documents/', include(wagtaildocs_urls)),
-    path('testimages/', include(wagtailimages_test_urls)),
-    path('images/', include(wagtailimages_urls)),
-
-    path('api/main/', api_router.urls),
-    path('sitemap.xml', sitemaps_views.sitemap),
-
-    path('sitemap-index.xml', sitemaps_views.index, {
-        'sitemaps': {'pages': Sitemap, 'events': EventSitemap(request=None)},
-        'sitemap_url_name': 'sitemap',
-    }),
-    path('sitemap-<str:section>.xml', sitemaps_views.sitemap, name='sitemap'),
-
-    path('testapp/', include(testapp_urls)),
-
-    path('fallback/', lambda: HttpResponse('ok'), name='fallback'),
+    path("admin/", include(wagtailadmin_urls)),
+    path("documents/", include(wagtaildocs_urls)),
+    path("testimages/", include(wagtailimages_test_urls)),
+    path("images/", include(wagtailimages_urls)),
+    path("api/main/", api_router.urls),
+    path("sitemap.xml", sitemaps_views.sitemap),
+    path(
+        "sitemap-index.xml",
+        sitemaps_views.index,
+        {
+            "sitemaps": {"pages": Sitemap, "events": EventSitemap(request=None)},
+            "sitemap_url_name": "sitemap",
+        },
+    ),
+    path("sitemap-<str:section>.xml", sitemaps_views.sitemap, name="sitemap"),
+    path("testapp/", include(testapp_urls)),
+    path("fallback/", lambda: HttpResponse("ok"), name="fallback"),
 ]
 
 urlpatterns += staticfiles_urlpatterns()
@@ -48,5 +47,5 @@ urlpatterns += staticfiles_urlpatterns()
 urlpatterns += [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's serving mechanism
-    path('', include(wagtail_urls)),
+    path("", include(wagtail_urls)),
 ]

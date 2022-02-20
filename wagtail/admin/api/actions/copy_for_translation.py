@@ -7,7 +7,9 @@ from rest_framework.serializers import Serializer
 
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.core.actions.copy_for_translation import (
-    CopyPageForTranslationAction, ParentNotTranslatedError)
+    CopyPageForTranslationAction,
+    ParentNotTranslatedError,
+)
 from wagtail.core.models.i18n import Locale
 
 from .base import APIAction

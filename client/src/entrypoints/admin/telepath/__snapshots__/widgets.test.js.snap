@@ -13,7 +13,7 @@ exports[`telepath: wagtail.widgets.PageChooser it renders correctly 1`] = `
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">
+                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
                   Edit this page
                 </a>
               </li>
@@ -39,7 +39,7 @@ exports[`telepath: wagtail.widgets.PageChooser setState() changes the current pa
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">
+                <a href=\\"/admin/pages/34/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
                   Edit this page
                 </a>
               </li>
@@ -65,7 +65,7 @@ exports[`telepath: wagtail.widgets.PageChooser setState() to null clears the fie
                 </button>
               </li>
               <li>
-                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\">
+                <a href=\\"/admin/pages/60/edit/\\" class=\\"edit-link button button-small button-secondary\\" target=\\"_blank\\" rel=\\"noreferrer\\">
                   Edit this page
                 </a>
               </li>

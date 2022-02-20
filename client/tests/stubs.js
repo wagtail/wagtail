@@ -3,7 +3,6 @@
  * Those variables usually come from the back-end via templates.
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
-import 'element-closest';
 
 global.wagtailConfig = {
   ADMIN_API: {

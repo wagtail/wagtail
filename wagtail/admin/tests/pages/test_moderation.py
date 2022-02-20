@@ -1,5 +1,4 @@
 import logging
-
 from itertools import chain
 from unittest import mock
 
@@ -20,9 +19,9 @@ from wagtail.users.models import UserProfile
 class TestApproveRejectModeration(TestCase, WagtailTestUtils):
     def setUp(self):
         self.submitter = self.create_superuser(
-            username='submitter',
-            email='submitter@email.com',
-            password='password',
+            username="submitter",
+            email="submitter@email.com",
+            password="password",
         )
 
         self.user = self.login()
@@ -31,7 +30,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         root_page = Page.objects.get(id=2)
         self.page = SimplePage(
             title="Hello world!",
-            slug='hello-world',
+            slug="hello-world",
             content="hello",
             live=False,
             has_unpublished_changes=True,
@@ -50,10 +49,12 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         page_published.connect(mock_handler)
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(self.revision.id, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
+        )
 
         # Check that the user was redirected to the dashboard
-        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
         page = Page.objects.get(id=self.page.id)
         # Page must be live
@@ -61,25 +62,27 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Page should now have no unpublished changes
         self.assertFalse(
             page.has_unpublished_changes,
-            "Approving moderation failed to set has_unpublished_changes=False"
+            "Approving moderation failed to set has_unpublished_changes=False",
         )
 
         # Check that the page_published signal was fired
         self.assertEqual(mock_handler.call_count, 1)
         mock_call = mock_handler.mock_calls[0][2]
 
-        self.assertEqual(mock_call['sender'], self.page.specific_class)
-        self.assertEqual(mock_call['instance'], self.page)
-        self.assertIsInstance(mock_call['instance'], self.page.specific_class)
+        self.assertEqual(mock_call["sender"], self.page.specific_class)
+        self.assertEqual(mock_call["instance"], self.page)
+        self.assertIsInstance(mock_call["instance"], self.page.specific_class)
 
     def test_approve_moderation_when_later_revision_exists(self):
         self.page.title = "Goodbye world!"
         self.page.save_revision(user=self.submitter, submitted_for_moderation=False)
 
-        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(self.revision.id, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
+        )
 
         # Check that the user was redirected to the dashboard
-        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
         page = Page.objects.get(id=self.page.id)
         # Page must be live
@@ -89,7 +92,7 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Page should still have unpublished changes
         self.assertTrue(
             page.has_unpublished_changes,
-            "has_unpublished_changes incorrectly cleared on approve_moderation when a later revision exists"
+            "has_unpublished_changes incorrectly cleared on approve_moderation when a later revision exists",
         )
 
     def test_approve_moderation_view_bad_revision_id(self):
@@ -97,7 +100,9 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This tests that the approve moderation view handles invalid revision ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(12345, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(12345,))
+        )
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -109,12 +114,16 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(self.revision.id, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
+        )
 
         # Check that the user received a 302 redirected response
         self.assertEqual(response.status_code, 302)
@@ -124,23 +133,29 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         This posts to the reject moderation view and checks that the page was rejected
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:reject_moderation', args=(self.revision.id, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:reject_moderation", args=(self.revision.id,))
+        )
 
         # Check that the user was redirected to the dashboard
-        self.assertRedirects(response, reverse('wagtailadmin_home'))
+        self.assertRedirects(response, reverse("wagtailadmin_home"))
 
         # Page must not be live
         self.assertFalse(Page.objects.get(id=self.page.id).live)
 
         # Revision must no longer be submitted for moderation
-        self.assertFalse(PageRevision.objects.get(id=self.revision.id).submitted_for_moderation)
+        self.assertFalse(
+            PageRevision.objects.get(id=self.revision.id).submitted_for_moderation
+        )
 
     def test_reject_moderation_view_bad_revision_id(self):
         """
         This tests that the reject moderation view handles invalid revision ids correctly
         """
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:reject_moderation', args=(12345, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:reject_moderation", args=(12345,))
+        )
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -152,22 +167,30 @@ class TestApproveRejectModeration(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
         # Post
-        response = self.client.post(reverse('wagtailadmin_pages:reject_moderation', args=(self.revision.id, )))
+        response = self.client.post(
+            reverse("wagtailadmin_pages:reject_moderation", args=(self.revision.id,))
+        )
 
         # Check that the user received a 302 redirected response
         self.assertEqual(response.status_code, 302)
 
     def test_preview_for_moderation(self):
-        response = self.client.get(reverse('wagtailadmin_pages:preview_for_moderation', args=(self.revision.id, )))
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:preview_for_moderation", args=(self.revision.id,)
+            )
+        )
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'tests/simple_page.html')
+        self.assertTemplateUsed(response, "tests/simple_page.html")
         self.assertContains(response, "Hello world!")
 
 
@@ -180,11 +203,17 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.user = self.login()
 
         # Create two moderator users for testing 'submitted' email
-        self.moderator = self.create_superuser('moderator', 'moderator@email.com', 'password')
-        self.moderator2 = self.create_superuser('moderator2', 'moderator2@email.com', 'password')
+        self.moderator = self.create_superuser(
+            "moderator", "moderator@email.com", "password"
+        )
+        self.moderator2 = self.create_superuser(
+            "moderator2", "moderator2@email.com", "password"
+        )
 
         # Create a submitter for testing 'rejected' and 'approved' emails
-        self.submitter = self.create_user('submitter', 'submitter@email.com', 'password')
+        self.submitter = self.create_user(
+            "submitter", "submitter@email.com", "password"
+        )
 
         # User profiles for moderator2 and the submitter
         self.moderator2_profile = UserProfile.get_for_user(self.moderator2)
@@ -193,7 +222,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         # Create a page and submit it for moderation
         self.child_page = SimplePage(
             title="Hello world!",
-            slug='hello-world',
+            slug="hello-world",
             content="hello",
             live=False,
         )
@@ -201,34 +230,43 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # POST data to edit the page
         self.post_data = {
-            'title': "I've been edited!",
-            'content': "Some content",
-            'slug': 'hello-world',
-            'action-submit': "Submit",
+            "title": "I've been edited!",
+            "content": "Some content",
+            "slug": "hello-world",
+            "action-submit": "Submit",
         }
 
     def submit(self):
-        return self.client.post(reverse('wagtailadmin_pages:edit', args=(self.child_page.id, )), self.post_data)
+        return self.client.post(
+            reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)),
+            self.post_data,
+        )
 
     def silent_submit(self):
         """
         Sets up the child_page as needing moderation, without making a request
         """
-        self.child_page.save_revision(user=self.submitter, submitted_for_moderation=True)
+        self.child_page.save_revision(
+            user=self.submitter, submitted_for_moderation=True
+        )
         self.revision = self.child_page.get_latest_revision()
 
     def approve(self):
-        return self.client.post(reverse('wagtailadmin_pages:approve_moderation', args=(self.revision.id, )))
+        return self.client.post(
+            reverse("wagtailadmin_pages:approve_moderation", args=(self.revision.id,))
+        )
 
     def reject(self):
-        return self.client.post(reverse('wagtailadmin_pages:reject_moderation', args=(self.revision.id, )))
+        return self.client.post(
+            reverse("wagtailadmin_pages:reject_moderation", args=(self.revision.id,))
+        )
 
     def test_vanilla_profile(self):
         # Check that the vanilla profile has rejected notifications on
-        self.assertEqual(self.submitter_profile.rejected_notifications, True)
+        self.assertIs(self.submitter_profile.rejected_notifications, True)
 
         # Check that the vanilla profile has approved notifications on
-        self.assertEqual(self.submitter_profile.approved_notifications, True)
+        self.assertIs(self.submitter_profile.approved_notifications, True)
 
     def test_approved_notifications(self):
         # Set up the page version
@@ -238,8 +276,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # Submitter must receive an approved email
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been approved')
+        self.assertEqual(mail.outbox[0].to, ["submitter@email.com"])
+        self.assertEqual(
+            mail.outbox[0].subject, 'The page "Hello world!" has been approved'
+        )
 
     def test_approved_notifications_preferences_respected(self):
         # Submitter doesn't want 'approved' emails
@@ -262,8 +302,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # Submitter must receive a rejected email
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].to, ['submitter@email.com'])
-        self.assertEqual(mail.outbox[0].subject, 'The page "Hello world!" has been rejected')
+        self.assertEqual(mail.outbox[0].to, ["submitter@email.com"])
+        self.assertEqual(
+            mail.outbox[0].subject, 'The page "Hello world!" has been rejected'
+        )
 
     def test_rejected_notification_preferences_respected(self):
         # Submitter doesn't want 'rejected' emails
@@ -281,7 +323,7 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
     @override_settings(WAGTAILADMIN_NOTIFICATION_INCLUDE_SUPERUSERS=False)
     def test_disable_superuser_notification(self):
         # Add one of the superusers to the moderator group
-        self.moderator.groups.add(Group.objects.get(name='Moderators'))
+        self.moderator.groups.add(Group.objects.get(name="Moderators"))
 
         response = self.submit()
 
@@ -296,7 +338,9 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.assertIn(self.moderator.email, email_to)
         self.assertNotIn(self.moderator2.email, email_to)
 
-    @mock.patch.object(EmailMultiAlternatives, 'send', side_effect=IOError('Server down'))
+    @mock.patch.object(
+        EmailMultiAlternatives, "send", side_effect=IOError("Server down")
+    )
     def test_email_send_error(self, mock_fn):
         logging.disable(logging.CRITICAL)
         # Approve
@@ -306,10 +350,10 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
 
         # An email that fails to send should return a message rather than crash the page
         self.assertEqual(response.status_code, 302)
-        response = self.client.get(reverse('wagtailadmin_home'))
+        response = self.client.get(reverse("wagtailadmin_home"))
 
         # There should be one "approved" message and one "failed to send notifications"
-        messages = list(response.context['messages'])
+        messages = list(response.context["messages"])
         self.assertEqual(len(messages), 2)
         self.assertEqual(messages[0].level, message_constants.SUCCESS)
         self.assertEqual(messages[1].level, message_constants.ERROR)
@@ -319,5 +363,8 @@ class TestNotificationPreferences(TestCase, WagtailTestUtils):
         self.submit()
 
         msg_headers = set(mail.outbox[0].message().items())
-        headers = {('Auto-Submitted', 'auto-generated')}
-        self.assertTrue(headers.issubset(msg_headers), msg='Message is missing the Auto-Submitted header.',)
+        headers = {("Auto-Submitted", "auto-generated")}
+        self.assertTrue(
+            headers.issubset(msg_headers),
+            msg="Message is missing the Auto-Submitted header.",
+        )

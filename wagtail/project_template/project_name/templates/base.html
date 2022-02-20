@@ -1,16 +1,16 @@
 {% templatetag openblock %} load static wagtailcore_tags wagtailuserbar {% templatetag closeblock %}
 
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <title>
             {% templatetag openblock %} block title %}
-                {% templatetag openblock %} if page.seo_title %}{% templatetag openvariable %} page.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} page.title {% templatetag closevariable %}{% templatetag openblock %} endif %}
+            {% templatetag openblock %} if page.seo_title %}{% templatetag openvariable %} page.seo_title {% templatetag closevariable %}{% templatetag openblock %} else %}{% templatetag openvariable %} page.title {% templatetag closevariable %}{% templatetag openblock %} endif %}
             {% templatetag openblock %} endblock %}
             {% templatetag openblock %} block title_suffix %}
-                {% templatetag openblock %} wagtail_site as current_site %}
-                {% templatetag openblock %} if current_site and current_site.site_name %}- {% templatetag openvariable %} current_site.site_name {% templatetag closevariable %}{% templatetag openblock %} endif %}
+            {% templatetag openblock %} wagtail_site as current_site %}
+            {% templatetag openblock %} if current_site and current_site.site_name %}- {% templatetag openvariable %} current_site.site_name {% templatetag closevariable %}{% templatetag openblock %} endif %}
             {% templatetag openblock %} endblock %}
         </title>
         <meta name="description" content="" />
@@ -20,7 +20,7 @@
         <link rel="stylesheet" type="text/css" href="{% templatetag openblock %} static 'css/{{ project_name }}.css' {% templatetag closeblock %}">
 
         {% templatetag openblock %} block extra_css {% templatetag closeblock %}
-            {% templatetag opencomment %} Override this in templates to add extra stylesheets {% templatetag closecomment %}
+        {% templatetag opencomment %} Override this in templates to add extra stylesheets {% templatetag closecomment %}
         {% templatetag openblock %} endblock {% templatetag closeblock %}
     </head>
 
@@ -33,7 +33,7 @@
         <script type="text/javascript" src="{% templatetag openblock %} static 'js/{{ project_name }}.js' {% templatetag closeblock %}"></script>
 
         {% templatetag openblock %} block extra_js {% templatetag closeblock %}
-            {% templatetag opencomment %} Override this in templates to add extra javascript {% templatetag closecomment %}
+        {% templatetag opencomment %} Override this in templates to add extra javascript {% templatetag closecomment %}
         {% templatetag openblock %} endblock {% templatetag closeblock %}
     </body>
 </html>

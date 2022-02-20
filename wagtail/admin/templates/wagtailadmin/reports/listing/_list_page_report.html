@@ -3,22 +3,22 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block post_parent_page_headers %}
-<tr class="table-headers">
-    <th class="title">
-        {% trans 'Title' %}
-    </th>
-     <th class="updated">
-        {% trans 'Updated' %}
-    </th>
-    <th class="type">
-        {% trans 'Type' %}
-    </th>
-    <th class="status">
-        {% trans 'Status' %}
-    </th>
-    {% block extra_columns %}
-    {% endblock %}
-</tr>
+    <tr class="table-headers">
+        <th class="title">
+            {% trans 'Title' %}
+        </th>
+        <th class="updated">
+            {% trans 'Updated' %}
+        </th>
+        <th class="type">
+            {% trans 'Type' %}
+        </th>
+        <th class="status">
+            {% trans 'Status' %}
+        </th>
+        {% block extra_columns %}
+        {% endblock %}
+    </tr>
 {% endblock %}
 
 {% block page_title %}

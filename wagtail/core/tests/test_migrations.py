@@ -13,21 +13,25 @@ from django.test import TestCase
 
 class TestForMigrations(TestCase):
     def test__migrations(self):
-        app_labels = set(app.label for app in apps.get_app_configs()
-                         if app.name.startswith('wagtail.'))
+        app_labels = {
+            app.label
+            for app in apps.get_app_configs()
+            if app.name.startswith("wagtail.")
+        }
         for app_label in app_labels:
-            apps.get_app_config(app_label.split('.')[-1])
+            apps.get_app_config(app_label.split(".")[-1])
         loader = MigrationLoader(None, ignore_no_migrations=True)
 
-        conflicts = dict(
+        conflicts = {
             (app_label, conflict)
             for app_label, conflict in loader.detect_conflicts().items()
             if app_label in app_labels
-        )
+        }
 
         if conflicts:
-            name_str = "; ".join("%s in %s" % (", ".join(names), app)
-                                 for app, names in conflicts.items())
+            name_str = "; ".join(
+                "%s in %s" % (", ".join(names), app) for app, names in conflicts.items()
+            )
             self.fail("Conflicting migrations detected (%s)." % name_str)
 
         autodetector = MigrationAutodetector(
@@ -43,12 +47,18 @@ class TestForMigrations(TestCase):
         )
 
         if changes:
-            migrations = '\n'.join((
-                '  {migration}\n{changes}'.format(
-                    migration=migration,
-                    changes='\n'.join('    {0}'.format(operation.describe())
-                                      for operation in migration.operations))
-                for (_, migrations) in changes.items()
-                for migration in migrations))
+            migrations = "\n".join(
+                (
+                    "  {migration}\n{changes}".format(
+                        migration=migration,
+                        changes="\n".join(
+                            "    {0}".format(operation.describe())
+                            for operation in migration.operations
+                        ),
+                    )
+                    for (_, migrations) in changes.items()
+                    for migration in migrations
+                )
+            )
 
-            self.fail('Model changes with no migrations detected:\n%s' % migrations)
+            self.fail("Model changes with no migrations detected:\n%s" % migrations)

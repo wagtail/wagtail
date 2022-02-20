@@ -35,26 +35,36 @@ def add_subpage(request, parent_page_id):
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
         verbose_name, app_label, model_name = page_types[0]
-        return redirect('wagtailadmin_pages:add', app_label, model_name, parent_page.id)
+        return redirect("wagtailadmin_pages:add", app_label, model_name, parent_page.id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/add_subpage.html', {
-        'parent_page': parent_page,
-        'page_types': page_types,
-        'next': get_valid_next_url_from_request(request),
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/add_subpage.html",
+        {
+            "parent_page": parent_page,
+            "page_types": page_types,
+            "next": get_valid_next_url_from_request(request),
+        },
+    )
 
 
 class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
-    template_name = 'wagtailadmin/pages/create.html'
+    template_name = "wagtailadmin/pages/create.html"
 
-    def dispatch(self, request, content_type_app_name, content_type_model_name, parent_page_id):
+    def dispatch(
+        self, request, content_type_app_name, content_type_model_name, parent_page_id
+    ):
         self.parent_page = get_object_or_404(Page, id=parent_page_id).specific
-        self.parent_page_perms = self.parent_page.permissions_for_user(self.request.user)
+        self.parent_page_perms = self.parent_page.permissions_for_user(
+            self.request.user
+        )
         if not self.parent_page_perms.can_add_subpage():
             raise PermissionDenied
 
         try:
-            self.page_content_type = ContentType.objects.get_by_natural_key(content_type_app_name, content_type_model_name)
+            self.page_content_type = ContentType.objects.get_by_natural_key(
+                content_type_app_name, content_type_model_name
+            )
         except ContentType.DoesNotExist:
             raise Http404
 
@@ -72,7 +82,9 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if not self.page_class.can_create_at(self.parent_page):
             raise PermissionDenied
 
-        response = self.run_hook('before_create_page', self.request, self.parent_page, self.page_class)
+        response = self.run_hook(
+            "before_create_page", self.request, self.parent_page, self.page_class
+        )
         if response:
             return response
 
@@ -80,18 +92,24 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         # If the parent page is the root page. The user may specify any locale they like
         if self.parent_page.is_root():
-            selected_locale = request.GET.get('locale', None) or request.POST.get('locale', None)
+            selected_locale = request.GET.get("locale", None) or request.POST.get(
+                "locale", None
+            )
             if selected_locale:
                 self.locale = get_object_or_404(Locale, language_code=selected_locale)
 
         self.page = self.page_class(owner=self.request.user)
         self.page.locale = self.locale
         self.edit_handler = self.page_class.get_edit_handler()
-        self.edit_handler = self.edit_handler.bind_to(request=self.request, instance=self.page)
+        self.edit_handler = self.edit_handler.bind_to(
+            request=self.request, instance=self.page
+        )
         self.form_class = self.edit_handler.get_form_class()
 
         # Note: Comment notifications should be enabled by default for pages that a user creates
-        self.subscription = PageSubscription(page=self.page, user=self.request.user, comment_notifications=True)
+        self.subscription = PageSubscription(
+            page=self.page, user=self.request.user, comment_notifications=True
+        )
 
         self.next_url = get_valid_next_url_from_request(self.request)
 
@@ -99,7 +117,11 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def post(self, request):
         self.form = self.form_class(
-            self.request.POST, self.request.FILES, instance=self.page, subscription=self.subscription, parent_page=self.parent_page
+            self.request.POST,
+            self.request.FILES,
+            instance=self.page,
+            subscription=self.subscription,
+            parent_page=self.parent_page,
         )
 
         if self.form.is_valid():
@@ -108,23 +130,33 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return self.form_invalid(self.form)
 
     def form_valid(self, form):
-        if bool(self.request.POST.get('action-publish')) and self.parent_page_perms.can_publish_subpage():
+        if (
+            bool(self.request.POST.get("action-publish"))
+            and self.parent_page_perms.can_publish_subpage()
+        ):
             return self.publish_action()
-        elif bool(self.request.POST.get('action-submit')) and self.parent_page.has_workflow:
+        elif (
+            bool(self.request.POST.get("action-submit"))
+            and self.parent_page.has_workflow
+        ):
             return self.submit_action()
         else:
             return self.save_action()
 
     def get_edit_message_button(self):
-        return messages.button(reverse('wagtailadmin_pages:edit', args=(self.page.id,)), _('Edit'))
+        return messages.button(
+            reverse("wagtailadmin_pages:edit", args=(self.page.id,)), _("Edit")
+        )
 
     def get_view_draft_message_button(self):
         return messages.button(
-            reverse('wagtailadmin_pages:view_draft', args=(self.page.id,)), _('View draft'), new_window=False
+            reverse("wagtailadmin_pages:view_draft", args=(self.page.id,)),
+            _("View draft"),
+            new_window=False,
         )
 
     def get_view_live_message_button(self):
-        return messages.button(self.page.url, _('View live'), new_window=False)
+        return messages.button(self.page.url, _("View live"), new_window=False)
 
     def save_action(self):
         self.page = self.form.save(commit=False)
@@ -141,9 +173,12 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # Notification
-        messages.success(self.request, _("Page '{0}' created.").format(self.page.get_admin_display_title()))
+        messages.success(
+            self.request,
+            _("Page '{0}' created.").format(self.page.get_admin_display_title()),
+        )
 
-        response = self.run_hook('after_create_page', self.request, self.page)
+        response = self.run_hook("after_create_page", self.request, self.page)
         if response:
             return response
 
@@ -164,7 +199,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.subscription.save()
 
         # Publish
-        response = self.run_hook('before_publish_page', self.request, self.page)
+        response = self.run_hook("before_publish_page", self.request, self.page)
         if response:
             return response
 
@@ -173,7 +208,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         # get a fresh copy so that any changes coming from revision.publish() are passed on
         self.page.refresh_from_db()
 
-        response = self.run_hook('after_publish_page', self.request, self.page)
+        response = self.run_hook("after_publish_page", self.request, self.page)
         if response:
             return response
 
@@ -181,8 +216,10 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         if self.page.go_live_at and self.page.go_live_at > timezone.now():
             messages.success(
                 self.request,
-                _("Page '{0}' created and scheduled for publishing.").format(self.page.get_admin_display_title()),
-                buttons=[self.get_edit_message_button()]
+                _("Page '{0}' created and scheduled for publishing.").format(
+                    self.page.get_admin_display_title()
+                ),
+                buttons=[self.get_edit_message_button()],
             )
         else:
             buttons = []
@@ -191,11 +228,13 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             buttons.append(self.get_edit_message_button())
             messages.success(
                 self.request,
-                _("Page '{0}' created and published.").format(self.page.get_admin_display_title()),
-                buttons=buttons
+                _("Page '{0}' created and published.").format(
+                    self.page.get_admin_display_title()
+                ),
+                buttons=buttons,
             )
 
-        response = self.run_hook('after_create_page', self.request, self.page)
+        response = self.run_hook("after_create_page", self.request, self.page)
         if response:
             return response
 
@@ -228,11 +267,13 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         messages.success(
             self.request,
-            _("Page '{0}' created and submitted for moderation.").format(self.page.get_admin_display_title()),
-            buttons=buttons
+            _("Page '{0}' created and submitted for moderation.").format(
+                self.page.get_admin_display_title()
+            ),
+            buttons=buttons,
         )
 
-        response = self.run_hook('after_create_page', self.request, self.page)
+        response = self.run_hook("after_create_page", self.request, self.page)
         if response:
             return response
 
@@ -244,18 +285,20 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return redirect(self.next_url)
         else:
             # redirect back to the explorer
-            return redirect('wagtailadmin_explore', self.page.get_parent().id)
+            return redirect("wagtailadmin_explore", self.page.get_parent().id)
 
     def redirect_and_remain(self):
-        target_url = reverse('wagtailadmin_pages:edit', args=[self.page.id])
+        target_url = reverse("wagtailadmin_pages:edit", args=[self.page.id])
         if self.next_url:
             # Ensure the 'next' url is passed through again if present
-            target_url += '?next=%s' % quote(self.next_url)
+            target_url += "?next=%s" % quote(self.next_url)
         return redirect(target_url)
 
     def form_invalid(self, form):
         messages.validation_error(
-            self.request, _("The page could not be created due to validation errors"), self.form
+            self.request,
+            _("The page could not be created due to validation errors"),
+            self.form,
         )
         self.has_unsaved_changes = True
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
@@ -263,8 +306,14 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         return self.render_to_response(self.get_context_data())
 
     def get(self, request):
-        signals.init_new_page.send(sender=CreateView, page=self.page, parent=self.parent_page)
-        self.form = self.form_class(instance=self.page, subscription=self.subscription, parent_page=self.parent_page)
+        signals.init_new_page.send(
+            sender=CreateView, page=self.page, parent=self.parent_page
+        )
+        self.form = self.form_class(
+            instance=self.page,
+            subscription=self.subscription,
+            parent_page=self.parent_page,
+        )
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
@@ -272,31 +321,40 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({
-            'content_type': self.page_content_type,
-            'page_class': self.page_class,
-            'parent_page': self.parent_page,
-            'edit_handler': self.edit_handler,
-            'action_menu': PageActionMenu(self.request, view='create', parent_page=self.parent_page),
-            'preview_modes': self.page.preview_modes,
-            'form': self.form,
-            'next': self.next_url,
-            'has_unsaved_changes': self.has_unsaved_changes,
-            'locale': None,
-            'translations': [],
-        })
+        context.update(
+            {
+                "content_type": self.page_content_type,
+                "page_class": self.page_class,
+                "parent_page": self.parent_page,
+                "edit_handler": self.edit_handler,
+                "action_menu": PageActionMenu(
+                    self.request, view="create", parent_page=self.parent_page
+                ),
+                "preview_modes": self.page.preview_modes,
+                "form": self.form,
+                "next": self.next_url,
+                "has_unsaved_changes": self.has_unsaved_changes,
+                "locale": None,
+                "translations": [],
+            }
+        )
 
-        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             # Pages can be created in any language at the root level
             if self.parent_page.is_root():
                 translations = [
                     {
-                        'locale': locale,
-                        'url': reverse('wagtailadmin_pages:add', args=[
-                            self.page_content_type.app_label,
-                            self.page_content_type.model,
-                            self.parent_page.id
-                        ]) + '?' + urlencode({'locale': locale.language_code}),
+                        "locale": locale,
+                        "url": reverse(
+                            "wagtailadmin_pages:add",
+                            args=[
+                                self.page_content_type.app_label,
+                                self.page_content_type.model,
+                                self.parent_page.id,
+                            ],
+                        )
+                        + "?"
+                        + urlencode({"locale": locale.language_code}),
                     }
                     for locale in Locale.objects.all()
                 ]
@@ -305,18 +363,30 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 user_perms = UserPagePermissionsProxy(self.request.user)
                 translations = [
                     {
-                        'locale': translation.locale,
-                        'url': reverse('wagtailadmin_pages:add', args=[self.page_content_type.app_label, self.page_content_type.model, translation.id]),
+                        "locale": translation.locale,
+                        "url": reverse(
+                            "wagtailadmin_pages:add",
+                            args=[
+                                self.page_content_type.app_label,
+                                self.page_content_type.model,
+                                translation.id,
+                            ],
+                        ),
                     }
-                    for translation in self.parent_page.get_translations().only('id', 'locale').select_related('locale')
+                    for translation in self.parent_page.get_translations()
+                    .only("id", "locale")
+                    .select_related("locale")
                     if user_perms.for_page(translation).can_add_subpage()
-                    and self.page_class in translation.specific_class.creatable_subpage_models()
+                    and self.page_class
+                    in translation.specific_class.creatable_subpage_models()
                     and self.page_class.can_create_at(translation)
                 ]
 
-            context.update({
-                'locale': self.locale,
-                'translations': translations,
-            })
+            context.update(
+                {
+                    "locale": self.locale,
+                    "translations": translations,
+                }
+            )
 
         return context

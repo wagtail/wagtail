@@ -3,8 +3,8 @@
 
 {% block per_item %}
     {% if item.can_edit %}
-    <a href="{% url 'wagtaildocs:edit' item.item.id %}" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
+        <a href="{% url 'wagtaildocs:edit' item.item.id %}" target="_blank" rel="noreferrer">{{ item.item.title }}</a>
     {% else %}
-    {{ item.item.title }}
+        {{ item.item.title }}
     {% endif %}
 {% endblock per_item %}

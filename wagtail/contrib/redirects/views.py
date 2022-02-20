@@ -23,130 +23,178 @@ from wagtail.contrib.redirects.filters import RedirectsReportFilterSet
 from wagtail.contrib.redirects.forms import ConfirmImportForm, ImportForm, RedirectForm
 from wagtail.contrib.redirects.permissions import permission_policy
 from wagtail.contrib.redirects.utils import (
-    get_file_storage, get_format_cls_by_extension, get_import_formats, get_supported_extensions,
-    write_to_file_storage)
+    get_file_storage,
+    get_format_cls_by_extension,
+    get_import_formats,
+    get_supported_extensions,
+    write_to_file_storage,
+)
 from wagtail.core.log_actions import log
-
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 
 
-@permission_checker.require_any('add', 'change', 'delete')
-@vary_on_headers('X-Requested-With')
+@permission_checker.require_any("add", "change", "delete")
+@vary_on_headers("X-Requested-With")
 def index(request):
-    query_string = request.GET.get('q', "")
-    ordering = request.GET.get('ordering', 'old_path')
+    query_string = request.GET.get("q", "")
+    ordering = request.GET.get("ordering", "old_path")
 
-    redirects = models.Redirect.objects.prefetch_related('redirect_page', 'site')
+    redirects = models.Redirect.objects.prefetch_related("redirect_page", "site")
 
     # Search
     if query_string:
-        redirects = redirects.filter(Q(old_path__icontains=query_string)
-                                     | Q(redirect_page__url_path__icontains=query_string)
-                                     | Q(redirect_link__icontains=query_string))
+        redirects = redirects.filter(
+            Q(old_path__icontains=query_string)
+            | Q(redirect_page__url_path__icontains=query_string)
+            | Q(redirect_link__icontains=query_string)
+        )
 
     # Ordering (A bit useless at the moment as only 'old_path' is allowed)
-    if ordering not in ['old_path']:
-        ordering = 'old_path'
+    if ordering not in ["old_path"]:
+        ordering = "old_path"
 
     redirects = redirects.order_by(ordering)
 
     # Pagination
     paginator = Paginator(redirects, per_page=20)
-    redirects = paginator.get_page(request.GET.get('p'))
+    redirects = paginator.get_page(request.GET.get("p"))
 
     # Render template
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        return TemplateResponse(request, "wagtailredirects/results.html", {
-            'ordering': ordering,
-            'redirects': redirects,
-            'query_string': query_string,
-        })
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        return TemplateResponse(
+            request,
+            "wagtailredirects/results.html",
+            {
+                "ordering": ordering,
+                "redirects": redirects,
+                "query_string": query_string,
+            },
+        )
     else:
-        return TemplateResponse(request, "wagtailredirects/index.html", {
-            'ordering': ordering,
-            'redirects': redirects,
-            'query_string': query_string,
-            'search_form': SearchForm(
-                data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
-            ),
-            'user_can_add': permission_policy.user_has_permission(request.user, 'add'),
-        })
+        return TemplateResponse(
+            request,
+            "wagtailredirects/index.html",
+            {
+                "ordering": ordering,
+                "redirects": redirects,
+                "query_string": query_string,
+                "search_form": SearchForm(
+                    data={"q": query_string} if query_string else None,
+                    placeholder=_("Search redirects"),
+                ),
+                "user_can_add": permission_policy.user_has_permission(
+                    request.user, "add"
+                ),
+            },
+        )
 
 
-@permission_checker.require('change')
+@permission_checker.require("change")
 def edit(request, redirect_id):
     theredirect = get_object_or_404(models.Redirect, id=redirect_id)
 
     if not permission_policy.user_has_permission_for_instance(
-        request.user, 'change', theredirect
+        request.user, "change", theredirect
     ):
         raise PermissionDenied
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RedirectForm(request.POST, request.FILES, instance=theredirect)
         if form.is_valid():
             with transaction.atomic():
                 form.save()
-                log(instance=theredirect, action='wagtail.edit')
-            messages.success(request, _("Redirect '{0}' updated.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
-            ])
-            return redirect('wagtailredirects:index')
+                log(instance=theredirect, action="wagtail.edit")
+            messages.success(
+                request,
+                _("Redirect '{0}' updated.").format(theredirect.title),
+                buttons=[
+                    messages.button(
+                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
+                        _("Edit"),
+                    )
+                ],
+            )
+            return redirect("wagtailredirects:index")
         else:
             messages.error(request, _("The redirect could not be saved due to errors."))
     else:
         form = RedirectForm(instance=theredirect)
 
-    return TemplateResponse(request, "wagtailredirects/edit.html", {
-        'redirect': theredirect,
-        'form': form,
-        'user_can_delete': permission_policy.user_has_permission(request.user, 'delete'),
-    })
+    return TemplateResponse(
+        request,
+        "wagtailredirects/edit.html",
+        {
+            "redirect": theredirect,
+            "form": form,
+            "user_can_delete": permission_policy.user_has_permission(
+                request.user, "delete"
+            ),
+        },
+    )
 
 
-@permission_checker.require('delete')
+@permission_checker.require("delete")
 def delete(request, redirect_id):
     theredirect = get_object_or_404(models.Redirect, id=redirect_id)
 
     if not permission_policy.user_has_permission_for_instance(
-        request.user, 'delete', theredirect
+        request.user, "delete", theredirect
     ):
         raise PermissionDenied
 
-    if request.method == 'POST':
+    if request.method == "POST":
         with transaction.atomic():
-            log(instance=theredirect, action='wagtail.delete')
+            log(instance=theredirect, action="wagtail.delete")
             theredirect.delete()
-        messages.success(request, _("Redirect '{0}' deleted.").format(theredirect.title))
-        return redirect('wagtailredirects:index')
+        messages.success(
+            request, _("Redirect '{0}' deleted.").format(theredirect.title)
+        )
+        return redirect("wagtailredirects:index")
 
-    return TemplateResponse(request, "wagtailredirects/confirm_delete.html", {
-        'redirect': theredirect,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailredirects/confirm_delete.html",
+        {
+            "redirect": theredirect,
+        },
+    )
 
 
-@permission_checker.require('add')
+@permission_checker.require("add")
 def add(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RedirectForm(request.POST, request.FILES)
         if form.is_valid():
             with transaction.atomic():
                 theredirect = form.save()
-                log(instance=theredirect, action='wagtail.edit')
+                log(instance=theredirect, action="wagtail.edit")
 
-            messages.success(request, _("Redirect '{0}' added.").format(theredirect.title), buttons=[
-                messages.button(reverse('wagtailredirects:edit', args=(theredirect.id,)), _('Edit'))
-            ])
-            return redirect('wagtailredirects:index')
+            messages.success(
+                request,
+                _("Redirect '{0}' added.").format(theredirect.title),
+                buttons=[
+                    messages.button(
+                        reverse("wagtailredirects:edit", args=(theredirect.id,)),
+                        _("Edit"),
+                    )
+                ],
+            )
+            return redirect("wagtailredirects:index")
         else:
-            messages.error(request, _("The redirect could not be created due to errors."))
+            messages.error(
+                request, _("The redirect could not be created due to errors.")
+            )
     else:
         form = RedirectForm()
 
-    return TemplateResponse(request, "wagtailredirects/add.html", {
-        'form': form,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailredirects/add.html",
+        {
+            "form": form,
+        },
+    )
 
 
 @permission_checker.require_any("add")
@@ -154,7 +202,7 @@ def start_import(request):
     supported_extensions = get_supported_extensions()
     from_encoding = "utf-8"
 
-    query_string = request.GET.get('q', "")
+    query_string = request.GET.get("q", "")
 
     if request.POST or request.FILES:
         form_kwargs = {}
@@ -162,7 +210,7 @@ def start_import(request):
             supported_extensions,
             request.POST or None,
             request.FILES or None,
-            **form_kwargs
+            **form_kwargs,
         )
     else:
         form = ImportForm(supported_extensions)
@@ -172,8 +220,9 @@ def start_import(request):
             request,
             "wagtailredirects/choose_import_file.html",
             {
-                'search_form': SearchForm(
-                    data=dict(q=query_string) if query_string else None, placeholder=_("Search redirects")
+                "search_form": SearchForm(
+                    data={"q": query_string} if query_string else None,
+                    placeholder=_("Search redirects"),
                 ),
                 "form": form,
             },
@@ -186,10 +235,9 @@ def start_import(request):
 
     if extension not in supported_extensions:
         messages.error(
-            request,
-            _('File format of type "{}" is not supported').format(extension)
+            request, _('File format of type "{}" is not supported').format(extension)
         )
-        return redirect('wagtailredirects:start_import')
+        return redirect("wagtailredirects:start_import")
 
     import_format_cls = get_format_cls_by_extension(extension)
     input_format = import_format_cls()
@@ -201,19 +249,15 @@ def start_import(request):
             data = force_str(data, from_encoding)
         dataset = input_format.create_dataset(data)
     except UnicodeDecodeError as e:
-        messages.error(
-            request,
-            _("Imported file has a wrong encoding: %s") % e
-        )
-        return redirect('wagtailredirects:start_import')
+        messages.error(request, _("Imported file has a wrong encoding: %s") % e)
+        return redirect("wagtailredirects:start_import")
     except Exception as e:  # pragma: no cover
         messages.error(
             request,
-            _("%(error)s encountered while trying to read file: %(filename)s") % {
-                'error': type(e).__name__, 'filename': import_file.name
-            }
+            _("%(error)s encountered while trying to read file: %(filename)s")
+            % {"error": type(e).__name__, "filename": import_file.name},
         )
-        return redirect('wagtailredirects:start_import')
+        return redirect("wagtailredirects:start_import")
 
     initial = {
         "import_file_name": file_storage.name,
@@ -305,14 +349,11 @@ def process_import(request):
     total = import_summary["total"]
     messages.success(
         request,
-        ngettext(
-            "Imported %(total)d redirect",
-            "Imported %(total)d redirects",
-            total
-        ) % {'total': total}
+        ngettext("Imported %(total)d redirect", "Imported %(total)d redirects", total)
+        % {"total": total},
     )
 
-    return redirect('wagtailredirects:index')
+    return redirect("wagtailredirects:index")
 
 
 def create_redirects_from_dataset(dataset, config):
@@ -343,7 +384,7 @@ def create_redirects_from_dataset(dataset, config):
 
         with transaction.atomic():
             redirect = form.save()
-            log(instance=redirect, action='wagtail.create')
+            log(instance=redirect, action="wagtail.create")
         successes += 1
 
     return {
@@ -357,7 +398,7 @@ def create_redirects_from_dataset(dataset, config):
 def to_readable_errors(error):
     errors = error.split("\n")
     errors = errors[1::2]
-    errors = [x.lstrip('* ') for x in errors]
+    errors = [x.lstrip("* ") for x in errors]
     errors = ", ".join(errors)
     return errors
 

@@ -1,9 +1,12 @@
 import os.path
 
 from wagtail.admin.views.generic.multiple_upload import AddView as BaseAddView
-from wagtail.admin.views.generic.multiple_upload import \
-    CreateFromUploadView as BaseCreateFromUploadView
-from wagtail.admin.views.generic.multiple_upload import DeleteUploadView as BaseDeleteUploadView
+from wagtail.admin.views.generic.multiple_upload import (
+    CreateFromUploadView as BaseCreateFromUploadView,
+)
+from wagtail.admin.views.generic.multiple_upload import (
+    DeleteUploadView as BaseDeleteUploadView,
+)
 from wagtail.admin.views.generic.multiple_upload import DeleteView as BaseDeleteView
 from wagtail.admin.views.generic.multiple_upload import EditView as BaseEditView
 from wagtail.images import get_image_model
@@ -16,20 +19,20 @@ from wagtail.search.backends import get_search_backends
 
 class AddView(BaseAddView):
     permission_policy = permission_policy
-    template_name = 'wagtailimages/multiple/add.html'
+    template_name = "wagtailimages/multiple/add.html"
     upload_model = UploadedImage
 
-    edit_object_url_name = 'wagtailimages:edit_multiple'
-    delete_object_url_name = 'wagtailimages:delete_multiple'
-    edit_object_form_prefix = 'image'
-    context_object_name = 'image'
-    context_object_id_name = 'image_id'
+    edit_object_url_name = "wagtailimages:edit_multiple"
+    delete_object_url_name = "wagtailimages:delete_multiple"
+    edit_object_form_prefix = "image"
+    context_object_name = "image"
+    context_object_id_name = "image_id"
 
-    edit_upload_url_name = 'wagtailimages:create_multiple_from_uploaded_image'
-    delete_upload_url_name = 'wagtailimages:delete_upload_multiple'
-    edit_upload_form_prefix = 'uploaded-image'
-    context_upload_name = 'uploaded_image'
-    context_upload_id_name = 'uploaded_image_id'
+    edit_upload_url_name = "wagtailimages:create_multiple_from_uploaded_image"
+    delete_upload_url_name = "wagtailimages:delete_upload_multiple"
+    edit_upload_form_prefix = "uploaded-image"
+    context_upload_name = "uploaded_image"
+    context_upload_id_name = "uploaded_image_id"
 
     def get_model(self):
         return get_image_model()
@@ -53,25 +56,31 @@ class AddView(BaseAddView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context.update({
-            'max_filesize': self.form.fields['file'].max_upload_size,
-            'max_title_length': self.form.fields['title'].max_length,
-            'allowed_extensions': ALLOWED_EXTENSIONS,
-            'error_max_file_size': self.form.fields['file'].error_messages['file_too_large_unknown_size'],
-            'error_accepted_file_types': self.form.fields['file'].error_messages['invalid_image_extension'],
-        })
+        context.update(
+            {
+                "max_filesize": self.form.fields["file"].max_upload_size,
+                "max_title_length": self.form.fields["title"].max_length,
+                "allowed_extensions": ALLOWED_EXTENSIONS,
+                "error_max_file_size": self.form.fields["file"].error_messages[
+                    "file_too_large_unknown_size"
+                ],
+                "error_accepted_file_types": self.form.fields["file"].error_messages[
+                    "invalid_image_extension"
+                ],
+            }
+        )
 
         return context
 
 
 class EditView(BaseEditView):
     permission_policy = permission_policy
-    pk_url_kwarg = 'image_id'
-    edit_object_form_prefix = 'image'
-    context_object_name = 'image'
-    context_object_id_name = 'image_id'
-    edit_object_url_name = 'wagtailimages:edit_multiple'
-    delete_object_url_name = 'wagtailimages:delete_multiple'
+    pk_url_kwarg = "image_id"
+    edit_object_form_prefix = "image"
+    context_object_name = "image"
+    context_object_id_name = "image_id"
+    edit_object_url_name = "wagtailimages:edit_multiple"
+    delete_object_url_name = "wagtailimages:delete_multiple"
 
     def get_model(self):
         return get_image_model()
@@ -89,21 +98,21 @@ class EditView(BaseEditView):
 
 class DeleteView(BaseDeleteView):
     permission_policy = permission_policy
-    pk_url_kwarg = 'image_id'
-    context_object_id_name = 'image_id'
+    pk_url_kwarg = "image_id"
+    context_object_id_name = "image_id"
 
     def get_model(self):
         return get_image_model()
 
 
 class CreateFromUploadedImageView(BaseCreateFromUploadView):
-    edit_upload_url_name = 'wagtailimages:create_multiple_from_uploaded_image'
-    delete_upload_url_name = 'wagtailimages:delete_upload_multiple'
+    edit_upload_url_name = "wagtailimages:create_multiple_from_uploaded_image"
+    delete_upload_url_name = "wagtailimages:delete_upload_multiple"
     upload_model = UploadedImage
-    upload_pk_url_kwarg = 'uploaded_image_id'
-    edit_upload_form_prefix = 'uploaded-image'
-    context_object_id_name = 'image_id'
-    context_upload_name = 'uploaded_image'
+    upload_pk_url_kwarg = "uploaded_image_id"
+    edit_upload_form_prefix = "uploaded-image"
+    context_object_id_name = "image_id"
+    context_upload_name = "uploaded_image"
 
     def get_model(self):
         return get_image_model()
@@ -115,7 +124,9 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
         # assign the file content from uploaded_image to the image object, to ensure it gets saved to
         # Image's storage
 
-        self.object.file.save(os.path.basename(self.upload.file.name), self.upload.file.file, save=False)
+        self.object.file.save(
+            os.path.basename(self.upload.file.name), self.upload.file.file, save=False
+        )
         self.object.uploaded_by_user = self.request.user
         self.object.file_size = self.object.file.size
         self.object.file.open()
@@ -131,4 +142,4 @@ class CreateFromUploadedImageView(BaseCreateFromUploadView):
 
 class DeleteUploadView(BaseDeleteUploadView):
     upload_model = UploadedImage
-    upload_pk_url_kwarg = 'uploaded_image_id'
+    upload_pk_url_kwarg = "uploaded_image_id"

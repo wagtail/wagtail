@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailusers', '0006_userprofile_prefered_language'),
+        ("wagtailusers", "0006_userprofile_prefered_language"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='userprofile',
-            name='current_time_zone',
-            field=models.CharField(default='', help_text='Select your current time zone', max_length=40, verbose_name='current time zone'),
+            model_name="userprofile",
+            name="current_time_zone",
+            field=models.CharField(
+                default="",
+                help_text="Select your current time zone",
+                max_length=40,
+                verbose_name="current time zone",
+            ),
         ),
     ]

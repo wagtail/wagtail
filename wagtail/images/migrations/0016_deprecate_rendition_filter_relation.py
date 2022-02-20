@@ -6,16 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0015_fill_filter_spec_field'),
+        ("wagtailimages", "0015_fill_filter_spec_field"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='rendition',
-            name='filter_spec',
+            model_name="rendition",
+            name="filter_spec",
             field=models.CharField(db_index=True, max_length=255),
         ),
-
         # New step introduced in Wagtail 1.8.1:
         #
         # Reduce max_length of rendition.focal_point_key to 16, from the previous value of 255
@@ -42,15 +41,15 @@ class Migration(migrations.Migration):
         # Projects with a custom image model don't have to worry about this - they'll have an existing
         # migration with the max_length=255, and will get a new migration reducing it to max_length=16
         # the next time they run makemigrations.
-
         migrations.AlterField(
-            model_name='rendition',
-            name='focal_point_key',
-            field=models.CharField(blank=True, default='', max_length=17, editable=False),
+            model_name="rendition",
+            name="focal_point_key",
+            field=models.CharField(
+                blank=True, default="", max_length=17, editable=False
+            ),
         ),
-
         migrations.AlterUniqueTogether(
-            name='rendition',
-            unique_together=set([('image', 'filter_spec', 'focal_point_key')]),
+            name="rendition",
+            unique_together={("image", "filter_spec", "focal_point_key")},
         ),
     ]

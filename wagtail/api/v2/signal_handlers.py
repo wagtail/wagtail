@@ -12,19 +12,25 @@ from .utils import get_base_url
 
 def purge_page_from_cache(instance, **kwargs):
     base_url = get_base_url()
-    purge_url_from_cache(base_url + reverse('wagtailapi_v2:pages:detail', args=(instance.id, )))
+    purge_url_from_cache(
+        base_url + reverse("wagtailapi_v2:pages:detail", args=(instance.id,))
+    )
 
 
 def purge_image_from_cache(instance, **kwargs):
-    if not kwargs.get('created', False):
+    if not kwargs.get("created", False):
         base_url = get_base_url()
-        purge_url_from_cache(base_url + reverse('wagtailapi_v2:images:detail', args=(instance.id, )))
+        purge_url_from_cache(
+            base_url + reverse("wagtailapi_v2:images:detail", args=(instance.id,))
+        )
 
 
 def purge_document_from_cache(instance, **kwargs):
-    if not kwargs.get('created', False):
+    if not kwargs.get("created", False):
         base_url = get_base_url()
-        purge_url_from_cache(base_url + reverse('wagtailapi_v2:documents:detail', args=(instance.id, )))
+        purge_url_from_cache(
+            base_url + reverse("wagtailapi_v2:documents:detail", args=(instance.id,))
+        )
 
 
 def register_signal_handlers():

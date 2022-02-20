@@ -1,16 +1,20 @@
 import re
-
 from collections.abc import Mapping
 
+ELEMENT_SELECTOR = re.compile(r"^([\w-]+)$")
+ELEMENT_WITH_ATTR_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)\]$")
+ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR = re.compile(
+    r"^([\w-]+)\[([\w-]+)='(.*)'\]$"
+)
+ELEMENT_WITH_ATTR_EXACT_DOUBLE_QUOTE_SELECTOR = re.compile(
+    r'^([\w-]+)\[([\w-]+)="(.*)"\]$'
+)
+ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR = re.compile(
+    r"^([\w-]+)\[([\w-]+)=([\w-]+)\]$"
+)
 
-ELEMENT_SELECTOR = re.compile(r'^([\w-]+)$')
-ELEMENT_WITH_ATTR_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)\]$')
-ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)='(.*)'\]$")
-ELEMENT_WITH_ATTR_EXACT_DOUBLE_QUOTE_SELECTOR = re.compile(r'^([\w-]+)\[([\w-]+)="(.*)"\]$')
-ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR = re.compile(r"^([\w-]+)\[([\w-]+)=([\w-]+)\]$")
 
-
-class HTMLRuleset():
+class HTMLRuleset:
     """
     Maintains a set of rules for matching HTML elements.
     Each rule defines a mapping from a CSS-like selector to an arbitrary result object.
@@ -20,6 +24,7 @@ class HTMLRuleset():
     'a[href]' = matches any <a> element with an 'href' attribute
     'a[linktype="page"]' = matches any <a> element with a 'linktype' attribute equal to 'page'
     """
+
     def __init__(self, rules=None):
         # mapping of element name to a sorted list of (precedence, attr_check, result) tuples
         # where attr_check is a callable that takes an attr dict and returns True if they match
@@ -57,7 +62,9 @@ class HTMLRuleset():
         # attribute `attr` equal to `value`
         rules = self.element_rules.setdefault(name, [])
         # element-and-attr rules have priority 1 (higher)
-        rules.append((1, (lambda attrs: attr in attrs and attrs[attr] == value), result))
+        rules.append(
+            (1, (lambda attrs: attr in attrs and attrs[attr] == value), result)
+        )
         # sort list on priority
         rules.sort(key=lambda t: t[0])
 
@@ -77,7 +84,7 @@ class HTMLRuleset():
         for regex in (
             ELEMENT_WITH_ATTR_EXACT_SINGLE_QUOTE_SELECTOR,
             ELEMENT_WITH_ATTR_EXACT_DOUBLE_QUOTE_SELECTOR,
-            ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR
+            ELEMENT_WITH_ATTR_EXACT_UNQUOTED_SELECTOR,
         ):
             match = regex.match(selector)
             if match:

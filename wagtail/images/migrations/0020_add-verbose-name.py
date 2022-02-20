@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0019_delete_filter'),
+        ("wagtailimages", "0019_delete_filter"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='image',
-            options={'verbose_name': 'image', 'verbose_name_plural': 'images'},
+            name="image",
+            options={"verbose_name": "image", "verbose_name_plural": "images"},
         ),
     ]

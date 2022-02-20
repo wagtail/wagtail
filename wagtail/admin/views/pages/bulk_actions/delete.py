@@ -10,15 +10,15 @@ class DeleteBulkAction(PageBulkAction):
     aria_label = _("Delete selected pages")
     template_name = "wagtailadmin/pages/bulk_actions/confirm_bulk_delete.html"
     action_priority = 30
-    classes = {'serious'}
+    classes = {"serious"}
 
     def check_perm(self, page):
         return page.permissions_for_user(self.request.user).can_delete()
 
     def object_context(self, page):
         return {
-            'item': page,
-            'descendant_count': page.get_descendant_count(),
+            "item": page,
+            "descendant_count": page.get_descendant_count(),
         }
 
     @classmethod
@@ -38,20 +38,20 @@ class DeleteBulkAction(PageBulkAction):
                 success_message = ngettext(
                     "1 page and %(num_child_objects)d child page have been deleted",
                     "1 page and %(num_child_objects)d child pages have been deleted",
-                    num_child_objects
-                ) % {
-                    'num_child_objects': num_child_objects
-                }
+                    num_child_objects,
+                ) % {"num_child_objects": num_child_objects}
         else:
             if num_child_objects == 0:
-                success_message = _("%(num_parent_objects)d pages have been deleted") % {'num_parent_objects': num_parent_objects}
+                success_message = _(
+                    "%(num_parent_objects)d pages have been deleted"
+                ) % {"num_parent_objects": num_parent_objects}
             else:
                 success_message = ngettext(
                     "%(num_parent_objects)d pages and %(num_child_objects)d child page have been deleted",
                     "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been deleted",
-                    num_child_objects
+                    num_child_objects,
                 ) % {
-                    'num_child_objects': num_child_objects,
-                    'num_parent_objects': num_parent_objects
+                    "num_child_objects": num_child_objects,
+                    "num_parent_objects": num_parent_objects,
                 }
         return success_message

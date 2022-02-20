@@ -21,7 +21,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         # Add child pages
         self.child_pages = [
-            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}")
+            SimplePage(
+                title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"hello-{i}"
+            )
             for i in range(1, 5)
         ]
         # first three child pages will be deleted
@@ -32,20 +34,38 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
-            self.pages_to_be_deleted[0]: [SimplePage(title="Hello world!-a", slug="hello-world-a", content="hello-a")],
+            self.pages_to_be_deleted[0]: [
+                SimplePage(
+                    title="Hello world!-a", slug="hello-world-a", content="hello-a"
+                )
+            ],
             self.pages_to_be_deleted[1]: [
-                SimplePage(title="Hello world!-b", slug="hello-world-b", content="hello-b"),
-                SimplePage(title="Hello world!-c", slug="hello-world-c", content="hello-c")
-            ]
+                SimplePage(
+                    title="Hello world!-b", slug="hello-world-b", content="hello-b"
+                ),
+                SimplePage(
+                    title="Hello world!-c", slug="hello-world-c", content="hello-c"
+                ),
+            ],
         }
 
         for child_page, grandchild_pages in self.grandchildren_pages.items():
             for grandchild_page in grandchild_pages:
                 child_page.add_child(instance=grandchild_page)
 
-        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'delete', )) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "delete",
+                ),
+            )
+            + "?"
+        )
         for child_page in self.pages_to_be_deleted:
-            self.url += f'&id={child_page.id}'
+            self.url += f"&id={child_page.id}"
 
         # Login
         self.user = self.login()
@@ -60,20 +80,20 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         html = response.content.decode()
         for child_page in self.pages_to_be_deleted:
             # check if the pages to be deleted and number of descendant pages are displayed
-            needle = '<li>'
-            needle += '<a href="{edit_page_url}" target="_blank" rel="noopener noreferrer">{page_title}</a>'.format(
-                edit_page_url=reverse('wagtailadmin_pages:edit', args=[child_page.id]),
-                page_title=child_page.title
+            needle = "<li>"
+            needle += '<a href="{edit_page_url}" target="_blank" rel="noreferrer">{page_title}</a>'.format(
+                edit_page_url=reverse("wagtailadmin_pages:edit", args=[child_page.id]),
+                page_title=child_page.title,
             )
             descendants = len(self.grandchildren_pages.get(child_page, []))
             if descendants:
-                needle += '<p>'
+                needle += "<p>"
                 if descendants == 1:
-                    needle += 'This will also delete one more subpage.'
+                    needle += "This will also delete one more subpage."
                 else:
-                    needle += f'This will also delete {descendants} more subpages.'
-                needle += '</p>'
-            needle += '</li>'
+                    needle += f"This will also delete {descendants} more subpages."
+                needle += "</p>"
+            needle += "</li>"
             self.assertInHTML(needle, html)
 
     def test_page_delete_specific_admin_title(self):
@@ -81,13 +101,15 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         # The number of pages to be deleted is shown on the delete confirmation page.
-        self.assertContains(response, f'Delete {len(self.pages_to_be_deleted)} pages')
+        self.assertContains(response, f"Delete {len(self.pages_to_be_deleted)} pages")
 
     def test_page_delete_bad_permissions(self):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
@@ -103,12 +125,20 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML("<p>You don't have permission to delete these pages</p>", html)
+        self.assertInHTML(
+            "<p>You don't have permission to delete these pages</p>", html
+        )
 
         for child_page in self.pages_to_be_deleted:
-            self.assertInHTML('<li>{page_title}</li>'.format(page_title=child_page.title), html)
+            self.assertInHTML(
+                "<li>{page_title}</li>".format(page_title=child_page.title), html
+            )
 
-        self.assertTagInHTML('''<form action="{}" method="POST"></form>'''.format(self.url), html, count=0)
+        self.assertTagInHTML(
+            """<form action="{}" method="POST"></form>""".format(self.url),
+            html,
+            count=0,
+        )
 
     def test_bulk_delete_post(self):
         # Connect a mock signal handler to page_unpublished signal
@@ -122,7 +152,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
-        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+        self.assertFalse(
+            any(Page.find_problems()), "treebeard found consistency problems"
+        )
 
         # Check that the child pages to be deleted are gone
         for child_page in self.pages_to_be_deleted:
@@ -134,21 +166,25 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         # Check that the page_unpublished signal was fired for all pages
         num_descendants = sum(len(i) for i in self.grandchildren_pages.values())
-        self.assertEqual(mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants)
+        self.assertEqual(
+            mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants
+        )
 
         i = 0
         for child_page in self.pages_to_be_deleted:
             mock_call = mock_handler.mock_calls[i][2]
             i += 1
-            self.assertEqual(mock_call['sender'], child_page.specific_class)
-            self.assertEqual(mock_call['instance'], child_page)
-            self.assertIsInstance(mock_call['instance'], child_page.specific_class)
+            self.assertEqual(mock_call["sender"], child_page.specific_class)
+            self.assertEqual(mock_call["instance"], child_page)
+            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
             for grandchildren_page in self.grandchildren_pages.get(child_page, []):
                 mock_call = mock_handler.mock_calls[i][2]
                 i += 1
-                self.assertEqual(mock_call['sender'], grandchildren_page.specific_class)
-                self.assertEqual(mock_call['instance'], grandchildren_page)
-                self.assertIsInstance(mock_call['instance'], grandchildren_page.specific_class)
+                self.assertEqual(mock_call["sender"], grandchildren_page.specific_class)
+                self.assertEqual(mock_call["instance"], grandchildren_page)
+                self.assertIsInstance(
+                    mock_call["instance"], grandchildren_page.specific_class
+                )
 
     def test_bulk_delete_notlive_post(self):
         # Same as above, but this makes sure the page_unpublished signal is not fired
@@ -169,7 +205,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
-        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+        self.assertFalse(
+            any(Page.find_problems()), "treebeard found consistency problems"
+        )
 
         # Check that the child pages to be deleted are gone
         for child_page in self.pages_to_be_deleted:
@@ -181,7 +219,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
         # Check that the page_unpublished signal was not fired
         num_descendants = sum(len(v) for v in self.grandchildren_pages.values())
-        self.assertEqual(mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants - 1)
+        self.assertEqual(
+            mock_handler.call_count, len(self.pages_to_be_deleted) + num_descendants - 1
+        )
 
         # check that only signals for other pages are fired
         i = 0
@@ -189,15 +229,17 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
             if child_page.id != page_to_be_unpublished.id:
                 mock_call = mock_handler.mock_calls[i][2]
                 i += 1
-                self.assertEqual(mock_call['sender'], child_page.specific_class)
-                self.assertEqual(mock_call['instance'], child_page)
-                self.assertIsInstance(mock_call['instance'], child_page.specific_class)
+                self.assertEqual(mock_call["sender"], child_page.specific_class)
+                self.assertEqual(mock_call["instance"], child_page)
+                self.assertIsInstance(mock_call["instance"], child_page.specific_class)
             for grandchildren_page in self.grandchildren_pages.get(child_page, []):
                 mock_call = mock_handler.mock_calls[i][2]
                 i += 1
-                self.assertEqual(mock_call['sender'], grandchildren_page.specific_class)
-                self.assertEqual(mock_call['instance'], grandchildren_page)
-                self.assertIsInstance(mock_call['instance'], grandchildren_page.specific_class)
+                self.assertEqual(mock_call["sender"], grandchildren_page.specific_class)
+                self.assertEqual(mock_call["instance"], grandchildren_page)
+                self.assertIsInstance(
+                    mock_call["instance"], grandchildren_page.specific_class
+                )
 
     def test_subpage_deletion(self):
         # Connect mock signal handlers to page_unpublished, pre_delete and post_delete signals
@@ -225,7 +267,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 302)
 
         # treebeard should report no consistency problems with the tree
-        self.assertFalse(any(Page.find_problems()), 'treebeard found consistency problems')
+        self.assertFalse(
+            any(Page.find_problems()), "treebeard found consistency problems"
+        )
 
         # Check that the child pages to be deleted are gone
         for child_page in self.pages_to_be_deleted:
@@ -238,7 +282,9 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
         # Check that the subpages are also gone
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
-                self.assertFalse(SimplePage.objects.filter(id=grandchild_page.id).exists())
+                self.assertFalse(
+                    SimplePage.objects.filter(id=grandchild_page.id).exists()
+                )
 
         # Check that the signals were fired for all child and grandchild pages
         for child_page, grandchild_pages in self.grandchildren_pages.items():
@@ -246,23 +292,28 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
             self.assertIn((SimplePage, child_page.id), pre_delete_signals_received)
             self.assertIn((SimplePage, child_page.id), post_delete_signals_received)
             for grandchild_page in grandchild_pages:
-                self.assertIn((SimplePage, grandchild_page.id), unpublish_signals_received)
-                self.assertIn((SimplePage, grandchild_page.id), pre_delete_signals_received)
-                self.assertIn((SimplePage, grandchild_page.id), post_delete_signals_received)
+                self.assertIn(
+                    (SimplePage, grandchild_page.id), unpublish_signals_received
+                )
+                self.assertIn(
+                    (SimplePage, grandchild_page.id), pre_delete_signals_received
+                )
+                self.assertIn(
+                    (SimplePage, grandchild_page.id), post_delete_signals_received
+                )
 
         self.assertEqual(response.status_code, 302)
 
     def test_before_delete_page_hook(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'delete')
+            self.assertEqual(action_type, "delete")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
                 self.assertEqual(page.id, self.pages_to_be_deleted[i].id)
             return HttpResponse("Overridden!")
 
-        with self.register_hook('before_bulk_action', hook_func):
+        with self.register_hook("before_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)
@@ -273,9 +324,8 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
             self.assertTrue(SimplePage.objects.filter(id=child_page.id).exists())
 
     def test_after_delete_page_hook(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'delete')
+            self.assertEqual(action_type, "delete")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
@@ -283,7 +333,7 @@ class TestBulkDelete(TestCase, WagtailTestUtils):
 
             return HttpResponse("Overridden!")
 
-        with self.register_hook('after_bulk_action', hook_func):
+        with self.register_hook("after_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)

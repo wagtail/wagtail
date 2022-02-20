@@ -12,11 +12,11 @@ from wagtail.core.telepath import Adapter, register
 class TypedTableBlockValidationError(ValidationError):
     def __init__(self, cell_errors=None):
         self.cell_errors = cell_errors
-        super().__init__('Validation error in TypedTableBlock', params=cell_errors)
+        super().__init__("Validation error in TypedTableBlock", params=cell_errors)
 
 
 class TypedTableBlockValidationErrorAdapter(Adapter):
-    js_constructor = 'wagtail.contrib.typed_table_block.TypedTableBlockValidationError'
+    js_constructor = "wagtail.contrib.typed_table_block.TypedTableBlockValidationError"
 
     def js_args(self, error):
         if error.cell_errors is None:
@@ -34,16 +34,18 @@ class TypedTableBlockValidationErrorAdapter(Adapter):
 
     @cached_property
     def media(self):
-        return forms.Media(js=[
-            versioned_static('typed_table_block/js/typed_table_block.js'),
-        ])
+        return forms.Media(
+            js=[
+                versioned_static("typed_table_block/js/typed_table_block.js"),
+            ]
+        )
 
 
 register(TypedTableBlockValidationErrorAdapter(), TypedTableBlockValidationError)
 
 
 class TypedTable:
-    template = 'typed_table_block/typed_table_block.html'
+    template = "typed_table_block/typed_table_block.html"
 
     def __init__(self, columns, row_data):
         # a list of dicts, each with items 'block' (the block instance) and 'heading'
@@ -59,16 +61,18 @@ class TypedTable:
         """
         for row in self.row_data:
             yield [
-                column['block'].bind(value)
-                for column, value in zip(self.columns, row['values'])
+                column["block"].bind(value)
+                for column, value in zip(self.columns, row["values"])
             ]
 
     def get_context(self, parent_context=None):
         context = parent_context or {}
-        context.update({
-            'self': self,
-            'value': self,
-        })
+        context.update(
+            {
+                "self": self,
+                "value": self,
+            }
+        )
         return context
 
     def render_as_block(self, context=None):
@@ -89,99 +93,90 @@ class BaseTypedTableBlock(Block):
                 self.child_blocks[name] = block
 
     def value_from_datadict(self, data, files, prefix):
-        column_count = int(data['%s-column-count' % prefix])
+        column_count = int(data["%s-column-count" % prefix])
         columns = [
             {
-                'id': i,
-                'type': data['%s-column-%d-type' % (prefix, i)],
-                'order': int(data['%s-column-%d-order' % (prefix, i)]),
-                'heading': data['%s-column-%d-heading' % (prefix, i)],
+                "id": i,
+                "type": data["%s-column-%d-type" % (prefix, i)],
+                "order": int(data["%s-column-%d-order" % (prefix, i)]),
+                "heading": data["%s-column-%d-heading" % (prefix, i)],
             }
             for i in range(0, column_count)
-            if not data['%s-column-%d-deleted' % (prefix, i)]
+            if not data["%s-column-%d-deleted" % (prefix, i)]
         ]
-        columns.sort(key=lambda col: col['order'])
+        columns.sort(key=lambda col: col["order"])
         for col in columns:
-            col['block'] = self.child_blocks[col['type']]
+            col["block"] = self.child_blocks[col["type"]]
 
-        row_count = int(data['%s-row-count' % prefix])
+        row_count = int(data["%s-row-count" % prefix])
         rows = [
             {
-                'id': row_index,
-                'order': int(data['%s-row-%d-order' % (prefix, row_index)]),
-                'values': [
-                    col['block'].value_from_datadict(
-                        data, files, '%s-cell-%d-%d' % (prefix, row_index, col['id'])
+                "id": row_index,
+                "order": int(data["%s-row-%d-order" % (prefix, row_index)]),
+                "values": [
+                    col["block"].value_from_datadict(
+                        data, files, "%s-cell-%d-%d" % (prefix, row_index, col["id"])
                     )
                     for col in columns
                 ],
             }
             for row_index in range(0, row_count)
-            if not data['%s-row-%d-deleted' % (prefix, row_index)]
+            if not data["%s-row-%d-deleted" % (prefix, row_index)]
         ]
-        rows.sort(key=lambda row: row['order'])
+        rows.sort(key=lambda row: row["order"])
 
         return TypedTable(
             columns=[
-                {'block': col['block'], 'heading': col['heading']}
-                for col in columns
+                {"block": col["block"], "heading": col["heading"]} for col in columns
             ],
-            row_data=[
-                {'values': row['values']}
-                for row in rows
-            ],
+            row_data=[{"values": row["values"]} for row in rows],
         )
 
     def get_prep_value(self, table):
         if table:
             return {
-                'columns': [
-                    {'type': col['block'].name, 'heading': col['heading']}
+                "columns": [
+                    {"type": col["block"].name, "heading": col["heading"]}
                     for col in table.columns
                 ],
-                'rows': [
+                "rows": [
                     {
-                        'values': [
-                            column['block'].get_prep_value(val)
-                            for column, val in zip(table.columns, row['values'])
+                        "values": [
+                            column["block"].get_prep_value(val)
+                            for column, val in zip(table.columns, row["values"])
                         ]
                     }
                     for row in table.row_data
-                ]
+                ],
             }
         else:
             return {
-                'columns': [],
-                'rows': [],
+                "columns": [],
+                "rows": [],
             }
 
     def to_python(self, value):
         if value:
             columns = [
                 {
-                    'block': self.child_blocks[col['type']],
-                    'heading': col['heading'],
+                    "block": self.child_blocks[col["type"]],
+                    "heading": col["heading"],
                 }
-                for col in value['columns']
+                for col in value["columns"]
             ]
             # restore data column-by-column to take advantage of bulk_to_python
             columns_data = [
-                col['block'].bulk_to_python([
-                    row['values'][column_index] for row in value['rows']
-                ])
+                col["block"].bulk_to_python(
+                    [row["values"][column_index] for row in value["rows"]]
+                )
                 for column_index, col in enumerate(columns)
             ]
             return TypedTable(
                 columns=columns,
                 row_data=[
-                    {
-                        'values': [
-                            column_data[row_index]
-                            for column_data in columns_data
-                        ]
-                    }
-                    for row_index in range(0, len(value['rows']))
-                ]
+                    {"values": [column_data[row_index] for column_data in columns_data]}
+                    for row_index in range(0, len(value["rows"]))
+                ],
             )
         else:
             return TypedTable(
@@ -192,24 +187,24 @@ class BaseTypedTableBlock(Block):
     def get_form_state(self, table):
         if table:
             return {
-                'columns': [
-                    {'type': col['block'].name, 'heading': col['heading']}
+                "columns": [
+                    {"type": col["block"].name, "heading": col["heading"]}
                     for col in table.columns
                 ],
-                'rows': [
+                "rows": [
                     {
-                        'values': [
-                            column['block'].get_form_state(val)
-                            for column, val in zip(table.columns, row['values'])
+                        "values": [
+                            column["block"].get_form_state(val)
+                            for column, val in zip(table.columns, row["values"])
                         ]
                     }
                     for row in table.row_data
-                ]
+                ],
             }
         else:
             return {
-                'columns': [],
-                'rows': [],
+                "columns": [],
+                "rows": [],
             }
 
     def clean(self, table):
@@ -221,16 +216,16 @@ class BaseTypedTableBlock(Block):
                 row_errors = {}
                 row_data = []
                 for col_index, column in enumerate(table.columns):
-                    val = row['values'][col_index]
+                    val = row["values"][col_index]
                     try:
-                        row_data.append(column['block'].clean(val))
+                        row_data.append(column["block"].clean(val))
                     except ValidationError as e:
                         row_errors[col_index] = e
 
                 if row_errors:
                     cell_errors[row_index] = row_errors
                 else:
-                    cleaned_rows.append({'values': row_data})
+                    cleaned_rows.append({"values": row_data})
 
             if cell_errors:
                 raise TypedTableBlockValidationError(cell_errors=cell_errors)
@@ -249,7 +244,7 @@ class BaseTypedTableBlock(Block):
         This ensures that the field definitions get frozen into migrations, rather than leaving a
         reference to a custom subclass in the user's models.py that may or may not stick around.
         """
-        path = 'wagtail.contrib.typed_table_block.blocks.TypedTableBlock'
+        path = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
         args = [list(self.child_blocks.items())]
         kwargs = self._constructor_kwargs
         return (path, args, kwargs)
@@ -266,7 +261,7 @@ class BaseTypedTableBlock(Block):
         if value:
             return value.render_as_block(context)
         else:
-            return ''
+            return ""
 
     class Meta:
         default = None
@@ -278,26 +273,28 @@ class TypedTableBlock(BaseTypedTableBlock, metaclass=DeclarativeSubBlocksMetacla
 
 
 class TypedTableBlockAdapter(Adapter):
-    js_constructor = 'wagtail.contrib.typed_table_block.blocks.TypedTableBlock'
+    js_constructor = "wagtail.contrib.typed_table_block.blocks.TypedTableBlock"
 
     def js_args(self, block):
         meta = {
-            'label': block.label, 'required': block.required, 'icon': block.meta.icon,
-            'strings': {
-                'ADD_COLUMN': _("Add column"),
-                'ADD_ROW': _("Add row"),
-                'COLUMN_HEADING': _("Column heading"),
-                'INSERT_COLUMN': _("Insert column"),
-                'DELETE_COLUMN': _("Delete column"),
-                'INSERT_ROW': _("Insert row"),
-                'DELETE_ROW': _("Delete row"),
+            "label": block.label,
+            "required": block.required,
+            "icon": block.meta.icon,
+            "strings": {
+                "ADD_COLUMN": _("Add column"),
+                "ADD_ROW": _("Add row"),
+                "COLUMN_HEADING": _("Column heading"),
+                "INSERT_COLUMN": _("Insert column"),
+                "DELETE_COLUMN": _("Delete column"),
+                "INSERT_ROW": _("Insert row"),
+                "DELETE_ROW": _("Delete row"),
             },
         }
 
-        help_text = getattr(block.meta, 'help_text', None)
+        help_text = getattr(block.meta, "help_text", None)
         if help_text:
-            meta['helpText'] = help_text
-            meta['helpIcon'] = get_help_icon()
+            meta["helpText"] = help_text
+            meta["helpIcon"] = get_help_icon()
 
         return [
             block.name,
@@ -311,13 +308,16 @@ class TypedTableBlockAdapter(Adapter):
 
     @cached_property
     def media(self):
-        return forms.Media(js=[
-            versioned_static('typed_table_block/js/typed_table_block.js'),
-        ], css={
-            'all': [
-                versioned_static('typed_table_block/css/typed_table_block.css'),
-            ]
-        })
+        return forms.Media(
+            js=[
+                versioned_static("typed_table_block/js/typed_table_block.js"),
+            ],
+            css={
+                "all": [
+                    versioned_static("typed_table_block/css/typed_table_block.css"),
+                ]
+            },
+        )
 
 
 register(TypedTableBlockAdapter(), TypedTableBlock)

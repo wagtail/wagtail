@@ -20,23 +20,25 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
     def test_model_edit_handler(self):
         """loads the 'create' view and verifies that form fields are returned
         which have been defined via model Person.edit_handler"""
-        response = self.client.get('/admin/modeladmintest/person/create/')
+        response = self.client.get("/admin/modeladmintest/person/create/")
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
-            ['first_name', 'last_name', 'phone_number']
+            list(response.context["form"].fields),
+            ["first_name", "last_name", "phone_number"],
         )
 
-    @mock.patch('wagtail.contrib.modeladmin.views.ModelFormView.get_edit_handler')
-    def test_model_form_view_edit_handler_called(self, mock_modelformview_get_edit_handler):
+    @mock.patch("wagtail.contrib.modeladmin.views.ModelFormView.get_edit_handler")
+    def test_model_form_view_edit_handler_called(
+        self, mock_modelformview_get_edit_handler
+    ):
         """loads the ``create`` view and verifies that modelformview edit_handler is called"""
-        self.client.get('/admin/modeladmintest/person/create/')
+        self.client.get("/admin/modeladmintest/person/create/")
         self.assertGreater(len(mock_modelformview_get_edit_handler.call_args_list), 0)
 
-    @mock.patch('wagtail.contrib.modeladmin.options.ModelAdmin.get_edit_handler')
+    @mock.patch("wagtail.contrib.modeladmin.options.ModelAdmin.get_edit_handler")
     def test_model_admin_edit_handler_called(self, mock_modeladmin_get_edit_handler):
         """loads the ``create`` view and verifies that modeladmin edit_handler is called"""
         # constructing the request in order to be able to assert it
-        request = self.factory.get('/admin/modeladmintest/person/create/')
+        request = self.factory.get("/admin/modeladmintest/person/create/")
         request.user = self.user
         view = CreateView.as_view(model_admin=PersonAdmin())
         view(request)
@@ -45,34 +47,33 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         call_args, call_kwargs = edit_handler_call
         # not using CreateView.get_instance since
         # CreateView.get_instance always returns a new instance
-        self.assertEqual(type(call_kwargs['instance']), Person)
-        self.assertEqual(call_kwargs['request'], request)
+        self.assertEqual(type(call_kwargs["instance"]), Person)
+        self.assertEqual(call_kwargs["request"], request)
 
     def test_model_panels(self):
         """loads the 'create' view and verifies that form fields are returned
         which have been defined via model Friend.panels"""
-        response = self.client.get('/admin/modeladmintest/friend/create/')
+        response = self.client.get("/admin/modeladmintest/friend/create/")
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
-            ['first_name', 'phone_number']
+            list(response.context["form"].fields), ["first_name", "phone_number"]
         )
 
     def test_model_admin_edit_handler(self):
         """loads the 'create' view and verifies that form fields are returned
         which have been defined via model VisitorAdmin.edit_handler"""
-        response = self.client.get('/admin/modeladmintest/visitor/create/')
+        response = self.client.get("/admin/modeladmintest/visitor/create/")
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
-            ['last_name', 'phone_number', 'address']
+            list(response.context["form"].fields),
+            ["last_name", "phone_number", "address"],
         )
 
     def test_model_admin_panels(self):
         """loads the 'create' view and verifies that form fields are returned
         which have been defined via model ContributorAdmin.panels"""
-        response = self.client.get('/admin/modeladmintest/contributor/create/')
+        response = self.client.get("/admin/modeladmintest/contributor/create/")
         self.assertEqual(
-            [field_name for field_name in response.context['form'].fields],
-            ['last_name', 'phone_number', 'address']
+            list(response.context["form"].fields),
+            ["last_name", "phone_number", "address"],
         )
 
     def test_model_admin_panel_edit_handler_priority(self):
@@ -85,47 +86,40 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
-        self.assertEqual(
-            [field_name for field_name in form.fields],
-            ['first_name', 'last_name', 'phone_number']
-        )
+        self.assertEqual(list(form.fields), ["first_name", "last_name", "phone_number"])
 
         # now add a panel definition to the PersonAdmin and verify that
         # panel definition from PersonAdmin is used to construct the form
         # and NOT the panel or edit_handler definition from the Person model
         model_admin = PersonAdmin()
         model_admin.panels = [
-            FieldPanel('last_name'),
-            FieldPanel('phone_number'),
-            FieldPanel('address'),
+            FieldPanel("last_name"),
+            FieldPanel("phone_number"),
+            FieldPanel("address"),
         ]
         edit_handler = model_admin.get_edit_handler(None, None)
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
-        self.assertEqual(
-            [field_name for field_name in form.fields],
-            ['last_name', 'phone_number', 'address']
-        )
+        self.assertEqual(list(form.fields), ["last_name", "phone_number", "address"])
 
         # now add a edit_handler definition to the PersonAdmin and verify that
         # edit_handler definition from PersonAdmin is used to construct the
         # form and NOT the panel or edit_handler definition from the
         # Person model
         model_admin = PersonAdmin()
-        model_admin.edit_handler = TabbedInterface([
-            ObjectList(
-                [
-                    FieldPanel('phone_number'),
-                    FieldPanel('address'),
-                ]
-            ),
-        ])
+        model_admin.edit_handler = TabbedInterface(
+            [
+                ObjectList(
+                    [
+                        FieldPanel("phone_number"),
+                        FieldPanel("address"),
+                    ]
+                ),
+            ]
+        )
         edit_handler = model_admin.get_edit_handler(None, None)
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
-        self.assertEqual(
-            [field_name for field_name in form.fields],
-            ['phone_number', 'address']
-        )
+        self.assertEqual(list(form.fields), ["phone_number", "address"])
