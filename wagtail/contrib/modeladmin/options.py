@@ -1,3 +1,5 @@
+import warnings
+
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -14,6 +16,7 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core import hooks
 from wagtail.core.models import Page
+from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 from .helpers import (
     AdminURLHelper,
@@ -764,8 +767,16 @@ class ModelAdminGroup(WagtailRegisterable, metaclass=ModelAdminGroupBase):
 
 def modeladmin_register(modeladmin_class):
     """
-    Method for registering ModelAdmin or ModelAdminGroup classes with Wagtail.
+    Deprecated function for registering ``ModelAdmin`` or ``ModelAdminGroup``
+    classes with Wagtail.
     """
-    instance = modeladmin_class()
-    instance.register_with_wagtail()
-    return modeladmin_class
+    from wagtail.contrib.modeladmin import register
+
+    warnings.warn(
+        "modeladmin_register is deprecated and will eventually be removed. "
+        "Update your wagtail_hooks.py code to use "
+        "wagtail.contrib.modeladmin.register instead, which allows for "
+        "direct model registration, option overriding and more.",
+        category=RemovedInWagtail219Warning,
+    )
+    register(modeladmin_class)
