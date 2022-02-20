@@ -13,9 +13,8 @@ Wagtail itself does this by instantiating each ``ModelAdmin`` class you have
 registered, and using the ``url_helper`` attribute of each instance to
 determine what these URLs are.
 
-You can take a similar approach in your own code too, by creating a
-``ModelAdmin`` instance yourself, and using its ``url_helper``
-to determine URLs.
+You can take a similar approach in your own code too, by tapping into the modeladmin registry and using the ``url_helper``
+yourself to determine URLs.
 
 See below for some examples:
 
@@ -39,19 +38,20 @@ to allow a single author to be specified for each post.
     # file: wagtail_hooks.py
 
     from wagtail.admin.widgets import PageListingButton
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from wagtail.contrib.modeladmin import get_modeladmin, register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
     from wagtail.core import hooks
 
     # Author & BlogPage model not shown in this example
     from models import Author
 
-    # ensure our modeladmin is created
+    # Define a modeladmin class to represent authors
     class AuthorModelAdmin(ModelAdmin):
         model = Author
         menu_order = 200
 
-    # Creating an instance of `AuthorModelAdmin`
-    author_modeladmin = AuthorModelAdmin()
+    # register with modeladmin
+    register(AuthorModelAdmin)
 
     @hooks.register('register_page_listing_buttons')
     def add_author_edit_buttons(page, page_perms, is_parent=False, next_url=None):
@@ -60,12 +60,17 @@ to allow a single author to be specified for each post.
         linking to the 'edit' page for that author.
         """
         author_id = getattr(page, 'author_id', None)
-        if author_id:
-            # the url helper will return something like: /admin/my-app/author/edit/2/
-            author_edit_url = author_modeladmin.url_helper.get_action_url('edit', author_id)
-            yield PageListingButton('Edit Author',  author_edit_url, priority=10)
+        if not author_id:
+            return None
 
-    modeladmin_register(AuthorModelAdmin)
+        # get the modeladmin instance registered for the Author model
+        author_modeladmin = get_modeladmin(Author)
+
+        # the url helper will return something like: /admin/my-app/author/edit/2/
+        author_edit_url = author_modeladmin.url_helper.get_action_url('edit', author_id)
+
+        # use this URL to add a new button
+        yield PageListingButton('Edit Author', author_edit_url, priority=10)
 
 
 As you can see from the example above, when using ``get_action_url()`` to
@@ -109,19 +114,36 @@ For example:
 
 .. code-block:: python
 
-    from .wagtail_hooks import AuthorModelAdmin
+    from wagtail.contrib.modeladmin import get_modeladmin
+    from .models import Author
 
-    url_helper = AuthorModelAdmin().url_helper
+    # get the modeladmin instance created to represent the Author model
+    author_modeladmin = get_modeladmin(Author)
 
+    # define a more convenient reference to the url helper
+    url_helper = author_modeladmin.url_helper
+
+    # retrieve the URL using the 'index' action keyword
     index_url = url_helper.get_action_url('index')
-    # OR we can use the 'index_url' shortcut
-    also_index_url = url_helper.index_url # note: do not call this property as a function
-    # both will output /admin/my-app/author
 
+    # OR we can use the 'index_url' shortcut
+    # NOTE: this is a property, so is invoked like an attribute (without parenthesis)
+    also_index_url = url_helper.index_url
+
+Both ``index_url`` and ``also_index_url`` above will have the value ``"/admin/my-app/author/"``.
+
+And you can access the 'create' url from the same ``url_helper``, like so:
+
+.. code-block:: python
+
+    # retrieve the URL using the 'create' action keyword
     create_url = url_helper.get_action_url('create')
+
     # OR we can use the 'create_url' shortcut
-    also_create_url = url_helper.create_url # note: do not call this property as a function
-    # both will output /admin/my-app/author/create
+    # NOTE: this is a property, so is invoked like an attribute (without parenthesis)
+    also_create_url = url_helper.create_url
+
+Both ``create_url`` and ``also_create_url`` above will have the value ``"/admin/my-app/author/create/"``.
 
 .. note::
 

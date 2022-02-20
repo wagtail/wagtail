@@ -279,8 +279,9 @@ your ``ModelAdmin`` class to use your custom URLHelper, like so:
 
 .. code-block:: python
 
+    from wagtail.contrib.modeladmin import register
     from wagtail.contrib.modeladmin.helpers import AdminURLHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
     from .models import MyModel
 
 
@@ -292,7 +293,7 @@ your ``ModelAdmin`` class to use your custom URLHelper, like so:
         model = MyModel
         url_helper_class = MyURLHelper
 
-    modeladmin_register(MyModelAdmin)
+    register(MyModelAdmin)
 
 
 Or, if you have a more complicated use case, where simply setting that
@@ -329,8 +330,9 @@ defined, you set the ``permission_helper_class`` attribute on your
 
 .. code-block:: python
 
+    from wagtail.contrib.modeladmin import register
     from wagtail.contrib.modeladmin.helpers import PermissionHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
     from .models import MyModel
 
 
@@ -342,7 +344,7 @@ defined, you set the ``permission_helper_class`` attribute on your
         model = MyModel
         permission_helper_class = MyPermissionHelper
 
-    modeladmin_register(MyModelAdmin)
+    register(MyModelAdmin)
 
 
 Or, if you have a more complicated use case, where simply setting an attribute
@@ -378,8 +380,9 @@ custom class instead of the default, like so:
 
 .. code-block:: python
 
+    from wagtail.contrib.modeladmin import register
     from wagtail.contrib.modeladmin.helpers import ButtonHelper
-    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
     from .models import MyModel
 
 
@@ -412,7 +415,7 @@ custom class instead of the default, like so:
         model = MyModel
         button_helper_class = MyButtonHelper
 
-    modeladmin_register(MyModelAdmin)
+    register(MyModelAdmin)
 
 To customise the buttons found in the ModelAdmin List View you can change the
 returned dictionary in the ``add_button``, ``delete_button``, ``edit_button``
@@ -466,4 +469,3 @@ users, ButtonHelper instances need to be 'request aware', so
 ``self.button_helper`` is only set once the view's ``dispatch()`` method has
 run, which takes a ``HttpRequest`` object as an argument, from which the
 current user can be identified.
-

@@ -3,7 +3,7 @@
 =====================
 
 The ``modeladmin`` module allows you to add any model in your project to the Wagtail admin.  You can create customisable listing
-pages for a model, including plain Django models, and add navigation elements so that a model can be accessed directly from the Wagtail admin. Simply extend the ``ModelAdmin`` class, override a few attributes to suit your needs, register it with Wagtail using an easy one-line ``modeladmin_register`` method (you can copy and paste from the examples below), and you're good to go. Your model doesn’t need to extend ``Page`` or be registered as a ``Snippet``, and it won’t interfere with any of the existing admin functionality that Wagtail provides.
+pages for a model, including plain Django models, and add navigation elements so that a model can be accessed directly from the Wagtail admin. Simply extend the ``ModelAdmin`` class, override a few attributes to suit your needs, register it with Wagtail using an easy one-line ``register`` method (you can copy and paste from the examples below), and you're good to go. Your model does not need to extend ``Page`` or be registered as a ``Snippet``, and it will not interfere with any of the existing admin functionality that Wagtail provides.
 
 .. _modeladmin_feature_summary:
 
@@ -110,8 +110,8 @@ to create, view, and edit ``Book`` entries.
 
 .. code-block:: python
 
-    from wagtail.contrib.modeladmin.options import (
-        ModelAdmin, modeladmin_register)
+    from wagtail.contrib.modeladmin import register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
     from .models import Book
 
 
@@ -127,7 +127,7 @@ to create, view, and edit ``Book`` entries.
         search_fields = ('title', 'author')
 
     # Now you just need to register your customised ModelAdmin class with Wagtail
-    modeladmin_register(BookAdmin)
+    register(BookAdmin)
 
 
 .. _modeladmin_example_complex:
@@ -148,10 +148,9 @@ Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
 
 .. code-block:: python
 
-    from wagtail.contrib.modeladmin.options import (
-        ModelAdmin, ModelAdminGroup, modeladmin_register)
-    from .models import (
-        Book, Author, Genre)
+    from wagtail.contrib.modeladmin import register
+    from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup
+    from .models import Book, Author, Genre
 
 
     class BookAdmin(ModelAdmin):
@@ -189,20 +188,20 @@ Assume we've defined ``Book``, ``Author``, and ``Genre`` models in
 
     # When using a ModelAdminGroup class to group several ModelAdmin classes together,
     # you only need to register the ModelAdminGroup class with Wagtail:
-    modeladmin_register(LibraryGroup)
-
+    register(LibraryGroup)
 
 .. _modeladmin_multi_registration:
 
 Registering multiple classes in one ``wagtail_hooks.py`` file
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Each time you call ``modeladmin_register(MyAdmin)`` it creates a new top-level
+Each time you call ``register(MyAdmin)`` it creates a new top-level
 menu item in Wagtail's left sidebar. You can call this multiple times within
 the same ``wagtail_hooks.py`` file if you want. The example below will create
 3 top-level menus.
 
 .. code-block:: python
+    from wagtail.contrib.modeladmin import register
 
     class BookAdmin(ModelAdmin):
         model = Book
@@ -217,6 +216,82 @@ the same ``wagtail_hooks.py`` file if you want. The example below will create
         items = (AlbumAdmin, ArtistAdmin)
         ...
 
-    modeladmin_register(BookAdmin)
-    modeladmin_register(MovieAdmin)
-    modeladmin_register(MusicAdminGroup)
+    register(BookAdmin)
+    register(MovieAdmin)
+    register(MusicAdminGroup)
+
+.. _register_model_class_directly:
+
+Registering a model class directly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. versionadded:: 2.17
+
+In cases where the default admin representation of a model will do, you can get away without defining a specific ``ModelAdmin`` class for it, and register the model directly in ``wagtail_hooks.py`` instead. For example:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin import register
+
+    from .models import Book
+
+    register(Book)
+
+.. note::
+
+    Behind the scenes, the ``register`` function create a ``ModelAdmin`` subclass for you, saving you from having to define one explicitly.
+
+If the default representation is fine with the exception of a few options, you can specify overrides directly in the `register` call, and Wagtail will take those options into account when creating the ``ModelAdmin`` subclass. For example:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin import register
+
+    from library.models import Book
+
+    register(Book, menu_order=105, list_display=["title", "author", "year"])
+
+This would be equivalent to:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin import register
+    from wagtail.contrib.modeladmin.options import ModelAdmin
+
+    from library.models import Book
+
+    class BookAdmin(ModelAdmin):
+        model = Book
+        menu_order = 105
+        list_display = ["title", "author", "year"]
+
+    register(BookAdmin)
+
+.. note::
+
+    While the first example is shorter and more convenient, the second example is somewhat clearer, and gives you something that is easier to tweak or reuse in other places. If you find yourself setting more than two or three attribute values within a ``register()`` call, it may be worth switching to the second approach.
+
+Registering a model with an admin class
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. versionadded:: 2.17
+
+It is also possible to register a ``model`` class along with a specific ``ModelAdmin`` class; which could be a generic class designed to represent many models, or one created for a different model. For example:
+
+.. code-block:: python
+
+    from wagtail.contrib.modeladmin import register
+
+    from project.utils.modeladmin import PageModelAdmin
+
+    from .models import EventPage
+
+
+    register(EventPage, admin_class=PageModelAdmin)
+
+This approach can be combined with attribute overrides to tweak the representation slightly on a per-model basis, helping you to repurpose generic code without having to define a custom `ModelAdmin`` class for each model. For example:
+
+.. code-block:: python
+
+    register(EventPage, admin_class=PageModelAdmin, list_display=["title", "event_type", "start_date", "end_date"])
+    register(VenuePage, admin_class=PageModelAdmin, list_display=["title", "venue_type", "address"])
