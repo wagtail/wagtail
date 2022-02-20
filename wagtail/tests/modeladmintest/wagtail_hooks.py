@@ -1,10 +1,10 @@
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.contrib.modeladmin import register
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     ModelAdminGroup,
     ThumbnailMixin,
-    modeladmin_register,
 )
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
 from wagtail.core.models import Page
@@ -97,11 +97,6 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
         return obj.author.date_of_birth
 
 
-class TokenModelAdmin(ModelAdmin):
-    model = Token
-    list_display = ("key",)
-
-
 class PublisherCreateView(CreateView):
     def get_form_class(self):
         return PublisherModelAdminForm
@@ -116,6 +111,19 @@ class PublisherModelAdmin(ModelAdmin):
     model = Publisher
     create_view_class = PublisherCreateView
     edit_view_class = PublisherEditView
+
+
+register(AuthorModelAdmin)
+register(BookModelAdmin)
+register(PublisherModelAdmin)
+
+
+class TokenModelAdmin(ModelAdmin):
+    model = Token
+    list_display = ("key",)
+
+
+register(TokenModelAdmin)
 
 
 class EventPageAdmin(ModelAdmin):
@@ -136,12 +144,21 @@ class VenuePageAdmin(ModelAdmin):
     exclude_from_explorer = True
 
 
+class EventsAdminGroup(ModelAdminGroup):
+    menu_label = "Events"
+    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
+    menu_order = 500
+
+
+register(EventsAdminGroup)
+
+
+# Register simple modeladmin classes
+# ----------------------------------
+
+
 class PersonAdmin(ModelAdmin):
     model = Person
-
-
-class FriendAdmin(ModelAdmin):
-    model = Friend
 
 
 class VisitorAdmin(ModelAdmin):
@@ -159,9 +176,33 @@ class VisitorAdmin(ModelAdmin):
     )
 
 
-class ContributorAdmin(ModelAdmin):
-    model = Contributor
+# No attribute overrides
+register(PersonAdmin)
 
+# Override 'list_display' for this one
+register(VisitorAdmin, list_display=["first_name", "last_name", "phone_number"])
+
+
+# Register model classes directly
+# -------------------------------
+
+# No attribute overrides
+register(Page)
+
+# Override 'list_display' for this one
+register(RelatedLink, list_display=["title", "link"])
+
+# Override menu_label, as having "Business Child" permanently in the menu
+# confuses tests for the 'add page' view
+register(BusinessChild, menu_label="BusinessSprog")
+
+
+# Register a model class with an admin class
+# ------------------------------------------
+
+
+class GenericPersonAdmin(ModelAdmin):
+    list_display = ["first_name", "last_name", "phone_number"]
     panels = [
         FieldPanel("last_name"),
         FieldPanel("phone_number"),
@@ -169,37 +210,8 @@ class ContributorAdmin(ModelAdmin):
     ]
 
 
-class EventsAdminGroup(ModelAdminGroup):
-    menu_label = "Events"
-    items = (EventPageAdmin, SingleEventPageAdmin, VenuePageAdmin)
-    menu_order = 500
+# Register `Friend` with this class
+register(Friend, admin_class=GenericPersonAdmin)
 
-
-class BusinessChildAdmin(ModelAdmin):
-    model = BusinessChild
-    # having "Business Child" permanently in the menu confuses tests for the 'add page' view
-    menu_label = "BusinessSprog"
-
-
-class RelatedLinkAdmin(ModelAdmin):
-    model = RelatedLink
-    menu_label = "Related Links"
-
-
-class PageAdmin(ModelAdmin):
-    model = Page
-    menu_label = "Page"
-
-
-modeladmin_register(AuthorModelAdmin)
-modeladmin_register(BookModelAdmin)
-modeladmin_register(TokenModelAdmin)
-modeladmin_register(PublisherModelAdmin)
-modeladmin_register(EventsAdminGroup)
-modeladmin_register(BusinessChildAdmin)
-modeladmin_register(PersonAdmin)
-modeladmin_register(FriendAdmin)
-modeladmin_register(VisitorAdmin)
-modeladmin_register(ContributorAdmin)
-modeladmin_register(RelatedLinkAdmin)
-modeladmin_register(PageAdmin)
+# Register `Contributor` for this class, with overrides
+register(Contributor, admin_class=GenericPersonAdmin, list_display=["phone_number"])
