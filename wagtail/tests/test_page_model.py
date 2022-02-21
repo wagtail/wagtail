@@ -2770,11 +2770,11 @@ class TestUpdateAliases(TestCase):
         self.assertEqual(alias.draft_title, "Updated title")
         self.assertEqual(alias_alias.draft_title, "Updated title")
 
-        # Check log entries were created
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
@@ -2815,11 +2815,11 @@ class TestUpdateAliases(TestCase):
         self.assertTrue(alias.live)
         self.assertTrue(alias_alias.live)
 
-        # Check log entries were created
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
@@ -3595,11 +3595,11 @@ class TestUnpublish(TestCase):
         self.assertFalse(alias.live)
         self.assertFalse(alias_alias.live)
 
-        # Check log entries were created for the aliases
-        self.assertTrue(
+        # Check no log entries were created for the aliases
+        self.assertFalse(
             PageLogEntry.objects.filter(page=alias, action="wagtail.unpublish").exists()
         )
-        self.assertTrue(
+        self.assertFalse(
             PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.unpublish"
             ).exists()
