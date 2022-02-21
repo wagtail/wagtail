@@ -46,12 +46,13 @@ def delete(request, page_id):
             action.execute(skip_permission_checks=True)
 
             # Delete translation and alias pages if they have the same parent page.
-            parent_page_translations = page.get_parent().get_translations()
-            for _page in pages_to_delete:
-                if _page.get_parent() in parent_page_translations:
-                    action = DeletePageAction(_page, user=request.user)
-                    # Permission checks are done above, so skip them in execute.
-                    action.execute(skip_permission_checks=True)
+            if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+                parent_page_translations = page.get_parent().get_translations()
+                for _page in pages_to_delete:
+                    if _page.get_parent() in parent_page_translations:
+                        action = DeletePageAction(_page, user=request.user)
+                        # Permission checks are done above, so skip them in execute.
+                        action.execute(skip_permission_checks=True)
 
             messages.success(
                 request, _("Page '{0}' deleted.").format(page.get_admin_display_title())
