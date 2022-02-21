@@ -267,7 +267,7 @@ StreamBlock
 
 .. code-block:: python
 
-    class PersonBlock(blocks.StreamBlock):
+    class CarouselBlock(blocks.StreamBlock):
         image = ImageChooserBlock()
         video = EmbedBlock()
 
