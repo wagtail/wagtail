@@ -181,16 +181,23 @@ class BaseGroupCollectionMemberPermissionFormSet(forms.BaseFormSet):
         if instance is None:
             instance = Group()
 
+        if instance.pk is None:
+            full_collection_permissions = []
+        else:
+            full_collection_permissions = (
+                instance.collection_permissions.filter(
+                    permission__in=self.permission_queryset
+                )
+                .select_related("permission__content_type", "collection")
+                .order_by("collection")
+            )
+
         self.instance = instance
 
         initial_data = []
 
         for collection, collection_permissions in groupby(
-            instance.collection_permissions.filter(
-                permission__in=self.permission_queryset
-            )
-            .select_related("permission__content_type", "collection")
-            .order_by("collection"),
+            full_collection_permissions,
             lambda cp: cp.collection,
         ):
             initial_data.append(

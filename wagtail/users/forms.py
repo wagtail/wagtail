@@ -309,12 +309,19 @@ class BaseGroupPagePermissionFormSet(forms.BaseFormSet):
         if instance is None:
             instance = Group()
 
+        if instance.pk is None:
+            full_page_permissions = []
+        else:
+            full_page_permissions = instance.page_permissions.select_related(
+                "page"
+            ).order_by("page")
+
         self.instance = instance
 
         initial_data = []
 
         for page, page_permissions in groupby(
-            instance.page_permissions.select_related("page").order_by("page"),
+            full_page_permissions,
             lambda pp: pp.page,
         ):
             initial_data.append(
