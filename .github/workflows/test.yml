@@ -78,6 +78,7 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
+            install_extras: 'pip uninstall -y django-modelcluster ; pip uninstall -y django-taggit ; pip install git+https://github.com/gasman/django-modelcluster.git@fix/unsaved-instance-live-queryset#egg=django-modelcluster git+https://github.com/gasman/django-taggit.git@fix/cached-pathinfo#egg=django-taggit'
 
     services:
       postgres:
@@ -98,6 +99,7 @@ jobs:
           pip install "psycopg2>=2.6"
           pip install -e .[testing]
           pip install "${{ matrix.django }}"
+          ${{ matrix.install_extras }}
       - name: Test
         run: |
           ./runtests.py
