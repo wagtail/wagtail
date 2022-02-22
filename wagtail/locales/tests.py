@@ -1,4 +1,5 @@
 from django.contrib.messages import get_messages
+from django.contrib.messages.constants import ERROR
 from django.test import TestCase, override_settings
 from django.urls import reverse
 
@@ -243,7 +244,7 @@ class TestLocaleDeleteView(TestCase, WagtailTestUtils):
 
         # Check error message
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(messages[0].level_tag, "error")
+        self.assertEqual(messages[0].level, ERROR)
         self.assertEqual(
             messages[0].message,
             "This locale cannot be deleted because there are pages and/or other objects using it.\n\n\n\n\n",
@@ -319,7 +320,7 @@ class TestLocaleDeleteView(TestCase, WagtailTestUtils):
 
         # Check error message
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(messages[0].level_tag, "error")
+        self.assertEqual(messages[0].level, ERROR)
         self.assertEqual(
             messages[0].message,
             "This locale cannot be deleted because there are no other locales.\n\n\n\n\n",

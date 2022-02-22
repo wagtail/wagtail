@@ -1,5 +1,6 @@
 import os
 
+from django.contrib.messages import constants as message_constants
 from django.utils.translation import gettext_lazy as _
 
 DEBUG = False
@@ -238,3 +239,15 @@ REST_FRAMEWORK = {
 
 # Disable redirect autocreation for the majority of tests (to improve efficiency)
 WAGTAILREDIRECTS_AUTO_CREATE = False
+
+
+# https://github.com/wagtail/wagtail/issues/2551 - projects should be able to set
+# MESSAGE_TAGS for their own purposes without them leaking into Wagtail admin styles.
+
+MESSAGE_TAGS = {
+    message_constants.DEBUG: "my-custom-tag",
+    message_constants.INFO: "my-custom-tag",
+    message_constants.SUCCESS: "my-custom-tag",
+    message_constants.WARNING: "my-custom-tag",
+    message_constants.ERROR: "my-custom-tag",
+}
