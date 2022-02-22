@@ -563,6 +563,7 @@ Contributors
 * Dennis McGregor
 * Joshua Munn
 * Gianluca De Cola
+* Sage Abdullah
 
 Translators
 ===========

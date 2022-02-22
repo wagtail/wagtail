@@ -104,7 +104,7 @@ class Command(BaseCommand):
         PageLogEntry.objects.log_action(
             instance=revision.page.specific,
             action=action,
-            data="",
+            data={},
             revision=None if action == "wagtail.create" else revision,
             user=revision.user,
             timestamp=revision.created_at,
