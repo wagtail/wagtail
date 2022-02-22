@@ -12,6 +12,7 @@ Changelog
  * Add black configuration and reformat code using it (Dan Braghis)
  * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
  * Remove redirect auto-creation recipe from documentation as this feature is now supported in Wagtail core (Andy Babic)
+ * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
