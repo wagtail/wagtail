@@ -1,5 +1,3 @@
-import json
-
 from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
@@ -78,7 +76,7 @@ class TestConvertAlias(TestCase, WagtailTestUtils):
         log = PageLogEntry.objects.get(action="wagtail.convert_alias")
         self.assertFalse(log.content_changed)
         self.assertEqual(
-            json.loads(log.data_json),
+            log.data,
             {
                 "page": {
                     "id": self.alias_page.id,

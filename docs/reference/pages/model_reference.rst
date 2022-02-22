@@ -983,12 +983,17 @@ Database fields
 
         A foreign key to the user that triggered the action.
 
-    .. attribute:: data_json
+    .. attribute:: data
 
-        (text)
+        (dict)
 
         The JSON representation of any additional details for each action.
         e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+
+        .. versionchanged:: 2.17
+
+          The field has been renamed from ``data_json`` to ``data`` and it now uses :class:`~django.db.models.JSONField` instead of
+          :class:`~django.db.models.TextField`.
 
     .. attribute:: timestamp
 
@@ -1015,8 +1020,6 @@ Methods and properties
     :noindex:
 
     .. autoattribute:: user_display_name
-
-    .. autoattribute:: data
 
     .. autoattribute:: comment
 

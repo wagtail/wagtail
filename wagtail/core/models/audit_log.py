@@ -4,7 +4,6 @@ such as Page, but the definitions here should remain generic and not depend on t
 wagtail.core.models module or specific models such as Page.
 """
 
-import json
 from collections import defaultdict
 
 from django.conf import settings
@@ -100,7 +99,7 @@ class BaseLogEntryManager(models.Manager):
                 % (instance,)
             )
 
-        data = kwargs.pop("data", "")
+        data = kwargs.pop("data", None) or {}
         title = kwargs.pop("title", None)
         if not title:
             title = self.get_instance_title(instance)
@@ -113,7 +112,7 @@ class BaseLogEntryManager(models.Manager):
             label=title,
             action=action,
             timestamp=timestamp,
-            data_json=json.dumps(data),
+            data=data,
             **kwargs,
         )
 
@@ -151,7 +150,7 @@ class BaseLogEntry(models.Model):
     label = models.TextField()
 
     action = models.CharField(max_length=255, blank=True, db_index=True)
-    data_json = models.TextField(blank=True)
+    data = models.JSONField(blank=True, default=dict)
     timestamp = models.DateTimeField(verbose_name=_("timestamp (UTC)"), db_index=True)
     uuid = models.UUIDField(
         blank=True,
@@ -223,16 +222,6 @@ class BaseLogEntry(models.Model):
 
         else:
             return _("system")
-
-    @cached_property
-    def data(self):
-        """
-        Provides deserialized data
-        """
-        if self.data_json:
-            return json.loads(self.data_json)
-        else:
-            return {}
 
     @cached_property
     def object_verbose_name(self):
