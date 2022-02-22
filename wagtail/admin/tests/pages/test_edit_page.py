@@ -326,7 +326,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     def test_edit_post_scheduled(self):
         # put go_live_at and expire_at several days away from the current date, to avoid
-        # false matches in content_json__contains tests
+        # false matches in content__ tests
         go_live_at = timezone.now() + datetime.timedelta(days=10)
         expire_at = timezone.now() + datetime.timedelta(days=20)
         post_data = {
@@ -358,12 +358,12 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(
             PageRevision.objects.filter(
-                page=child_page_new, content_json__contains=str(go_live_at.date())
+                page=child_page_new, content__go_live_at__startswith=str(go_live_at.date())
             ).exists()
         )
         self.assertTrue(
             PageRevision.objects.filter(
-                page=child_page_new, content_json__contains=str(expire_at.date())
+                page=child_page_new, content__expire_at__startswith=str(expire_at.date())
             ).exists()
         )
 

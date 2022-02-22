@@ -677,10 +677,10 @@ Note that the above migration will work on published Page objects only. If you a
                 page.save()
 
             for revision in page.revisions.all():
-                revision_data = json.loads(revision.content_json)
+                revision_data = revision.content
                 revision_data, changed = pagerevision_converter(revision_data)
                 if changed:
-                    revision.content_json = json.dumps(revision_data, cls=DjangoJSONEncoder)
+                    revision.content = revision_data
                     revision.save()
 
 

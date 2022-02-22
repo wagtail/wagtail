@@ -10,7 +10,6 @@ as Page.
 """
 
 import functools
-import json
 import logging
 import uuid
 from io import StringIO
@@ -25,6 +24,7 @@ from django.core.cache import cache
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
@@ -900,7 +900,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         # Create revision
         revision = self.revisions.create(
-            content_json=self.to_json(),
+            content=self.serializable_data(),
             user=user,
             submitted_for_moderation=submitted_for_moderation,
             approved_go_live_at=approved_go_live_at,
@@ -990,7 +990,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             return self.specific
 
     def update_aliases(
-        self, *, revision=None, user=None, _content_json=None, _updated_ids=None
+        self, *, revision=None, user=None, _content=None, _updated_ids=None
     ):
         """
         Publishes all aliases that follow this page with the latest content from this page.
@@ -1005,8 +1005,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         specific_self = self.specific
 
         # Only compute this if necessary since it's quite a heavy operation
-        if _content_json is None:
-            _content_json = self.to_json()
+        if _content is None:
+            _content = self.serializable_data()
 
         # A list of IDs that have already been updated. This is just in case someone has
         # created an alias loop (which is impossible to do with the UI Wagtail provides)
@@ -1029,7 +1029,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             ]
 
             # Copy field content
-            alias_updated = alias.with_content_json(_content_json)
+            alias_updated = alias.with_content_json(_content)
 
             # Publish the alias if it's currently in draft
             alias_updated.live = True
@@ -1115,7 +1115,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             alias.update_aliases(
                 revision=revision,
-                _content_json=_content_json,
+                _content=_content,
                 _updated_ids=_updated_ids,
             )
 
@@ -1936,10 +1936,10 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         context["action_url"] = action_url
         return TemplateResponse(request, self.password_required_template, context)
 
-    def with_content_json(self, content_json):
+    def with_content_json(self, content):
         """
         Returns a new version of the page with field values updated to reflect changes
-        in the provided ``content_json`` (which usually comes from a previously-saved
+        in the provided ``content`` (which usually comes from a previously-saved
         page revision).
 
         Certain field values are preserved in order to prevent errors if the returned
@@ -1960,24 +1960,22 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         * ``wagtail_admin_comments`` (COMMENTS_RELATION_NAME)
         """
 
-        data = json.loads(content_json)
-
         # Old revisions (pre Wagtail 2.15) may have saved comment data under the name 'comments'
         # rather than the current relation name as set by COMMENTS_RELATION_NAME;
         # if a 'comments' field exists and looks like our comments model, alter the data to use
         # COMMENTS_RELATION_NAME before restoring
         if (
-            COMMENTS_RELATION_NAME not in data
-            and "comments" in data
-            and isinstance(data["comments"], list)
-            and len(data["comments"])
-            and isinstance(data["comments"][0], dict)
-            and "contentpath" in data["comments"][0]
+            COMMENTS_RELATION_NAME not in content
+            and "comments" in content
+            and isinstance(content["comments"], list)
+            and len(content["comments"])
+            and isinstance(content["comments"][0], dict)
+            and "contentpath" in content["comments"][0]
         ):
-            data[COMMENTS_RELATION_NAME] = data["comments"]
-            del data["comments"]
+            content[COMMENTS_RELATION_NAME] = content["comments"]
+            del content["comments"]
 
-        obj = self.specific_class.from_serializable_data(data)
+        obj = self.specific_class.from_serializable_data(content)
 
         # These should definitely never change between revisions
         obj.id = self.id
@@ -2153,7 +2151,9 @@ class PageRevision(models.Model):
         blank=True,
         on_delete=models.SET_NULL,
     )
-    content_json = models.TextField(verbose_name=_("content JSON"))
+    content = models.JSONField(
+        verbose_name=_("content JSON"), encoder=DjangoJSONEncoder
+    )
     approved_go_live_at = models.DateTimeField(
         verbose_name=_("approved go live at"), null=True, blank=True, db_index=True
     )
@@ -2200,7 +2200,7 @@ class PageRevision(models.Model):
             )
 
     def as_page_object(self):
-        return self.page.specific.with_content_json(self.content_json)
+        return self.page.specific.with_content_json(self.content)
 
     def approve_moderation(self, user=None):
         if self.submitted_for_moderation:
@@ -3467,7 +3467,7 @@ class WorkflowState(models.Model):
         return PageRevision.objects.filter(
             page_id=self.page_id,
             id__in=self.task_states.values_list("page_revision_id", flat=True),
-        ).defer("content_json")
+        ).defer("content")
 
     def _get_applicable_task_states(self):
         """Returns the set of task states whose status applies to the current revision"""

@@ -1,5 +1,8 @@
+import json
+
 from django.core.management.base import BaseCommand
 from django.db import models
+from django.db.models.functions import Cast
 from modelcluster.models import get_all_child_relations
 
 from wagtail.core.models import PageRevision, get_page_models
@@ -32,9 +35,12 @@ class Command(BaseCommand):
         from_text = options["from_text"]
         to_text = options["to_text"]
 
-        for revision in PageRevision.objects.filter(content_json__contains=from_text):
-            revision.content_json = revision.content_json.replace(from_text, to_text)
-            revision.save(update_fields=["content_json"])
+        for revision in PageRevision.objects.annotate(
+            content_text=Cast("content", output_field=models.TextField())
+        ).filter(content_text__contains=from_text):
+            replacement = revision.content_text.replace(from_text, to_text)
+            revision.content = json.loads(replacement)
+            revision.save(update_fields=["content"])
 
         for page_class in get_page_models():
             self.stdout.write("scanning %s" % page_class._meta.verbose_name)

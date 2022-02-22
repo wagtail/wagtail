@@ -1,4 +1,3 @@
-import json
 import logging
 import uuid
 
@@ -182,7 +181,7 @@ class CopyPageAction:
                 revision.page = page_copy
 
                 # Update ID fields in content
-                revision_content = json.loads(revision.content_json)
+                revision_content = revision.content
                 revision_content["pk"] = page_copy.pk
 
                 for child_relation in get_all_child_relations(specific_page):
@@ -207,7 +206,7 @@ class CopyPageAction:
                             copied_child_object.pk if copied_child_object else None
                         )
 
-                revision.content_json = json.dumps(revision_content)
+                revision.content = revision_content
 
                 # Save
                 revision.save()

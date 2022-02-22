@@ -1,5 +1,4 @@
 import datetime
-import json
 import unittest
 from unittest.mock import Mock
 
@@ -1493,7 +1492,7 @@ class TestCopyPage(TestCase):
 
         # Check that the ids within the revision were updated correctly
         new_revision = new_christmas_event.revisions.first()
-        new_revision_content = json.loads(new_revision.content_json)
+        new_revision_content = new_revision.content
         self.assertEqual(new_revision_content["pk"], new_christmas_event.id)
         self.assertEqual(
             new_revision_content["speakers"][0]["page"], new_christmas_event.id
@@ -3310,7 +3309,7 @@ class TestPageWithContentJSON(TestCase):
 
         # Take a json representation of the page and update it
         # with some alternative values
-        content = json.loads(original_page.to_json())
+        content = original_page.serializable_data()
         content.update(
             title="About them",
             draft_title="About them",
@@ -3333,10 +3332,8 @@ class TestPageWithContentJSON(TestCase):
             owner=1,
         )
 
-        # Convert values back to json and pass them to with_content_json()
-        # to get an updated version of the page
-        content_json = json.dumps(content)
-        updated_page = original_page.with_content_json(content_json)
+        # Pass the values to with_content_json() to get an updated version of the page
+        updated_page = original_page.with_content_json(content)
 
         # The following attributes values should have changed
         for attr_name in ("title", "slug", "content", "url_path", "show_in_menus"):
@@ -3345,7 +3342,7 @@ class TestPageWithContentJSON(TestCase):
             )
 
         # The following attribute values should have been preserved,
-        # despite new values being provided in content_json
+        # despite new values being provided in content
         for attr_name in (
             "pk",
             "path",
