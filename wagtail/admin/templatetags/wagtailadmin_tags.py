@@ -634,8 +634,18 @@ def bulk_action_choices(context, app_label, model_name):
 
 
 @register.simple_tag
+def message_level_tag(message):
+    """
+    Return the tag for this message's level as defined in
+    django.contrib.messages.constants.DEFAULT_TAGS, ignoring the project-level
+    MESSAGE_TAGS setting (which end-users might customise).
+    """
+    return MESSAGE_TAGS.get(message.level)
+
+
+@register.simple_tag
 def message_tags(message):
-    level_tag = MESSAGE_TAGS.get(message.level)
+    level_tag = message_level_tag(message)
     if message.extra_tags and level_tag:
         return message.extra_tags + " " + level_tag
     elif message.extra_tags:
