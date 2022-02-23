@@ -1,6 +1,6 @@
 import {
+  CanOnlyComparePreReleaseVersionsError,
   VersionNumberFormatError,
-  NotPreReleaseVersionError,
   VersionNumber,
   VersionDeltaType,
 } from './version';
@@ -213,15 +213,15 @@ describe('version.VersionNumber.isPreReleaseStepBehind', () => {
   it('throws error for this being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0.0');
     const thatVersion = new VersionNumber('1.0rc0');
-    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrow(
-      NotPreReleaseVersionError,
+    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
+      CanOnlyComparePreReleaseVersionsError
     );
   });
   it('throws error for that being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0rc0');
     const thatVersion = new VersionNumber('1.0.0');
-    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrow(
-      NotPreReleaseVersionError,
+    expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
+      CanOnlyComparePreReleaseVersionsError
     );
   });
 });

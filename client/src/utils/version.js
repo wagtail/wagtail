@@ -4,7 +4,11 @@ class VersionNumberFormatError extends Error {
   }
 }
 
-class NotPreReleaseVersionError extends Error {}
+class CanOnlyComparePreReleaseVersionsError extends Error {
+  constructor() {
+    this.message = 'Can only compare prerelease versions'
+  }
+}
 
 class VersionDeltaType {
   static MAJOR = new VersionDeltaType('Major');
@@ -47,9 +51,7 @@ class VersionNumber {
    */
   isPreReleaseStepBehind(that) {
     if (!this.isPreRelease() || !that.isPreRelease()) {
-      throw new NotPreReleaseVersionError(
-        'Can only compare prerelease versions',
-      );
+      throw new CanOnlyComparePreReleaseVersionsError();
     }
 
     if (
@@ -99,4 +101,4 @@ class VersionNumber {
   }
 }
 
-export { NotPreReleaseVersionError, VersionNumberFormatError, VersionDeltaType, VersionNumber };
+export { CanOnlyComparePreReleaseVersionsError, VersionNumberFormatError, VersionDeltaType, VersionNumber };
