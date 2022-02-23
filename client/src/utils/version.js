@@ -6,7 +6,7 @@ class VersionNumberFormatError extends Error {
 
 class CanOnlyComparePreReleaseVersionsError extends Error {
   constructor() {
-    this.message = 'Can only compare prerelease versions'
+    this.message = 'Can only compare prerelease versions';
   }
 }
 
@@ -101,4 +101,9 @@ class VersionNumber {
   }
 }
 
-export { CanOnlyComparePreReleaseVersionsError, VersionNumberFormatError, VersionDeltaType, VersionNumber };
+export {
+  CanOnlyComparePreReleaseVersionsError,
+  VersionNumberFormatError,
+  VersionDeltaType,
+  VersionNumber,
+};

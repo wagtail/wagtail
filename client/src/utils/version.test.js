@@ -214,14 +214,14 @@ describe('version.VersionNumber.isPreReleaseStepBehind', () => {
     const thisVersion = new VersionNumber('1.0.0');
     const thatVersion = new VersionNumber('1.0rc0');
     expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
-      CanOnlyComparePreReleaseVersionsError
+      CanOnlyComparePreReleaseVersionsError,
     );
   });
   it('throws error for that being non-prerelease version', () => {
     const thisVersion = new VersionNumber('1.0rc0');
     const thatVersion = new VersionNumber('1.0.0');
     expect(() => thisVersion.isPreReleaseStepBehind(thatVersion)).toThrowError(
-      CanOnlyComparePreReleaseVersionsError
+      CanOnlyComparePreReleaseVersionsError,
     );
   });
 });
