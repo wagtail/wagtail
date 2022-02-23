@@ -7,18 +7,18 @@
 
     <div class="nice-padding">
         <p>
-        {% if page_to_move.is_leaf %}
-            {% blocktrans with title=destination.get_admin_display_title %}Are you sure you want to move this page into '{{ title }}'?{% endblocktrans %}
-        {% else %}
-            {% blocktrans with title=destination.get_admin_display_title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}
-        {% endif %}
-        {% if translation_count %}
-            {% blocktrans count counter=translation_count %}
-                This will also move {{ translation_count }} translation of this page and its child pages
-            {% plural %}
-                This will also move {{ translation_count }} translations of this page and their child pages
-            {% endblocktrans %}
-        {% endif %}
+            {% if page_to_move.is_leaf %}
+                {% blocktrans with title=destination.get_admin_display_title %}Are you sure you want to move this page into '{{ title }}'?{% endblocktrans %}
+            {% else %}
+                {% blocktrans with title=destination.get_admin_display_title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}
+            {% endif %}
+            {% if translation_count %}
+                {% blocktrans count counter=translation_count %}
+                    This will also move {{ translation_count }} translation of this page and its child pages
+                {% plural %}
+                    This will also move {{ translation_count }} translations of this page and their child pages
+                {% endblocktrans %}
+            {% endif %}
         </p>
 
         <form action="{% url 'wagtailadmin_pages:move_confirm' page_to_move.id destination.id %}" method="POST">
