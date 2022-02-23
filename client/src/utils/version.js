@@ -20,7 +20,6 @@ class VersionDeltaType {
 
 class VersionNumber {
   constructor(versionString) {
-    /* eslint-disable-next-line max-len */
     const versionRegex =
       /^(?<major>\d+)\.{1}(?<minor>\d+)((\.{1}(?<patch>\d+))|(?<preReleaseStep>a|b|rc){1}(?<preReleaseVersion>\d+)){0,1}$/;
     const matches = versionString.match(versionRegex);

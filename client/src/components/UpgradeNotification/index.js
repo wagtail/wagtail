@@ -40,7 +40,7 @@ const initUpgradeNotification = () => {
         const latestVersion = new VersionNumber(data.version);
         const versionDelta = currentVersion.howMuchBehind(latestVersion);
 
-        let releaseNotesUrl = undefined;
+        let releaseNotesUrl = null;
         if (!versionDelta) {
           return;
         } else if (
