@@ -7,10 +7,15 @@
 
 /** @type {Breakpoints} */
 const breakpoints = {
-  sm: '30em', // 480px
-  md: '48em', // 768px
-  lg: '61em', // 976px
-  xl: '90em', // 1440px
+  xs: 0,
+  sm: '50em',
+  // 800px
+  md: '56.25em',
+  // 900px
+  lg: '75em',
+  // 1200px
+  xl: '100em',
+  // 1440px
 };
 
 module.exports = {
