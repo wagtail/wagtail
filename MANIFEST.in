@@ -1,5 +1,7 @@
 include LICENSE *.rst *.txt *.md
 graft wagtail
-prune wagtail/wagtailadmin/static_src
-global-exclude __pycache__
+prune **/__pycache__
+prune **/static_src
 global-exclude *.py[co]
+global-exclude .gitignore
+global-exclude wagtail-icomoon.json
