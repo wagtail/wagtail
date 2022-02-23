@@ -100,4 +100,4 @@ class VersionNumber {
   }
 }
 
-export { VersionNumberFormatError, VersionDeltaType, VersionNumber };
+export { NotPreReleaseVersionError, VersionNumberFormatError, VersionDeltaType, VersionNumber };
