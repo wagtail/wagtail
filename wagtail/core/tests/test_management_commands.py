@@ -160,36 +160,6 @@ class TestSetUrlPathsCommand(TestCase):
         self.run_command()
 
 
-class TestReplaceTextCommand(TestCase):
-    fixtures = ["test.json"]
-
-    def run_command(self, from_text, to_text):
-        management.call_command("replace_text", from_text, to_text, stdout=StringIO())
-
-    def test_replace_text(self):
-        # Check that the christmas page is definitely about christmas
-        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
-        self.assertEqual(christmas_page.title, "Christmas")
-        self.assertEqual(christmas_page.speakers.first().last_name, "Christmas")
-        self.assertEqual(
-            christmas_page.advert_placements.first().colour,
-            "greener than a Christmas tree",
-        )
-
-        # Make it about easter
-        self.run_command("Christmas", "Easter")
-
-        # Check that it's now about easter
-        easter_page = EventPage.objects.get(url_path="/home/events/christmas/")
-        self.assertEqual(easter_page.title, "Easter")
-
-        # Check that we also update the child objects (including advert_placements, which is defined on the superclass)
-        self.assertEqual(easter_page.speakers.first().last_name, "Easter")
-        self.assertEqual(
-            easter_page.advert_placements.first().colour, "greener than a Easter tree"
-        )
-
-
 class TestPublishScheduledPagesCommand(TestCase):
     def setUp(self):
         # Find root page
