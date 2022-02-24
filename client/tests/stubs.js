@@ -51,7 +51,3 @@ global.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'image' };
 global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'page' };
 global.EMBED_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'embed' };
 global.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = { type: 'document' };
-
-global.gettext = (text) => text;
-global.ngettext = (text, ptext, count) => (count === 1 ? text : ptext);
-global.gettext_noop = (text) => text;

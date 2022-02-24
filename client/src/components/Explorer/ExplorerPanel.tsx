@@ -1,6 +1,7 @@
 import React from 'react';
 import FocusTrap from 'focus-trap-react';
 
+import { gettext } from '../../utils/gettext';
 import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import Button from '../Button/Button';

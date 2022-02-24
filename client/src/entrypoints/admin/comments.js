@@ -1,3 +1,4 @@
+import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
 
 const KEYCODE_M = 77;

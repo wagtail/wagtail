@@ -5,6 +5,8 @@ possibly after several navigation steps
 
 import $ from 'jquery';
 
+import { gettext } from '../../utils/gettext';
+
 /* eslint-disable */
 function ModalWorkflow(opts) {
   /* options passed in 'opts':

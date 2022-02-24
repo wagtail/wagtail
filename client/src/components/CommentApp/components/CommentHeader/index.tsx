@@ -1,4 +1,6 @@
 import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
+
+import { gettext } from '../../../../utils/gettext';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 

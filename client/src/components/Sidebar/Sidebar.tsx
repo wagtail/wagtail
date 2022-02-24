@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 
 // Please keep in sync with $menu-transition-duration variable in `client/scss/settings/_variables.scss`

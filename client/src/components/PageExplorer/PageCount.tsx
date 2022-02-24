@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { gettext } from '../../utils/gettext';
 import { ADMIN_URLS } from '../../config/wagtailConfig';
 import Icon from '../Icon/Icon';
 

@@ -1,4 +1,6 @@
 import * as React from 'react';
+
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
