@@ -45,39 +45,22 @@ def widget_with_script(widget, script):
 def get_form_for_model(
     model,
     form_class=WagtailAdminModelForm,
-    fields=None,
-    exclude=None,
-    formsets=None,
-    exclude_formsets=None,
-    widgets=None,
-    field_permissions=None,
+    **kwargs,
 ):
+    # django's modelform_factory, but accepting arbitrary kwargs to pass to
+    # the form's Meta class to support additions such as ClusterForm's `formsets`
+    # attribute
 
-    # django's modelform_factory with a bit of custom behaviour
-    attrs = {"model": model}
-    if fields is not None:
-        attrs["fields"] = fields
-    if exclude is not None:
-        attrs["exclude"] = exclude
-    if widgets is not None:
-        attrs["widgets"] = widgets
-    if formsets is not None:
-        attrs["formsets"] = formsets
-    if exclude_formsets is not None:
-        attrs["exclude_formsets"] = exclude_formsets
-    if field_permissions is not None:
-        attrs["field_permissions"] = field_permissions
+    meta_class_attrs = kwargs
+    meta_class_attrs["model"] = model
 
     # Give this new form class a reasonable name.
-    class_name = model.__name__ + str("Form")
-    bases = (object,)
-    if hasattr(form_class, "Meta"):
-        bases = (form_class.Meta,) + bases
-
-    form_class_attrs = {"Meta": type(str("Meta"), bases, attrs)}
+    class_name = model.__name__ + "Form"
+    bases = (form_class.Meta,) if hasattr(form_class, "Meta") else ()
+    Meta = type("Meta", bases, meta_class_attrs)
+    form_class_attrs = {"Meta": Meta}
 
     metaclass = type(form_class)
-
     return metaclass(class_name, (form_class,), form_class_attrs)
 
 
