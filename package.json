@@ -13,7 +13,8 @@
     "last 2 Edge versions",
     "last 1 Firefox version",
     "last 2 iOS versions",
-    "last 3 Safari versions"
+    "last 3 Safari versions",
+    "not ie 11"
   ],
   "jest": {
     "moduleFileExtensions": [
