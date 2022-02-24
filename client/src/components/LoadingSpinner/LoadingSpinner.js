@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { gettext } from '../../utils/gettext';
 import Icon from '../../components/Icon/Icon';
 
 /**

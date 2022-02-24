@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
 import { ENTITY_TYPE, DraftUtils } from 'draftail';
 
+import { gettext } from '../../../utils/gettext';
 import { getSelectionText } from '../DraftUtils';
 
 const $ = global.jQuery;

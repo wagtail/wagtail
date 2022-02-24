@@ -1,3 +1,4 @@
+import { gettext } from '../../../utils/gettext';
 import type { CommentApp } from '../../CommentApp/main';
 import type { Annotation } from '../../CommentApp/utils/annotation';
 import type { Comment } from '../../CommentApp/state/comments';
