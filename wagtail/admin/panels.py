@@ -118,25 +118,77 @@ class Panel:
             "help_text": self.help_text,
         }
 
-    # return list of widget overrides that this panel wants to be in place
-    # on the form it receives
+    def get_form_options(self):
+        """
+        Return a dictionary of attributes such as 'fields', 'formsets' and 'widgets'
+        which should be incorporated into the form class definition to generate a form
+        that this EditHandler can use.
+        This will only be called after binding to a model (i.e. self.model is available).
+        """
+        options = {}
+
+        if not getattr(self.widget_overrides, "is_original_method", False):
+            warn(
+                "The `widget_overrides` method (on %r) is deprecated; "
+                "these should be returned from `get_form_options` as a "
+                "`widgets` item instead." % type(self),
+                category=RemovedInWagtail219Warning,
+            )
+            options["widgets"] = self.widget_overrides()
+
+        if not getattr(self.required_fields, "is_original_method", False):
+            warn(
+                "The `required_fields` method (on %r) is deprecated; "
+                "these should be returned from `get_form_options` as a "
+                "`fields` item instead." % type(self),
+                category=RemovedInWagtail219Warning,
+            )
+            options["fields"] = self.required_fields()
+
+        if not getattr(self.required_formsets, "is_original_method", False):
+            warn(
+                "The `required_formsets` method (on %r) is deprecated; "
+                "these should be returned from `get_form_options` as a "
+                "`formsets` item instead." % type(self),
+                category=RemovedInWagtail219Warning,
+            )
+            options["formsets"] = self.required_formsets()
+
+        if not getattr(self.field_permissions, "is_original_method", False):
+            warn(
+                "The `field_permissions` method (on %r) is deprecated; "
+                "these should be returned from `get_form_options` as a "
+                "`field_permissions` item instead." % type(self),
+                category=RemovedInWagtail219Warning,
+            )
+            options["field_permissions"] = self.field_permissions()
+
+        return options
+
+    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
     def widget_overrides(self):
         return {}
 
-    # return list of fields that this panel expects to find on the form
+    widget_overrides.is_original_method = True
+
+    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
     def required_fields(self):
         return []
 
-    # return a dict of formsets that this panel requires to be present
-    # as children of the ClusterForm; the dict is a mapping from relation name
-    # to parameters to be passed as part of get_form_for_model's 'formsets' kwarg
+    required_fields.is_original_method = True
+
+    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
     def required_formsets(self):
         return {}
+
+    required_formsets.is_original_method = True
 
     # return a dict mapping field name to the permission codename that a user must have for that
     # field to be included in the form
     def field_permissions(self):
         return {}
+
+    field_permissions.is_original_method = True
 
     # return any HTML that needs to be output on the edit page once per edit handler definition.
     # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
@@ -404,10 +456,7 @@ class BaseFormEditHandler(PanelGroup):
         form_class = get_form_for_model(
             self.model,
             form_class=base_form_class,
-            fields=self.required_fields(),
-            formsets=self.required_formsets(),
-            widgets=self.widget_overrides(),
-            field_permissions=self.field_permissions(),
+            **self.get_form_options(),
         )
 
         # Set show_comments_toggle attribute on form class
