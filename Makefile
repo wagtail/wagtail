@@ -29,6 +29,13 @@ lint:
 	npm run lint:format --silent
 	doc8 docs
 
+format:
+	black --target-version py37 .
+	isort .
+	git ls-files '*.html' | xargs djhtml -i
+	npm run format
+	npm run fix:js
+
 test:
 	python runtests.py
 
