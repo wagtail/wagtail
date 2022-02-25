@@ -29,8 +29,8 @@ class BoundWidget {
   focus() {
     this.input.focus();
   }
-  setCapabilityEnabled(capability, enabled) {
-    this.parentCapabilities.get(capability).enabled = enabled;
+  setCapabilityOptions(capability, options) {
+    Object.assign(this.parentCapabilities.get(capability), options);
   }
 }
 

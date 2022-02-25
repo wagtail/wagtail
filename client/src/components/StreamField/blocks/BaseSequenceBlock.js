@@ -186,14 +186,10 @@ export class BaseSequenceChild extends EventEmitter {
     capabilities.set('duplicate', {
       enabled: true,
       fn: this.duplicate,
-      enableEvent: 'enableDuplication',
-      disableEvent: 'disableDuplication',
     });
     capabilities.set('split', {
       enabled: false,
       fn: this.split,
-      enableEvent: 'enableDuplication',
-      disableEvent: 'disableDuplication',
     });
 
     this.block = this.blockDef.render(
@@ -201,7 +197,6 @@ export class BaseSequenceChild extends EventEmitter {
       this.prefix + '-value',
       initialState,
       undefined,
-      this,
       capabilities,
     );
 
@@ -255,9 +250,15 @@ export class BaseSequenceChild extends EventEmitter {
 
   enableDuplication() {
     this.emit('enableDuplication');
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('duplicate', { enabled: true });
+    }
   }
   disableDuplication() {
     this.emit('disableDuplication');
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('duplicate', { enabled: false });
+    }
   }
   enableMoveUp() {
     this.emit('enableMoveUp');

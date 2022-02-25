@@ -71,13 +71,14 @@ class ParanoidFieldBlock extends FieldBlock {
 }
 
 class ParanoidFieldBlockDefinition extends FieldBlockDefinition {
-  render(placeholder, prefix, initialState, initialError) {
+  render(placeholder, prefix, initialState, initialError, capabilities) {
     return new ParanoidFieldBlock(
       this,
       placeholder,
       prefix,
       initialState,
       initialError,
+      capabilities,
     );
   }
 }
