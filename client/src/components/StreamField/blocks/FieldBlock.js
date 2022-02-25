@@ -11,7 +11,6 @@ export class FieldBlock {
     prefix,
     initialState,
     initialError,
-    parent,
     parentCapabilities,
   ) {
     this.blockDef = blockDef;
@@ -31,20 +30,9 @@ export class FieldBlock {
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
 
-    this.parentCapabilities = new Map();
+    this.parentCapabilities = parentCapabilities || new Map();
 
-    const capabilities = parentCapabilities || new Map();
-    capabilities.forEach(
-      ({ enabled, enableEvent, disableEvent, fn }, capability) => {
-        this.parentCapabilities.set(capability, { enabled, fn });
-        parent.on(enableEvent, () =>
-          this.setCapabilityEnabled(capability, true),
-        );
-        parent.on(disableEvent, () =>
-          this.setCapabilityEnabled(capability, false),
-        );
-      },
-    );
+    this.prefix = prefix;
 
     try {
       this.widget = this.blockDef.widget.render(
@@ -109,10 +97,10 @@ export class FieldBlock {
     }
   }
 
-  setCapabilityEnabled(capability, enabled) {
-    this.parentCapabilities.get(capability).enabled = enabled;
-    if (this.widget && this.widget.setCapabilityEnabled) {
-      this.widget.setCapabilityEnabled(capability, enabled);
+  setCapabilityOptions(capability, options) {
+    Object.assign(this.parentCapabilities.get(capability), options);
+    if (this.widget && this.widget.setCapabilityOptions) {
+      this.widget.setCapabilityOptions(capability, options);
     }
   }
 
