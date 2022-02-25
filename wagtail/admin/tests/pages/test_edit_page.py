@@ -358,12 +358,14 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         # But a revision with go_live_at and expire_at in their content json *should* exist
         self.assertTrue(
             PageRevision.objects.filter(
-                page=child_page_new, content__go_live_at__startswith=str(go_live_at.date())
+                page=child_page_new,
+                content__go_live_at__startswith=str(go_live_at.date()),
             ).exists()
         )
         self.assertTrue(
             PageRevision.objects.filter(
-                page=child_page_new, content__expire_at__startswith=str(expire_at.date())
+                page=child_page_new,
+                content__expire_at__startswith=str(expire_at.date()),
             ).exists()
         )
 
