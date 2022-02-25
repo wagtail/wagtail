@@ -1,7 +1,6 @@
 // Note: Tailwind does not automatically escape font names.
 // If a font name contains an invalid identifier (lke a space), we wrap it in quotes to escape the invalid characters.
 // Font stack optimised for built-in fonts of each major operating system, with support for emojis.
-/** @type {SansFontStack[]} */
 const systemUIFontStack = [
   '-apple-system',
   'BlinkMacSystemFont',
@@ -17,7 +16,6 @@ const systemUIFontStack = [
   '"Noto Color Emoji"',
 ];
 
-/** @type {monoFontStack[]} */
 const monoFontStack = ['monospace', 'serif'];
 
 const fontFamilies = {
