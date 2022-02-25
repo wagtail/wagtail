@@ -490,7 +490,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
 - Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
-- The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
+- The content of the page is JSON-serialisable and stored in the :attr:`~PageRevision.content` field
 - You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
@@ -520,11 +520,16 @@ Database fields
 
         This links to the user that created the revision
 
-    .. attribute:: content_json
+    .. attribute:: content
 
-        (text)
+        (dict)
 
         This field contains the JSON content for the page at the time the revision was created
+
+        .. versionchanged:: 2.17
+
+          The field has been renamed from ``content_json`` to ``content`` and it now uses :class:`~django.db.models.JSONField` instead of
+          :class:`~django.db.models.TextField`.
 
 Managers
 ~~~~~~~~

@@ -50,9 +50,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
-    "@storybook/builder-webpack5": "^6.3.12",
-    "@storybook/manager-webpack5": "^6.3.12",
-    "@storybook/react": "^6.3.12",
+    "@storybook/addon-controls": "^6.4.19",
+    "@storybook/addon-docs": "^6.4.19",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
+    "@storybook/react": "^6.4.19",
     "@types/draft-js": "^0.10.45",
     "@types/jest": "^26.0.24",
     "@types/react": "^16.14.21",
@@ -81,6 +83,7 @@
     "redux-mock-store": "^1.3.0",
     "sass": "^1.45.1",
     "sass-loader": "^12.4.0",
+    "storybook-django": "^0.3.0",
     "stylelint": "^14.2.0",
     "ts-jest": "^26.5.6",
     "ts-loader": "^9.2.6",
@@ -109,9 +112,9 @@
   "scripts": {
     "start": "webpack --config ./client/webpack.config.js --mode development --progress --watch",
     "build": "webpack --config ./client/webpack.config.js --mode production",
-    "fix:js": "eslint --ext .js,.ts,.tsx --fix ./",
+    "fix:js": "eslint --ext .js,.ts,.tsx --fix .",
     "format": "prettier --write '**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}'",
-    "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives ./client",
+    "lint:js": "eslint --ext .js,.ts,.tsx --report-unused-disable-directives .",
     "lint:css": "stylelint **/*.scss",
     "lint:format": "prettier --check '**/?(.)*.{css,scss,js,ts,tsx,json,yaml,yml}'",
     "lint": "npm run lint:js && npm run lint:css && npm run lint:format",
@@ -120,7 +123,7 @@
     "test:unit:watch": "jest --watch",
     "test:unit:coverage": "jest --coverage",
     "test:integration": "./client/tests/integration/node_modules/.bin/jest --config ./client/tests/integration/jest.config.js",
-    "storybook": "start-storybook -c client/.storybook -p 6006",
-    "build-storybook": "build-storybook -c client/.storybook"
+    "storybook": "start-storybook -c client/storybook -p 6006 --no-open --no-version-updates --no-release-notes --quiet --modern",
+    "build-storybook": "build-storybook -c client/storybook --modern"
   }
 }

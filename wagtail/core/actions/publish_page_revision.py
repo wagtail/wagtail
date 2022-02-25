@@ -150,9 +150,7 @@ class PublishPageRevisionAction:
             )
 
             # Update alias pages
-            page.update_aliases(
-                revision=revision, user=user, _content_json=revision.content_json
-            )
+            page.update_aliases(revision=revision, user=user, _content=revision.content)
 
             if log_action:
                 data = None

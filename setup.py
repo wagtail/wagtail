@@ -51,6 +51,7 @@ testing_extras = [
     "Unidecode>=0.04.14,<2.0",
     "azure-mgmt-cdn>=5.1,<6.0",
     "azure-mgmt-frontdoor>=0.3,<0.4",
+    "django-pattern-library>=0.7,<0.8",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
     "black==22.1.0",

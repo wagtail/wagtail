@@ -1,5 +1,3 @@
-import json
-
 from django.core.management.base import BaseCommand
 from django.utils import dateparse, timezone
 
@@ -7,7 +5,7 @@ from wagtail.core.models import Page, PageRevision
 
 
 def revision_date_expired(r):
-    expiry_str = json.loads(r.content_json).get("expire_at")
+    expiry_str = r.content.get("expire_at")
     if not expiry_str:
         return False
     expire_at = dateparse.parse_datetime(expiry_str)
@@ -72,7 +70,7 @@ class Command(BaseCommand):
                 self.stdout.write("Expiry datetime\t\tSlug\t\tName")
                 self.stdout.write("---------------\t\t----\t\t----")
                 for er in expired_revs:
-                    rev_data = json.loads(er.content_json)
+                    rev_data = er.content
                     self.stdout.write(
                         "{0}\t{1}\t{2}".format(
                             dateparse.parse_datetime(
@@ -100,7 +98,7 @@ class Command(BaseCommand):
                 self.stdout.write("Go live datetime\t\tSlug\t\tName")
                 self.stdout.write("---------------\t\t\t----\t\t----")
                 for rp in revs_for_publishing:
-                    rev_data = json.loads(rp.content_json)
+                    rev_data = rp.content
                     self.stdout.write(
                         "{0}\t\t{1}\t{2}".format(
                             rp.approved_go_live_at.strftime("%Y-%m-%d %H:%M"),

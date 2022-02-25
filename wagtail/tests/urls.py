@@ -1,8 +1,10 @@
+from django.apps import apps
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.http import HttpResponse
 from django.urls import include, path
 
 from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.admin.views import home
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.contrib.sitemaps import Sitemap
@@ -41,6 +43,16 @@ urlpatterns = [
     path("testapp/", include(testapp_urls)),
     path("fallback/", lambda: HttpResponse("ok"), name="fallback"),
 ]
+
+if apps.is_installed("pattern_library"):
+    urlpatterns += [
+        path(
+            "pattern-library/api/v1/sprite",
+            home.sprite,
+            name="pattern_library_sprite",
+        ),
+        path("pattern-library/", include("pattern_library.urls")),
+    ]
 
 urlpatterns += staticfiles_urlpatterns()
 
