@@ -1,15 +1,18 @@
+const baseConfig = require('./client/tailwind.config');
+
+/**
+ * Tailwind config file for Wagtail itself.
+ */
 module.exports = {
+  presets: [baseConfig],
   content: [
-    './wagtail/**!(static)/*.{html,js,jsx,ts,tsx}', // Avoid purging compiled static assets
-    './client/**/*.{html,js,ts,tsx}',
-    './docs/**/*.{html,js,ts,tsx}',
+    './wagtail/**/*.{py,html,ts,tsx}',
+    './wagtail/**/static_src/**/*.js',
+    './client/**/*.{js,ts,tsx}',
+    './docs/**/*.{md,rst}',
   ],
   corePlugins: {
+    // Risk of clashing with existing styles.
     preflight: false,
   },
-  prefix: 'w-',
-  theme: {
-    extend: {},
-  },
-  plugins: [],
 };

@@ -18,7 +18,7 @@ const systemUIFontStack = [
 
 const monoFontStack = ['monospace', 'serif'];
 
-const fontFamilies = {
+const fontFamily = {
   sans: systemUIFontStack,
   mono: monoFontStack,
 };
@@ -72,7 +72,7 @@ const lineHeight = {
 module.exports = {
   systemUIFontStack,
   monoFontStack,
-  fontFamilies,
+  fontFamily,
   fontSize,
   fontWeight,
   letterSpacing,

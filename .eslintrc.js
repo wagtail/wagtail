@@ -97,6 +97,7 @@ module.exports = {
         '*.test.tsx',
         '*.test.js',
         'webpack.config.js',
+        'tailwind.config.js',
         '*.stories.js',
         '*.stories.tsx',
         'storybook/**/*',

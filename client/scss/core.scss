@@ -152,13 +152,11 @@ These are classes that provide overrides.
 
 // UTILITIES: classes that do one simple thing.
 @import 'overrides/utilities.hidden';
-@import 'overrides/utilities.text';
 @import 'overrides/utilities.dropdowns';
 @import 'overrides/utilities.focus';
 @import 'overrides/utilities.visuallyhidden';
 
 // Legacy utilities
-@import 'overrides/utilities.text.legacy';
 @import 'overrides/utilities.legacy';
 
 // PAGES: page-specific overrides
