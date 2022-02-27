@@ -41,6 +41,15 @@ OTHER PREFIXES
 
 ==============================================================================*/
 
+/* TAILWIND BASE
+These inject Tailwind's base, component and utility styles and any styles registered by plugins of each layer.
+Unused styles created within tailwinds layers won't be compiled into the compiled stylesheet
+https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
+*/
+
+@tailwind base;
+@tailwind components;
+
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
@@ -143,15 +152,16 @@ These are classes that provide overrides.
 
 // UTILITIES: classes that do one simple thing.
 @import 'overrides/utilities.hidden';
-@import 'overrides/utilities.text';
 @import 'overrides/utilities.dropdowns';
 @import 'overrides/utilities.focus';
 @import 'overrides/utilities.visuallyhidden';
 
 // Legacy utilities
-@import 'overrides/utilities.text.legacy';
 @import 'overrides/utilities.legacy';
 
 // PAGES: page-specific overrides
 @import 'overrides/pages.homepage';
 @import 'overrides/pages.page-explorer';
+
+// TAILWIND: This is at the bottom so it can take precedence over other css classes
+@tailwind utilities;
