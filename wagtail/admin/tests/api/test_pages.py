@@ -11,7 +11,13 @@ from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
 from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
 from wagtail.test.demosite import models
-from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
+from wagtail.test.testapp.models import (
+    EventIndex,
+    EventPage,
+    PageWithExcludedCopyField,
+    SimplePage,
+    StreamPage,
+)
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase
@@ -1131,6 +1137,20 @@ class TestCopyPageAction(AdminAPITestCase):
 
         new_page = Page.objects.get(id=content["id"])
         self.assertEqual(new_page.slug, "new-slug")
+
+    def test_copy_page_with_exclude_fields_in_copy(self):
+        response = self.get_response(21, {})
+
+        self.assertEqual(response.status_code, 201)
+        content = json.loads(response.content.decode("utf-8"))
+
+        original_page = PageWithExcludedCopyField.objects.get(pk=21)
+        new_page = PageWithExcludedCopyField.objects.get(id=content["id"])
+        self.assertEqual(new_page.content, original_page.content)
+        self.assertNotEqual(new_page.special_field, original_page.special_field)
+        self.assertEqual(
+            new_page.special_field, new_page._meta.get_field("special_field").default
+        )
 
     def test_copy_page_destination(self):
         response = self.get_response(3, {"destination_page_id": 3})
