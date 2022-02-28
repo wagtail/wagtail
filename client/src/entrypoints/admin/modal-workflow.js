@@ -50,7 +50,7 @@ function ModalWorkflow(opts) {
 
   // add listener - once modal is fully hidden (closed & css transitions end) - re-focus on trigger and remove from DOM
   container.on('hidden.bs.modal', function () {
-    self.triggerElement.focus();
+    self.triggerElement.focus({preventScroll:true});
     container.remove();
   });
 
