@@ -107,13 +107,16 @@
 
   &.bicolor {
     border: 1px solid transparent;
-    padding-left: 3.5em;
+    padding-inline-start: 3.5em;
 
     &:before {
       // iconfont
       font-size: 1rem;
       position: absolute;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0;
+      inset-inline-start: 0;
       top: 0;
       width: 2em;
       line-height: 1.85em;
@@ -121,22 +124,37 @@
       text-align: center;
       background-color: rgba(0, 0, 0, 0.2);
       display: block;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       border-top-left-radius: inherit;
+      border-start-start-radius: inherit;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       border-bottom-left-radius: inherit;
+      border-end-start-radius: inherit;
     }
 
     .icon-wrapper {
       background-color: rgba(0, 0, 0, 0.2);
       display: block;
       position: absolute;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0;
+      inset-inline-start: 0;
       top: 0;
       width: 3em;
       line-height: 1.85em;
       height: 100%;
       text-align: center;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       border-top-left-radius: inherit;
+      border-start-start-radius: inherit;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       border-bottom-left-radius: inherit;
+      border-end-start-radius: inherit;
     }
 
     &.button--icon {
@@ -162,7 +180,7 @@
   }
 
   &.button-small.bicolor {
-    padding-left: 3.5em;
+    padding-inline-start: 3.5em;
 
     .icon-wrapper {
       width: 2em;
@@ -179,7 +197,7 @@
   // + input[type=button],
   + .button {
     // + button {
-    margin-left: 1em;
+    margin-inline-start: 1em;
   }
 
   // A completely unstyled button
@@ -234,7 +252,7 @@
       width: 0;
       visibility: hidden;
       text-align: center;
-      padding-right: 0;
+      padding-inline-end: 0;
     }
 
     em {
@@ -254,14 +272,17 @@
       width: 1em;
       height: 1em;
       opacity: 0.8;
-      padding-right: 0.5em;
+      padding-inline-end: 0.5em;
     }
 
     span.icon-spinner:after {
       // iconfont
       text-align: center;
       position: absolute;
+      // Remove once we drop support for Safari 14.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0;
+      inset-inline-start: 0;
       margin: 0;
       line-height: 1em;
       display: inline-block;
@@ -334,7 +355,7 @@
     height: 3em;
 
     &.bicolor {
-      padding-left: 3.7em;
+      padding-inline-start: 3.7em;
 
       &:before {
         width: 2em;
@@ -345,7 +366,7 @@
 
     &.button-small.bicolor {
       // line-height: 2.2em;
-      padding-left: 3em;
+      padding-inline-start: 3em;
 
       &:before {
         width: 1.8em;
@@ -487,12 +508,15 @@ button.button.bicolor .icon-wrapper {
 
 .bicolor {
   border: 0;
-  padding-left: 3.5em;
+  padding-inline-start: 3.5em;
 
   &:before {
     font-size: 1rem;
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     width: 2em;
     line-height: 1.85em;
@@ -504,7 +528,7 @@ button.button.bicolor .icon-wrapper {
 }
 
 .button-small.bicolor {
-  padding-left: 3.5em;
+  padding-inline-start: 3.5em;
 
   &:before {
     width: 2em;
@@ -550,8 +574,8 @@ button {
   button {
     border-radius: 0;
     float: left;
-    margin-right: 1px;
-    margin-left: 0;
+    margin-inline-end: 1px;
+    margin-inline-start: 0;
 
     &:only-child {
       border-radius: 3px;
@@ -563,7 +587,7 @@ button {
 
     &:last-child {
       border-radius: 0 3px 3px 0;
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
 
@@ -613,16 +637,19 @@ button {
   .controls {
     position: absolute;
     z-index: 1;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 1em;
+    inset-inline-end: 1em;
     top: 1em;
     color: $color-white;
 
     li {
       float: left;
-      margin-right: 1px;
+      margin-inline-end: 1px;
 
       &:last-child {
-        margin-right: 0;
+        margin-inline-end: 0;
       }
     }
 

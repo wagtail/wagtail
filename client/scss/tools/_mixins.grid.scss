@@ -8,15 +8,15 @@ $padding: math.div($grid-gutter-width, 2);
   @include clearfix();
   box-sizing: border-box;
   display: block;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: $padding;
-  padding-left: $padding;
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+  padding-inline-end: $padding;
+  padding-inline-start: $padding;
 }
 
 @mixin row-flush() {
-  margin-left: -$padding;
-  margin-right: -$padding;
+  margin-inline-start: -$padding;
+  margin-inline-end: -$padding;
 }
 
 // Our column container
@@ -25,8 +25,8 @@ $padding: math.div($grid-gutter-width, 2);
   display: inline;
   float: left;
   width: 100% * math.div($x, $grid-columns);
-  padding-right: $padding;
-  padding-left: $padding;
+  padding-inline-end: $padding;
+  padding-inline-start: $padding;
 }
 
 @mixin table-column($x, $padding: $padding, $grid-columns: $grid-columns) {
@@ -36,40 +36,40 @@ $padding: math.div($grid-gutter-width, 2);
 
 // Push adds left padding
 @mixin push($offset: 1, $grid-columns: $grid-columns) {
-  margin-left: 100% * math.div($offset, $grid-columns);
+  margin-inline-start: 100% * math.div($offset, $grid-columns);
 }
 
 @mixin push-padding($offset: 1, $grid-columns: $grid-columns) {
-  padding-left: 100% * math.div($offset, $grid-columns);
+  padding-inline-start: 100% * math.div($offset, $grid-columns);
 }
 
 // Pull adds right padding
 @mixin pull($offset: 1, $grid-columns: $grid-columns) {
-  margin-right: 100% * math.div($offset, $grid-columns);
+  margin-inline-end: 100% * math.div($offset, $grid-columns);
 }
 
 @mixin pull-padding($offset: 1, $grid-columns: $grid-columns) {
-  padding-right: 100% * math.div($offset, $grid-columns);
+  padding-inline-end: 100% * math.div($offset, $grid-columns);
 }
 
 // only used in places where padding not applied to same elements as row or row-flush
 // most of the time this class should be applied directly to the html elements
 @mixin nice-padding {
-  padding-left: $mobile-nice-padding;
-  padding-right: $mobile-nice-padding;
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
-    padding-left: $desktop-nice-padding;
-    padding-right: $desktop-nice-padding;
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
   }
 }
 
 @mixin nice-margin {
-  margin-left: $mobile-nice-padding;
-  margin-right: $mobile-nice-padding;
+  margin-inline-start: $mobile-nice-padding;
+  margin-inline-end: $mobile-nice-padding;
 
   @include media-breakpoint-up(sm) {
-    margin-left: $desktop-nice-padding;
-    margin-right: $desktop-nice-padding;
+    margin-inline-start: $desktop-nice-padding;
+    margin-inline-end: $desktop-nice-padding;
   }
 }

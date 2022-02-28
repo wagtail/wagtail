@@ -14,7 +14,7 @@
 
     .dropdown li,  // dropdown li
         &:last-child {
-      margin-right: 0;
+      margin-inline-end: 0;
     }
   }
 
@@ -23,7 +23,7 @@
     background: $color-grey-1;
     color: $color-white;
     margin-top: 0;
-    margin-right: 0;
+    margin-inline-end: 0;
     transition: transform 1s;
 
     &:first-child {
@@ -36,7 +36,7 @@
     }
 
     li {
-      margin-right: 1em;
+      margin-inline-end: 1em;
     }
   }
 
@@ -47,7 +47,7 @@
 
     .icon {
       font-size: 1.2em;
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     p {
@@ -72,7 +72,7 @@
       input[type='button'],
       button,
       .button {
-        padding-right: 2.6em;
+        padding-inline-end: 2.6em;
       }
     }
   }
@@ -83,13 +83,13 @@
 
   .meta {
     float: right;
-    text-align: right;
+    text-align: end;
     padding: 7px math.div($grid-gutter-width, 2);
     font-size: 0.85em;
 
     p {
       margin: 0;
-      margin-right: $grid-gutter-width;
+      margin-inline-end: $grid-gutter-width;
       white-space: nowrap;
     }
 
@@ -119,7 +119,10 @@
       }
 
       .avatar {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         left: auto;
+        inset-inline-start: auto;
       }
     }
 
@@ -141,8 +144,8 @@
   }
 
   @include media-breakpoint-up(sm) {
-    margin-left: calc(#{$desktop-nice-padding} - 0.75em);
-    margin-right: $desktop-nice-padding;
+    margin-inline-start: calc(#{$desktop-nice-padding} - 0.75em);
+    margin-inline-end: $desktop-nice-padding;
     width: auto;
     position: fixed;
     bottom: 0;
@@ -153,15 +156,15 @@
 
     &__container {
       padding: 0.75em;
-      margin-right: 0;
+      margin-inline-end: 0;
 
       &:not(:first-child) {
-        margin-left: -$border-curvature;
+        margin-inline-start: -$border-curvature;
       }
     }
 
     &__save-warning {
-      margin-right: 50px;
+      margin-inline-end: 50px;
     }
   }
 }

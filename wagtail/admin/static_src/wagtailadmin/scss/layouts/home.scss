@@ -9,13 +9,16 @@ h1 {
 header {
   .col1 {
     width: 50px;
-    margin-right: 1em;
+    margin-inline-end: 1em;
     padding: 0;
 
     // make way for the nav-menu button on mobile
     @include media-breakpoint-down(xs) {
       position: relative;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: $mobile-nav-indent;
+      inset-inline-start: $mobile-nav-indent;
     }
   }
 
@@ -44,7 +47,7 @@ header {
     @include clearfix();
     @include unlist();
     width: 100%;
-    margin-left: -$padding;
+    margin-inline-start: -$padding;
 
     li {
       @include column(4);
@@ -83,7 +86,7 @@ header {
     li svg.icon {
       width: 1em;
       height: 1em;
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     a {
@@ -121,7 +124,7 @@ header {
 
     h2 {
       display: inline-block;
-      margin-right: 1em;
+      margin-inline-end: 1em;
     }
 
     .fields {
@@ -171,5 +174,5 @@ header {
 }
 
 .task .icon {
-  margin-left: -1.75em; // pull out the icon so it aligns with no-icon text
+  margin-inline-start: -1.75em; // pull out the icon so it aligns with no-icon text
 }

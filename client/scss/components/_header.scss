@@ -23,14 +23,14 @@ header {
     &.icon:before {
       width: 1em;
       display: none;
-      margin-right: 0.4em;
+      margin-inline-end: 0.4em;
       font-size: 1.5em;
     }
   }
 
   .col {
     float: left;
-    margin-right: 2em;
+    margin-inline-end: 2em;
   }
 
   .left {
@@ -43,7 +43,7 @@ header {
   }
 
   .right {
-    text-align: right;
+    text-align: end;
     float: right;
   }
 
@@ -52,7 +52,10 @@ header {
     color: $nav-search-color;
     position: absolute;
     top: 0.3em;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0.5em;
+    inset-inline-start: 0.5em;
   }
 
   // For case where content below header should merge with it
@@ -61,23 +64,23 @@ header {
   }
 
   &.tab-merged {
-    padding-left: $desktop-nice-padding;
-    padding-right: $desktop-nice-padding;
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
 
     .right:last-child {
-      padding-right: 0;
+      padding-inline-end: 0;
     }
 
     @include media-breakpoint-down(xs) {
       .breadcrumb {
-        padding-left: calc(#{$desktop-nice-padding} - 8px);
+        padding-inline-start: calc(#{$desktop-nice-padding} - 8px);
       }
     }
     @include media-breakpoint-up(sm) {
       .breadcrumb {
-        margin-left: -$desktop-nice-padding;
-        margin-right: -$desktop-nice-padding;
-        padding-left: math.div($desktop-nice-padding, 2);
+        margin-inline-start: -$desktop-nice-padding;
+        margin-inline-end: -$desktop-nice-padding;
+        padding-inline-start: math.div($desktop-nice-padding, 2);
       }
     }
   }
@@ -87,10 +90,10 @@ header {
 
     .breadcrumb {
       margin-bottom: 1rem;
-      padding-left: math.div(
+      padding-inline-start: math.div(
         $desktop-nice-padding,
         2
-      ); // rather than padding-left: revert;
+      ); // rather than padding-inline-start: revert;
     }
   }
 
@@ -100,12 +103,12 @@ header {
 
     @include media-breakpoint-down(xs) {
       // To all hamburger menu to be visible
-      padding-left: 1.6em;
-      padding-right: 1.6em;
+      padding-inline-start: 1.6em;
+      padding-inline-end: 1.6em;
       padding-top: 11px;
 
       .nice-padding {
-        margin-left: -$desktop-nice-padding;
+        margin-inline-start: -$desktop-nice-padding;
       }
     }
   }
@@ -168,11 +171,11 @@ header {
 
     li {
       display: inline;
-      margin-right: 2em;
+      margin-inline-end: 2em;
     }
 
     .avatar.small {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
 
     a {
@@ -195,7 +198,7 @@ header {
 
     .left {
       float: left;
-      margin-right: 0;
+      margin-inline-end: 0;
 
       &:first-child {
         padding-bottom: 0;
@@ -236,11 +239,11 @@ header {
 
 .header-title {
   @include media-breakpoint-down(xs) {
-    padding-left: $mobile-nav-indent;
+    padding-inline-start: $mobile-nav-indent;
   }
 
   &-icon {
     @include svg-icon();
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
   }
 }

@@ -5,8 +5,8 @@
   display: grid;
   grid-template-columns: auto;
   grid-column-gap: 50px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-inline-start: 50px;
+  margin-inline-end: 50px;
 
   &--has-filters {
     grid-template-columns: auto 300px;
@@ -19,7 +19,7 @@
       margin: 0 0.5em 0.5em 0;
 
       + .status-tag {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
     }
 
@@ -55,7 +55,7 @@
   &__actions > div {
     float: right;
     display: block;
-    margin-right: 10px;
+    margin-inline-end: 10px;
   }
 
   @include media-breakpoint-down(sm) {

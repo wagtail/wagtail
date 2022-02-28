@@ -25,7 +25,7 @@ $avatar-size: 60px;
     width: 1.25em;
     height: 1.25em;
     min-width: 1.25em;
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     vertical-align: text-top;
   }
 
@@ -74,14 +74,14 @@ $avatar-size: 60px;
     max-height: 0;
 
     a {
-      border-left: 3px solid transparent;
+      border-inline-start: 3px solid transparent;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
       &:before {
         font-size: 1rem;
-        margin-right: 0.5em;
+        margin-inline-end: 0.5em;
         vertical-align: -10%;
       }
     }
@@ -137,13 +137,16 @@ $avatar-size: 60px;
       width: $menu-width - $avatar-size;
       line-height: $icon-size;
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: $avatar-size; // Width of avatar
+      inset-inline-start: $avatar-size; // Width of avatar
       transform: translateX(0);
       transition: transform $menu-transition-duration ease;
     }
 
     &-label {
-      text-align: left;
+      text-align: start;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -168,6 +171,9 @@ $avatar-size: 60px;
   }
 
   &--open &__account-toggle {
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: $avatar-size !important;
+    inset-inline-start: $avatar-size !important;
   }
 }

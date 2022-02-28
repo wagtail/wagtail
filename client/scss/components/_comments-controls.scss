@@ -2,12 +2,12 @@
   position: relative;
   display: flex;
   justify-content: flex-end;
-  padding-right: 2px;
+  padding-inline-end: 2px;
   height: 42px;
   box-sizing: border-box;
 
   @include media-breakpoint-up(sm) {
-    padding-right: 30px;
+    padding-inline-end: 30px;
     height: 43px;
   }
 }
@@ -37,7 +37,10 @@
 
   &__icon {
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: -12px;
+    inset-inline-start: -12px;
     bottom: 3px;
     width: 52px;
     height: 52px;
@@ -48,7 +51,10 @@
   &__count {
     position: absolute;
     top: -1px;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: -8px;
+    inset-inline-end: -8px;
     width: 19px;
     height: 19px;
     box-sizing: border-box;
@@ -76,7 +82,7 @@
     font-size: 12px;
     color: $color-white;
     font-weight: 400;
-    margin-right: 10px;
+    margin-inline-end: 10px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 100ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -107,6 +113,6 @@
   }
 
   .switch__toggle {
-    margin-left: 15px;
+    margin-inline-start: 15px;
   }
 }

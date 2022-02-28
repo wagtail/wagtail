@@ -10,7 +10,7 @@ ul.listing {
 
   ul {
     list-style-type: none;
-    padding-left: 0;
+    padding-inline-start: 0;
     // @include unlist();
   }
 
@@ -45,7 +45,7 @@ ul.listing {
 
     th {
       font-size: 0.9em;
-      text-align: left;
+      text-align: start;
       font-weight: normal;
       white-space: nowrap;
     }
@@ -61,14 +61,17 @@ ul.listing {
 
       &.icon:after {
         opacity: 0.5;
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 0;
+        inset-inline-end: 0;
       }
     }
   }
 
   &.full-width td:first-child,
   &.full-width th:first-child {
-    padding-left: 20px;
+    padding-inline-start: 20px;
   }
 
   &.full-width {
@@ -162,12 +165,12 @@ ul.listing {
   }
 
   &.full-width .divider td {
-    padding-left: 20px;
+    padding-inline-start: 20px;
   }
 
   // specific columns
   .bulk {
-    padding-right: 0;
+    padding-inline-end: 0;
 
     label {
       font-size: 1em;
@@ -314,7 +317,7 @@ ul.listing {
       vertical-align: middle;
 
       &::before {
-        margin-right: 2px;
+        margin-inline-end: 2px;
       }
     }
 
@@ -371,7 +374,7 @@ ul.listing {
   }
 
   table .no-results-message {
-    padding-left: 20px;
+    padding-inline-start: 20px;
   }
 
   .unpublished .title-wrapper {
@@ -428,7 +431,7 @@ ul.listing {
   }
 
   .indicator {
-    margin-right: 0;
+    margin-inline-end: 0;
     font-size: 1em;
     opacity: 0.7;
   }
@@ -474,7 +477,10 @@ table.listing {
       font-size: 1em;
       opacity: 1;
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 10%;
+      inset-inline-end: 10%;
       top: 2em;
     }
 
@@ -514,12 +520,12 @@ table.listing {
     height: 35px;
 
     .title {
-      padding-left: 0;
+      padding-inline-start: 0;
     }
   }
 
   tbody .title {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 }
 
@@ -583,7 +589,7 @@ table.listing {
   &__icon {
     width: 1em;
     height: 1em;
-    margin-right: 0.2em;
+    margin-inline-end: 0.2em;
     vertical-align: middle;
     position: relative;
     top: -1px;
@@ -629,7 +635,7 @@ table.listing {
             display: inline-block;
             height: 100%;
             vertical-align: middle;
-            margin-right: -0.25em;
+            margin-inline-end: -0.25em;
           }
 
           img {
@@ -707,16 +713,16 @@ table.listing {
     }
 
     table .no-results-message {
-      padding-left: 50px;
+      padding-inline-start: 50px;
     }
 
     &.full-width td:first-child,
     &.full-width th:first-child {
-      padding-left: 25px;
+      padding-inline-start: 25px;
     }
 
     &.full-width .divider td {
-      padding-left: 50px;
+      padding-inline-start: 50px;
     }
   }
 }
@@ -752,7 +758,7 @@ td.ord {
   .handle {
     // Align with the row's title text, and the column's label.
     margin-top: -28px;
-    margin-left: 13px;
+    margin-inline-start: 13px;
   }
 }
 

@@ -4,7 +4,7 @@
   padding-top: 1.4em;
   font-size: 0.85em;
   line-height: 1.5em;
-  margin-left: 2em;
+  margin-inline-start: 2em;
   background: $color-teal;
 
   li,
@@ -75,11 +75,11 @@
   @include media-breakpoint-up(sm) {
     padding-top: 0;
     background: $color-teal-darker;
-    margin-left: -($desktop-nice-padding);
-    margin-right: -($desktop-nice-padding);
+    margin-inline-start: -($desktop-nice-padding);
+    margin-inline-end: -($desktop-nice-padding);
 
     .home_icon {
-      margin-left: 1.25em;
+      margin-inline-start: 1.25em;
     }
 
     .arrow_right_icon {

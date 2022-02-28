@@ -74,7 +74,10 @@ $box-padding: 10px;
   &__notice {
     background-color: $color-amber-1;
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: -$box-padding;
+    inset-inline-start: -$box-padding;
     bottom: 0;
     width: calc(100% + #{$box-padding} * 2);
     padding: 5px 10px;
@@ -84,15 +87,21 @@ $box-padding: 10px;
       color: $color-amber-0;
       width: 14px;
       height: 14px;
-      margin-right: 10px;
+      margin-inline-end: 10px;
       vertical-align: text-bottom;
     }
   }
 
   > :last-child &__notice {
     bottom: -$box-padding;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-bottom-left-radius: $box-border-radius;
+    border-end-start-radius: $box-border-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-bottom-right-radius: $box-border-radius;
+    border-end-end-radius: $box-border-radius;
   }
 }
 
@@ -106,8 +115,8 @@ $box-padding: 10px;
   font-size: 12px;
   font-weight: bold;
   height: 25px;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-inline-start: 5px;
+  padding-inline-end: 5px;
 
   &--primary {
     color: $color-white;
@@ -135,7 +144,10 @@ $box-padding: 10px;
   width: 400px;
   position: absolute;
   top: 30px;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 30px;
+  inset-inline-end: 30px;
   z-index: 50;
   font-family: $font-sans;
   pointer-events: none;

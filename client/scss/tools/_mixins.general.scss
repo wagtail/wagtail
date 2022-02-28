@@ -25,7 +25,7 @@
 @mixin unlist() {
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
+  padding-inline-start: 0;
   list-style-type: none;
   font-style: normal;
 
@@ -41,7 +41,7 @@
 @mixin unlistimmediate() {
   margin-top: 0;
   margin-bottom: 0;
-  padding-left: 0;
+  padding-inline-start: 0;
   list-style-type: none;
   font-style: normal;
 
@@ -94,9 +94,9 @@
   text-decoration: none;
   width: 1.3em;
   line-height: 1em;
-  text-align: left;
+  text-align: start;
   vertical-align: middle;
-  margin-right: 0.2em;
+  margin-inline-end: 0.2em;
 }
 
 // Applies given rules on hover, for devices that support hover.

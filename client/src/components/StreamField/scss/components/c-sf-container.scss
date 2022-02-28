@@ -23,7 +23,7 @@
 
   &--add-in-gutter {
     @media (min-width: $screen-sm-min) {
-      padding-left: $add-button-size;
+      padding-inline-start: $add-button-size;
 
       .c-sf-add-button {
         width: $add-button-size;
@@ -75,7 +75,7 @@
       color: #cd3238;
       font-weight: 700;
       display: inline-block;
-      margin-left: 0.5em;
+      margin-inline-start: 0.5em;
       line-height: 1em;
       font-size: 13px;
     }

@@ -6,6 +6,7 @@ exports[`Tooltip #direction left 1`] = `
   role="tooltip"
   style={
     Object {
+      "inset-inline-start": 13,
       "left": 13,
       "top": 601,
     }
@@ -21,6 +22,7 @@ exports[`Tooltip #direction top 1`] = `
   role="tooltip"
   style={
     Object {
+      "inset-inline-start": 7,
       "left": 7,
       "top": 1201,
     }
@@ -36,6 +38,7 @@ exports[`Tooltip #direction top-left 1`] = `
   role="tooltip"
   style={
     Object {
+      "inset-inline-start": 1,
       "left": 1,
       "top": 1201,
     }

@@ -85,7 +85,10 @@
     border-radius: 0 6px 6px 0;
     z-index: 0;
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
     top: 1px;
     bottom: 0;
     width: 1.5em;
@@ -107,7 +110,7 @@
 
   // Override default select padding so the chevron will overlap with long option text
   select {
-    padding-right: 5em;
+    padding-inline-end: 5em;
   }
 }
 
@@ -156,7 +159,7 @@ label.required:after {
   color: $color-red;
   font-weight: bold;
   display: inline-block;
-  margin-left: 0.5em;
+  margin-inline-start: 0.5em;
   line-height: 1em;
   font-size: 13px;
 }
@@ -198,11 +201,17 @@ label.required:after {
     }
 
     &:before {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0.3em;
+      inset-inline-start: 0.3em;
     }
 
     &:after {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 0.5em;
+      inset-inline-end: 0.5em;
     }
   }
 
@@ -210,7 +219,7 @@ label.required:after {
   input:not([type='checkbox']),
   input:not([type='submit']),
   input:not([type='button']) {
-    padding-left: 2.5em;
+    padding-inline-start: 2.5em;
   }
 
   // smaller fields required slight repositioning of icons
@@ -223,11 +232,17 @@ label.required:after {
       }
 
       &:before {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         left: 0.5em;
+        inset-inline-start: 0.5em;
       }
 
       &:after {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 0.5em;
+        inset-inline-end: 0.5em;
       }
     }
   }
@@ -347,7 +362,7 @@ li.inline .field {
 // solve gutter issues of inline fields
 ul.inline li:first-child,
 li.inline:first-child {
-  margin-left: math.div(-$grid-gutter-width, 2);
+  margin-inline-start: math.div(-$grid-gutter-width, 2);
 }
 
 // search-bars
@@ -406,7 +421,7 @@ li.inline:first-child {
 
   .field-col {
     float: left;
-    padding-left: 0;
+    padding-inline-start: 0;
 
     // anything less than 4 columns or greater than 6 is impractical
     &.col4 {
@@ -416,7 +431,7 @@ li.inline:first-child {
 
       .field-content {
         @include column(2, $padding, 4);
-        padding-left: 0;
+        padding-inline-start: 0;
       }
     }
 
@@ -427,7 +442,7 @@ li.inline:first-child {
 
       .field-content {
         @include column(4, $padding, 6);
-        padding-left: 0;
+        padding-inline-start: 0;
       }
     }
   }
@@ -453,30 +468,39 @@ li.inline:first-child {
   }
 
   .field-content {
-    padding-right: 45px;
+    padding-inline-end: 45px;
 
     @include media-breakpoint-up(sm) {
-      padding-right: 60px;
+      padding-inline-end: 60px;
     }
   }
 
   .widget-draftail_rich_text_area .field-content {
-    padding-right: 0;
+    padding-inline-end: 0;
   }
 
   .field-comment-control {
     position: absolute;
     display: block;
     top: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
     height: 100%;
     line-height: 100%;
 
     &--object {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 20px;
+      inset-inline-end: 20px;
 
       @include media-breakpoint-up(lg) {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 350px;
+        inset-inline-end: 350px;
       }
     }
 
@@ -490,10 +514,16 @@ li.inline:first-child {
       border-radius: 3px;
       position: absolute;
       top: 50%;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 0;
+      inset-inline-end: 0;
 
       @include media-breakpoint-up(sm) {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 10px;
+        inset-inline-end: 10px;
       }
 
       // Hide by default, reveal on hover of parent
@@ -501,7 +531,10 @@ li.inline:first-child {
         opacity: 0;
         pointer-events: none;
         transform: translateY(-50%);
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 0;
+        inset-inline-end: 0;
       }
 
       .icon-reversed {
@@ -563,7 +596,10 @@ li.inline:first-child {
 
   .object.model_choice_field {
     .object-help {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 153px;
+      inset-inline-end: 153px;
     }
   }
 }
