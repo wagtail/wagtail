@@ -45,17 +45,6 @@ class TestPageCopy(TestCase, WagtailTestUtils):
             )
         )
 
-        self.test_exclude_fields_in_copy_page = self.test_page.add_child(
-            instance=PageWithExcludedCopyField(
-                title="Page with exclude_fields_in_copy",
-                slug="page-with-exclude-fields-in-copy",
-                content="Copy me",
-                special_field="Don't copy me",
-                live=True,
-                has_unpublished_changes=False,
-            )
-        )
-
         # Login
         self.user = self.login()
 
@@ -165,7 +154,16 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         )
 
     def test_page_with_exclude_fields_in_copy(self):
-        original_page = self.test_exclude_fields_in_copy_page
+        original_page = self.test_page.add_child(
+            instance=PageWithExcludedCopyField(
+                title="Page with exclude_fields_in_copy",
+                slug="page-with-exclude-fields-in-copy",
+                content="Copy me",
+                special_field="Don't copy me",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
         post_data = {
             "new_title": f"{original_page.title} 2",
             "new_slug": f"{original_page.slug}-2",
