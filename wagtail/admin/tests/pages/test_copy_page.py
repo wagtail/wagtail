@@ -180,8 +180,8 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertEqual(page_copy.content, original_page.content)
         self.assertNotEqual(page_copy.special_field, original_page.special_field)
         self.assertEqual(
-            page_copy.special_field,
-            page_copy._meta.get_field('special_field').default)
+            page_copy.special_field, page_copy._meta.get_field("special_field").default
+        )
 
     def test_page_copy_post_copy_subpages(self):
         post_data = {
