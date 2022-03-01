@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin import widgets as wagtailadmin_widgets
@@ -8,6 +8,7 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
+from wagtail.core import hooks
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -102,3 +103,71 @@ class TestWagtailHooksButtons(Utils):
             list(page_listing_more_buttons(blog_page, page_perms))[0],
             wagtailadmin_widgets.Button,
         )
+
+
+class TestConstructSyncedPageTreeListHook(Utils):
+    def unpublish_hook(self, pages, action):
+        assert action == "unpublish"
+        assert isinstance(pages, list)
+
+    def missing_hook_action(self, pages, action):
+        assert action == ""
+        assert isinstance(pages, list)
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
+    def test_page_tree_sync_on(self):
+        with hooks.register_temporarily(
+            "construct_synced_page_tree_list", self.unpublish_hook
+        ):
+            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+                response = fn([self.en_homepage], "unpublish")
+                if response:
+                    assert isinstance(response, dict)
+                    assert len(response.items()) == 1
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
+    def test_page_tree_sync_off(self):
+        with hooks.register_temporarily(
+            "construct_synced_page_tree_list", self.unpublish_hook
+        ):
+            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+                response = fn([self.en_homepage], "unpublish")
+                assert response == None
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
+    def test_missing_hook_action(self):
+        with hooks.register_temporarily(
+            "construct_synced_page_tree_list", self.missing_hook_action
+        ):
+            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+                response = fn([self.en_homepage], "")
+                if response is not None:
+                    assert isinstance(response, dict)
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_other_l10n_pages_were_unpublished(self):
+        # Login to access the admin
+        self.login()
+
+        # Make sur the French homepage is published/live
+        self.fr_homepage.live = True
+        self.fr_homepage.save()
+        assert self.fr_homepage.live == True
+        assert self.en_homepage.live == True
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:unpublish", args=(self.en_homepage.id,)),
+            {"include_descendants": False},
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Refresh objects from the database
+        self.en_homepage.refresh_from_db()
+        self.fr_homepage.refresh_from_db()
+
+        # Test that both the English and French homepages are unpublished
+        assert self.en_homepage.live == False
+        assert self.fr_homepage.live == False
