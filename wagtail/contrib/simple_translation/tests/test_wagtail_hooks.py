@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, Permission
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin import widgets as wagtailadmin_widgets
@@ -8,6 +8,7 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
+from wagtail.core import hooks
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -102,3 +103,44 @@ class TestWagtailHooksButtons(Utils):
             list(page_listing_more_buttons(blog_page, page_perms))[0],
             wagtailadmin_widgets.Button,
         )
+
+
+class TestMovingTranslatedPages(Utils):
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True)
+    def test_move_translated_pages(self):
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create blog_post copies for translation
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        # Confirm location of English blog post page before it is moved
+        # Should be living at /blog/blog-post/ right now. But will eventually
+        # exist at /blog-post/
+        assert self.en_blog_post.get_parent().id == self.en_blog_index.id
+
+        # Check if fr and de blog post parent ids are in the translated list
+        # This is to make sure the fr blog_post is situated under /fr/blog/
+        # (same concept with /de/).
+        # We'll check these after the move to ensure they exist under /fr/ without
+        # the /blog/ parent page.
+        original_translated_parent_ids = [p.id for p in self.en_blog_index.get_translations()]
+        assert self.fr_blog_post.get_parent().id in original_translated_parent_ids
+        assert self.de_blog_post.get_parent().id in original_translated_parent_ids
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:move_confirm", args=(self.en_blog_post.id, self.en_homepage.id,)),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Check if the new pages exist under their respective translated homepages
+        # We're using new Page objects to avoid caching problems
+        home_page_translation_ids = [p.id for p in self.en_homepage.get_translations()]
+        assert Page.objects.get(pk=self.fr_blog_post.id).get_parent().id in home_page_translation_ids
+        assert Page.objects.get(pk=self.de_blog_post.id).get_parent().id in home_page_translation_ids
