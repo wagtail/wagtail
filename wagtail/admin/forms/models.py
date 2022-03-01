@@ -2,7 +2,12 @@ import copy
 
 from django.core.exceptions import ImproperlyConfigured
 from django.db import models
-from modelcluster.forms import ClusterForm, ClusterFormMetaclass
+from modelcluster.forms import ClusterForm, ClusterFormMetaclass, ClusterFormOptions
+from permissionedforms import (
+    PermissionedForm,
+    PermissionedFormMetaclass,
+    PermissionedFormOptionsMixin,
+)
 from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
@@ -86,7 +91,15 @@ def formfield_for_dbfield(db_field, **kwargs):
     return db_field.formfield(**kwargs)
 
 
-class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
+class WagtailAdminModelFormOptions(PermissionedFormOptionsMixin, ClusterFormOptions):
+    # Container for the options set in the inner 'class Meta' of a model form, supporting
+    # extensions for both ClusterForm ('formsets') and PermissionedForm ('field_permissions').
+    pass
+
+
+class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetaclass):
+    options_class = WagtailAdminModelFormOptions
+
     # Override the behaviour of the regular ModelForm metaclass -
     # which handles the translation of model fields to form fields -
     # to use our own formfield_for_dbfield function to do that translation.
@@ -112,7 +125,9 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
         return WagtailAdminModelForm
 
 
-class WagtailAdminModelForm(ClusterForm, metaclass=WagtailAdminModelFormMetaclass):
+class WagtailAdminModelForm(
+    PermissionedForm, ClusterForm, metaclass=WagtailAdminModelFormMetaclass
+):
     pass
 
 
