@@ -63,7 +63,6 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.models import AbstractImage, AbstractRendition, Image
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
-from wagtail.utils.decorators import cached_classmethod
 
 from .forms import FormClassAdditionalFieldPageForm, ValidatedPageForm
 
@@ -1514,70 +1513,13 @@ class AddedStreamFieldWithEmptyListDefaultPage(Page):
     body = StreamField([("title", CharBlock())], default=[])
 
 
-# test customising edit handler definitions on a per-request basis
-class PerUserContentPanels(ObjectList):
-    def _replace_children_with_per_user_config(self):
-        self.children = self.instance.basic_content_panels
-        if self.request.user.is_superuser:
-            self.children = self.instance.superuser_content_panels
-        self.children = [
-            child.bind_to(
-                model=self.model,
-                instance=self.instance,
-                request=self.request,
-                form=self.form,
-            )
-            for child in self.children
-        ]
-
-    def on_instance_bound(self):
-        # replace list of children when both instance and request are available
-        if self.request:
-            self._replace_children_with_per_user_config()
-        else:
-            super().on_instance_bound()
-
-    def on_request_bound(self):
-        # replace list of children when both instance and request are available
-        if self.instance:
-            self._replace_children_with_per_user_config()
-        else:
-            super().on_request_bound()
-
-
-class PerUserPageMixin:
-    basic_content_panels = []
-    superuser_content_panels = []
-
-    @cached_classmethod
-    def get_edit_handler(cls):
-        tabs = []
-
-        if cls.basic_content_panels and cls.superuser_content_panels:
-            tabs.append(PerUserContentPanels(heading="Content"))
-        if cls.promote_panels:
-            tabs.append(ObjectList(cls.promote_panels, heading="Promote"))
-        if cls.settings_panels:
-            tabs.append(
-                ObjectList(
-                    cls.settings_panels, heading="Settings", classname="settings"
-                )
-            )
-
-        edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
-
-        return edit_handler.bind_to(model=cls)
-
-
-class SecretPage(PerUserPageMixin, Page):
+class SecretPage(Page):
     boring_data = models.TextField()
     secret_data = models.TextField()
 
-    basic_content_panels = Page.content_panels + [
+    content_panels = Page.content_panels + [
         FieldPanel("boring_data"),
-    ]
-    superuser_content_panels = basic_content_panels + [
-        FieldPanel("secret_data"),
+        FieldPanel("secret_data", permission="superuser"),
     ]
 
 

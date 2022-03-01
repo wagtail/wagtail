@@ -48,6 +48,7 @@ def get_form_for_model(
     formsets=None,
     exclude_formsets=None,
     widgets=None,
+    field_permissions=None,
 ):
 
     # django's modelform_factory with a bit of custom behaviour
@@ -62,6 +63,8 @@ def get_form_for_model(
         attrs["formsets"] = formsets
     if exclude_formsets is not None:
         attrs["exclude_formsets"] = exclude_formsets
+    if field_permissions is not None:
+        attrs["field_permissions"] = field_permissions
 
     # Give this new form class a reasonable name.
     class_name = model.__name__ + str("Form")
@@ -142,11 +145,19 @@ class EditHandler:
     def required_formsets(self):
         return {}
 
+    # return a dict mapping field name to the permission codename that a user must have for that
+    # field to be included in the form
+    def field_permissions(self):
+        return {}
+
     # return any HTML that needs to be output on the edit page once per edit handler definition.
     # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
     # for JavaScript code to work with.
     def html_declarations(self):
         return ""
+
+    def is_shown(self):
+        return True
 
     def bind_to(self, model=None, instance=None, request=None, form=None):
         if model is None and instance is not None and self.model is None:
@@ -297,6 +308,19 @@ class BaseCompositeEditHandler(EditHandler):
             formsets.update(handler_class.required_formsets())
         return formsets
 
+    def field_permissions(self):
+        field_permissions = {}
+        for handler_class in self.children:
+            field_permissions.update(handler_class.field_permissions())
+        return field_permissions
+
+    @property
+    def visible_children(self):
+        return [child for child in self.children if child.is_shown()]
+
+    def is_shown(self):
+        return any(child.is_shown() for child in self.children)
+
     def html_declarations(self):
         return mark_safe("".join([c.html_declarations() for c in self.children]))
 
@@ -370,6 +394,7 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
             fields=self.required_fields(),
             formsets=self.required_formsets(),
             widgets=self.widget_overrides(),
+            field_permissions=self.field_permissions(),
         )
 
 
@@ -462,6 +487,7 @@ class FieldPanel(EditHandler):
         widget = kwargs.pop("widget", None)
         if widget is not None:
             self.widget = widget
+        self.permission = kwargs.pop("permission", None)
         self.disable_comments = kwargs.pop("disable_comments", None)
         super().__init__(*args, **kwargs)
         self.field_name = field_name
@@ -471,6 +497,7 @@ class FieldPanel(EditHandler):
         kwargs.update(
             field_name=self.field_name,
             widget=self.widget if hasattr(self, "widget") else None,
+            permission=self.permission,
         )
         return kwargs
 
@@ -479,6 +506,18 @@ class FieldPanel(EditHandler):
         if hasattr(self, "widget"):
             return {self.field_name: self.widget}
         return {}
+
+    def field_permissions(self):
+        if self.permission:
+            return {self.field_name: self.permission}
+        else:
+            return {}
+
+    def is_shown(self):
+        if self.permission and not self.request.user.has_perm(self.permission):
+            return False
+
+        return True
 
     def classes(self):
         classes = super().classes()
@@ -580,7 +619,7 @@ class FieldPanel(EditHandler):
     def get_comparison(self):
         comparator_class = self.get_comparison_class()
 
-        if comparator_class:
+        if comparator_class and self.is_shown():
             try:
                 return [functools.partial(comparator_class, self.db_field)]
             except FieldDoesNotExist:
@@ -599,7 +638,11 @@ class FieldPanel(EditHandler):
         return model._meta.get_field(self.field_name)
 
     def on_form_bound(self):
-        self.bound_field = self.form[self.field_name]
+        try:
+            self.bound_field = self.form[self.field_name]
+        except KeyError:
+            return
+
         if self.heading:
             self.bound_field.label = self.heading
         else:

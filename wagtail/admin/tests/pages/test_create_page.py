@@ -1069,7 +1069,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["page"].locale, fr_locale)
 
 
-class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
+class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1081,9 +1081,9 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
             permission_type="add",
         )
 
-    def test_create_page_with_per_request_custom_edit_handlers(self):
+    def test_create_page_with_permissioned_field_panel(self):
         """
-        Test that per-request custom behaviour in edit handlers is honoured
+        Test that permission rules on field panels are honoured
         """
         # non-superusers should not see secret_data
         self.login(username="siteeditor", password="password")

@@ -2,7 +2,6 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.tests.testapp.models
 
 
 class Migration(migrations.Migration):
@@ -33,6 +32,6 @@ class Migration(migrations.Migration):
             options={
                 "abstract": False,
             },
-            bases=(wagtail.tests.testapp.models.PerUserPageMixin, "wagtailcore.page"),
+            bases=("wagtailcore.page",),
         ),
     ]
