@@ -71,7 +71,9 @@ def edit(request, app_name, model_name, site_pk):
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
-        form = form_class(request.POST, request.FILES, instance=instance)
+        form = form_class(
+            request.POST, request.FILES, instance=instance, for_user=request.user
+        )
 
         if form.is_valid():
             with transaction.atomic():
@@ -89,7 +91,7 @@ def edit(request, app_name, model_name, site_pk):
                 request, _("The setting could not be saved due to errors."), form
             )
     else:
-        form = form_class(instance=instance)
+        form = form_class(instance=instance, for_user=request.user)
 
     edit_handler = edit_handler.bind_to(form=form)
 
