@@ -14,7 +14,7 @@ from wagtail.utils.widgets import WidgetWithScript
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):
-    input_type = 'hidden'
+    input_type = "hidden"
     choose_one_text = _("Choose an item")
     choose_another_text = _("Choose another item")
     clear_choice_text = _("Clear choice")
@@ -52,40 +52,46 @@ class AdminChooser(WidgetWithScript, widgets.Input):
     def value_from_datadict(self, data, files, name):
         # treat the empty string as None
         result = super().value_from_datadict(data, files, name)
-        if result == '':
+        if result == "":
             return None
         else:
             return result
 
     def __init__(self, **kwargs):
         # allow choose_one_text / choose_another_text to be overridden per-instance
-        if 'choose_one_text' in kwargs:
-            self.choose_one_text = kwargs.pop('choose_one_text')
-        if 'choose_another_text' in kwargs:
-            self.choose_another_text = kwargs.pop('choose_another_text')
-        if 'clear_choice_text' in kwargs:
-            self.clear_choice_text = kwargs.pop('clear_choice_text')
-        if 'link_to_chosen_text' in kwargs:
-            self.link_to_chosen_text = kwargs.pop('link_to_chosen_text')
-        if 'show_edit_link' in kwargs:
-            self.show_edit_link = kwargs.pop('show_edit_link')
-        if 'show_clear_link' in kwargs:
-            self.show_clear_link = kwargs.pop('show_clear_link')
+        if "choose_one_text" in kwargs:
+            self.choose_one_text = kwargs.pop("choose_one_text")
+        if "choose_another_text" in kwargs:
+            self.choose_another_text = kwargs.pop("choose_another_text")
+        if "clear_choice_text" in kwargs:
+            self.clear_choice_text = kwargs.pop("clear_choice_text")
+        if "link_to_chosen_text" in kwargs:
+            self.link_to_chosen_text = kwargs.pop("link_to_chosen_text")
+        if "show_edit_link" in kwargs:
+            self.show_edit_link = kwargs.pop("show_edit_link")
+        if "show_clear_link" in kwargs:
+            self.show_clear_link = kwargs.pop("show_clear_link")
         super().__init__(**kwargs)
 
 
 class AdminPageChooser(AdminChooser):
-    choose_one_text = _('Choose a page')
-    choose_another_text = _('Choose another page')
-    link_to_chosen_text = _('Edit this page')
+    choose_one_text = _("Choose a page")
+    choose_another_text = _("Choose another page")
+    link_to_chosen_text = _("Edit this page")
 
-    def __init__(self, target_models=None, can_choose_root=False, user_perms=None, **kwargs):
+    def __init__(
+        self, target_models=None, can_choose_root=False, user_perms=None, **kwargs
+    ):
         super().__init__(**kwargs)
 
         if target_models:
-            model_names = [model._meta.verbose_name.title() for model in target_models if model is not Page]
+            model_names = [
+                model._meta.verbose_name.title()
+                for model in target_models
+                if model is not Page
+            ]
             if len(model_names) == 1:
-                self.choose_one_text += ' (' + model_names[0] + ')'
+                self.choose_one_text += " (" + model_names[0] + ")"
 
         self.user_perms = user_perms
         self.target_models = list(target_models or [Page])
@@ -105,7 +111,9 @@ class AdminPageChooser(AdminChooser):
     @property
     def model_names(self):
         return [
-            '{app}.{model}'.format(app=model._meta.app_label, model=model._meta.model_name)
+            "{app}.{model}".format(
+                app=model._meta.app_label, model=model._meta.model_name
+            )
             for model in self.target_models
         ]
 
@@ -114,9 +122,9 @@ class AdminPageChooser(AdminChooser):
         # a JSON-serializable representation of the configuration options needed for the
         # client-side behaviour of this widget
         return {
-            'model_names': self.model_names,
-            'can_choose_root': self.can_choose_root,
-            'user_perms': self.user_perms,
+            "model_names": self.model_names,
+            "can_choose_root": self.can_choose_root,
+            "user_perms": self.user_perms,
         }
 
     def get_value_data(self, value):
@@ -135,48 +143,55 @@ class AdminPageChooser(AdminChooser):
 
         parent_page = page.get_parent()
         return {
-            'id': page.pk,
-            'display_title': page.get_admin_display_title(),
-            'parent_id': parent_page.pk if parent_page else None,
-            'edit_url': reverse('wagtailadmin_pages:edit', args=[page.pk]),
+            "id": page.pk,
+            "display_title": page.get_admin_display_title(),
+            "parent_id": parent_page.pk if parent_page else None,
+            "edit_url": reverse("wagtailadmin_pages:edit", args=[page.pk]),
         }
 
     def render_html(self, name, value_data, attrs):
         value_data = value_data or {}
-        original_field_html = super().render_html(name, value_data.get('id'), attrs)
+        original_field_html = super().render_html(name, value_data.get("id"), attrs)
 
-        return render_to_string("wagtailadmin/widgets/page_chooser.html", {
-            'widget': self,
-            'original_field_html': original_field_html,
-            'attrs': attrs,
-            'value': bool(value_data),  # only used by chooser.html to identify blank values
-            'display_title': value_data.get('display_title', ''),
-            'edit_url': value_data.get('edit_url', ''),
-        })
+        return render_to_string(
+            "wagtailadmin/widgets/page_chooser.html",
+            {
+                "widget": self,
+                "original_field_html": original_field_html,
+                "attrs": attrs,
+                "value": bool(
+                    value_data
+                ),  # only used by chooser.html to identify blank values
+                "display_title": value_data.get("display_title", ""),
+                "edit_url": value_data.get("edit_url", ""),
+            },
+        )
 
     def render_js_init(self, id_, name, value_data):
         value_data = value_data or {}
         return "createPageChooser({id}, {parent}, {options});".format(
             id=json.dumps(id_),
-            parent=json.dumps(value_data.get('parent_id')),
+            parent=json.dumps(value_data.get("parent_id")),
             options=json.dumps(self.client_options),
         )
 
     @property
     def media(self):
-        return forms.Media(js=[
-            versioned_static('wagtailadmin/js/page-chooser-modal.js'),
-            versioned_static('wagtailadmin/js/page-chooser.js'),
-        ])
+        return forms.Media(
+            js=[
+                versioned_static("wagtailadmin/js/page-chooser-modal.js"),
+                versioned_static("wagtailadmin/js/page-chooser.js"),
+            ]
+        )
 
 
 class PageChooserAdapter(WidgetAdapter):
-    js_constructor = 'wagtail.widgets.PageChooser'
+    js_constructor = "wagtail.widgets.PageChooser"
 
     def js_args(self, widget):
         return [
-            widget.render_html('__NAME__', None, attrs={'id': '__ID__'}),
-            widget.id_for_label('__ID__'),
+            widget.render_html("__NAME__", None, attrs={"id": "__ID__"}),
+            widget.id_for_label("__ID__"),
             widget.client_options,
         ]
 

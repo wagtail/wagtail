@@ -28,7 +28,6 @@ HTMLCollection [
           <svg
             aria-hidden="true"
             class="icon icon-cross"
-            focusable="false"
           >
             <use
               href="#icon-cross"

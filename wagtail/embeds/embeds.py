@@ -25,8 +25,8 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
             for finder in get_finders():
                 if finder.accept(url):
                     kwargs = {}
-                    if accepts_kwarg(finder.find_embed, 'max_height'):
-                        kwargs['max_height'] = max_height
+                    if accepts_kwarg(finder.find_embed, "max_height"):
+                        kwargs["max_height"] = max_height
                     return finder.find_embed(url, max_width=max_width, **kwargs)
 
             raise EmbedUnsupportedProviderException
@@ -35,31 +35,26 @@ def get_embed(url, max_width=None, max_height=None, finder=None):
 
     # Make sure width and height are valid integers before inserting into database
     try:
-        embed_dict['width'] = int(embed_dict['width'])
+        embed_dict["width"] = int(embed_dict["width"])
     except (TypeError, ValueError):
-        embed_dict['width'] = None
+        embed_dict["width"] = None
 
     try:
-        embed_dict['height'] = int(embed_dict['height'])
+        embed_dict["height"] = int(embed_dict["height"])
     except (TypeError, ValueError):
-        embed_dict['height'] = None
+        embed_dict["height"] = None
 
     # Make sure html field is valid
-    if 'html' not in embed_dict or not embed_dict['html']:
-        embed_dict['html'] = ''
+    if "html" not in embed_dict or not embed_dict["html"]:
+        embed_dict["html"] = ""
 
     # If the finder does not return an thumbnail_url, convert null to '' before inserting into the db
-    if 'thumbnail_url' not in embed_dict or not embed_dict['thumbnail_url']:
-        embed_dict['thumbnail_url'] = ''
+    if "thumbnail_url" not in embed_dict or not embed_dict["thumbnail_url"]:
+        embed_dict["thumbnail_url"] = ""
 
     # Create database record
     embed, created = Embed.objects.update_or_create(
-        hash=embed_hash,
-        defaults=dict(
-            url=url,
-            max_width=max_width,
-            **embed_dict
-        )
+        hash=embed_hash, defaults=dict(url=url, max_width=max_width, **embed_dict)
     )
 
     # Save

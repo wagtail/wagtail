@@ -7,7 +7,6 @@ from treebeard.mp_tree import MP_MoveHandler
 from wagtail.core.log_actions import log
 from wagtail.core.signals import post_page_move, pre_page_move
 
-
 logger = logging.getLogger("wagtail.core")
 
 
@@ -88,7 +87,7 @@ class MovePageAction:
         # Log
         log(
             instance=page,
-            action='wagtail.move' if url_path_changed else 'wagtail.reorder',
+            action="wagtail.move" if url_path_changed else "wagtail.reorder",
             user=self.user,
             data={
                 "source": {

@@ -20,7 +20,7 @@ def post_delete_signal_handler(instance, **kwargs):
 def register_signal_handlers():
     # Loop through list and register signal handlers for each one
     for model in index.get_indexed_models():
-        if not getattr(model, 'search_auto_update', True):
+        if not getattr(model, "search_auto_update", True):
             continue
 
         post_save.connect(post_save_signal_handler, sender=model)

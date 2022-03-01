@@ -44,8 +44,8 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` has any model-wide
         permissions
         """
-        for perm in self.get_all_model_permissions().values('codename'):
-            if self.user_has_specific_permission(user, perm['codename']):
+        for perm in self.get_all_model_permissions().values("codename"):
+            if self.user_has_specific_permission(user, perm["codename"]):
                 return True
         return False
 
@@ -61,7 +61,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` is permitted to create new
         instances of `self.model`
         """
-        perm_codename = self.get_perm_codename('add')
+        perm_codename = self.get_perm_codename("add")
         return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_inspect_obj(self, user, obj):
@@ -69,15 +69,14 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` is permitted to 'inspect'
         a specific `self.model` instance.
         """
-        return self.inspect_view_enabled and self.user_has_any_permissions(
-            user)
+        return self.inspect_view_enabled and self.user_has_any_permissions(user)
 
     def user_can_edit_obj(self, user, obj):
         """
         Return a boolean to indicate whether `user` is permitted to 'change'
         a specific `self.model` instance.
         """
-        perm_codename = self.get_perm_codename('change')
+        perm_codename = self.get_perm_codename("change")
         return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_delete_obj(self, user, obj):
@@ -85,7 +84,7 @@ class PermissionHelper:
         Return a boolean to indicate whether `user` is permitted to 'delete'
         a specific `self.model` instance.
         """
-        perm_codename = self.get_perm_codename('delete')
+        perm_codename = self.get_perm_codename("delete")
         return self.user_has_specific_permission(user, perm_codename)
 
     def user_can_unpublish_obj(self, user, obj):
@@ -112,8 +111,14 @@ class PagePermissionHelper(PermissionHelper):
         pages to make sure we have permission to add a subpage to it.
         """
         # Get queryset of pages where this page type can be added
-        allowed_parent_page_content_types = list(ContentType.objects.get_for_models(*self.model.allowed_parent_page_models()).values())
-        allowed_parent_pages = Page.objects.filter(content_type__in=allowed_parent_page_content_types)
+        allowed_parent_page_content_types = list(
+            ContentType.objects.get_for_models(
+                *self.model.allowed_parent_page_models()
+            ).values()
+        )
+        allowed_parent_pages = Page.objects.filter(
+            content_type__in=allowed_parent_page_content_types
+        )
 
         # Get queryset of pages where the user has permission to add subpages
         if user.is_superuser:
@@ -122,10 +127,12 @@ class PagePermissionHelper(PermissionHelper):
             pages_where_user_can_add = Page.objects.none()
             user_perms = UserPagePermissionsProxy(user)
 
-            for perm in user_perms.permissions.filter(permission_type='add'):
+            for perm in user_perms.permissions.filter(permission_type="add"):
                 # user has add permission on any subpage of perm.page
                 # (including perm.page itself)
-                pages_where_user_can_add |= Page.objects.descendant_of(perm.page, inclusive=True)
+                pages_where_user_can_add |= Page.objects.descendant_of(
+                    perm.page, inclusive=True
+                )
 
         # Combine them
         return allowed_parent_pages & pages_where_user_can_add

@@ -6,11 +6,11 @@ class ImagesAdminAPIViewSet(ImagesAPIViewSet):
     base_serializer_class = AdminImageSerializer
 
     body_fields = ImagesAPIViewSet.body_fields + [
-        'thumbnail',
+        "thumbnail",
     ]
 
     listing_default_fields = ImagesAPIViewSet.listing_default_fields + [
-        'width',
-        'height',
-        'thumbnail',
+        "width",
+        "height",
+        "thumbnail",
     ]

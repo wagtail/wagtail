@@ -7,14 +7,19 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0016_deprecate_rendition_filter_relation'),
-        ('modeladmintest', '0004_venuepage'),
+        ("wagtailimages", "0016_deprecate_rendition_filter_relation"),
+        ("modeladmintest", "0004_venuepage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='book',
-            name='cover_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='wagtailimages.Image'),
+            model_name="book",
+            name="cover_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="wagtailimages.Image",
+            ),
         ),
     ]

@@ -5,8 +5,7 @@ from wagtail.core.utils import InvokeViaAttributeShortcut
 
 from .registry import register_setting
 
-
-__all__ = ['BaseSetting', 'register_setting']
+__all__ = ["BaseSetting", "register_setting"]
 
 
 class BaseSetting(models.Model):
@@ -20,7 +19,8 @@ class BaseSetting(models.Model):
     select_related = None
 
     site = models.OneToOneField(
-        Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE)
+        Site, unique=True, db_index=True, editable=False, on_delete=models.CASCADE
+    )
 
     class Meta:
         abstract = True
@@ -75,15 +75,13 @@ class BaseSetting(models.Model):
         Returns the name of the attribute that should be used to store
         a reference to the fetched/created object on a request.
         """
-        return "_{}.{}".format(
-            cls._meta.app_label, cls._meta.model_name
-        ).lower()
+        return "_{}.{}".format(cls._meta.app_label, cls._meta.model_name).lower()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Allows get_page_url() to be invoked using
         # `obj.page_url.foreign_key_name` syntax
-        self.page_url = InvokeViaAttributeShortcut(self, 'get_page_url')
+        self.page_url = InvokeViaAttributeShortcut(self, "get_page_url")
         # Per-instance page URL cache
         self._page_url_cache = {}
 
@@ -104,14 +102,15 @@ class BaseSetting(models.Model):
 
         if not hasattr(self, attribute_name):
             raise AttributeError(
-                "'{}' object has no attribute '{}'"
-                .format(self.__class__.__name__, attribute_name)
+                "'{}' object has no attribute '{}'".format(
+                    self.__class__.__name__, attribute_name
+                )
             )
 
         page = getattr(self, attribute_name)
 
-        if hasattr(page, 'specific'):
-            url = page.specific.get_url(getattr(self, '_request', None))
+        if hasattr(page, "specific"):
+            url = page.specific.get_url(getattr(self, "_request", None))
         else:
             url = ""
 

@@ -57,7 +57,7 @@ const Button: React.FunctionComponent<ButtonProps> = ({
     <a
       className={className}
       onClick={handleClick.bind(null, href, onClick, preventDefault, navigate)}
-      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      rel={target === '_blank' ? 'noreferrer' : undefined}
       href={href}
       target={target}
       aria-haspopup={dialogTrigger ? 'dialog' : undefined}

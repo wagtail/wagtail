@@ -5,4 +5,5 @@ class PageClassNotFoundError(ImportError):
     switching to a different git branch without first running/reverting
     migrations.
     """
+
     pass

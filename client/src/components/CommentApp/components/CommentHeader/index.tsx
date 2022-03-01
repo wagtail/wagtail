@@ -2,7 +2,6 @@ import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { TranslatableStrings } from '../../main';
-import { IS_IE11 } from '../../../../config/wagtailConfig';
 
 import { Author } from '../../state/comments';
 
@@ -11,43 +10,6 @@ const dateOptions: Intl.DateTimeFormatOptions | any = {
   timeStyle: 'short',
 };
 const dateTimeFormat = new Intl.DateTimeFormat([], dateOptions);
-
-// Details/Summary components that just become <details>/<summary> tags
-// except for IE11 where they become <div> tags to allow us to style them
-const Details: React.FunctionComponent<
-  React.ComponentPropsWithoutRef<'details'>
-> = ({ children, open, ...extraProps }) => {
-  if (IS_IE11) {
-    return (
-      <div
-        className={'details-fallback' + (open ? ' details-fallback--open' : '')}
-        {...extraProps}
-      >
-        {children}
-      </div>
-    );
-  }
-
-  return (
-    <details open={open} {...extraProps}>
-      {children}
-    </details>
-  );
-};
-
-const Summary: React.FunctionComponent<
-  React.ComponentPropsWithoutRef<'summary'>
-> = ({ children, ...extraProps }) => {
-  if (IS_IE11) {
-    return (
-      <button className="details-fallback__summary" {...extraProps}>
-        {children}
-      </button>
-    );
-  }
-
-  return <summary {...extraProps}>{children}</summary>;
-};
 
 interface CommentReply {
   author: Author | null;
@@ -149,8 +111,8 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
             className="comment-header__action comment-header__action--more"
             ref={menuContainerRef}
           >
-            <Details open={menuOpen} onClick={toggleMenu}>
-              <Summary
+            <details open={menuOpen} onClick={toggleMenu}>
+              <summary
                 aria-label={strings.MORE_ACTIONS}
                 aria-haspopup="menu"
                 role="button"
@@ -158,7 +120,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                 aria-expanded={menuOpen}
               >
                 <Icon name="ellipsis-v" />
-              </Summary>
+              </summary>
 
               <div
                 className="comment-header__more-actions"
@@ -185,7 +147,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                   </button>
                 )}
               </div>
-            </Details>
+            </details>
           </div>
         )}
       </div>

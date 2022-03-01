@@ -15,7 +15,14 @@ class MovePageAPIActionSerializer(Serializer):
     destination_page_id = fields.IntegerField(required=True)
     position = fields.ChoiceField(
         required=False,
-        choices=['left', 'right', 'first-child', 'last-child', 'first-sibling', 'last-sibling']
+        choices=[
+            "left",
+            "right",
+            "first-child",
+            "last-child",
+            "first-sibling",
+            "last-sibling",
+        ],
     )
 
 
@@ -27,7 +34,10 @@ class MovePageAPIAction(APIAction):
         target = get_object_or_404(Page, id=destination_page_id)
 
         return MovePageAction(
-            page=instance, target=target, pos=data.get("position"), user=self.request.user
+            page=instance,
+            target=target,
+            pos=data.get("position"),
+            user=self.request.user,
         )
 
     def execute(self, instance, data):

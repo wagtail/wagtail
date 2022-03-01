@@ -17,29 +17,38 @@ def convert_alias(request, page_id):
         raise PermissionDenied
 
     with transaction.atomic():
-        for fn in hooks.get_hooks('before_convert_alias_page'):
+        for fn in hooks.get_hooks("before_convert_alias_page"):
             result = fn(request, page)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
         next_url = get_valid_next_url_from_request(request)
 
-        if request.method == 'POST':
+        if request.method == "POST":
             action = ConvertAliasPageAction(page, user=request.user)
             action.execute(skip_permission_checks=True)
 
-            messages.success(request, _("Page '{0}' has been converted into an ordinary page.").format(page.get_admin_display_title()))
+            messages.success(
+                request,
+                _("Page '{0}' has been converted into an ordinary page.").format(
+                    page.get_admin_display_title()
+                ),
+            )
 
-            for fn in hooks.get_hooks('after_convert_alias_page'):
+            for fn in hooks.get_hooks("after_convert_alias_page"):
                 result = fn(request, page)
-                if hasattr(result, 'status_code'):
+                if hasattr(result, "status_code"):
                     return result
 
             if next_url:
                 return redirect(next_url)
-            return redirect('wagtailadmin_pages:edit', page.id)
+            return redirect("wagtailadmin_pages:edit", page.id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_convert_alias.html', {
-        'page': page,
-        'next': next_url,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/confirm_convert_alias.html",
+        {
+            "page": page,
+            "next": next_url,
+        },
+    )

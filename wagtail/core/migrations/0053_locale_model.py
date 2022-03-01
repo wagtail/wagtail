@@ -6,18 +6,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0052_pagelogentry'),
+        ("wagtailcore", "0052_pagelogentry"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Locale',
+            name="Locale",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('language_code', models.CharField(max_length=100, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("language_code", models.CharField(max_length=100, unique=True)),
             ],
             options={
-                'ordering': ['language_code'],
+                "ordering": ["language_code"],
             },
         ),
     ]

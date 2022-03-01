@@ -5,7 +5,9 @@ from django.views.generic.list import MultipleObjectMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 
 
-class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMixin, View):
+class ReportView(
+    SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMixin, View
+):
     header_icon = ""
     page_kwarg = "p"
     template_name = "wagtailadmin/reports/base_report.html"
@@ -16,7 +18,9 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMi
     def filter_queryset(self, queryset):
         # construct filter instance (self.filters) if not created already
         if self.filterset_class and self.filters is None:
-            self.filters = self.filterset_class(self.request.GET, queryset=queryset, request=self.request)
+            self.filters = self.filterset_class(
+                self.request.GET, queryset=queryset, request=self.request
+            )
             queryset = self.filters.qs
         elif self.filters:
             # if filter object was created on a previous filter_queryset call, re-use it
@@ -41,7 +45,9 @@ class ReportView(SpreadsheetExportMixin, TemplateResponseMixin, MultipleObjectMi
             return self.as_spreadsheet(self.object_list, self.request.GET.get("export"))
         else:
             context = self.get_context_data()
-            context['object_list'] = self.decorate_paginated_queryset(context['object_list'])
+            context["object_list"] = self.decorate_paginated_queryset(
+                context["object_list"]
+            )
             return self.render_to_response(context)
 
     def get_context_data(self, *args, object_list=None, **kwargs):

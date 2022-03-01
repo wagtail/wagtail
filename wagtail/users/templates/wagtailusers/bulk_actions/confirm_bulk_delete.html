@@ -14,7 +14,7 @@
         <ul>
             {% for user in items %}
                 <li>
-                    <a href="{% url 'wagtailusers_users:edit' user.item.pk %}" target="_blank" rel="noopener noreferrer">{{user.item|user_display_name }}</a>
+                    <a href="{% url 'wagtailusers_users:edit' user.item.pk %}" target="_blank" rel="noreferrer">{{user.item|user_display_name }}</a>
                 </li>
             {% endfor %}
         </ul>

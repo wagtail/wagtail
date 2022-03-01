@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0063_modellogentry'),
+        ("wagtailcore", "0063_modellogentry"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='modellogentry',
-            name='timestamp',
-            field=models.DateTimeField(db_index=True, verbose_name='timestamp (UTC)'),
+            model_name="modellogentry",
+            name="timestamp",
+            field=models.DateTimeField(db_index=True, verbose_name="timestamp (UTC)"),
         ),
         migrations.AlterField(
-            model_name='pagelogentry',
-            name='timestamp',
-            field=models.DateTimeField(db_index=True, verbose_name='timestamp (UTC)'),
+            model_name="pagelogentry",
+            name="timestamp",
+            field=models.DateTimeField(db_index=True, verbose_name="timestamp (UTC)"),
         ),
     ]

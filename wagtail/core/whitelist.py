@@ -7,8 +7,7 @@ import re
 from bs4 import BeautifulSoup, Comment, NavigableString, Tag
 from django.utils.html import escape
 
-
-ALLOWED_URL_SCHEMES = ['http', 'https', 'ftp', 'mailto', 'tel']
+ALLOWED_URL_SCHEMES = ["http", "https", "ftp", "mailto", "tel"]
 
 PROTOCOL_RE = re.compile("^[a-z0-9][-+.a-z0-9]*:")
 
@@ -22,10 +21,10 @@ def check_url(url_string):
     unescaped = unescaped.replace("&lt;", "<")
     unescaped = unescaped.replace("&gt;", ">")
     unescaped = unescaped.replace("&amp;", "&")
-    unescaped = re.sub(r'[`\000-\040\177-\240\s]+', '', unescaped)
+    unescaped = re.sub(r"[`\000-\040\177-\240\s]+", "", unescaped)
     unescaped = unescaped.replace("\ufffd", "")
     if PROTOCOL_RE.match(unescaped):
-        protocol = unescaped.split(':', 1)[0]
+        protocol = unescaped.split(":", 1)[0]
         if protocol not in ALLOWED_URL_SCHEMES:
             return None
     return url_string
@@ -42,6 +41,7 @@ def attribute_rule(allowed_attrs):
       the title. If the callable returns None, the attribute is dropped
     * if the lookup returns a truthy value, keep the attribute; if falsy, drop it
     """
+
     def fn(tag):
         for attr, val in list(tag.attrs.items()):
             rule = allowed_attrs.get(attr)
@@ -66,29 +66,30 @@ allow_without_attributes = attribute_rule({})
 
 
 DEFAULT_ELEMENT_RULES = {
-    '[document]': allow_without_attributes,
-    'a': attribute_rule({'href': check_url}),
-    'b': allow_without_attributes,
-    'br': allow_without_attributes,
-    'div': allow_without_attributes,
-    'em': allow_without_attributes,
-    'h1': allow_without_attributes,
-    'h2': allow_without_attributes,
-    'h3': allow_without_attributes,
-    'h4': allow_without_attributes,
-    'h5': allow_without_attributes,
-    'h6': allow_without_attributes,
-    'hr': allow_without_attributes,
-    'i': allow_without_attributes,
-    'img': attribute_rule({'src': check_url, 'width': True, 'height': True,
-                           'alt': True}),
-    'li': allow_without_attributes,
-    'ol': allow_without_attributes,
-    'p': allow_without_attributes,
-    'strong': allow_without_attributes,
-    'sub': allow_without_attributes,
-    'sup': allow_without_attributes,
-    'ul': allow_without_attributes,
+    "[document]": allow_without_attributes,
+    "a": attribute_rule({"href": check_url}),
+    "b": allow_without_attributes,
+    "br": allow_without_attributes,
+    "div": allow_without_attributes,
+    "em": allow_without_attributes,
+    "h1": allow_without_attributes,
+    "h2": allow_without_attributes,
+    "h3": allow_without_attributes,
+    "h4": allow_without_attributes,
+    "h5": allow_without_attributes,
+    "h6": allow_without_attributes,
+    "hr": allow_without_attributes,
+    "i": allow_without_attributes,
+    "img": attribute_rule(
+        {"src": check_url, "width": True, "height": True, "alt": True}
+    ),
+    "li": allow_without_attributes,
+    "ol": allow_without_attributes,
+    "p": allow_without_attributes,
+    "strong": allow_without_attributes,
+    "sub": allow_without_attributes,
+    "sup": allow_without_attributes,
+    "ul": allow_without_attributes,
 }
 
 
@@ -98,7 +99,7 @@ class Whitelister:
     def clean(self, html):
         """Clean up an HTML string to contain just the allowed elements /
         attributes"""
-        doc = BeautifulSoup(html, 'html5lib')
+        doc = BeautifulSoup(html, "html5lib")
         self.clean_node(doc, doc)
 
         # Pass strings through django.utils.html.escape when generating the final HTML.

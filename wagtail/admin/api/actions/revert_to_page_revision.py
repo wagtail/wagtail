@@ -7,7 +7,9 @@ from rest_framework.serializers import Serializer
 
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.core.actions.revert_to_page_revision import (
-    RevertToPageRevisionAction, RevertToPageRevisionError)
+    RevertToPageRevisionAction,
+    RevertToPageRevisionError,
+)
 
 from .base import APIAction
 

@@ -30,16 +30,18 @@ class TreebeardPathFixMixin:
 
                 # Initially children_to_fix is the set of root nodes, i.e. ones with a path
                 # starting with '' and depth 1.
-                children_to_fix = [('', 1)]
+                children_to_fix = [("", 1)]
 
                 while children_to_fix:
                     parent_path, depth = children_to_fix.pop(0)
 
                     children = cls.objects.filter(
                         path__startswith=parent_path, depth=depth
-                    ).values('pk', 'path', 'depth', 'numchild')
+                    ).values("pk", "path", "depth", "numchild")
 
-                    desired_sequence = children.order_by(*(cls.node_order_by or ['path']))
+                    desired_sequence = children.order_by(
+                        *(cls.node_order_by or ["path"])
+                    )
 
                     # mapping of current path position (converted to numeric) to item
                     actual_sequence = {}
@@ -49,7 +51,7 @@ class TreebeardPathFixMixin:
 
                     # loop over items to populate actual_sequence and max_position
                     for item in desired_sequence:
-                        actual_position = cls._str2int(item['path'][-cls.steplen:])
+                        actual_position = cls._str2int(item["path"][-cls.steplen :])
                         actual_sequence[actual_position] = item
                         if max_position is None or actual_position > max_position:
                             max_position = actual_position
@@ -57,7 +59,7 @@ class TreebeardPathFixMixin:
                     # loop over items to perform path adjustments
                     for (i, item) in enumerate(desired_sequence):
                         desired_position = i + 1  # positions are 1-indexed
-                        actual_position = cls._str2int(item['path'][-cls.steplen:])
+                        actual_position = cls._str2int(item["path"][-cls.steplen :])
                         if actual_position == desired_position:
                             pass
                         else:
@@ -65,38 +67,44 @@ class TreebeardPathFixMixin:
                             # to max_position + 1 to get it out of the way
                             occupant = actual_sequence.get(desired_position)
                             if occupant:
-                                old_path = occupant['path']
+                                old_path = occupant["path"]
                                 max_position += 1
-                                new_path = cls._get_path(parent_path, depth, max_position)
+                                new_path = cls._get_path(
+                                    parent_path, depth, max_position
+                                )
                                 if len(new_path) > len(old_path):
-                                    previous_max_path = cls._get_path(parent_path, depth, max_position - 1)
-                                    raise PathOverflow("Path Overflow from: '%s'" % (previous_max_path, ))
+                                    previous_max_path = cls._get_path(
+                                        parent_path, depth, max_position - 1
+                                    )
+                                    raise PathOverflow(
+                                        "Path Overflow from: '%s'"
+                                        % (previous_max_path,)
+                                    )
 
                                 cls._rewrite_node_path(old_path, new_path)
                                 # update actual_sequence to reflect the new position
                                 actual_sequence[max_position] = occupant
-                                del(actual_sequence[desired_position])
-                                occupant['path'] = new_path
+                                del actual_sequence[desired_position]
+                                occupant["path"] = new_path
 
                             # move item into the (now vacated) desired position
-                            old_path = item['path']
-                            new_path = cls._get_path(parent_path, depth, desired_position)
+                            old_path = item["path"]
+                            new_path = cls._get_path(
+                                parent_path, depth, desired_position
+                            )
                             cls._rewrite_node_path(old_path, new_path)
                             # update actual_sequence to reflect the new position
                             actual_sequence[desired_position] = item
-                            del(actual_sequence[actual_position])
-                            item['path'] = new_path
+                            del actual_sequence[actual_position]
+                            item["path"] = new_path
 
-                        if item['numchild']:
+                        if item["numchild"]:
                             # this item has children to process, and we have now moved the parent
                             # node into its final position, so it's safe to add to children_to_fix
-                            children_to_fix.append((item['path'], depth + 1))
+                            children_to_fix.append((item["path"], depth + 1))
 
     @classmethod
     def _rewrite_node_path(cls, old_path, new_path):
         cls.objects.filter(path__startswith=old_path).update(
-            path=Concat(
-                Value(new_path),
-                Substr('path', len(old_path) + 1)
-            )
+            path=Concat(Value(new_path), Substr("path", len(old_path) + 1))
         )

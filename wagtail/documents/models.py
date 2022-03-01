@@ -1,7 +1,6 @@
 import hashlib
 import os.path
 import urllib
-
 from contextlib import contextmanager
 from mimetypes import guess_type
 
@@ -24,19 +23,19 @@ class DocumentQuerySet(SearchableQuerySetMixin, models.QuerySet):
 
 
 class AbstractDocument(CollectionMember, index.Indexed, models.Model):
-    title = models.CharField(max_length=255, verbose_name=_('title'))
-    file = models.FileField(upload_to='documents', verbose_name=_('file'))
-    created_at = models.DateTimeField(verbose_name=_('created at'), auto_now_add=True)
+    title = models.CharField(max_length=255, verbose_name=_("title"))
+    file = models.FileField(upload_to="documents", verbose_name=_("file"))
+    created_at = models.DateTimeField(verbose_name=_("created at"), auto_now_add=True)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_('uploaded by user'),
+        verbose_name=_("uploaded by user"),
         null=True,
         blank=True,
         editable=False,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
     )
 
-    tags = TaggableManager(help_text=None, blank=True, verbose_name=_('tags'))
+    tags = TaggableManager(help_text=None, blank=True, verbose_name=_("tags"))
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
@@ -45,14 +44,17 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
     objects = DocumentQuerySet.as_manager()
 
     search_fields = CollectionMember.search_fields + [
-        index.SearchField('title', partial_match=True, boost=10),
-        index.AutocompleteField('title'),
-        index.FilterField('title'),
-        index.RelatedFields('tags', [
-            index.SearchField('name', partial_match=True, boost=10),
-            index.AutocompleteField('name'),
-        ]),
-        index.FilterField('uploaded_by_user'),
+        index.SearchField("title", partial_match=True, boost=10),
+        index.AutocompleteField("title"),
+        index.FilterField("title"),
+        index.RelatedFields(
+            "tags",
+            [
+                index.SearchField("name", partial_match=True, boost=10),
+                index.AutocompleteField("name"),
+            ],
+        ),
+        index.FilterField("uploaded_by_user"),
     ]
 
     def clean(self):
@@ -90,12 +92,12 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         if f.closed:
             # Reopen the file
             if self.is_stored_locally():
-                f.open('rb')
+                f.open("rb")
             else:
                 # Some external storage backends don't allow reopening
                 # the file. Get a fresh file instance. #1397
-                storage = self._meta.get_field('file').storage
-                f = storage.open(f.name, 'rb')
+                storage = self._meta.get_field("file").storage
+                f = storage.open(f.name, "rb")
 
             close_file = True
 
@@ -116,7 +118,7 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
                 # File doesn't exist
                 return
 
-            self.save(update_fields=['file_size'])
+            self.save(update_fields=["file_size"])
 
         return self.file_size
 
@@ -124,11 +126,11 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
         self.file_hash = hashlib.sha1(file_contents).hexdigest()
 
     def get_file_hash(self):
-        if self.file_hash == '':
+        if self.file_hash == "":
             with self.open_file() as f:
                 self._set_file_hash(f.read())
 
-            self.save(update_fields=['file_hash'])
+            self.save(update_fields=["file_hash"])
 
         return self.file_hash
 
@@ -145,43 +147,43 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     @property
     def url(self):
-        if getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None) == 'direct':
+        if getattr(settings, "WAGTAILDOCS_SERVE_METHOD", None) == "direct":
             try:
                 return self.file.url
             except NotImplementedError:
                 # backend does not provide a url, so fall back on the serve view
                 pass
 
-        return reverse('wagtaildocs_serve', args=[self.id, self.filename])
+        return reverse("wagtaildocs_serve", args=[self.id, self.filename])
 
     def get_usage(self):
         return get_object_usage(self)
 
     @property
     def usage_url(self):
-        return reverse('wagtaildocs:document_usage',
-                       args=(self.id,))
+        return reverse("wagtaildocs:document_usage", args=(self.id,))
 
     def is_editable_by_user(self, user):
         from wagtail.documents.permissions import permission_policy
-        return permission_policy.user_has_permission_for_instance(user, 'change', self)
+
+        return permission_policy.user_has_permission_for_instance(user, "change", self)
 
     @property
     def content_type(self):
-        content_types_lookup = getattr(settings, 'WAGTAILDOCS_CONTENT_TYPES', {})
+        content_types_lookup = getattr(settings, "WAGTAILDOCS_CONTENT_TYPES", {})
         return (
             content_types_lookup.get(self.file_extension.lower())
             or guess_type(self.filename)[0]
-            or 'application/octet-stream'
+            or "application/octet-stream"
         )
 
     @property
     def content_disposition(self):
         inline_content_types = getattr(
-            settings, 'WAGTAILDOCS_INLINE_CONTENT_TYPES', ['application/pdf']
+            settings, "WAGTAILDOCS_INLINE_CONTENT_TYPES", ["application/pdf"]
         )
         if self.content_type in inline_content_types:
-            return 'inline'
+            return "inline"
         else:
             return "attachment; filename={0}; filename*=UTF-8''{0}".format(
                 urllib.parse.quote(self.filename)
@@ -189,17 +191,12 @@ class AbstractDocument(CollectionMember, index.Indexed, models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('document')
-        verbose_name_plural = _('documents')
+        verbose_name = _("document")
+        verbose_name_plural = _("documents")
 
 
 class Document(AbstractDocument):
-    admin_form_fields = (
-        'title',
-        'file',
-        'collection',
-        'tags'
-    )
+    admin_form_fields = ("title", "file", "collection", "tags")
 
     class Meta(AbstractDocument.Meta):
         permissions = [
@@ -218,8 +215,13 @@ class UploadedDocument(models.Model):
     alone. In this case, the document file is stored against this model, to be turned into a
     Document object once the full form has been filled in.
     """
-    file = models.FileField(upload_to='uploaded_documents', max_length=200)
+
+    file = models.FileField(upload_to="uploaded_documents", max_length=200)
     uploaded_by_user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, verbose_name=_('uploaded by user'),
-        null=True, blank=True, editable=False, on_delete=models.SET_NULL
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("uploaded by user"),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
     )

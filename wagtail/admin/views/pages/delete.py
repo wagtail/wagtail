@@ -17,32 +17,38 @@ def delete(request, page_id):
         raise PermissionDenied
 
     with transaction.atomic():
-        for fn in hooks.get_hooks('before_delete_page'):
+        for fn in hooks.get_hooks("before_delete_page"):
             result = fn(request, page)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
         next_url = get_valid_next_url_from_request(request)
 
-        if request.method == 'POST':
+        if request.method == "POST":
             parent_id = page.get_parent().id
             action = DeletePageAction(page, user=request.user)
             # Permission checks are done above, so skip them in execute.
             action.execute(skip_permission_checks=True)
 
-            messages.success(request, _("Page '{0}' deleted.").format(page.get_admin_display_title()))
+            messages.success(
+                request, _("Page '{0}' deleted.").format(page.get_admin_display_title())
+            )
 
-            for fn in hooks.get_hooks('after_delete_page'):
+            for fn in hooks.get_hooks("after_delete_page"):
                 result = fn(request, page)
-                if hasattr(result, 'status_code'):
+                if hasattr(result, "status_code"):
                     return result
 
             if next_url:
                 return redirect(next_url)
-            return redirect('wagtailadmin_explore', parent_id)
+            return redirect("wagtailadmin_explore", parent_id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_delete.html', {
-        'page': page,
-        'descendant_count': page.get_descendant_count(),
-        'next': next_url,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/confirm_delete.html",
+        {
+            "page": page,
+            "descendant_count": page.get_descendant_count(),
+            "next": next_url,
+        },
+    )

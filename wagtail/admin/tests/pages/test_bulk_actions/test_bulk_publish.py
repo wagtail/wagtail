@@ -19,7 +19,12 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         # Add child pages
         self.child_pages = [
-            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"Hello world {i}!", live=False)
+            SimplePage(
+                title=f"Hello world!-{i}",
+                slug=f"hello-world-{i}",
+                content=f"Hello world {i}!",
+                live=False,
+            )
             for i in range(1, 5)
         ]
         self.pages_to_be_published = self.child_pages[:3]
@@ -32,10 +37,20 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             child_page.content = f"Hello updated world {i}!"
             child_page.save_revision()
 
-        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'publish', )) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "publish",
+                ),
+            )
+            + "?"
+        )
         for child_page in self.pages_to_be_published:
-            self.url += f'id={child_page.id}&'
-        self.redirect_url = reverse('wagtailadmin_explore', args=(self.root_page.id, ))
+            self.url += f"id={child_page.id}&"
+        self.redirect_url = reverse("wagtailadmin_explore", args=(self.root_page.id,))
 
         self.user = self.login()
 
@@ -48,7 +63,9 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         # # Check that the user received an publish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html"
+        )
 
         # Page titles shown on the confirmation page should use SimplePage's custom get_admin_display_title method
         self.assertContains(response, "Hello world!-1 (simple page)")
@@ -58,7 +75,16 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         This tests that the publish view returns an error if the page id is invalid
         """
         # Request confirm publish page but with illegal page id
-        response = self.client.get(reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'publish', )))
+        response = self.client.get(
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "publish",
+                ),
+            )
+        )
 
         # Check that the user received a 404 response
         self.assertEqual(response.status_code, 404)
@@ -70,7 +96,9 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         # Remove privileges from user
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
@@ -82,10 +110,14 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         html = response.content.decode()
 
-        self.assertInHTML("<p>You don't have permission to publish these pages</p>", html)
+        self.assertInHTML(
+            "<p>You don't have permission to publish these pages</p>", html
+        )
 
         for child_page in self.pages_to_be_published:
-            self.assertInHTML('<li>{page_title}</li>'.format(page_title=child_page.title), html)
+            self.assertInHTML(
+                "<li>{page_title}</li>".format(page_title=child_page.title), html
+            )
 
     def test_publish_view_post(self):
         """
@@ -116,14 +148,13 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         for i, child_page in enumerate(self.pages_to_be_published):
             mock_call = mock_handler.mock_calls[i][2]
-            self.assertEqual(mock_call['sender'], child_page.specific_class)
-            self.assertEqual(mock_call['instance'], child_page)
-            self.assertIsInstance(mock_call['instance'], child_page.specific_class)
+            self.assertEqual(mock_call["sender"], child_page.specific_class)
+            self.assertEqual(mock_call["instance"], child_page)
+            self.assertIsInstance(mock_call["instance"], child_page.specific_class)
 
     def test_after_publish_page(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'publish')
+            self.assertEqual(action_type, "publish")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
@@ -131,7 +162,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
             return HttpResponse("Overridden!")
 
-        with self.register_hook('after_bulk_action', hook_func):
+        with self.register_hook("after_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)
@@ -142,9 +173,8 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             self.assertEqual(child_page.status_string, _("live"))
 
     def test_before_publish_page(self):
-
         def hook_func(request, action_type, pages, action_class_instance):
-            self.assertEqual(action_type, 'publish')
+            self.assertEqual(action_type, "publish")
             self.assertIsInstance(request, HttpRequest)
             self.assertIsInstance(action_class_instance, PageBulkAction)
             for i, page in enumerate(pages):
@@ -152,7 +182,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
             return HttpResponse("Overridden!")
 
-        with self.register_hook('before_bulk_action', hook_func):
+        with self.register_hook("before_bulk_action", hook_func):
             response = self.client.post(self.url)
 
         self.assertEqual(response.status_code, 200)
@@ -167,9 +197,14 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
 
         # Check that the user received an publish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html"
+        )
         # Check the form does not contain the checkbox field include_descendants
-        self.assertNotContains(response, '<input id="id_include_descendants" name="include_descendants" type="checkbox">')
+        self.assertNotContains(
+            response,
+            '<input id="id_include_descendants" name="include_descendants" type="checkbox">',
+        )
 
 
 class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
@@ -178,7 +213,12 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Add child pages
         self.child_pages = [
-            SimplePage(title=f"Hello world!-{i}", slug=f"hello-world-{i}", content=f"Hello world {i}!", live=False)
+            SimplePage(
+                title=f"Hello world!-{i}",
+                slug=f"hello-world-{i}",
+                content=f"Hello world {i}!",
+                live=False,
+            )
             for i in range(1, 5)
         ]
         self.pages_to_be_published = self.child_pages[:3]
@@ -194,11 +234,27 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
             self.pages_to_be_published[0]: [
-                SimplePage(title="Hello world!-a", slug="hello-world-a", content="Hello world a!", live=False)],
+                SimplePage(
+                    title="Hello world!-a",
+                    slug="hello-world-a",
+                    content="Hello world a!",
+                    live=False,
+                )
+            ],
             self.pages_to_be_published[1]: [
-                SimplePage(title="Hello world!-b", slug="hello-world-b", content="Hello world b!", live=False),
-                SimplePage(title="Hello world!-c", slug="hello-world-c", content="Hello world c!", live=False)
-            ]
+                SimplePage(
+                    title="Hello world!-b",
+                    slug="hello-world-b",
+                    content="Hello world b!",
+                    live=False,
+                ),
+                SimplePage(
+                    title="Hello world!-c",
+                    slug="hello-world-c",
+                    content="Hello world c!",
+                    live=False,
+                ),
+            ],
         }
         for child_page, grandchild_pages in self.grandchildren_pages.items():
             for grandchild_page in grandchild_pages:
@@ -206,12 +262,24 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         for child_page, grandchild_pages in self.grandchildren_pages.items():
             for grandchild_page in grandchild_pages:
-                grandchild_page.content = grandchild_page.content.replace("Hello world", "Hello grandchild")
+                grandchild_page.content = grandchild_page.content.replace(
+                    "Hello world", "Hello grandchild"
+                )
                 grandchild_page.save_revision()
 
-        self.url = reverse('wagtail_bulk_action', args=('wagtailcore', 'page', 'publish', )) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailcore",
+                    "page",
+                    "publish",
+                ),
+            )
+            + "?"
+        )
         for child_page in self.pages_to_be_published:
-            self.url += f'&id={child_page.id}'
+            self.url += f"&id={child_page.id}"
 
         self.user = self.login()
 
@@ -224,16 +292,21 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         # Check that the user received an publish confirm page
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/pages/bulk_actions/confirm_bulk_publish.html"
+        )
         # Check the form contains the checkbox field include_descendants
-        self.assertContains(response, '<input type="checkbox" name="include_descendants" id="id_include_descendants">')
+        self.assertContains(
+            response,
+            '<input type="checkbox" name="include_descendants" id="id_include_descendants">',
+        )
 
     def test_publish_include_children_view_post(self):
         """
         This posts to the publish view and checks that the page and its descendants were published
         """
         # Post to the publish page
-        response = self.client.post(self.url, {'include_descendants': 'on'})
+        response = self.client.post(self.url, {"include_descendants": "on"})
 
         # Should be redirected to explorer page
         self.assertEqual(response.status_code, 302)
@@ -250,7 +323,9 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
 
         for grandchild_pages in self.grandchildren_pages.values():
             for grandchild_page in grandchild_pages:
-                published_grandchild_page = SimplePage.objects.get(id=grandchild_page.id)
+                published_grandchild_page = SimplePage.objects.get(
+                    id=grandchild_page.id
+                )
                 self.assertTrue(published_grandchild_page.live)
                 self.assertIn("Hello grandchild", published_grandchild_page.content)
 

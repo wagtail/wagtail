@@ -7,24 +7,36 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('taggit', '0003_taggeditem_add_unique_index'),
-        ('tests', '0060_taggedchildpage_taggedgrandchildpage'),
+        ("taggit", "0003_taggeditem_add_unique_index"),
+        ("tests", "0060_taggedchildpage_taggedgrandchildpage"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='addresstag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='taggit.tag'),
+            model_name="addresstag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="%(app_label)s_%(class)s_items",
+                to="taggit.tag",
+            ),
         ),
         migrations.AlterField(
-            model_name='adverttag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='taggit.tag'),
+            model_name="adverttag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="%(app_label)s_%(class)s_items",
+                to="taggit.tag",
+            ),
         ),
         migrations.AlterField(
-            model_name='taggedpagetag',
-            name='tag',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='%(app_label)s_%(class)s_items', to='taggit.tag'),
+            model_name="taggedpagetag",
+            name="tag",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="%(app_label)s_%(class)s_items",
+                to="taggit.tag",
+            ),
         ),
     ]

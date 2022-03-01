@@ -7,18 +7,18 @@ from taggit.managers import TaggableManager
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
 
-
 # Form field properties to override whenever we encounter a model field
 # that matches one of these types - including subclasses
 
+
 def _get_tag_field_overrides(db_field):
-    return {'form_class': TagField, 'tag_model': db_field.related_model}
+    return {"form_class": TagField, "tag_model": db_field.related_model}
 
 
 FORM_FIELD_OVERRIDES = {
-    models.DateField: {'widget': widgets.AdminDateInput},
-    models.TimeField: {'widget': widgets.AdminTimeInput},
-    models.DateTimeField: {'widget': widgets.AdminDateTimeInput},
+    models.DateField: {"widget": widgets.AdminDateInput},
+    models.TimeField: {"widget": widgets.AdminTimeInput},
+    models.DateTimeField: {"widget": widgets.AdminDateTimeInput},
     TaggableManager: _get_tag_field_overrides,
 }
 
@@ -27,7 +27,7 @@ FORM_FIELD_OVERRIDES = {
 # (This allows us to override the widget for models.TextField, but leave
 # the RichTextField widget alone)
 DIRECT_FORM_FIELD_OVERRIDES = {
-    models.TextField: {'widget': widgets.AdminAutoHeightTextInput},
+    models.TextField: {"widget": widgets.AdminAutoHeightTextInput},
 }
 
 
@@ -69,10 +69,12 @@ class WagtailAdminModelFormMetaclass(ClusterFormMetaclass):
     extra_form_count = 0
 
     def __new__(cls, name, bases, attrs):
-        if 'formfield_callback' not in attrs or attrs['formfield_callback'] is None:
-            attrs['formfield_callback'] = formfield_for_dbfield
+        if "formfield_callback" not in attrs or attrs["formfield_callback"] is None:
+            attrs["formfield_callback"] = formfield_for_dbfield
 
-        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(cls, name, bases, attrs)
+        new_class = super(WagtailAdminModelFormMetaclass, cls).__new__(
+            cls, name, bases, attrs
+        )
         return new_class
 
     @classmethod

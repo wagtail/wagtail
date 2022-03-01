@@ -25,7 +25,12 @@ class SnippetTitleColumn(TitleColumn):
 
     def get_link_url(self, instance, parent_context):
         return reverse(
-            'wagtailsnippets:chosen', args=[self.model_opts.app_label, self.model_opts.model_name, quote(instance.pk)]
+            "wagtailsnippets:chosen",
+            args=[
+                self.model_opts.app_label,
+                self.model_opts.model_name,
+                quote(instance.pk),
+            ],
         )
 
 
@@ -38,7 +43,7 @@ class BaseChooseView(View):
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
         if not items.ordered:
-            items = items.order_by('pk')
+            items = items.order_by("pk")
 
         # Filter by locale
         self.locale = None
@@ -46,12 +51,16 @@ class BaseChooseView(View):
         self.selected_locale = None
         if issubclass(self.model, TranslatableMixin):
             # 'locale' is the Locale of the object that this snippet is being chosen for
-            if request.GET.get('locale'):
-                self.locale = get_object_or_404(Locale, language_code=request.GET['locale'])
+            if request.GET.get("locale"):
+                self.locale = get_object_or_404(
+                    Locale, language_code=request.GET["locale"]
+                )
 
             # 'locale_filter' is the current value of the "Locale" selector in the UI
-            if request.GET.get('locale_filter'):
-                self.locale_filter = get_object_or_404(Locale, language_code=request.GET['locale_filter'])
+            if request.GET.get("locale_filter"):
+                self.locale_filter = get_object_or_404(
+                    Locale, language_code=request.GET["locale_filter"]
+                )
 
             self.selected_locale = self.locale_filter or self.locale
 
@@ -62,30 +71,41 @@ class BaseChooseView(View):
         self.is_searchable = class_is_indexed(self.model)
         self.is_searching = False
         self.search_query = None
-        if self.is_searchable and 'q' in request.GET:
-            self.search_form = SearchForm(request.GET, placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': self.model._meta.verbose_name
-            })
+        if self.is_searchable and "q" in request.GET:
+            self.search_form = SearchForm(
+                request.GET,
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name},
+            )
 
             if self.search_form.is_valid():
-                self.search_query = self.search_form.cleaned_data['q']
+                self.search_query = self.search_form.cleaned_data["q"]
 
                 search_backend = get_search_backend()
                 items = search_backend.search(self.search_query, items)
                 self.is_searching = True
 
         else:
-            self.search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': self.model._meta.verbose_name
-            })
+            self.search_form = SearchForm(
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name}
+            )
 
         # Pagination
         paginator = Paginator(items, per_page=25)
-        self.paginated_items = paginator.get_page(request.GET.get('p'))
+        self.paginated_items = paginator.get_page(request.GET.get("p"))
 
-        self.table = Table([
-            SnippetTitleColumn('title', self.model, label=_('Title'), link_classname='snippet-choice'),
-        ], self.paginated_items)
+        self.table = Table(
+            [
+                SnippetTitleColumn(
+                    "title",
+                    self.model,
+                    label=_("Title"),
+                    link_classname="snippet-choice",
+                ),
+            ],
+            self.paginated_items,
+        )
 
         return self.render_to_response()
 
@@ -98,33 +118,41 @@ class ChooseView(BaseChooseView):
     def render_to_response(self):
         return render_modal_workflow(
             self.request,
-            'wagtailsnippets/chooser/choose.html', None,
+            "wagtailsnippets/chooser/choose.html",
+            None,
             {
-                'model_opts': self.model._meta,
-                'items': self.paginated_items,
-                'table': self.table,
-                'is_searchable': self.is_searchable,
-                'search_form': self.search_form,
-                'query_string': self.search_query,
-                'is_searching': self.is_searching,
-                'locale': self.locale,
-                'locale_filter': self.locale_filter,
-                'selected_locale': self.selected_locale,
-                'locale_options': Locale.objects.all() if issubclass(self.model, TranslatableMixin) else [],
-            }, json_data={'step': 'choose'}
+                "model_opts": self.model._meta,
+                "items": self.paginated_items,
+                "table": self.table,
+                "is_searchable": self.is_searchable,
+                "search_form": self.search_form,
+                "query_string": self.search_query,
+                "is_searching": self.is_searching,
+                "locale": self.locale,
+                "locale_filter": self.locale_filter,
+                "selected_locale": self.selected_locale,
+                "locale_options": Locale.objects.all()
+                if issubclass(self.model, TranslatableMixin)
+                else [],
+            },
+            json_data={"step": "choose"},
         )
 
 
 class ChooseResultsView(BaseChooseView):
     # Return just the HTML fragment for the results
     def render_to_response(self):
-        return TemplateResponse(self.request, "wagtailsnippets/chooser/results.html", {
-            'model_opts': self.model._meta,
-            'items': self.paginated_items,
-            'table': self.table,
-            'query_string': self.search_query,
-            'is_searching': self.is_searching,
-        })
+        return TemplateResponse(
+            self.request,
+            "wagtailsnippets/chooser/results.html",
+            {
+                "model_opts": self.model._meta,
+                "items": self.paginated_items,
+                "table": self.table,
+                "query_string": self.search_query,
+                "is_searching": self.is_searching,
+            },
+        )
 
 
 def chosen(request, app_label, model_name, pk):
@@ -132,14 +160,13 @@ def chosen(request, app_label, model_name, pk):
     item = get_object_or_404(model, pk=unquote(pk))
 
     snippet_data = {
-        'id': str(item.pk),
-        'string': str(item),
-        'edit_link': reverse('wagtailsnippets:edit', args=(
-            app_label, model_name, quote(item.pk)))
+        "id": str(item.pk),
+        "string": str(item),
+        "edit_link": reverse(
+            "wagtailsnippets:edit", args=(app_label, model_name, quote(item.pk))
+        ),
     }
 
     return render_modal_workflow(
-        request,
-        None, None,
-        None, json_data={'step': 'chosen', 'result': snippet_data}
+        request, None, None, None, json_data={"step": "chosen", "result": snippet_data}
     )

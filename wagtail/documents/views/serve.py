@@ -20,8 +20,12 @@ from wagtail.utils.sendfile import sendfile
 
 def document_etag(request, document_id, document_filename):
     Document = get_document_model()
-    if hasattr(Document, 'file_hash'):
-        return Document.objects.filter(id=document_id).values_list('file_hash', flat=True).first()
+    if hasattr(Document, "file_hash"):
+        return (
+            Document.objects.filter(id=document_id)
+            .values_list("file_hash", flat=True)
+            .first()
+        )
 
 
 @etag(document_etag)
@@ -34,9 +38,9 @@ def serve(request, document_id, document_filename):
     # document_id. If not we can't be sure that the document the user wants to access is the one corresponding to the
     # <document_id, document_filename> pair.
     if doc.filename != document_filename:
-        raise Http404('This document does not match the given filename.')
+        raise Http404("This document does not match the given filename.")
 
-    for fn in hooks.get_hooks('before_serve_document'):
+    for fn in hooks.get_hooks("before_serve_document"):
         result = fn(doc, request)
         if isinstance(result, HttpResponse):
             return result
@@ -54,18 +58,18 @@ def serve(request, document_id, document_filename):
     except NotImplementedError:
         direct_url = None
 
-    serve_method = getattr(settings, 'WAGTAILDOCS_SERVE_METHOD', None)
+    serve_method = getattr(settings, "WAGTAILDOCS_SERVE_METHOD", None)
 
     # If no serve method has been specified, select an appropriate default for the storage backend:
     # redirect for remote storages (i.e. ones that provide a url but not a local path) and
     # serve_view for all other cases
     if serve_method is None:
         if direct_url and not local_path:
-            serve_method = 'redirect'
+            serve_method = "redirect"
         else:
-            serve_method = 'serve_view'
+            serve_method = "serve_view"
 
-    if serve_method in ('redirect', 'direct') and direct_url:
+    if serve_method in ("redirect", "direct") and direct_url:
         # Serve the file by redirecting to the URL provided by the underlying storage;
         # this saves the cost of delivering the file via Python.
         # For serve_method == 'direct', this view should not normally be reached
@@ -80,13 +84,13 @@ def serve(request, document_id, document_filename):
         # this provides support for mimetypes, if-modified-since and django-sendfile backends
 
         sendfile_opts = {
-            'attachment': (doc.content_disposition != 'inline'),
-            'attachment_filename': doc.filename,
-            'mimetype': doc.content_type,
+            "attachment": (doc.content_disposition != "inline"),
+            "attachment_filename": doc.filename,
+            "mimetype": doc.content_type,
         }
-        if not hasattr(settings, 'SENDFILE_BACKEND'):
+        if not hasattr(settings, "SENDFILE_BACKEND"):
             # Fallback to streaming backend if user hasn't specified SENDFILE_BACKEND
-            sendfile_opts['backend'] = sendfile_streaming_backend.sendfile
+            sendfile_opts["backend"] = sendfile_streaming_backend.sendfile
 
         return sendfile(request, local_path, **sendfile_opts)
 
@@ -103,10 +107,10 @@ def serve(request, document_id, document_filename):
 
         # set filename and filename* to handle non-ascii characters in filename
         # see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
-        response['Content-Disposition'] = doc.content_disposition
+        response["Content-Disposition"] = doc.content_disposition
 
         # FIXME: storage backends are not guaranteed to implement 'size'
-        response['Content-Length'] = doc.file.size
+        response["Content-Length"] = doc.file.size
 
         return response
 
@@ -118,12 +122,14 @@ def authenticate_with_password(request, restriction_id):
     """
     restriction = get_object_or_404(CollectionViewRestriction, id=restriction_id)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = PasswordViewRestrictionForm(request.POST, instance=restriction)
         if form.is_valid():
-            return_url = form.cleaned_data['return_url']
+            return_url = form.cleaned_data["return_url"]
 
-            if not url_has_allowed_host_and_scheme(return_url, request.get_host(), request.is_secure()):
+            if not url_has_allowed_host_and_scheme(
+                return_url, request.get_host(), request.is_secure()
+            ):
                 return_url = settings.LOGIN_REDIRECT_URL
 
             restriction.mark_as_passed(request)
@@ -131,12 +137,15 @@ def authenticate_with_password(request, restriction_id):
     else:
         form = PasswordViewRestrictionForm(instance=restriction)
 
-    action_url = reverse('wagtaildocs_authenticate_with_password', args=[restriction.id])
+    action_url = reverse(
+        "wagtaildocs_authenticate_with_password", args=[restriction.id]
+    )
 
-    password_required_template = getattr(settings, 'DOCUMENT_PASSWORD_REQUIRED_TEMPLATE', 'wagtaildocs/password_required.html')
+    password_required_template = getattr(
+        settings,
+        "DOCUMENT_PASSWORD_REQUIRED_TEMPLATE",
+        "wagtaildocs/password_required.html",
+    )
 
-    context = {
-        'form': form,
-        'action_url': action_url
-    }
+    context = {"form": form, "action_url": action_url}
     return TemplateResponse(request, password_required_template, context)

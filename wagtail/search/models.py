@@ -118,12 +118,15 @@ class TextIDGenericRelation(GenericRelation):
         )
 
     if DJANGO_VERSION >= (4, 0):
+
         def get_extra_restriction(self, alias, remote_alias):
             cond = WhereNode()
             cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
             cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
             return cond
+
     else:
+
         def get_extra_restriction(self, where_class, alias, remote_alias):
             cond = where_class()
             cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
@@ -175,7 +178,7 @@ class BaseIndexEntry(models.Model):
 
 
 # AbstractIndexEntry will be defined depending on which database system we're using.
-if connection.vendor == 'postgresql':
+if connection.vendor == "postgresql":
     from django.contrib.postgres.indexes import GinIndex
     from django.contrib.postgres.search import SearchVectorField
 
@@ -203,7 +206,7 @@ if connection.vendor == 'postgresql':
 
     AbstractIndexEntry = AbstractPostgresIndexEntry
 
-elif connection.vendor == 'sqlite':
+elif connection.vendor == "sqlite":
     from wagtail.search.backends.database.sqlite.utils import fts5_available
 
     class AbstractSQLiteIndexEntry(BaseIndexEntry):
@@ -221,16 +224,22 @@ elif connection.vendor == 'sqlite':
     AbstractIndexEntry = AbstractSQLiteIndexEntry
 
     if fts5_available():
+
         class SQLiteFTSIndexEntry(models.Model):
             autocomplete = TextField(null=True)
             title = TextField(null=False)
             body = TextField(null=True)
-            index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
+            index_entry = OneToOneField(
+                primary_key=True,
+                to="wagtailsearch.indexentry",
+                on_delete=models.CASCADE,
+                db_column="rowid",
+            )
 
             class Meta:
                 db_table = "wagtailsearch_indexentry_fts"
 
-elif connection.vendor == 'mysql':
+elif connection.vendor == "mysql":
 
     class AbstractMySQLIndexEntry(BaseIndexEntry):
         """
@@ -254,8 +263,10 @@ class IndexEntry(AbstractIndexEntry):
     """
     The IndexEntry model that will get created in the database.
     """
+
     class Meta(AbstractIndexEntry.Meta):
         """
         Contains everything in the AbstractIndexEntry Meta class, but makes this model concrete.
         """
+
         abstract = False

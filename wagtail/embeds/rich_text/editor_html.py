@@ -2,8 +2,8 @@ from wagtail.admin.rich_text.converters import editor_html
 from wagtail.embeds import format
 from wagtail.embeds.exceptions import EmbedException
 
-
 # hallo.js / editor-html conversion
+
 
 class MediaEmbedHandler:
     """
@@ -12,6 +12,7 @@ class MediaEmbedHandler:
     representation will be:
     <embed embedtype="media" url="http://vimeo.com/XXXXX">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -20,7 +21,7 @@ class MediaEmbedHandler:
         have on the resulting <embed> element.
         """
         return {
-            'url': tag['data-url'],
+            "url": tag["data-url"],
         }
 
     @staticmethod
@@ -30,12 +31,10 @@ class MediaEmbedHandler:
         representation for use within the editor.
         """
         try:
-            return format.embed_to_editor_html(attrs['url'])
+            return format.embed_to_editor_html(attrs["url"])
         except EmbedException:
             # Could be replaced with a nice error message
-            return ''
+            return ""
 
 
-EditorHTMLEmbedConversionRule = [
-    editor_html.EmbedTypeRule('media', MediaEmbedHandler)
-]
+EditorHTMLEmbedConversionRule = [editor_html.EmbedTypeRule("media", MediaEmbedHandler)]

@@ -6,13 +6,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='pagerevision',
-            name='approved_go_live_at',
-            field=models.DateTimeField(blank=True, db_index=True, null=True, verbose_name='approved go live at'),
+            model_name="pagerevision",
+            name="approved_go_live_at",
+            field=models.DateTimeField(
+                blank=True, db_index=True, null=True, verbose_name="approved go live at"
+            ),
         ),
     ]

@@ -5,4 +5,4 @@ def sendfile(request, filename, **kwargs):
     """
     Dummy sendfile backend implementation.
     """
-    return HttpResponse('Dummy backend response')
+    return HttpResponse("Dummy backend response")

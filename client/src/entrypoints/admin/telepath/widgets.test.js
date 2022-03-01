@@ -231,7 +231,7 @@ describe('telepath: wagtail.widgets.PageChooser', () => {
                 <a href=""
                    class="edit-link button button-small button-secondary"
                    target="_blank"
-                   rel="noopener noreferrer">
+                   rel="noreferrer">
                   Edit this page
                 </a>
               </li>

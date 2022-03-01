@@ -17,7 +17,7 @@ def initial_locale(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0053_locale_model'),
+        ("wagtailcore", "0053_locale_model"),
     ]
 
     operations = [

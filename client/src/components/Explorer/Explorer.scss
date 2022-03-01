@@ -168,11 +168,6 @@ $menu-footer-height: 50px;
       background-color: inherit;
       cursor: inherit;
     }
-
-    // Reset the arrow on `<select>`s in IE10+.
-    &::-ms-expand {
-      display: none;
-    }
   }
 
   // Add select arrow back on browsers where native ui has been removed

@@ -10,6 +10,7 @@ class ImageDownloadUrlField(Field):
     Example:
     "download_url": "/media/images/a_test_image.jpg"
     """
+
     def get_attribute(self, instance):
         return instance
 

@@ -31,7 +31,7 @@ function ModalWorkflow(opts) {
 
   // set default contents of container
   const iconClose =
-    '<svg class="icon icon-cross" aria-hidden="true" focusable="false"><use href="#icon-cross"></use></svg>';
+    '<svg class="icon icon-cross" aria-hidden="true"><use href="#icon-cross"></use></svg>';
   const container = $(
     '<div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">\n  <div class="modal-dialog">\n    <div class="modal-content">\n      <button type="button" class="button close button--icon text-replace" data-dismiss="modal">' +
       iconClose +

@@ -6,38 +6,74 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0052_custom_doc_image_unique_together'),
+        ("tests", "0052_custom_doc_image_unique_together"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='extendedformfield',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="extendedformfield",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
         migrations.AddField(
-            model_name='formfield',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="formfield",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
         migrations.AddField(
-            model_name='formfieldforcustomlistviewpage',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="formfieldforcustomlistviewpage",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
         migrations.AddField(
-            model_name='formfieldwithcustomsubmission',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="formfieldwithcustomsubmission",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
         migrations.AddField(
-            model_name='jadeformfield',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="jadeformfield",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
         migrations.AddField(
-            model_name='redirectformfield',
-            name='clean_name',
-            field=models.CharField(blank=True, default='', help_text='Safe name of the form field, the label converted to ascii_snake_case', max_length=255, verbose_name='name'),
+            model_name="redirectformfield",
+            name="clean_name",
+            field=models.CharField(
+                blank=True,
+                default="",
+                help_text="Safe name of the form field, the label converted to ascii_snake_case",
+                max_length=255,
+                verbose_name="name",
+            ),
         ),
     ]

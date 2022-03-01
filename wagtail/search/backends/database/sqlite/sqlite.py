@@ -12,9 +12,27 @@ from django.utils.functional import cached_property
 from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from ....models import IndexEntry, SQLiteFTSIndexEntry
 from ....query import And, MatchAll, Not, Or, Phrase, PlainText
-from ....utils import ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks
-from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
-from .query import BM25, AndNot, Lexeme, MatchExpression, SearchQueryExpression, normalize
+from ....utils import (
+    ADD,
+    MUL,
+    OR,
+    get_content_type_pk,
+    get_descendants_content_types_pks,
+)
+from ...base import (
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
+from .query import (
+    BM25,
+    AndNot,
+    Lexeme,
+    MatchExpression,
+    SearchQueryExpression,
+    normalize,
+)
 
 
 class ObjectIndexer:
@@ -32,18 +50,16 @@ class ObjectIndexer:
             return value
 
         elif isinstance(value, list):
-            return ', '.join(self.prepare_value(item) for item in value)
+            return ", ".join(self.prepare_value(item) for item in value)
 
         elif isinstance(value, dict):
-            return ', '.join(self.prepare_value(item)
-                             for item in value.values())
+            return ", ".join(self.prepare_value(item) for item in value.values())
 
         return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
-            yield (field,
-                   self.prepare_value(field.get_value(obj)))
+            yield (field, self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, AutocompleteField):
             yield (field, self.prepare_value(field.get_value(obj)))
@@ -81,10 +97,13 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and current_field.field_name == "title"
+                ):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     @cached_property
     def body(self):
@@ -94,10 +113,13 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and not current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and not current_field.field_name == "title"
+                ):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     @cached_property
     def autocomplete(self):
@@ -110,7 +132,7 @@ class ObjectIndexer:
                 if isinstance(current_field, AutocompleteField):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     def as_vector(self, texts, for_autocomplete=False):
         """
@@ -119,7 +141,7 @@ class ObjectIndexer:
         texts = [(text.strip(), weight) for text, weight in texts]
         texts = [(text, weight) for text, weight in texts if text]
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
 
 class Index:
@@ -128,10 +150,10 @@ class Index:
         self.name = self.backend.index_name
         self.db_alias = DEFAULT_DB_ALIAS if db_alias is None else db_alias
         self.connection = connections[self.db_alias]
-        if self.connection.vendor != 'sqlite':
+        if self.connection.vendor != "sqlite":
             raise NotSupportedError(
-                'You must select a SQLite database '
-                'to use the SQLite search backend.')
+                "You must select a SQLite database " "to use the SQLite search backend."
+            )
 
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
@@ -150,7 +172,11 @@ class Index:
          - ld is the length of the title field in this document (in terms)
         """
 
-        lavg = self.entries.annotate(title_length=Length('title')).filter(title_length__gt=0).aggregate(Avg('title_length'))['title_length__avg']
+        lavg = (
+            self.entries.annotate(title_length=Length("title"))
+            .filter(title_length__gt=0)
+            .aggregate(Avg("title_length"))["title_length__avg"]
+        )
 
         if full:
             # Update the whole table
@@ -164,19 +190,20 @@ class Index:
             # It's possible that other entries could have this exact value but there shouldn't be too many of those
             entries = self.entries.filter(title_norm=1.0)
 
-        entries.annotate(title_length=Length('title')).filter(title_length__gt=0).update(title_norm=lavg / F('title_length'))
+        entries.annotate(title_length=Length("title")).filter(
+            title_length__gt=0
+        ).update(title_norm=lavg / F("title_length"))
 
     def delete_stale_model_entries(self, model):
         existing_pks = (
             model._default_manager.using(self.db_alias)
-            .annotate(object_id=Cast('pk', TextField()))
-            .values('object_id')
+            .annotate(object_id=Cast("pk", TextField()))
+            .values("object_id")
         )
         content_types_pks = get_descendants_content_types_pks(model)
-        stale_entries = (
-            self.entries.filter(content_type_id__in=content_types_pks)
-            .exclude(object_id__in=existing_pks)
-        )
+        stale_entries = self.entries.filter(
+            content_type_id__in=content_types_pks
+        ).exclude(object_id__in=existing_pks)
         stale_entries.delete()
 
     def delete_stale_entries(self):
@@ -192,27 +219,37 @@ class Index:
     def add_items_update_then_create(self, content_type_pk, indexers):
         ids_and_data = {}
         for indexer in indexers:
-            ids_and_data[indexer.id] = (indexer.title, indexer.autocomplete, indexer.body)
+            ids_and_data[indexer.id] = (
+                indexer.title,
+                indexer.autocomplete,
+                indexer.body,
+            )
 
         index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
-            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list('object_id', flat=True)
+            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list(
+                "object_id", flat=True
+            )
         )
         for indexed_id in indexed_ids:
             title, autocomplete, body = ids_and_data[indexed_id]
-            index_entries_for_ct.filter(object_id=indexed_id).update(title=title, autocomplete=autocomplete, body=body)
+            index_entries_for_ct.filter(object_id=indexed_id).update(
+                title=title, autocomplete=autocomplete, body=body
+            )
 
         to_be_created = []
         for object_id in ids_and_data.keys():
             if object_id not in indexed_ids:
                 title, autocomplete, body = ids_and_data[object_id]
-                to_be_created.append(IndexEntry(
-                    content_type_id=content_type_pk,
-                    object_id=object_id,
-                    title=title,
-                    autocomplete=autocomplete,
-                    body=body,
-                ))
+                to_be_created.append(
+                    IndexEntry(
+                        content_type_id=content_type_pk,
+                        object_id=object_id,
+                        title=title,
+                        autocomplete=autocomplete,
+                        body=body,
+                    )
+                )
 
         self.entries.bulk_create(to_be_created)
 
@@ -229,8 +266,7 @@ class Index:
         if indexers:
             content_type_pk = get_content_type_pk(model)
 
-            update_method = (
-                self.add_items_update_then_create)
+            update_method = self.add_items_update_then_create
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
@@ -277,7 +313,7 @@ class SQLiteSearchAtomicRebuilder(SQLiteSearchRebuilder):
 
 
 class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
-    DEFAULT_OPERATOR = 'AND'
+    DEFAULT_OPERATOR = "AND"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
 
@@ -293,7 +329,9 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             # build a search_fields set from the passed definition,
             # which may involve traversing relations
             self.search_fields = {
-                field_lookup: self.get_search_field(field_lookup, fields=local_search_fields)
+                field_lookup: self.get_search_field(
+                    field_lookup, fields=local_search_fields
+                )
                 for field_lookup in self.fields
             }
 
@@ -313,7 +351,10 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             sub_field_name = None
 
         for field in fields:
-            if isinstance(field, self.TARGET_SEARCH_FIELD_TYPE) and field.field_name == field_lookup:
+            if (
+                isinstance(field, self.TARGET_SEARCH_FIELD_TYPE)
+                and field.field_name == field_lookup
+            ):
                 return field
 
             # Note: Searching on a specific related field using
@@ -333,11 +374,13 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 
             last_term = terms.pop()
 
-            lexemes = Lexeme(last_term, prefix=self.LAST_TERM_IS_PREFIX)  # Combine all terms into a single lexeme.
+            lexemes = Lexeme(
+                last_term, prefix=self.LAST_TERM_IS_PREFIX
+            )  # Combine all terms into a single lexeme.
             for term in terms:
                 new_lexeme = Lexeme(term)
 
-                if query.operator.upper() == 'AND':
+                if query.operator.upper() == "AND":
                     lexemes &= new_lexeme
                 else:
                     lexemes |= new_lexeme
@@ -349,9 +392,13 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
 
         elif isinstance(query, AndNot):
             # Combine the two sub-queries into a query of the form `(first) AND NOT (second)`.
-            subquery_a = self.build_search_query_content(query.subquery_a, config=config)
-            subquery_b = self.build_search_query_content(query.subquery_b, config=config)
-            combined_query = subquery_a._combine(subquery_b, 'NOT')
+            subquery_a = self.build_search_query_content(
+                query.subquery_a, config=config
+            )
+            subquery_b = self.build_search_query_content(
+                query.subquery_b, config=config
+            )
+            combined_query = subquery_a._combine(subquery_b, "NOT")
             return combined_query
 
         elif isinstance(query, (And, Or)):
@@ -368,15 +415,18 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
                 return reduce(lambda a, b: a | b, subquery_lexemes)
 
         raise NotImplementedError(
-            '`%s` is not supported by the SQLite search backend.'
-            % query.__class__.__name__)
+            "`%s` is not supported by the SQLite search backend."
+            % query.__class__.__name__
+        )
 
     def build_search_query(self, query, config=None):
         if isinstance(query, MatchAll):
             return query
         if isinstance(query, Not):
             unwrapped_query = query.subquery
-            built_query = Not(self.build_search_query(unwrapped_query, config=config))  # We don't take the Not operator into account.
+            built_query = Not(
+                self.build_search_query(unwrapped_query, config=config)
+            )  # We don't take the Not operator into account.
         else:
             built_query = self.build_search_query_content(query, config=config)
         return built_query
@@ -391,10 +441,13 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             return rank_expression
 
         elif isinstance(query, And):
-            return MUL(
-                1 + self.build_tsrank(vector, subquery, config=config, boost=boost)
-                for subquery in query.subqueries
-            ) - 1
+            return (
+                MUL(
+                    1 + self.build_tsrank(vector, subquery, config=config, boost=boost)
+                    for subquery in query.subqueries
+                )
+                - 1
+            )
 
         elif isinstance(query, Or):
             return ADD(
@@ -403,13 +456,14 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
             ) / (len(query.subqueries) or 1)
 
         raise NotImplementedError(
-            '`%s` is not supported by the SQLite search backend.'
-            % query.__class__.__name__)
+            "`%s` is not supported by the SQLite search backend."
+            % query.__class__.__name__
+        )
 
     def get_index_vectors(self):
         return [
-            (F('index_entries__title'), F('index_entries__title_norm')),
-            (F('index_entries__body'), 1.0),
+            (F("index_entries__title"), F("index_entries__title_norm")),
+            (F("index_entries__body"), 1.0),
         ]
 
     def get_search_vectors(self):
@@ -436,7 +490,9 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         if isinstance(normalized_query, MatchAll):
             return self.queryset[start:stop]
 
-        elif isinstance(normalized_query, Not) and isinstance(normalized_query.subquery, MatchAll):
+        elif isinstance(normalized_query, Not) and isinstance(
+            normalized_query.subquery, MatchAll
+        ):
             return self.queryset.none()
 
         if isinstance(normalized_query, Not):
@@ -445,37 +501,59 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         else:
             negated = False
 
-        search_query = self.build_search_query(normalized_query, config=config)  # We build a search query here, for example: "%s MATCH '(hello AND world)'"
+        search_query = self.build_search_query(
+            normalized_query, config=config
+        )  # We build a search query here, for example: "%s MATCH '(hello AND world)'"
         vectors = self.get_search_vectors()
         rank_expression = self._build_rank_expression(vectors, config)
 
-        combined_vector = vectors[0][0]  # We create a combined vector for the search results queryset. We start with the first vector and build from there.
+        combined_vector = vectors[0][
+            0
+        ]  # We create a combined vector for the search results queryset. We start with the first vector and build from there.
         for vector, boost in vectors[1:]:
-            combined_vector = combined_vector._combine(vector, ' ', False)  # We add the subsequent vectors to the combined vector.
+            combined_vector = combined_vector._combine(
+                vector, " ", False
+            )  # We add the subsequent vectors to the combined vector.
 
-        expr = MatchExpression(self.fields or ['title', 'body'], search_query)  # Build the FTS match expression.
-        objs = SQLiteFTSIndexEntry.objects.filter(expr).select_related('index_entry')  # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
+        expr = MatchExpression(
+            self.fields or ["title", "body"], search_query
+        )  # Build the FTS match expression.
+        objs = SQLiteFTSIndexEntry.objects.filter(expr).select_related(
+            "index_entry"
+        )  # Perform the FTS search. We'll get entries in the SQLiteFTSIndexEntry model.
 
         if self.order_by_relevance:
             objs = objs.order_by(BM25().desc())
         elif not objs.query.order_by:
             # Adds a default ordering to avoid issue #3729.
-            queryset = objs.order_by('-pk')
-            rank_expression = F('pk')
+            queryset = objs.order_by("-pk")
+            rank_expression = F("pk")
 
         from django.db import connection
         from django.db.models.sql.subqueries import InsertQuery
+
         compiler = InsertQuery(IndexEntry).get_compiler(connection=connection)
 
         try:
-            obj_ids = [obj.index_entry.object_id for obj in objs]  # Get the IDs of the objects that matched. They're stored in the IndexEntry model, so we need to get that first.
+            obj_ids = [
+                obj.index_entry.object_id for obj in objs
+            ]  # Get the IDs of the objects that matched. They're stored in the IndexEntry model, so we need to get that first.
         except OperationalError as e:
-            raise OperationalError(str(e) + ' The original query was: ' + compiler.compile(objs.query)[0] + str(compiler.compile(objs.query)[1])) from e
+            raise OperationalError(
+                str(e)
+                + " The original query was: "
+                + compiler.compile(objs.query)[0]
+                + str(compiler.compile(objs.query)[1])
+            ) from e
 
         if not negated:
-            queryset = self.queryset.filter(id__in=obj_ids)  # We need to filter the source queryset to get the objects that matched the search query.
+            queryset = self.queryset.filter(
+                id__in=obj_ids
+            )  # We need to filter the source queryset to get the objects that matched the search query.
         else:
-            queryset = self.queryset.exclude(id__in=obj_ids)  # We exclude the objects that matched the search query from the source queryset, if the query is negated.
+            queryset = self.queryset.exclude(
+                id__in=obj_ids
+            )  # We exclude the objects that matched the search query from the source queryset, if the query is negated.
 
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
@@ -483,14 +561,14 @@ class SQLiteSearchQueryCompiler(BaseSearchQueryCompiler):
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        lhs = field.get_attname(self.queryset.model) + '__' + lookup
+        lhs = field.get_attname(self.queryset.model) + "__" + lookup
         return Q(**{lhs: value})
 
     def _connect_filters(self, filters, connector, negated):
-        if connector == 'AND':
+        if connector == "AND":
             q = Q(*filters)
 
-        elif connector == 'OR':
+        elif connector == "OR":
             q = OR([Q(fil) for fil in filters])
 
         else:
@@ -513,7 +591,7 @@ class SQLiteAutocompleteQueryCompiler(SQLiteSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('index_entries__autocomplete'), 1.0)]
+        return [(F("index_entries__autocomplete"), 1.0)]
 
     def get_fields_vectors(self, search_query):
         raise NotImplementedError()
@@ -532,7 +610,7 @@ class SQLiteSearchResults(BaseSearchResults):
             self.query_compiler.get_config(self.backend),
             start,
             stop,
-            score_field=self._score_field
+            score_field=self._score_field,
         )
 
     def _do_search(self):
@@ -548,18 +626,26 @@ class SQLiteSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
-                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
-                field_name=field_name
+                'Cannot facet search results with field "'
+                + field_name
+                + "\". Please add index.FilterField('"
+                + field_name
+                + "') to "
+                + self.query_compiler.queryset.model.__name__
+                + ".search_fields.",
+                field_name=field_name,
             )
 
-        query = self.query_compiler.search(self.query_compiler.get_config(self.backend), None, None)
-        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+        query = self.query_compiler.search(
+            self.query_compiler.get_config(self.backend), None, None
+        )
+        results = (
+            query.values(field_name).annotate(count=Count("pk")).order_by("-count")
+        )
 
-        return OrderedDict([
-            (result[field_name], result['count'])
-            for result in results
-        ])
+        return OrderedDict(
+            [(result[field_name], result["count"]) for result in results]
+        )
 
 
 class SQLiteSearchBackend(BaseSearchBackend):
@@ -571,10 +657,10 @@ class SQLiteSearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super().__init__(params)
-        self.index_name = params.get('INDEX', 'default')
-        self.config = params.get('SEARCH_CONFIG')
+        self.index_name = params.get("INDEX", "default")
+        self.config = params.get("SEARCH_CONFIG")
 
-        if params.get('ATOMIC_REBUILD', False):
+        if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
 
     def get_index_for_model(self, model, db_alias=None):
@@ -584,7 +670,11 @@ class SQLiteSearchBackend(BaseSearchBackend):
         return self.get_index_for_model(obj._meta.model, obj._state.db)
 
     def reset_index(self):
-        for connection in [connection for connection in connections.all() if connection.vendor == 'sqlite']:
+        for connection in [
+            connection
+            for connection in connections.all()
+            if connection.vendor == "sqlite"
+        ]:
             IndexEntry._default_manager.using(connection.alias).delete()
 
     def add_type(self, model):

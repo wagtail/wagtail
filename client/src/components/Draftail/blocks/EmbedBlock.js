@@ -20,7 +20,7 @@ const EmbedBlock = (props) => {
           href={url}
           title={url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noreferrer"
         >
           {title}
         </a>

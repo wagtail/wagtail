@@ -7,8 +7,13 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.rich_text import get_rich_text_editor_widget
 from wagtail.admin.widgets import (
-    AdminAutoHeightTextInput, AdminDateInput, AdminDateTimeInput, AdminPageChooser, AdminTimeInput,
-    SwitchInput)
+    AdminAutoHeightTextInput,
+    AdminDateInput,
+    AdminDateTimeInput,
+    AdminPageChooser,
+    AdminTimeInput,
+    SwitchInput,
+)
 from wagtail.core.models import Page
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
@@ -18,21 +23,21 @@ from wagtail.snippets.widgets import AdminSnippetChooser
 class ExampleForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['page_chooser'].widget = AdminPageChooser()
-        self.fields['image_chooser'].widget = AdminImageChooser()
-        self.fields['document_chooser'].widget = AdminDocumentChooser()
-        self.fields['snippet_chooser'].widget = AdminSnippetChooser(Page)
-        self.fields['date'].widget = AdminDateInput()
-        self.fields['time'].widget = AdminTimeInput()
-        self.fields['datetime'].widget = AdminDateTimeInput()
-        self.fields['auto_height_text'].widget = AdminAutoHeightTextInput()
-        self.fields['default_rich_text'].widget = get_rich_text_editor_widget('default')
-        self.fields['switch'].widget = SwitchInput()
-        self.fields['disabled_switch'].widget = SwitchInput(attrs={'disabled': True})
+        self.fields["page_chooser"].widget = AdminPageChooser()
+        self.fields["image_chooser"].widget = AdminImageChooser()
+        self.fields["document_chooser"].widget = AdminDocumentChooser()
+        self.fields["snippet_chooser"].widget = AdminSnippetChooser(Page)
+        self.fields["date"].widget = AdminDateInput()
+        self.fields["time"].widget = AdminTimeInput()
+        self.fields["datetime"].widget = AdminDateTimeInput()
+        self.fields["auto_height_text"].widget = AdminAutoHeightTextInput()
+        self.fields["default_rich_text"].widget = get_rich_text_editor_widget("default")
+        self.fields["switch"].widget = SwitchInput()
+        self.fields["disabled_switch"].widget = SwitchInput(attrs={"disabled": True})
 
     CHOICES = (
-        ('choice1', 'choice 1'),
-        ('choice2', 'choice 2'),
+        ("choice1", "choice 1"),
+        ("choice2", "choice 2"),
     )
 
     text = forms.CharField(required=True, help_text="help text")
@@ -60,24 +65,31 @@ def index(request):
 
     example_form = ExampleForm()
 
-    messages.success(request, _("Success message"), buttons=[
-        messages.button('', _('View live')),
-        messages.button('', _('Edit'))
-    ])
-    messages.warning(request, _("Warning message"), buttons=[
-        messages.button('', _('View live')),
-        messages.button('', _('Edit'))
-    ])
-    messages.error(request, _("Error message"), buttons=[
-        messages.button('', _('View live')),
-        messages.button('', _('Edit'))
-    ])
+    messages.success(
+        request,
+        _("Success message"),
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
+    )
+    messages.warning(
+        request,
+        _("Warning message"),
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
+    )
+    messages.error(
+        request,
+        _("Error message"),
+        buttons=[messages.button("", _("View live")), messages.button("", _("Edit"))],
+    )
 
     paginator = Paginator(list(range(100)), 10)
     page = paginator.page(2)
 
-    return TemplateResponse(request, 'wagtailstyleguide/base.html', {
-        'search_form': form,
-        'example_form': example_form,
-        'example_page': page,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailstyleguide/base.html",
+        {
+            "search_form": form,
+            "example_form": example_form,
+            "example_page": page,
+        },
+    )

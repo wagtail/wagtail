@@ -9,29 +9,33 @@ from wagtail.search.query import And, MatchAll, Not, Or, Phrase, PlainText, Sear
 
 
 class BM25(Func):
-    function = 'bm25'
+    function = "bm25"
     output_field = FloatField()
 
-    def __init__(
-        self
-    ):
+    def __init__(self):
         expressions = ()
         super().__init__(*expressions)
 
-    def as_sql(self, compiler: SQLCompiler, connection: BaseDatabaseWrapper, function=None, template=None):
-        sql, params = 'bm25(wagtailsearch_indexentry_fts)', []
+    def as_sql(
+        self,
+        compiler: SQLCompiler,
+        connection: BaseDatabaseWrapper,
+        function=None,
+        template=None,
+    ):
+        sql, params = "bm25(wagtailsearch_indexentry_fts)", []
         return sql, params
 
 
 class LexemeCombinable(Expression):
-    BITAND = 'AND'
-    BITOR = 'OR'
+    BITAND = "AND"
+    BITOR = "OR"
 
     def _combine(self, other, connector, reversed, node=None):
         if not isinstance(other, LexemeCombinable):
             raise TypeError(
-                'Lexeme can only be combined with other Lexemes, '
-                'got {}.'.format(type(other))
+                "Lexeme can only be combined with other Lexemes, "
+                "got {}.".format(type(other))
             )
         if reversed:
             return CombinedLexeme(other, connector, self)
@@ -54,7 +58,6 @@ class LexemeCombinable(Expression):
 
 
 class SearchQueryField(Field):
-
     def db_type(self, connection):
         return None
 
@@ -70,14 +73,14 @@ class Lexeme(LexemeCombinable, Value):
     def as_sql(self, compiler, connection):
         param = "%s" % self.value.replace("'", "''").replace("\\", "\\\\")
 
-        template = "\"%s\""
+        template = '"%s"'
 
-        label = ''
+        label = ""
         if self.prefix:
-            label += '*'
+            label += "*"
 
         if label:
-            param = '{}{}'.format(param, label)
+            param = "{}{}".format(param, label)
 
         return template, [param]
 
@@ -99,20 +102,20 @@ class CombinedLexeme(LexemeCombinable):
         rsql, params = compiler.compile(self.rhs)
         value_params.extend(params)
 
-        combined_sql = '{} {} {}'.format(lsql, self.connector, rsql)
+        combined_sql = "{} {} {}".format(lsql, self.connector, rsql)
         combined_value = combined_sql % tuple(value_params)
-        return '%s', [combined_value]
+        return "%s", [combined_value]
 
 
 class SearchQueryCombinable:
-    BITAND = 'AND'
-    BITOR = 'OR'
+    BITAND = "AND"
+    BITOR = "OR"
 
     def _combine(self, other, connector: str, reversed: bool = False):
         if not isinstance(other, SearchQueryCombinable):
             raise TypeError(
-                'SearchQuery can only be combined with other SearchQuery '
-                'instances, got %s.' % type(other).__name__
+                "SearchQuery can only be combined with other SearchQuery "
+                "instances, got %s." % type(other).__name__
             )
         if reversed:
             return CombinedSearchQueryExpression(other, connector, self)
@@ -140,11 +143,18 @@ class SearchQueryExpression(SearchQueryCombinable, Expression):
         self.using = using
         self.extra = extra
         if isinstance(value, str):  # If the value is a string, we assume it's a phrase
-            self.value = Value('"%s"' % value)  # We wrap it in quotes to make sure it's parsed as a phrase
+            self.value = Value(
+                '"%s"' % value
+            )  # We wrap it in quotes to make sure it's parsed as a phrase
         else:  # Otherwise, we assume it's a lexeme
             self.value = value
 
-    def as_sql(self, compiler: SQLCompiler, connection: BaseDatabaseWrapper, **extra_context: Any) -> Tuple[str, List[Any]]:
+    def as_sql(
+        self,
+        compiler: SQLCompiler,
+        connection: BaseDatabaseWrapper,
+        **extra_context: Any,
+    ) -> Tuple[str, List[Any]]:
         sql, params = compiler.compile(self.value)
         return (sql, params)
 
@@ -157,12 +167,14 @@ class CombinedSearchQueryExpression(SearchQueryCombinable, CombinedExpression):
         super().__init__(lhs, connector, rhs, output_field)
 
     def __str__(self):
-        return '(%s)' % super().__str__()
+        return "(%s)" % super().__str__()
 
 
 class MatchExpression(Expression):
     filterable = True
-    template = 'wagtailsearch_indexentry_fts MATCH %s'  # TODO: Can the table name be inferred?
+    template = (
+        "wagtailsearch_indexentry_fts MATCH %s"  # TODO: Can the table name be inferred?
+    )
     output_field = BooleanField()
 
     def __init__(self, columns: List[str], query: SearchQueryCombinable) -> None:
@@ -171,10 +183,18 @@ class MatchExpression(Expression):
         self.query = query
 
     def as_sql(self, compiler, connection):
-        joined_columns = ' '.join(self.columns)  # The format of the columns is 'column1 column2'
+        joined_columns = " ".join(
+            self.columns
+        )  # The format of the columns is 'column1 column2'
         compiled_query = compiler.compile(self.query)  # Compile the query to a string
-        formatted_query = compiled_query[0] % tuple(compiled_query[1])  # Subsitute the params in the query
-        params = ['{{{column}}} : ({query})'.format(column=joined_columns, query=formatted_query)]  # Build the full MATCH search query. It will be a parameter to the template, so no SQL injections are possible here.
+        formatted_query = compiled_query[0] % tuple(
+            compiled_query[1]
+        )  # Subsitute the params in the query
+        params = [
+            "{{{column}}} : ({query})".format(
+                column=joined_columns, query=formatted_query
+            )
+        ]  # Build the full MATCH search query. It will be a parameter to the template, so no SQL injections are possible here.
         return (self.template, params)
 
 
@@ -184,12 +204,13 @@ class AndNot(SearchQuery):
     For example, AndNot(X, Y) would be equivalent to doing And(X, Not(Y)), where X is the first subquery, and Y is the second subquery (the negated one).
     This is done because the SQLite FTS5 module doesn't support the unary NOT operator.
     """
+
     def __init__(self, subquery_a: SearchQuery, subquery_b: SearchQuery):
         self.subquery_a = subquery_a
         self.subquery_b = subquery_b
 
     def __repr__(self):
-        return '<{} AndNot {}>'.format(repr(self.subquery_a), repr(self.subquery_b))
+        return "<{} AndNot {}>".format(repr(self.subquery_a), repr(self.subquery_b))
 
 
 def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
@@ -203,33 +224,73 @@ def normalize(search_query: SearchQuery) -> Tuple[SearchQuery]:
     if isinstance(search_query, PlainText):
         return search_query  # We can't normalize a PlainText.
     if isinstance(search_query, And):
-        normalized_subqueries: List[SearchQuery] = [normalize(subquery) for subquery in search_query.subqueries]  # This builds a list of normalized subqueries.
+        normalized_subqueries: List[SearchQuery] = [
+            normalize(subquery) for subquery in search_query.subqueries
+        ]  # This builds a list of normalized subqueries.
 
-        not_negated_subqueries = [subquery for subquery in normalized_subqueries if not isinstance(subquery, Not)]  # All the non-negated subqueries.
-        not_negated_subqueries = [subquery for subquery in not_negated_subqueries if not isinstance(subquery, MatchAll)]  # We can ignore all MatchAll SearchQueries here, because they are redundant.
-        negated_subqueries = [subquery.subquery for subquery in normalized_subqueries if isinstance(subquery, Not)]
+        not_negated_subqueries = [
+            subquery
+            for subquery in normalized_subqueries
+            if not isinstance(subquery, Not)
+        ]  # All the non-negated subqueries.
+        not_negated_subqueries = [
+            subquery
+            for subquery in not_negated_subqueries
+            if not isinstance(subquery, MatchAll)
+        ]  # We can ignore all MatchAll SearchQueries here, because they are redundant.
+        negated_subqueries = [
+            subquery.subquery
+            for subquery in normalized_subqueries
+            if isinstance(subquery, Not)
+        ]
 
-        if negated_subqueries == []:  # If there are no negated subqueries, return an And(), now without the redundant MatchAll subqueries.
+        if (
+            negated_subqueries == []
+        ):  # If there are no negated subqueries, return an And(), now without the redundant MatchAll subqueries.
             return And(not_negated_subqueries)
 
-        for subquery in negated_subqueries:  # If there's a negated MatchAll subquery, then nothing will get matched.
+        for (
+            subquery
+        ) in (
+            negated_subqueries
+        ):  # If there's a negated MatchAll subquery, then nothing will get matched.
             if isinstance(subquery, MatchAll):
                 return Not(MatchAll())
 
         return AndNot(And(not_negated_subqueries), Or(negated_subqueries))
     if isinstance(search_query, Or):
-        normalized_subqueries: List[SearchQuery] = [normalize(subquery) for subquery in search_query.subqueries]  # This builds a list of (subquery, negated) tuples.
+        normalized_subqueries: List[SearchQuery] = [
+            normalize(subquery) for subquery in search_query.subqueries
+        ]  # This builds a list of (subquery, negated) tuples.
 
-        negated_subqueries = [subquery.subquery for subquery in normalized_subqueries if isinstance(subquery, Not)]
-        if negated_subqueries == []:  # If there are no negated subqueries, return an Or().
+        negated_subqueries = [
+            subquery.subquery
+            for subquery in normalized_subqueries
+            if isinstance(subquery, Not)
+        ]
+        if (
+            negated_subqueries == []
+        ):  # If there are no negated subqueries, return an Or().
             return Or(normalized_subqueries)
 
-        for subquery in negated_subqueries:  # If there's a MatchAll subquery, then anything will get matched.
+        for (
+            subquery
+        ) in (
+            negated_subqueries
+        ):  # If there's a MatchAll subquery, then anything will get matched.
             if isinstance(subquery, MatchAll):
                 return MatchAll()
 
-        not_negated_subqueries = [subquery for subquery in normalized_subqueries if not isinstance(subquery, Not)]  # All the non-negated subqueries.
-        not_negated_subqueries = [subquery for subquery in not_negated_subqueries if not isinstance(subquery, MatchAll)]  # We can ignore all MatchAll SearchQueries here, because they are redundant.
+        not_negated_subqueries = [
+            subquery
+            for subquery in normalized_subqueries
+            if not isinstance(subquery, Not)
+        ]  # All the non-negated subqueries.
+        not_negated_subqueries = [
+            subquery
+            for subquery in not_negated_subqueries
+            if not isinstance(subquery, MatchAll)
+        ]  # We can ignore all MatchAll SearchQueries here, because they are redundant.
 
         return AndNot(MatchAll(), And(negated_subqueries))
     if isinstance(search_query, Not):

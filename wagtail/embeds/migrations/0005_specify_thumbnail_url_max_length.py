@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailembeds', '0004_embed_verbose_name_plural'),
+        ("wagtailembeds", "0004_embed_verbose_name_plural"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='embed',
-            name='thumbnail_url',
+            model_name="embed",
+            name="thumbnail_url",
             field=models.URLField(blank=True, max_length=255, null=True),
         ),
     ]

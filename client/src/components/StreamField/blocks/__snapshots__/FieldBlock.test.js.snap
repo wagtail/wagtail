@@ -41,5 +41,5 @@ exports[`telepath: wagtail.blocks.FieldBlock with comments enabled it renders co
             <span></span>
           </div>
         <p class=\\"help\\">drink <em>more</em> water</p></div>
-      <div class=\\"field-comment-control\\"><button type=\\"button\\" aria-label=\\"Add Comment\\" data-comment-add=\\"\\" class=\\"button button-secondary button-small u-hidden\\"><svg class=\\"icon icon-comment-add initial icon-default\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment-add\\"></use></svg><svg class=\\"icon icon-comment-add initial icon-reversed\\" aria-hidden=\\"true\\" focusable=\\"false\\"><use href=\\"#icon-comment-add-reversed\\"></use></svg></button></div></div>"
+      <div class=\\"field-comment-control\\"><button type=\\"button\\" aria-label=\\"Add Comment\\" data-comment-add=\\"\\" class=\\"button button-secondary button-small u-hidden\\"><svg class=\\"icon icon-comment-add initial icon-default\\" aria-hidden=\\"true\\"><use href=\\"#icon-comment-add\\"></use></svg><svg class=\\"icon icon-comment-add initial icon-reversed\\" aria-hidden=\\"true\\"><use href=\\"#icon-comment-add-reversed\\"></use></svg></button></div></div>"
 `;

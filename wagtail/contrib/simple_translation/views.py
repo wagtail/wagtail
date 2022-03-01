@@ -32,7 +32,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             return SubmitTranslationForm(self.object, self.request.POST)
         return SubmitTranslationForm(self.object)
 
-    def get_success_url(self):
+    def get_success_url(self, translated_object=None):
         raise NotImplementedError
 
     def get_context_data(self, **kwargs):
@@ -67,15 +67,19 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
                             locale
                         ).save()  # pragma: no cover
 
+                single_translated_object = None
                 if len(form.cleaned_data["locales"]) == 1:
                     locales = form.cleaned_data["locales"][0].get_display_name()
+                    single_translated_object = self.object.get_translation(
+                        form.cleaned_data["locales"][0]
+                    )
                 else:
                     # Note: always plural
                     locales = _("{} locales").format(len(form.cleaned_data["locales"]))
 
                 messages.success(self.request, self.get_success_message(locales))
 
-                return redirect(self.get_success_url())
+                return redirect(self.get_success_url(single_translated_object))
 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
@@ -103,7 +107,12 @@ class SubmitPageTranslationView(SubmitTranslationView):
 
         return page
 
-    def get_success_url(self):
+    def get_success_url(self, translated_page=None):
+        if translated_page:
+            # If the editor chose a single locale to translate to, redirect to
+            # the newly translated page's edit view.
+            return reverse("wagtailadmin_pages:edit", args=[translated_page.id])
+
         return reverse("wagtailadmin_explore", args=[self.get_object().get_parent().id])
 
     def get_success_message(self, locales):
@@ -128,7 +137,19 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
 
         return get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
 
-    def get_success_url(self):
+    def get_success_url(self, translated_snippet=None):
+        if translated_snippet:
+            # If the editor chose a single locale to translate to, redirect to
+            # the newly translated snippet's edit view.
+            return reverse(
+                "wagtailsnippets:edit",
+                args=[
+                    self.kwargs["app_label"],
+                    self.kwargs["model_name"],
+                    translated_snippet.pk,
+                ],
+            )
+
         return reverse(
             "wagtailsnippets:edit",
             args=[

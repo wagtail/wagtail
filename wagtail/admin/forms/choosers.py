@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 class URLOrAbsolutePathValidator(validators.URLValidator):
     @staticmethod
     def is_absolute_path(value):
-        return value.startswith('/')
+        return value.startswith("/")
 
     def __call__(self, value):
         if URLOrAbsolutePathValidator.is_absolute_path(value):

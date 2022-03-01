@@ -4,7 +4,6 @@ from wagtail.core import hooks
 from wagtail.core.models import UserPagePermissionsProxy, get_page_models
 from wagtail.core.utils import safe_snake_case
 
-
 _FORM_CONTENT_TYPES = None
 
 
@@ -20,9 +19,9 @@ def get_form_types():
     global _FORM_CONTENT_TYPES
     if _FORM_CONTENT_TYPES is None:
         from wagtail.contrib.forms.models import AbstractForm
+
         form_models = [
-            model for model in get_page_models()
-            if issubclass(model, AbstractForm)
+            model for model in get_page_models() if issubclass(model, AbstractForm)
         ]
 
         _FORM_CONTENT_TYPES = list(
@@ -39,7 +38,7 @@ def get_forms_for_user(user):
     editable_forms = editable_forms.filter(content_type__in=get_form_types())
 
     # Apply hooks
-    for fn in hooks.get_hooks('filter_form_submissions_for_user'):
+    for fn in hooks.get_hooks("filter_form_submissions_for_user"):
         editable_forms = fn(user, editable_forms)
 
     return editable_forms

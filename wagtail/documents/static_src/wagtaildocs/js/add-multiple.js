@@ -1,10 +1,4 @@
 $(function () {
-  // Redirect users that don't support filereader
-  if (!$('html').hasClass('filereader')) {
-    document.location.href = window.fileupload_opts.simple_upload_url;
-    return false;
-  }
-
   // prevents browser default drag/drop
   $(document).on('drop dragover', function (e) {
     e.preventDefault();

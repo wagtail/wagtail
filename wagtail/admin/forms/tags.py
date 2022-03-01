@@ -8,11 +8,12 @@ class TagField(TaggitTagField):
     """
     Extends taggit's TagField with the option to prevent creating tags that do not already exist
     """
+
     widget = AdminTagWidget
 
     def __init__(self, *args, **kwargs):
-        self.tag_model = kwargs.pop('tag_model', None)
-        self.free_tagging = kwargs.pop('free_tagging', None)
+        self.tag_model = kwargs.pop("tag_model", None)
+        self.free_tagging = kwargs.pop("free_tagging", None)
 
         super().__init__(*args, **kwargs)
 
@@ -25,7 +26,7 @@ class TagField(TaggitTagField):
             self.widget.tag_model = self.tag_model
 
         if self.free_tagging is None:
-            self.free_tagging = getattr(self.tag_model, 'free_tagging', True)
+            self.free_tagging = getattr(self.tag_model, "free_tagging", True)
         else:
             self.widget.free_tagging = self.free_tagging
 
@@ -35,7 +36,9 @@ class TagField(TaggitTagField):
         if not self.free_tagging:
             # filter value to just the tags that already exist in tag_model
             value = list(
-                self.tag_model.objects.filter(name__in=value).values_list('name', flat=True)
+                self.tag_model.objects.filter(name__in=value).values_list(
+                    "name", flat=True
+                )
             )
 
         return value

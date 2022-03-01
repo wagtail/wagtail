@@ -6,21 +6,21 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0046_site_name_remove_null'),
-        ('tests', '0051_tag_verbose_name'),
+        ("wagtailcore", "0046_site_name_remove_null"),
+        ("tests", "0051_tag_verbose_name"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='customdocument',
+            name="customdocument",
             options={},
         ),
         migrations.AlterUniqueTogether(
-            name='customdocument',
-            unique_together={('title', 'collection')},
+            name="customdocument",
+            unique_together={("title", "collection")},
         ),
         migrations.AlterUniqueTogether(
-            name='customimage',
-            unique_together={('title', 'collection')},
+            name="customimage",
+            unique_together={("title", "collection")},
         ),
     ]

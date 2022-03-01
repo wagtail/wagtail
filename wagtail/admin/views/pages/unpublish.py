@@ -23,7 +23,7 @@ def unpublish(request, page_id):
 
     pages_to_unpublish = {page}
 
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         for fn in hooks.get_hooks("construct_synced_page_tree_list"):
             fn_pages = fn([page], "unpublish")
             if fn_pages and isinstance(fn_pages, dict):
@@ -32,35 +32,52 @@ def unpublish(request, page_id):
 
     pages_to_unpublish = list(pages_to_unpublish)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         include_descendants = request.POST.get("include_descendants", False)
 
-        for fn in hooks.get_hooks('before_unpublish_page'):
+        for fn in hooks.get_hooks("before_unpublish_page"):
             result = fn(request, page)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
         for page in pages_to_unpublish:
-            action = UnpublishPageAction(page, user=request.user, include_descendants=include_descendants)
+            action = UnpublishPageAction(
+                page, user=request.user, include_descendants=include_descendants
+            )
             action.execute(skip_permission_checks=True)
 
-        for fn in hooks.get_hooks('after_unpublish_page'):
+        for fn in hooks.get_hooks("after_unpublish_page"):
             result = fn(request, page)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
-        messages.success(request, _("Page '{0}' unpublished.").format(page.get_admin_display_title()), buttons=[
-            messages.button(reverse('wagtailadmin_pages:edit', args=(page.id,)), _('Edit'))
-        ])
+        messages.success(
+            request,
+            _("Page '{0}' unpublished.").format(page.get_admin_display_title()),
+            buttons=[
+                messages.button(
+                    reverse("wagtailadmin_pages:edit", args=(page.id,)), _("Edit")
+                )
+            ],
+        )
 
         if next_url:
             return redirect(next_url)
-        return redirect('wagtailadmin_explore', page.get_parent().id)
+        return redirect("wagtailadmin_explore", page.get_parent().id)
 
-    return TemplateResponse(request, 'wagtailadmin/pages/confirm_unpublish.html', {
-        'page': page,
-        'next': next_url,
-        'live_descendant_count': page.get_descendants().live().count(),
-        "translation_count": len(pages_to_unpublish[1:]),
-        "translation_descendant_count": sum([p.get_descendants().filter(alias_of__isnull=True).live().count() for p in pages_to_unpublish[1:]])
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/confirm_unpublish.html",
+        {
+            "page": page,
+            "next": next_url,
+            "live_descendant_count": page.get_descendants().live().count(),
+            "translation_count": len(pages_to_unpublish[1:]),
+            "translation_descendant_count": sum(
+                [
+                    p.get_descendants().filter(alias_of__isnull=True).live().count()
+                    for p in pages_to_unpublish[1:]
+                ]
+            ),
+        },
+    )

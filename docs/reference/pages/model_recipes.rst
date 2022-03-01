@@ -255,30 +255,3 @@ By default, tag fields work on a "free tagging" basis: editors can enter anythin
             verbose_name_plural = "blog tags"
 
 Here we have registered ``BlogTag`` as a snippet, to provide an interface for administrators (and other users with the appropriate permissions) to manage the allowed set of tags. With the ``free_tagging = False`` option set, editors can no longer enter arbitrary text into the tag field, and must instead select existing tags from the autocomplete dropdown.
-
-.. _page_model_auto_redirects_recipe:
-
-Have redirects created automatically when changing page slug
-------------------------------------------------------------
-
-You may want redirects created automatically when a url gets changed in the admin so as to avoid broken links. You can add something like the following block to a ``wagtail_hooks.py`` file within one of your project's apps.
-
-
-.. code-block:: python
-
-    from wagtail.core import hooks
-    from wagtail.contrib.redirects.models import Redirect
-
-    # Create redirect when editing slugs
-    @hooks.register('before_edit_page')
-    def create_redirect_on_slug_change(request, page):
-        if request.method == 'POST':
-            if page.slug != request.POST['slug']:
-                Redirect.objects.create(
-                        old_path=page.url[:-1],
-                        site=page.get_site(),
-                        redirect_page=page
-                    )
-
-
-Note: This does not work in some cases e.g. when you redirect a page, create a new page in that url and then move the new one. It should be helpful in most cases however.
