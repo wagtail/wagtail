@@ -15,7 +15,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 FieldPanel
 ~~~~~~~~~~
 
-.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False)
+.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
 
     This is the panel used for basic Django field types.
 
@@ -42,6 +42,11 @@ FieldPanel
     .. attribute:: FieldPanel.disable_comments (optional)
 
         This allows you to prevent a field level comment button showing for this panel if set to ``True`` (see :ref:`commenting`).
+
+    .. attribute:: FieldPanel.permission (optional)
+
+        Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
+
 
 StreamFieldPanel
 ~~~~~~~~~~~~~~~~
