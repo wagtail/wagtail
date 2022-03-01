@@ -1,7 +1,7 @@
 {% load wagtailadmin_tags  %}
 
 <ul class="objects">
-    {% for child in self.children %}
+    {% for child in self.visible_children %}
         <li class="object {{ child.classes|join:" " }}">
             {% if child.heading %}
                 <div class="title-wrapper">
