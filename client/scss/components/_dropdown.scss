@@ -1,9 +1,10 @@
 // =============================================================================
 // Listing view smaller dropdowns
 // =============================================================================
+.c-dropdown.hidden {
+  display: none;
+}
 
-// .c-dropdown {
-// }
 .c-dropdown__button {
   display: inline-block;
   box-sizing: border-box;

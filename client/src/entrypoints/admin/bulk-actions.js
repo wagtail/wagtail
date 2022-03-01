@@ -8,6 +8,7 @@ const BULK_ACTION_FOOTER = '[data-bulk-action-footer]';
 const BULK_ACTION_NUM_OBJECTS = '[data-bulk-action-num-objects]';
 const BULK_ACTION_NUM_OBJECTS_IN_LISTING =
   '[data-bulk-action-num-objects-in-listing]';
+const MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR = '.actions [data-dropdown]';
 
 const checkedState = {
   checkedObjects: new Set(),
@@ -15,6 +16,30 @@ const checkedState = {
   selectAllInListing: false,
   shouldShowAllInListingText: true,
 };
+
+/**
+ * Hides the 'more' dropdown button in listing pages.
+ */
+function hideMoreActionsDropdownBtn() {
+  const MoreActionsDropdown = document.querySelector(
+    MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
+  );
+  if (MoreActionsDropdown !== null) {
+    MoreActionsDropdown.classList.add('hidden');
+  }
+}
+
+/**
+ * Shows the 'more' dropdown button in listing pages.
+ */
+function showMoreActionsDropdownBtn() {
+  const MoreActionsDropdown = document.querySelector(
+    MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
+  );
+  if (MoreActionsDropdown !== null) {
+    MoreActionsDropdown.classList.remove('hidden');
+  }
+}
 
 /**
  * Utility function to get the appropriate string for display in action bar
@@ -48,9 +73,12 @@ function onSelectAllChange(e) {
     }
   });
   if (!e.target.checked) {
+    showMoreActionsDropdownBtn();
     // when deselecting all checkbox, simply hide the footer for smooth transition
     checkedState.checkedObjects.clear();
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
+  } else {
+    hideMoreActionsDropdownBtn();
   }
 }
 
@@ -74,12 +102,14 @@ function onSelectIndividualCheckbox(e) {
 
   if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
+    showMoreActionsDropdownBtn();
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
     document
       .querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT)
       .forEach((el) => el.classList.remove('show'));
   } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
+    hideMoreActionsDropdownBtn();
     document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
       el.classList.add('show');
     });
