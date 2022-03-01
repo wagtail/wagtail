@@ -182,7 +182,7 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs.update({"instance": self.get_instance()})
+        kwargs.update({"instance": self.get_instance(), "for_user": self.request.user})
         return kwargs
 
     @property

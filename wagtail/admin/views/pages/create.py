@@ -122,6 +122,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             instance=self.page,
             subscription=self.subscription,
             parent_page=self.parent_page,
+            for_user=self.request.user,
         )
 
         if self.form.is_valid():
@@ -313,6 +314,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             instance=self.page,
             subscription=self.subscription,
             parent_page=self.parent_page,
+            for_user=self.request.user,
         )
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)

@@ -450,7 +450,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 )
 
         self.form = self.form_class(
-            instance=self.page, subscription=self.subscription, parent_page=self.parent
+            instance=self.page,
+            subscription=self.subscription,
+            parent_page=self.parent,
+            for_user=self.request.user,
         )
         self.has_unsaved_changes = False
         self.edit_handler = self.edit_handler.bind_to(form=self.form)
@@ -485,6 +488,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             instance=self.page,
             subscription=self.subscription,
             parent_page=self.parent,
+            for_user=self.request.user,
         )
 
         self.is_cancelling_workflow = (
