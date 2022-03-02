@@ -1504,7 +1504,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
         """
         Returns a page description if it's set. For example "A multi-purpose web page".
         """
-        return getattr(cls, 'page_description', '')
+        return getattr(cls, "page_description", "")
 
     @property
     def status_string(self):
