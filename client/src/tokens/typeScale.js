@@ -59,13 +59,11 @@ module.exports = plugin(({ addComponents, theme }) => {
     '.body-text': {
       fontSize: theme('fontSize.16'),
       fontWeight: theme('fontWeight.normal'),
-      color: theme('colors.grey.600'),
       lineHeight: theme('lineHeight.normal'),
     },
     '.body-text-large': {
       fontSize: theme('fontSize.18'),
       fontWeight: theme('fontWeight.normal'),
-      color: theme('colors.grey.600'),
       lineHeight: theme('lineHeight.normal'),
     },
     '.help-text': {
