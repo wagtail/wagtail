@@ -267,7 +267,7 @@ legacy versions of the API until everyone has migrated to an officially supporte
 ``construct_whitelister_element_rules`` hook is deprecated
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The ``construct_whitelister_element_rules`` hook, used to specify additional HTML elements to be permitted in rich text, is deprecated. The recommended way of whitelisting elements is now to use rich text features - see :ref:`whitelisting_rich_text_elements`. For example, a whitelist rule that was previously defined as:
+The ``construct_whitelister_element_rules`` hook, used to specify additional HTML elements to be permitted in rich text, is deprecated. The recommended way of whitelisting elements is now to use rich text features. For example, a whitelist rule that was previously defined as:
 
 .. code-block:: python
 

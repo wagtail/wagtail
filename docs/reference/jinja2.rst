@@ -101,7 +101,7 @@ Returns the Site object corresponding to the current request.
 
     {{ wagtail_site().site_name }}
 
-See :ref:`wagtile_site` for more information
+See :ref:`wagtail_site_tag` for more information
 
 ``wagtailuserbar()``
 ~~~~~~~~~~~~~~~~~~~~
