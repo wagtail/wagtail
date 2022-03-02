@@ -12,11 +12,11 @@
             {% else %}
                 {% blocktrans with title=destination.get_admin_display_title %}Are you sure you want to move this page and all of its children into '{{ title }}'?{% endblocktrans %}
             {% endif %}
-            {% if translation_count %}
-                {% blocktrans count counter=translation_count %}
-                    This will also move {{ translation_count }} translation of this page and its child pages
+            {% if pages_to_move %}
+                {% blocktrans count counter=pages_to_move %}
+                    This will also move {{ pages_to_move }} translation of this page and its child pages
                 {% plural %}
-                    This will also move {{ translation_count }} translations of this page and their child pages
+                    This will also move {{ pages_to_move }} translations of this page and their child pages
                 {% endblocktrans %}
             {% endif %}
         </p>

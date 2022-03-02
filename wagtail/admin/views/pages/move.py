@@ -134,6 +134,6 @@ def move_confirm(request, page_to_move_id, destination_id):
         {
             "page_to_move": page_to_move,
             "destination": destination,
-            "translation_count": len(pages_to_move[1::])
+            "pages_to_move": len(pages_to_move[1:])
         },
     )
