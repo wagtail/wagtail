@@ -139,8 +139,10 @@ class TestMovingTranslatedPages(Utils):
         )
         self.assertEqual(response.status_code, 200)
 
+        self.fr_blog_post.refresh_from_db()
+        self.de_blog_post.refresh_from_db()
+
         # Check if the new pages exist under their respective translated homepages
-        # We're using new Page objects to avoid caching problems
         home_page_translation_ids = [p.id for p in self.en_homepage.get_translations()]
-        assert Page.objects.get(pk=self.fr_blog_post.id).get_parent().id in home_page_translation_ids
-        assert Page.objects.get(pk=self.de_blog_post.id).get_parent().id in home_page_translation_ids
+        assert self.fr_blog_post.get_parent(update=True).id in home_page_translation_ids
+        assert self.de_blog_post.get_parent(update=True).id in home_page_translation_ids
