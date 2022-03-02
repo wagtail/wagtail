@@ -191,3 +191,22 @@ class TestMovingTranslatedPages(Utils):
         assert self.fr_blog_post.get_parent(update=True).id in original_translated_parent_ids
         assert self.de_blog_post.get_parent(update=True).id in original_translated_parent_ids
 
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True)
+    def test_translation_count_in_context(self):
+        """Test the number of `pages_to_move` is correct in the confirm_move.html template."""
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+
+        # Create blog_post copies for translation
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+
+        response = self.client.get(
+            reverse("wagtailadmin_pages:move_confirm", args=(self.en_blog_post.id, self.en_homepage.id,)),
+            follow=True,
+        )
+
+        assert response.status_code == 200
+        assert response.context['pages_to_move'] == 2
+        assert f'This will also move 2 translations of this page and their child pages' in response.content.decode("utf-8")
