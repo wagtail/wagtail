@@ -509,15 +509,14 @@ class ObjectList(BaseFormEditHandler):
 class FieldRowPanel(PanelGroup):
     template = "wagtailadmin/panels/field_row_panel.html"
 
-    def on_instance_bound(self):
-        super().on_instance_bound()
-
-        col_count = " col%s" % (12 // len(self.children))
-        # If child panel doesn't have a col# class then append default based on
-        # number of columns
-        for child in self.children:
-            if not re.search(r"\bcol\d+\b", child.classname):
-                child.classname += col_count
+    def visible_children_with_classnames(self):
+        visible_children = self.visible_children
+        col_count = " col%s" % (12 // len(visible_children))
+        for child in visible_children:
+            classname = " ".join(child.classes())
+            if not re.search(r"\bcol\d+\b", classname):
+                classname += col_count
+            yield child, classname
 
 
 class MultiFieldPanel(PanelGroup):
