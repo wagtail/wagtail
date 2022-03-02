@@ -11,29 +11,36 @@ from wagtail.sites.forms import SiteForm
 class IndexView(generic.IndexView):
     page_title = _("Sites")
     add_item_label = _("Add a site")
-    context_object_name = 'sites'
-    default_ordering = 'hostname'
+    context_object_name = "sites"
+    default_ordering = "hostname"
     columns = [
-        TitleColumn('hostname', label=_("Site"), sort_key='hostname', url_name='wagtailsites:edit'),
-        Column('port', sort_key='port'),
-        Column('site_name'),
-        Column('root_page'),
-        StatusFlagColumn('is_default_site', label=_("Default?"), true_label=_("Default")),
+        TitleColumn(
+            "hostname",
+            label=_("Site"),
+            sort_key="hostname",
+            url_name="wagtailsites:edit",
+        ),
+        Column("port", sort_key="port"),
+        Column("site_name"),
+        Column("root_page"),
+        StatusFlagColumn(
+            "is_default_site", label=_("Default?"), true_label=_("Default")
+        ),
     ]
 
 
 class CreateView(generic.CreateView):
     page_title = _("Add site")
     success_message = _("Site '{0}' created.")
-    template_name = 'wagtailsites/create.html'
+    template_name = "wagtailsites/create.html"
 
 
 class EditView(generic.EditView):
     success_message = _("Site '{0}' updated.")
     error_message = _("The site could not be saved due to errors.")
     delete_item_label = _("Delete site")
-    context_object_name = 'site'
-    template_name = 'wagtailsites/edit.html'
+    context_object_name = "site"
+    template_name = "wagtailsites/edit.html"
 
 
 class DeleteView(generic.DeleteView):
@@ -43,7 +50,7 @@ class DeleteView(generic.DeleteView):
 
 
 class SiteViewSet(ModelViewSet):
-    icon = 'site'
+    icon = "site"
     model = Site
     permission_policy = site_permission_policy
 

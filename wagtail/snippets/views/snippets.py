@@ -16,7 +16,10 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.admin.edit_handlers import (
+    ObjectList,
+    extract_panel_definitions_from_model_class,
+)
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic.models import IndexView
@@ -53,7 +56,7 @@ SNIPPET_EDIT_HANDLERS = {}
 
 def get_snippet_edit_handler(model):
     if model not in SNIPPET_EDIT_HANDLERS:
-        if hasattr(model, 'edit_handler'):
+        if hasattr(model, "edit_handler"):
             # use the edit handler specified on the page class
             edit_handler = model.edit_handler
         else:
@@ -70,12 +73,20 @@ def get_snippet_edit_handler(model):
 
 def index(request):
     snippet_model_opts = [
-        model._meta for model in get_snippet_models()
-        if user_can_edit_snippet_type(request.user, model)]
+        model._meta
+        for model in get_snippet_models()
+        if user_can_edit_snippet_type(request.user, model)
+    ]
     if snippet_model_opts:
-        return TemplateResponse(request, 'wagtailsnippets/snippets/index.html', {
-            'snippet_model_opts': sorted(
-                snippet_model_opts, key=lambda x: x.verbose_name.lower())})
+        return TemplateResponse(
+            request,
+            "wagtailsnippets/snippets/index.html",
+            {
+                "snippet_model_opts": sorted(
+                    snippet_model_opts, key=lambda x: x.verbose_name.lower()
+                )
+            },
+        )
     else:
         raise PermissionDenied
 
@@ -92,7 +103,7 @@ class ListView(TemplateView):
 
         permissions = [
             get_permission_name(action, self.model)
-            for action in ['add', 'change', 'delete']
+            for action in ["add", "change", "delete"]
         ]
         if not any([request.user.has_perm(perm) for perm in permissions]):
             raise PermissionDenied
@@ -103,15 +114,21 @@ class ListView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         items = self.model.objects.all()
-        enable_locale_filter = getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(self.model, TranslatableMixin)
+        enable_locale_filter = getattr(
+            settings, "WAGTAIL_I18N_ENABLED", False
+        ) and issubclass(self.model, TranslatableMixin)
 
         if enable_locale_filter:
-            if 'locale' in self.request.GET:
+            if "locale" in self.request.GET:
                 try:
-                    locale = Locale.objects.get(language_code=self.request.GET['locale'])
+                    locale = Locale.objects.get(
+                        language_code=self.request.GET["locale"]
+                    )
                 except Locale.DoesNotExist:
                     # Redirect to snippet without locale
-                    return redirect('wagtailsnippets:list', self.app_label, self.model_name)
+                    return redirect(
+                        "wagtailsnippets:list", self.app_label, self.model_name
+                    )
             else:
                 # Default to active locale (this will take into account the user's chosen admin language)
                 locale = Locale.get_active()
@@ -124,83 +141,99 @@ class ListView(TemplateView):
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
         if not items.ordered:
-            items = items.order_by('pk')
+            items = items.order_by("pk")
 
         # Search
         is_searchable = class_is_indexed(self.model)
         is_searching = False
         search_query = None
-        if is_searchable and 'q' in self.request.GET:
-            search_form = SearchForm(self.request.GET, placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': self.model._meta.verbose_name_plural
-            })
+        if is_searchable and "q" in self.request.GET:
+            search_form = SearchForm(
+                self.request.GET,
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name_plural},
+            )
 
             if search_form.is_valid():
-                search_query = search_form.cleaned_data['q']
+                search_query = search_form.cleaned_data["q"]
 
                 search_backend = get_search_backend()
                 items = search_backend.search(search_query, items)
                 is_searching = True
 
         else:
-            search_form = SearchForm(placeholder=_("Search %(snippet_type_name)s") % {
-                'snippet_type_name': self.model._meta.verbose_name_plural
-            })
+            search_form = SearchForm(
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name_plural}
+            )
 
         paginator = Paginator(items, per_page=20)
-        paginated_items = paginator.get_page(self.request.GET.get('p'))
+        paginated_items = paginator.get_page(self.request.GET.get("p"))
 
-        context.update({
-            'model_opts': self.model._meta,
-            'items': paginated_items,
-            'can_add_snippet': self.request.user.has_perm(get_permission_name('add', self.model)),
-            'can_delete_snippets': self.request.user.has_perm(get_permission_name('delete', self.model)),
-            'is_searchable': is_searchable,
-            'search_form': search_form,
-            'is_searching': is_searching,
-            'query_string': search_query,
-            'locale': None,
-            'translations': [],
-        })
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "items": paginated_items,
+                "can_add_snippet": self.request.user.has_perm(
+                    get_permission_name("add", self.model)
+                ),
+                "can_delete_snippets": self.request.user.has_perm(
+                    get_permission_name("delete", self.model)
+                ),
+                "is_searchable": is_searchable,
+                "search_form": search_form,
+                "is_searching": is_searching,
+                "query_string": search_query,
+                "locale": None,
+                "translations": [],
+            }
+        )
 
         if enable_locale_filter:
-            context.update({
-                'locale': locale,
-                'translations': [
-                    {
-                        'locale': locale,
-                        'url': reverse('wagtailsnippets:list', args=[self.app_label, self.model_name]) + '?locale=' + locale.language_code
-                    }
-                    for locale in Locale.objects.all().exclude(id=locale.id)
-                ],
-            })
+            context.update(
+                {
+                    "locale": locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": reverse(
+                                "wagtailsnippets:list",
+                                args=[self.app_label, self.model_name],
+                            )
+                            + "?locale="
+                            + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(id=locale.id)
+                    ],
+                }
+            )
 
         return context
 
     def get_template_names(self):
         if self.results_only:
-            return ['wagtailsnippets/snippets/results.html']
+            return ["wagtailsnippets/snippets/results.html"]
         else:
-            return ['wagtailsnippets/snippets/type_index.html']
+            return ["wagtailsnippets/snippets/type_index.html"]
 
 
 def create(request, app_label, model_name):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
-    permission = get_permission_name('add', model)
+    permission = get_permission_name("add", model)
     if not request.user.has_perm(permission):
         raise PermissionDenied
 
-    for fn in hooks.get_hooks('before_create_snippet'):
+    for fn in hooks.get_hooks("before_create_snippet"):
         result = fn(request, model)
-        if hasattr(result, 'status_code'):
+        if hasattr(result, "status_code"):
             return result
 
     instance = model()
 
     # Set locale of the new instance
     if issubclass(model, TranslatableMixin):
-        selected_locale = request.GET.get('locale')
+        selected_locale = request.GET.get("locale")
         if selected_locale:
             instance.locale = get_object_or_404(Locale, language_code=selected_locale)
         else:
@@ -211,37 +244,47 @@ def create(request, app_label, model_name):
     edit_handler = edit_handler.bind_to(request=request)
     form_class = edit_handler.get_form_class()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
             with transaction.atomic():
                 form.save()
-                log(instance=instance, action='wagtail.create')
+                log(instance=instance, action="wagtail.create")
 
             messages.success(
                 request,
-                _("%(snippet_type)s '%(instance)s' created.") % {
-                    'snippet_type': capfirst(model._meta.verbose_name),
-                    'instance': instance
+                _("%(snippet_type)s '%(instance)s' created.")
+                % {
+                    "snippet_type": capfirst(model._meta.verbose_name),
+                    "instance": instance,
                 },
                 buttons=[
-                    messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
-                    ), _('Edit'))
-                ]
+                    messages.button(
+                        reverse(
+                            "wagtailsnippets:edit",
+                            args=(app_label, model_name, quote(instance.pk)),
+                        ),
+                        _("Edit"),
+                    )
+                ],
             )
 
-            for fn in hooks.get_hooks('after_create_snippet'):
+            for fn in hooks.get_hooks("after_create_snippet"):
                 result = fn(request, instance)
-                if hasattr(result, 'status_code'):
+                if hasattr(result, "status_code"):
                     return result
 
-            urlquery = ''
-            if isinstance(instance, TranslatableMixin) and instance.locale is not Locale.get_default():
-                urlquery = '?locale=' + instance.locale.language_code
+            urlquery = ""
+            if (
+                isinstance(instance, TranslatableMixin)
+                and instance.locale is not Locale.get_default()
+            ):
+                urlquery = "?locale=" + instance.locale.language_code
 
-            return redirect(reverse('wagtailsnippets:list', args=[app_label, model_name]) + urlquery)
+            return redirect(
+                reverse("wagtailsnippets:list", args=[app_label, model_name]) + urlquery
+            )
         else:
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
@@ -252,74 +295,87 @@ def create(request, app_label, model_name):
     edit_handler = edit_handler.bind_to(instance=instance, form=form)
 
     context = {
-        'model_opts': model._meta,
-        'edit_handler': edit_handler,
-        'form': form,
-        'action_menu': SnippetActionMenu(request, view='create', model=model),
-        'locale': None,
-        'translations': [],
+        "model_opts": model._meta,
+        "edit_handler": edit_handler,
+        "form": form,
+        "action_menu": SnippetActionMenu(request, view="create", model=model),
+        "locale": None,
+        "translations": [],
     }
 
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin):
-        context.update({
-            'locale': instance.locale,
-            'translations': [
-                {
-                    'locale': locale,
-                    'url': reverse('wagtailsnippets:add', args=[app_label, model_name]) + '?locale=' + locale.language_code
-                }
-                for locale in Locale.objects.all().exclude(id=instance.locale.id)
-            ],
-        })
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+        model, TranslatableMixin
+    ):
+        context.update(
+            {
+                "locale": instance.locale,
+                "translations": [
+                    {
+                        "locale": locale,
+                        "url": reverse(
+                            "wagtailsnippets:add", args=[app_label, model_name]
+                        )
+                        + "?locale="
+                        + locale.language_code,
+                    }
+                    for locale in Locale.objects.all().exclude(id=instance.locale.id)
+                ],
+            }
+        )
 
-    return TemplateResponse(request, 'wagtailsnippets/snippets/create.html', context)
+    return TemplateResponse(request, "wagtailsnippets/snippets/create.html", context)
 
 
 def edit(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
-    permission = get_permission_name('change', model)
+    permission = get_permission_name("change", model)
     if not request.user.has_perm(permission):
         raise PermissionDenied
 
     instance = get_object_or_404(model, pk=unquote(pk))
 
-    for fn in hooks.get_hooks('before_edit_snippet'):
+    for fn in hooks.get_hooks("before_edit_snippet"):
         result = fn(request, instance)
-        if hasattr(result, 'status_code'):
+        if hasattr(result, "status_code"):
             return result
 
     edit_handler = get_snippet_edit_handler(model)
     edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = form_class(request.POST, request.FILES, instance=instance)
 
         if form.is_valid():
             with transaction.atomic():
                 form.save()
-                log(instance=instance, action='wagtail.edit')
+                log(instance=instance, action="wagtail.edit")
 
             messages.success(
                 request,
-                _("%(snippet_type)s '%(instance)s' updated.") % {
-                    'snippet_type': capfirst(model._meta.verbose_name),
-                    'instance': instance
+                _("%(snippet_type)s '%(instance)s' updated.")
+                % {
+                    "snippet_type": capfirst(model._meta.verbose_name),
+                    "instance": instance,
                 },
                 buttons=[
-                    messages.button(reverse(
-                        'wagtailsnippets:edit', args=(app_label, model_name, quote(instance.pk))
-                    ), _('Edit'))
-                ]
+                    messages.button(
+                        reverse(
+                            "wagtailsnippets:edit",
+                            args=(app_label, model_name, quote(instance.pk)),
+                        ),
+                        _("Edit"),
+                    )
+                ],
             )
 
-            for fn in hooks.get_hooks('after_edit_snippet'):
+            for fn in hooks.get_hooks("after_edit_snippet"):
                 result = fn(request, instance)
-                if hasattr(result, 'status_code'):
+                if hasattr(result, "status_code"):
                     return result
 
-            return redirect('wagtailsnippets:list', app_label, model_name)
+            return redirect("wagtailsnippets:list", app_label, model_name)
         else:
             messages.validation_error(
                 request, _("The snippet could not be saved due to errors."), form
@@ -331,61 +387,70 @@ def edit(request, app_label, model_name, pk):
     latest_log_entry = log_registry.get_logs_for_instance(instance).first()
 
     context = {
-        'model_opts': model._meta,
-        'instance': instance,
-        'edit_handler': edit_handler,
-        'form': form,
-        'action_menu': SnippetActionMenu(request, view='edit', instance=instance),
-        'locale': None,
-        'translations': [],
-        'latest_log_entry': latest_log_entry,
+        "model_opts": model._meta,
+        "instance": instance,
+        "edit_handler": edit_handler,
+        "form": form,
+        "action_menu": SnippetActionMenu(request, view="edit", instance=instance),
+        "locale": None,
+        "translations": [],
+        "latest_log_entry": latest_log_entry,
     }
 
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False) and issubclass(model, TranslatableMixin):
-        context.update({
-            'locale': instance.locale,
-            'translations': [
-                {
-                    'locale': translation.locale,
-                    'url': reverse('wagtailsnippets:edit', args=[app_label, model_name, quote(translation.pk)])
-                }
-                for translation in instance.get_translations().select_related('locale')
-            ],
-        })
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+        model, TranslatableMixin
+    ):
+        context.update(
+            {
+                "locale": instance.locale,
+                "translations": [
+                    {
+                        "locale": translation.locale,
+                        "url": reverse(
+                            "wagtailsnippets:edit",
+                            args=[app_label, model_name, quote(translation.pk)],
+                        ),
+                    }
+                    for translation in instance.get_translations().select_related(
+                        "locale"
+                    )
+                ],
+            }
+        )
 
-    return TemplateResponse(request, 'wagtailsnippets/snippets/edit.html', context)
+    return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
 
 def delete(request, app_label, model_name, pk=None):
     model = get_snippet_model_from_url_params(app_label, model_name)
 
-    permission = get_permission_name('delete', model)
+    permission = get_permission_name("delete", model)
     if not request.user.has_perm(permission):
         raise PermissionDenied
 
     if pk:
         instances = [get_object_or_404(model, pk=unquote(pk))]
     else:
-        ids = request.GET.getlist('id')
+        ids = request.GET.getlist("id")
         instances = model.objects.filter(pk__in=ids)
 
-    for fn in hooks.get_hooks('before_delete_snippet'):
+    for fn in hooks.get_hooks("before_delete_snippet"):
         result = fn(request, instances)
-        if hasattr(result, 'status_code'):
+        if hasattr(result, "status_code"):
             return result
 
     count = len(instances)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         with transaction.atomic():
             for instance in instances:
-                log(instance=instance, action='wagtail.delete')
+                log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
         if count == 1:
             message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
-                'snippet_type': capfirst(model._meta.verbose_name),
-                'instance': instance
+                "snippet_type": capfirst(model._meta.verbose_name),
+                "instance": instance,
             }
         else:
             # This message is only used in plural form, but we'll define it with ngettext so that
@@ -394,30 +459,35 @@ def delete(request, app_label, model_name, pk=None):
             message_content = ngettext(
                 "%(count)d %(snippet_type)s deleted.",
                 "%(count)d %(snippet_type)s deleted.",
-                count
+                count,
             ) % {
-                'snippet_type': capfirst(model._meta.verbose_name_plural),
-                'count': count
+                "snippet_type": capfirst(model._meta.verbose_name_plural),
+                "count": count,
             }
 
         messages.success(request, message_content)
 
-        for fn in hooks.get_hooks('after_delete_snippet'):
+        for fn in hooks.get_hooks("after_delete_snippet"):
             result = fn(request, instances)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result
 
-        return redirect('wagtailsnippets:list', app_label, model_name)
+        return redirect("wagtailsnippets:list", app_label, model_name)
 
-    return TemplateResponse(request, 'wagtailsnippets/snippets/confirm_delete.html', {
-        'model_opts': model._meta,
-        'count': count,
-        'instances': instances,
-        'submit_url': (
-            reverse('wagtailsnippets:delete-multiple', args=(app_label, model_name))
-            + '?' + urlencode([('id', instance.pk) for instance in instances])
-        ),
-    })
+    return TemplateResponse(
+        request,
+        "wagtailsnippets/snippets/confirm_delete.html",
+        {
+            "model_opts": model._meta,
+            "count": count,
+            "instances": instances,
+            "submit_url": (
+                reverse("wagtailsnippets:delete-multiple", args=(app_label, model_name))
+                + "?"
+                + urlencode([("id", instance.pk) for instance in instances])
+            ),
+        },
+    )
 
 
 def usage(request, app_label, model_name, pk):
@@ -425,35 +495,36 @@ def usage(request, app_label, model_name, pk):
     instance = get_object_or_404(model, pk=unquote(pk))
 
     paginator = Paginator(instance.get_usage(), per_page=20)
-    used_by = paginator.get_page(request.GET.get('p'))
+    used_by = paginator.get_page(request.GET.get("p"))
 
-    return TemplateResponse(request, "wagtailsnippets/snippets/usage.html", {
-        'instance': instance,
-        'used_by': used_by
-    })
+    return TemplateResponse(
+        request,
+        "wagtailsnippets/snippets/usage.html",
+        {"instance": instance, "used_by": used_by},
+    )
 
 
 def redirect_to_edit(request, app_label, model_name, pk):
-    return redirect('wagtailsnippets:edit', app_label, model_name, pk, permanent=True)
+    return redirect("wagtailsnippets:edit", app_label, model_name, pk, permanent=True)
 
 
 def redirect_to_delete(request, app_label, model_name, pk):
-    return redirect('wagtailsnippets:delete', app_label, model_name, pk, permanent=True)
+    return redirect("wagtailsnippets:delete", app_label, model_name, pk, permanent=True)
 
 
 def redirect_to_usage(request, app_label, model_name, pk):
-    return redirect('wagtailsnippets:usage', app_label, model_name, pk, permanent=True)
+    return redirect("wagtailsnippets:usage", app_label, model_name, pk, permanent=True)
 
 
 class HistoryView(IndexView):
-    template_name = 'wagtailadmin/generic/index.html'
-    page_title = gettext_lazy('Snippet history')
-    header_icon = 'history'
+    template_name = "wagtailadmin/generic/index.html"
+    page_title = gettext_lazy("Snippet history")
+    header_icon = "history"
     paginate_by = 50
     columns = [
-        Column('message', label=gettext_lazy("Action")),
-        UserColumn('user', blank_display_name='system'),
-        DateColumn('timestamp', label=gettext_lazy("Date")),
+        Column("message", label=gettext_lazy("Action")),
+        UserColumn("user", blank_display_name="system"),
+        DateColumn("timestamp", label=gettext_lazy("Date")),
     ]
 
     def dispatch(self, request, app_label, model_name, pk):
@@ -468,7 +539,12 @@ class HistoryView(IndexView):
         return str(self.object)
 
     def get_index_url(self):
-        return reverse('wagtailsnippets:history', args=(self.app_label, self.model_name, quote(self.object.pk)))
+        return reverse(
+            "wagtailsnippets:history",
+            args=(self.app_label, self.model_name, quote(self.object.pk)),
+        )
 
     def get_queryset(self):
-        return log_registry.get_logs_for_instance(self.object).prefetch_related('user__wagtail_userprofile')
+        return log_registry.get_logs_for_instance(self.object).prefetch_related(
+            "user__wagtail_userprofile"
+        )

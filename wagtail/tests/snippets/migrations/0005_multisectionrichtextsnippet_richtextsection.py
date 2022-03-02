@@ -7,25 +7,48 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('snippetstests', '0004_fileuploadsnippet'),
+        ("snippetstests", "0004_fileuploadsnippet"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='MultiSectionRichTextSnippet',
+            name="MultiSectionRichTextSnippet",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='RichTextSection',
+            name="RichTextSection",
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False, verbose_name='ID', auto_created=True)),
-                ('body', wagtail.core.fields.RichTextField()),
-                ('snippet', modelcluster.fields.ParentalKey(to='snippetstests.MultiSectionRichTextSnippet', related_name='sections', on_delete=models.CASCADE)),
+                (
+                    "id",
+                    models.AutoField(
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                        auto_created=True,
+                    ),
+                ),
+                ("body", wagtail.core.fields.RichTextField()),
+                (
+                    "snippet",
+                    modelcluster.fields.ParentalKey(
+                        to="snippetstests.MultiSectionRichTextSnippet",
+                        related_name="sections",
+                        on_delete=models.CASCADE,
+                    ),
+                ),
             ],
         ),
     ]

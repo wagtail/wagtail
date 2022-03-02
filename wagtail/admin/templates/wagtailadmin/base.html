@@ -45,8 +45,9 @@
                 {% if messages %}
                     <ul>
                         {% for message in messages %}
+                            {% message_level_tag message as level_tag %}
                             <li class="{% message_tags message %}">
-                                {% if message.level_tag == "error" %}
+                                {% if level_tag == "error" %}
                                     {# There is no error icon, use warning icon instead #}
                                     {% icon name="warning" class_name="messages-icon" %}
                                 {% elif message.extra_tags == "lock" %}
@@ -54,7 +55,7 @@
                                 {% elif message.extra_tags == "unlock" %}
                                     {% icon name="lock-open" class_name="messages-icon" %}
                                 {% else %}
-                                    {% icon name=message.level_tag class_name="messages-icon" %}
+                                    {% icon name=level_tag class_name="messages-icon" %}
                                 {% endif %}
                                 {{ message|safe }}
                             </li>

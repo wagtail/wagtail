@@ -21,6 +21,7 @@ jobs:
             - .venv
       - run: pipenv run flake8
       - run: pipenv run isort --check-only --diff .
+      - run: pipenv run black --target-version py37 --check --diff .
       # Filter out known false positives, while preserving normal output and error codes.
       # See https://github.com/motet-a/jinjalint/issues/18.
       # And https://circleci.com/docs/2.0/configuration-reference/#default-shell-options.

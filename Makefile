@@ -3,7 +3,7 @@
 help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "develop - install development dependencies"
-	@echo "lint - check style with flake8, sort python with isort, indent html, and lint frontend css/js"
+	@echo "lint - check style with black, flake8, sort python with isort, indent html, and lint frontend css/js"
 	@echo "test - run tests"
 	@echo "coverage - check code coverage"
 
@@ -17,11 +17,12 @@ develop: clean-pyc
 	npm install --no-save && npm run build
 
 lint:
+	black --target-version py37 --check --diff .
 	flake8
 	isort --check-only --diff .
 	# Filter out known false positives, while preserving normal output and error codes.
 	# See https://github.com/motet-a/jinjalint/issues/18.
-	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+	jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:76' | tee /dev/tty | wc -l | grep -q '0'
 	git ls-files '*.html' | xargs djhtml --check
 	npm run lint:css --silent
 	npm run lint:js --silent

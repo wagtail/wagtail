@@ -1,5 +1,4 @@
 import json
-
 from datetime import datetime
 from urllib.parse import urljoin
 
@@ -35,83 +34,105 @@ from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
 from wagtail.core.models import (
-    Collection, CollectionViewRestriction, Locale, Page, PageViewRestriction,
-    UserPagePermissionsProxy)
+    Collection,
+    CollectionViewRestriction,
+    Locale,
+    Page,
+    PageViewRestriction,
+    UserPagePermissionsProxy,
+)
 from wagtail.core.telepath import JSContext
 from wagtail.core.utils import camelcase_to_underscore
 from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import escape_script, get_content_type_label, get_locales_display_names
+from wagtail.core.utils import (
+    escape_script,
+    get_content_type_label,
+    get_locales_display_names,
+)
 from wagtail.users.utils import get_gravatar_url
-
 
 register = template.Library()
 
-register.filter('intcomma', intcomma)
+register.filter("intcomma", intcomma)
 
 
 @register.simple_tag(takes_context=True)
 def menu_search(context):
-    request = context['request']
+    request = context["request"]
 
     search_areas = admin_search_areas.search_items_for_request(request)
     if not search_areas:
-        return ''
+        return ""
     search_area = search_areas[0]
 
-    return render_to_string('wagtailadmin/shared/menu_search.html', {
-        'search_url': search_area.url,
-    })
+    return render_to_string(
+        "wagtailadmin/shared/menu_search.html",
+        {
+            "search_url": search_area.url,
+        },
+    )
 
 
-@register.inclusion_tag('wagtailadmin/shared/main_nav.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/main_nav.html", takes_context=True)
 def main_nav(context):
-    request = context['request']
+    request = context["request"]
 
     return {
-        'menu_html': admin_menu.render_html(request),
-        'request': request,
+        "menu_html": admin_menu.render_html(request),
+        "request": request,
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/breadcrumb.html', takes_context=True)
-def explorer_breadcrumb(context, page, page_perms=None, include_self=True, trailing_arrow=False, show_header_buttons=False):
-    user = context['request'].user
+@register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
+def explorer_breadcrumb(
+    context,
+    page,
+    page_perms=None,
+    include_self=True,
+    trailing_arrow=False,
+    show_header_buttons=False,
+):
+    user = context["request"].user
 
     # find the closest common ancestor of the pages that this user has direct explore permission
     # (i.e. add/edit/publish/lock) over; this will be the root of the breadcrumb
     cca = get_explorable_root_page(user)
     if not cca:
-        return {'pages': Page.objects.none()}
+        return {"pages": Page.objects.none()}
 
     return {
-        'pages': page.get_ancestors(inclusive=include_self).descendant_of(cca, inclusive=True).specific(),
-        'current_page': page,
-        'page_perms': page_perms,
-        'trailing_arrow': trailing_arrow,
-        'show_header_buttons': show_header_buttons,
+        "pages": page.get_ancestors(inclusive=include_self)
+        .descendant_of(cca, inclusive=True)
+        .specific(),
+        "current_page": page,
+        "page_perms": page_perms,
+        "trailing_arrow": trailing_arrow,
+        "show_header_buttons": show_header_buttons,
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/move_breadcrumb.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/move_breadcrumb.html", takes_context=True)
 def move_breadcrumb(context, page_to_move, viewed_page):
-    user = context['request'].user
+    user = context["request"].user
     cca = get_explorable_root_page(user)
     if not cca:
-        return {'pages': Page.objects.none()}
+        return {"pages": Page.objects.none()}
 
     return {
-        'pages': viewed_page.get_ancestors(inclusive=True).descendant_of(cca, inclusive=True).specific(),
-        'page_to_move_id': page_to_move.id,
+        "pages": viewed_page.get_ancestors(inclusive=True)
+        .descendant_of(cca, inclusive=True)
+        .specific(),
+        "page_to_move_id": page_to_move.id,
     }
 
 
-@register.inclusion_tag('wagtailadmin/shared/search_other.html', takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/search_other.html", takes_context=True)
 def search_other(context, current=None):
-    request = context['request']
+    request = context["request"]
 
     return {
-        'options_html': admin_search_areas.render_html(request, current),
-        'request': request,
+        "options_html": admin_search_areas.render_html(request, current),
+        "request": request,
     }
 
 
@@ -120,33 +141,26 @@ def main_nav_js():
     if slim_sidebar_enabled():
         return Media(
             js=[
-                versioned_static('wagtailadmin/js/telepath/telepath.js'),
-                versioned_static('wagtailadmin/js/sidebar.js'),
+                versioned_static("wagtailadmin/js/telepath/telepath.js"),
+                versioned_static("wagtailadmin/js/sidebar.js"),
             ]
         )
 
     else:
-        return Media(
-            js=[
-                versioned_static('wagtailadmin/js/sidebar-legacy.js')
-            ]
-        ) + admin_menu.media['js']
+        return (
+            Media(js=[versioned_static("wagtailadmin/js/sidebar-legacy.js")])
+            + admin_menu.media["js"]
+        )
 
 
 @register.simple_tag
 def main_nav_css():
     if slim_sidebar_enabled():
-        return Media(
-            css={
-                'all': [
-                    versioned_static('wagtailadmin/css/sidebar.css')
-                ]
-            }
-        )
+        return Media(css={"all": [versioned_static("wagtailadmin/css/sidebar.css")]})
 
     else:
         # Legacy sidebar CSS in core.css
-        return admin_menu.media['css']
+        return admin_menu.media["css"]
 
 
 @register.filter("ellipsistrim")
@@ -154,7 +168,7 @@ def ellipsistrim(value, max_length):
     if len(value) > max_length:
         truncd_val = value[:max_length]
         if not len(value) == (max_length + 1) and value[max_length + 1] != " ":
-            truncd_val = truncd_val[:truncd_val.rfind(" ")]
+            truncd_val = truncd_val[: truncd_val.rfind(" ")]
         return truncd_val + "…"
     return value
 
@@ -184,10 +198,12 @@ def widgettype(bound_field):
 def _get_user_page_permissions(context):
     # Create a UserPagePermissionsProxy object to represent the user's global permissions, and
     # cache it in the context for the duration of the page request, if one does not exist already
-    if 'user_page_permissions' not in context:
-        context['user_page_permissions'] = UserPagePermissionsProxy(context['request'].user)
+    if "user_page_permissions" not in context:
+        context["user_page_permissions"] = UserPagePermissionsProxy(
+            context["request"].user
+        )
 
-    return context['user_page_permissions']
+    return context["user_page_permissions"]
 
 
 @register.simple_tag(takes_context=True)
@@ -209,12 +225,14 @@ def test_collection_is_public(context, collection):
     Caches the list of collection view restrictions in the context, to avoid repeated
     DB queries on repeated calls.
     """
-    if 'all_collection_view_restrictions' not in context:
-        context['all_collection_view_restrictions'] = CollectionViewRestriction.objects.select_related('collection').values_list(
-            'collection__name', flat=True
+    if "all_collection_view_restrictions" not in context:
+        context[
+            "all_collection_view_restrictions"
+        ] = CollectionViewRestriction.objects.select_related("collection").values_list(
+            "collection__name", flat=True
         )
 
-    is_private = collection.name in context['all_collection_view_restrictions']
+    is_private = collection.name in context["all_collection_view_restrictions"]
 
     return not is_private
 
@@ -229,14 +247,20 @@ def test_page_is_public(context, page):
     DB queries on repeated calls.
     """
     if not hasattr(context["request"], "all_page_view_restriction_paths"):
-        context['request'].all_page_view_restriction_paths = PageViewRestriction.objects.select_related('page').values_list(
-            'page__path', flat=True
+        context[
+            "request"
+        ].all_page_view_restriction_paths = PageViewRestriction.objects.select_related(
+            "page"
+        ).values_list(
+            "page__path", flat=True
         )
 
-    is_private = any([
-        page.path.startswith(restricted_path)
-        for restricted_path in context["request"].all_page_view_restriction_paths
-    ])
+    is_private = any(
+        [
+            page.path.startswith(restricted_path)
+            for restricted_path in context["request"].all_page_view_restriction_paths
+        ]
+    )
 
     return not is_private
 
@@ -250,31 +274,31 @@ def hook_output(hook_name):
     Note that the output is not escaped - it is the hook function's responsibility to escape unsafe content.
     """
     snippets = [fn() for fn in hooks.get_hooks(hook_name)]
-    return mark_safe(''.join(snippets))
+    return mark_safe("".join(snippets))
 
 
 @register.simple_tag
 def usage_count_enabled():
-    return getattr(settings, 'WAGTAIL_USAGE_COUNT_ENABLED', False)
+    return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
 
 
 @register.simple_tag
 def base_url_setting():
-    return getattr(settings, 'BASE_URL', None)
+    return getattr(settings, "BASE_URL", None)
 
 
 @register.simple_tag
 def allow_unicode_slugs():
-    return getattr(settings, 'WAGTAIL_ALLOW_UNICODE_SLUGS', True)
+    return getattr(settings, "WAGTAIL_ALLOW_UNICODE_SLUGS", True)
 
 
 @register.simple_tag
 def auto_update_preview():
-    return getattr(settings, 'WAGTAIL_AUTO_UPDATE_PREVIEW', False)
+    return getattr(settings, "WAGTAIL_AUTO_UPDATE_PREVIEW", False)
 
 
 class EscapeScriptNode(template.Node):
-    TAG_NAME = 'escapescript'
+    TAG_NAME = "escapescript"
 
     def __init__(self, nodelist):
         super().__init__()
@@ -286,7 +310,7 @@ class EscapeScriptNode(template.Node):
 
     @classmethod
     def handle(cls, parser, token):
-        nodelist = parser.parse(('end' + EscapeScriptNode.TAG_NAME,))
+        nodelist = parser.parse(("end" + EscapeScriptNode.TAG_NAME,))
         parser.delete_first_token()
         return cls(nodelist)
 
@@ -304,12 +328,12 @@ def render_with_errors(bound_field):
     a render_with_errors method, call that; otherwise, call the regular widget rendering mechanism.
     """
     widget = bound_field.field.widget
-    if bound_field.errors and hasattr(widget, 'render_with_errors'):
+    if bound_field.errors and hasattr(widget, "render_with_errors"):
         return widget.render_with_errors(
             bound_field.html_name,
             bound_field.value(),
-            attrs={'id': bound_field.auto_id},
-            errors=bound_field.errors
+            attrs={"id": bound_field.auto_id},
+            errors=bound_field.errors,
         )
     else:
         return bound_field.as_widget()
@@ -321,7 +345,9 @@ def has_unrendered_errors(bound_field):
     Return true if this field has errors that were not accounted for by render_with_errors, because
     the widget does not support the render_with_errors method
     """
-    return bound_field.errors and not hasattr(bound_field.field.widget, 'render_with_errors')
+    return bound_field.errors and not hasattr(
+        bound_field.field.widget, "render_with_errors"
+    )
 
 
 @register.filter(is_safe=True)
@@ -342,7 +368,7 @@ def querystring(context, **kwargs):
 
         <a href="/page/?foo=bar&key=value">
     """
-    request = context['request']
+    request = context["request"]
     querydict = request.GET.copy()
     # Can't do querydict.update(kwargs), because QueryDict.update() appends to
     # the list of values, instead of replacing the values.
@@ -354,7 +380,7 @@ def querystring(context, **kwargs):
             # Set the key otherwise
             querydict[key] = str(value)
 
-    return '?' + querydict.urlencode()
+    return "?" + querydict.urlencode()
 
 
 @register.simple_tag(takes_context=True)
@@ -363,21 +389,43 @@ def page_table_header_label(context, label=None, parent_page_title=None, **kwarg
     Wraps table_header_label to add a title attribute based on the parent page title and the column label
     """
     if label:
-        translation_context = {'parent': parent_page_title, 'label': label}
-        ascending_title_text = _("Sort the order of child pages within '%(parent)s' by '%(label)s' in ascending order.") % translation_context
-        descending_title_text = _("Sort the order of child pages within '%(parent)s' by '%(label)s' in descending order.") % translation_context
+        translation_context = {"parent": parent_page_title, "label": label}
+        ascending_title_text = (
+            _(
+                "Sort the order of child pages within '%(parent)s' by '%(label)s' in ascending order."
+            )
+            % translation_context
+        )
+        descending_title_text = (
+            _(
+                "Sort the order of child pages within '%(parent)s' by '%(label)s' in descending order."
+            )
+            % translation_context
+        )
     else:
         ascending_title_text = None
         descending_title_text = None
 
-    return table_header_label(context, label=label, ascending_title_text=ascending_title_text, descending_title_text=descending_title_text, **kwargs)
+    return table_header_label(
+        context,
+        label=label,
+        ascending_title_text=ascending_title_text,
+        descending_title_text=descending_title_text,
+        **kwargs,
+    )
 
 
 @register.simple_tag(takes_context=True)
 def table_header_label(
-    context, label=None, sortable=True, ordering=None,
-    sort_context_var='ordering', sort_param='ordering', sort_field=None,
-    ascending_title_text=None, descending_title_text=None
+    context,
+    label=None,
+    sortable=True,
+    ordering=None,
+    sort_context_var="ordering",
+    sort_param="ordering",
+    sort_field=None,
+    ascending_title_text=None,
+    descending_title_text=None,
 ):
     """
     A label to go in a table header cell, optionally with a 'sort' link that alternates between
@@ -408,41 +456,42 @@ def table_header_label(
     if ordering == sort_field:
         # currently ordering forwards on this column; link should change to reverse ordering
         attrs = {
-            'href': querystring(context, **{sort_param: reverse_sort_field}),
-            'class': "icon icon-arrow-down-after teal",
+            "href": querystring(context, **{sort_param: reverse_sort_field}),
+            "class": "icon icon-arrow-down-after teal",
         }
         if descending_title_text is not None:
-            attrs['title'] = descending_title_text
+            attrs["title"] = descending_title_text
 
     elif ordering == reverse_sort_field:
         # currently ordering backwards on this column; link should change to forward ordering
         attrs = {
-            'href': querystring(context, **{sort_param: sort_field}),
-            'class': "icon icon-arrow-up-after teal",
+            "href": querystring(context, **{sort_param: sort_field}),
+            "class": "icon icon-arrow-up-after teal",
         }
         if ascending_title_text is not None:
-            attrs['title'] = ascending_title_text
+            attrs["title"] = ascending_title_text
 
     else:
         # not currently ordering on this column; link should change to forward ordering
         attrs = {
-            'href': querystring(context, **{sort_param: sort_field}),
-            'class': "icon icon-arrow-down-after",
+            "href": querystring(context, **{sort_param: sort_field}),
+            "class": "icon icon-arrow-down-after",
         }
         if ascending_title_text is not None:
-            attrs['title'] = ascending_title_text
+            attrs["title"] = ascending_title_text
 
-    attrs_string = format_html_join(' ', '{}="{}"', attrs.items())
+    attrs_string = format_html_join(" ", '{}="{}"', attrs.items())
 
     return format_html(
         # need whitespace around label for correct positioning of arrow icon
-        '<a {attrs}> {label} </a>',
-        attrs=attrs_string, label=label
+        "<a {attrs}> {label} </a>",
+        attrs=attrs_string,
+        label=label,
     )
 
 
 @register.simple_tag(takes_context=True)
-def pagination_querystring(context, page_number, page_key='p'):
+def pagination_querystring(context, page_number, page_key="p"):
     """
     Print out a querystring with an updated page number:
 
@@ -453,10 +502,10 @@ def pagination_querystring(context, page_number, page_key='p'):
     return querystring(context, **{page_key: page_number})
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_pagination.html",
-                        takes_context=True)
-def paginate(context, page, base_url='', page_key='p',
-             classnames=''):
+@register.inclusion_tag(
+    "wagtailadmin/pages/listing/_pagination.html", takes_context=True
+)
+def paginate(context, page, base_url="", page_key="p", classnames=""):
     """
     Print pagination previous/next links, and the page count. Take the
     following arguments:
@@ -476,22 +525,21 @@ def paginate(context, page, base_url='', page_key='p',
     classnames
         Extra classes to add to the next/previous links.
     """
-    request = context['request']
+    request = context["request"]
     return {
-        'base_url': base_url,
-        'classnames': classnames,
-        'request': request,
-        'page': page,
-        'page_key': page_key,
-        'paginator': page.paginator,
+        "base_url": base_url,
+        "classnames": classnames,
+        "request": request,
+        "page": page,
+        "page_key": page_key,
+        "paginator": page.paginator,
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
-                        takes_context=True)
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def page_listing_buttons(context, page, page_perms, is_parent=False):
     next_url = context.request.path
-    button_hooks = hooks.get_hooks('register_page_listing_buttons')
+    button_hooks = hooks.get_hooks("register_page_listing_buttons")
 
     buttons = []
     for hook in button_hooks:
@@ -499,17 +547,18 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
 
     buttons.sort()
 
-    for hook in hooks.get_hooks('construct_page_listing_buttons'):
+    for hook in hooks.get_hooks("construct_page_listing_buttons"):
         hook(buttons, page, page_perms, is_parent, context)
 
-    return {'page': page, 'buttons': buttons}
+    return {"page": page, "buttons": buttons}
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_button_with_dropdown.html",
-                        takes_context=True)
+@register.inclusion_tag(
+    "wagtailadmin/pages/listing/_button_with_dropdown.html", takes_context=True
+)
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path
-    button_hooks = hooks.get_hooks('register_page_header_buttons')
+    button_hooks = hooks.get_hooks("register_page_header_buttons")
 
     buttons = []
     for hook in button_hooks:
@@ -517,18 +566,19 @@ def page_header_buttons(context, page, page_perms):
 
     buttons.sort()
     return {
-        'page': page,
-        'buttons': buttons,
-        'title': 'Secondary actions menu',
-        'button_classes': ['c-dropdown__icon'],
+        "page": page,
+        "buttons": buttons,
+        "title": "Secondary actions menu",
+        "button_classes": ["c-dropdown__icon"],
     }
 
 
-@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html",
-                        takes_context=True)
+@register.inclusion_tag("wagtailadmin/pages/listing/_buttons.html", takes_context=True)
 def bulk_action_choices(context, app_label, model_name):
 
-    bulk_actions_list = list(bulk_action_registry.get_bulk_actions_for_model(app_label, model_name))
+    bulk_actions_list = list(
+        bulk_action_registry.get_bulk_actions_for_model(app_label, model_name)
+    )
     bulk_actions_list.sort(key=lambda x: x.action_priority)
 
     bulk_action_more_list = []
@@ -536,56 +586,77 @@ def bulk_action_choices(context, app_label, model_name):
         bulk_action_more_list = bulk_actions_list[4:]
         bulk_actions_list = bulk_actions_list[:4]
 
-    next_url = get_valid_next_url_from_request(context['request'])
+    next_url = get_valid_next_url_from_request(context["request"])
     if not next_url:
-        next_url = context['request'].path
+        next_url = context["request"].path
 
     bulk_action_buttons = [
         PageListingButton(
             action.display_name,
-            reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
-            attrs={'aria-label': action.aria_label},
+            reverse(
+                "wagtail_bulk_action", args=[app_label, model_name, action.action_type]
+            )
+            + "?"
+            + urlencode({"next": next_url}),
+            attrs={"aria-label": action.aria_label},
             priority=action.action_priority,
-            classes=action.classes | {'bulk-action-btn'},
-        ) for action in bulk_actions_list
+            classes=action.classes | {"bulk-action-btn"},
+        )
+        for action in bulk_actions_list
     ]
 
     if bulk_action_more_list:
         more_button = ButtonWithDropdown(
             label=_("More"),
-            attrs={
-                'title': _("View more bulk actions")
-            },
-            classes={'bulk-actions-more', 'dropup'},
-            button_classes={'button', 'button-small'},
-            buttons_data=[{
-                'label': action.display_name,
-                'url': reverse('wagtail_bulk_action', args=[app_label, model_name, action.action_type]) + '?' + urlencode({'next': next_url}),
-                'attrs': {'aria-label': action.aria_label},
-                'priority': action.action_priority,
-                'classes': {'bulk-action-btn'},
-            } for action in bulk_action_more_list]
+            attrs={"title": _("View more bulk actions")},
+            classes={"bulk-actions-more", "dropup"},
+            button_classes={"button", "button-small"},
+            buttons_data=[
+                {
+                    "label": action.display_name,
+                    "url": reverse(
+                        "wagtail_bulk_action",
+                        args=[app_label, model_name, action.action_type],
+                    )
+                    + "?"
+                    + urlencode({"next": next_url}),
+                    "attrs": {"aria-label": action.aria_label},
+                    "priority": action.action_priority,
+                    "classes": {"bulk-action-btn"},
+                }
+                for action in bulk_action_more_list
+            ],
         )
         more_button.is_parent = True
         bulk_action_buttons.append(more_button)
 
-    return {'buttons': bulk_action_buttons}
+    return {"buttons": bulk_action_buttons}
+
+
+@register.simple_tag
+def message_level_tag(message):
+    """
+    Return the tag for this message's level as defined in
+    django.contrib.messages.constants.DEFAULT_TAGS, ignoring the project-level
+    MESSAGE_TAGS setting (which end-users might customise).
+    """
+    return MESSAGE_TAGS.get(message.level)
 
 
 @register.simple_tag
 def message_tags(message):
-    level_tag = MESSAGE_TAGS.get(message.level)
+    level_tag = message_level_tag(message)
     if message.extra_tags and level_tag:
-        return message.extra_tags + ' ' + level_tag
+        return message.extra_tags + " " + level_tag
     elif message.extra_tags:
         return message.extra_tags
     elif level_tag:
         return level_tag
     else:
-        return ''
+        return ""
 
 
-@register.filter('abs')
+@register.filter("abs")
 def _abs(val):
     return abs(val)
 
@@ -603,15 +674,19 @@ def avatar_url(user, size=50, gravatar_only=False):
     Example usage: {% avatar_url request.user 50 %}
     """
 
-    if not gravatar_only and hasattr(user, 'wagtail_userprofile') and user.wagtail_userprofile.avatar:
+    if (
+        not gravatar_only
+        and hasattr(user, "wagtail_userprofile")
+        and user.wagtail_userprofile.avatar
+    ):
         return user.wagtail_userprofile.avatar.url
 
-    if hasattr(user, 'email'):
+    if hasattr(user, "email"):
         gravatar_url = get_gravatar_url(user.email, size=size)
         if gravatar_url is not None:
             return gravatar_url
 
-    return versioned_static_func('wagtailadmin/images/default-user-avatar.png')
+    return versioned_static_func("wagtailadmin/images/default-user-avatar.png")
 
 
 @register.simple_tag
@@ -638,7 +713,7 @@ def versioned_static(path):
 
 
 @register.inclusion_tag("wagtailadmin/shared/icon.html", takes_context=False)
-def icon(name=None, class_name='icon', title=None, wrapped=False):
+def icon(name=None, class_name="icon", title=None, wrapped=False):
     """
     Abstracts away the actual icon implementation.
 
@@ -655,12 +730,7 @@ def icon(name=None, class_name='icon', title=None, wrapped=False):
     if not name:
         raise ValueError("You must supply an icon name")
 
-    return {
-        'name': name,
-        'class_name': class_name,
-        'title': title,
-        'wrapped': wrapped
-    }
+    return {"name": name, "class_name": class_name, "title": title, "wrapped": wrapped}
 
 
 @register.filter()
@@ -671,14 +741,14 @@ def timesince_simple(d):
     1 week, 1 day ago -> 1 week ago
     0 minutes ago -> just now
     """
-    time_period = timesince(d).split(',')[0]
-    if time_period == avoid_wrapping(_('0 minutes')):
+    time_period = timesince(d).split(",")[0]
+    if time_period == avoid_wrapping(_("0 minutes")):
         return _("Just now")
-    return _("%(time_period)s ago") % {'time_period': time_period}
+    return _("%(time_period)s ago") % {"time_period": time_period}
 
 
 @register.simple_tag
-def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
+def timesince_last_update(last_update, time_prefix="", use_shorthand=True):
     """
     Returns:
          - the time of update if last_update is today, if any prefix is supplied, the output will use it
@@ -691,13 +761,16 @@ def timesince_last_update(last_update, time_prefix='', use_shorthand=True):
         else:
             time_str = last_update.strftime("%H:%M")
 
-        return time_str if not time_prefix else '%(prefix)s %(formatted_time)s' % {
-            'prefix': time_prefix, 'formatted_time': time_str
-        }
+        return (
+            time_str
+            if not time_prefix
+            else "%(prefix)s %(formatted_time)s"
+            % {"prefix": time_prefix, "formatted_time": time_str}
+        )
     else:
         if use_shorthand:
             return timesince_simple(last_update)
-        return _("%(time_period)s ago") % {'time_period': timesince(last_update)}
+        return _("%(time_period)s ago") % {"time_period": timesince(last_update)}
 
 
 @register.simple_tag
@@ -721,7 +794,7 @@ def minimum_collection_depth(collections: QuerySet) -> int:
     Call this before beginning a loop through Collections that will
     use {% format_collection collection min_depth %}.
     """
-    return collections.aggregate(Min('depth'))['depth__min'] or 2
+    return collections.aggregate(Min("depth"))["depth__min"] or 2
 
 
 @register.filter
@@ -742,7 +815,7 @@ def user_display_name(user):
     except AttributeError:
         # we were passed None or something else that isn't a valid user object; return
         # empty string to replicate the behaviour of {{ user.get_full_name|default:user.get_username }}
-        return ''
+        return ""
 
 
 @register.filter
@@ -752,18 +825,20 @@ def format_content_type(content_type):
 
 @register.simple_tag
 def i18n_enabled():
-    return getattr(settings, 'WAGTAIL_I18N_ENABLED', False)
+    return getattr(settings, "WAGTAIL_I18N_ENABLED", False)
 
 
 @register.simple_tag
 def locales():
-    return json.dumps([
-        {
-            'code': locale.language_code,
-            'display_name': force_str(locale.get_display_name()),
-        }
-        for locale in Locale.objects.all()
-    ])
+    return json.dumps(
+        [
+            {
+                "code": locale.language_code,
+                "display_name": force_str(locale.get_display_name()),
+            }
+            for locale in Locale.objects.all()
+        ]
+    )
 
 
 @register.simple_tag
@@ -776,21 +851,21 @@ def locale_label_from_id(locale_id):
 
 @register.simple_tag()
 def slim_sidebar_enabled():
-    return getattr(settings, 'WAGTAIL_SLIM_SIDEBAR', True)
+    return getattr(settings, "WAGTAIL_SLIM_SIDEBAR", True)
 
 
 @register.simple_tag(takes_context=True)
 def sidebar_collapsed(context):
-    request = context.get('request')
-    collapsed = request.COOKIES.get('wagtail_sidebar_collapsed', '0')
-    if collapsed == '0':
+    request = context.get("request")
+    collapsed = request.COOKIES.get("wagtail_sidebar_collapsed", "0")
+    if collapsed == "0":
         return False
     return True
 
 
 @register.simple_tag(takes_context=True)
 def sidebar_props(context):
-    request = context['request']
+    request = context["request"]
     search_areas = admin_search_areas.search_items_for_request(request)
     if search_areas:
         search_area = search_areas[0]
@@ -798,25 +873,34 @@ def sidebar_props(context):
         search_area = None
 
     account_menu = [
-        sidebar.LinkMenuItem('account', _("Account"), reverse('wagtailadmin_account'), icon_name='user'),
-        sidebar.LinkMenuItem('logout', _("Log out"), reverse('wagtailadmin_logout'), icon_name='logout'),
+        sidebar.LinkMenuItem(
+            "account", _("Account"), reverse("wagtailadmin_account"), icon_name="user"
+        ),
+        sidebar.LinkMenuItem(
+            "logout", _("Log out"), reverse("wagtailadmin_logout"), icon_name="logout"
+        ),
     ]
 
     modules = [
         sidebar.WagtailBrandingModule(),
         sidebar.SearchModule(search_area) if search_area else None,
-        sidebar.MainMenuModule(admin_menu.render_component(request), account_menu, request.user),
+        sidebar.MainMenuModule(
+            admin_menu.render_component(request), account_menu, request.user
+        ),
     ]
     modules = [module for module in modules if module is not None]
 
-    return json_script({
-        'modules': JSContext().pack(modules),
-    }, element_id="wagtail-sidebar-props")
+    return json_script(
+        {
+            "modules": JSContext().pack(modules),
+        },
+        element_id="wagtail-sidebar-props",
+    )
 
 
 @register.simple_tag
 def get_comments_enabled():
-    return getattr(settings, 'WAGTAILADMIN_COMMENTS_ENABLED', True)
+    return getattr(settings, "WAGTAILADMIN_COMMENTS_ENABLED", True)
 
 
 @register.simple_tag
@@ -825,12 +909,12 @@ def resolve_url(url):
     # name, or a direct URL path, return it as a direct URL path. On failure (or being passed
     # an empty / None value), return empty string
     if not url:
-        return ''
+        return ""
 
     try:
         return resolve_url_func(url)
     except NoReverseMatch:
-        return ''
+        return ""
 
 
 @register.simple_tag(takes_context=True)
@@ -841,8 +925,8 @@ def component(context, obj, fallback_render_method=False):
     # called instead (with no arguments) - this is to provide deprecation path for things that have
     # been newly upgraded to use the component pattern.
 
-    has_render_html_method = hasattr(obj, 'render_html')
-    if fallback_render_method and not has_render_html_method and hasattr(obj, 'render'):
+    has_render_html_method = hasattr(obj, "render_html")
+    if fallback_render_method and not has_render_html_method and hasattr(obj, "render"):
         return obj.render()
     elif not has_render_html_method:
         raise ValueError("Cannot render %r as a component" % (obj,))

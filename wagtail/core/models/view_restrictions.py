@@ -12,10 +12,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 class BaseViewRestriction(models.Model):
-    NONE = 'none'
-    PASSWORD = 'password'
-    GROUPS = 'groups'
-    LOGIN = 'login'
+    NONE = "none"
+    PASSWORD = "password"
+    GROUPS = "groups"
+    LOGIN = "login"
 
     RESTRICTION_CHOICES = (
         (NONE, _("Public")),
@@ -24,14 +24,15 @@ class BaseViewRestriction(models.Model):
         (GROUPS, _("Private, accessible to users in specific groups")),
     )
 
-    restriction_type = models.CharField(
-        max_length=20, choices=RESTRICTION_CHOICES)
-    password = models.CharField(verbose_name=_('password'), max_length=255, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True)
+    restriction_type = models.CharField(max_length=20, choices=RESTRICTION_CHOICES)
+    password = models.CharField(verbose_name=_("password"), max_length=255, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("groups"), blank=True)
 
     def accept_request(self, request):
         if self.restriction_type == BaseViewRestriction.PASSWORD:
-            passed_restrictions = request.session.get(self.passed_view_restrictions_session_key, [])
+            passed_restrictions = request.session.get(
+                self.passed_view_restrictions_session_key, []
+            )
             if self.id not in passed_restrictions:
                 return False
 
@@ -53,11 +54,15 @@ class BaseViewRestriction(models.Model):
         Update the session data in the request to mark the user as having passed this
         view restriction
         """
-        has_existing_session = (settings.SESSION_COOKIE_NAME in request.COOKIES)
-        passed_restrictions = request.session.setdefault(self.passed_view_restrictions_session_key, [])
+        has_existing_session = settings.SESSION_COOKIE_NAME in request.COOKIES
+        passed_restrictions = request.session.setdefault(
+            self.passed_view_restrictions_session_key, []
+        )
         if self.id not in passed_restrictions:
             passed_restrictions.append(self.id)
-            request.session[self.passed_view_restrictions_session_key] = passed_restrictions
+            request.session[
+                self.passed_view_restrictions_session_key
+            ] = passed_restrictions
         if not has_existing_session:
             # if this is a session we've created, set it to expire at the end
             # of the browser session
@@ -65,5 +70,5 @@ class BaseViewRestriction(models.Model):
 
     class Meta:
         abstract = True
-        verbose_name = _('view restriction')
-        verbose_name_plural = _('view restrictions')
+        verbose_name = _("view restriction")
+        verbose_name_plural = _("view restrictions")

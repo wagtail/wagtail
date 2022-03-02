@@ -7,8 +7,21 @@ Changelog
  * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas)
  * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
- * Lint with flake8-comprehensions and flake8-assertive (Mads Jensen)
+ * Lint with flake8-comprehensions and flake8-assertive, including adding a pre-commit hook for these (Mads Jensen, Dan Braghis)
  * Switch the Wagtail branding font to a system font stack (Steven Steinwand)
+ * Add black configuration and reformat code using it (Dan Braghis)
+ * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
+ * Remove redirect auto-creation recipe from documentation as this feature is now supported in Wagtail core (Andy Babic)
+ * Remove IE11 warnings (Gianluca De Cola)
+ * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
+ * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
+ * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
+
+
+2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
 
 
 2.16.1 (11.02.2022)

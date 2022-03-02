@@ -1,7 +1,6 @@
 import datetime
 
 import django_filters
-
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
@@ -17,7 +16,7 @@ class LockedPagesReportFilterSet(WagtailFilterSet):
 
     class Meta:
         model = Page
-        fields = ['locked_by', 'locked_at', 'live']
+        fields = ["locked_by", "locked_at", "live"]
 
 
 class LockedPagesView(PageReportView):
@@ -37,12 +36,16 @@ class LockedPagesView(PageReportView):
 
     def get_queryset(self):
         pages = (
-            UserPagePermissionsProxy(self.request.user).editable_pages()
-            | Page.objects.filter(locked_by=self.request.user)
-        ).filter(locked=True).specific(defer=True)
+            (
+                UserPagePermissionsProxy(self.request.user).editable_pages()
+                | Page.objects.filter(locked_by=self.request.user)
+            )
+            .filter(locked=True)
+            .specific(defer=True)
+        )
 
-        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
-            pages = pages.select_related('locale')
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            pages = pages.select_related("locale")
 
         self.queryset = pages
         return super().get_queryset()

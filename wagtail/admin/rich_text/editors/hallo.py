@@ -1,5 +1,4 @@
 import json
-
 from collections import OrderedDict
 
 from django.forms import Media, widgets
@@ -15,11 +14,11 @@ from wagtail.core.widget_adapters import WidgetAdapter
 
 class HalloPlugin:
     def __init__(self, **kwargs):
-        self.name = kwargs.get('name', None)
-        self.options = kwargs.get('options', {})
-        self.js = kwargs.get('js', [])
-        self.css = kwargs.get('css', {})
-        self.order = kwargs.get('order', 100)
+        self.name = kwargs.get("name", None)
+        self.options = kwargs.get("options", {})
+        self.js = kwargs.get("js", [])
+        self.css = kwargs.get("css", {})
+        self.order = kwargs.get("order", 100)
 
     def construct_plugins_list(self, plugins):
         if self.name is not None:
@@ -37,64 +36,77 @@ class HalloPlugin:
 
 class HalloFormatPlugin(HalloPlugin):
     def __init__(self, **kwargs):
-        kwargs.setdefault('name', 'halloformat')
-        kwargs.setdefault('order', 10)
-        self.format_name = kwargs['format_name']
+        kwargs.setdefault("name", "halloformat")
+        kwargs.setdefault("order", 10)
+        self.format_name = kwargs["format_name"]
         super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
-        plugins.setdefault(self.name, {'formattings': {
-            'bold': False, 'italic': False, 'strikeThrough': False, 'underline': False
-        }})
-        plugins[self.name]['formattings'][self.format_name] = True
+        plugins.setdefault(
+            self.name,
+            {
+                "formattings": {
+                    "bold": False,
+                    "italic": False,
+                    "strikeThrough": False,
+                    "underline": False,
+                }
+            },
+        )
+        plugins[self.name]["formattings"][self.format_name] = True
 
 
 class HalloHeadingPlugin(HalloPlugin):
     default_order = 20
 
     def __init__(self, **kwargs):
-        kwargs.setdefault('name', 'halloheadings')
-        kwargs.setdefault('order', self.default_order)
-        self.element = kwargs.pop('element')
+        kwargs.setdefault("name", "halloheadings")
+        kwargs.setdefault("order", self.default_order)
+        self.element = kwargs.pop("element")
         super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
-        plugins.setdefault(self.name, {'formatBlocks': []})
-        plugins[self.name]['formatBlocks'].append(self.element)
+        plugins.setdefault(self.name, {"formatBlocks": []})
+        plugins[self.name]["formatBlocks"].append(self.element)
 
 
 class HalloListPlugin(HalloPlugin):
     def __init__(self, **kwargs):
-        kwargs.setdefault('name', 'hallolists')
-        kwargs.setdefault('order', 40)
-        self.list_type = kwargs['list_type']
+        kwargs.setdefault("name", "hallolists")
+        kwargs.setdefault("order", 40)
+        self.list_type = kwargs["list_type"]
         super().__init__(**kwargs)
 
     def construct_plugins_list(self, plugins):
-        plugins.setdefault(self.name, {'lists': {
-            'ordered': False, 'unordered': False
-        }})
-        plugins[self.name]['lists'][self.list_type] = True
+        plugins.setdefault(self.name, {"lists": {"ordered": False, "unordered": False}})
+        plugins[self.name]["lists"][self.list_type] = True
 
 
 class HalloRequireParagraphsPlugin(HalloPlugin):
     @property
     def media(self):
-        return Media(js=[
-            versioned_static('wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js'),
-        ]) + super().media
+        return (
+            Media(
+                js=[
+                    versioned_static(
+                        "wagtailadmin/js/hallo-plugins/hallo-requireparagraphs.js"
+                    ),
+                ]
+            )
+            + super().media
+        )
 
 
 # Plugins which are always imported, and cannot be enabled/disabled via 'features'
 CORE_HALLO_PLUGINS = [
-    HalloPlugin(name='halloreundo', order=50),
-    HalloRequireParagraphsPlugin(name='hallorequireparagraphs'),
-    HalloHeadingPlugin(element='p')
+    HalloPlugin(name="halloreundo", order=50),
+    HalloRequireParagraphsPlugin(name="hallorequireparagraphs"),
+    HalloHeadingPlugin(element="p"),
 ]
 
 
 class HalloRichTextArea(widgets.Textarea):
-    template_name = 'wagtailadmin/widgets/hallo_rich_text_area.html'
+    template_name = "wagtailadmin/widgets/hallo_rich_text_area.html"
 
     # this class's constructor accepts a 'features' kwarg
     accepts_features = True
@@ -103,9 +115,9 @@ class HalloRichTextArea(widgets.Textarea):
         return RichTextFieldPanel
 
     def __init__(self, *args, **kwargs):
-        self.options = kwargs.pop('options', None)
+        self.options = kwargs.pop("options", None)
 
-        self.features = kwargs.pop('features', None)
+        self.features = kwargs.pop("features", None)
         if self.features is None:
             self.features = features.get_default_features()
 
@@ -113,10 +125,15 @@ class HalloRichTextArea(widgets.Textarea):
 
         # construct a list of plugin objects, by querying the feature registry
         # and keeping the non-null responses from get_editor_plugin
-        self.plugins = CORE_HALLO_PLUGINS + list(filter(None, [
-            features.get_editor_plugin('hallo', feature_name)
-            for feature_name in self.features
-        ]))
+        self.plugins = CORE_HALLO_PLUGINS + list(
+            filter(
+                None,
+                [
+                    features.get_editor_plugin("hallo", feature_name)
+                    for feature_name in self.features
+                ],
+            )
+        )
         self.plugins.sort(key=lambda plugin: plugin.order)
 
         super().__init__(*args, **kwargs)
@@ -134,14 +151,14 @@ class HalloRichTextArea(widgets.Textarea):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
 
-        if self.options is not None and 'plugins' in self.options:
+        if self.options is not None and "plugins" in self.options:
             # explicit 'plugins' config passed in options, so use that
-            plugin_data = self.options['plugins']
+            plugin_data = self.options["plugins"]
         else:
             plugin_data = OrderedDict()
             for plugin in self.plugins:
                 plugin.construct_plugins_list(plugin_data)
-        context['widget']['plugins_json'] = json.dumps(plugin_data)
+        context["widget"]["plugins_json"] = json.dumps(plugin_data)
 
         return context
 
@@ -153,12 +170,13 @@ class HalloRichTextArea(widgets.Textarea):
 
     @cached_property
     def media(self):
-        media = Media(js=[
-            versioned_static('wagtailadmin/js/vendor/hallo.js'),
-            versioned_static('wagtailadmin/js/hallo-bootstrap.js'),
-        ], css={
-            'all': [versioned_static('wagtailadmin/css/panels/hallo.css')]
-        })
+        media = Media(
+            js=[
+                versioned_static("wagtailadmin/js/vendor/hallo.js"),
+                versioned_static("wagtailadmin/js/hallo-bootstrap.js"),
+            ],
+            css={"all": [versioned_static("wagtailadmin/css/panels/hallo.css")]},
+        )
 
         for plugin in self.plugins:
             media += plugin.media
@@ -167,7 +185,7 @@ class HalloRichTextArea(widgets.Textarea):
 
 
 class HalloRichTextAreaAdapter(WidgetAdapter):
-    js_constructor = 'wagtail.widgets.HalloRichTextArea'
+    js_constructor = "wagtail.widgets.HalloRichTextArea"
 
 
 register(HalloRichTextAreaAdapter(), HalloRichTextArea)

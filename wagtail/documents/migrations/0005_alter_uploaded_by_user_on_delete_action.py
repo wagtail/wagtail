@@ -8,13 +8,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0004_capitalizeverbose'),
+        ("wagtaildocs", "0004_capitalizeverbose"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='document',
-            name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user'),
+            model_name="document",
+            name="uploaded_by_user",
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="uploaded by user",
+            ),
         ),
     ]

@@ -4,7 +4,6 @@ from django.urls import reverse
 
 from wagtail.core.hooks import search_for_hooks
 
-
 """
 A mechanism for finding the admin edit URL for an arbitrary object instance, optionally applying
 permission checks.
@@ -29,6 +28,7 @@ class ModelAdminURLFinder:
     """
     Handles admin edit URL lookups for an individual model
     """
+
     edit_url_name = None
     permission_policy = None
 
@@ -41,8 +41,11 @@ class ModelAdminURLFinder:
         or None if no edit URL is available.
         """
         if self.edit_url_name is None:
-            raise ImproperlyConfigured("%r must define edit_url_name or override construct_edit_url" % type(self))
-        return reverse(self.edit_url_name, args=(quote(instance.pk), ))
+            raise ImproperlyConfigured(
+                "%r must define edit_url_name or override construct_edit_url"
+                % type(self)
+            )
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_edit_url(self, instance):
         """
@@ -50,8 +53,11 @@ class ModelAdminURLFinder:
         or None otherwise.
         """
         if (
-            self.user and self.permission_policy
-            and not self.permission_policy.user_has_permission_for_instance(self.user, 'change', instance)
+            self.user
+            and self.permission_policy
+            and not self.permission_policy.user_has_permission_for_instance(
+                self.user, "change", instance
+            )
         ):
             return None
         else:
@@ -62,6 +68,7 @@ class NullAdminURLFinder:
     """
     A dummy AdminURLFinder that always returns None
     """
+
     def __init__(self, user=None):
         pass
 
@@ -81,6 +88,7 @@ class AdminURLFinder:
     """
     The 'main' admin URL finder, which searches across all registered models
     """
+
     def __init__(self, user=None):
         search_for_hooks()  # ensure wagtail_hooks files have been loaded
         self.user = user

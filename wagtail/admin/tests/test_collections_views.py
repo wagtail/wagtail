@@ -16,25 +16,29 @@ class CollectionInstanceTestUtils:
         """
         collection_content_type = ContentType.objects.get_for_model(Collection)
         self.add_permission = Permission.objects.get(
-            content_type=collection_content_type, codename='add_collection'
+            content_type=collection_content_type, codename="add_collection"
         )
         self.change_permission = Permission.objects.get(
-            content_type=collection_content_type, codename='change_collection'
+            content_type=collection_content_type, codename="change_collection"
         )
         self.delete_permission = Permission.objects.get(
-            content_type=collection_content_type, codename='delete_collection'
+            content_type=collection_content_type, codename="delete_collection"
         )
-        admin_permission = Permission.objects.get(codename='access_admin')
+        admin_permission = Permission.objects.get(codename="access_admin")
 
         self.root_collection = Collection.get_first_root_node()
         self.finance_collection = self.root_collection.add_child(name="Finance")
         self.marketing_collection = self.root_collection.add_child(name="Marketing")
-        self.marketing_sub_collection = self.marketing_collection.add_child(name="Digital Marketing")
-        self.marketing_sub_collection_2 = self.marketing_collection.add_child(name="Direct Mail Marketing")
+        self.marketing_sub_collection = self.marketing_collection.add_child(
+            name="Digital Marketing"
+        )
+        self.marketing_sub_collection_2 = self.marketing_collection.add_child(
+            name="Direct Mail Marketing"
+        )
 
         self.marketing_group = Group.objects.create(name="Marketing Group")
         self.marketing_group.permissions.add(admin_permission)
-        self.marketing_user = self.create_user('marketing', password='password')
+        self.marketing_user = self.create_user("marketing", password="password")
         self.marketing_user.groups.add(self.marketing_group)
 
 
@@ -43,12 +47,12 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:index'), params)
+        return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
+        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
 
         # Initially there should be no collections listed
         # (Root should not be shown)
@@ -60,7 +64,7 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         # Now the listing should contain our collection
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/index.html')
+        self.assertTemplateUsed(response, "wagtailadmin/collections/index.html")
         self.assertNotContains(response, "No collections have been created.")
         self.assertContains(response, "Holiday snaps")
 
@@ -72,8 +76,9 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         response = self.get()
         # Note that the Collections have been automatically sorted by name.
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Avocado', 'Bread', 'Milk'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Avocado", "Bread", "Milk"],
+        )
 
     def test_nested_ordering(self):
         root_collection = Collection.get_first_root_node()
@@ -91,36 +96,41 @@ class TestCollectionsIndexViewAsSuperuser(TestCase, WagtailTestUtils):
         # And we added the Collections at level 2 in reverse-alpha order as well, but they were also alphabetized
         # within their respective trees. This is the result of setting Collection.node_order_by = ['name'].
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Animal', 'Cat', 'Dog', 'Vegetable', 'Cucumber', 'Spinach'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Animal", "Cat", "Dog", "Vegetable", "Cucumber", "Spinach"],
+        )
 
 
 class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         super().setUp()
-        self.login(self.marketing_user, password='password')
+        self.login(self.marketing_user, password="password")
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:index'), params)
+        return self.client.get(reverse("wagtailadmin_collections:index"), params)
 
     def test_marketing_user_no_permissions(self):
         response = self.get()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
     def test_marketing_user_with_change_permission(self):
         # Grant the marketing group permission to make changes to their collections
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.change_permission
+            permission=self.change_permission,
         )
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Marketing", "Digital Marketing", "Direct Mail Marketing"],
+        )
         self.assertNotContains(response, "Finance")
         self.assertNotContains(response, "Add a collection")
 
@@ -129,14 +139,15 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Marketing", "Digital Marketing", "Direct Mail Marketing"],
+        )
         self.assertNotContains(response, "Finance")
         self.assertContains(response, "Add a collection")
 
@@ -145,14 +156,15 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.delete_permission
+            permission=self.delete_permission,
         )
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Marketing", "Digital Marketing", "Direct Mail Marketing"],
+        )
         self.assertNotContains(response, "Finance")
         self.assertNotContains(response, "Add a collection")
 
@@ -161,15 +173,16 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.root_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
         # (Root should not be shown)
         self.assertEqual(
-            [collection.name for collection in response.context['object_list']],
-            ['Finance', 'Marketing', 'Digital Marketing', 'Direct Mail Marketing'])
+            [collection.name for collection in response.context["object_list"]],
+            ["Finance", "Marketing", "Digital Marketing", "Direct Mail Marketing"],
+        )
         self.assertContains(response, "Add a collection")
 
 
@@ -179,10 +192,10 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.root_collection = Collection.get_first_root_node()
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:add'), params)
+        return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_collections:add'), post_data)
+        return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_get(self):
         response = self.get()
@@ -190,59 +203,68 @@ class TestAddCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertContains(response, self.root_collection.name)
 
     def test_post(self):
-        response = self.post({
-            'name': "Holiday snaps",
-            'parent': self.root_collection.id,
-        })
+        response = self.post(
+            {
+                "name": "Holiday snaps",
+                "parent": self.root_collection.id,
+            }
+        )
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was created and is a child of root
         self.assertEqual(Collection.objects.filter(name="Holiday snaps").count(), 1)
         self.assertEqual(
             Collection.objects.get(name="Holiday snaps").get_parent(),
-            self.root_collection
+            self.root_collection,
         )
 
 
 class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils):
     def setUp(self):
         super().setUp()
-        self.login(self.marketing_user, password='password')
+        self.login(self.marketing_user, password="password")
 
     def get(self, params={}):
-        return self.client.get(reverse('wagtailadmin_collections:add'), params)
+        return self.client.get(reverse("wagtailadmin_collections:add"), params)
 
     def post(self, post_data={}):
-        return self.client.post(reverse('wagtailadmin_collections:add'), post_data)
+        return self.client.post(reverse("wagtailadmin_collections:add"), post_data)
 
     def test_marketing_user_no_permissions(self):
         response = self.get()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
     def test_marketing_user_with_add_permission(self):
         # Grant the marketing group permission to manage their collection
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
 
-        response = self.post({
-            'name': "Affiliate Marketing",
-            'parent': self.marketing_collection.id,
-        })
+        response = self.post(
+            {
+                "name": "Affiliate Marketing",
+                "parent": self.marketing_collection.id,
+            }
+        )
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was created and is a child of Marketing
-        self.assertEqual(Collection.objects.filter(name="Affiliate Marketing").count(), 1)
+        self.assertEqual(
+            Collection.objects.filter(name="Affiliate Marketing").count(), 1
+        )
         self.assertEqual(
             Collection.objects.get(name="Affiliate Marketing").get_parent(),
-            self.marketing_collection
+            self.marketing_collection,
         )
 
     def test_marketing_user_cannot_add_outside_their_hierarchy(self):
@@ -250,17 +272,19 @@ class TestAddCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils)
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
 
         # This user can't add to root collection
-        response = self.post({
-            'name': "Affiliate Marketing",
-            'parent': self.root_collection.id,
-        })
+        response = self.post(
+            {
+                "name": "Affiliate Marketing",
+                "parent": self.root_collection.id,
+            }
+        )
         self.assertEqual(
-            response.context['form'].errors['parent'],
-            ['Select a valid choice. That choice is not one of the available choices.']
+            response.context["form"].errors["parent"],
+            ["Select a valid choice. That choice is not one of the available choices."],
         )
 
 
@@ -275,14 +299,20 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
-            reverse('wagtailadmin_collections:edit', args=(collection_id or self.collection.id,)),
-            params
+            reverse(
+                "wagtailadmin_collections:edit",
+                args=(collection_id or self.collection.id,),
+            ),
+            params,
         )
 
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
-            reverse('wagtailadmin_collections:edit', args=(collection_id or self.collection.id,)),
-            post_data
+            reverse(
+                "wagtailadmin_collections:edit",
+                args=(collection_id or self.collection.id,),
+            ),
+            post_data,
         )
 
     def test_get(self):
@@ -295,7 +325,7 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_admin_url_finder(self):
-        expected_url = '/admin/collections/%d/' % self.l2.pk
+        expected_url = "/admin/collections/%d/" % self.l2.pk
         url_finder = AdminURLFinder(self.user)
         self.assertEqual(url_finder.get_edit_url(self.l2), expected_url)
 
@@ -304,28 +334,30 @@ class TestEditCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_move_collection(self):
-        self.post({'name': "Level 2", 'parent': self.root_collection.pk}, self.l2.pk)
+        self.post({"name": "Level 2", "parent": self.root_collection.pk}, self.l2.pk)
         self.assertEqual(
             Collection.objects.get(pk=self.l2.pk).get_parent().pk,
             self.root_collection.pk,
         )
 
     def test_cannot_move_parent_collection_to_descendant(self):
-        response = self.post({'name': "Level 2", 'parent': self.l3.pk}, self.l2.pk)
-        self.assertEqual(response.context['message'], 'The collection could not be saved due to errors.')
-        self.assertContains(response, 'Please select another parent')
+        response = self.post({"name": "Level 2", "parent": self.l3.pk}, self.l2.pk)
+        self.assertEqual(
+            response.context["message"],
+            "The collection could not be saved due to errors.",
+        )
+        self.assertContains(response, "Please select another parent")
 
     def test_rename_collection(self):
-        data = {'name': "Skiing photos", 'parent': self.root_collection.id}
+        data = {"name": "Skiing photos", "parent": self.root_collection.id}
         response = self.post(data, self.collection.pk)
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was edited
         self.assertEqual(
-            Collection.objects.get(id=self.collection.id).name,
-            "Skiing photos"
+            Collection.objects.get(id=self.collection.id).name, "Skiing photos"
         )
 
 
@@ -336,95 +368,139 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         self.users_change_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.change_permission
+            permission=self.change_permission,
         )
         # Grant the marketing group permission to add collections under this collection
         self.users_add_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
-        self.login(self.marketing_user, password='password')
+        self.login(self.marketing_user, password="password")
 
     def get(self, collection_id, params={}):
         return self.client.get(
-            reverse('wagtailadmin_collections:edit', args=(collection_id,)),
-            params
+            reverse("wagtailadmin_collections:edit", args=(collection_id,)), params
         )
 
     def post(self, collection_id, post_data={}):
         return self.client.post(
-            reverse('wagtailadmin_collections:edit', args=(collection_id,)),
-            post_data
+            reverse("wagtailadmin_collections:edit", args=(collection_id,)), post_data
         )
 
     def test_marketing_user_no_change_permission(self):
         self.users_change_permission.delete()
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
     def test_marketing_user_no_change_permission_post(self):
         self.users_change_permission.delete()
         response = self.post(self.marketing_collection.id, {})
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.context['message'], 'Sorry, you do not have permission to access this area.')
+        self.assertEqual(
+            response.context["message"],
+            "Sorry, you do not have permission to access this area.",
+        )
 
     def test_marketing_user_can_move_collection(self):
         # Retrieve edit form and check fields
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
-        form_fields = response.context['form'].fields
-        self.assertEqual(type(form_fields['name'].widget).__name__, 'TextInput')
-        self.assertEqual(type(form_fields['parent'].widget).__name__, 'SelectWithDisabledOptions')
+        form_fields = response.context["form"].fields
+        self.assertEqual(type(form_fields["name"].widget).__name__, "TextInput")
+        self.assertEqual(
+            type(form_fields["parent"].widget).__name__, "SelectWithDisabledOptions"
+        )
         # Now move the collection and check it did get moved and renamed
-        self.post(self.marketing_sub_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
-        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).name, "New Collection Name")
-        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(), self.marketing_sub_collection_2)
+        self.post(
+            self.marketing_sub_collection.pk,
+            {
+                "name": "New Collection Name",
+                "parent": self.marketing_sub_collection_2.pk,
+            },
+        )
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_sub_collection.pk).name,
+            "New Collection Name",
+        )
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(),
+            self.marketing_sub_collection_2,
+        )
 
     def test_marketing_user_cannot_move_collection_if_no_add_permission(self):
         self.users_add_permission.delete()
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['form'].fields.keys()), ['name'])
+        self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
         # Now try to move the collection and check it did not get moved
 
     def test_marketing_user_cannot_move_collection_if_no_add_permission_post(self):
         self.users_add_permission.delete()
-        self.post(self.marketing_sub_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
+        self.post(
+            self.marketing_sub_collection.pk,
+            {
+                "name": "New Collection Name",
+                "parent": self.marketing_sub_collection_2.pk,
+            },
+        )
         edited_collection = Collection.objects.get(pk=self.marketing_sub_collection.id)
         self.assertEqual(edited_collection.name, "New Collection Name")
         self.assertEqual(edited_collection.get_parent(), self.marketing_collection)
 
     def test_cannot_move_parent_collection_to_descendant(self):
-        self.post(self.marketing_collection.pk, {'name': "New Collection Name", 'parent': self.marketing_sub_collection_2.pk})
+        self.post(
+            self.marketing_collection.pk,
+            {
+                "name": "New Collection Name",
+                "parent": self.marketing_sub_collection_2.pk,
+            },
+        )
         self.assertEqual(
             Collection.objects.get(pk=self.marketing_collection.pk).get_parent(),
-            self.root_collection
+            self.root_collection,
         )
 
     def test_marketing_user_cannot_move_collection_permissions_are_assigned_to(self):
         response = self.get(collection_id=self.marketing_collection.id)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(list(response.context['form'].fields.keys()), ['name'])
+        self.assertEqual(list(response.context["form"].fields.keys()), ["name"])
         self.assertNotContains(response, "Delete collection")
 
-    def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(self):
+    def test_marketing_user_cannot_move_collection_permissions_are_assigned_to_post(
+        self,
+    ):
         # Grant the marketing group permission to another collection so there is a valid destination
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.finance_collection,
-            permission=self.add_permission
+            permission=self.add_permission,
         )
         # We can move nodes lower on the tree
-        self.post(self.marketing_sub_collection.id, {'name': "Moved Sub", 'parent': self.finance_collection.id})
-        self.assertEqual(Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(), self.finance_collection)
+        self.post(
+            self.marketing_sub_collection.id,
+            {"name": "Moved Sub", "parent": self.finance_collection.id},
+        )
+        self.assertEqual(
+            Collection.objects.get(pk=self.marketing_sub_collection.pk).get_parent(),
+            self.finance_collection,
+        )
 
         # But we can't move the node to which our edit permission was assigned; update is ignored
-        self.post(self.marketing_collection.id, {'name': self.marketing_collection.name, 'parent': self.finance_collection.id})
+        self.post(
+            self.marketing_collection.id,
+            {
+                "name": self.marketing_collection.name,
+                "parent": self.finance_collection.id,
+            },
+        )
         self.assertEqual(
             Collection.objects.get(pk=self.marketing_collection.pk).get_parent(),
-            self.root_collection
+            self.root_collection,
         )
 
     def test_page_shows_delete_link_only_if_delete_permitted(self):
@@ -435,7 +511,7 @@ class TestEditCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUtils
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.delete_permission
+            permission=self.delete_permission,
         )
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertContains(response, "Delete collection")
@@ -449,20 +525,26 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
 
     def get(self, params={}, collection_id=None):
         return self.client.get(
-            reverse('wagtailadmin_collections:delete', args=(collection_id or self.collection.id,)),
-            params
+            reverse(
+                "wagtailadmin_collections:delete",
+                args=(collection_id or self.collection.id,),
+            ),
+            params,
         )
 
     def post(self, post_data={}, collection_id=None):
         return self.client.post(
-            reverse('wagtailadmin_collections:delete', args=(collection_id or self.collection.id,)),
-            post_data
+            reverse(
+                "wagtailadmin_collections:delete",
+                args=(collection_id or self.collection.id,),
+            ),
+            post_data,
         )
 
     def test_get(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_cannot_delete_root_collection(self):
         response = self.get(collection_id=self.root_collection.id)
@@ -473,35 +555,35 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 404)
 
     def test_get_nonempty_collection(self):
-        Document.objects.create(
-            title="Test document", collection=self.collection
+        Document.objects.create(title="Test document", collection=self.collection)
+
+        response = self.get()
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailadmin/collections/delete_not_empty.html"
         )
 
-        response = self.get()
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
-
     def test_get_collection_with_descendent(self):
-        self.collection.add_child(instance=Collection(name='Test collection'))
+        self.collection.add_child(instance=Collection(name="Test collection"))
 
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/collections/delete_not_empty.html"
+        )
 
     def test_post(self):
         response = self.post()
 
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
             Collection.objects.get(id=self.collection.id)
 
     def test_post_nonempty_collection(self):
-        Document.objects.create(
-            title="Test document", collection=self.collection
-        )
+        Document.objects.create(title="Test document", collection=self.collection)
 
         response = self.post()
         self.assertEqual(response.status_code, 403)
@@ -510,7 +592,7 @@ class TestDeleteCollectionAsSuperuser(TestCase, WagtailTestUtils):
         self.assertTrue(Collection.objects.get(id=self.collection.id))
 
     def test_post_collection_with_descendant(self):
-        self.collection.add_child(instance=Collection(name='Test collection'))
+        self.collection.add_child(instance=Collection(name="Test collection"))
 
         response = self.post()
         self.assertEqual(response.status_code, 403)
@@ -535,31 +617,29 @@ class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUti
         self.users_delete_permission = GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.marketing_collection,
-            permission=self.delete_permission
+            permission=self.delete_permission,
         )
-        self.login(self.marketing_user, password='password')
+        self.login(self.marketing_user, password="password")
 
     def get(self, collection_id, params={}):
         return self.client.get(
-            reverse('wagtailadmin_collections:delete', args=(collection_id,)),
-            params
+            reverse("wagtailadmin_collections:delete", args=(collection_id,)), params
         )
 
     def post(self, collection_id, post_data={}):
         return self.client.post(
-            reverse('wagtailadmin_collections:delete', args=(collection_id,)),
-            post_data
+            reverse("wagtailadmin_collections:delete", args=(collection_id,)), post_data
         )
 
     def test_get(self):
         response = self.get(collection_id=self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/generic/confirm_delete.html')
+        self.assertTemplateUsed(response, "wagtailadmin/generic/confirm_delete.html")
 
     def test_post(self):
         response = self.post(collection_id=self.marketing_sub_collection.id)
         # Should redirect back to index
-        self.assertRedirects(response, reverse('wagtailadmin_collections:index'))
+        self.assertRedirects(response, reverse("wagtailadmin_collections:index"))
 
         # Check that the collection was deleted
         with self.assertRaises(Collection.DoesNotExist):
@@ -586,14 +666,20 @@ class TestDeleteCollection(CollectionInstanceTestUtils, TestCase, WagtailTestUti
         self.assertTrue(Collection.objects.get(id=self.marketing_collection.id))
 
     def test_cannot_delete_collection_with_descendants(self):
-        self.marketing_sub_collection.add_child(instance=Collection(name='Another collection'))
+        self.marketing_sub_collection.add_child(
+            instance=Collection(name="Another collection")
+        )
 
         response = self.get(self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/collections/delete_not_empty.html')
+        self.assertTemplateUsed(
+            response, "wagtailadmin/collections/delete_not_empty.html"
+        )
 
     def test_cannot_delete_collection_with_descendants_post(self):
-        self.marketing_sub_collection.add_child(instance=Collection(name='Another collection'))
+        self.marketing_sub_collection.add_child(
+            instance=Collection(name="Another collection")
+        )
 
         response = self.post(self.marketing_sub_collection.id)
         self.assertEqual(response.status_code, 403)

@@ -11,11 +11,12 @@ class DocumentDownloadUrlField(Field):
     Example:
     "download_url": "http://api.example.com/documents/1/my_document.pdf"
     """
+
     def get_attribute(self, instance):
         return instance
 
     def to_representation(self, document):
-        return get_full_url(self.context['request'], document.url)
+        return get_full_url(self.context["request"], document.url)
 
 
 class DocumentSerializer(BaseSerializer):

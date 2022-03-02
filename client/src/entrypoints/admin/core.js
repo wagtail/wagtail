@@ -718,31 +718,29 @@ $(document).ready(initDropDowns);
 wagtail.ui.initDropDowns = initDropDowns;
 wagtail.ui.DropDownController = DropDownController;
 
-// provide a workaround for NodeList#forEach not being available in IE 11
-function qsa(element, selector) {
-  return [].slice.call(element.querySelectorAll(selector));
-}
-
 // Initialise button selectors
 function initButtonSelects() {
-  qsa(document, '.button-select').forEach((element) => {
+  document.querySelectorAll('.button-select').forEach((element) => {
     const inputElement = element.querySelector('input[type="hidden"]');
-    qsa(element, '.button-select__option').forEach((buttonElement) => {
-      buttonElement.addEventListener('click', (e) => {
-        e.preventDefault();
-        inputElement.value = buttonElement.value;
 
-        qsa(element, '.button-select__option--selected').forEach(
-          (selectedButtonElement) => {
-            selectedButtonElement.classList.remove(
-              'button-select__option--selected',
-            );
-          },
-        );
+    element
+      .querySelectorAll('.button-select__option')
+      .forEach((buttonElement) => {
+        buttonElement.addEventListener('click', (e) => {
+          e.preventDefault();
+          inputElement.value = buttonElement.value;
 
-        buttonElement.classList.add('button-select__option--selected');
+          element
+            .querySelectorAll('.button-select__option--selected')
+            .forEach((selectedButtonElement) => {
+              selectedButtonElement.classList.remove(
+                'button-select__option--selected',
+              );
+            });
+
+          buttonElement.classList.add('button-select__option--selected');
+        });
       });
-    });
   });
 }
 

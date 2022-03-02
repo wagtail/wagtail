@@ -28,7 +28,7 @@ describe('Button', () => {
 
   it('#target', () => {
     expect(
-      shallow(<Button target="_blank" rel="noopener noreferrer" />),
+      shallow(<Button target="_blank" rel="noreferrer" />),
     ).toMatchSnapshot();
   });
 

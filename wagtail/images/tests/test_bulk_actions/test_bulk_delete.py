@@ -7,7 +7,6 @@ from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.tests.utils import WagtailTestUtils
 
-
 Image = get_image_model()
 test_file = get_test_image_file()
 
@@ -18,16 +17,29 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
 
         # Create images to delete
         self.images = [
-            Image.objects.create(title=f"Test image - {i}", file=test_file) for i in range(1, 6)
+            Image.objects.create(title=f"Test image - {i}", file=test_file)
+            for i in range(1, 6)
         ]
-        self.url = reverse('wagtail_bulk_action', args=('wagtailimages', 'image', 'delete',)) + '?'
+        self.url = (
+            reverse(
+                "wagtail_bulk_action",
+                args=(
+                    "wagtailimages",
+                    "image",
+                    "delete",
+                ),
+            )
+            + "?"
+        )
         for image in self.images:
-            self.url += f'id={image.id}&'
+            self.url += f"id={image.id}&"
 
     def test_delete_with_limited_permissions(self):
         self.user.is_superuser = False
         self.user.user_permissions.add(
-            Permission.objects.get(content_type__app_label='wagtailadmin', codename='access_admin')
+            Permission.objects.get(
+                content_type__app_label="wagtailadmin", codename="access_admin"
+            )
         )
         self.user.save()
 
@@ -35,10 +47,14 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
 
         html = response.content.decode()
-        self.assertInHTML("<p>You don't have permission to delete these images</p>", html)
+        self.assertInHTML(
+            "<p>You don't have permission to delete these images</p>", html
+        )
 
         for image in self.images:
-            self.assertInHTML('<li>{image_title}</li>'.format(image_title=image.title), html)
+            self.assertInHTML(
+                "<li>{image_title}</li>".format(image_title=image.title), html
+            )
 
         response = self.client.post(self.url)
         # User should be redirected back to the index
@@ -51,7 +67,9 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
     def test_simple(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/bulk_actions/confirm_bulk_delete.html')
+        self.assertTemplateUsed(
+            response, "wagtailimages/bulk_actions/confirm_bulk_delete.html"
+        )
 
     def test_delete(self):
         # Make post request
@@ -68,8 +86,10 @@ class TestImageBulkDeleteView(TestCase, WagtailTestUtils):
     def test_usage_link(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailimages/bulk_actions/confirm_bulk_delete.html')
+        self.assertTemplateUsed(
+            response, "wagtailimages/bulk_actions/confirm_bulk_delete.html"
+        )
         for image in self.images:
             self.assertContains(response, image.usage_url)
         # usage count should be printed for each image
-        self.assertContains(response, 'Used 0 times', count=5)
+        self.assertContains(response, "Used 0 times", count=5)

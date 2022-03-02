@@ -18,7 +18,7 @@ def apply_collection_ordering(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0058_page_alias_of'),
+        ("wagtailcore", "0058_page_alias_of"),
     ]
 
     operations = [

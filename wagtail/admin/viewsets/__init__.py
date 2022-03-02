@@ -8,7 +8,7 @@ class ViewSetRegistry:
         self.viewsets = []
 
     def populate(self):
-        for fn in hooks.get_hooks('register_admin_viewset'):
+        for fn in hooks.get_hooks("register_admin_viewset"):
             viewset = fn()
             self.register(viewset)
 
@@ -24,10 +24,12 @@ class ViewSetRegistry:
             vs_urlpatterns = viewset.get_urlpatterns()
 
             if vs_urlpatterns:
-                urlpatterns.append(re_path(
-                    r'^{}/'.format(viewset.url_prefix),
-                    include((vs_urlpatterns, viewset.name), namespace=viewset.name)
-                ))
+                urlpatterns.append(
+                    re_path(
+                        r"^{}/".format(viewset.url_prefix),
+                        include((vs_urlpatterns, viewset.name), namespace=viewset.name),
+                    )
+                )
 
         return urlpatterns
 

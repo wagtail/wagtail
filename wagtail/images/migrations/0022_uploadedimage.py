@@ -9,16 +9,37 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailimages', '0001_squashed_0021'),
+        ("wagtailimages", "0001_squashed_0021"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='UploadedImage',
+            name="UploadedImage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('file', models.ImageField(max_length=200, upload_to='uploaded_images')),
-                ('uploaded_by_user', models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "file",
+                    models.ImageField(max_length=200, upload_to="uploaded_images"),
+                ),
+                (
+                    "uploaded_by_user",
+                    models.ForeignKey(
+                        blank=True,
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="uploaded by user",
+                    ),
+                ),
             ],
         ),
     ]

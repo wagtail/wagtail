@@ -1,4 +1,3 @@
-
 class APIField:
     def __init__(self, name, serializer=None):
         self.name = name
@@ -8,4 +7,4 @@ class APIField:
         return hash(self.name)
 
     def __repr__(self):
-        return '<APIField {}>'.format(self.name)
+        return "<APIField {}>".format(self.name)

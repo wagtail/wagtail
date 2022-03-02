@@ -129,8 +129,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   React.useEffect(() => {
     // Close submenus when user presses escape
     const onKeydown = (e: KeyboardEvent) => {
-      // IE11 uses "Esc" instead of "Escape"
-      if (e.key === 'Escape' || e.key === 'Esc') {
+      if (e.key === 'Escape') {
         dispatch({
           type: 'set-navigation-path',
           path: '',

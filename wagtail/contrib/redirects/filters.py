@@ -1,5 +1,4 @@
 import django_filters
-
 from django.utils.translation import gettext as _
 
 from wagtail.admin.filters import WagtailFilterSet
@@ -11,7 +10,10 @@ class RedirectsReportFilterSet(WagtailFilterSet):
     is_permanent = django_filters.ChoiceFilter(
         label=_("Type"),
         method="filter_type",
-        choices=((True, _("Permanent")), (False, _("Temporary")),),
+        choices=(
+            (True, _("Permanent")),
+            (False, _("Temporary")),
+        ),
         empty_label=_("All"),
         widget=ButtonSelect,
     )

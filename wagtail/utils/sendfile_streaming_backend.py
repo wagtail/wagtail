@@ -4,7 +4,6 @@
 import os
 import re
 import stat
-
 from email.utils import mktime_tz, parsedate_tz
 from wsgiref.util import FileWrapper
 
@@ -16,11 +15,14 @@ def sendfile(request, filename, **kwargs):
     # Respect the If-Modified-Since header.
     statobj = os.stat(filename)
 
-    if not was_modified_since(request.META.get('HTTP_IF_MODIFIED_SINCE'),
-                              statobj[stat.ST_MTIME], statobj[stat.ST_SIZE]):
+    if not was_modified_since(
+        request.META.get("HTTP_IF_MODIFIED_SINCE"),
+        statobj[stat.ST_MTIME],
+        statobj[stat.ST_SIZE],
+    ):
         return HttpResponseNotModified()
 
-    response = StreamingHttpResponse(FileWrapper(open(filename, 'rb')))
+    response = StreamingHttpResponse(FileWrapper(open(filename, "rb")))
 
     response["Last-Modified"] = http_date(statobj[stat.ST_MTIME])
     return response
@@ -43,8 +45,7 @@ def was_modified_since(header=None, mtime=0, size=0):
     try:
         if header is None:
             raise ValueError
-        matches = re.match(r"^([^;]+)(; length=([0-9]+))?$", header,
-                           re.IGNORECASE)
+        matches = re.match(r"^([^;]+)(; length=([0-9]+))?$", header, re.IGNORECASE)
         header_date = parsedate_tz(matches.group(1))
         if header_date is None:
             raise ValueError

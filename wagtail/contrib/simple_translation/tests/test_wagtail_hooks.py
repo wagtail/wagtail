@@ -5,7 +5,9 @@ from django.urls import reverse
 
 from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.contrib.simple_translation.wagtail_hooks import (
-    page_listing_more_buttons, register_submit_translation_permission)
+    page_listing_more_buttons,
+    register_submit_translation_permission,
+)
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -69,7 +71,7 @@ class TestWagtailHooksButtons(Utils):
         # Root, no button
         root_page = self.en_blog_index.get_root()
 
-        if get_user_model().USERNAME_FIELD == 'email':
+        if get_user_model().USERNAME_FIELD == "email":
             user = get_user_model().objects.create_user(email="jos@example.com")
         else:
             user = get_user_model().objects.create_user(username="jos")
@@ -82,7 +84,7 @@ class TestWagtailHooksButtons(Utils):
         # Homepage is translated to all languages, no button
         perm = Permission.objects.get(codename="submit_translation")
 
-        if get_user_model().USERNAME_FIELD == 'email':
+        if get_user_model().USERNAME_FIELD == "email":
             user = get_user_model().objects.create_user(email="henk@example.com")
         else:
             user = get_user_model().objects.create_user(username="henk")

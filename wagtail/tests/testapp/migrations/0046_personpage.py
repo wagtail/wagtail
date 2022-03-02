@@ -10,57 +10,117 @@ import wagtail.search.index
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0042_index_on_pagerevision_approved_go_live_at'),
-        ('taggit', '0003_taggeditem_add_unique_index'),
-        ('tests', '0045_add_formsubmission_verbose_name_plural'),
+        ("wagtailcore", "0042_index_on_pagerevision_approved_go_live_at"),
+        ("taggit", "0003_taggeditem_add_unique_index"),
+        ("tests", "0045_add_formsubmission_verbose_name_plural"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Address',
+            name="Address",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('address', models.CharField(max_length=255, verbose_name='Address')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("address", models.CharField(max_length=255, verbose_name="Address")),
             ],
             options={
-                'verbose_name': 'Address',
-                'verbose_name_plural': 'Addresses',
+                "verbose_name": "Address",
+                "verbose_name_plural": "Addresses",
             },
             bases=(wagtail.search.index.Indexed, models.Model),
         ),
         migrations.CreateModel(
-            name='PersonPage',
+            name="PersonPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('first_name', models.CharField(max_length=255, verbose_name='First Name')),
-                ('last_name', models.CharField(max_length=255, verbose_name='Last Name')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "first_name",
+                    models.CharField(max_length=255, verbose_name="First Name"),
+                ),
+                (
+                    "last_name",
+                    models.CharField(max_length=255, verbose_name="Last Name"),
+                ),
             ],
             options={
-                'verbose_name': 'Person',
-                'verbose_name_plural': 'Persons',
+                "verbose_name": "Person",
+                "verbose_name_plural": "Persons",
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
         migrations.CreateModel(
-            name='AddressTag',
+            name="AddressTag",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('content_object', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='tagged_items', to='tests.Address')),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tests_addresstag_items', to='taggit.Tag')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "content_object",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tagged_items",
+                        to="tests.Address",
+                    ),
+                ),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tests_addresstag_items",
+                        to="taggit.Tag",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='address',
-            name='person',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='addresses', to='tests.PersonPage', verbose_name='Person'),
+            model_name="address",
+            name="person",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="addresses",
+                to="tests.PersonPage",
+                verbose_name="Person",
+            ),
         ),
         migrations.AddField(
-            model_name='address',
-            name='tags',
-            field=modelcluster.contrib.taggit.ClusterTaggableManager(blank=True, help_text='A comma-separated list of tags.', through='tests.AddressTag', to='taggit.Tag', verbose_name='Tags'),
+            model_name="address",
+            name="tags",
+            field=modelcluster.contrib.taggit.ClusterTaggableManager(
+                blank=True,
+                help_text="A comma-separated list of tags.",
+                through="tests.AddressTag",
+                to="taggit.Tag",
+                verbose_name="Tags",
+            ),
         ),
     ]

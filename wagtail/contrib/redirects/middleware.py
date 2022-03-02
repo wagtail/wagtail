@@ -9,7 +9,9 @@ from wagtail.core.models import Site
 
 
 def _get_redirect(request, path):
-    if '\0' in path:  # reject URLs with null characters, which crash on Postgres (#4496)
+    if (
+        "\0" in path
+    ):  # reject URLs with null characters, which crash on Postgres (#4496)
         return None
 
     site = Site.find_for_request(request)

@@ -7,7 +7,6 @@ from wagtail.core.log_actions import log
 from wagtail.core.models.copying import _copy, _copy_m2m_relations
 from wagtail.core.models.i18n import TranslatableMixin
 
-
 logger = logging.getLogger("wagtail.core")
 
 
@@ -64,7 +63,7 @@ class CreatePageAliasAction:
         user=None,
         log_action="wagtail.create_alias",
         reset_translation_key=True,
-        _mpnode_attrs=None
+        _mpnode_attrs=None,
     ):
         self.page = page
         self.recursive = recursive
@@ -78,7 +77,9 @@ class CreatePageAliasAction:
 
     def check(self, skip_permission_checks=False):
         parent = self.parent or self.page.get_parent()
-        if self.recursive and (parent == self.page or parent.is_descendant_of(self.page)):
+        if self.recursive and (
+            parent == self.page or parent.is_descendant_of(self.page)
+        ):
             raise CreatePageAliasIntegrityError(
                 "You cannot copy a tree branch recursively into itself"
             )
@@ -103,7 +104,7 @@ class CreatePageAliasAction:
         user,
         log_action,
         reset_translation_key,
-        _mpnode_attrs
+        _mpnode_attrs,
     ):
 
         specific_page = page.specific
@@ -187,11 +188,15 @@ class CreatePageAliasAction:
                     "source": {
                         "id": source_parent.id,
                         "title": source_parent.specific_deferred.get_admin_display_title(),
-                    } if source_parent else None,
+                    }
+                    if source_parent
+                    else None,
                     "destination": {
                         "id": parent.id,
                         "title": parent.specific_deferred.get_admin_display_title(),
-                    } if parent else None,
+                    }
+                    if parent
+                    else None,
                 },
             )
             if alias.live:

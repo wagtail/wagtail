@@ -16,18 +16,24 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
 
     def setUp(self):
         # Find root page
-        site = Site.objects.select_related('root_page').get(is_default_site=True)
+        site = Site.objects.select_related("root_page").get(is_default_site=True)
         root_page = site.root_page
 
         # Create two sections
-        self.section_a = SimplePage(title="Section A", slug="section-a", content="hello")
+        self.section_a = SimplePage(
+            title="Section A", slug="section-a", content="hello"
+        )
         root_page.add_child(instance=self.section_a)
 
-        self.section_b = SimplePage(title="Section B", slug="section-b", content="hello")
+        self.section_b = SimplePage(
+            title="Section B", slug="section-b", content="hello"
+        )
         root_page.add_child(instance=self.section_b)
 
         # Add test page to section A
-        self.test_page = SimplePage(title="Hello world! A", slug="hello-world-a", content="hello")
+        self.test_page = SimplePage(
+            title="Hello world! A", slug="hello-world-a", content="hello"
+        )
         self.section_a.add_child(instance=self.test_page)
 
     def test_signal_emitted_on_slug_change(self):
@@ -38,7 +44,7 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
         old_page = SimplePage.objects.get(id=self.test_page.id)
 
         try:
-            self.test_page.slug = 'updated'
+            self.test_page.slug = "updated"
             self.test_page.save()
             # TODO: When Django 3.1< support is dropped, wrap save in
             # self.captureOnCommitCallbacks and remove this code
@@ -64,7 +70,7 @@ class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):
         page_slug_changed.connect(handler)
 
         try:
-            self.test_page.title = 'Goodnight Moon!'
+            self.test_page.title = "Goodnight Moon!"
             self.test_page.save()
             # NOTE: Even though we're not expecting anything to happen here,
             # we need to invoke the callbacks in run_on_commit the same way

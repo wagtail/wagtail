@@ -7,19 +7,29 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0032_add_bulk_delete_page_permission'),
-        ('tests', '0016_auto_20170303_2340'),
+        ("wagtailcore", "0032_add_bulk_delete_page_permission"),
+        ("tests", "0016_auto_20170303_2340"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AlwaysShowInMenusPage',
+            name="AlwaysShowInMenusPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
     ]

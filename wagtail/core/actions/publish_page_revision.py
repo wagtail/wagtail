@@ -7,7 +7,6 @@ from django.utils import timezone
 from wagtail.core.log_actions import log
 from wagtail.core.signals import page_published
 
-
 logger = logging.getLogger("wagtail.core")
 
 
@@ -34,7 +33,9 @@ class PublishPageRevisionAction:
     :param previous_revision: indicates a revision reversal. Should be set to the previous revision instance
     """
 
-    def __init__(self, revision, user=None, changed=True, log_action=True, previous_revision=None):
+    def __init__(
+        self, revision, user=None, changed=True, log_action=True, previous_revision=None
+    ):
         self.revision = revision
         self.page = self.revision.as_page_object()
         self.user = user
@@ -69,7 +70,9 @@ class PublishPageRevisionAction:
             content_changed=self.changed,
         )
 
-    def _publish_page_revision(self, revision, page, user, changed, log_action, previous_revision):
+    def _publish_page_revision(
+        self, revision, page, user, changed, log_action, previous_revision
+    ):
         from wagtail.core.models import COMMENTS_RELATION_NAME, PageRevision
 
         if page.go_live_at and page.go_live_at > timezone.now():
@@ -136,14 +139,20 @@ class PublishPageRevisionAction:
         page.revisions.update(submitted_for_moderation=False)
 
         workflow_state = page.current_workflow_state
-        if workflow_state and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True):
+        if workflow_state and getattr(
+            settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True
+        ):
             workflow_state.cancel(user=user)
 
         if page.live:
-            page_published.send(sender=page.specific_class, instance=page.specific, revision=revision)
+            page_published.send(
+                sender=page.specific_class, instance=page.specific, revision=revision
+            )
 
             # Update alias pages
-            page.update_aliases(revision=revision, user=user, _content_json=revision.content_json)
+            page.update_aliases(
+                revision=revision, user=user, _content_json=revision.content_json
+            )
 
             if log_action:
                 data = None
@@ -174,7 +183,9 @@ class PublishPageRevisionAction:
 
                 log(
                     instance=page,
-                    action=log_action if isinstance(log_action, str) else "wagtail.publish",
+                    action=log_action
+                    if isinstance(log_action, str)
+                    else "wagtail.publish",
                     user=user,
                     data=data,
                     revision=revision,

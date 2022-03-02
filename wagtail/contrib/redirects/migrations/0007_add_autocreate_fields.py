@@ -6,24 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('contenttypes', '0002_remove_content_type_name'),
-        ('wagtailredirects', '0006_redirect_increase_max_length'),
+        ("contenttypes", "0002_remove_content_type_name"),
+        ("wagtailredirects", "0006_redirect_increase_max_length"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='redirect',
-            name='automatically_created',
-            field=models.BooleanField(default=False, editable=False, verbose_name='automatically created'),
+            model_name="redirect",
+            name="automatically_created",
+            field=models.BooleanField(
+                default=False, editable=False, verbose_name="automatically created"
+            ),
         ),
         migrations.AddField(
-            model_name='redirect',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, null=True, verbose_name='created at'),
+            model_name="redirect",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, null=True, verbose_name="created at"
+            ),
         ),
         migrations.AddField(
-            model_name='redirect',
-            name='redirect_page_route_path',
-            field=models.CharField(blank=True, max_length=255, verbose_name="target page route", help_text="Optionally specify a route on the target page to redirect to. Leave blank to redirect to the default page route.")
-        )
+            model_name="redirect",
+            name="redirect_page_route_path",
+            field=models.CharField(
+                blank=True,
+                max_length=255,
+                verbose_name="target page route",
+                help_text="Optionally specify a route on the target page to redirect to. Leave blank to redirect to the default page route.",
+            ),
+        ),
     ]

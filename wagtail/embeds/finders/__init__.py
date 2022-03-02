@@ -23,13 +23,13 @@ def import_finder_class(dotted_path):
 
 
 def _get_config_from_settings():
-    if hasattr(settings, 'WAGTAILEMBEDS_FINDERS'):
+    if hasattr(settings, "WAGTAILEMBEDS_FINDERS"):
         return settings.WAGTAILEMBEDS_FINDERS
     else:
         # Default to the oembed backend
         return [
             {
-                'class': 'wagtail.embeds.finders.oembed',
+                "class": "wagtail.embeds.finders.oembed",
             }
         ]
 
@@ -39,7 +39,7 @@ def get_finders():
 
     for finder_config in _get_config_from_settings():
         finder_config = finder_config.copy()
-        cls = import_finder_class(finder_config.pop('class'))
+        cls = import_finder_class(finder_config.pop("class"))
 
         finders.append(cls(**finder_config))
 

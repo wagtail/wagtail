@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0030_formclassadditionalfieldpage'),
+        ("tests", "0030_formclassadditionalfieldpage"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customdocument',
-            name='file_size',
+            model_name="customdocument",
+            name="file_size",
             field=models.PositiveIntegerField(editable=False, null=True),
         ),
     ]

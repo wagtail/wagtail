@@ -19,10 +19,10 @@ class PageBulkAction(BulkAction):
         if parent_id is not None:
             listing_objects = listing_objects.get(id=parent_id).get_children()
 
-        listing_objects = listing_objects.values_list('pk', flat=True)
+        listing_objects = listing_objects.values_list("pk", flat=True)
 
-        if 'q' in self.request.GET:
-            q = self.request.GET.get('q', '')
+        if "q" in self.request.GET:
+            q = self.request.GET.get("q", "")
 
             listing_objects = page_filter_search(q, listing_objects)[0].results()
 
@@ -31,17 +31,19 @@ class PageBulkAction(BulkAction):
     def object_context(self, obj):
         context = super().object_context(obj)
         # Make 'item' into the specific instance, so that custom get_admin_display_title methods are respected
-        context['item'] = context['item'].specific_deferred
+        context["item"] = context["item"].specific_deferred
         return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['items_with_no_access'] = [
-            {'item': page, 'can_edit': page.permissions_for_user(self.request.user).can_edit()} for page in context['items_with_no_access']
+        context["items_with_no_access"] = [
+            {
+                "item": page,
+                "can_edit": page.permissions_for_user(self.request.user).can_edit(),
+            }
+            for page in context["items_with_no_access"]
         ]
         return context
 
     def get_execution_context(self):
-        return {
-            'user': self.request.user
-        }
+        return {"user": self.request.user}

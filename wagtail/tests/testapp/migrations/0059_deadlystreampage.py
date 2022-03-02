@@ -9,20 +9,35 @@ import wagtail.tests.testapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0062_comment_models_and_pagesubscription'),
-        ('tests', '0058_blockcountsstreammodel_minmaxcountstreammodel'),
+        ("wagtailcore", "0062_comment_models_and_pagesubscription"),
+        ("tests", "0058_blockcountsstreammodel_minmaxcountstreammodel"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DeadlyStreamPage',
+            name="DeadlyStreamPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.page')),
-                ('body', wagtail.core.fields.StreamField([('title', wagtail.tests.testapp.models.DeadlyCharBlock())])),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.page",
+                    ),
+                ),
+                (
+                    "body",
+                    wagtail.core.fields.StreamField(
+                        [("title", wagtail.tests.testapp.models.DeadlyCharBlock())]
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('wagtailcore.page',),
+            bases=("wagtailcore.page",),
         ),
     ]

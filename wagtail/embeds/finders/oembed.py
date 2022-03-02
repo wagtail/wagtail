@@ -1,6 +1,5 @@
 import json
 import re
-
 from datetime import timedelta
 from urllib import request as urllib_request
 from urllib.error import URLError
@@ -25,9 +24,9 @@ class OEmbedFinder(EmbedFinder):
         for provider in providers or all_providers:
             patterns = []
 
-            endpoint = provider['endpoint'].replace('{format}', 'json')
+            endpoint = provider["endpoint"].replace("{format}", "json")
 
-            for url in provider['urls']:
+            for url in provider["urls"]:
                 patterns.append(re.compile(url))
 
             self._endpoints[endpoint] = patterns
@@ -53,46 +52,46 @@ class OEmbedFinder(EmbedFinder):
 
         # Work out params
         params = self.options.copy()
-        params['url'] = url
-        params['format'] = 'json'
+        params["url"] = url
+        params["format"] = "json"
         if max_width:
-            params['maxwidth'] = max_width
+            params["maxwidth"] = max_width
         if max_height:
-            params['maxheight'] = max_height
+            params["maxheight"] = max_height
 
         # Perform request
-        request = Request(endpoint + '?' + urlencode(params))
-        request.add_header('User-agent', 'Mozilla/5.0')
+        request = Request(endpoint + "?" + urlencode(params))
+        request.add_header("User-agent", "Mozilla/5.0")
         try:
             r = urllib_request.urlopen(request)
-            oembed = json.loads(r.read().decode('utf-8'))
+            oembed = json.loads(r.read().decode("utf-8"))
         except (URLError, json.decoder.JSONDecodeError):
             raise EmbedNotFoundException
 
         # Convert photos into HTML
-        if oembed['type'] == 'photo':
-            html = '<img src="%s" alt="">' % (oembed['url'], )
+        if oembed["type"] == "photo":
+            html = '<img src="%s" alt="">' % (oembed["url"],)
         else:
-            html = oembed.get('html')
+            html = oembed.get("html")
 
         # Return embed as a dict
         result = {
-            'title': oembed.get('title', ''),
-            'author_name': oembed.get('author_name', ''),
-            'provider_name': oembed.get('provider_name', ''),
-            'type': oembed['type'],
-            'thumbnail_url': oembed.get('thumbnail_url'),
-            'width': oembed.get('width'),
-            'height': oembed.get('height'),
-            'html': html,
+            "title": oembed.get("title", ""),
+            "author_name": oembed.get("author_name", ""),
+            "provider_name": oembed.get("provider_name", ""),
+            "type": oembed["type"],
+            "thumbnail_url": oembed.get("thumbnail_url"),
+            "width": oembed.get("width"),
+            "height": oembed.get("height"),
+            "html": html,
         }
 
         try:
-            cache_age = int(oembed['cache_age'])
+            cache_age = int(oembed["cache_age"])
         except (KeyError, TypeError, ValueError):
             pass
         else:
-            result['cache_until'] = timezone.now() + timedelta(seconds=cache_age)
+            result["cache_until"] = timezone.now() + timedelta(seconds=cache_age)
 
         return result
 

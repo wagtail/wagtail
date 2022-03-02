@@ -37,18 +37,14 @@ def get_import_formats():
 
 
 def get_file_storage():
-    file_storage = getattr(
-        settings, 'WAGTAIL_REDIRECTS_FILE_STORAGE', 'tmp_file'
-    )
-    if file_storage == 'tmp_file':
+    file_storage = getattr(settings, "WAGTAIL_REDIRECTS_FILE_STORAGE", "tmp_file")
+    if file_storage == "tmp_file":
         return TempFolderStorage
-    if file_storage == 'cache':
+    if file_storage == "cache":
         return RedirectsCacheStorage
 
-    raise Exception(
-        "Invalid file storage, must be either 'tmp_file' or 'cache'"
-    )
+    raise Exception("Invalid file storage, must be either 'tmp_file' or 'cache'")
 
 
 class RedirectsCacheStorage(CacheStorage):
-    CACHE_PREFIX = 'wagtail-redirects-'
+    CACHE_PREFIX = "wagtail-redirects-"

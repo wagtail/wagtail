@@ -8,7 +8,6 @@ import datetime
 
 from wagtail import VERSION
 
-
 INIT_TEMPLATE = """
 from wagtail.utils.version import get_semver_version, get_version
 
@@ -23,9 +22,11 @@ __semver__ = get_semver_version(VERSION)
 """
 
 
-print(INIT_TEMPLATE.format(
-    major=VERSION[0],
-    minor=VERSION[1],
-    patch=VERSION[2],
-    datestamp=datetime.date.today().strftime('%Y%m%d'),
-))
+print(
+    INIT_TEMPLATE.format(
+        major=VERSION[0],
+        minor=VERSION[1],
+        patch=VERSION[2],
+        datestamp=datetime.date.today().strftime("%Y%m%d"),
+    )
+)

@@ -1,5 +1,4 @@
 import re
-
 from html import unescape
 
 from django.db.models import Model
@@ -8,8 +7,11 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 
 from wagtail.core.rich_text.feature_registry import FeatureRegistry
-from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-
+from wagtail.core.rich_text.rewriters import (
+    EmbedRewriter,
+    LinkRewriter,
+    MultiRuleRewriter,
+)
 
 features = FeatureRegistry()
 
@@ -30,10 +32,22 @@ def expand_db_html(html):
     if FRONTEND_REWRITER is None:
         embed_rules = features.get_embed_types()
         link_rules = features.get_link_types()
-        FRONTEND_REWRITER = MultiRuleRewriter([
-            LinkRewriter({linktype: handler.expand_db_attributes for linktype, handler in link_rules.items()}),
-            EmbedRewriter({embedtype: handler.expand_db_attributes for embedtype, handler in embed_rules.items()})
-        ])
+        FRONTEND_REWRITER = MultiRuleRewriter(
+            [
+                LinkRewriter(
+                    {
+                        linktype: handler.expand_db_attributes
+                        for linktype, handler in link_rules.items()
+                    }
+                ),
+                EmbedRewriter(
+                    {
+                        embedtype: handler.expand_db_attributes
+                        for embedtype, handler in embed_rules.items()
+                    }
+                ),
+            ]
+        )
 
     return FRONTEND_REWRITER(html)
 
@@ -45,9 +59,11 @@ def get_text_for_indexing(richtext):
     so that <p>hello</p><p>world</p> gives "hello world", not "helloworld".
     """
     # insert space after </p>, </h1> - </h6>, </li> and </blockquote> tags
-    richtext = re.sub(r'(</(p|h\d|li|blockquote)>)', r'\1 ', richtext, flags=re.IGNORECASE)
+    richtext = re.sub(
+        r"(</(p|h\d|li|blockquote)>)", r"\1 ", richtext, flags=re.IGNORECASE
+    )
     # also insert space after <br /> and <hr />
-    richtext = re.sub(r'(<(br|hr)\s*/>)', r'\1 ', richtext, flags=re.IGNORECASE)
+    richtext = re.sub(r"(<(br|hr)\s*/>)", r"\1 ", richtext, flags=re.IGNORECASE)
     return unescape(strip_tags(richtext).strip())
 
 
@@ -58,11 +74,14 @@ class RichText:
     and renders to the front-end HTML rendering.
     Used as the native value of a wagtailcore.blocks.field_block.RichTextBlock.
     """
+
     def __init__(self, source):
-        self.source = (source or '')
+        self.source = source or ""
 
     def __html__(self):
-        return render_to_string('wagtailcore/shared/richtext.html', {'html': expand_db_html(self.source)})
+        return render_to_string(
+            "wagtailcore/shared/richtext.html", {"html": expand_db_html(self.source)}
+        )
 
     def __str__(self):
         return mark_safe(self.__html__())
@@ -83,6 +102,7 @@ class EntityHandler:
     Currently Wagtail supports two kinds of entity: links (represented as <a linktype="...">...</a>)
     and embeds (represented as <embed embedtype="..." />).
     """
+
     @staticmethod
     def get_model():
         """
@@ -93,7 +113,7 @@ class EntityHandler:
     @classmethod
     def get_instance(cls, attrs: dict) -> Model:
         model = cls.get_model()
-        return model._default_manager.get(id=attrs['id'])
+        return model._default_manager.get(id=attrs["id"])
 
     @staticmethod
     def expand_db_attributes(attrs: dict) -> str:

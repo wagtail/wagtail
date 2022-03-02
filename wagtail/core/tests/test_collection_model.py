@@ -9,9 +9,7 @@ class TestCollectionTreeOperations(TestCase):
         self.holiday_photos_collection = self.root_collection.add_child(
             name="Holiday photos"
         )
-        self.evil_plans_collection = self.root_collection.add_child(
-            name="Evil plans"
-        )
+        self.evil_plans_collection = self.root_collection.add_child(name="Evil plans")
         # self.holiday_photos_collection's path has been updated out from under it by the addition of a sibling with
         # an alphabetically earlier name (due to Collection.node_order_by = ['name']), so we need to refresh it from
         # the DB to get the new path.
@@ -37,74 +35,77 @@ class TestCollectionTreeOperations(TestCase):
 
     def test_get_ancestors(self):
         self.assertEqual(
-            list(self.holiday_photos_collection.get_ancestors().order_by('path')),
-            [self.root_collection]
+            list(self.holiday_photos_collection.get_ancestors().order_by("path")),
+            [self.root_collection],
         )
         self.assertEqual(
-            list(self.holiday_photos_collection.get_ancestors(inclusive=True).order_by('path')),
-            [self.root_collection, self.holiday_photos_collection]
+            list(
+                self.holiday_photos_collection.get_ancestors(inclusive=True).order_by(
+                    "path"
+                )
+            ),
+            [self.root_collection, self.holiday_photos_collection],
         )
 
     def test_get_descendants(self):
         self.assertEqual(
-            list(self.root_collection.get_descendants().order_by('path')),
-            [self.evil_plans_collection, self.holiday_photos_collection]
+            list(self.root_collection.get_descendants().order_by("path")),
+            [self.evil_plans_collection, self.holiday_photos_collection],
         )
         self.assertEqual(
-            list(self.root_collection.get_descendants(inclusive=True).order_by('path')),
+            list(self.root_collection.get_descendants(inclusive=True).order_by("path")),
             [
                 self.root_collection,
                 self.evil_plans_collection,
-                self.holiday_photos_collection
-            ]
+                self.holiday_photos_collection,
+            ],
         )
 
     def test_get_siblings(self):
         self.assertEqual(
-            list(self.holiday_photos_collection.get_siblings().order_by('path')),
-            [self.evil_plans_collection, self.holiday_photos_collection]
+            list(self.holiday_photos_collection.get_siblings().order_by("path")),
+            [self.evil_plans_collection, self.holiday_photos_collection],
         )
         self.assertEqual(
-            list(self.holiday_photos_collection.get_siblings(inclusive=False).order_by('path')),
-            [self.evil_plans_collection]
+            list(
+                self.holiday_photos_collection.get_siblings(inclusive=False).order_by(
+                    "path"
+                )
+            ),
+            [self.evil_plans_collection],
         )
 
     def test_get_next_siblings(self):
         self.assertEqual(
-            list(
-                self.evil_plans_collection.get_next_siblings().order_by('path')
-            ),
-            [self.holiday_photos_collection]
+            list(self.evil_plans_collection.get_next_siblings().order_by("path")),
+            [self.holiday_photos_collection],
         )
         self.assertEqual(
             list(
-                self.holiday_photos_collection.get_next_siblings(inclusive=True).order_by('path')
+                self.holiday_photos_collection.get_next_siblings(
+                    inclusive=True
+                ).order_by("path")
             ),
-            [self.holiday_photos_collection]
+            [self.holiday_photos_collection],
         )
         self.assertEqual(
-            list(
-                self.holiday_photos_collection.get_next_siblings().order_by('path')
-            ),
-            []
+            list(self.holiday_photos_collection.get_next_siblings().order_by("path")),
+            [],
         )
 
     def test_get_prev_siblings(self):
         self.assertEqual(
-            list(
-                self.holiday_photos_collection.get_prev_siblings().order_by('path')
-            ),
-            [self.evil_plans_collection]
+            list(self.holiday_photos_collection.get_prev_siblings().order_by("path")),
+            [self.evil_plans_collection],
+        )
+        self.assertEqual(
+            list(self.evil_plans_collection.get_prev_siblings().order_by("path")), []
         )
         self.assertEqual(
             list(
-                self.evil_plans_collection.get_prev_siblings().order_by('path')
+                self.evil_plans_collection.get_prev_siblings(inclusive=True).order_by(
+                    "path"
+                )
             ),
-            []
-        )
-        self.assertEqual(
-            list(
-                self.evil_plans_collection.get_prev_siblings(inclusive=True).order_by('path')
-            ),
-            [self.evil_plans_collection]
+            [self.evil_plans_collection],
         )

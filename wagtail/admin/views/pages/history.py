@@ -1,7 +1,6 @@
 from datetime import timedelta
 
 import django_filters
-
 from django import forms
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
@@ -15,31 +14,38 @@ from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
 from wagtail.admin.views.reports import ReportView
 from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import (
-    Page, PageLogEntry, PageRevision, TaskState, UserPagePermissionsProxy, WorkflowState)
+    Page,
+    PageLogEntry,
+    PageRevision,
+    TaskState,
+    UserPagePermissionsProxy,
+    WorkflowState,
+)
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):
     action = django_filters.ChoiceFilter(choices=log_action_registry.get_choices)
     hide_commenting_actions = django_filters.BooleanFilter(
-        label=_('Hide commenting actions'),
-        method='filter_hide_commenting_actions',
+        label=_("Hide commenting actions"),
+        method="filter_hide_commenting_actions",
         widget=forms.CheckboxInput,
     )
     user = django_filters.ModelChoiceFilter(
-        field_name='user', queryset=lambda request: PageLogEntry.objects.all().get_users()
+        field_name="user",
+        queryset=lambda request: PageLogEntry.objects.all().get_users(),
     )
-    timestamp = django_filters.DateFromToRangeFilter(label=_('Date'), widget=DateRangePickerWidget)
+    timestamp = django_filters.DateFromToRangeFilter(
+        label=_("Date"), widget=DateRangePickerWidget
+    )
 
     def filter_hide_commenting_actions(self, queryset, name, value):
         if value:
-            queryset = queryset.exclude(
-                action__startswith='wagtail.comments'
-            )
+            queryset = queryset.exclude(action__startswith="wagtail.comments")
         return queryset
 
     class Meta:
         model = PageLogEntry
-        fields = ['action', 'user', 'timestamp', 'hide_commenting_actions']
+        fields = ["action", "user", "timestamp", "hide_commenting_actions"]
 
 
 def workflow_history(request, page_id):
@@ -49,15 +55,19 @@ def workflow_history(request, page_id):
     if not user_perms.for_page(page).can_edit():
         raise PermissionDenied
 
-    workflow_states = WorkflowState.objects.filter(page=page).order_by('-created_at')
+    workflow_states = WorkflowState.objects.filter(page=page).order_by("-created_at")
 
     paginator = Paginator(workflow_states, per_page=20)
-    workflow_states = paginator.get_page(request.GET.get('p'))
+    workflow_states = paginator.get_page(request.GET.get("p"))
 
-    return TemplateResponse(request, 'wagtailadmin/pages/workflow_history/index.html', {
-        'page': page,
-        'workflow_states': workflow_states,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/workflow_history/index.html",
+        {
+            "page": page,
+            "workflow_states": workflow_states,
+        },
+    )
 
 
 def workflow_history_detail(request, page_id, workflow_state_id):
@@ -75,15 +85,22 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     # revision needs to be displayed on this page.
     page_revisions = PageRevision.objects.filter(
         page=page,
-        id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list('page_revision_id', flat=True)
-    ).order_by('-created_at')
+        id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
+            "page_revision_id", flat=True
+        ),
+    ).order_by("-created_at")
 
     # Now get QuerySet of tasks completed for each revision
     task_states_by_revision_task = [
-        (page_revision, {
-            task_state.task: task_state
-            for task_state in TaskState.objects.filter(workflow_state=workflow_state, page_revision=page_revision)
-        })
+        (
+            page_revision,
+            {
+                task_state.task: task_state
+                for task_state in TaskState.objects.filter(
+                    workflow_state=workflow_state, page_revision=page_revision
+                )
+            },
+        )
         for page_revision in page_revisions
     ]
 
@@ -91,92 +108,95 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     # In some cases, they can be completed in a different order to what they are defined
     tasks = workflow_state.workflow.tasks.all()
     task_states_by_revision = [
-        (
-            page_revision,
-            [
-                task_states_by_task.get(task, None)
-                for task in tasks
-            ]
-        )
+        (page_revision, [task_states_by_task.get(task, None) for task in tasks])
         for page_revision, task_states_by_task in task_states_by_revision_task
     ]
 
     # Generate timeline
-    completed_task_states = TaskState.objects.filter(
-        workflow_state=workflow_state
-    ).exclude(
-        finished_at__isnull=True
-    ).exclude(
-        status=TaskState.STATUS_CANCELLED
+    completed_task_states = (
+        TaskState.objects.filter(workflow_state=workflow_state)
+        .exclude(finished_at__isnull=True)
+        .exclude(status=TaskState.STATUS_CANCELLED)
     )
 
     timeline = [
         {
-            'time': workflow_state.created_at,
-            'action': 'workflow_started',
-            'workflow_state': workflow_state,
+            "time": workflow_state.created_at,
+            "action": "workflow_started",
+            "workflow_state": workflow_state,
         }
     ]
 
-    if workflow_state.status not in (WorkflowState.STATUS_IN_PROGRESS, WorkflowState.STATUS_NEEDS_CHANGES):
-        last_task = completed_task_states.order_by('finished_at').last()
+    if workflow_state.status not in (
+        WorkflowState.STATUS_IN_PROGRESS,
+        WorkflowState.STATUS_NEEDS_CHANGES,
+    ):
+        last_task = completed_task_states.order_by("finished_at").last()
         if last_task:
-            timeline.append({
-                'time': last_task.finished_at + timedelta(milliseconds=1),
-                'action': 'workflow_completed',
-                'workflow_state': workflow_state,
-            })
+            timeline.append(
+                {
+                    "time": last_task.finished_at + timedelta(milliseconds=1),
+                    "action": "workflow_completed",
+                    "workflow_state": workflow_state,
+                }
+            )
 
     for page_revision in page_revisions:
-        timeline.append({
-            'time': page_revision.created_at,
-            'action': 'page_edited',
-            'revision': page_revision,
-        })
+        timeline.append(
+            {
+                "time": page_revision.created_at,
+                "action": "page_edited",
+                "revision": page_revision,
+            }
+        )
 
     for task_state in completed_task_states:
-        timeline.append({
-            'time': task_state.finished_at,
-            'action': 'task_completed',
-            'task_state': task_state,
-        })
+        timeline.append(
+            {
+                "time": task_state.finished_at,
+                "action": "task_completed",
+                "task_state": task_state,
+            }
+        )
 
-    timeline.sort(key=lambda t: t['time'])
+    timeline.sort(key=lambda t: t["time"])
     timeline.reverse()
 
-    return TemplateResponse(request, 'wagtailadmin/pages/workflow_history/detail.html', {
-        'page': page,
-        'workflow_state': workflow_state,
-        'tasks': tasks,
-        'task_states_by_revision': task_states_by_revision,
-        'timeline': timeline,
-    })
+    return TemplateResponse(
+        request,
+        "wagtailadmin/pages/workflow_history/detail.html",
+        {
+            "page": page,
+            "workflow_state": workflow_state,
+            "tasks": tasks,
+            "task_states_by_revision": task_states_by_revision,
+            "timeline": timeline,
+        },
+    )
 
 
 class PageHistoryView(ReportView):
-    template_name = 'wagtailadmin/pages/history.html'
-    title = _('Page history')
-    header_icon = 'history'
+    template_name = "wagtailadmin/pages/history.html"
+    title = _("Page history")
+    header_icon = "history"
     paginate_by = 20
     filterset_class = PageHistoryReportFilterSet
 
     @method_decorator(user_passes_test(user_has_any_page_permission))
     def dispatch(self, request, *args, **kwargs):
-        self.page = get_object_or_404(Page, id=kwargs.pop('page_id')).specific
+        self.page = get_object_or_404(Page, id=kwargs.pop("page_id")).specific
 
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, *args, object_list=None, **kwargs):
         context = super().get_context_data(*args, object_list=object_list, **kwargs)
-        context['page'] = self.page
-        context['subtitle'] = self.page.get_admin_display_title()
-        context['page_latest_revision'] = self.page.get_latest_revision()
+        context["page"] = self.page
+        context["subtitle"] = self.page.get_admin_display_title()
+        context["page_latest_revision"] = self.page.get_latest_revision()
 
         return context
 
     def get_queryset(self):
         return PageLogEntry.objects.filter(page=self.page).select_related(
-            'revision',
-            'user',
-            'user__wagtail_userprofile'
+            "revision", "user", "user__wagtail_userprofile"
         )

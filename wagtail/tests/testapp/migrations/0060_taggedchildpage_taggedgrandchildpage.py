@@ -7,28 +7,48 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('tests', '0059_deadlystreampage'),
+        ("tests", "0059_deadlystreampage"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TaggedChildPage',
+            name="TaggedChildPage",
             fields=[
-                ('taggedpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='tests.taggedpage')),
+                (
+                    "taggedpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="tests.taggedpage",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('tests.taggedpage',),
+            bases=("tests.taggedpage",),
         ),
         migrations.CreateModel(
-            name='TaggedGrandchildPage',
+            name="TaggedGrandchildPage",
             fields=[
-                ('taggedchildpage_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='tests.taggedchildpage')),
+                (
+                    "taggedchildpage_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="tests.taggedchildpage",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=('tests.taggedchildpage',),
+            bases=("tests.taggedchildpage",),
         ),
     ]

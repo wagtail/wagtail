@@ -1,5 +1,4 @@
 import warnings
-
 from collections import OrderedDict
 from functools import reduce
 
@@ -15,13 +14,23 @@ from django.utils.functional import cached_property
 from ....index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
 from ....models import IndexEntry
 from ....query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
-from ....utils import ADD, MUL, OR, get_content_type_pk, get_descendants_content_types_pks
-from ...base import BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError
+from ....utils import (
+    ADD,
+    MUL,
+    OR,
+    get_content_type_pk,
+    get_descendants_content_types_pks,
+)
+from ...base import (
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
 from .query import Lexeme
 from .weights import get_sql_weights, get_weight
 
-
-EMPTY_VECTOR = SearchVector(Value('', output_field=TextField()))
+EMPTY_VECTOR = SearchVector(Value("", output_field=TextField()))
 
 
 class ObjectIndexer:
@@ -40,22 +49,24 @@ class ObjectIndexer:
             return value
 
         elif isinstance(value, list):
-            return ', '.join(self.prepare_value(item) for item in value)
+            return ", ".join(self.prepare_value(item) for item in value)
 
         elif isinstance(value, dict):
-            return ', '.join(self.prepare_value(item)
-                             for item in value.values())
+            return ", ".join(self.prepare_value(item) for item in value.values())
 
         return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
-            yield (field, get_weight(field.boost),
-                   self.prepare_value(field.get_value(obj)))
+            yield (
+                field,
+                get_weight(field.boost),
+                self.prepare_value(field.get_value(obj)),
+            )
 
         elif isinstance(field, AutocompleteField):
             # AutocompleteField does not define a boost parameter, so use a base weight of 'D'
-            yield (field, 'D', self.prepare_value(field.get_value(obj)))
+            yield (field, "D", self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, RelatedFields):
             sub_obj = field.get_value(obj)
@@ -87,10 +98,16 @@ class ObjectIndexer:
 
         search_config = self.autocomplete_config if for_autocomplete else self.config
 
-        return ADD([
-            SearchVector(Value(text, output_field=TextField()), weight=weight, config=search_config)
-            for text, weight in texts
-        ])
+        return ADD(
+            [
+                SearchVector(
+                    Value(text, output_field=TextField()),
+                    weight=weight,
+                    config=search_config,
+                )
+                for text, weight in texts
+            ]
+        )
 
     @cached_property
     def id(self):
@@ -107,7 +124,10 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, boost, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and current_field.field_name == "title"
+                ):
                     texts.append((value, boost))
 
         return self.as_vector(texts)
@@ -120,7 +140,10 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, boost, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and not current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and not current_field.field_name == "title"
+                ):
                     texts.append((value, boost))
 
         return self.as_vector(texts)
@@ -145,13 +168,13 @@ class Index:
         self.name = self.backend.index_name
         self.db_alias = DEFAULT_DB_ALIAS if db_alias is None else db_alias
         self.connection = connections[self.db_alias]
-        if self.connection.vendor != 'postgresql':
+        if self.connection.vendor != "postgresql":
             raise NotSupportedError(
-                'You must select a PostgreSQL database '
-                'to use PostgreSQL search.')
+                "You must select a PostgreSQL database " "to use PostgreSQL search."
+            )
 
         # Whether to allow adding items via the faster upsert method available in Postgres >=9.5
-        self._enable_upsert = (self.connection.pg_version >= 90500)
+        self._enable_upsert = self.connection.pg_version >= 90500
 
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
@@ -170,7 +193,11 @@ class Index:
          - ld is the length of the title field in this document (in terms)
         """
 
-        lavg = self.entries.annotate(title_length=Length('title')).filter(title_length__gt=0).aggregate(Avg('title_length'))['title_length__avg']
+        lavg = (
+            self.entries.annotate(title_length=Length("title"))
+            .filter(title_length__gt=0)
+            .aggregate(Avg("title_length"))["title_length__avg"]
+        )
 
         if full:
             # Update the whole table
@@ -184,19 +211,20 @@ class Index:
             # It's possible that other entries could have this exact value but there shouldn't be too many of those
             entries = self.entries.filter(title_norm=1.0)
 
-        entries.annotate(title_length=Length('title')).filter(title_length__gt=0).update(title_norm=lavg / F('title_length'))
+        entries.annotate(title_length=Length("title")).filter(
+            title_length__gt=0
+        ).update(title_norm=lavg / F("title_length"))
 
     def delete_stale_model_entries(self, model):
         existing_pks = (
             model._default_manager.using(self.db_alias)
-            .annotate(object_id=Cast('pk', TextField()))
-            .values('object_id')
+            .annotate(object_id=Cast("pk", TextField()))
+            .values("object_id")
         )
         content_types_pks = get_descendants_content_types_pks(model)
-        stale_entries = (
-            self.entries.filter(content_type_id__in=content_types_pks)
-            .exclude(object_id__in=existing_pks)
-        )
+        stale_entries = self.entries.filter(
+            content_type_id__in=content_types_pks
+        ).exclude(object_id__in=existing_pks)
         stale_entries.delete()
 
     def delete_stale_entries(self):
@@ -220,30 +248,39 @@ class Index:
             data_params.extend((content_type_pk, indexer.id))
 
             # Compile title value
-            value = compiler.prepare_value(IndexEntry._meta.get_field('title'), indexer.title)
+            value = compiler.prepare_value(
+                IndexEntry._meta.get_field("title"), indexer.title
+            )
             sql, params = value.as_sql(compiler, self.connection)
             title_sql.append(sql)
             data_params.extend(params)
 
             # Compile autocomplete value
-            value = compiler.prepare_value(IndexEntry._meta.get_field('autocomplete'), indexer.autocomplete)
+            value = compiler.prepare_value(
+                IndexEntry._meta.get_field("autocomplete"), indexer.autocomplete
+            )
             sql, params = value.as_sql(compiler, self.connection)
             autocomplete_sql.append(sql)
             data_params.extend(params)
 
             # Compile body value
-            value = compiler.prepare_value(IndexEntry._meta.get_field('body'), indexer.body)
+            value = compiler.prepare_value(
+                IndexEntry._meta.get_field("body"), indexer.body
+            )
             sql, params = value.as_sql(compiler, self.connection)
             body_sql.append(sql)
             data_params.extend(params)
 
-        data_sql = ', '.join([
-            '(%%s, %%s, %s, %s, %s, 1.0)' % (a, b, c)
-            for a, b, c in zip(title_sql, autocomplete_sql, body_sql)
-        ])
+        data_sql = ", ".join(
+            [
+                "(%%s, %%s, %s, %s, %s, 1.0)" % (a, b, c)
+                for a, b, c in zip(title_sql, autocomplete_sql, body_sql)
+            ]
+        )
 
         with self.connection.cursor() as cursor:
-            cursor.execute("""
+            cursor.execute(
+                """
                 INSERT INTO %s (content_type_id, object_id, title, autocomplete, body, title_norm)
                 (VALUES %s)
                 ON CONFLICT (content_type_id, object_id)
@@ -251,34 +288,47 @@ class Index:
                               title_norm = 1.0,
                               autocomplete = EXCLUDED.autocomplete,
                               body = EXCLUDED.body
-                """ % (IndexEntry._meta.db_table, data_sql), data_params)
+                """
+                % (IndexEntry._meta.db_table, data_sql),
+                data_params,
+            )
 
         self._refresh_title_norms()
 
     def add_items_update_then_create(self, content_type_pk, indexers):
         ids_and_data = {}
         for indexer in indexers:
-            ids_and_data[indexer.id] = (indexer.title, indexer.autocomplete, indexer.body)
+            ids_and_data[indexer.id] = (
+                indexer.title,
+                indexer.autocomplete,
+                indexer.body,
+            )
 
         index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
-            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list('object_id', flat=True)
+            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list(
+                "object_id", flat=True
+            )
         )
         for indexed_id in indexed_ids:
             title, autocomplete, body = ids_and_data[indexed_id]
-            index_entries_for_ct.filter(object_id=indexed_id).update(title=title, autocomplete=autocomplete, body=body)
+            index_entries_for_ct.filter(object_id=indexed_id).update(
+                title=title, autocomplete=autocomplete, body=body
+            )
 
         to_be_created = []
         for object_id in ids_and_data.keys():
             if object_id not in indexed_ids:
                 title, autocomplete, body = ids_and_data[object_id]
-                to_be_created.append(IndexEntry(
-                    content_type_id=content_type_pk,
-                    object_id=object_id,
-                    title=title,
-                    autocomplete=autocomplete,
-                    body=body
-                ))
+                to_be_created.append(
+                    IndexEntry(
+                        content_type_id=content_type_pk,
+                        object_id=object_id,
+                        title=title,
+                        autocomplete=autocomplete,
+                        body=body,
+                    )
+                )
 
         self.entries.bulk_create(to_be_created)
 
@@ -296,8 +346,10 @@ class Index:
             content_type_pk = get_content_type_pk(model)
 
             update_method = (
-                self.add_items_upsert if self._enable_upsert
-                else self.add_items_update_then_create)
+                self.add_items_upsert
+                if self._enable_upsert
+                else self.add_items_update_then_create
+            )
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
@@ -308,7 +360,7 @@ class Index:
 
 
 class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
-    DEFAULT_OPERATOR = 'and'
+    DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
 
@@ -328,7 +380,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             # build a search_fields set from the passed definition,
             # which may involve traversing relations
             self.search_fields = {
-                field_lookup: self.get_search_field(field_lookup, fields=local_search_fields)
+                field_lookup: self.get_search_field(
+                    field_lookup, fields=local_search_fields
+                )
                 for field_lookup in self.fields
             }
 
@@ -348,7 +402,10 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             sub_field_name = None
 
         for field in fields:
-            if isinstance(field, self.TARGET_SEARCH_FIELD_TYPE) and field.field_name == field_lookup:
+            if (
+                isinstance(field, self.TARGET_SEARCH_FIELD_TYPE)
+                and field.field_name == field_lookup
+            ):
                 return field
 
             # Note: Searching on a specific related field using
@@ -369,25 +426,29 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             for term in terms:
                 new_lexeme = Lexeme(term, invert=invert)
 
-                if query.operator == 'and':
+                if query.operator == "and":
                     lexemes &= new_lexeme
                 else:
                     lexemes |= new_lexeme
 
-            return SearchQuery(lexemes, search_type='raw', config=config)
+            return SearchQuery(lexemes, search_type="raw", config=config)
 
         elif isinstance(query, Phrase):
-            return SearchQuery(query.query_string, search_type='phrase')
+            return SearchQuery(query.query_string, search_type="phrase")
 
         elif isinstance(query, Boost):
             # Not supported
             msg = "The Boost query is not supported by the PostgreSQL search backend."
             warnings.warn(msg, RuntimeWarning)
 
-            return self.build_tsquery_content(query.subquery, config=config, invert=invert)
+            return self.build_tsquery_content(
+                query.subquery, config=config, invert=invert
+            )
 
         elif isinstance(query, Not):
-            return self.build_tsquery_content(query.subquery, config=config, invert=not invert)
+            return self.build_tsquery_content(
+                query.subquery, config=config, invert=not invert
+            )
 
         elif isinstance(query, (And, Or)):
             # If this part of the query is inverted, we swap the operator and
@@ -421,8 +482,9 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
                 return reduce(lambda a, b: a | b, subquery_lexemes)
 
         raise NotImplementedError(
-            '`%s` is not supported by the PostgreSQL search backend.'
-            % query.__class__.__name__)
+            "`%s` is not supported by the PostgreSQL search backend."
+            % query.__class__.__name__
+        )
 
     def build_tsquery(self, query, config=None):
         return self.build_tsquery_content(query, config=config)
@@ -432,7 +494,7 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             rank_expression = SearchRank(
                 vector,
                 self.build_tsquery(query, config=config),
-                weights=self.sql_weights
+                weights=self.sql_weights,
             )
 
             if boost != 1.0:
@@ -445,10 +507,13 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             return self.build_tsrank(vector, query.subquery, config=config, boost=boost)
 
         elif isinstance(query, And):
-            return MUL(
-                1 + self.build_tsrank(vector, subquery, config=config, boost=boost)
-                for subquery in query.subqueries
-            ) - 1
+            return (
+                MUL(
+                    1 + self.build_tsrank(vector, subquery, config=config, boost=boost)
+                    for subquery in query.subqueries
+                )
+                - 1
+            )
 
         elif isinstance(query, Or):
             return ADD(
@@ -457,21 +522,25 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
             ) / (len(query.subqueries) or 1)
 
         raise NotImplementedError(
-            '`%s` is not supported by the PostgreSQL search backend.'
-            % query.__class__.__name__)
+            "`%s` is not supported by the PostgreSQL search backend."
+            % query.__class__.__name__
+        )
 
     def get_index_vectors(self, search_query):
         return [
-            (F('index_entries__title'), F('index_entries__title_norm')),
-            (F('index_entries__body'), 1.0),
+            (F("index_entries__title"), F("index_entries__title_norm")),
+            (F("index_entries__body"), 1.0),
         ]
 
     def get_fields_vectors(self, search_query):
         return [
-            (SearchVector(
-                field_lookup,
-                config=search_query.config,
-            ), search_field.boost)
+            (
+                SearchVector(
+                    field_lookup,
+                    config=search_query.config,
+                ),
+                search_field.boost,
+            )
             for field_lookup, search_field in self.search_fields.items()
         ]
 
@@ -508,17 +577,19 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
 
         combined_vector = vectors[0][0]
         for vector, boost in vectors[1:]:
-            combined_vector = combined_vector._combine(vector, '||', False)
+            combined_vector = combined_vector._combine(vector, "||", False)
 
-        queryset = self.queryset.annotate(_vector_=combined_vector).filter(_vector_=search_query)
+        queryset = self.queryset.annotate(_vector_=combined_vector).filter(
+            _vector_=search_query
+        )
 
         if self.order_by_relevance:
-            queryset = queryset.order_by(rank_expression.desc(), '-pk')
+            queryset = queryset.order_by(rank_expression.desc(), "-pk")
 
         elif not queryset.query.order_by:
             # Adds a default ordering to avoid issue #3729.
-            queryset = queryset.order_by('-pk')
-            rank_expression = F('pk')
+            queryset = queryset.order_by("-pk")
+            rank_expression = F("pk")
 
         if score_field is not None:
             queryset = queryset.annotate(**{score_field: rank_expression})
@@ -526,14 +597,14 @@ class PostgresSearchQueryCompiler(BaseSearchQueryCompiler):
         return queryset[start:stop]
 
     def _process_lookup(self, field, lookup, value):
-        lhs = field.get_attname(self.queryset.model) + '__' + lookup
+        lhs = field.get_attname(self.queryset.model) + "__" + lookup
         return Q(**{lhs: value})
 
     def _connect_filters(self, filters, connector, negated):
-        if connector == 'AND':
+        if connector == "AND":
             q = Q(*filters)
 
-        elif connector == 'OR':
+        elif connector == "OR":
             q = OR([Q(fil) for fil in filters])
 
         else:
@@ -556,15 +627,18 @@ class PostgresAutocompleteQueryCompiler(PostgresSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('index_entries__autocomplete'), 1.0)]
+        return [(F("index_entries__autocomplete"), 1.0)]
 
     def get_fields_vectors(self, search_query):
         return [
-            (SearchVector(
-                field_lookup,
-                config=search_query.config,
-                weight='D',
-            ), 1.0)
+            (
+                SearchVector(
+                    field_lookup,
+                    config=search_query.config,
+                    weight="D",
+                ),
+                1.0,
+            )
             for field_lookup, search_field in self.search_fields.items()
         ]
 
@@ -582,7 +656,7 @@ class PostgresSearchResults(BaseSearchResults):
             self.query_compiler.get_config(self.backend),
             start,
             stop,
-            score_field=self._score_field
+            score_field=self._score_field,
         )
 
     def _do_search(self):
@@ -598,18 +672,26 @@ class PostgresSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
-                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
-                field_name=field_name
+                'Cannot facet search results with field "'
+                + field_name
+                + "\". Please add index.FilterField('"
+                + field_name
+                + "') to "
+                + self.query_compiler.queryset.model.__name__
+                + ".search_fields.",
+                field_name=field_name,
             )
 
-        query = self.query_compiler.search(self.query_compiler.get_config(self.backend), None, None)
-        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+        query = self.query_compiler.search(
+            self.query_compiler.get_config(self.backend), None, None
+        )
+        results = (
+            query.values(field_name).annotate(count=Count("pk")).order_by("-count")
+        )
 
-        return OrderedDict([
-            (result[field_name], result['count'])
-            for result in results
-        ])
+        return OrderedDict(
+            [(result[field_name], result["count"]) for result in results]
+        )
 
 
 class PostgresSearchRebuilder:
@@ -657,15 +739,15 @@ class PostgresSearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super().__init__(params)
-        self.index_name = params.get('INDEX', 'default')
-        self.config = params.get('SEARCH_CONFIG')
+        self.index_name = params.get("INDEX", "default")
+        self.config = params.get("SEARCH_CONFIG")
 
         # Use 'simple' config for autocomplete to disable stemming
         # A good description for why this is important can be found at:
         # https://www.postgresql.org/docs/9.1/datatype-textsearch.html#DATATYPE-TSQUERY
-        self.autocomplete_config = params.get('AUTOCOMPLETE_SEARCH_CONFIG', 'simple')
+        self.autocomplete_config = params.get("AUTOCOMPLETE_SEARCH_CONFIG", "simple")
 
-        if params.get('ATOMIC_REBUILD', False):
+        if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
 
     def get_index_for_model(self, model, db_alias=None):
@@ -675,7 +757,11 @@ class PostgresSearchBackend(BaseSearchBackend):
         return self.get_index_for_model(obj._meta.model, obj._state.db)
 
     def reset_index(self):
-        for connection in [connection for connection in connections.all() if connection.vendor == 'postgresql']:
+        for connection in [
+            connection
+            for connection in connections.all()
+            if connection.vendor == "postgresql"
+        ]:
             IndexEntry._default_manager.using(connection.alias).delete()
 
     def add_type(self, model):
