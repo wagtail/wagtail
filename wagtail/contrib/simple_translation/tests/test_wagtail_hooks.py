@@ -146,3 +146,48 @@ class TestMovingTranslatedPages(Utils):
         home_page_translation_ids = [p.id for p in self.en_homepage.get_translations()]
         assert self.fr_blog_post.get_parent(update=True).id in home_page_translation_ids
         assert self.de_blog_post.get_parent(update=True).id in home_page_translation_ids
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
+    def test_unmovable_translation_pages(self):
+        """
+        Test trying to move a page when WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE
+        is disabled.
+        """
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create blog_post copies for translation
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        # Confirm location of English blog post page before it is moved
+        # Should be living at /blog/blog-post/ right now. But will eventually
+        # exist at /blog-post/
+        assert self.en_blog_post.get_parent().id == self.en_blog_index.id
+
+        # Confirm the fr and de blog post pages are under the blog index page
+        # We'll confirm these have not moved after ther POST request.
+        original_translated_parent_ids = [p.id for p in self.en_blog_index.get_translations()]
+        assert self.fr_blog_post.get_parent().id in original_translated_parent_ids
+        assert self.de_blog_post.get_parent().id in original_translated_parent_ids
+
+        response = self.client.post(
+            reverse("wagtailadmin_pages:move_confirm", args=(self.en_blog_post.id, self.en_homepage.id,)),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.en_blog_post.refresh_from_db()
+        self.fr_blog_post.refresh_from_db()
+        self.de_blog_post.refresh_from_db()
+
+        # Check that the en_blog_post page has moved directly under the home page.
+        assert self.en_blog_post.get_parent(update=True).id == self.en_homepage.id
+
+        # Check if the fr and de pages exist under their original parent page (/blog/)
+        assert self.fr_blog_post.get_parent(update=True).id in original_translated_parent_ids
+        assert self.de_blog_post.get_parent(update=True).id in original_translated_parent_ids
+
