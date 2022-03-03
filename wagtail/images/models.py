@@ -323,20 +323,19 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         if isinstance(filter, str):
             filter = Filter(spec=filter)
 
-        cache_key = filter.get_cache_key(self)
         Rendition = self.get_rendition_model()
+        cache_key = filter.get_cache_key(self)
 
         try:
-            rendition_caching = True
-            cache = caches["renditions"]
+            renditions_cache = caches["renditions"]
             rendition_cache_key = Rendition.construct_cache_key(
                 self.id, cache_key, filter.spec
             )
-            cached_rendition = cache.get(rendition_cache_key)
+            cached_rendition = renditions_cache.get(rendition_cache_key)
             if cached_rendition:
                 return cached_rendition
         except InvalidCacheBackendError:
-            rendition_caching = False
+            renditions_cache = None
 
         try:
             rendition = self.renditions.get(
@@ -344,67 +343,76 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 focal_point_key=cache_key,
             )
         except Rendition.DoesNotExist:
-            # Generate the rendition image
-            try:
-                logger.debug(
-                    "Generating '%s' rendition for image %d",
-                    filter.spec,
-                    self.pk,
-                )
+            rendition = self.generate_rendition(filter)
 
-                start_time = time.time()
-                generated_image = filter.run(self, BytesIO())
+        if renditions_cache:
+            renditions_cache.set(rendition_cache_key, rendition)
 
-                logger.debug(
-                    "Generated '%s' rendition for image %d in %.1fms",
-                    filter.spec,
-                    self.pk,
-                    (time.time() - start_time) * 1000,
-                )
-            except:  # noqa:B901,E722
-                logger.debug(
-                    "Failed to generate '%s' rendition for image %d",
-                    filter.spec,
-                    self.pk,
-                )
-                raise
+        return rendition
 
-            # Generate filename
-            input_filename = os.path.basename(self.file.name)
-            input_filename_without_extension, input_extension = os.path.splitext(
-                input_filename
+    def generate_rendition(self, filter):
+        if isinstance(filter, str):
+            filter = Filter(spec=filter)
+
+        cache_key = filter.get_cache_key(self)
+
+        logger.debug(
+            "Generating '%s' rendition for image %d",
+            filter.spec,
+            self.pk,
+        )
+
+        start_time = time.time()
+
+        try:
+            generated_image = filter.run(self, BytesIO())
+
+            logger.debug(
+                "Generated '%s' rendition for image %d in %.1fms",
+                filter.spec,
+                self.pk,
+                (time.time() - start_time) * 1000,
             )
-
-            # A mapping of image formats to extensions
-            FORMAT_EXTENSIONS = {
-                "jpeg": ".jpg",
-                "png": ".png",
-                "gif": ".gif",
-                "webp": ".webp",
-            }
-
-            output_extension = (
-                filter.spec.replace("|", ".")
-                + FORMAT_EXTENSIONS[generated_image.format_name]
+        except:  # noqa:B901,E722
+            logger.debug(
+                "Failed to generate '%s' rendition for image %d",
+                filter.spec,
+                self.pk,
             )
-            if cache_key:
-                output_extension = cache_key + "." + output_extension
+            raise
 
-            # Truncate filename to prevent it going over 60 chars
-            output_filename_without_extension = input_filename_without_extension[
-                : (59 - len(output_extension))
-            ]
-            output_filename = output_filename_without_extension + "." + output_extension
+        # Generate filename
+        input_filename = os.path.basename(self.file.name)
+        input_filename_without_extension, input_extension = os.path.splitext(
+            input_filename
+        )
 
-            rendition, created = self.renditions.get_or_create(
-                filter_spec=filter.spec,
-                focal_point_key=cache_key,
-                defaults={"file": File(generated_image.f, name=output_filename)},
-            )
+        # A mapping of image formats to extensions
+        FORMAT_EXTENSIONS = {
+            "jpeg": ".jpg",
+            "png": ".png",
+            "gif": ".gif",
+            "webp": ".webp",
+        }
 
-        if rendition_caching:
-            cache.set(rendition_cache_key, rendition)
+        output_extension = (
+            filter.spec.replace("|", ".")
+            + FORMAT_EXTENSIONS[generated_image.format_name]
+        )
+        if cache_key:
+            output_extension = cache_key + "." + output_extension
 
+        # Truncate filename to prevent it going over 60 chars
+        output_filename_without_extension = input_filename_without_extension[
+            : (59 - len(output_extension))
+        ]
+        output_filename = output_filename_without_extension + "." + output_extension
+
+        rendition, created = self.renditions.get_or_create(
+            filter_spec=filter.spec,
+            focal_point_key=cache_key,
+            defaults={"file": File(generated_image.f, name=output_filename)},
+        )
         return rendition
 
     def is_portrait(self):
