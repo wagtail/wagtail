@@ -102,7 +102,9 @@ def construct_synced_page_tree_list(pages: List[Page], action: str):
     page_list = {}
     if action == "unpublish":
         for page in pages:
-            page_list[page] = Page.objects.translation_of(page, inclusive=False).filter(alias_of__isnull=True)
+            page_list[page] = Page.objects.translation_of(page, inclusive=False).filter(
+                alias_of__isnull=True
+            )
     elif action == "move":
         for page in pages:
             page_list[page] = Page.objects.translation_of(page, inclusive=False)

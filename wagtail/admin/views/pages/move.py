@@ -79,7 +79,7 @@ def move_confirm(request, page_to_move_id, destination_id):
 
     # The `construct_synced_page_tree_list` hook returns translation and
     # alias pages when the action is set to "move"
-    if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
         for fn in hooks.get_hooks("construct_synced_page_tree_list"):
             fn_pages = fn([page_to_move], "move")
             if fn_pages and isinstance(fn_pages, dict):
@@ -96,7 +96,7 @@ def move_confirm(request, page_to_move_id, destination_id):
         )
         action.execute()
 
-        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             # Move translation and alias pages if they have the same parent page.
             parent_page_translations = page_to_move.get_parent().get_translations()
             for _page in pages_to_move:
@@ -105,7 +105,7 @@ def move_confirm(request, page_to_move_id, destination_id):
                     action = MovePageAction(
                         _page,
                         destination.get_translation(_page.locale),
-                        pos='last-child',
+                        pos="last-child",
                         user=request.user,
                     )
                     action.execute()
@@ -134,6 +134,6 @@ def move_confirm(request, page_to_move_id, destination_id):
         {
             "page_to_move": page_to_move,
             "destination": destination,
-            "pages_to_move": len(pages_to_move)
+            "pages_to_move": len(pages_to_move),
         },
     )
