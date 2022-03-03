@@ -229,6 +229,9 @@ class TestMovingTranslatedPages(Utils):
         self.fr_new_parent = self.en_new_parent.copy_for_translation(self.fr_locale)
 
         # Manually move the fr_blog_post to live under fr_new_parent
+        # Because this does not go through the POST request in pages/move.py
+        # this action will create a diverged tree scnenario where en_blog_post
+        # and fr_blog_post don't mirror their positions in the tree.
         action = MovePageAction(
             self.fr_blog_post,
             self.fr_new_parent,
