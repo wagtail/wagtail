@@ -29,7 +29,7 @@ def delete(request, page_id):
 
         # The `construct_synced_page_tree_list` hook returns translation and
         # alias pages when the action is set to "delete"
-        if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             for fn in hooks.get_hooks("construct_synced_page_tree_list"):
                 fn_pages = fn([page], "delete")
                 if fn_pages and isinstance(fn_pages, dict):
@@ -46,7 +46,7 @@ def delete(request, page_id):
             action.execute(skip_permission_checks=True)
 
             # Delete translation and alias pages if they have the same parent page.
-            if getattr(settings, 'WAGTAIL_I18N_ENABLED', False):
+            if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
                 parent_page_translations = page.get_parent().get_translations()
                 for _page in pages_to_delete:
                     if _page.get_parent() in parent_page_translations:
@@ -82,7 +82,6 @@ def delete(request, page_id):
             "translation_descendant_count": sum(
                 [p.get_descendants().count() for p in pages_to_delete]
             ),
-            "combined_subpages": page.get_descendant_count()
-            + len(pages_to_delete),
+            "combined_subpages": page.get_descendant_count() + len(pages_to_delete),
         },
     )
