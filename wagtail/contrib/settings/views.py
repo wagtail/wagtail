@@ -67,7 +67,6 @@ def edit(request, app_name, model_name, site_pk):
 
     instance = model.for_site(site)
     edit_handler = get_setting_edit_handler(model)
-    edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
@@ -93,7 +92,7 @@ def edit(request, app_name, model_name, site_pk):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(form=form)
+    edit_handler = edit_handler.bind_to(instance=instance, request=request, form=form)
 
     # Show a site switcher form if there are multiple sites
     site_switcher = None
