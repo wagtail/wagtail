@@ -39,6 +39,14 @@ from wagtail.search.queryset import SearchableQuerySetMixin
 logger = logging.getLogger("wagtail.images")
 
 
+IMAGE_FORMAT_EXTENSIONS = {
+    "jpeg": ".jpg",
+    "png": ".png",
+    "gif": ".gif",
+    "webp": ".webp",
+}
+
+
 class SourceImageIOError(IOError):
     """
     Custom exception to distinguish IOErrors that were thrown while opening the source image
@@ -332,7 +340,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         try:
             rendition = self.lookup_rendition(filter)
         except Rendition.DoesNotExist:
-            rendition = self.generate_rendition(filter)
+            rendition = self.create_rendition(filter)
 
         try:
             cache = caches["renditions"]
@@ -379,10 +387,16 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             focal_point_key=cache_key,
         )
 
-    def generate_rendition(self, filter):
-        if isinstance(filter, str):
-            filter = Filter(spec=filter)
+    def create_rendition(self, filter: "Filter") -> "AbstractRendition":
+        # get_or_create() is used to guard against race conditions
+        rendition, created = self.renditions.get_or_create(
+            filter_spec=filter.spec,
+            focal_point_key=filter.get_cache_key(self),
+            defaults={"file": self.generate_rendition_file(filter)},
+        )
+        return rendition
 
+    def generate_rendition_file(self, filter: "Filter") -> File:
         cache_key = filter.get_cache_key(self)
 
         logger.debug(
@@ -415,18 +429,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         input_filename_without_extension, input_extension = os.path.splitext(
             input_filename
         )
-
-        # A mapping of image formats to extensions
-        FORMAT_EXTENSIONS = {
-            "jpeg": ".jpg",
-            "png": ".png",
-            "gif": ".gif",
-            "webp": ".webp",
-        }
-
         output_extension = (
             filter.spec.replace("|", ".")
-            + FORMAT_EXTENSIONS[generated_image.format_name]
+            + IMAGE_FORMAT_EXTENSIONS[generated_image.format_name]
         )
         if cache_key:
             output_extension = cache_key + "." + output_extension
@@ -437,12 +442,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         ]
         output_filename = output_filename_without_extension + "." + output_extension
 
-        rendition, created = self.renditions.get_or_create(
-            filter_spec=filter.spec,
-            focal_point_key=cache_key,
-            defaults={"file": File(generated_image.f, name=output_filename)},
-        )
-        return rendition
+        return File(generated_image.f, name=output_filename)
 
     def is_portrait(self):
         return self.width < self.height
