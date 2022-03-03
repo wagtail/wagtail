@@ -1,6 +1,6 @@
 import json
+import warnings
 
-from django.core import checks
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models.fields.json import KeyTransform
@@ -8,6 +8,7 @@ from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import get_text_for_indexing
+from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 
 class RichTextField(models.TextField):
@@ -80,6 +81,7 @@ class StreamField(models.Field):
         super().__init__(**kwargs)
 
         self.use_json_field = use_json_field
+        self._check_json_field()
 
         if isinstance(block_types, Block):
             # use the passed block as the top-level block
@@ -92,6 +94,14 @@ class StreamField(models.Field):
             self.stream_block = StreamBlock(block_types)
 
         self.stream_block.set_meta_options(block_opts)
+
+    def _check_json_field(self):
+        if type(self.use_json_field) is not bool:
+            warnings.warn(
+                f"StreamField should explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
+                RemovedInWagtail219Warning,
+                stacklevel=3,
+            )
 
     def get_internal_type(self):
         return "JSONField" if self.use_json_field else "TextField"
@@ -208,19 +218,7 @@ class StreamField(models.Field):
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
-        errors.extend(self._check_json_field())
         return errors
-
-    def _check_json_field(self):
-        if type(self.use_json_field) is bool:
-            return []
-        return [
-            checks.Warning(
-                f"StreamField should explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
-                obj=self.model,
-                id="wagtailcore.W002",
-            )
-        ]
 
     def contribute_to_class(self, cls, name, **kwargs):
         super().contribute_to_class(cls, name, **kwargs)
