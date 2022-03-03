@@ -192,7 +192,8 @@ class TestSystemCheck(TestCase):
                 [
                     ("heading", blocks.CharBlock()),
                     ("rich text", blocks.RichTextBlock()),
-                ]
+                ],
+                use_json_field=False,
             )
 
         errors = InvalidStreamModel.check()
@@ -306,7 +307,9 @@ class TestStreamFieldJinjaRendering(TestStreamFieldRenderingBase):
 class TestRequiredStreamField(TestCase):
     def test_non_blank_field_is_required(self):
         # passing a block list
-        field = StreamField([("paragraph", blocks.CharBlock())], blank=False)
+        field = StreamField(
+            [("paragraph", blocks.CharBlock())], blank=False, use_json_field=False
+        )
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
@@ -318,25 +321,27 @@ class TestRequiredStreamField(TestCase):
                 required = False
 
         # passing a block instance
-        field = StreamField(MyStreamBlock(), blank=False)
+        field = StreamField(MyStreamBlock(), blank=False, use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
-        field = StreamField(MyStreamBlock(required=False), blank=False)
+        field = StreamField(
+            MyStreamBlock(required=False), blank=False, use_json_field=False
+        )
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
         # passing a block class
-        field = StreamField(MyStreamBlock, blank=False)
+        field = StreamField(MyStreamBlock, blank=False, use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
     def test_blank_false_is_implied_by_default(self):
         # passing a block list
-        field = StreamField([("paragraph", blocks.CharBlock())])
+        field = StreamField([("paragraph", blocks.CharBlock())], use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
@@ -348,25 +353,27 @@ class TestRequiredStreamField(TestCase):
                 required = False
 
         # passing a block instance
-        field = StreamField(MyStreamBlock())
+        field = StreamField(MyStreamBlock(), use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
-        field = StreamField(MyStreamBlock(required=False))
+        field = StreamField(MyStreamBlock(required=False), use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
         # passing a block class
-        field = StreamField(MyStreamBlock)
+        field = StreamField(MyStreamBlock, use_json_field=False)
         self.assertTrue(field.stream_block.required)
         with self.assertRaises(StreamBlockValidationError):
             field.stream_block.clean([])
 
     def test_blank_field_is_not_required(self):
         # passing a block list
-        field = StreamField([("paragraph", blocks.CharBlock())], blank=True)
+        field = StreamField(
+            [("paragraph", blocks.CharBlock())], blank=True, use_json_field=False
+        )
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
@@ -377,16 +384,18 @@ class TestRequiredStreamField(TestCase):
                 required = True
 
         # passing a block instance
-        field = StreamField(MyStreamBlock(), blank=True)
+        field = StreamField(MyStreamBlock(), blank=True, use_json_field=False)
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
-        field = StreamField(MyStreamBlock(required=True), blank=True)
+        field = StreamField(
+            MyStreamBlock(required=True), blank=True, use_json_field=False
+        )
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
         # passing a block class
-        field = StreamField(MyStreamBlock, blank=True)
+        field = StreamField(MyStreamBlock, blank=True, use_json_field=False)
         self.assertFalse(field.stream_block.required)
         field.stream_block.clean([])  # no validation error on empty stream
 
@@ -521,7 +530,7 @@ class TestStreamFieldCountValidation(TestCase):
                 block_counts = {"heading": {"max_num": 1}}
 
         # args being picked up from the class definition
-        field = StreamField(TestStreamBlock)
+        field = StreamField(TestStreamBlock, use_json_field=False)
         self.assertEqual(field.stream_block.meta.min_num, 2)
         self.assertEqual(field.stream_block.meta.max_num, 5)
         self.assertEqual(field.stream_block.meta.block_counts["heading"]["max_num"], 1)
@@ -532,6 +541,7 @@ class TestStreamFieldCountValidation(TestCase):
             min_num=3,
             max_num=6,
             block_counts={"heading": {"max_num": 2}},
+            use_json_field=False,
         )
         self.assertEqual(field.stream_block.meta.min_num, 3)
         self.assertEqual(field.stream_block.meta.max_num, 6)
@@ -539,7 +549,11 @@ class TestStreamFieldCountValidation(TestCase):
 
         # passing None from StreamField should cancel limits set at the block level
         field = StreamField(
-            TestStreamBlock, min_num=None, max_num=None, block_counts=None
+            TestStreamBlock,
+            min_num=None,
+            max_num=None,
+            block_counts=None,
+            use_json_field=False,
         )
         self.assertIsNone(field.stream_block.meta.min_num)
         self.assertIsNone(field.stream_block.meta.max_num)
