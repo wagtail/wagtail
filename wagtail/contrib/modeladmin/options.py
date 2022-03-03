@@ -1,3 +1,5 @@
+from warnings import warn
+
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -11,6 +13,7 @@ from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.models import Page
+from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 from .helpers import (
     AdminURLHelper,
@@ -330,7 +333,9 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.prepopulated_fields or {}
 
-    def get_form_fields_exclude(self, request):
+    # RemovedInWagtail219Warning - remove request arg, included here so that old-style super()
+    # calls will still work
+    def get_form_fields_exclude(self, request=None):
         """
         Returns a list or tuple of fields names to be excluded from Create/Edit pages.
         """
@@ -464,7 +469,16 @@ class ModelAdmin(WagtailRegisterable):
             panels = self.model.panels
             edit_handler = ObjectList(panels)
         else:
-            fields_to_exclude = self.get_form_fields_exclude(request=request)
+            try:
+                fields_to_exclude = self.get_form_fields_exclude()
+            except TypeError:
+                fields_to_exclude = self.get_form_fields_exclude(request=None)
+                warn(
+                    "%s.get_form_fields_exclude should not accept a request argument"
+                    % type(self).__name__,
+                    category=RemovedInWagtail219Warning,
+                )
+
             panels = extract_panel_definitions_from_model_class(
                 self.model, exclude=fields_to_exclude
             )
