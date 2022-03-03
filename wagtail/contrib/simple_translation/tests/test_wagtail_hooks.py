@@ -209,7 +209,7 @@ class TestMovingTranslatedPages(Utils):
 
         assert response.status_code == 200
         assert response.context['pages_to_move'] == 2
-        assert f'This will also move 2 translations of this page and their child pages' in response.content.decode("utf-8")
+        assert 'This will also move 2 translations of this page and their child pages' in response.content.decode("utf-8")
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True)
     def test_divergent_translation_tree(self):
