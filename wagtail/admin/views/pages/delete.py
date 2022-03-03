@@ -59,6 +59,10 @@ def delete(request, page_id):
             )
 
             for fn in hooks.get_hooks("after_delete_page"):
+                pages_to_delete.remove(page)
+                for _page in pages_to_delete:
+                    fn(request, _page)
+
                 result = fn(request, page)
                 if hasattr(result, "status_code"):
                     return result
