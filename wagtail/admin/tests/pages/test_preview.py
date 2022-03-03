@@ -1,16 +1,14 @@
 import datetime
 from functools import wraps
-from unittest import mock
 
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page
-from wagtail.test.testapp.models import EventCategory, EventPage, SimplePage, StreamPage
+from wagtail.test.testapp.models import EventCategory, SimplePage, StreamPage
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -203,97 +201,6 @@ class TestPreview(TestCase, WagtailTestUtils):
             self.assertEqual(response.status_code, 200)
             response = self.client.get(preview_url)
             self.assertEqual(response.status_code, 200)
-
-    @clear_edit_handler(EventPage)
-    def test_preview_with_custom_edit_handler(self):
-        """
-        The test is based on TestPreview.test_preview_on_create_with_m2m_field, except that the "categories"
-        FieldPanel is only visible to superusers. Non-superusers should not be able to set "categories" for
-        the preview.
-        """
-
-        class SuperuserEventCategoriesObjectList(ObjectList):
-            def on_request_bound(self):
-                new_children = []
-                for child in self.children:
-                    # skip the "categories" FieldPanel for non-superusers
-                    if (
-                        isinstance(child, FieldPanel)
-                        and child.field_name == "categories"
-                        and not self.request.user.is_superuser
-                    ):
-                        continue
-
-                    new_child = child.bind_to(
-                        model=self.model,
-                        instance=self.instance,
-                        request=self.request,
-                        form=self.form,
-                    )
-                    new_children.append(new_child)
-                self.children = new_children
-
-        new_tabbed_interface = TabbedInterface(
-            [
-                SuperuserEventCategoriesObjectList(EventPage.content_panels),
-                ObjectList(EventPage.promote_panels),
-            ]
-        )
-
-        with mock.patch.object(
-            EventPage, "edit_handler", new=new_tabbed_interface, create=True
-        ):
-            # Non-superusers should not see categories panel, so even though "post_data" contains "categories",
-            # it should not be considered for the preview request.
-            self.login(username="siteeditor", password="password")
-
-            preview_url = reverse(
-                "wagtailadmin_pages:preview_on_add",
-                args=("tests", "eventpage", self.home_page.id),
-            )
-            response = self.client.post(preview_url, self.post_data)
-
-            # Check the JSON response
-            self.assertEqual(response.status_code, 200)
-            self.assertJSONEqual(response.content.decode(), {"is_valid": True})
-
-            # Check the user can refresh the preview
-            preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-                self.home_page.id
-            )
-            self.assertIn(preview_session_key, self.client.session)
-
-            response = self.client.get(preview_url)
-
-            # Check the HTML response
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "tests/event_page.html")
-            self.assertContains(response, "Beach party")
-            self.assertNotContains(response, "<li>Parties</li>")
-            self.assertNotContains(response, "<li>Holidays</li>")
-
-            # Since superusers see the "categories" panel, the posted data should be used for the preview.
-            self.login(username="superuser", password="password")
-            response = self.client.post(preview_url, self.post_data)
-
-            # Check the JSON response
-            self.assertEqual(response.status_code, 200)
-            self.assertJSONEqual(response.content.decode(), {"is_valid": True})
-
-            # Check the user can refresh the preview
-            preview_session_key = "wagtail-preview-tests-eventpage-{}".format(
-                self.home_page.id
-            )
-            self.assertIn(preview_session_key, self.client.session)
-
-            response = self.client.get(preview_url)
-
-            # Check the HTML response
-            self.assertEqual(response.status_code, 200)
-            self.assertTemplateUsed(response, "tests/event_page.html")
-            self.assertContains(response, "Beach party")
-            self.assertContains(response, "<li>Parties</li>")
-            self.assertContains(response, "<li>Holidays</li>")
 
 
 class TestDisablePreviewButton(TestCase, WagtailTestUtils):
