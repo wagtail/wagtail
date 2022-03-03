@@ -5,6 +5,7 @@ import time
 from collections import OrderedDict
 from contextlib import contextmanager
 from io import BytesIO
+from typing import Union
 
 from django.conf import settings
 from django.core import checks
@@ -319,7 +320,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
-    def get_rendition(self, filter):
+    def get_rendition(
+        self, filter: Union["Filter", str], all_renditions_prefetched: bool = False
+    ) -> "AbstractRendition":
         if isinstance(filter, str):
             filter = Filter(spec=filter)
 
@@ -345,8 +348,27 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
         return rendition
 
-    def lookup_rendition(self, filter: "Filter") -> "AbstractRendition":
+    def lookup_rendition(
+        self, filter: "Filter", all_renditions_prefetched: bool = False
+    ) -> "AbstractRendition":
+        Rendition = self.get_rendition_model()
         cache_key = filter.get_cache_key(self)
+
+        # Interrogate prefetched values first (if available)
+        if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
+            for rendition in self.renditions.all():
+                if (
+                    rendition.filter_spec == filter.spec
+                    and rendition.focal_point_key == cache_key
+                ):
+                    return rendition
+
+            if all_renditions_prefetched:
+                # If we know for sure that all renditions were prefetched,
+                # exit here to avoid a get() lookup
+                raise Rendition.DoesNotExist
+
+        # Resort to a get() lookup
         return self.renditions.get(
             filter_spec=filter.spec,
             focal_point_key=cache_key,
