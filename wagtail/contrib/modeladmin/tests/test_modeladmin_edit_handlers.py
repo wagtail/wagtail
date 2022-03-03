@@ -4,7 +4,6 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.views import CreateView
-from wagtail.test.modeladmintest.models import Person
 from wagtail.test.modeladmintest.wagtail_hooks import PersonAdmin
 from wagtail.test.utils import WagtailTestUtils
 
@@ -45,10 +44,8 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
 
         edit_handler_call = mock_modeladmin_get_edit_handler.call_args_list[0]
         call_args, call_kwargs = edit_handler_call
-        # not using CreateView.get_instance since
-        # CreateView.get_instance always returns a new instance
-        self.assertEqual(type(call_kwargs["instance"]), Person)
-        self.assertEqual(call_kwargs["request"], request)
+        # as of Wagtail 2.17, ModelAdmin.get_edit_handler is NOT passed instance or request
+        self.assertEqual(call_kwargs, {})
 
     def test_model_panels(self):
         """loads the 'create' view and verifies that form fields are returned
@@ -82,7 +79,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # form creation, since PersonAdmin has neither panels nor an
         # edit_handler defined
         model_admin = PersonAdmin()
-        edit_handler = model_admin.get_edit_handler(None, None)
+        edit_handler = model_admin.get_edit_handler()
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
@@ -97,7 +94,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
             FieldPanel("phone_number"),
             FieldPanel("address"),
         ]
-        edit_handler = model_admin.get_edit_handler(None, None)
+        edit_handler = model_admin.get_edit_handler()
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
@@ -118,7 +115,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
                 ),
             ]
         )
-        edit_handler = model_admin.get_edit_handler(None, None)
+        edit_handler = model_admin.get_edit_handler()
         edit_handler = edit_handler.bind_to(model=model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
