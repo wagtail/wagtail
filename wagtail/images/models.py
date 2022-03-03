@@ -330,21 +330,16 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         cache_key = filter.get_cache_key(self)
 
         try:
-            renditions_cache = caches["renditions"]
-            rendition_cache_key = Rendition.construct_cache_key(
-                self.id, cache_key, filter.spec
-            )
-        except InvalidCacheBackendError:
-            renditions_cache = None
-            rendition_cache_key = None
-
-        try:
             rendition = self.lookup_rendition(filter)
         except Rendition.DoesNotExist:
             rendition = self.generate_rendition(filter)
 
-        if renditions_cache and rendition_cache_key:
-            renditions_cache.set(rendition_cache_key, rendition)
+        try:
+            cache = caches["renditions"]
+            key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
+            cache.set(key, rendition)
+        except InvalidCacheBackendError:
+            pass
 
         return rendition
 
@@ -365,8 +360,18 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
             if all_renditions_prefetched:
                 # If we know for sure that all renditions were prefetched,
-                # exit here to avoid a get() lookup
+                # exit here to avoid a cache or get() lookup
                 raise Rendition.DoesNotExist
+
+        # Next, lookup from the cache (if configured)
+        try:
+            cache = caches["renditions"]
+            key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
+            cached_rendition = cache.get(key)
+            if cached_rendition:
+                return cached_rendition
+        except InvalidCacheBackendError:
+            pass
 
         # Resort to a get() lookup
         return self.renditions.get(
