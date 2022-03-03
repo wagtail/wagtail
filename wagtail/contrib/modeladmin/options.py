@@ -451,7 +451,9 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.history_view_class
         return view_class.as_view(**kwargs)(request)
 
-    def get_edit_handler(self, instance, request):
+    # RemovedInWagtail219Warning - remove instance and request args, included here so that
+    # old-style super() calls will still work
+    def get_edit_handler(self, instance=None, request=None):
         """
         Returns the appropriate edit_handler for this modeladmin class.
         edit_handlers can be defined either on the model itself or on the
