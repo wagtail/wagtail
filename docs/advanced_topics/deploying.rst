@@ -29,7 +29,7 @@ On Google Cloud
 On alwaysdata
 ~~~~~~~~~~~~~
 
-`alwaysdata <https://www.alwaysdata.com/>`_ is a Platform-as-a-Service (PaaS) providing Public and Private Cloud offers. Starting with a free plan they provide MySQL/PostgreSQL databases, emails, free SSL certificates, included backups, etc. 
+`alwaysdata <https://www.alwaysdata.com/>`_ is a Platform-as-a-Service (PaaS) providing Public and Private Cloud offers. Starting with a free plan they provide MySQL/PostgreSQL databases, emails, free SSL certificates, included backups, etc.
 
 To get your Wagtail application running you may:
 
