@@ -160,11 +160,9 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_form(self):
         form = super().get_form()
-        self.edit_handler = self.edit_handler.bind_to(form=form)
         return form
 
     def get_edit_handler(self):
-        instance = self.get_instance()
         try:
             edit_handler = self.model_admin.get_edit_handler()
         except TypeError:
@@ -177,9 +175,7 @@ class ModelFormView(WMABaseView, FormView):
                 category=RemovedInWagtail219Warning,
             )
 
-        return edit_handler.bind_to(
-            model=self.model_admin.model, request=self.request, instance=instance
-        )
+        return edit_handler.bind_to(model=self.model_admin.model)
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()
@@ -206,10 +202,14 @@ class ModelFormView(WMABaseView, FormView):
         if form is None:
             form = self.get_form()
 
+        bound_panel = self.edit_handler.bind_to(
+            form=form, instance=form.instance, request=self.request
+        )
+
         prepopulated_fields = self.get_prepopulated_fields(form)
         context = {
             "is_multipart": form.is_multipart(),
-            "edit_handler": self.edit_handler,
+            "edit_handler": bound_panel,
             "form": form,
             "prepopulated_fields": prepopulated_fields,
         }
