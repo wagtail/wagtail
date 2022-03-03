@@ -238,7 +238,6 @@ def create(request, app_label, model_name):
 
     # Make edit handler
     edit_handler = get_snippet_edit_handler(model)
-    edit_handler = edit_handler.bind_to(request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
@@ -291,7 +290,7 @@ def create(request, app_label, model_name):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(instance=instance, form=form)
+    edit_handler = edit_handler.bind_to(request=request, instance=instance, form=form)
 
     context = {
         "model_opts": model._meta,
@@ -340,7 +339,6 @@ def edit(request, app_label, model_name, pk):
             return result
 
     edit_handler = get_snippet_edit_handler(model)
-    edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
@@ -384,7 +382,7 @@ def edit(request, app_label, model_name, pk):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(form=form)
+    edit_handler = edit_handler.bind_to(instance=instance, request=request, form=form)
     latest_log_entry = log_registry.get_logs_for_instance(instance).first()
 
     context = {
