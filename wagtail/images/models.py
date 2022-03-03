@@ -331,24 +331,26 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             rendition_cache_key = Rendition.construct_cache_key(
                 self.id, cache_key, filter.spec
             )
-            cached_rendition = renditions_cache.get(rendition_cache_key)
-            if cached_rendition:
-                return cached_rendition
         except InvalidCacheBackendError:
             renditions_cache = None
+            rendition_cache_key = None
 
         try:
-            rendition = self.renditions.get(
-                filter_spec=filter.spec,
-                focal_point_key=cache_key,
-            )
+            rendition = self.lookup_rendition(filter)
         except Rendition.DoesNotExist:
             rendition = self.generate_rendition(filter)
 
-        if renditions_cache:
+        if renditions_cache and rendition_cache_key:
             renditions_cache.set(rendition_cache_key, rendition)
 
         return rendition
+
+    def lookup_rendition(self, filter: "Filter") -> "AbstractRendition":
+        cache_key = filter.get_cache_key(self)
+        return self.renditions.get(
+            filter_spec=filter.spec,
+            focal_point_key=cache_key,
+        )
 
     def generate_rendition(self, filter):
         if isinstance(filter, str):
