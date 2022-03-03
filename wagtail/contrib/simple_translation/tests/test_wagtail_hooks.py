@@ -132,7 +132,7 @@ class TestConstructSyncedPageTreeListHook(Utils):
         ):
             for fn in hooks.get_hooks("construct_synced_page_tree_list"):
                 response = fn([self.en_homepage], "unpublish")
-                assert response == None
+                assert response is None
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_missing_hook_action(self):
@@ -154,8 +154,8 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # Make sur the French homepage is published/live
         self.fr_homepage.live = True
         self.fr_homepage.save()
-        assert self.fr_homepage.live == True
-        assert self.en_homepage.live == True
+        assert self.fr_homepage.live is True
+        assert self.en_homepage.live is True
 
         response = self.client.post(
             reverse("wagtailadmin_pages:unpublish", args=(self.en_homepage.id,)),
@@ -169,5 +169,5 @@ class TestConstructSyncedPageTreeListHook(Utils):
         self.fr_homepage.refresh_from_db()
 
         # Test that both the English and French homepages are unpublished
-        assert self.en_homepage.live == False
-        assert self.fr_homepage.live == False
+        assert self.en_homepage.live is False
+        assert self.fr_homepage.live is False
