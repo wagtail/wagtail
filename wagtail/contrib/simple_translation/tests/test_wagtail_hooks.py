@@ -8,7 +8,7 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
-from wagtail.core import hooks
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -210,3 +210,52 @@ class TestMovingTranslatedPages(Utils):
         assert response.status_code == 200
         assert response.context['pages_to_move'] == 2
         assert f'This will also move 2 translations of this page and their child pages' in response.content.decode("utf-8")
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True)
+    def test_divergent_translation_tree(self):
+        """
+        Test what happens when we try to move a translated/alias page that's diverged
+        from it's mirrored tree.
+        """
+        self.login()
+
+        self.en_new_parent = TestPage(title="Test Parent", slug="test-parent")
+        self.en_homepage.add_child(instance=self.en_new_parent)
+
+        # Copy the /blog/ and French /blog-post/ pages.
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        # Copy the en new parent to be a french page
+        self.fr_new_parent = self.en_new_parent.copy_for_translation(self.fr_locale)
+
+        # Manually move the fr_blog_post to live under fr_new_parent
+        action = MovePageAction(
+            self.fr_blog_post,
+            self.fr_new_parent,
+            pos='last-child',
+            user=None,
+        )
+        action.execute(skip_permission_checks=True)
+
+        self.fr_blog_post.refresh_from_db()
+        self.en_blog_post.refresh_from_db()
+
+        # Confirm fr_blog_post parent id is the fr_new_parent id.
+        # Confirm en_blog_post parent id is the en_blog_index id
+        assert self.fr_blog_post.get_parent(update=True).id == self.fr_new_parent.id
+        assert self.en_blog_post.get_parent(update=True).id == self.en_blog_index.id
+
+        # Make a post request to move the en_blog_post to live under en_homepage
+        response = self.client.post(
+            reverse("wagtailadmin_pages:move_confirm", args=(self.en_blog_post.id, self.en_homepage.id,)),
+            follow=True,
+        )
+        assert response.status_code == 200
+
+        self.fr_blog_post.refresh_from_db()
+        self.en_blog_post.refresh_from_db()
+
+        # Confirm en_blog_posts parent id is en_homepage.id
+        # Confirm that fr_blog_posts parent id is _still_ the fr_new_parent id
+        assert self.en_blog_post.get_parent(update=True).id == self.en_homepage.id
+        assert self.fr_blog_post.get_parent(update=True).id == self.fr_new_parent.id
