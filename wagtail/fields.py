@@ -215,10 +215,10 @@ class StreamField(models.Field):
         if type(self.use_json_field) is bool:
             return []
         return [
-            checks.Error(
+            checks.Warning(
                 f"StreamField should explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
                 obj=self.model,
-                id="wagtailcore.E004",
+                id="wagtailcore.W002",
             )
         ]
 
