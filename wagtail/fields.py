@@ -1,5 +1,6 @@
 import json
 
+from django.core import checks
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.db.models.fields.json import KeyTransform
@@ -64,8 +65,7 @@ class Creator:
 
 
 class StreamField(models.Field):
-    def __init__(self, block_types, use_json_field=False, **kwargs):
-
+    def __init__(self, block_types, use_json_field=None, **kwargs):
         # extract kwargs that are to be passed on to the block, not handled by super
         block_opts = {}
         for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
@@ -208,7 +208,19 @@ class StreamField(models.Field):
     def check(self, **kwargs):
         errors = super().check(**kwargs)
         errors.extend(self.stream_block.check(field=self, **kwargs))
+        errors.extend(self._check_json_field())
         return errors
+
+    def _check_json_field(self):
+        if type(self.use_json_field) is bool:
+            return []
+        return [
+            checks.Error(
+                f"StreamField should explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
+                obj=self.model,
+                id="wagtailcore.E004",
+            )
+        ]
 
     def contribute_to_class(self, cls, name, **kwargs):
         super().contribute_to_class(cls, name, **kwargs)
