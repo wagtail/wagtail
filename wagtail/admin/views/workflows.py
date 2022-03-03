@@ -80,18 +80,11 @@ class Create(CreateView):
 
     def get_edit_handler(self):
         if not self.edit_handler:
-            self.edit_handler = get_workflow_edit_handler().bind_to(
-                request=self.request
-            )
+            self.edit_handler = get_workflow_edit_handler()
         return self.edit_handler
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        self.edit_handler = self.edit_handler.bind_to(form=form)
-        return form
 
     def get_pages_formset(self):
         if self.request.method == "POST":
@@ -103,7 +96,11 @@ class Create(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["edit_handler"] = self.edit_handler
+        form = context["form"]
+        bound_panel = self.edit_handler.bind_to(
+            form=form, instance=form.instance, request=self.request
+        )
+        context["edit_handler"] = bound_panel
         context["pages_formset"] = self.get_pages_formset()
         return context
 
@@ -156,18 +153,11 @@ class Edit(EditView):
 
     def get_edit_handler(self):
         if not self.edit_handler:
-            self.edit_handler = get_workflow_edit_handler().bind_to(
-                request=self.request
-            )
+            self.edit_handler = get_workflow_edit_handler()
         return self.edit_handler
 
     def get_form_class(self):
         return self.get_edit_handler().get_form_class()
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        self.edit_handler = self.edit_handler.bind_to(form=form)
-        return form
 
     def get_pages_formset(self):
         if self.request.method == "POST":
@@ -187,7 +177,11 @@ class Edit(EditView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["edit_handler"] = self.edit_handler
+        form = context["form"]
+        bound_panel = self.edit_handler.bind_to(
+            form=form, instance=form.instance, request=self.request
+        )
+        context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
         context["pages_formset"] = self.get_pages_formset()
         context["can_disable"] = (
