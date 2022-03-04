@@ -67,7 +67,7 @@ module.exports = plugin(({ addComponents, theme }) => {
       lineHeight: theme('lineHeight.normal'),
     },
     '.help-text': {
-      fontSize: theme('fontSize.16'),
+      fontSize: theme('fontSize.14'),
       fontWeight: theme('fontWeight.normal'),
       color: theme('colors.grey.400'),
       lineHeight: theme('lineHeight.tight'),
