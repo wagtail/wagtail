@@ -89,6 +89,10 @@ setup(
     author="Wagtail core team + contributors",
     author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url="https://wagtail.org/",
+    project_urls={
+        "Documentation": "https://docs.wagtail.org",
+        "Source": "https://github.com/wagtail/wagtail",
+    },
     packages=find_packages(),
     include_package_data=True,
     license="BSD",
