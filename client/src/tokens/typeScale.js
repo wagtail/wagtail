@@ -51,7 +51,7 @@ module.exports = plugin(({ addComponents, theme }) => {
       lineHeight: theme('lineHeight.tight'),
     },
     '.label-3': {
-      fontSize: theme('fontSize.15'),
+      fontSize: theme('fontSize.14'),
       fontWeight: theme('fontWeight.medium'),
       color: theme('colors.primary.DEFAULT'),
       lineHeight: theme('lineHeight.tight'),
