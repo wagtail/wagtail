@@ -30,14 +30,6 @@ module.exports = plugin(({ addComponents, theme }) => {
       fontSize: theme('fontSize.18'),
       ...headingBaseStyles,
     },
-    '.h5': {
-      fontSize: theme('fontSize.16'),
-      ...headingBaseStyles,
-    },
-    '.h6': {
-      fontSize: theme('fontSize.15'),
-      ...headingBaseStyles,
-    },
     '.label-1': {
       fontSize: theme('fontSize.16'),
       fontWeight: theme('fontWeight.bold'),
