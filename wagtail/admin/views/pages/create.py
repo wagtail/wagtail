@@ -101,9 +101,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         self.page = self.page_class(owner=self.request.user)
         self.page.locale = self.locale
         self.edit_handler = self.page_class.get_edit_handler()
-        self.edit_handler = self.edit_handler.bind_to(
-            request=self.request, instance=self.page
-        )
         self.form_class = self.edit_handler.get_form_class()
 
         # Note: Comment notifications should be enabled by default for pages that a user creates
@@ -302,7 +299,6 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             self.form,
         )
         self.has_unsaved_changes = True
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         return self.render_to_response(self.get_context_data())
 
@@ -317,18 +313,20 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         return self.render_to_response(self.get_context_data())
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        bound_panel = self.edit_handler.bind_to(
+            request=self.request, instance=self.page, form=self.form
+        )
         context.update(
             {
                 "content_type": self.page_content_type,
                 "page_class": self.page_class,
                 "parent_page": self.parent_page,
-                "edit_handler": self.edit_handler,
+                "edit_handler": bound_panel,
                 "action_menu": PageActionMenu(
                     self.request, view="create", parent_page=self.parent_page
                 ),
