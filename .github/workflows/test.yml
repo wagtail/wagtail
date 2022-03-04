@@ -78,7 +78,7 @@ jobs:
           - python: '3.10'
             django: 'git+https://github.com/django/django.git@main#egg=Django'
             experimental: true
-            install_extras: 'pip uninstall -y django-modelcluster ; pip uninstall -y django-taggit ; pip install git+https://github.com/gasman/django-modelcluster.git@fix/unsaved-instance-live-queryset#egg=django-modelcluster git+https://github.com/gasman/django-taggit.git@fix/cached-pathinfo#egg=django-taggit'
+            install_extras: 'pip uninstall -y django-modelcluster ; pip uninstall -y django-taggit ; pip install git+https://github.com/wagtail/django-modelcluster.git@main#egg=django-modelcluster git+https://github.com/jazzband/django-taggit.git@master#egg=django-taggit'
 
     services:
       postgres:
