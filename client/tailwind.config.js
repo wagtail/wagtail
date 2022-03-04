@@ -1,3 +1,6 @@
+/**
+ * Design Tokens
+ */
 const colors = require('./src/tokens/colors');
 const {
   fontFamily,
@@ -14,6 +17,15 @@ const {
 } = require('./src/tokens/objectStyles');
 const { spacing } = require('./src/tokens/spacing');
 
+/**
+ * Plugins
+ */
+const typeScale = require('./src/tokens/typeScale');
+
+/**
+ * Functions
+ * themeColors: For converting our design tokens into a format that tailwind accepts
+ */
 const themeColors = Object.fromEntries(
   Object.entries(colors).map(([key, hues]) => {
     const shades = Object.fromEntries(
@@ -51,6 +63,6 @@ module.exports = {
     },
     spacing,
   },
-  plugins: [],
+  plugins: [typeScale],
   corePlugins: {},
 };
