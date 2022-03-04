@@ -669,8 +669,6 @@ class TestInstagramOEmbed(TestCase):
         )
         # check that a request was made with the expected URL / authentication
         request = urlopen.call_args[0][0]
-        # check that a request was made with the expected URL / authentication
-        request = urlopen.call_args[0][0]
         self.assertEqual(
             request.get_full_url(),
             "https://graph.facebook.com/v11.0/instagram_oembed?url=https%3A%2F%2Finstagr.am%2Fp%2FCHeRxmnDSYe%2F&format=json",
