@@ -351,9 +351,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             )
 
         self.edit_handler = self.page_class.get_edit_handler()
-        self.edit_handler = self.edit_handler.bind_to(
-            instance=self.page, request=self.request
-        )
         self.form_class = self.edit_handler.get_form_class()
 
         if getattr(settings, "WAGTAIL_WORKFLOW_ENABLED", True):
@@ -456,7 +453,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             for_user=self.request.user,
         )
         self.has_unsaved_changes = False
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
@@ -860,7 +856,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
         self.has_unsaved_changes = True
 
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
@@ -868,12 +863,15 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        bound_panel = self.edit_handler.bind_to(
+            instance=self.page, request=self.request, form=self.form
+        )
         context.update(
             {
                 "page": self.page,
                 "page_for_status": self.page_for_status,
                 "content_type": self.page_content_type,
-                "edit_handler": self.edit_handler,
+                "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
                 "action_menu": PageActionMenu(
                     self.request, view="edit", page=self.page
