@@ -329,6 +329,14 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return cls.renditions.rel.related_model
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
+        """
+        Returns a ``Rendition``* instance with a ``file`` field value (an
+        image) reflecting the supplied ``filter`` value and focal point values
+        from this object.
+
+        *If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
         if isinstance(filter, str):
             filter = Filter(spec=filter)
 
@@ -351,6 +359,17 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return rendition
 
     def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
+        """
+        Returns an existing ``Rendition``* instance with a ``file`` field value
+        (an image) reflecting the supplied ``filter`` value and focal point
+        values from this object.
+
+        If no such rendition exists, a ``DoesNotExist`` error is raised for the
+        relevant model.
+
+        *If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
 
         Rendition = self.get_rendition_model()
         cache_key = filter.get_cache_key(self)
@@ -380,12 +399,20 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             pass
 
         # Resort to a get() lookup
-        return self.renditions.get(
-            filter_spec=filter.spec,
-            focal_point_key=cache_key,
-        )
+        return self.renditions.get(filter_spec=filter.spec, focal_point_key=cache_key)
 
     def create_rendition(self, filter: "Filter") -> "AbstractRendition":
+        """
+        Creates and returns a ``Rendition``* instance with a ``file`` field
+        value (an image) reflecting the supplied ``filter`` value and focal
+        point values from this object.
+
+        This method is usually called by ``Image.get_rendition()``, after first
+        checking that a suitable rendition does not already exist.
+
+        *If using custom image models, an instance of the custom rendition
+        model will be returned.
+        """
         # Because of unique contraints applied to the model, we use
         # get_or_create() to guard against race conditions
         rendition, created = self.renditions.get_or_create(
@@ -396,6 +423,20 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         return rendition
 
     def generate_rendition_file(self, filter: "Filter") -> File:
+        """
+        Generates an in-memory image matching the supplied ``filter`` value
+        and focal point value from this object, wraps it in a ``File`` object
+        with a suitable filename, and returns it. The return value is used
+        as the ``file`` field value for rendition objects saved by
+        ``AbstractImage.create_rendition()``.
+
+        NOTE: The responsibility of generating the new image from the original
+        falls to the supplied ``filter`` object. If you want to do anything
+        custom with rendition images (for example, to preserve metadata from
+        the original image), you might want to consider swapping out ``filter``
+        for an instance of a custom ``Filter`` subclass of your design.
+        """
+
         cache_key = filter.get_cache_key(self)
 
         logger.debug(
