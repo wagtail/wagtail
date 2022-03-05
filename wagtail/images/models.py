@@ -328,32 +328,30 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         """Get the Rendition model for this Image model"""
         return cls.renditions.rel.related_model
 
-    def get_rendition(
-        self, filter: Union["Filter", str], all_renditions_prefetched: bool = False
-    ) -> "AbstractRendition":
+    def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         if isinstance(filter, str):
             filter = Filter(spec=filter)
 
         Rendition = self.get_rendition_model()
-        cache_key = filter.get_cache_key(self)
 
         try:
-            rendition = self.lookup_rendition(filter)
+            rendition = self.find_existing_rendition(filter)
         except Rendition.DoesNotExist:
             rendition = self.create_rendition(filter)
 
         try:
             cache = caches["renditions"]
-            key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
+            key = Rendition.construct_cache_key(
+                self.id, filter.get_cache_key(self), filter.spec
+            )
             cache.set(key, rendition)
         except InvalidCacheBackendError:
             pass
 
         return rendition
 
-    def lookup_rendition(
-        self, filter: "Filter", all_renditions_prefetched: bool = False
-    ) -> "AbstractRendition":
+    def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
+
         Rendition = self.get_rendition_model()
         cache_key = filter.get_cache_key(self)
 
@@ -366,12 +364,12 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
                 ):
                     return rendition
 
-            if all_renditions_prefetched:
-                # If we know for sure that all renditions were prefetched,
-                # exit here to avoid a cache or get() lookup
-                raise Rendition.DoesNotExist
+            # If renditions were prefetched, assume that if a suitable match
+            # existed, it would have been present and already returned above
+            # (avoiding further cache/db lookups)
+            raise Rendition.DoesNotExist
 
-        # Next, lookup from the cache (if configured)
+        # Next, query the cache (if configured)
         try:
             cache = caches["renditions"]
             key = Rendition.construct_cache_key(self.id, cache_key, filter.spec)
@@ -388,7 +386,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         )
 
     def create_rendition(self, filter: "Filter") -> "AbstractRendition":
-        # get_or_create() is used to guard against race conditions
+        # Because of unique contraints applied to the model, we use
+        # get_or_create() to guard against race conditions
         rendition, created = self.renditions.get_or_create(
             filter_spec=filter.spec,
             focal_point_key=filter.get_cache_key(self),
