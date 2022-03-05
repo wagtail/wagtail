@@ -346,6 +346,11 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
             rendition = self.find_existing_rendition(filter)
         except Rendition.DoesNotExist:
             rendition = self.create_rendition(filter)
+            # Reuse this rendition if requested again from this object
+            if "renditions" in getattr(self, "_prefetched_objects_cache", {}):
+                self._prefetched_objects_cache["renditions"]._result_cache.append(
+                    rendition
+                )
 
         try:
             cache = caches["renditions"]
