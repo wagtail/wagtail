@@ -303,6 +303,17 @@ class TestRenditions(TestCase):
         # The renditions should NOT match
         self.assertNotEqual(original_rendition, second_rendition)
 
+        # Request the same rendition again
+        with self.assertNumQueries(0):
+            # Newly created renditions are appended to the prefetched
+            # rendition queryset, so that multiple requests for the same
+            # rendition can reuse the same value
+            third_rendition = image.get_rendition("height-66")
+
+        # The second and third renditions should be references to the
+        # exact same in-memory object
+        self.assertIs(second_rendition, third_rendition)
+
     def test_alt_attribute(self):
         rendition = self.image.get_rendition("width-400")
         self.assertEqual(rendition.alt, "Test image")
