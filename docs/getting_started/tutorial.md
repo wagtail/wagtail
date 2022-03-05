@@ -1,9 +1,8 @@
 # Your first Wagtail site
 
-```eval_rst
-.. note::
-   This tutorial covers setting up a brand new Wagtail project.
-   If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+```{note}
+This tutorial covers setting up a brand new Wagtail project.
+If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
 
 ## Install and run Wagtail
@@ -20,11 +19,10 @@ $ python3 --version
 
 If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
-```eval_rst
-.. important::
+```{important}
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
    The way to do this varies by platform—see Pillow's
-   `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+   [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
 ```
 
 ### Create and activate a virtual environment
@@ -48,11 +46,9 @@ $ source mysite/env/bin/activate
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
-```eval_rst
-.. note::
-
-   If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
-   The ``env`` directory inside of it should be excluded from any version control.
+```{note}
+If you're using version control (e.g. git), `mysite` will be the directory for your project.
+The `env` directory inside of it should be excluded from any version control.
 ```
 
 ### Install Wagtail
@@ -77,10 +73,8 @@ Because the folder `mysite` was already created by `venv`, run `wagtail start` w
 $ wagtail start mysite mysite
 ```
 
-```eval_rst
-.. note::
-
-   Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and   access each other's data. All of the apps need to be registered within the ``INSTALLED_APPS`` section of the ``settings`` file. Look at this file to see how the ``start`` command has listed them in there.
+```{note}
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings` file. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
@@ -761,9 +755,7 @@ something like this:
 
 ![](../_static/images/tutorial/tutorial_9.png)
 
-```eval_rst
-.. _tutorial_categories:
-```
+(tutorial_categories)=
 
 ### Categories
 
@@ -795,9 +787,8 @@ class BlogCategory(models.Model):
         verbose_name_plural = 'blog categories'
 ```
 
-```eval_rst
-.. note::
-   Note that we are using ``panels`` rather than ``content_panels`` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+```{note}
+Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
 
 Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.

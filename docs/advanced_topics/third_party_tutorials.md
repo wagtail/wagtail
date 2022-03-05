@@ -1,6 +1,6 @@
 # Third-party tutorials
 
-```eval_rst warning::
+```{warning}
 The following list is a collection of tutorials and development notes
 from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
