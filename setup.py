@@ -79,7 +79,7 @@ documentation_extras = [
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==5.0.4",
-    "recommonmark>=0.7.1",
+    "myst_parser==0.17.0",
 ]
 
 setup(
