@@ -271,6 +271,38 @@ class TestRenditions(TestCase):
         # Check that they are the same object
         self.assertEqual(first_rendition, second_rendition)
 
+    def test_prefetched_rendition_found(self):
+        # Request a rendition that does not exist yet
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        # Refetch the same image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # get_rendition() should return the prefetched rendition
+        with self.assertNumQueries(0):
+            second_rendition = image.get_rendition("width-100")
+
+        # The renditions should match
+        self.assertEqual(original_rendition, second_rendition)
+
+    def test_prefetched_rendition_not_found(self):
+        # Request a rendition that does not exist yet
+        with self.assertNumQueries(5):
+            original_rendition = self.image.get_rendition("width-100")
+
+        # Refetch the same image with all renditions prefetched
+        image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+
+        # Request a different rendition from this object
+        with self.assertNumQueries(4):
+            # The number of queries is fewer than before, because the check for
+            # an existing rendition is skipped
+            second_rendition = image.get_rendition("height-66")
+
+        # The renditions should NOT match
+        self.assertNotEqual(original_rendition, second_rendition)
+
     def test_alt_attribute(self):
         rendition = self.image.get_rendition("width-400")
         self.assertEqual(rendition.alt, "Test image")
@@ -306,6 +338,12 @@ class TestRenditions(TestCase):
         with self.assertNumQueries(0):
             new_rendition = self.image.get_rendition("width-500")
         self.assertEqual(new_rendition._from_cache, "original")
+
+        # But, not if the rendition has been prefetched
+        fresh_image = Image.objects.prefetch_related("renditions").get(pk=self.image.pk)
+        with self.assertNumQueries(0):
+            prefetched_rendition = fresh_image.get_rendition("width-500")
+        self.assertFalse(hasattr(prefetched_rendition, "_from_cache"))
 
         # changing the image file should invalidate the cache
         self.image.file = get_test_image_file(colour="green")
