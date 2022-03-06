@@ -235,6 +235,38 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         """
         return self.exclude(self.exact_type_q(*types))
 
+    def has_fields_q(self, *args: str):
+        relevant_types = mti_utils.get_concrete_subclasses_with_fields(
+            self.model, *args
+        )
+        if not relevant_types:
+            return self.none()
+        return self.exact_type_q(*relevant_types)
+
+    def has_fields(self, *args: str):
+        """
+        Only include pages with specific models that have all of the fields
+        matching the supplied names (on any concrete subclass).
+        """
+        types_with_field = mti_utils.get_concrete_subclasses_with_fields(
+            self.model, *args
+        )
+        if not types_with_field:
+            return self.none()
+        return self.exact_type(*types_with_field)
+
+    def not_has_fields(self, *args: str):
+        """
+        Exclude pages with specific models that have all of the fields
+        matching the supplied names (on any concrete subclass).
+        """
+        types_with_field = mti_utils.get_concrete_subclasses_with_fields(
+            self.model, *args
+        )
+        if not types_with_field:
+            return self.all()
+        return self.not_exact_type(*types_with_field)
+
     def public_q(self):
         from wagtail.core.models import PageViewRestriction
 
