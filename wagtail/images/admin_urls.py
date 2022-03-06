@@ -20,8 +20,8 @@ urlpatterns = [
     path("multiple/add/", multiple.AddView.as_view(), name="add_multiple"),
     path("multiple/<int:image_id>/", multiple.EditView.as_view(), name="edit_multiple"),
     path(
-        "multiple/create_from_uploaded_image/<int:uploaded_image_id>/",
-        multiple.CreateFromUploadedImageView.as_view(),
+        "multiple/create_from_uploaded_image/<int:uploaded_file_id>/",
+        multiple.CreateFromUploadedFileView.as_view(),
         name="create_multiple_from_uploaded_image",
     ),
     path(
@@ -30,7 +30,7 @@ urlpatterns = [
         name="delete_multiple",
     ),
     path(
-        "multiple/delete_upload/<int:uploaded_image_id>/",
+        "multiple/delete_upload/<int:uploaded_file_id>/",
         multiple.DeleteUploadView.as_view(),
         name="delete_upload_multiple",
     ),

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.db import models
 from django.utils.html import format_html
@@ -175,3 +176,23 @@ class GroupCollectionPermission(models.Model):
         unique_together = ("group", "collection", "permission")
         verbose_name = _("group collection permission")
         verbose_name_plural = _("group collection permissions")
+
+
+class UploadedFile(models.Model):
+    """
+    Temporary storage for media fields uploaded through the multiple image/document uploader.
+
+    When validation rules (e.g. required metadata fields) prevent creating an Image/Document object from the file alone.
+    In this case, the file is stored against this model, to be turned into an Image.Document object once the full form
+    has been filled in.
+    """
+
+    file = models.FileField(upload_to="wagtail_uploads", max_length=200)
+    uploaded_by_user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("uploaded by user"),
+        null=True,
+        blank=True,
+        editable=False,
+        on_delete=models.SET_NULL,
+    )

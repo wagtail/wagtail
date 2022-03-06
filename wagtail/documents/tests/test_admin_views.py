@@ -10,7 +10,12 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core.models import Collection, GroupCollectionPermission, Page
+from wagtail.core.models import (
+    Collection,
+    GroupCollectionPermission,
+    Page,
+    UploadedFile,
+)
 from wagtail.documents import get_document_model, models
 from wagtail.documents.tests.utils import get_test_document_file
 from wagtail.tests.testapp.models import (
@@ -1087,15 +1092,15 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
     def setUp(self):
         super().setUp()
 
-        # Create an UploadedDocument for running tests on
-        self.uploaded_document = models.UploadedDocument.objects.create(
+        # Create an UploadedFile for running tests on
+        self.uploaded_document = UploadedFile.objects.create(
             file=get_test_document_file(),
             uploaded_by_user=self.user,
         )
 
     def test_add_post(self):
         """
-        This tests that a POST request to the add view saves the document as an UploadedDocument
+        This tests that a POST request to the add view saves the document as an UploadedFile
         and returns an edit form
         """
         response = self.client.post(
@@ -1136,11 +1141,11 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # Check JSON
         response_json = json.loads(response.content.decode())
-        self.assertIn("uploaded_document_id", response_json)
+        self.assertIn("uploaded_file_id", response_json)
         self.assertIn("form", response_json)
         self.assertIn("success", response_json)
         self.assertEqual(
-            response_json["uploaded_document_id"],
+            response_json["uploaded_file_id"],
             response.context["uploaded_document"].id,
         )
         self.assertTrue(response_json["success"])
@@ -1173,10 +1178,10 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # Check JSON
         response_json = json.loads(response.content.decode())
-        self.assertIn("uploaded_document_id", response_json)
+        self.assertIn("uploaded_file_id", response_json)
         self.assertIn("form", response_json)
         self.assertEqual(
-            response_json["uploaded_document_id"],
+            response_json["uploaded_file_id"],
             response.context["uploaded_document"].id,
         )
         self.assertTrue(response_json["success"])
@@ -1229,11 +1234,11 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # Check JSON
         response_json = json.loads(response.content.decode())
-        self.assertIn("uploaded_document_id", response_json)
+        self.assertIn("uploaded_file_id", response_json)
         self.assertIn("form", response_json)
         self.assertIn("success", response_json)
         self.assertEqual(
-            response_json["uploaded_document_id"],
+            response_json["uploaded_file_id"],
             response.context["uploaded_document"].id,
         )
         self.assertTrue(response_json["success"])
@@ -1248,10 +1253,10 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
     def test_create_from_upload_invalid_post(self):
         """
         Posting an invalid form to the create_from_uploaded_document view throws a validation error
-        and leaves the UploadedDocument intact
+        and leaves the UploadedFile intact
         """
         doc_count_before = CustomDocumentWithAuthor.objects.count()
-        uploaded_doc_count_before = models.UploadedDocument.objects.count()
+        uploaded_doc_count_before = UploadedFile.objects.count()
 
         # Send request
         response = self.client.post(
@@ -1269,9 +1274,9 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         )
 
         doc_count_after = CustomDocumentWithAuthor.objects.count()
-        uploaded_doc_count_after = models.UploadedDocument.objects.count()
+        uploaded_doc_count_after = UploadedFile.objects.count()
 
-        # no changes to document / UploadedDocument count
+        # no changes to document / UploadedFile count
         self.assertEqual(doc_count_after, doc_count_before)
         self.assertEqual(uploaded_doc_count_after, uploaded_doc_count_before)
 
@@ -1305,7 +1310,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         Posting a valid form to the create_from_uploaded_document view will create the document
         """
         doc_count_before = CustomDocumentWithAuthor.objects.count()
-        uploaded_doc_count_before = models.UploadedDocument.objects.count()
+        uploaded_doc_count_before = UploadedFile.objects.count()
 
         # Send request
         response = self.client.post(
@@ -1327,7 +1332,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         )
 
         doc_count_after = CustomDocumentWithAuthor.objects.count()
-        uploaded_doc_count_after = models.UploadedDocument.objects.count()
+        uploaded_doc_count_after = UploadedFile.objects.count()
 
         # Check response
         self.assertEqual(response.status_code, 200)
@@ -1338,7 +1343,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
         self.assertIn("doc_id", response_json)
         self.assertTrue(response_json["success"])
 
-        # Document should have been created, UploadedDocument deleted
+        # Document should have been created, UploadedFile deleted
         self.assertEqual(doc_count_after, doc_count_before + 1)
         self.assertEqual(uploaded_doc_count_after, uploaded_doc_count_before - 1)
 
@@ -1352,7 +1357,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
     def test_delete_uploaded_document(self):
         """
-        This tests that a POST request to the delete view deletes the UploadedDocument
+        This tests that a POST request to the delete view deletes the UploadedFile
         """
         # Send request
         response = self.client.post(
@@ -1367,9 +1372,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # Make sure the document is deleted
         self.assertFalse(
-            models.UploadedDocument.objects.filter(
-                id=self.uploaded_document.id
-            ).exists()
+            UploadedFile.objects.filter(id=self.uploaded_document.id).exists()
         )
 
         # Check JSON

@@ -103,6 +103,7 @@ from .media import (  # noqa
     CollectionViewRestriction,
     GroupCollectionPermission,
     GroupCollectionPermissionManager,
+    UploadedFile,
     get_root_collection_id,
 )
 from .sites import Site, SiteManager, SiteRootPath  # noqa
