@@ -3,6 +3,7 @@ from unittest import mock
 from urllib.parse import quote
 
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.utils import override_settings
@@ -1094,6 +1095,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
         # Create an UploadedFile for running tests on
         self.uploaded_document = UploadedFile.objects.create(
+            for_content_type=ContentType.objects.get_for_model(get_document_model()),
             file=get_test_document_file(),
             uploaded_by_user=self.user,
         )

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
@@ -187,6 +188,12 @@ class UploadedFile(models.Model):
     has been filled in.
     """
 
+    for_content_type = models.ForeignKey(
+        ContentType,
+        verbose_name=_("for content type"),
+        related_name="uploads",
+        on_delete=models.CASCADE,
+    )
     file = models.FileField(upload_to="wagtail_uploads", max_length=200)
     uploaded_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,

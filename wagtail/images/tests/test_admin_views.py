@@ -2,6 +2,7 @@ import json
 import urllib
 
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.template.defaultfilters import filesizeformat
 from django.template.loader import render_to_string
@@ -2093,6 +2094,7 @@ class TestMultipleImageUploaderWithCustomRequiredFields(TestCase, WagtailTestUti
 
         # Create an UploadedFile for running tests on
         self.uploaded_image = UploadedFile.objects.create(
+            for_content_type=ContentType.objects.get_for_model(get_image_model()),
             file=get_test_image_file(),
             uploaded_by_user=self.user,
         )
