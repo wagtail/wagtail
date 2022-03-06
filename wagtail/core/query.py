@@ -4,12 +4,13 @@ from collections import defaultdict
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import CharField, Prefetch, Q
+from django.db.models import CharField, F, Field, Prefetch, Q
 from django.db.models.expressions import Exists, OuterRef
-from django.db.models.functions import Length, Substr
+from django.db.models.functions import Coalesce, Length, Substr
 from django.db.models.query import BaseIterable, ModelIterable
 from treebeard.mp_tree import MP_NodeQuerySet
 
+from wagtail.core import mti_utils
 from wagtail.core.models.sites import Site
 from wagtail.search.queryset import SearchableQuerySetMixin
 
@@ -478,6 +479,96 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
                 )
             )
         )
+
+    def annotate_specific_fields(self, *field_names: str, output_field: Field = None):
+        """
+        Annotates results with field values from one or more specific
+        ``Page`` models, making them available from individual results
+        using the original field name. It is expected that each named
+        field is the same 'field type' accross all models. If
+        the field type varies, a ``django.core.exceptions.FieldError`` will be
+        raised. In these situations, you can use the ``output_field`` keyword
+        argument to cast the values to consitant type. For example, say
+        you has a ``"content"`` field was a ``RichTextField`` on some page
+        types and a ``StreamField`` on others, you could cast both fields as
+        ``TextField`` values:
+
+        .. code-block: python
+
+            from django.db.models
+
+            Page.objects.annotate_specific_fields("content", output_field=models.TextField())
+
+        Pages without a matching field on a specific model will still be
+        annotated, but the value will be ``None``. If your intention is to
+        filter out pages with a specific type that does not have the field,
+        you can do that explicitly using the ``has_fields()`` filter.
+
+        This method is useful when you have a potentially large queryset of
+        generic ``Page`` objects of mixed types, and need to access one or two
+        specific field values without the fetching the entire records. For
+        example, if you had three models with the fields ``start_date`` and
+        ``end_date``, and results could be from either of those models. You
+        could do the following:
+
+        .. code-block: python
+
+            # If you are only interested in specific field types, filter the
+            # queryset accordingly
+            event_pages = Page.objects.exact_type(
+                ConferencePage,
+                ExhibitionPage,
+                ConcertPage,
+            ).annotate_specific_fields("start_date", "end_date")
+
+            # Using iterator() to avoid loading all results into memory at once
+            for event in event_pages.iterator():
+                print(type(event))  # Will still be Page
+                print(event.start_date)  # Will give annotated value
+                print(event.end_date)  # Will give annotated value
+
+        If you also need results to be instances of the specific class (for
+        example, to access methods or properties defined on your specific
+        page types), the method can be safely used in conjunction with
+        ``specific(defer=True)``, and annotated values will be preserved on
+        the returned objects. For example:
+
+        .. code-block: python
+            for event in event_pages.specific(defer=True).iterator():
+                print(type(event))  # Will be ConferencePage, ExhibitionPage or ConcertPage
+                print(event.start_date)  # No extra query required here
+                print(event.end_date)  # No extra query required here
+
+        If dealing with ``Page`` objects with a known, single specific type,
+        the more efficient solution is to start a queryset from that specific
+        model. This will result in a much simpler query, and allows you to
+        access all field values freely. For example:
+
+        .. code-block:: python
+
+            for event in EventPage.objects.all().iterator():
+                print(type(event))  # Will be EventPage
+                print(event.start_date)  # No extra query required here
+                print(event.end_date)  # No extra query required here
+                print(event.description)  # Same for any EventPage field
+
+        .. warning::
+
+            This method is currently incompatible with ``search()`` when using
+            anything other than the default ``wagtail.search.backends.database``
+            search backend.
+        """
+        annotate_kwargs = {}
+        for field_name in field_names:
+            lookups = mti_utils.get_subclass_spanning_lookups(self.model, field_name)
+            if len(lookups) == 1:
+                annotate_kwargs[field_name] = F(lookups[0])
+            else:
+                annotate_kwargs[field_name] = Coalesce(
+                    *lookups, output_field=output_field
+                )
+
+        return self.annotate(**annotate_kwargs)
 
 
 def specific_iterator(qs, defer=False):
