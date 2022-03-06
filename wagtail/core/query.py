@@ -429,6 +429,85 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
             clone._iterable_class = SpecificIterable
         return clone
 
+    def mti_filter(self, *args, **kwargs):
+        """
+        A specialised version of ``QuerySet.filter()`` that automatically
+        converts queries to those that will work accross all specific
+        subclasses that have the relevant fields.
+
+        For example, if your project had a set of page types to support
+        content migration from another system, and you wanted to find
+        pages that had been created to represent specific objects from that
+        system. You could do something like this:
+
+        .. code-block:: python
+
+            Page.objects.mti_filter(legacy_system_id__in=node_ids)
+
+        If your intention is to only include results that have the fields used
+        in your query, you may wish to specify that explicitly using the
+        ``has_fields()`` filter. For example:
+
+        .. code-block:: python
+
+            Page.objects.has_fields("legacy_system_id").mti_filter(legacy_system_id__in=node_ids)
+
+        .. warning::
+
+            This method is currently incompatible with ``search()`` when using
+            anything other than the default ``wagtail.search.backends.database``
+            search backend.
+
+        """
+        converted_q_list = mti_utils.get_subclass_spanning_q_list(
+            self.model, args, kwargs
+        )
+        return self.filter(*converted_q_list)
+
+    def mti_exclude(self, *args, **kwargs):
+        """
+        A specialised version of ``QuerySet.exclude()`` that automatically
+        converts queries to those that will work accross all specific
+        subclasses that have the relevant fields.
+
+        If your intention is to only include results that have the fields used
+        in your query, you may wish to specify that explicitly using the
+        ``has_fields()`` filter. For example:
+
+        .. code-block:: python
+
+            Page.objects.has_fields("legacy_system_id").mti_exclude(legacy_system_id__startwith="x")
+
+        .. warning::
+
+            This method is currently incompatible with ``search()`` when using
+            anything other than the default ``wagtail.search.backends.database``
+            search backend.
+
+        """
+        converted_q_list = mti_utils.get_subclass_spanning_q_list(
+            self.model, args, kwargs
+        )
+        return self.exclude(*converted_q_list)
+
+    def mti_get(self, *args, **kwargs):
+        """
+        A specialized version of ``QuerySet.get()`` that automatically
+        converts queries to those that will work accross all specific
+        subclasses that have the relevant fields.
+
+        For example, if your project had a set of page types to support
+        content migration from another system, and you wanted to find
+        the page that had been created to represent a specific object
+        from that system. You could do something like this:
+
+        .. code-block:: python
+
+            Page.objects.mti_get(legacy_system_id=node_id)
+
+        """
+        return self.mti_filter(*args, **kwargs).get()
+
     def in_site(self, site):
         """
         This filters the QuerySet to only contain pages within the specified site.
