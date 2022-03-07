@@ -18,26 +18,17 @@ const checkedState = {
 };
 
 /**
- * Hides the 'more' dropdown button in listing pages.
+ * Toggles the 'more' dropdown button in listing pages.
+ * @param {boolean} show - Determines if the button should be shown or not.
  */
-function hideMoreActionsDropdownBtn() {
-  const MoreActionsDropdown = document.querySelector(
+function toggleMoreActionsDropdownBtn(show) {
+  const moreActionsDropdown = document.querySelector(
     MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
   );
-  if (MoreActionsDropdown !== null) {
-    MoreActionsDropdown.classList.add('hidden');
-  }
-}
-
-/**
- * Shows the 'more' dropdown button in listing pages.
- */
-function showMoreActionsDropdownBtn() {
-  const MoreActionsDropdown = document.querySelector(
-    MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
-  );
-  if (MoreActionsDropdown !== null) {
-    MoreActionsDropdown.classList.remove('hidden');
+  if (moreActionsDropdown !== null) {
+    show === true
+      ? moreActionsDropdown.classList.remove('hidden')
+      : moreActionsDropdown.classList.add('hidden');
   }
 }
 
@@ -73,12 +64,12 @@ function onSelectAllChange(e) {
     }
   });
   if (!e.target.checked) {
-    showMoreActionsDropdownBtn();
+    toggleMoreActionsDropdownBtn((show = true));
     // when deselecting all checkbox, simply hide the footer for smooth transition
     checkedState.checkedObjects.clear();
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
   } else {
-    hideMoreActionsDropdownBtn();
+    toggleMoreActionsDropdownBtn((show = false));
   }
 }
 
@@ -102,14 +93,14 @@ function onSelectIndividualCheckbox(e) {
 
   if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
-    showMoreActionsDropdownBtn();
+    toggleMoreActionsDropdownBtn((show = true));
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
     document
       .querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT)
       .forEach((el) => el.classList.remove('show'));
   } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
-    hideMoreActionsDropdownBtn();
+    toggleMoreActionsDropdownBtn((show = false));
     document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
       el.classList.add('show');
     });
