@@ -1288,11 +1288,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.request.user = self.commenting_user
 
         unbound_object_list = ObjectList([CommentPanel()])
-        self.object_list = unbound_object_list.bind_to(
-            model=EventPage, request=self.request
-        )
+        self.object_list = unbound_object_list.bind_to(model=EventPage)
         self.tabbed_interface = TabbedInterface([unbound_object_list]).bind_to(
-            model=EventPage, request=self.request
+            model=EventPage
         )
 
         self.EventPageForm = self.object_list.get_form_class()
@@ -1345,9 +1343,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         Test that the context contains the data about existing comments necessary to initialize the commenting app
         """
         form = self.EventPageForm(instance=self.event_page)
-        panel = self.object_list.bind_to(instance=self.event_page, form=form).children[
-            0
-        ]
+        panel = self.object_list.bind_to(
+            request=self.request, instance=self.event_page, form=form
+        ).children[0]
         data = panel.get_context()["comments_data"]
 
         self.assertEqual(data["user"], self.commenting_user.pk)
@@ -1376,19 +1374,21 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
     def test_form(self):
         """
         Check that the form has the comments/replies formsets, and that the
-        user has been set on each CommentForm/CommentReplyForm subclass
+        user has been set on each CommentForm/CommentReplyForm instance
         """
-        form = self.EventPageForm(instance=self.event_page)
+        form = self.EventPageForm(
+            instance=self.event_page, for_user=self.commenting_user
+        )
 
         self.assertIn("comments", form.formsets)
 
         comments_formset = form.formsets["comments"]
         self.assertEqual(len(comments_formset.forms), 1)
-        self.assertEqual(comments_formset.forms[0].user, self.commenting_user)
+        self.assertEqual(comments_formset.forms[0].for_user, self.commenting_user)
 
         replies_formset = comments_formset.forms[0].formsets["replies"]
         self.assertEqual(len(replies_formset.forms), 2)
-        self.assertEqual(replies_formset.forms[0].user, self.commenting_user)
+        self.assertEqual(replies_formset.forms[0].for_user, self.commenting_user)
 
     def test_comment_form_validation(self):
 
@@ -1414,6 +1414,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-1-replies-MAX_NUM_FORMS": 1000,
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
 
         comment_form = form.formsets["comments"].forms[0]
@@ -1441,6 +1442,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-0-replies-MAX_NUM_FORMS": 1000,
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
 
         comment_form = form.formsets["comments"].forms[0]
@@ -1465,6 +1467,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-0-replies-MAX_NUM_FORMS": 1000,
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
 
         comment_form = form.formsets["comments"].forms[0]
@@ -1490,6 +1493,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-0-replies-MAX_NUM_FORMS": 1000,
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
         comment_form = form.formsets["comments"].forms[0]
         self.assertTrue(comment_form.is_valid())
@@ -1529,6 +1533,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-0-replies-2-text": "New reply",
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
 
         comment_form = form.formsets["comments"].forms[0]
@@ -1566,6 +1571,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
                 "comments-0-replies-1-DELETE": 1,  # Try to delete own reply
             },
             instance=self.event_page,
+            for_user=self.commenting_user,
         )
 
         comment_form = form.formsets["comments"].forms[0]
