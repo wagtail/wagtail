@@ -1,13 +1,16 @@
 from unittest import mock
 
 from django.contrib.contenttypes.models import ContentType
-from django.db.models import Count, Q
-from django.test import TestCase
+from django.core.exceptions import FieldDoesNotExist, FieldError
+from django.db.models import Count, Q, TextField
+from django.test import SimpleTestCase, TestCase
 
 from wagtail.core.models import Locale, Page, PageViewRestriction, Site
+from wagtail.core.mti_utils import get_concrete_subclasses_with_fields
 from wagtail.core.signals import page_unpublished
 from wagtail.search.query import MATCH_ALL
 from wagtail.tests.testapp.models import (
+    EventIndex,
     EventPage,
     SimplePage,
     SingleEventPage,
@@ -1048,3 +1051,172 @@ class TestFirstCommonAncestor(TestCase):
             self.assertNotIn("body", page.__dict__)
             with self.assertNumQueries(1):
                 page.body
+
+
+class TestHasFields(TestCase):
+    fixtures = ["test_specific.json"]
+
+    def test_has_single_field(self):
+        # all pages have a 'slug' field
+        self.assertEqual(
+            set(Page.objects.has_fields("slug").values_list("pk", flat=True)),
+            set(Page.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertFalse(Page.objects.not_has_fields("slug").exists())
+
+        # no pages have an 'absolute_nonsense' field
+        self.assertEqual(
+            set(
+                Page.objects.not_has_fields("absolute_nonsense").values_list(
+                    "pk", flat=True
+                )
+            ),
+            set(Page.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertFalse(Page.objects.has_fields("absolute_nonsense").exists())
+
+        # only EventPage objects have a 'date_from' field
+        self.assertEqual(
+            set(Page.objects.has_fields("date_from").values_list("pk", flat=True)),
+            set(EventPage.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertEqual(
+            set(Page.objects.not_has_fields("date_from").values_list("pk", flat=True)),
+            set(Page.objects.not_exact_type(EventPage).values_list("pk", flat=True)),
+        )
+
+        # only SimplePage objects have a 'content' field
+        self.assertEqual(
+            set(Page.objects.has_fields("content").values_list("pk", flat=True)),
+            set(SimplePage.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertEqual(
+            set(Page.objects.not_has_fields("content").values_list("pk", flat=True)),
+            set(Page.objects.not_exact_type(SimplePage).values_list("pk", flat=True)),
+        )
+
+    def test_has_multiple_fields(self):
+        # all pages have 'live', 'path' and 'show_in_menus' fields
+        self.assertEqual(
+            Page.objects.has_fields("live", "path", "show_in_menus").count(),
+            Page.objects.all().count(),
+        )
+        self.assertFalse(
+            Page.objects.not_has_fields("live", "page", "show_in_menus").exists()
+        )
+
+        # no pages have a 'meaning_of_life' field
+        self.assertFalse(
+            Page.objects.has_fields("live", "path", "meaning_of_life").exists()
+        )
+        self.assertEqual(
+            Page.objects.not_has_fields("live", "path", "meaning_of_life").count(),
+            Page.objects.all().count(),
+        )
+
+        # only EventPage objects have 'live', 'location' and 'audience' fields
+        self.assertEqual(
+            set(
+                Page.objects.has_fields("live", "location", "audience").values_list(
+                    "pk", flat=True
+                )
+            ),
+            set(EventPage.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertEqual(
+            set(
+                Page.objects.not_has_fields("live", "location", "audience").values_list(
+                    "pk", flat=True
+                )
+            ),
+            set(Page.objects.not_exact_type(EventPage).values_list("pk", flat=True)),
+        )
+
+        # only SimplePage objects have 'path' and 'content' fields
+        self.assertEqual(
+            set(
+                Page.objects.has_fields("path", "content").values_list("pk", flat=True)
+            ),
+            set(SimplePage.objects.all().values_list("pk", flat=True)),
+        )
+        self.assertEqual(
+            set(
+                Page.objects.not_has_fields("path", "content").values_list(
+                    "pk", flat=True
+                )
+            ),
+            set(Page.objects.not_exact_type(SimplePage).values_list("pk", flat=True)),
+        )
+
+
+class TestAnnotateSpecificFields(TestCase):
+    fixtures = ["test_specific.json"]
+
+    def test_annotate_single_field(self):
+        # Only EventIndex objects have an 'intro' field, so the value should
+        # be `None` for anything else
+        for page in Page.objects.annotate_specific_fields("intro").all():
+            if page.specific_class is EventIndex:
+                self.assertIsNotNone(page.intro)
+            else:
+                self.assertIsNone(page.intro)
+
+    def test_annotate_multiple_fields_from_one_subclass(self):
+        for page in Page.objects.annotate_specific_fields(
+            "audience", "location", "cost"
+        ):
+            if page.specific_class is EventPage:
+                self.assertIsNotNone(page.audience)
+                self.assertIsNotNone(page.location)
+                self.assertIsNotNone(page.cost)
+            else:
+                self.assertIsNone(page.audience)
+                self.assertIsNone(page.location)
+                self.assertIsNone(page.cost)
+
+    def test_annotate_multiple_fields_from_different_subclasses(self):
+        for page in Page.objects.annotate_specific_fields("content", "cost", "intro"):
+            # Only SimplePage has a 'content' field, so only pages of that type
+            # should have an annotated value
+            if page.specific_class is SimplePage:
+                self.assertIsNotNone(page.content)
+            else:
+                self.assertIsNone(page.content)
+
+            # Only EventPage has a 'cost' field, so only pages of that
+            # type should have an annotated value
+            if page.specific_class is EventPage:
+                self.assertIsNotNone(page.cost)
+            else:
+                self.assertIsNone(page.cost)
+
+            # Only EventIndex has a 'intro' field, so only pages of that type
+            # should have an annotated value
+            if page.specific_class is EventIndex:
+                self.assertIsNotNone(page.intro)
+            else:
+                self.assertIsNone(page.intro)
+
+    def test_annotate_mixed_field_types_with_output_field(self):
+        types_with_body_field = get_concrete_subclasses_with_fields(Page, "body")
+        for page in Page.objects.annotate_specific_fields(
+            "body", output_field=TextField()
+        ):
+            if isinstance(page, tuple(types_with_body_field)):
+                self.assertIsInstance(page.body, str)
+            else:
+                self.assertIsNone(page.body)
+
+
+class TestAnnotateSpecificFieldsErrors(SimpleTestCase):
+    def test_annotate_model_without_subclasses_raises_error(self):
+        with self.assertRaises(FieldDoesNotExist):
+            SimplePage.objects.annotate_specific_fields("absolute_nonsense")
+
+    def test_annotate_non_existant_field_raises_fielddoesnotexist(self):
+        with self.assertRaises(FieldDoesNotExist):
+            Page.objects.annotate_specific_fields("absolute_nonsense")
+
+    def test_annotate_mixed_field_types_raises_fielderror(self):
+        with self.assertRaises(FieldError):
+            list(Page.objects.annotate_specific_fields("body"))
