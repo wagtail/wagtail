@@ -43,6 +43,7 @@
                         {% if workflow.active %}
                             <div class="top-padding">
                                 <p class="help-block help-info">
+                                    {% icon name='help' %}
                                     {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
                                     {% blocktrans trimmed %}
                                         Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
@@ -55,6 +56,7 @@
                         {% else %}
                             <div class="top-padding">
                                 <p class="help-block help-info">
+                                    {% icon name='help' %}
                                     {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
                                 </p>
                             </div>

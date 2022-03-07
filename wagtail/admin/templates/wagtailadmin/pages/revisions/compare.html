@@ -41,6 +41,7 @@
                                         {% with child_comp.get_position_change as move %}
                                             {% if move %}
                                                 <div class="help-block help-info">
+                                                    {% icon name='help' %}
                                                     <p>
                                                         {% if move > 0 %}
                                                             {% blocktrans count counter=move %}

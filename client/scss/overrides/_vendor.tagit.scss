@@ -27,16 +27,18 @@
 
 .tagit-close {
   .ui-icon-close {
-    margin-left: 1em;
+    margin-left: 1rem;
     text-indent: 0;
-    background: none;
   }
 
   .ui-icon-close:before {
-    font-family: $font-wagtail-icons;
+    content: '';
     display: block;
-    color: $color-grey-3;
-    content: map.get($icons, 'cross');
+    width: 16px;
+    height: 16px;
+    background: $color-grey-3;
+    mask-image: url('#{$images-root}icons/cross.svg');
+    mask-repeat: no-repeat;
   }
 
   .ui-icon-close:hover:before {

@@ -39,7 +39,7 @@ const SelectLocale: React.FunctionComponent<SelectLocaleProps> = ({
       <select value={locale} onChange={onChange} disabled={options.length < 2}>
         {options}
       </select>
-      <span />
+      <Icon name="arrow-down" className="c-explorer__header__select-icon" />
     </div>
   );
 };

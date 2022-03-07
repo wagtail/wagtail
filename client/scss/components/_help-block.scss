@@ -27,20 +27,18 @@
   padding-left: 3.5em;
   position: relative;
 
-  &:before {
-    font-family: $font-wagtail-icons;
+  .icon {
+    @include svg-icon(1.25rem);
     position: absolute;
-    left: 1em;
-    top: 0.7em;
-    content: map.get($icons, 'help');
-    font-size: 1.4em;
+    left: 1.125rem;
+    top: 0.8125rem;
   }
 }
 
 .help-info {
   background-color: color.adjust($color-blue, $lightness: 30%);
 
-  &:before {
+  .icon-help {
     color: $color-blue;
   }
 }
@@ -48,18 +46,16 @@
 .help-warning {
   background-color: color.adjust($color-orange, $lightness: 30%);
 
-  &:before {
+  .icon-warning {
     color: $color-orange;
-    content: map.get($icons, 'warning');
   }
 }
 
 .help-critical {
   background-color: color.adjust($color-red, $lightness: 40%);
 
-  &:before {
+  .icon-warning {
     color: $color-red;
-    content: map.get($icons, 'warning');
   }
 }
 

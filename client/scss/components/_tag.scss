@@ -9,11 +9,15 @@
   white-space: nowrap;
 
   &:before {
-    font-family: $font-wagtail-icons;
+    content: '';
     display: inline-block;
-    color: $color-white;
-    content: map.get($icons, 'tag');
-    padding-right: 0.5em;
+    background: $color-white;
+    padding-right: 0.5rem;
+    width: 16px;
+    height: 16px;
+    mask-image: url('#{$images-root}icons/tag.svg');
+    mask-repeat: no-repeat;
+    transform: translateY(3px);
   }
 
   .taglist & {

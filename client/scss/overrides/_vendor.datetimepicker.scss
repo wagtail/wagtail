@@ -86,7 +86,7 @@
     float: left;
 
     &:before {
-      content: map.get($icons, 'arrow-left');
+      content: map.get($icons, 'arrow-left'); // UI-Redesign: to be removed
     }
   }
 
@@ -95,7 +95,7 @@
     margin-left: 5px;
 
     &:before {
-      content: map.get($icons, 'home');
+      content: map.get($icons, 'home'); // UI-Redesign: to be removed
     }
   }
 
@@ -103,7 +103,7 @@
     float: right;
 
     &:before {
-      content: map.get($icons, 'arrow-right');
+      content: map.get($icons, 'arrow-right'); // UI-Redesign: to be removed
     }
   }
 
@@ -129,11 +129,11 @@
     }
 
     .xdsoft_prev:before {
-      content: map.get($icons, 'arrow-up');
+      content: map.get($icons, 'arrow-up'); // UI-Redesign: to be removed
     }
 
     .xdsoft_next:before {
-      content: map.get($icons, 'arrow-down');
+      content: map.get($icons, 'arrow-down'); // UI-Redesign: to be removed
     }
 
     .xdsoft_time_box {
