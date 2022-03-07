@@ -128,7 +128,10 @@ class WagtailAdminModelFormMetaclass(PermissionedFormMetaclass, ClusterFormMetac
 class WagtailAdminModelForm(
     PermissionedForm, ClusterForm, metaclass=WagtailAdminModelFormMetaclass
 ):
-    pass
+    def __init__(self, *args, **kwargs):
+        # keep hold of the `for_user` kwarg as well as passing it on to PermissionedForm
+        self.for_user = kwargs.get("for_user")
+        super().__init__(*args, **kwargs)
 
 
 # Now, any model forms built off WagtailAdminModelForm instead of ModelForm should pick up

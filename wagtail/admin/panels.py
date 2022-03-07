@@ -18,7 +18,7 @@ from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
 
 from wagtail.admin import compare
-from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
+from wagtail.admin.forms.comments import CommentForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
@@ -965,29 +965,16 @@ class PrivacyModalPanel(Panel):
 class CommentPanel(Panel):
     def get_form_options(self):
         # add the comments formset
-        # we need to pass in the current user for validation on the formset
-        # this could alternatively be done on the page form itself if we added the
-        # comments formset there, but we typically only add fields via edit handlers
-        current_user = getattr(self.request, "user", None)
-
-        class CommentReplyFormWithRequest(CommentReplyForm):
-            user = current_user
-
-        class CommentFormWithRequest(CommentForm):
-            user = current_user
-
-            class Meta:
-                formsets = {"replies": {"form": CommentReplyFormWithRequest}}
-
         return {
             # Adds the comment notifications field to the form.
             # Note, this field is defined directly on WagtailAdminPageForm.
             "fields": ["comment_notifications"],
             "formsets": {
                 COMMENTS_RELATION_NAME: {
-                    "form": CommentFormWithRequest,
+                    "form": CommentForm,
                     "fields": ["text", "contentpath", "position"],
                     "formset_name": "comments",
+                    "inherit_kwargs": ["for_user"],
                 }
             },
         }
