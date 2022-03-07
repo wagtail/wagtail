@@ -37,6 +37,9 @@ def delete(request, page_id):
                         pages_to_delete.update(additional_pages)
 
         pages_to_delete = list(pages_to_delete)
+        translation_count = len(
+            [p.id for p in pages_to_delete if not p.alias_of and p.id != page.id]
+        )
 
         if request.method == "POST":
             parent_id = page.get_parent().id
@@ -59,10 +62,6 @@ def delete(request, page_id):
             )
 
             for fn in hooks.get_hooks("after_delete_page"):
-                pages_to_delete.remove(page)
-                for _page in pages_to_delete:
-                    fn(request, _page)
-
                 result = fn(request, page)
                 if hasattr(result, "status_code"):
                     return result
@@ -78,10 +77,10 @@ def delete(request, page_id):
             "page": page,
             "descendant_count": page.get_descendant_count(),
             "next": next_url,
-            "translation_count": len(pages_to_delete),
+            "translation_count": translation_count,
             "translation_descendant_count": sum(
                 [p.get_descendants().count() for p in pages_to_delete]
             ),
-            "combined_subpages": page.get_descendant_count() + len(pages_to_delete),
+            "combined_subpages": page.get_descendant_count() + translation_count,
         },
     )

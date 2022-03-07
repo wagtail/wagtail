@@ -11,24 +11,19 @@
             {% trans 'Are you sure you want to delete this page?' %}
 
             {% if descendant_count and translation_count %}
-                {% blocktrans count counter=descendant_count %}
-                    Deleting this page will also delete {{ descendant_count }} of their child pages,
+                {% blocktrans trimmed count counter=translation_count %}
+                    Deleting this page will also delete {{ descendant_count }} more child pages, {{ translation_count }} translation of this page and their combined {{ combined_subpages }} translated child pages.
                 {% plural %}
-                    Deleting this page will also delete {{ descendant_count }} more child pages,
-                {% endblocktrans %}
-                {% blocktrans count counter=translation_count %}
-                    {{ translation_count }} translation of this page and their combined {{ combined_subpages }} translated child pages.
-                {% plural %}
-                    {{ translation_count }} translations of this page and their combined {{ combined_subpages }} translated child pages.
+                    Deleting this page will also delete {{ descendant_count }} more child pages, {{ translation_count }} translations of this page and their combined {{ combined_subpages }} translated child pages.
                 {% endblocktrans %}
             {% elif descendant_count %}
-                {% blocktrans count counter=descendant_count %}
+                {% blocktrans trimmed count counter=descendant_count %}
                     Deleting this page will also delete {{ descendant_count }} child page.
                 {% plural %}
                     Deleting this page will also delete {{ descendant_count }} more child pages.
                 {% endblocktrans %}
             {% elif translation_count %}
-                {% blocktrans count counter=translation_count %}
+                {% blocktrans trimmed count counter=translation_count %}
                     Deleting this page will also delete {{ translation_count }} translation of this page.
                 {% plural %}
                     Deleting this page will also delete {{ translation_count }} translations of this page.
