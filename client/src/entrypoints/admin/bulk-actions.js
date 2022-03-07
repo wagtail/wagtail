@@ -64,12 +64,12 @@ function onSelectAllChange(e) {
     }
   });
   if (!e.target.checked) {
-    toggleMoreActionsDropdownBtn((show = true));
+    toggleMoreActionsDropdownBtn(true);
     // when deselecting all checkbox, simply hide the footer for smooth transition
     checkedState.checkedObjects.clear();
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
   } else {
-    toggleMoreActionsDropdownBtn((show = false));
+    toggleMoreActionsDropdownBtn(false);
   }
 }
 
@@ -93,14 +93,14 @@ function onSelectIndividualCheckbox(e) {
 
   if (numCheckedObjects === 0) {
     /* when all checkboxes are unchecked */
-    toggleMoreActionsDropdownBtn((show = true));
+    toggleMoreActionsDropdownBtn(true);
     document.querySelector(BULK_ACTION_FOOTER).classList.add('hidden');
     document
       .querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT)
       .forEach((el) => el.classList.remove('show'));
   } else if (numCheckedObjects === 1 && prevLength === 0) {
     /* when 1 checkbox is checked for the first time */
-    toggleMoreActionsDropdownBtn((show = false));
+    toggleMoreActionsDropdownBtn(false);
     document.querySelectorAll(BULK_ACTION_PAGE_CHECKBOX_INPUT).forEach((el) => {
       el.classList.add('show');
     });
