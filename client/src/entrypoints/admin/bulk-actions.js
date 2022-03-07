@@ -26,9 +26,11 @@ function toggleMoreActionsDropdownBtn(show) {
     MORE_ACTIONS_DROPDOWN_BUTTON_SELECTOR,
   );
   if (moreActionsDropdown !== null) {
-    show === true
-      ? moreActionsDropdown.classList.remove('hidden')
-      : moreActionsDropdown.classList.add('hidden');
+    if (show === true) {
+      moreActionsDropdown.classList.remove('hidden');
+    } else {
+      moreActionsDropdown.classList.add('hidden');
+    }
   }
 }
 
