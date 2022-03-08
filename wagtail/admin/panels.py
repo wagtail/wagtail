@@ -194,18 +194,32 @@ class Panel:
     def is_shown(self):
         return True
 
+    def bind_to_model(self, model):
+        new = self.clone()
+        new.model = model
+        new.on_model_bound()
+        return new
+
     def bind_to(self, model=None, instance=None, request=None, form=None):
-        if model is None and instance is not None and self.model is None:
-            model = instance._meta.model
+        if self.model is None:
+            raise ImproperlyConfigured(
+                "%s.bind_to_model(model) must be called before bind_to"
+                % type(self).__name__
+            )
+        if model is not None:
+            warn(
+                "The model argument to %s.bind_to() has no effect and will be removed"
+                % type(self).__name__,
+                category=RemovedInWagtail219Warning,
+            )
 
         new = self.clone()
-        new.model = self.model if model is None else model
+        new.model = self.model
+        new.on_model_bound()  # necessary because the cloned edit handler no longer has any state set up
+        # from when we called on_model_bound in bind_to_model
         new.instance = self.instance if instance is None else instance
         new.request = self.request if request is None else request
         new.form = self.form if form is None else form
-
-        if new.model is not None:
-            new.on_model_bound()
 
         if new.instance is not None:
             new.on_instance_bound()
@@ -335,7 +349,7 @@ class PanelGroup(Panel):
     def get_form_options(self):
         if self.model is None:
             raise AttributeError(
-                "%s is not bound to a model yet. Use `.bind_to(model=model)` "
+                "%s is not bound to a model yet. Use `.bind_to_model(model)` "
                 "before using this method." % self.__class__.__name__
             )
 
@@ -391,7 +405,7 @@ class PanelGroup(Panel):
         return mark_safe("".join([c.html_declarations() for c in self.children]))
 
     def on_model_bound(self):
-        self.children = [child.bind_to(model=self.model) for child in self.children]
+        self.children = [child.bind_to_model(self.model) for child in self.children]
 
     def on_instance_bound(self):
         self.children = [
@@ -816,7 +830,7 @@ class InlinePanel(Panel):
     def get_child_edit_handler(self):
         panels = self.get_panel_definitions()
         child_edit_handler = MultiFieldPanel(panels, heading=self.heading)
-        return child_edit_handler.bind_to(model=self.db_field.related_model)
+        return child_edit_handler.bind_to_model(self.db_field.related_model)
 
     def get_form_options(self):
         child_edit_handler = self.get_child_edit_handler()
@@ -843,7 +857,7 @@ class InlinePanel(Panel):
 
         for panel in self.get_panel_definitions():
             field_comparisons.extend(
-                panel.bind_to(model=self.db_field.related_model).get_comparison()
+                panel.bind_to_model(self.db_field.related_model).get_comparison()
             )
 
         return [
@@ -1102,7 +1116,7 @@ def get_edit_handler(cls):
 
         edit_handler = TabbedInterface(tabs, base_form_class=cls.base_form_class)
 
-    return edit_handler.bind_to(model=cls)
+    return edit_handler.bind_to_model(cls)
 
 
 Page.get_edit_handler = get_edit_handler

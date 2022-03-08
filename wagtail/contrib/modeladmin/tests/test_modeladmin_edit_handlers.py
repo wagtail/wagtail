@@ -80,7 +80,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
         # edit_handler defined
         model_admin = PersonAdmin()
         edit_handler = model_admin.get_edit_handler()
-        edit_handler = edit_handler.bind_to(model=model_admin.model)
+        edit_handler = edit_handler.bind_to_model(model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(list(form.fields), ["first_name", "last_name", "phone_number"])
@@ -95,7 +95,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
             FieldPanel("address"),
         ]
         edit_handler = model_admin.get_edit_handler()
-        edit_handler = edit_handler.bind_to(model=model_admin.model)
+        edit_handler = edit_handler.bind_to_model(model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(list(form.fields), ["last_name", "phone_number", "address"])
@@ -116,7 +116,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
             ]
         )
         edit_handler = model_admin.get_edit_handler()
-        edit_handler = edit_handler.bind_to(model=model_admin.model)
+        edit_handler = edit_handler.bind_to_model(model_admin.model)
         form_class = edit_handler.get_form_class()
         form = form_class()
         self.assertEqual(list(form.fields), ["phone_number", "address"])

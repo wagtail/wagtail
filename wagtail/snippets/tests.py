@@ -1339,8 +1339,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList([FieldPanel("advert")]).bind_to(
-            model=SnippetChooserModel
+        edit_handler = ObjectList([FieldPanel("advert")]).bind_to_model(
+            SnippetChooserModel
         )
         form_class = edit_handler.get_form_class()
         form = form_class()
@@ -2194,9 +2194,9 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList([FieldPanel("advertwithcustomprimarykey")]).bind_to(
-            model=SnippetChooserModelWithCustomPrimaryKey
-        )
+        edit_handler = ObjectList(
+            [FieldPanel("advertwithcustomprimarykey")]
+        ).bind_to_model(SnippetChooserModelWithCustomPrimaryKey)
         form_class = edit_handler.get_form_class()
         form = form_class()
         widget = form.fields["advertwithcustomprimarykey"].widget

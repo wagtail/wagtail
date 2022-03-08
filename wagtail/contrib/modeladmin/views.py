@@ -175,7 +175,7 @@ class ModelFormView(WMABaseView, FormView):
                 category=RemovedInWagtail219Warning,
             )
 
-        return edit_handler.bind_to(model=self.model_admin.model)
+        return edit_handler.bind_to_model(self.model_admin.model)
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()

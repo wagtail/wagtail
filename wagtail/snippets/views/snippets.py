@@ -60,7 +60,7 @@ def get_snippet_edit_handler(model):
             panels = extract_panel_definitions_from_model_class(model)
             edit_handler = ObjectList(panels)
 
-        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to(model=model)
+        SNIPPET_EDIT_HANDLERS[model] = edit_handler.bind_to_model(model)
 
     return SNIPPET_EDIT_HANDLERS[model]
 
