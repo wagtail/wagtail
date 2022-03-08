@@ -795,7 +795,7 @@ Hooks for customising the way users are directed through the process of creating
 .. _construct_synced_page_tree_list:
 
 ``construct_synced_page_tree_list``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Return additional pages to process in a synced tree setup.
 
