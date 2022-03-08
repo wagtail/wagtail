@@ -3,9 +3,9 @@ import json
 from unittest import skip
 
 from django.apps import apps
-from django.db import models
+from django.db import connection, models
 from django.template import Context, Template, engines
-from django.test import TestCase
+from django.test import TestCase, skipUnlessDBFeature
 from django.utils.safestring import SafeString
 
 from wagtail import blocks
@@ -22,6 +22,7 @@ from wagtail.test.testapp.models import (
     MinMaxCountStreamModel,
     StreamModel,
 )
+from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 
 class TestLazyStreamField(TestCase):
@@ -631,3 +632,50 @@ class TestJSONStreamFieldCountValidation(TestStreamFieldCountValidation):
     min_max_count_model = JSONMinMaxCountStreamModel
     block_counts_model = JSONBlockCountsStreamModel
     use_json_field = True
+
+
+class TestJSONStreamField(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.instance = JSONStreamModel.objects.create(
+            body=[{"type": "text", "value": "foo"}],
+        )
+
+    def test_use_json_field_warning(self):
+        message = "StreamField should explicitly set use_json_field argument to True/False instead of None."
+        with self.assertWarnsMessage(RemovedInWagtail219Warning, message):
+            StreamField([("paragraph", blocks.CharBlock())])
+
+    def test_internal_type(self):
+        text = StreamField([("paragraph", blocks.CharBlock())], use_json_field=False)
+        json = StreamField([("paragraph", blocks.CharBlock())], use_json_field=True)
+
+        self.assertEqual(text.get_internal_type(), "TextField")
+        self.assertEqual(json.get_internal_type(), "JSONField")
+
+    def test_json_body_equals_to_text_body(self):
+        instance_text = StreamModel.objects.create(
+            body=json.dumps([{"type": "text", "value": "foo"}]),
+        )
+        self.assertEqual(
+            instance_text.body.render_as_block(), self.instance.body.render_as_block()
+        )
+
+    def test_json_body_create_preserialised_value(self):
+        instance_preserialised = JSONStreamModel.objects.create(
+            body=json.dumps([{"type": "text", "value": "foo"}]),
+        )
+        self.assertEqual(
+            instance_preserialised.body.render_as_block(),
+            self.instance.body.render_as_block(),
+        )
+
+    @skipUnlessDBFeature("supports_json_field_contains")
+    def test_json_contains_lookup(self):
+        value = {"value": "foo"}
+        if connection.features.json_key_contains_list_matching_requires_list:
+            value = [value]
+        instance = JSONStreamModel.objects.filter(body__contains=value).first()
+        self.assertIsNotNone(instance)
+        self.assertEqual(instance.id, self.instance.id)
