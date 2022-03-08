@@ -114,6 +114,16 @@ class TestConstructSyncedPageTreeListHook(Utils):
         assert action == ""
         assert isinstance(pages, list)
 
+    def test_double_registered_hook(self):
+        # We should have two implementations of `construct_synced_page_tree_list`
+        # One in simple_translation.wagtail_hooks and the other will be
+        # registered as a temporary hook.
+        with hooks.register_temporarily(
+            "construct_synced_page_tree_list", self.unpublish_hook
+        ):
+            defined_hooks = hooks.get_hooks("construct_synced_page_tree_list")
+            self.assertEqual(len(defined_hooks), 2)
+
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_page_tree_sync_on(self):
         with hooks.register_temporarily(
