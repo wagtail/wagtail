@@ -1,14 +1,12 @@
 Core team
 =========
 
-* Andy Babic (Torchbox)
 * Andy Chosak (consumerfinance.gov)
-* Bertrand Bordage (NoriPyt)
 * Codie Roelf (Praekelt)
 * Coen van der Kamp (Four Digits)
 * Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
-* Dawn Wages
+* Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
 * Janneke Janssen (Lukkien)
 * Jonny Scholes (Neon Jungle)
@@ -24,13 +22,18 @@ Core team
 * Scott Cranfill (JPL)
 * Storm Heg
 * Thibaud Colas (Torchbox)
+* Tim Allen (The Wharton School)
 * Tom Dyson (Torchbox)
+* Vince Salvino (CodeRed)
 
 Core team alumni
 ================
 
+* Andy Babic
+* Bertrand Bordage
 * Emily Horsman
 * Josh Barr
+* Michael van Tellingen
 * Mikalai Radchuk
 * Rob Moorman
 * Tim Heap
