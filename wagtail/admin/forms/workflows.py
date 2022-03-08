@@ -216,4 +216,4 @@ def get_workflow_edit_handler():
         ),
     ]
     edit_handler = ObjectList(panels, base_form_class=WagtailAdminModelForm)
-    return edit_handler.bind_to(model=Workflow)
+    return edit_handler.bind_to_model(Workflow)

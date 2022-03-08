@@ -40,7 +40,7 @@ def get_setting_edit_handler(model):
     else:
         panels = extract_panel_definitions_from_model_class(model, ["site"])
         edit_handler = ObjectList(panels)
-    return edit_handler.bind_to(model=model)
+    return edit_handler.bind_to_model(model)
 
 
 def edit_current_site(request, app_name, model_name):
