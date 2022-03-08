@@ -148,6 +148,17 @@ class StreamField(models.Field):
                 return StreamValue(self.stream_block, [])
 
             return self.stream_block.to_python(unpacked_value)
+        elif (
+            self.use_json_field
+            and value
+            and isinstance(value, list)
+            and isinstance(value[0], dict)
+        ):
+            # The value is already unpacked since JSONField-based StreamField should
+            # accept deserialised values (no need to call json.dumps() first).
+            # In addition, the value is not a list of (block_name, value) tuples
+            # handled in the `else` block.
+            return self.stream_block.to_python(value)
         else:
             # See if it looks like the standard non-smart representation of a
             # StreamField value: a list of (block_name, value) tuples
