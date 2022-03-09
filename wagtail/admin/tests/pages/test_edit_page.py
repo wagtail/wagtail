@@ -1,5 +1,6 @@
 import datetime
 import os
+from functools import wraps
 from unittest import mock
 
 from django.conf import settings
@@ -13,6 +14,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
+from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.exceptions import PageClassNotFoundError
 from wagtail.core.models import (
@@ -44,6 +46,23 @@ from wagtail.tests.testapp.models import (
 from wagtail.tests.utils import WagtailTestUtils
 from wagtail.tests.utils.form_data import inline_formset, nested_form_data
 from wagtail.users.models import UserProfile
+
+
+def clear_edit_handler(page_cls):
+    def decorator(fn):
+        @wraps(fn)
+        def decorated(*args, **kwargs):
+            # Clear any old EditHandlers generated
+            page_cls.get_edit_handler.cache_clear()
+            try:
+                fn(*args, **kwargs)
+            finally:
+                # Clear the bad EditHandler generated just now
+                page_cls.get_edit_handler.cache_clear()
+
+        return decorated
+
+    return decorator
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):
@@ -299,6 +318,43 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
         # The draft_title should have a new title
         self.assertEqual(child_page_new.draft_title, post_data["title"])
+
+    @clear_edit_handler(SimplePage)
+    def test_page_edit_post_with_custom_form_bound_edit_handler(self):
+        # This test is based on test_page_edit_post().
+        class DisabledFieldPanel(FieldPanel):
+            def on_form_bound(self):
+                super().on_form_bound()
+                self.bound_field.field.disabled = True
+
+        new_content_panels = [
+            DisabledFieldPanel("title", classname="full title"),
+            FieldPanel("content"),
+        ]
+
+        with mock.patch.object(
+            SimplePage, "content_panels", new=new_content_panels, create=True
+        ):
+            post_data = {
+                "title": "Tampered Title",
+                "content": "Some content",
+                "slug": "hello-world",
+            }
+            response = self.client.post(
+                reverse("wagtailadmin_pages:edit", args=(self.child_page.id,)), post_data
+            )
+
+            # Should be redirected to edit page
+            self.assertRedirects(
+                response, reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
+            )
+
+            # The page should have "has_unpublished_changes" flag set
+            child_page_new = SimplePage.objects.get(id=self.child_page.id)
+            self.assertTrue(child_page_new.has_unpublished_changes)
+
+            # The draft_title should still contain the original value.
+            self.assertEqual(child_page_new.draft_title, "Hello world!")
 
     def test_page_edit_post_when_locked(self):
         # Tests that trying to edit a locked page results in an error

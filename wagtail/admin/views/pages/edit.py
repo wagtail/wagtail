@@ -486,6 +486,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             subscription=self.subscription,
             parent_page=self.parent,
         )
+        self.edit_handler = self.edit_handler.bind_to(form=self.form)
 
         self.is_cancelling_workflow = (
             bool(self.request.POST.get("action-cancel-workflow"))
@@ -856,7 +857,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         )
         self.has_unsaved_changes = True
 
-        self.edit_handler = self.edit_handler.bind_to(form=self.form)
         self.add_legacy_moderation_warning()
         self.page_for_status = self.get_page_for_status()
 
