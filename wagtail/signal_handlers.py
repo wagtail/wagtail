@@ -11,6 +11,9 @@ logger = logging.getLogger("wagtail")
 
 # Clear the wagtail_site_root_paths from the cache whenever Site records are updated.
 def post_save_site_signal_handler(instance, update_fields=None, **kwargs):
+    if kwargs["raw"]:
+        return
+
     cache.delete("wagtail_site_root_paths")
 
 
