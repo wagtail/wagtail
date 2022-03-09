@@ -1,8 +1,10 @@
 [
+  {"model": "wagtailcore.locale", "pk": 1, "fields": {"language_code": "en"}},
   {
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Root",
       "draft_title": "Root",
       "numchild": 1,
@@ -20,6 +22,7 @@
     "pk": 2,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Welcome to testserver!",
       "draft_title": "Welcome to testserver!",
       "numchild": 1,
@@ -48,6 +51,7 @@
     "pk": 3,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "About us",
       "draft_title": "About us",
       "numchild": 0,
@@ -76,6 +80,7 @@
     "pk": 4,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Welcome to example.com!",
       "draft_title": "Welcome to example.com!",
       "numchild": 1,
@@ -104,6 +109,7 @@
     "pk": 5,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Content",
       "draft_title": "Content",
       "numchild": 2,
@@ -133,6 +139,7 @@
     "pk": 6,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Page 1",
       "draft_title": "Page 1",
       "numchild": 0,
@@ -162,6 +169,7 @@
     "pk": 7,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Page 2",
       "draft_title": "Page 2",
       "numchild": 1,
@@ -191,6 +199,7 @@
     "pk": 8,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Other Content",
       "draft_title": "Other Content",
       "numchild": 0,
@@ -220,6 +229,7 @@
     "pk": 9,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Child 1 of Page 2",
       "draft_title": "Child 1 of Page 2",
       "numchild": 0,
@@ -249,6 +259,7 @@
     "pk": 10,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Welcome to example2.com!",
       "draft_title": "Welcome to example2.com!",
       "numchild": 0,

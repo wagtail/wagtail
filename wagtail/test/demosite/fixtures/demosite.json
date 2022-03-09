@@ -1,8 +1,16 @@
 [
   {
     "pk": 1,
+    "model": "wagtailcore.locale",
+    "fields": {
+      "language_code": "en"
+    }
+  },
+  {
+    "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Root",
       "draft_title": "Root",
       "numchild": 1,
@@ -23,6 +31,7 @@
     "pk": 2,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Home page",
       "draft_title": "Home page",
       "numchild": 5,
@@ -43,6 +52,7 @@
     "pk": 4,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Events index",
       "draft_title": "Events index",
       "numchild": 2,
@@ -63,6 +73,7 @@
     "pk": 5,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Blog index",
       "draft_title": "Blog index",
       "numchild": 3,
@@ -83,6 +94,7 @@
     "pk": 6,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Standard index",
       "draft_title": "Standard index",
       "numchild": 4,
@@ -103,6 +115,7 @@
     "pk": 8,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Event 1",
       "draft_title": "Event 1",
       "numchild": 0,
@@ -123,6 +136,7 @@
     "pk": 9,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Event 2",
       "draft_title": "Event 2",
       "numchild": 0,
@@ -143,6 +157,7 @@
     "pk": 10,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Standard page 1",
       "draft_title": "Standard page 1",
       "numchild": 0,
@@ -163,6 +178,7 @@
     "pk": 12,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Contact page",
       "draft_title": "Contact page",
       "numchild": 0,
@@ -183,6 +199,7 @@
     "pk": 13,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "James Joyce",
       "draft_title": "James Joyce",
       "numchild": 0,
@@ -203,6 +220,7 @@
     "pk": 14,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "David Mitchell",
       "draft_title": "David Mitchell",
       "numchild": 0,
@@ -223,6 +241,7 @@
     "pk": 15,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Standard page 2",
       "draft_title": "Standard page 2",
       "numchild": 0,
@@ -243,6 +262,7 @@
     "pk": 16,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Blog post",
       "draft_title": "Blog post",
       "numchild": 0,
@@ -263,6 +283,7 @@
     "pk": 17,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Photo credits",
       "draft_title": "Photo credits",
       "numchild": 0,
@@ -283,6 +304,7 @@
     "pk": 18,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Blog post again",
       "draft_title": "Blog post again",
       "numchild": 0,
@@ -303,6 +325,7 @@
     "pk": 19,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Another blog post",
       "draft_title": "Another blog post",
       "numchild": 0,
@@ -323,6 +346,7 @@
     "pk": 20,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "People",
       "draft_title": "People",
       "numchild": 2,
@@ -343,6 +367,7 @@
     "pk": 21,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "A deeper menu level",
       "draft_title": "A deeper menu level",
       "numchild": 2,
@@ -363,6 +388,7 @@
     "pk": 22,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "A grandchild page",
       "draft_title": "A grandchild page",
       "numchild": 0,
@@ -383,6 +409,7 @@
     "pk": 23,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Another grandchild page",
       "draft_title": "Another grandchild page",
       "numchild": 0,

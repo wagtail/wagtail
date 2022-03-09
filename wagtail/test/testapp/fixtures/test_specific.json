@@ -1,8 +1,10 @@
 [
+  {"model": "wagtailcore.locale", "pk": 1, "fields": {"language_code": "en"}},
   {
     "pk": 1,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Root",
       "draft_title": "Root",
       "numchild": 1,
@@ -20,6 +22,7 @@
     "pk": 2,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Welcome to the Wagtail test site!",
       "draft_title": "Welcome to the Wagtail test site!",
       "numchild": 5,
@@ -37,6 +40,7 @@
     "pk": 3,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Events",
       "draft_title": "Events",
       "numchild": 4,
@@ -61,6 +65,7 @@
     "pk": 4,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Christmas",
       "draft_title": "Christmas",
       "numchild": 0,
@@ -103,6 +108,7 @@
     "pk": 5,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Tentative Unpublished Event",
       "draft_title": "Tentative Unpublished Event",
       "numchild": 0,
@@ -132,6 +138,7 @@
     "pk": 6,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Someone Else's Event",
       "draft_title": "Someone Else's Event",
       "numchild": 0,
@@ -161,6 +168,7 @@
     "pk": 7,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "About us",
       "draft_title": "About us",
       "numchild": 0,
@@ -185,6 +193,7 @@
     "pk": 11,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Other events",
       "draft_title": "Other events",
       "numchild": 1,
@@ -209,6 +218,7 @@
     "pk": 12,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "Special event",
       "draft_title": "Special event",
       "numchild": 0,
