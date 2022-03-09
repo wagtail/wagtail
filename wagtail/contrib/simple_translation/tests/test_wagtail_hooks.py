@@ -132,8 +132,8 @@ class TestConstructSyncedPageTreeListHook(Utils):
             for fn in hooks.get_hooks("construct_synced_page_tree_list"):
                 response = fn([self.en_homepage], "unpublish")
                 if response:
-                    assert isinstance(response, dict)
-                    assert len(response.items()) == 1
+                    self.assertIsInstance(response, dict)
+                    self.assertEqual(len(response.items()), 1)
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
     def test_page_tree_sync_off(self):
@@ -142,7 +142,7 @@ class TestConstructSyncedPageTreeListHook(Utils):
         ):
             for fn in hooks.get_hooks("construct_synced_page_tree_list"):
                 response = fn([self.en_homepage], "unpublish")
-                assert response is None
+                self.assertIsNone(response)
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_missing_hook_action(self):
@@ -152,7 +152,8 @@ class TestConstructSyncedPageTreeListHook(Utils):
             for fn in hooks.get_hooks("construct_synced_page_tree_list"):
                 response = fn([self.en_homepage], "")
                 if response is not None:
-                    assert isinstance(response, dict)
+                    self.assertIsInstance(response, dict)
+                    # assert isinstance(response, dict)
 
     @override_settings(
         WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
@@ -164,8 +165,8 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # Make sur the French homepage is published/live
         self.fr_homepage.live = True
         self.fr_homepage.save()
-        assert self.fr_homepage.live is True
-        assert self.en_homepage.live is True
+        self.assertTrue(self.en_homepage.live)
+        self.assertTrue(self.fr_homepage.live)
 
         response = self.client.post(
             reverse("wagtailadmin_pages:unpublish", args=(self.en_homepage.id,)),
@@ -179,5 +180,5 @@ class TestConstructSyncedPageTreeListHook(Utils):
         self.fr_homepage.refresh_from_db()
 
         # Test that both the English and French homepages are unpublished
-        assert self.en_homepage.live is False
-        assert self.fr_homepage.live is False
+        self.assertFalse(self.en_homepage.live)
+        self.assertFalse(self.fr_homepage.live)
