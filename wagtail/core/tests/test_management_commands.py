@@ -10,7 +10,7 @@ from django.utils import timezone
 
 from wagtail.core.models import Collection, Page, PageLogEntry, PageRevision
 from wagtail.core.signals import page_published, page_unpublished
-from wagtail.tests.testapp.models import EventPage, SimplePage
+from wagtail.tests.testapp.models import EventPage, SecretPage, SimplePage
 
 
 class TestFixTreeCommand(TestCase):
@@ -467,6 +467,27 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
         revision = self.page.save_revision()
         revision.publish()
 
+        # Do the same with a SecretPage (to check that the version comparison code doesn't
+        # trip up on permission-dependent edit handlers)
+        self.secret_page = SecretPage(
+            title="The moon",
+            slug="the-moon",
+            boring_data="the moon",
+            secret_data="is made of cheese",
+            live=False,
+        )
+
+        Page.objects.get(id=2).add_child(instance=self.secret_page)
+
+        # Create empty revisions, which should not be converted to log entries
+        for i in range(3):
+            self.secret_page.save_revision()
+
+        # Add another revision with a content change
+        self.secret_page.secret_data = "is flat"
+        revision = self.secret_page.save_revision()
+        revision.publish()
+
         # clean up log entries
         PageLogEntry.objects.all().delete()
 
@@ -476,7 +497,14 @@ class TestCreateLogEntriesFromRevisionsCommand(TestCase):
         # Should not create entries for empty revisions.
         self.assertListEqual(
             list(PageLogEntry.objects.values_list("action", flat=True)),
-            ["wagtail.publish", "wagtail.edit", "wagtail.create"],
+            [
+                "wagtail.publish",
+                "wagtail.edit",
+                "wagtail.create",
+                "wagtail.publish",
+                "wagtail.edit",
+                "wagtail.create",
+            ],
         )
 
     def test_command_doesnt_crash_for_revisions_without_page_model(self):

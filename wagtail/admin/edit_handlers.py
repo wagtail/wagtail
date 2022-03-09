@@ -514,7 +514,11 @@ class FieldPanel(EditHandler):
             return {}
 
     def is_shown(self):
-        if self.permission and not self.request.user.has_perm(self.permission):
+        if (
+            self.permission
+            and self.request
+            and not self.request.user.has_perm(self.permission)
+        ):
             return False
 
         return True
