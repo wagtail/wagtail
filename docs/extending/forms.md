@@ -26,7 +26,7 @@ the `date` and `image` fields on the form will use a date picker and image choos
 
 If you have implemented a form widget of your own, you can configure `WagtailAdminModelForm` to select it for a given model field type. This is done by calling the `wagtail.admin.forms.models.register_form_field_override` function, typically in an `AppConfig.ready` method.
 
-```eval_rst
+```{eval-rst}
 .. function:: register_form_field_override(model_field_class, to=None, override=None, exact_class=False)
 
    Specify a set of options that will override the form field's defaults when ``WagtailAdminModelForm`` encounters a given model field type.

@@ -1,14 +1,15 @@
 # Documentation guidelines
 
-```eval_rst
-.. contents::
-    :local:
-    :depth: 1
+```{contents}
+---
+local:
+depth: 1
+---
 ```
 
 ## Formatting recommendations
 
-Wagtail’s documentation uses a mixture of [Markdown](https://commonmark.org/help/) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
+Wagtail’s documentation uses a mixture of [Markdown](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html) and [reStructuredText](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html). We encourage writing documentation in Markdown first, and only reaching for more advanced reStructuredText formatting if there is a compelling reason.
 
 Here are formats we encourage using when writing documentation for Wagtail.
 
@@ -89,7 +90,7 @@ Don’t rely on [`links over code`](https://www.example.com/), as they are impos
 
 ```md
 An [external link](https://wwww.example.com).
-An [internal link to another document](/reference/contrib/legacy_richtext.md).
+An [internal link to another document](/reference/contrib/legacy_richtext).
 A [link to a reference](register_reports_menu_item).
 ```
 
@@ -98,35 +99,66 @@ A [link to a reference](register_reports_menu_item).
 <summary>Rendered output</summary>
 
 An [external link](https://wwww.example.com).
-An [internal link to another document](/reference/contrib/legacy_richtext.md).
+An [internal link to another document](/reference/contrib/legacy_richtext).
 A [link to a reference](register_reports_menu_item).
 
 </details>
 
-Reference links rely on creating a reference in reStructuredText. Prefer linking to the whole document if at all possible, otherwise create a reference by embedding reStructuredText with `eval_rst`:
+#### Reference links 
 
-    ```eval_rst
-    .. _register_reports_menu_item:
-    ```
+Reference links (links to a target within a page) rely on the page having a reference created, this can be added as follows:
+
+```md
+
+(my_awesome_section)=
+##### Some awesome section title
+
+...
+```
+
+The reference can be linked to, with an auto-generated label, using the Markdown link syntax as follows:
+
+```md
+[](my_awesome_section)
+```
+
+<details>
+
+<summary>Rendered output</summary>
+
+(my_awesome_section)=
+##### Some awesome section title
+
+...
+
+[](my_awesome_section)
+
+</details>
+
+You can read more about other methods of linking to, and creating references in the MyST parser docs section on [Targets and cross-referencing](https://myst-parser.readthedocs.io/en/stable/syntax/syntax.html#targets-and-cross-referencing).
 
 ### Note and warning call-outs
 
 Use notes and warnings sparingly, as they rely on reStructuredText syntax which is more complicated for future editors.
 
-    ```eval_rst note:: Notes can provide complementary information.
+    ```{note}
+    Notes can provide complementary information.
     ```
 
-    ```eval_rst warning:: Warnings can be scary.
+    ```{warning}
+    Warnings can be scary.
     ```
 
 <details>
 
 <summary>Rendered output</summary>
 
-```eval_rst note:: Notes can provide complementary information.
+```{note}
+Notes can provide complementary information.
 ```
 
-```eval_rst warning:: Warnings can be scary.
+```{warning}
+Warnings can be scary.
 ```
 
 </details>
@@ -155,7 +187,7 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 
 With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature which we highly recommend using to document Wagtail’s APIs.
 
-    ```eval_rst
+    ```{eval-rst}
     .. module:: wagtail.core.utils
 
     .. autofunction:: cautious_slugify
@@ -164,7 +196,7 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
 <details>
 <summary>Rendered output</summary>
 
-```eval_rst
+```{eval-rst}
 .. module:: wagtail.core.utils
 
 .. autofunction:: cautious_slugify
@@ -176,7 +208,7 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
 
 Only use tables when needed, with the “simple” reStructuredText syntax, which is hard enough to format as it is.
 
-    ```eval_rst
+    ```{eval-rst}
     =============  =============
     Browser        Device/OS    
     =============  =============
@@ -190,7 +222,7 @@ Only use tables when needed, with the “simple” reStructuredText syntax, whic
 
 <summary>Rendered output</summary>
 
-```eval_rst
+```{eval-rst}
 =============  =============
 Browser        Device/OS    
 =============  =============
@@ -202,45 +234,44 @@ Safari         Windows
 
 </details>
 
-### Tables of content
+### Tables of contents
 
-`toctree` and `contents` can be used as reStructuredText embeds.
+`toctree` and `contents` can be used as reStructuredText directives.
 
-    ```eval_rst
-    .. toctree::
-        :maxdepth: 2
-        :titlesonly:
-
-        getting_started/index
-        topics/index
+    ```{toctree}
+    ---
+    maxdepth: 2
+    titlesonly:
+    ---
+    getting_started/index
+    topics/index
     ```
 
-    ```eval_rst
-    .. contents::
+    ```{contents}
+    ---
+    local:
+    depth: 1
+    ---
     ```
 
 ### Version added, changed, deprecations
 
 Sphinx offers release-metadata directives to generate this information consistently. Use as appropriate.
 
-    ```eval_rst
-    .. versionadded:: 2.15
+    ```{versionadded} 2.15
     ```
 
-    ```eval_rst
-    .. versionchanged:: 2.15
+    ```{versionchanged} 2.15
     ```
 
 <details>
 
 <summary>Rendered output</summary>
 
-```eval_rst
-.. versionadded:: 2.15
+```{versionadded} 2.15
 ```
 
-```eval_rst
-.. versionchanged:: 2.15
+```{versionchanged} 2.15
 ```
 
 </details>
@@ -275,7 +306,7 @@ There is some formatting in the documentation which is technically supported, bu
 
 ### Call-outs
 
-We only use `note::` and `warning::` call-outs. Avoid `important::`, `topic::`, and `tip::`. If you find one of these, please replace it with `note::`.
+We only use `{note}` and `{warning}` call-outs. Avoid `{important}`, `{topic}`, and `{tip}`. If you find one of these, please replace it with `{note}`.
 
 ### Glossary
 

@@ -1,8 +1,7 @@
 # Reporting security issues
 
-```eval_rst
-.. note::
-   Please report security issues **only** to `security@wagtail.org <mailto:security@wagtail.org>`_.
+```{note}
+   Please report security issues **only** to [security@wagtail.org](mailto:security@wagtail.org).
 ```
 
 Most normal bugs in Wagtail are reported as [GitHub issues](https://github.com/wagtail/wagtail/issues), but due to the sensitive nature of security issues, we ask that they not be publicly reported in this fashion.

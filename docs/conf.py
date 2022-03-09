@@ -18,7 +18,6 @@ from datetime import datetime
 
 import django
 import sphinx_wagtail_theme
-from recommonmark.transform import AutoStructify
 
 from wagtail import VERSION, __version__
 
@@ -57,7 +56,7 @@ os.environ["DATABASE_ENGINE"] = "django.db.backends.sqlite3"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.intersphinx",
-    "recommonmark",
+    "myst_parser",
     "sphinx_wagtail_theme",
 ]
 
@@ -299,14 +298,3 @@ texinfo_documents = [
 
 def setup(app):
     app.add_js_file("js/banner.js")
-
-    github_doc_root = "https://github.com/wagtail/wagtail/tree/main/docs/"
-
-    app.add_config_value(
-        "recommonmark_config",
-        {
-            "url_resolver": lambda url: github_doc_root + url,
-        },
-        True,
-    )
-    app.add_transform(AutoStructify)

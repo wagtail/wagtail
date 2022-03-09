@@ -1,6 +1,3 @@
-```eval_rst
-.. _integrating_into_django:
-```
 # Integrating Wagtail into a Django project
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
