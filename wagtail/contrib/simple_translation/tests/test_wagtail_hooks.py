@@ -107,12 +107,12 @@ class TestWagtailHooksButtons(Utils):
 
 class TestConstructSyncedPageTreeListHook(Utils):
     def unpublish_hook(self, pages, action):
-        assert action == "unpublish"
-        assert isinstance(pages, list)
+        self.assertEqual(action, "unpublish")
+        self.assertIsInstance(pages, list)
 
     def missing_hook_action(self, pages, action):
-        assert action == ""
-        assert isinstance(pages, list)
+        self.assertEqual(action, "")
+        self.assertIsInstance(pages, list)
 
     def test_double_registered_hook(self):
         # We should have two implementations of `construct_synced_page_tree_list`
