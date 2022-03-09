@@ -27,11 +27,7 @@
 }
 
 .sidebar-sub-menu-panel {
-  display: flex;
-  flex-direction: column;
-  background: $nav-submenu-bg;
-  width: $menu-width;
-  height: 100vh;
+  @apply w-flex w-flex-col w-bg-primary/15 w-w-sidebar w-h-screen;
 
   > h2,
   &__list {

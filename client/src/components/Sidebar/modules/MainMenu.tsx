@@ -211,13 +211,15 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           aria-haspopup="true"
           aria-expanded={accountSettingsOpen ? 'true' : 'false'}
         >
-          <div className="avatar square avatar-on-dark">
+          <div className="avatar avatar-on-dark !w-w-[28px] !w-h-[28px]">
             <img src={user.avatarUrl} alt="" />
           </div>
           <div className="sidebar-footer__account-toggle">
-            <div className="sidebar-footer__account-label">{user.name}</div>
+            <div className="sidebar-footer__account-label w-label-3 w-text-white">
+              {user.name}
+            </div>
             <Icon
-              className="sidebar-footer__account-icon"
+              className="w-w-5 w-h-5 w-text-white"
               name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
             />
           </div>

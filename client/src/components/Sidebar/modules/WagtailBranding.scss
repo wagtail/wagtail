@@ -71,13 +71,13 @@
 
   // Bird wrapper
   &__icon-wrapper {
+    @apply w-bg-white/15;
     margin: auto;
     position: absolute;
     left: 0;
     top: 0;
     width: 100px;
     height: 100px;
-    background-color: #3a3a3a;
     border-radius: 50%;
     transition: left $menu-transition-duration ease,
       top $menu-transition-duration ease, width $menu-transition-duration ease,

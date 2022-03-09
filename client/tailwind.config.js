@@ -49,6 +49,7 @@ module.exports = {
       inherit: 'inherit',
       current: 'currentColor',
       transparent: 'transparent',
+      white: '#FFF',
     },
     fontFamily,
     fontSize,
@@ -62,6 +63,14 @@ module.exports = {
       none: 'none',
     },
     spacing,
+    extend: {
+      width: {
+        sidebar: '200px',
+      },
+      opacity: {
+        15: '0.15',
+      },
+    },
   },
   plugins: [typeScale],
   corePlugins: {},

@@ -48,10 +48,7 @@ $avatar-size: 60px;
 }
 
 .sidebar-footer {
-  position: fixed !important; // override li styling in MenuWrapper
-  width: $menu-width;
-  bottom: 0;
-  background-color: $nav-footer-submenu-bg;
+  @apply w-bg-primary w-bottom-0 w-fixed w-w-sidebar;
   transition: width $menu-transition-duration ease !important; // Override body.ready
 
   > ul,
@@ -88,51 +85,17 @@ $avatar-size: 60px;
   }
 
   &__account {
-    background: $nav-footer-account-bg;
-    color: $color-menu-text;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding: 0;
-    width: 100%;
-    appearance: none;
-    border: 0;
-    overflow: hidden;
-
+    @apply w-bg-primary w-text-white w-flex w-items-center w-relative w-p-0 w-w-full w-appearance-none w-border-0 w-overflow-hidden w-px-5 w-py-3 hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
     @include clearfix;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(100, 100, 100, 0.15);
-      color: $color-white;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .avatar {
-      width: $avatar-size;
-      height: $avatar-size;
-
-      &:before {
-        color: inherit;
-        border-color: inherit;
-      }
-    }
 
     $icon-size: 1.5em;
 
-    &-icon {
-      height: $icon-size;
-      width: $icon-size;
-    }
-
     &-toggle {
+      @apply w-pr-4;
       @include show-focus-outline-inside();
       display: grid;
       grid-template-columns: 1fr min-content;
       box-sizing: border-box;
-      padding: 0 0.9em;
       font-style: normal;
       font-weight: 700;
       width: $menu-width - $avatar-size;
@@ -144,10 +107,7 @@ $avatar-size: 60px;
     }
 
     &-label {
-      text-align: left;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      @apply w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis w-capitalize;
     }
   }
 

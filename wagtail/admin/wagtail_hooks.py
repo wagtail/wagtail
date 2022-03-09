@@ -1014,6 +1014,7 @@ def register_icons(icons):
         "duplicate.svg",
         "edit.svg",
         "ellipsis-v.svg",
+        "expand-right.svg",
         "error.svg",
         "folder-inverse.svg",
         "folder-open-1.svg",

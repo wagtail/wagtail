@@ -19,6 +19,7 @@ export interface ModuleRenderContext {
   expandingOrCollapsing: boolean;
   currentPath: string;
   strings: Strings;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -31,7 +32,9 @@ export interface SidebarProps {
   currentPath: string;
   strings: Strings;
   collapsedOnLoad: boolean;
+
   navigate(url: string): Promise<void>;
+
   onExpandCollapse?(collapsed: boolean);
 }
 
@@ -80,6 +83,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         setVisibleOnMobile(false);
       }
     }
+
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
@@ -190,11 +194,14 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             aria-expanded={!slim}
             className="button sidebar__collapse-toggle"
           >
-            {collapsed ? (
-              <Icon name="angle-double-right" />
-            ) : (
-              <Icon name="angle-double-left" />
-            )}
+            <Icon
+              name="expand-right"
+              className={
+                !collapsed
+                  ? 'w-transition w-rotate-180 w-w-6 w-h-6 w-text-white'
+                  : ''
+              }
+            />
           </button>
 
           <div

@@ -34,15 +34,8 @@
 }
 
 .sidebar {
-  position: fixed;
-  left: 0;
+  @apply w-fixed w-left-0 w-float-left w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
   width: $menu-width;
-  float: left;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: $nav-grey-3;
-  z-index: 300;
 
   @include transition(
     width $menu-transition-duration ease,
@@ -63,11 +56,8 @@
   }
 
   &__inner {
-    height: 100%;
-    background: $nav-grey-3;
     // On medium, make it possible for the nav links to scroll.
-    display: flex;
-    flex-flow: column nowrap;
+    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
   }
 
   &__collapse-toggle {
