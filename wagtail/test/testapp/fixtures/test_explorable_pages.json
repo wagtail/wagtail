@@ -1,5 +1,9 @@
 [
-  {"model": "wagtailcore.locale", "pk": 1, "fields": {"language_code": "en"}},
+  {
+    "model": "wagtailcore.locale",
+    "pk": 1,
+    "fields": { "language_code": "en" }
+  },
   {
     "pk": 1,
     "model": "wagtailcore.page",
