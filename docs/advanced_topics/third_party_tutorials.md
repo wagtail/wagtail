@@ -6,6 +6,13 @@ from third-party developers. Some of the older links may not apply to
 the latest Wagtail versions.
 ```
 
+-   [Creating a schematic editor within Wagtail CMS with StimulusJS](https://dev.to/lb/creating-a-schematic-editor-within-the-wagtail-cms-with-stimulusjs-n5j) (20 February 2022)
+-   [Adding Placeholder Text to Wagtail Forms](https://www.coderedcorp.com/blog/adding-placeholder-text-to-wagtail-forms/) (11 February 2022)
+-   [Deploying a Wagtail 2.16 website to Heroku](https://dev.to/kalobtaulien/deploying-a-wagtail-216-website-to-heroku-1iki) (9 February 2022)
+-   [Build an E-Commerce Site with Wagtail CMS, Bootstrap & Django Framework](https://dev.to/paulwababu/build-an-e-commerce-site-with-wagtail-cms-bootstrap-django-framework-4jdb) (7 February 2022)
+-   [Complex Custom Field Pagination in Django (Wagtail)](https://dev.awhileback.net/hacking-the-django-paginator/) (3 February 2022)
+-   [How to Connect Wagtail and React](https://stackingtabs.medium.com/how-to-connect-wagtail-and-react-7f6d1adf230) (31 January 2022)
+-   [Headless Wagtail, what are the pain points? (with solutions)](https://tommasoamici.com/blog/headless-wagtail-what-are-the-pain-points) (24 January 2022)
 -   [A collection of UIKit components that can be used as a Wagtail StreamField block](https://pythonawesome.com/a-collection-of-uikit-components-that-can-be-used-as-a-wagtail-streamfield-block/) (14 January 2022)
 -   [Introduction to Wagtail CMS](https://blog.reallyroxanna.codes/introduction-to-wagtail-cms) (1 January 2022)
 -   [How to make Wagtail project have good coding style](https://www.accordbox.com/blog/how-to-make-wagtail-project-have-good-coding-style/) (18 December 2021)
