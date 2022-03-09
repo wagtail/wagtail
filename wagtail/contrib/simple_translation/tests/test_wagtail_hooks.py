@@ -153,7 +153,6 @@ class TestConstructSyncedPageTreeListHook(Utils):
                 response = fn([self.en_homepage], "")
                 if response is not None:
                     self.assertIsInstance(response, dict)
-                    # assert isinstance(response, dict)
 
     @override_settings(
         WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
