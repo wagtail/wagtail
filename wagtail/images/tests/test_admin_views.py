@@ -44,6 +44,34 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["query_string"], "Hello")
 
+    def test_collection_query_search(self):
+        root_collection = Collection.get_first_root_node()
+        child_collection = [
+            root_collection.add_child(name="Baker Collection"),
+            root_collection.add_child(name="Other Collection"),
+        ]
+        title_list = ["Baker", "Other"]
+        answer_list = []
+        for i in range(10):
+            self.image = Image.objects.create(
+                title=f"{title_list[i%2]} {i}",
+                file=get_test_image_file(size=(1, 1)),
+                collection=child_collection[i % 2],
+            )
+            if i % 2 == 0:
+                answer_list.append(self.image)
+        response = self.get({"q": "Baker", "collection_id": child_collection[0].id})
+        status_code = response.status_code
+        query_string = response.context["query_string"]
+        response_list = response.context["images"].object_list
+        response_body = response.content.decode("utf-8")
+
+        self.assertEqual(status_code, 200)
+        self.assertEqual(query_string, "Baker")
+        self.assertCountEqual(answer_list, response_list)
+        for i in range(0, 10, 2):
+            self.assertIn("Baker %i" % i, response_body)
+
     def test_pagination(self):
         pages = ["0", "1", "-1", "9999", "Not a page"]
         for page in pages:

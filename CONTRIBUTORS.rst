@@ -614,6 +614,7 @@ Contributors
 * Stefano Silvestri
 * Alexander Rogovskyy
 * Dominik Lech
+* Paritosh Kabra
 
 
 Translators

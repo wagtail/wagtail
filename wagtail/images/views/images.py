@@ -87,17 +87,6 @@ class BaseListingView(TemplateView):
             .prefetch_renditions("max-165x165")
         )
 
-        # Search
-        query_string = None
-        if "q" in self.request.GET:
-            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
-            if self.form.is_valid():
-                query_string = self.form.cleaned_data["q"]
-
-                images = images.search(query_string)
-        else:
-            self.form = SearchForm(placeholder=_("Search images"))
-
         # Filter by collection
         self.current_collection = None
         collection_id = self.request.GET.get("collection_id")
@@ -115,6 +104,17 @@ class BaseListingView(TemplateView):
                 images = images.filter(tags__name=self.current_tag)
             except (AttributeError):
                 self.current_tag = None
+
+        # Search
+        query_string = None
+        if "q" in self.request.GET:
+            self.form = SearchForm(self.request.GET, placeholder=_("Search images"))
+            if self.form.is_valid():
+                query_string = self.form.cleaned_data["q"]
+
+                images = images.search(query_string)
+        else:
+            self.form = SearchForm(placeholder=_("Search images"))
 
         entries_per_page = self.get_num_entries_per_page()
         paginator = Paginator(images, per_page=entries_per_page)
