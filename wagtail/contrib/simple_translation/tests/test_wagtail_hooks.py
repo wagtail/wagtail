@@ -8,9 +8,9 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
+from wagtail.core import hooks
 from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.actions.move_page import MovePageAction
-from wagtail.core import hooks
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -235,13 +235,14 @@ class TestMovingTranslatedPages(Utils):
 
         # Create an alias page to test the `translations_to_move_count`
         # in the template context
-        CreatePageAliasAction(
-            self.fr_blog_post,
+        new_page = CreatePageAliasAction(
+            self.en_blog_post,
             recursive=False,
-            parent=self.fr_blog_index,
+            parent=self.en_blog_index,
             update_slug="new-french-blog-post-slug",
             user=None,
-        ).execute(skip_permission_checks=True)
+        )
+        new_page.execute(skip_permission_checks=True)
 
         response = self.client.get(
             reverse(
@@ -363,7 +364,26 @@ class TestConstructSyncedPageTreeListHook(Utils):
                     self.en_homepage.id,
                 ),
             ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
 
+        # Refresh objects from the database
+        self.fr_blog_post.refresh_from_db()
+        self.en_blog_post.refresh_from_db()
+
+        # Confirm en_blog_posts parent id is en_homepage.id
+        # Confirm that fr_blog_posts parent id is _still_ the fr_new_parent id
+        self.assertEqual(
+            self.en_blog_post.get_parent(update=True).id, self.en_homepage.id
+        )
+        self.assertEqual(
+            self.fr_blog_post.get_parent(update=True).id, self.fr_new_parent.id
+        )
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
     def test_other_l10n_pages_were_unpublished(self):
         # Login to access the admin
         self.login()
@@ -381,14 +401,9 @@ class TestConstructSyncedPageTreeListHook(Utils):
         )
         self.assertEqual(response.status_code, 200)
 
-        self.fr_blog_post.refresh_from_db()
-        self.en_blog_post.refresh_from_db()
+        self.en_homepage.refresh_from_db()
+        self.fr_homepage.refresh_from_db()
 
-        # Confirm en_blog_posts parent id is en_homepage.id
-        # Confirm that fr_blog_posts parent id is _still_ the fr_new_parent id
-        self.assertEqual(
-            self.en_blog_post.get_parent(update=True).id, self.en_homepage.id
-        )
-        self.assertEqual(
-            self.fr_blog_post.get_parent(update=True).id, self.fr_new_parent.id
-        )
+        # Test that both the English and French homepages are unpublished
+        self.assertFalse(self.en_homepage.live)
+        self.assertFalse(self.fr_homepage.live)
