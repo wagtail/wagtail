@@ -1,3 +1,14 @@
+/* Add additional spacing between sections using semantic section elements, until we update sphinx-wagtail-theme */
+section {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Workaround for https://github.com/executablebooks/MyST-Parser/issues/533 */
+li > p {
+  margin-bottom: 0;
+}
+
 /* Wagtail Space */
 .wagtailspace {
   background: #00676a;
