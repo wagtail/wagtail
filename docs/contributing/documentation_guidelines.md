@@ -206,31 +206,25 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
 
 ### Tables
 
-Only use tables when needed, with the “simple” reStructuredText syntax, which is hard enough to format as it is.
+Only use tables when needed, using the [GitHub Flavored Markdown table syntax](https://github.github.com/gfm/#tables-extension-).
 
-    ```{eval-rst}
-    =============  =============
-    Browser        Device/OS    
-    =============  =============
-    Stock browser  Android      
-    IE             Desktop      
-    Safari         Windows      
-    =============  =============
-    ```
+```md
+| Browser       | Device/OS |
+| ------------- | --------- |
+| Stock browser | Android   |
+| IE            | Desktop   |
+| Safari        | Windows   |
+```
 
 <details>
 
 <summary>Rendered output</summary>
 
-```{eval-rst}
-=============  =============
-Browser        Device/OS    
-=============  =============
-Stock browser  Android      
-IE             Desktop      
-Safari         Windows      
-=============  =============
-```
+| Browser       | Device/OS |
+| ------------- | --------- |
+| Stock browser | Android   |
+| IE            | Desktop   |
+| Safari        | Windows   |
 
 </details>
 
