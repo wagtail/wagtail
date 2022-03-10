@@ -20,49 +20,46 @@ The `wagtailforms` module allows you to set up single-page forms, such as a 'Con
 Add `wagtail.contrib.forms` to your `INSTALLED_APPS`:
 
 ```python
-
-    INSTALLED_APPS = [
-       ...
-       'wagtail.contrib.forms',
-    ]
-
+INSTALLED_APPS = [
+    ...
+    'wagtail.contrib.forms',
+]
 ```
 
 Within the `models.py` of one of your apps, create a model that extends `wagtail.contrib.forms.models.AbstractEmailForm`:
 
 
 ```python
-
-    from django.db import models
-    from modelcluster.fields import ParentalKey
-    from wagtail.admin.edit_handlers import (
-        FieldPanel, FieldRowPanel,
-        InlinePanel, MultiFieldPanel
-    )
-    from wagtail.core.fields import RichTextField
-    from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-
-
-    class FormField(AbstractFormField):
-        page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
+from django.db import models
+from modelcluster.fields import ParentalKey
+from wagtail.admin.edit_handlers import (
+    FieldPanel, FieldRowPanel,
+    InlinePanel, MultiFieldPanel
+)
+from wagtail.core.fields import RichTextField
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 
-    class FormPage(AbstractEmailForm):
-        intro = RichTextField(blank=True)
-        thank_you_text = RichTextField(blank=True)
+class FormField(AbstractFormField):
+    page = ParentalKey('FormPage', on_delete=models.CASCADE, related_name='form_fields')
 
-        content_panels = AbstractEmailForm.content_panels + [
-            FieldPanel('intro', classname="full"),
-            InlinePanel('form_fields', label="Form fields"),
-            FieldPanel('thank_you_text', classname="full"),
-            MultiFieldPanel([
-                FieldRowPanel([
-                    FieldPanel('from_address', classname="col6"),
-                    FieldPanel('to_address', classname="col6"),
-                ]),
-                FieldPanel('subject'),
-            ], "Email"),
-        ]
+
+class FormPage(AbstractEmailForm):
+    intro = RichTextField(blank=True)
+    thank_you_text = RichTextField(blank=True)
+
+    content_panels = AbstractEmailForm.content_panels + [
+        FieldPanel('intro', classname="full"),
+        InlinePanel('form_fields', label="Form fields"),
+        FieldPanel('thank_you_text', classname="full"),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel('from_address', classname="col6"),
+                FieldPanel('to_address', classname="col6"),
+            ]),
+            FieldPanel('subject'),
+        ], "Email"),
+    ]
 ```
 
 `AbstractEmailForm` defines the fields `to_address`, `from_address` and `subject`, and expects `form_fields` to be defined. Any additional fields are treated as ordinary page content - note that `FormPage` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
@@ -77,21 +74,21 @@ If you do not want your form page type to offer form-to-email functionality, you
 You now need to create two templates named `form_page.html` and `form_page_landing.html` (where `form_page` is the underscore-formatted version of the class name). `form_page.html` differs from a standard Wagtail template in that it is passed a variable `form`, containing a Django `Form` object, in addition to the usual `page` variable. A very basic template for the form would thus be:
 
 ```html+django
-    {% load wagtailcore_tags %}
-    <html>
-        <head>
-            <title>{{ page.title }}</title>
-        </head>
-        <body>
-            <h1>{{ page.title }}</h1>
-            {{ page.intro|richtext }}
-            <form action="{% pageurl page %}" method="POST">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit">
-            </form>
-        </body>
-    </html>
+{% load wagtailcore_tags %}
+<html>
+    <head>
+        <title>{{ page.title }}</title>
+    </head>
+    <body>
+        <h1>{{ page.title }}</h1>
+        {{ page.intro|richtext }}
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+    </body>
+</html>
 ```
 
 `form_page_landing.html` is a standard Wagtail template, displayed after the user makes a successful form submission, `form_submission` will available in this template. If you want to dynamically override the landing page template, you can do so with the `get_landing_page_template` method (in the same way that you would with `get_template`).
@@ -106,17 +103,16 @@ You now need to create two templates named `form_page.html` and `form_page_landi
 `FormSubmissionsPanel` can be added to your page's panel definitions to display the number of form submissions and the time of the most recent submission, along with a quick link to access the full submission data:
 
 ```python
+from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 
-    from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+class FormPage(AbstractEmailForm):
+    # ...
 
-    class FormPage(AbstractEmailForm):
+    content_panels = AbstractEmailForm.content_panels + [
+        FormSubmissionsPanel(),
+        FieldPanel('intro', classname="full"),
         # ...
-
-        content_panels = AbstractEmailForm.content_panels + [
-            FormSubmissionsPanel(),
-            FieldPanel('intro', classname="full"),
-            # ...
-        ]
+    ]
 ```
 
 
