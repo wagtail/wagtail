@@ -66,8 +66,6 @@ testing_extras = [
     "jinjalint>=0.5",
     # For template indenting
     "djhtml==1.4.13",
-    # Pipenv hack to fix broken dependency causing CircleCI failures
-    "docutils==0.15",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
 ]
