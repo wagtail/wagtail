@@ -6,7 +6,7 @@ We use `Django templates <https://docs.djangoproject.com/en/stable/ref/templates
 Linting HTML
 ~~~~~~~~~~~~
 
-We use `jinjalint <https://github.com/motet-a/jinjalint>`_ to lint templates and `djhtml <https://github.com/rtts/djhtml>`_ to format them.
+We use `curlylint <https://www.curlylint.org/>`_ to lint templates and `djhtml <https://github.com/rtts/djhtml>`_ to format them.
 If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``, and format your code by running ``make format``.
 
 Principles
