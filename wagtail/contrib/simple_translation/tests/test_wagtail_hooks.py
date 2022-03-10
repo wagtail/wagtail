@@ -233,6 +233,18 @@ class TestDeletingTranslatedPages(Utils):
         self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
         # Create a copy of the en_blog_post object as a translated page
         self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+
+        # Create an alias page to test the `translations_to_move_count`
+        # in the template context
+        new_page = CreatePageAliasAction(
+            self.en_blog_post,
+            recursive=False,
+            parent=self.en_blog_index,
+            update_slug="alias-page-slug",
+            user=None,
+        )
+        new_page.execute(skip_permission_checks=True)
+
         response = self.client.get(
             reverse(
                 "wagtailadmin_pages:delete",
