@@ -138,7 +138,7 @@ def move_confirm(request, page_to_move_id, destination_id):
                 [
                     page.id
                     for page in pages_to_move
-                    if not page.alias_of and page.id != page_to_move.id
+                    if not page.alias_of_id and page.id != page_to_move.id
                 ]
             ),
         },
