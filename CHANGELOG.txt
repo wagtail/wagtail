@@ -17,6 +17,8 @@ Changelog
  * Remove the legacy Hallo rich text editor as it has moved to an external package (LB (Ben Johnston))
  * Increase the size of checkboxes throughout the UI, and simplify their alignment (Steven Steinwand)
  * Adopt [MyST](https://myst-parser.readthedocs.io/en/latest/) for parsing documentation written in Markdown, replaces recommonmark (LB (Ben Johnston), Thibaud Colas)
+ * Installing docs extras requirements in CircleCI so issues with the docs requirements are picked up earlier (Thibaud Colas)
+ * Remove core usage of jinjalint and migrate to curlylint to resolve dependency incompatibility issues (Thibaud Colas)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
