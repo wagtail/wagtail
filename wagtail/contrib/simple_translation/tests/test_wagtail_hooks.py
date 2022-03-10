@@ -119,7 +119,7 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # One in simple_translation.wagtail_hooks and the other will be
         # registered as a temporary hook.
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.delete_hook
+            "construct_synced_page_tree_list", self.unpublish_hook
         ):
             defined_hooks = hooks.get_hooks("construct_synced_page_tree_list")
             self.assertEqual(len(defined_hooks), 2)
@@ -174,9 +174,6 @@ class TestConstructSyncedPageTreeListHook(Utils):
         )
         self.assertEqual(response.status_code, 200)
 
-        # 2. Confirm fr_blog_post is deleted
-        self.assertIsNone(Page.objects.filter(pk=self.fr_blog_post.id).first())
-
         # Refresh objects from the database
         self.en_homepage.refresh_from_db()
         self.fr_homepage.refresh_from_db()
@@ -185,7 +182,7 @@ class TestConstructSyncedPageTreeListHook(Utils):
         self.assertFalse(self.en_homepage.live)
         self.assertFalse(self.fr_homepage.live)
 
-        
+
 @override_settings(
     WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
 )
@@ -193,16 +190,6 @@ class TestDeletingTranslatedPages(Utils):
     def delete_hook(self, pages, action):
         self.assertEqual(action, "delete")
         self.assertIsInstance(pages, list)
-
-    def test_double_registered_hook(self):
-        # We should have two implementations of `construct_synced_page_tree_list`
-        # One in simple_translation.wagtail_hooks and the other will be
-        # registered as a temporary hook.
-        with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.delete_hook
-        ):
-            defined_hooks = hooks.get_hooks("construct_synced_page_tree_list")
-            self.assertEqual(len(defined_hooks), 2)
 
     def test_construct_synced_page_tree_list_when_deleting(self):
         with hooks.register_temporarily(
@@ -254,9 +241,7 @@ class TestDeletingTranslatedPages(Utils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["translation_count"], 1)
         self.assertEqual(response.context["translation_descendant_count"], 0)
-        self.assertEqual(response.context["combined_subpages"], 1)
         self.assertIn(
             "Deleting this page will also delete 1 translation of this page.",
             response.content.decode("utf-8"),
         )
-
