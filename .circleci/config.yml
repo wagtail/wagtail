@@ -13,7 +13,7 @@ jobs:
       # Only install if .venv wasn’t cached.
       - run: |
           if [[ ! -e ".venv" ]]; then
-              pipenv install -e .[testing]
+              pipenv install -e .[testing,docs]
           fi
       - save_cache:
           key: pipenv-v1-{{ checksum "setup.py" }}
