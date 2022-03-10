@@ -9,6 +9,8 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     register_submit_translation_permission,
 )
 from wagtail.core import hooks
+from wagtail.core.actions.create_alias import CreatePageAliasAction
+from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
 from wagtail.tests.utils import WagtailTestUtils
@@ -245,3 +247,97 @@ class TestDeletingTranslatedPages(Utils):
             "Deleting this page will also delete 1 translation of this page.",
             response.content.decode("utf-8"),
         )
+
+    def test_deleting_page_with_divergent_translation_tree(self):
+        self.login()
+
+        # New parent to eventually hold the fr_blog_post object.
+        self.en_new_parent = TestPage(title="Test Parent", slug="test-parent")
+        self.en_homepage.add_child(instance=self.en_new_parent)
+
+        # Copy the /blog/ and French /blog-post/ pages.
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        # Copy the en new parent to be a french page
+        self.fr_new_parent = self.en_new_parent.copy_for_translation(self.fr_locale)
+
+        # Manually move the fr_blog_post to live under fr_new_parent
+        # Because this does not go through the POST request in pages/move.py
+        # this action will create a diverged tree scnenario where en_blog_post
+        # and fr_blog_post don't mirror their original positions in the tree.
+        action = MovePageAction(
+            self.fr_blog_post,
+            self.fr_new_parent,
+            pos="last-child",
+            user=None,
+        )
+        action.execute(skip_permission_checks=True)
+
+        self.fr_blog_post.refresh_from_db()
+        self.en_blog_post.refresh_from_db()
+
+        # Confirm fr_blog_post parent id is the fr_new_parent id.
+        # Confirm en_blog_post parent id is the en_blog_index id
+        self.assertEqual(
+            self.fr_blog_post.get_parent(update=True).id, self.fr_new_parent.id
+        )
+        self.assertEqual(
+            self.en_blog_post.get_parent(update=True).id, self.en_blog_index.id
+        )
+
+        # Make a post request to move the en_blog_post to live under en_homepage
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:delete",
+                args=(self.en_blog_post.id,),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        # Confirm that the en_blog_post object no longer exists.
+        self.assertFalse(Page.objects.filter(pk=self.en_blog_post.id).exists())
+        # Confirm that the fr_blog_post object stll exists, because it was moved
+        self.assertTrue(Page.objects.filter(pk=self.fr_blog_post.id).exists())
+
+        # Confirm the fr_blog_post parent id matches the new_parent_page id
+        # This confirms is hasn't moved and hasn't been deleted.
+        # to a different location in the tree.
+        self.fr_blog_post.refresh_from_db()
+        self.assertEqual(
+            self.fr_blog_post.get_parent(update=True).id, self.fr_new_parent.id
+        )
+
+    def test_alias_pages_when_deleting_source_page(self):
+        """
+        When deleting a page that has an alias page, the alias page should
+        continue to exist while the original original page should be deleted
+        while using the `construct_synced_page_tree_list` hook is active.
+        """
+        self.login()
+
+        # Create an alias page from en_blog_post
+        action = CreatePageAliasAction(
+            self.en_blog_post,
+            recursive=False,
+            parent=self.en_blog_index,
+            update_slug="sample-slug",
+            user=None,
+        )
+        new_page = action.execute(skip_permission_checks=True)
+        # Make sure the alias page is an alias of the en_blog_post
+        # and exists under the same parent page.
+        self.assertEqual(new_page.alias_of_id, self.en_blog_post.id)
+        self.assertEqual(new_page.get_parent().id, self.en_blog_index.id)
+
+        # Delete the en_blog_post page and make sure the alias page is kept in tact.
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:delete",
+                args=(self.en_blog_post.id,),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Page.objects.filter(pk=self.en_blog_post.id).exists())
+        self.assertTrue(Page.objects.filter(pk=new_page.id).exists())
