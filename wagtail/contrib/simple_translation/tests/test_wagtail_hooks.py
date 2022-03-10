@@ -8,6 +8,7 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     page_listing_more_buttons,
     register_submit_translation_permission,
 )
+from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
@@ -230,6 +231,16 @@ class TestMovingTranslatedPages(Utils):
 
         # Create blog_post copies for translation
         self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+
+        # Create an alias page to test the `translations_to_move_count`
+        # in the template context
+        CreatePageAliasAction(
+            self.fr_blog_post,
+            recursive=False,
+            parent=self.fr_blog_index,
+            update_slug="new-french-blog-post-slug",
+            user=None,
+        ).execute(skip_permission_checks=True)
 
         response = self.client.get(
             reverse(
