@@ -165,15 +165,6 @@ class Panel:
             )
             options["formsets"] = self.required_formsets()
 
-        if not getattr(self.field_permissions, "is_original_method", False):
-            warn(
-                "The `field_permissions` method (on %r) is deprecated; "
-                "these should be returned from `get_form_options` as a "
-                "`field_permissions` item instead." % type(self),
-                category=RemovedInWagtail219Warning,
-            )
-            options["field_permissions"] = self.field_permissions()
-
         return options
 
     # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
@@ -193,13 +184,6 @@ class Panel:
         return {}
 
     required_formsets.is_original_method = True
-
-    # return a dict mapping field name to the permission codename that a user must have for that
-    # field to be included in the form
-    def field_permissions(self):
-        return {}
-
-    field_permissions.is_original_method = True
 
     # return any HTML that needs to be output on the edit page once per edit handler definition.
     # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
