@@ -42,7 +42,9 @@ class TestFormResponsesPanel(TestCase):
         self.form_page = make_form_page()
 
         self.FormPageForm = get_form_for_model(
-            FormPage, form_class=WagtailAdminPageForm
+            FormPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
         self.panel = FormSubmissionsPanel().bind_to(
@@ -84,7 +86,9 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         self.form_page = make_form_page_with_custom_submission()
 
         self.FormPageForm = get_form_for_model(
-            FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
+            FormPageWithCustomSubmission,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
         self.test_user = self.create_user(username="user-n1kola", password="123")
