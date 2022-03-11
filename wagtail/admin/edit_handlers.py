@@ -707,6 +707,7 @@ class InlinePanel(EditHandler):
                 "validate_min": self.min_num is not None,
                 "max_num": self.max_num,
                 "validate_max": self.max_num is not None,
+                "formsets": child_edit_handler.required_formsets(),
             }
         }
 
