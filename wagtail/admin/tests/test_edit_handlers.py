@@ -57,6 +57,18 @@ class TestGetFormForModel(TestCase):
         ):
             edit_handler.get_form_class()
 
+    def test_get_form_for_model_without_explicit_fields(self):
+        # Failing to pass a 'fields' argument to get_form_for_model IS valid, and should result in
+        # a form with no fields.
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+        )
+        self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
+        form = EventPageForm()
+        self.assertNotIn("title", form.fields)
+        self.assertNotIn("path", form.fields)
+
     def test_get_form_for_model_without_formsets(self):
         EventPageForm = get_form_for_model(
             EventPage,
@@ -130,6 +142,20 @@ class TestGetFormForModel(TestCase):
 
         # formsets should include speakers but not related_links
         self.assertIn("speakers", form.formsets)
+        self.assertNotIn("related_links", form.formsets)
+
+    def test_get_form_for_model_without_explicit_formsets(self):
+        # omitting the 'formsets' argument from get_form_for_model should return a form with no
+        # formsets, rather than a form with ALL OF THE FORMSETS which somehow seemed like a good
+        # idea once
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["date_from"],
+        )
+        form = EventPageForm()
+
+        self.assertNotIn("speakers", form.formsets)
         self.assertNotIn("related_links", form.formsets)
 
     def test_get_form_for_model_with_excluded_fields(self):
@@ -407,8 +433,8 @@ class TestTabbedInterface(TestCase):
         self.assertNotIn("signup_link", result)
 
     def test_required_fields(self):
-        # required_fields should report the set of form fields to be rendered recursively by children of TabbedInterface
-        result = set(self.event_page_tabbed_interface.required_fields())
+        # get_form_options should report the set of form fields to be rendered recursively by children of TabbedInterface
+        result = set(self.event_page_tabbed_interface.get_form_options()["fields"])
         self.assertEqual(result, {"title", "date_from", "date_to"})
 
     def test_render_form_content(self):
@@ -598,7 +624,7 @@ class TestFieldPanel(TestCase):
         self.assertNotIn('<p class="error-message">', result)
 
     def test_required_fields(self):
-        result = self.end_date_panel.required_fields()
+        result = self.end_date_panel.get_form_options()["fields"]
         self.assertEqual(result, ["date_to"])
 
     def test_error_message_is_rendered(self):
@@ -973,18 +999,18 @@ class TestPageChooserPanel(TestCase):
         panel = PageChooserPanel("page", "wagtailcore.site").bind_to(
             model=PageChooserModel
         )
-        widget = panel.widget_overrides()["page"]
+        widget = panel.get_form_options()["widgets"]["page"]
         self.assertEqual(widget.target_models, [Site])
 
     def test_target_models_malformed_type(self):
         panel = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
-        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+        self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
     def test_target_models_nonexistent_type(self):
         panel = PageChooserPanel("page", "snowman.lorry").bind_to(
             model=PageChooserModel
         )
-        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+        self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
@@ -1260,10 +1286,15 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.other_user = get_user_model().objects.get(pk=6)
         self.request = RequestFactory().get("/")
         self.request.user = self.commenting_user
-        self.object_list = ObjectList([CommentPanel()]).bind_to(
+
+        unbound_object_list = ObjectList([CommentPanel()])
+        self.object_list = unbound_object_list.bind_to(
             model=EventPage, request=self.request
         )
-        self.tabbed_interface = TabbedInterface([self.object_list])
+        self.tabbed_interface = TabbedInterface([unbound_object_list]).bind_to(
+            model=EventPage, request=self.request
+        )
+
         self.EventPageForm = self.object_list.get_form_class()
         self.event_page = EventPage.objects.get(slug="christmas")
         self.comment = Comment.objects.create(
@@ -1284,11 +1315,11 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
         """
         self.assertTrue(self.tabbed_interface.show_comments_toggle)
-        self.assertFalse(
-            TabbedInterface(
-                [ObjectList(self.event_page.content_panels)]
-            ).show_comments_toggle
-        )
+
+        tabbed_interface_without_content_panel = TabbedInterface(
+            [ObjectList(self.event_page.content_panels)]
+        ).bind_to(model=EventPage)
+        self.assertFalse(tabbed_interface_without_content_panel.show_comments_toggle)
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_comments_disabled_setting(self):
