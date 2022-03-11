@@ -58,7 +58,11 @@ class TestGetFormForModel(TestCase):
             edit_handler.get_form_class()
 
     def test_get_form_for_model_without_formsets(self):
-        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+        )
         form = EventPageForm()
 
         # form should be a subclass of WagtailAdminModelForm
@@ -77,6 +81,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
             formsets=["speakers", "related_links"],
         )
         form = EventPageForm()
@@ -89,7 +94,12 @@ class TestGetFormForModel(TestCase):
         # Test that field overrides defined through DIRECT_FORM_FIELD_OVERRIDES
         # are applied
 
-        SimplePageForm = get_form_for_model(SimplePage, form_class=WagtailAdminPageForm)
+        SimplePageForm = get_form_for_model(
+            SimplePage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "content"],
+        )
+        self.assertTrue(issubclass(SimplePageForm, WagtailAdminPageForm))
         simple_form = SimplePageForm()
         # plain TextFields should use AdminAutoHeightTextInput as the widget
         self.assertEqual(
@@ -98,7 +108,9 @@ class TestGetFormForModel(TestCase):
 
         # This override should NOT be applied to subclasses of TextField such as
         # RichTextField - they should retain their default widgets
-        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, fields=["title", "slug", "body"]
+        )
         event_form = EventPageForm()
         self.assertEqual(type(event_form.fields["body"].widget), DraftailRichTextArea)
 
@@ -134,9 +146,6 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields["date_from"].widget), AdminDateInput)
         self.assertNotIn("title", form.fields)
 
-        # 'path' is not excluded any more, as the excluded fields were overridden
-        self.assertIn("path", form.fields)
-
         # formsets should include speakers but not related_links
         self.assertIn("speakers", form.formsets)
         self.assertNotIn("related_links", form.formsets)
@@ -145,6 +154,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["date_to", "date_from"],
             widgets={"date_from": forms.PasswordInput},
         )
         form = EventPageForm()
@@ -156,6 +166,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["date_to", "date_from"],
             widgets={"date_from": forms.PasswordInput()},
         )
         form = EventPageForm()
@@ -165,7 +176,9 @@ class TestGetFormForModel(TestCase):
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(
-            RestaurantPage, form_class=WagtailAdminPageForm
+            RestaurantPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "tags"],
         )
         form_html = RestaurantPageForm().as_p()
         self.assertIn("/admin/tag\\u002Dautocomplete/tests/restauranttag/", form_html)
@@ -481,7 +494,10 @@ class TestFieldPanel(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
@@ -629,7 +645,10 @@ class TestFieldRowPanel(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
@@ -773,7 +792,10 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
