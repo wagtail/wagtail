@@ -1,3 +1,5 @@
+const vanillaRTL = require('tailwindcss-vanilla-rtl');
+
 /**
  * Design Tokens
  */
@@ -63,6 +65,11 @@ module.exports = {
     },
     spacing,
   },
-  plugins: [typeScale],
-  corePlugins: {},
+  plugins: [typeScale, vanillaRTL],
+  corePlugins: {
+    ...vanillaRTL.disabledCorePlugins,
+    // Disable float and clear which have poor RTL support.
+    float: false,
+    clear: false,
+  },
 };
