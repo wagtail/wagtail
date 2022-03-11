@@ -159,10 +159,12 @@ def edit(request, image_id):
             form.save()
 
             if "file" in form.changed_data:
-                # if providing a new image file, delete the old one and all renditions.
+                # if providing a new image file, delete the old one (unless it has the
+                # same name) and all renditions.
                 # NB Doing this via original_file.delete() clears the file field,
                 # which definitely isn't what we want...
-                original_file.storage.delete(original_file.name)
+                if original_file.name != image.file.name:
+                    original_file.storage.delete(original_file.name)
                 image.renditions.all().delete()
 
             # Reindex the image to make sure all tags are indexed

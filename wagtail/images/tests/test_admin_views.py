@@ -777,6 +777,33 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertNotEqual(old_rendition.file.name, new_rendition.file.name)
         self.assertNotEqual(self.get_content(new_rendition.file), old_rendition_data)
 
+    @override_settings(
+        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_overwriting_storage.DummyOverWritingFileStorage"
+    )
+    def test_reupload_same_name_overwriting_backend(self):
+        """
+        Checks that reuploading the image file with the same file name
+        does not delete the image file if backend does not change the name.
+        """
+        filename = self.image.file.name
+        old_data = self.get_content()
+        new_file = SimpleUploadedFile(
+            self.image.filename, get_test_image_file(colour="red").file.getvalue()
+        )
+        new_size = new_file.size
+
+        response = self.post(
+            {
+                "title": self.image.title,
+                "file": new_file,
+            }
+        )
+        self.assertRedirects(response, reverse("wagtailimages:index"))
+        self.update_from_db()
+        self.assertTrue(self.storage.exists(filename))
+        self.assertEqual(self.image.file_size, new_size)
+        self.assertNotEqual(self.get_content(), old_data)
+
     def test_reupload_different_name(self):
         """
         Checks that reuploading the image file with a different file name

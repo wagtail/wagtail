@@ -588,6 +588,33 @@ class TestDocumentEditView(TestCase, WagtailTestUtils):
         self.assertEqual(self.document.file.name, "documents/" + new_name)
         self.assertEqual(self.document.file.read(), b"An updated test content.")
 
+    @override_settings(
+        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_overwriting_storage.DummyOverWritingFileStorage"
+    )
+    def test_reupload_same_name_storage_backend_overwrites(self):
+        """
+        Checks that reuploading the document file with the same name using a storage
+        backend that overwrites the old file using the same file name does not
+        remove the new file.
+        """
+        filename = self.document.file.name
+        new_file = SimpleUploadedFile(
+            self.document.filename,
+            b"An updated test content.",
+        )
+
+        response = self.client.post(
+            reverse("wagtaildocs:edit", args=(self.document.pk,)),
+            {
+                "title": self.document.title,
+                "file": new_file,
+            },
+        )
+        self.assertRedirects(response, reverse("wagtaildocs:index"))
+        self.document.refresh_from_db()
+        self.assertTrue(self.document.file.storage.exists(filename))
+        self.assertEqual(self.document.file.read(), b"An updated test content.")
+
 
 @override_settings(WAGTAILDOCS_DOCUMENT_MODEL="tests.CustomDocument")
 class TestDocumentEditViewWithCustomDocumentModel(TestCase, WagtailTestUtils):
