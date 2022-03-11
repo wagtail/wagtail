@@ -1,3 +1,4 @@
+const plugin = require('tailwindcss/plugin');
 const vanillaRTL = require('tailwindcss-vanilla-rtl');
 
 /**
@@ -51,6 +52,8 @@ module.exports = {
       inherit: 'inherit',
       current: 'currentColor',
       transparent: 'transparent',
+      LinkText: 'LinkText',
+      ButtonText: 'ButtonText',
     },
     fontFamily,
     fontSize,
@@ -65,7 +68,19 @@ module.exports = {
     },
     spacing,
   },
-  plugins: [typeScale, vanillaRTL],
+  plugins: [
+    typeScale,
+    vanillaRTL,
+    /**
+     * forced-colors media query for Windows High-Contrast mode support
+     * See:
+     * - https://developer.mozilla.org/en-US/docs/Web/CSS/@media/forced-colors
+     * - https://github.com/tailwindlabs/tailwindcss/blob/7b4cc36f5ea1f7e208dcd3af3e8288878735f45f/src/corePlugins.js#L169-L172
+     */
+    plugin(({ addVariant }) => {
+      addVariant('forced-colors', '@media (forced-colors: active)');
+    }),
+  ],
   corePlugins: {
     ...vanillaRTL.disabledCorePlugins,
     // Disable float and clear which have poor RTL support.
