@@ -57,7 +57,7 @@ class TestGetFormForModel(TestCase):
         ):
             edit_handler.get_form_class()
 
-    def test_get_form_for_model(self):
+    def test_get_form_for_model_without_formsets(self):
         EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         form = EventPageForm()
 
@@ -72,6 +72,14 @@ class TestGetFormForModel(TestCase):
 
         # treebeard's 'path' field should be excluded
         self.assertNotIn("path", form.fields)
+
+    def test_get_form_for_model_with_formsets(self):
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            formsets=["speakers", "related_links"],
+        )
+        form = EventPageForm()
 
         # all child relations become formsets by default
         self.assertIn("speakers", form.formsets)
