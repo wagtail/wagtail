@@ -387,12 +387,6 @@ li.inline:first-child {
   @include transition(opacity 0.2s ease);
 }
 
-.label-uppercase {
-  .field > label {
-    text-transform: uppercase;
-  }
-}
-
 @include media-breakpoint-up(sm) {
   .help {
     opacity: 1;
