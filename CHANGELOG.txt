@@ -22,7 +22,7 @@ Changelog
  * Switch focus outlines implementation to `:focus-visible` for cross-browser consistency (Paarth Agarwal)
  * Remove most uppercased text styles from admin UI (Paarth Agarwal)
  * Convert all UI code to CSS logical properties for Right-to-Left (RTL) language support (Thibaud Colas)
- * Migrate multiple documentation pages from RST to MD (Vibhakar Solanki, LB (Ben Johnston))
+ * Migrate multiple documentation pages from RST to MD - including the editor's guide (Vibhakar Solanki, LB (Ben Johnston), Shwet Khatri)
  * Add documentation for defining custom form validation on models used in Wagtail's `modelAdmin` (Serafeim Papastefanos)
  * Update `README.md` logo to work for GitHub dark mode (Paarth Agarwal)
  * Avoid an unnecessary page reload when pressing enter within the header search bar (Images, Pages, Documents) (Riley de Mestre)

@@ -582,6 +582,7 @@ Contributors
 * Anuja Verma
 * Shrey Parekh
 * Vinit Kumar
+* Shwet Khatri
 
 Translators
 ===========
