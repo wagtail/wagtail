@@ -101,6 +101,9 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
+UNSET = object()
+
+
 class Panel:
     """
     Defines part (or all) of the edit form interface for pages and other models within the Wagtail
@@ -200,7 +203,7 @@ class Panel:
         new.on_model_bound()
         return new
 
-    def bind_to(self, model=None, instance=None, request=None, form=None):
+    def bind_to(self, model=None, instance=UNSET, request=UNSET, form=UNSET):
         if self.model is None:
             raise ImproperlyConfigured(
                 "%s.bind_to_model(model) must be called before bind_to"
@@ -213,22 +216,23 @@ class Panel:
                 category=RemovedInWagtail219Warning,
             )
 
+        if instance is UNSET or request is UNSET or form is UNSET:
+            raise ImproperlyConfigured(
+                "%s.bind_to must be passed all of the arguments: instance, request, form"
+                % type(self).__name__
+            )
+
         new = self.clone()
         new.model = self.model
         new.on_model_bound()  # necessary because the cloned edit handler no longer has any state set up
         # from when we called on_model_bound in bind_to_model
-        new.instance = self.instance if instance is None else instance
-        new.request = self.request if request is None else request
-        new.form = self.form if form is None else form
+        new.instance = instance
+        new.request = request
+        new.form = form
 
-        if new.instance is not None:
-            new.on_instance_bound()
-
-        if new.request is not None:
-            new.on_request_bound()
-
-        if new.form is not None:
-            new.on_form_bound()
+        new.on_instance_bound()
+        new.on_request_bound()
+        new.on_form_bound()
 
         return new
 
@@ -408,15 +412,11 @@ class PanelGroup(Panel):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
     def on_instance_bound(self):
+        # instance, request and form are always made available at the same time
         self.children = [
-            child.bind_to(instance=self.instance) for child in self.children
+            child.bind_to(instance=self.instance, request=self.request, form=self.form)
+            for child in self.children
         ]
-
-    def on_request_bound(self):
-        self.children = [child.bind_to(request=self.request) for child in self.children]
-
-    def on_form_bound(self):
-        self.children = [child.bind_to(form=self.form) for child in self.children]
 
     def render(self):
         return mark_safe(render_to_string(self.template, {"self": self}))
@@ -713,6 +713,10 @@ class FieldPanel(Panel):
         return model._meta.get_field(self.field_name)
 
     def on_form_bound(self):
+        if self.form is None:
+            self.bound_field = None
+            return
+
         try:
             self.bound_field = self.form[self.field_name]
         except KeyError:
@@ -866,6 +870,9 @@ class InlinePanel(Panel):
         self.db_field = manager.rel
 
     def on_form_bound(self):
+        if self.form is None:
+            return
+
         self.formset = self.form.formsets[self.relation_name]
 
         self.children = []
