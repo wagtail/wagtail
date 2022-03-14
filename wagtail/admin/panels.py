@@ -221,7 +221,9 @@ class Panel:
                 "%s.bind_to must be passed all of the arguments: instance, request, form"
                 % type(self).__name__
             )
+        return self.get_bound_panel(instance=instance, request=request, form=form)
 
+    def get_bound_panel(self, instance=None, request=None, form=None):
         new = self.clone()
         new.model = self.model
         new.on_model_bound()  # necessary because the cloned edit handler no longer has any state set up
@@ -343,11 +345,11 @@ class PanelGroup(Panel):
 
     def __init__(self, children=(), *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.children = children
+        self.children = self.unbound_children = children
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
-        kwargs["children"] = self.children
+        kwargs["children"] = self.unbound_children
         return kwargs
 
     def get_form_options(self):
@@ -361,7 +363,7 @@ class PanelGroup(Panel):
 
         # Merge in form options from each child in turn, combining values that are types that we
         # know how to combine (i.e. lists, dicts and sets)
-        for child in self.children:
+        for child in self.unbound_children:
             child_options = child.get_form_options()
             for key, new_val in child_options.items():
                 if key not in options:
@@ -409,13 +411,15 @@ class PanelGroup(Panel):
         return mark_safe("".join([c.html_declarations() for c in self.children]))
 
     def on_model_bound(self):
-        self.children = [child.bind_to_model(self.model) for child in self.children]
+        self.children = self.unbound_children = [
+            child.bind_to_model(self.model) for child in self.unbound_children
+        ]
 
     def on_instance_bound(self):
         # instance, request and form are always made available at the same time
         self.children = [
             child.bind_to(instance=self.instance, request=self.request, form=self.form)
-            for child in self.children
+            for child in self.unbound_children
         ]
 
     def render(self):
@@ -553,6 +557,137 @@ class HelpPanel(Panel):
         return mark_safe(render_to_string(self.template, {"self": self}))
 
 
+class BoundFieldPanel:
+    def __init__(self, panel, instance, request, form):
+        self.panel = panel
+        self.instance = instance
+        self.request = request
+        self.form = form
+
+        if self.form is None:
+            self.bound_field = None
+            return
+
+        try:
+            self.bound_field = self.form[self.field_name]
+        except KeyError:
+            self.bound_field = None
+            return
+
+        if self.panel.heading:
+            self.bound_field.label = self.panel.heading
+
+        self.help_text = self.bound_field.help_text
+
+    @property
+    def heading(self):
+        return self.bound_field.label
+
+    @property
+    def field_name(self):
+        return self.panel.field_name
+
+    def is_shown(self):
+        if self.form is not None and self.bound_field is None:
+            # this field is missing from the form
+            return False
+
+        if (
+            self.panel.permission
+            and self.request
+            and not self.request.user.has_perm(self.panel.permission)
+        ):
+            return False
+
+        return True
+
+    def classes(self):
+        classes = self.panel.classes().copy()
+
+        if self.bound_field.field.required:
+            classes.append("required")
+
+        # If field has any errors, add the classname 'error' to enable error styling
+        # (e.g. red background), unless the widget has its own mechanism for rendering errors
+        # via the render_with_errors mechanism (as StreamField does).
+        if self.bound_field.errors and not hasattr(
+            self.bound_field.field.widget, "render_with_errors"
+        ):
+            classes.append("error")
+
+        classes.append(self.field_type())
+
+        return classes
+
+    def field_type(self):
+        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
+
+    def id_for_label(self):
+        return self.bound_field.id_for_label
+
+    def html_declarations(self):
+        return ""
+
+    @property
+    def comments_enabled(self):
+        if self.panel.disable_comments is None:
+            # by default, enable comments on all fields except StreamField (which has its own comment handling)
+            return not isinstance(self.bound_field.field, BlockField)
+        else:
+            return not self.panel.disable_comments
+
+    def render_as_object(self):
+        return mark_safe(
+            render_to_string(
+                self.panel.object_template,
+                {
+                    "self": self,
+                    self.panel.TEMPLATE_VAR: self,
+                    "field": self.bound_field,
+                    "show_add_comment_button": self.comments_enabled
+                    and getattr(
+                        self.bound_field.field.widget, "show_add_comment_button", True
+                    ),
+                },
+            )
+        )
+
+    def render_as_field(self):
+        return mark_safe(
+            render_to_string(
+                self.panel.field_template,
+                {
+                    "field": self.bound_field,
+                    "field_type": self.field_type(),
+                    "show_add_comment_button": self.comments_enabled
+                    and getattr(
+                        self.bound_field.field.widget, "show_add_comment_button", True
+                    ),
+                },
+            )
+        )
+
+    def get_comparison(self):
+        comparator_class = self.panel.get_comparison_class()
+
+        if comparator_class and self.is_shown():
+            try:
+                return [functools.partial(comparator_class, self.panel.db_field)]
+            except FieldDoesNotExist:
+                return []
+        return []
+
+    def __repr__(self):
+        return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
+            self.__class__.__name__,
+            self.field_name,
+            self.panel.model,
+            self.instance,
+            self.request,
+            self.form.__class__.__name__,
+        )
+
+
 class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
 
@@ -587,86 +722,13 @@ class FieldPanel(Panel):
 
         return opts
 
-    def is_shown(self):
-        if self.form is not None and self.bound_field is None:
-            # this field is missing from the form
-            return False
-
-        if (
-            self.permission
-            and self.request
-            and not self.request.user.has_perm(self.permission)
-        ):
-            return False
-
-        return True
-
-    def classes(self):
-        classes = super().classes()
-
-        if self.bound_field.field.required:
-            classes.append("required")
-
-        # If field has any errors, add the classname 'error' to enable error styling
-        # (e.g. red background), unless the widget has its own mechanism for rendering errors
-        # via the render_with_errors mechanism (as StreamField does).
-        if self.bound_field.errors and not hasattr(
-            self.bound_field.field.widget, "render_with_errors"
-        ):
-            classes.append("error")
-
-        classes.append(self.field_type())
-
-        return classes
-
-    def field_type(self):
-        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
-
-    def id_for_label(self):
-        return self.bound_field.id_for_label
-
-    @property
-    def comments_enabled(self):
-        if self.disable_comments is None:
-            # by default, enable comments on all fields except StreamField (which has its own comment handling)
-            return not isinstance(self.bound_field.field, BlockField)
-        else:
-            return not self.disable_comments
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundFieldPanel(
+            panel=self, instance=instance, request=request, form=form
+        )
 
     object_template = "wagtailadmin/panels/single_field_panel.html"
-
-    def render_as_object(self):
-        return mark_safe(
-            render_to_string(
-                self.object_template,
-                {
-                    "self": self,
-                    self.TEMPLATE_VAR: self,
-                    "field": self.bound_field,
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
-        )
-
     field_template = "wagtailadmin/panels/field_panel_field.html"
-
-    def render_as_field(self):
-        return mark_safe(
-            render_to_string(
-                self.field_template,
-                {
-                    "field": self.bound_field,
-                    "field_type": self.field_type(),
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
-        )
 
     def get_comparison_class(self):
         try:
@@ -690,16 +752,6 @@ class FieldPanel(Panel):
 
         return compare.FieldComparison
 
-    def get_comparison(self):
-        comparator_class = self.get_comparison_class()
-
-        if comparator_class and self.is_shown():
-            try:
-                return [functools.partial(comparator_class, self.db_field)]
-            except FieldDoesNotExist:
-                return []
-        return []
-
     @cached_property
     def db_field(self):
         try:
@@ -711,31 +763,11 @@ class FieldPanel(Panel):
 
         return model._meta.get_field(self.field_name)
 
-    def on_form_bound(self):
-        if self.form is None:
-            self.bound_field = None
-            return
-
-        try:
-            self.bound_field = self.form[self.field_name]
-        except KeyError:
-            self.bound_field = None
-            return
-
-        if self.heading:
-            self.bound_field.label = self.heading
-        else:
-            self.heading = self.bound_field.label
-        self.help_text = self.bound_field.help_text
-
     def __repr__(self):
-        return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
+        return "<%s '%s' with model=%s>" % (
             self.__class__.__name__,
             self.field_name,
             self.model,
-            self.instance,
-            self.request,
-            self.form.__class__.__name__,
         )
 
 
