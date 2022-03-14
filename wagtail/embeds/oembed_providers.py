@@ -193,6 +193,15 @@ twitter = {
     ],
 }
 
+pinterest = {
+    "endpoints": "https://www.pinterest.com/oembed.{format}",
+    "urls": [
+        r"^https?://pinterest\.com/.+$",
+        r"^https?://pin\.it/.+$",
+        r"^https?://in\.pinterest\.com/.+$",
+    ],
+}
+
 soundcloud = {
     "endpoint": "https://soundcloud.com/oembed",
     "urls": [
@@ -725,4 +734,5 @@ all_providers = [
     vidyard,
     reddit,
     tidal,
+    pinterest
 ]
