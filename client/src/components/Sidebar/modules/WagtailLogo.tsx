@@ -9,10 +9,10 @@ const WagtailLogo = ({ className }: WagtailLogoProps) => {
 
   return (
     <svg
-      className={
-        className +
-        ' sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary hover:w-scale-75 w-delay-150 w-duration-500 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-transition w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]'
-      }
+      className={`
+        ${className || ''}
+         sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary hover:w-scale-75 w-delay-150 w-duration-500 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-transition w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]'
+      `}
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
       y="0px"
