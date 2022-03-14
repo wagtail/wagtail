@@ -26,12 +26,7 @@
     width $menu-transition-duration ease, height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
   box-sizing: border-box;
-  overflow: hidden;
-
-  &:hover {
-    color: $color-white;
-    transform: rotate(4deg);
-  }
+  border-radius: 100%;
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
@@ -47,24 +42,20 @@
   // Set wagging styles
   &--wagging {
     &:hover {
-      transform: rotate(8deg);
       transition: transform 1.2s ease;
 
-      #{$root}__icon {
-        // stylelint-disable max-nesting-depth
-        &[data-part='tail'] {
-          animation: tail-wag 0.09s alternate;
-          animation-iteration-count: infinite;
-        }
+      // stylelint-disable max-nesting-depth
+      [data-part='tail'] {
+        transform: translateY(60px);
+      }
 
-        // TODO: Fix legacy specificity issues
-        &[data-part='eye--open'] {
-          display: none !important;
-        }
+      // TODO: Fix legacy specificity issues
+      [data-part='eye--open'] {
+        display: none !important;
+      }
 
-        &[data-part='eye--closed'] {
-          display: inline !important;
-        }
+      [data-part='eye--closed'] {
+        display: inline !important;
       }
     }
   }
@@ -84,10 +75,10 @@
       height $menu-transition-duration ease;
 
     .sidebar--slim & {
-      left: -10px;
+      left: 10px;
       top: 10px;
-      width: 80px;
-      height: 80px;
+      width: 40px;
+      height: 40px;
     }
 
     .page404__bg & {
@@ -99,23 +90,11 @@
 
   // Bird icons
   &__icon {
-    display: block;
-    left: 0;
-    top: 0;
-    width: 70%;
-    height: 70%;
-    position: absolute;
-    margin: auto;
-    bottom: 0;
-    right: 0;
-    transition: left $menu-transition-duration ease,
-      width $menu-transition-duration ease,
-      height $menu-transition-duration ease;
-
     .sidebar--slim & {
-      left: -10px;
-      width: 70%;
-      height: 70%;
+      width: 42px;
+      height: 51px;
+      top: 10px;
+      left: -9px;
     }
 
     // TODO: Fix legacy specificity issues

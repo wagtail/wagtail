@@ -192,15 +192,13 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             onClick={onClickCollapseToggle}
             aria-label={strings.TOGGLE_SIDEBAR}
             aria-expanded={!slim}
-            className="button sidebar__collapse-toggle"
+            className="button sidebar__collapse-toggle hover:w-bg-primary-200 hover:text-white hover:opacity-100"
           >
             <Icon
               name="expand-right"
-              className={
-                !collapsed
-                  ? 'w-transition w-rotate-180 w-w-6 w-h-6 w-text-white'
-                  : ''
-              }
+              className={`w-transition motion-reduce:w-transition-none
+                ${!collapsed ? '-w-rotate-180 w-w-6 w-h-6 w-text-white' : ''}
+                `}
             />
           </button>
 

@@ -85,13 +85,12 @@ $avatar-size: 60px;
   }
 
   &__account {
-    @apply w-bg-primary w-text-white w-flex w-items-center w-relative w-p-0 w-w-full w-appearance-none w-border-0 w-overflow-hidden w-px-5 w-py-3 hover:w-bg-primary hover:w-text-white focus:w-bg-primary focus:w-text-white;
     @include clearfix;
 
     $icon-size: 1.5em;
 
     &-toggle {
-      @apply w-pr-4;
+      @apply w-pr-4 w-hidden sm:w-block;
       @include show-focus-outline-inside();
       display: grid;
       grid-template-columns: 1fr min-content;
@@ -114,8 +113,12 @@ $avatar-size: 60px;
   @at-root .sidebar--slim #{&} {
     width: $menu-width-slim;
 
+    &__account {
+      @apply w-px-0 w-pb-3 w-justify-center;
+    }
+
     &__account-toggle {
-      transform: translateX($menu-width-slim - $menu-width);
+      @apply w-hidden;
     }
   }
 

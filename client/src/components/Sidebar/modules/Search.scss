@@ -6,10 +6,12 @@
   padding: 0 20px;
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
   height: 42px;
+  z-index: 1;
 
   .sidebar--slim & {
+    justify-content: center;
     padding: 0;
   }
 
@@ -24,14 +26,13 @@
     left: 0;
     top: 0;
     // Need !important to override body.ready class
-    transition: background-color $menu-transition-duration ease,
-      opacity $menu-transition-duration ease !important;
     font-size: 13px;
     font-weight: 400;
     background-color: transparent;
     border: 0;
     border-radius: 0;
     color: $color-menu-text;
+    padding-left: 45px;
     -webkit-font-smoothing: auto;
 
     .sidebar--slim & {
@@ -45,8 +46,6 @@
 
   &__submit {
     @include show-focus-outline-inside();
-    position: absolute;
-    right: 0;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -58,13 +57,11 @@
       width $menu-transition-duration ease;
 
     svg {
-      margin-right: 15px;
+      margin-right: 20px;
       transition: margin-right $menu-transition-duration ease;
     }
 
     .sidebar--slim & {
-      width: 100%;
-
       svg {
         margin-right: 0;
       }

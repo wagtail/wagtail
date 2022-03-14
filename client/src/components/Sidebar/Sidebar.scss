@@ -3,7 +3,7 @@
 
   position: absolute;
   top: $sidebar-toggle-spacing;
-  left: $sidebar-toggle-spacing;
+  right: $sidebar-toggle-spacing;
   color: $color-white;
   width: $sidebar-toggle-size;
   height: $sidebar-toggle-size;
@@ -13,11 +13,6 @@
   padding: 0;
   border-radius: 50%;
   border: 1px solid transparent;
-
-  &:hover {
-    background-color: #3a3a3a;
-    color: #ccc;
-  }
 
   svg {
     width: 15px;
@@ -86,11 +81,6 @@
   @include sidebar-toggle;
   display: none; // Nav toggle is for mobile only
   z-index: 305;
-
-  &:hover {
-    background: var(--color-primary-dark);
-    color: #fff;
-  }
 
   &--mobile {
     display: grid;

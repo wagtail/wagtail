@@ -66,6 +66,7 @@ interface MenuProps {
   expandingOrCollapsing: boolean;
   currentPath: string;
   strings: Strings;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -204,7 +205,22 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
         }
       >
         <button
-          className="sidebar-footer__account"
+          className="
+          sidebar-footer__account
+          w-bg-primary
+          w-text-white
+          w-flex
+          w-items-center
+          w-relative
+          w-p-0
+          w-w-full
+          w-appearance-none
+          w-border-0
+          w-overflow-hidden
+          md:w-px-5
+          md:w-py-3
+          hover:w-bg-primary
+          hover:w-text-white focus:w-bg-primary focus:w-text-white"
           title={strings.EDIT_YOUR_ACCOUNT}
           aria-label={strings.EDIT_YOUR_ACCOUNT}
           onClick={onClickAccountSettings}
