@@ -194,7 +194,7 @@ twitter = {
 }
 
 pinterest = {
-    "endpoints": "https://www.pinterest.com/oembed.{format}",
+    "endpoints": "https://www.pinterest.com/oembed",
     "urls": [
         r"^https?://pinterest\.com/.+$",
         r"^https?://pin\.it/.+$",
