@@ -46,7 +46,8 @@
 
       // stylelint-disable max-nesting-depth
       [data-part='tail'] {
-        transform: translateY(60px);
+        animation: tail-wag 0.9s alternate;
+        animation-iteration-count: infinite;
       }
 
       // TODO: Fix legacy specificity issues
