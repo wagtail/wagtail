@@ -29,6 +29,8 @@
                         {% for field in search_form %}
                             {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
                         {% endfor %}
+                        {% comment %}Ad an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                        <li class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></li>
                         <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
                     </ul>
                 </form>
