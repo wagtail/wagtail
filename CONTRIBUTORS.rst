@@ -570,6 +570,7 @@ Contributors
 * Paarth Agarwal
 * Nicolas Ferrari
 * Vibhakar Solanki
+* Riley de Mestre
 
 Translators
 ===========
