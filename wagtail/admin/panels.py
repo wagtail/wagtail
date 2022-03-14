@@ -337,6 +337,91 @@ class EditHandler(Panel):
         super().__init__(*args, **kwargs)
 
 
+class BoundPanel:
+    def __init__(self, panel, instance, request, form):
+        self.panel = panel
+        self.instance = instance
+        self.request = request
+        self.form = form
+
+        self.heading = self.panel.heading
+        self.help_text = self.panel.help_text
+
+    @property
+    def classname(self):
+        return self.panel.classname
+
+    def classes(self):
+        return self.panel.classes()
+
+    def field_type(self):
+        return self.panel.field_type()
+
+    def id_for_label(self):
+        return self.panel.id_for_label()
+
+    def render_as_object(self):
+        return self.render()
+
+    def render_as_field(self):
+        return self.render()
+
+    def render(self):
+        return mark_safe(render_to_string(self.panel.template, {"self": self}))
+
+    def render_missing_fields(self):
+        """
+        Helper function: render all of the fields that are defined on the form but not "claimed" by
+        any panels via required_fields. These fields are most likely to be hidden fields introduced
+        by the forms framework itself, such as ORDER / DELETE fields on formset members.
+        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
+        outside of the panel furniture. But there's not much we can do about that.)
+        """
+        rendered_fields = self.panel.get_form_options().get("fields", [])
+        missing_fields_html = [
+            str(self.form[field_name])
+            for field_name in self.form.fields
+            if field_name not in rendered_fields
+        ]
+
+        return mark_safe("".join(missing_fields_html))
+
+    def render_form_content(self):
+        """
+        Render this as an 'object', ensuring that all fields necessary for a valid form
+        submission are included
+        """
+        return mark_safe(self.render_as_object() + self.render_missing_fields())
+
+
+class BoundPanelGroup(BoundPanel):
+    def __init__(self, panel, instance, request, form):
+        super().__init__(panel=panel, instance=instance, request=request, form=form)
+
+        self.children = [
+            child.bind_to(instance=self.instance, request=self.request, form=self.form)
+            for child in self.panel.children
+        ]
+
+    @property
+    def visible_children(self):
+        return [child for child in self.children if child.is_shown()]
+
+    def is_shown(self):
+        return any(child.is_shown() for child in self.children)
+
+    def html_declarations(self):
+        return mark_safe("".join([c.html_declarations() for c in self.children]))
+
+    def get_comparison(self):
+        comparators = []
+
+        for child in self.children:
+            comparators.extend(child.get_comparison())
+
+        return comparators
+
+
 class PanelGroup(Panel):
     """
     Abstract class for panels that manage a set of sub-panels.
@@ -345,11 +430,11 @@ class PanelGroup(Panel):
 
     def __init__(self, children=(), *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.children = self.unbound_children = children
+        self.children = children
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
-        kwargs["children"] = self.unbound_children
+        kwargs["children"] = self.children
         return kwargs
 
     def get_form_options(self):
@@ -363,7 +448,7 @@ class PanelGroup(Panel):
 
         # Merge in form options from each child in turn, combining values that are types that we
         # know how to combine (i.e. lists, dicts and sets)
-        for child in self.unbound_children:
+        for child in self.children:
             child_options = child.get_form_options()
             for key, new_val in child_options.items():
                 if key not in options:
@@ -400,38 +485,13 @@ class PanelGroup(Panel):
 
         return options
 
-    @property
-    def visible_children(self):
-        return [child for child in self.children if child.is_shown()]
-
-    def is_shown(self):
-        return any(child.is_shown() for child in self.children)
-
-    def html_declarations(self):
-        return mark_safe("".join([c.html_declarations() for c in self.children]))
-
     def on_model_bound(self):
-        self.children = self.unbound_children = [
-            child.bind_to_model(self.model) for child in self.unbound_children
-        ]
+        self.children = [child.bind_to_model(self.model) for child in self.children]
 
-    def on_instance_bound(self):
-        # instance, request and form are always made available at the same time
-        self.children = [
-            child.bind_to(instance=self.instance, request=self.request, form=self.form)
-            for child in self.unbound_children
-        ]
-
-    def render(self):
-        return mark_safe(render_to_string(self.template, {"self": self}))
-
-    def get_comparison(self):
-        comparators = []
-
-        for child in self.children:
-            comparators.extend(child.get_comparison())
-
-        return comparators
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundPanelGroup(
+            panel=self, instance=instance, request=request, form=form
+        )
 
 
 class BaseCompositeEditHandler(PanelGroup):
@@ -442,6 +502,12 @@ class BaseCompositeEditHandler(PanelGroup):
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
+
+
+class BoundFormPanel(BoundPanelGroup):
+    def __init__(self, panel, instance, request, form):
+        super().__init__(panel, instance, request, form)
+        self.show_comments_toggle = self.panel.show_comments_toggle
 
 
 class BaseFormEditHandler(PanelGroup):
@@ -501,6 +567,9 @@ class BaseFormEditHandler(PanelGroup):
         kwargs["base_form_class"] = self.base_form_class
         return kwargs
 
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundFormPanel(panel=self, instance=instance, request=request, form=form)
+
 
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/panels/tabbed_interface.html"
@@ -510,9 +579,7 @@ class ObjectList(BaseFormEditHandler):
     template = "wagtailadmin/panels/object_list.html"
 
 
-class FieldRowPanel(PanelGroup):
-    template = "wagtailadmin/panels/field_row_panel.html"
-
+class BoundFieldRowPanel(BoundPanelGroup):
     def visible_children_with_classnames(self):
         visible_children = self.visible_children
         col_count = " col%s" % (12 // len(visible_children))
@@ -521,6 +588,15 @@ class FieldRowPanel(PanelGroup):
             if not re.search(r"\bcol\d+\b", classname):
                 classname += col_count
             yield child, classname
+
+
+class FieldRowPanel(PanelGroup):
+    template = "wagtailadmin/panels/field_row_panel.html"
+
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundFieldRowPanel(
+            panel=self, instance=instance, request=request, form=form
+        )
 
 
 class MultiFieldPanel(PanelGroup):
@@ -557,12 +633,9 @@ class HelpPanel(Panel):
         return mark_safe(render_to_string(self.template, {"self": self}))
 
 
-class BoundFieldPanel:
+class BoundFieldPanel(BoundPanel):
     def __init__(self, panel, instance, request, form):
-        self.panel = panel
-        self.instance = instance
-        self.request = request
-        self.form = form
+        super().__init__(panel=panel, instance=instance, request=request, form=form)
 
         if self.form is None:
             self.bound_field = None
@@ -575,13 +648,11 @@ class BoundFieldPanel:
             return
 
         if self.panel.heading:
-            self.bound_field.label = self.panel.heading
+            self.heading = self.bound_field.label = self.panel.heading
+        else:
+            self.heading = self.bound_field.label
 
         self.help_text = self.bound_field.help_text
-
-    @property
-    def heading(self):
-        return self.bound_field.label
 
     @property
     def field_name(self):
