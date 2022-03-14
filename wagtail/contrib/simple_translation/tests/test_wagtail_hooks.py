@@ -328,6 +328,9 @@ class TestDeletingTranslatedPages(Utils):
         """
         self.login()
 
+        # Test the source page exists in the right tree location
+        self.assertEqual(self.en_blog_post.get_parent().id, self.en_blog_index.id)
+
         # Create an alias page from en_blog_post
         action = CreatePageAliasAction(
             self.en_blog_post,
@@ -339,8 +342,9 @@ class TestDeletingTranslatedPages(Utils):
         new_page = action.execute(skip_permission_checks=True)
         # Make sure the alias page is an alias of the en_blog_post
         # and exists under the same parent page.
-        self.assertEqual(new_page.alias_of_id, self.en_blog_post.id)
         self.assertEqual(new_page.get_parent().id, self.en_blog_index.id)
+        # Test alias of source page
+        self.assertEqual(new_page.alias_of_id, self.en_blog_post.id)
 
         # Delete the en_blog_post page and make sure the alias page is kept in tact.
         response = self.client.post(
@@ -353,3 +357,51 @@ class TestDeletingTranslatedPages(Utils):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Page.objects.filter(pk=self.en_blog_post.id).exists())
         self.assertTrue(Page.objects.filter(pk=new_page.id).exists())
+
+    def test_translation_alias_pages_when_deleting_source_page(self):
+        """
+        When deleting a page that has an alias page, the alias page
+        should be deleted while using the `construct_synced_page_tree_list`
+        hook is active.
+        """
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        # Create a copy of the en_blog_post object as a translated alias page
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(
+            self.fr_locale, alias=True
+        )
+        self.assertEqual(self.fr_blog_post.get_parent().id, self.fr_blog_index.id)
+
+        # Test fr_blog_post alias_id is in the list of translations
+        translation_ids = [p.id for p in self.fr_blog_post.get_translations()]
+        self.assertIn(self.fr_blog_post.alias_of_id, translation_ids)
+        # Test fr_blog_post is a proper alias of en_blog_post
+        self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
+        # Test fr_blog_post is using the french locale (fr)
+        self.assertEqual(self.fr_blog_post.locale.language_code, "fr")
+        # Test beyond the language code to ensure the page is in the correct language tree
+        self.assertIn(
+            self.fr_blog_post,
+            Page.objects.filter(locale__language_code="fr").specific(),
+        )
+
+        # Make sure the alias page is an alias of the en_blog_post
+        self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
+
+        # Delete the en_blog_post page and make sure the alias page is kept in tact.
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:delete",
+                args=(self.en_blog_post.id,),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(Page.objects.filter(pk=self.en_blog_post.id).exists())
+        self.assertFalse(Page.objects.filter(pk=self.fr_blog_post.id).exists())
+        self.assertNotIn(
+            self.fr_blog_post,
+            Page.objects.filter(locale__language_code="fr").specific(),
+        )
