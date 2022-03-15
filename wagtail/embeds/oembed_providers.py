@@ -141,6 +141,15 @@ clickthrough = {
     ],
 }
 
+pinterest = {
+    "endpoint": "https://www.pinterest.com/oembed.json",
+    "urls": [
+        r"^https?://[-\w]+\.pinterest\.com\.?[a-z]*/.+$",
+        r"^https?://in\.pinterest\.com/.+$",
+        r"^https?://pin\.it/.+$",
+    ],
+}
+
 kinomap = {
     "endpoint": "https://www.kinomap.com/oembed",
     "urls": [
@@ -725,4 +734,5 @@ all_providers = [
     vidyard,
     reddit,
     tidal,
+    pinterest,
 ]
