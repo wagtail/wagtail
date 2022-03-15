@@ -34,7 +34,7 @@
   width: 2em;
   height: 2em;
   color: $c-page-explorer-secondary;
-  margin-right: 0.75rem;
+  margin-inline-end: 0.75rem;
 }
 
 .c-page-explorer__item__title {
@@ -55,7 +55,7 @@
   cursor: pointer;
   color: $c-page-explorer-secondary;
   border: 0;
-  border-left: solid 1px $c-page-explorer-bg-dark;
+  border-inline-start: solid 1px $c-page-explorer-bg-dark;
 
   &:focus {
     background: $c-page-explorer-bg-active;
@@ -73,7 +73,7 @@
   }
 
   .icon::before {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 }
 
@@ -87,7 +87,7 @@
 }
 
 .c-page-explorer__meta {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   color: $c-page-explorer-secondary;
   font-size: 12px;
 }

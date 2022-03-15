@@ -3,7 +3,10 @@
   width: 20px;
   height: 20px;
   position: absolute;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 15px;
+  inset-inline-end: 15px;
   top: 0;
   bottom: 0;
   margin: auto 0;

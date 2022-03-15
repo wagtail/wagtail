@@ -12,7 +12,7 @@ $color-deletion-light: #ffebeb;
     padding: 1em;
 
     dd {
-      margin-left: 40px;
+      margin-inline-start: 40px;
     }
 
     &:first-child {
@@ -47,7 +47,7 @@ $color-deletion-light: #ffebeb;
     &.addition,
     &.deletion {
       padding: 5px;
-      margin-right: 5px;
+      margin-inline-end: 5px;
       border-style: solid;
       border-width: 1px;
     }

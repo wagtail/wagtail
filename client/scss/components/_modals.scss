@@ -26,17 +26,23 @@ $zindex-modal-background: 500;
   overflow-y: scroll;
   position: fixed;
   top: 0;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 0;
+  inset-inline-end: 0;
   bottom: 0;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   left: 0;
+  inset-inline-start: 0;
   z-index: $zindex-modal-background;
 }
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
   box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
   padding: 0;
   z-index: ($zindex-modal-background + 10);
   height: 90%;
@@ -47,7 +53,7 @@ $zindex-modal-background: 500;
     display: inline-block;
     height: 100%;
     vertical-align: middle;
-    margin-right: -0.25em;
+    margin-inline-end: -0.25em;
   }
 }
 
@@ -69,9 +75,15 @@ $zindex-modal-background: 500;
 .modal-backdrop {
   position: fixed;
   top: 0;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 0;
+  inset-inline-end: 0;
   bottom: 0;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   left: 0;
+  inset-inline-start: 0;
   z-index: ($zindex-modal-background - 10);
   background-color: $color-black;
 
@@ -91,7 +103,10 @@ $zindex-modal-background: 500;
   width: 50px;
   height: 50px;
   top: 10px;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 10px;
+  inset-inline-end: 10px;
   z-index: 1;
 }
 
@@ -101,22 +116,22 @@ $zindex-modal-background: 500;
   padding-bottom: 2em;
 
   header {
-    padding-left: 2em;
-    padding-right: 100px;
+    padding-inline-start: 2em;
+    padding-inline-end: 100px;
 
     &.tab-merged {
-      padding-left: 1.6em;
+      padding-inline-start: 1.6em;
     }
   }
 
   .header-title {
     // stylelint-disable-next-line declaration-no-important
-    padding-left: 0 !important;
-    margin-left: -36px;
+    padding-inline-start: 0 !important;
+    margin-inline-start: -36px;
   }
 
   .tab-merged .header-title {
-    margin-left: 0;
+    margin-inline-start: 0;
   }
 }
 
@@ -127,7 +142,7 @@ $zindex-modal-background: 500;
 
   .modal-body {
     header.tab-merged {
-      padding-left: $desktop-nice-padding;
+      padding-inline-start: $desktop-nice-padding;
     }
   }
 }

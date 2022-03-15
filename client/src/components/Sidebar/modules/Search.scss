@@ -21,7 +21,10 @@
   input:not([type='submit']) {
     @include show-focus-outline-inside();
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     // Need !important to override body.ready class
     transition: background-color $menu-transition-duration ease,
@@ -46,7 +49,10 @@
   &__submit {
     @include show-focus-outline-inside();
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -58,15 +64,15 @@
       width $menu-transition-duration ease;
 
     svg {
-      margin-right: 15px;
-      transition: margin-right $menu-transition-duration ease;
+      margin-inline-end: 15px;
+      transition: margin-inline-end $menu-transition-duration ease;
     }
 
     .sidebar--slim & {
       width: 100%;
 
       svg {
-        margin-right: 0;
+        margin-inline-end: 0;
       }
     }
 

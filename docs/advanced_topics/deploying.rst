@@ -26,6 +26,16 @@ On Google Cloud
 
 `Google Cloud <https://cloud.google.com>`_ is an Infrastructure-as-a-Service (IaaS) that offers multiple managed products, supported by Python client libraries, to help you build, deploy, and monitor your applications. You can deploy Wagtail, or any Django application, in a number of ways, including on `App Engine <https://www.youtube.com/watch?v=uD9PTag2-PQ>`_  or `Cloud Run <https://codelabs.developers.google.com/codelabs/cloud-run-wagtail/#0>`_.
 
+On alwaysdata
+~~~~~~~~~~~~~
+
+`alwaysdata <https://www.alwaysdata.com/>`_ is a Platform-as-a-Service (PaaS) providing Public and Private Cloud offers. Starting with a free plan they provide MySQL/PostgreSQL databases, emails, free SSL certificates, included backups, etc.
+
+To get your Wagtail application running you may:
+
+* `Install Wagtail from alwaysdata Marketplace <https://www.alwaysdata.com/en/marketplace/wagtail/>`_
+* `Configure a Django application <https://help.alwaysdata.com/en/languages/python/django/>`_
+
 On other PAASs and IAASs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

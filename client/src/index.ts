@@ -9,7 +9,6 @@ import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 import Portal from './components/Portal/Portal';
 import PublicationStatus from './components/PublicationStatus/PublicationStatus';
 import Transition from './components/Transition/Transition';
-import { initFocusOutline } from './utils/focus';
 import { initUpgradeNotification } from './components/UpgradeNotification';
 
 export {
@@ -19,6 +18,5 @@ export {
   Portal,
   PublicationStatus,
   Transition,
-  initFocusOutline,
   initUpgradeNotification,
 };

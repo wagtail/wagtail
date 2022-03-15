@@ -7,7 +7,6 @@ import { MainMenuModuleDefinition } from './modules/MainMenu';
 import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
 import { LinkMenuItemDefinition } from './menu/LinkMenuItem';
 import { SubMenuItemDefinition } from './menu/SubMenuItem';
-import { initFocusOutline } from '../../utils/focus';
 
 export default {
   title: 'Sidebar/Sidebar',
@@ -212,11 +211,6 @@ function renderSidebarStory(
   modules: ModuleDefinition[],
   { rtl = false, strings = null }: RenderSidebarStoryOptions = {},
 ) {
-  // Enable focus outlines so we can test them
-  React.useEffect(() => {
-    initFocusOutline();
-  }, []);
-
   // Simulate navigation
   const [currentPath, setCurrentPath] = React.useState('/admin/');
 

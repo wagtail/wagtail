@@ -29,7 +29,7 @@
 
 // stylelint-disable-next-line no-duplicate-selectors
 .icon:after {
-  text-align: right;
+  text-align: end;
 }
 
 // =============================================================================
@@ -90,7 +90,7 @@ svg.icon-spinner {
   overflow: hidden;
 
   &:before {
-    margin-right: 0;
+    margin-inline-end: 0;
     font-size: 1rem;
     display: inline-block;
     width: 100%;
@@ -161,7 +161,7 @@ svg.icon-spinner {
 
 .icon.locale-error {
   vertical-align: text-top;
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   width: 1.5em;
   height: 1.5em;
   color: $color-red;

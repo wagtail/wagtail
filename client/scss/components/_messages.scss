@@ -6,7 +6,7 @@
   background-color: $color-grey-1;
 
   .buttons {
-    margin-left: 1em;
+    margin-inline-start: 1em;
   }
 
   > ul {
@@ -24,14 +24,14 @@
 
   > ul > li:before {
     @include font-smoothing;
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     font-size: 1.5em;
     vertical-align: middle;
   }
 
   &-icon {
     vertical-align: text-top;
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     width: 1.5em;
     height: 1.5em;
   }
@@ -80,7 +80,7 @@
 
 @include media-breakpoint-up(sm) {
   .messages > ul > li {
-    padding-left: 1.6em;
-    padding-right: 3em;
+    padding-inline-start: 1.6em;
+    padding-inline-end: 3em;
   }
 }

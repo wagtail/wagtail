@@ -27,10 +27,6 @@
 }
 
 @include media-breakpoint-up(sm) {
-  .content-wrapper {
-    border-bottom-right-radius: 5px;
-  }
-
   .content {
     border-top: 0;
     background-color: none;
