@@ -25,7 +25,6 @@
   a {
     @include transition(border-color 0.2s ease);
     background-color: $color-teal-darker;
-    text-transform: uppercase;
     font-weight: 600;
     text-decoration: none;
     display: block;

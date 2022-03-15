@@ -198,7 +198,6 @@
     -webkit-font-smoothing: auto;
     background: $color-salmon-light;
     color: #200200;
-    text-transform: uppercase;
     padding: 0.9em 0 0.9em 5em;
     font-size: 0.95em;
     margin: 0;
@@ -597,6 +596,7 @@ footer .preview {
   border-radius: 2px;
   font-size: 14px;
   font-weight: 600;
+  text-transform: uppercase;
   line-height: 2.3em;
   padding: 0 0.75em;
 

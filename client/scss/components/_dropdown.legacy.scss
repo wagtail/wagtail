@@ -82,7 +82,6 @@
       white-space: nowrap;
       position: relative;
       text-decoration: none;
-      text-transform: uppercase;
       display: block;
       color: $color-white;
       padding: 1em;
@@ -159,7 +158,6 @@
 
   .dropdown-toggle {
     color: $color-white;
-    text-transform: uppercase;
     background-color: $color-teal;
     line-height: 2.8em;
     cursor: pointer;

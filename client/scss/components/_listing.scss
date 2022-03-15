@@ -48,7 +48,6 @@ ul.listing {
       text-align: left;
       font-weight: normal;
       white-space: nowrap;
-      text-transform: uppercase;
     }
 
     th.children {
@@ -213,7 +212,6 @@ ul.listing {
   .actions {
     @include clearfix();
     margin-top: 0.8em;
-    text-transform: uppercase;
     margin-bottom: -0.5em;
     font-size: 0.8rem;
 
@@ -566,7 +564,6 @@ table.listing {
 
 .filter-title {
   float: left;
-  text-transform: uppercase;
   font-size: 0.95em;
   padding: 1em;
   margin: 0 1em 0 0;
