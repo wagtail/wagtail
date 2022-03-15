@@ -360,6 +360,9 @@ class BoundPanel:
     def id_for_label(self):
         return self.panel.id_for_label()
 
+    def is_shown(self):
+        return True
+
     def render_as_object(self):
         return self.render()
 
@@ -888,6 +891,91 @@ class PageChooserPanel(FieldPanel):
         return opts
 
 
+class BoundInlinePanel(BoundPanel):
+    def __init__(self, panel, instance, request, form):
+        super().__init__(panel, instance, request, form)
+
+        self.label = self.panel.label
+
+        if self.form is None:
+            return
+
+        self.formset = self.form.formsets[self.panel.relation_name]
+        self.child_edit_handler = self.panel.child_edit_handler
+
+        self.children = []
+        for subform in self.formset.forms:
+            # override the DELETE field to have a hidden input
+            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+
+            # ditto for the ORDER field, if present
+            if self.formset.can_order:
+                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+
+            self.children.append(
+                self.child_edit_handler.bind_to(
+                    instance=subform.instance, request=self.request, form=subform
+                )
+            )
+
+        # if this formset is valid, it may have been re-ordered; respect that
+        # in case the parent form errored and we need to re-render
+        if self.formset.can_order and self.formset.is_valid():
+            self.children.sort(
+                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1
+            )
+
+        empty_form = self.formset.empty_form
+        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+        if self.formset.can_order:
+            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+
+        self.empty_child = self.child_edit_handler.bind_to(
+            instance=empty_form.instance, request=self.request, form=empty_form
+        )
+
+    def html_declarations(self):
+        return self.empty_child.html_declarations()
+
+    def get_comparison(self):
+        field_comparisons = []
+
+        for panel in self.panel.child_edit_handler.children:
+            field_comparisons.extend(
+                panel.bind_to(
+                    instance=None, request=self.request, form=None
+                ).get_comparison()
+            )
+
+        return [
+            functools.partial(
+                compare.ChildRelationComparison, self.panel.db_field, field_comparisons
+            )
+        ]
+
+    def render(self):
+        formset = render_to_string(
+            self.panel.template,
+            {
+                "self": self,
+                "can_order": self.formset.can_order,
+            },
+        )
+        js = self.render_js_init()
+        return widget_with_script(formset, js)
+
+    def render_js_init(self):
+        return mark_safe(
+            render_to_string(
+                self.panel.js_template,
+                {
+                    "self": self,
+                    "can_order": self.formset.can_order,
+                },
+            )
+        )
+
+
 class InlinePanel(Panel):
     def __init__(
         self,
@@ -919,7 +1007,8 @@ class InlinePanel(Panel):
         )
         return kwargs
 
-    def get_panel_definitions(self):
+    @cached_property
+    def panel_definitions(self):
         # Look for a panels definition in the InlinePanel declaration
         if self.panels is not None:
             return self.panels
@@ -928,14 +1017,14 @@ class InlinePanel(Panel):
             self.db_field.related_model, exclude=[self.db_field.field.name]
         )
 
-    def get_child_edit_handler(self):
-        panels = self.get_panel_definitions()
+    @cached_property
+    def child_edit_handler(self):
+        panels = self.panel_definitions
         child_edit_handler = MultiFieldPanel(panels, heading=self.heading)
         return child_edit_handler.bind_to_model(self.db_field.related_model)
 
     def get_form_options(self):
-        child_edit_handler = self.get_child_edit_handler()
-        child_form_opts = child_edit_handler.get_form_options()
+        child_form_opts = self.child_edit_handler.get_form_options()
         return {
             "formsets": {
                 self.relation_name: {
@@ -950,91 +1039,17 @@ class InlinePanel(Panel):
             }
         }
 
-    def html_declarations(self):
-        return self.get_child_edit_handler().html_declarations()
-
-    def get_comparison(self):
-        field_comparisons = []
-
-        for panel in self.get_panel_definitions():
-            field_comparisons.extend(
-                panel.bind_to_model(self.db_field.related_model).get_comparison()
-            )
-
-        return [
-            functools.partial(
-                compare.ChildRelationComparison, self.db_field, field_comparisons
-            )
-        ]
-
     def on_model_bound(self):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
 
-    def on_form_bound(self):
-        if self.form is None:
-            return
-
-        self.formset = self.form.formsets[self.relation_name]
-
-        self.children = []
-        for subform in self.formset.forms:
-            # override the DELETE field to have a hidden input
-            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-
-            # ditto for the ORDER field, if present
-            if self.formset.can_order:
-                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
-
-            child_edit_handler = self.get_child_edit_handler()
-            self.children.append(
-                child_edit_handler.bind_to(
-                    instance=subform.instance, request=self.request, form=subform
-                )
-            )
-
-        # if this formset is valid, it may have been re-ordered; respect that
-        # in case the parent form errored and we need to re-render
-        if self.formset.can_order and self.formset.is_valid():
-            self.children.sort(
-                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1
-            )
-
-        empty_form = self.formset.empty_form
-        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-        if self.formset.can_order:
-            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
-
-        self.empty_child = self.get_child_edit_handler()
-        self.empty_child = self.empty_child.bind_to(
-            instance=empty_form.instance, request=self.request, form=empty_form
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundInlinePanel(
+            panel=self, instance=instance, request=request, form=form
         )
 
     template = "wagtailadmin/panels/inline_panel.html"
-
-    def render(self):
-        formset = render_to_string(
-            self.template,
-            {
-                "self": self,
-                "can_order": self.formset.can_order,
-            },
-        )
-        js = self.render_js_init()
-        return widget_with_script(formset, js)
-
     js_template = "wagtailadmin/panels/inline_panel.js"
-
-    def render_js_init(self):
-        return mark_safe(
-            render_to_string(
-                self.js_template,
-                {
-                    "self": self,
-                    "can_order": self.formset.can_order,
-                },
-            )
-        )
 
 
 # This allows users to include the publishing panel in their own per-model override
