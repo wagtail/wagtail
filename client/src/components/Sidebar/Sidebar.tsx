@@ -38,7 +38,7 @@ export interface SidebarProps {
 export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   modules,
   currentPath,
-  collapsedOnLoad,
+  collapsedOnLoad = false,
   strings,
   navigate,
   onExpandCollapse,
@@ -104,8 +104,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     };
   }, [slim]);
 
-  const onClickCollapseToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const onClickCollapseToggle = () => {
     setCollapsed(!collapsed);
 
     if (onExpandCollapse) {
@@ -113,8 +112,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
-  const onClickOpenCloseToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const onClickOpenCloseToggle = () => {
     setVisibleOnMobile(!visibleOnMobile);
     setExpandingOrCollapsing(true);
 
@@ -185,10 +183,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       >
         <div className="sidebar__inner">
           <button
+            className="button sidebar__collapse-toggle"
             onClick={onClickCollapseToggle}
             aria-label={strings.TOGGLE_SIDEBAR}
-            aria-expanded={!slim}
-            className="button sidebar__collapse-toggle"
+            aria-expanded={slim ? 'false' : 'true'}
+            type="button"
           >
             {collapsed ? (
               <Icon name="angle-double-right" />
@@ -211,12 +210,13 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       <button
         onClick={onClickOpenCloseToggle}
         aria-label={strings.TOGGLE_SIDEBAR}
-        aria-expanded={visibleOnMobile}
+        aria-expanded={visibleOnMobile ? 'true' : 'false'}
         className={
           'button sidebar-nav-toggle' +
           (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
           (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
         }
+        type="button"
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>

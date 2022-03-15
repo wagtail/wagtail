@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import Button from '../../Button/Button';
 import Icon from '../../Icon/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
@@ -47,9 +46,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
     }
   }, [isOpen]);
 
-  const onClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-
+  const onClick = () => {
     // Open/close explorer
     if (isOpen) {
       dispatch({
@@ -65,7 +62,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
   };
 
   const className =
-    'sidebar-menu-item' +
+    'sidebar-menu-item sidebar-page-explorer-item' +
     (isActive ? ' sidebar-menu-item--active' : '') +
     (isInSubMenu ? ' sidebar-menu-item--in-sub-menu' : '');
 
@@ -75,15 +72,17 @@ export const PageExplorerMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <Button
-        dialogTrigger={true}
+      <button
         onClick={onClick}
         className="sidebar-menu-item__link"
+        aria-haspopup="menu"
+        aria-expanded={isOpen ? 'true' : 'false'}
+        type="button"
       >
         <Icon name="folder-open-inverse" className="icon--menuitem" />
         <span className="menuitem-label">{item.label}</span>
         <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
-      </Button>
+      </button>
       <div>
         <SidebarPanel
           isVisible={isVisible}

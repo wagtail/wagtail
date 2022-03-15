@@ -37,7 +37,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
     }
   }, [isOpen]);
 
-  const onClick = (e: React.MouseEvent) => {
+  const onClick = () => {
     if (isOpen) {
       const pathComponents = path.split('.');
       pathComponents.pop();
@@ -52,8 +52,6 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
         path,
       });
     }
-
-    e.preventDefault();
   };
 
   const className =
@@ -70,8 +68,9 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
       <button
         onClick={onClick}
         className={`sidebar-menu-item__link ${item.classNames}`}
-        aria-haspopup="true"
+        aria-haspopup="menu"
         aria-expanded={isOpen ? 'true' : 'false'}
+        type="button"
       >
         {item.iconName && (
           <Icon name={item.iconName} className="icon--menuitem" />

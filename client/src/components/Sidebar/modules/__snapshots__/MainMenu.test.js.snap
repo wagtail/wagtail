@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu should render with the minimum required props 1`] = `
+<Fragment>
+  <nav
+    className="sidebar-main-menu"
+  >
+    <ul
+      className="sidebar-main-menu__list"
+    />
+  </nav>
+  <div
+    className="sidebar-footer"
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="menu"
+      className="sidebar-footer__account"
+      onClick={[Function]}
+      type="button"
+    >
+      <div
+        className="avatar square avatar-on-dark"
+      >
+        <img
+          alt=""
+          src="https://gravatar/profile"
+        />
+      </div>
+      <div
+        className="sidebar-footer__account-toggle"
+      >
+        <div
+          className="sidebar-footer__account-label"
+        />
+        <Icon
+          className="sidebar-footer__account-icon"
+          name="arrow-up"
+        />
+      </div>
+    </button>
+    <ul />
+  </div>
+</Fragment>
+`;

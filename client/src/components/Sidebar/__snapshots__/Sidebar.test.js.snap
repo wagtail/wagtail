@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sidebar should render with the minimum required props 1`] = `
+<Fragment>
+  <div
+    className="sidebar"
+  >
+    <div
+      className="sidebar__inner"
+    >
+      <button
+        aria-expanded="true"
+        className="button sidebar__collapse-toggle"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          name="angle-double-left"
+        />
+      </button>
+      <div
+        className="sidebar__peek-hover-area"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      />
+    </div>
+  </div>
+  <button
+    aria-expanded="false"
+    className="button sidebar-nav-toggle"
+    onClick={[Function]}
+    type="button"
+  >
+    <Icon
+      name="bars"
+    />
+  </button>
+</Fragment>
+`;

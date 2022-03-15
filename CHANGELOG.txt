@@ -28,6 +28,9 @@ Changelog
  * Fix: Improve the contrast of the “Remember me” checkbox against the login page’s background (Steven Steinwand)
  * Fix: Group permission rows with custom permissions no longer have extra padding (Steven Steinwand)
  * Fix: Make sure the focus outline of checkboxes is fully around the outer border (Steven Steinwand)
+ * Fix: Consistently set `aria-haspopup="menu"` for all sidebar menu items that have sub-menus (LB (Ben Johnston))
+ * Fix: Make sure `aria-expanded` is always explicitly set as a string in sidebar (LB (Ben Johnston))
+ * Fix: Use a button element instead of a link for page explorer menu item, for the correct semantics and behavior (LB (Ben Johnston))
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
