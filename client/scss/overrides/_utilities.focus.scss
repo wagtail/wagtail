@@ -2,7 +2,7 @@
 // Set global focus outline styles so they are consistent across the UI,
 // without individual components having to explicitly define focus styles.
 // Using !important because we want to enforce only one style is used across the UI.
-//Keeping :focus as a wall back for Safari till release of version 15.4
+// Remove :focus selectors once we stop supporting Safari 15.4.
 *:focus {
   outline: $focus-outline-width solid $color-focus-outline !important;
 }
