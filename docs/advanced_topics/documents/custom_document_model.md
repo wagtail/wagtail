@@ -40,7 +40,7 @@ Then in your settings module:
 WAGTAILDOCS_DOCUMENT_MODEL = 'app_label.CustomDocument'
 ```
 
-```{topic} 
+```{note} 
 Migrating from the builtin document model
 When changing an existing site to use a custom document model, no documents
 will be copied to the new model automatically. Copying old documents to the
