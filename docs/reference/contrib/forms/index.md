@@ -1,19 +1,14 @@
-# Form builder
+(form_builder)=
 
-```eval_rst
-.. _form_builder:
-```
+# Form builder
 
 The `wagtailforms` module allows you to set up single-page forms, such as a 'Contact us' form, as pages of a Wagtail site. It provides a set of base models that site implementers can extend to create their own `FormPage` type with their own site-specific templates. Once a page type has been set up in this way, editors can build forms within the usual page editor, consisting of any number of fields. Form submissions are stored for later retrieval through a new 'Forms' section within the Wagtail admin interface; in addition, they can be optionally e-mailed to an address specified by the editor.
 
-```eval_rst
-.. note::
-  **wagtailforms is not a replacement for** :doc:`Django's form support <django:topics/forms/index>`. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the `wagtail-form-example project <https://github.com/gasman/wagtail-form-example/commits/master>`_ for an example of integrating a Django form into a Wagtail page.
+```{note}
+**wagtailforms is not a replacement for** {doc}`Django's form support <django:topics/forms/index>`. It is designed as a way for page authors to build general-purpose data collection forms without having to write code. If you intend to build a form that assigns specific behaviour to individual fields (such as creating user accounts), or needs a custom HTML layout, you will almost certainly be better served by a standard Django form, where the fields are fixed in code rather than defined on-the-fly by a page author. See the [wagtail-form-example project](https://github.com/gasman/wagtail-form-example/commits/master) for an example of integrating a Django form into a Wagtail page.
 ```
 
-```eval_rst
-.. _form_builder_usage:
-```
+(form_builder_usage)=
 
 ## Usage
 
@@ -27,7 +22,6 @@ INSTALLED_APPS = [
 ```
 
 Within the `models.py` of one of your apps, create a model that extends `wagtail.contrib.forms.models.AbstractEmailForm`:
-
 
 ```python
 from django.db import models
@@ -64,10 +58,7 @@ class FormPage(AbstractEmailForm):
 
 `AbstractEmailForm` defines the fields `to_address`, `from_address` and `subject`, and expects `form_fields` to be defined. Any additional fields are treated as ordinary page content - note that `FormPage` is responsible for serving both the form page itself and the landing page after submission, so the model definition should include all necessary content fields for both of those views.
 
-Date and datetime values in a form response will be formatted with the [SHORT_DATE_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-date-format) and [SHORT_DATETIME_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-datetime-format) respectively.
-```eval_rst
-(see :ref:`form_builder_render_email` for how to customise the email content).
-```
+Date and datetime values in a form response will be formatted with the [SHORT_DATE_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-date-format) and [SHORT_DATETIME_FORMAT](https://docs.djangoproject.com/en/3.0/ref/settings/#short-datetime-format) respectively. (see [](form_builder_render_email) for how to customise the email content).
 
 If you do not want your form page type to offer form-to-email functionality, you can inherit from AbstractForm instead of `AbstractEmailForm`, and omit the `to_address`, `from_address` and `subject` fields from the `content_panels` definition.
 
@@ -93,10 +84,7 @@ You now need to create two templates named `form_page.html` and `form_page_landi
 
 `form_page_landing.html` is a standard Wagtail template, displayed after the user makes a successful form submission, `form_submission` will be available in this template. If you want to dynamically override the landing page template, you can do so with the `get_landing_page_template` method (in the same way that you would with `get_template`).
 
-
-```eval_rst
-.. _wagtailforms_formsubmissionpanel:
-```
+(wagtailforms_formsubmissionpanel)=
 
 ## Displaying form submission information
 
@@ -115,12 +103,12 @@ class FormPage(AbstractEmailForm):
     ]
 ```
 
-
 ## Index
 
-```eval_rst
-.. toctree::
-    :maxdepth: 1
-
-    customisation
+```{toctree}
+---
+maxdepth: 1
+titlesonly:
+---
+customisation
 ```
