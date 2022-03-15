@@ -202,7 +202,7 @@ class ModelFormView(WMABaseView, FormView):
         if form is None:
             form = self.get_form()
 
-        bound_panel = self.edit_handler.bind_to(
+        bound_panel = self.edit_handler.get_bound_panel(
             form=form, instance=form.instance, request=self.request
         )
 

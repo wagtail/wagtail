@@ -92,7 +92,9 @@ def edit(request, app_name, model_name, site_pk):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(instance=instance, request=request, form=form)
+    edit_handler = edit_handler.get_bound_panel(
+        instance=instance, request=request, form=form
+    )
 
     # Show a site switcher form if there are multiple sites
     site_switcher = None
@@ -110,6 +112,6 @@ def edit(request, app_name, model_name, site_pk):
             "form": form,
             "site": site,
             "site_switcher": site_switcher,
-            "tabbed": isinstance(edit_handler, TabbedInterface),
+            "tabbed": isinstance(edit_handler.panel, TabbedInterface),
         },
     )

@@ -101,9 +101,6 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-UNSET = object()
-
-
 class BoundPanel:
     def __init__(self, panel, instance, request, form):
         self.panel = panel
@@ -268,27 +265,22 @@ class Panel:
         new.on_model_bound()
         return new
 
-    def bind_to(self, model=None, instance=UNSET, request=UNSET, form=UNSET):
-        if self.model is None:
-            raise ImproperlyConfigured(
-                "%s.bind_to_model(model) must be called before bind_to"
-                % type(self).__name__
-            )
-        if model is not None:
-            warn(
-                "The model argument to %s.bind_to() has no effect and will be removed"
-                % type(self).__name__,
-                category=RemovedInWagtail219Warning,
-            )
-
-        if instance is UNSET or request is UNSET or form is UNSET:
-            raise ImproperlyConfigured(
-                "%s.bind_to must be passed all of the arguments: instance, request, form"
-                % type(self).__name__
-            )
+    def bind_to(self, model=None, instance=None, request=None, form=None):
+        warn(
+            "The %s.bind_to() method has been replaced by bind_to_model(model) and get_bound_panel(instance=instance, request=request, form=form)"
+            % type(self).__name__,
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
         return self.get_bound_panel(instance=instance, request=request, form=form)
 
     def get_bound_panel(self, instance=None, request=None, form=None):
+        if self.model is None:
+            raise ImproperlyConfigured(
+                "%s.bind_to_model(model) must be called before get_bound_panel"
+                % type(self).__name__
+            )
+
         return self.bound_panel_class(
             panel=self, instance=instance, request=request, form=form
         )
@@ -342,7 +334,9 @@ class BoundPanelGroup(BoundPanel):
         super().__init__(panel=panel, instance=instance, request=request, form=form)
 
         self.children = [
-            child.bind_to(instance=self.instance, request=self.request, form=self.form)
+            child.get_bound_panel(
+                instance=self.instance, request=self.request, form=self.form
+            )
             for child in self.panel.children
         ]
 
@@ -842,7 +836,7 @@ class BoundInlinePanel(BoundPanel):
                 subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
             self.children.append(
-                self.child_edit_handler.bind_to(
+                self.child_edit_handler.get_bound_panel(
                     instance=subform.instance, request=self.request, form=subform
                 )
             )
@@ -859,7 +853,7 @@ class BoundInlinePanel(BoundPanel):
         if self.formset.can_order:
             empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
 
-        self.empty_child = self.child_edit_handler.bind_to(
+        self.empty_child = self.child_edit_handler.get_bound_panel(
             instance=empty_form.instance, request=self.request, form=empty_form
         )
 
@@ -871,7 +865,7 @@ class BoundInlinePanel(BoundPanel):
 
         for panel in self.panel.child_edit_handler.children:
             field_comparisons.extend(
-                panel.bind_to(
+                panel.get_bound_panel(
                     instance=None, request=self.request, form=None
                 ).get_comparison()
             )

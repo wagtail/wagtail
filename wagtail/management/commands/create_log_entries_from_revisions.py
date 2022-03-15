@@ -6,7 +6,7 @@ from wagtail.models import PageLogEntry, PageRevision
 def get_comparison(page, revision_a, revision_b):
     comparison = (
         page.get_edit_handler()
-        .bind_to(instance=page, form=None, request=None)
+        .get_bound_panel(instance=page, form=None, request=None)
         .get_comparison()
     )
     comparison = [comp(revision_a, revision_b) for comp in comparison]

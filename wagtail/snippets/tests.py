@@ -1299,7 +1299,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -1318,7 +1318,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -2154,7 +2154,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -2173,7 +2173,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 

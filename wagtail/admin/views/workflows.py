@@ -97,7 +97,7 @@ class Create(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = context["form"]
-        bound_panel = self.edit_handler.bind_to(
+        bound_panel = self.edit_handler.get_bound_panel(
             form=form, instance=form.instance, request=self.request
         )
         context["edit_handler"] = bound_panel
@@ -178,7 +178,7 @@ class Edit(EditView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = context["form"]
-        bound_panel = self.edit_handler.bind_to(
+        bound_panel = self.edit_handler.get_bound_panel(
             form=form, instance=form.instance, request=self.request
         )
         context["edit_handler"] = bound_panel

@@ -318,7 +318,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        bound_panel = self.edit_handler.bind_to(
+        bound_panel = self.edit_handler.get_bound_panel(
             request=self.request, instance=self.page, form=self.form
         )
         context.update(
