@@ -20,6 +20,7 @@ Changelog
  * Installing docs extras requirements in CircleCI so issues with the docs requirements are picked up earlier (Thibaud Colas)
  * Remove core usage of jinjalint and migrate to curlylint to resolve dependency incompatibility issues (Thibaud Colas)
  * Switch focus outlines implementation to `:focus-visible` for cross-browser consistency (Paarth Agarwal)
+ * Remove most uppercased text styles from admin UI (Paarth Agarwal)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
