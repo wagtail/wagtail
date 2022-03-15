@@ -63,11 +63,9 @@ testing_extras = [
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
     # For templates linting
-    "jinjalint>=0.5",
+    "curlylint==0.13.0",
     # For template indenting
     "djhtml==1.4.13",
-    # Pipenv hack to fix broken dependency causing CircleCI failures
-    "docutils==0.15",
     # for validating string formats in .po translation files
     "polib>=1.1,<2.0",
 ]
@@ -79,7 +77,7 @@ documentation_extras = [
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
     "sphinx-wagtail-theme==5.0.4",
-    "recommonmark>=0.7.1",
+    "myst_parser==0.17.0",
 ]
 
 setup(
@@ -89,6 +87,10 @@ setup(
     author="Wagtail core team + contributors",
     author_email="hello@wagtail.org",  # For support queries, please see https://docs.wagtail.org/en/stable/support.html
     url="https://wagtail.org/",
+    project_urls={
+        "Documentation": "https://docs.wagtail.org",
+        "Source": "https://github.com/wagtail/wagtail",
+    },
     packages=find_packages(),
     include_package_data=True,
     license="BSD",

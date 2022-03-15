@@ -1,15 +1,14 @@
-```eval_rst
+```{eval-rst}
 :hidetoc: 1
 ```
 
 # Getting started
 
-```eval_rst
-.. note::
+```{note}
    These instructions assume familiarity with virtual environments and the
-   `Django web framework <https://www.djangoproject.com/>`_.
-   For more detailed instructions, see :doc:`tutorial`.
-   To add Wagtail to an existing Django project, see :doc:`integrating_into_django`.
+   [Django web framework](https://www.djangoproject.com/).
+   For more detailed instructions, see [](tutorial).
+   To add Wagtail to an existing Django project, see [](integrating_into_django).
 ```
 
 ## Dependencies needed for installation
@@ -54,15 +53,15 @@ If you\'d like to add Wagtail to an existing Django project instead, see [Integr
 
 There are a few optional packages which are not installed by default but are recommended to improve performance or add features to Wagtail, including:
 
-> -   [Elasticsearch](/advanced_topics/performance).
-> -   [Feature Detection](image_feature_detection).
+- [Elasticsearch](/advanced_topics/performance).
+- [Feature Detection](image_feature_detection).
 
-```eval_rst
-.. toctree::
-    :maxdepth: 1
-
-    tutorial
-    demo_site
-    integrating_into_django
-    the_zen_of_wagtail
+```{toctree}
+---
+maxdepth: 1
+---
+tutorial
+demo_site
+integrating_into_django
+the_zen_of_wagtail
 ```

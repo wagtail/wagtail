@@ -103,16 +103,16 @@ $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header__select {
   $margin: 10px;
+  margin-right: $margin;
 
   > select {
-    padding: 0;
-    padding-left: 10px;
-    padding-right: 30px;
+    padding: 5px 30px 5px 10px;
 
     background-color: $c-page-explorer-bg-dark;
     border-radius: 0;
     border-color: #4c4e4d;
     color: $color-white;
+    font-size: 0.875rem;
 
     &:disabled {
       border: 0;
@@ -130,18 +130,12 @@ $explorer-header-horizontal-padding: 10px;
   }
 
   // Add select arrow back on browsers where native ui has been removed
-  > span:after {
-    z-index: 0;
+  &-icon {
     position: absolute;
-    right: $margin;
-    top: $margin + 3px;
-    bottom: 0;
-    width: 2em;
-    font-family: $font-wagtail-icons;
-    content: map.get($icons, 'arrow-down');
-    text-align: center;
-    font-size: 1.2em;
-    pointer-events: none;
+    right: 1rem;
+    top: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
     color: $color-grey-3;
 
     .ie & {

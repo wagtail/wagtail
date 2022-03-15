@@ -21,17 +21,17 @@
     }
 
     &:after {
-      font-size: 30px;
-      width: 30px;
-      line-height: 30px;
+      content: '';
+      display: block;
+      width: 1.875rem;
+      height: 1.875rem;
       left: 50%;
       top: 50%;
-      margin: -15px 0 0 -15px;
-      font-family: $font-wagtail-icons;
       animation: spin-wag 0.5s infinite linear;
-      content: map.get($icons, 'spinner');
+      mask-image: url('#{$images-root}icons/spinner.svg');
+      mask-repeat: no-repeat;
       z-index: 2;
-      color: $color-teal;
+      background: $color-teal;
     }
   }
 }

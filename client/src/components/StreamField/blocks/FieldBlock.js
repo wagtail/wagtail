@@ -1,6 +1,8 @@
 /* global $ */
-
 import { escapeHtml as h } from '../../../utils/text';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
   constructor(blockDef, placeholder, prefix, initialState, initialError) {
@@ -66,11 +68,14 @@ export class FieldBlock {
       addCommentButtonElement.classList.add('button-secondary');
       addCommentButtonElement.classList.add('button-small');
       addCommentButtonElement.classList.add('u-hidden');
-      addCommentButtonElement.innerHTML =
-        '<svg class="icon icon-comment-add initial icon-default" aria-hidden="true">' +
-        '<use href="#icon-comment-add"></use></svg>' +
-        '<svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true">' +
-        '<use href="#icon-comment-add-reversed"></use></svg>';
+
+      ReactDOM.render(
+        <>
+          <Icon name="comment-add" className="icon-default" />
+          <Icon name="comment-add-reversed" className="icon-reversed" />
+        </>,
+        addCommentButtonElement,
+      );
       fieldCommentControlElement.appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
     }

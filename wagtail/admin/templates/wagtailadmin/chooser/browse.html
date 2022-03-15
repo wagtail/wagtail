@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if page_types_restricted %}
     {% trans "Choose" as choose_str %}
 {% else %}
@@ -12,6 +12,7 @@
 
     {% if page_types_restricted %}
         <p class="help-block help-warning">
+            {% icon name='warning' %}
             {% blocktrans with type=page_type_names|join:", " count counter=page_type_names|length %}
                 Only pages of type "{{ type }}" may be chosen for this field. Search results will exclude pages of other types.
             {% plural %}

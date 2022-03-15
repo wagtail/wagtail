@@ -114,7 +114,7 @@ Wagtail Apps
   Admin interface for creating arbitrary redirects on your site.
 
 ``wagtail.contrib.forms``
-  Models for creating forms on your pages and viewing submissions. See :ref:`form_builder`.
+  Models for creating forms on your pages and viewing submissions. See :ref:`Form builder <form_builder>`.
 
 
 Third-Party Apps

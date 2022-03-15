@@ -257,15 +257,18 @@
             </p>
 
             <div class="help-block help-info">
+                {% icon name='help' %}
                 <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
                 <p>It could be multiple lines</p>
             </div>
 
             <p class="help-block help-warning">
+                {% icon name='warning' %}
                 A warning message might be output in cases where a user's action could have serious consequences
             </p>
 
             <div class="help-block help-critical">
+                {% icon name='warning' %}
                 A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
             </div>
 
@@ -389,7 +392,7 @@
 
         <section id="buttons">
             <h2>Buttons</h2>
-            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
 
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
@@ -452,7 +455,7 @@
             <a href="#" class="button button-small no">No</a>
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
-            <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
             <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>

@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/pages/listing/_list.html" %}
 
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 
 {# Page listing include, customised for 'explore' mode #}
 
@@ -13,6 +13,7 @@
     {% if parent_page %}
         {% if parent_page.is_root %}
             <tr><td colspan="6"><div class="help-block help-info">
+                {% icon name='help' %}
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
                     <p>
@@ -37,6 +38,7 @@
             {# get_url_parts will return None is the page has no site #}
         {% elif not parent_page.get_url_parts %}
             <tr><td colspan="6"><div class="help-block help-warning">
+                {% icon name='warning' %}
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
                     {% blocktrans %}

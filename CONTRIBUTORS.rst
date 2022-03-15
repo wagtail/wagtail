@@ -564,6 +564,7 @@ Contributors
 * Joshua Munn
 * Gianluca De Cola
 * Sage Abdullah
+* Paarth Agarwal
 * Nicolas Ferrari
 
 Translators
