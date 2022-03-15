@@ -158,9 +158,5 @@ These are classes that provide overrides.
 // Legacy utilities
 @import 'overrides/utilities.legacy';
 
-// PAGES: page-specific overrides
-@import 'overrides/pages.homepage';
-@import 'overrides/pages.page-explorer';
-
 // TAILWIND: This is at the bottom so it can take precedence over other css classes
 @tailwind utilities;
