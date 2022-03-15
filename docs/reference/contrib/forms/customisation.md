@@ -1,13 +1,11 @@
 # Form builder customisation
 
-```eval_rst
-For a basic usage example see :ref:`form_builder_usage`.
-```
+For a basic usage example see [form builder usage](form_builder_usage).
 
 ## Custom `related_name` for form fields
 
 If you want to change `related_name` for form fields
-(by default `AbstractForm` and `AbstractEmailForm` expect ``form_fields`` to be defined),
+(by default `AbstractForm` and `AbstractEmailForm` expect `form_fields` to be defined),
 you will need to override the `get_form_fields` method.
 You can do this as shown below.
 
@@ -51,8 +49,8 @@ class FormPage(AbstractEmailForm):
 If you need to save additional data, you can use a custom form submission model.
 To do this, you need to:
 
-* Define a model that extends `wagtail.contrib.forms.models.AbstractFormSubmission`.
-* Override the `get_submission_class` and `process_form_submission` methods in your page model.
+-   Define a model that extends `wagtail.contrib.forms.models.AbstractFormSubmission`.
+-   Override the `get_submission_class` and `process_form_submission` methods in your page model.
 
 Example:
 
@@ -110,8 +108,8 @@ class CustomFormSubmission(AbstractFormSubmission):
 
 If you want to add custom data to the CSV export, you will need to:
 
-* Override the `get_data_fields` method in page model.
-* Override `get_data` in the submission model.
+-   Override the `get_data_fields` method in page model.
+-   Override `get_data` in the submission model.
 
 The example below shows how to add a username to the CSV export.
 Note that this code also changes the submissions list view.
@@ -253,7 +251,6 @@ class CustomFormSubmission(AbstractFormSubmission):
         unique_together = ('page', 'user')
 ```
 
-
 Your template should look like this:
 
 ```html+django
@@ -282,7 +279,6 @@ Your template should look like this:
     </body>
 </html>
 ```
-
 
 ## Multi-step form
 
@@ -400,7 +396,6 @@ class FormPage(AbstractEmailForm):
         )
 ```
 
-
 Your template for this form page should look like this:
 
 ```html+django
@@ -421,7 +416,6 @@ Your template for this form page should look like this:
     </body>
 </html>
 ```
-
 
 Note that the example shown before allows the user to return to a previous step,
 or to open a second step without submitting the first step.
@@ -595,9 +589,7 @@ class FormPage(AbstractEmailForm):
 
 The Admin listing of form submissions can be customised by setting the attribute `submissions_list_view_class` on your FormPage model.
 
-```eval_rst
-The list view class must be a subclass of ``SubmissionsListView`` from ``wagtail.contrib.forms.views``, which is a child class of Django's class based :class:`~django.views.generic.list.ListView`.
-```
+The list view class must be a subclass of `SubmissionsListView` from `wagtail.contrib.forms.views`, which is a child class of Django's class based {class}`~django.views.generic.list.ListView`.
 
 Example:
 
@@ -638,18 +630,17 @@ class FormPage(AbstractEmailForm):
 
 First, make the new field type available in the page editor by changing your `FormField` model.
 
-* Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
-* Each choice must contain a unique key and a human readable name of the field, e.g. `('slug', 'URL Slug')`
-* Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
-* You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
-
+-   Create a new set of choices which includes the original `FORM_FIELD_CHOICES` along with new field types you want to make available.
+-   Each choice must contain a unique key and a human readable name of the field, e.g. `('slug', 'URL Slug')`
+-   Override the `field_type` field in your `FormField` model with `choices` attribute using these choices.
+-   You will need to run `./manage.py makemigrations` and `./manage.py migrate` after this step.
 
 Then, create and use a new form builder class.
 
-* Define a new form builder class that extends the `FormBuilder` class.
-* Add a method that will return a created Django form field for the new field type.
-* Its name must be in the format: `create_<field_type_key>_field`, e.g. `create_slug_field`
-* Override the `form_builder` attribute in your form page model to use your new form builder class.
+-   Define a new form builder class that extends the `FormBuilder` class.
+-   Add a method that will return a created Django form field for the new field type.
+-   Its name must be in the format: `create_<field_type_key>_field`, e.g. `create_slug_field`
+-   Override the `form_builder` attribute in your form page model to use your new form builder class.
 
 Example:
 
@@ -693,20 +684,16 @@ class FormPage(AbstractEmailForm):
     form_builder = CustomFormBuilder
 ```
 
-
-```eval_rst
-.. _form_builder_render_email:
-```
+(form_builder_render_email)=
 
 ## Custom `render_email` method
 
 If you want to change the content of the email that is sent when a form submits you can override the `render_email` method.
 
-
 To do this, you need to:
 
-* Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
-* Override the `render_email` method in your page model.
+-   Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+-   Override the `render_email` method in your page model.
 
 Example:
 
@@ -741,18 +728,15 @@ class FormPage(AbstractEmailForm):
         return content
 ```
 
-
 ## Custom `send_mail` method
 
 If you want to change the subject or some other part of how an email is sent when a form submits you can override the `send_mail` method.
 
-
 To do this, you need to:
 
-* Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
-* In your models.py file, import the `wagtail.admin.mail.send_mail` function.
-* Override the `send_mail` method in your page model.
-
+-   Ensure you have your form model defined that extends `wagtail.contrib.forms.models.AbstractEmailForm`.
+-   In your models.py file, import the `wagtail.admin.mail.send_mail` function.
+-   Override the `send_mail` method in your page model.
 
 Example:
 
