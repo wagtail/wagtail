@@ -46,7 +46,7 @@
 
       // stylelint-disable max-nesting-depth
       [data-part='tail'] {
-        animation: tail-wag 0.9s alternate;
+        animation: tail-wag 0.1s alternate;
         animation-iteration-count: infinite;
       }
 

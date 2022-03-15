@@ -10,10 +10,10 @@ $menu-footer-height: 50px;
 @import 'PageExplorerItem';
 
 .c-page-explorer {
+  @apply w-bg-primary-200;
   max-width: 485px;
   width: 90vw;
   height: 100vh;
-  background: $c-page-explorer-bg;
   overflow: hidden;
   flex: 1;
 
@@ -43,11 +43,10 @@ $menu-footer-height: 50px;
 $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header {
+  @apply w-bg-black/50;
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  background-color: $c-page-explorer-bg-dark;
-  border-bottom: 1px solid $c-page-explorer-bg-dark;
   color: $color-white;
   margin-inline-start: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
   height: $sidebar-toggle-spacing * 2 + $sidebar-toggle-size;
@@ -61,18 +60,9 @@ $explorer-header-horizontal-padding: 10px;
 .c-page-explorer__header__title {
   color: inherit;
 
-  &:focus {
-    background-color: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  // Overrides for default link hover.
+  &:focus,
   &:hover {
-    color: $color-white;
-  }
-
-  @include hover {
-    background-color: $c-page-explorer-bg-active;
+    @apply w-text-white w-bg-black/50;
   }
 }
 

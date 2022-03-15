@@ -11,7 +11,7 @@ const WagtailLogo = ({ className }: WagtailLogoProps) => {
     <svg
       className={`
         ${className || ''}
-         sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary hover:w-scale-75 w-delay-150 w-duration-500 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-transition w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]'
+         sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary hover:w-scale-75 w-delay-150 w-duration-500 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-transition w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]
       `}
       xmlns="http://www.w3.org/2000/svg"
       x="0px"
@@ -51,11 +51,9 @@ const WagtailLogo = ({ className }: WagtailLogoProps) => {
           className={feathersClasses}
           data-part="body"
           fill="currentColor"
-          d="M374.882,175.859c0,0-13.937-69.263-104.269-50.584c-9.15-31.225-7.514-54.4,12.447-75.489
-		c27.446-28.997,69.947-13.096,69.947-13.096l0.045-23.909c-14.938-6.55-29.306-7.793-45.234-7.793
-		c-58.05,0-90.339,43.279-104.013,72.822L40.449,378.081l46.114-8.633L1.876,532.531l59.087-10.6l44.912-128.322
-		C233.685,393.609,397.758,347.72,374.882,175.859"
+          d="M374 176s-14-69.4-104.4-50.7C260.6 94 262 71 282 49.8c27.5-29 70-13 70-13v-24C337 6.2 322.8 5 307 5c-58 0-90.3 43.3-104 72.8L39.4 378l46.2-8.6 19.3 24.2c127.6 0 291.7-46 269-217.7"
         />
+
         <polygon
           className={feathersClasses}
           data-part="beak"

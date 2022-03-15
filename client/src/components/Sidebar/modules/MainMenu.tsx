@@ -235,7 +235,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
               {user.name}
             </div>
             <Icon
-              className="w-w-5 w-h-5 w-text-white"
+              className="w-w-4 w-h-4 w-text-white"
               name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
             />
           </div>

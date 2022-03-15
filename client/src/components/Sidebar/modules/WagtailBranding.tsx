@@ -103,7 +103,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
         onMouseLeave={onMouseLeave}
       >
         <div className="sidebar-wagtail-branding__icon-wrapper">
-          <WagtailLogo featheredAreaClasses="group-hover:w-text-black w-transition" />
+          <WagtailLogo className="group-hover:w-text-black w-transition" />
         </div>
       </a>
     </>
