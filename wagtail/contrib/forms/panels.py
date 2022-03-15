@@ -2,14 +2,12 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from wagtail.admin.panels import Panel
+from wagtail.admin.panels import BoundPanel, Panel
 
 
-class FormSubmissionsPanel(Panel):
-    template = "wagtailforms/panels/form_responses_panel.html"
-
+class BoundFormSubmissionsPanel(BoundPanel):
     def render(self):
-        form_page_model = self.model
+        form_page_model = self.panel.model
         form_submissions_model = form_page_model().get_submission_class()
         submissions = form_submissions_model.objects.filter(page=self.instance)
         submission_count = submissions.count()
@@ -19,7 +17,7 @@ class FormSubmissionsPanel(Panel):
 
         return mark_safe(
             render_to_string(
-                self.template,
+                self.panel.template,
                 {
                     "self": self,
                     "submission_count": submission_count,
@@ -30,6 +28,15 @@ class FormSubmissionsPanel(Panel):
             )
         )
 
+
+class FormSubmissionsPanel(Panel):
+    template = "wagtailforms/panels/form_responses_panel.html"
+
     def on_model_bound(self):
         if not self.heading:
             self.heading = _("%s submissions") % self.model.get_verbose_name()
+
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundFormSubmissionsPanel(
+            panel=self, instance=instance, request=request, form=form
+        )
