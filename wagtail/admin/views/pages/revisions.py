@@ -35,7 +35,7 @@ def revisions_revert(request, page_id, revision_id):
     form_class = edit_handler.get_form_class()
 
     form = form_class(instance=revision_page)
-    edit_handler = edit_handler.bind_to(
+    edit_handler = edit_handler.get_bound_panel(
         instance=revision_page, request=request, form=form
     )
 
@@ -142,7 +142,7 @@ def revisions_compare(request, page_id, revision_id_a, revision_id_b):
 
     comparison = (
         page.get_edit_handler()
-        .bind_to(instance=page, request=request, form=None)
+        .get_bound_panel(instance=page, request=request, form=None)
         .get_comparison()
     )
     comparison = [comp(revision_a, revision_b) for comp in comparison]

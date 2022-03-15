@@ -290,7 +290,9 @@ def create(request, app_label, model_name):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(request=request, instance=instance, form=form)
+    edit_handler = edit_handler.get_bound_panel(
+        request=request, instance=instance, form=form
+    )
 
     context = {
         "model_opts": model._meta,
@@ -382,7 +384,9 @@ def edit(request, app_label, model_name, pk):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(instance=instance, request=request, form=form)
+    edit_handler = edit_handler.get_bound_panel(
+        instance=instance, request=request, form=form
+    )
     latest_log_entry = log_registry.get_logs_for_instance(instance).first()
 
     context = {
