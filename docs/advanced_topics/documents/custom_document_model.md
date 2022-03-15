@@ -41,7 +41,8 @@ WAGTAILDOCS_DOCUMENT_MODEL = 'app_label.CustomDocument'
 ```
 
 ```{note} 
-Migrating from the builtin document model
+Migrating from the builtin document model  
+
 When changing an existing site to use a custom document model, no documents
 will be copied to the new model automatically. Copying old documents to the
 new model would need to be done manually with a
