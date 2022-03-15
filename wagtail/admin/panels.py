@@ -104,6 +104,81 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
 UNSET = object()
 
 
+class BoundPanel:
+    def __init__(self, panel, instance, request, form):
+        self.panel = panel
+        self.instance = instance
+        self.request = request
+        self.form = form
+
+        self.heading = self.panel.heading
+        self.help_text = self.panel.help_text
+
+    @property
+    def classname(self):
+        return self.panel.classname
+
+    def classes(self):
+        return self.panel.classes()
+
+    def field_type(self):
+        return self.panel.field_type()
+
+    def id_for_label(self):
+        return self.panel.id_for_label()
+
+    def is_shown(self):
+        return True
+
+    def render_as_object(self):
+        return self.render()
+
+    def render_as_field(self):
+        return self.render()
+
+    def render(self):
+        return mark_safe(render_to_string(self.panel.template, {"self": self}))
+
+    def html_declarations(self):
+        return ""
+
+    def get_comparison(self):
+        return []
+
+    def render_missing_fields(self):
+        """
+        Helper function: render all of the fields that are defined on the form but not "claimed" by
+        any panels via required_fields. These fields are most likely to be hidden fields introduced
+        by the forms framework itself, such as ORDER / DELETE fields on formset members.
+        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
+        outside of the panel furniture. But there's not much we can do about that.)
+        """
+        rendered_fields = self.panel.get_form_options().get("fields", [])
+        missing_fields_html = [
+            str(self.form[field_name])
+            for field_name in self.form.fields
+            if field_name not in rendered_fields
+        ]
+
+        return mark_safe("".join(missing_fields_html))
+
+    def render_form_content(self):
+        """
+        Render this as an 'object', ensuring that all fields necessary for a valid form
+        submission are included
+        """
+        return mark_safe(self.render_as_object() + self.render_missing_fields())
+
+    def __repr__(self):
+        return "<%s with model=%s instance=%s request=%s form=%s>" % (
+            self.__class__.__name__,
+            self.panel.model,
+            self.instance,
+            self.request,
+            self.form.__class__.__name__,
+        )
+
+
 class Panel:
     """
     Defines part (or all) of the edit form interface for pages and other models within the Wagtail
@@ -113,14 +188,13 @@ class Panel:
     as HTML.
     """
 
+    bound_panel_class = BoundPanel
+
     def __init__(self, heading="", classname="", help_text=""):
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
         self.model = None
-        self.instance = None
-        self.request = None
-        self.form = None
 
     def clone(self):
         return self.__class__(**self.clone_kwargs())
@@ -188,15 +262,6 @@ class Panel:
 
     required_formsets.is_original_method = True
 
-    # return any HTML that needs to be output on the edit page once per edit handler definition.
-    # Typically this will be used to define snippets of HTML within <script type="text/x-template"></script> blocks
-    # for JavaScript code to work with.
-    def html_declarations(self):
-        return ""
-
-    def is_shown(self):
-        return True
-
     def bind_to_model(self, model):
         new = self.clone()
         new.model = model
@@ -224,39 +289,17 @@ class Panel:
         return self.get_bound_panel(instance=instance, request=request, form=form)
 
     def get_bound_panel(self, instance=None, request=None, form=None):
-        new = self.clone()
-        new.model = self.model
-        new.on_model_bound()  # necessary because the cloned edit handler no longer has any state set up
-        # from when we called on_model_bound in bind_to_model
-        new.instance = instance
-        new.request = request
-        new.form = form
-
-        new.on_instance_bound()
-        new.on_request_bound()
-        new.on_form_bound()
-
-        return new
+        return self.bound_panel_class(
+            panel=self, instance=instance, request=request, form=form
+        )
 
     def on_model_bound(self):
         pass
 
-    def on_instance_bound(self):
-        pass
-
-    def on_request_bound(self):
-        pass
-
-    def on_form_bound(self):
-        pass
-
     def __repr__(self):
-        return "<%s with model=%s instance=%s request=%s form=%s>" % (
+        return "<%s with model=%s>" % (
             self.__class__.__name__,
             self.model,
-            self.instance,
-            self.request,
-            self.form.__class__.__name__,
         )
 
     def classes(self):
@@ -283,49 +326,6 @@ class Panel:
         """
         return ""
 
-    def render_as_object(self):
-        """
-        Render this object as it should appear within an ObjectList. Should not
-        include the <h2> heading or help text - ObjectList will supply those
-        """
-        # by default, assume that the subclass provides a catch-all render() method
-        return self.render()
-
-    def render_as_field(self):
-        """
-        Render this object as it should appear within a <ul class="fields"> list item
-        """
-        # by default, assume that the subclass provides a catch-all render() method
-        return self.render()
-
-    def render_missing_fields(self):
-        """
-        Helper function: render all of the fields that are defined on the form but not "claimed" by
-        any panels via required_fields. These fields are most likely to be hidden fields introduced
-        by the forms framework itself, such as ORDER / DELETE fields on formset members.
-
-        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
-        outside of the panel furniture. But there's not much we can do about that.)
-        """
-        rendered_fields = self.get_form_options().get("fields", [])
-        missing_fields_html = [
-            str(self.form[field_name])
-            for field_name in self.form.fields
-            if field_name not in rendered_fields
-        ]
-
-        return mark_safe("".join(missing_fields_html))
-
-    def render_form_content(self):
-        """
-        Render this as an 'object', ensuring that all fields necessary for a valid form
-        submission are included
-        """
-        return mark_safe(self.render_as_object() + self.render_missing_fields())
-
-    def get_comparison(self):
-        return []
-
 
 class EditHandler(Panel):
     def __init__(self, *args, **kwargs):
@@ -335,72 +335,6 @@ class EditHandler(Panel):
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
-
-
-class BoundPanel:
-    def __init__(self, panel, instance, request, form):
-        self.panel = panel
-        self.instance = instance
-        self.request = request
-        self.form = form
-
-        self.heading = self.panel.heading
-        self.help_text = self.panel.help_text
-
-    @property
-    def classname(self):
-        return self.panel.classname
-
-    def classes(self):
-        return self.panel.classes()
-
-    def field_type(self):
-        return self.panel.field_type()
-
-    def id_for_label(self):
-        return self.panel.id_for_label()
-
-    def is_shown(self):
-        return True
-
-    def render_as_object(self):
-        return self.render()
-
-    def render_as_field(self):
-        return self.render()
-
-    def render(self):
-        return mark_safe(render_to_string(self.panel.template, {"self": self}))
-
-    def html_declarations(self):
-        return ""
-
-    def get_comparison(self):
-        return []
-
-    def render_missing_fields(self):
-        """
-        Helper function: render all of the fields that are defined on the form but not "claimed" by
-        any panels via required_fields. These fields are most likely to be hidden fields introduced
-        by the forms framework itself, such as ORDER / DELETE fields on formset members.
-        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
-        outside of the panel furniture. But there's not much we can do about that.)
-        """
-        rendered_fields = self.panel.get_form_options().get("fields", [])
-        missing_fields_html = [
-            str(self.form[field_name])
-            for field_name in self.form.fields
-            if field_name not in rendered_fields
-        ]
-
-        return mark_safe("".join(missing_fields_html))
-
-    def render_form_content(self):
-        """
-        Render this as an 'object', ensuring that all fields necessary for a valid form
-        submission are included
-        """
-        return mark_safe(self.render_as_object() + self.render_missing_fields())
 
 
 class BoundPanelGroup(BoundPanel):
@@ -436,6 +370,8 @@ class PanelGroup(Panel):
     Abstract class for panels that manage a set of sub-panels.
     Concrete subclasses must attach a 'children' property
     """
+
+    bound_panel_class = BoundPanelGroup
 
     def __init__(self, children=(), *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -497,11 +433,6 @@ class PanelGroup(Panel):
     def on_model_bound(self):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundPanelGroup(
-            panel=self, instance=instance, request=request, form=form
-        )
-
 
 class BaseCompositeEditHandler(PanelGroup):
     def __init__(self, *args, **kwargs):
@@ -524,6 +455,8 @@ class BaseFormEditHandler(PanelGroup):
     Base class for edit handlers that can construct a form class for all their
     child edit handlers.
     """
+
+    bound_panel_class = BoundFormPanel
 
     # The form class used as the base for constructing specific forms for this
     # edit handler.  Subclasses can override this attribute to provide a form
@@ -576,9 +509,6 @@ class BaseFormEditHandler(PanelGroup):
         kwargs["base_form_class"] = self.base_form_class
         return kwargs
 
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundFormPanel(panel=self, instance=instance, request=request, form=form)
-
 
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/panels/tabbed_interface.html"
@@ -601,11 +531,7 @@ class BoundFieldRowPanel(BoundPanelGroup):
 
 class FieldRowPanel(PanelGroup):
     template = "wagtailadmin/panels/field_row_panel.html"
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundFieldRowPanel(
-            panel=self, instance=instance, request=request, form=form
-        )
+    bound_panel_class = BoundFieldRowPanel
 
 
 class MultiFieldPanel(PanelGroup):
@@ -627,6 +553,8 @@ class BoundHelpPanel(BoundPanel):
 
 
 class HelpPanel(Panel):
+    bound_panel_class = BoundHelpPanel
+
     def __init__(
         self,
         content="",
@@ -646,9 +574,6 @@ class HelpPanel(Panel):
             template=self.template,
         )
         return kwargs
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundHelpPanel(panel=self, instance=instance, request=request, form=form)
 
 
 class BoundFieldPanel(BoundPanel):
@@ -776,6 +701,7 @@ class BoundFieldPanel(BoundPanel):
 
 class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
+    bound_panel_class = BoundFieldPanel
 
     def __init__(
         self, field_name, widget=None, disable_comments=None, permission=None, **kwargs
@@ -807,11 +733,6 @@ class FieldPanel(Panel):
             opts["field_permissions"] = {self.field_name: self.permission}
 
         return opts
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundFieldPanel(
-            panel=self, instance=instance, request=request, form=form
-        )
 
     object_template = "wagtailadmin/panels/single_field_panel.html"
     field_template = "wagtailadmin/panels/field_panel_field.html"
@@ -989,6 +910,8 @@ class BoundInlinePanel(BoundPanel):
 
 
 class InlinePanel(Panel):
+    bound_panel_class = BoundInlinePanel
+
     def __init__(
         self,
         relation_name,
@@ -1055,11 +978,6 @@ class InlinePanel(Panel):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
 
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundInlinePanel(
-            panel=self, instance=instance, request=request, form=form
-        )
-
     template = "wagtailadmin/panels/inline_panel.html"
     js_template = "wagtailadmin/panels/inline_panel.js"
 
@@ -1104,16 +1022,12 @@ class BoundPrivacyModalPanel(BoundPanel):
 
 class PrivacyModalPanel(Panel):
     template = "wagtailadmin/pages/privacy_switch_panel.html"
+    bound_panel_class = BoundPrivacyModalPanel
 
     def __init__(self, **kwargs):
         updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundPrivacyModalPanel(
-            panel=self, instance=instance, request=request, form=form
-        )
 
 
 class BoundCommentPanel(BoundPanel):
@@ -1174,6 +1088,8 @@ class BoundCommentPanel(BoundPanel):
 
 
 class CommentPanel(Panel):
+    bound_panel_class = BoundCommentPanel
+
     def get_form_options(self):
         # add the comments formset
         return {
@@ -1192,11 +1108,6 @@ class CommentPanel(Panel):
 
     template = "wagtailadmin/panels/comments/comment_panel.html"
     declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundCommentPanel(
-            panel=self, instance=instance, request=request, form=form
-        )
 
 
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.

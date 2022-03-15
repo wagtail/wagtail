@@ -31,12 +31,8 @@ class BoundFormSubmissionsPanel(BoundPanel):
 
 class FormSubmissionsPanel(Panel):
     template = "wagtailforms/panels/form_responses_panel.html"
+    bound_panel_class = BoundFormSubmissionsPanel
 
     def on_model_bound(self):
         if not self.heading:
             self.heading = _("%s submissions") % self.model.get_verbose_name()
-
-    def get_bound_panel(self, instance=None, request=None, form=None):
-        return BoundFormSubmissionsPanel(
-            panel=self, instance=instance, request=request, form=form
-        )
