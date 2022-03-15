@@ -37,10 +37,10 @@ Use heading levels to create sections, and allow users to link straight to a spe
 Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bullets. Nest by indenting with 4 spaces.
 
 ```md
-- Bullet 1
-- Bullet 2
-    - Nested bullet 2
-- Bullet 3
+-   Bullet 1
+-   Bullet 2
+    -   Nested bullet 2
+-   Bullet 3
 
 1. Numbered list 1
 2. Numbered list 2
@@ -51,10 +51,10 @@ Use bullets for unordered lists, numbers when ordered. Prefer dashes `-` for bul
 
 <summary>Rendered output</summary>
 
-- Bullet 1
-- Bullet 2
-    - Nested bullet 2
-- Bullet 3
+-   Bullet 1
+-   Bullet 2
+    -   Nested bullet 2
+-   Bullet 3
 
 1. Numbered list 1
 2. Numbered list 2
@@ -91,6 +91,7 @@ Don’t rely on [`links over code`](https://www.example.com/), as they are impos
 ```md
 An [external link](https://wwww.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
+An auto generated link label to a page [](/getting_started/tutorial).
 A [link to a reference](register_reports_menu_item).
 ```
 
@@ -100,26 +101,28 @@ A [link to a reference](register_reports_menu_item).
 
 An [external link](https://wwww.example.com).
 An [internal link to another document](/reference/contrib/legacy_richtext).
+An auto generated link label to a page [](/getting_started/tutorial).
 A [link to a reference](register_reports_menu_item).
 
 </details>
 
-#### Reference links 
+#### Reference links
 
 Reference links (links to a target within a page) rely on the page having a reference created, this can be added as follows:
 
 ```md
-
 (my_awesome_section)=
+
 ##### Some awesome section title
 
 ...
 ```
 
-The reference can be linked to, with an auto-generated label, using the Markdown link syntax as follows:
+The reference can be linked to, with an optional label, using the Markdown link syntax as follows:
 
 ```md
-[](my_awesome_section)
+-   Auto generated label (preferred) [](my_awesome_section)
+-   [label for section](my_awesome_section)
 ```
 
 <details>
@@ -127,11 +130,13 @@ The reference can be linked to, with an auto-generated label, using the Markdown
 <summary>Rendered output</summary>
 
 (my_awesome_section)=
+
 ##### Some awesome section title
 
 ...
 
-[](my_awesome_section)
+-   Auto generated label (preferred) [](my_awesome_section)
+-   [label for section](my_awesome_section)
 
 </details>
 
@@ -167,9 +172,9 @@ Warnings can be scary.
 
 Images are hard to keep up-to-date as documentation evolves, but can be worthwhile nonetheless. Here are guidelines when adding images:
 
-- All images should have meaningful [alt text](https://axesslab.com/alt-texts/) unless they are decorative.
-- Images are served as-is – pick the correct format, and losslessly compress all images.
-- Use absolute paths for image files so they are more portable.
+-   All images should have meaningful [alt text](https://axesslab.com/alt-texts/) unless they are decorative.
+-   Images are served as-is – pick the correct format, and losslessly compress all images.
+-   Use absolute paths for image files so they are more portable.
 
 ```md
 ![Screenshot of the workflow editing interface, with fields to change the workflow name, tasks, and assigned pages](/_static/images/screen44_workflow_edit.png)
@@ -263,9 +268,11 @@ Sphinx offers release-metadata directives to generate this information consisten
 <summary>Rendered output</summary>
 
 ```{versionadded} 2.15
+
 ```
 
 ```{versionchanged} 2.15
+
 ```
 
 </details>
@@ -276,11 +283,9 @@ We can add supplementary information in documentation with the HTML `<details>` 
 
 ```html
 <details>
+    <summary>Supplementary information</summary>
 
-<summary>Supplementary information</summary>
-
-This will be visible when expanding the content.
-
+    This will be visible when expanding the content.
 </details>
 ```
 
