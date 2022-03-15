@@ -49,6 +49,7 @@ new model would need to be done manually with a
 
 Any templates that reference the builtin document model will still continue
 to work as before.
+```
 
 
 ## Referring to the document model
