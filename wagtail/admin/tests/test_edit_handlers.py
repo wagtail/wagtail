@@ -320,15 +320,23 @@ class TestPageEditHandlers(TestCase):
     def test_repr(self):
         edit_handler = ValidatedPage.get_edit_handler()
 
-        handler_handler_repr = repr(edit_handler)
+        handler_repr = repr(edit_handler)
 
         self.assertIn(
             "model=<class 'wagtail.test.testapp.models.ValidatedPage'>",
-            handler_handler_repr,
+            handler_repr,
         )
-        self.assertIn("instance=None", handler_handler_repr)
-        self.assertIn("request=None", handler_handler_repr)
-        self.assertIn("form=None", handler_handler_repr)
+
+        bound_handler = edit_handler.bind_to(instance=None, request=None, form=None)
+        bound_handler_repr = repr(bound_handler)
+        self.assertIn(
+            "model=<class 'wagtail.test.testapp.models.ValidatedPage'>",
+            bound_handler_repr,
+        )
+
+        self.assertIn("instance=None", bound_handler_repr)
+        self.assertIn("request=None", bound_handler_repr)
+        self.assertIn("form=None", bound_handler_repr)
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
