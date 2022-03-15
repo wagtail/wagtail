@@ -25,13 +25,19 @@
     user-select: none;
     transition: background-color $hover-transition-duration ease-in-out;
     cursor: default;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-top-left-radius: $border-radius;
+    border-start-start-radius: $border-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-top-right-radius: $border-radius;
+    border-start-end-radius: $border-radius;
     min-height: 30px;
     background: $header-background;
 
     @media (min-width: $screen-sm-min) {
-      padding-left: $content-padding-horizontal - $header-gutter;
+      padding-inline-start: $content-padding-horizontal - $header-gutter;
     }
 
     &--collapsible {
@@ -97,7 +103,7 @@
       padding: 0;
 
       &:not(:last-of-type) {
-        margin-right: 3px;
+        margin-inline-end: 3px;
       }
 
       &:focus,
@@ -121,7 +127,7 @@
 
   &__type {
     margin: 0 $header-gutter;
-    text-align: right;
+    text-align: end;
     font-size: 12px;
     color: $header-text-color;
     user-select: none;

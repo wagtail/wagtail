@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  margin-left: 0;
+  margin-inline-start: 0;
   height: 100%;
 }
 
@@ -25,9 +25,9 @@ body {
 }
 
 .wrapper {
-  padding-left: $mobile-nice-padding;
-  padding-right: $mobile-nice-padding;
-  margin-left: 0;
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
+  margin-inline-start: 0;
   max-width: none;
 }
 
@@ -122,7 +122,10 @@ a.button {
   @include media-breakpoint-up(sm) {
     position: absolute;
     top: 139px;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 5%;
+    inset-inline-end: 5%;
     padding: 0;
   }
 
@@ -173,7 +176,7 @@ a.button {
       display: inline-block;
       height: 100%;
       vertical-align: middle;
-      margin-left: -0.4em;
+      margin-inline-start: -0.4em;
     }
   }
 
@@ -193,14 +196,17 @@ a.button {
         border-radius: 100%;
         width: 1em;
         padding: 0.3em;
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         left: $desktop-nice-padding;
+        inset-inline-start: $desktop-nice-padding;
         margin-top: -1.1rem;
         top: 50%;
         font-size: 1.3rem;
       }
 
       input {
-        padding-left: ($desktop-nice-padding + 50px);
+        padding-inline-start: ($desktop-nice-padding + 50px);
       }
     }
   }

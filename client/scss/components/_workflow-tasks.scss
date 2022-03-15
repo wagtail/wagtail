@@ -14,8 +14,8 @@
     width: $task-width;
     height: $task-height;
     margin: 7px;
-    padding-left: 9px;
-    padding-right: 9px;
+    padding-inline-start: 9px;
+    padding-inline-end: 9px;
   }
 
   &__step {

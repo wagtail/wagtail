@@ -14,12 +14,12 @@
     width: 100%;
     box-sizing: border-box;
     white-space: nowrap;
-    border-left: 3px solid transparent;
+    border-inline-start: 3px solid transparent;
 
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
-    text-align: left;
+    text-align: start;
     color: $color-menu-text;
     padding: 11px 20px;
     font-size: 13px;
@@ -39,7 +39,7 @@
     &:before {
       font-size: 1rem;
       vertical-align: -15%;
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     // only really used for spinners and settings menu
@@ -47,7 +47,10 @@
       font-size: 1.5em;
       margin: 0;
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 0.5em;
+      inset-inline-end: 0.5em;
       top: 0.5em;
       margin-top: 0;
     }
@@ -56,7 +59,7 @@
     // This is because SVG icons and legacy icons apply this margin differently,
     // we could remove this override when we remove legacy icons
     .icon {
-      margin-right: 0 !important;
+      margin-inline-end: 0 !important;
     }
   }
 
@@ -76,7 +79,7 @@
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     > a {
-      border-left-color: $color-salmon;
+      border-inline-start-color: $color-salmon;
       color: $color-white;
     }
   }
@@ -84,7 +87,7 @@
 
 .menuitem-label {
   @include transition(opacity $menu-transition-duration ease);
-  margin-left: 0.5em;
+  margin-inline-start: 0.5em;
 }
 
 .sidebar--slim {

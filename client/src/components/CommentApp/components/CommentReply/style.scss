@@ -49,12 +49,12 @@
   }
 
   &__actions &__button {
-    margin-right: 10px;
+    margin-inline-end: 10px;
     margin-top: 10px;
   }
 
   &__confirm-delete &__button {
-    margin-left: 10px;
+    margin-inline-start: 10px;
     margin-bottom: 10px;
   }
 
@@ -81,7 +81,7 @@
     background-color: $color-red-dark;
     border-radius: 3px;
     padding: 5px;
-    padding-left: 10px;
+    padding-inline-start: 10px;
     height: 26px;
     line-height: 26px;
     vertical-align: middle;
@@ -89,13 +89,13 @@
     button {
       height: 26px;
       float: right;
-      margin-left: 5px;
+      margin-inline-start: 5px;
       color: $color-white;
       background-color: $color-red-very-dark;
       border-color: $color-red-very-dark;
       padding: 2px;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding-inline-start: 10px;
+      padding-inline-end: 10px;
       font-size: 0.65em;
       font-weight: bold;
     }

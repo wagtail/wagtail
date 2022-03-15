@@ -132,7 +132,7 @@ $positions: (
   font-family: $font-sans;
   font-size: 14px;
   box-sizing: border-box;
-  padding-left: 0;
+  padding-inline-start: 0;
   text-decoration: none;
 
   .#{$namespace}-userbar.is-active & {
@@ -195,13 +195,25 @@ $positions: (
   }
 
   &:first-child {
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-top-left-radius: $userbar-radius;
+    border-start-start-radius: $userbar-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-top-right-radius: $userbar-radius;
+    border-start-end-radius: $userbar-radius;
   }
 
   &:last-child {
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-bottom-right-radius: $userbar-radius;
+    border-end-end-radius: $userbar-radius;
+    // Remove once we drop support for Safari 14.
+    // stylelint-disable-next-line property-disallowed-list
     border-bottom-left-radius: $userbar-radius;
+    border-end-start-radius: $userbar-radius;
   }
 
   & + & {
@@ -230,7 +242,7 @@ $positions: (
 
     &-icon {
       @include svg-icon(1.1em, middle);
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
       fill: currentColor;
     }
   }
@@ -242,14 +254,17 @@ $positions: (
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: 14px;
+      inset-inline-start: 14px;
     }
   }
 
   a,
   button {
     font-size: 14px !important;
-    text-align: left;
+    text-align: start;
     padding: 0.8em;
   }
 

@@ -84,14 +84,14 @@ $explorer-header-horizontal-padding: 10px;
 
   .icon {
     color: $c-page-explorer-secondary;
-    margin-right: 0.25rem;
+    margin-inline-end: 0.25rem;
     font-size: 1rem;
   }
 
   .icon--explorer-header {
     width: 1.25em;
     height: 1.25em;
-    margin-right: 0.25rem;
+    margin-inline-end: 0.25rem;
     vertical-align: text-top;
     color: $c-page-explorer-secondary;
   }
@@ -103,7 +103,7 @@ $explorer-header-horizontal-padding: 10px;
 
 .c-page-explorer__header__select {
   $margin: 10px;
-  margin-right: $margin;
+  margin-inline-end: $margin;
 
   > select {
     padding: 5px 30px 5px 10px;
@@ -132,7 +132,10 @@ $explorer-header-horizontal-padding: 10px;
   // Add select arrow back on browsers where native ui has been removed
   &-icon {
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 1rem;
+    inset-inline-end: 1rem;
     top: 1rem;
     width: 1.25rem;
     height: 1.25rem;

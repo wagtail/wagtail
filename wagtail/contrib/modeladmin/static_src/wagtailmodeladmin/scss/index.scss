@@ -19,7 +19,7 @@
 
   @include media-breakpoint-up(lg) {
     display: inline-block;
-    margin-left: 0.25em;
+    margin-inline-start: 0.25em;
   }
 }
 
@@ -63,7 +63,7 @@
     font-size: 13px;
     line-height: 31px;
     margin-top: 0;
-    padding-left: 8px;
+    padding-inline-start: 8px;
     border-bottom: 1px solid #e6e6e6;
   }
 
@@ -73,14 +73,14 @@
   }
 
   ul {
-    padding-left: 0;
+    padding-inline-start: 0;
     margin-bottom: 25px;
   }
 
   li {
     list-style-type: none;
     margin: 0 0 4px;
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   a {
@@ -159,21 +159,21 @@ p.no-results {
     padding: 0 1.5% 0 0;
 
     &.col12 {
-      padding-right: 0;
+      padding-inline-end: 0;
 
       tbody td:last-child {
-        padding-right: 50px;
+        padding-inline-end: 50px;
       }
     }
 
     tbody th:first-child {
-      padding-left: 50px;
+      padding-inline-start: 50px;
     }
   }
 
   .pagination {
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-inline-start: 50px;
+    padding-inline-end: 50px;
   }
 
   .pagination.col9 {

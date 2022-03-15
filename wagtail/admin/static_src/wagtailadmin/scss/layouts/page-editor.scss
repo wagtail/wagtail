@@ -12,29 +12,29 @@
 
   .breadcrumb {
     margin: -1.2em 0 2em; // sass linter complains about $desktop-nice-padding here because of unit mismatch
-    padding-left: calc(#{$desktop-nice-padding} - 2em);
+    padding-inline-start: calc(#{$desktop-nice-padding} - 2em);
 
     @include media-breakpoint-up(sm) {
       margin-top: -1.8em;
-      margin-left: -$desktop-nice-padding;
-      margin-right: -$desktop-nice-padding;
+      margin-inline-start: -$desktop-nice-padding;
+      margin-inline-end: -$desktop-nice-padding;
     }
   }
 
   .modal .breadcrumb {
     margin: 0;
-    padding-left: 0.5em;
+    padding-inline-start: 0.5em;
     background-color: transparent;
 
     .breadcrumb-item {
-      padding-left: 0;
-      padding-right: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
     }
 
     a {
       color: $color-grey-2;
-      padding-left: 0.5em;
-      padding-right: 0.5em;
+      padding-inline-start: 0.5em;
+      padding-inline-end: 0.5em;
 
       &:hover {
         color: $color-white;
@@ -46,7 +46,7 @@
     }
 
     .home_icon {
-      margin-left: 0;
+      margin-inline-start: 0;
     }
 
     div.c-dropdown__button.u-btn-current {
@@ -76,7 +76,7 @@
   }
 
   .header-title {
-    padding-left: 0;
+    padding-inline-start: 0;
   }
 
   .modal-body .header-title h1 {
@@ -99,7 +99,7 @@
       .icon {
         @include svg-icon(1.25em, text-bottom);
 
-        margin-right: 0.2em;
+        margin-inline-end: 0.2em;
       }
 
       .icon-warning {
@@ -107,11 +107,11 @@
       }
 
       &:first-child .button {
-        margin-left: -0.8em;
+        margin-inline-start: -0.8em;
       }
 
       .avatar {
-        margin-left: 0;
+        margin-inline-start: 0;
       }
     }
 
@@ -137,7 +137,7 @@
     }
 
     &--status {
-      padding-right: 0.8em;
+      padding-inline-end: 0.8em;
     }
 
     &--type {
@@ -165,8 +165,8 @@
   }
 
   fieldset {
-    padding-left: 0;
-    padding-right: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
 
     .field-row {
       padding-top: 0;
@@ -184,7 +184,7 @@
     opacity: 1;
 
     .icon-help {
-      margin-left: -1.75em;
+      margin-inline-start: -1.75em;
     }
   }
 
@@ -205,8 +205,14 @@
     font-weight: normal;
     position: absolute;
     top: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
     z-index: 1;
     overflow: hidden;
 
@@ -234,7 +240,10 @@
       font-size: 2em;
       top: 0;
       line-height: 1.8em;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0;
+      inset-inline-start: 0;
       width: $desktop-nice-padding;
       color: $color-white;
       padding: 0;
@@ -249,7 +258,7 @@
       color: $color-red;
       font-weight: bold;
       display: inline-block;
-      margin-left: 0.5em;
+      margin-inline-start: 0.5em;
       line-height: 1em;
       font-size: 13px;
     }
@@ -280,8 +289,8 @@
 
   // cursory styling for streamfield. Main styling in client/src/components/StreamField/StreamField.scss
   &.block_field {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
 
     .object-layout_big-part {
       max-width: 100%;
@@ -353,7 +362,10 @@
       position: relative;
       z-index: 2;
       top: 0;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: 0;
+      inset-inline-start: 0;
       width: 3.3em;
       padding: 0;
       margin: 0 0 0 -20px;
@@ -446,7 +458,7 @@ footer .preview {
     padding: 0 1em;
 
     .icon {
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     @include media-breakpoint-down(xs) {
@@ -499,8 +511,8 @@ footer .preview {
       // Override column mixin for column items.
       float: none;
       max-width: 1024px;
-      padding-left: 0;
-      padding-right: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
 
       fieldset {
         width: 100%;
@@ -522,14 +534,14 @@ footer .preview {
 
     .object-help {
       padding-bottom: 40px;
-      margin-left: 10px;
+      margin-inline-start: 10px;
       margin-bottom: 0;
       opacity: 0;
     }
 
     &.block_field {
       .object-help {
-        padding-left: 6.4em;
+        padding-inline-start: 6.4em;
       }
     }
 
@@ -539,7 +551,7 @@ footer .preview {
         display: block;
         // Override column mixin for column items.
         float: none;
-        margin-left: -51px;
+        margin-inline-start: -51px;
         padding: 0;
         padding-top: $object-title-height;
       }
@@ -563,8 +575,8 @@ footer .preview {
 
     .multiple {
       @include column(10);
-      padding-left: 0;
-      padding-right: 0;
+      padding-inline-start: 0;
+      padding-inline-end: 0;
     }
 
     &.empty .add {
@@ -574,17 +586,17 @@ footer .preview {
 
   // Make room for comments on the right when enabled
   .tab-content--comments-enabled .object {
-    padding-right: 27%;
+    padding-inline-end: 27%;
 
     &.full {
-      padding-right: 36%;
+      padding-inline-end: 36%;
     }
 
     @include media-breakpoint-up(lg) {
-      padding-right: 30%;
+      padding-inline-end: 30%;
 
       &.full {
-        padding-right: 36%;
+        padding-inline-end: 36%;
       }
     }
   }
@@ -602,7 +614,7 @@ footer .preview {
 
   .icon {
     @include svg-icon(1.25em);
-    margin-right: 0.25em;
+    margin-inline-end: 0.25em;
   }
 
   &:hover {
@@ -625,14 +637,17 @@ footer .preview {
     color: $color-grey-3;
     position: absolute;
     top: 1.5em;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: calc(0.75em - 1px);
+    inset-inline-start: calc(0.75em - 1px);
     height: 100%;
-    border-left: 2px dotted;
+    border-inline-start: 2px dotted;
   }
 
   .icon {
     fill: $color-grey-3;
-    padding-right: 0.5em;
+    padding-inline-end: 0.5em;
   }
 
   .in_progress {

@@ -90,7 +90,7 @@ $draftail-editor-font-family: $font-sans;
   padding-top: 2em;
   padding-bottom: 2em;
   background-color: $color-fieldset-hover;
-  border-right: 1px solid $color-input-border;
+  border-inline-end: 1px solid $color-input-border;
 
   &--focus {
     background-color: $color-input-focus;
@@ -124,7 +124,7 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-block--blockquote {
-  border-left: 0.25em solid $color-grey-3;
+  border-inline-start: 0.25em solid $color-grey-3;
   color: $color-grey-2;
   margin: 1em 0;
   padding: 1em 2em;

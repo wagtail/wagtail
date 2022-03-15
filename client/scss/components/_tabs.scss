@@ -9,11 +9,11 @@
     float: left;
     padding: 0;
     position: relative;
-    margin-right: 2px;
+    margin-inline-end: 2px;
 
     &:first-of-type {
-      padding-left: $desktop-nice-padding;
-      margin-left: 0;
+      padding-inline-start: $desktop-nice-padding;
+      margin-inline-start: 0;
     }
   }
 
@@ -45,7 +45,10 @@
       border-radius: 50px;
       box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: -0.5em;
+      inset-inline-end: -0.5em;
       top: -0.5em;
       z-index: 5;
       min-width: 0.9em;
@@ -74,8 +77,8 @@
 
   li.right {
     float: right;
-    margin-right: 0;
-    margin-left: 2px;
+    margin-inline-end: 0;
+    margin-inline-start: 2px;
   }
 
   li.wide {
@@ -121,13 +124,13 @@
     }
 
     a {
-      padding-left: $mobile-nice-padding;
-      padding-right: $mobile-nice-padding;
+      padding-inline-start: $mobile-nice-padding;
+      padding-inline-end: $mobile-nice-padding;
     }
 
     li.settings a {
-      padding-left: 2em;
-      padding-right: 2em;
+      padding-inline-start: 2em;
+      padding-inline-end: 2em;
     }
   }
 
@@ -136,7 +139,7 @@
     min-width: 0;
 
     &:first-of-type {
-      padding-left: $desktop-nice-padding;
+      padding-inline-start: $desktop-nice-padding;
     }
   }
 }
@@ -144,7 +147,7 @@
 @include media-breakpoint-down(xs) {
   // To allow tabs on the edit page to be editable
   .tab-nav li:first-of-type {
-    padding-left: 1.6em;
+    padding-inline-start: 1.6em;
   }
 
   .tab-nav li {

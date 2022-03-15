@@ -5,7 +5,7 @@
   background: $color-white;
   border: 1px solid $color-input-focus-border;
   padding: 8px;
-  padding-left: 0;
+  padding-inline-start: 0;
   padding-top: 2px;
   position: absolute;
   z-index: 5;
@@ -20,7 +20,10 @@
 
   iframe {
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     width: 75px;
     height: 210px;
@@ -39,7 +42,7 @@
 
   .xdsoft_datepicker {
     float: left;
-    margin-left: 8px;
+    margin-inline-start: 8px;
   }
 
   .xdsoft_datepicker.active + .xdsoft_timepicker {
@@ -92,7 +95,7 @@
 
   .xdsoft_today_button {
     float: left;
-    margin-left: 5px;
+    margin-inline-start: 5px;
 
     &:before {
       content: map.get($icons, 'home'); // UI-Redesign: to be removed
@@ -111,7 +114,7 @@
     min-width: 70px;
     float: left;
     text-align: center;
-    margin-left: 8px;
+    margin-inline-start: 8px;
     margin-top: 0;
 
     .xdsoft_prev,
@@ -154,8 +157,8 @@
         border-bottom-width: 0;
         height: 2.3em;
         line-height: 2.3em;
-        padding-left: 0.6em;
-        padding-right: 0.6em;
+        padding-inline-start: 0.6em;
+        padding-inline-end: 0.6em;
 
         // stylelint-disable-next-line max-nesting-depth
         &:first-child {
@@ -187,7 +190,10 @@
     > .xdsoft_select {
       border: 1px solid #ccc;
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 0;
+      inset-inline-end: 0;
       top: 30px;
       z-index: 101;
       display: none;
@@ -196,11 +202,17 @@
       overflow-y: hidden;
 
       &.xdsoft_monthselect {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: -7px;
+        inset-inline-end: -7px;
       }
 
       &.xdsoft_yearselect {
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 2px;
+        inset-inline-end: 2px;
       }
 
       > div > .xdsoft_option:hover {
@@ -222,7 +234,7 @@
 
   .xdsoft_month {
     width: 90px;
-    text-align: right;
+    text-align: end;
   }
 
   .xdsoft_year {
@@ -237,7 +249,7 @@
     }
 
     td > div {
-      padding-right: 5px;
+      padding-inline-end: 5px;
     }
 
     td,
@@ -246,7 +258,7 @@
       border: 1px solid #ddd;
       color: #666;
       font-size: 12px;
-      text-align: right;
+      text-align: end;
       padding: 5px 7px;
       border-collapse: collapse;
       cursor: pointer;
@@ -321,7 +333,10 @@
 .xdsoft_scrollbar {
   position: absolute;
   width: 7px;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: 0;
+  inset-inline-end: 0;
   top: 0;
   bottom: 0;
   cursor: pointer;

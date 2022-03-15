@@ -73,18 +73,27 @@
   &__icon-wrapper {
     margin: auto;
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     width: 100px;
     height: 100px;
     background-color: #3a3a3a;
     border-radius: 50%;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     transition: left $menu-transition-duration ease,
+      inset-inline-start $menu-transition-duration ease,
       top $menu-transition-duration ease, width $menu-transition-duration ease,
       height $menu-transition-duration ease;
 
     .sidebar--slim & {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: -10px;
+      inset-inline-start: -10px;
       top: 10px;
       width: 80px;
       height: 80px;
@@ -100,20 +109,32 @@
   // Bird icons
   &__icon {
     display: block;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     width: 70%;
     height: 70%;
     position: absolute;
     margin: auto;
     bottom: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     transition: left $menu-transition-duration ease,
+      inset-inline-start $menu-transition-duration ease,
       width $menu-transition-duration ease,
       height $menu-transition-duration ease;
 
     .sidebar--slim & {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: -10px;
+      inset-inline-start: -10px;
       width: 70%;
       height: 70%;
     }

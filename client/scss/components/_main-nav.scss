@@ -2,7 +2,7 @@
 
 .nav-wrapper {
   position: relative;
-  margin-left: -$menu-width;
+  margin-inline-start: -$menu-width;
   width: $menu-width;
   float: left;
   display: flex;
@@ -12,7 +12,7 @@
 
   .inner {
     background: $nav-grey-1;
-    border-right: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
+    border-inline-end: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
 
     @include media-breakpoint-up(sm) {
       // On medium, make it possible for the nav links to scroll.
@@ -24,7 +24,7 @@
 
 .nav-toggle.icon {
   position: absolute;
-  padding-left: $mobile-nice-padding;
+  padding-inline-start: $mobile-nice-padding;
   cursor: pointer;
   border: 1px solid transparent; // ensure visible separation in Windows High Contrast mode
   background-color: transparent;
@@ -76,12 +76,12 @@
   .menu-item a {
     position: relative;
     white-space: nowrap;
-    border-left: 3px solid transparent;
+    border-inline-start: 3px solid transparent;
 
     &:before {
       font-size: 1rem;
       vertical-align: -15%;
-      margin-right: 0.5em;
+      margin-inline-end: 0.5em;
     }
 
     // only really used for spinners and settings menu
@@ -89,7 +89,10 @@
       font-size: 1.5em;
       margin: 0;
       position: absolute;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 0.5em;
+      inset-inline-end: 0.5em;
       top: 0.5em;
       margin-top: 0;
     }
@@ -100,21 +103,21 @@
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     > a {
-      border-left-color: $color-salmon;
+      border-inline-start-color: $color-salmon;
       color: $color-white;
     }
   }
 
   .nav-footer-submenu {
     a {
-      border-left: 3px solid transparent;
+      border-inline-start: 3px solid transparent;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
 
       &:before {
         font-size: 1rem;
-        margin-right: 0.5em;
+        margin-inline-end: 0.5em;
         vertical-align: -10%;
       }
     }
@@ -132,7 +135,7 @@
 .icon--menuitem {
   width: 1.25em;
   height: 1.25em;
-  margin-right: 0.5em;
+  margin-inline-end: 0.5em;
   vertical-align: text-top;
 }
 
@@ -145,7 +148,10 @@
     height: 1.5em;
     position: absolute;
     top: 0.8125em;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0.5em;
+    inset-inline-end: 0.5em;
     @include transition(transform 0.3s ease);
 
     .menu-item.submenu-active & {
@@ -175,11 +181,11 @@
     padding: 0.9em 1.7em 0.9em 4.5em;
 
     &:before {
-      margin-left: -1.5em;
+      margin-inline-start: -1.5em;
     }
 
     .icon--menuitem {
-      margin-left: -1.75em;
+      margin-inline-start: -1.75em;
     }
 
     &:hover {
@@ -244,7 +250,10 @@
     background-color: transparent;
     position: absolute;
     top: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 1em;
+    inset-inline-end: 1em;
     bottom: 0;
     padding: 0;
     width: 3em;
@@ -281,7 +290,7 @@ body.explorer-open {
   }
 
   .nav-wrapper {
-    margin-left: -$menu-width-max;
+    margin-inline-start: -$menu-width-max;
     width: $menu-width-max;
   }
 
@@ -294,21 +303,24 @@ body.explorer-open {
   .wrapper,
   body.nav-open .wrapper {
     transform: none;
-    padding-left: $menu-width;
+    padding-inline-start: $menu-width;
 
-    @include transition(padding-left $menu-transition-duration ease);
+    @include transition(padding-inline-start $menu-transition-duration ease);
   }
 
   body.sidebar-collapsed .wrapper {
-    padding-left: $menu-width-slim;
+    padding-inline-start: $menu-width-slim;
   }
 
   .nav-wrapper {
     // height and position necessary to force it to 100% height of screen (with some JS help)
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     height: 100%;
-    margin-left: 0;
+    margin-inline-start: 0;
 
     .inner {
       height: 100%;
@@ -362,7 +374,7 @@ body.explorer-open {
 
       .avatar {
         float: left;
-        margin-right: 0.9em;
+        margin-inline-end: 0.9em;
 
         &:before {
           color: inherit;
@@ -372,7 +384,7 @@ body.explorer-open {
 
       em {
         box-sizing: border-box;
-        padding-right: 1.8em;
+        padding-inline-end: 1.8em;
         margin-top: 1.2em;
         font-style: normal;
         font-weight: 700;
@@ -385,7 +397,10 @@ body.explorer-open {
         &:after {
           font-size: 1.5em;
           position: absolute;
+          // Remove once we drop support for Safari 13.
+          // stylelint-disable-next-line property-disallowed-list
           right: 0.25em;
+          inset-inline-end: 0.25em;
         }
       }
     }
@@ -398,7 +413,10 @@ body.explorer-open {
     width: 0;
     padding: 0;
     top: 0;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: $menu-width;
+    inset-inline-start: $menu-width;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -455,7 +473,7 @@ body.explorer-open {
       width: $menu-width;
 
       a {
-        padding-left: 3.5em;
+        padding-inline-start: 3.5em;
       }
     }
   }
@@ -479,7 +497,7 @@ body.explorer-open {
     }
 
     .nav-wrapper {
-      margin-left: 0;
+      margin-inline-start: 0;
       width: $menu-width;
     }
 

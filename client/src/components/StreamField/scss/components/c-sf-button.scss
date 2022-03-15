@@ -7,7 +7,7 @@
   font-weight: 600;
   font-size: 12px;
   font-family: $font-sans;
-  text-align: left;
+  text-align: start;
   background: #eee;
   padding: $type-button-padding-vertical $type-button-padding-horizontal;
   border: 1px solid #e6e6e6;
@@ -32,7 +32,7 @@
   &__icon {
     width: 16px;
     height: 16px;
-    margin-right: 0.5em;
+    margin-inline-end: 0.5em;
     vertical-align: text-top;
   }
 }
