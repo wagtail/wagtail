@@ -566,6 +566,7 @@ Contributors
 * Sage Abdullah
 * Paarth Agarwal
 * Nicolas Ferrari
+* Vibhakar Solanki
 
 Translators
 ===========
