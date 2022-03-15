@@ -372,6 +372,12 @@ class BoundPanel:
     def render(self):
         return mark_safe(render_to_string(self.panel.template, {"self": self}))
 
+    def html_declarations(self):
+        return ""
+
+    def get_comparison(self):
+        return []
+
     def render_missing_fields(self):
         """
         Helper function: render all of the fields that are defined on the form but not "claimed" by
@@ -707,9 +713,6 @@ class BoundFieldPanel(BoundPanel):
 
     def id_for_label(self):
         return self.bound_field.id_for_label
-
-    def html_declarations(self):
-        return ""
 
     @property
     def comments_enabled(self):
@@ -1083,15 +1086,10 @@ class PublishingPanel(MultiFieldPanel):
         super().__init__(**updated_kwargs)
 
 
-class PrivacyModalPanel(Panel):
-    def __init__(self, **kwargs):
-        updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
-        updated_kwargs.update(kwargs)
-        super().__init__(**updated_kwargs)
-
+class BoundPrivacyModalPanel(BoundPanel):
     def render(self):
         content = render_to_string(
-            "wagtailadmin/pages/privacy_switch_panel.html",
+            self.panel.template,
             {"self": self, "page": self.instance, "request": self.request},
         )
 
@@ -1101,6 +1099,20 @@ class PrivacyModalPanel(Panel):
             '{0}<script type="text/javascript" src="{1}"></script>'.format(
                 content, versioned_static("wagtailadmin/js/privacy-switch.js")
             )
+        )
+
+
+class PrivacyModalPanel(Panel):
+    template = "wagtailadmin/pages/privacy_switch_panel.html"
+
+    def __init__(self, **kwargs):
+        updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
+        updated_kwargs.update(kwargs)
+        super().__init__(**updated_kwargs)
+
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundPrivacyModalPanel(
+            panel=self, instance=instance, request=request, form=form
         )
 
 
