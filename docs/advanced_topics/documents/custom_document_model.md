@@ -1,6 +1,6 @@
-(custom-document-model)=
+(custom_document_model)=
 
-# Custom document model
+# [](custom_document_model)
 
 An alternate `Document` model can be used to add custom behaviour and
 additional fields.
