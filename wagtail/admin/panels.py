@@ -611,6 +611,15 @@ class MultiFieldPanel(PanelGroup):
         return classes
 
 
+class BoundHelpPanel(BoundPanel):
+    def __init__(self, panel, instance, request, form):
+        super().__init__(panel, instance, request, form)
+        self.content = self.panel.content
+
+    def render(self):
+        return mark_safe(render_to_string(self.panel.template, {"self": self}))
+
+
 class HelpPanel(Panel):
     def __init__(
         self,
@@ -632,8 +641,8 @@ class HelpPanel(Panel):
         )
         return kwargs
 
-    def render(self):
-        return mark_safe(render_to_string(self.template, {"self": self}))
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundHelpPanel(panel=self, instance=instance, request=request, form=form)
 
 
 class BoundFieldPanel(BoundPanel):
