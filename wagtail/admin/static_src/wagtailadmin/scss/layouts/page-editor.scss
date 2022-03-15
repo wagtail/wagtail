@@ -69,10 +69,6 @@
 
   h1 {
     font-size: 1.915em; // approximately 26px
-
-    &.header-title {
-      text-transform: initial;
-    }
   }
 
   .header-title {
@@ -218,7 +214,6 @@
 
     label {
       display: inline;
-      text-transform: inherit;
       font-weight: inherit;
       float: none;
       width: auto;
@@ -230,7 +225,6 @@
       @include font-smoothing;
       text-shadow: none;
       font-family: $font-wagtail-icons;
-      text-transform: none;
       // UI Redesign: To be removed in page editor redesign
       content: map.get($icons, 'arrow-down');
       text-align: center;
