@@ -9,7 +9,6 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     register_submit_translation_permission,
 )
 from wagtail.core import hooks
-from wagtail.core.actions.create_alias import CreatePageAliasAction
 from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.models import Locale, Page
 from wagtail.tests.i18n.models import TestPage
