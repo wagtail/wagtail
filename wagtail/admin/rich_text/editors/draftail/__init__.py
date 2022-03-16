@@ -4,7 +4,6 @@ import warnings
 from django.forms import Media, widgets
 from django.utils.functional import cached_property
 
-from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.core.rich_text import features as feature_registry
@@ -21,9 +20,6 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
     # Draftail has its own commenting
     show_add_comment_button = False
-
-    def get_panel(self):
-        return RichTextFieldPanel
 
     def __init__(self, *args, **kwargs):
         # note: this constructor will receive an 'options' kwarg taken from the WAGTAILADMIN_RICH_TEXT_EDITORS setting,

@@ -66,17 +66,26 @@
     @apply w-bg-white/15;
     margin: auto;
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     transition: left $menu-transition-duration ease,
+      inset-inline-start $menu-transition-duration ease,
       top $menu-transition-duration ease, width $menu-transition-duration ease,
       height $menu-transition-duration ease;
 
     .sidebar--slim & {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: 10px;
+      inset-inline-start: 10px;
       top: 10px;
       width: 40px;
       height: 40px;
@@ -95,7 +104,10 @@
       width: 42px;
       height: 51px;
       top: 10px;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       left: -9px;
+      inset-inline-start: -9px;
     }
 
     // TODO: Fix legacy specificity issues

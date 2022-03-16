@@ -522,6 +522,11 @@ class BlockWidget(forms.Widget):
 
         return self._block_json
 
+    def id_for_label(self, prefix):
+        # Delegate the job of choosing a label ID to the top-level block.
+        # (In practice, the top-level block will typically be a StreamBlock, which returns None.)
+        return self.block_def.id_for_label(prefix)
+
     def render_with_errors(self, name, value, attrs=None, errors=None, renderer=None):
         value_json = json.dumps(self.block_def.get_form_state(value))
 

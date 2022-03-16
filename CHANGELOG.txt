@@ -4,6 +4,7 @@ Changelog
 2.17 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~
 
+ * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
  * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas)
  * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
@@ -13,9 +14,24 @@ Changelog
  * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
  * Remove redirect auto-creation recipe from documentation as this feature is now supported in Wagtail core (Andy Babic)
  * Remove IE11 warnings (Gianluca De Cola)
+ * Remove the legacy Hallo rich text editor as it has moved to an external package (LB (Ben Johnston))
+ * Increase the size of checkboxes throughout the UI, and simplify their alignment (Steven Steinwand)
+ * Adopt [MyST](https://myst-parser.readthedocs.io/en/latest/) for parsing documentation written in Markdown, replaces recommonmark (LB (Ben Johnston), Thibaud Colas)
+ * Installing docs extras requirements in CircleCI so issues with the docs requirements are picked up earlier (Thibaud Colas)
+ * Remove core usage of jinjalint and migrate to curlylint to resolve dependency incompatibility issues (Thibaud Colas)
+ * Switch focus outlines implementation to `:focus-visible` for cross-browser consistency (Paarth Agarwal)
+ * Remove most uppercased text styles from admin UI (Paarth Agarwal)
+ * Convert all UI code to CSS logical properties for Right-to-Left (RTL) language support (Thibaud Colas)
+ * Migrate multiple documentation pages from RST to MD (Vibhakar Solanki, LB (Ben Johnston))
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
+ * Fix: Improve the contrast of the “Remember me” checkbox against the login page’s background (Steven Steinwand)
+ * Fix: Group permission rows with custom permissions no longer have extra padding (Steven Steinwand)
+ * Fix: Make sure the focus outline of checkboxes is fully around the outer border (Steven Steinwand)
+ * Fix: Consistently set `aria-haspopup="menu"` for all sidebar menu items that have sub-menus (LB (Ben Johnston))
+ * Fix: Make sure `aria-expanded` is always explicitly set as a string in sidebar (LB (Ben Johnston))
+ * Fix: Use a button element instead of a link for page explorer menu item, for the correct semantics and behavior (LB (Ben Johnston))
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT

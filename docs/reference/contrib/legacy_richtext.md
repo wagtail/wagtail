@@ -1,7 +1,6 @@
 # Legacy richtext
 
-```eval_rst
-.. module:: wagtail.contrib.legacy.richtext
+```{module} wagtail.contrib.legacy.richtext
 ```
 
 Provides the legacy richtext wrapper.

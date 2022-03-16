@@ -9,15 +9,19 @@
   white-space: nowrap;
 
   &:before {
-    font-family: $font-wagtail-icons;
+    content: '';
     display: inline-block;
-    color: $color-white;
-    content: map.get($icons, 'tag');
-    padding-right: 0.5em;
+    background: $color-white;
+    padding-inline-end: 0.5rem;
+    width: 16px;
+    height: 16px;
+    mask-image: url('#{$images-root}icons/tag.svg');
+    mask-repeat: no-repeat;
+    transform: translateY(3px);
   }
 
   .taglist & {
-    margin-right: 0.8em;
+    margin-inline-end: 0.8em;
   }
 }
 
@@ -37,7 +41,7 @@ a.tag:hover {
 
     @include media-breakpoint-up(sm) {
       @include column(2);
-      padding-left: 0;
+      padding-inline-start: 0;
     }
 
     font-weight: 700;
@@ -52,7 +56,7 @@ a.tag:hover {
   }
 
   .button.bicolor.icon-cross {
-    padding-left: 2em;
+    padding-inline-start: 2em;
 
     &:before {
       background-color: transparent;

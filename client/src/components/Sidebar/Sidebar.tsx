@@ -32,16 +32,14 @@ export interface SidebarProps {
   currentPath: string;
   strings: Strings;
   collapsedOnLoad: boolean;
-
   navigate(url: string): Promise<void>;
-
   onExpandCollapse?(collapsed: boolean);
 }
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   modules,
   currentPath,
-  collapsedOnLoad,
+  collapsedOnLoad = false,
   strings,
   navigate,
   onExpandCollapse,
@@ -83,7 +81,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         setVisibleOnMobile(false);
       }
     }
-
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
@@ -108,8 +105,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     };
   }, [slim]);
 
-  const onClickCollapseToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const onClickCollapseToggle = () => {
     setCollapsed(!collapsed);
 
     if (onExpandCollapse) {
@@ -117,8 +113,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
-  const onClickOpenCloseToggle = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const onClickOpenCloseToggle = () => {
     setVisibleOnMobile(!visibleOnMobile);
     setExpandingOrCollapsing(true);
 
@@ -191,7 +186,8 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           <button
             onClick={onClickCollapseToggle}
             aria-label={strings.TOGGLE_SIDEBAR}
-            aria-expanded={!slim}
+            aria-expanded={slim ? 'false' : 'true'}
+            type="button"
             className="button sidebar__collapse-toggle hover:w-bg-primary-200 hover:text-white hover:opacity-100"
           >
             <Icon
@@ -216,12 +212,13 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       <button
         onClick={onClickOpenCloseToggle}
         aria-label={strings.TOGGLE_SIDEBAR}
-        aria-expanded={visibleOnMobile}
+        aria-expanded={visibleOnMobile ? 'true' : 'false'}
         className={
           'button sidebar-nav-toggle' +
           (isMobile ? ' sidebar-nav-toggle--mobile' : '') +
           (visibleOnMobile ? ' sidebar-nav-toggle--open' : '')
         }
+        type="button"
       >
         {visibleOnMobile ? <Icon name="cross" /> : <Icon name="bars" />}
       </button>

@@ -171,9 +171,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     }
   }, [expandingOrCollapsing]);
 
-  const onClickAccountSettings = (e: React.MouseEvent) => {
-    e.preventDefault();
-
+  const onClickAccountSettings = () => {
     if (accountSettingsOpen) {
       dispatch({
         type: 'set-navigation-path',
@@ -222,10 +220,11 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           hover:w-bg-primary
           hover:w-text-white focus:w-bg-primary focus:w-text-white"
           title={strings.EDIT_YOUR_ACCOUNT}
-          aria-label={strings.EDIT_YOUR_ACCOUNT}
           onClick={onClickAccountSettings}
-          aria-haspopup="true"
+          aria-label={strings.EDIT_YOUR_ACCOUNT}
+          aria-haspopup="menu"
           aria-expanded={accountSettingsOpen ? 'true' : 'false'}
+          type="button"
         >
           <div className="avatar avatar-on-dark !w-w-[28px] !w-h-[28px]">
             <img src={user.avatarUrl} alt="" />

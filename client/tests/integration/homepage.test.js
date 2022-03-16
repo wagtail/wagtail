@@ -18,7 +18,9 @@ describe('Homepage', () => {
   });
 
   it('axe page explorer', async () => {
-    const trigger = await page.$('[aria-haspopup="dialog"]');
+    const trigger = await page.$(
+      '.sidebar-page-explorer-item [aria-haspopup="menu"]',
+    );
     await trigger.click();
     await expect(page).toPassAxeTests({
       include: '.sidebar-main-menu',
@@ -26,7 +28,9 @@ describe('Homepage', () => {
   });
 
   it('axe sidebar sub-menu', async () => {
-    const trigger = await page.$('[aria-haspopup="true"]');
+    const trigger = await page.$(
+      '.sidebar-sub-menu-item [aria-haspopup="menu"]',
+    );
     await trigger.click();
     await expect(page).toPassAxeTests({
       include: '.sidebar-main-menu',

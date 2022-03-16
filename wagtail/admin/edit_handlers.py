@@ -7,7 +7,6 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.signals import setting_changed
-from django.db.models.fields import CharField, TextField
 from django.dispatch import receiver
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
@@ -16,14 +15,13 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
-from taggit.managers import TaggableManager
 
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.core.fields import RichTextField
+from wagtail.core.blocks import BlockField
 from wagtail.core.models import COMMENTS_RELATION_NAME, Page
-from wagtail.core.utils import camelcase_to_underscore, resolve_model_string
+from wagtail.core.utils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
@@ -464,7 +462,7 @@ class FieldPanel(EditHandler):
         widget = kwargs.pop("widget", None)
         if widget is not None:
             self.widget = widget
-        self.comments_enabled = not kwargs.pop("disable_comments", False)
+        self.disable_comments = kwargs.pop("disable_comments", None)
         super().__init__(*args, **kwargs)
         self.field_name = field_name
 
@@ -487,7 +485,13 @@ class FieldPanel(EditHandler):
 
         if self.bound_field.field.required:
             classes.append("required")
-        if self.bound_field.errors:
+
+        # If field has any errors, add the classname 'error' to enable error styling
+        # (e.g. red background), unless the widget has its own mechanism for rendering errors
+        # via the render_with_errors mechanism (as StreamField does).
+        if self.bound_field.errors and not hasattr(
+            self.bound_field.field.widget, "render_with_errors"
+        ):
             classes.append("error")
 
         classes.append(self.field_type())
@@ -499,6 +503,14 @@ class FieldPanel(EditHandler):
 
     def id_for_label(self):
         return self.bound_field.id_for_label
+
+    @property
+    def comments_enabled(self):
+        if self.disable_comments is None:
+            # by default, enable comments on all fields except StreamField (which has its own comment handling)
+            return not isinstance(self.bound_field.field, BlockField)
+        else:
+            return not self.disable_comments
 
     object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
 
@@ -550,19 +562,15 @@ class FieldPanel(EditHandler):
             if field.choices:
                 return compare.ChoiceFieldComparison
 
+            comparison_class = compare.comparison_class_registry.get(field)
+            if comparison_class:
+                return comparison_class
+
             if field.is_relation:
-                if isinstance(field, TaggableManager):
-                    return compare.TagsFieldComparison
-                elif field.many_to_many:
+                if field.many_to_many:
                     return compare.M2MFieldComparison
 
                 return compare.ForeignObjectComparison
-
-            if isinstance(field, RichTextField):
-                return compare.RichTextFieldComparison
-
-            if isinstance(field, (CharField, TextField)):
-                return compare.TextFieldComparison
 
         except FieldDoesNotExist:
             pass
@@ -610,59 +618,18 @@ class FieldPanel(EditHandler):
 
 
 class RichTextFieldPanel(FieldPanel):
-    def get_comparison_class(self):
-        return compare.RichTextFieldComparison
+    pass
 
 
 class BaseChooserPanel(FieldPanel):
-    """
-    Abstract superclass for panels that provide a modal interface for choosing (or creating)
-    a database object such as an image, resulting in an ID that is used to populate
-    a hidden foreign key input.
-
-    Subclasses provide:
-    * field_template (only required if the default template of field_panel_field.html is not usable)
-    * object_type_name - something like 'image' which will be used as the var name
-      for the object instance in the field_template
-    """
-
-    def get_chosen_item(self):
-        field = self.instance._meta.get_field(self.field_name)
-        related_model = field.remote_field.model
-        try:
-            return getattr(self.instance, self.field_name)
-        except related_model.DoesNotExist:
-            # if the ForeignKey is null=False, Django decides to raise
-            # a DoesNotExist exception here, rather than returning None
-            # like every other unpopulated field type. Yay consistency!
-            return
-
-    def render_as_field(self):
-        instance_obj = self.get_chosen_item()
-        context = {
-            "field": self.bound_field,
-            self.object_type_name: instance_obj,
-            "is_chosen": bool(
-                instance_obj
-            ),  # DEPRECATED - passed to templates for backwards compatibility only
-            "show_add_comment_button": self.comments_enabled
-            and getattr(self.bound_field.field.widget, "show_add_comment_button", True),
-        }
-        return mark_safe(render_to_string(self.field_template, context))
+    # For backwards compatibility only - chooser panels no longer need any base functionality
+    # beyond FieldPanel.
+    pass
 
 
 class PageChooserPanel(BaseChooserPanel):
-    object_type_name = "page"
-
     def __init__(self, field_name, page_type=None, can_choose_root=False):
         super().__init__(field_name=field_name)
-
-        if page_type:
-            # Convert single string/model into list
-            if not isinstance(page_type, (list, tuple)):
-                page_type = [page_type]
-        else:
-            page_type = []
 
         self.page_type = page_type
         self.can_choose_root = can_choose_root
@@ -675,34 +642,14 @@ class PageChooserPanel(BaseChooserPanel):
         }
 
     def widget_overrides(self):
-        return {
-            self.field_name: widgets.AdminPageChooser(
-                target_models=self.target_models(), can_choose_root=self.can_choose_root
-            )
-        }
-
-    def target_models(self):
-        if self.page_type:
-            target_models = []
-
-            for page_type in self.page_type:
-                try:
-                    target_models.append(resolve_model_string(page_type))
-                except LookupError:
-                    raise ImproperlyConfigured(
-                        "{0}.page_type must be of the form 'app_label.model_name', given {1!r}".format(
-                            self.__class__.__name__, page_type
-                        )
-                    )
-                except ValueError:
-                    raise ImproperlyConfigured(
-                        "{0}.page_type refers to model {1!r} that has not been installed".format(
-                            self.__class__.__name__, page_type
-                        )
-                    )
-
-            return target_models
-        return [self.db_field.remote_field.model]
+        if self.page_type or self.can_choose_root:
+            return {
+                self.field_name: widgets.AdminPageChooser(
+                    target_models=self.page_type, can_choose_root=self.can_choose_root
+                )
+            }
+        else:
+            return {}
 
 
 class InlinePanel(EditHandler):
@@ -1064,25 +1011,4 @@ def reset_page_edit_handler_cache(**kwargs):
 
 
 class StreamFieldPanel(FieldPanel):
-    def __init__(self, *args, **kwargs):
-        disable_comments = kwargs.pop("disable_comments", True)
-        super().__init__(*args, **kwargs, disable_comments=disable_comments)
-
-    def classes(self):
-        classes = super().classes()
-        classes.append("stream-field")
-
-        # In case of a validation error, BlockWidget will take care of outputting the error on the
-        # relevant sub-block, so we don't want the stream block as a whole to be wrapped in an 'error' class.
-        if "error" in classes:
-            classes.remove("error")
-
-        return classes
-
-    def get_comparison_class(self):
-        return compare.StreamFieldComparison
-
-    def id_for_label(self):
-        # a StreamField may consist of many input fields, so it's not meaningful to
-        # attach the label to any specific one
-        return ""
+    pass

@@ -2,7 +2,10 @@
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}" {% if include_contentpath|default_if_none:True %}data-contentpath="{{ field.name }}"{% endif %}>
     {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
-        <div class="input {{ input_classes }} ">
+        <div class="input">
+            {% if icon %}
+                {% icon name=icon %}
+            {% endif %}
             {% block form_field %}
                 {{ field|render_with_errors }}
             {% endblock %}

@@ -32,7 +32,7 @@
   @apply w-text-white/85;
   width: 2em;
   height: 2em;
-  margin-right: 0.75rem;
+  margin-inline-end: 0.75rem;
 }
 
 .c-page-explorer__item__title {
@@ -69,7 +69,7 @@
   }
 
   .icon::before {
-    margin-right: 0;
+    margin-inline-end: 0;
   }
 }
 
@@ -84,5 +84,5 @@
 
 .c-page-explorer__meta {
   @apply w-flex w-gap-2 w-text-white/85 w-text-[12px];
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }

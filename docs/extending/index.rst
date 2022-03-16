@@ -11,6 +11,7 @@ This section describes the various mechanisms that can be used to integrate your
 
     admin_views
     template_components
+    forms
     adding_reports
     custom_tasks
     audit_log
@@ -18,5 +19,4 @@ This section describes the various mechanisms that can be used to integrate your
     customising_group_views
     rich_text_internals
     extending_draftail
-    extending_hallo
     custom_bulk_actions

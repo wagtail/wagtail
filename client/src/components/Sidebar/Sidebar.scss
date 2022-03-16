@@ -3,7 +3,10 @@
 
   position: absolute;
   top: $sidebar-toggle-spacing;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
   right: $sidebar-toggle-spacing;
+  inset-inline-end: $sidebar-toggle-spacing;
   color: $color-white;
   width: $sidebar-toggle-size;
   height: $sidebar-toggle-size;
@@ -29,12 +32,19 @@
 }
 
 .sidebar {
-  @apply w-fixed w-left-0 w-float-left w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+  @apply w-fixed w-float-left w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
   width: $menu-width;
+  // Remove once we drop support for Safari 13.
+  // stylelint-disable-next-line property-disallowed-list
+  left: 0;
+  inset-inline-start: 0;
 
   @include transition(
     width $menu-transition-duration ease,
-    left $menu-transition-duration ease
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    left $menu-transition-duration ease,
+    inset-inline-start $menu-transition-duration ease
   );
 
   @media (forced-colors: $media-forced-colours) {
@@ -47,7 +57,10 @@
 
   // The sidebar can move completely off-screen in mobile mode for extra room
   &--hidden {
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: -$menu-width;
+    inset-inline-start: -$menu-width;
   }
 
   &__inner {

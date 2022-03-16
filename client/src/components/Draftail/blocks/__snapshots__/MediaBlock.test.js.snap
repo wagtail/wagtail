@@ -27,6 +27,26 @@ exports[`MediaBlock no data 1`] = `
 </button>
 `;
 
+exports[`MediaBlock on click tooltip opens 1`] = `
+<div>
+  <div
+    class="Tooltip Tooltip--top-left"
+    role="tooltip"
+    style="top: 0px; left: 0px; inset-inline-start: 0;"
+  >
+    <div
+      style="max-width: 300px;"
+    >
+      <div
+        id="test"
+      >
+        Test
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`MediaBlock renders 1`] = `
 <button
   className="MediaBlock"
@@ -52,24 +72,4 @@ exports[`MediaBlock renders 1`] = `
     width="256"
   />
 </button>
-`;
-
-exports[`MediaBlock on click tooltip opens 1`] = `
-<div>
-  <div
-    class="Tooltip Tooltip--top-left"
-    role="tooltip"
-    style="top: 0px; left: 0px;"
-  >
-    <div
-      style="max-width: 300px;"
-    >
-      <div
-        id="test"
-      >
-        Test
-      </div>
-    </div>
-  </div>
-</div>
 `;

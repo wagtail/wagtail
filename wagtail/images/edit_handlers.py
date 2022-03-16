@@ -3,17 +3,9 @@ from django.template.loader import render_to_string
 from wagtail.admin.compare import ForeignObjectComparison
 from wagtail.admin.edit_handlers import BaseChooserPanel
 
-from .widgets import AdminImageChooser
-
 
 class ImageChooserPanel(BaseChooserPanel):
-    object_type_name = "image"
-
-    def widget_overrides(self):
-        return {self.field_name: AdminImageChooser}
-
-    def get_comparison_class(self):
-        return ImageFieldComparison
+    pass
 
 
 class ImageFieldComparison(ForeignObjectComparison):

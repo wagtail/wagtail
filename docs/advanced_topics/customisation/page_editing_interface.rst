@@ -21,7 +21,7 @@ As standard, Wagtail organises panels for pages into three tabs: 'Content', 'Pro
             FieldPanel('body', classname="full"),
         ]
         sidebar_content_panels = [
-            SnippetChooserPanel('advert'),
+            FieldPanel('advert'),
             InlinePanel('related_links', label="Related links"),
         ]
 
@@ -96,7 +96,6 @@ The process for creating new features is described in the following pages:
 
 * :doc:`../../extending/rich_text_internals`
 * :doc:`../../extending/extending_draftail`
-* :doc:`../../extending/extending_hallo`
 
 .. _rich_text_image_formats:
 

@@ -18,9 +18,9 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
+    MultiFieldPanel,
     ObjectList,
     PageChooserPanel,
-    RichTextFieldPanel,
     TabbedInterface,
     extract_panel_definitions_from_model_class,
     get_form_for_model,
@@ -33,10 +33,8 @@ from wagtail.admin.widgets import (
     AdminPageChooser,
 )
 from wagtail.core.models import Comment, CommentReply, Page, Site
-from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.tests.testapp.forms import ValidatedPageForm
 from wagtail.tests.testapp.models import (
-    DefaultStreamPage,
     EventPage,
     EventPageChooserModel,
     EventPageSpeaker,
@@ -255,33 +253,6 @@ class TestPageEditHandlers(TestCase):
 
             self.assertEqual(errors, [invalid_base_form, invalid_edit_handler])
 
-    @clear_edit_handler(DefaultStreamPage)
-    def test_check_invalid_streamfield_edit_handler(self):
-        """
-        Set the edit handler for body (a StreamField) to be
-        a FieldPanel instead of a StreamFieldPanel.
-        Check that the correct warning is raised.
-        """
-
-        invalid_edit_handler = checks.Warning(
-            "DefaultStreamPage.body is a StreamField, but uses FieldPanel",
-            hint="Ensure that it uses a StreamFieldPanel, or change the field type",
-            obj=DefaultStreamPage,
-            id="wagtailadmin.W003",
-        )
-
-        with mock.patch.object(
-            DefaultStreamPage, "content_panels", new=[FieldPanel("body")]
-        ):
-            checks_result = checks.run_checks(tags=["panels"])
-
-            # Only look at warnings for DefaultStreamPage
-            warning = [
-                warning for warning in checks_result if warning.obj == DefaultStreamPage
-            ]
-
-            self.assertEqual(warning, [invalid_edit_handler])
-
     @clear_edit_handler(ValidatedPage)
     def test_custom_edit_handler_form_class(self):
         """
@@ -318,7 +289,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         # A class with a 'panels' property defined should return that list
         result = extract_panel_definitions_from_model_class(EventPageSpeaker)
         self.assertEqual(len(result), 5)
-        self.assertTrue(any([isinstance(panel, ImageChooserPanel) for panel in result]))
+        self.assertTrue(any([isinstance(panel, MultiFieldPanel) for panel in result]))
 
     def test_exclude(self):
         panels = extract_panel_definitions_from_model_class(Site, exclude=["hostname"])
@@ -333,16 +304,6 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
             any(
                 [
                     isinstance(panel, FieldPanel) and panel.field_name == "date_from"
-                    for panel in panels
-                ]
-            )
-        )
-
-        # returned panel types should respect modelfield.get_panel() - used on RichTextField
-        self.assertTrue(
-            any(
-                [
-                    isinstance(panel, RichTextFieldPanel) and panel.field_name == "body"
                     for panel in panels
                 ]
             )
@@ -815,7 +776,7 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.dates_panel = FieldRowPanel(
             [
                 FieldPanel("date_from"),
-                ImageChooserPanel("feed_image"),
+                FieldPanel("feed_image"),
             ]
         ).bind_to(model=EventPage, request=self.request)
 
@@ -905,10 +866,6 @@ class TestPageChooserPanel(TestCase):
         )
         self.assertIn(expected_js, result)
 
-    def test_get_chosen_item(self):
-        result = self.page_chooser_panel.get_chosen_item()
-        self.assertEqual(result, self.christmas_page)
-
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
         self.assertIn('<p class="help">help text</p>', result)
@@ -983,22 +940,21 @@ class TestPageChooserPanel(TestCase):
         self.assertIn(expected_js, result)
 
     def test_target_models(self):
-        result = (
-            PageChooserPanel("page", "wagtailcore.site")
-            .bind_to(model=PageChooserModel)
-            .target_models()
-        )
-        self.assertEqual(result, [Site])
-
-    def test_target_models_malformed_type(self):
-        result = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
-        self.assertRaises(ImproperlyConfigured, result.target_models)
-
-    def test_target_models_nonexistent_type(self):
-        result = PageChooserPanel("page", "snowman.lorry").bind_to(
+        panel = PageChooserPanel("page", "wagtailcore.site").bind_to(
             model=PageChooserModel
         )
-        self.assertRaises(ImproperlyConfigured, result.target_models)
+        widget = panel.widget_overrides()["page"]
+        self.assertEqual(widget.target_models, [Site])
+
+    def test_target_models_malformed_type(self):
+        panel = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
+        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+
+    def test_target_models_nonexistent_type(self):
+        panel = PageChooserPanel("page", "snowman.lorry").bind_to(
+            model=PageChooserModel
+        )
+        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
@@ -1079,7 +1035,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
                     label="Speakers",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
-                        ImageChooserPanel("image"),
+                        FieldPanel("image"),
                     ],
                 ),
             ]
@@ -1157,7 +1113,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
                     label="Speakers",
                     panels=[
                         FieldPanel("first_name", widget=forms.Textarea),
-                        ImageChooserPanel("image"),
+                        FieldPanel("image"),
                     ],
                 ),
             ]

@@ -18,7 +18,7 @@ from django.utils.timezone import make_aware
 from taggit.models import Tag
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, ObjectList
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.core import hooks
 from wagtail.core.blocks.field_block import FieldBlockAdapter
@@ -28,7 +28,6 @@ from wagtail.snippets.action_menu import (
     get_base_snippet_action_menu_items,
 )
 from wagtail.snippets.blocks import SnippetChooserBlock
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import SNIPPET_MODELS, register_snippet
 from wagtail.snippets.views.snippets import get_snippet_edit_handler
 from wagtail.snippets.widgets import (
@@ -1310,9 +1309,6 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-    def test_create_snippet_chooser_panel_class(self):
-        self.assertIsInstance(self.snippet_chooser_panel, SnippetChooserPanel)
-
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
         self.assertIn(self.advert_text, field_html)
@@ -1343,12 +1339,14 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        result = (
-            SnippetChooserPanel("advert")
-            .bind_to(model=SnippetChooserModel)
-            .target_model
+        edit_handler = ObjectList([FieldPanel("advert")]).bind_to(
+            model=SnippetChooserModel
         )
-        self.assertEqual(result, Advert)
+        form_class = edit_handler.get_form_class()
+        form = form_class()
+        widget = form.fields["advert"].widget
+        self.assertIsInstance(widget, AdminSnippetChooser)
+        self.assertEqual(widget.target_model, Advert)
 
 
 class TestSnippetRegistering(TestCase):
@@ -2166,9 +2164,6 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-    def test_create_snippet_chooser_panel_class(self):
-        self.assertIsInstance(self.snippet_chooser_panel, SnippetChooserPanel)
-
     def test_render_as_field(self):
         field_html = self.snippet_chooser_panel.render_as_field()
         self.assertIn(self.advert_text, field_html)
@@ -2199,12 +2194,14 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        result = (
-            SnippetChooserPanel("advertwithcustomprimarykey")
-            .bind_to(model=SnippetChooserModelWithCustomPrimaryKey)
-            .target_model
+        edit_handler = ObjectList([FieldPanel("advertwithcustomprimarykey")]).bind_to(
+            model=SnippetChooserModelWithCustomPrimaryKey
         )
-        self.assertEqual(result, AdvertWithCustomPrimaryKey)
+        form_class = edit_handler.get_form_class()
+        form = form_class()
+        widget = form.fields["advertwithcustomprimarykey"].widget
+        self.assertIsInstance(widget, AdminSnippetChooser)
+        self.assertEqual(widget.target_model, AdvertWithCustomPrimaryKey)
 
 
 class TestSnippetChooseWithCustomPrimaryKey(TestCase, WagtailTestUtils):

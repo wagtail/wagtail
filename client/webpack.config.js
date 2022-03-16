@@ -38,10 +38,6 @@ module.exports = function exports(env, argv) {
       'draftail',
       'expanding-formset',
       'filtered-select',
-      'hallo-bootstrap',
-      'hallo-plugins/hallo-hr',
-      'hallo-plugins/hallo-requireparagraphs',
-      'hallo-plugins/hallo-wagtaillink',
       'lock-unlock-action',
       'modal-workflow',
       'page-chooser-modal',
@@ -181,15 +177,6 @@ module.exports = function exports(env, argv) {
     'scss',
     'panels',
     'draftail.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'panels/hallo')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'panels',
-    'hallo.scss',
   );
   sassEntry[getOutputPath('admin', 'css', 'panels/streamfield')] = path.resolve(
     'wagtail',

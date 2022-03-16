@@ -68,7 +68,7 @@ class EntityRange:
 
 
 class ContentState:
-    """Pythonic representation of a draft.js contentState structure"""
+    """Pythonic representation of a Draftail contentState structure"""
 
     def __init__(self):
         self.blocks = []

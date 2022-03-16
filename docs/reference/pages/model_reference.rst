@@ -90,9 +90,11 @@ Database fields
 
         (boolean)
 
-        Toggles whether the page should be included in site-wide menus.
+        Toggles whether the page should be included in site-wide menus, and is shown in the ``promote_panels`` within the Page editor.
 
-        This is used by the :meth:`~wagtail.core.query.PageQuerySet.in_menu` QuerySet filter.
+        Wagtail does not include any menu implementation by default, which means that this field will not do anything in the front facing content unless built that way in a specific Wagtail installation.
+
+        However, this is used by the :meth:`~wagtail.core.query.PageQuerySet.in_menu` QuerySet filter to make it easier to query for pages that use this field.
 
         Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
 

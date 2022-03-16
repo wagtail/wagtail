@@ -14,7 +14,7 @@
       100% - 110px
     ); // Leave room for actions to the right and avatar to the left
     margin: 0;
-    margin-left: 45px;
+    margin-inline-start: 45px;
     font-size: 11px;
     line-height: 15px;
   }
@@ -25,12 +25,15 @@
 
   &__actions {
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     right: 0;
+    inset-inline-end: 0;
   }
 
   &__action {
     float: left;
-    margin-left: 5px;
+    margin-inline-start: 5px;
     border-radius: 5px;
     width: 30px;
     height: 30px;
@@ -58,7 +61,10 @@
       svg {
         position: absolute;
         top: 7.5px;
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         left: 7.5px;
+        inset-inline-start: 7.5px;
         width: 15px;
         height: 15px;
       }
@@ -73,7 +79,10 @@
 
       > div {
         position: absolute;
+        // Remove once we drop support for Safari 13.
+        // stylelint-disable-next-line property-disallowed-list
         right: 0;
+        inset-inline-end: 0;
         top: 35px;
       }
     }
@@ -98,7 +107,7 @@
     position: absolute;
     z-index: 1000;
     list-style: none;
-    text-align: left;
+    text-align: start;
     border-radius: 3px;
 
     &:before {
@@ -108,7 +117,10 @@
       display: block;
       position: absolute;
       bottom: 100%;
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
       right: 9px;
+      inset-inline-end: 9px;
     }
 
     button {
@@ -119,7 +131,7 @@
       padding: 5px 10px;
       font-size: 13px;
       width: 100px;
-      text-align: left;
+      text-align: start;
 
       &:hover {
         color: #aaa;

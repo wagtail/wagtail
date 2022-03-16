@@ -21,9 +21,13 @@
 
   // Beat specificity
   input:not([type='submit']) {
+    @apply w-pl-[45x];
     @include show-focus-outline-inside();
     position: absolute;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
     left: 0;
+    inset-inline-start: 0;
     top: 0;
     // Need !important to override body.ready class
     font-size: 13px;
@@ -32,7 +36,6 @@
     border: 0;
     border-radius: 0;
     color: $color-menu-text;
-    padding-left: 45px;
     -webkit-font-smoothing: auto;
 
     .sidebar--slim & {
@@ -57,13 +60,13 @@
       width $menu-transition-duration ease;
 
     svg {
-      margin-right: 20px;
-      transition: margin-right $menu-transition-duration ease;
+      margin-inline-end: 20px;
+      transition: margin-inline-end $menu-transition-duration ease;
     }
 
     .sidebar--slim & {
       svg {
-        margin-right: 0;
+        margin-inline-end: 0;
       }
     }
 

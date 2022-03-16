@@ -30,14 +30,6 @@ module.exports = plugin(({ addComponents, theme }) => {
       fontSize: theme('fontSize.18'),
       ...headingBaseStyles,
     },
-    '.h5': {
-      fontSize: theme('fontSize.16'),
-      ...headingBaseStyles,
-    },
-    '.h6': {
-      fontSize: theme('fontSize.15'),
-      ...headingBaseStyles,
-    },
     '.label-1': {
       fontSize: theme('fontSize.16'),
       fontWeight: theme('fontWeight.bold'),
@@ -51,7 +43,7 @@ module.exports = plugin(({ addComponents, theme }) => {
       lineHeight: theme('lineHeight.tight'),
     },
     '.label-3': {
-      fontSize: theme('fontSize.15'),
+      fontSize: theme('fontSize.14'),
       fontWeight: theme('fontWeight.medium'),
       color: theme('colors.primary.DEFAULT'),
       lineHeight: theme('lineHeight.tight'),
@@ -59,17 +51,15 @@ module.exports = plugin(({ addComponents, theme }) => {
     '.body-text': {
       fontSize: theme('fontSize.16'),
       fontWeight: theme('fontWeight.normal'),
-      color: theme('colors.grey.600'),
       lineHeight: theme('lineHeight.normal'),
     },
     '.body-text-large': {
       fontSize: theme('fontSize.18'),
       fontWeight: theme('fontWeight.normal'),
-      color: theme('colors.grey.600'),
       lineHeight: theme('lineHeight.normal'),
     },
     '.help-text': {
-      fontSize: theme('fontSize.16'),
+      fontSize: theme('fontSize.14'),
       fontWeight: theme('fontWeight.normal'),
       color: theme('colors.grey.400'),
       lineHeight: theme('lineHeight.tight'),

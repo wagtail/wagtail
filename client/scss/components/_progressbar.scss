@@ -14,12 +14,12 @@
     border-radius: 1.5em;
     overflow: hidden;
     box-sizing: border-box;
-    text-align: right;
+    text-align: end;
     line-height: 1.2em;
     color: $color-white;
     font-size: 0.85em;
     background-color: $color-teal;
     height: 1.2em;
-    padding-right: 1em;
+    padding-inline-end: 1em;
   }
 }

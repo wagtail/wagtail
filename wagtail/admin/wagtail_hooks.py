@@ -16,12 +16,6 @@ from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.forms.collections import GroupCollectionManagementPermissionFormSet
 from wagtail.admin.menu import MenuItem, SubmenuMenuItem, reports_menu, settings_menu
 from wagtail.admin.navigation import get_explorable_root_page
-from wagtail.admin.rich_text import (
-    HalloFormatPlugin,
-    HalloHeadingPlugin,
-    HalloListPlugin,
-    HalloPlugin,
-)
 from wagtail.admin.rich_text.converters.contentstate import link_entity
 from wagtail.admin.rich_text.converters.editor_html import (
     LinkTypeRule,
@@ -425,31 +419,6 @@ def register_viewsets_urls():
 
 @hooks.register("register_rich_text_features")
 def register_core_features(features):
-    # Hallo.js
-    features.register_editor_plugin(
-        "hallo",
-        "hr",
-        HalloPlugin(
-            name="hallohr",
-            js=["wagtailadmin/js/hallo-plugins/hallo-hr.js"],
-            order=45,
-        ),
-    )
-    features.register_converter_rule(
-        "editorhtml", "hr", [WhitelistRule("hr", allow_without_attributes)]
-    )
-
-    features.register_editor_plugin(
-        "hallo",
-        "link",
-        HalloPlugin(
-            name="hallowagtaillink",
-            js=[
-                "wagtailadmin/js/page-chooser-modal.js",
-                "wagtailadmin/js/hallo-plugins/hallo-wagtaillink.js",
-            ],
-        ),
-    )
     features.register_converter_rule(
         "editorhtml",
         "link",
@@ -459,9 +428,6 @@ def register_core_features(features):
         ],
     )
 
-    features.register_editor_plugin(
-        "hallo", "bold", HalloFormatPlugin(format_name="bold")
-    )
     features.register_converter_rule(
         "editorhtml",
         "bold",
@@ -471,9 +437,6 @@ def register_core_features(features):
         ],
     )
 
-    features.register_editor_plugin(
-        "hallo", "italic", HalloFormatPlugin(format_name="italic")
-    )
     features.register_converter_rule(
         "editorhtml",
         "italic",
@@ -484,16 +447,11 @@ def register_core_features(features):
     )
 
     headings_elements = ["h1", "h2", "h3", "h4", "h5", "h6"]
-    headings_order_start = HalloHeadingPlugin.default_order + 1
-    for order, element in enumerate(headings_elements, start=headings_order_start):
-        features.register_editor_plugin(
-            "hallo", element, HalloHeadingPlugin(element=element, order=order)
-        )
+    for order, element in enumerate(headings_elements):
         features.register_converter_rule(
             "editorhtml", element, [WhitelistRule(element, allow_without_attributes)]
         )
 
-    features.register_editor_plugin("hallo", "ol", HalloListPlugin(list_type="ordered"))
     features.register_converter_rule(
         "editorhtml",
         "ol",
@@ -503,9 +461,6 @@ def register_core_features(features):
         ],
     )
 
-    features.register_editor_plugin(
-        "hallo", "ul", HalloListPlugin(list_type="unordered")
-    )
     features.register_converter_rule(
         "editorhtml",
         "ul",

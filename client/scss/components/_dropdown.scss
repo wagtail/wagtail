@@ -7,8 +7,8 @@
 .c-dropdown__button {
   display: inline-block;
   box-sizing: border-box;
-  padding-left: 0.5rem;
-  padding-right: 0.25rem;
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.25rem;
   // Make this the same as the other buttons
   line-height: 1.85;
   border: solid 1px transparent;
@@ -21,17 +21,17 @@
 
 .c-dropdown--large .c-dropdown__button {
   line-height: 2.9em;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-inline-start: 0.5rem;
+  padding-inline-end: 0.5rem;
 
   .icon-site {
-    padding-right: 0.2rem;
+    padding-inline-end: 0.2rem;
   }
 }
 
 .c-dropdown__icon {
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
+  padding-inline-start: 0.4rem;
+  padding-inline-end: 0.4rem;
 }
 
 .c-dropdown__toggle {
@@ -73,7 +73,7 @@
   list-style: none;
   // Override any right alignment that might've been set by a parent element
   // (such as the snippets header)
-  text-align: left;
+  text-align: start;
 }
 
 .c-dropdown__item {
