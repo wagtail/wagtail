@@ -1,18 +1,10 @@
 // stylelint-disable declaration-no-important
 .sidebar-search {
+  @apply w-z-20 w-relative w-box-border w-flex w-items-center w-flex-row w-h-[42px] w-px-5;
   $root: &;
-  position: relative;
-  box-sizing: border-box;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  height: 42px;
-  z-index: 1;
 
   .sidebar--slim & {
-    justify-content: center;
-    padding: 0;
+    @apply w-justify-center w-p-0;
   }
 
   &__label {
@@ -21,7 +13,7 @@
 
   // Beat specificity
   input:not([type='submit']) {
-    @apply w-pl-[45x];
+    @apply w-pl-[45px];
     @include show-focus-outline-inside();
     position: absolute;
     // Remove once we drop support for Safari 13.
