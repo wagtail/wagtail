@@ -42,7 +42,7 @@ class AgingPagesView(PageReportView):
     export_headings = {
         "status_string": _("Status"),
         "last_published_at": _("Last published at"),
-        "last_published_by_user": _("Last published by"),
+        "last_published_by": _("Last published by"),
         "content_type": _("Type"),
     }
     list_export = [
