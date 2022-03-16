@@ -15,12 +15,27 @@ exports[`Menu should render with the minimum required props 1`] = `
     <button
       aria-expanded="false"
       aria-haspopup="menu"
-      className="sidebar-footer__account"
+      className="
+          sidebar-footer__account
+          w-bg-primary
+          w-text-white
+          w-flex
+          w-items-center
+          w-relative
+          w-p-0
+          w-w-full
+          w-appearance-none
+          w-border-0
+          w-overflow-hidden
+          md:w-px-5
+          md:w-py-3
+          hover:w-bg-primary
+          hover:w-text-white focus:w-bg-primary focus:w-text-white"
       onClick={[Function]}
       type="button"
     >
       <div
-        className="avatar square avatar-on-dark"
+        className="avatar avatar-on-dark !w-w-[28px] !w-h-[28px]"
       >
         <img
           alt=""
@@ -31,10 +46,10 @@ exports[`Menu should render with the minimum required props 1`] = `
         className="sidebar-footer__account-toggle"
       >
         <div
-          className="sidebar-footer__account-label"
+          className="sidebar-footer__account-label w-label-3 w-text-white"
         />
         <Icon
-          className="sidebar-footer__account-icon"
+          className="w-w-4 w-h-4 w-text-white"
           name="arrow-up"
         />
       </div>
