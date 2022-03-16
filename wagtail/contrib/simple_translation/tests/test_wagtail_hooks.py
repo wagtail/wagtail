@@ -372,23 +372,24 @@ class TestDeletingTranslatedPages(Utils):
         self.fr_blog_post = self.en_blog_post.copy_for_translation(
             self.fr_locale, alias=True
         )
+        self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
         self.assertEqual(self.fr_blog_post.get_parent().id, self.fr_blog_index.id)
 
         # Test fr_blog_post alias_id is in the list of translations
+        # Test fr_blog_post is a proper alias of en_blog_post
+        # Test fr_blog_post is using the french locale (fr)
+        # Test beyond the language code to ensure the page is in the correct language tree
         translation_ids = [p.id for p in self.fr_blog_post.get_translations()]
         self.assertIn(self.fr_blog_post.alias_of_id, translation_ids)
-        # Test fr_blog_post is a proper alias of en_blog_post
         self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
-        # Test fr_blog_post is using the french locale (fr)
         self.assertEqual(self.fr_blog_post.locale.language_code, "fr")
-        # Test beyond the language code to ensure the page is in the correct language tree
-        self.assertIn(
-            self.fr_blog_post,
-            Page.objects.filter(locale__language_code="fr").specific(),
-        )
 
-        # Make sure the alias page is an alias of the en_blog_post
-        self.assertEqual(self.fr_blog_post.alias_of_id, self.en_blog_post.id)
+        # Test the source is in the source tree root (source HomePage)
+        # Test that the translated alias is in the translated root (fr HomePage)
+        en_root = Page.objects.filter(depth__gt=1, locale=self.en_locale).first()
+        fr_root = Page.objects.filter(depth__gt=1, locale=self.fr_locale).first()
+        self.assertIn(self.en_blog_post, en_root.get_descendants().specific())
+        self.assertIn(self.fr_blog_post, fr_root.get_descendants().specific())
 
         # Delete the en_blog_post page and make sure the alias page is kept in tact.
         response = self.client.post(
@@ -401,7 +402,8 @@ class TestDeletingTranslatedPages(Utils):
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Page.objects.filter(pk=self.en_blog_post.id).exists())
         self.assertFalse(Page.objects.filter(pk=self.fr_blog_post.id).exists())
-        self.assertNotIn(
-            self.fr_blog_post,
-            Page.objects.filter(locale__language_code="fr").specific(),
-        )
+
+        # Test that the source page continues to exist in the source tree root (HomePage)
+        # Test that the translated alias is no longer in the translated tree root (fr HomePage)
+        self.assertNotIn(self.en_blog_post, en_root.get_descendants().specific())
+        self.assertNotIn(self.fr_blog_post, fr_root.get_descendants().specific())
