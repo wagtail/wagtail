@@ -1,3 +1,4 @@
+from xxlimited import new
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -183,6 +184,90 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         assert [msg.message for msg in response.context["messages"]] == [
             "The page 'Blog' was successfully created in 2 locales"
         ]
+
+    def test_translating_latest_non_draft_page_revision(self):
+        old_index_title = self.en_blog_index.title
+        old_post_title = self.en_blog_post.title
+        new_index_title = old_index_title + '-77777'
+        new_post_title = old_post_title + '-77777'
+        self.en_blog_index.title = new_index_title
+        self.en_blog_index.save_revision(log_action=True)
+        self.en_blog_post.title = new_post_title
+        self.en_blog_post.save_revision(log_action=True)
+
+        url = reverse("simple_translation:submit_page_translation", args=(self.en_blog_index.id,))
+        de = Locale.objects.get(language_code="de").id
+        data = {"locales": [de], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data)
+
+        assert response.status_code == 302
+        assert response.url == f"/admin/pages/{self.en_blog_index.get_parent().id}/"
+
+        response = self.client.get(response.url)  # follow the redirect
+
+        assert [msg.message for msg in response.context["messages"]] == [
+            "The page '%s' was successfully created in German" % new_index_title
+        ]
+
+        new_index_page = [
+            trans_page 
+            for trans_page in self.en_blog_index.get_translations()
+            if trans_page.locale.language_code == "de"
+        ][0]
+        assert new_index_page.title == old_index_title
+        new_post_page = [
+            trans_page 
+            for trans_page in self.en_blog_post.get_translations()
+            if trans_page.locale.language_code == "de"
+        ][0]
+        assert new_post_page.title == old_post_title        
+
+    def test_translating_latest_draft_page_revision(self):
+        """In case when Page have only draft revisions"""
+
+        draft_index_page = TestPage(title="Draft Blog", slug="draft_blog", live=False)
+        self.en_homepage.add_child(instance=draft_index_page)
+        draft_blog_post = TestPage(title="Draft Blog post", slug="draft_blog-post", live=False)
+        draft_index_page.add_child(instance=draft_blog_post)
+
+        old_index_title = draft_index_page.title
+        new_index_title = old_index_title + '-77777'
+        draft_index_page.title = new_index_title
+        draft_index_page.save_revision(log_action=True)
+
+        old_page_title = draft_blog_post.title
+        new_page_title = old_page_title + '-77777'
+        draft_blog_post.title = new_page_title
+        draft_blog_post.save_revision(log_action=True)
+
+        url = reverse("simple_translation:submit_page_translation", args=(draft_index_page.id,))
+        de = Locale.objects.get(language_code="de").id
+        data = {"locales": [de], "include_subtree": True}
+        self.login()
+        response = self.client.post(url, data)
+
+        assert response.status_code == 302
+        assert response.url == f"/admin/pages/{draft_index_page.get_parent().id}/"
+
+        response = self.client.get(response.url)  # follow the redirect
+
+        assert [msg.message for msg in response.context["messages"]] == [
+            "The page '%s' was successfully created in German" % new_index_title
+        ]
+
+        new_index_page = [
+            trans_page 
+            for trans_page in draft_index_page.get_translations()
+            if trans_page.locale.language_code == "de"
+        ][0]
+        assert new_index_page.title == new_index_title
+        new_post_page = [
+            trans_page 
+            for trans_page in draft_blog_post.get_translations()
+            if trans_page.locale.language_code == "de"
+        ][0]
+        assert new_post_page.title == new_page_title
 
 
 @override_settings(
