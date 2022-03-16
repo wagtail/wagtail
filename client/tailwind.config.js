@@ -50,6 +50,7 @@ module.exports = {
       current: 'currentColor',
       transparent: 'transparent',
       white: '#FFF',
+      black: '#000',
     },
     fontFamily,
     fontSize,
@@ -69,6 +70,7 @@ module.exports = {
       },
       opacity: {
         15: '0.15',
+        85: '0.85',
       },
     },
   },

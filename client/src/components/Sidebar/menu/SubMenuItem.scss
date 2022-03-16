@@ -35,13 +35,7 @@
   }
 
   > h2 {
-    display: block;
-    padding: 0.2em 0;
-    font-size: 1.2em;
-    font-weight: 500;
-    text-transform: none;
-    text-align: center;
-    color: $color-menu-text;
+    @apply w-min-h-[160px] w-inline-flex w-flex-col w-justify-center w-items-center w-text-center w-font-medium w-text-white/80 w-mb-0 w-mt-[35px] w-normal-case w-text-18;
 
     &:before {
       font-size: 4em;
