@@ -49,7 +49,7 @@ class AgingPagesView(PageReportView):
         "title",
         "status_string",
         "last_published_at",
-        "last_published_by_user",
+        "last_published_by",
         "content_type",
     ]
 
