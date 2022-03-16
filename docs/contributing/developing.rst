@@ -15,8 +15,8 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install `Node.js <https://nodejs.org/>`_, version 16.
-You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+The preferred option is to install the correct version of Node using Node Version Manager (nvm), which will always align the version with the supplied  ``.nvmrc`` file in the root of the project. See nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+Alternatively, you can install `Node.js <https://nodejs.org/>`_ directly, ensure you install the version as declared in the project's root ``.nvmrc`` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
