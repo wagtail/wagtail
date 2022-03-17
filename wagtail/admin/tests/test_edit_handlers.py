@@ -32,7 +32,7 @@ from wagtail.admin.widgets import (
     AdminDateInput,
     AdminPageChooser,
 )
-from wagtail.core.models import Comment, CommentReply, Page, Site
+from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
     EventPage,

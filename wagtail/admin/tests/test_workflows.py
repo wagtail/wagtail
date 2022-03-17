@@ -11,7 +11,7 @@ from django.urls import reverse
 from freezegun import freeze_time
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core.models import (
+from wagtail.models import (
     GroupApprovalTask,
     Page,
     Task,
@@ -21,7 +21,7 @@ from wagtail.core.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.core.signals import page_published
+from wagtail.signals import page_published
 from wagtail.test.testapp.models import SimplePage, SimpleTask
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile

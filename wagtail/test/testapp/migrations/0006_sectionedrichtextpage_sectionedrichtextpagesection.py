@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations, models
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                     "sort_order",
                     models.IntegerField(editable=False, null=True, blank=True),
                 ),
-                ("body", wagtail.core.fields.RichTextField()),
+                ("body", wagtail.fields.RichTextField()),
                 (
                     "page",
                     modelcluster.fields.ParentalKey(

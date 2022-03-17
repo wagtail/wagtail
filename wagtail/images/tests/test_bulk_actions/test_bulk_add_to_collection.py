@@ -2,9 +2,9 @@ from django.contrib.auth.models import Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Collection
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
+from wagtail.models import Collection
 from wagtail.test.utils import WagtailTestUtils
 
 Image = get_image_model()

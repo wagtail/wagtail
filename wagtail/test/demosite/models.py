@@ -9,9 +9,9 @@ from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.api import APIField
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Orderable, Page
+from wagtail.fields import RichTextField
 from wagtail.images.api.fields import ImageRenditionField
+from wagtail.models import Orderable, Page
 from wagtail.search import index
 
 # ABSTRACT MODELS

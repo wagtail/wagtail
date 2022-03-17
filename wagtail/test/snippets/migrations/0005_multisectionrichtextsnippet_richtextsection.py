@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations, models
-import wagtail.core.fields
+import wagtail.fields
 import modelcluster.fields
 
 
@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                         auto_created=True,
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField()),
+                ("body", wagtail.fields.RichTextField()),
                 (
                     "snippet",
                     modelcluster.fields.ParentalKey(

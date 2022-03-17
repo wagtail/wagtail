@@ -3,7 +3,7 @@ from contextlib import contextmanager
 from django.core import checks
 from django.test import TestCase
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search import index
 from wagtail.test.search import models
 from wagtail.test.testapp.models import EventPage, SingleEventPage

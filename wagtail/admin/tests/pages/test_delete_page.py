@@ -6,8 +6,8 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page
-from wagtail.core.signals import page_unpublished
+from wagtail.models import Page
+from wagtail.signals import page_unpublished
 from wagtail.test.testapp.models import SimplePage, StandardChild, StandardIndex
 from wagtail.test.utils import WagtailTestUtils
 

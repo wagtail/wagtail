@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @total_ordering

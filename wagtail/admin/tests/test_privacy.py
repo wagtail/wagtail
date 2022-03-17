@@ -2,7 +2,7 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page, PageViewRestriction
+from wagtail.models import Page, PageViewRestriction
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 

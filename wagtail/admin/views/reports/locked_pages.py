@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import DateRangePickerWidget, WagtailFilterSet
-from wagtail.core.models import Page, UserPagePermissionsProxy
+from wagtail.models import Page, UserPagePermissionsProxy
 
 from .base import PageReportView
 

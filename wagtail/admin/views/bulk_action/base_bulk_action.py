@@ -5,9 +5,9 @@ from django.db import transaction
 from django.shortcuts import get_list_or_404, redirect
 from django.views.generic import FormView
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
 
 
 class BulkAction(ABC, FormView):

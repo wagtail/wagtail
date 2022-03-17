@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import wagtail.contrib.table_block.blocks
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "table",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         (("table", wagtail.contrib.table_block.blocks.TableBlock()),)
                     ),
                 ),

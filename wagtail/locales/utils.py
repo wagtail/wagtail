@@ -1,4 +1,4 @@
-from wagtail.core.models import Page, get_translatable_models
+from wagtail.models import Page, get_translatable_models
 
 
 def get_locale_usage(locale):

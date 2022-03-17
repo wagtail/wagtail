@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
 from wagtail.api import APIField
-from wagtail.core.models import Page, PageViewRestriction, Site
+from wagtail.models import Page, PageViewRestriction, Site
 
 from .filters import (
     AncestorOfFilter,

@@ -5,7 +5,7 @@ from django.utils.translation import ngettext
 
 from wagtail.admin import widgets
 from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class BulkMovePageChooser(widgets.AdminPageChooser):

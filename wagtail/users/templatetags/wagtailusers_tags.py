@@ -3,7 +3,7 @@ import re
 
 from django import template
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 register = template.Library()
 

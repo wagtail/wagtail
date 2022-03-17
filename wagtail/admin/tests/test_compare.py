@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.utils.safestring import SafeString
 
 from wagtail.admin import compare
-from wagtail.core.blocks import StreamValue
+from wagtail.blocks import StreamValue
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
 from wagtail.test.testapp.models import (

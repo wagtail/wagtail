@@ -9,9 +9,9 @@ from django.urls import reverse
 from wagtail.admin.rich_text import DraftailRichTextArea, get_rich_text_editor_widget
 from wagtail.admin.rich_text.converters.editor_html import PageLinkHandler
 from wagtail.admin.rich_text.editors.draftail.features import Feature
-from wagtail.core.blocks import RichTextBlock
-from wagtail.core.models import Page, get_page_models
-from wagtail.core.rich_text import RichText
+from wagtail.blocks import RichTextBlock
+from wagtail.models import Page, get_page_models
+from wagtail.rich_text import RichText
 from wagtail.test.testapp.models import SingleEventPage
 from wagtail.test.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
 from wagtail.test.utils import WagtailTestUtils

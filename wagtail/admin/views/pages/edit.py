@@ -14,14 +14,14 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
+from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
-from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import (
+from wagtail.exceptions import PageClassNotFoundError
+from wagtail.models import (
     COMMENTS_RELATION_NAME,
     Comment,
     CommentReply,

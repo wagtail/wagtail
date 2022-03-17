@@ -13,7 +13,7 @@ You need to create a ``templates/wagtailadmin/`` folder within one of your apps 
 
         'dashboard',
 
-        'wagtail.core',
+        'wagtail',
         'wagtail.admin',
 
         # ...

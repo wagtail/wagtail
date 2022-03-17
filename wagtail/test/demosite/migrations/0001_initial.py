@@ -4,7 +4,7 @@ import modelcluster.contrib.taggit
 import modelcluster.fields
 from django.db import migrations, models
 
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField()),
+                ("body", wagtail.fields.RichTextField()),
                 ("date", models.DateField(verbose_name="Post date")),
                 (
                     "feed_image",
@@ -184,7 +184,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,
@@ -250,7 +250,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 (
                     "feed_image",
                     models.ForeignKey(
@@ -281,7 +281,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,
@@ -366,7 +366,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("location", models.CharField(max_length=255)),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 ("cost", models.CharField(max_length=255)),
                 ("signup_link", models.URLField(blank=True)),
                 (
@@ -543,7 +543,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "verbose_name": "Homepage",
@@ -660,8 +660,8 @@ class Migration(migrations.Migration):
                 ),
                 ("first_name", models.CharField(max_length=255)),
                 ("last_name", models.CharField(max_length=255)),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
-                ("biography", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
+                ("biography", wagtail.fields.RichTextField(blank=True)),
                 (
                     "feed_image",
                     models.ForeignKey(
@@ -740,7 +740,7 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
                 (
                     "feed_image",
                     models.ForeignKey(
@@ -809,8 +809,8 @@ class Migration(migrations.Migration):
                         primary_key=True,
                     ),
                 ),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 (
                     "feed_image",
                     models.ForeignKey(

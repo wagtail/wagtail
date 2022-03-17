@@ -13,7 +13,7 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.admin.widgets import SwitchInput
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 
 User = get_user_model()

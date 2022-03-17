@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db.models import Model
 
-from wagtail.core import hooks
-from wagtail.core.models import Locale
+from wagtail import hooks
+from wagtail.models import Locale
 
 
 class SimpleTranslation(Model):

@@ -25,7 +25,7 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 'wagtail.images',
 'wagtail.search',
 'wagtail.admin',
-'wagtail.core',
+'wagtail',
 
 'modelcluster',
 'taggit',
@@ -66,7 +66,7 @@ Now make the following additions to your `urls.py` file:
 from django.urls import path, include
 
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.core import urls as wagtail_urls
+from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [

@@ -13,7 +13,7 @@ The audit log-driven Page history replaces the revisions list page, but provide 
 
 .. note:: The audit log does not replace revisions.
 
-The ``wagtail.core.log_actions.log`` function can be used to add logging to your own code.
+The ``wagtail.log_actions.log`` function can be used to add logging to your own code.
 
 .. function:: log(instance, action, user=None, uuid=None, title=None, data=None)
 
@@ -33,7 +33,7 @@ The ``wagtail.core.log_actions.log`` function can be used to add logging to your
 .. code-block:: python
 
     # mypackage/views.py
-    from wagtail.core.log_actions import log
+    from wagtail.log_actions import log
 
     def copy_for_translation(page):
         # ...
@@ -95,12 +95,12 @@ Action                               Notes
 Log context
 ~~~~~~~~~~~
 
-The ``wagtail.core.log_actions`` module provides a context manager to simplify code that logs a large number of actions,
+The ``wagtail.log_actions`` module provides a context manager to simplify code that logs a large number of actions,
 such as import scripts:
 
 .. code-block:: python
 
-    from wagtail.core.log_actions import LogContext
+    from wagtail.log_actions import LogContext
 
     with LogContext(user=User.objects.get(username='admin')):
         # ...
@@ -116,13 +116,13 @@ is created automatically for views within the Wagtail admin.
 Log models
 ~~~~~~~~~~
 
-Logs are stored in the database via the models ``wagtail.core.models.PageLogEntry`` (for actions on Page instances) and
-``wagtail.core.models.ModelLogEntry`` (for actions on all other models). Page logs are stored in their own model to
+Logs are stored in the database via the models ``wagtail.models.PageLogEntry`` (for actions on Page instances) and
+``wagtail.models.ModelLogEntry`` (for actions on all other models). Page logs are stored in their own model to
 ensure that reports can be filtered according to the current user's permissions, which could not be done efficiently
 with a generic foreign key.
 
 If your own models have complex reporting requirements that would make ``ModelLogEntry`` unsuitable, you can configure
-them to be logged to their own log model; this is done by subclassing the abstract ``wagtail.core.models.BaseLogEntry``
+them to be logged to their own log model; this is done by subclassing the abstract ``wagtail.models.BaseLogEntry``
 model, and registering that model with the log registry's ``register_model`` method:
 
 .. code-block:: python

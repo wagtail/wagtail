@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.utils.safestring import mark_safe
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail import hooks
 from wagtail.admin.action_menu import ActionMenuItem
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import BlockElementHandler
@@ -10,7 +11,6 @@ from wagtail.admin.site_summary import SummaryItem
 from wagtail.admin.ui.components import Component
 from wagtail.admin.views.account import BaseSettingsPanel
 from wagtail.admin.widgets import Button
-from wagtail.core import hooks
 
 from .forms import FavouriteColourForm
 

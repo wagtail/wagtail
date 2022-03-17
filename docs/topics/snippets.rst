@@ -126,7 +126,7 @@ To attach multiple adverts to a page, the ``FieldPanel`` can be placed on an inl
 
   from django.db import models
 
-  from wagtail.core.models import Page, Orderable
+  from wagtail.models import Page, Orderable
 
   from modelcluster.fields import ParentalKey
 

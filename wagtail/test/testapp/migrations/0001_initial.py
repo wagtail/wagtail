@@ -7,8 +7,8 @@ import taggit.managers
 from django.conf import settings
 from django.db import migrations, models
 
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 import wagtail.images.models
 import wagtail.search.index
@@ -279,7 +279,7 @@ class Migration(migrations.Migration):
                 ),
                 ("file_size", models.PositiveIntegerField(editable=False, null=True)),
                 ("caption", models.CharField(max_length=255, blank=True)),
-                ("fancy_caption", wagtail.core.fields.RichTextField(blank=True)),
+                ("fancy_caption", wagtail.fields.RichTextField(blank=True)),
                 ("not_editable_field", models.CharField(max_length=255, blank=True)),
                 (
                     "tags",
@@ -410,7 +410,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail.fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,
@@ -457,7 +457,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("location", models.CharField(max_length=255)),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 ("cost", models.CharField(max_length=255)),
                 ("signup_link", models.URLField(blank=True)),
             ],
@@ -828,7 +828,7 @@ class Migration(migrations.Migration):
                         to="wagtailcore.Page",
                     ),
                 ),
-                ("body", wagtail.core.fields.RichTextField(blank=True)),
+                ("body", wagtail.fields.RichTextField(blank=True)),
                 ("adverts", models.ManyToManyField(blank=True, to="tests.Advert")),
                 (
                     "blog_categories",
@@ -1061,10 +1061,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "body",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         (
-                            ("text", wagtail.core.blocks.CharBlock()),
-                            ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                            ("text", wagtail.blocks.CharBlock()),
+                            ("rich_text", wagtail.blocks.RichTextBlock()),
                             ("image", wagtail.images.blocks.ImageChooserBlock()),
                         )
                     ),
@@ -1087,10 +1087,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "body",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         (
-                            ("text", wagtail.core.blocks.CharBlock()),
-                            ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                            ("text", wagtail.blocks.CharBlock()),
+                            ("rich_text", wagtail.blocks.RichTextBlock()),
                             ("image", wagtail.images.blocks.ImageChooserBlock()),
                         )
                     ),

@@ -19,9 +19,9 @@ from modelcluster.models import get_serializable_data_for_fields
 from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
-from wagtail.core.blocks import BlockField
-from wagtail.core.coreutils import camelcase_to_underscore
-from wagtail.core.models import COMMENTS_RELATION_NAME, Page
+from wagtail.blocks import BlockField
+from wagtail.coreutils import camelcase_to_underscore
+from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards

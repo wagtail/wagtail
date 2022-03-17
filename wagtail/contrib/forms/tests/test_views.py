@@ -18,7 +18,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
 )
-from wagtail.core.models import Locale, Page
+from wagtail.models import Locale, Page
 from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,

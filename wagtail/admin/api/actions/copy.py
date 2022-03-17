@@ -5,10 +5,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
+from wagtail.actions.copy_page import CopyPageAction, CopyPageIntegrityError
 from wagtail.api.v2.utils import BadRequestError
-from wagtail.core.actions.copy_page import CopyPageAction, CopyPageIntegrityError
-from wagtail.core.coreutils import find_available_slug
-from wagtail.core.models import Page
+from wagtail.coreutils import find_available_slug
+from wagtail.models import Page
 
 from .base import APIAction
 

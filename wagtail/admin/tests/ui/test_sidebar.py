@@ -12,7 +12,7 @@ from wagtail.admin.ui.sidebar import (
     SubMenuItem,
     WagtailBrandingModule,
 )
-from wagtail.core.telepath import JSContext
+from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
 
 

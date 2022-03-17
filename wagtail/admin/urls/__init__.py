@@ -8,6 +8,7 @@ from django.views.decorators.cache import never_cache
 from django.views.defaults import page_not_found
 from django.views.generic import TemplateView
 
+from wagtail import hooks
 from wagtail.admin.api import urls as api_urls
 from wagtail.admin.auth import require_admin_access
 from wagtail.admin.urls import collections as wagtailadmin_collections_urls
@@ -18,7 +19,6 @@ from wagtail.admin.urls import workflows as wagtailadmin_workflows_urls
 from wagtail.admin.views import account, chooser, home, tags, userbar
 from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.pages import listing
-from wagtail.core import hooks
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
 urlpatterns = [
