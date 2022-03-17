@@ -3,8 +3,8 @@
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -54,10 +54,10 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "body",
-                    wagtail.core.fields.StreamField(
+                    wagtail.fields.StreamField(
                         (
-                            ("text", wagtail.core.blocks.CharBlock()),
-                            ("rich_text", wagtail.core.blocks.RichTextBlock()),
+                            ("text", wagtail.blocks.CharBlock()),
+                            ("rich_text", wagtail.blocks.RichTextBlock()),
                             ("image", wagtail.images.blocks.ImageChooserBlock()),
                         )
                     ),

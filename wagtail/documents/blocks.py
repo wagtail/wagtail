@@ -1,7 +1,7 @@
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 
-from wagtail.core.blocks import ChooserBlock
+from wagtail.blocks import ChooserBlock
 
 
 class DocumentChooserBlock(ChooserBlock):

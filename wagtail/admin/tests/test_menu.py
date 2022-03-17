@@ -1,9 +1,9 @@
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 
+from wagtail import hooks
 from wagtail.admin.menu import AdminOnlyMenuItem, Menu, MenuItem, SubmenuMenuItem
 from wagtail.admin.ui import sidebar
-from wagtail.core import hooks
 from wagtail.test.utils import WagtailTestUtils
 
 

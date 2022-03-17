@@ -6,13 +6,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
-from wagtail.core.coreutils import get_content_type_label
-from wagtail.core.models import (
-    Page,
-    PageLogEntry,
-    UserPagePermissionsProxy,
-    get_page_models,
-)
+from wagtail.coreutils import get_content_type_label
+from wagtail.models import Page, PageLogEntry, UserPagePermissionsProxy, get_page_models
 
 from .base import PageReportView
 

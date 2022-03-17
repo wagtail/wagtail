@@ -6,7 +6,7 @@ from rest_framework import relations, serializers
 from rest_framework.fields import Field, SkipField
 from taggit.managers import _TaggableManager
 
-from wagtail.core import fields as wagtailcore_fields
+from wagtail import fields as wagtailcore_fields
 
 from .utils import get_object_detail_url
 

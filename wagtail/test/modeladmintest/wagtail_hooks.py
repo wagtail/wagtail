@@ -7,7 +7,7 @@ from wagtail.contrib.modeladmin.options import (
     modeladmin_register,
 )
 from wagtail.contrib.modeladmin.views import CreateView, EditView, IndexView
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import BusinessChild, EventPage, SingleEventPage
 
 from .forms import PublisherModelAdminForm

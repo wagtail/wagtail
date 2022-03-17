@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import migrations, models
 
-import wagtail.core.models
+import wagtail.models
 
 
 class Migration(migrations.Migration):
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 related_name="+",
                 to="wagtailcore.Collection",
                 verbose_name="collection",
-                default=wagtail.core.models.get_root_collection_id,
+                default=wagtail.models.get_root_collection_id,
                 on_delete=models.CASCADE,
             ),
             preserve_default=True,

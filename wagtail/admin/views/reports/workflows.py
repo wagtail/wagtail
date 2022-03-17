@@ -10,7 +10,7 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.admin.widgets import ButtonSelect
-from wagtail.core.models import (
+from wagtail.models import (
     Task,
     TaskState,
     UserPagePermissionsProxy,

@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def get_pages_with_direct_explore_permission(user):

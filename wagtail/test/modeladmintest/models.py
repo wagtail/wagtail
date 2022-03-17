@@ -6,7 +6,7 @@ from wagtail.admin.edit_handlers import (
     ObjectList,
     TabbedInterface,
 )
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.search import index
 
 

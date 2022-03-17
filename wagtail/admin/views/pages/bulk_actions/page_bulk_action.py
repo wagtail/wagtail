@@ -2,7 +2,7 @@ from django import forms
 
 from wagtail.admin.views.bulk_action import BulkAction
 from wagtail.admin.views.pages.search import page_filter_search
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class DefaultPageForm(forms.Form):

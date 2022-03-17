@@ -10,8 +10,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
+from wagtail import blocks
+from wagtail.fields import RichTextField, StreamField
 from wagtail.utils.registry import ModelFieldRegistry
 
 

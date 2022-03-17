@@ -2,6 +2,7 @@ from django import template
 from django.template.loader import render_to_string
 from django.utils import translation
 
+from wagtail import hooks
 from wagtail.admin.userbar import (
     AddPageItem,
     AdminItem,
@@ -10,8 +11,7 @@ from wagtail.admin.userbar import (
     ExplorePageItem,
     RejectModerationEditPageItem,
 )
-from wagtail.core import hooks
-from wagtail.core.models import PAGE_TEMPLATE_VAR, Page, PageRevision
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision
 from wagtail.users.models import UserProfile
 
 register = template.Library()

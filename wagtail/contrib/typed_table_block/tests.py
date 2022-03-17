@@ -1,11 +1,11 @@
 from django.test import TestCase
 
+from wagtail import blocks
 from wagtail.contrib.typed_table_block.blocks import (
     TypedTable,
     TypedTableBlock,
     TypedTableBlockValidationError,
 )
-from wagtail.core import blocks
 
 
 class CountryChoiceBlock(blocks.ChoiceBlock):

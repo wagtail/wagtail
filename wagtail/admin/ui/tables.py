@@ -10,7 +10,7 @@ from django.utils.functional import cached_property
 from django.utils.text import capfirst
 
 from wagtail.admin.ui.components import Component
-from wagtail.core.coreutils import multigetattr
+from wagtail.coreutils import multigetattr
 
 
 class Column(metaclass=MediaDefiningClass):

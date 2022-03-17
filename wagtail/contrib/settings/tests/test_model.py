@@ -1,6 +1,6 @@
 from django.test import TestCase, override_settings
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail.test.testapp.models import ImportantPages, TestSetting
 
 from .base import SettingsTestMixin

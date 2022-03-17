@@ -4,8 +4,8 @@ from wagtail.admin import messages
 from wagtail.admin.ui.tables import Column, TitleColumn
 from wagtail.admin.views import generic
 from wagtail.admin.viewsets.model import ModelViewSet
-from wagtail.core.models import Locale
-from wagtail.core.permissions import locale_permission_policy
+from wagtail.models import Locale
+from wagtail.permissions import locale_permission_policy
 
 from .forms import LocaleForm
 from .utils import get_locale_usage

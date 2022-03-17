@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from wagtail.contrib.forms.forms import FormBuilder
 from wagtail.contrib.forms.utils import get_field_clean_name
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.models import (
     ExtendedFormField,
     FormField,

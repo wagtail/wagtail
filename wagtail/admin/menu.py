@@ -3,10 +3,10 @@ from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
-from wagtail.core import hooks
-from wagtail.core.coreutils import cautious_slugify
+from wagtail.coreutils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):

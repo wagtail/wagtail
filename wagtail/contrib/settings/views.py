@@ -14,8 +14,8 @@ from wagtail.admin.edit_handlers import (
     TabbedInterface,
     extract_panel_definitions_from_model_class,
 )
-from wagtail.core.log_actions import log
-from wagtail.core.models import Site
+from wagtail.log_actions import log
+from wagtail.models import Site
 
 from .forms import SiteSwitchForm
 from .permissions import user_can_edit_setting_type

@@ -12,7 +12,7 @@ from taggit.managers import TaggableManager
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.utils.registry import ModelFieldRegistry
 
 # Define a registry of form field properties to override for a given model field

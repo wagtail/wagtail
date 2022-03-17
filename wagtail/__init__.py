@@ -2,6 +2,8 @@
 # also update scripts/nightly/get_version.py as well as that needs to generate a new
 # version of this file from a template for nightly builds
 
+import django
+
 from wagtail.utils.version import get_semver_version, get_version
 
 # major.minor.patch.release.number
@@ -12,3 +14,21 @@ __version__ = get_version(VERSION)
 
 # Required for npm package for frontend
 __semver__ = get_semver_version(VERSION)
+
+
+if django.VERSION >= (3, 2):
+    # The declaration is only needed for older Django versions
+    pass
+else:
+    default_app_config = "wagtail.apps.WagtailCoreAppConfig"
+
+
+def setup():
+    import warnings
+
+    from wagtail.utils.deprecation import removed_in_next_version_warning
+
+    warnings.simplefilter("default", removed_in_next_version_warning)
+
+
+setup()

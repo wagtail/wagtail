@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.filters import BaseFilterBackend
 from taggit.managers import TaggableManager
 
-from wagtail.core.models import Locale, Page
+from wagtail.models import Locale, Page
 from wagtail.search.backends import get_search_backend
 from wagtail.search.backends.base import FilterFieldError, OrderByFieldError
 

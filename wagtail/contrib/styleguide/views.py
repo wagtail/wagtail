@@ -14,9 +14,9 @@ from wagtail.admin.widgets import (
     AdminTimeInput,
     SwitchInput,
 )
-from wagtail.core.models import Page
 from wagtail.documents.widgets import AdminDocumentChooser
 from wagtail.images.widgets import AdminImageChooser
+from wagtail.models import Page
 from wagtail.snippets.widgets import AdminSnippetChooser
 
 

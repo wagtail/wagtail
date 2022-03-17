@@ -6,7 +6,7 @@ from django.test.utils import override_settings
 
 from wagtail.admin import widgets
 from wagtail.admin.forms.tags import TagField
-from wagtail.core.models import Page
+from wagtail.models import Page
 from wagtail.test.testapp.forms import AdminStarDateInput
 from wagtail.test.testapp.models import EventPage, RestaurantTag, SimplePage
 

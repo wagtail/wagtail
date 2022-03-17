@@ -8,6 +8,7 @@ from django.template.response import TemplateResponse
 from django.urls.base import reverse
 from django.utils.http import urlencode
 
+from wagtail import hooks
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm,
     EmailLinkChooserForm,
@@ -16,9 +17,8 @@ from wagtail.admin.forms.choosers import (
 )
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.core import hooks
-from wagtail.core.coreutils import resolve_model_string
-from wagtail.core.models import Locale, Page, Site, UserPagePermissionsProxy
+from wagtail.coreutils import resolve_model_string
+from wagtail.models import Locale, Page, Site, UserPagePermissionsProxy
 
 
 def shared_context(request, extra_context=None):

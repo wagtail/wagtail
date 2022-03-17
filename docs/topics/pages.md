@@ -1,8 +1,8 @@
 # Page models
 
-Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.core.models.Page` class.
+Each page type (a.k.a. content type) in Wagtail is represented by a Django model. All page models must inherit from the {class}`wagtail.models.Page` class.
 
-As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/stable/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.core.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
+As all page types are Django models, you can use any field type that Django provides. See [Model field reference](https://docs.djangoproject.com/en/stable/ref/models/fields/) for a complete list of field types you can use. Wagtail also provides `wagtail.fields.RichTextField` which provides a WYSIWYG editor for editing rich-text content.
 
 ```{note}
 If you're not yet familiar with Django models, have a quick look at the following links to get you started:
@@ -20,8 +20,8 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.search import index
 
@@ -189,7 +189,7 @@ super().get_url_parts(*args, **kwargs)
 While you could pass only the `request` keyword argument, passing all arguments as-is ensures compatibility with any
 future changes to these method signatures.
 
-For more information, please see {meth}`wagtail.core.models.Page.get_url_parts`.
+For more information, please see {meth}`wagtail.models.Page.get_url_parts`.
 
 #### Obtaining URLs for page instances
 
@@ -198,11 +198,11 @@ The `Page.get_url(request)` method can be called whenever a page URL is needed. 
 A common use case for `get_url(request)` is in any custom template tag your project may include for generating navigation menus. When writing such a custom template tag, ensure that it includes `takes_context=True` and use `context.get('request')` to safely pass the
 request or `None` if no request exists in the context.
 
-For more information, please see {meth}`wagtail.core.models.Page.get_url`.
+For more information, please see {meth}`wagtail.models.Page.get_url`.
 
 In the event a full URL (including the protocol and domain) is needed, `Page.get_full_url(request)` can be used instead. Whenever possible, the optional `request` argument should be included to enable per-request caching of site-level URL information.
 
-For more information, please see {meth}`wagtail.core.models.Page.get_full_url`.
+For more information, please see {meth}`wagtail.models.Page.get_full_url`.
 
 ## Template rendering
 
@@ -324,7 +324,7 @@ Wagtail can nest the content of other models within the page. This is useful for
 
 Each inline model requires the following:
 
-- It must inherit from {class}`wagtail.core.models.Orderable`
+- It must inherit from {class}`wagtail.models.Orderable`
 - It must have a `ParentalKey` to the parent model
 
 ```{note} django-modelcluster and ParentalKey
@@ -342,7 +342,7 @@ For example, the following inline model can be used to add related links (a list
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.core.models import Orderable
+from wagtail.models import Orderable
 
 
 class BlogPageRelatedLink(Orderable):
@@ -372,7 +372,7 @@ The first argument must match the value of the `related_name` attribute of the `
 
 Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/3.1/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin {class}`~wagtail.core.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail's builtin {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 
@@ -380,7 +380,7 @@ When working with multiple page types together, you will typically use instances
 
 ```python
 # Get all pages in the database
->>> from wagtail.core.models import Page
+>>> from wagtail.models import Page
 >>> Page.objects.all()
 [<Page: Homepage>, <Page: About us>, <Page: Blog>, <Page: A Blog post>, <Page: Another Blog post>]
 ```
@@ -444,11 +444,11 @@ news_items = NewsItemPage.objects.live().order_by('-publication_date')
 (custom_page_managers)=
 ### Custom Page managers
 
-You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.core.models.PageManager`:
+You can add a custom `Manager` to your `Page` class. Any custom Managers should inherit from `wagtail.models.PageManager`:
 
 ```python
 from django.db import models
-from wagtail.core.models import Page, PageManager
+from wagtail.models import Page, PageManager
 
 class EventPageManager(PageManager):
     """ Custom manager for Event pages """
@@ -459,12 +459,12 @@ class EventPage(Page):
     objects = EventPageManager()
 ```
 
-Alternately, if you only need to add extra `QuerySet` methods, you can inherit from `wagtail.core.models.PageQuerySet` to build a custom `Manager`:
+Alternately, if you only need to add extra `QuerySet` methods, you can inherit from `wagtail.models.PageQuerySet` to build a custom `Manager`:
 
 ```python
 from django.db import models
 from django.utils import timezone
-from wagtail.core.models import Page, PageManager, PageQuerySet
+from wagtail.models import Page, PageManager, PageQuerySet
 
 class EventPageQuerySet(PageQuerySet):
     def future(self):

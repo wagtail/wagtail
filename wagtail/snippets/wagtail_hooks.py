@@ -4,8 +4,8 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import include, path, reverse
 from django.utils.translation import gettext_lazy as _
 
+from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.core import hooks
 from wagtail.snippets import urls
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import (
