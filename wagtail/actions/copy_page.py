@@ -60,6 +60,15 @@ class CopyPageAction:
         self.process_child_object = process_child_object
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
+        self.uuid_mapping = {}
+
+    def get_uuid(self, old_uuid):
+        """Map old UUIDs to new UUID values."""
+
+        if old_uuid not in self.uuid_mapping:
+            self.uuid_mapping[old_uuid] = str(uuid.uuid4())
+
+        return self.uuid_mapping[old_uuid]
 
     def check(self, skip_permission_checks=False):
         from wagtail.models import UserPagePermissionsProxy
@@ -148,7 +157,9 @@ class CopyPageAction:
             if self.reset_translation_key and isinstance(
                 child_object, TranslatableMixin
             ):
-                child_object.translation_key = uuid.uuid4()
+                child_object.translation_key = self.get_uuid(
+                    child_object.translation_key
+                )
 
         # Save the new page
         if _mpnode_attrs:
@@ -206,7 +217,9 @@ class CopyPageAction:
                             copied_child_object.pk if copied_child_object else None
                         )
                         if self.reset_translation_key:
-                            child_object["translation_key"] = str(uuid.uuid4())
+                            child_object["translation_key"] = self.get_uuid(
+                                child_object["translation_key"]
+                            )
 
                 revision.content = revision_content
 
