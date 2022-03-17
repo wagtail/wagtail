@@ -3,6 +3,7 @@ import unittest
 from django.contrib.auth.models import Group, Permission
 from django.core.cache import caches
 from django.core.files import File
+from django.core.files.storage import DefaultStorage, Storage
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db.utils import IntegrityError
 from django.test import TestCase
@@ -10,7 +11,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 from willow.image import Image as WillowImage
 
-from wagtail.images.models import Rendition, SourceImageIOError
+from wagtail.images.models import Rendition, SourceImageIOError, get_rendition_storage
 from wagtail.images.rect import Rect
 from wagtail.models import Collection, GroupCollectionPermission, Page
 from wagtail.test.testapp.models import (
@@ -21,6 +22,11 @@ from wagtail.test.testapp.models import (
 from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
+
+
+class CustomStorage(Storage):
+    def __init__(self):
+        super().__init__()
 
 
 class TestImage(TestCase):
@@ -345,6 +351,40 @@ class TestRenditions(TestCase):
         self.assertEqual(
             rendition.background_position_style, "background-position: 50% 50%;"
         )
+
+    def test_custom_rendition_backend_setting(self):
+        """
+        Test the usage of WAGTAILIMAGES_RENDITION_STORAGE setting.
+        """
+        # when setting is not set, instance.get_storage() returns DefaultStorage
+        from django.conf import settings
+
+        bkp = settings
+
+        self.assertFalse(hasattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE"))
+        rendition1 = self.image.get_rendition("min-120x120")
+        self.assertIsInstance(rendition1.image.file.storage, DefaultStorage)
+
+        # when setting is set to a path
+        setattr(
+            settings,
+            "WAGTAILIMAGES_RENDITION_STORAGE",
+            "wagtail.images.tests.test_models.CustomStorage",
+        )
+        backend = get_rendition_storage()
+        self.assertIsInstance(backend, CustomStorage)
+
+        # when setting is set directly, get_rendition_storage() returns the custom storage backend
+        class CustomStorage2(Storage):
+            def __init__(self):
+                super().__init__()
+
+        setattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", CustomStorage2())
+        backend = get_rendition_storage()
+        self.assertIsInstance(backend, CustomStorage2)
+
+        # clean up
+        settings = bkp
 
 
 class TestUsageCount(TestCase):

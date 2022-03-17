@@ -586,6 +586,7 @@ Contributors
 * Abdulmajeed Isa
 * Sandil Ranasinghe
 * Caio Jhonny
+* Heather White
 
 Translators
 ===========
