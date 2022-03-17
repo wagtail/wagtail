@@ -15,9 +15,9 @@ from wagtail.admin.filters import (
     DateRangePickerWidget,
     WagtailFilterSet,
 )
+from wagtail.core.coreutils import get_content_type_label
 from wagtail.core.log_actions import registry as log_action_registry
 from wagtail.core.models import PageLogEntry
-from wagtail.core.utils import get_content_type_label
 
 from .base import ReportView
 

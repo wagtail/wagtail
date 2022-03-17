@@ -1,7 +1,7 @@
 from django.db import models
 
+from wagtail.core.coreutils import InvokeViaAttributeShortcut
 from wagtail.core.models import Site
-from wagtail.core.utils import InvokeViaAttributeShortcut
 
 from .registry import register_setting
 

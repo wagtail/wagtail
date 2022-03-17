@@ -1,7 +1,7 @@
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
 
-from wagtail.core.utils import find_available_slug
+from wagtail.core.coreutils import find_available_slug
 
 
 class ParentNotTranslatedError(Exception):

@@ -193,7 +193,7 @@ Images are hard to keep up-to-date as documentation evolves, but can be worthwhi
 With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html) feature, Sphinx supports writing documentation in Python docstrings for subsequent integration in the project’s documentation pages. This is a very powerful feature which we highly recommend using to document Wagtail’s APIs.
 
     ```{eval-rst}
-    .. module:: wagtail.core.utils
+    .. module:: wagtail.core.coreutils
 
     .. autofunction:: cautious_slugify
     ```
@@ -202,7 +202,7 @@ With its [autodoc](https://www.sphinx-doc.org/en/master/usage/extensions/autodoc
 <summary>Rendered output</summary>
 
 ```{eval-rst}
-.. module:: wagtail.core.utils
+.. module:: wagtail.core.coreutils
 
 .. autofunction:: cautious_slugify
 ```

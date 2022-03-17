@@ -6,9 +6,9 @@ from django.test.utils import override_settings
 from django.urls.exceptions import NoReverseMatch
 from django.utils.safestring import SafeString
 
+from wagtail.core.coreutils import resolve_model_string
 from wagtail.core.models import Locale, Page, Site, SiteRootPath
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
-from wagtail.core.utils import resolve_model_string
 from wagtail.tests.testapp.models import SimplePage
 
 

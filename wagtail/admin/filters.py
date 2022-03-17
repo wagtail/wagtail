@@ -9,7 +9,7 @@ from wagtail.admin.widgets import (
     ButtonSelect,
     FilteredSelect,
 )
-from wagtail.core.utils import get_content_type_label
+from wagtail.core.coreutils import get_content_type_label
 
 
 class DateRangePickerWidget(SuffixedMultiWidget):
