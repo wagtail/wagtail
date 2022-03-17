@@ -1108,6 +1108,17 @@ class StreamModel(models.Model):
     )
 
 
+class JSONStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        use_json_field=True,
+    )
+
+
 class MinMaxCountStreamModel(models.Model):
     body = StreamField(
         [
@@ -1118,6 +1129,19 @@ class MinMaxCountStreamModel(models.Model):
         min_num=2,
         max_num=5,
         use_json_field=False,
+    )
+
+
+class JSONMinMaxCountStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        min_num=2,
+        max_num=5,
+        use_json_field=True,
     )
 
 
@@ -1134,6 +1158,22 @@ class BlockCountsStreamModel(models.Model):
             "image": {"min_num": 1, "max_num": 1},
         },
         use_json_field=False,
+    )
+
+
+class JSONBlockCountsStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        block_counts={
+            "text": {"min_num": 1},
+            "rich_text": {"max_num": 1},
+            "image": {"min_num": 1, "max_num": 1},
+        },
+        use_json_field=True,
     )
 
 
