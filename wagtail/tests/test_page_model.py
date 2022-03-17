@@ -2044,6 +2044,31 @@ class TestCopyPage(TestCase):
         with self.assertRaises(RuntimeError):
             new_page.copy()
 
+    def test_copy_page_with_unique_uuids_in_orderables(self):
+        """
+        Test that a page with orderables can be copied and the translation
+        keys are updated.
+        """
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_page.speakers.add(
+            EventPageSpeaker(
+                first_name="Santa",
+                last_name="Claus",
+            )
+        )
+        christmas_page.save()
+        new_page = christmas_page.copy(
+            update_attrs={
+                "title": "Orderable Page",
+                "slug": "translated-orderable-page",
+            },
+        )
+        new_page.save_revision().publish()
+        self.assertNotEqual(
+            christmas_page.speakers.first().translation_key,
+            new_page.speakers.first().translation_key,
+        )
+
     def test_copy_published_emits_signal(self):
         """Test that copying of a published page emits a page_published signal."""
         christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
