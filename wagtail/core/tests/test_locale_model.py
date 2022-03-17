@@ -4,7 +4,7 @@ from django.utils import translation
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.core.models import Locale, Page
-from wagtail.tests.i18n.models import TestPage
+from wagtail.test.i18n.models import TestPage
 
 
 def make_test_page(**kwargs):

@@ -11,8 +11,8 @@ from django.urls import reverse
 
 from wagtail.core.models import Page, PageRevision
 from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 

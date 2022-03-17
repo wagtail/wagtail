@@ -14,7 +14,7 @@ from wagtail.core.models import (
     Workflow,
     WorkflowTask,
 )
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     BusinessSubIndex,
     EventIndex,
     EventPage,

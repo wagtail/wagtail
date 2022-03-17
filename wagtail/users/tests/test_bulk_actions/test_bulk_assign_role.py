@@ -4,7 +4,7 @@ from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
 
 User = get_user_model()

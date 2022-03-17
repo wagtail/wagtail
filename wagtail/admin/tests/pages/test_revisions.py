@@ -7,12 +7,12 @@ from freezegun import freeze_time
 
 from wagtail.admin.tests.pages.timestamps import local_datetime
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     EventPage,
     FormClassAdditionalFieldPage,
     SecretPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestRevisions(TestCase, WagtailTestUtils):

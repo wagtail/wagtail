@@ -5,8 +5,8 @@ from django.urls import reverse
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.contrib.redirects import models
 from wagtail.core.models import Page, Site
-from wagtail.tests.routablepage.models import RoutablePageTest
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.routablepage.models import RoutablePageTest
+from wagtail.test.utils import WagtailTestUtils
 
 
 @override_settings(

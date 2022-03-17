@@ -102,7 +102,7 @@ You can create migrations for the test app by running the following from the Wag
 
 .. code-block:: console
 
-    $ django-admin makemigrations --settings=wagtail.tests.settings
+    $ django-admin makemigrations --settings=wagtail.test.settings
 
 
 Testing against PostgreSQL
@@ -188,12 +188,12 @@ Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, com
 
 .. code-block:: console
 
-    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
     $ # Assumes the current environment contains a valid installation of Wagtail for local development.
-    $ ./wagtail/tests/manage.py migrate
-    $ ./wagtail/tests/manage.py createcachetable
-    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/tests/manage.py createsuperuser --noinput
-    $ ./wagtail/tests/manage.py runserver 0:8000
+    $ ./wagtail/test/manage.py migrate
+    $ ./wagtail/test/manage.py createcachetable
+    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
+    $ ./wagtail/test/manage.py runserver 0:8000
     $ npm --prefix client/tests/integration install
     $ npm run test:integration
 
@@ -289,7 +289,7 @@ Wagtail’s UI component library is built with `Storybook <https://storybook.js.
 
 .. code-block:: console
 
-    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
     $ # Assumes the current environment contains a valid installation of Wagtail for local development.
     $ ./wagtail/tests/manage.py migrate
     $ ./wagtail/tests/manage.py createcachetable

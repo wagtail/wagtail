@@ -19,7 +19,7 @@ from wagtail.core.models import (
     WorkflowState,
     WorkflowTask,
 )
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.test.testapp.models import SimplePage
 
 
 class TestWorkflows(TestCase):

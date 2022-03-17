@@ -9,8 +9,8 @@ from wagtail.contrib.simple_translation.wagtail_hooks import (
     register_submit_translation_permission,
 )
 from wagtail.core.models import Locale, Page
-from wagtail.tests.i18n.models import TestPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.i18n.models import TestPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class Utils(WagtailTestUtils, TestCase):

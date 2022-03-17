@@ -5,8 +5,8 @@ from django.test import TestCase
 
 from wagtail.core.models import Page
 from wagtail.search import index
-from wagtail.tests.search import models
-from wagtail.tests.testapp.models import EventPage, SingleEventPage
+from wagtail.test.search import models
+from wagtail.test.testapp.models import EventPage, SingleEventPage
 
 
 @contextmanager

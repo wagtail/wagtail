@@ -27,7 +27,7 @@ from wagtail.core.models import (
     get_translatable_models,
 )
 from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     AbstractPage,
     Advert,
     AlwaysShowInMenusPage,
@@ -61,7 +61,7 @@ from wagtail.tests.testapp.models import (
     TaggedGrandchildPage,
     TaggedPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 def get_ct(model):
@@ -408,7 +408,7 @@ class TestRouting(TestCase):
             (second_events_site.id, "http://second-events.example.com", "/christmas/"),
         )
 
-    @override_settings(ROOT_URLCONF="wagtail.tests.non_root_urls")
+    @override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
     def test_urls_with_non_root_urlconf(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -436,7 +436,7 @@ class TestRouting(TestCase):
         )
         self.assertEqual(christmas_page.get_site(), default_site)
 
-    @override_settings(ROOT_URLCONF="wagtail.tests.headless_urls")
+    @override_settings(ROOT_URLCONF="wagtail.test.headless_urls")
     def test_urls_headless(self):
         default_site = Site.objects.get(is_default_site=True)
         homepage = Page.objects.get(url_path="/home/")
@@ -523,7 +523,7 @@ class TestRouting(TestCase):
 
 
 @override_settings(
-    ROOT_URLCONF="wagtail.tests.urls_multilang",
+    ROOT_URLCONF="wagtail.test.urls_multilang",
     LANGUAGE_CODE="en",
     WAGTAIL_I18N_ENABLED=True,
     LANGUAGES=[
@@ -788,7 +788,7 @@ class TestServeView(TestCase):
         self.assertContains(response, "<h1>Christmas</h1>")
         self.assertContains(response, "<h2>Event</h2>")
 
-    @override_settings(ROOT_URLCONF="wagtail.tests.non_root_urls")
+    @override_settings(ROOT_URLCONF="wagtail.test.non_root_urls")
     def test_serve_with_non_root_urls(self):
         response = self.client.get("/site/events/christmas/")
 

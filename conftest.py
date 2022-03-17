@@ -45,7 +45,7 @@ def pytest_configure(config):
 
     # Setup django after processing the pytest arguments so that the env
     # variables are available in the settings
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wagtail.tests.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wagtail.test.settings")
     django.setup()
 
     # Activate a language: This affects HTTP header HTTP_ACCEPT_LANGUAGE sent by
@@ -54,14 +54,14 @@ def pytest_configure(config):
 
     translation.activate("en")
 
-    from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
+    from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
 
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
 
 
 def pytest_unconfigure(config):
-    from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
+    from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
 
     shutil.rmtree(STATIC_ROOT, ignore_errors=True)
     shutil.rmtree(MEDIA_ROOT, ignore_errors=True)

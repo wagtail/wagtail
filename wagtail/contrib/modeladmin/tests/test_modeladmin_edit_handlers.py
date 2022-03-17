@@ -4,9 +4,9 @@ from django.test import RequestFactory, TestCase
 
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.views import CreateView
-from wagtail.tests.modeladmintest.models import Person
-from wagtail.tests.modeladmintest.wagtail_hooks import PersonAdmin
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.modeladmintest.models import Person
+from wagtail.test.modeladmintest.wagtail_hooks import PersonAdmin
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):

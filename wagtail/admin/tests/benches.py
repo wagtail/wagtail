@@ -5,9 +5,9 @@ from django.urls import reverse
 from django.utils import timezone
 
 from wagtail.core.models import Page, Site
-from wagtail.tests.benchmark import Benchmark
-from wagtail.tests.testapp.models import SingleEventPage, StreamPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.benchmark import Benchmark
+from wagtail.test.testapp.models import SingleEventPage, StreamPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class BenchPageExplorerWith50LargePages(Benchmark, WagtailTestUtils, TestCase):

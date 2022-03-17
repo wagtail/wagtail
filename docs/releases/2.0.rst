@@ -233,7 +233,7 @@ Wagtail now provides a set of helper functions for constructing form data: see :
 
 .. code-block:: python
 
-  from wagtail.tests.utils.form_data import rich_text
+  from wagtail.test.utils.form_data import rich_text
 
   self.assertCanCreate(root_page, ContentPage, {
       'title': 'About us',

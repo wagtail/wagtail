@@ -6,7 +6,7 @@ from wagtail.admin import widgets as wagtailadmin_widgets
 from wagtail.admin.wagtail_hooks import page_listing_more_buttons
 from wagtail.core import hooks
 from wagtail.core.models import Page
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class PagePerms:

@@ -3,8 +3,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.core.models import GroupPagePermission, Page
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestModerationList(TestCase, WagtailTestUtils):

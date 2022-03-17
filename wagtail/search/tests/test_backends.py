@@ -31,8 +31,8 @@ from wagtail.search.query import (
     Phrase,
     PlainText,
 )
-from wagtail.tests.search import models
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.search import models
+from wagtail.test.utils import WagtailTestUtils
 
 
 class BackendTests(WagtailTestUtils):

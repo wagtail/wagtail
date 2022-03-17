@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from wagtail.search import index
-from wagtail.tests.search.models import Book, Novel
-from wagtail.tests.testapp.models import Advert, ManyToManyBlogPage
+from wagtail.test.search.models import Book, Novel
+from wagtail.test.testapp.models import Advert, ManyToManyBlogPage
 
 
 class TestSelectOnQuerySet(TestCase):

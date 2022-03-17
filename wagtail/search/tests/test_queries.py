@@ -14,7 +14,7 @@ from wagtail.search.utils import (
     parse_query_string,
     separate_filters_from_query,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestHitCounter(TestCase):

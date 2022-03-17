@@ -9,7 +9,7 @@ from wagtail.core.models import (
     get_root_collection_id,
 )
 from wagtail.documents.models import Document
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestChooser(TestCase, WagtailTestUtils):

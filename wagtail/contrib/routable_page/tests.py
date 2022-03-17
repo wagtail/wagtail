@@ -8,7 +8,7 @@ from wagtail.contrib.routable_page.templatetags.wagtailroutablepage_tags import 
     routablepageurl,
 )
 from wagtail.core.models import Page, Site
-from wagtail.tests.routablepage.models import (
+from wagtail.test.routablepage.models import (
     RoutablePageTest,
     RoutablePageWithOverriddenIndexRouteTest,
 )

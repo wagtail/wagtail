@@ -19,7 +19,7 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_custom_submission,
 )
 from wagtail.core.models import Locale, Page
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
     FormField,
@@ -30,7 +30,7 @@ from wagtail.tests.testapp.models import (
     FormPageWithCustomSubmission,
     FormPageWithCustomSubmissionListView,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestFormResponsesPanel(TestCase):

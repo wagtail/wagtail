@@ -16,8 +16,8 @@ from wagtail.core.models import (
     Workflow,
     WorkflowTask,
 )
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAuditLogManager(TestCase, WagtailTestUtils):
