@@ -6,7 +6,7 @@ from wagtail.contrib.modeladmin.helpers import (
     DjangoORMSearchHandler,
     WagtailBackendSearchHandler,
 )
-from wagtail.tests.modeladmintest.models import Book
+from wagtail.test.modeladmintest.models import Book
 
 
 class FakeSearchBackend:

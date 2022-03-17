@@ -7,7 +7,7 @@ from wagtail.contrib.search_promotions.templatetags.wagtailsearchpromotions_tags
     get_search_promotions,
 )
 from wagtail.search.models import Query
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSearchPromotions(TestCase):

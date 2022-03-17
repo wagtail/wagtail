@@ -18,7 +18,7 @@ from wagtail.admin.localization import (
 )
 from wagtail.admin.views.account import account, profile_tab
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 

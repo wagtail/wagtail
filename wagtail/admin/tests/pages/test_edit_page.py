@@ -27,7 +27,7 @@ from wagtail.core.models import (
     Site,
 )
 from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
@@ -41,8 +41,8 @@ from wagtail.tests.testapp.models import (
     StandardIndex,
     TaggedPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data
+from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.users.models import UserProfile
 
 

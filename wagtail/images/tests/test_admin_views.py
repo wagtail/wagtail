@@ -21,8 +21,8 @@ from wagtail.core.models import (
 from wagtail.images import get_image_model
 from wagtail.images.models import UploadedImage
 from wagtail.images.utils import generate_signature
-from wagtail.tests.testapp.models import CustomImage, CustomImageWithAuthor
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import CustomImage, CustomImageWithAuthor
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
@@ -289,7 +289,7 @@ class TestImageAddView(TestCase, WagtailTestUtils):
         self.assertEqual(image.collection, root_collection)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_add_with_external_file_storage(self):
         response = self.post(
@@ -580,7 +580,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected_url)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_simple_with_external_storage(self):
         # The view calls get_file_size on the image that closes the file if
@@ -680,7 +680,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.assertNotEqual(self.image.file_hash, "abcedf")
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_edit_with_new_image_file_and_external_storage(self):
         file_content = get_test_image_file().file.getvalue()
@@ -725,7 +725,7 @@ class TestImageEditView(TestCase, WagtailTestUtils):
         self.check_get_missing_file_displays_warning()
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_get_missing_file_displays_warning_with_custom_storage(self):
         self.check_get_missing_file_displays_warning()
@@ -1364,7 +1364,7 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         self.assertContains(response, expected_action_attr)
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_upload_with_external_storage(self):
         response = self.client.post(

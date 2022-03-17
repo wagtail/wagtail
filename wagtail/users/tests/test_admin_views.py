@@ -21,7 +21,7 @@ from wagtail.core.models import (
     GroupPagePermission,
     Page,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.models import UserProfile
 from wagtail.users.views.groups import GroupViewSet

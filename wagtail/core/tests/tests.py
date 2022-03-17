@@ -9,7 +9,7 @@ from django.utils.safestring import SafeString
 from wagtail.core.coreutils import resolve_model_string
 from wagtail.core.models import Locale, Page, Site, SiteRootPath
 from wagtail.core.templatetags.wagtailcore_tags import richtext, slugurl
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.test.testapp.models import SimplePage
 
 
 class TestPageUrlTags(TestCase):

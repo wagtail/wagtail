@@ -4,8 +4,8 @@ from django.urls import reverse
 
 from wagtail.admin.site_summary import PagesSummaryItem
 from wagtail.core.models import GroupPagePermission, Page, Site
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPagesSummary(TestCase, WagtailTestUtils):

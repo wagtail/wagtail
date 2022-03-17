@@ -8,8 +8,8 @@ from django.urls import reverse
 
 from wagtail.core.models import Page
 from wagtail.core.signals import page_unpublished
-from wagtail.tests.testapp.models import SimplePage, StandardChild, StandardIndex
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage, StandardChild, StandardIndex
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageDelete(TestCase, WagtailTestUtils):

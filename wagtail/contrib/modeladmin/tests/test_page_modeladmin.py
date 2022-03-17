@@ -2,8 +2,8 @@ from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 
 from wagtail.core.models import GroupPagePermission, Page
-from wagtail.tests.testapp.models import BusinessIndex, EventCategory, EventPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import BusinessIndex, EventCategory, EventPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestIndexView(TestCase, WagtailTestUtils):

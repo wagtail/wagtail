@@ -8,8 +8,8 @@ from django.utils import translation
 from wagtail.contrib.table_block.blocks import DEFAULT_TABLE_OPTIONS, TableBlock
 from wagtail.core.blocks.field_block import FieldBlockAdapter
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import TableBlockStreamPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import TableBlockStreamPage
+from wagtail.test.utils import WagtailTestUtils
 
 from .blocks import TableInput
 

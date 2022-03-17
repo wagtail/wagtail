@@ -16,8 +16,8 @@ from wagtail.images.models import Image as WagtailImage
 from wagtail.images.rect import Rect, Vector
 from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
-from wagtail.tests.testapp.models import CustomImage, CustomImageFilePath
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 

@@ -34,7 +34,7 @@ from wagtail.embeds.finders.instagram import (
 from wagtail.embeds.finders.oembed import OEmbedFinder as OEmbedFinder
 from wagtail.embeds.models import Embed
 from wagtail.embeds.templatetags.wagtailembeds_tags import embed_tag
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 try:
     import embedly  # noqa

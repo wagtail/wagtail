@@ -12,7 +12,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
 from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision
 from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
     BusinessSubIndex,
@@ -24,7 +24,7 @@ from wagtail.tests.testapp.models import (
     StandardChild,
     StandardIndex,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):

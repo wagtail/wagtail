@@ -13,7 +13,7 @@ from wagtail.admin.ui.sidebar import (
     WagtailBrandingModule,
 )
 from wagtail.core.telepath import JSContext
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestAdaptLinkMenuItem(TestCase):

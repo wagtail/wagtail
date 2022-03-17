@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from wagtail.core import hooks
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 def test_hook():

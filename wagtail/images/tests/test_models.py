@@ -13,12 +13,12 @@ from willow.image import Image as WillowImage
 from wagtail.core.models import Collection, GroupCollectionPermission, Page
 from wagtail.images.models import Rendition, SourceImageIOError
 from wagtail.images.rect import Rect
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     EventPage,
     EventPageCarouselItem,
     ReimportedImageModel,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 from .utils import Image, get_test_image_file
 
@@ -90,7 +90,7 @@ class TestImage(TestCase):
         self.assertTrue(self.image.is_stored_locally())
 
     @override_settings(
-        DEFAULT_FILE_STORAGE="wagtail.tests.dummy_external_storage.DummyExternalStorage"
+        DEFAULT_FILE_STORAGE="wagtail.test.dummy_external_storage.DummyExternalStorage"
     )
     def test_is_stored_locally_with_external_storage(self):
         self.assertFalse(self.image.is_stored_locally())

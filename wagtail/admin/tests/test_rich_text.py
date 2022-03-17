@@ -12,9 +12,9 @@ from wagtail.admin.rich_text.editors.draftail.features import Feature
 from wagtail.core.blocks import RichTextBlock
 from wagtail.core.models import Page, get_page_models
 from wagtail.core.rich_text import RichText
-from wagtail.tests.testapp.models import SingleEventPage
-from wagtail.tests.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SingleEventPage
+from wagtail.test.testapp.rich_text import CustomRichTextArea, LegacyRichTextArea
+from wagtail.test.utils import WagtailTestUtils
 
 
 class BaseRichTextEditHandlerTestCase(TestCase):
@@ -24,7 +24,7 @@ class BaseRichTextEditHandlerTestCase(TestCase):
         cached edit handlers should be cleared before and after each test run
         to ensure that no changes leak through to other tests.
         """
-        from wagtail.tests.testapp.models import DefaultRichBlockFieldPage
+        from wagtail.test.testapp.models import DefaultRichBlockFieldPage
 
         rich_text_block = (
             DefaultRichBlockFieldPage.get_edit_handler()
@@ -58,7 +58,7 @@ class TestGetRichTextEditorWidget(TestCase):
 
     @override_settings(
         WAGTAILADMIN_RICH_TEXT_EDITORS={
-            "default": {"WIDGET": "wagtail.tests.testapp.rich_text.CustomRichTextArea"},
+            "default": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
         }
     )
     def test_overridden_default_editor(self):
@@ -66,7 +66,7 @@ class TestGetRichTextEditorWidget(TestCase):
 
     @override_settings(
         WAGTAILADMIN_RICH_TEXT_EDITORS={
-            "custom": {"WIDGET": "wagtail.tests.testapp.rich_text.CustomRichTextArea"},
+            "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
         }
     )
     def test_custom_editor_without_default(self):
@@ -75,8 +75,8 @@ class TestGetRichTextEditorWidget(TestCase):
 
     @override_settings(
         WAGTAILADMIN_RICH_TEXT_EDITORS={
-            "default": {"WIDGET": "wagtail.tests.testapp.rich_text.LegacyRichTextArea"},
-            "custom": {"WIDGET": "wagtail.tests.testapp.rich_text.CustomRichTextArea"},
+            "default": {"WIDGET": "wagtail.test.testapp.rich_text.LegacyRichTextArea"},
+            "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
         }
     )
     def test_custom_editor_with_default(self):
@@ -196,7 +196,7 @@ class TestDraftailFeatureMedia(BaseRichTextEditHandlerTestCase, WagtailTestUtils
 
 @override_settings(
     WAGTAILADMIN_RICH_TEXT_EDITORS={
-        "default": {"WIDGET": "wagtail.tests.testapp.rich_text.LegacyRichTextArea"},
+        "default": {"WIDGET": "wagtail.test.testapp.rich_text.LegacyRichTextArea"},
     }
 )
 class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):
@@ -245,7 +245,7 @@ class TestOverriddenDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTest
         "default": {
             "WIDGET": "wagtail.admin.tests.test_rich_text.TestCustomDefaultRichText"
         },
-        "custom": {"WIDGET": "wagtail.tests.testapp.rich_text.CustomRichTextArea"},
+        "custom": {"WIDGET": "wagtail.test.testapp.rich_text.CustomRichTextArea"},
     }
 )
 class TestCustomDefaultRichText(BaseRichTextEditHandlerTestCase, WagtailTestUtils):

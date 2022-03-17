@@ -10,8 +10,8 @@ from django.urls import reverse
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.core.models import Page
 from wagtail.core.signals import post_page_move, pre_page_move
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageMove(TestCase, WagtailTestUtils):

@@ -35,8 +35,8 @@ from wagtail.snippets.widgets import (
     SnippetChooserAdapter,
     SnippetListingButton,
 )
-from wagtail.tests.snippets.forms import FancySnippetForm
-from wagtail.tests.snippets.models import (
+from wagtail.test.snippets.forms import FancySnippetForm
+from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
@@ -48,7 +48,7 @@ from wagtail.tests.snippets.models import (
     TranslatableSnippet,
     ZuluSnippet,
 )
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
@@ -56,7 +56,7 @@ from wagtail.tests.testapp.models import (
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):

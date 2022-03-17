@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.test.utils import override_settings
 
 from wagtail.core.models import Site
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 from .base import SettingsTestMixin
 

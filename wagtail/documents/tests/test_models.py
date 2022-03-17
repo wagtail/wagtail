@@ -14,8 +14,8 @@ from wagtail.documents import (
     signal_handlers,
 )
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.testapp.models import CustomDocument, ReimportedDocumentModel
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import CustomDocument, ReimportedDocumentModel
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestDocumentQuerySet(TestCase):

@@ -6,7 +6,7 @@ Testing your Wagtail site
 
 Wagtail comes with some utilities that simplify writing tests for your site.
 
-.. automodule:: wagtail.tests.utils
+.. automodule:: wagtail.test.utils
 
 
 WagtailPageTests
@@ -18,7 +18,7 @@ WagtailPageTests
 
     .. code-block:: python
 
-        from wagtail.tests.utils import WagtailPageTests
+        from wagtail.test.utils import WagtailPageTests
         from myapp.models import MyPage
 
         class MyPageTests(WagtailPageTests):
@@ -45,7 +45,7 @@ WagtailPageTests
 
         .. code-block:: python
 
-            from wagtail.tests.utils.form_data import nested_form_data, streamfield
+            from wagtail.test.utils.form_data import nested_form_data, streamfield
 
             def test_can_create_content_page(self):
                 # Get the HomePage
@@ -94,7 +94,7 @@ WagtailPageTests
 Form data helpers
 =================
 
-.. automodule:: wagtail.tests.utils.form_data
+.. automodule:: wagtail.test.utils.form_data
 
    .. autofunction:: nested_form_data
 

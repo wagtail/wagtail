@@ -5,8 +5,8 @@ from django.test import TestCase
 
 from wagtail.core.models import Site
 from wagtail.core.signals import page_slug_changed
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageSlugChangedSignal(TestCase, WagtailTestUtils):

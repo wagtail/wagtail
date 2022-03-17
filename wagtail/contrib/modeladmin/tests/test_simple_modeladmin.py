@@ -15,15 +15,15 @@ from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.core.models import ModelLogEntry, Page
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.modeladmintest.models import (
+from wagtail.test.modeladmintest.models import (
     Author,
     Book,
     Publisher,
     RelatedLink,
     Token,
 )
-from wagtail.tests.modeladmintest.wagtail_hooks import BookModelAdmin
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestBookIndexView(TestCase, WagtailTestUtils):
@@ -338,7 +338,7 @@ class TestCreateView(TestCase, WagtailTestUtils):
 
     def test_clean_form_once(self):
         with mock.patch(
-            "wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean"
+            "wagtail.test.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean"
         ) as mock_form_clean:
             response = self.client.post(
                 "/admin/modeladmintest/publisher/create/", {"name": ""}
@@ -540,7 +540,7 @@ class TestEditView(TestCase, WagtailTestUtils):
 
     def test_clean_form_once(self):
         with mock.patch(
-            "wagtail.tests.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean"
+            "wagtail.test.modeladmintest.wagtail_hooks.PublisherModelAdminForm.clean"
         ) as mock_form_clean:
             publisher = Publisher.objects.create(name="Sharper Collins")
 

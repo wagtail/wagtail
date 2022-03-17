@@ -10,7 +10,7 @@ from wagtail.core.permission_policies import (
 )
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class PermissionPolicyTestUtils:

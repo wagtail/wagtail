@@ -18,7 +18,7 @@ from wagtail.contrib.frontend_cache.backends import (
 )
 from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.core.models import Page
-from wagtail.tests.testapp.models import EventIndex
+from wagtail.test.testapp.models import EventIndex
 
 from .utils import (
     PurgeBatch,
@@ -525,7 +525,7 @@ class TestCachePurgingSignals(TestCase):
         self.assertEqual(PURGED_URLS, [])
 
     @override_settings(
-        ROOT_URLCONF="wagtail.tests.urls_multilang",
+        ROOT_URLCONF="wagtail.test.urls_multilang",
         LANGUAGE_CODE="en",
         WAGTAILFRONTENDCACHE_LANGUAGES=["en", "fr", "pt-br"],
     )
@@ -547,7 +547,7 @@ class TestCachePurgingSignals(TestCase):
         )
 
     @override_settings(
-        ROOT_URLCONF="wagtail.tests.urls_multilang",
+        ROOT_URLCONF="wagtail.test.urls_multilang",
         LANGUAGE_CODE="en",
         WAGTAIL_I18N_ENABLED=True,
         WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
@@ -568,7 +568,7 @@ class TestCachePurgingSignals(TestCase):
         )
 
     @override_settings(
-        ROOT_URLCONF="wagtail.tests.urls_multilang",
+        ROOT_URLCONF="wagtail.test.urls_multilang",
         LANGUAGE_CODE="en",
         WAGTAIL_CONTENT_LANGUAGES=[("en", "English"), ("fr", "French")],
     )
