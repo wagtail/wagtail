@@ -52,6 +52,12 @@ from wagtail.core.actions.delete_page import DeletePageAction
 from wagtail.core.actions.move_page import MovePageAction
 from wagtail.core.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.core.actions.unpublish_page import UnpublishPageAction
+from wagtail.core.coreutils import (
+    WAGTAIL_APPEND_SLASH,
+    camelcase_to_underscore,
+    get_supported_content_language_variant,
+    resolve_model_string,
+)
 from wagtail.core.fields import StreamField
 from wagtail.core.forms import TaskStateCommentForm
 from wagtail.core.log_actions import log
@@ -71,12 +77,6 @@ from wagtail.core.signals import (
 )
 from wagtail.core.treebeard import TreebeardPathFixMixin
 from wagtail.core.url_routing import RouteResult
-from wagtail.core.utils import (
-    WAGTAIL_APPEND_SLASH,
-    camelcase_to_underscore,
-    get_supported_content_language_variant,
-    resolve_model_string,
-)
 from wagtail.search import index
 
 from .audit_log import (  # noqa

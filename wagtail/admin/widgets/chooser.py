@@ -8,9 +8,9 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
+from wagtail.core.coreutils import resolve_model_string
 from wagtail.core.models import Page
 from wagtail.core.telepath import register
-from wagtail.core.utils import resolve_model_string
 from wagtail.core.widget_adapters import WidgetAdapter
 from wagtail.utils.widgets import WidgetWithScript
 

@@ -33,6 +33,13 @@ from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
 from wagtail.core import hooks
+from wagtail.core.coreutils import camelcase_to_underscore
+from wagtail.core.coreutils import cautious_slugify as _cautious_slugify
+from wagtail.core.coreutils import (
+    escape_script,
+    get_content_type_label,
+    get_locales_display_names,
+)
 from wagtail.core.models import (
     Collection,
     CollectionViewRestriction,
@@ -42,13 +49,6 @@ from wagtail.core.models import (
     UserPagePermissionsProxy,
 )
 from wagtail.core.telepath import JSContext
-from wagtail.core.utils import camelcase_to_underscore
-from wagtail.core.utils import cautious_slugify as _cautious_slugify
-from wagtail.core.utils import (
-    escape_script,
-    get_content_type_label,
-    get_locales_display_names,
-)
 from wagtail.users.utils import get_gravatar_url
 
 register = template.Library()

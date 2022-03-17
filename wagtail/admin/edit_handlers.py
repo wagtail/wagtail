@@ -20,8 +20,8 @@ from wagtail.admin import compare, widgets
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.core.blocks import BlockField
+from wagtail.core.coreutils import camelcase_to_underscore
 from wagtail.core.models import COMMENTS_RELATION_NAME, Page
-from wagtail.core.utils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
