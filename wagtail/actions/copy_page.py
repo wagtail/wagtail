@@ -216,7 +216,10 @@ class CopyPageAction:
                         child_object["pk"] = (
                             copied_child_object.pk if copied_child_object else None
                         )
-                        if self.reset_translation_key:
+                        if (
+                            self.reset_translation_key
+                            and "translation_key" in child_object
+                        ):
                             child_object["translation_key"] = self.get_uuid(
                                 child_object["translation_key"]
                             )
