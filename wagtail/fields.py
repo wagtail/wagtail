@@ -95,6 +95,10 @@ class StreamField(models.Field):
 
         self.stream_block.set_meta_options(block_opts)
 
+    @property
+    def json_field(self):
+        return models.JSONField(encoder=DjangoJSONEncoder)
+
     def _check_json_field(self):
         if type(self.use_json_field) is not bool:
             warnings.warn(
@@ -108,14 +112,12 @@ class StreamField(models.Field):
 
     def get_lookup(self, lookup_name):
         if self.use_json_field:
-            return models.JSONField(encoder=DjangoJSONEncoder).get_lookup(lookup_name)
+            return self.json_field.get_lookup(lookup_name)
         return super().get_lookup(lookup_name)
 
     def get_transform(self, lookup_name):
         if self.use_json_field:
-            return models.JSONField(encoder=DjangoJSONEncoder).get_transform(
-                lookup_name
-            )
+            return self.json_field.get_transform(lookup_name)
         return super().get_transform(lookup_name)
 
     def deconstruct(self):
@@ -193,7 +195,7 @@ class StreamField(models.Field):
             )
         else:
             # When querying with JSONField features, the rhs might not be a StreamValue.
-            return models.JSONField(encoder=DjangoJSONEncoder).get_prep_value(value)
+            return self.json_field.get_prep_value(value)
 
     def from_db_value(self, value, expression, connection):
         if self.use_json_field and isinstance(expression, KeyTransform):
