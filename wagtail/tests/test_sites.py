@@ -1,4 +1,7 @@
+import os
+
 from django.core.exceptions import ValidationError
+from django.db.utils import IntegrityError
 from django.http.request import HttpRequest
 from django.test import TestCase, override_settings
 
@@ -172,18 +175,17 @@ class TestDefaultSite(TestCase):
             site.clean_fields()
 
     def test_oops_there_is_more_than_one(self):
-        Site.objects.create(
-            hostname="example.com",
-            is_default_site=True,
-            root_page=Page.objects.get(pk=2),
-        )
+        # It will throw an error: django.db.utils.IntegrityError when multiple sites with is_default_site created
 
-        site = Site(
-            hostname="test.com", is_default_site=True, root_page=Page.objects.get(pk=2)
-        )
-        with self.assertRaises(Site.MultipleObjectsReturned):
-            # If there already are multiple default sites, you're in trouble
-            site.clean_fields()
+        # The conditional constraint is not supported by MySQL
+        # https://docs.djangoproject.com/en/dev/ref/models/indexes/#condition
+        if os.environ.get("DATABASE_ENGINE") != "django.db.backends.mysql":
+            with self.assertRaises(IntegrityError):
+                Site.objects.create(
+                    hostname="example.com",
+                    is_default_site=True,
+                    root_page=Page.objects.get(pk=2),
+                )
 
 
 class TestGetSiteRootPaths(TestCase):

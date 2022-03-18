@@ -110,6 +110,13 @@ class Site(models.Model):
         unique_together = ("hostname", "port")
         verbose_name = _("site")
         verbose_name_plural = _("sites")
+        constraints = [
+            models.UniqueConstraint(
+                fields=["is_default_site"],
+                condition=models.Q(is_default_site=True),
+                name="unique_in_default_site",
+            ),
+        ]
 
     def natural_key(self):
         return (self.hostname, self.port)
