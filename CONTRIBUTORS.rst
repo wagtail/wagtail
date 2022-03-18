@@ -587,6 +587,7 @@ Contributors
 * Sandil Ranasinghe
 * Caio Jhonny
 * Heather White
+* Onno Timmerman
 
 Translators
 ===========
