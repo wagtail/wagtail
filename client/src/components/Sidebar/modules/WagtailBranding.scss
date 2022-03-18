@@ -100,7 +100,10 @@
 
   // Bird icons
   &__icon {
+    @apply hover:w-translate-y-[-20px] hover:w-translate-x-[10px];
+
     .sidebar--slim & {
+      @apply hover:w-translate-y-0 hover:w-translate-x-0;
       width: 42px;
       height: 51px;
       top: 10px;

@@ -6,6 +6,8 @@ import { ModuleDefinition, Strings } from '../Sidebar';
 interface SearchInputProps {
   slim: boolean;
   expandingOrCollapsing: boolean;
+  onSearchClick: () => void;
+  onSearchBlur: () => void;
   searchUrl: string;
   strings: Strings;
 
@@ -15,6 +17,8 @@ interface SearchInputProps {
 export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   slim,
   expandingOrCollapsing,
+  onSearchClick,
+  onSearchBlur,
   searchUrl,
   strings,
   navigate,
@@ -65,6 +69,8 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
         id="menu-search-q"
         name="q"
         placeholder={strings.SEARCH}
+        onClick={() => onSearchClick()}
+        onBlur={() => onSearchBlur()}
       />
     </form>
   );
@@ -77,13 +83,23 @@ export class SearchModuleDefinition implements ModuleDefinition {
     this.searchUrl = searchUrl;
   }
 
-  render({ slim, key, expandingOrCollapsing, strings, navigate }) {
+  render({
+    slim,
+    key,
+    expandingOrCollapsing,
+    onSearchClick,
+    onSearchBlur,
+    strings,
+    navigate,
+  }) {
     return (
       <SearchInput
         searchUrl={this.searchUrl}
         slim={slim}
         key={key}
         expandingOrCollapsing={expandingOrCollapsing}
+        onSearchClick={onSearchClick}
+        onSearchBlur={onSearchBlur}
         strings={strings}
         navigate={navigate}
       />

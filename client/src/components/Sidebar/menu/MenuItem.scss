@@ -88,7 +88,15 @@
 }
 
 .sidebar--slim {
-  .menuitem-label {
-    opacity: 0;
+  .sidebar-menu-item {
+    .menuitem-label {
+      opacity: 0;
+    }
+  }
+
+  .sidebar-menu-item--in-sub-menu {
+    .menuitem-label {
+      opacity: 1;
+    }
   }
 }
