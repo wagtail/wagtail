@@ -3,6 +3,7 @@
 exports[`EmbedBlock no data 1`] = `
 <MediaBlock
   alt=""
+  fallbackText={null}
   block={Object {}}
   blockProps={
     Object {
@@ -33,6 +34,7 @@ exports[`EmbedBlock no data 1`] = `
 exports[`EmbedBlock renders 1`] = `
 <MediaBlock
   alt=""
+  fallbackText={null}
   block={Object {}}
   blockProps={
     Object {

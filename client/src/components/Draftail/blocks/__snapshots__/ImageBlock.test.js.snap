@@ -3,6 +3,7 @@
 exports[`ImageBlock alt 1`] = `
 <MediaBlock
   alt=""
+  fallbackText={null}
   block={Object {}}
   blockProps={
     Object {
@@ -38,6 +39,7 @@ exports[`ImageBlock alt 1`] = `
 exports[`ImageBlock no data 1`] = `
 <MediaBlock
   alt=""
+  fallbackText={null}
   block={Object {}}
   blockProps={
     Object {
@@ -73,6 +75,7 @@ exports[`ImageBlock no data 1`] = `
 exports[`ImageBlock renders 1`] = `
 <MediaBlock
   alt=""
+  fallbackText={null}
   block={Object {}}
   blockProps={
     Object {

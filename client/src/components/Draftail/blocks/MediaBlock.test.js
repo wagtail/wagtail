@@ -11,6 +11,7 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
+          fallbackText= {["Example Author","Example Provider"]}
           block={{}}
           blockProps={{
             editorState: {},
@@ -20,6 +21,7 @@ describe('MediaBlock', () => {
             entity: {
               getData: () => ({
                 src: 'example.png',
+                fallbackText:['Example Author','Example Provider']
               }),
             },
             onChange: () => {},
@@ -37,6 +39,7 @@ describe('MediaBlock', () => {
         <MediaBlock
           src=""
           alt=""
+          fallbackText= {["Example Author","Example Provider"]}
           block={{}}
           blockProps={{
             editorState: {},
@@ -81,6 +84,7 @@ describe('MediaBlock', () => {
         <MediaBlock
           src="example.png"
           alt=""
+          fallbackText= {["Example Author","Example Provider"]}
           block={{
             getKey: () => 'abcde',
             getLength: () => 1,
