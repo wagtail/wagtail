@@ -643,7 +643,7 @@ class TestJSONStreamField(TestCase):
         )
 
     def test_use_json_field_warning(self):
-        message = "StreamField should explicitly set use_json_field argument to True/False instead of None."
+        message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
         with self.assertWarnsMessage(RemovedInWagtail219Warning, message):
             StreamField([("paragraph", blocks.CharBlock())])
 

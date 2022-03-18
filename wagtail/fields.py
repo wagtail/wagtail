@@ -102,7 +102,7 @@ class StreamField(models.Field):
     def _check_json_field(self):
         if type(self.use_json_field) is not bool:
             warnings.warn(
-                f"StreamField should explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
+                f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
                 RemovedInWagtail219Warning,
                 stacklevel=3,
             )
