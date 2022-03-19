@@ -2,6 +2,7 @@ import json
 
 from django.conf import settings
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagWidget
 from taggit.models import Tag
 
@@ -31,6 +32,15 @@ class AdminTagWidget(TagWidget):
         else:
             free_tagging = self.free_tagging
 
+        tag_spaces_allowed = getattr(settings, "TAG_SPACES_ALLOWED", True)
+        if tag_spaces_allowed:
+            help_text = _(
+                'Multi-word tags with spaces will automatically be enclosed in double quotes (").'
+            )
+        else:
+            help_text = _("Tags can only consist of a single word, no spaces allowed.")
+
+        context["widget"]["help_text"] = help_text
         context["widget"]["autocomplete_url"] = autocomplete_url
         context["widget"]["options_json"] = json.dumps(
             {
