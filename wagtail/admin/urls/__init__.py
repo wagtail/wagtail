@@ -21,6 +21,7 @@ from wagtail.admin.views.bulk_action import index as bulk_actions
 from wagtail.admin.views.pages import listing
 from wagtail.utils.urlpatterns import decorate_urlpatterns
 
+app_name = "wagtailadmin"
 urlpatterns = [
     path("", home.home, name="wagtailadmin_home"),
     path("test404/", TemplateView.as_view(template_name="wagtailadmin/404.html")),
