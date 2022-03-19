@@ -87,7 +87,7 @@ button,
 input,
 select,
 textarea {
-  font-family: sans-serif;
+  font-family: inherit;
 }
 
 /**
