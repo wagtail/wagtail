@@ -9,6 +9,7 @@ Changelog
  * Add `base_url_path` to `ModelAdmin` so that the default URL structure of app_label/model_name can be overridden (Vu Pham, Khanh Hoang)
  * Add `full_url` to the API output of `ImageRenditionField` (Paarth Agarwal)
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
+ * Use `InlinePanel`'s label when available for field comparison label (Sandil Ranasinghe)
 
 
 3.0 (xx.xx.xxxx) - IN DEVELOPMENT

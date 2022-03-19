@@ -1265,6 +1265,30 @@ class TestChildRelationComparison(TestCase):
         self.assertEqual(added, [0])  # Add new Father Christmas
         self.assertEqual(deleted, [0])  # Delete old Father Christmas
 
+    def test_panel_label_as_field_label(self):
+        # Just to check whether passing `label` changes field_label
+        event_page = EventPage(title="Event page", slug="event")
+        event_page.speakers.add(
+            EventPageSpeaker(
+                first_name="Father",
+            )
+        )
+
+        comparison = self.comparison_class(
+            EventPage._meta.get_field("speaker"),
+            [
+                partial(
+                    self.field_comparison_class,
+                    EventPageSpeaker._meta.get_field("first_name"),
+                )
+            ],
+            event_page,
+            event_page,
+            label="Speakers",
+        )
+
+        self.assertEqual(comparison.field_label(), "Speakers")
+
 
 class TestChildObjectComparison(TestCase):
     field_comparison_class = compare.FieldComparison
