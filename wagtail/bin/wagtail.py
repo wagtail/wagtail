@@ -151,6 +151,7 @@ class UpdateModulePaths(Command):
             "wagtail.contrib.styleguide",
         ),
         # Added in Wagtail 3.0
+        (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
         (re.compile(r"\bwagtail\.core\b"), "wagtail"),
     ]
 
