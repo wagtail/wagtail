@@ -102,14 +102,15 @@ class AbstractFormField(Orderable):
         verbose_name=_("choices"),
         blank=True,
         help_text=_(
-            "Comma separated list of choices. Only applicable in checkboxes, radio and dropdown."
+            "Comma or new line separated list of choices. Only applicable in checkboxes, radio and dropdown."
         ),
     )
-    default_value = models.CharField(
+    default_value = models.TextField(
         verbose_name=_("default value"),
-        max_length=255,
         blank=True,
-        help_text=_("Default value. Comma separated values supported for checkboxes."),
+        help_text=_(
+            "Default value. Comma or new line separated values supported for checkboxes."
+        ),
     )
     help_text = models.CharField(
         verbose_name=_("help text"), max_length=255, blank=True
