@@ -70,71 +70,70 @@
         }
 
             function displayPagination(page, totalPages) {
-  const paginationDiv = document.querySelector("#pagination")
-  const paginationList = paginationDiv.querySelector(".pagination-list")
+            const paginationDiv = document.querySelector("#pagination")
+            const paginationList = paginationDiv.querySelector(".pagination-list")
+          
+            // Hide previous/next button if showing first/last page
+            paginationDiv.querySelector(".pagination-previous").removeAttribute("hidden")
+            if (page == 0) {
+              paginationDiv.querySelector(".pagination-previous").setAttribute("hidden","hidden")
+            }
+            paginationDiv.querySelector(".pagination-next").removeAttribute("hidden")
+            if (page == totalPages - 1) {
+              paginationDiv.querySelector(".pagination-next").setAttribute("hidden","hidden")
+            } 
 
-  // Hide previous/next button if showing first/last page
-  paginationDiv.querySelector(".pagination-previous").removeAttribute("hidden")
-  if (page == 0) {
-    paginationDiv.querySelector(".pagination-previous").setAttribute("hidden","hidden")
-  }
-  paginationDiv.querySelector(".pagination-next").removeAttribute("hidden")
-  if (page == totalPages - 1) {
-    paginationDiv.querySelector(".pagination-next").setAttribute("hidden","hidden")
-  } 
+            // Display at most "toBeDisplayed" page links in the paginator
+            const toBeDisplayed = 10
+            let [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed)
 
-  // Display at most "toBeDisplayed" page links in the paginator
-  const toBeDisplayed = 10
-  let [start, end] = setStartEndForPaginator(page, totalPages, toBeDisplayed)
+            for (let i = start; i < end; i++) {
+              let newPaginationItem = document.createElement("li")
+              let newPaginationbutton = document.createElement("button")
+              let newPaginationLink = document.createElement("a")
+              newPaginationLink.classList.add("pagination-link")
+              newPaginationLink.innerHTML = i + 1
+              if (i == page) {
+                  newPaginationLink.setAttribute("aria-label", `page ${i+1}`)
+                  newPaginationLink.setAttribute("aria-current", `page`)
+                  newPaginationLink.classList.add("is-current")
+              } else {
+                  newPaginationLink.setAttribute("aria-label", `Go to page ${i+1}`)
+              }
+          
+              // Register event handlers
+              newPaginationLink.onclick = function(event) {
+                        };
+              paginationDiv.querySelector(".pagination-previous").onclick = function(event) {
+                  runSearchPageSearch(event, page=page - 1)
+              };
+              paginationDiv.querySelector(".pagination-next").onclick = function(event) {
+                  runSearchPageSearch(event, page=page + 1)
+              };
 
-  for (let i = start; i < end; i++) {
-    let newPaginationItem = document.createElement("li")
-    let newPaginationbutton = document.createElement("button")
-    let newPaginationLink = document.createElement("a")
-    newPaginationLink.classList.add("pagination-link")
-    newPaginationLink.innerHTML = i + 1
-    if (i == page) {
-        newPaginationLink.setAttribute("aria-label", `page ${i+1}`)
-        newPaginationLink.setAttribute("aria-current", `page`)
-        newPaginationLink.classList.add("is-current")
-    } else {
-        newPaginationLink.setAttribute("aria-label", `Go to page ${i+1}`)
-    }
+              newPaginationItem.append(newPaginationLink)
+              paginationList.append(newPaginationItem)
+            }
+           }
 
-    // Register event handlers
-    newPaginationLink.onclick = function(event) {
-        runSearchPageSearch(event, page=i)
-    };
-    paginationDiv.querySelector(".pagination-previous").onclick = function(event) {
-        runSearchPageSearch(event, page=page - 1)
-    };
-    paginationDiv.querySelector(".pagination-next").onclick = function(event) {
-        runSearchPageSearch(event, page=page + 1)
-    };
+           function setStartEndForPaginator(currentPage, totalPages, nbPagesLinkToDisplay) {
+             let start = 0
+             let end = totalPages
+           
+             if (totalPages > nbPagesLinkToDisplay) {
+               start = currentPage
+           
+               if (totalPages - currentPage < nbPagesLinkToDisplay) {
+                 start = totalPages - nbPagesLinkToDisplay
+               } 
 
-    newPaginationItem.append(newPaginationLink)
-    paginationList.append(newPaginationItem)
-  }
-}
+               if (totalPages - start > nbPagesLinkToDisplay) {
+                 end = currentPage + nbPagesLinkToDisplay
+               }
+             }
 
-function setStartEndForPaginator(currentPage, totalPages, nbPagesLinkToDisplay) {
-  let start = 0
-  let end = totalPages
-
-  if (totalPages > nbPagesLinkToDisplay) {
-    start = currentPage
-
-    if (totalPages - currentPage < nbPagesLinkToDisplay) {
-      start = totalPages - nbPagesLinkToDisplay
-    } 
-
-    if (totalPages - start > nbPagesLinkToDisplay) {
-      end = currentPage + nbPagesLinkToDisplay
-    }
-  }
-
-  return [start, end]
-}
+             return [start, end]
+           }
 
            function addHeadingForQuery(query, parentElement) {
             const searchHeading = document.createElement('h1')
