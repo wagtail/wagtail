@@ -1,0 +1,33 @@
+#pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-previous {
+    margin-right: 2rem;
+    font-weight: bold;
+    background-color: #ffffff;
+    border: none;
+}
+
+.pagination-next {
+    margin-left: 2rem;
+    font-weight: bold;
+    background-color: #ffffff;
+    border: none;
+}
+
+.pagination-list {
+    display: flex;
+}
+
+.pagination-list li {
+    margin: auto 0.5rem;
+}
+
+.is-current {
+    border: 1px;
+    padding: 0.25rem;
+    background-color: #40efc5;
+    color: #d0d6da;
+} 
