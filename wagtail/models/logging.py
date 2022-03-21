@@ -5,8 +5,8 @@ from django.db.models.expressions import Subquery
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.models import Page, UserPagePermissionsProxy
 from wagtail.models.audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
+from wagtail.models.pages import Page, UserPagePermissionsProxy
 
 
 class PageLogEntryQuerySet(LogEntryQuerySet):
