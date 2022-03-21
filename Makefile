@@ -16,23 +16,31 @@ develop: clean-pyc
 	pip install -e .[testing,docs]
 	npm install --no-save && npm run build
 
-lint:
+lint-server:
 	black --target-version py37 --check --diff .
 	flake8
 	isort --check-only --diff .
 	curlylint --parse-only wagtail
+
+lint-client:
 	git ls-files '*.html' | xargs djhtml --check
 	npm run lint:css --silent
 	npm run lint:js --silent
 	npm run lint:format --silent
 	doc8 docs
 
-format:
+lint: lint-server lint-client
+
+format-server:
 	black --target-version py37 .
 	isort .
+
+format-client:
 	git ls-files '*.html' | xargs djhtml -i
 	npm run format
 	npm run fix:js
+
+format: format-server format-client
 
 test:
 	python runtests.py
