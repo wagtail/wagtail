@@ -9,6 +9,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import FieldDoesNotExist, ImproperlyConfigured
 from django.core.signals import setting_changed
 from django.dispatch import receiver
+from django.forms import Media
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
 from django.template.loader import render_to_string
@@ -420,6 +421,13 @@ class PanelGroup(Panel):
 
         def is_shown(self):
             return any(child.is_shown() for child in self.children)
+
+        @property
+        def media(self):
+            media = Media()
+            for item in self.visible_children:
+                media += item.media
+            return media
 
         def html_declarations(self):
             return mark_safe("".join([c.html_declarations() for c in self.children]))

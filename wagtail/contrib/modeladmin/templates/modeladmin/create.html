@@ -7,19 +7,16 @@
     {{ block.super }}
 
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-
-    {{ view.media.css }}
+    {{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
 
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ edit_handler.form.media.js }}
+    {{ media.js }}
     {{ edit_handler.html_declarations }}
 
-    {{ view.media.js }}
     {% prepopulated_slugs %}
 
     <script>
