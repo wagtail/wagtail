@@ -111,8 +111,7 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-    {{ action_menu.media.css }}
+    {{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
@@ -122,8 +121,7 @@
     {% comment %}
         Additional js from widgets media. Allows for custom widgets in admin panel.
     {% endcomment %}
-    {{ edit_handler.form.media.js }}
-    {{ action_menu.media.js }}
+    {{ media.js }}
 
     {% comment %}
         Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)

@@ -100,8 +100,11 @@ class Create(CreateView):
         bound_panel = self.edit_handler.get_bound_panel(
             form=form, instance=form.instance, request=self.request
         )
+        pages_formset = self.get_pages_formset()
+
         context["edit_handler"] = bound_panel
-        context["pages_formset"] = self.get_pages_formset()
+        context["pages_formset"] = pages_formset
+        context["media"] = form.media + bound_panel.media + pages_formset.media
         return context
 
     def form_valid(self, form):
@@ -181,9 +184,10 @@ class Edit(EditView):
         bound_panel = self.edit_handler.get_bound_panel(
             form=form, instance=form.instance, request=self.request
         )
+        pages_formset = self.get_pages_formset()
         context["edit_handler"] = bound_panel
         context["pages"] = self.get_paginated_pages()
-        context["pages_formset"] = self.get_pages_formset()
+        context["pages_formset"] = pages_formset
         context["can_disable"] = (
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "delete")
@@ -192,6 +196,7 @@ class Edit(EditView):
             self.permission_policy is None
             or self.permission_policy.user_has_permission(self.request.user, "create")
         ) and not self.object.active
+        context["media"] = bound_panel.media + form.media + pages_formset.media
         return context
 
     @property

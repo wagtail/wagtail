@@ -96,10 +96,13 @@ def edit(request, app_name, model_name, site_pk):
         instance=instance, request=request, form=form
     )
 
+    media = form.media + edit_handler.media
+
     # Show a site switcher form if there are multiple sites
     site_switcher = None
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
+        media += site_switcher.media
 
     return TemplateResponse(
         request,
@@ -113,5 +116,6 @@ def edit(request, app_name, model_name, site_pk):
             "site": site,
             "site_switcher": site_switcher,
             "tabbed": isinstance(edit_handler.panel, TabbedInterface),
+            "media": media,
         },
     )

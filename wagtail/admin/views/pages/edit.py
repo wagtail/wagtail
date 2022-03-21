@@ -866,6 +866,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         bound_panel = self.edit_handler.get_bound_panel(
             instance=self.page, request=self.request, form=self.form
         )
+        action_menu = PageActionMenu(self.request, view="edit", page=self.page)
         context.update(
             {
                 "page": self.page,
@@ -873,9 +874,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 "content_type": self.page_content_type,
                 "edit_handler": bound_panel,
                 "errors_debug": self.errors_debug,
-                "action_menu": PageActionMenu(
-                    self.request, view="edit", page=self.page
-                ),
+                "action_menu": action_menu,
                 "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
@@ -889,6 +888,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),
                 "locale": None,
                 "translations": [],
+                "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 
