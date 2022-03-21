@@ -35,6 +35,7 @@ export interface SidebarProps {
   collapsedOnLoad: boolean;
   navigate(url: string): Promise<void>;
   onExpandCollapse?(collapsed: boolean);
+  onTemporaryExpand: (expanded: boolean) => void;
 }
 
 export const Sidebar: React.FunctionComponent<SidebarProps> = ({
@@ -44,6 +45,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   strings,
   navigate,
   onExpandCollapse,
+  onTemporaryExpand,
 }) => {
   // 'collapsed' is a persistent state that is controlled by the arrow icon at the top
   // It records the user's general preference for a collapsed/uncollapsed menu
@@ -122,6 +124,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   };
 
   const [focused, setFocused] = React.useState(false);
+  const [temporaryExpand, setTemporaryExpand] = React.useState(false);
 
   const onBlurHandler = () => {
     if (focused) {
@@ -138,15 +141,21 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   };
 
   const onSearchClick = () => {
+    if (!temporaryExpand) {
+      setTemporaryExpand(true);
+    }
     if (collapsed) {
       setCollapsed(false);
     }
+    onTemporaryExpand(temporaryExpand);
   };
 
   const onSearchBlur = () => {
-    if (slim) {
+    if (temporaryExpand) {
       setCollapsed(true);
       setFocused(false);
+      setTemporaryExpand(false);
+      onTemporaryExpand(temporaryExpand);
     }
   };
 
