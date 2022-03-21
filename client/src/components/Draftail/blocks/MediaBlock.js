@@ -120,10 +120,8 @@ class MediaBlock extends Component {
         <img className="MediaBlock__img" src={src} alt={alt} width="256" />
 
         {src ? null : (
-          <span className="MediaBlock__fallback">
-            {fallbackText}
-          </span>
-        )}  
+          <span className="MediaBlock__fallback">{fallbackText}</span>
+        )}
         {showTooltipAt && this.renderTooltip()}
       </button>
     );

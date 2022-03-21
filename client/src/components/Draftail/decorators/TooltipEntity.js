@@ -8,7 +8,7 @@ import Portal from '../../Portal/Portal';
 /**
  * Shortens the given label if it goes beyond a predetermined limit.
  */
- export const shortenLabel = (label) => {
+export const shortenLabel = (label) => {
   let shortened = label;
   if (shortened.length > 25) {
     shortened = `${shortened.slice(0, 20)}…`;
