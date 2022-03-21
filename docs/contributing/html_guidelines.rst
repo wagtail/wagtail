@@ -7,7 +7,7 @@ Linting HTML
 ~~~~~~~~~~~~
 
 We use `curlylint <https://www.curlylint.org/>`_ to lint templates and `djhtml <https://github.com/rtts/djhtml>`_ to format them.
-If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``, and format your code by running ``make format``.
+If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint-client``, and format your code by running ``make format-client``.
 
 Principles
 ~~~~~~~~~~
