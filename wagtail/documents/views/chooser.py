@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
@@ -55,7 +57,9 @@ class BaseChooseView(View):
     def get(self, request):
         Document = get_document_model()
 
-        if permission_policy.user_has_permission(request.user, "add"):
+        if getattr(
+            settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True
+        ) and permission_policy.user_has_permission(request.user, "add"):
             DocumentForm = get_document_form(Document)
             self.uploadform = DocumentForm(
                 user=request.user, prefix="document-chooser-upload"
@@ -168,6 +172,9 @@ def document_chosen(request, document_id):
 
 @permission_checker.require("add")
 def chooser_upload(request):
+    if not getattr(settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True):
+        raise PermissionDenied
+
     Document = get_document_model()
     DocumentForm = get_document_form(Document)
 

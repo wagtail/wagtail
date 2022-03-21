@@ -637,6 +637,25 @@ A list of the extra custom fields to be appended to the default list.
 
 .. _WAGTAIL_USAGE_COUNT_ENABLED:
 
+Choosers
+========================================
+
+``WAGTAIL_CHOOSER_UPLOAD_ENABLED``
+--------------------------------
+
+.. code-block:: python
+
+    WAGTAIL_CHOOSER_UPLOAD_ENABLED = False
+
+By default, Wagtail allows the ability to upload images and documents in the chooser modal.
+This setting can be used to disable this functionality, only giving the editor the ability to choose already uploaded media.
+
+.. note::
+
+    This is only applicable to the images and documents choosers, and disables both together.
+
+.. _WAGTAIL_USAGE_COUNT_ENABLED:
+
 Usage for images, documents and snippets
 ========================================
 

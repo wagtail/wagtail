@@ -1530,6 +1530,11 @@ class TestDocumentChooserView(TestCase, WagtailTestUtils):
         self.assertContains(response, "<th>Collection</th>")
         self.assertContains(response, "<td>Root</td>")
 
+    def test_disable_chooser_upload(self):
+        with self.settings(WAGTAIL_CHOOSER_UPLOAD_ENABLED=False):
+            response = self.client.get(reverse("wagtaildocs:chooser"))
+        self.assertIsNone(response.context["uploadform"])
+
 
 class TestDocumentChooserChosenView(TestCase, WagtailTestUtils):
     def setUp(self):
