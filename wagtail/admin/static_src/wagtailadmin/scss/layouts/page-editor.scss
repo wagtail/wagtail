@@ -602,6 +602,7 @@ footer .preview {
   border-radius: 2px;
   font-size: 14px;
   font-weight: 600;
+  // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
   line-height: 2.3em;
   padding: 0 0.75em;

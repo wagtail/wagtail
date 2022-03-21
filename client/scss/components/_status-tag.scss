@@ -4,6 +4,7 @@
   border-radius: 2px;
   text-align: center;
   display: inline-block;
+  // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
   padding: 0 0.5em;
   border: 1px solid color.adjust($color-grey-2, $lightness: 30%);
