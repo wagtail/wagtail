@@ -23,6 +23,12 @@ exports[`MediaBlock no data 1`] = `
     src=""
     width="256"
   />
+  <span
+    className="MediaBlock__fallback"
+  >
+    Example Author
+    Example Provider
+  </span>
 </button>
 `;
 
