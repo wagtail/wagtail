@@ -35,6 +35,7 @@ Changelog
  * Fix: Consistently set `aria-haspopup="menu"` for all sidebar menu items that have sub-menus (LB (Ben Johnston))
  * Fix: Make sure `aria-expanded` is always explicitly set as a string in sidebar (LB (Ben Johnston))
  * Fix: Use a button element instead of a link for page explorer menu item, for the correct semantics and behavior (LB (Ben Johnston))
+ * Fix: Padding issue in header search icon and plus icon (Marmik Patel)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT

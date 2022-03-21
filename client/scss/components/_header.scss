@@ -56,6 +56,9 @@ header {
     // stylelint-disable-next-line property-disallowed-list
     left: 0.5em;
     inset-inline-start: 0.5em;
+
+    // Icon Positioning (Vertically Centered)
+    padding: 10px 0;
   }
 
   // For case where content below header should merge with it
