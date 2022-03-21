@@ -4,6 +4,7 @@ help:
 	@echo "clean-pyc - remove Python file artifacts"
 	@echo "develop - install development dependencies"
 	@echo "lint - check style with black, flake8, sort python with isort, indent html, and lint frontend css/js"
+	@echo "format - enforce a consistent code style across the codebase, sort python files with isort and fix frontend css/js"
 	@echo "test - run tests"
 	@echo "coverage - check code coverage"
 
