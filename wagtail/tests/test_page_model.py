@@ -20,11 +20,11 @@ from wagtail.models import (
     Comment,
     Locale,
     Page,
-    PageLogEntry,
     PageManager,
     Site,
     get_page_models,
     get_translatable_models,
+    logging,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -2564,7 +2564,7 @@ class TestUpdateAliases(TestCase):
         self.assertEqual(alias.speakers.count(), 1)
         self.assertEqual(alias_alias.speakers.count(), 1)
 
-        PageLogEntry.objects.all().delete()
+        logging.PageLogEntry.objects.all().delete()
 
         event_page.update_aliases()
 
@@ -2582,10 +2582,12 @@ class TestUpdateAliases(TestCase):
 
         # Check log entries were created
         self.assertTrue(
-            PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
+            logging.PageLogEntry.objects.filter(
+                page=alias, action="wagtail.publish"
+            ).exists()
         )
         self.assertTrue(
-            PageLogEntry.objects.filter(
+            logging.PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
         )
@@ -2615,7 +2617,7 @@ class TestUpdateAliases(TestCase):
         self.assertFalse(alias.live)
         self.assertFalse(alias_alias.live)
 
-        PageLogEntry.objects.all().delete()
+        logging.PageLogEntry.objects.all().delete()
 
         event_page.update_aliases()
 
@@ -2627,10 +2629,12 @@ class TestUpdateAliases(TestCase):
 
         # Check log entries were created
         self.assertTrue(
-            PageLogEntry.objects.filter(page=alias, action="wagtail.publish").exists()
+            logging.PageLogEntry.objects.filter(
+                page=alias, action="wagtail.publish"
+            ).exists()
         )
         self.assertTrue(
-            PageLogEntry.objects.filter(
+            logging.PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.publish"
             ).exists()
         )
@@ -2661,7 +2665,9 @@ class TestCopyForTranslation(TestCase):
         self.assertTrue(fr_homepage.has_unpublished_changes)
 
         # Check log
-        log_entry = PageLogEntry.objects.get(action="wagtail.copy_for_translation")
+        log_entry = logging.PageLogEntry.objects.get(
+            action="wagtail.copy_for_translation"
+        )
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
@@ -2706,7 +2712,9 @@ class TestCopyForTranslation(TestCase):
         self.assertEqual(self.en_eventindex.slug, fr_eventindex.slug)
 
         # Check log
-        log_entry = PageLogEntry.objects.get(action="wagtail.copy_for_translation")
+        log_entry = logging.PageLogEntry.objects.get(
+            action="wagtail.copy_for_translation"
+        )
         self.assertEqual(log_entry.data["source_locale"]["language_code"], "en")
         self.assertEqual(log_entry.data["page"]["locale"]["language_code"], "fr")
         self.assertEqual(
@@ -3390,7 +3398,7 @@ class TestUnpublish(TestCase):
         self.assertTrue(alias.live)
         self.assertTrue(alias_alias.live)
 
-        PageLogEntry.objects.all().delete()
+        logging.PageLogEntry.objects.all().delete()
 
         # Unpublish the event page
         event_page.unpublish()
@@ -3403,10 +3411,12 @@ class TestUnpublish(TestCase):
 
         # Check log entries were created for the aliases
         self.assertTrue(
-            PageLogEntry.objects.filter(page=alias, action="wagtail.unpublish").exists()
+            logging.PageLogEntry.objects.filter(
+                page=alias, action="wagtail.unpublish"
+            ).exists()
         )
         self.assertTrue(
-            PageLogEntry.objects.filter(
+            logging.PageLogEntry.objects.filter(
                 page=alias_alias, action="wagtail.unpublish"
             ).exists()
         )

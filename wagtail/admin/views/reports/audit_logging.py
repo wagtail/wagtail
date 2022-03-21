@@ -9,6 +9,7 @@ from django.db.models import IntegerField, Value
 from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.models.logging
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.filters import (
     ContentTypeFilter,
@@ -17,7 +18,6 @@ from wagtail.admin.filters import (
 )
 from wagtail.coreutils import get_content_type_label
 from wagtail.log_actions import registry as log_action_registry
-from wagtail.models import PageLogEntry
 
 from .base import ReportView
 
@@ -68,7 +68,7 @@ class SiteHistoryReportFilterSet(WagtailFilterSet):
         return queryset.filter_on_content_type(value)
 
     class Meta:
-        model = PageLogEntry
+        model = wagtail.models.logging.PageLogEntry
         fields = [
             "object_type",
             "label",

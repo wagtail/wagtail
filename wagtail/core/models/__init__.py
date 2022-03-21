@@ -12,9 +12,6 @@ from wagtail.models import (  # noqa
     Orderable,
     Page,
     PageBase,
-    PageLogEntry,
-    PageLogEntryManager,
-    PageLogEntryQuerySet,
     PageManager,
     PagePermissionTester,
     PageRevision,
@@ -28,6 +25,11 @@ from wagtail.models import (  # noqa
     get_streamfield_names,
     logger,
     reassign_root_page_locale_on_delete,
+)
+from wagtail.models.logging import (
+    PageLogEntry,
+    PageLogEntryManager,
+    PageLogEntryQuerySet,
 )
 from wagtail.models.workflows import (  # noqa
     GroupApprovalTask,

@@ -21,11 +21,11 @@ from wagtail.models import (
     GroupPagePermission,
     Locale,
     Page,
-    PageLogEntry,
     PageRevision,
     PageSubscription,
     Site,
     UserProfile,
+    logging,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -2554,7 +2554,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertIn('New comments:\n - "A test comment"\n\n', mail.outbox[0].body)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.create")
+        log_entry = logging.PageLogEntry.objects.get(action="wagtail.comments.create")
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2606,7 +2606,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 0)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit")
+        log_entry = logging.PageLogEntry.objects.get(action="wagtail.comments.edit")
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2657,7 +2657,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
 
         # Check no log entry was created
         self.assertFalse(
-            PageLogEntry.objects.filter(action="wagtail.comments.edit").exists()
+            logging.PageLogEntry.objects.filter(action="wagtail.comments.edit").exists()
         )
 
     def test_resolve_comment(self):
@@ -2723,7 +2723,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         )
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.resolve")
+        log_entry = logging.PageLogEntry.objects.get(action="wagtail.comments.resolve")
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2781,7 +2781,7 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertIn('Deleted comments:\n - "A test comment"\n\n', mail.outbox[0].body)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete")
+        log_entry = logging.PageLogEntry.objects.get(action="wagtail.comments.delete")
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2859,7 +2859,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         )
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.create_reply")
+        log_entry = logging.PageLogEntry.objects.get(
+            action="wagtail.comments.create_reply"
+        )
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2919,7 +2921,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 0)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.edit_reply")
+        log_entry = logging.PageLogEntry.objects.get(
+            action="wagtail.comments.edit_reply"
+        )
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())
@@ -2979,7 +2983,9 @@ class TestCommenting(TestCase, WagtailTestUtils):
         self.assertEqual(len(mail.outbox), 0)
 
         # Check audit log
-        log_entry = PageLogEntry.objects.get(action="wagtail.comments.delete_reply")
+        log_entry = logging.PageLogEntry.objects.get(
+            action="wagtail.comments.delete_reply"
+        )
         self.assertEqual(log_entry.page, self.child_page.page_ptr)
         self.assertEqual(log_entry.user, self.user)
         self.assertEqual(log_entry.revision, self.child_page.get_latest_revision())

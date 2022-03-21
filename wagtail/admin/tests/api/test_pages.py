@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry, UserProfile
+from wagtail.models import GroupPagePermission, Locale, Page, UserProfile, logging
 from wagtail.test.demosite import models
 from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
 
@@ -1323,7 +1323,7 @@ class TestConvertAliasPageAction(AdminAPITestCase):
         self.assertEqual(self.alias_page.live_revision, revision)
 
         # Check audit log
-        log = PageLogEntry.objects.get(action="wagtail.convert_alias")
+        log = logging.PageLogEntry.objects.get(action="wagtail.convert_alias")
         self.assertFalse(log.content_changed)
         self.assertEqual(
             log.data,

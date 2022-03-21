@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.models import GroupPagePermission, Page, PageLogEntry, PageViewRestriction
+from wagtail.models import GroupPagePermission, Page, PageViewRestriction, logging
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
 
@@ -221,7 +221,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
 
         self.assertListEqual(
             list(
-                PageLogEntry.objects.filter(page=page_id).values_list(
+                logging.PageLogEntry.objects.filter(page=page_id).values_list(
                     "action", flat=True
                 )
             ),
@@ -246,7 +246,7 @@ class TestAuditLogAdmin(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
 
-        entries = PageLogEntry.objects.filter(page=self.hello_page).values_list(
+        entries = logging.PageLogEntry.objects.filter(page=self.hello_page).values_list(
             "action", flat=True
         )
         self.assertListEqual(

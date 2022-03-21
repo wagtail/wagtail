@@ -15,9 +15,9 @@ from wagtail.admin.views.reports import ReportView
 from wagtail.log_actions import registry as log_action_registry
 from wagtail.models import (
     Page,
-    PageLogEntry,
     PageRevision,
     UserPagePermissionsProxy,
+    logging,
     workflows,
 )
 
@@ -31,7 +31,7 @@ class PageHistoryReportFilterSet(WagtailFilterSet):
     )
     user = django_filters.ModelChoiceFilter(
         field_name="user",
-        queryset=lambda request: PageLogEntry.objects.all().get_users(),
+        queryset=lambda request: logging.PageLogEntry.objects.all().get_users(),
     )
     timestamp = django_filters.DateFromToRangeFilter(
         label=_("Date"), widget=DateRangePickerWidget
@@ -43,7 +43,7 @@ class PageHistoryReportFilterSet(WagtailFilterSet):
         return queryset
 
     class Meta:
-        model = PageLogEntry
+        model = logging.PageLogEntry
         fields = ["action", "user", "timestamp", "hide_commenting_actions"]
 
 
@@ -200,6 +200,6 @@ class PageHistoryView(ReportView):
         return context
 
     def get_queryset(self):
-        return PageLogEntry.objects.filter(page=self.page).select_related(
+        return logging.PageLogEntry.objects.filter(page=self.page).select_related(
             "revision", "user", "user__wagtail_userprofile"
         )

@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.filters import ContentTypeFilter, WagtailFilterSet
 from wagtail.admin.widgets import AdminDateInput
 from wagtail.coreutils import get_content_type_label
-from wagtail.models import Page, PageLogEntry, UserPagePermissionsProxy, get_page_models
+from wagtail.models import Page, UserPagePermissionsProxy, get_page_models, logging
 
 from .base import PageReportView
 
@@ -72,7 +72,7 @@ class AgingPagesView(PageReportView):
         return queryset
 
     def get_queryset(self):
-        latest_publishing_log = PageLogEntry.objects.filter(
+        latest_publishing_log = logging.PageLogEntry.objects.filter(
             page=OuterRef("pk"), action__exact="wagtail.publish"
         )
         self.queryset = (

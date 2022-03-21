@@ -11,7 +11,7 @@ from django.utils import timezone, translation
 from openpyxl import load_workbook
 
 from wagtail.admin.views.mixins import ExcelDateFormatter
-from wagtail.models import Page, PageLogEntry
+from wagtail.models import Page, logging
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -158,20 +158,20 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
         self.user = self.login()
         self.home_page = Page.objects.get(url_path="/home/")
 
-        self.create_log = PageLogEntry.objects.log_action(
+        self.create_log = logging.PageLogEntry.objects.log_action(
             self.home_page, "wagtail.create"
         )
-        self.edit_log_1 = PageLogEntry.objects.log_action(
+        self.edit_log_1 = logging.PageLogEntry.objects.log_action(
             self.home_page, "wagtail.edit"
         )
-        self.edit_log_2 = PageLogEntry.objects.log_action(
+        self.edit_log_2 = logging.PageLogEntry.objects.log_action(
             self.home_page, "wagtail.edit"
         )
-        self.edit_log_3 = PageLogEntry.objects.log_action(
+        self.edit_log_3 = logging.PageLogEntry.objects.log_action(
             self.home_page, "wagtail.edit"
         )
 
-        self.create_comment_log = PageLogEntry.objects.log_action(
+        self.create_comment_log = logging.PageLogEntry.objects.log_action(
             self.home_page,
             "wagtail.comments.create",
             data={
@@ -181,7 +181,7 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
                 }
             },
         )
-        self.edit_comment_log = PageLogEntry.objects.log_action(
+        self.edit_comment_log = logging.PageLogEntry.objects.log_action(
             self.home_page,
             "wagtail.comments.edit",
             data={
@@ -191,7 +191,7 @@ class TestFilteredLogEntriesView(TestCase, WagtailTestUtils):
                 }
             },
         )
-        self.create_reply_log = PageLogEntry.objects.log_action(
+        self.create_reply_log = logging.PageLogEntry.objects.log_action(
             self.home_page,
             "wagtail.comments.create_reply",
             data={
