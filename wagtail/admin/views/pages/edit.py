@@ -21,15 +21,7 @@ from wagtail.admin.mail import send_notification
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
-from wagtail.models import (
-    COMMENTS_RELATION_NAME,
-    Comment,
-    CommentReply,
-    Page,
-    PageSubscription,
-    UserPagePermissionsProxy,
-    workflows,
-)
+from wagtail.models import Page, UserPagePermissionsProxy, commenting, workflows
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -148,7 +140,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return
 
         # Get global page comment subscribers
-        subscribers = PageSubscription.objects.filter(
+        subscribers = commenting.PageSubscription.objects.filter(
             page=self.page, comment_notifications=True
         ).select_related("user")
         global_recipient_users = [
@@ -158,19 +150,27 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         ]
 
         # Get subscribers to individual threads
-        replies = CommentReply.objects.filter(comment_id__in=relevant_comment_ids)
-        comments = Comment.objects.filter(id__in=relevant_comment_ids)
+        replies = commenting.CommentReply.objects.filter(
+            comment_id__in=relevant_comment_ids
+        )
+        comments = commenting.Comment.objects.filter(id__in=relevant_comment_ids)
         thread_users = (
             get_user_model()
             .objects.exclude(pk=self.request.user.pk)
             .exclude(pk__in=subscribers.values_list("user_id", flat=True))
             .filter(
                 Q(comment_replies__comment_id__in=relevant_comment_ids)
-                | Q(**{("%s__pk__in" % COMMENTS_RELATION_NAME): relevant_comment_ids})
+                | Q(
+                    **{
+                        (
+                            "%s__pk__in" % commenting.COMMENTS_RELATION_NAME
+                        ): relevant_comment_ids
+                    }
+                )
             )
             .prefetch_related(
                 Prefetch("comment_replies", queryset=replies),
-                Prefetch(COMMENTS_RELATION_NAME, queryset=comments),
+                Prefetch(commenting.COMMENTS_RELATION_NAME, queryset=comments),
             )
         )
 
@@ -183,7 +183,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 set(
                     list(user.comment_replies.values_list("comment_id", flat=True))
                     + list(
-                        getattr(user, COMMENTS_RELATION_NAME).values_list(
+                        getattr(user, commenting.COMMENTS_RELATION_NAME).values_list(
                             "pk", flat=True
                         )
                     )
@@ -342,11 +342,11 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return response
 
         try:
-            self.subscription = PageSubscription.objects.get(
+            self.subscription = commenting.PageSubscription.objects.get(
                 page=self.page, user=self.request.user
             )
-        except PageSubscription.DoesNotExist:
-            self.subscription = PageSubscription(
+        except commenting.PageSubscription.DoesNotExist:
+            self.subscription = commenting.PageSubscription(
                 page=self.page, user=self.request.user, comment_notifications=False
             )
 

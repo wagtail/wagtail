@@ -1,13 +1,10 @@
 from wagtail.models import (  # noqa
-    COMMENTS_RELATION_NAME,
     PAGE_MODEL_CLASSES,
     PAGE_PERMISSION_TYPE_CHOICES,
     PAGE_PERMISSION_TYPES,
     PAGE_TEMPLATE_VAR,
     AbstractPage,
     BasePageManager,
-    Comment,
-    CommentReply,
     GroupPagePermission,
     Orderable,
     Page,
@@ -15,7 +12,6 @@ from wagtail.models import (  # noqa
     PageManager,
     PagePermissionTester,
     PageRevision,
-    PageSubscription,
     PageViewRestriction,
     ParentNotTranslatedError,
     SubmittedRevisionsManager,
@@ -26,7 +22,13 @@ from wagtail.models import (  # noqa
     logger,
     reassign_root_page_locale_on_delete,
 )
-from wagtail.models.logging import (
+from wagtail.models.commenting import (  # noqa
+    COMMENTS_RELATION_NAME,
+    Comment,
+    CommentReply,
+    PageSubscription,
+)
+from wagtail.models.logging import (  # noqa
     PageLogEntry,
     PageLogEntryManager,
     PageLogEntryQuerySet,

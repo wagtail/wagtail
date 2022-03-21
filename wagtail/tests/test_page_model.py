@@ -17,11 +17,11 @@ from freezegun import freeze_time
 
 from wagtail.actions.copy_for_translation import ParentNotTranslatedError
 from wagtail.models import (
-    Comment,
     Locale,
     Page,
     PageManager,
     Site,
+    commenting,
     get_page_models,
     get_translatable_models,
     logging,
@@ -1354,7 +1354,7 @@ class TestCopyPage(TestCase):
         christmas_event = EventPage.objects.get(url_path="/home/events/christmas/")
 
         christmas_event.wagtail_admin_comments = [
-            Comment(text="test", user=christmas_event.owner)
+            commenting.Comment(text="test", user=christmas_event.owner)
         ]
         christmas_event.save()
 

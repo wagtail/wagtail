@@ -4,7 +4,7 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-from wagtail.models import COMMENTS_RELATION_NAME
+import wagtail.models.commenting
 
 
 class Migration(migrations.Migration):
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                     "page",
                     modelcluster.fields.ParentalKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name=COMMENTS_RELATION_NAME,
+                        related_name=wagtail.models.commenting.COMMENTS_RELATION_NAME,
                         to="wagtailcore.Page",
                     ),
                 ),
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
                     "user",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name=COMMENTS_RELATION_NAME,
+                        related_name=wagtail.models.commenting.COMMENTS_RELATION_NAME,
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),

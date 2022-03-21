@@ -21,12 +21,9 @@ from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.blocks import BlockField
 from wagtail.coreutils import camelcase_to_underscore
-from wagtail.models import COMMENTS_RELATION_NAME, Page
+from wagtail.models import Page, commenting
 from wagtail.utils.decorators import cached_classmethod
 
-# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
-# compatibility, as people are likely importing them from here and then
-# appending their own overrides
 from .forms.models import (  # NOQA
     DIRECT_FORM_FIELD_OVERRIDES,
     FORM_FIELD_OVERRIDES,
@@ -34,6 +31,10 @@ from .forms.models import (  # NOQA
     formfield_for_dbfield,
 )
 from .forms.pages import WagtailAdminPageForm
+
+# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
+# compatibility, as people are likely importing them from here and then
+# appending their own overrides
 
 
 def widget_with_script(widget, script):
@@ -908,7 +909,7 @@ class CommentPanel(EditHandler):
                 formsets = {"replies": {"form": CommentReplyFormWithRequest}}
 
         return {
-            COMMENTS_RELATION_NAME: {
+            commenting.COMMENTS_RELATION_NAME: {
                 "form": CommentFormWithRequest,
                 "fields": ["text", "contentpath", "position"],
                 "formset_name": "comments",
