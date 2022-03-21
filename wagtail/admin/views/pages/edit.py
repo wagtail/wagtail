@@ -28,7 +28,7 @@ from wagtail.models import (
     Page,
     PageSubscription,
     UserPagePermissionsProxy,
-    WorkflowState,
+    workflows,
 )
 
 
@@ -424,7 +424,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             workflow = self.workflow_state.workflow
             task = self.workflow_state.current_task_state.task
             if (
-                self.workflow_state.status != WorkflowState.STATUS_NEEDS_CHANGES
+                self.workflow_state.status
+                != workflows.WorkflowState.STATUS_NEEDS_CHANGES
                 and task.specific.page_locked_for_user(self.page, self.request.user)
             ):
                 # Check for revisions still undergoing moderation and warn
@@ -683,7 +684,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
         if (
             self.workflow_state
-            and self.workflow_state.status == WorkflowState.STATUS_NEEDS_CHANGES
+            and self.workflow_state.status
+            == workflows.WorkflowState.STATUS_NEEDS_CHANGES
         ):
             # If the workflow was in the needs changes state, resume the existing workflow on submission
             self.workflow_state.resume(self.request.user)

@@ -58,8 +58,8 @@ from wagtail.models import (
     Page,
     PageManager,
     PageQuerySet,
-    Task,
     TranslatableMixin,
+    workflows,
 )
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
@@ -1615,7 +1615,7 @@ class TaggedRestaurant(ItemBase):
     )
 
 
-class SimpleTask(Task):
+class SimpleTask(workflows.Task):
     pass
 
 

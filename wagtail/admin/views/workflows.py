@@ -25,14 +25,7 @@ from wagtail.admin.forms.workflows import (
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.coreutils import resolve_model_string
-from wagtail.models import (
-    Page,
-    Task,
-    TaskState,
-    UserPagePermissionsProxy,
-    Workflow,
-    WorkflowState,
-)
+from wagtail.models import Page, UserPagePermissionsProxy, workflows
 from wagtail.permissions import task_permission_policy, workflow_permission_policy
 from wagtail.workflows import get_task_types
 
@@ -41,7 +34,7 @@ task_permission_checker = PermissionPolicyChecker(task_permission_policy)
 
 class Index(IndexView):
     permission_policy = workflow_permission_policy
-    model = Workflow
+    model = workflows.Workflow
     context_object_name = "workflows"
     template_name = "wagtailadmin/workflows/index.html"
     add_url_name = "wagtailadmin_workflows:add"
@@ -68,7 +61,7 @@ class Index(IndexView):
 
 class Create(CreateView):
     permission_policy = workflow_permission_policy
-    model = Workflow
+    model = workflows.Workflow
     page_title = _("New workflow")
     template_name = "wagtailadmin/workflows/create.html"
     success_message = _("Workflow '{0}' created.")
@@ -139,7 +132,7 @@ class Create(CreateView):
 
 class Edit(EditView):
     permission_policy = workflow_permission_policy
-    model = Workflow
+    model = workflows.Workflow
     page_title = _("Editing workflow")
     template_name = "wagtailadmin/workflows/edit.html"
     success_message = _("Workflow '{0}' updated.")
@@ -242,7 +235,7 @@ class Edit(EditView):
 
 class Disable(DeleteView):
     permission_policy = workflow_permission_policy
-    model = Workflow
+    model = workflows.Workflow
     page_title = _("Disable workflow")
     template_name = "wagtailadmin/workflows/confirm_disable.html"
     success_message = _("Workflow '{0}' disabled.")
@@ -258,8 +251,8 @@ class Disable(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        states_in_progress = WorkflowState.objects.filter(
-            status=WorkflowState.STATUS_IN_PROGRESS
+        states_in_progress = workflows.WorkflowState.objects.filter(
+            status=workflows.WorkflowState.STATUS_IN_PROGRESS
         ).count()
         context["warning_message"] = ngettext(
             "This workflow is in progress on %(states_in_progress)d page. Disabling this workflow will cancel moderation on this page.",
@@ -275,7 +268,7 @@ class Disable(DeleteView):
 
 
 def usage(request, pk):
-    workflow = get_object_or_404(Workflow, id=pk)
+    workflow = get_object_or_404(workflows.Workflow, id=pk)
 
     perms = UserPagePermissionsProxy(request.user)
 
@@ -296,7 +289,7 @@ def usage(request, pk):
 @require_POST
 def enable_workflow(request, pk):
     # Reactivate an inactive workflow
-    workflow = get_object_or_404(Workflow, id=pk)
+    workflow = get_object_or_404(workflows.Workflow, id=pk)
 
     # Check permissions
     if not workflow_permission_policy.user_has_permission(request.user, "create"):
@@ -352,7 +345,7 @@ def remove_workflow(request, page_pk, workflow_pk=None):
 
 class TaskIndex(IndexView):
     permission_policy = task_permission_policy
-    model = Task
+    model = workflows.Task
     context_object_name = "tasks"
     template_name = "wagtailadmin/workflows/task_index.html"
     add_url_name = "wagtailadmin_workflows:select_task_type"
@@ -434,7 +427,7 @@ class CreateTask(CreateView):
         model = content_type.model_class()
 
         # Make sure the class is a descendant of Task
-        if not issubclass(model, Task) or model is Task:
+        if not issubclass(model, workflows.Task) or model is workflows.Task:
             raise Http404
 
         return model
@@ -479,7 +472,7 @@ class EditTask(EditView):
 
     def get_queryset(self):
         if self.queryset is None:
-            return Task.objects.all()
+            return workflows.Task.objects.all()
 
     def get_object(self, queryset=None):
         return super().get_object().specific
@@ -508,7 +501,7 @@ class EditTask(EditView):
 
 class DisableTask(DeleteView):
     permission_policy = task_permission_policy
-    model = Task
+    model = workflows.Task
     page_title = _("Disable task")
     template_name = "wagtailadmin/workflows/confirm_disable_task.html"
     success_message = _("Task '{0}' disabled.")
@@ -520,8 +513,8 @@ class DisableTask(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        states_in_progress = TaskState.objects.filter(
-            status=TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk
+        states_in_progress = workflows.TaskState.objects.filter(
+            status=workflows.TaskState.STATUS_IN_PROGRESS, task=self.get_object().pk
         ).count()
         context["warning_message"] = ngettext(
             "This task is in progress on %(states_in_progress)d page. Disabling this task will cause it to be skipped in the moderation workflow and not be listed for selection when editing a workflow.",
@@ -543,7 +536,7 @@ class DisableTask(DeleteView):
 @require_POST
 def enable_task(request, pk):
     # Reactivate an inactive task
-    task = get_object_or_404(Task, id=pk)
+    task = get_object_or_404(workflows.Task, id=pk)
 
     # Check permissions
     if not task_permission_policy.user_has_permission(request.user, "create"):
@@ -779,5 +772,5 @@ class TaskChooserResultsView(BaseTaskChooserView):
 
 
 def task_chosen(request, task_id):
-    task = get_object_or_404(Task, id=task_id)
+    task = get_object_or_404(workflows.Task, id=task_id)
     return get_task_chosen_response(request, task)

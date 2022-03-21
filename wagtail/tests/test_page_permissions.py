@@ -6,13 +6,11 @@ from django.test import Client, TestCase, override_settings
 from django.utils import timezone
 
 from wagtail.models import (
-    GroupApprovalTask,
     GroupPagePermission,
     Locale,
     Page,
     UserPagePermissionsProxy,
-    Workflow,
-    WorkflowTask,
+    workflows,
 )
 from wagtail.test.testapp.models import (
     BusinessSubIndex,
@@ -26,10 +24,10 @@ class TestPagePermission(TestCase):
     fixtures = ["test.json"]
 
     def create_workflow_and_task(self):
-        workflow = Workflow.objects.create(name="test_workflow")
-        task_1 = GroupApprovalTask.objects.create(name="test_task_1")
+        workflow = workflows.Workflow.objects.create(name="test_workflow")
+        task_1 = workflows.GroupApprovalTask.objects.create(name="test_task_1")
         task_1.groups.add(Group.objects.get(name="Event moderators"))
-        WorkflowTask.objects.create(
+        workflows.WorkflowTask.objects.create(
             workflow=workflow, task=task_1.task_ptr, sort_order=1
         )
         return workflow, task_1

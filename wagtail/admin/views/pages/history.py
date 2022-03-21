@@ -17,9 +17,8 @@ from wagtail.models import (
     Page,
     PageLogEntry,
     PageRevision,
-    TaskState,
     UserPagePermissionsProxy,
-    WorkflowState,
+    workflows,
 )
 
 
@@ -55,7 +54,9 @@ def workflow_history(request, page_id):
     if not user_perms.for_page(page).can_edit():
         raise PermissionDenied
 
-    workflow_states = WorkflowState.objects.filter(page=page).order_by("-created_at")
+    workflow_states = workflows.WorkflowState.objects.filter(page=page).order_by(
+        "-created_at"
+    )
 
     paginator = Paginator(workflow_states, per_page=20)
     workflow_states = paginator.get_page(request.GET.get("p"))
@@ -77,7 +78,9 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     if not user_perms.for_page(page).can_edit():
         raise PermissionDenied
 
-    workflow_state = get_object_or_404(WorkflowState, page=page, id=workflow_state_id)
+    workflow_state = get_object_or_404(
+        workflows.WorkflowState, page=page, id=workflow_state_id
+    )
 
     # Get QuerySet of all revisions that have existed during this workflow state
     # It's possible that the page is edited while the workflow is running, so some
@@ -85,9 +88,9 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     # revision needs to be displayed on this page.
     page_revisions = PageRevision.objects.filter(
         page=page,
-        id__in=TaskState.objects.filter(workflow_state=workflow_state).values_list(
-            "page_revision_id", flat=True
-        ),
+        id__in=workflows.TaskState.objects.filter(
+            workflow_state=workflow_state
+        ).values_list("page_revision_id", flat=True),
     ).order_by("-created_at")
 
     # Now get QuerySet of tasks completed for each revision
@@ -96,7 +99,7 @@ def workflow_history_detail(request, page_id, workflow_state_id):
             page_revision,
             {
                 task_state.task: task_state
-                for task_state in TaskState.objects.filter(
+                for task_state in workflows.TaskState.objects.filter(
                     workflow_state=workflow_state, page_revision=page_revision
                 )
             },
@@ -114,9 +117,9 @@ def workflow_history_detail(request, page_id, workflow_state_id):
 
     # Generate timeline
     completed_task_states = (
-        TaskState.objects.filter(workflow_state=workflow_state)
+        workflows.TaskState.objects.filter(workflow_state=workflow_state)
         .exclude(finished_at__isnull=True)
-        .exclude(status=TaskState.STATUS_CANCELLED)
+        .exclude(status=workflows.TaskState.STATUS_CANCELLED)
     )
 
     timeline = [
@@ -128,8 +131,8 @@ def workflow_history_detail(request, page_id, workflow_state_id):
     ]
 
     if workflow_state.status not in (
-        WorkflowState.STATUS_IN_PROGRESS,
-        WorkflowState.STATUS_NEEDS_CHANGES,
+        workflows.WorkflowState.STATUS_IN_PROGRESS,
+        workflows.WorkflowState.STATUS_NEEDS_CHANGES,
     ):
         last_task = completed_task_states.order_by("finished_at").last()
         if last_task:

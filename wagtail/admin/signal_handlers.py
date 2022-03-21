@@ -4,7 +4,7 @@ from wagtail.admin.mail import (
     WorkflowStateRejectionEmailNotifier,
     WorkflowStateSubmissionEmailNotifier,
 )
-from wagtail.models import TaskState, WorkflowState
+from wagtail.models import workflows
 from wagtail.signals import (
     task_submitted,
     workflow_approved,
@@ -21,22 +21,22 @@ workflow_rejection_email_notifier = WorkflowStateRejectionEmailNotifier()
 def register_signal_handlers():
     task_submitted.connect(
         task_submission_email_notifier,
-        sender=TaskState,
+        sender=workflows.TaskState,
         dispatch_uid="group_approval_task_submitted_email_notification",
     )
 
     workflow_submitted.connect(
         workflow_submission_email_notifier,
-        sender=WorkflowState,
+        sender=workflows.WorkflowState,
         dispatch_uid="workflow_state_submitted_email_notification",
     )
     workflow_rejected.connect(
         workflow_rejection_email_notifier,
-        sender=WorkflowState,
+        sender=workflows.WorkflowState,
         dispatch_uid="workflow_state_rejected_email_notification",
     )
     workflow_approved.connect(
         workflow_approval_email_notifier,
-        sender=WorkflowState,
+        sender=workflows.WorkflowState,
         dispatch_uid="workflow_state_approved_email_notification",
     )
