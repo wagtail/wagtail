@@ -468,17 +468,6 @@ class BaseFormEditHandler(PanelGroup):
         self.base_form_class = kwargs.pop("base_form_class", None)
         super().__init__(*args, **kwargs)
 
-    @cached_property
-    def show_comments_toggle(self):
-        if not self.model:
-            raise ImproperlyConfigured(
-                "%r must be bound to a model before accessing show_comments_toggle"
-                % self
-            )
-
-        fields = self.get_form_options().get("fields", [])
-        return "comment_notifications" in fields
-
     def get_form_class(self):
         """
         Construct a form class that has all the fields and formsets named in
@@ -491,28 +480,16 @@ class BaseFormEditHandler(PanelGroup):
         model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
         base_form_class = self.base_form_class or model_form_class
 
-        form_class = get_form_for_model(
+        return get_form_for_model(
             self.model,
             form_class=base_form_class,
             **form_options,
-        )
-
-        # Set show_comments_toggle attribute on form class
-        return type(
-            form_class.__name__,
-            (form_class,),
-            {"show_comments_toggle": self.show_comments_toggle},
         )
 
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["base_form_class"] = self.base_form_class
         return kwargs
-
-    class BoundPanel(PanelGroup.BoundPanel):
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel, instance, request, form)
-            self.show_comments_toggle = self.panel.show_comments_toggle
 
 
 class TabbedInterface(BaseFormEditHandler):

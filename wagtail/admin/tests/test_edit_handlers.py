@@ -1349,12 +1349,16 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         """
         Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
         """
-        self.assertTrue(self.tabbed_interface.show_comments_toggle)
+        form_class = self.tabbed_interface.get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_comments_toggle)
 
         tabbed_interface_without_content_panel = TabbedInterface(
             [ObjectList(self.event_page.content_panels)]
         ).bind_to_model(EventPage)
-        self.assertFalse(tabbed_interface_without_content_panel.show_comments_toggle)
+        form_class = tabbed_interface_without_content_panel.get_form_class()
+        form = form_class()
+        self.assertFalse(form.show_comments_toggle)
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_comments_disabled_setting(self):
@@ -1364,7 +1368,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertFalse(
             any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
         )
-        self.assertFalse(Page.get_edit_handler().show_comments_toggle)
+        form_class = Page.get_edit_handler().get_form_class()
+        form = form_class()
+        self.assertFalse(form.show_comments_toggle)
 
     def test_comments_enabled_setting(self):
         """
@@ -1373,7 +1379,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertTrue(
             any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
         )
-        self.assertTrue(Page.get_edit_handler().show_comments_toggle)
+        form_class = Page.get_edit_handler().get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_comments_toggle)
 
     def test_context(self):
         """
