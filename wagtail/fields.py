@@ -124,7 +124,7 @@ class StreamField(models.Field):
         name, path, _, kwargs = super().deconstruct()
         block_types = list(self.stream_block.child_blocks.items())
         args = [block_types]
-        kwargs = {**kwargs, "use_json_field": self.use_json_field}
+        kwargs["use_json_field"] = self.use_json_field
         return name, path, args, kwargs
 
     def to_python(self, value):
