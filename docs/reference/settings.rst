@@ -636,10 +636,10 @@ a custom user model is being used and extra fields are required in the user crea
 A list of the extra custom fields to be appended to the default list.
 
 Choosers
-========================================
+========
 
 ``WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED``
---------------------------------
+----------------------------------------
 
 .. code-block:: python
 
@@ -649,7 +649,7 @@ By default, Wagtail allows the ability to upload images and documents in the cho
 This setting can be used to disable this functionality, only giving the editor the ability to choose already uploaded images.
 
 ``WAGTAIL_CHOOSER_DOCUMENT_UPLOAD_ENABLED``
---------------------------------
+-------------------------------------------
 
 .. code-block:: python
 
