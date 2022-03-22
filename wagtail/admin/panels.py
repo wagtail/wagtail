@@ -107,10 +107,13 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class EditHandler:
+class Panel:
     """
-    Abstract class providing sensible default behaviours for objects implementing
-    the EditHandler API
+    Defines part (or all) of the edit form interface for pages and other models within the Wagtail
+    admin. Each model has an associated panel definition, consisting of a nested structure of Panel
+    objects - this provides methods for obtaining a ModelForm subclass, with the field list and
+    other parameters collated from all panels in the structure. It then handles rendering that form
+    as HTML.
     """
 
     def __init__(self, heading="", classname="", help_text=""):
@@ -132,16 +135,16 @@ class EditHandler:
             "help_text": self.help_text,
         }
 
-    # return list of widget overrides that this EditHandler wants to be in place
+    # return list of widget overrides that this panel wants to be in place
     # on the form it receives
     def widget_overrides(self):
         return {}
 
-    # return list of fields that this EditHandler expects to find on the form
+    # return list of fields that this panel expects to find on the form
     def required_fields(self):
         return []
 
-    # return a dict of formsets that this EditHandler requires to be present
+    # return a dict of formsets that this panel requires to be present
     # as children of the ClusterForm; the dict is a mapping from relation name
     # to parameters to be passed as part of get_form_for_model's 'formsets' kwarg
     def required_formsets(self):
@@ -209,7 +212,7 @@ class EditHandler:
     def classes(self):
         """
         Additional CSS classnames to add to whatever kind of object this is at output.
-        Subclasses of EditHandler should override this, invoking super().classes() to
+        Subclasses of Panel should override this, invoking super().classes() to
         append more classes specific to the situation.
         """
         if self.classname:
@@ -274,9 +277,19 @@ class EditHandler:
         return []
 
 
-class BaseCompositeEditHandler(EditHandler):
+class EditHandler(Panel):
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.admin.edit_handlers.EditHandler has been renamed to wagtail.admin.panels.Panel",
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
+
+
+class BaseCompositeEditHandler(Panel):
     """
-    Abstract class for EditHandlers that manage a set of sub-EditHandlers.
+    Abstract class for panels that manage a set of sub-panels.
     Concrete subclasses must attach a 'children' property
     """
 
@@ -384,7 +397,7 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
                 "%s is not bound to a model yet. Use `.bind_to(model=model)` "
                 "before using this method." % self.__class__.__name__
             )
-        # If a custom form class was passed to the EditHandler, use it.
+        # If a custom form class was passed to the panel, use it.
         # Otherwise, use the base_form_class from the model.
         # If that is not defined, use WagtailAdminModelForm.
         model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
@@ -457,7 +470,7 @@ class MultiFieldPanel(BaseCompositeEditHandler):
         return classes
 
 
-class HelpPanel(EditHandler):
+class HelpPanel(Panel):
     def __init__(
         self,
         content="",
@@ -482,7 +495,7 @@ class HelpPanel(EditHandler):
         return mark_safe(render_to_string(self.template, {"self": self}))
 
 
-class FieldPanel(EditHandler):
+class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
 
     def __init__(self, field_name, *args, **kwargs):
@@ -711,7 +724,7 @@ class PageChooserPanel(FieldPanel):
             return {}
 
 
-class InlinePanel(EditHandler):
+class InlinePanel(Panel):
     def __init__(
         self,
         relation_name,
@@ -876,7 +889,7 @@ class PublishingPanel(MultiFieldPanel):
         super().__init__(**updated_kwargs)
 
 
-class PrivacyModalPanel(EditHandler):
+class PrivacyModalPanel(Panel):
     def __init__(self, **kwargs):
         updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
         updated_kwargs.update(kwargs)
@@ -897,7 +910,7 @@ class PrivacyModalPanel(EditHandler):
         )
 
 
-class CommentPanel(EditHandler):
+class CommentPanel(Panel):
     def required_fields(self):
         # Adds the comment notifications field to the form.
         # Note, this field is defined directly on WagtailAdminPageForm.
@@ -986,7 +999,7 @@ class CommentPanel(EditHandler):
         return panel
 
 
-# Now that we've defined EditHandlers, we can set up wagtailcore.Page to have some.
+# Now that we've defined panels, we can set up wagtailcore.Page to have some.
 def set_default_page_edit_handlers(cls):
     cls.content_panels = [
         FieldPanel("title", classname="full title"),
@@ -1026,7 +1039,7 @@ set_default_page_edit_handlers(Page)
 @cached_classmethod
 def get_edit_handler(cls):
     """
-    Get the EditHandler to use in the Wagtail admin when editing this page type.
+    Get the panel to use in the Wagtail admin when editing this page type.
     """
     if hasattr(cls, "edit_handler"):
         edit_handler = cls.edit_handler

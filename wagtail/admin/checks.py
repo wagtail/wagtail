@@ -73,7 +73,7 @@ def get_form_class_check(app_configs, **kwargs):
                     "{cls}.get_edit_handler().get_form_class() does not extend WagtailAdminPageForm".format(
                         cls=cls.__name__
                     ),
-                    hint="Ensure that the EditHandler for {cls} creates a subclass of WagtailAdminPageForm".format(
+                    hint="Ensure that the panel definition for {cls} creates a subclass of WagtailAdminPageForm".format(
                         cls=cls.__name__
                     ),
                     obj=cls,

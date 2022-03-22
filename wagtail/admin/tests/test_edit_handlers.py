@@ -193,12 +193,12 @@ def clear_edit_handler(page_cls):
     def decorator(fn):
         @wraps(fn)
         def decorated(*args, **kwargs):
-            # Clear any old EditHandlers generated
+            # Clear any old panel definitions generated
             page_cls.get_edit_handler.cache_clear()
             try:
                 fn(*args, **kwargs)
             finally:
-                # Clear the bad EditHandler generated just now
+                # Clear the bad panel definition generated just now
                 page_cls.get_edit_handler.cache_clear()
 
         return decorated
@@ -245,7 +245,7 @@ class TestPageEditHandlers(TestCase):
 
         invalid_edit_handler = checks.Error(
             "ValidatedPage.get_edit_handler().get_form_class() does not extend WagtailAdminPageForm",
-            hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
+            hint="Ensure that the panel definition for ValidatedPage creates a subclass of WagtailAdminPageForm",
             obj=ValidatedPage,
             id="wagtailadmin.E002",
         )

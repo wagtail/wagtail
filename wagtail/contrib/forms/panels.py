@@ -2,10 +2,10 @@ from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
-from wagtail.admin.panels import EditHandler
+from wagtail.admin.panels import Panel
 
 
-class FormSubmissionsPanel(EditHandler):
+class FormSubmissionsPanel(Panel):
     template = "wagtailforms/panels/form_responses_panel.html"
 
     def render(self):
