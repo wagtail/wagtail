@@ -22,7 +22,6 @@ const WagtailLogo = ({ className }: WagtailLogoProps) => {
       enableBackground="new 0 0 430 537"
       xmlSpace="preserve"
       aria-hidden="true"
-      focusable="false"
     >
       <g>
         <path
