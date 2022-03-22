@@ -1474,6 +1474,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 can_create
                 and parent.get_children().type(cls).count() < cls.max_count_per_parent
             )
+        else:
+            return LookupError("Child page limit exceeded")
 
         return can_create
 
