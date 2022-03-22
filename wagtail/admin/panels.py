@@ -1116,28 +1116,9 @@ class PrivacyModalPanel(Panel):
         )
 
 
-class CommentPanel(Panel):
-    def get_form_options(self):
-        # add the comments formset
-        return {
-            # Adds the comment notifications field to the form.
-            # Note, this field is defined directly on WagtailAdminPageForm.
-            "fields": ["comment_notifications"],
-            "formsets": {
-                COMMENTS_RELATION_NAME: {
-                    "form": CommentForm,
-                    "fields": ["text", "contentpath", "position"],
-                    "formset_name": "comments",
-                    "inherit_kwargs": ["for_user"],
-                }
-            },
-        }
-
-    template = "wagtailadmin/panels/comments/comment_panel.html"
-    declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
-
+class BoundCommentPanel(BoundPanel):
     def html_declarations(self):
-        return render_to_string(self.declarations_template)
+        return render_to_string(self.panel.declarations_template)
 
     def get_context(self):
         def user_data(user):
@@ -1188,8 +1169,34 @@ class CommentPanel(Panel):
         }
 
     def render(self):
-        panel = render_to_string(self.template, self.get_context())
+        panel = render_to_string(self.panel.template, self.get_context())
         return panel
+
+
+class CommentPanel(Panel):
+    def get_form_options(self):
+        # add the comments formset
+        return {
+            # Adds the comment notifications field to the form.
+            # Note, this field is defined directly on WagtailAdminPageForm.
+            "fields": ["comment_notifications"],
+            "formsets": {
+                COMMENTS_RELATION_NAME: {
+                    "form": CommentForm,
+                    "fields": ["text", "contentpath", "position"],
+                    "formset_name": "comments",
+                    "inherit_kwargs": ["for_user"],
+                }
+            },
+        }
+
+    template = "wagtailadmin/panels/comments/comment_panel.html"
+    declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
+
+    def get_bound_panel(self, instance=None, request=None, form=None):
+        return BoundCommentPanel(
+            panel=self, instance=instance, request=request, form=form
+        )
 
 
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
