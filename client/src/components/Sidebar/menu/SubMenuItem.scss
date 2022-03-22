@@ -39,7 +39,8 @@
   }
 
   > h2 {
-    @apply w-min-h-[160px] w-inline-flex w-flex-col w-justify-center w-items-center w-text-center w-font-medium w-text-white/80 w-mb-0 w-mt-[35px] w-normal-case w-text-18;
+    // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
+    @apply w-min-h-[160px] w-mt-[35px] w-text-white w-inline-flex w-flex-col w-justify-center w-items-center w-font-medium w-mb-0 w-text-18;
 
     &:before {
       font-size: 4em;
