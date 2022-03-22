@@ -287,7 +287,7 @@ class EditHandler(Panel):
         super().__init__(*args, **kwargs)
 
 
-class BaseCompositeEditHandler(Panel):
+class PanelGroup(Panel):
     """
     Abstract class for panels that manage a set of sub-panels.
     Concrete subclasses must attach a 'children' property
@@ -375,7 +375,17 @@ class BaseCompositeEditHandler(Panel):
         return comparators
 
 
-class BaseFormEditHandler(BaseCompositeEditHandler):
+class BaseCompositeEditHandler(PanelGroup):
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.admin.edit_handlers.BaseCompositeEditHandler has been renamed to wagtail.admin.panels.PanelGroup",
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
+
+
+class BaseFormEditHandler(PanelGroup):
     """
     Base class for edit handlers that can construct a form class for all their
     child edit handlers.
@@ -447,7 +457,7 @@ class ObjectList(TabbedInterface):
     template = "wagtailadmin/panels/object_list.html"
 
 
-class FieldRowPanel(BaseCompositeEditHandler):
+class FieldRowPanel(PanelGroup):
     template = "wagtailadmin/panels/field_row_panel.html"
 
     def on_instance_bound(self):
@@ -461,7 +471,7 @@ class FieldRowPanel(BaseCompositeEditHandler):
                 child.classname += col_count
 
 
-class MultiFieldPanel(BaseCompositeEditHandler):
+class MultiFieldPanel(PanelGroup):
     template = "wagtailadmin/panels/multi_field_panel.html"
 
     def classes(self):
