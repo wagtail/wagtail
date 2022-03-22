@@ -217,8 +217,9 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           w-overflow-hidden
           w-px-5
           w-py-3
-          hover:w-bg-primary
-          hover:w-text-white focus:w-bg-primary focus:w-text-white"
+          hover:w-bg-primary-200
+          focus:w-bg-primary-200
+          w-transition"
           title={strings.EDIT_YOUR_ACCOUNT}
           onClick={onClickAccountSettings}
           aria-label={strings.EDIT_YOUR_ACCOUNT}
@@ -226,7 +227,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           aria-expanded={accountSettingsOpen ? 'true' : 'false'}
           type="button"
         >
-          <div className="avatar avatar-on-dark !w-w-[28px] !w-h-[28px]">
+          <div className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]">
             <img src={user.avatarUrl} alt="" />
           </div>
           <div className="sidebar-footer__account-toggle">

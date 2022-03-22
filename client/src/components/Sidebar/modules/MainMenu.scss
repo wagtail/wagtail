@@ -87,20 +87,8 @@ $avatar-size: 60px;
 
   &__account {
     &-toggle {
-      @apply w-pr-4 w-hidden sm:w-block;
+      @apply w-pl-2 w-hidden sm:w-inline-flex w-justify-between w-w-full w-translate-x-0;
       @include show-focus-outline-inside();
-      display: grid;
-      grid-template-columns: 1fr min-content;
-      box-sizing: border-box;
-      font-style: normal;
-      font-weight: 700;
-      width: $menu-width - $avatar-size;
-      position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: $avatar-size; // Width of avatar
-      inset-inline-start: $avatar-size; // Width of avatar
-      transform: translateX(0);
       transition: transform $menu-transition-duration ease;
     }
 
