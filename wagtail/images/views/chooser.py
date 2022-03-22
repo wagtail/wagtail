@@ -98,7 +98,7 @@ class ChooseView(BaseChooseView):
         context = super().get_context_data()
 
         if getattr(
-            settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True
+            settings, "WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED", True
         ) and permission_policy.user_has_permission(self.request.user, "add"):
             ImageForm = get_image_form(self.image_model)
             uploadform = ImageForm(
@@ -161,7 +161,7 @@ def image_chosen(request, image_id):
 
 @permission_checker.require("add")
 def chooser_upload(request):
-    if not getattr(settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True):
+    if not getattr(settings, "WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED", True):
         raise PermissionDenied
 
     Image = get_image_model()
@@ -237,7 +237,7 @@ def chooser_upload(request):
 
 
 def chooser_select_format(request, image_id):
-    if not getattr(settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True):
+    if not getattr(settings, "WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED", True):
         raise PermissionDenied
 
     image = get_object_or_404(get_image_model(), id=image_id)

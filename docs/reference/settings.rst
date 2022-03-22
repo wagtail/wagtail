@@ -635,24 +635,28 @@ a custom user model is being used and extra fields are required in the user crea
 
 A list of the extra custom fields to be appended to the default list.
 
-.. _WAGTAIL_USAGE_COUNT_ENABLED:
-
 Choosers
 ========================================
 
-``WAGTAIL_CHOOSER_UPLOAD_ENABLED``
+``WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED``
 --------------------------------
 
 .. code-block:: python
 
-    WAGTAIL_CHOOSER_UPLOAD_ENABLED = False
+    WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED = False
 
 By default, Wagtail allows the ability to upload images and documents in the chooser modal.
-This setting can be used to disable this functionality, only giving the editor the ability to choose already uploaded media.
+This setting can be used to disable this functionality, only giving the editor the ability to choose already uploaded images.
 
-.. note::
+``WAGTAIL_CHOOSER_DOCUMENT_UPLOAD_ENABLED``
+--------------------------------
 
-    This is only applicable to the images and documents choosers, and disables both together.
+.. code-block:: python
+
+    WAGTAIL_CHOOSER_DOCUMENT_UPLOAD_ENABLED = False
+
+By default, Wagtail allows the ability to upload documents in the chooser modal.
+This setting can be used to disable this functionality, only giving the editor the ability to choose already uploaded documents.
 
 .. _WAGTAIL_USAGE_COUNT_ENABLED:
 

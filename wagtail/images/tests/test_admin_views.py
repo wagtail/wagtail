@@ -1130,7 +1130,7 @@ class TestImageChooserView(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["images"][0], image)
 
     def test_disable_chooser_upload(self):
-        with self.settings(WAGTAIL_CHOOSER_UPLOAD_ENABLED=False):
+        with self.settings(WAGTAIL_CHOOSER_IMAGE_UPLOAD_ENABLED=False):
             response = self.get()
         self.assertIsNone(response.context["uploadform"])
 

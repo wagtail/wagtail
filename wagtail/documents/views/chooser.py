@@ -58,7 +58,7 @@ class BaseChooseView(View):
         Document = get_document_model()
 
         if getattr(
-            settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True
+            settings, "WAGTAIL_CHOOSER_DOCUMENT_UPLOAD_ENABLED", True
         ) and permission_policy.user_has_permission(request.user, "add"):
             DocumentForm = get_document_form(Document)
             self.uploadform = DocumentForm(
@@ -172,7 +172,7 @@ def document_chosen(request, document_id):
 
 @permission_checker.require("add")
 def chooser_upload(request):
-    if not getattr(settings, "WAGTAIL_CHOOSER_UPLOAD_ENABLED", True):
+    if not getattr(settings, "WAGTAIL_CHOOSER_DOCUMENT_UPLOAD_ENABLED", True):
         raise PermissionDenied
 
     Document = get_document_model()
