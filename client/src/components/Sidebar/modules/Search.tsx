@@ -2,24 +2,20 @@ import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, Strings } from '../Sidebar';
-import { useEffect } from 'react';
 
 interface SearchInputProps {
   slim: boolean;
   expandingOrCollapsing: boolean;
-  onTemporaryExpand: (expanded: boolean) => void;
   onSearchClick: () => void;
   onSearchBlur: () => void;
   searchUrl: string;
   strings: Strings;
-
   navigate(url: string): void;
 }
 
 export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   slim,
   expandingOrCollapsing,
-  onTemporaryExpand,
   onSearchClick,
   onSearchBlur,
   searchUrl,
@@ -74,7 +70,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
         placeholder={strings.SEARCH}
         onClick={() => {
           onSearchClick();
-          onTemporaryExpand(true);
         }}
         onBlur={() => onSearchBlur()}
       />
@@ -95,7 +90,6 @@ export class SearchModuleDefinition implements ModuleDefinition {
     expandingOrCollapsing,
     onSearchClick,
     onSearchBlur,
-    onTemporaryExpand,
     strings,
     navigate,
   }) {
@@ -107,7 +101,6 @@ export class SearchModuleDefinition implements ModuleDefinition {
         expandingOrCollapsing={expandingOrCollapsing}
         onSearchClick={onSearchClick}
         onSearchBlur={onSearchBlur}
-        onTemporaryExpand={(expanded) => onTemporaryExpand(expanded)}
         strings={strings}
         navigate={navigate}
       />

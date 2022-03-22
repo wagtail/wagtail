@@ -41,10 +41,6 @@ export function initSidebar() {
       }
     };
 
-    const handleTemporaryExpand = (expanded) => {
-      console.log(expanded);
-    };
-
     ReactDOM.render(
       <Sidebar
         modules={props.modules}
@@ -53,7 +49,6 @@ export function initSidebar() {
         currentPath={window.location.pathname}
         navigate={navigate}
         onExpandCollapse={onExpandCollapse}
-        onTemporaryExpaned={(expanded) => handleTemporaryExpand(expanded)}
       />,
       element,
       () => {

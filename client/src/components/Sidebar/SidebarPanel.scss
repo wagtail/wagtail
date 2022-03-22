@@ -62,9 +62,8 @@
     &--open {
       // Remove once we drop support for Safari 13.
       // stylelint-disable-next-line property-disallowed-list
-      left: $menu-width-slim;
-      inset-inline-start: $menu-width-slim;
-      transform: translateX(0);
+      left: $menu-width;
+      inset-inline-start: $menu-width;
 
       // Don't apply this to nested submenus though
       @at-root .sidebar--slim .sidebar-panel #{&} {
