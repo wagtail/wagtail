@@ -1187,7 +1187,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         )
 
         # render_js_init must provide the JS initializer
-        self.assertIn("var panel = InlinePanel({", panel.render_js_init())
+        self.assertIn("var panel = InlinePanel({", panel.render_html())
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
@@ -1217,7 +1217,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn("maxForms: 1000", panel.render_js_init())
+        self.assertIn("maxForms: 1000", panel.render_html())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():

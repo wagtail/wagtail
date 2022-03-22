@@ -42,10 +42,6 @@ from .forms.models import (  # NOQA
 from .forms.pages import WagtailAdminPageForm
 
 
-def widget_with_script(widget, script):
-    return mark_safe("{0}<script>{1}</script>".format(widget, script))
-
-
 def get_form_for_model(
     model,
     form_class=WagtailAdminModelForm,
@@ -845,7 +841,6 @@ class InlinePanel(Panel):
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
-        js_template_name = "wagtailadmin/panels/inline_panel.js"
 
         def __init__(self, panel, instance, request, form):
             super().__init__(panel, instance, request, form)
@@ -910,25 +905,10 @@ class InlinePanel(Panel):
                 )
             ]
 
-        def render_html(self):
-            formset = render_to_string(
-                self.template_name,
-                {
-                    "self": self,
-                    "can_order": self.formset.can_order,
-                },
-            )
-            js = self.render_js_init()
-            return widget_with_script(formset, js)
-
-        def render_js_init(self):
-            return render_to_string(
-                self.js_template_name,
-                {
-                    "self": self,
-                    "can_order": self.formset.can_order,
-                },
-            )
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+            context["can_order"] = self.formset.can_order
+            return context
 
 
 # This allows users to include the publishing panel in their own per-model override
