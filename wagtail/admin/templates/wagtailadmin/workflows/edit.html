@@ -7,8 +7,6 @@
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     {{ media.css }}
-
-    {{ view.media.css }}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
 {% endblock %}
 
@@ -17,9 +15,6 @@
     {% include "wagtailadmin/pages/_editor_js.html" %}
     {{ media.js }}
     {{ edit_handler.html_declarations }}
-
-    {{ view.media.js }}
-
     {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
 {% endblock %}
 
