@@ -1,5 +1,6 @@
 import functools
 import re
+from warnings import warn
 
 from django import forms
 from django.apps import apps
@@ -23,6 +24,7 @@ from wagtail.blocks import BlockField
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
+from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
@@ -665,16 +667,26 @@ class FieldPanel(EditHandler):
 
 
 class RichTextFieldPanel(FieldPanel):
-    pass
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.admin.edit_handlers.RichTextFieldPanel is obsolete and should be replaced by FieldPanel",
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class BaseChooserPanel(FieldPanel):
-    # For backwards compatibility only - chooser panels no longer need any base functionality
-    # beyond FieldPanel.
-    pass
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.admin.edit_handlers.BaseChooserPanel is obsolete and should be replaced by FieldPanel",
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
-class PageChooserPanel(BaseChooserPanel):
+class PageChooserPanel(FieldPanel):
     def __init__(self, field_name, page_type=None, can_choose_root=False):
         super().__init__(field_name=field_name)
 
@@ -1059,4 +1071,10 @@ def reset_page_edit_handler_cache(**kwargs):
 
 
 class StreamFieldPanel(FieldPanel):
-    pass
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.admin.edit_handlers.StreamFieldPanel is obsolete and should be replaced by FieldPanel",
+            category=RemovedInWagtail219Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
