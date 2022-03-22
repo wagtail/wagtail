@@ -397,6 +397,11 @@ class BaseFormEditHandler(PanelGroup):
     # WagtailAdminModelForm
     base_form_class = None
 
+    def __init__(self, *args, **kwargs):
+        self.base_form_class = kwargs.pop("base_form_class", None)
+        super().__init__(*args, **kwargs)
+        self.show_comments_toggle = "comment_notifications" in self.required_fields()
+
     def get_form_class(self):
         """
         Construct a form class that has all the fields and formsets named in
@@ -413,7 +418,7 @@ class BaseFormEditHandler(PanelGroup):
         model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
         base_form_class = self.base_form_class or model_form_class
 
-        return get_form_for_model(
+        form_class = get_form_for_model(
             self.model,
             form_class=base_form_class,
             fields=self.required_fields(),
@@ -421,18 +426,6 @@ class BaseFormEditHandler(PanelGroup):
             widgets=self.widget_overrides(),
             field_permissions=self.field_permissions(),
         )
-
-
-class TabbedInterface(BaseFormEditHandler):
-    template = "wagtailadmin/panels/tabbed_interface.html"
-
-    def __init__(self, *args, **kwargs):
-        self.base_form_class = kwargs.pop("base_form_class", None)
-        super().__init__(*args, **kwargs)
-        self.show_comments_toggle = "comment_notifications" in self.required_fields()
-
-    def get_form_class(self):
-        form_class = super().get_form_class()
 
         # Set show_comments_toggle attribute on form class
         return type(
@@ -447,7 +440,11 @@ class TabbedInterface(BaseFormEditHandler):
         return kwargs
 
 
-class ObjectList(TabbedInterface):
+class TabbedInterface(BaseFormEditHandler):
+    template = "wagtailadmin/panels/tabbed_interface.html"
+
+
+class ObjectList(BaseFormEditHandler):
     template = "wagtailadmin/panels/object_list.html"
 
 
