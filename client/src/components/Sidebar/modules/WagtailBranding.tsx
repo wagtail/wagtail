@@ -92,21 +92,19 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
     (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
-    <>
-      <a
-        className={desktopClassName}
-        href={homeUrl}
-        aria-label={strings.DASHBOARD}
-        aria-current={currentPath === homeUrl ? 'page' : undefined}
-        onClick={onClick}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-      >
-        <div className="sidebar-wagtail-branding__icon-wrapper">
-          <WagtailLogo />
-        </div>
-      </a>
-    </>
+    <a
+      className={desktopClassName}
+      href={homeUrl}
+      aria-label={strings.DASHBOARD}
+      aria-current={currentPath === homeUrl ? 'page' : undefined}
+      onClick={onClick}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+    >
+      <div className="sidebar-wagtail-branding__icon-wrapper">
+        <WagtailLogo />
+      </div>
+    </a>
   );
 };
 

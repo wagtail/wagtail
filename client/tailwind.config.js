@@ -71,9 +71,6 @@ module.exports = {
     },
     spacing,
     extend: {
-      width: {
-        sidebar: '200px',
-      },
       opacity: {
         15: '0.15',
         85: '0.85',

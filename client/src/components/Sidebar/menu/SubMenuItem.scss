@@ -30,7 +30,8 @@
 }
 
 .sidebar-sub-menu-panel {
-  @apply w-flex w-flex-col w-bg-primary-200 w-w-sidebar w-h-screen;
+  @apply w-flex w-flex-col w-bg-primary-200 w-h-screen;
+  width: $menu-width;
 
   > h2,
   &__list {

@@ -83,6 +83,7 @@
 }
 
 .c-page-explorer__meta {
-  @apply w-flex w-gap-2 w-text-white/85 w-text-[12px];
+  @apply w-flex w-gap-2 w-text-white/85;
+  font-size: 12px;
   margin-inline-start: 0.5rem;
 }

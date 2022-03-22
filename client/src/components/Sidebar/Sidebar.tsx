@@ -19,7 +19,6 @@ export interface ModuleRenderContext {
   expandingOrCollapsing: boolean;
   currentPath: string;
   strings: Strings;
-
   navigate(url: string): Promise<void>;
 }
 
@@ -193,7 +192,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             <Icon
               name="expand-right"
               className={`w-transition motion-reduce:w-transition-none
-                ${!collapsed ? '-w-rotate-180 w-w-6 w-h-6 w-text-white' : ''}
+                ${!collapsed ? '-w-rotate-180' : ''}
                 `}
             />
           </button>

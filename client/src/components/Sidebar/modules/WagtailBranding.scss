@@ -63,7 +63,7 @@
 
   // Bird wrapper
   &__icon-wrapper {
-    @apply w-bg-white/15;
+    @apply w-bg-white/15 w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
     position: absolute;
     // Remove once we drop support for Safari 13.

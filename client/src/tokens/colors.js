@@ -120,7 +120,8 @@ const colors = {
       hex: '#261A4E',
       bgUtility: 'w-bg-primary-200',
       textUtility: 'w-text-primary-200',
-      usage: 'Wagtail branding, Panels, Headings, Buttons, Labels',
+      usage:
+        'Accent for elements used in conjunction with primary colour in sidebar',
       contrastText: 'white',
     },
   },

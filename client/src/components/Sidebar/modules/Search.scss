@@ -1,6 +1,6 @@
 // stylelint-disable declaration-no-important
 .sidebar-search {
-  @apply w-z-20 w-relative w-box-border w-flex w-items-center w-flex-row w-h-[42px] w-px-5;
+  @apply w-relative w-box-border w-flex w-items-center w-flex-row w-h-[42px] w-px-5;
   $root: &;
 
   .sidebar--slim & {
@@ -21,7 +21,6 @@
     left: 0;
     inset-inline-start: 0;
     top: 0;
-    // Need !important to override body.ready class
     font-size: 13px;
     font-weight: 400;
     background-color: transparent;

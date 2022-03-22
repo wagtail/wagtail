@@ -48,8 +48,9 @@ $avatar-size: 60px;
 }
 
 .sidebar-footer {
-  @apply w-bg-primary w-bottom-0 w-fixed w-w-sidebar;
+  @apply w-bg-primary w-bottom-0 w-fixed;
   transition: width $menu-transition-duration ease !important; // Override body.ready
+  width: $menu-width;
 
   > ul,
   ul > li {
@@ -85,10 +86,6 @@ $avatar-size: 60px;
   }
 
   &__account {
-    @include clearfix;
-
-    $icon-size: 1.5em;
-
     &-toggle {
       @apply w-pr-4 w-hidden sm:w-block;
       @include show-focus-outline-inside();
@@ -98,7 +95,6 @@ $avatar-size: 60px;
       font-style: normal;
       font-weight: 700;
       width: $menu-width - $avatar-size;
-      line-height: $icon-size;
       position: absolute;
       // Remove once we drop support for Safari 13.
       // stylelint-disable-next-line property-disallowed-list
