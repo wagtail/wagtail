@@ -137,7 +137,7 @@ class BoundPanel:
         return self.render()
 
     def render(self):
-        return mark_safe(render_to_string(self.panel.template, {"self": self}))
+        return render_to_string(self.panel.template, {"self": self})
 
     def html_declarations(self):
         return ""
@@ -549,7 +549,7 @@ class BoundHelpPanel(BoundPanel):
         self.content = self.panel.content
 
     def render(self):
-        return mark_safe(render_to_string(self.panel.template, {"self": self}))
+        return render_to_string(self.panel.template, {"self": self})
 
 
 class HelpPanel(Panel):
@@ -648,34 +648,30 @@ class BoundFieldPanel(BoundPanel):
             return not self.panel.disable_comments
 
     def render_as_object(self):
-        return mark_safe(
-            render_to_string(
-                self.panel.object_template,
-                {
-                    "self": self,
-                    self.panel.TEMPLATE_VAR: self,
-                    "field": self.bound_field,
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
+        return render_to_string(
+            self.panel.object_template,
+            {
+                "self": self,
+                self.panel.TEMPLATE_VAR: self,
+                "field": self.bound_field,
+                "show_add_comment_button": self.comments_enabled
+                and getattr(
+                    self.bound_field.field.widget, "show_add_comment_button", True
+                ),
+            },
         )
 
     def render_as_field(self):
-        return mark_safe(
-            render_to_string(
-                self.panel.field_template,
-                {
-                    "field": self.bound_field,
-                    "field_type": self.field_type(),
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
+        return render_to_string(
+            self.panel.field_template,
+            {
+                "field": self.bound_field,
+                "field_type": self.field_type(),
+                "show_add_comment_button": self.comments_enabled
+                and getattr(
+                    self.bound_field.field.widget, "show_add_comment_button", True
+                ),
+            },
         )
 
     def get_comparison(self):
@@ -898,14 +894,12 @@ class BoundInlinePanel(BoundPanel):
         return widget_with_script(formset, js)
 
     def render_js_init(self):
-        return mark_safe(
-            render_to_string(
-                self.panel.js_template,
-                {
-                    "self": self,
-                    "can_order": self.formset.can_order,
-                },
-            )
+        return render_to_string(
+            self.panel.js_template,
+            {
+                "self": self,
+                "can_order": self.formset.can_order,
+            },
         )
 
 
