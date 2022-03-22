@@ -19,15 +19,15 @@ from modelcluster.models import ClusterableModel
 from taggit.managers import TaggableManager
 from taggit.models import ItemBase, TagBase, TaggedItemBase
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.mail import send_mail
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
     TabbedInterface,
 )
-from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.admin.mail import send_mail
 from wagtail.blocks import (
     CharBlock,
     FieldBlock,

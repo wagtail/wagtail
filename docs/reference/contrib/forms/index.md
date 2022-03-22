@@ -26,7 +26,7 @@ Within the `models.py` of one of your apps, create a model that extends `wagtail
 ```python
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )

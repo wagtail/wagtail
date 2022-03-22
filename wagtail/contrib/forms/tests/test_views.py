@@ -10,8 +10,8 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
 
-from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.panels import get_form_for_model
 from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
 from wagtail.contrib.forms.models import FormSubmission
 from wagtail.contrib.forms.tests.utils import (

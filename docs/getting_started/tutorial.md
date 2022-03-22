@@ -132,7 +132,7 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 
 
 class HomePage(Page):
@@ -224,7 +224,7 @@ Lets start with a simple index page for our blog. In `blog/models.py`:
 ```python
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 
 
 class BlogIndexPage(Page):
@@ -278,7 +278,7 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 
 
@@ -466,7 +466,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 
 
@@ -621,7 +621,7 @@ from taggit.models import TaggedItemBase
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 
 

@@ -3,14 +3,14 @@ from warnings import warn
 from django.template.loader import render_to_string
 
 from wagtail.admin.compare import ForeignObjectComparison
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.utils.deprecation import RemovedInWagtail219Warning
 
 
 class ImageChooserPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
-            "wagtail.images.edit_handlers.ImageChooserPanel is obsolete and should be replaced by wagtail.admin.edit_handlers.FieldPanel",
+            "wagtail.images.edit_handlers.ImageChooserPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
             category=RemovedInWagtail219Warning,
             stacklevel=2,
         )
