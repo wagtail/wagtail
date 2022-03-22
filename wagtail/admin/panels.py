@@ -426,15 +426,10 @@ class BaseFormEditHandler(PanelGroup):
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/panels/tabbed_interface.html"
 
-    def __init__(self, *args, show_comments_toggle=None, **kwargs):
+    def __init__(self, *args, **kwargs):
         self.base_form_class = kwargs.pop("base_form_class", None)
         super().__init__(*args, **kwargs)
-        if show_comments_toggle is not None:
-            self.show_comments_toggle = show_comments_toggle
-        else:
-            self.show_comments_toggle = (
-                "comment_notifications" in self.required_fields()
-            )
+        self.show_comments_toggle = "comment_notifications" in self.required_fields()
 
     def get_form_class(self):
         form_class = super().get_form_class()
@@ -449,7 +444,6 @@ class TabbedInterface(BaseFormEditHandler):
     def clone_kwargs(self):
         kwargs = super().clone_kwargs()
         kwargs["base_form_class"] = self.base_form_class
-        kwargs["show_comments_toggle"] = self.show_comments_toggle
         return kwargs
 
 
