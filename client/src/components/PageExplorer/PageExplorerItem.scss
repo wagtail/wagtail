@@ -9,13 +9,9 @@
   padding: 1.45em 1em;
   cursor: pointer;
 
-  &:focus {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  // Overrides for default link hover.
+  &:focus,
   &:hover {
+    background: $c-page-explorer-bg-active;
     color: $color-white;
   }
 
@@ -42,6 +38,7 @@
 }
 
 .c-page-explorer__item__action {
+  @apply w-text-white/85;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -51,19 +48,9 @@
   line-height: 1;
   font-size: 2em;
   cursor: pointer;
-  color: $c-page-explorer-secondary;
 
-  &:focus {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  // Overrides for default link hover.
+  &:focus,
   &:hover {
-    color: $c-page-explorer-secondary;
-  }
-
-  @include hover {
     background: $c-page-explorer-bg-active;
     color: $color-white;
   }

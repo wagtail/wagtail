@@ -2,19 +2,10 @@ import * as React from 'react';
 import { ModuleDefinition, Strings } from '../Sidebar';
 import WagtailLogo from './WagtailLogo';
 
-export interface LogoImages {
-  mobileLogo: string;
-  desktopLogoBody: string;
-  desktopLogoTail: string;
-  desktopLogoEyeOpen: string;
-  desktopLogoEyeClosed: string;
-}
-
 interface WagtailBrandingProps {
   homeUrl: string;
   strings: Strings;
   currentPath: string;
-
   navigate(url: string): void;
 }
 
@@ -110,11 +101,9 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
 
 export class WagtailBrandingModuleDefinition implements ModuleDefinition {
   homeUrl: string;
-  images: LogoImages;
 
-  constructor(homeUrl: string, images: LogoImages) {
+  constructor(homeUrl: string) {
     this.homeUrl = homeUrl;
-    this.images = images;
   }
 
   render({ strings, key, navigate, currentPath }) {

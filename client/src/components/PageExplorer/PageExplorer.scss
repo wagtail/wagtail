@@ -89,7 +89,7 @@ $explorer-header-horizontal-padding: 10px;
 }
 
 .c-page-explorer__header__select {
-  @apply w-text-white w-bg-black/50;
+  @apply w-text-white w-bg-primary;
   $margin: 10px;
   margin-inline-end: $margin;
 
