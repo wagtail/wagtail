@@ -101,81 +101,6 @@ def extract_panel_definitions_from_model_class(model, exclude=None):
     return panels
 
 
-class BoundPanel:
-    def __init__(self, panel, instance, request, form):
-        self.panel = panel
-        self.instance = instance
-        self.request = request
-        self.form = form
-
-        self.heading = self.panel.heading
-        self.help_text = self.panel.help_text
-
-    @property
-    def classname(self):
-        return self.panel.classname
-
-    def classes(self):
-        return self.panel.classes()
-
-    def field_type(self):
-        return self.panel.field_type()
-
-    def id_for_label(self):
-        return self.panel.id_for_label()
-
-    def is_shown(self):
-        return True
-
-    def render_as_object(self):
-        return self.render()
-
-    def render_as_field(self):
-        return self.render()
-
-    def render(self):
-        return render_to_string(self.panel.template, {"self": self})
-
-    def html_declarations(self):
-        return ""
-
-    def get_comparison(self):
-        return []
-
-    def render_missing_fields(self):
-        """
-        Helper function: render all of the fields that are defined on the form but not "claimed" by
-        any panels via required_fields. These fields are most likely to be hidden fields introduced
-        by the forms framework itself, such as ORDER / DELETE fields on formset members.
-        (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
-        outside of the panel furniture. But there's not much we can do about that.)
-        """
-        rendered_fields = self.panel.get_form_options().get("fields", [])
-        missing_fields_html = [
-            str(self.form[field_name])
-            for field_name in self.form.fields
-            if field_name not in rendered_fields
-        ]
-
-        return mark_safe("".join(missing_fields_html))
-
-    def render_form_content(self):
-        """
-        Render this as an 'object', ensuring that all fields necessary for a valid form
-        submission are included
-        """
-        return mark_safe(self.render_as_object() + self.render_missing_fields())
-
-    def __repr__(self):
-        return "<%s with model=%s instance=%s request=%s form=%s>" % (
-            self.__class__.__name__,
-            self.panel.model,
-            self.instance,
-            self.request,
-            self.form.__class__.__name__,
-        )
-
-
 class Panel:
     """
     Defines part (or all) of the edit form interface for pages and other models within the Wagtail
@@ -184,8 +109,6 @@ class Panel:
     other parameters collated from all panels in the structure. It then handles rendering that form
     as HTML.
     """
-
-    bound_panel_class = BoundPanel
 
     def __init__(self, heading="", classname="", help_text=""):
         self.heading = heading
@@ -281,7 +204,13 @@ class Panel:
                 % type(self).__name__
             )
 
-        return self.bound_panel_class(
+        if not issubclass(self.BoundPanel, EditHandler.BoundPanel):
+            raise ImproperlyConfigured(
+                "%s.BoundPanel must be a subclass of EditHandler.BoundPanel"
+                % type(self).__name__
+            )
+
+        return self.BoundPanel(
             panel=self, instance=instance, request=request, form=form
         )
 
@@ -318,6 +247,80 @@ class Panel:
         """
         return ""
 
+    class BoundPanel:
+        def __init__(self, panel, instance, request, form):
+            self.panel = panel
+            self.instance = instance
+            self.request = request
+            self.form = form
+
+            self.heading = self.panel.heading
+            self.help_text = self.panel.help_text
+
+        @property
+        def classname(self):
+            return self.panel.classname
+
+        def classes(self):
+            return self.panel.classes()
+
+        def field_type(self):
+            return self.panel.field_type()
+
+        def id_for_label(self):
+            return self.panel.id_for_label()
+
+        def is_shown(self):
+            return True
+
+        def render_as_object(self):
+            return self.render()
+
+        def render_as_field(self):
+            return self.render()
+
+        def render(self):
+            return render_to_string(self.panel.template, {"self": self})
+
+        def html_declarations(self):
+            return ""
+
+        def get_comparison(self):
+            return []
+
+        def render_missing_fields(self):
+            """
+            Helper function: render all of the fields that are defined on the form but not "claimed" by
+            any panels via required_fields. These fields are most likely to be hidden fields introduced
+            by the forms framework itself, such as ORDER / DELETE fields on formset members.
+            (If they aren't actually hidden fields, then they will appear as ugly unstyled / label-less fields
+            outside of the panel furniture. But there's not much we can do about that.)
+            """
+            rendered_fields = self.panel.get_form_options().get("fields", [])
+            missing_fields_html = [
+                str(self.form[field_name])
+                for field_name in self.form.fields
+                if field_name not in rendered_fields
+            ]
+
+            return mark_safe("".join(missing_fields_html))
+
+        def render_form_content(self):
+            """
+            Render this as an 'object', ensuring that all fields necessary for a valid form
+            submission are included
+            """
+            return mark_safe(self.render_as_object() + self.render_missing_fields())
+
+        def __repr__(self):
+            return "<%s with model=%s instance=%s request=%s form=%s>" % (
+                self.__class__.__name__,
+                self.panel.model,
+                self.instance,
+                self.request,
+                self.form.__class__.__name__,
+            )
+
 
 class EditHandler(Panel):
     def __init__(self, *args, **kwargs):
@@ -329,43 +332,11 @@ class EditHandler(Panel):
         super().__init__(*args, **kwargs)
 
 
-class BoundPanelGroup(BoundPanel):
-    def __init__(self, panel, instance, request, form):
-        super().__init__(panel=panel, instance=instance, request=request, form=form)
-
-        self.children = [
-            child.get_bound_panel(
-                instance=self.instance, request=self.request, form=self.form
-            )
-            for child in self.panel.children
-        ]
-
-    @property
-    def visible_children(self):
-        return [child for child in self.children if child.is_shown()]
-
-    def is_shown(self):
-        return any(child.is_shown() for child in self.children)
-
-    def html_declarations(self):
-        return mark_safe("".join([c.html_declarations() for c in self.children]))
-
-    def get_comparison(self):
-        comparators = []
-
-        for child in self.children:
-            comparators.extend(child.get_comparison())
-
-        return comparators
-
-
 class PanelGroup(Panel):
     """
     Abstract class for panels that manage a set of sub-panels.
     Concrete subclasses must attach a 'children' property
     """
-
-    bound_panel_class = BoundPanelGroup
 
     def __init__(self, children=(), *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -427,6 +398,35 @@ class PanelGroup(Panel):
     def on_model_bound(self):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
+    class BoundPanel(Panel.BoundPanel):
+        def __init__(self, panel, instance, request, form):
+            super().__init__(panel=panel, instance=instance, request=request, form=form)
+
+            self.children = [
+                child.get_bound_panel(
+                    instance=self.instance, request=self.request, form=self.form
+                )
+                for child in self.panel.children
+            ]
+
+        @property
+        def visible_children(self):
+            return [child for child in self.children if child.is_shown()]
+
+        def is_shown(self):
+            return any(child.is_shown() for child in self.children)
+
+        def html_declarations(self):
+            return mark_safe("".join([c.html_declarations() for c in self.children]))
+
+        def get_comparison(self):
+            comparators = []
+
+            for child in self.children:
+                comparators.extend(child.get_comparison())
+
+            return comparators
+
 
 class BaseCompositeEditHandler(PanelGroup):
     def __init__(self, *args, **kwargs):
@@ -438,19 +438,11 @@ class BaseCompositeEditHandler(PanelGroup):
         super().__init__(*args, **kwargs)
 
 
-class BoundFormPanel(BoundPanelGroup):
-    def __init__(self, panel, instance, request, form):
-        super().__init__(panel, instance, request, form)
-        self.show_comments_toggle = self.panel.show_comments_toggle
-
-
 class BaseFormEditHandler(PanelGroup):
     """
     Base class for edit handlers that can construct a form class for all their
     child edit handlers.
     """
-
-    bound_panel_class = BoundFormPanel
 
     # The form class used as the base for constructing specific forms for this
     # edit handler.  Subclasses can override this attribute to provide a form
@@ -503,6 +495,11 @@ class BaseFormEditHandler(PanelGroup):
         kwargs["base_form_class"] = self.base_form_class
         return kwargs
 
+    class BoundPanel(PanelGroup.BoundPanel):
+        def __init__(self, panel, instance, request, form):
+            super().__init__(panel, instance, request, form)
+            self.show_comments_toggle = self.panel.show_comments_toggle
+
 
 class TabbedInterface(BaseFormEditHandler):
     template = "wagtailadmin/panels/tabbed_interface.html"
@@ -512,20 +509,18 @@ class ObjectList(BaseFormEditHandler):
     template = "wagtailadmin/panels/object_list.html"
 
 
-class BoundFieldRowPanel(BoundPanelGroup):
-    def visible_children_with_classnames(self):
-        visible_children = self.visible_children
-        col_count = " col%s" % (12 // len(visible_children))
-        for child in visible_children:
-            classname = " ".join(child.classes())
-            if not re.search(r"\bcol\d+\b", classname):
-                classname += col_count
-            yield child, classname
-
-
 class FieldRowPanel(PanelGroup):
     template = "wagtailadmin/panels/field_row_panel.html"
-    bound_panel_class = BoundFieldRowPanel
+
+    class BoundPanel(PanelGroup.BoundPanel):
+        def visible_children_with_classnames(self):
+            visible_children = self.visible_children
+            col_count = " col%s" % (12 // len(visible_children))
+            for child in visible_children:
+                classname = " ".join(child.classes())
+                if not re.search(r"\bcol\d+\b", classname):
+                    classname += col_count
+                yield child, classname
 
 
 class MultiFieldPanel(PanelGroup):
@@ -537,18 +532,7 @@ class MultiFieldPanel(PanelGroup):
         return classes
 
 
-class BoundHelpPanel(BoundPanel):
-    def __init__(self, panel, instance, request, form):
-        super().__init__(panel, instance, request, form)
-        self.content = self.panel.content
-
-    def render(self):
-        return render_to_string(self.panel.template, {"self": self})
-
-
 class HelpPanel(Panel):
-    bound_panel_class = BoundHelpPanel
-
     def __init__(
         self,
         content="",
@@ -569,129 +553,17 @@ class HelpPanel(Panel):
         )
         return kwargs
 
+    class BoundPanel(Panel.BoundPanel):
+        def __init__(self, panel, instance, request, form):
+            super().__init__(panel, instance, request, form)
+            self.content = self.panel.content
 
-class BoundFieldPanel(BoundPanel):
-    def __init__(self, panel, instance, request, form):
-        super().__init__(panel=panel, instance=instance, request=request, form=form)
-
-        if self.form is None:
-            self.bound_field = None
-            return
-
-        try:
-            self.bound_field = self.form[self.field_name]
-        except KeyError:
-            self.bound_field = None
-            return
-
-        if self.panel.heading:
-            self.heading = self.bound_field.label = self.panel.heading
-        else:
-            self.heading = self.bound_field.label
-
-        self.help_text = self.bound_field.help_text
-
-    @property
-    def field_name(self):
-        return self.panel.field_name
-
-    def is_shown(self):
-        if self.form is not None and self.bound_field is None:
-            # this field is missing from the form
-            return False
-
-        if (
-            self.panel.permission
-            and self.request
-            and not self.request.user.has_perm(self.panel.permission)
-        ):
-            return False
-
-        return True
-
-    def classes(self):
-        classes = self.panel.classes().copy()
-
-        if self.bound_field.field.required:
-            classes.append("required")
-
-        # If field has any errors, add the classname 'error' to enable error styling
-        # (e.g. red background), unless the widget has its own mechanism for rendering errors
-        # via the render_with_errors mechanism (as StreamField does).
-        if self.bound_field.errors and not hasattr(
-            self.bound_field.field.widget, "render_with_errors"
-        ):
-            classes.append("error")
-
-        classes.append(self.field_type())
-
-        return classes
-
-    def field_type(self):
-        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
-
-    def id_for_label(self):
-        return self.bound_field.id_for_label
-
-    @property
-    def comments_enabled(self):
-        if self.panel.disable_comments is None:
-            # by default, enable comments on all fields except StreamField (which has its own comment handling)
-            return not isinstance(self.bound_field.field, BlockField)
-        else:
-            return not self.panel.disable_comments
-
-    def render_as_object(self):
-        return render_to_string(
-            self.panel.object_template,
-            {
-                "self": self,
-                self.panel.TEMPLATE_VAR: self,
-                "field": self.bound_field,
-                "show_add_comment_button": self.comments_enabled
-                and getattr(
-                    self.bound_field.field.widget, "show_add_comment_button", True
-                ),
-            },
-        )
-
-    def render_as_field(self):
-        return render_to_string(
-            self.panel.field_template,
-            {
-                "field": self.bound_field,
-                "field_type": self.field_type(),
-                "show_add_comment_button": self.comments_enabled
-                and getattr(
-                    self.bound_field.field.widget, "show_add_comment_button", True
-                ),
-            },
-        )
-
-    def get_comparison(self):
-        comparator_class = self.panel.get_comparison_class()
-
-        if comparator_class and self.is_shown():
-            try:
-                return [functools.partial(comparator_class, self.panel.db_field)]
-            except FieldDoesNotExist:
-                return []
-        return []
-
-    def __repr__(self):
-        return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
-            self.__class__.__name__,
-            self.field_name,
-            self.panel.model,
-            self.instance,
-            self.request,
-            self.form.__class__.__name__,
-        )
+        def render(self):
+            return render_to_string(self.panel.template, {"self": self})
 
 
 class FieldPanel(Panel):
     TEMPLATE_VAR = "field_panel"
-    bound_panel_class = BoundFieldPanel
 
     def __init__(
         self, field_name, widget=None, disable_comments=None, permission=None, **kwargs
@@ -767,6 +639,124 @@ class FieldPanel(Panel):
             self.model,
         )
 
+    class BoundPanel(Panel.BoundPanel):
+        def __init__(self, panel, instance, request, form):
+            super().__init__(panel=panel, instance=instance, request=request, form=form)
+
+            if self.form is None:
+                self.bound_field = None
+                return
+
+            try:
+                self.bound_field = self.form[self.field_name]
+            except KeyError:
+                self.bound_field = None
+                return
+
+            if self.panel.heading:
+                self.heading = self.bound_field.label = self.panel.heading
+            else:
+                self.heading = self.bound_field.label
+
+            self.help_text = self.bound_field.help_text
+
+        @property
+        def field_name(self):
+            return self.panel.field_name
+
+        def is_shown(self):
+            if self.form is not None and self.bound_field is None:
+                # this field is missing from the form
+                return False
+
+            if (
+                self.panel.permission
+                and self.request
+                and not self.request.user.has_perm(self.panel.permission)
+            ):
+                return False
+
+            return True
+
+        def classes(self):
+            classes = self.panel.classes().copy()
+
+            if self.bound_field.field.required:
+                classes.append("required")
+
+            # If field has any errors, add the classname 'error' to enable error styling
+            # (e.g. red background), unless the widget has its own mechanism for rendering errors
+            # via the render_with_errors mechanism (as StreamField does).
+            if self.bound_field.errors and not hasattr(
+                self.bound_field.field.widget, "render_with_errors"
+            ):
+                classes.append("error")
+
+            classes.append(self.field_type())
+
+            return classes
+
+        def field_type(self):
+            return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
+
+        def id_for_label(self):
+            return self.bound_field.id_for_label
+
+        @property
+        def comments_enabled(self):
+            if self.panel.disable_comments is None:
+                # by default, enable comments on all fields except StreamField (which has its own comment handling)
+                return not isinstance(self.bound_field.field, BlockField)
+            else:
+                return not self.panel.disable_comments
+
+        def render_as_object(self):
+            return render_to_string(
+                self.panel.object_template,
+                {
+                    "self": self,
+                    self.panel.TEMPLATE_VAR: self,
+                    "field": self.bound_field,
+                    "show_add_comment_button": self.comments_enabled
+                    and getattr(
+                        self.bound_field.field.widget, "show_add_comment_button", True
+                    ),
+                },
+            )
+
+        def render_as_field(self):
+            return render_to_string(
+                self.panel.field_template,
+                {
+                    "field": self.bound_field,
+                    "field_type": self.field_type(),
+                    "show_add_comment_button": self.comments_enabled
+                    and getattr(
+                        self.bound_field.field.widget, "show_add_comment_button", True
+                    ),
+                },
+            )
+
+        def get_comparison(self):
+            comparator_class = self.panel.get_comparison_class()
+
+            if comparator_class and self.is_shown():
+                try:
+                    return [functools.partial(comparator_class, self.panel.db_field)]
+                except FieldDoesNotExist:
+                    return []
+            return []
+
+        def __repr__(self):
+            return "<%s '%s' with model=%s instance=%s request=%s form=%s>" % (
+                self.__class__.__name__,
+                self.field_name,
+                self.panel.model,
+                self.instance,
+                self.request,
+                self.form.__class__.__name__,
+            )
+
 
 class RichTextFieldPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
@@ -814,92 +804,7 @@ class PageChooserPanel(FieldPanel):
         return opts
 
 
-class BoundInlinePanel(BoundPanel):
-    def __init__(self, panel, instance, request, form):
-        super().__init__(panel, instance, request, form)
-
-        self.label = self.panel.label
-
-        if self.form is None:
-            return
-
-        self.formset = self.form.formsets[self.panel.relation_name]
-        self.child_edit_handler = self.panel.child_edit_handler
-
-        self.children = []
-        for subform in self.formset.forms:
-            # override the DELETE field to have a hidden input
-            subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-
-            # ditto for the ORDER field, if present
-            if self.formset.can_order:
-                subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
-
-            self.children.append(
-                self.child_edit_handler.get_bound_panel(
-                    instance=subform.instance, request=self.request, form=subform
-                )
-            )
-
-        # if this formset is valid, it may have been re-ordered; respect that
-        # in case the parent form errored and we need to re-render
-        if self.formset.can_order and self.formset.is_valid():
-            self.children.sort(
-                key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1
-            )
-
-        empty_form = self.formset.empty_form
-        empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
-        if self.formset.can_order:
-            empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
-
-        self.empty_child = self.child_edit_handler.get_bound_panel(
-            instance=empty_form.instance, request=self.request, form=empty_form
-        )
-
-    def html_declarations(self):
-        return self.empty_child.html_declarations()
-
-    def get_comparison(self):
-        field_comparisons = []
-
-        for panel in self.panel.child_edit_handler.children:
-            field_comparisons.extend(
-                panel.get_bound_panel(
-                    instance=None, request=self.request, form=None
-                ).get_comparison()
-            )
-
-        return [
-            functools.partial(
-                compare.ChildRelationComparison, self.panel.db_field, field_comparisons
-            )
-        ]
-
-    def render(self):
-        formset = render_to_string(
-            self.panel.template,
-            {
-                "self": self,
-                "can_order": self.formset.can_order,
-            },
-        )
-        js = self.render_js_init()
-        return widget_with_script(formset, js)
-
-    def render_js_init(self):
-        return render_to_string(
-            self.panel.js_template,
-            {
-                "self": self,
-                "can_order": self.formset.can_order,
-            },
-        )
-
-
 class InlinePanel(Panel):
-    bound_panel_class = BoundInlinePanel
-
     def __init__(
         self,
         relation_name,
@@ -969,6 +874,90 @@ class InlinePanel(Panel):
     template = "wagtailadmin/panels/inline_panel.html"
     js_template = "wagtailadmin/panels/inline_panel.js"
 
+    class BoundPanel(Panel.BoundPanel):
+        def __init__(self, panel, instance, request, form):
+            super().__init__(panel, instance, request, form)
+
+            self.label = self.panel.label
+
+            if self.form is None:
+                return
+
+            self.formset = self.form.formsets[self.panel.relation_name]
+            self.child_edit_handler = self.panel.child_edit_handler
+
+            self.children = []
+            for subform in self.formset.forms:
+                # override the DELETE field to have a hidden input
+                subform.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+
+                # ditto for the ORDER field, if present
+                if self.formset.can_order:
+                    subform.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+
+                self.children.append(
+                    self.child_edit_handler.get_bound_panel(
+                        instance=subform.instance, request=self.request, form=subform
+                    )
+                )
+
+            # if this formset is valid, it may have been re-ordered; respect that
+            # in case the parent form errored and we need to re-render
+            if self.formset.can_order and self.formset.is_valid():
+                self.children.sort(
+                    key=lambda child: child.form.cleaned_data[ORDERING_FIELD_NAME] or 1
+                )
+
+            empty_form = self.formset.empty_form
+            empty_form.fields[DELETION_FIELD_NAME].widget = forms.HiddenInput()
+            if self.formset.can_order:
+                empty_form.fields[ORDERING_FIELD_NAME].widget = forms.HiddenInput()
+
+            self.empty_child = self.child_edit_handler.get_bound_panel(
+                instance=empty_form.instance, request=self.request, form=empty_form
+            )
+
+        def html_declarations(self):
+            return self.empty_child.html_declarations()
+
+        def get_comparison(self):
+            field_comparisons = []
+
+            for panel in self.panel.child_edit_handler.children:
+                field_comparisons.extend(
+                    panel.get_bound_panel(
+                        instance=None, request=self.request, form=None
+                    ).get_comparison()
+                )
+
+            return [
+                functools.partial(
+                    compare.ChildRelationComparison,
+                    self.panel.db_field,
+                    field_comparisons,
+                )
+            ]
+
+        def render(self):
+            formset = render_to_string(
+                self.panel.template,
+                {
+                    "self": self,
+                    "can_order": self.formset.can_order,
+                },
+            )
+            js = self.render_js_init()
+            return widget_with_script(formset, js)
+
+        def render_js_init(self):
+            return render_to_string(
+                self.panel.js_template,
+                {
+                    "self": self,
+                    "can_order": self.formset.can_order,
+                },
+            )
+
 
 # This allows users to include the publishing panel in their own per-model override
 # without having to write these fields out by hand, potentially losing 'classname'
@@ -992,92 +981,31 @@ class PublishingPanel(MultiFieldPanel):
         super().__init__(**updated_kwargs)
 
 
-class BoundPrivacyModalPanel(BoundPanel):
-    def render(self):
-        content = render_to_string(
-            self.panel.template,
-            {"self": self, "page": self.instance, "request": self.request},
-        )
-
-        from wagtail.admin.staticfiles import versioned_static
-
-        return mark_safe(
-            '{0}<script type="text/javascript" src="{1}"></script>'.format(
-                content, versioned_static("wagtailadmin/js/privacy-switch.js")
-            )
-        )
-
-
 class PrivacyModalPanel(Panel):
     template = "wagtailadmin/pages/privacy_switch_panel.html"
-    bound_panel_class = BoundPrivacyModalPanel
 
     def __init__(self, **kwargs):
         updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
 
-
-class BoundCommentPanel(BoundPanel):
-    def html_declarations(self):
-        return render_to_string(self.panel.declarations_template)
-
-    def get_context(self):
-        def user_data(user):
-            return {"name": user_display_name(user), "avatar_url": avatar_url(user)}
-
-        user = getattr(self.request, "user", None)
-        user_pks = {user.pk}
-        serialized_comments = []
-        bound = self.form.is_bound
-        comment_formset = self.form.formsets.get("comments")
-        comment_forms = comment_formset.forms if comment_formset else []
-        for form in comment_forms:
-            # iterate over comments to retrieve users (to get display names) and serialized versions
-            replies = []
-            for reply_form in form.formsets["replies"].forms:
-                user_pks.add(reply_form.instance.user_id)
-                reply_data = get_serializable_data_for_fields(reply_form.instance)
-                reply_data["deleted"] = (
-                    reply_form.cleaned_data.get("DELETE", False) if bound else False
-                )
-                replies.append(reply_data)
-            user_pks.add(form.instance.user_id)
-            data = get_serializable_data_for_fields(form.instance)
-            data["deleted"] = form.cleaned_data.get("DELETE", False) if bound else False
-            data["resolved"] = (
-                form.cleaned_data.get("resolved", False)
-                if bound
-                else form.instance.resolved_at is not None
+    class BoundPanel(Panel.BoundPanel):
+        def render(self):
+            content = render_to_string(
+                self.panel.template,
+                {"self": self, "page": self.instance, "request": self.request},
             )
-            data["replies"] = replies
-            serialized_comments.append(data)
 
-        authors = {
-            str(user.pk): user_data(user)
-            for user in get_user_model()
-            .objects.filter(pk__in=user_pks)
-            .select_related("wagtail_userprofile")
-        }
+            from wagtail.admin.staticfiles import versioned_static
 
-        comments_data = {
-            "comments": serialized_comments,
-            "user": user.pk,
-            "authors": authors,
-        }
-
-        return {
-            "comments_data": comments_data,
-        }
-
-    def render(self):
-        panel = render_to_string(self.panel.template, self.get_context())
-        return panel
+            return mark_safe(
+                '{0}<script type="text/javascript" src="{1}"></script>'.format(
+                    content, versioned_static("wagtailadmin/js/privacy-switch.js")
+                )
+            )
 
 
 class CommentPanel(Panel):
-    bound_panel_class = BoundCommentPanel
-
     def get_form_options(self):
         # add the comments formset
         return {
@@ -1096,6 +1024,64 @@ class CommentPanel(Panel):
 
     template = "wagtailadmin/panels/comments/comment_panel.html"
     declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
+
+    class BoundPanel(Panel.BoundPanel):
+        def html_declarations(self):
+            return render_to_string(self.panel.declarations_template)
+
+        def get_context(self):
+            def user_data(user):
+                return {"name": user_display_name(user), "avatar_url": avatar_url(user)}
+
+            user = getattr(self.request, "user", None)
+            user_pks = {user.pk}
+            serialized_comments = []
+            bound = self.form.is_bound
+            comment_formset = self.form.formsets.get("comments")
+            comment_forms = comment_formset.forms if comment_formset else []
+            for form in comment_forms:
+                # iterate over comments to retrieve users (to get display names) and serialized versions
+                replies = []
+                for reply_form in form.formsets["replies"].forms:
+                    user_pks.add(reply_form.instance.user_id)
+                    reply_data = get_serializable_data_for_fields(reply_form.instance)
+                    reply_data["deleted"] = (
+                        reply_form.cleaned_data.get("DELETE", False) if bound else False
+                    )
+                    replies.append(reply_data)
+                user_pks.add(form.instance.user_id)
+                data = get_serializable_data_for_fields(form.instance)
+                data["deleted"] = (
+                    form.cleaned_data.get("DELETE", False) if bound else False
+                )
+                data["resolved"] = (
+                    form.cleaned_data.get("resolved", False)
+                    if bound
+                    else form.instance.resolved_at is not None
+                )
+                data["replies"] = replies
+                serialized_comments.append(data)
+
+            authors = {
+                str(user.pk): user_data(user)
+                for user in get_user_model()
+                .objects.filter(pk__in=user_pks)
+                .select_related("wagtail_userprofile")
+            }
+
+            comments_data = {
+                "comments": serialized_comments,
+                "user": user.pk,
+                "authors": authors,
+            }
+
+            return {
+                "comments_data": comments_data,
+            }
+
+        def render(self):
+            panel = render_to_string(self.panel.template, self.get_context())
+            return panel
 
 
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
