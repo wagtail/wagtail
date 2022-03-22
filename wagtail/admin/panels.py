@@ -20,6 +20,7 @@ from modelcluster.models import get_serializable_data_for_fields
 
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm
+from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
@@ -1004,19 +1005,15 @@ class PrivacyModalPanel(Panel):
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/pages/privacy_switch_panel.html"
 
-        def render_html(self):
-            content = render_to_string(
-                self.template_name,
-                {"self": self, "page": self.instance, "request": self.request},
-            )
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+            context["page"] = self.instance
+            context["request"] = self.request
+            return context
 
-            from wagtail.admin.staticfiles import versioned_static
-
-            return mark_safe(
-                '{0}<script type="text/javascript" src="{1}"></script>'.format(
-                    content, versioned_static("wagtailadmin/js/privacy-switch.js")
-                )
-            )
+        @cached_property
+        def media(self):
+            return Media(js=[versioned_static("wagtailadmin/js/privacy-switch.js")])
 
 
 class CommentPanel(Panel):
