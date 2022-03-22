@@ -114,7 +114,7 @@ FieldRowPanel
 HelpPanel
 ~~~~~~~~~
 
-.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
+.. class:: HelpPanel(content='', template='wagtailadmin/panels/help_panel.html', heading='', classname='')
 
     .. attribute:: HelpPanel.content
 

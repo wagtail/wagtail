@@ -401,7 +401,7 @@ class BaseFormEditHandler(BaseCompositeEditHandler):
 
 
 class TabbedInterface(BaseFormEditHandler):
-    template = "wagtailadmin/edit_handlers/tabbed_interface.html"
+    template = "wagtailadmin/panels/tabbed_interface.html"
 
     def __init__(self, *args, show_comments_toggle=None, **kwargs):
         self.base_form_class = kwargs.pop("base_form_class", None)
@@ -431,11 +431,11 @@ class TabbedInterface(BaseFormEditHandler):
 
 
 class ObjectList(TabbedInterface):
-    template = "wagtailadmin/edit_handlers/object_list.html"
+    template = "wagtailadmin/panels/object_list.html"
 
 
 class FieldRowPanel(BaseCompositeEditHandler):
-    template = "wagtailadmin/edit_handlers/field_row_panel.html"
+    template = "wagtailadmin/panels/field_row_panel.html"
 
     def on_instance_bound(self):
         super().on_instance_bound()
@@ -449,7 +449,7 @@ class FieldRowPanel(BaseCompositeEditHandler):
 
 
 class MultiFieldPanel(BaseCompositeEditHandler):
-    template = "wagtailadmin/edit_handlers/multi_field_panel.html"
+    template = "wagtailadmin/panels/multi_field_panel.html"
 
     def classes(self):
         classes = super().classes()
@@ -461,7 +461,7 @@ class HelpPanel(EditHandler):
     def __init__(
         self,
         content="",
-        template="wagtailadmin/edit_handlers/help_panel.html",
+        template="wagtailadmin/panels/help_panel.html",
         heading="",
         classname="",
     ):
@@ -557,7 +557,7 @@ class FieldPanel(EditHandler):
         else:
             return not self.disable_comments
 
-    object_template = "wagtailadmin/edit_handlers/single_field_panel.html"
+    object_template = "wagtailadmin/panels/single_field_panel.html"
 
     def render_as_object(self):
         return mark_safe(
@@ -575,7 +575,7 @@ class FieldPanel(EditHandler):
             )
         )
 
-    field_template = "wagtailadmin/edit_handlers/field_panel_field.html"
+    field_template = "wagtailadmin/panels/field_panel_field.html"
 
     def render_as_field(self):
         return mark_safe(
@@ -827,7 +827,7 @@ class InlinePanel(EditHandler):
             instance=empty_form.instance, request=self.request, form=empty_form
         )
 
-    template = "wagtailadmin/edit_handlers/inline_panel.html"
+    template = "wagtailadmin/panels/inline_panel.html"
 
     def render(self):
         formset = render_to_string(
@@ -840,7 +840,7 @@ class InlinePanel(EditHandler):
         js = self.render_js_init()
         return widget_with_script(formset, js)
 
-    js_template = "wagtailadmin/edit_handlers/inline_panel.js"
+    js_template = "wagtailadmin/panels/inline_panel.js"
 
     def render_js_init(self):
         return mark_safe(
@@ -927,10 +927,8 @@ class CommentPanel(EditHandler):
             }
         }
 
-    template = "wagtailadmin/edit_handlers/comments/comment_panel.html"
-    declarations_template = (
-        "wagtailadmin/edit_handlers/comments/comment_declarations.html"
-    )
+    template = "wagtailadmin/panels/comments/comment_panel.html"
+    declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
 
     def html_declarations(self):
         return render_to_string(self.declarations_template)

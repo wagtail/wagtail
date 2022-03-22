@@ -6,7 +6,7 @@ from wagtail.admin.panels import EditHandler
 
 
 class FormSubmissionsPanel(EditHandler):
-    template = "wagtailforms/edit_handlers/form_responses_panel.html"
+    template = "wagtailforms/panels/form_responses_panel.html"
 
     def render(self):
         form_page_model = self.model
