@@ -113,10 +113,11 @@ class Panel:
     as HTML.
     """
 
-    def __init__(self, heading="", classname="", help_text=""):
+    def __init__(self, heading="", classname="", help_text="", base_form_class=None):
         self.heading = heading
         self.classname = classname
         self.help_text = help_text
+        self.base_form_class = base_form_class
         self.model = None
 
     def clone(self):
@@ -127,6 +128,7 @@ class Panel:
             "heading": self.heading,
             "classname": self.classname,
             "help_text": self.help_text,
+            "base_form_class": self.base_form_class,
         }
 
     def get_form_options(self):
@@ -184,6 +186,24 @@ class Panel:
         return {}
 
     required_formsets.is_original_method = True
+
+    def get_form_class(self):
+        """
+        Construct a form class that has all the fields and formsets named in
+        the children of this edit handler.
+        """
+        form_options = self.get_form_options()
+        # If a custom form class was passed to the EditHandler, use it.
+        # Otherwise, use the base_form_class from the model.
+        # If that is not defined, use WagtailAdminModelForm.
+        model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
+        base_form_class = self.base_form_class or model_form_class
+
+        return get_form_for_model(
+            self.model,
+            form_class=base_form_class,
+            **form_options,
+        )
 
     def bind_to_model(self, model):
         new = self.clone()
@@ -452,53 +472,13 @@ class BaseCompositeEditHandler(PanelGroup):
         super().__init__(*args, **kwargs)
 
 
-class BaseFormEditHandler(PanelGroup):
-    """
-    Base class for edit handlers that can construct a form class for all their
-    child edit handlers.
-    """
-
-    # The form class used as the base for constructing specific forms for this
-    # edit handler.  Subclasses can override this attribute to provide a form
-    # with custom validation, for example.  Custom forms must subclass
-    # WagtailAdminModelForm
-    base_form_class = None
-
-    def __init__(self, *args, **kwargs):
-        self.base_form_class = kwargs.pop("base_form_class", None)
-        super().__init__(*args, **kwargs)
-
-    def get_form_class(self):
-        """
-        Construct a form class that has all the fields and formsets named in
-        the children of this edit handler.
-        """
-        form_options = self.get_form_options()
-        # If a custom form class was passed to the panel, use it.
-        # Otherwise, use the base_form_class from the model.
-        # If that is not defined, use WagtailAdminModelForm.
-        model_form_class = getattr(self.model, "base_form_class", WagtailAdminModelForm)
-        base_form_class = self.base_form_class or model_form_class
-
-        return get_form_for_model(
-            self.model,
-            form_class=base_form_class,
-            **form_options,
-        )
-
-    def clone_kwargs(self):
-        kwargs = super().clone_kwargs()
-        kwargs["base_form_class"] = self.base_form_class
-        return kwargs
-
-
-class TabbedInterface(BaseFormEditHandler):
-    class BoundPanel(BaseFormEditHandler.BoundPanel):
+class TabbedInterface(PanelGroup):
+    class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/tabbed_interface.html"
 
 
-class ObjectList(BaseFormEditHandler):
-    class BoundPanel(BaseFormEditHandler.BoundPanel):
+class ObjectList(PanelGroup):
+    class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/object_list.html"
 
 
