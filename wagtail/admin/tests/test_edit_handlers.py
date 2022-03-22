@@ -1383,7 +1383,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         panel = self.object_list.get_bound_panel(
             request=self.request, instance=self.event_page, form=form
         ).children[0]
-        data = panel.get_context()["comments_data"]
+        data = panel.get_context_data()["comments_data"]
 
         self.assertEqual(data["user"], self.commenting_user.pk)
 

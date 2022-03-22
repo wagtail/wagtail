@@ -20,6 +20,7 @@ from modelcluster.models import get_serializable_data_for_fields
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
+from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
 from wagtail.coreutils import camelcase_to_underscore
@@ -247,7 +248,7 @@ class Panel:
         """
         return ""
 
-    class BoundPanel:
+    class BoundPanel(Component):
         def __init__(self, panel, instance, request, form):
             self.panel = panel
             self.instance = instance
@@ -279,8 +280,10 @@ class Panel:
         def render_as_field(self):
             return self.render_html()
 
-        def render_html(self):
-            return render_to_string(self.panel.template, {"self": self})
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+            context["self"] = self
+            return context
 
         def html_declarations(self):
             return ""
@@ -502,17 +505,19 @@ class BaseFormEditHandler(PanelGroup):
 
 
 class TabbedInterface(BaseFormEditHandler):
-    template = "wagtailadmin/panels/tabbed_interface.html"
+    class BoundPanel(BaseFormEditHandler.BoundPanel):
+        template_name = "wagtailadmin/panels/tabbed_interface.html"
 
 
 class ObjectList(BaseFormEditHandler):
-    template = "wagtailadmin/panels/object_list.html"
+    class BoundPanel(BaseFormEditHandler.BoundPanel):
+        template_name = "wagtailadmin/panels/object_list.html"
 
 
 class FieldRowPanel(PanelGroup):
-    template = "wagtailadmin/panels/field_row_panel.html"
-
     class BoundPanel(PanelGroup.BoundPanel):
+        template_name = "wagtailadmin/panels/field_row_panel.html"
+
         def visible_children_with_classnames(self):
             visible_children = self.visible_children
             col_count = " col%s" % (12 // len(visible_children))
@@ -524,12 +529,13 @@ class FieldRowPanel(PanelGroup):
 
 
 class MultiFieldPanel(PanelGroup):
-    template = "wagtailadmin/panels/multi_field_panel.html"
-
     def classes(self):
         classes = super().classes()
         classes.append("multi-field")
         return classes
+
+    class BoundPanel(PanelGroup.BoundPanel):
+        template_name = "wagtailadmin/panels/multi_field_panel.html"
 
 
 class HelpPanel(Panel):
@@ -556,10 +562,8 @@ class HelpPanel(Panel):
     class BoundPanel(Panel.BoundPanel):
         def __init__(self, panel, instance, request, form):
             super().__init__(panel, instance, request, form)
+            self.template_name = self.panel.template
             self.content = self.panel.content
-
-        def render_html(self):
-            return render_to_string(self.panel.template, {"self": self})
 
 
 class FieldPanel(Panel):
@@ -595,9 +599,6 @@ class FieldPanel(Panel):
             opts["field_permissions"] = {self.field_name: self.permission}
 
         return opts
-
-    object_template = "wagtailadmin/panels/single_field_panel.html"
-    field_template = "wagtailadmin/panels/field_panel_field.html"
 
     def get_comparison_class(self):
         try:
@@ -640,6 +641,9 @@ class FieldPanel(Panel):
         )
 
     class BoundPanel(Panel.BoundPanel):
+        object_template_name = "wagtailadmin/panels/single_field_panel.html"
+        field_template_name = "wagtailadmin/panels/field_panel_field.html"
+
         def __init__(self, panel, instance, request, form):
             super().__init__(panel=panel, instance=instance, request=request, form=form)
 
@@ -712,7 +716,7 @@ class FieldPanel(Panel):
 
         def render_as_object(self):
             return render_to_string(
-                self.panel.object_template,
+                self.object_template_name,
                 {
                     "self": self,
                     self.panel.TEMPLATE_VAR: self,
@@ -726,7 +730,7 @@ class FieldPanel(Panel):
 
         def render_as_field(self):
             return render_to_string(
-                self.panel.field_template,
+                self.field_template_name,
                 {
                     "field": self.bound_field,
                     "field_type": self.field_type(),
@@ -871,10 +875,10 @@ class InlinePanel(Panel):
         manager = getattr(self.model, self.relation_name)
         self.db_field = manager.rel
 
-    template = "wagtailadmin/panels/inline_panel.html"
-    js_template = "wagtailadmin/panels/inline_panel.js"
-
     class BoundPanel(Panel.BoundPanel):
+        template_name = "wagtailadmin/panels/inline_panel.html"
+        js_template_name = "wagtailadmin/panels/inline_panel.js"
+
         def __init__(self, panel, instance, request, form):
             super().__init__(panel, instance, request, form)
 
@@ -940,7 +944,7 @@ class InlinePanel(Panel):
 
         def render_html(self):
             formset = render_to_string(
-                self.panel.template,
+                self.template_name,
                 {
                     "self": self,
                     "can_order": self.formset.can_order,
@@ -951,7 +955,7 @@ class InlinePanel(Panel):
 
         def render_js_init(self):
             return render_to_string(
-                self.panel.js_template,
+                self.js_template_name,
                 {
                     "self": self,
                     "can_order": self.formset.can_order,
@@ -982,17 +986,17 @@ class PublishingPanel(MultiFieldPanel):
 
 
 class PrivacyModalPanel(Panel):
-    template = "wagtailadmin/pages/privacy_switch_panel.html"
-
     def __init__(self, **kwargs):
         updated_kwargs = {"heading": gettext_lazy("Privacy"), "classname": "privacy"}
         updated_kwargs.update(kwargs)
         super().__init__(**updated_kwargs)
 
     class BoundPanel(Panel.BoundPanel):
+        template_name = "wagtailadmin/pages/privacy_switch_panel.html"
+
         def render_html(self):
             content = render_to_string(
-                self.panel.template,
+                self.template_name,
                 {"self": self, "page": self.instance, "request": self.request},
             )
 
@@ -1022,14 +1026,18 @@ class CommentPanel(Panel):
             },
         }
 
-    template = "wagtailadmin/panels/comments/comment_panel.html"
-    declarations_template = "wagtailadmin/panels/comments/comment_declarations.html"
-
     class BoundPanel(Panel.BoundPanel):
-        def html_declarations(self):
-            return render_to_string(self.panel.declarations_template)
+        template_name = "wagtailadmin/panels/comments/comment_panel.html"
+        declarations_template_name = (
+            "wagtailadmin/panels/comments/comment_declarations.html"
+        )
 
-        def get_context(self):
+        def html_declarations(self):
+            return render_to_string(self.declarations_template_name)
+
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+
             def user_data(user):
                 return {"name": user_display_name(user), "avatar_url": avatar_url(user)}
 
@@ -1075,13 +1083,8 @@ class CommentPanel(Panel):
                 "authors": authors,
             }
 
-            return {
-                "comments_data": comments_data,
-            }
-
-        def render_html(self):
-            panel = render_to_string(self.panel.template, self.get_context())
-            return panel
+            context["comments_data"] = comments_data
+            return context
 
 
 # Now that we've defined panels, we can set up wagtailcore.Page to have some.
