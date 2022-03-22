@@ -1,10 +1,8 @@
-$avatar-size: 60px;
-
 // stylelint-disable declaration-no-important
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
-  margin-bottom: $avatar-size;
+  margin-bottom: 60px;
   @include transition(margin-bottom $menu-transition-duration ease);
 
   &--open-footer {
@@ -87,13 +85,11 @@ $avatar-size: 60px;
 
   &__account {
     &-toggle {
-      @apply w-pl-2 w-hidden sm:w-inline-flex w-justify-between w-w-full w-translate-x-0;
-      @include show-focus-outline-inside();
-      transition: transform $menu-transition-duration ease;
+      @apply w-pl-2 w-hidden sm:w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
     }
 
     &-label {
-      @apply w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis w-capitalize;
+      @apply w-text-white w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
     }
   }
 
@@ -116,12 +112,5 @@ $avatar-size: 60px;
       max-height: $nav-footer-submenu-height;
       visibility: visible;
     }
-  }
-
-  &--open &__account-toggle {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: $avatar-size !important;
-    inset-inline-start: $avatar-size !important;
   }
 }

@@ -231,7 +231,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             <img src={user.avatarUrl} alt="" />
           </div>
           <div className="sidebar-footer__account-toggle">
-            <div className="sidebar-footer__account-label w-label-3 w-text-white">
+            <div className="sidebar-footer__account-label w-label-3">
               {user.name}
             </div>
             <Icon
