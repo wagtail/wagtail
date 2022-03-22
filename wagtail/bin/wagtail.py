@@ -154,6 +154,10 @@ class UpdateModulePaths(Command):
         (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
         (re.compile(r"\bwagtail\.core\b"), "wagtail"),
         (re.compile(r"\bwagtail\.admin\.edit_handlers\b"), "wagtail.admin.panels"),
+        (
+            re.compile(r"\bwagtail\.contrib\.forms\.edit_handlers\b"),
+            "wagtail.contrib.forms.panels",
+        ),
     ]
 
     def add_arguments(self, parser):

@@ -188,7 +188,7 @@ ImageChooserPanel
 FormSubmissionsPanel
 ~~~~~~~~~~~~~~~~~~~~
 
-.. module:: wagtail.contrib.forms.edit_handlers
+.. module:: wagtail.contrib.forms.panels
 
 .. class:: FormSubmissionsPanel
 
@@ -198,7 +198,7 @@ FormSubmissionsPanel
     .. code-block:: python
 
         from wagtail.contrib.forms.models import AbstractForm
-        from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+        from wagtail.contrib.forms.panels import FormSubmissionsPanel
 
         class ContactFormPage(AbstractForm):
             content_panels = [

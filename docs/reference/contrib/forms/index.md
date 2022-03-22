@@ -91,7 +91,7 @@ You now need to create two templates named `form_page.html` and `form_page_landi
 `FormSubmissionsPanel` can be added to your page's panel definitions to display the number of form submissions and the time of the most recent submission, along with a quick link to access the full submission data:
 
 ```python
-from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 
 class FormPage(AbstractEmailForm):
     # ...
