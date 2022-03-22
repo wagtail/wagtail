@@ -303,9 +303,6 @@ class Panel:
             context["self"] = self
             return context
 
-        def html_declarations(self):
-            return ""
-
         def get_comparison(self):
             return []
 
@@ -445,9 +442,6 @@ class PanelGroup(Panel):
             for item in self.visible_children:
                 media += item.media
             return media
-
-        def html_declarations(self):
-            return mark_safe("".join([c.html_declarations() for c in self.children]))
 
         def get_comparison(self):
             comparators = []
@@ -884,9 +878,6 @@ class InlinePanel(Panel):
                 instance=empty_form.instance, request=self.request, form=empty_form
             )
 
-        def html_declarations(self):
-            return self.empty_child.html_declarations()
-
         def get_comparison(self):
             field_comparisons = []
 
@@ -972,12 +963,6 @@ class CommentPanel(Panel):
 
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/comments/comment_panel.html"
-        declarations_template_name = (
-            "wagtailadmin/panels/comments/comment_declarations.html"
-        )
-
-        def html_declarations(self):
-            return render_to_string(self.declarations_template_name)
 
         def get_context_data(self, parent_context=None):
             context = super().get_context_data(parent_context)

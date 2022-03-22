@@ -101,11 +101,6 @@
     {% endcomment %}
     {{ media.js }}
 
-    {% comment %}
-        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)
-    {% endcomment %}
-    {{ edit_handler.html_declarations }}
-
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page
         // This value may be used by JS widgets on the form
