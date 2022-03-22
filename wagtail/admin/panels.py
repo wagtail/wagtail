@@ -405,14 +405,16 @@ class PanelGroup(Panel):
         def __init__(self, panel, instance, request, form):
             super().__init__(panel=panel, instance=instance, request=request, form=form)
 
-            self.children = [
+        @cached_property
+        def children(self):
+            return [
                 child.get_bound_panel(
                     instance=self.instance, request=self.request, form=self.form
                 )
                 for child in self.panel.children
             ]
 
-        @property
+        @cached_property
         def visible_children(self):
             return [child for child in self.children if child.is_shown()]
 
