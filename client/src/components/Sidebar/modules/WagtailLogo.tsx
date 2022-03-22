@@ -13,10 +13,8 @@ const WagtailLogo = ({ className }: WagtailLogoProps) => {
         ${className || ''}
          sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary w-transition w-delay-150 w-duration-150 hover:w-scale-75 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]
       `}
-      x="0px"
-      y="0px"
-      width="430px"
-      height="537px"
+      width="430"
+      height="537"
       viewBox="0 0 430 537"
       enableBackground="new 0 0 430 537"
       xmlSpace="preserve"
