@@ -215,8 +215,8 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           w-appearance-none
           w-border-0
           w-overflow-hidden
-          md:w-px-5
-          md:w-py-3
+          w-px-5
+          w-py-3
           hover:w-bg-primary
           hover:w-text-white focus:w-bg-primary focus:w-text-white"
           title={strings.EDIT_YOUR_ACCOUNT}

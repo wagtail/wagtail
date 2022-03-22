@@ -3,11 +3,8 @@
 }
 
 .c-page-explorer__item__link {
-  display: inline-flex;
-  align-items: center;
-  flex-grow: 1;
+  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1;
   padding: 1.45em 1em;
-  cursor: pointer;
 
   &:focus,
   &:hover {
@@ -72,5 +69,4 @@
 .c-page-explorer__meta {
   @apply w-flex w-gap-2 w-text-white/85;
   font-size: 12px;
-  margin-inline-start: 0.5rem;
 }

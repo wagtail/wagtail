@@ -40,7 +40,6 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
         className="c-page-explorer__item__link"
       >
         {hasChildren ? childrenIcon : null}
-
         <h3 className="c-page-explorer__item__title">{title}</h3>
 
         {(!isPublished || localeName) && (

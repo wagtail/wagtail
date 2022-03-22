@@ -5,8 +5,8 @@
   top: $sidebar-toggle-spacing;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
-  right: $sidebar-toggle-spacing;
-  inset-inline-end: $sidebar-toggle-spacing;
+  left: $sidebar-toggle-spacing;
+  inset-inline-start: $sidebar-toggle-spacing;
   color: $color-white;
   width: $sidebar-toggle-size;
   height: $sidebar-toggle-size;
@@ -20,6 +20,15 @@
   svg {
     width: 15px;
     height: 16px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    inset-inline-end: $sidebar-toggle-spacing;
+
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    left: initial;
+    inset-inline-start: initial;
   }
 
   .has-messages & {
@@ -100,12 +109,7 @@
   }
 
   &--open {
-    position: fixed;
-
-    &:hover {
-      background-color: #3a3a3a;
-      color: #ccc;
-    }
+    @apply w-fixed hover:w-bg-primary-200 hover:w-text-white;
   }
 }
 
