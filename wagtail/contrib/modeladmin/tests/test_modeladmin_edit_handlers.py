@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.test import RequestFactory, TestCase
 
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.views import CreateView
 from wagtail.test.modeladmintest.models import Person
 from wagtail.test.modeladmintest.wagtail_hooks import PersonAdmin

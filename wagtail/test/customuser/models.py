@@ -9,7 +9,7 @@ from django.db import models
 # (which is easily done because it's dealing with django.contrib.auth views which depend
 # on the user model)
 from wagtail.admin.auth import permission_denied  # noqa
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 
 from .fields import ConvertedValueField
 

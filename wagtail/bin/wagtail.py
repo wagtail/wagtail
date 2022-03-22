@@ -153,6 +153,7 @@ class UpdateModulePaths(Command):
         # Added in Wagtail 3.0
         (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
         (re.compile(r"\bwagtail\.core\b"), "wagtail"),
+        (re.compile(r"\bwagtail\.admin\.edit_handlers\b"), "wagtail.admin.panels"),
     ]
 
     def add_arguments(self, parser):
