@@ -13,7 +13,7 @@ class FormSubmissionsPanel(Panel):
             self.heading = _("%s submissions") % self.model.get_verbose_name()
 
     class BoundPanel(Panel.BoundPanel):
-        def render(self):
+        def render_html(self):
             form_page_model = self.panel.model
             form_submissions_model = form_page_model().get_submission_class()
             submissions = form_submissions_model.objects.filter(page=self.instance)

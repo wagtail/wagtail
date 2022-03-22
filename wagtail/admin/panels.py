@@ -274,12 +274,12 @@ class Panel:
             return True
 
         def render_as_object(self):
-            return self.render()
+            return self.render_html()
 
         def render_as_field(self):
-            return self.render()
+            return self.render_html()
 
-        def render(self):
+        def render_html(self):
             return render_to_string(self.panel.template, {"self": self})
 
         def html_declarations(self):
@@ -558,7 +558,7 @@ class HelpPanel(Panel):
             super().__init__(panel, instance, request, form)
             self.content = self.panel.content
 
-        def render(self):
+        def render_html(self):
             return render_to_string(self.panel.template, {"self": self})
 
 
@@ -938,7 +938,7 @@ class InlinePanel(Panel):
                 )
             ]
 
-        def render(self):
+        def render_html(self):
             formset = render_to_string(
                 self.panel.template,
                 {
@@ -990,7 +990,7 @@ class PrivacyModalPanel(Panel):
         super().__init__(**updated_kwargs)
 
     class BoundPanel(Panel.BoundPanel):
-        def render(self):
+        def render_html(self):
             content = render_to_string(
                 self.panel.template,
                 {"self": self, "page": self.instance, "request": self.request},
@@ -1079,7 +1079,7 @@ class CommentPanel(Panel):
                 "comments_data": comments_data,
             }
 
-        def render(self):
+        def render_html(self):
             panel = render_to_string(self.panel.template, self.get_context())
             return panel
 

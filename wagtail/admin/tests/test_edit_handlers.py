@@ -415,7 +415,7 @@ class TestTabbedInterface(TestCase):
             request=self.request,
         )
 
-        result = tabbed_interface.render()
+        result = tabbed_interface.render_html()
 
         # result should contain tab buttons
         self.assertIn(
@@ -505,7 +505,7 @@ class TestObjectList(TestCase):
             request=self.request,
         )
 
-        result = object_list.render()
+        result = object_list.render_html()
 
         # result should contain ObjectList furniture
         self.assertIn('<ul class="objects">', result)
