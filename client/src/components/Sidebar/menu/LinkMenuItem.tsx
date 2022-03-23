@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
+import TippyWrapper from '../../TippyWrapper/TippyWrapper';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
-> = ({ item, path, state, dispatch, navigate }) => {
+> = ({ item, slim, path, state, dispatch, navigate }) => {
   const isCurrent = state.activePath === path;
   const isActive = state.activePath.startsWith(path);
   const isInSubMenu = path.split('.').length > 2;
@@ -40,17 +41,19 @@ export const LinkMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <a
-        href={item.url}
-        aria-current={isCurrent ? 'page' : undefined}
-        onClick={onClick}
-        className={`sidebar-menu-item__link ${item.classNames}`}
-      >
-        {item.iconName && (
-          <Icon name={item.iconName} className="icon--menuitem" />
-        )}
-        <span className="menuitem-label">{item.label}</span>
-      </a>
+      <TippyWrapper condition={slim} label={item.label} placement="right">
+        <a
+          href={item.url}
+          aria-current={isCurrent ? 'page' : undefined}
+          onClick={onClick}
+          className={`sidebar-menu-item__link ${item.classNames}`}
+        >
+          {item.iconName && (
+            <Icon name={item.iconName} className="icon--menuitem" />
+          )}
+          <span className="menuitem-label">{item.label}</span>
+        </a>
+      </TippyWrapper>
     </li>
   );
 };
@@ -76,12 +79,13 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
     this.classNames = classnames;
   }
 
-  render({ path, state, dispatch, navigate }) {
+  render({ path, slim, state, dispatch, navigate }) {
     return (
       <LinkMenuItem
         key={this.name}
         item={this}
         path={path}
+        slim={slim}
         state={state}
         dispatch={dispatch}
         navigate={navigate}

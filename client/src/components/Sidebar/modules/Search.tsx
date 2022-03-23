@@ -3,6 +3,8 @@ import * as React from 'react';
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, Strings } from '../Sidebar';
 
+import TippyWrapper from '../../TippyWrapper/TippyWrapper';
+
 interface SearchInputProps {
   slim: boolean;
   expandingOrCollapsing: boolean;
@@ -10,6 +12,7 @@ interface SearchInputProps {
   onSearchBlur: () => void;
   searchUrl: string;
   strings: Strings;
+
   navigate(url: string): void;
 }
 
@@ -62,17 +65,23 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
       <label className="sidebar-search__label" htmlFor="menu-search-q">
         {strings.SEARCH}
       </label>
-      <input
-        className="sidebar-search__input"
-        type="text"
-        id="menu-search-q"
-        name="q"
-        placeholder={strings.SEARCH}
-        onClick={() => {
-          onSearchClick();
-        }}
-        onBlur={() => onSearchBlur()}
-      />
+      <TippyWrapper
+        condition={!isVisible && slim}
+        label="Search"
+        placement="right"
+      >
+        <input
+          className="sidebar-search__input"
+          type="text"
+          id="menu-search-q"
+          name="q"
+          placeholder={strings.SEARCH}
+          onClick={() => {
+            onSearchClick();
+          }}
+          onBlur={() => onSearchBlur()}
+        />
+      </TippyWrapper>
     </form>
   );
 };

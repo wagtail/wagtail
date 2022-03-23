@@ -1,0 +1,20 @@
+.tippy-box {
+  @apply w-bg-primary w-text-white;
+  font-size: 12px;
+}
+
+.tippy-box[data-placement^='top'] > .tippy-arrow::before {
+  @apply w-border-t-primary;
+}
+
+.tippy-box[data-placement^='bottom'] > .tippy-arrow::before {
+  @apply w-border-b-primary;
+}
+
+.tippy-box[data-placement^='left'] > .tippy-arrow::before {
+  @apply w-border-l-primary;
+}
+
+.tippy-box[data-placement^='right'] > .tippy-arrow::before {
+  @apply w-border-r-primary;
+}
