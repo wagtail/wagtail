@@ -95,5 +95,7 @@ module.exports = {
     // Disable float and clear which have poor RTL support.
     float: false,
     clear: false,
+    // Disable text-transform so we don’t rely on uppercasing text.
+    textTransform: false,
   },
 };

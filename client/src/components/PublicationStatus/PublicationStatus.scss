@@ -1,4 +1,6 @@
 .c-status {
-  @apply w-bg-black/50 w-uppercase w-tracking-tight w-text-white/85;
+  @apply w-bg-black/50 w-tracking-tight w-text-white/85;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
   font-size: 10px;
 }
