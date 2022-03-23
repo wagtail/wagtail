@@ -1,25 +1,19 @@
 @use 'sass:math';
 
 header {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  background-color: $color-header-bg;
-  margin-bottom: 2em;
-  color: $color-white;
+  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4;
 
   a {
-    color: $color-white;
+    @apply w-text-primary w-underline;
   }
 
   h1,
   h2 {
+    @apply w-text-primary;
     margin: 0;
-    color: $color-white;
   }
 
   h1 {
-    padding: 0.2em 0;
-
     &.icon:before {
       width: 1em;
       display: none;
@@ -193,9 +187,6 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-
     .left {
       float: left;
       margin-inline-end: 0;

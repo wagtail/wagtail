@@ -50,6 +50,16 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 @tailwind base;
 @tailwind components;
 
+// Reset border styles so tailwinds default border class works as expected
+// https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+  border-color: theme('borderColor.DEFAULT', currentColor);
+}
+
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
