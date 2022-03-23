@@ -6,14 +6,14 @@ from django.urls import reverse
 from django.utils.http import urlencode
 
 from wagtail.admin.views.chooser import can_choose_page
-from wagtail.core.models import Locale, Page, UserPagePermissionsProxy
-from wagtail.tests.testapp.models import (
+from wagtail.models import Locale, Page, UserPagePermissionsProxy
+from wagtail.test.testapp.models import (
     EventIndex,
     EventPage,
     SimplePage,
     SingleEventPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestChooserBrowse(TestCase, WagtailTestUtils):

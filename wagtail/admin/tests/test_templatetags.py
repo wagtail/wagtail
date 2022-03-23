@@ -23,9 +23,9 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
     timesince_simple,
 )
 from wagtail.admin.ui.components import Component
-from wagtail.core.models import Locale
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Locale
+from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
 
 

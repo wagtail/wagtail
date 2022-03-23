@@ -14,5 +14,6 @@ module.exports = {
   corePlugins: {
     // Risk of clashing with existing styles.
     preflight: false,
+    textTransform: false,
   },
 };

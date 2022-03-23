@@ -4,8 +4,8 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.core.models import Locale, Page
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Locale, Page
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestLocaleIndexView(TestCase, WagtailTestUtils):

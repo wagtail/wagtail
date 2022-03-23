@@ -5,7 +5,7 @@ from django.urls import reverse
 
 from wagtail.images import get_image_model
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 Image = get_image_model()
 test_file = get_test_image_file()

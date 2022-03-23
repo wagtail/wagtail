@@ -4,11 +4,11 @@ from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.utils.translation import gettext as _
 
+from wagtail import hooks
+from wagtail.actions.convert_alias import ConvertAliasPageAction
 from wagtail.admin import messages
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
-from wagtail.core import hooks
-from wagtail.core.actions.convert_alias import ConvertAliasPageAction
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def convert_alias(request, page_id):

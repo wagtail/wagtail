@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
@@ -15,9 +16,6 @@ from wagtail.admin.menu import MenuItem
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.search import SearchArea
 from wagtail.admin.site_summary import SummaryItem
-from wagtail.core import hooks
-from wagtail.core.models import BaseViewRestriction
-from wagtail.core.wagtail_hooks import require_wagtail_login
 from wagtail.documents import admin_urls, get_document_model
 from wagtail.documents.api.admin.views import DocumentsAdminAPIViewSet
 from wagtail.documents.forms import GroupDocumentPermissionFormSet
@@ -32,6 +30,8 @@ from wagtail.documents.views.bulk_actions import (
     AddToCollectionBulkAction,
     DeleteBulkAction,
 )
+from wagtail.models import BaseViewRestriction
+from wagtail.wagtail_hooks import require_wagtail_login
 
 
 @hooks.register("register_admin_urls")
@@ -176,7 +176,7 @@ def check_view_restrictions(document, request):
     for restriction in document.collection.get_view_restrictions():
         if not restriction.accept_request(request):
             if restriction.restriction_type == BaseViewRestriction.PASSWORD:
-                from wagtail.core.forms import PasswordViewRestrictionForm
+                from wagtail.forms import PasswordViewRestrictionForm
 
                 form = PasswordViewRestrictionForm(
                     instance=restriction,

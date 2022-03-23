@@ -118,7 +118,8 @@ class UpdateModulePaths(Command):
     description = "Update a Wagtail project tree to use Wagtail 2.x module paths"
 
     REPLACEMENTS = [
-        (re.compile(r"\bwagtail\.wagtailcore\b"), "wagtail.core"),
+        # Added in Wagtail 2.0
+        (re.compile(r"\bwagtail\.wagtailcore\b"), "wagtail"),
         (re.compile(r"\bwagtail\.wagtailadmin\b"), "wagtail.admin"),
         (re.compile(r"\bwagtail\.wagtaildocs\b"), "wagtail.documents"),
         (re.compile(r"\bwagtail\.wagtailembeds\b"), "wagtail.embeds"),
@@ -149,6 +150,9 @@ class UpdateModulePaths(Command):
             re.compile(r"\bwagtail\.contrib\.wagtailstyleguide\b"),
             "wagtail.contrib.styleguide",
         ),
+        # Added in Wagtail 3.0
+        (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
+        (re.compile(r"\bwagtail\.core\b"), "wagtail"),
     ]
 
     def add_arguments(self, parser):

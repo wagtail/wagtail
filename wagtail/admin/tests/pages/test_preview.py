@@ -9,14 +9,9 @@ from freezegun import freeze_time
 
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.views.pages.preview import PreviewOnEdit
-from wagtail.core.models import Page
-from wagtail.tests.testapp.models import (
-    EventCategory,
-    EventPage,
-    SimplePage,
-    StreamPage,
-)
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Page
+from wagtail.test.testapp.models import EventCategory, EventPage, SimplePage, StreamPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestIssue2599(TestCase, WagtailTestUtils):

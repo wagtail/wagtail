@@ -25,7 +25,7 @@ example showing how you might notify your team when something is published:
 
 .. code-block:: python
 
-    from wagtail.core.signals import page_published
+    from wagtail.signals import page_published
     import requests
 
 
@@ -55,7 +55,7 @@ wish to do something when a new blog post is published:
 
 .. code-block:: python
 
-    from wagtail.core.signals import page_published
+    from wagtail.signals import page_published
     from mysite.models import BlogPostPage
 
     # Do something clever for each model type
@@ -66,7 +66,7 @@ wish to do something when a new blog post is published:
     # Register listeners for each page model class
     page_published.connect(receiver, sender=BlogPostPage)
 
-Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.core.models``.
+Wagtail provides access to a list of registered page types through the ``get_page_models()`` function in ``wagtail.models``.
 
 Read the :ref:`Django documentation <connecting-to-specific-signals>` for more information about specifying senders.
 
@@ -110,7 +110,7 @@ The best way to distinguish between a 'move' and 'reorder' is to compare the ``u
 
 .. code-block:: python
 
-    from wagtail.core.signals import pre_page_move
+    from wagtail.signals import pre_page_move
     from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
 
     # Clear a page's old URLs from the cache when it moves to a different section

@@ -10,11 +10,11 @@ from django.urls import reverse
 from rest_framework.test import APIClient
 
 from wagtail.api.v2 import signal_handlers
-from wagtail.core.models import Locale, Page, Site
-from wagtail.core.models.view_restrictions import BaseViewRestriction
-from wagtail.tests.demosite import models
-from wagtail.tests.testapp.models import StreamPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Locale, Page, Site
+from wagtail.models.view_restrictions import BaseViewRestriction
+from wagtail.test.demosite import models
+from wagtail.test.testapp.models import StreamPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 def get_total_page_count():

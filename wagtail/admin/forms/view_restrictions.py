@@ -3,7 +3,7 @@ from django.contrib.auth.models import Group
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
 
-from wagtail.core.models import BaseViewRestriction
+from wagtail.models import BaseViewRestriction
 
 
 class BaseViewRestrictionForm(forms.ModelForm):

@@ -130,8 +130,8 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
 ```python
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 
 
@@ -222,8 +222,8 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 Lets start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 
 
@@ -276,8 +276,8 @@ Now we need a model and template for our blog posts. In `blog/models.py`:
 ```python
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
 from wagtail.search import index
 
@@ -464,8 +464,8 @@ from django.db import models
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.search import index
 
@@ -619,8 +619,8 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 

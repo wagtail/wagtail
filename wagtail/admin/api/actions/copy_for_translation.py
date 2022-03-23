@@ -5,12 +5,12 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from wagtail.api.v2.utils import BadRequestError
-from wagtail.core.actions.copy_for_translation import (
+from wagtail.actions.copy_for_translation import (
     CopyPageForTranslationAction,
     ParentNotTranslatedError,
 )
-from wagtail.core.models.i18n import Locale
+from wagtail.api.v2.utils import BadRequestError
+from wagtail.models.i18n import Locale
 
 from .base import APIAction
 

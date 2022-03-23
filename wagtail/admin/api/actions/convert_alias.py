@@ -4,11 +4,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
+from wagtail.actions.convert_alias import ConvertAliasPageAction, ConvertAliasPageError
 from wagtail.api.v2.utils import BadRequestError
-from wagtail.core.actions.convert_alias import (
-    ConvertAliasPageAction,
-    ConvertAliasPageError,
-)
 
 from .base import APIAction
 

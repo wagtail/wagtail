@@ -14,8 +14,8 @@ from wagtail.contrib.forms.tests.utils import (
     make_form_page_with_redirect,
     make_types_test_form_page,
 )
-from wagtail.core.models import Page
-from wagtail.tests.testapp.models import (
+from wagtail.models import Page
+from wagtail.test.testapp.models import (
     CustomFormPageSubmission,
     ExtendedFormField,
     FormField,
@@ -23,7 +23,7 @@ from wagtail.tests.testapp.models import (
     FormPageWithCustomFormBuilder,
     JadeFormPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestFormSubmission(TestCase):

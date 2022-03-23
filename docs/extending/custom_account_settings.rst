@@ -33,7 +33,7 @@ Here is an example of how to add a new form that operates on the user model:
     # hooks.py
 
     from wagtail.admin.views.account import BaseSettingsPanel
-    from wagtail.core import hooks
+    from wagtail import hooks
     from .forms import CustomSettingsForm
 
     @hooks.register('register_account_settings_panel')
@@ -79,7 +79,7 @@ To add a panel that alters data on the user's :class:`~wagtail.users.models.User
     # hooks.py
 
     from wagtail.admin.views.account import BaseSettingsPanel
-    from wagtail.core import hooks
+    from wagtail import hooks
     from .forms import CustomProfileSettingsForm
 
     @hooks.register('register_account_settings_panel')
@@ -101,7 +101,7 @@ You can define a new tab using the ``SettingsTab`` class:
     # hooks.py
 
     from wagtail.admin.views.account import BaseSettingsPanel, SettingsTab
-    from wagtail.core import hooks
+    from wagtail import hooks
     from .forms import CustomSettingsForm
 
     custom_tab = SettingsTab('custom', "Custom settings", order=300)
@@ -131,7 +131,7 @@ You can provide a custom template for the panel by specifying a template name:
     # hooks.py
 
     from wagtail.admin.views.account import BaseSettingsPanel
-    from wagtail.core import hooks
+    from wagtail import hooks
     from .forms import CustomSettingsForm
 
     @hooks.register('register_account_settings_panel')

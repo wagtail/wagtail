@@ -40,7 +40,7 @@ Create a ``wagtail_hooks.py`` file within the ``wagtailcalendar`` app containing
 .. code-block:: python
 
   from django.urls import path
-  from wagtail.core import hooks
+  from wagtail import hooks
 
   from .views import index
 
@@ -127,7 +127,7 @@ Our calendar view is now complete, but there's no way to reach it from the rest 
   from django.urls import path, reverse
 
   from wagtail.admin.menu import MenuItem
-  from wagtail.core import hooks
+  from wagtail import hooks
 
   from .views import index
 
@@ -184,7 +184,7 @@ We also need to update ``wagtail_hooks.py`` to register our URL in the admin int
   :emphasize-lines: 11
 
   from django.urls import path
-  from wagtail.core import hooks
+  from wagtail import hooks
 
   from .views import index, month
 
@@ -211,7 +211,7 @@ Finally we can alter our ``wagtail_hooks.py`` to include a group of custom menu 
 
   from wagtail.admin.menu import MenuItem, SubmenuMenuItem
   from wagtail.contrib.modeladmin.menus import SubMenu
-  from wagtail.core import hooks
+  from wagtail import hooks
 
 
   from .views import index, month

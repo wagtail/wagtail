@@ -7,11 +7,11 @@ from django.contrib.auth.models import Group, Permission
 from django.urls import reverse
 from django.utils import timezone
 
+from wagtail import hooks
 from wagtail.api.v2.tests.test_pages import TestPageDetail, TestPageListing
-from wagtail.core import hooks
-from wagtail.core.models import GroupPagePermission, Locale, Page, PageLogEntry
-from wagtail.tests.demosite import models
-from wagtail.tests.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
+from wagtail.models import GroupPagePermission, Locale, Page, PageLogEntry
+from wagtail.test.demosite import models
+from wagtail.test.testapp.models import EventIndex, EventPage, SimplePage, StreamPage
 from wagtail.users.models import UserProfile
 
 from .utils import AdminAPITestCase

@@ -2,7 +2,7 @@ from django.template import Context, Template
 from django.test import RequestFactory, TestCase
 
 from wagtail.admin.ui.tables import Column, Table, TitleColumn
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 
 class TestTable(TestCase):

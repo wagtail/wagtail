@@ -65,7 +65,7 @@ Apps (``settings.py``)
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
+    'wagtail',
 
     'taggit',
     'modelcluster',
@@ -83,7 +83,7 @@ Wagtail requires several Django app modules, third-party apps, and defines sever
 Wagtail Apps
 ------------
 
-``wagtail.core``
+``wagtail``
   The core functionality of Wagtail, such as the ``Page`` class, the Wagtail tree, and model fields.
 
 ``wagtail.admin``
@@ -138,7 +138,7 @@ URL Patterns
 
   from django.contrib import admin
 
-  from wagtail.core import urls as wagtail_urls
+  from wagtail import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
 
@@ -201,7 +201,7 @@ These two files should reside in your project directory (``myproject/myproject/`
       'wagtail.images',
       'wagtail.search',
       'wagtail.admin',
-      'wagtail.core',
+      'wagtail',
 
       'taggit',
       'modelcluster',
@@ -374,7 +374,7 @@ These two files should reside in your project directory (``myproject/myproject/`
   from django.conf import settings
   import os.path
 
-  from wagtail.core import urls as wagtail_urls
+  from wagtail import urls as wagtail_urls
   from wagtail.admin import urls as wagtailadmin_urls
   from wagtail.documents import urls as wagtaildocs_urls
 

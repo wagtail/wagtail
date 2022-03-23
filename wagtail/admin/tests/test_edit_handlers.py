@@ -32,9 +32,9 @@ from wagtail.admin.widgets import (
     AdminDateInput,
     AdminPageChooser,
 )
-from wagtail.core.models import Comment, CommentReply, Page, Site
-from wagtail.tests.testapp.forms import ValidatedPageForm
-from wagtail.tests.testapp.models import (
+from wagtail.models import Comment, CommentReply, Page, Site
+from wagtail.test.testapp.forms import ValidatedPageForm
+from wagtail.test.testapp.models import (
     EventPage,
     EventPageChooserModel,
     EventPageSpeaker,
@@ -44,7 +44,7 @@ from wagtail.tests.testapp.models import (
     SimplePage,
     ValidatedPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestGetFormForModel(TestCase):
@@ -57,7 +57,7 @@ class TestGetFormForModel(TestCase):
         ):
             edit_handler.get_form_class()
 
-    def test_get_form_for_model(self):
+    def test_get_form_for_model_without_formsets(self):
         EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
         form = EventPageForm()
 
@@ -72,6 +72,14 @@ class TestGetFormForModel(TestCase):
 
         # treebeard's 'path' field should be excluded
         self.assertNotIn("path", form.fields)
+
+    def test_get_form_for_model_with_formsets(self):
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            formsets=["speakers", "related_links"],
+        )
+        form = EventPageForm()
 
         # all child relations become formsets by default
         self.assertIn("speakers", form.formsets)
@@ -276,7 +284,7 @@ class TestPageEditHandlers(TestCase):
         handler_handler_repr = repr(edit_handler)
 
         self.assertIn(
-            "model=<class 'wagtail.tests.testapp.models.ValidatedPage'>",
+            "model=<class 'wagtail.test.testapp.models.ValidatedPage'>",
             handler_handler_repr,
         )
         self.assertIn("instance=None", handler_handler_repr)
@@ -607,7 +615,7 @@ class TestFieldPanel(TestCase):
         field_panel_repr = repr(field_panel)
 
         self.assertIn(
-            "model=<class 'wagtail.tests.testapp.models.EventPage'>", field_panel_repr
+            "model=<class 'wagtail.test.testapp.models.EventPage'>", field_panel_repr
         )
         self.assertIn("instance=None", field_panel_repr)
         self.assertIn("request=<WSGIRequest: GET '/'>", field_panel_repr)

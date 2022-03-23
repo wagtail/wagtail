@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, override
 from django.views.decorators.debug import sensitive_post_parameters
 
+from wagtail import hooks
 from wagtail.admin.forms.account import (
     AvatarPreferencesForm,
     LocalePreferencesForm,
@@ -26,9 +27,8 @@ from wagtail.admin.localization import (
     get_available_admin_languages,
     get_available_admin_time_zones,
 )
-from wagtail.core import hooks
-from wagtail.core.log_actions import log
-from wagtail.core.models import UserPagePermissionsProxy
+from wagtail.log_actions import log
+from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
 

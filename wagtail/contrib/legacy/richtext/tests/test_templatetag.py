@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.core.templatetags.wagtailcore_tags import richtext
+from wagtail.templatetags.wagtailcore_tags import richtext
 
 
 class TestTemplateTag(TestCase):

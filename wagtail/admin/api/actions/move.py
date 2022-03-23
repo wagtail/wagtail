@@ -5,8 +5,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from wagtail.core.actions.move_page import MovePageAction
-from wagtail.core.models import Page
+from wagtail.actions.move_page import MovePageAction
+from wagtail.models import Page
 
 from .base import APIAction
 

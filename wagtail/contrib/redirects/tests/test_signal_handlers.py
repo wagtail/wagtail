@@ -3,11 +3,11 @@ from django.db import connection
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Page, Site
-from wagtail.core.utils import get_dummy_request
-from wagtail.tests.routablepage.models import RoutablePageTest
-from wagtail.tests.testapp.models import EventIndex
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.coreutils import get_dummy_request
+from wagtail.models import Page, Site
+from wagtail.test.routablepage.models import RoutablePageTest
+from wagtail.test.testapp.models import EventIndex
+from wagtail.test.utils import WagtailTestUtils
 
 User = get_user_model()
 

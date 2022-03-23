@@ -4,7 +4,7 @@ from django.test.utils import override_settings
 from django.urls import reverse
 
 from wagtail.documents import get_document_model
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 Document = get_document_model()
 

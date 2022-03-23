@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from draftjs_exporter.dom import DOM
 
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail import __version__
+from wagtail import __version__, hooks
 from wagtail.admin.admin_url_finder import (
     ModelAdminURLFinder,
     register_admin_url_finder,
@@ -45,20 +45,13 @@ from wagtail.admin.views.pages.bulk_actions import (
 )
 from wagtail.admin.viewsets import viewsets
 from wagtail.admin.widgets import Button, ButtonWithDropdownFromHook, PageListingButton
-from wagtail.core import hooks
-from wagtail.core.models import (
-    Collection,
-    Page,
-    Task,
-    UserPagePermissionsProxy,
-    Workflow,
-)
-from wagtail.core.permissions import (
+from wagtail.models import Collection, Page, Task, UserPagePermissionsProxy, Workflow
+from wagtail.permissions import (
     collection_permission_policy,
     task_permission_policy,
     workflow_permission_policy,
 )
-from wagtail.core.whitelist import allow_without_attributes, attribute_rule, check_url
+from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
 
 
 class ExplorerMenuItem(MenuItem):

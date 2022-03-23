@@ -1,10 +1,10 @@
 from django.forms import Media
 
+from wagtail import hooks
 from wagtail.admin.auth import user_has_any_page_permission
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.ui.components import Component
-from wagtail.core import hooks
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 
 
 class SummaryItem(Component):

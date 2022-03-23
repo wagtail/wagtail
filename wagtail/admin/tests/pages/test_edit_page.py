@@ -14,8 +14,8 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.core.exceptions import PageClassNotFoundError
-from wagtail.core.models import (
+from wagtail.exceptions import PageClassNotFoundError
+from wagtail.models import (
     Comment,
     CommentReply,
     GroupPagePermission,
@@ -26,8 +26,8 @@ from wagtail.core.models import (
     PageSubscription,
     Site,
 )
-from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import (
+from wagtail.signals import page_published
+from wagtail.test.testapp.models import (
     EVENT_AUDIENCE_CHOICES,
     Advert,
     AdvertPlacement,
@@ -41,8 +41,8 @@ from wagtail.tests.testapp.models import (
     StandardIndex,
     TaggedPage,
 )
-from wagtail.tests.utils import WagtailTestUtils
-from wagtail.tests.utils.form_data import inline_formset, nested_form_data
+from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils.form_data import inline_formset, nested_form_data
 from wagtail.users.models import UserProfile
 
 
@@ -183,7 +183,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'enctype="multipart/form-data"')
 
-    @mock.patch("wagtail.core.models.ContentType.model_class", return_value=None)
+    @mock.patch("wagtail.models.ContentType.model_class", return_value=None)
     def test_edit_when_specific_class_cannot_be_found(self, mocked_method):
         with self.assertRaises(PageClassNotFoundError):
             self.client.get(

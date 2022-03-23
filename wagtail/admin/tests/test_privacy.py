@@ -2,9 +2,9 @@ from django.contrib.auth.models import Group
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Page, PageViewRestriction
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Page, PageViewRestriction
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSetPrivacyView(TestCase, WagtailTestUtils):

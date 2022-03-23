@@ -10,9 +10,9 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.core.models import GroupPagePermission, Locale, Page, PageRevision
-from wagtail.core.signals import page_published
-from wagtail.tests.testapp.models import (
+from wagtail.models import GroupPagePermission, Locale, Page, PageRevision
+from wagtail.signals import page_published
+from wagtail.test.testapp.models import (
     BusinessChild,
     BusinessIndex,
     BusinessSubIndex,
@@ -24,7 +24,7 @@ from wagtail.tests.testapp.models import (
     StandardChild,
     StandardIndex,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestPageCreation(TestCase, WagtailTestUtils):
@@ -1069,7 +1069,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.context["page"].locale, fr_locale)
 
 
-class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
+class TestPermissionedFieldPanels(TestCase, WagtailTestUtils):
     fixtures = ["test.json"]
 
     def setUp(self):
@@ -1081,9 +1081,9 @@ class TestPerRequestEditHandler(TestCase, WagtailTestUtils):
             permission_type="add",
         )
 
-    def test_create_page_with_per_request_custom_edit_handlers(self):
+    def test_create_page_with_permissioned_field_panel(self):
         """
-        Test that per-request custom behaviour in edit handlers is honoured
+        Test that permission rules on field panels are honoured
         """
         # non-superusers should not see secret_data
         self.login(username="siteeditor", password="password")

@@ -1,7 +1,7 @@
 <fieldset>
     <legend>{{ self.heading }}</legend>
     <ul class="fields">
-        {% for child in self.children %}
+        {% for child in self.visible_children %}
             <li class="{{ child.classes|join:" " }}">{{ child.render_as_field }}</li>
         {% endfor %}
     </ul>

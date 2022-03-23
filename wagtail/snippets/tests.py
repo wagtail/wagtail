@@ -17,12 +17,12 @@ from django.urls import reverse
 from django.utils.timezone import make_aware
 from taggit.models import Tag
 
+from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.edit_handlers import FieldPanel, ObjectList
 from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.core import hooks
-from wagtail.core.blocks.field_block import FieldBlockAdapter
-from wagtail.core.models import Locale, ModelLogEntry, Page
+from wagtail.blocks.field_block import FieldBlockAdapter
+from wagtail.models import Locale, ModelLogEntry, Page
 from wagtail.snippets.action_menu import (
     ActionMenuItem,
     get_base_snippet_action_menu_items,
@@ -35,8 +35,8 @@ from wagtail.snippets.widgets import (
     SnippetChooserAdapter,
     SnippetListingButton,
 )
-from wagtail.tests.snippets.forms import FancySnippetForm
-from wagtail.tests.snippets.models import (
+from wagtail.test.snippets.forms import FancySnippetForm
+from wagtail.test.snippets.models import (
     AlphaSnippet,
     FancySnippet,
     FileUploadSnippet,
@@ -48,7 +48,7 @@ from wagtail.tests.snippets.models import (
     TranslatableSnippet,
     ZuluSnippet,
 )
-from wagtail.tests.testapp.models import (
+from wagtail.test.testapp.models import (
     Advert,
     AdvertWithCustomPrimaryKey,
     AdvertWithCustomUUIDPrimaryKey,
@@ -56,7 +56,7 @@ from wagtail.tests.testapp.models import (
     SnippetChooserModel,
     SnippetChooserModelWithCustomPrimaryKey,
 )
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestSnippetIndexView(TestCase, WagtailTestUtils):

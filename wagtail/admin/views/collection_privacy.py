@@ -3,8 +3,8 @@ from django.shortcuts import get_object_or_404
 
 from wagtail.admin.forms.collections import CollectionViewRestrictionForm
 from wagtail.admin.modal_workflow import render_modal_workflow
-from wagtail.core.models import Collection, CollectionViewRestriction
-from wagtail.core.permissions import collection_permission_policy
+from wagtail.models import Collection, CollectionViewRestriction
+from wagtail.permissions import collection_permission_policy
 
 
 def set_privacy(request, collection_id):

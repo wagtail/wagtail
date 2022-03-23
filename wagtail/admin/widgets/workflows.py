@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
-from wagtail.core.models import Task
+from wagtail.models import Task
 
 
 class AdminTaskChooser(AdminChooser):

@@ -4,8 +4,8 @@ from typing import Iterable, Set, Tuple
 from django.conf import settings
 from django.db.models import Q
 
-from wagtail.core.models import Page, Site
-from wagtail.core.utils import BatchCreator, get_dummy_request
+from wagtail.coreutils import BatchCreator, get_dummy_request
+from wagtail.models import Page, Site
 
 from .models import Redirect
 

@@ -3,9 +3,9 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from wagtail.core.models import Page
-from wagtail.tests.testapp.models import SimplePage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Page
+from wagtail.test.testapp.models import SimplePage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestLocking(TestCase, WagtailTestUtils):

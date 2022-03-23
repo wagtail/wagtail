@@ -15,8 +15,8 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install `Node.js <https://nodejs.org/>`_, version 16.
-You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+The preferred option is to install the correct version of Node using Node Version Manager (nvm), which will always align the version with the supplied  ``.nvmrc`` file in the root of the project. See nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+Alternatively, you can install `Node.js <https://nodejs.org/>`_ directly, ensure you install the version as declared in the project's root ``.nvmrc`` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
@@ -76,10 +76,10 @@ an argument to ``runtests.py`` or ``tox``:
 .. code-block:: console
 
     $ # Running in the current environment
-    $ python runtests.py wagtail.core
+    $ python runtests.py wagtail
 
     $ # Running in a specified Tox environment
-    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.core
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail
 
     $ # See a list of available Tox environments
     $ tox -l
@@ -90,10 +90,10 @@ an argument to ``runtests.py``
 .. code-block:: console
 
     $ # Running in the current environment
-    $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ python runtests.py wagtail.tests.test_blocks.TestIntegerBlock
 
     $ # Running in a specified Tox environment
-    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.tests.test_blocks.TestIntegerBlock
 
 Running migrations for the test app models
 ------------------------------------------
@@ -102,7 +102,7 @@ You can create migrations for the test app by running the following from the Wag
 
 .. code-block:: console
 
-    $ django-admin makemigrations --settings=wagtail.tests.settings
+    $ django-admin makemigrations --settings=wagtail.test.settings
 
 
 Testing against PostgreSQL
@@ -188,12 +188,12 @@ Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, com
 
 .. code-block:: console
 
-    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
     $ # Assumes the current environment contains a valid installation of Wagtail for local development.
-    $ ./wagtail/tests/manage.py migrate
-    $ ./wagtail/tests/manage.py createcachetable
-    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/tests/manage.py createsuperuser --noinput
-    $ ./wagtail/tests/manage.py runserver 0:8000
+    $ ./wagtail/test/manage.py migrate
+    $ ./wagtail/test/manage.py createcachetable
+    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
+    $ ./wagtail/test/manage.py runserver 0:8000
     $ npm --prefix client/tests/integration install
     $ npm run test:integration
 
@@ -289,7 +289,7 @@ Wagtail’s UI component library is built with `Storybook <https://storybook.js.
 
 .. code-block:: console
 
-    $ export DJANGO_SETTINGS_MODULE=wagtail.tests.settings_ui
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
     $ # Assumes the current environment contains a valid installation of Wagtail for local development.
     $ ./wagtail/tests/manage.py migrate
     $ ./wagtail/tests/manage.py createcachetable

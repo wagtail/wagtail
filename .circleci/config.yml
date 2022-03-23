@@ -60,7 +60,7 @@ jobs:
       - image: cimg/python:3.8.11-browsers
     environment:
       PIPENV_VENV_IN_PROJECT: true
-      DJANGO_SETTINGS_MODULE: wagtail.tests.settings_ui
+      DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
     steps:
       - checkout
       - attach_workspace:
@@ -87,13 +87,13 @@ jobs:
           key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
           paths:
             - client/tests/integration/node_modules
-      - run: pipenv run ./wagtail/tests/manage.py migrate
+      - run: pipenv run ./wagtail/test/manage.py migrate
       - run:
-          command: pipenv run ./wagtail/tests/manage.py runserver 0:8000
+          command: pipenv run ./wagtail/test/manage.py runserver 0:8000
           background: true
-      - run: pipenv run ./wagtail/tests/manage.py createcachetable
+      - run: pipenv run ./wagtail/test/manage.py createcachetable
       - run:
-          command: pipenv run ./wagtail/tests/manage.py createsuperuser --noinput
+          command: pipenv run ./wagtail/test/manage.py createsuperuser --noinput
           environment:
             DJANGO_SUPERUSER_EMAIL: admin@example.com
             DJANGO_SUPERUSER_USERNAME: admin

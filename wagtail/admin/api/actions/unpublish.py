@@ -4,7 +4,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from wagtail.core.actions.unpublish_page import UnpublishPageAction
+from wagtail.actions.unpublish_page import UnpublishPageAction
 
 from .base import APIAction
 

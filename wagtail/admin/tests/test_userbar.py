@@ -4,9 +4,9 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.urls import reverse
 
-from wagtail.core.models import PAGE_TEMPLATE_VAR, Page
-from wagtail.tests.testapp.models import BusinessChild, BusinessIndex
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import PAGE_TEMPLATE_VAR, Page
+from wagtail.test.testapp.models import BusinessChild, BusinessIndex
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestUserbarTag(TestCase, WagtailTestUtils):

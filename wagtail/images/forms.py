@@ -10,11 +10,11 @@ from wagtail.admin.forms.collections import (
     CollectionChoiceField,
     collection_member_permission_formset_factory,
 )
-from wagtail.core.models import Collection
 from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import get_image_formats
 from wagtail.images.models import Image
 from wagtail.images.permissions import permission_policy as images_permission_policy
+from wagtail.models import Collection
 
 
 # Callback to allow us to override the default form field for the image file field and collection field.

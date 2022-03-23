@@ -11,7 +11,7 @@ from wagtail.admin import messages
 from wagtail.admin.auth import any_permission_required, permission_required
 from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
-from wagtail.core.log_actions import log
+from wagtail.log_actions import log
 from wagtail.search import forms as search_forms
 from wagtail.search.models import Query
 

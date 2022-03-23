@@ -5,8 +5,8 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Site
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Site
+from wagtail.test.utils import WagtailTestUtils
 
 TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 

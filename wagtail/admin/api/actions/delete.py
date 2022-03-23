@@ -4,7 +4,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.serializers import Serializer
 
-from wagtail.core.actions.delete_page import DeletePageAction
+from wagtail.actions.delete_page import DeletePageAction
 
 from .base import APIAction
 

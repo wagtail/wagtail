@@ -15,7 +15,7 @@ Here are some Wagtail-specific types that you might include as fields in your mo
 FieldPanel
 ~~~~~~~~~~
 
-.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False)
+.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
 
     This is the panel used for basic Django field types.
 
@@ -42,6 +42,11 @@ FieldPanel
     .. attribute:: FieldPanel.disable_comments (optional)
 
         This allows you to prevent a field level comment button showing for this panel if set to ``True`` (see :ref:`commenting`).
+
+    .. attribute:: FieldPanel.permission (optional)
+
+        Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
+
 
 StreamFieldPanel
 ~~~~~~~~~~~~~~~~
@@ -132,11 +137,11 @@ PageChooserPanel
 
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
-    You can explicitly link :class:`~wagtail.core.models.Page`-derived models together using the :class:`~wagtail.core.models.Page` model and ``PageChooserPanel``.
+    You can explicitly link :class:`~wagtail.models.Page`-derived models together using the :class:`~wagtail.models.Page` model and ``PageChooserPanel``.
 
     .. code-block:: python
 
-        from wagtail.core.models import Page
+        from wagtail.models import Page
         from wagtail.admin.edit_handlers import PageChooserPanel
 
 
@@ -328,11 +333,11 @@ Inline Panels and Model Clusters
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
 
-Let's look at the example of adding related links to a :class:`~wagtail.core.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+Let's look at the example of adding related links to a :class:`~wagtail.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
 .. code-block:: python
 
-  from wagtail.core.models import Orderable, Page
+  from wagtail.models import Orderable, Page
   from modelcluster.fields import ParentalKey
 
   # The abstract model for related links, complete with panels

@@ -4,8 +4,8 @@ from wagtail.admin.mail import (
     WorkflowStateRejectionEmailNotifier,
     WorkflowStateSubmissionEmailNotifier,
 )
-from wagtail.core.models import TaskState, WorkflowState
-from wagtail.core.signals import (
+from wagtail.models import TaskState, WorkflowState
+from wagtail.signals import (
     task_submitted,
     workflow_approved,
     workflow_rejected,

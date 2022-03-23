@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
+from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import (
     ObjectList,
@@ -23,10 +24,9 @@ from wagtail.admin.edit_handlers import (
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic.models import IndexView
-from wagtail.core import hooks
-from wagtail.core.log_actions import log
-from wagtail.core.log_actions import registry as log_registry
-from wagtail.core.models import Locale, TranslatableMixin
+from wagtail.log_actions import log
+from wagtail.log_actions import registry as log_registry
+from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu
@@ -245,7 +245,9 @@ def create(request, app_label, model_name):
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
-        form = form_class(request.POST, request.FILES, instance=instance)
+        form = form_class(
+            request.POST, request.FILES, instance=instance, for_user=request.user
+        )
 
         if form.is_valid():
             with transaction.atomic():
@@ -290,7 +292,7 @@ def create(request, app_label, model_name):
                 request, _("The snippet could not be created due to errors."), form
             )
     else:
-        form = form_class(instance=instance)
+        form = form_class(instance=instance, for_user=request.user)
 
     edit_handler = edit_handler.bind_to(instance=instance, form=form)
 
@@ -345,7 +347,9 @@ def edit(request, app_label, model_name, pk):
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
-        form = form_class(request.POST, request.FILES, instance=instance)
+        form = form_class(
+            request.POST, request.FILES, instance=instance, for_user=request.user
+        )
 
         if form.is_valid():
             with transaction.atomic():
@@ -381,7 +385,7 @@ def edit(request, app_label, model_name, pk):
                 request, _("The snippet could not be saved due to errors."), form
             )
     else:
-        form = form_class(instance=instance)
+        form = form_class(instance=instance, for_user=request.user)
 
     edit_handler = edit_handler.bind_to(form=form)
     latest_log_entry = log_registry.get_logs_for_instance(instance).first()

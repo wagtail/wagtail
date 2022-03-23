@@ -5,7 +5,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~
 
  * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
- * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas)
+ * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas, Paarth Agarwal)
  * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
  * Lint with flake8-comprehensions and flake8-assertive, including adding a pre-commit hook for these (Mads Jensen, Dan Braghis)
@@ -23,6 +23,10 @@ Changelog
  * Remove most uppercased text styles from admin UI (Paarth Agarwal)
  * Convert all UI code to CSS logical properties for Right-to-Left (RTL) language support (Thibaud Colas)
  * Migrate multiple documentation pages from RST to MD (Vibhakar Solanki, LB (Ben Johnston))
+ * Add documentation for defining custom form validation on models used in Wagtail's `modelAdmin` (Serafeim Papastefanos)
+ * Update `README.md` logo to work for GitHub dark mode (Paarth Agarwal)
+ * Avoid an unnecessary page reload when pressing enter within the header search bar (Images, Pages, Documents) (Riley de Mestre)
+ * Removed unofficial length parameter on `If-Modified-Since` header in `sendfile_streaming_backend` which was only used by IE (Mariusz Felisiak)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
