@@ -55,8 +55,6 @@ module.exports = {
       /* allow system colours https://www.w3.org/TR/css-color-4/#css-system-colors */
       LinkText: 'LinkText',
       ButtonText: 'ButtonText',
-      white: '#FFF',
-      black: '#000',
     },
     fontFamily,
     fontSize,
