@@ -68,13 +68,6 @@ a.button.page404__button {
   }
 }
 
-// SMALL DESKTOP CHANGES:
-@include media-breakpoint-down(sm) {
-  .wagtail-logo-container__desktop {
-    display: none;
-  }
-}
-
 // MOBILE CHANGES:
 @include media-breakpoint-down(xs) {
   .page404__text-container {

@@ -571,6 +571,7 @@ Contributors
 * Nicolas Ferrari
 * Vibhakar Solanki
 * Riley de Mestre
+* Mariusz Felisiak
 
 Translators
 ===========

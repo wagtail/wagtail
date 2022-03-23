@@ -31,7 +31,6 @@
     // making the text semi-transparent
     &:hover,
     &:focus {
-      background-color: $nav-item-hover-bg;
       color: $color-white;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
     }
@@ -64,18 +63,16 @@
   }
 
   &--in-sub-menu {
+    @apply hover:w-bg-primary;
+
     #{$root}__link {
       // Links inside a submenu should have normal wrapping
       white-space: normal;
     }
-
-    &:hover {
-      background-color: rgba(100, 100, 100, 0.2);
-    }
   }
 
   &--active {
-    background: $nav-item-active-bg;
+    @apply w-bg-primary-200;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     > a {
