@@ -19,7 +19,6 @@ export interface ModuleRenderContext {
   expandingOrCollapsing: boolean;
   onAccountExpand: () => void;
   onSearchClick: () => void;
-  onSearchBlur: () => void;
   currentPath: string;
   strings: Strings;
 
@@ -35,7 +34,9 @@ export interface SidebarProps {
   currentPath: string;
   strings: Strings;
   collapsedOnLoad: boolean;
+
   navigate(url: string): Promise<void>;
+
   onExpandCollapse?(collapsed: boolean);
 }
 
@@ -145,11 +146,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
     }
   };
 
-  const onSearchBlur = () => {
-    setCollapsed(true);
-    setFocused(false);
-  };
-
   const onAccountExpand = () => {
     if (slim) {
       onClickCollapseToggle();
@@ -164,7 +160,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       expandingOrCollapsing,
       onAccountExpand,
       onSearchClick,
-      onSearchBlur,
       currentPath,
       strings,
       navigate,

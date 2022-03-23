@@ -9,7 +9,6 @@ interface SearchInputProps {
   slim: boolean;
   expandingOrCollapsing: boolean;
   onSearchClick: () => void;
-  onSearchBlur: () => void;
   searchUrl: string;
   strings: Strings;
 
@@ -20,7 +19,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   slim,
   expandingOrCollapsing,
   onSearchClick,
-  onSearchBlur,
   searchUrl,
   strings,
   navigate,
@@ -79,7 +77,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           onClick={() => {
             onSearchClick();
           }}
-          onBlur={() => onSearchBlur()}
         />
       </TippyWrapper>
     </form>
@@ -98,7 +95,6 @@ export class SearchModuleDefinition implements ModuleDefinition {
     key,
     expandingOrCollapsing,
     onSearchClick,
-    onSearchBlur,
     strings,
     navigate,
   }) {
@@ -109,7 +105,6 @@ export class SearchModuleDefinition implements ModuleDefinition {
         key={key}
         expandingOrCollapsing={expandingOrCollapsing}
         onSearchClick={onSearchClick}
-        onSearchBlur={onSearchBlur}
         strings={strings}
         navigate={navigate}
       />

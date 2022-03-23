@@ -23,10 +23,6 @@
   @include media-breakpoint-up(sm) {
     z-index: var(--z-index);
     width: var(--width);
-    //// Remove once we drop support for Safari 13.
-    //// stylelint-disable-next-line property-disallowed-list
-    //left: #{$menu-width};
-    //inset-inline-start: #{$menu-width};
   }
 
   @media (forced-colors: $media-forced-colours) {
