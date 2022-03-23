@@ -4,7 +4,7 @@
   --width: #{$menu-width};
 
   visibility: hidden;
-  transform: translate3d(0, 0, 0);
+  transform: translateX(-100%);
   position: fixed;
   height: 100vh;
   padding: 0;
@@ -18,12 +18,7 @@
   flex-direction: column;
   overflow: hidden;
 
-  @include transition(
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left $menu-transition-duration ease,
-    inset-inline-start $menu-transition-duration ease
-  );
+  @include transition(transform $menu-transition-duration ease);
 
   @include media-breakpoint-up(sm) {
     z-index: var(--z-index);
@@ -64,6 +59,7 @@
       // stylelint-disable-next-line property-disallowed-list
       left: $menu-width;
       inset-inline-start: $menu-width;
+      transform: translateX(0);
 
       // Don't apply this to nested submenus though
       @at-root .sidebar--slim .sidebar-panel #{&} {
@@ -71,6 +67,7 @@
         // stylelint-disable-next-line property-disallowed-list
         left: $menu-width-slim;
         inset-inline-start: $menu-width-slim;
+        transform: translateX(0);
       }
     }
   }

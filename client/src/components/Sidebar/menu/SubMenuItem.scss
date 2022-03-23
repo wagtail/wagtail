@@ -1,4 +1,5 @@
 .sidebar-sub-menu-trigger-icon {
+  $root: &;
   display: block;
   width: 20px;
   height: 20px;
@@ -26,6 +27,10 @@
     width: 16px;
     height: 16px;
     transform: translate3d(13px, 0, 0);
+  }
+
+  .sidebar--slim &--open {
+    transform: translate3d(13px, 0, 0) rotate(180deg);
   }
 }
 

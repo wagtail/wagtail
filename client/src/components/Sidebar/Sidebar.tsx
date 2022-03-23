@@ -17,10 +17,12 @@ export interface ModuleRenderContext {
   key: number;
   slim: boolean;
   expandingOrCollapsing: boolean;
+  onAccountExpand: () => void;
   onSearchClick: () => void;
   onSearchBlur: () => void;
   currentPath: string;
   strings: Strings;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -122,7 +124,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   };
 
   const [focused, setFocused] = React.useState(false);
-  const [temporaryExpand, setTemporaryExpand] = React.useState(false);
 
   const onBlurHandler = () => {
     if (focused) {
@@ -145,10 +146,13 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   };
 
   const onSearchBlur = () => {
-    if (temporaryExpand) {
-      setCollapsed(true);
-      setFocused(false);
-      setTemporaryExpand(false);
+    setCollapsed(true);
+    setFocused(false);
+  };
+
+  const onAccountExpand = () => {
+    if (slim) {
+      onClickCollapseToggle();
     }
   };
 
@@ -158,6 +162,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       key: index,
       slim,
       expandingOrCollapsing,
+      onAccountExpand,
       onSearchClick,
       onSearchBlur,
       currentPath,
