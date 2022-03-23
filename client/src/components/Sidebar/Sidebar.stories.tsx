@@ -1,7 +1,6 @@
 import * as React from 'react';
 
 import { ModuleDefinition, Sidebar, Strings } from './Sidebar';
-import { WagtailBrandingModuleDefinition } from './modules/WagtailBranding';
 import { SearchModuleDefinition } from './modules/Search';
 import { MainMenuModuleDefinition } from './modules/MainMenu';
 import { PageExplorerMenuItemDefinition } from './menu/PageExplorerMenuItem';
@@ -18,21 +17,6 @@ const STRINGS: Strings = {
   EDIT_YOUR_ACCOUNT: 'Edit your account',
   SEARCH: 'Search',
 };
-
-function wagtailBrandingModule(): WagtailBrandingModuleDefinition {
-  return new WagtailBrandingModuleDefinition('/admin/', {
-    mobileLogo:
-      'https://wagtail.org/static/wagtailadmin/images/wagtail-logo.svg',
-    desktopLogoBody:
-      'https://wagtail.org/static/wagtailadmin/images/logo-body.svg',
-    desktopLogoTail:
-      'https://wagtail.org/static/wagtailadmin/images/logo-tail.svg',
-    desktopLogoEyeOpen:
-      'https://wagtail.org/static/wagtailadmin/images/logo-eyeopen.svg',
-    desktopLogoEyeClosed:
-      'https://wagtail.org/static/wagtailadmin/images/logo-eyeclosed.svg',
-  });
-}
 
 function searchModule(): SearchModuleDefinition {
   return new SearchModuleDefinition('/admin/search/');
@@ -258,11 +242,7 @@ function renderSidebarStory(
 }
 
 export function standard() {
-  return renderSidebarStory([
-    wagtailBrandingModule(),
-    searchModule(),
-    bogStandardMenuModule(),
-  ]);
+  return renderSidebarStory([searchModule(), bogStandardMenuModule()]);
 }
 
 export function withNestedSubmenu() {
@@ -339,11 +319,7 @@ export function withNestedSubmenu() {
     ),
   );
 
-  return renderSidebarStory([
-    wagtailBrandingModule(),
-    searchModule(),
-    menuModule,
-  ]);
+  return renderSidebarStory([searchModule(), menuModule]);
 }
 
 export function withLargeSubmenu() {
@@ -375,11 +351,7 @@ export function withLargeSubmenu() {
     ),
   );
 
-  return renderSidebarStory([
-    wagtailBrandingModule(),
-    searchModule(),
-    menuModule,
-  ]);
+  return renderSidebarStory([searchModule(), menuModule]);
 }
 
 export function withoutSearch() {
@@ -557,8 +529,8 @@ function arabicMenuModule(): MainMenuModuleDefinition {
 }
 
 export function rightToLeft() {
-  return renderSidebarStory(
-    [wagtailBrandingModule(), searchModule(), arabicMenuModule()],
-    { rtl: true, strings: STRINGS_AR },
-  );
+  return renderSidebarStory([searchModule(), arabicMenuModule()], {
+    rtl: true,
+    strings: STRINGS_AR,
+  });
 }

@@ -28,7 +28,7 @@ exports[`SubMenuItem should render with the minimum required props 1`] = `
       className="sidebar-sub-menu-panel"
     >
       <h2
-        className=""
+        className=" w-h4"
         id="wagtail-sidebar-submenu-reports-title"
       />
       <ul
