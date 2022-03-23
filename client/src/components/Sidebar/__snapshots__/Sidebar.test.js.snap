@@ -16,7 +16,7 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       >
         <Icon
           className="w-transition motion-reduce:w-transition-none
-                -w-rotate-180 w-w-6 w-h-6 w-text-white
+                -w-rotate-180
                 "
           name="expand-right"
         />

@@ -27,15 +27,16 @@ exports[`Menu should render with the minimum required props 1`] = `
           w-appearance-none
           w-border-0
           w-overflow-hidden
-          md:w-px-5
-          md:w-py-3
-          hover:w-bg-primary
-          hover:w-text-white focus:w-bg-primary focus:w-text-white"
+          w-px-5
+          w-py-3
+          hover:w-bg-primary-200
+          focus:w-bg-primary-200
+          w-transition"
       onClick={[Function]}
       type="button"
     >
       <div
-        className="avatar avatar-on-dark !w-w-[28px] !w-h-[28px]"
+        className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]"
       >
         <img
           alt=""
@@ -46,7 +47,7 @@ exports[`Menu should render with the minimum required props 1`] = `
         className="sidebar-footer__account-toggle"
       >
         <div
-          className="sidebar-footer__account-label w-label-3 w-text-white"
+          className="sidebar-footer__account-label w-label-3"
         />
         <Icon
           className="w-w-4 w-h-4 w-text-white"
