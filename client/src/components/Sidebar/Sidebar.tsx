@@ -21,7 +21,6 @@ export interface ModuleRenderContext {
   onSearchClick: () => void;
   currentPath: string;
   strings: Strings;
-
   navigate(url: string): Promise<void>;
 }
 

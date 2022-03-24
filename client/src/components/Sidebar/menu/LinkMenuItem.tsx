@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
-import TippyWrapper from '../../TippyWrapper/TippyWrapper';
+import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
@@ -41,7 +41,7 @@ export const LinkMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <TippyWrapper condition={slim} label={item.label} placement="right">
+      <TooltipWrapper condition={slim} label={item.label} placement="right">
         <a
           href={item.url}
           aria-current={isCurrent ? 'page' : undefined}
@@ -53,7 +53,7 @@ export const LinkMenuItem: React.FunctionComponent<
           )}
           <span className="menuitem-label">{item.label}</span>
         </a>
-      </TippyWrapper>
+      </TooltipWrapper>
     </li>
   );
 };

@@ -1,6 +1,5 @@
 .tippy-box {
-  @apply w-bg-primary w-text-white;
-  font-size: 12px;
+  @apply w-bg-primary w-text-white w-text-14;
 }
 
 .tippy-box[data-placement^='top'] > .tippy-arrow::before {

@@ -30,7 +30,7 @@
     -webkit-font-smoothing: auto;
 
     .sidebar--slim & {
-      @apply hover:w-cursor-pointer w-opacity-0;
+      @apply w-cursor-pointer w-opacity-0;
     }
 
     &::placeholder {

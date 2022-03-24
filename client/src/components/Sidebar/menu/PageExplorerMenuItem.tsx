@@ -12,7 +12,7 @@ import {
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 
-import TippyWrapper from '../../TippyWrapper/TippyWrapper';
+import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>
@@ -74,7 +74,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <TippyWrapper
+      <TooltipWrapper
         condition={!isOpen && slim}
         label={item.label}
         placement="right"
@@ -90,7 +90,7 @@ export const PageExplorerMenuItem: React.FunctionComponent<
           <span className="menuitem-label">{item.label}</span>
           <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
         </button>
-      </TippyWrapper>
+      </TooltipWrapper>
       <div>
         <SidebarPanel
           isVisible={isVisible}
