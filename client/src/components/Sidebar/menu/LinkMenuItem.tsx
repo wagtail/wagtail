@@ -41,7 +41,11 @@ export const LinkMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <TooltipWrapper condition={slim} label={item.label} placement="right">
+      <TooltipWrapper
+        condition={slim && !isInSubMenu}
+        label={item.label}
+        placement="right"
+      >
         <a
           href={item.url}
           aria-current={isCurrent ? 'page' : undefined}
