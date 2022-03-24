@@ -91,7 +91,7 @@ setup(
         "Documentation": "https://docs.wagtail.org",
         "Source": "https://github.com/wagtail/wagtail",
     },
-    packages=find_packages(exclude=['*tests', '*tests*', 'tests*', "*tests.*", 'tests'],),
+    packages=find_packages(exclude=["*tests", "*tests*", "tests*", "*tests.*", "tests"],),
     include_package_data=True,
     license="BSD",
     long_description="Wagtail is an open source content management \
