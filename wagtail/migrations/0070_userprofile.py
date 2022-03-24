@@ -18,12 +18,13 @@ class Migration(migrations.Migration):
             name="UserProfile",
             fields=[
                 (
-                    "id",
-                    models.AutoField(
-                        auto_created=True,
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
                         primary_key=True,
+                        related_name="wagtail_userprofile",
                         serialize=False,
-                        verbose_name="ID",
+                        to=settings.AUTH_USER_MODEL,
                     ),
                 ),
                 (
@@ -82,14 +83,6 @@ class Migration(migrations.Migration):
                         blank=True,
                         upload_to=wagtail.models.user_profile.upload_avatar_to,
                         verbose_name="profile picture",
-                    ),
-                ),
-                (
-                    "user",
-                    models.OneToOneField(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        related_name="wagtail_userprofile",
-                        to=settings.AUTH_USER_MODEL,
                     ),
                 ),
             ],
