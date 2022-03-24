@@ -9,13 +9,39 @@
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
+    <header class="w-bg-gray-50 w-pl-[50px] sm:w-pl-0">
 
-    <header class="w-bg-gray-50">
-        <h1 class="w-text-14 w-text-primary w-font-bold"
-            title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-            {{ page.get_admin_display_title }}
-        </h1>
+        {# Title and breadcrumbs button #}
+        <div class="w-flex w-flex-row w-items-center w-space-x-2">
+            <button class="w-pr-3 w-h-full w-bg-transparent" aria-label="{% trans 'Show breadcrumbs' %}">
+                {% icon name="horizontal-dots" class_name="w-w-4 w-h-2 w-text-grey-400" %}
+            </button>
+
+            {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
+
+            {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
+            <h1 class="w-text-14 w-text-primary w-font-bold"
+                title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
+                {{ page.get_admin_display_title }}
+            </h1>
+        </div>
+
+        {# Page actions dropdown #}
+        <div>
+            {% if show_header_buttons %}
+                <div>
+                    {% page_header_buttons current_page page_perms %}
+                </div>
+            {% endif %}
+        </div>
+
+        <div>
+
+        </div>
+
     </header>
+
+
     {#    <header class="merged tab-merged">#}
     {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
     {##}
@@ -59,7 +85,7 @@
             {{ edit_handler.render_form_content }}
 
             {% if is_revision %}
-                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
             {% endif %}
 
             <footer class="footer">
@@ -137,7 +163,7 @@
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
 
-        $(function() {
+        $(function () {
             {% if publishing_will_cancel_workflow %}
                 /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
                 let cancellationConfirmed = false;
@@ -148,7 +174,7 @@
                         ModalWorkflow({
                             'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
                             'onload': {
-                                'confirm': function(modal, jsonData) {
+                                'confirm': function (modal, jsonData) {
                                     $('[data-confirm-cancellation]', modal.body).click((event) => {
                                         cancellationConfirmed = true;
                                         modal.close();
@@ -158,7 +184,7 @@
                                         modal.close();
                                     })
                                 },
-                                'no_confirmation_needed': function(modal, jsonData) {
+                                'no_confirmation_needed': function (modal, jsonData) {
                                     modal.close();
                                     cancellationConfirmed = true;
                                     e.currentTarget.click();
@@ -188,7 +214,7 @@
             /* Tooltips used by the workflow status component */
             $('[data-wagtail-tooltip]').tooltip({
                 animation: false,
-                title: function() {
+                title: function () {
                     return $(this).attr('data-wagtail-tooltip');
                 },
                 trigger: 'hover',

@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags %}
+<div {{ self.attrs }} class="c-dropdown  {% if is_parent %}t-inverted{% else %}t-default{% endif %} {{ classes|join:' ' }}" data-dropdown>
+    <a href="javascript:void(0)" aria-label="{{ title }}" class="c-dropdown__button u-btn-current {{button_classes|join:' ' }}">
+        {{ label }}
+        <div data-dropdown-toggle class="o-icon c-dropdown__toggle c-dropdown__togle--icon [ icon icon-arrow-down ]">
+            {% icon name="arrow-down" %}{% icon name="arrow-up" %}
+        </div>
+    </a>
+    <div class="t-dark">
+        <ul class="c-dropdown__menu u-toggle  u-arrow u-arrow--tl u-background">
+            {% for button in buttons %}
+                <li class="c-dropdown__item ">
+                    <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="u-link is-live {{ button.classes|join:' ' }}">
+                        {{ button.label }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

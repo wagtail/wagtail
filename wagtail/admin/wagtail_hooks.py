@@ -974,6 +974,7 @@ def register_icons(icons):
         "help.svg",
         "history.svg",
         "home.svg",
+        "horizontal-dots.svg",
         "horizontalrule.svg",
         "image.svg",  # aka picture
         "info-circle.svg",
