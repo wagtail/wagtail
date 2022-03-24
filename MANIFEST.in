@@ -11,4 +11,4 @@ global-exclude .gitignore
 global-exclude wagtail-icomoon.json
 global-exclude *.map
 global-exclude tests.py
-global-include wagtail/tests/utils
+graft wagtail/tests/utils
