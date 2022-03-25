@@ -164,7 +164,10 @@
 
       .icon {
         @include svg-icon(1rem);
-        padding: 50%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
       }
     }
 
