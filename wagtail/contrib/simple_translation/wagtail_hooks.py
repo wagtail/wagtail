@@ -101,11 +101,13 @@ def construct_synced_page_tree_list(pages: List[Page], action: str):
 
     page_list = {}
     if action == "unpublish":
+        # Only return non-alias translations of the page
         for page in pages:
             page_list[page] = Page.objects.translation_of(page, inclusive=False).filter(
                 alias_of__isnull=True
             )
-    elif action == "move":
+    elif action == "move" or action == "delete":
+        # Return all translations or aliases in other trees
         for page in pages:
             page_list[page] = Page.objects.translation_of(page, inclusive=False)
 
