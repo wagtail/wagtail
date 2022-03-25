@@ -73,6 +73,9 @@ module.exports = {
         15: '0.15',
         85: '0.85',
       },
+      outlineOffset: {
+        inside: '-3px',
+      },
     },
   },
   plugins: [

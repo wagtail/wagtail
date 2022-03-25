@@ -174,26 +174,35 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
         }
       >
         <div className="sidebar__inner">
-          <button
-            onClick={onClickCollapseToggle}
-            aria-label={strings.TOGGLE_SIDEBAR}
-            aria-expanded={slim ? 'false' : 'true'}
-            type="button"
-            className="button sidebar__collapse-toggle hover:w-bg-primary-200 hover:text-white hover:opacity-100"
+          <div
+            className={`${
+              slim ? 'w-justify-center' : 'w-justify-end'
+            } w-flex  w-items-center`}
           >
-            <Icon
-              name="expand-right"
-              className={`w-transition motion-reduce:w-transition-none
+            <button
+              onClick={onClickCollapseToggle}
+              aria-label={strings.TOGGLE_SIDEBAR}
+              aria-expanded={slim ? 'false' : 'true'}
+              type="button"
+              className={`
+            ${!slim ? 'w-mr-4' : ''}
+            button
+            sidebar__collapse-toggle
+            sm:w-mt-4
+            hover:w-bg-primary-200
+            hover:text-white
+            hover:opacity-100`}
+            >
+              <Icon
+                name="expand-right"
+                className={`w-transition motion-reduce:w-transition-none
                 ${!collapsed ? '-w-rotate-180' : ''}
                 `}
-            />
-          </button>
+              />
+            </button>
+          </div>
 
-          <div
-            className="sidebar__peek-hover-area"
-            onFocus={onFocusHandler}
-            onBlur={onBlurHandler}
-          >
+          <div onFocus={onFocusHandler} onBlur={onBlurHandler}>
             {renderedModules}
           </div>
         </div>

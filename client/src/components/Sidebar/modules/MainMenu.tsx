@@ -5,6 +5,7 @@ import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 import { ModuleDefinition, Strings } from '../Sidebar';
+import Tippy from '@tippyjs/react';
 
 export function renderMenu(
   path: string,
@@ -92,6 +93,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
     activePath: '',
   });
   const accountSettingsOpen = state.navigationPath.startsWith('.account');
+  const isVisible = !slim || expandingOrCollapsing;
 
   // Whenever currentPath or menu changes, work out new activePath
   React.useEffect(() => {
@@ -214,47 +216,52 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       <div
         className={
           'sidebar-footer' +
-          (accountSettingsOpen ? ' sidebar-footer--open' : '')
+          (accountSettingsOpen ? ' sidebar-footer--open' : '') +
+          (isVisible ? ' sidebar-footer--visible' : '')
         }
       >
-        <button
-          className="
-          sidebar-footer__account
-          w-bg-primary
-          w-text-white
-          w-flex
-          w-items-center
-          w-relative
-          w-p-0
-          w-w-full
-          w-appearance-none
-          w-border-0
-          w-overflow-hidden
-          w-px-5
-          w-py-3
-          hover:w-bg-primary-200
-          focus:w-bg-primary-200
-          w-transition"
-          title={strings.EDIT_YOUR_ACCOUNT}
-          onClick={onClickAccountSettings}
-          aria-label={strings.EDIT_YOUR_ACCOUNT}
-          aria-haspopup="menu"
-          aria-expanded={accountSettingsOpen ? 'true' : 'false'}
-          type="button"
+        <Tippy
+          disabled={!slim}
+          content={strings.EDIT_YOUR_ACCOUNT}
+          placement="right"
         >
-          <div className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]">
-            <img src={user.avatarUrl} alt="" />
-          </div>
-          <div className="sidebar-footer__account-toggle">
-            <div className="sidebar-footer__account-label w-label-3">
-              {user.name}
+          <button
+            className="
+            w-bg-primary
+            w-text-white
+            w-flex
+            w-items-center
+            w-relative
+            w-w-full
+            w-appearance-none
+            w-border-0
+            w-overflow-hidden
+            w-px-5
+            w-py-3
+            hover:w-bg-primary-200
+            focus:w-bg-primary-200
+            w-transition"
+            title={strings.EDIT_YOUR_ACCOUNT}
+            onClick={onClickAccountSettings}
+            aria-label={strings.EDIT_YOUR_ACCOUNT}
+            aria-haspopup="menu"
+            aria-expanded={accountSettingsOpen ? 'true' : 'false'}
+            type="button"
+          >
+            <div className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]">
+              <img src={user.avatarUrl} alt="" />
             </div>
-            <Icon
-              className="w-w-4 w-h-4 w-text-white"
-              name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
-            />
-          </div>
-        </button>
+            <div className="sidebar-footer__account-toggle">
+              <div className="sidebar-footer__account-label w-label-3">
+                {user.name}
+              </div>
+              <Icon
+                className="w-w-4 w-h-4 w-text-white"
+                name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
+              />
+            </div>
+          </button>
+        </Tippy>
 
         <ul>
           {renderMenu('', accountMenuItems, slim, state, dispatch, navigate)}

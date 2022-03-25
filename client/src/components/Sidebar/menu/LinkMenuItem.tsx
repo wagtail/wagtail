@@ -42,7 +42,7 @@ export const LinkMenuItem: React.FunctionComponent<
   return (
     <li className={className}>
       <Tippy
-        disabled={slim && !isInSubMenu}
+        disabled={!slim || isInSubMenu}
         content={item.label}
         placement="right"
       >

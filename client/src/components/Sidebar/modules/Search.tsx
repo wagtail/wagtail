@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
-import { ModuleDefinition, Strings } from '../Sidebar';
+import {
+  ModuleDefinition,
+  Strings,
+  SIDEBAR_TRANSITION_DURATION,
+} from '../Sidebar';
 
 import Tippy from '@tippyjs/react';
 
@@ -24,6 +28,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   navigate,
 }) => {
   const isVisible = !slim || expandingOrCollapsing;
+  const searchInput = React.useRef<HTMLInputElement>(null);
 
   const onSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     if (e.target instanceof HTMLFormElement) {
@@ -40,45 +45,85 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
     }
   };
 
-  const className =
-    'sidebar-search' +
-    (slim ? ' sidebar-search--slim' : '') +
-    (isVisible ? ' sidebar-search--visible' : '');
-
   return (
     <form
       role="search"
-      className={className}
+      className={`w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row`}
       action={searchUrl}
       method="get"
       onSubmit={onSubmitForm}
     >
-      <button
-        className="button sidebar-search__submit"
-        type="submit"
-        aria-label={strings.SEARCH}
-      >
-        <Icon className="icon--menuitem" name="search" />
-      </button>
-      <label className="sidebar-search__label" htmlFor="menu-search-q">
-        {strings.SEARCH}
-      </label>
-      <Tippy
-        disabled={!isVisible && slim}
-        content={strings.SEARCH}
-        placement="right"
-      >
+      <div className="w-flex w-flex-row">
+        <Tippy
+          disabled={isVisible || !slim}
+          content={strings.SEARCH}
+          placement="right"
+        >
+          {/* Use padding left 23px to align icon in slim mode and padding right 18px to ensure focus is full width */}
+          <button
+            className={`
+          ${slim ? 'w-pr-[18px]' : ''}
+          w-w-full
+          w-pr-0
+          w-pl-[23px]
+          w-h-[35px]
+          w-bg-transparent
+          w-outline-offset-inside
+          w-border-0
+          w-rounded-none
+          w-text-white/80
+          w-z-10
+          hover:w-text-white
+          focus:w-text-white
+          hover:w-bg-transparent`}
+            type="submit"
+            aria-label={strings.SEARCH}
+            onClick={(e) => {
+              if (slim) {
+                e.preventDefault();
+                onSearchClick();
+
+                // Focus search input after transition when button is clicked in slim mode
+                setTimeout(() => {
+                  if (searchInput.current) {
+                    searchInput.current.focus();
+                  }
+                }, SIDEBAR_TRANSITION_DURATION);
+              }
+            }}
+          >
+            <Icon className="icon--menuitem" name="search" />
+          </button>
+        </Tippy>
+
+        <label className="w-sr-only" htmlFor="menu-search-q">
+          {strings.SEARCH}
+        </label>
+
+        {/* Classes marked important to trump the base input styling set in _forms.scss */}
         <input
-          className="sidebar-search__input"
+          className={`
+            ${slim || !isVisible ? 'w-hidden' : ''}
+            !w-pl-[45px]
+            !w-subpixel-antialiased
+            !w-absolute
+            !w-left-0
+            !w-font-normal
+            !w-top-0
+            !w-text-14
+            !w-bg-transparent
+            !w-border-0
+            !w-rounded-none
+            !w-text-white/80
+            !w-outline-offset-inside
+            placeholder:!w-text-white/80`}
           type="text"
           id="menu-search-q"
           name="q"
           placeholder={strings.SEARCH}
-          onClick={() => {
-            onSearchClick();
-          }}
+          ref={searchInput}
         />
-      </Tippy>
+      </div>
     </form>
   );
 };

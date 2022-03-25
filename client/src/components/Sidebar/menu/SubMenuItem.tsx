@@ -66,7 +66,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
 
   return (
     <li className={className}>
-      <Tippy disabled={!isOpen && slim} content={item.label} placement="right">
+      <Tippy disabled={isOpen || !slim} content={item.label} placement="right">
         <button
           onClick={onClick}
           className={`sidebar-menu-item__link ${item.classNames}`}
