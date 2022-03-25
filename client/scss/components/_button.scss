@@ -165,9 +165,7 @@
       .icon {
         @include svg-icon(1rem);
         padding: 0.36em;
-        @media screen and (min-width: $screen-sm-min) {
-          padding: 0.75em;
-        }
+        padding: 50%;
       }
     }
 
