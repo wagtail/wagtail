@@ -135,7 +135,7 @@
     }
 
     .icon-wrapper {
-      @apply w-flex w-justify-center w-items-center;
+      display: block;
       background-color: rgba(0, 0, 0, 0.2);
       position: absolute;
       // Remove once we drop support for Safari 14.

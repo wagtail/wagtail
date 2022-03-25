@@ -51,8 +51,7 @@ header {
     @include svg-icon(1.3rem);
     color: $nav-search-color;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 0.3em;
     // Remove once we drop support for Safari 13.
     // stylelint-disable-next-line property-disallowed-list
     left: 0.5em;
