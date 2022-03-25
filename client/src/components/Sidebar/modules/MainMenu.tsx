@@ -5,7 +5,6 @@ import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
 import { ModuleDefinition, Strings } from '../Sidebar';
-import { useState } from 'react';
 
 export function renderMenu(
   path: string,
@@ -166,7 +165,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   // Determine if the sidebar is expanded from account button click
   const [expandedFromAccountClick, setExpandedFromAccountClick] =
-    useState<boolean>(false);
+    React.useState<boolean>(false);
 
   // Whenever the parent Sidebar component collapses or expands, close any open menus
   React.useEffect(() => {
