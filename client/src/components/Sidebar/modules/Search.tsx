@@ -3,7 +3,6 @@ import * as React from 'react';
 import Icon from '../../Icon/Icon';
 import { ModuleDefinition, Strings } from '../Sidebar';
 
-import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
 import Tippy from '@tippyjs/react';
 
 interface SearchInputProps {
