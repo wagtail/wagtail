@@ -11,32 +11,46 @@
 
     <header class="w-bg-gray-50 w-pl-[50px] sm:w-pl-0">
 
-        {# Title and breadcrumbs button #}
-        <div class="w-flex w-flex-row w-items-center w-space-x-2">
-            <button class="w-pr-3 w-h-full w-bg-transparent" aria-label="{% trans 'Show breadcrumbs' %}">
-                {% icon name="horizontal-dots" class_name="w-w-4 w-h-2 w-text-grey-400" %}
-            </button>
+        <div class="w-full w-flex w-flex-row w-justify-between w-items-center">
+            {# Title and breadcrumbs button #}
+            <div>
+                <div class="w-flex w-flex-row w-items-center w-space-x-2">
+                    <button class="w-pr-3 w-h-full w-bg-transparent" aria-label="{% trans 'Show breadcrumbs' %}">
+                        {% icon name="horizontal-dots" class_name="w-w-4 w-h-2 w-text-grey-400" %}
+                    </button>
 
-            {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
+                    {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
 
-            {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
-            <h1 class="w-text-14 w-text-primary w-font-bold"
-                title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                {{ page.get_admin_display_title }}
-            </h1>
-        </div>
-
-        {# Page actions dropdown #}
-        <div>
-            {% if show_header_buttons %}
-                <div>
-                    {% page_header_buttons current_page page_perms %}
+                    {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
+                    <h1 class="w-text-14 w-text-primary w-font-bold"
+                        title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
+                        {{ page.get_admin_display_title }}
+                    </h1>
                 </div>
-            {% endif %}
-        </div>
 
-        <div>
+                {# Page actions dropdown #}
+                <div>
+                    {% if show_header_buttons %}
+                        <div>
+                            {% page_header_buttons current_page page_perms %}
+                        </div>
+                    {% endif %}
 
+                </div>
+            </div>
+
+            {# Right Side Actions #}
+            <div>
+                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}
+                {#                {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}#}
+
+                {% if page.get_latest_revision %}
+                    <a id="myButton" href="{% url 'wagtailadmin_pages:history' page.id %}" class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-11 hover:w-text-primary"
+                        aria-label="{% trans "History" %}">
+                        {% icon "history" class_name="w-w-4 w-h-4" %}
+                    </a>
+                {% endif %}
+            </div>
         </div>
 
     </header>
