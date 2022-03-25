@@ -63,7 +63,7 @@
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "@wagtail/eslint-config-wagtail": "^0.4.0",
-    "@wagtail/stylelint-config-wagtail": "^0.4.1",
+    "@wagtail/stylelint-config-wagtail": "^0.5.0",
     "autoprefixer": "^10.4.2",
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.0",

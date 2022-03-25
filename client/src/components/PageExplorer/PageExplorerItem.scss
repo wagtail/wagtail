@@ -1,23 +1,14 @@
 .c-page-explorer__item {
-  display: flex;
-  flex-flow: row nowrap;
-  border-bottom: 1px solid $c-page-explorer-bg-dark;
+  @apply w-flex w-flex-row w-flex-nowrap w-border-0 w-border-b w-border-solid w-border-black/50 w-divide-x w-divide-solid w-divide-black/50 w-divide-y-0;
 }
 
 .c-page-explorer__item__link {
-  display: inline-flex;
-  align-items: center;
-  flex-grow: 1;
+  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1;
   padding: 1.45em 1em;
-  cursor: pointer;
 
-  &:focus {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  // Overrides for default link hover.
+  &:focus,
   &:hover {
+    background: $c-page-explorer-bg-active;
     color: $color-white;
   }
 
@@ -31,9 +22,9 @@
 }
 
 .c-page-explorer__item__link .icon {
+  @apply w-text-white/85;
   width: 2em;
   height: 2em;
-  color: $c-page-explorer-secondary;
   margin-inline-end: 0.75rem;
 }
 
@@ -44,6 +35,7 @@
 }
 
 .c-page-explorer__item__action {
+  @apply w-text-white/85;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -53,21 +45,9 @@
   line-height: 1;
   font-size: 2em;
   cursor: pointer;
-  color: $c-page-explorer-secondary;
-  border: 0;
-  border-inline-start: solid 1px $c-page-explorer-bg-dark;
 
-  &:focus {
-    background: $c-page-explorer-bg-active;
-    color: $color-white;
-  }
-
-  // Overrides for default link hover.
+  &:focus,
   &:hover {
-    color: $c-page-explorer-secondary;
-  }
-
-  @include hover {
     background: $c-page-explorer-bg-active;
     color: $color-white;
   }
@@ -87,7 +67,6 @@
 }
 
 .c-page-explorer__meta {
-  margin-inline-start: 0.5rem;
-  color: $c-page-explorer-secondary;
+  @apply w-flex w-gap-2 w-text-white/85;
   font-size: 12px;
 }

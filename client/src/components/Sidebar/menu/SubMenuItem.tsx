@@ -82,7 +82,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
         <div className="sidebar-sub-menu-panel">
           <h2
             id={`wagtail-sidebar-submenu${path.split('.').join('-')}-title`}
-            className={item.classNames}
+            className={`${item.classNames} w-h4`}
           >
             {item.iconName && (
               <Icon name={item.iconName} className="icon--submenu-header" />

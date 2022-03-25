@@ -66,6 +66,7 @@ interface MenuProps {
   expandingOrCollapsing: boolean;
   currentPath: string;
   strings: Strings;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -202,7 +203,23 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
         }
       >
         <button
-          className="sidebar-footer__account"
+          className="
+          sidebar-footer__account
+          w-bg-primary
+          w-text-white
+          w-flex
+          w-items-center
+          w-relative
+          w-p-0
+          w-w-full
+          w-appearance-none
+          w-border-0
+          w-overflow-hidden
+          w-px-5
+          w-py-3
+          hover:w-bg-primary-200
+          focus:w-bg-primary-200
+          w-transition"
           title={strings.EDIT_YOUR_ACCOUNT}
           onClick={onClickAccountSettings}
           aria-label={strings.EDIT_YOUR_ACCOUNT}
@@ -210,13 +227,15 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
           aria-expanded={accountSettingsOpen ? 'true' : 'false'}
           type="button"
         >
-          <div className="avatar square avatar-on-dark">
+          <div className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]">
             <img src={user.avatarUrl} alt="" />
           </div>
           <div className="sidebar-footer__account-toggle">
-            <div className="sidebar-footer__account-label">{user.name}</div>
+            <div className="sidebar-footer__account-label w-label-3">
+              {user.name}
+            </div>
             <Icon
-              className="sidebar-footer__account-icon"
+              className="w-w-4 w-h-4 w-text-white"
               name={accountSettingsOpen ? 'arrow-down' : 'arrow-up'}
             />
           </div>

@@ -8,6 +8,7 @@ interface SearchInputProps {
   expandingOrCollapsing: boolean;
   searchUrl: string;
   strings: Strings;
+
   navigate(url: string): void;
 }
 
@@ -48,6 +49,13 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
       method="get"
       onSubmit={onSubmitForm}
     >
+      <button
+        className="button sidebar-search__submit"
+        type="submit"
+        aria-label={strings.SEARCH}
+      >
+        <Icon className="icon--menuitem" name="search" />
+      </button>
       <label className="sidebar-search__label" htmlFor="menu-search-q">
         {strings.SEARCH}
       </label>
@@ -58,13 +66,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
         name="q"
         placeholder={strings.SEARCH}
       />
-      <button
-        className="button sidebar-search__submit"
-        type="submit"
-        aria-label={strings.SEARCH}
-      >
-        <Icon className="icon--menuitem" name="search" />
-      </button>
     </form>
   );
 };

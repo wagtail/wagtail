@@ -1,16 +1,10 @@
 // stylelint-disable declaration-no-important
 .sidebar-search {
+  @apply w-relative w-box-border w-flex w-items-center w-flex-row w-h-[42px] w-px-5;
   $root: &;
-  position: relative;
-  box-sizing: border-box;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  height: 42px;
 
   .sidebar--slim & {
-    padding: 0;
+    @apply w-justify-center w-p-0;
   }
 
   &__label {
@@ -19,6 +13,7 @@
 
   // Beat specificity
   input:not([type='submit']) {
+    @apply w-pl-[45px];
     @include show-focus-outline-inside();
     position: absolute;
     // Remove once we drop support for Safari 13.
@@ -26,9 +21,6 @@
     left: 0;
     inset-inline-start: 0;
     top: 0;
-    // Need !important to override body.ready class
-    transition: background-color $menu-transition-duration ease,
-      opacity $menu-transition-duration ease !important;
     font-size: 13px;
     font-weight: 400;
     background-color: transparent;
@@ -48,11 +40,6 @@
 
   &__submit {
     @include show-focus-outline-inside();
-    position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
-    inset-inline-end: 0;
     background-color: transparent;
     border: 0;
     border-radius: 0;
@@ -64,13 +51,11 @@
       width $menu-transition-duration ease;
 
     svg {
-      margin-inline-end: 15px;
+      margin-inline-end: 20px;
       transition: margin-inline-end $menu-transition-duration ease;
     }
 
     .sidebar--slim & {
-      width: 100%;
-
       svg {
         margin-inline-end: 0;
       }
