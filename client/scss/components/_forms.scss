@@ -224,7 +224,7 @@ label.required:after {
       &:before,
       &:after {
         font-size: 1.3rem; // REMs are necessary here because IE doesn't treat generated content correctly
-        top: 0.3em;
+        top: 0.7em;
       }
 
       &:before {
