@@ -19,8 +19,8 @@ from taggit.models import Tag
 
 from wagtail import hooks
 from wagtail.admin.admin_url_finder import AdminURLFinder
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList
 from wagtail.admin.forms import WagtailAdminModelForm
+from wagtail.admin.panels import FieldPanel, ObjectList
 from wagtail.blocks.field_block import FieldBlockAdapter
 from wagtail.models import Locale, ModelLogEntry, Page
 from wagtail.snippets.action_menu import (

@@ -11,7 +11,7 @@ You can do this as shown below.
 
 ```python
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -61,7 +61,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -121,7 +121,7 @@ from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -195,7 +195,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -288,7 +288,7 @@ The following example shows how to create a multi-step form.
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -430,7 +430,7 @@ First, you need to collect results as shown below:
 
 ```python
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
@@ -544,7 +544,7 @@ Finally, we add a URL param of `id` based on the `form_submission` if it exists.
 
 ```python
 from django.shortcuts import redirect
-from wagtail.admin.edit_handlers import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, FieldRowPanel, InlinePanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm
 
 class FormPage(AbstractEmailForm):
