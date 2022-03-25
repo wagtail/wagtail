@@ -137,21 +137,6 @@ class WagtailBrandingModule:
     def js_args(self):
         return [
             reverse("wagtailadmin_home"),
-            {
-                "mobileLogo": versioned_static("wagtailadmin/images/wagtail-logo.svg"),
-                "desktopLogoBody": versioned_static(
-                    "wagtailadmin/images/logo-body.svg"
-                ),
-                "desktopLogoTail": versioned_static(
-                    "wagtailadmin/images/logo-tail.svg"
-                ),
-                "desktopLogoEyeOpen": versioned_static(
-                    "wagtailadmin/images/logo-eyeopen.svg"
-                ),
-                "desktopLogoEyeClosed": versioned_static(
-                    "wagtailadmin/images/logo-eyeclosed.svg"
-                ),
-            },
         ]
 
 

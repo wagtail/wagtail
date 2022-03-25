@@ -68,6 +68,12 @@ module.exports = {
       none: 'none',
     },
     spacing,
+    extend: {
+      opacity: {
+        15: '0.15',
+        85: '0.85',
+      },
+    },
   },
   plugins: [
     typeScale,
@@ -87,5 +93,7 @@ module.exports = {
     // Disable float and clear which have poor RTL support.
     float: false,
     clear: false,
+    // Disable text-transform so we don’t rely on uppercasing text.
+    textTransform: false,
   },
 };

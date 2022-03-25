@@ -10,7 +10,6 @@ from wagtail.admin.ui.sidebar import (
     PageExplorerMenuItem,
     SearchModule,
     SubMenuItem,
-    WagtailBrandingModule,
 )
 from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
@@ -167,25 +166,6 @@ class TestAdaptPageExplorerMenuItem(TestCase):
                     },
                     1,
                 ],
-            },
-        )
-
-
-class TestAdaptWagtailBrandingModule(TestCase):
-    def test_adapt(self):
-        packed = JSContext().pack(WagtailBrandingModule())
-
-        self.assertEqual(packed["_type"], "wagtail.sidebar.WagtailBrandingModule")
-        self.assertEqual(len(packed["_args"]), 2)
-        self.assertEqual(packed["_args"][0], reverse("wagtailadmin_home"))
-        self.assertEqual(
-            packed["_args"][1].keys(),
-            {
-                "desktopLogoBody",
-                "desktopLogoEyeClosed",
-                "desktopLogoEyeOpen",
-                "desktopLogoTail",
-                "mobileLogo",
             },
         )
 

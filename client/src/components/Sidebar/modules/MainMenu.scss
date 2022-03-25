@@ -1,10 +1,8 @@
-$avatar-size: 60px;
-
 // stylelint-disable declaration-no-important
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
-  margin-bottom: $avatar-size;
+  margin-bottom: 60px;
   @include transition(margin-bottom $menu-transition-duration ease);
 
   &--open-footer {
@@ -48,11 +46,9 @@ $avatar-size: 60px;
 }
 
 .sidebar-footer {
-  position: fixed !important; // override li styling in MenuWrapper
-  width: $menu-width;
-  bottom: 0;
-  background-color: $nav-footer-submenu-bg;
+  @apply w-bg-primary w-bottom-0 w-fixed;
   transition: width $menu-transition-duration ease !important; // Override body.ready
+  width: $menu-width;
 
   > ul,
   ul > li {
@@ -88,76 +84,24 @@ $avatar-size: 60px;
   }
 
   &__account {
-    background: $nav-footer-account-bg;
-    color: $color-menu-text;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-    padding: 0;
-    width: 100%;
-    appearance: none;
-    border: 0;
-    overflow: hidden;
-
-    @include clearfix;
-
-    &:hover,
-    &:focus {
-      background-color: rgba(100, 100, 100, 0.15);
-      color: $color-white;
-      text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-    }
-
-    .avatar {
-      width: $avatar-size;
-      height: $avatar-size;
-
-      &:before {
-        color: inherit;
-        border-color: inherit;
-      }
-    }
-
-    $icon-size: 1.5em;
-
-    &-icon {
-      height: $icon-size;
-      width: $icon-size;
-    }
-
     &-toggle {
-      @include show-focus-outline-inside();
-      display: grid;
-      grid-template-columns: 1fr min-content;
-      box-sizing: border-box;
-      padding: 0 0.9em;
-      font-style: normal;
-      font-weight: 700;
-      width: $menu-width - $avatar-size;
-      line-height: $icon-size;
-      position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: $avatar-size; // Width of avatar
-      inset-inline-start: $avatar-size; // Width of avatar
-      transform: translateX(0);
-      transition: transform $menu-transition-duration ease;
+      @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
     }
 
     &-label {
-      text-align: start;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      @apply w-text-white w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
     }
   }
 
   @at-root .sidebar--slim #{&} {
     width: $menu-width-slim;
 
+    &__account {
+      @apply w-px-0 w-pb-3 w-justify-center;
+    }
+
     &__account-toggle {
-      transform: translateX($menu-width-slim - $menu-width);
+      @apply w-hidden;
     }
   }
 
@@ -168,12 +112,5 @@ $avatar-size: 60px;
       max-height: $nav-footer-submenu-height;
       visibility: visible;
     }
-  }
-
-  &--open &__account-toggle {
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: $avatar-size !important;
-    inset-inline-start: $avatar-size !important;
   }
 }

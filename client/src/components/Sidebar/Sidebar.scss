@@ -17,14 +17,18 @@
   border-radius: 50%;
   border: 1px solid transparent;
 
-  &:hover {
-    background-color: #3a3a3a;
-    color: #ccc;
-  }
-
   svg {
     width: 15px;
     height: 16px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    inset-inline-end: $sidebar-toggle-spacing;
+
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    left: initial;
+    inset-inline-start: initial;
   }
 
   .has-messages & {
@@ -37,18 +41,12 @@
 }
 
 .sidebar {
-  position: fixed;
+  @apply w-fixed w-flex w-flex-col w-h-full w-bg-primary w-z-[300];
+  width: $menu-width;
   // Remove once we drop support for Safari 13.
   // stylelint-disable-next-line property-disallowed-list
   left: 0;
   inset-inline-start: 0;
-  width: $menu-width;
-  float: left;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: $nav-grey-3;
-  z-index: 300;
 
   @include transition(
     width $menu-transition-duration ease,
@@ -75,11 +73,8 @@
   }
 
   &__inner {
-    height: 100%;
-    background: $nav-grey-3;
     // On medium, make it possible for the nav links to scroll.
-    display: flex;
-    flex-flow: column nowrap;
+    @apply w-h-full w-bg-primary w-flex w-flex-col w-flex-nowrap;
   }
 
   &__collapse-toggle {
@@ -109,22 +104,12 @@
   display: none; // Nav toggle is for mobile only
   z-index: 305;
 
-  &:hover {
-    background: var(--color-primary-dark);
-    color: #fff;
-  }
-
   &--mobile {
     display: grid;
   }
 
   &--open {
-    position: fixed;
-
-    &:hover {
-      background-color: #3a3a3a;
-      color: #ccc;
-    }
+    @apply w-fixed hover:w-bg-primary-200 hover:w-text-white;
   }
 }
 

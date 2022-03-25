@@ -11,17 +11,17 @@ Wagtail is an open source content management system built on Django, with a stro
 
 ### Features
 
-* A fast, attractive interface for authors
-* Complete control over front-end design and structure
-* Scales to millions of pages and thousands of editors
-* Fast out of the box, cache-friendly when you need it
-* Content API for 'headless' sites with de-coupled front-end
-* Runs on a Raspberry Pi or a multi-datacenter cloud platform
-* StreamField encourages flexible content without compromising structure
-* Powerful, integrated search, using Elasticsearch or PostgreSQL
-* Excellent support for images and embedded content
-* Multi-site and multi-language ready
-* Embraces and extends Django
+-   A fast, attractive interface for authors
+-   Complete control over front-end design and structure
+-   Scales to millions of pages and thousands of editors
+-   Fast out of the box, cache-friendly when you need it
+-   Content API for 'headless' sites with de-coupled front-end
+-   Runs on a Raspberry Pi or a multi-datacenter cloud platform
+-   StreamField encourages flexible content without compromising structure
+-   Powerful, integrated search, using Elasticsearch or PostgreSQL
+-   Excellent support for images and embedded content
+-   Multi-site and multi-language ready
+-   Embraces and extends Django
 
 Find out more at [wagtail.org](https://wagtail.org/).
 
@@ -31,7 +31,7 @@ Wagtail works with [Python 3](https://www.python.org/downloads/), on any platfor
 
 To get started with Wagtail, run the following in a virtual environment:
 
-``` bash
+```bash
 pip install wagtail
 wagtail start mysite
 cd mysite
@@ -57,9 +57,9 @@ _(If you are reading this on GitHub, the details here may not be indicative of t
 
 Wagtail supports:
 
-* Django 3.2.x and 4.0.x
-* Python 3.7, 3.8, 3.9 and 3.10
-* PostgreSQL, MySQL and SQLite as database backends
+-   Django 3.2.x and 4.0.x
+-   Python 3.7, 3.8, 3.9 and 3.10
+-   PostgreSQL, MySQL and SQLite as database backends
 
 [Previous versions of Wagtail](https://docs.wagtail.org/en/stable/releases/upgrading.html#compatible-django-python-versions) additionally supported Python 2.7 and earlier Django versions.
 
@@ -102,6 +102,7 @@ You might like to start by reviewing the [contributing guidelines](https://docs.
 We also welcome translations for Wagtail's interface. Translation work should be submitted through [Transifex](https://www.transifex.com/projects/p/wagtail/).
 
 ### License
+
 [BSD](https://github.com/wagtail/wagtail/blob/main/LICENSE)
 
 ### Thanks
