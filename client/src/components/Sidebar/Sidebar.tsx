@@ -33,9 +33,7 @@ export interface SidebarProps {
   currentPath: string;
   strings: Strings;
   collapsedOnLoad: boolean;
-
   navigate(url: string): Promise<void>;
-
   onExpandCollapse?(collapsed: boolean);
 }
 
