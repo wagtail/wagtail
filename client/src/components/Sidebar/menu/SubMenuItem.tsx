@@ -6,8 +6,7 @@ import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
-
-import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
+import Tippy from '@tippyjs/react';
 
 interface SubMenuItemProps extends MenuItemProps<SubMenuItemDefinition> {
   slim: boolean;
@@ -67,11 +66,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
 
   return (
     <li className={className}>
-      <TooltipWrapper
-        condition={!isOpen && slim}
-        label={item.label}
-        placement="right"
-      >
+      <Tippy disabled={!isOpen && slim} content={item.label} placement="right">
         <button
           onClick={onClick}
           className={`sidebar-menu-item__link ${item.classNames}`}
@@ -85,7 +80,7 @@ export const SubMenuItem: React.FunctionComponent<SubMenuItemProps> = ({
           <span className="menuitem-label">{item.label}</span>
           <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
         </button>
-      </TooltipWrapper>
+      </Tippy>
       <SidebarPanel isVisible={isVisible} isOpen={isOpen} depth={depth}>
         <div className="sidebar-sub-menu-panel">
           <h2

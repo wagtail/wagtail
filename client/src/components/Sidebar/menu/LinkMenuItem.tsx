@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Icon from '../../Icon/Icon';
 import { MenuItemDefinition, MenuItemProps } from './MenuItem';
-import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
+import Tippy from '@tippyjs/react';
 
 export const LinkMenuItem: React.FunctionComponent<
   MenuItemProps<LinkMenuItemDefinition>
@@ -41,9 +41,9 @@ export const LinkMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <TooltipWrapper
-        condition={slim && !isInSubMenu}
-        label={item.label}
+      <Tippy
+        disabled={slim && !isInSubMenu}
+        content={item.label}
         placement="right"
       >
         <a
@@ -57,7 +57,7 @@ export const LinkMenuItem: React.FunctionComponent<
           )}
           <span className="menuitem-label">{item.label}</span>
         </a>
-      </TooltipWrapper>
+      </Tippy>
     </li>
   );
 };

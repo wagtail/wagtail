@@ -4,6 +4,7 @@ import Icon from '../../Icon/Icon';
 import { ModuleDefinition, Strings } from '../Sidebar';
 
 import TooltipWrapper from '../../TooltipWrapper/TooltipWrapper';
+import Tippy from '@tippyjs/react';
 
 interface SearchInputProps {
   slim: boolean;
@@ -63,9 +64,9 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
       <label className="sidebar-search__label" htmlFor="menu-search-q">
         {strings.SEARCH}
       </label>
-      <TooltipWrapper
-        condition={!isVisible && slim}
-        label="Search"
+      <Tippy
+        disabled={!isVisible && slim}
+        content={strings.SEARCH}
         placement="right"
       >
         <input
@@ -78,7 +79,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
             onSearchClick();
           }}
         />
-      </TooltipWrapper>
+      </Tippy>
     </form>
   );
 };
