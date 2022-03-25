@@ -135,8 +135,8 @@
     }
 
     .icon-wrapper {
-      display: block;
       background-color: rgba(0, 0, 0, 0.2);
+      display: block;
       position: absolute;
       // Remove once we drop support for Safari 14.
       // stylelint-disable-next-line property-disallowed-list
