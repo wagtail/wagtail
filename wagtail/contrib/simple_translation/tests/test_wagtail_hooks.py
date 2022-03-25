@@ -181,3 +181,152 @@ class TestConstructSyncedPageTreeListHook(Utils):
         # Test that both the English and French homepages are unpublished
         self.assertFalse(self.en_homepage.live)
         self.assertFalse(self.fr_homepage.live)
+
+
+class TestMovingTranslatedPages(Utils):
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_move_translated_pages(self):
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create blog_post copies for translation
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        # Confirm location of English blog post page before it is moved
+        # Should be living at /blog/blog-post/ right now. But will eventually
+        # exist at /blog-post/
+        self.assertEqual(self.en_blog_post.get_parent().id, self.en_blog_index.id)
+
+        # Check if fr and de blog post parent ids are in the translated list
+        # This is to make sure the fr blog_post is situated under /fr/blog/
+        # (same concept with /de/).
+        # We'll check these after the move to ensure they exist under /fr/ without
+        # the /blog/ parent page.
+        original_translated_parent_ids = [
+            p.id for p in self.en_blog_index.get_translations()
+        ]
+        self.assertIn(self.fr_blog_post.get_parent().id, original_translated_parent_ids)
+        self.assertIn(self.de_blog_post.get_parent().id, original_translated_parent_ids)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    self.en_homepage.id,
+                ),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.fr_blog_post.refresh_from_db()
+        self.de_blog_post.refresh_from_db()
+
+        # Check if the new pages exist under their respective translated homepages
+        home_page_translation_ids = [p.id for p in self.en_homepage.get_translations()]
+        self.assertIn(
+            self.fr_blog_post.get_parent(update=True).id, home_page_translation_ids
+        )
+        self.assertIn(
+            self.de_blog_post.get_parent(update=True).id, home_page_translation_ids
+        )
+
+    @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
+    def test_unmovable_translation_pages(self):
+        """
+        Test that moving a page with WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE
+        disabled doesn't apply to its translations.
+        """
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create blog_post copies for translation
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(self.de_locale)
+
+        # Confirm location of English blog post page before it is moved
+        # Should be living at /blog/blog-post/ right now. But will eventually
+        # exist at /blog-post/
+        self.assertEqual(self.en_blog_post.get_parent().id, self.en_blog_index.id)
+
+        # Confirm the fr and de blog post pages are under the blog index page
+        # We'll confirm these have not moved after ther POST request.
+        original_translated_parent_ids = [
+            p.id for p in self.en_blog_index.get_translations()
+        ]
+        self.assertIn(self.fr_blog_post.get_parent().id, original_translated_parent_ids)
+        self.assertIn(self.de_blog_post.get_parent().id, original_translated_parent_ids)
+
+        response = self.client.post(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    self.en_homepage.id,
+                ),
+            ),
+            follow=True,
+        )
+        self.assertEqual(response.status_code, 200)
+
+        self.en_blog_post.refresh_from_db()
+        self.fr_blog_post.refresh_from_db()
+        self.de_blog_post.refresh_from_db()
+
+        # Check that the en_blog_post page has moved directly under the home page.
+        self.assertEqual(
+            self.en_blog_post.get_parent(update=True).id, self.en_homepage.id
+        )
+
+        # Check if the fr and de pages exist under their original parent page (/blog/)
+        self.assertIn(
+            self.fr_blog_post.get_parent(update=True).id, original_translated_parent_ids
+        )
+        self.assertIn(
+            self.de_blog_post.get_parent(update=True).id, original_translated_parent_ids
+        )
+
+    @override_settings(
+        WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True, WAGTAIL_I18N_ENABLED=True
+    )
+    def test_translation_count_in_context(self):
+        """Test the number of `translations_to_move_count` is correct in the confirm_move.html template."""
+        self.login()
+
+        # BlogIndex needs translated pages before child pages can be translated
+        self.fr_blog_index = self.en_blog_index.copy_for_translation(self.fr_locale)
+        self.de_blog_index = self.en_blog_index.copy_for_translation(self.de_locale)
+
+        # Create blog_post copies for translation for fr and de languages. One is an alias.
+        self.fr_blog_post = self.en_blog_post.copy_for_translation(self.fr_locale)
+        self.de_blog_post = self.en_blog_post.copy_for_translation(
+            self.de_locale, alias=True
+        )
+
+        response = self.client.get(
+            reverse(
+                "wagtailadmin_pages:move_confirm",
+                args=(
+                    self.en_blog_post.id,
+                    self.en_homepage.id,
+                ),
+            ),
+            follow=True,
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["translations_to_move_count"], 1)
+        self.assertIn(
+            "This will also move 1 translation of this page and its child pages",
+            response.content.decode("utf-8"),
+        )
