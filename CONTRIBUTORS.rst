@@ -583,6 +583,7 @@ Contributors
 * Shrey Parekh
 * Vinit Kumar
 * Shwet Khatri
+* Abdulmajeed Isa
 
 Translators
 ===========
