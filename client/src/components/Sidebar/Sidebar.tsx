@@ -185,13 +185,16 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
               aria-expanded={slim ? 'false' : 'true'}
               type="button"
               className={`
-            ${!slim ? 'w-mr-4' : ''}
-            button
-            sidebar__collapse-toggle
-            sm:w-mt-4
-            hover:w-bg-primary-200
-            hover:text-white
-            hover:opacity-100`}
+                ${!slim ? 'w-mr-4' : ''}
+                button
+                sidebar__collapse-toggle
+                w-flex
+                w-justify-center
+                w-items-center
+                sm:w-mt-4
+                hover:w-bg-primary-200
+                hover:text-white
+                hover:opacity-100`}
             >
               <Icon
                 name="expand-right"

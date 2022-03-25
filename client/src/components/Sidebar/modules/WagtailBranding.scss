@@ -98,31 +98,6 @@
       position: static;
     }
   }
-
-  // Bird icons
-  &__icon {
-    @apply hover:w-translate-y-[-20px] hover:w-translate-x-[10px];
-
-    .sidebar--slim & {
-      @apply hover:w-translate-y-0 hover:w-translate-x-0;
-      width: 42px;
-      height: 51px;
-      top: 10px;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -9px;
-      inset-inline-start: -9px;
-    }
-
-    // TODO: Fix legacy specificity issues
-    &[data-part='eye--open'] {
-      display: inline !important;
-    }
-
-    &[data-part='eye--closed'] {
-      display: none !important;
-    }
-  }
 }
 
 .sidebar-custom-branding {

@@ -62,9 +62,8 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           {/* Use padding left 23px to align icon in slim mode and padding right 18px to ensure focus is full width */}
           <button
             className={`
-          ${slim ? 'w-pr-[18px]' : ''}
+          ${slim ? 'w-pr-[18px]' : 'w-pr-0'}
           w-w-full
-          w-pr-0
           w-pl-[23px]
           w-h-[35px]
           w-bg-transparent
