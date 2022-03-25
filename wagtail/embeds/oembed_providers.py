@@ -59,7 +59,7 @@ dailymotion = {
     ],
 }
 
-flikr = {
+flickr = {
     "endpoint": "https://www.flickr.com/services/oembed/",
     "urls": [
         r"^https?://[-\w]+\.flickr\.com/photos/.+$",
@@ -658,7 +658,7 @@ all_providers = [
     deviantart,
     blip_tv,
     dailymotion,
-    flikr,
+    flickr,
     hulu,
     nfb,
     qik,
