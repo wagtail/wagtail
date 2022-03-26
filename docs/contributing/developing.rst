@@ -323,7 +323,7 @@ To start this simple server, run the following commands:
 .. code-block:: console
 
     $ cd docs/_build/html/
-    $ python -mhttp.server 8080
+    $ python -m http.server 8080
 
 Now you can open <http://localhost:8080/> in your web browser to see the compiled documentation.
 

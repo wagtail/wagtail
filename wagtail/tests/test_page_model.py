@@ -2855,6 +2855,9 @@ class TestSubpageTypeBusinessRules(TestCase, WagtailTestUtils):
         # Pages are not `is_creatable`, and should not be creatable
         self.assertFalse(Page.can_create_at(Page()))
 
+        # If max_count_per_parent is set, user cannot create more child pages
+        self.assertFalse(Page.can_create_more(Page()))
+
         # SimplePage can be created under a simple page
         self.assertTrue(SimplePage.can_create_at(SimplePage()))
 
