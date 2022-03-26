@@ -1,8 +1,8 @@
+<!--
 Thanks for contributing to Wagtail! 🎉
 
 Before submitting, please review the [contributor guidelines](https://docs.wagtail.org/en/latest/contributing/index.html).
-
-Remove this text, the greeting above and all unnecessary text here before submitting. 
+-->
 
 _Please check the following:_
 
