@@ -108,7 +108,7 @@
                                         {% endblock %}
 
                                         {% block greeting %}
-                                            <p>{% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}</p>
+                                            <p>{% blocktrans trimmed with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}</p>
                                         {% endblock %}
 
                                         {% block content %}

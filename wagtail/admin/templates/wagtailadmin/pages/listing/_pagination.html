@@ -5,7 +5,7 @@ Pagination for page listings. Used by the `{% paginate %}` template tag.
 {% endcomment %}
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
-    <p>{% blocktrans with page_number=page.number num_pages=paginator.num_pages %}
+    <p>{% blocktrans trimmed with page_number=page.number num_pages=paginator.num_pages %}
         Page {{ page_number }} of {{ num_pages }}.
     {% endblocktrans %}</p>
     <ul>

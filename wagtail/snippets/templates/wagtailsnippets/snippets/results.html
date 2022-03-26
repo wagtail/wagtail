@@ -2,7 +2,7 @@
 {% if items %}
     {% if is_searching %}
         <h2 role="alert">
-            {% blocktrans count counter=items.paginator.count %}
+            {% blocktrans trimmed count counter=items.paginator.count %}
                 There is {{ counter }} match
             {% plural %}
                 There are {{ counter }} matches
@@ -16,16 +16,16 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=items linkurl=wagtailsnippets_list_url %}
 {% else %}
     {% if is_searching %}
-        <p role="alert">{% blocktrans %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <p role="alert">{% blocktrans trimmed %}Sorry, no snippets match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name as wagtailsnippets_create_url %}
 
         {# NOTE: The two strings in the following messages are exactly the same #}
         {# The difference is that the first variant appends '?locale={{ locale.language_code}}' to 'wagtailsnippets_create_url' #}
         {% if locale %}
-            <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural wagtailsnippets_create_url=wagtailsnippets_create_url|add:'?locale='|add:locale.language_code %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+            <p class="no-results-message">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural wagtailsnippets_create_url=wagtailsnippets_create_url|add:'?locale='|add:locale.language_code %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
         {% else %}
-            <p class="no-results-message">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
+            <p class="no-results-message">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural %}No {{ snippet_type_name_plural }} have been created. Why not <a href="{{ wagtailsnippets_create_url }}">add one</a>?{% endblocktrans %}</p>
         {% endif %}
     {% endif %}
 {% endif %}

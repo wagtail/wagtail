@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans with title=parent_page.get_admin_display_title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=parent_page.get_admin_display_title %}Create a page in {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Create a page in" as create_str %}
@@ -26,7 +26,7 @@
                             </div>
 
                             <small class="col4" style="text-align:end">
-                                <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{% blocktrans with page_type=verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
+                                <a href="{% url 'wagtailadmin_pages:type_use' app_label model_name %}" class="nolink">{% blocktrans trimmed with page_type=verbose_name %}Pages using {{ page_type }}{% endblocktrans %}</a>
                             </small>
 
                         </div>

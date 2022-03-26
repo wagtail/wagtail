@@ -3,7 +3,7 @@
 {% if images %}
     {% if is_searching %}
         <h2 role="alert">
-            {% blocktrans count counter=images.paginator.count %}
+            {% blocktrans trimmed count counter=images.paginator.count %}
                 There is {{ counter }} match
             {% plural %}
                 There are {{ counter }} matches

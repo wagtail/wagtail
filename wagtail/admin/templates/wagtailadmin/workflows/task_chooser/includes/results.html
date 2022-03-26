@@ -2,7 +2,7 @@
 {% if tasks %}
     {% if search_form.is_searching %}
         <h2 role="alert">
-            {% blocktrans count counter=tasks.paginator.count %}
+            {% blocktrans trimmed count counter=tasks.paginator.count %}
                 There is {{ counter }} match
             {% plural %}
                 There are {{ counter }} matches
@@ -50,7 +50,7 @@
                             {% trans "Not used" %}
                         {% endfor %}
                         {% if task.active_workflows.count > 5 %}
-                            {% blocktrans count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                            {% blocktrans trimmed count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
                         {% endif %}
                     </td>
                 </tr>
@@ -61,12 +61,12 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=tasks linkurl='wagtailadmin_workflows:task_chooser_results' %}
 {% else %}
     {% if all_tasks.exists %}
-        <p role="alert">{% blocktrans %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <p role="alert">{% blocktrans trimmed %}Sorry, no tasks match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         <p>
             {% trans "You haven't created any tasks." %}
             {% if can_create %}
-                {% blocktrans %}
+                {% blocktrans trimmed %}
                     Why not <a class="create-one-now" href="#">create one now</a>?
                 {% endblocktrans %}
             {% endif %}
