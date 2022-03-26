@@ -574,6 +574,7 @@ Contributors
 * Mariusz Felisiak
 * Dharmik Gangani
 * Kyle Hart
+* Stephanie Cheng Smith
 
 Translators
 ===========
