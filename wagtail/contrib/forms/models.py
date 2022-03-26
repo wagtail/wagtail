@@ -131,6 +131,8 @@ class AbstractFormField(Orderable):
         When new fields are created, generate a template safe ascii name to use as the
         JSON storage reference for this field. Previously created fields will be updated
         to use the legacy unidecode method via checks & _migrate_legacy_clean_name.
+        We do not want to update the clean name on any subsequent changes to the label
+        as this would invalidate any previously submitted data.
         """
 
         is_new = self.pk is None

@@ -135,11 +135,6 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
     # Could be set to False by a subclass constructed by TabbedInterface
     show_comments_toggle = True
 
-    class Meta:
-        # (dealing with Treebeard's tree-related fields that really should have
-        # been editable=False)
-        exclude = ["content_type", "path", "depth", "numchild"]
-
     def __init__(
         self,
         data=None,
