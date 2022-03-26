@@ -22,7 +22,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.models import Page, Orderable
 from wagtail.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.search import index
 
 
@@ -121,16 +121,16 @@ There are a few attributes for defining how the page's fields will be arranged i
 -   `promote_panels` - For metadata, such as tags, thumbnail image and SEO title
 -   `settings_panels` - For settings, such as publish date
 
-Each of these attributes is set to a list of `EditHandler` objects, which defines which fields appear on which tabs and how they are structured on each tab.
+Each of these attributes is set to a list of `Panel` objects, which defines which fields appear on which tabs and how they are structured on each tab.
 
-Here's a summary of the `EditHandler` classes that Wagtail provides out of the box. See [Panel types](/reference/pages/panels) for full descriptions.
+Here's a summary of the `Panel` classes that Wagtail provides out of the box. See [Panel types](/reference/pages/panels) for full descriptions.
 
 **Basic**
 
 These allow editing of model fields. The `FieldPanel` class will choose the correct widget based on the type of the field, such as a rich text editor for `RichTextField`, or an image chooser for a `ForeignKey` to an image model. `FieldPanel` also provides a page chooser interface for `ForeignKey`s to page models, but for more fine-grained control over which page types can be chosen, `PageChooserPanel` provides additional configuration options.
 
-- {class}`~wagtail.admin.edit_handlers.FieldPanel`
-- {class}`~wagtail.admin.edit_handlers.PageChooserPanel`
+- {class}`~wagtail.admin.panels.FieldPanel`
+- {class}`~wagtail.admin.panels.PageChooserPanel`
 
 ```{versionchanged} 2.17
 Previously, certain field types required special-purpose panels: `StreamFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel` and `SnippetChooserPanel`. These are now all handled by `FieldPanel`.
@@ -140,9 +140,9 @@ Previously, certain field types required special-purpose panels: `StreamFieldPan
 
 These are used for structuring fields in the interface.
 
-- {class}`~wagtail.admin.edit_handlers.MultiFieldPanel`
-- {class}`~wagtail.admin.edit_handlers.InlinePanel`
-- {class}`~wagtail.admin.edit_handlers.FieldRowPanel`
+- {class}`~wagtail.admin.panels.MultiFieldPanel`
+- {class}`~wagtail.admin.panels.InlinePanel`
+- {class}`~wagtail.admin.panels.FieldRowPanel`
 
 
 #### Customising the page editor interface
@@ -356,7 +356,7 @@ class BlogPageRelatedLink(Orderable):
     ]
 ```
 
-To add this to the admin interface, use the {class}`~wagtail.admin.edit_handlers.InlinePanel` edit panel class:
+To add this to the admin interface, use the {class}`~wagtail.admin.panels.InlinePanel` edit panel class:
 
 ```python
 content_panels = [

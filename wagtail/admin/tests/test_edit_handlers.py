@@ -13,7 +13,8 @@ from django.utils.html import json_script
 from freezegun import freeze_time
 from pytz import utc
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
+from wagtail.admin.panels import (
     CommentPanel,
     FieldPanel,
     FieldRowPanel,
@@ -25,7 +26,6 @@ from wagtail.admin.edit_handlers import (
     extract_panel_definitions_from_model_class,
     get_form_for_model,
 )
-from wagtail.admin.forms import WagtailAdminModelForm, WagtailAdminPageForm
 from wagtail.admin.rich_text import DraftailRichTextArea
 from wagtail.admin.widgets import (
     AdminAutoHeightTextInput,
@@ -57,8 +57,24 @@ class TestGetFormForModel(TestCase):
         ):
             edit_handler.get_form_class()
 
+    def test_get_form_for_model_without_explicit_fields(self):
+        # Failing to pass a 'fields' argument to get_form_for_model IS valid, and should result in
+        # a form with no fields.
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+        )
+        self.assertTrue(issubclass(EventPageForm, WagtailAdminPageForm))
+        form = EventPageForm()
+        self.assertNotIn("title", form.fields)
+        self.assertNotIn("path", form.fields)
+
     def test_get_form_for_model_without_formsets(self):
-        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+        )
         form = EventPageForm()
 
         # form should be a subclass of WagtailAdminModelForm
@@ -77,6 +93,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
             formsets=["speakers", "related_links"],
         )
         form = EventPageForm()
@@ -89,7 +106,12 @@ class TestGetFormForModel(TestCase):
         # Test that field overrides defined through DIRECT_FORM_FIELD_OVERRIDES
         # are applied
 
-        SimplePageForm = get_form_for_model(SimplePage, form_class=WagtailAdminPageForm)
+        SimplePageForm = get_form_for_model(
+            SimplePage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "content"],
+        )
+        self.assertTrue(issubclass(SimplePageForm, WagtailAdminPageForm))
         simple_form = SimplePageForm()
         # plain TextFields should use AdminAutoHeightTextInput as the widget
         self.assertEqual(
@@ -98,7 +120,9 @@ class TestGetFormForModel(TestCase):
 
         # This override should NOT be applied to subclasses of TextField such as
         # RichTextField - they should retain their default widgets
-        EventPageForm = get_form_for_model(EventPage, form_class=WagtailAdminPageForm)
+        EventPageForm = get_form_for_model(
+            EventPage, form_class=WagtailAdminPageForm, fields=["title", "slug", "body"]
+        )
         event_form = EventPageForm()
         self.assertEqual(type(event_form.fields["body"].widget), DraftailRichTextArea)
 
@@ -120,6 +144,20 @@ class TestGetFormForModel(TestCase):
         self.assertIn("speakers", form.formsets)
         self.assertNotIn("related_links", form.formsets)
 
+    def test_get_form_for_model_without_explicit_formsets(self):
+        # omitting the 'formsets' argument from get_form_for_model should return a form with no
+        # formsets, rather than a form with ALL OF THE FORMSETS which somehow seemed like a good
+        # idea once
+        EventPageForm = get_form_for_model(
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["date_from"],
+        )
+        form = EventPageForm()
+
+        self.assertNotIn("speakers", form.formsets)
+        self.assertNotIn("related_links", form.formsets)
+
     def test_get_form_for_model_with_excluded_fields(self):
         EventPageForm = get_form_for_model(
             EventPage,
@@ -134,9 +172,6 @@ class TestGetFormForModel(TestCase):
         self.assertEqual(type(form.fields["date_from"].widget), AdminDateInput)
         self.assertNotIn("title", form.fields)
 
-        # 'path' is not excluded any more, as the excluded fields were overridden
-        self.assertIn("path", form.fields)
-
         # formsets should include speakers but not related_links
         self.assertIn("speakers", form.formsets)
         self.assertNotIn("related_links", form.formsets)
@@ -145,6 +180,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["date_to", "date_from"],
             widgets={"date_from": forms.PasswordInput},
         )
         form = EventPageForm()
@@ -156,6 +192,7 @@ class TestGetFormForModel(TestCase):
         EventPageForm = get_form_for_model(
             EventPage,
             form_class=WagtailAdminPageForm,
+            fields=["date_to", "date_from"],
             widgets={"date_from": forms.PasswordInput()},
         )
         form = EventPageForm()
@@ -165,7 +202,9 @@ class TestGetFormForModel(TestCase):
 
     def test_tag_widget_is_passed_tag_model(self):
         RestaurantPageForm = get_form_for_model(
-            RestaurantPage, form_class=WagtailAdminPageForm
+            RestaurantPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "tags"],
         )
         form_html = RestaurantPageForm().as_p()
         self.assertIn("/admin/tag\\u002Dautocomplete/tests/restauranttag/", form_html)
@@ -193,12 +232,12 @@ def clear_edit_handler(page_cls):
     def decorator(fn):
         @wraps(fn)
         def decorated(*args, **kwargs):
-            # Clear any old EditHandlers generated
+            # Clear any old panel definitions generated
             page_cls.get_edit_handler.cache_clear()
             try:
                 fn(*args, **kwargs)
             finally:
-                # Clear the bad EditHandler generated just now
+                # Clear the bad panel definition generated just now
                 page_cls.get_edit_handler.cache_clear()
 
         return decorated
@@ -245,7 +284,7 @@ class TestPageEditHandlers(TestCase):
 
         invalid_edit_handler = checks.Error(
             "ValidatedPage.get_edit_handler().get_form_class() does not extend WagtailAdminPageForm",
-            hint="Ensure that the EditHandler for ValidatedPage creates a subclass of WagtailAdminPageForm",
+            hint="Ensure that the panel definition for ValidatedPage creates a subclass of WagtailAdminPageForm",
             obj=ValidatedPage,
             id="wagtailadmin.E002",
         )
@@ -394,8 +433,8 @@ class TestTabbedInterface(TestCase):
         self.assertNotIn("signup_link", result)
 
     def test_required_fields(self):
-        # required_fields should report the set of form fields to be rendered recursively by children of TabbedInterface
-        result = set(self.event_page_tabbed_interface.required_fields())
+        # get_form_options should report the set of form fields to be rendered recursively by children of TabbedInterface
+        result = set(self.event_page_tabbed_interface.get_form_options()["fields"])
         self.assertEqual(result, {"title", "date_from", "date_to"})
 
     def test_render_form_content(self):
@@ -481,7 +520,10 @@ class TestFieldPanel(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
@@ -582,7 +624,7 @@ class TestFieldPanel(TestCase):
         self.assertNotIn('<p class="error-message">', result)
 
     def test_required_fields(self):
-        result = self.end_date_panel.required_fields()
+        result = self.end_date_panel.get_form_options()["fields"]
         self.assertEqual(result, ["date_to"])
 
     def test_error_message_is_rendered(self):
@@ -629,7 +671,10 @@ class TestFieldRowPanel(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
@@ -773,7 +818,10 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.request.user = user
 
         self.EventPageForm = get_form_for_model(
-            EventPage, form_class=WagtailAdminPageForm, formsets=[]
+            EventPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "date_from", "date_to"],
+            formsets=[],
         )
         self.event = EventPage(
             title="Abergavenny sheepdog trials",
@@ -951,18 +999,18 @@ class TestPageChooserPanel(TestCase):
         panel = PageChooserPanel("page", "wagtailcore.site").bind_to(
             model=PageChooserModel
         )
-        widget = panel.widget_overrides()["page"]
+        widget = panel.get_form_options()["widgets"]["page"]
         self.assertEqual(widget.target_models, [Site])
 
     def test_target_models_malformed_type(self):
         panel = PageChooserPanel("page", "snowman").bind_to(model=PageChooserModel)
-        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+        self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
     def test_target_models_nonexistent_type(self):
         panel = PageChooserPanel("page", "snowman.lorry").bind_to(
             model=PageChooserModel
         )
-        self.assertRaises(ImproperlyConfigured, panel.widget_overrides)
+        self.assertRaises(ImproperlyConfigured, panel.get_form_options)
 
 
 class TestInlinePanel(TestCase, WagtailTestUtils):
@@ -1238,10 +1286,15 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.other_user = get_user_model().objects.get(pk=6)
         self.request = RequestFactory().get("/")
         self.request.user = self.commenting_user
-        self.object_list = ObjectList([CommentPanel()]).bind_to(
+
+        unbound_object_list = ObjectList([CommentPanel()])
+        self.object_list = unbound_object_list.bind_to(
             model=EventPage, request=self.request
         )
-        self.tabbed_interface = TabbedInterface([self.object_list])
+        self.tabbed_interface = TabbedInterface([unbound_object_list]).bind_to(
+            model=EventPage, request=self.request
+        )
+
         self.EventPageForm = self.object_list.get_form_class()
         self.event_page = EventPage.objects.get(slug="christmas")
         self.comment = Comment.objects.create(
@@ -1262,11 +1315,11 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
         """
         self.assertTrue(self.tabbed_interface.show_comments_toggle)
-        self.assertFalse(
-            TabbedInterface(
-                [ObjectList(self.event_page.content_panels)]
-            ).show_comments_toggle
-        )
+
+        tabbed_interface_without_content_panel = TabbedInterface(
+            [ObjectList(self.event_page.content_panels)]
+        ).bind_to(model=EventPage)
+        self.assertFalse(tabbed_interface_without_content_panel.show_comments_toggle)
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_comments_disabled_setting(self):

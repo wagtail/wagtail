@@ -17,11 +17,8 @@ from django.views.generic import TemplateView
 
 from wagtail import hooks
 from wagtail.admin import messages
-from wagtail.admin.edit_handlers import (
-    ObjectList,
-    extract_panel_definitions_from_model_class,
-)
 from wagtail.admin.forms.search import SearchForm
+from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic.models import IndexView
 from wagtail.log_actions import log

@@ -1,4 +1,4 @@
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.contrib.modeladmin.helpers import WagtailBackendSearchHandler
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,

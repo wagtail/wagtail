@@ -291,9 +291,9 @@ Wagtail’s UI component library is built with `Storybook <https://storybook.js.
 
     $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
     $ # Assumes the current environment contains a valid installation of Wagtail for local development.
-    $ ./wagtail/tests/manage.py migrate
-    $ ./wagtail/tests/manage.py createcachetable
-    $ ./wagtail/tests/manage.py runserver 0:8000
+    $ ./wagtail/test/manage.py migrate
+    $ ./wagtail/test/manage.py createcachetable
+    $ ./wagtail/test/manage.py runserver 0:8000
     $ # In a separate terminal:
     $ npm run storybook
 

@@ -82,7 +82,7 @@ to create, view, and edit ``Book`` entries.
 .. code-block:: python
 
     from django.db import models
-    from wagtail.admin.edit_handlers import FieldPanel
+    from wagtail.admin.panels import FieldPanel
 
     class Book(models.Model):
         title = models.CharField(max_length=255)

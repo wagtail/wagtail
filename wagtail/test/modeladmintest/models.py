@@ -1,6 +1,6 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel,
     MultiFieldPanel,
     ObjectList,
