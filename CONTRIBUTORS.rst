@@ -578,6 +578,7 @@ Contributors
 * Luis Espinoza
 * Hitansh Shah
 * Saurabh kumar
+* James Ray
 
 Translators
 ===========
