@@ -2,9 +2,7 @@
     <div style="display: none">
         <svg>
             <defs>
-                {% for icon in icons %}
-                    {% include icon %}
-                {% endfor %}
+                {{ icons|safe }}
             </defs>
         </svg>
     </div>
