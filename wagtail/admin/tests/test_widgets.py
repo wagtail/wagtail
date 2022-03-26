@@ -485,6 +485,16 @@ class TestTagField(TestCase):
         self.assertTrue(form.is_valid())
         self.assertEqual(set(form.cleaned_data["tags"]), {"Italian", "delicious"})
 
+    def test_tag_over_one_hundred_characters(self):
+        class RestaurantTagForm(forms.Form):
+            tags = TagField(tag_model=RestaurantTag)
+
+        tag_name = ""
+        for _ in range(101):
+            tag_name += "a"
+        form = RestaurantTagForm({"tags": tag_name})
+        self.assertFalse(form.is_valid())
+
 
 class TestFilteredSelect(TestCase):
     def test_render(self):

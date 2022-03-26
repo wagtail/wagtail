@@ -53,6 +53,7 @@ Changelog
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
  * Fix: Add missing `lang` attributes to `<html>` elements (James Ray)
+ * Fix: Avoid 503 server error when entering tags over 100chars and instead show a user facing validation error (Vu Pham, Khanh Hoang)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
