@@ -232,7 +232,7 @@ function renderSidebarStory(
         navigate={navigate}
         onExpandCollapse={onExpandCollapse}
       />
-      <main id="main" className="content-wrapper" role="main">
+      <main id="main" className="content-wrapper">
         <div className="content">
           <b>Current path:</b> {currentPath}
         </div>
