@@ -575,6 +575,7 @@ Contributors
 * Dharmik Gangani
 * Kyle Hart
 * Stephanie Cheng Smith
+* Luis Espinoza
 
 Translators
 ===========
