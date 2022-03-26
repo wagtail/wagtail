@@ -580,6 +580,7 @@ Contributors
 * Saurabh Kumar
 * James Ray
 * Anuja Verma
+* Shrey Parekh
 
 Translators
 ===========
