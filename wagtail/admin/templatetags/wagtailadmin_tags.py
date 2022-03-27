@@ -553,7 +553,9 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
     return {"page": page, "buttons": buttons}
 
 
-@register.inclusion_tag("wagtailadmin/shared/page_editor_actions", takes_context=True)
+@register.inclusion_tag(
+    "wagtailadmin/pages/listing/_button_with_dropdown.html", takes_context=True
+)
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path
     button_hooks = hooks.get_hooks("register_page_header_buttons")

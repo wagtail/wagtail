@@ -1,14 +1,13 @@
 @use 'sass:color';
 
 .status-tag {
+  @apply w-bg-white w-text-grey-600 w-border w-border-grey-600 hover:w-bg-primary hover:w-text-white hover:w-border-primary;
   border-radius: 2px;
   text-align: center;
   display: inline-block;
   // stylelint-disable-next-line property-disallowed-list
   text-transform: uppercase;
   padding: 0 0.5em;
-  border: 1px solid color.adjust($color-grey-2, $lightness: 30%);
-  color: color.adjust($color-grey-2, $lightness: 30%);
   -webkit-font-smoothing: auto;
   line-height: 19px;
   font-size: 0.8em;
@@ -16,9 +15,7 @@
   background: #fff url('#{$images-root}bg-dark-diag.svg');
 
   &.primary {
-    color: $color-grey-2;
-    border: 1px solid $color-grey-2;
-    background: #fff;
+    @apply w-bg-white w-text-grey-600 w-border w-border-grey-600 hover:w-bg-primary hover:w-text-white hover:w-border-primary;
   }
 
   &.disabled {
@@ -37,15 +34,14 @@
   border: 1px solid;
 }
 
-button.status-tag:hover,
-a.status-tag:hover,
-a.status-tag.primary:hover {
-  border-color: $color-teal;
-  color: $color-teal;
-}
-
-button.status-tag:hover {
-  border-color: $color-teal-dark;
-  background-color: $color-teal-darker;
-  color: $color-white;
-}
+//a.status-tag:hover,
+//a.status-tag.primary:hover {
+//  border-color: $color-teal;
+//  color: $color-teal;
+//}
+//
+//button.status-tag:hover {
+//  border-color: $color-teal-dark;
+//  background-color: $color-teal-darker;
+//  color: $color-white;
+//}

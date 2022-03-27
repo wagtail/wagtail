@@ -472,17 +472,6 @@ table.listing {
       padding-bottom: 1.5em;
     }
 
-    .privacy-indicator {
-      font-size: 1em;
-      opacity: 1;
-      position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 10%;
-      inset-inline-end: 10%;
-      top: 2em;
-    }
-
     .locked-indicator {
       font-size: 0.8em;
     }

@@ -57,7 +57,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 ::after {
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
 }
 
 /* SETTINGS
