@@ -6,6 +6,7 @@ Changelog
 
  * Update Jinja2 template support for Jinja2 3.x (Seb Brown)
  * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
+ * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
 
 
 2.16.1 (11.02.2022)

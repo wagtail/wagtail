@@ -163,10 +163,6 @@ class TestPageMove(TestCase, WagtailTestUtils):
             url_path_after='/home/section-b/hello-world/',
         ))
 
-    def test_page_set_page_position(self):
-        response = self.client.get(reverse('wagtailadmin_pages:set_page_position', args=(self.test_page_a.id, )))
-        self.assertEqual(response.status_code, 200)
-
     def test_before_move_page_hook(self):
         def hook_func(request, page, destination):
             self.assertIsInstance(request, HttpRequest)
