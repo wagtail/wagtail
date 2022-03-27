@@ -58,22 +58,6 @@ or plugins. This configuration can be found at
 Styleguide Reference
 ~~~~~~~~~~~~~~~~~~~~
 
-Spacing
--------
-
--  Use soft-tabs with a four space indent. Spaces are the only way to
-   guarantee code renders the same in any person's environment.
--  Put spaces after ``:`` in property declarations.
--  Put spaces before ``{`` in rule declarations.
--  Put line breaks between rulesets.
--  When grouping selectors, put each selector on its own line.
--  Place closing braces of declaration blocks on a new line.
--  Each declaration should appear on its own line for more accurate
-   error reporting.
--  Add a newline at the end of your ``.scss`` files.
--  Strip trailing whitespace from your rules.
--  Add a space after the comma, in comma-delimited property values e.g ``rgba()``
-
 Formatting
 ----------
 
