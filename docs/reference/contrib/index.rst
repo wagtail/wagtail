@@ -13,7 +13,6 @@ Wagtail ships with a variety of extra optional modules.
     frontendcache
     routablepage
     modeladmin/index
-    postgres_search
     searchpromotions
     simple_translation
     table_block

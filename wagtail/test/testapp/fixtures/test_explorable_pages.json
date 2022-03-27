@@ -1,0 +1,404 @@
+[
+  {
+    "pk": 1,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Root",
+      "draft_title": "Root",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 1,
+      "content_type": ["wagtailcore", "page"],
+      "path": "0001",
+      "url_path": "/",
+      "slug": "root"
+    }
+  },
+
+  {
+    "pk": 2,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to testserver!",
+      "draft_title": "Welcome to testserver!",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["tests", "eventpage"],
+      "path": "00010001",
+      "url_path": "/home/",
+      "slug": "home"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "About us",
+      "draft_title": "About us",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventpage"],
+      "path": "000100010001",
+      "url_path": "/home/about-us/",
+      "slug": "about-us"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 4,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to example.com!",
+      "draft_title": "Welcome to example.com!",
+      "numchild": 1,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["tests", "eventpage"],
+      "path": "00010002",
+      "url_path": "/example-home/",
+      "slug": "example-home"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 5,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Content",
+      "draft_title": "Content",
+      "numchild": 2,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventpage"],
+      "path": "000100020001",
+      "url_path": "/example-home/content/",
+      "slug": "content",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 5,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 6,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Page 1",
+      "draft_title": "Page 1",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000200010001",
+      "url_path": "/example-home/content/page-1/",
+      "slug": "page-1",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 6,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 7,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Page 2",
+      "draft_title": "Page 2",
+      "numchild": 1,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 4,
+      "content_type": ["tests", "eventpage"],
+      "path": "0001000200010002",
+      "url_path": "/example-home/content/page-2/",
+      "slug": "page-2",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 7,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 8,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Other Content",
+      "draft_title": "Other Content",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "eventpage"],
+      "path": "000100020002",
+      "url_path": "/example-home/other-content/",
+      "slug": "other-content",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 8,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 9,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Child 1 of Page 2",
+      "draft_title": "Child 1 of Page 2",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 5,
+      "content_type": ["tests", "eventpage"],
+      "path": "00010002000100020001",
+      "url_path": "/example-home/content/page-2/child-1/",
+      "slug": "child-1",
+      "owner": 1
+    }
+  },
+  {
+    "pk": 9,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "public",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 10,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "Welcome to example2.com!",
+      "draft_title": "Welcome to example2.com!",
+      "numchild": 0,
+      "show_in_menus": false,
+      "live": true,
+      "depth": 2,
+      "content_type": ["tests", "eventpage"],
+      "path": "00010003",
+      "url_path": "/home-2/",
+      "slug": "home-2"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "tests.eventpage",
+    "fields": {
+      "date_from": "2014-12-25",
+      "audience": "private",
+      "location": "The North Pole",
+      "body": "<p>Welcome!</p>",
+      "cost": "Free"
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 2,
+      "hostname": "testserver",
+      "port": 80,
+      "is_default_site": true
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 4,
+      "hostname": "example.com",
+      "port": 80,
+      "is_default_site": false
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.site",
+    "fields": {
+      "root_page": 10,
+      "hostname": "example2.com",
+      "port": 80,
+      "is_default_site": false
+    }
+  },
+
+  {
+    "pk": 3,
+    "model": "auth.group",
+    "fields": {
+      "name": "Group 1",
+      "permissions": [["access_admin", "wagtailadmin", "admin"]]
+    }
+  },
+  {
+    "pk": 4,
+    "model": "auth.group",
+    "fields": {
+      "name": "Group 2",
+      "permissions": [["access_admin", "wagtailadmin", "admin"]]
+    }
+  },
+  {
+    "pk": 5,
+    "model": "auth.group",
+    "fields": {
+      "name": "Group 3",
+      "permissions": [["access_admin", "wagtailadmin", "admin"]]
+    }
+  },
+
+  {
+    "pk": 1,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 1"],
+      "page": 2,
+      "permission_type": "add"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 1"],
+      "page": 2,
+      "permission_type": "edit"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 1"],
+      "page": 2,
+      "permission_type": "publish"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 1"],
+      "page": 2,
+      "permission_type": "choose"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 2"],
+      "page": 6,
+      "permission_type": "edit"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 2"],
+      "page": 6,
+      "permission_type": "choose"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 3"],
+      "page": 8,
+      "permission_type": "edit"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "wagtailcore.grouppagepermission",
+    "fields": {
+      "group": ["Group 3"],
+      "page": 8,
+      "permission_type": "choose"
+    }
+  }
+]

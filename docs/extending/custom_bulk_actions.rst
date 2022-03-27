@@ -12,7 +12,7 @@ Registering a custom bulk action
 .. code-block:: python
 
     from wagtail.admin.views.bulk_action import BulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('register_bulk_action')
@@ -61,7 +61,7 @@ An example for a confirmation template is as follows:
           <ul>
               {% for item in items %}
               <li>
-                  <a href="" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
+                  <a href="" target="_blank" rel="noreferrer">{{ item.item.title }}</a>
               </li>
               {% endfor %}
           </ul>
@@ -94,7 +94,7 @@ An example for a confirmation template is as follows:
 
   {% block per_item %}
       {% if item.can_edit %}
-      <a href="{% url 'wagtailadmin_pages:edit' item.item.id %}" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
+      <a href="{% url 'wagtailadmin_pages:edit' item.item.id %}" target="_blank" rel="noreferrer">{{ item.item.title }}</a>
       {% else %}
       {{ item.item.title }}
       {% endif %}
@@ -171,7 +171,7 @@ Basic example
 .. code-block:: python
 
     from wagtail.admin.views.pages.bulk_actions.page_bulk_action import PageBulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('register_bulk_action')
@@ -192,7 +192,7 @@ Basic example
 .. code-block:: python
 
     from wagtail.images.views.bulk_actions.image_bulk_action import ImageBulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('register_bulk_action')
@@ -213,7 +213,7 @@ Basic example
 .. code-block:: python
 
     from wagtail.documents.views.bulk_actions.document_bulk_action import DocumentBulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('register_bulk_action')
@@ -234,7 +234,7 @@ Basic example
 .. code-block:: python
 
     from wagtail.users.views.bulk_actions.user_bulk_action import UserBulkAction
-    from wagtail.core import hooks
+    from wagtail import hooks
 
 
     @hooks.register('register_bulk_action')

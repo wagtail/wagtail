@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/vendor/jquery-ui/jquery-ui-1.10.3.verdant.css' %}" />
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/vendor/jquery.tagit.css' %}">
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/core.css' %}" type="text/css" />
-    {% hook_output 'insert_global_admin_css' %}
 
     {% main_nav_css %}
+
+    {% hook_output 'insert_global_admin_css' %}
 
     {% block extra_css %}{% endblock %}
 {% endblock %}
@@ -52,11 +53,10 @@
     <script src="{% versioned_static 'wagtailadmin/js/core.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/vendor.js' %}"></script>
     <script src="{% versioned_static 'wagtailadmin/js/wagtailadmin.js' %}"></script>
-    {% hook_output 'insert_global_admin_js' %}
-
-
 
     {% main_nav_js %}
+
+    {% hook_output 'insert_global_admin_js' %}
 
     {% block extra_js %}{% endblock %}
 {% endblock %}

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: pyzenberg <pyzenberg@gmail.com>\n"
 "Language-Team: Persian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -31,9 +31,6 @@ msgstr "انتخاب"
 
 msgid "Search"
 msgstr "جستجو"
-
-msgid "Title"
-msgstr "عنوان"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -68,6 +65,9 @@ msgstr "ویرایش"
 
 msgid "Snippets"
 msgstr "قطعه‌ها"
+
+msgid "Title"
+msgstr "عنوان"
 
 #, python-format
 msgid ""

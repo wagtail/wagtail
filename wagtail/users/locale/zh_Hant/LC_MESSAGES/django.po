@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: ongchi <ihcgno@icloud.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
@@ -270,21 +270,25 @@ msgstr "群組"
 msgid "Search groups"
 msgstr "搜索群組"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "群組 '{0}' 已創建"
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "群組 '{0}' 已更新。"
 
 msgid "The group could not be saved due to errors."
 msgstr "無法儲存該群組。出現錯誤。"
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "群組 '{0}' 已刪除。"
 
 msgid "Search users"
 msgstr "搜索使用者"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "使用者 '{0}'已創建"
 
@@ -294,12 +298,14 @@ msgstr "編輯"
 msgid "The user could not be created due to errors."
 msgstr "無法創建使用者。出現錯誤。"
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "使用者 '{0}' 已更新。"
 
 msgid "The user could not be saved due to errors."
 msgstr "無法儲存使用者。出現錯誤。"
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "使用者 '{0}' 已刪除。"
 

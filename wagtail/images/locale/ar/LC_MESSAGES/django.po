@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
@@ -305,9 +305,6 @@ msgstr "متأسف! فشلت عملية الرفع"
 msgid "Server Error"
 msgstr "خطأ في الخادم"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "الإبلاغ عن هذا الخطأ إلى مشرف الموقع الخاص بك بالمعلومات التالية:"
-
 msgid "Image updated."
 msgstr "تم تحديث الصورة."
 
@@ -323,6 +320,7 @@ msgstr "احذف"
 msgid "Search images"
 msgstr "ابعث صور"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "تم تحديث الصورة {0}."
 
@@ -337,9 +335,11 @@ msgid ""
 "the image."
 msgstr "الصورة الأصلية غير موجودة..  من فضلك غير الأصل أو احذف الصورة"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "الصورة \"{0}\" محذوفة."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "تمت إضافة صورة '{0}'."
 

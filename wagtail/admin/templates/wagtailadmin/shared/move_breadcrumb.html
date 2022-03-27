@@ -1,0 +1,21 @@
+{% load i18n wagtailadmin_tags %}
+
+<nav aria-label="{% trans 'Breadcrumb' %}">
+    <ul class="breadcrumb">
+        {% for page in pages %}
+            <li class="breadcrumb-item">
+                <a href="{% url 'wagtailadmin_pages:move_choose_destination' page_to_move_id page.id %}" class="breadcrumb-link">
+                    {% if forloop.first %}
+                        {% if page.is_root %}{% trans "Root" as label %}{% else %}{% trans 'Home' as label %}{% endif %}
+                        {% icon name="site" class_name="home_icon" title=label %}
+                    {% else %}
+                        <span class="title">{{ page.get_admin_display_title }}</span>
+                    {% endif %}
+                    {% if not forloop.last %}
+                        {% icon name="arrow-right" class_name="arrow_right_icon" %}
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

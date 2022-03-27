@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-24 17:28+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
@@ -176,6 +176,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Kiemelt találatok keresése"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Szerkesztői ajánlat létrehozva ehhez: '{0}'"
 
@@ -185,6 +186,7 @@ msgstr "Szerkeszt"
 msgid "Recommendations have not been created due to errors"
 msgstr "Hiba történt a javaslatok mentése közben"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Szerkesztői ajánlat frissítve ehhez: '{0}'"
 

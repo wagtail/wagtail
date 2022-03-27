@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
@@ -39,12 +39,6 @@ msgstr "Качване"
 
 msgid "Latest documents"
 msgstr "Последни документи"
-
-msgid "Title"
-msgstr "Заглавие"
-
-msgid "File"
-msgstr "Файл"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -79,6 +73,12 @@ msgstr "Запази"
 msgid "Documents"
 msgstr "Документи"
 
+msgid "Title"
+msgstr "Заглавие"
+
+msgid "File"
+msgstr "Файл"
+
 #, python-format
 msgid ""
 "You haven't uploaded any documents. Why not <a href="
@@ -102,15 +102,18 @@ msgstr "Редактирайте тази страница"
 msgid "Delete"
 msgstr "Изтрий"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документа не бе запазен поради грешки."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документа '{0}' е обновен."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документа '{0}' е изтрит."
 

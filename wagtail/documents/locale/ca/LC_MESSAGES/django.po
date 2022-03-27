@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -75,19 +75,6 @@ msgstr "Pujar"
 msgid "Latest documents"
 msgstr "Últims documents"
 
-msgid "Title"
-msgstr "Títol"
-
-msgid "File"
-msgstr "Arxiu"
-
-msgid "Created"
-msgstr "Creada"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "fa %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
@@ -132,6 +119,19 @@ msgstr "Ús"
 
 msgid "Documents"
 msgstr "Documents"
+
+msgid "Title"
+msgstr "Títol"
+
+msgid "File"
+msgstr "Arxiu"
+
+msgid "Created"
+msgstr "Creada"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "fa %(time_period)s"
 
 #, python-format
 msgid ""
@@ -200,20 +200,17 @@ msgstr "Eliminar"
 msgid "Server Error"
 msgstr "Error del servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
-
 msgid "Search documents"
 msgstr "Cercar documents"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Document '{0}' afegit."
 
 msgid "The document could not be saved due to errors."
 msgstr "El document no s'ha pogut desar."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Document '{0}' actualitzat"
 
@@ -221,6 +218,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."
 

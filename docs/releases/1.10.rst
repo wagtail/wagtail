@@ -18,8 +18,6 @@ full-text search functionality. This means that if you use PostgreSQL to manage
 your database, you can now get a good quality search engine without needing
 to install Elasticsearch.
 
-To get started, see :ref:`postgres_search`.
-
 This feature was developed at the Arnhem sprint by Bertrand Bordage, Jaap Roes,
 Arne de Laat and Ramon de Jezus.
 

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-26 13:13+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 15:06+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -177,19 +177,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Legutóbbi dokumentumok"
 
-msgid "Title"
-msgstr "Cím"
-
-msgid "File"
-msgstr "Fájl"
-
-msgid "Created"
-msgstr "Létrehozva"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "ekkor: %(time_period)s"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Sajnos nincs találat a \"<em>%(query_string)s</em>\" kifejezésre"
@@ -255,8 +242,21 @@ msgstr "Dokumentumok"
 msgid "Select all documents in listing"
 msgstr "Összes dokumentum kiválasztása a listában"
 
+msgid "Title"
+msgstr "Cím"
+
+msgid "File"
+msgstr "Fájl"
+
+msgid "Created"
+msgstr "Létrehozva"
+
 msgid "Select document"
 msgstr "Dokumentum kíválasztása"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "ekkor: %(time_period)s"
 
 #, python-format
 msgid ""
@@ -394,18 +394,22 @@ msgstr[1] "%(num_parent_objects)d dokumentum törölve"
 msgid "Server Error"
 msgstr "Szerverhiba"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Kérjük üzenjen a fenntartónak, a következő információ bemásolvásával:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
 
 msgid "Search documents"
 msgstr "Keresés a dokumentumokban"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "A '{0}' indexű dokumentum hozzáadva."
 
 msgid "The document could not be saved due to errors."
 msgstr "A dokumentumot nem lehetett elmenteni."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "A '{0}' indexű dokumentum frissítésre került."
 
@@ -415,6 +419,7 @@ msgstr ""
 "A fájl nem található. Kérjük adjon meg új forrásfájlt, vagy törölje a "
 "dokumentumot"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' dokumentum törölve."
 

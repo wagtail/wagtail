@@ -3,7 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021
+# Amós Oviedo <amos.oviedo@gmail.com>, 2014,2021-2022
 # Amós Oviedo <amos.oviedo@gmail.com>, 2014,2020
 # Daniel Chimeno <daniel@chimeno.me>, 2016
 # Daniel Chimeno <daniel@chimeno.me>, 2016
@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-27 17:04+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-26 08:14+0000\n"
 "Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/torchbox/wagtail/language/"
 "es/)\n"
@@ -87,8 +87,25 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "redirigir a una página"
 
+msgid "target page route"
+msgstr "ruta de la página de destino"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Opcionalmente especifica una ruta en la página de destino a la que "
+"redirigir. Déjala en blanco para redirigir a la ruta de la página por "
+"defecto."
+
 msgid "redirect to any URL"
 msgstr "redirigir cualquier url"
+
+msgid "automatically created"
+msgstr "creada automáticamente"
+
+msgid "created at"
+msgstr "creado el"
 
 msgid "temporary"
 msgstr "temporal"
@@ -233,6 +250,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Buscar redirecciones"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirección '{0}' actualizada"
 
@@ -242,9 +260,11 @@ msgstr "Editar"
 msgid "The redirect could not be saved due to errors."
 msgstr "La redirección no puede ser guardada debido a errores."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirección '{0}' eliminada."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirección '{0}' añadida."
 

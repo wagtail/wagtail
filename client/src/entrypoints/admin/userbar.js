@@ -32,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   list.addEventListener('focusout', handleFocusChange);
 
-
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   resetItemsTabIndex(); // On initialisation, all menu items should be disabled for roving tab index
 
@@ -85,12 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function isFocusOnItems() {
-    return document.activeElement && !!document.activeElement.closest('.wagtail-userbar-items');
+    return (
+      document.activeElement &&
+      !!document.activeElement.closest('.wagtail-userbar-items')
+    );
   }
 
   /** Reset all focusable menu items to `tabIndex = -1` */
   function resetItemsTabIndex() {
-    listItems.forEach(listItem => {
+    listItems.forEach((listItem) => {
       // eslint-disable-next-line no-param-reassign
       listItem.firstElementChild.tabIndex = -1;
     });
@@ -129,7 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (element.firstElementChild === document.activeElement) {
         if (idx + 1 < listItems.length) {
           focusElement(listItems[idx + 1].firstElementChild);
-        } else { // Loop around
+        } else {
+          // Loop around
           setFocusToFirstItem();
         }
       }
@@ -169,24 +172,24 @@ document.addEventListener('DOMContentLoaded', () => {
       // List items are in focus, move focus if needed
       if (isFocusOnItems()) {
         switch (event.key) {
-        case 'ArrowDown':
-          event.preventDefault();
-          setFocusToNextItem();
-          return false;
-        case 'ArrowUp':
-          event.preventDefault();
-          setFocusToPreviousItem();
-          return false;
-        case 'Home':
-          event.preventDefault();
-          setFocusToFirstItem();
-          return false;
-        case 'End':
-          event.preventDefault();
-          setFocusToLastItem();
-          return false;
-        default:
-          break;
+          case 'ArrowDown':
+            event.preventDefault();
+            setFocusToNextItem();
+            return false;
+          case 'ArrowUp':
+            event.preventDefault();
+            setFocusToPreviousItem();
+            return false;
+          case 'Home':
+            event.preventDefault();
+            setFocusToFirstItem();
+            return false;
+          case 'End':
+            event.preventDefault();
+            setFocusToLastItem();
+            return false;
+          default:
+            break;
         }
       }
     }
@@ -195,7 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleFocusChange(event) {
     // Is the focus is still in the menu? If so, don't to anything
-    if (event.relatedTarget == null || (event.relatedTarget && event.relatedTarget.closest('.wagtail-userbar-items'))) {
+    if (
+      event.relatedTarget == null ||
+      (event.relatedTarget &&
+        event.relatedTarget.closest('.wagtail-userbar-items'))
+    ) {
       return;
     }
     // List items not in focus - the menu should close
@@ -209,26 +216,29 @@ document.addEventListener('DOMContentLoaded', () => {
   */
   function handleTriggerKeyDown(event) {
     // Check if the userbar is focused (but not open yet) and should be opened by keyboard input
-    if (trigger === document.activeElement && trigger.getAttribute('aria-expanded') === 'false') {
+    if (
+      trigger === document.activeElement &&
+      trigger.getAttribute('aria-expanded') === 'false'
+    ) {
       switch (event.key) {
-      case 'ArrowUp':
-        event.preventDefault();
-        showUserbar(false);
+        case 'ArrowUp':
+          event.preventDefault();
+          showUserbar(false);
 
-        // Workaround for focus bug
-        // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
-        setTimeout(() => setFocusToLastItem(), 300);
-        break;
-      case 'ArrowDown':
-        event.preventDefault();
-        showUserbar(false);
+          // Workaround for focus bug
+          // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
+          setTimeout(() => setFocusToLastItem(), 300);
+          break;
+        case 'ArrowDown':
+          event.preventDefault();
+          showUserbar(false);
 
-        // Workaround for focus bug
-        // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
-        setTimeout(() => setFocusToFirstItem(), 300);
-        break;
-      default:
-        break;
+          // Workaround for focus bug
+          // Needs extra delay to account for the userbar open animation. Otherwise won't focus properly.
+          setTimeout(() => setFocusToFirstItem(), 300);
+          break;
+        default:
+          break;
       }
     }
   }

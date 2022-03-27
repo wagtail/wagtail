@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:44+0000\n"
 "Last-Translator: Py Data Geek <pydatageek@gmail.com>\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/torchbox/wagtail/"
@@ -284,21 +284,25 @@ msgstr "Gruplar"
 msgid "Search groups"
 msgstr "Gruplarda ara"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "'{0}' grubu oluşturuldu."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "'{0}' grubu güncellendi."
 
 msgid "The group could not be saved due to errors."
 msgstr "Hata nedeniyle grup kaydedilemedi."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "'{0}' grubu silindi."
 
 msgid "Search users"
 msgstr "Kullanıcı ara"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "'{0}' kullanıcısı oluşturuldu."
 
@@ -308,12 +312,14 @@ msgstr "Düzenle"
 msgid "The user could not be created due to errors."
 msgstr "Hata nedeniyle kullanıcı oluşturulamadı."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "'{0}' kullanıcısı güncellendi."
 
 msgid "The user could not be saved due to errors."
 msgstr "Hata nedeniyle kullanıcı kaydedilemedi."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "'{0}' kullanıcısı silindi."
 

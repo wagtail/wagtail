@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-07-24 16:51+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
@@ -150,6 +150,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Αναζήτηση προωθημένων αποτελεσμάτων"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Επιτυχής δημιουργία επιλογή συντακτών για το '{0}'."
 
@@ -159,6 +160,7 @@ msgstr "Επεξεργασία"
 msgid "Recommendations have not been created due to errors"
 msgstr "Οι συστάσεις δεν έχουν δημιουργηθεί λόγω σφαλμάτων"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Επιτυχής διόθρωση επιλογής συντακτών για το '{0}'."
 

@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 class PermissionCheckedMixin:
     """
     Mixin for class-based views to enforce permission checks according to
-    a permission policy (see wagtail.core.permission_policies).
+    a permission policy (see wagtail.permission_policies).
 
     To take advantage of this, subclasses should set the class property:
     * permission_policy (a policy object)
@@ -13,6 +13,7 @@ class PermissionCheckedMixin:
     * any_permission_required (a list of action names - the user must have
       one or more of those permissions)
     """
+
     permission_policy = None
     permission_required = None
     any_permission_required = None

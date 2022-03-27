@@ -8,7 +8,7 @@
 # Bertrand Bordage <bordage.bertrand@gmail.com>, 2015,2017-2018
 # fpoulain <fpoulain@metrodore.fr>, 2018
 # Léo <leo@naeka.fr>, 2016
-# Loic Teixeira, 2020-2021
+# Loic Teixeira, 2020-2022
 # nahuel, 2014
 # nahuel, 2014
 # Sebastien Andrivet <sebastien@andrivet.com>, 2016
@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-28 04:49+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-28 13:26+0000\n"
 "Last-Translator: Loic Teixeira\n"
 "Language-Team: French (http://www.transifex.com/torchbox/wagtail/language/"
 "fr/)\n"
@@ -84,8 +84,24 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "redirige vers une page"
 
+msgid "target page route"
+msgstr "route de la page cible"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"La route de page vers laquelle effectuer la redirection, ou la route par "
+"défaut si laissé vide."
+
 msgid "redirect to any URL"
 msgstr "redirige vers n'importe quelle URL"
+
+msgid "automatically created"
+msgstr "créée automatiquement"
+
+msgid "created at"
+msgstr "créé à"
 
 msgid "temporary"
 msgstr "temporaire"
@@ -227,6 +243,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Rechercher une règle de redirection"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Règle de Redirection « {0} » mise à jour."
 
@@ -236,9 +253,11 @@ msgstr "Modifier"
 msgid "The redirect could not be saved due to errors."
 msgstr "La règle de redirection ne peut être enregistrée du fait d'erreurs."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Règle de Redirection « {0} » supprimée."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Règle de Redirection « {0} » ajoutée."
 

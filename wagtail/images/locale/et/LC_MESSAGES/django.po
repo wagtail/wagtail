@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -373,9 +373,6 @@ msgstr "Vabandust, üleslaadimine ebaõnnestus."
 msgid "Server Error"
 msgstr "Serveri viga"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Teatage sellest veast oma veebimeistrile järgmise teabega:"
-
 msgid "Image updated."
 msgstr "Pilt on värskendatud."
 
@@ -391,6 +388,7 @@ msgstr "Kustuta"
 msgid "Search images"
 msgstr "Piltide otsimine"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Pilt „{0}” on värskendatud."
 
@@ -405,9 +403,11 @@ msgid ""
 "the image."
 msgstr "Allikapildifaili ei leitud. Palun muutke allikat või kustutage pilt."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Pilt '{0}' on kustutatud."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Pilt '{0}' on lisatud."
 

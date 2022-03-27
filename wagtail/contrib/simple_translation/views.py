@@ -10,7 +10,8 @@ from django.utils.translation import gettext_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
-from wagtail.core.models import Page, TranslatableMixin
+from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
+from wagtail.models import Page, TranslatableMixin
 from wagtail.snippets.views.snippets import get_snippet_model_from_url_params
 
 from .forms import SubmitTranslationForm
@@ -31,7 +32,7 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
             return SubmitTranslationForm(self.object, self.request.POST)
         return SubmitTranslationForm(self.object)
 
-    def get_success_url(self):
+    def get_success_url(self, translated_object=None):
         raise NotImplementedError
 
     def get_context_data(self, **kwargs):
@@ -47,34 +48,38 @@ class SubmitTranslationView(SingleObjectMixin, TemplateView):
         form = self.get_form()
 
         if form.is_valid():
+            include_subtree = form.cleaned_data["include_subtree"]
+            user = request.user
+
             with transaction.atomic():
                 for locale in form.cleaned_data["locales"]:
                     if isinstance(self.object, Page):
-                        self.object.copy_for_translation(locale)
-                        if form.cleaned_data["include_subtree"]:
+                        action = CopyPageForTranslationAction(
+                            page=self.object,
+                            locale=locale,
+                            include_subtree=include_subtree,
+                            user=user,
+                        )
+                        action.execute(skip_permission_checks=True)
 
-                            def _walk(current_page):
-                                for child_page in current_page.get_children():
-                                    child_page.copy_for_translation(locale)
-
-                                    if child_page.numchild:
-                                        _walk(child_page)
-
-                            _walk(self.object)
                     else:
                         self.object.copy_for_translation(
                             locale
                         ).save()  # pragma: no cover
 
+                single_translated_object = None
                 if len(form.cleaned_data["locales"]) == 1:
                     locales = form.cleaned_data["locales"][0].get_display_name()
+                    single_translated_object = self.object.get_translation(
+                        form.cleaned_data["locales"][0]
+                    )
                 else:
                     # Note: always plural
                     locales = _("{} locales").format(len(form.cleaned_data["locales"]))
 
                 messages.success(self.request, self.get_success_message(locales))
 
-                return redirect(self.get_success_url())
+                return redirect(self.get_success_url(single_translated_object))
 
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
@@ -102,7 +107,12 @@ class SubmitPageTranslationView(SubmitTranslationView):
 
         return page
 
-    def get_success_url(self):
+    def get_success_url(self, translated_page=None):
+        if translated_page:
+            # If the editor chose a single locale to translate to, redirect to
+            # the newly translated page's edit view.
+            return reverse("wagtailadmin_pages:edit", args=[translated_page.id])
+
         return reverse("wagtailadmin_explore", args=[self.get_object().get_parent().id])
 
     def get_success_message(self, locales):
@@ -127,7 +137,19 @@ class SubmitSnippetTranslationView(SubmitTranslationView):
 
         return get_object_or_404(model, pk=unquote(self.kwargs["pk"]))
 
-    def get_success_url(self):
+    def get_success_url(self, translated_snippet=None):
+        if translated_snippet:
+            # If the editor chose a single locale to translate to, redirect to
+            # the newly translated snippet's edit view.
+            return reverse(
+                "wagtailsnippets:edit",
+                args=[
+                    self.kwargs["app_label"],
+                    self.kwargs["model_name"],
+                    translated_snippet.pk,
+                ],
+            )
+
         return reverse(
             "wagtailsnippets:edit",
             args=[

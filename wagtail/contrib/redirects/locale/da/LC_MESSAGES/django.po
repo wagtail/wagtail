@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mads Kronborg <madskronborg99@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-24 16:52+0000\n"
+"Last-Translator: Benjamin Bach <benjaoming@gmail.com>\n"
 "Language-Team: Danish (http://www.transifex.com/torchbox/wagtail/language/"
 "da/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,12 @@ msgstr ""
 
 msgid "Type"
 msgstr "Type"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "created at"
+msgstr "oprettet"
 
 msgid "Save"
 msgstr "Gem"
@@ -35,6 +41,9 @@ msgstr "Forhåndsvis"
 
 msgid "Editing"
 msgstr "Redigerer"
+
+msgid "Site"
+msgstr "Site"
 
 msgid "Edit"
 msgstr "Rediger"

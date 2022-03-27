@@ -3,16 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # Matt Westcott <matthew@torchbox.com>, 2016
-# Tiago Henriques <trinosauro@gmail.com>, 2016
+# Tiago Henriques <trinosauro@gmail.com>, 2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-29 23:40+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail ModelAdmin"
-msgstr "Wagtail ModelAdmin"
+msgstr "ModelAdmin Wagtail "
 
 msgid "Parent page"
 msgstr "Página-mãe"
@@ -91,7 +91,7 @@ msgid "Saving…"
 msgstr "A gravar…"
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 #, python-format
 msgid "%(model_name)s could not be deleted"
@@ -105,7 +105,7 @@ msgid ""
 msgstr ""
 "'%(instance_name)s' é neste momento referenciado por outros objetos, e não "
 "pode ser apagado sem comprometer a integridade dos dados. Para apagar "
-"corretamente, remova primeiro as referências dos seguintes objetos e tente "
+"corretamente, retire primeiro as referências dos seguintes objetos e tente "
 "novamente:"
 
 msgid "Go back to listing"
@@ -115,7 +115,7 @@ msgid "Yes, delete"
 msgstr "Sim, apagar"
 
 msgid "No, don't delete"
-msgstr "Não, não eliminar"
+msgstr "Não, não apagar"
 
 msgid "Home"
 msgstr "Início"
@@ -124,14 +124,20 @@ msgstr "Início"
 msgid " By %(filter_title)s "
 msgstr " Por %(filter_title)s "
 
+msgid "Last updated"
+msgstr "Última atualização"
+
 msgid "History"
 msgstr "Histórico"
 
 #, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s de %(all_count)s"
+
+#, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr ""
-"Lamento, mas não existem %(name)s que correspondam aos parâmetros da sua "
-"pesquisa."
+"Lamento, mas não há %(name)s que correspondam aos parâmetros da sua pesquisa."
 
 msgid "Search for"
 msgstr "Pesquisar por"
@@ -147,7 +153,7 @@ msgid "Download CSV"
 msgstr "Descarregar CSV"
 
 msgid "Filter"
-msgstr "Filtro"
+msgstr "Filtrar"
 
 #, python-format
 msgid ""
@@ -169,7 +175,8 @@ msgid ""
 "                                            "
 msgstr ""
 "\n"
-"Porque não <a href=\"%(url)s\">criar um</a>?\n"
+"                                                Que tal <a href=\"%(url)s"
+"\">criar um</a>?\n"
 "                                            "
 
 msgid "Pagination"
@@ -181,7 +188,7 @@ msgstr "Página %(current_page)s de %(num_pages)s."
 
 #, python-format
 msgid "Back to %(model_name)s list"
-msgstr "Regressar a listagem de %(model_name)s"
+msgstr "Voltar à lista de %(model_name)s"
 
 msgid "Previous"
 msgstr "Anterior"
@@ -195,21 +202,21 @@ msgstr "%(model_name)s '%(instance)s' criado."
 
 #, python-format
 msgid "The %s could not be created due to errors."
-msgstr "Não foi possível criar o %s devido a erros."
+msgstr "Não foi possível criar %s devido a erros."
 
 msgid "New"
-msgstr "Nova"
+msgstr "Novo"
 
 #, python-format
 msgid "Create new %s"
 msgstr "Criar novo %s"
 
 msgid "Editing"
-msgstr "A editar"
+msgstr "A alterar"
 
 #, python-format
 msgid "Editing %s"
-msgstr "A editar %s"
+msgstr "A alterar %s"
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' updated."
@@ -217,7 +224,7 @@ msgstr "%(model_name)s '%(instance)s' atualizado"
 
 #, python-format
 msgid "The %s could not be saved due to errors."
-msgstr "O %s não pôde ser guardado devido a erros."
+msgstr "O %s não pôde ser gravado devido a erros."
 
 #, python-format
 msgid "Confirm deletion of %s"
@@ -229,11 +236,11 @@ msgid ""
 "related to it, they may also be affected."
 msgstr ""
 "Tem a certeza que quer apagar este %s? Se outras coisas no seu site "
-"estiverem relacionados com ele, também podem ser afetadas."
+"estiverem relacionadas, também podem ser afetadas."
 
 #, python-format
 msgid "%(model_name)s '%(instance)s' deleted."
-msgstr "%(model_name)s '%(instance)s' eliminado."
+msgstr "%(model_name)s '%(instance)s' apagado."
 
 msgid "Inspecting"
 msgstr "A inspecionar"

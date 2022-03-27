@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
@@ -321,11 +321,6 @@ msgstr "La pujada ha fallat."
 msgid "Server Error"
 msgstr "Error del servidor"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
-
 msgid "Image updated."
 msgstr "Imatge actualitzada."
 
@@ -341,6 +336,7 @@ msgstr "Eliminar"
 msgid "Search images"
 msgstr "Cercar imatges"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Imatge '{0}' actualitzada."
 
@@ -357,9 +353,11 @@ msgstr ""
 "No s'ha trobat el fitxer origen de la imatge. Canvieu l'origen o elimineu la "
 "imatge."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Imatge '{0}' eliminada."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Imatge '{0}' afegida."
 

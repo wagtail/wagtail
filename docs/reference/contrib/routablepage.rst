@@ -30,7 +30,7 @@ Add ``"wagtail.contrib.routable_page"`` to your INSTALLED_APPS:
 The basics
 ==========
 
-To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and :class:`wagtail.core.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.routable_page.models.route``. These view methods behave like ordinary Django view functions, and must return an ``HttpResponse`` object; typically this is done through a call to ``django.shortcuts.render``.
+To use ``RoutablePageMixin``, you need to make your class inherit from both :class:`wagtail.contrib.routable_page.models.RoutablePageMixin` and :class:`wagtail.models.Page`, then define some view methods and decorate them with ``wagtail.contrib.routable_page.models.route``. These view methods behave like ordinary Django view functions, and must return an ``HttpResponse`` object; typically this is done through a call to ``django.shortcuts.render``.
 
 Here's an example of an ``EventIndexPage`` with three views, assuming that an ``EventPage`` model with an ``event_date`` field has been defined elsewhere:
 
@@ -38,8 +38,8 @@ Here's an example of an ``EventIndexPage`` with three views, assuming that an ``
 
     import datetime
     from django.http import JsonResponse
-    from wagtail.core.fields import RichTextField
-    from wagtail.core.models import Page
+    from wagtail.fields import RichTextField
+    from wagtail.models import Page
     from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 
@@ -141,7 +141,7 @@ Reversing URLs
     >>> event_page.reverse_subpage('events_for_year', args=(2015, ))
     'year/2015/'
 
-This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.core.models.Page.url` or the :attr:`~wagtail.core.models.Page.full_url` attribute on your page:
+This method only returns the part of the URL within the page. To get the full URL, you must append it to the values of either the :attr:`~wagtail.models.Page.url` or the :attr:`~wagtail.models.Page.full_url` attribute on your page:
 
 .. code-block:: python
 
@@ -158,7 +158,7 @@ The route name defaults to the name of the view. You can override this name with
 
 .. code-block:: python
 
-    from wagtail.core.models import Page
+    from wagtail.models import Page
     from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 

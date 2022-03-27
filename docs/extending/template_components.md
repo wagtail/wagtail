@@ -1,10 +1,10 @@
 # Template components
 
-Working with objects that know how to render themselves as elements on an HTML template is a common pattern seen throughout the Wagtail admin. For example, the admin homepage is a view provided by the central `wagtail.admin` app, but brings together information panels sourced from various other modules of Wagtail, such as images and documents (potentially along with others provided by third-party packages). These panels are passed to the homepage via the [`construct_homepage_panels`](../reference/hooks.html#construct-homepage-panels) hook, and each one is responsible for providing its own HTML rendering. In this way, the module providing the panel has full control over how it appears on the homepage.
+Working with objects that know how to render themselves as elements on an HTML template is a common pattern seen throughout the Wagtail admin. For example, the admin homepage is a view provided by the central `wagtail.admin` app, but brings together information panels sourced from various other modules of Wagtail, such as images and documents (potentially along with others provided by third-party packages). These panels are passed to the homepage via the [`construct_homepage_panels`](construct_homepage_panels) hook, and each one is responsible for providing its own HTML rendering. In this way, the module providing the panel has full control over how it appears on the homepage.
 
 Wagtail implements this pattern using a standard object type known as a **component**. A component is a Python object that provides the following methods and properties:
 
-```eval_rst
+```{eval-rst}
 .. method:: render_html(self, parent_context=None)
 
 Given a context dictionary from the calling template (which may be a :py:class:`Context <django.template.Context>` object or a plain ``dict`` of context variables), returns the string representation to be inserted into the template. This will be subject to Django's HTML escaping rules, so a return value consisting of HTML should typically be returned as a :py:mod:`SafeString <django.utils.safestring>` instance.
@@ -12,14 +12,14 @@ Given a context dictionary from the calling template (which may be a :py:class:`
 .. attribute:: media
 
 A (possibly empty) :doc:`form media <django:topics/forms/media>` object defining JavaScript and CSS resources used by the component.
-
-.. note::
-   Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the ``Component`` class described below, and user code that works with components should not assume this (for example, it must not use ``isinstance`` to check whether a given value is a component).
 ```
 
-```eval_rst
-.. _creating_template_components:
+```{note}
+   Any object implementing this API can be considered a valid component; it does not necessarily have to inherit from the `Component` class described below, and user code that works with components should not assume this (for example, it must not use `isinstance` to check whether a given value is a component).
 ```
+
+(creating_template_components)=
+
 ## Creating components
 
 The preferred way to create a component is to define a subclass of `wagtail.admin.ui.components.Component` and specify a `template_name` attribute on it. The rendered template will then be used as the component's HTML representation:

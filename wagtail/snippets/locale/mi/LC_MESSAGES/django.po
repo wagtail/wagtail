@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Awatea Randall <awatea@octave.nz>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
@@ -49,9 +49,6 @@ msgstr[0] ""
 msgstr[1] ""
 "\n"
 "%(counter)s e whakarite"
-
-msgid "Title"
-msgstr "Taitara"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -130,6 +127,9 @@ msgstr "Pitopito kōrero"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Kōwhiri ngā %(snippet_type_name_plural)s katoa"
+
+msgid "Title"
+msgstr "Taitara"
 
 #, python-format
 msgid "Select %(snippet)s"

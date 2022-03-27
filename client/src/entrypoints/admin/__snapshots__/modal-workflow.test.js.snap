@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`modal-workflow should generate a modal when called that is removed when closed 1`] = `
+HTMLCollection [
+  <div
+    aria-hidden="false"
+    class="modal fade in"
+    role="dialog"
+    tabindex="-1"
+  >
+    
+  
+    <div
+      class="modal-dialog"
+    >
+      
+    
+      <div
+        class="modal-content"
+      >
+        
+      
+        <button
+          class="button close button--icon text-replace"
+          data-dismiss="modal"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="icon icon-cross"
+          >
+            <use
+              href="#icon-cross"
+            />
+          </svg>
+          Close
+        </button>
+        
+      
+        <div
+          class="modal-body"
+        >
+          <div
+            id="url"
+          >
+            path/to/endpoint
+          </div>
+        </div>
+        
+    
+      </div>
+      <!-- /.modal-content -->
+      
+  
+    </div>
+    <!-- /.modal-dialog -->
+    
+
+  </div>,
+]
+`;

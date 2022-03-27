@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Krzysztof Jeziorny <github@jeziorny.net>, 2021
 # Łukasz Bołdys (Lukasz Boldys), 2014
 # Miłosz Miśkiewicz, 2016-2017
 # Miłosz Miśkiewicz, 2017-2021
@@ -12,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
@@ -164,6 +165,21 @@ msgstr "Obraz"
 
 msgid "images"
 msgstr "Obrazy"
+
+msgid "Add tags to images"
+msgstr "Dodaj tagi do obrazów"
+
+msgid "Yes, add"
+msgstr "Tak, dodaj"
+
+msgid "No, don't add"
+msgstr "Nie, nie dodawaj"
+
+msgid "Add images to collection"
+msgstr "Dodaj obrazy do kolekcji"
+
+msgid "Delete images"
+msgstr "Usuń obrazy"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -416,9 +432,6 @@ msgstr "Przepraszamy, przesyłanie się nie powiodło."
 msgid "Server Error"
 msgstr "Błąd serwera"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
-
 msgid "Image updated."
 msgstr "Uaktualniono obraz."
 
@@ -434,6 +447,7 @@ msgstr "Usuń"
 msgid "Search images"
 msgstr "Szukaj obrazów"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Uaktualniono obraz '{0}'."
 
@@ -450,9 +464,11 @@ msgstr ""
 "Plik źródłowy obrazu nie mógł zostać znaleziony. Proszę zmień źródło lub "
 "usuń obraz."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Usunięto obraz '{0}'."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Dodano obraz '{0}'."
 

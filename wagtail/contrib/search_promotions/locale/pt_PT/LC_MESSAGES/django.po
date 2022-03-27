@@ -4,17 +4,17 @@
 #
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2020-07-24 17:15+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-02-03 10:12+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search promotions"
-msgstr "Promotor de pesquisa Wagtail"
+msgstr "Promoção de pesquisa Wagtail"
 
 msgid "Please specify at least one recommendation for this search term."
 msgstr ""
@@ -55,11 +55,12 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<p>Os resultados de pesquisa promovidos servem para recomendar páginas "
-"específicas que podem não aparecer bem posicionadas nos resultados de "
-"pesquisa. Por exemplo, recomendar a sua página principal de donativos a um "
-"utilizador que pesquisa um termo menos comum como \"<em>dar</em>\".</p>\n"
-"        "
+"                <p>Os resultados de pesquisa promovidos servem para "
+"recomendar determinadas páginas que podem não aparecer bem posicionadas nos "
+"resultados de pesquisa. Por exemplo, recomendar a sua página principal de "
+"donativos a um utilizador que pesquisa um termo menos comum como \"<em>dar</"
+"em>\".</p>\n"
+"            "
 
 msgid ""
 "\n"
@@ -70,15 +71,15 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"<p>O campo \"Pesquisar termo(s)/frase\" abaixo deverá conter a pesquisa "
-"completa e exata para a qual deseja receber resultados recomendados, "
-"<em>incluindo</em> quaisquer erros de ortografia ou do utilizador. Para "
-"ajudar, pode escolher entre os termos de procura mais populares com os "
+"                <p>O campo \"Pesquisar termo(s)/frase\" abaixo deverá conter "
+"a pesquisa completa e exata para a qual deseja receber resultados "
+"recomendados, <em>incluindo</em> quaisquer erros de ortografia/utilizador. "
+"Para ajudar, pode escolher entre os termos de pesquisa mais populares com os "
 "utilizadores do seu site.</p>\n"
-"        "
+"            "
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 #, python-format
 msgid "Delete %(query)s"
@@ -107,7 +108,7 @@ msgid "Move up"
 msgstr "Subir"
 
 msgid "Move down"
-msgstr "Baixar"
+msgstr "Descer"
 
 msgid "Promoted search result"
 msgstr "Resultado de pesquisa promovido"
@@ -128,10 +129,10 @@ msgid "Search term(s)"
 msgstr "Pesquisar termo(s)"
 
 msgid "Order by search term alphabetically"
-msgstr "Ordenar a pesquisa alfabeticamente A-Z"
+msgstr "Ordenar por termos de pesquisa em ordem alfabética"
 
 msgid "Order by search term reverse alphabetically"
-msgstr "Ordenar a pesquisa alfabeticamente Z-A"
+msgstr "Ordenar por termos de pesquisa em ordem alfabética decrescente"
 
 msgid "Promoted results"
 msgstr "Resultados promovidos"
@@ -140,10 +141,10 @@ msgid "Views (past week)"
 msgstr "Visualizações (última semana)"
 
 msgid "Order by views (lowest first)"
-msgstr "Ordenar por número de visitas (menos primeiro)"
+msgstr "Ordenar por número de visitas (por ordem crescente)"
 
 msgid "Order by views (highest first)"
-msgstr "Ordenar por número de visitas (mais primeiro)"
+msgstr "Ordenar por número de visitas (por ordem decrescente)"
 
 msgid "Edit this promotion"
 msgstr "Alterar esta promoção"
@@ -180,12 +181,13 @@ msgid ""
 "No promoted results have been created. Why not <a href="
 "\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
 msgstr ""
-"Não existem resultados promovidos. Porque não <a href="
-"\"%(wagtailsearchpromotions_add_url)s\">criar um</a>?"
+"Ainda não foram criados resultados promovidos. Que tal <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">adicionar um</a>"
 
 msgid "Search promoted results"
 msgstr "Pesquisar resultados promovidos"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Escolhas do editor para '{0}' criadas."
 
@@ -195,6 +197,7 @@ msgstr "Alterar"
 msgid "Recommendations have not been created due to errors"
 msgstr "As recomendações não foram criadas devido a erros."
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Escolhas do editor para '{0}' atualizadas."
 

@@ -1,20 +1,20 @@
 $icon-size: 1em;
 
 .TooltipEntity {
-    cursor: pointer;
+  cursor: pointer;
 
-    &:hover {
-        color: $color-teal;
-    }
+  &:hover {
+    color: $color-teal;
+  }
 
-    .icon-warning {
-        color: $color-red;
-    }
+  .icon-warning {
+    color: $color-red;
+  }
 
-    .icon {
-        width: $icon-size;
-        height: $icon-size;
-        margin-right: 0.2em;
-        vertical-align: middle;
-    }
+  .icon {
+    width: $icon-size;
+    height: $icon-size;
+    margin-inline-end: 0.2em;
+    vertical-align: middle;
+  }
 }

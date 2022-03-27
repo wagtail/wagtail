@@ -53,7 +53,7 @@ describe('Portal', () => {
       shallow(
         <Portal onClose={onClose} closeOnClick>
           Test!
-        </Portal>
+        </Portal>,
       );
       expect(document.addEventListener).toHaveBeenCalledWith('mouseup', func);
     });
@@ -63,7 +63,7 @@ describe('Portal', () => {
       shallow(
         <Portal onClose={onClose} closeOnType>
           Test!
-        </Portal>
+        </Portal>,
       );
       expect(document.addEventListener).toHaveBeenCalledWith('keyup', func);
     });
@@ -73,7 +73,7 @@ describe('Portal', () => {
       shallow(
         <Portal onClose={onClose} closeOnResize>
           Test!
-        </Portal>
+        </Portal>,
       );
       expect(window.addEventListener).toHaveBeenCalledWith('resize', func);
     });
@@ -95,7 +95,7 @@ describe('Portal', () => {
       const wrapper = mount(
         <Portal onClose={onClose}>
           <div id="test">Test</div>
-        </Portal>
+        </Portal>,
       );
       const target = document.querySelector('#test');
 

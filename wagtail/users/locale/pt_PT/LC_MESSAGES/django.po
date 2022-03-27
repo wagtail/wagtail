@@ -5,19 +5,19 @@
 # Translators:
 # Hugo Cachitas, 2020
 # Jose Lourenco <jose@lourenco.ws>, 2014-2016
-# Luís Tiago Favas <al62006@utad.eu>, 2020
-# Luís Tiago Favas <al62006@utad.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-28 21:11+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -97,27 +97,26 @@ msgid "Receive notification when your page edit is rejected"
 msgstr "Receber notificação quando a sua alteração de página for rejeitada"
 
 msgid "updated comments notifications"
-msgstr "atualizadas as notificações de comentários"
+msgstr "notificações de comentários atualizadas"
 
 msgid ""
 "Receive notification when comments have been created, resolved, or deleted "
 "on a page that you have subscribed to receive comment notifications on"
 msgstr ""
 "Receba notificações quando comentários são criados, resolvidos, ou apagados "
-"de uma página na qual se encontra sobrescrito(a) para receber notificações "
-"de comentários"
+"numa página cujas notificações segue"
 
 msgid "preferred language"
-msgstr "linguagem preferida"
+msgstr "língua preferida"
 
 msgid "Select language for the admin"
-msgstr "Selecione uma linguagem para a administração"
+msgstr "Selecione uma língua para a administração"
 
 msgid "current time zone"
 msgstr "fuso horário atual"
 
 msgid "Select your current time zone"
-msgstr "Seleciona o teu fuso horário atual"
+msgstr "Selecione o seu fuso horário atual"
 
 msgid "profile picture"
 msgstr "foto de perfil"
@@ -128,14 +127,72 @@ msgstr "perfil do utilizador"
 msgid "user profiles"
 msgstr "perfis de utilizador"
 
+#, python-format
+msgid "Assign role to 1 user "
+msgid_plural "Assign role to %(counter)s users"
+msgstr[0] "Atribuir papel a 1 utilizador"
+msgstr[1] "Atribuir papel a %(counter)s utilizadores"
+
+msgid "Assign role"
+msgstr "Atribuir papel"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Tem a certeza que quer atribuir este papel a estes utilizadores?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "Não tem permissão para alterar este utilizador"
+msgstr[1] "Não tem permissão para alterar estes utilizadores"
+
+msgid "Yes, assign"
+msgstr "Sim, atribuir"
+
+msgid "No, don't assign"
+msgstr "Não, não atribuir"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Apagar 1 utilizador"
+msgstr[1] "Apagar %(counter)s utilizadores"
+
 msgid "Delete"
 msgstr "Apagar"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Tem a certeza que quer apagar estes utilizadores?"
+
+msgid "You don't have permission to delete this user"
+msgid_plural "You don't have permission to delete these users"
+msgstr[0] "Não tem permissão para apagar este utilizador"
+msgstr[1] "Não tem permissão para apagar estes utilizadores"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
 
 msgid "No, don't delete"
-msgstr "Não, não eliminar"
+msgstr "Não, não apagar"
+
+#, python-format
+msgid "Change active state for 1 user "
+msgid_plural "Change active state for %(counter)s users"
+msgstr[0] "Mudar o estado ativo para 1 utilizador"
+msgstr[1] "Mudar o estado ativo para %(counter)s utilizadores"
+
+msgid "Set active state"
+msgstr "Ativar estado"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr "Tem a certeza que quer alterar o estado ativo destes utilizadores?"
+
+msgid "You cannot change your own active status"
+msgstr "Não pode alterar seu próprio estado ativo"
+
+msgid "Yes, change state"
+msgstr "Sim, mudar estado"
+
+msgid "No, don't change state"
+msgstr "Não, não alterar estado"
 
 msgid "Delete group"
 msgstr "Apagar grupo"
@@ -179,10 +236,10 @@ msgid "Editing"
 msgstr "A alterar"
 
 msgid "View users in this group"
-msgstr "Ver os utilizadores neste grupo"
+msgstr "Ver os utilizadores deste grupo"
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 msgid "Permissions"
 msgstr "Permissões"
@@ -198,6 +255,9 @@ msgstr "Adicionar"
 
 msgid "Change"
 msgstr "Alterar"
+
+msgid "Custom permissions"
+msgstr "Permissões personalizadas"
 
 msgid "Other permissions"
 msgstr "Outras permissões"
@@ -226,7 +286,7 @@ msgid ""
 "There are no groups configured. Why not <a href="
 "\"%(wagtailusers_create_group_url)s\">add some</a>?"
 msgstr ""
-"Não existem grupos configurados. Porque não <a href="
+"Ainda não foi configurado nenhum grupo. Que tal <a href="
 "\"%(wagtailusers_create_group_url)s\">criar um</a>?"
 
 msgid "Delete user"
@@ -249,6 +309,9 @@ msgstr "Utilizadores"
 
 msgid "Add a user"
 msgstr "Adicionar um utilizador"
+
+msgid "Select all users in listing"
+msgstr "Selecionar todos os utilizadores da listagem"
 
 msgid "Username"
 msgstr "Utilizador"
@@ -303,16 +366,49 @@ msgid ""
 "The %(group_name)s group has no users configured. Why not <a href="
 "\"%(wagtailusers_add_url)s\">add some</a>?"
 msgstr ""
-"O grupo %(group_name)s ainda não tem utilizadores configurados. Porque não "
-"<a href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+"O grupo %(group_name)s ainda não tem utilizadores configurados. Que tal <a "
+"href=\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
 
 #, python-format
 msgid ""
 "There are no users configured. Why not <a href=\"%(wagtailusers_add_url)s"
 "\">add some</a>?"
 msgstr ""
-"Não existem utilizadores configurados. Porque não <a href="
+"Ainda não existem utilizadores configurados. Que tal <a href="
 "\"%(wagtailusers_add_url)s\">adicionar alguns</a>?"
+
+msgid "Assign role to selected users"
+msgstr "Atribuir papel aos utilizadores selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been assigned as %(role)s"
+msgid_plural "%(num_parent_objects)d users have been assigned as %(role)s"
+msgstr[0] "%(num_parent_objects)d utilizador foi adicionado a %(role)s"
+msgstr[1] "%(num_parent_objects)d utilizadores foram adicionados a %(role)s"
+
+msgid "Delete selected users"
+msgstr "Apagar utilizadores selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been deleted"
+msgid_plural "%(num_parent_objects)d users have been deleted"
+msgstr[0] "%(num_parent_objects)d utilizador foi apagado"
+msgstr[1] "%(num_parent_objects)d utilizadores foram apagados"
+
+msgid "Change the active state for selected users"
+msgstr "Alterar o estado ativo dos utilizadores selecionados"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as active"
+msgid_plural "%(num_parent_objects)d users have been marked as active"
+msgstr[0] "%(num_parent_objects)d utilizador foi marcado como ativo"
+msgstr[1] "%(num_parent_objects)d utilizadores foram marcados como ativos"
+
+#, python-format
+msgid "%(num_parent_objects)d user has been marked as inactive"
+msgid_plural "%(num_parent_objects)d users have been marked as inactive"
+msgstr[0] "%(num_parent_objects)d utilizador foi marcado como inativo"
+msgstr[1] "%(num_parent_objects)d utilizadores foram marcados como inativos"
 
 msgid "Groups"
 msgstr "Grupos"
@@ -320,21 +416,25 @@ msgstr "Grupos"
 msgid "Search groups"
 msgstr "Pesquisar grupos"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupo '{0}' criado."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupo '{0}' atualizado."
 
 msgid "The group could not be saved due to errors."
 msgstr "O grupo não pôde ser guardado devido a erros."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupo '{0}' apagado."
 
 msgid "Search users"
 msgstr "Pesquisar utilizadores"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Utilizador '{0}' criado."
 
@@ -344,17 +444,19 @@ msgstr "Alterar"
 msgid "The user could not be created due to errors."
 msgstr "O utilizador não pôde ser criado devido a erros."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Utilizador '{0}' atualizado."
 
 msgid "The user could not be saved due to errors."
 msgstr "O utilizador não pôde ser guardado devido a erros."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
-msgstr "Utilisador '{0}' apagado."
+msgstr "Utilizador '{0}' apagado."
 
 msgid "Edit this user"
-msgstr "Editar este utilisador"
+msgstr "Alterar este utilizador"
 
 msgid "Delete this user"
-msgstr "Apagar este utilisador"
+msgstr "Apagar este utilizador"

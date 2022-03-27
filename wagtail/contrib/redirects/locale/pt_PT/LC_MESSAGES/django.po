@@ -4,19 +4,19 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015-2016
-# Luís Tiago Favas <al62006@utad.eu>, 2020
-# Luís Tiago Favas <al62006@utad.eu>, 2021
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2021
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-04-21 17:06+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-02-03 10:03+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -81,8 +81,25 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "redirecionar para uma página"
 
+msgid "target page route"
+msgstr "caminho para a página de destino"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Especifique opcionalmente um caminho de redirecionamento na página de "
+"destino. Deixe em branco para redirecionar para o caminho de página pré-"
+"definido."
+
 msgid "redirect to any URL"
 msgstr "redirecionar para qualquer URL"
+
+msgid "automatically created"
+msgstr "criado automaticamente"
+
+msgid "created at"
+msgstr "criado em"
 
 msgid "temporary"
 msgstr "temporário"
@@ -94,7 +111,7 @@ msgid "Add redirect"
 msgstr "Adicionar redirecionamento"
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 msgid "Redirects"
 msgstr "Redirecionamentos"
@@ -112,11 +129,11 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"                <p>Selecione um ficheiro onde os redirecionamentos estão "
-"separados por linha e as colunas contêm representação <code>de</code> e "
-"<code>para</code> (podem ter um nome qualquer).</p>\n"
-"                <p>Depois de submeter será levado para uma página onde irá "
-"customizar e confirmar os redirecionamentos obtidos pelo ficheiro antes de "
+"                <p>Selecione um ficheiro onde os redirecionamentos estão em "
+"linhas distintas com colunas que representam <code>de</code> e <code>para</"
+"code> (podem ter um nome qualquer).</p>\n"
+"                <p>Após enviar o ficheiro, será levado para uma página de "
+"confirmação onde poderá customizar os seus redirecionamentos antes de estes "
 "serem importados.</p>\n"
 "            "
 
@@ -146,7 +163,7 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 msgid "Preview"
-msgstr "Prever"
+msgstr "Visualizar"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -159,14 +176,14 @@ msgid "Delete redirect"
 msgstr "Apagar redirecionamento"
 
 msgid "Summary"
-msgstr "Sumário"
+msgstr "Resumo"
 
 #, python-format
 msgid ""
 "Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
 msgstr ""
-"Encontrados %(total)s redirecionamentos, criados %(successes)s e foram "
-"encontrados %(errors)s erros."
+"Encontrados %(total)s redirecionamentos, criados %(successes)s e encontrados "
+"%(errors)s erros."
 
 msgid "From"
 msgstr "De"
@@ -220,12 +237,13 @@ msgid ""
 "No redirects have been created. Why not <a href="
 "\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
 msgstr ""
-"Não existem redirecionamentos. Porque não <a href="
-"\"%(wagtailredirects_add_redirect_url)s\">criar um</a>?"
+"Ainda não foi criado nenhum redirecionamento. Que tal <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">adicionar um</a>?"
 
 msgid "Search redirects"
 msgstr "Pesquisar redirecionamentos"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Redirecionamento '{0}' atualizado."
 
@@ -235,9 +253,11 @@ msgstr "Alterar"
 msgid "The redirect could not be saved due to errors."
 msgstr "O redirecionamento não pôde ser guardado devido a erros."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Redirecionamento '{0}' apagado."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Redirecionamento '{0}' adicionado."
 
@@ -245,21 +265,21 @@ msgid "The redirect could not be created due to errors."
 msgstr "O redirecionamento não pôde ser criado devido a erros."
 
 msgid "File format of type \"{}\" is not supported"
-msgstr "O formato do ficheiro com extensão \"{}\" não é suportado"
+msgstr "O formato de ficheiro do tipo \"{}\" não é permitido"
 
 #, python-format
 msgid "Imported file has a wrong encoding: %s"
-msgstr "O ficheiro importado têm uma codificação errada: %s"
+msgstr "O ficheiro importado tem uma codificação errada: %s"
 
 #, python-format
 msgid "%(error)s encountered while trying to read file: %(filename)s"
-msgstr "%(error)s erros encontrados a tentar ler o ficheiro: %(filename)s"
+msgstr "%(error)s erros encontrados ao tentar ler o ficheiro: %(filename)s"
 
 #, python-format
 msgid "Imported %(total)d redirect"
 msgid_plural "Imported %(total)d redirects"
-msgstr[0] "Importado no total %(total)d redirecionamento"
-msgstr[1] "Importados no total %(total)d redirecionamentos"
+msgstr[0] "Importado %(total)d redirecionamento"
+msgstr[1] "Importados %(total)d redirecionamentos"
 
 msgid "Export Redirects"
 msgstr "Exportar Redirecionamentos"

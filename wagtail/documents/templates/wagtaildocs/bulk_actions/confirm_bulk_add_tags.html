@@ -22,27 +22,27 @@
 
 {% block items_with_access %}
     {% if items %}
-    <p>
-        {% blocktrans trimmed count counter=items|length %}
-        Are you sure you want to tag the following document?
-        {% plural %}
-        Are you sure you want to tag the following documents?
-        {% endblocktrans %}
-    </p>
-    <ul>
-        {% for document in items %}
-        <li>
-            <a href="{% url 'wagtaildocs:edit' document.item.id %}"  target="_blank" rel="noopener noreferrer">{{document.item.title}}</a>
-        </li>
-        {% endfor %}
-    </ul>
+        <p>
+            {% blocktrans trimmed count counter=items|length %}
+                Are you sure you want to tag the following document?
+            {% plural %}
+                Are you sure you want to tag the following documents?
+            {% endblocktrans %}
+        </p>
+        <ul>
+            {% for document in items %}
+                <li>
+                    <a href="{% url 'wagtaildocs:edit' document.item.id %}"  target="_blank" rel="noreferrer">{{document.item.title}}</a>
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
 {% endblock items_with_access %}
 
 {% block items_with_no_access %}
 
-{% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to add tags to this document{% plural %}You don't have permission to add tags to these documents{% endblocktrans %}
-{% include 'wagtaildocs/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
+    {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to add tags to this document{% plural %}You don't have permission to add tags to these documents{% endblocktrans %}
+    {% include 'wagtaildocs/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
 {% endblock items_with_no_access %}
 

@@ -116,7 +116,7 @@ Additionally, you can hide empty heading blocks with CSS:
 Forms
 -----
 
-The ``wagtailforms`` :ref:`form_builder` uses Django’s forms API. Here are considerations specific to forms in templates:
+The :ref:`Form builder <form_builder>` uses Django’s forms API. Here are considerations specific to forms in templates:
 
 - Avoid rendering helpers such as ``as_table``, ``as_ul``, ``as_p``, which can make forms harder to navigate for screen reader users or cause HTML validation issues (see Django ticket `#32339 <https://code.djangoproject.com/ticket/32339>`_).
 - Make sure to visually distinguish required and optional fields.

@@ -3,18 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # Thiago Cangussu <cangussu.thg@gmail.com>, 2014
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2020-07-11 21:47+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-26 19:05+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,10 +24,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail embeds"
-msgstr "Incorporados Wagtail"
+msgstr "Encaixes Wagtail"
 
 msgid "Cannot find an embed for this URL."
-msgstr "Não consigo encontrar um “embed” para este URL."
+msgstr "Não consigo encontrar um encaixe para este URL."
 
 msgid "URL"
 msgstr "URL"
@@ -39,10 +39,10 @@ msgid "embed"
 msgstr "embed"
 
 msgid "embeds"
-msgstr "incorporados"
+msgstr "encaixes"
 
 msgid "Insert embed"
-msgstr "Incorporar \"embed\""
+msgstr "Inserir encaixe"
 
 msgid "Insert"
 msgstr "Inserir"
@@ -62,4 +62,4 @@ msgstr ""
 "favor tente novamente."
 
 msgid "Embed"
-msgstr "Incorporar "
+msgstr "Encaixar"

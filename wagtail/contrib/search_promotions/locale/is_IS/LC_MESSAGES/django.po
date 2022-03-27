@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2020-08-03 15:36+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
@@ -172,6 +172,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Meðmæltar niðurstöður"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Val ritstjóra fyrir  '{0}' búin til."
 
@@ -181,6 +182,7 @@ msgstr "Breyta"
 msgid "Recommendations have not been created due to errors"
 msgstr "Ekki tókst að búa til meðmæli þar sem það stóðst ekki villuprófanir"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Val ritstjóra fyrir '{0}' uppfært."
 

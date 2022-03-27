@@ -1,6 +1,6 @@
 .c-status {
-    background: $color-grey-1;
-    text-transform: uppercase;
-    letter-spacing: 0.03rem;
-    font-size: 10px;
+  @apply w-bg-black/50 w-tracking-tight w-text-white/85;
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+  font-size: 10px;
 }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: lior abazon <abazon@v15.org.il>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
@@ -32,9 +32,6 @@ msgstr "בחרו"
 msgid "Search"
 msgstr "חיפוש"
 
-msgid "Title"
-msgstr "כותרת "
-
 msgid "Saving…"
 msgstr "שומר..."
 
@@ -49,6 +46,9 @@ msgstr "עריכה"
 
 msgid "Snippets"
 msgstr "קטעים"
+
+msgid "Title"
+msgstr "כותרת "
 
 msgid "Usage of"
 msgstr "שימוש ב:"

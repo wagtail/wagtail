@@ -2,9 +2,9 @@ from django.forms import CheckboxInput, HiddenInput
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.simple_translation.forms import SubmitTranslationForm
-from wagtail.core.models import Locale, Page
-from wagtail.tests.i18n.models import TestPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Locale, Page
+from wagtail.test.i18n.models import TestPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 @override_settings(

@@ -6,21 +6,21 @@
         <div class="wagtail-userbar-nav">
             <button aria-controls="wagtail-userbar-items" aria-haspopup="true" class="wagtail-userbar-trigger" id="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
                 {% block branding_logo %}
-                  <div style="display: none">
-                    <svg>
-                        <defs>
-                          {% include "wagtailadmin/icons/wagtail.svg" %}
-                          {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
-                          {% include "wagtailadmin/icons/edit.svg" %}
-                          {% include "wagtailadmin/icons/plus.svg" %}
-                          {% include "wagtailadmin/icons/tick.svg" %}
-                          {% include "wagtailadmin/icons/cross.svg" %}
-                        </defs>
+                    <div style="display: none">
+                        <svg>
+                            <defs>
+                                {% include "wagtailadmin/icons/wagtail.svg" %}
+                                {% include "wagtailadmin/icons/folder-open-inverse.svg" %}
+                                {% include "wagtailadmin/icons/edit.svg" %}
+                                {% include "wagtailadmin/icons/plus.svg" %}
+                                {% include "wagtailadmin/icons/tick.svg" %}
+                                {% include "wagtailadmin/icons/cross.svg" %}
+                            </defs>
+                        </svg>
+                    </div>
+                    <svg class="wagtail-userbar-icon" aria-hidden="true">
+                        <use href="#icon-wagtail-icon"></use>
                     </svg>
-                  </div>
-                  <svg class="wagtail-userbar-icon" aria-hidden="true" focusable="false">
-                    <use href="#icon-wagtail-icon"></use>
-                  </svg>
                 {% endblock %}
                 <span class="wagtail-userbar-help-text">{% trans 'View Wagtail quick actions' %}</span>
             </button>

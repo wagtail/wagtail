@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
@@ -12,20 +10,20 @@ import {
   deleteComment,
   resolveComment,
   setFocusedComment,
-  addReply
+  addReply,
 } from '../../actions/comments';
 import { LayoutController } from '../../utils/layout';
 import { getNextReplyId } from '../../utils/sequences';
 import CommentReplyComponent from '../CommentReply';
 import type { TranslatableStrings } from '../../main';
-import { CommentHeader }  from '../CommentHeader';
+import { CommentHeader } from '../CommentHeader';
 import TextArea from '../TextArea';
 
 async function saveComment(comment: Comment, store: Store) {
   store.dispatch(
     updateComment(comment.localId, {
       mode: 'saving',
-    })
+    }),
   );
 
   try {
@@ -36,7 +34,7 @@ async function saveComment(comment: Comment, store: Store) {
         remoteId: comment.remoteId,
         author: comment.author,
         date: comment.date,
-      })
+      }),
     );
   } catch (err) {
     /* eslint-disable-next-line no-console */
@@ -44,7 +42,7 @@ async function saveComment(comment: Comment, store: Store) {
     store.dispatch(
       updateComment(comment.localId, {
         mode: 'save_error',
-      })
+      }),
     );
   }
 }
@@ -53,7 +51,7 @@ async function doDeleteComment(comment: Comment, store: Store) {
   store.dispatch(
     updateComment(comment.localId, {
       mode: 'deleting',
-    })
+    }),
   );
 
   try {
@@ -64,15 +62,13 @@ async function doDeleteComment(comment: Comment, store: Store) {
     store.dispatch(
       updateComment(comment.localId, {
         mode: 'delete_error',
-      })
+      }),
     );
   }
 }
 
 function doResolveComment(comment: Comment, store: Store) {
-  store.dispatch(
-    resolveComment(comment.localId)
-  );
+  store.dispatch(resolveComment(comment.localId));
 }
 
 export interface CommentProps {
@@ -99,7 +95,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           newReply: value,
-        })
+        }),
       );
     };
 
@@ -116,7 +112,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           newReply: '',
-        })
+        }),
       );
     };
 
@@ -126,7 +122,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           newReply: '',
-        })
+        }),
       );
 
       store.dispatch(setFocusedComment(null));
@@ -152,7 +148,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             reply={reply}
             strings={strings}
             isFocused={isFocused}
-          />
+          />,
         );
       }
     }
@@ -210,7 +206,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           newText: value,
-        })
+        }),
       );
     };
 
@@ -244,7 +240,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             onChange={onChangeText}
             placeholder="Enter your comments..."
             additionalAttributes={{
-              'aria-describedby': descriptionId
+              'aria-describedby': descriptionId,
             }}
           />
           <div className="comment__actions">
@@ -275,7 +271,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           newText: value,
-        })
+        }),
       );
     };
 
@@ -292,7 +288,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         updateComment(comment.localId, {
           mode: 'default',
           newText: comment.text,
-        })
+        }),
       );
     };
 
@@ -313,7 +309,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
             className="comment__input"
             value={comment.newText}
             additionalAttributes={{
-              'aria-describedby': descriptionId
+              'aria-describedby': descriptionId,
             }}
             onChange={onChangeText}
           />
@@ -368,7 +364,12 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
@@ -400,13 +401,18 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           mode: 'default',
-        })
+        }),
       );
     };
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__confirm-delete">
           {strings.CONFIRM_DELETE_COMMENT}
@@ -435,7 +441,12 @@ export default class CommentComponent extends React.Component<CommentProps> {
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__progress">{strings.DELETING}</div>
         {this.renderReplies({ hideNewReply: true })}
@@ -458,13 +469,18 @@ export default class CommentComponent extends React.Component<CommentProps> {
       store.dispatch(
         updateComment(comment.localId, {
           mode: 'default',
-        })
+        }),
       );
     };
 
     return (
       <>
-        <CommentHeader commentReply={comment} store={store} strings={strings} focused={isFocused} />
+        <CommentHeader
+          commentReply={comment}
+          store={store}
+          strings={strings}
+          focused={isFocused}
+        />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
@@ -494,13 +510,16 @@ export default class CommentComponent extends React.Component<CommentProps> {
     // Show edit/delete buttons if this comment was authored by the current user
     let onEdit;
     let onDelete;
-    if (comment.author === null || this.props.user && this.props.user.id === comment.author.id) {
+    if (
+      comment.author === null ||
+      (this.props.user && this.props.user.id === comment.author.id)
+    ) {
       onEdit = () => {
         store.dispatch(
           updateComment(comment.localId, {
             mode: 'editing',
             newText: comment.text,
-          })
+          }),
         );
       };
 
@@ -508,7 +527,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
         store.dispatch(
           updateComment(comment.localId, {
             mode: 'delete_confirm',
-          })
+          }),
         );
       };
     }
@@ -534,14 +553,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
-        {notice &&
+        {notice && (
           <div className="comment__notice-placeholder">
             <div className="comment__notice" role="status">
               <Icon name="info-circle" />
               {notice}
             </div>
           </div>
-        }
+        )}
         {this.renderReplies()}
       </>
     );
@@ -551,78 +570,90 @@ export default class CommentComponent extends React.Component<CommentProps> {
     let inner: React.ReactFragment;
 
     switch (this.props.comment.mode) {
-    case 'creating':
-      inner = this.renderCreating();
-      break;
+      case 'creating':
+        inner = this.renderCreating();
+        break;
 
-    case 'editing':
-      inner = this.renderEditing();
-      break;
+      case 'editing':
+        inner = this.renderEditing();
+        break;
 
-    case 'saving':
-      inner = this.renderSaving();
-      break;
+      case 'saving':
+        inner = this.renderSaving();
+        break;
 
-    case 'save_error':
-      inner = this.renderSaveError();
-      break;
+      case 'save_error':
+        inner = this.renderSaveError();
+        break;
 
-    case 'delete_confirm':
-      inner = this.renderDeleteConfirm();
-      break;
+      case 'delete_confirm':
+        inner = this.renderDeleteConfirm();
+        break;
 
-    case 'deleting':
-      inner = this.renderDeleting();
-      break;
+      case 'deleting':
+        inner = this.renderDeleting();
+        break;
 
-    case 'delete_error':
-      inner = this.renderDeleteError();
-      break;
+      case 'delete_error':
+        inner = this.renderDeleteError();
+        break;
 
-    default:
-      inner = this.renderDefault();
-      break;
+      default:
+        inner = this.renderDefault();
+        break;
     }
 
     const onClick = () => {
       this.props.store.dispatch(
-        setFocusedComment(this.props.comment.localId,
-          { updatePinnedComment: false, forceFocus: this.props.isFocused && this.props.forceFocus }
-        )
+        setFocusedComment(this.props.comment.localId, {
+          updatePinnedComment: false,
+          forceFocus: this.props.isFocused && this.props.forceFocus,
+        }),
       );
     };
 
     const onDoubleClick = () => {
       this.props.store.dispatch(
-        setFocusedComment(this.props.comment.localId, { updatePinnedComment: true, forceFocus: true })
+        setFocusedComment(this.props.comment.localId, {
+          updatePinnedComment: true,
+          forceFocus: true,
+        }),
       );
     };
 
     const top = this.props.layout.getCommentPosition(
-      this.props.comment.localId
+      this.props.comment.localId,
     );
 
     return (
       <FocusTrap
-        focusTrapOptions={{
-          preventScroll: true,
-          clickOutsideDeactivates: true,
-          onDeactivate: () => {
-            this.props.store.dispatch(
-              setFocusedComment(null, { updatePinnedComment: true, forceFocus: false })
-            );
-          },
-          initialFocus: '[data-focus-target="true"]',
-        } as any} // For some reason, the types for FocusTrap props don't yet include preventScroll.
+        focusTrapOptions={
+          {
+            preventScroll: true,
+            clickOutsideDeactivates: true,
+            onDeactivate: () => {
+              this.props.store.dispatch(
+                setFocusedComment(null, {
+                  updatePinnedComment: true,
+                  forceFocus: false,
+                }),
+              );
+            },
+            initialFocus: '[data-focus-target="true"]',
+          } as any
+        } // For some reason, the types for FocusTrap props don't yet include preventScroll.
         active={this.props.isFocused && this.props.forceFocus}
       >
         <li
           tabIndex={-1}
-          data-focus-target={this.props.isFocused && !['creating', 'editing'].includes(this.props.comment.mode)}
-          key={this.props.comment.localId}
-          className={
-            `comment comment--mode-${this.props.comment.mode} ${this.props.isFocused ? 'comment--focused' : ''}`
+          data-focus-target={
+            this.props.isFocused &&
+            !['creating', 'editing'].includes(this.props.comment.mode)
           }
+          key={this.props.comment.localId}
+          className={`comment comment--mode-${this.props.comment.mode} ${
+            this.props.isFocused ? 'comment--focused' : ''
+          }`}
           style={{
             position: 'absolute',
             top: `${top}px`,
@@ -639,6 +670,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentDidMount() {
+    // eslint-disable-next-line react/no-find-dom-node
     const element = ReactDOM.findDOMNode(this);
 
     if (element instanceof HTMLElement) {
@@ -647,7 +679,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
       if (this.props.isVisible) {
         this.props.layout.setCommentHeight(
           this.props.comment.localId,
-          element.offsetHeight
+          element.offsetHeight,
         );
       }
     }
@@ -658,13 +690,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   componentDidUpdate() {
+    // eslint-disable-next-line react/no-find-dom-node
     const element = ReactDOM.findDOMNode(this);
 
     // Keep height up to date so that other comments will be moved out of the way
     if (this.props.isVisible && element instanceof HTMLElement) {
       this.props.layout.setCommentHeight(
         this.props.comment.localId,
-        element.offsetHeight
+        element.offsetHeight,
       );
     }
   }

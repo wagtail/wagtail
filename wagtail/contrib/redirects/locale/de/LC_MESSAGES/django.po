@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# oliverengel <codeangel@posteo.de>, 2022
 # Donald Buczek, 2021
 # Ettore Atalan <atalanttore@googlemail.com>, 2016,2020
 # Vorlif <flori@vorlif.org>, 2015
@@ -23,9 +24,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-09-27 08:00+0000\n"
-"Last-Translator: Donald Buczek\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 15:19+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -91,8 +92,24 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "Zu einer Seite weiterleiten"
 
+msgid "target page route"
+msgstr "Pfad der Zielseite"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Wahlweise geben Sie einen Pfad auf die Zeilseite an, um auf diese "
+"weiterlzuleiten. Freilassen, um auf den Standardseitenpfad weiterzuleiten."
+
 msgid "redirect to any URL"
 msgstr "Zu einer URL weiterleiten"
+
+msgid "automatically created"
+msgstr "automatisch erstellt"
+
+msgid "created at"
+msgstr "Erstellt am"
 
 msgid "temporary"
 msgstr "temporär"
@@ -235,6 +252,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Such-Umleitungen"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Weiterleitung ‚{0}‘ aktualisiert."
 
@@ -245,9 +263,11 @@ msgid "The redirect could not be saved due to errors."
 msgstr ""
 "Aufgrund von Fehlern konnte die Weiterleitung nicht gespeichert werden."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Weiterleitung ‚{0}‘ gelöscht."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Weiterleitung ‚{0}‘ hinzugefügt"
 

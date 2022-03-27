@@ -31,22 +31,28 @@ class ModalWorkflowSource extends Component {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getChooserConfig(entity, selectedText) {
-    throw new TypeError('Subclasses of ModalWorkflowSource must implement getChooserConfig');
+    throw new TypeError(
+      'Subclasses of ModalWorkflowSource must implement getChooserConfig',
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterEntityData(data) {
-    throw new TypeError('Subclasses of ModalWorkflowSource must implement filterEntityData');
+    throw new TypeError(
+      'Subclasses of ModalWorkflowSource must implement filterEntityData',
+    );
   }
 
   componentDidMount() {
     const { onClose, entity, editorState } = this.props;
     const selectedText = getSelectionText(editorState);
-    const { url, urlParams, onload, responses } = this.getChooserConfig(entity, selectedText);
+    const { url, urlParams, onload, responses } = this.getChooserConfig(
+      entity,
+      selectedText,
+    );
 
     $(document.body).on('hidden.bs.modal', this.onClose);
 
-    // eslint-disable-next-line new-cap
     this.workflow = global.ModalWorkflow({
       url,
       urlParams,
@@ -67,7 +73,8 @@ class ModalWorkflowSource extends Component {
   }
 
   onChosen(data) {
-    const { editorState, entity, entityKey, entityType, onComplete } = this.props;
+    const { editorState, entity, entityKey, entityType, onComplete } =
+      this.props;
     const content = editorState.getCurrentContent();
     const selection = editorState.getSelection();
     const entityData = this.filterEntityData(data);
@@ -79,24 +86,51 @@ class ModalWorkflowSource extends Component {
         // Replace the data for the currently selected block
         const blockKey = selection.getAnchorKey();
         const block = content.getBlockForKey(blockKey);
-        nextState = DraftUtils.updateBlockEntity(editorState, block, entityData);
+        nextState = DraftUtils.updateBlockEntity(
+          editorState,
+          block,
+          entityData,
+        );
       } else {
         // Add new entity if there is none selected
-        const contentWithEntity = content.createEntity(entityType.type, mutability, entityData);
+        const contentWithEntity = content.createEntity(
+          entityType.type,
+          mutability,
+          entityData,
+        );
         const newEntityKey = contentWithEntity.getLastCreatedEntityKey();
-        nextState = AtomicBlockUtils.insertAtomicBlock(editorState, newEntityKey, ' ');
+        nextState = AtomicBlockUtils.insertAtomicBlock(
+          editorState,
+          newEntityKey,
+          ' ',
+        );
       }
     } else {
-      const contentWithEntity = content.createEntity(entityType.type, mutability, entityData);
+      const contentWithEntity = content.createEntity(
+        entityType.type,
+        mutability,
+        entityData,
+      );
       const newEntityKey = contentWithEntity.getLastCreatedEntityKey();
 
       // Replace text if the chooser demands it, or if there is no selected text in the first place.
-      const shouldReplaceText = data.prefer_this_title_as_link_text || selection.isCollapsed();
+      const shouldReplaceText =
+        data.prefer_this_title_as_link_text || selection.isCollapsed();
       if (shouldReplaceText) {
         // If there is a title attribute, use it. Otherwise we inject the URL.
         const newText = data.title || data.url;
-        const newContent = Modifier.replaceText(content, selection, newText, null, newEntityKey);
-        nextState = EditorState.push(editorState, newContent, 'insert-characters');
+        const newContent = Modifier.replaceText(
+          content,
+          selection,
+          newText,
+          null,
+          newEntityKey,
+        );
+        nextState = EditorState.push(
+          editorState,
+          newContent,
+          'insert-characters',
+        );
       } else {
         nextState = RichUtils.toggleLink(editorState, selection, newEntityKey);
       }
@@ -185,7 +219,7 @@ class EmbedModalWorkflowSource extends ModalWorkflowSource {
       responses: {
         // Discard the first parameter (HTML) to only transmit the data.
         embedChosen: (_, data) => this.onChosen(data),
-      }
+      },
     };
   }
 
@@ -243,7 +277,7 @@ class LinkModalWorkflowSource extends ModalWorkflowSource {
       onload: global.PAGE_CHOOSER_MODAL_ONLOAD_HANDLERS,
       responses: {
         pageChosen: this.onChosen,
-      }
+      },
     };
   }
 

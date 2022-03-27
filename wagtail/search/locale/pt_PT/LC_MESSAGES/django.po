@@ -5,18 +5,18 @@
 # Translators:
 # Gladson <gladsonbrito@gmail.com>, 2014
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-29 22:48+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail search"
-msgstr "Pesquisa do Wagtail"
+msgstr "Pesquisa Wagtail"
 
 msgid "Search term(s)/phrase"
 msgstr "Pesquisar termo(s)/frase"
@@ -35,12 +35,18 @@ msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
-"Insira o texto completo a pesquisar. É necessária uma correspondência exata "
-"para que os seus Resultados Promovidos sejam exibidos, não são permitidos "
-"carateres de substituição."
+"Insira todo o segmento de texto a pesquisar. É necessária uma "
+"correspondência exata para que os seus Resultados Promovidos sejam exibidos, "
+"não são permitidos carateres de substituição."
 
 msgid "Query Daily Hits"
 msgstr "Consultar Acessos Diários"
+
+msgid "index entry"
+msgstr "entrada de índice"
+
+msgid "index entries"
+msgstr "entradas de índice"
 
 msgid "Popular search terms"
 msgstr "Termos de pesquisa populares"

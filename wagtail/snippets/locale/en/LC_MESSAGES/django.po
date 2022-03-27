@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,19 +52,13 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/wagtailsnippets/chooser/results.html:17
-#: templates/wagtailsnippets/snippets/list.html:13
-#: templates/wagtailsnippets/snippets/usage.html:16
-msgid "Title"
-msgstr ""
-
-#: templates/wagtailsnippets/chooser/results.html:35
+#: templates/wagtailsnippets/chooser/results.html:19
 #: templates/wagtailsnippets/snippets/results.html:19
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
 msgstr ""
 
-#: templates/wagtailsnippets/chooser/results.html:38
+#: templates/wagtailsnippets/chooser/results.html:22
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
@@ -157,6 +151,11 @@ msgstr ""
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr ""
 
+#: templates/wagtailsnippets/snippets/list.html:13
+#: templates/wagtailsnippets/snippets/usage.html:16 views/chooser.py:87
+msgid "Title"
+msgstr ""
+
 #: templates/wagtailsnippets/snippets/list.html:22
 #, python-format
 msgid "Select %(snippet)s"
@@ -210,7 +209,7 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: views/chooser.py:51 views/chooser.py:63 views/snippets.py:134
+#: views/chooser.py:66 views/chooser.py:78 views/snippets.py:134
 #: views/snippets.py:146
 #, python-format
 msgid "Search %(snippet_type_name)s"

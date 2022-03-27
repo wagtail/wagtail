@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
@@ -321,9 +321,6 @@ msgstr "Maaf, pengunggahan gagal."
 msgid "Server Error"
 msgstr "Kesalahan Server"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
-
 msgid "Image updated."
 msgstr "Gambar telah diperbarui."
 
@@ -339,6 +336,7 @@ msgstr "Hapus"
 msgid "Search images"
 msgstr "Cari gambar"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "Gambar '{0}' telah diperbarui."
 
@@ -355,9 +353,11 @@ msgstr ""
 "Sumber berkas gambar tidak dapat ditemukan. Mohon untuk mengganti suber atau "
 "hapus gambar."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "Gambar '{0}' dihapus."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "Gambar '{0}' ditambahkan."
 

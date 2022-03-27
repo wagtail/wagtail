@@ -3,10 +3,16 @@ from copy import deepcopy
 from elasticsearch import NotFoundError
 from elasticsearch.helpers import bulk
 
-from wagtail.search.backends.elasticsearch5 import ElasticsearchAutocompleteQueryCompilerImpl
+from wagtail.search.backends.elasticsearch5 import (
+    ElasticsearchAutocompleteQueryCompilerImpl,
+)
 from wagtail.search.backends.elasticsearch6 import (
-    Elasticsearch6Index, Elasticsearch6Mapping, Elasticsearch6SearchBackend,
-    Elasticsearch6SearchQueryCompiler, Elasticsearch6SearchResults)
+    Elasticsearch6Index,
+    Elasticsearch6Mapping,
+    Elasticsearch6SearchBackend,
+    Elasticsearch6SearchQueryCompiler,
+    Elasticsearch6SearchResults,
+)
 from wagtail.search.index import class_is_indexed
 
 
@@ -99,7 +105,9 @@ class Elasticsearch7SearchBackend(Elasticsearch6SearchBackend):
     # - [nGram] -> [ngram]
     settings["settings"]["analysis"]["filter"]["edgengram"]["type"] = "edge_ngram"
     settings["settings"]["analysis"]["filter"]["ngram"]["type"] = "ngram"
-    settings["settings"]["analysis"]["tokenizer"]["edgengram_tokenizer"]["type"] = "edge_ngram"
+    settings["settings"]["analysis"]["tokenizer"]["edgengram_tokenizer"][
+        "type"
+    ] = "edge_ngram"
     settings["settings"]["analysis"]["tokenizer"]["ngram_tokenizer"]["type"] = "ngram"
 
 

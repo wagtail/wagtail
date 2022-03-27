@@ -4,17 +4,17 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014-2015
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-28 19:31+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail sites"
-msgstr "Sítios do Wagtail"
+msgstr "Sites Wagtail"
 
 msgid "Choose a root page"
 msgstr "Escolher uma página raiz"
@@ -36,7 +36,7 @@ msgid "Sites"
 msgstr "Sites"
 
 msgid "Add a site"
-msgstr "Adicionar site"
+msgstr "Adicionar um site"
 
 msgid "Site"
 msgstr "Site"
@@ -50,18 +50,21 @@ msgstr "Pré-definido"
 msgid "Add site"
 msgstr "Adicionar site"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' criado."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' atualizado."
 
 msgid "The site could not be saved due to errors."
-msgstr "O site não pôde ser guardado devido a erros."
+msgstr "O site não pôde ser gravado devido a erros."
 
 msgid "Delete site"
 msgstr "Apagar site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' apagado."
 

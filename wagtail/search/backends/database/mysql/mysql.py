@@ -1,5 +1,4 @@
 import warnings
-
 from collections import OrderedDict
 
 from django.db import DEFAULT_DB_ALIAS, NotSupportedError, connections, transaction
@@ -15,13 +14,30 @@ from django.utils.encoding import force_str
 from django.utils.functional import cached_property
 
 from wagtail.search.backends.base import (
-    BaseSearchBackend, BaseSearchQueryCompiler, BaseSearchResults, FilterFieldError)
-from wagtail.search.backends.database.mysql.query import Lexeme, MatchExpression, SearchQuery
-from wagtail.search.index import AutocompleteField, RelatedFields, SearchField, get_indexed_models
+    BaseSearchBackend,
+    BaseSearchQueryCompiler,
+    BaseSearchResults,
+    FilterFieldError,
+)
+from wagtail.search.backends.database.mysql.query import (
+    Lexeme,
+    MatchExpression,
+    SearchQuery,
+)
+from wagtail.search.index import (
+    AutocompleteField,
+    RelatedFields,
+    SearchField,
+    get_indexed_models,
+)
 from wagtail.search.models import IndexEntry
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
 from wagtail.search.utils import (
-    OR, balanced_reduce, get_content_type_pk, get_descendants_content_types_pks)
+    OR,
+    balanced_reduce,
+    get_content_type_pk,
+    get_descendants_content_types_pks,
+)
 
 
 class ObjectIndexer:
@@ -39,18 +55,16 @@ class ObjectIndexer:
             return value
 
         elif isinstance(value, list):
-            return ', '.join(self.prepare_value(item) for item in value)
+            return ", ".join(self.prepare_value(item) for item in value)
 
         elif isinstance(value, dict):
-            return ', '.join(self.prepare_value(item)
-                             for item in value.values())
+            return ", ".join(self.prepare_value(item) for item in value.values())
 
         return force_str(value)
 
     def prepare_field(self, obj, field):
         if isinstance(field, SearchField):
-            yield (field,
-                   self.prepare_value(field.get_value(obj)))
+            yield (field, self.prepare_value(field.get_value(obj)))
 
         elif isinstance(field, AutocompleteField):
             yield (field, self.prepare_value(field.get_value(obj)))
@@ -88,10 +102,13 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and current_field.field_name == "title"
+                ):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     @cached_property
     def body(self):
@@ -101,10 +118,13 @@ class ObjectIndexer:
         texts = []
         for field in self.search_fields:
             for current_field, value in self.prepare_field(self.obj, field):
-                if isinstance(current_field, SearchField) and not current_field.field_name == 'title':
+                if (
+                    isinstance(current_field, SearchField)
+                    and not current_field.field_name == "title"
+                ):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     @cached_property
     def autocomplete(self):
@@ -117,7 +137,7 @@ class ObjectIndexer:
                 if isinstance(current_field, AutocompleteField):
                     texts.append((value))
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
     def as_vector(self, texts, for_autocomplete=False):
         """
@@ -126,7 +146,7 @@ class ObjectIndexer:
         texts = [(text.strip(), weight) for text, weight in texts]
         texts = [(text, weight) for text, weight in texts if text]
 
-        return ' '.join(texts)
+        return " ".join(texts)
 
 
 class Index:
@@ -135,10 +155,10 @@ class Index:
         self.name = self.backend.index_name
         self.db_alias = DEFAULT_DB_ALIAS if db_alias is None else db_alias
         self.connection = connections[self.db_alias]
-        if self.connection.vendor != 'mysql':
+        if self.connection.vendor != "mysql":
             raise NotSupportedError(
-                'You must select a MySQL database '
-                'to use MySQL search.')
+                "You must select a MySQL database " "to use MySQL search."
+            )
 
         self.entries = IndexEntry._default_manager.using(self.db_alias)
 
@@ -157,7 +177,11 @@ class Index:
          - ld is the length of the title field in this document (in terms)
         """
 
-        lavg = self.entries.annotate(title_length=Length('title')).filter(title_length__gt=0).aggregate(Avg('title_length'))['title_length__avg']
+        lavg = (
+            self.entries.annotate(title_length=Length("title"))
+            .filter(title_length__gt=0)
+            .aggregate(Avg("title_length"))["title_length__avg"]
+        )
 
         if full:
             # Update the whole table
@@ -171,19 +195,20 @@ class Index:
             # It's possible that other entries could have this exact value but there shouldn't be too many of those
             entries = self.entries.filter(title_norm=1.0)
 
-        entries.annotate(title_length=Length('title')).filter(title_length__gt=0).update(title_norm=lavg / F('title_length'))
+        entries.annotate(title_length=Length("title")).filter(
+            title_length__gt=0
+        ).update(title_norm=lavg / F("title_length"))
 
     def delete_stale_model_entries(self, model):
         existing_pks = (
             model._default_manager.using(self.db_alias)
-            .annotate(object_id=Cast('pk', TextField()))
-            .values('object_id')
+            .annotate(object_id=Cast("pk", TextField()))
+            .values("object_id")
         )
         content_types_pks = get_descendants_content_types_pks(model)
-        stale_entries = (
-            self.entries.filter(content_type_id__in=content_types_pks)
-            .exclude(object_id__in=existing_pks)
-        )
+        stale_entries = self.entries.filter(
+            content_type_id__in=content_types_pks
+        ).exclude(object_id__in=existing_pks)
         stale_entries.delete()
 
     def delete_stale_entries(self):
@@ -199,27 +224,37 @@ class Index:
     def add_items_update_then_create(self, content_type_pk, indexers):
         ids_and_data = {}
         for indexer in indexers:
-            ids_and_data[indexer.id] = (indexer.title, indexer.autocomplete, indexer.body)
+            ids_and_data[indexer.id] = (
+                indexer.title,
+                indexer.autocomplete,
+                indexer.body,
+            )
 
         index_entries_for_ct = self.entries.filter(content_type_id=content_type_pk)
         indexed_ids = frozenset(
-            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list('object_id', flat=True)
+            index_entries_for_ct.filter(object_id__in=ids_and_data.keys()).values_list(
+                "object_id", flat=True
+            )
         )
         for indexed_id in indexed_ids:
             title, autocomplete, body = ids_and_data[indexed_id]
-            index_entries_for_ct.filter(object_id=indexed_id).update(title=title, autocomplete=autocomplete, body=body)
+            index_entries_for_ct.filter(object_id=indexed_id).update(
+                title=title, autocomplete=autocomplete, body=body
+            )
 
         to_be_created = []
         for object_id in ids_and_data.keys():
             if object_id not in indexed_ids:
                 title, autocomplete, body = ids_and_data[object_id]
-                to_be_created.append(IndexEntry(
-                    content_type_id=content_type_pk,
-                    object_id=object_id,
-                    title=title,
-                    autocomplete=autocomplete,
-                    body=body
-                ))
+                to_be_created.append(
+                    IndexEntry(
+                        content_type_id=content_type_pk,
+                        object_id=object_id,
+                        title=title,
+                        autocomplete=autocomplete,
+                        body=body,
+                    )
+                )
 
         self.entries.bulk_create(to_be_created)
 
@@ -236,8 +271,7 @@ class Index:
         if indexers:
             content_type_pk = get_content_type_pk(model)
 
-            update_method = (
-                self.add_items_update_then_create)
+            update_method = self.add_items_update_then_create
             update_method(content_type_pk, indexers)
 
     def delete_item(self, item):
@@ -248,7 +282,7 @@ class Index:
 
 
 class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
-    DEFAULT_OPERATOR = 'and'
+    DEFAULT_OPERATOR = "and"
     LAST_TERM_IS_PREFIX = False
     TARGET_SEARCH_FIELD_TYPE = SearchField
 
@@ -264,7 +298,9 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             # build a search_fields set from the passed definition,
             # which may involve traversing relations
             self.search_fields = {
-                field_lookup: self.get_search_field(field_lookup, fields=local_search_fields)
+                field_lookup: self.get_search_field(
+                    field_lookup, fields=local_search_fields
+                )
                 for field_lookup in self.fields
             }
 
@@ -284,7 +320,10 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             sub_field_name = None
 
         for field in fields:
-            if isinstance(field, self.TARGET_SEARCH_FIELD_TYPE) and field.field_name == field_lookup:
+            if (
+                isinstance(field, self.TARGET_SEARCH_FIELD_TYPE)
+                and field.field_name == field_lookup
+            ):
                 return field
 
             # Note: Searching on a specific related field using
@@ -305,7 +344,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             for term in terms:
                 new_lexeme = Lexeme(term, invert=invert)
 
-                if query.operator == 'and':
+                if query.operator == "and":
                     lexemes &= new_lexeme
                 else:
                     lexemes |= new_lexeme
@@ -313,7 +352,7 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             return SearchQuery(lexemes)
 
         elif isinstance(query, Phrase):
-            return SearchQuery(query.query_string, search_type='phrase')
+            return SearchQuery(query.query_string, search_type="phrase")
 
         elif isinstance(query, Boost):
             # Not supported
@@ -357,16 +396,17 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
                 return balanced_reduce(lambda a, b: a | b, subquery_lexemes)
 
         raise NotImplementedError(
-            '`%s` is not supported by the MySQL search backend.'
-            % query.__class__.__name__)
+            "`%s` is not supported by the MySQL search backend."
+            % query.__class__.__name__
+        )
 
     def build_search_query(self, query):
         return self.build_search_query_content(query)
 
     def get_index_vectors(self, search_query):
         return [
-            (F('index_entries__title'), F('index_entries__title_norm')),
-            (F('index_entries__body'), 1.0),
+            (F("index_entries__title"), F("index_entries__title_norm")),
+            (F("index_entries__body"), 1.0),
         ]
 
     def get_fields_vectors(self, search_query):
@@ -399,7 +439,9 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
         elif isinstance(self.query, Not) and isinstance(self.query.subquery, MatchAll):
             return self.queryset.none()
 
-        if isinstance(self.query, Not):  # If the outermost operator is a Not, we invert the query. This is done because, if every search term is negated, the Not() will return no results, an we want to match all results instead.
+        if isinstance(
+            self.query, Not
+        ):  # If the outermost operator is a Not, we invert the query. This is done because, if every search term is negated, the Not() will return no results, an we want to match all results instead.
             query = self.query.subquery
             negated = True
         else:
@@ -407,37 +449,46 @@ class MySQLSearchQueryCompiler(BaseSearchQueryCompiler):
             negated = False
 
         search_query = self.build_search_query(query)
-        match_expression = MatchExpression(search_query, columns=['title', 'body'], output_field=BooleanField())  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
-        score_expression = (
-            MatchExpression(search_query, columns=['title'], output_field=FloatField()) * F('title_norm')
-            + MatchExpression(search_query, columns=['body'], output_field=FloatField())
+        match_expression = MatchExpression(
+            search_query, columns=["title", "body"], output_field=BooleanField()
+        )  # For example: MATCH (`title`, `body`) AGAINST ('+query' IN BOOLEAN MODE)
+        score_expression = MatchExpression(
+            search_query, columns=["title"], output_field=FloatField()
+        ) * F("title_norm") + MatchExpression(
+            search_query, columns=["body"], output_field=FloatField()
         )
 
-        index_entries = IndexEntry.objects.annotate(score=score_expression).filter(content_type_id__in=get_descendants_content_types_pks(self.queryset.model))
+        index_entries = IndexEntry.objects.annotate(score=score_expression).filter(
+            content_type_id__in=get_descendants_content_types_pks(self.queryset.model)
+        )
         if not negated:
             index_entries = index_entries.filter(match_expression)
-            if self.order_by_relevance:  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
+            if (
+                self.order_by_relevance
+            ):  # Only applies to the case where the outermost query is not a Not(), because if it is, the relevance score is always 0 (anything that matches is excluded from the results).
                 index_entries = index_entries.order_by(score_expression.desc())
         else:
             index_entries = index_entries.exclude(match_expression)
 
         index_entries = index_entries[start:stop]  # Trim the results
 
-        object_ids = {index_entry.object_id for index_entry in index_entries}  # Get the set of IDs from the indexed objects, removes duplicates too
+        object_ids = {
+            index_entry.object_id for index_entry in index_entries
+        }  # Get the set of IDs from the indexed objects, removes duplicates too
 
         results = self.queryset.filter(id__in=object_ids)
 
         return results
 
     def _process_lookup(self, field, lookup, value):
-        lhs = field.get_attname(self.queryset.model) + '__' + lookup
+        lhs = field.get_attname(self.queryset.model) + "__" + lookup
         return Q(**{lhs: value})
 
     def _connect_filters(self, filters, connector, negated):
-        if connector == 'AND':
+        if connector == "AND":
             q = Q(*filters)
 
-        elif connector == 'OR':
+        elif connector == "OR":
             q = OR([Q(fil) for fil in filters])
 
         else:
@@ -460,7 +511,7 @@ class MySQLAutocompleteQueryCompiler(MySQLSearchQueryCompiler):
         return self.queryset.model.get_autocomplete_search_fields()
 
     def get_index_vectors(self, search_query):
-        return [(F('index_entries__autocomplete'), 1.0)]
+        return [(F("index_entries__autocomplete"), 1.0)]
 
     def get_fields_vectors(self, search_query):
         raise NotImplementedError()
@@ -479,7 +530,7 @@ class MySQLSearchResults(BaseSearchResults):
             self.query_compiler.get_config(self.backend),
             start,
             stop,
-            score_field=self._score_field
+            score_field=self._score_field,
         )
 
     def _do_search(self):
@@ -495,18 +546,26 @@ class MySQLSearchResults(BaseSearchResults):
         field = self.query_compiler._get_filterable_field(field_name)
         if field is None:
             raise FilterFieldError(
-                'Cannot facet search results with field "' + field_name + '". Please add index.FilterField(\''
-                + field_name + '\') to ' + self.query_compiler.queryset.model.__name__ + '.search_fields.',
-                field_name=field_name
+                'Cannot facet search results with field "'
+                + field_name
+                + "\". Please add index.FilterField('"
+                + field_name
+                + "') to "
+                + self.query_compiler.queryset.model.__name__
+                + ".search_fields.",
+                field_name=field_name,
             )
 
-        query = self.query_compiler.search(self.query_compiler.get_config(self.backend), None, None)
-        results = query.values(field_name).annotate(count=Count('pk')).order_by('-count')
+        query = self.query_compiler.search(
+            self.query_compiler.get_config(self.backend), None, None
+        )
+        results = (
+            query.values(field_name).annotate(count=Count("pk")).order_by("-count")
+        )
 
-        return OrderedDict([
-            (result[field_name], result['count'])
-            for result in results
-        ])
+        return OrderedDict(
+            [(result[field_name], result["count"]) for result in results]
+        )
 
 
 class MySQLSearchRebuilder:
@@ -554,10 +613,10 @@ class MySQLSearchBackend(BaseSearchBackend):
 
     def __init__(self, params):
         super().__init__(params)
-        self.index_name = params.get('INDEX', 'default')
-        self.config = params.get('SEARCH_CONFIG')
+        self.index_name = params.get("INDEX", "default")
+        self.config = params.get("SEARCH_CONFIG")
 
-        if params.get('ATOMIC_REBUILD', False):
+        if params.get("ATOMIC_REBUILD", False):
             self.rebuilder_class = self.atomic_rebuilder_class
 
     def get_index_for_model(self, model, db_alias=None):
@@ -567,7 +626,11 @@ class MySQLSearchBackend(BaseSearchBackend):
         return self.get_index_for_model(obj._meta.model, obj._state.db)
 
     def reset_index(self):
-        for connection in [connection for connection in connections.all() if connection.vendor == 'mysql']:
+        for connection in [
+            connection
+            for connection in connections.all()
+            if connection.vendor == "mysql"
+        ]:
             IndexEntry._default_manager.using(connection.alias).delete()
 
     def add_type(self, model):

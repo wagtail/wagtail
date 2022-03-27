@@ -5,14 +5,14 @@
 # Translators:
 # Giacomo Ghizzani <giacomo.ghz@gmail.com>, 2015-2016
 # giammi <gian-maria.daffre@giammi.org>, 2018
-# Marco Badan <marco.badan@gmail.com>, 2021
+# Marco Badan <marco.badan@gmail.com>, 2021-2022
 # Sandro Badalamenti <sandro@mailinator.com>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-08-17 09:16+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-23 07:39+0000\n"
 "Last-Translator: Marco Badan <marco.badan@gmail.com>\n"
 "Language-Team: Italian (http://www.transifex.com/torchbox/wagtail/language/"
 "it/)\n"
@@ -79,8 +79,25 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "reindirizzamento verso una pagina"
 
+msgid "target page route"
+msgstr "percorso pagina di destinazione"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"In aggiunta puoi specificare un percorso per pagina di destinazione a cui "
+"reindirizzare. Lascia vuoto per reindirizzare al percorso predefinito della "
+"pagina."
+
 msgid "redirect to any URL"
 msgstr "reindirizza a un URL qualsiasi"
+
+msgid "automatically created"
+msgstr "Creato in automatico"
+
+msgid "created at"
+msgstr "creato alle"
 
 msgid "temporary"
 msgstr "temporaneo"
@@ -225,6 +242,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Cerca reindirizzamenti"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Reindirizzamento '{0}' aggiornato."
 
@@ -234,9 +252,11 @@ msgstr "Modifica"
 msgid "The redirect could not be saved due to errors."
 msgstr "Il reindirizzamento non può essere salvato a causa di errori. "
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Reindirizzamento '{0}' eliminato."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Reindirizzamento '{0}' aggiunto."
 

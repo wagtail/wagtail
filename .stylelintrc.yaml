@@ -1,6 +1,0 @@
-ignoreFiles:
-  - node_modules
-  - build/**/*
-  - venv/**/*
-extends:
-  - '@wagtail/stylelint-config-wagtail'

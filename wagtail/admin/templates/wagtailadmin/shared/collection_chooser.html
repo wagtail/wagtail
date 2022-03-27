@@ -10,7 +10,7 @@
                     {% minimum_collection_depth collections as min_depth %}
                     {% for collection in collections %}
                         <option value="{{ collection.id|unlocalize }}"
-                                {% if collection == current_collection %}selected="selected"{% endif %}>
+                            {% if collection == current_collection %}selected="selected"{% endif %}>
                             {% if request.user.is_superuser %}
                                 {# Superuser may see all collections #}
                                 {% format_collection collection %}

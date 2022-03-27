@@ -34,7 +34,7 @@ This retrieves the queryset of pages for your report. For our example:
     # <project>/views.py
 
     from wagtail.admin.views.reports import PageReportView
-    from wagtail.core.models import Page
+    from wagtail.models import Page
 
 
     class UnpublishedChangesReportView(PageReportView):
@@ -164,7 +164,7 @@ url for the report, you will need to use the ``register_admin_urls`` hook (see :
     from django.urls import path, reverse
 
     from wagtail.admin.menu import AdminOnlyMenuItem
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     from .views import UnpublishedChangesReportView
 
@@ -190,7 +190,7 @@ The full code
     # <project>/views.py
 
     from wagtail.admin.views.reports import PageReportView
-    from wagtail.core.models import Page
+    from wagtail.models import Page
 
 
     class UnpublishedChangesReportView(PageReportView):
@@ -212,7 +212,7 @@ The full code
     from django.urls import path, reverse
 
     from wagtail.admin.menu import AdminOnlyMenuItem
-    from wagtail.core import hooks
+    from wagtail import hooks
 
     from .views import UnpublishedChangesReportView
 

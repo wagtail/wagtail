@@ -217,10 +217,17 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
+``WAGTAIL_SLIM_SIDEBAR``
+------------------------
+
+.. code-block:: python
+
+  WAGTAIL_SLIM_SIDEBAR = False
+
+Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy sidebar and this setting will be removed in Wagtail 2.18.
+
 Comments
 ========
-
-.. versionadded:: 2.13
 
 ``WAGTAILADMIN_COMMENTS_ENABLED``
 ---------------------------------
@@ -340,7 +347,7 @@ You can use it to specify or override the widgets to use in the admin form.
 
   WAGTAILDOCS_SERVE_METHOD = 'redirect'
 
-Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform permission checks (see :ref:`image_document_permissions`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
+Determines how document downloads will be linked to and served. Normally, requests for documents are sent through a Django view, to perform privacy checks (see :ref:`collection_privacy_settings`) and potentially other housekeeping tasks such as hit counting. To fully protect against users bypassing this check, it needs to happen in the same request where the document is served; however, this incurs a performance hit as the document then needs to be served by the Django server. In particular, this cancels out much of the benefit of hosting documents on external storage, such as S3 or a CDN.
 
 For this reason, Wagtail provides a number of serving methods which trade some of the strictness of the permission check for performance:
 
@@ -449,7 +456,7 @@ Email Notifications
 
   WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@myhost.io'
 
-Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting if set, or ``webmaster@localhost`` if not.
+Wagtail sends email notifications when content is submitted for moderation, and when the content is accepted or rejected. This setting lets you pick which email address these automatic notifications will come from. If omitted, Wagtail will fall back to using Django's ``DEFAULT_FROM_EMAIL`` setting.
 
 ``WAGTAILADMIN_NOTIFICATION_USE_HTML``
 --------------------------------------
@@ -813,16 +820,16 @@ Rich text
                 'features': ['h2', 'bold', 'italic', 'link', 'document-link']
             }
         },
-        'legacy': {
-            'WIDGET': 'wagtail.admin.rich_text.HalloRichTextArea',
+        'secondary': {
+            'WIDGET': 'some.external.RichTextEditor',
         }
     }
 
-Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='legacy')``. Within each configuration block, the following fields are recognised:
+Customise the behaviour of rich text fields. By default, ``RichTextField`` and ``RichTextBlock`` use the configuration given under the ``'default'`` key, but this can be overridden on a per-field basis through the ``editor`` keyword argument, e.g. ``body = RichTextField(editor='secondary')``. Within each configuration block, the following fields are recognised:
 
- * ``WIDGET``: The rich text widget implementation to use. Wagtail provides two implementations: ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup) and ``wagtail.admin.rich_text.HalloRichTextArea`` (deprecated; works directly at the HTML level). Other widgets may be provided by third-party packages.
+ * ``WIDGET``: The rich text widget implementation to use. Wagtail provides ``wagtail.admin.rich_text.DraftailRichTextArea`` (a modern extensible editor which enforces well-structured markup). Other widgets may be provided by third-party packages.
 
- * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but both ``DraftailRichTextArea`` and ``HalloRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
+ * ``OPTIONS``: Configuration options to pass to the widget. Recognised options are widget-specific, but ``DraftailRichTextArea`` accept a ``features`` list indicating the active rich text features (see :ref:`rich_text_features`).
 
 If a ``'default'`` editor is not specified, rich text fields that do not specify an ``editor`` argument will use the Draftail editor with the default feature set enabled.
 
@@ -917,9 +924,9 @@ set ``WAGTAIL_WORKFLOW_REQUIRE_REAPPROVAL_ON_EDIT = False``.
 
 .. code-block:: python
 
-  WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.core.workflows.publish_workflow_state'
+  WAGTAIL_FINISH_WORKFLOW_ACTION = 'wagtail.workflows.publish_workflow_state'
 
-This sets the function to be called when a workflow completes successfully - by default, ``wagtail.core.workflows.publish_workflow_state``,
+This sets the function to be called when a workflow completes successfully - by default, ``wagtail.workflows.publish_workflow_state``,
 which publishes the page. The function must accept a ``WorkflowState`` object as its only positional argument.
 
 ``WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH``

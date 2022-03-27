@@ -61,10 +61,10 @@
 
                     {% block filters %}
                         {% if view.has_filters and all_count %}
-                        <div class="changelist-filter col3">
-                            <h2>{% trans 'Filter' %}</h2>
-                            {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
-                        </div>
+                            <div class="changelist-filter col3">
+                                <h2>{% trans 'Filter' %}</h2>
+                                {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
+                            </div>
                         {% endif %}
                     {% endblock %}
 
@@ -79,11 +79,11 @@
                                         </ul>
                                     {% else %}
                                         <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
-                                        {% if user_can_create %}
-                                            {% blocktrans with view.create_url as url %}
-                                                Why not <a href="{{ url }}">add one</a>?
-                                            {% endblocktrans %}
-                                        {% endif %}</p>
+                                            {% if user_can_create %}
+                                                {% blocktrans with view.create_url as url %}
+                                                    Why not <a href="{{ url }}">add one</a>?
+                                                {% endblocktrans %}
+                                            {% endif %}</p>
                                     {% endif %}
                                 </div>
                             {% else %}

@@ -8,8 +8,8 @@ const mockProps = {
       items: [],
     },
     meta: {
-      parent: null
-    }
+      parent: null,
+    },
   },
   depth: 1,
   onClose: jest.fn(),
@@ -32,43 +32,54 @@ describe('ExplorerPanel', () => {
     });
 
     it('#isFetching', () => {
-      expect(shallow((
-        <ExplorerPanel
-          {...mockProps}
-          page={Object.assign({ isFetching: true }, mockProps.page)}
-        />
-      ))).toMatchSnapshot();
+      expect(
+        shallow(
+          <ExplorerPanel
+            {...mockProps}
+            page={Object.assign({ isFetching: true }, mockProps.page)}
+          />,
+        ),
+      ).toMatchSnapshot();
     });
 
     it('#isError', () => {
-      expect(shallow((
-        <ExplorerPanel
-          {...mockProps}
-          page={Object.assign({ isError: true }, mockProps.page)}
-        />
-      ))).toMatchSnapshot();
+      expect(
+        shallow(
+          <ExplorerPanel
+            {...mockProps}
+            page={Object.assign({ isError: true }, mockProps.page)}
+          />,
+        ),
+      ).toMatchSnapshot();
     });
 
     it('no children', () => {
-      expect(shallow((
-        <ExplorerPanel
-          {...mockProps}
-          page={{ children: {} }}
-        />
-      ))).toMatchSnapshot();
+      expect(
+        shallow(<ExplorerPanel {...mockProps} page={{ children: {} }} />),
+      ).toMatchSnapshot();
     });
 
     it('#items', () => {
-      expect(shallow((
-        <ExplorerPanel
-          {...mockProps}
-          page={{ children: { items: [1, 2] } }}
-          nodes={{
-            1: { id: 1, admin_display_title: 'Test', meta: { status: {}, type: 'test' } },
-            2: { id: 2, admin_display_title: 'Foo', meta: { status: {}, type: 'foo' } },
-          }}
-        />
-      ))).toMatchSnapshot();
+      expect(
+        shallow(
+          <ExplorerPanel
+            {...mockProps}
+            page={{ children: { items: [1, 2] } }}
+            nodes={{
+              1: {
+                id: 1,
+                admin_display_title: 'Test',
+                meta: { status: {}, type: 'test' },
+              },
+              2: {
+                id: 2,
+                admin_display_title: 'Foo',
+                meta: { status: {}, type: 'foo' },
+              },
+            }}
+          />,
+        ),
+      ).toMatchSnapshot();
     });
   });
 
@@ -78,9 +89,15 @@ describe('ExplorerPanel', () => {
     });
 
     it('calls gotoPage', () => {
-      shallow((
-        <ExplorerPanel {...mockProps} depth={2} page={{ children: { items: [] }, meta: { parent: { id: 1 } } }} />
-      )).find('ExplorerHeader').prop('onClick')({
+      shallow(
+        <ExplorerPanel
+          {...mockProps}
+          depth={2}
+          page={{ children: { items: [] }, meta: { parent: { id: 1 } } }}
+        />,
+      )
+        .find('ExplorerHeader')
+        .prop('onClick')({
         preventDefault() {},
         stopPropagation() {},
       });
@@ -89,9 +106,15 @@ describe('ExplorerPanel', () => {
     });
 
     it('does not call gotoPage for first page', () => {
-      shallow((
-        <ExplorerPanel {...mockProps} depth={0} page={{ children: { items: [] }, meta: {  parent: { id: 1 } } }} />
-      )).find('ExplorerHeader').prop('onClick')({
+      shallow(
+        <ExplorerPanel
+          {...mockProps}
+          depth={0}
+          page={{ children: { items: [] }, meta: { parent: { id: 1 } } }}
+        />,
+      )
+        .find('ExplorerHeader')
+        .prop('onClick')({
         preventDefault() {},
         stopPropagation() {},
       });
@@ -106,14 +129,22 @@ describe('ExplorerPanel', () => {
     });
 
     it('calls gotoPage', () => {
-      shallow((
+      shallow(
         <ExplorerPanel
           {...mockProps}
           path={[1]}
           page={{ children: { items: [1] } }}
-          nodes={{ 1: { id: 1, admin_display_title: 'Test', meta: { status: {}, type: 'test' } } }}
-        />
-      )).find('ExplorerItem').prop('onClick')({
+          nodes={{
+            1: {
+              id: 1,
+              admin_display_title: 'Test',
+              meta: { status: {}, type: 'test' },
+            },
+          }}
+        />,
+      )
+        .find('ExplorerItem')
+        .prop('onClick')({
         preventDefault() {},
         stopPropagation() {},
       });
@@ -137,15 +168,24 @@ describe('ExplorerPanel', () => {
       document.body.innerHTML = '<div data-explorer-menu-item></div>';
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
       wrapper.instance().componentDidMount();
-      expect(document.querySelector('[data-explorer-menu-item]').classList.contains('submenu-active')).toBe(true);
+      expect(
+        document
+          .querySelector('[data-explorer-menu-item]')
+          .classList.contains('submenu-active'),
+      ).toBe(true);
       expect(document.body.classList.contains('explorer-open')).toBe(true);
     });
 
     it('componentWillUnmount', () => {
-      document.body.innerHTML = '<div class="submenu-active" data-explorer-menu-item></div>';
+      document.body.innerHTML =
+        '<div class="submenu-active" data-explorer-menu-item></div>';
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
       wrapper.instance().componentWillUnmount();
-      expect(document.querySelector('[data-explorer-menu-item]').classList.contains('submenu-active')).toBe(false);
+      expect(
+        document
+          .querySelector('[data-explorer-menu-item]')
+          .classList.contains('submenu-active'),
+      ).toBe(false);
       expect(document.body.classList.contains('explorer-open')).toBe(false);
     });
   });
@@ -156,7 +196,8 @@ describe('ExplorerPanel', () => {
     });
 
     it('triggers onClose when click is outside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu></div><div id="t"></div>';
+      document.body.innerHTML =
+        '<div data-explorer-menu-item></div><div data-explorer-menu></div><div id="t"></div>';
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
       wrapper.instance().clickOutside({
         target: document.querySelector('#t'),
@@ -165,7 +206,8 @@ describe('ExplorerPanel', () => {
     });
 
     it('does not trigger onClose when click is inside', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div><div data-explorer-menu><div id="t"></div></div>';
+      document.body.innerHTML =
+        '<div data-explorer-menu-item></div><div data-explorer-menu><div id="t"></div></div>';
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
       wrapper.instance().clickOutside({
         target: document.querySelector('#t'),
@@ -174,7 +216,8 @@ describe('ExplorerPanel', () => {
     });
 
     it('pauses focus trap inside toggle', () => {
-      document.body.innerHTML = '<div data-explorer-menu-item><div id="t"></div></div><div data-explorer-menu></div>';
+      document.body.innerHTML =
+        '<div data-explorer-menu-item><div id="t"></div></div><div data-explorer-menu></div>';
       const wrapper = shallow(<ExplorerPanel {...mockProps} />);
       wrapper.instance().clickOutside({
         target: document.querySelector('#t'),

@@ -1,11 +1,8 @@
-```eval_rst
-.. _integrating_into_django:
-```
 # Integrating Wagtail into a Django project
 
 Wagtail provides the `wagtail start` command and project template to get you started with a new Wagtail project as quickly as possible, but it's easy to integrate Wagtail into an existing Django project too.
 
-Wagtail is currently compatible with Django 3.0, 3.1 and 3.2. First, install the `wagtail` package from PyPI:
+Wagtail is currently compatible with Django 3.2 and 4.0. First, install the `wagtail` package from PyPI:
 
 ```sh
 $ pip install wagtail
@@ -28,7 +25,7 @@ In your settings file, add the following apps to `INSTALLED_APPS`:
 'wagtail.images',
 'wagtail.search',
 'wagtail.admin',
-'wagtail.core',
+'wagtail',
 
 'modelcluster',
 'taggit',
@@ -59,18 +56,6 @@ Add a `WAGTAIL_SITE_NAME` - this will be displayed on the main dashboard of the 
 WAGTAIL_SITE_NAME = 'My Example Site'
 ```
 
-<!--- RemovedInWagtail217Warning (wagtail.search.backends.database will be made the default and will not need to be added explicitly here) -->
-
-Add the `WAGTAILSEARCH_BACKENDS` setting to enable full-text searching:
-
-```python
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
-    }
-}
-```
-
 Various other settings are available to configure Wagtail's behaviour - see [Settings](/reference/settings).
 
 ## URL configuration
@@ -81,7 +66,7 @@ Now make the following additions to your `urls.py` file:
 from django.urls import path, include
 
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.core import urls as wagtail_urls
+from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [

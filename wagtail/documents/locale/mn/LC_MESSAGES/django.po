@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Mongolian (http://www.transifex.com/torchbox/wagtail/language/"
 "mn/)\n"
@@ -82,16 +82,6 @@ msgstr "Хуулах"
 msgid "Latest documents"
 msgstr "Сүүлийн файлууд"
 
-msgid "Title"
-msgstr "Гарчиг"
-
-msgid "File"
-msgstr "Файл"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s-н өмнө"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "\"<em>%(query_string)s</em>\" утгад тохирох хайлтын илэрц олдсонгүй"
@@ -142,6 +132,16 @@ msgstr "Хэрэглээ"
 
 msgid "Documents"
 msgstr "Файлууд"
+
+msgid "Title"
+msgstr "Гарчиг"
+
+msgid "File"
+msgstr "Файл"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s-н өмнө"
 
 #, python-format
 msgid ""
@@ -206,12 +206,14 @@ msgstr "Северийн алдаа"
 msgid "Search documents"
 msgstr "Файл хайх"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "'{0}' файл нэмэгдлээ."
 
 msgid "The document could not be saved due to errors."
 msgstr "Алдаанаас шалтгаалж файл хадгалагдсангүй."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "'{0}' файл шинэчлэгдлээ"
 
@@ -219,6 +221,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Файл олдсонгүй. Эх файлыг солих эсвэл устгана уу"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "'{0}' файл устлаа."
 

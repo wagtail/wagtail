@@ -4,17 +4,17 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2015
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-02-03 09:57+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -27,10 +27,10 @@ msgid "Delete"
 msgstr "Apagar"
 
 msgid "Save"
-msgstr "Guardar"
+msgstr "Gravar"
 
 msgid "Wagtail snippets"
-msgstr "Fragmentos Wagtail"
+msgstr "Trechos Wagtail"
 
 msgid "Choose"
 msgstr "Escolher"
@@ -56,12 +56,9 @@ msgstr[1] ""
 "            Existem %(counter)s correspondências\n"
 "        "
 
-msgid "Title"
-msgstr "Título"
-
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
-msgstr "Desculpe, nenhum fragmento corresponde a \"<em>%(query_string)s</em>\""
+msgstr "Desculpe, nenhum trecho corresponde a \"<em>%(query_string)s</em>\""
 
 #, python-format
 msgid ""
@@ -69,9 +66,12 @@ msgid ""
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
 "noreferrer\">create one now</a>?"
 msgstr ""
-"Você ainda não criou nenhum fragmento %(snippet_type_name)s. Porque não <a "
-"href=\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel="
-"\"noopener noreferrer\">criar um agora</a>?"
+"Ainda não criou nenhum trecho %(snippet_type_name)s. Que tal <a href="
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">criar um agora</a>?"
+
+msgid "Last updated"
+msgstr "Última atualização"
 
 msgid "History"
 msgstr "Histórico"
@@ -81,10 +81,10 @@ msgstr "A gravar…"
 
 #, python-format
 msgid "Delete %(snippet_type_name)s"
-msgstr "Eliminar %(snippet_type_name)s"
+msgstr "Apagar %(snippet_type_name)s"
 
 msgid "Delete "
-msgstr "Eliminar"
+msgstr "Apagar"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -98,13 +98,13 @@ msgstr "Tem a certeza que quer apagar este %(snippet_type_name)s?"
 
 #, python-format
 msgid "Are you sure you want to delete %(count)s %(snippet_type_name)s?"
-msgstr "Tem a certeza que quer eliminar %(count)s %(snippet_type_name)s?"
+msgstr "Tem a certeza que quer apagar %(count)s %(snippet_type_name)s?"
 
 msgid "Yes, delete"
 msgstr "Sim, apagar"
 
 msgid "No, don't delete"
-msgstr "Não, não eliminar"
+msgstr "Não, não apagar"
 
 #, python-format
 msgid "New  %(snippet_type_name)s"
@@ -127,11 +127,14 @@ msgid "Usage"
 msgstr "Utilização"
 
 msgid "Snippets"
-msgstr "Fragmentos"
+msgstr "Trechos"
 
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Selecione todos %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid "Select %(snippet)s"
@@ -142,16 +145,16 @@ msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
 "\"%(wagtailsnippets_create_url)s\">add one</a>?"
 msgstr ""
-"Não existe nenhum %(snippet_type_name_plural)s. Porque não <a href="
-"\"%(wagtailsnippets_create_url)s\">criar um</a>?"
+"Ainda não foi criado nenhum %(snippet_type_name_plural)s. Que tal <a href="
+"\"%(wagtailsnippets_create_url)s\">adicionar um</a>?"
 
 #, python-format
 msgid "Snippets %(snippet_type_name_plural)s"
-msgstr "Fragmentos %(snippet_type_name_plural)s"
+msgstr "Trechos %(snippet_type_name_plural)s"
 
 #, python-format
 msgid "Snippets <span>%(snippet_type_name_plural)s</span>"
-msgstr "Fragmentos <span>%(snippet_type_name_plural)s</span>"
+msgstr "Trechos <span>%(snippet_type_name_plural)s</span>"
 
 #, python-format
 msgid "Add %(snippet_type_name)s"
@@ -188,14 +191,14 @@ msgid "Edit"
 msgstr "Alterar"
 
 msgid "The snippet could not be created due to errors."
-msgstr "O fragmento não pôde ser criado devido a erros."
+msgstr "O trecho não pôde ser criado devido a erros."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr "%(snippet_type)s '%(instance)s' atualizado."
 
 msgid "The snippet could not be saved due to errors."
-msgstr "O fragmento não pôde ser guardado devido a erros."
+msgstr "O trecho não pôde ser gravado devido a erros."
 
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' deleted."
@@ -204,8 +207,11 @@ msgstr "%(snippet_type)s '%(instance)s' apagado."
 #, python-format
 msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
-msgstr[0] "%(count)d%(snippet_type)sapagado"
+msgstr[0] "%(count)d%(snippet_type)sapagado."
 msgstr[1] "%(count)d %(snippet_type)s apagados."
+
+msgid "Snippet history"
+msgstr "Histórico de trechos"
 
 msgid "Action"
 msgstr "Ação"
@@ -215,7 +221,7 @@ msgstr "Data"
 
 #, python-format
 msgid "Edit '%(title)s'"
-msgstr "Editar '%(title)s'"
+msgstr "Alterar '%(title)s'"
 
 #, python-format
 msgid "Delete '%(title)s'"

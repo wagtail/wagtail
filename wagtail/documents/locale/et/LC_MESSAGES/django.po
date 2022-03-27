@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
@@ -102,19 +102,6 @@ msgstr[1] ""
 msgid "Latest documents"
 msgstr "Viimased dokumendid"
 
-msgid "Title"
-msgstr "Pealkiri"
-
-msgid "File"
-msgstr "Fail"
-
-msgid "Created"
-msgstr "Loodud"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s tagasi"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Vabandust, ükski dokument ei ühti \"<em>%(query_string)s</em>\\"
@@ -176,6 +163,19 @@ msgstr "Kasutamine"
 
 msgid "Documents"
 msgstr "Dokumendid"
+
+msgid "Title"
+msgstr "Pealkiri"
+
+msgid "File"
+msgstr "Fail"
+
+msgid "Created"
+msgstr "Loodud"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s tagasi"
 
 #, python-format
 msgid ""
@@ -274,18 +274,17 @@ msgstr "Kustuta"
 msgid "Server Error"
 msgstr "Serveri viga"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Teatage sellest veast oma veebimeistrile järgmise teabega:"
-
 msgid "Search documents"
 msgstr "Dokumentide otsimine"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' on lisatud."
 
 msgid "The document could not be saved due to errors."
 msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumendi '{0}' värskendamine on toimunud"
 
@@ -293,6 +292,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' on kustutatud."
 

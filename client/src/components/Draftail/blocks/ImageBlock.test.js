@@ -19,8 +19,8 @@ describe('ImageBlock', () => {
             },
             onChange: () => {},
           }}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -37,8 +37,8 @@ describe('ImageBlock', () => {
             },
             onChange: () => {},
           }}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -58,8 +58,8 @@ describe('ImageBlock', () => {
             },
             onChange: () => {},
           }}
-        />
-      )
+        />,
+      ),
     ).toMatchSnapshot();
   });
 });

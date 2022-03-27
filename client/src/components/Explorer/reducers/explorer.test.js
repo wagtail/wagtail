@@ -7,7 +7,7 @@ describe('explorer', () => {
     expect(explorer).toBeDefined();
   });
 
-  it('returns the initial state if no input is provided', () =>  {
+  it('returns the initial state if no input is provided', () => {
     expect(explorer(undefined, {})).toEqual(initialState);
   });
 
@@ -17,15 +17,22 @@ describe('explorer', () => {
   });
 
   it('CLOSE_EXPLORER', () => {
-    expect(explorer(initialState, { type: 'CLOSE_EXPLORER' })).toEqual(initialState);
+    expect(explorer(initialState, { type: 'CLOSE_EXPLORER' })).toEqual(
+      initialState,
+    );
   });
 
   it('PUSH_PAGE', () => {
-    expect(explorer(initialState, { type: 'PUSH_PAGE', payload: { id: 100 } })).toMatchSnapshot();
+    expect(
+      explorer(initialState, { type: 'PUSH_PAGE', payload: { id: 100 } }),
+    ).toMatchSnapshot();
   });
 
   it('POP_PAGE', () => {
-    const state = explorer(initialState, { type: 'PUSH_PAGE', payload: { id: 100 } });
+    const state = explorer(initialState, {
+      type: 'PUSH_PAGE',
+      payload: { id: 100 },
+    });
     const action = { type: 'POP_PAGE', payload: { id: 100 } };
     expect(explorer(state, action)).toMatchSnapshot();
   });

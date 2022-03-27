@@ -109,5 +109,9 @@ In summary, interactions between BoundBlocks and plain values work according to 
 1. When iterating over the value of a StreamField or StreamBlock (as in ``{% for block in page.body %}``), you will get back a sequence of BoundBlocks.
 2. If you have a BoundBlock instance, you can access the plain value as ``block.value``.
 3. Accessing a child of a StructBlock (as in ``value.heading``) will return a plain value; to retrieve the BoundBlock instead, use ``value.bound_blocks.heading``.
-4. The value of a ListBlock is a plain Python list; iterating over it returns plain child values.
+4. Likewise, accessing children of a ListBlock (e.g. ``for item in value``) will return plain values; to retrieve BoundBlocks instead, use ``value.bound_blocks``.
 5. StructBlock and StreamBlock values always know how to render their own templates, even if you only have the plain value rather than the BoundBlock.
+
+.. versionchanged:: 2.16
+
+  The value of a ListBlock now provides a ``bound_blocks`` property; previously it was a plain Python list of child values.

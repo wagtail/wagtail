@@ -4,79 +4,137 @@ jobs:
   backend:
     docker:
       - image: cimg/python:3.8.11
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - pip-packages-v1-{{ .Branch }}
-            - pip-packages-v1-
-      - run: pipenv install -e .[testing]
+          key: pipenv-v1-{{ checksum "setup.py" }}
+      # Only install if .venv wasn’t cached.
+      - run: |
+          if [[ ! -e ".venv" ]]; then
+              pipenv install -e .[testing,docs]
+          fi
       - save_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
           paths:
-            - ~/.local/
-          key: pip-package-v1-{{ .Branch }}
+            - .venv
       - run: pipenv run flake8
       - run: pipenv run isort --check-only --diff .
-      # Filter out known false positives, while preserving normal output and error codes.
-      # See https://github.com/motet-a/jinjalint/issues/18.
-      # And https://circleci.com/docs/2.0/configuration-reference/#default-shell-options.
-      - run:
-          shell: /bin/bash -e
-          command: pipenv run jinjalint --parse-only wagtail | grep -v 'welcome_page.html:6:70' | tee /dev/tty | wc -l | grep -q '0'
+      - run: pipenv run black --target-version py37 --check --diff .
+      - run: git ls-files '*.html' | xargs pipenv run djhtml --check
+      - run: pipenv run curlylint --parse-only wagtail
       - run: pipenv run doc8 docs
       - run: DATABASE_NAME=wagtail.db pipenv run python -u runtests.py
 
   frontend:
     docker:
-      - image: circleci/node:14
+      - image: circleci/node:16
     steps:
       - checkout
       - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
-      - run: npm install --no-save
+          key: frontend-v1-{{ checksum "package-lock.json" }}
+      # Only install if node_modules wasn’t cached.
+      - run: |
+          if [[ ! -e "node_modules" ]]; then
+              npm install --no-save --no-optional --no-audit --no-fund --progress=false
+          fi
       - save_cache:
           paths:
-            - ~/project/node_modules/
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node_modules
+          key: frontend-v1-{{ checksum "package-lock.json" }}
       - run: npm run build
+      # Save static files for subsequent jobs.
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - wagtail
       - run: npm run lint:js
       - run: npm run lint:css
+      - run: npm run lint:format
       - run: npm run test:unit:coverage -- --runInBand
-      - run: npm run dist
       - run: bash <(curl -s https://codecov.io/bash) -F frontend
+
+  ui_tests:
+    docker:
+      - image: cimg/python:3.8.11-browsers
+    environment:
+      PIPENV_VENV_IN_PROJECT: true
+      DJANGO_SETTINGS_MODULE: wagtail.test.settings_ui
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - restore_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
+      # Only install if .venv wasn’t cached.
+      - run: |
+          if [[ ! -e ".venv" ]]; then
+              pipenv install -e .[testing]
+          fi
+      - save_cache:
+          key: pipenv-v1-{{ checksum "setup.py" }}
+          paths:
+            - .venv
+      - restore_cache:
+          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+      # Only install if node_modules wasn’t cached.
+      - run: |
+          if [[ ! -e "client/tests/integration/node_modules" ]]; then
+              npm --prefix ./client/tests/integration ci
+          fi
+      - save_cache:
+          key: ui_tests-npm_integration-v1-{{ checksum "client/tests/integration/package-lock.json" }}
+          paths:
+            - client/tests/integration/node_modules
+      - run: pipenv run ./wagtail/test/manage.py migrate
+      - run:
+          command: pipenv run ./wagtail/test/manage.py runserver 0:8000
+          background: true
+      - run: pipenv run ./wagtail/test/manage.py createcachetable
+      - run:
+          command: pipenv run ./wagtail/test/manage.py createsuperuser --noinput
+          environment:
+            DJANGO_SUPERUSER_EMAIL: admin@example.com
+            DJANGO_SUPERUSER_USERNAME: admin
+            DJANGO_SUPERUSER_PASSWORD: changeme
+      - run:
+          command: npm run test:integration -- --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: reports/jest
+      - store_test_results:
+          path: ./reports/jest
 
   nightly-build:
     docker:
-      - image: cimg/python:3.8.11
+      - image: cimg/python:3.8.11-node
     steps:
       - checkout
-      - run: cd ~ && wget https://nodejs.org/dist/v14.17.5/node-v14.17.5-linux-x64.tar.gz
-      - run: cd /usr/local/ && sudo tar --strip-components 1 -xzf ~/node-v14.17.5-linux-x64.tar.gz
       - run: pip install --user wheel boto3
       - run: npm install
-      - run: npm run dist
+      - run: npm run build
       - run: PYTHONPATH=. python scripts/nightly/get_version.py > __init__.py
       - run: mv __init__.py wagtail/__init__.py
       - run: python setup.py bdist_wheel
       - run: python scripts/nightly/upload.py
 
 workflows:
-    version: 2
-    test:
-      jobs:
-        - backend
-        - frontend
+  version: 2
+  test:
+    jobs:
+      - backend
+      - frontend
+      - ui_tests:
+          requires:
+            - frontend
 
-    nightly:
-      jobs:
-        - nightly-build
-      triggers:
-        - schedule:
-            cron: "0 0 * * *"
-            filters:
-              branches:
-                only:
-                  - main
+  nightly:
+    jobs:
+      - nightly-build
+    triggers:
+      - schedule:
+          cron: '0 0 * * *'
+          filters:
+            branches:
+              only:
+                - main

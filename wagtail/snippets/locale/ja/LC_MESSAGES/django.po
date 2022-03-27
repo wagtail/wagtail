@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: kojikojikojikoji\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2021-11-04 14:38+0000\n"
+"Last-Translator: Hiroki Sawano\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -49,9 +49,6 @@ msgid_plural ""
 msgstr[0] ""
 "\n"
 "%(counter)s件の一致があります。"
-
-msgid "Title"
-msgstr "タイトル"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -121,6 +118,9 @@ msgstr "使用法"
 msgid "Snippets"
 msgstr "スニペット"
 
+msgid "Title"
+msgstr "タイトル"
+
 #, python-format
 msgid ""
 "No %(snippet_type_name_plural)s have been created. Why not <a href="
@@ -172,6 +172,9 @@ msgstr "このスニペットはエラーにより作成されませんでした
 
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
+
+msgid "Action"
+msgstr "アクション"
 
 msgid "Date"
 msgstr "日付"

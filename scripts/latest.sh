@@ -107,7 +107,7 @@ elif [ "$1" = "edit" -o "$1" = "vi" ]; then
     if ! _get "${LTMP}"; then
         exit 1
     fi
-    
+
     cp "${LTMP}" "${LTMP2}"
 
     if [ ! -z "${VISUAL}" ]; then

@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # George Giannoulopoulos <vdotoree@yahoo.gr>, 2015
 # jim dal <dimitrisdal@gmail.com>, 2014
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
@@ -15,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -25,6 +26,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Αρχεία Wagtail"
 
 msgid "Collection"
 msgstr "Συλλογή"
@@ -62,8 +66,17 @@ msgstr "ετικέτες"
 msgid "document"
 msgstr "έγγραφο"
 
+msgid "documents"
+msgstr "αρχεία"
+
+msgid "Add tags to documents"
+msgstr "Προσθήκη ετικετών σε αρχεία"
+
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
 
 msgid "Choose a document"
 msgstr "Επιλογή εγγράφου"
@@ -76,16 +89,6 @@ msgstr "Ανέβασμα"
 
 msgid "Latest documents"
 msgstr "Τελευταία έγγραφα"
-
-msgid "Title"
-msgstr "Τίτλος"
-
-msgid "File"
-msgstr "Αρχείο"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
@@ -127,8 +130,24 @@ msgstr "Μέγεθος Αρχείου"
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
+msgid "Usage"
+msgstr "Χρήση"
+
 msgid "Documents"
 msgstr "Έγγραφα"
+
+msgid "Title"
+msgstr "Τίτλος"
+
+msgid "File"
+msgstr "Αρχείο"
+
+msgid "Created"
+msgstr "Δημιουργήθηκε"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "πριν από %(time_period)s"
 
 #, python-format
 msgid ""
@@ -183,6 +202,9 @@ msgstr "Προσθήκη συλλογής:"
 msgid "Sorry, upload failed."
 msgstr "Σφάλμα κατά τη μεταφορά."
 
+msgid "Document updated."
+msgstr "Αρχείο αναθεωρήθηκε"
+
 msgid "Document permissions"
 msgstr "Δικαιώματα εγγράφων"
 
@@ -195,18 +217,17 @@ msgstr "Διαγραφή"
 msgid "Server Error"
 msgstr "Σφάλμα"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Αναφέρατε το σφάλμα στο διαχειριστή με τις εξής πληροφορίες:"
-
 msgid "Search documents"
 msgstr "Αναζήτηση εγγράφων"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Το έγγραφο '{0}' προστέθηκε."
 
 msgid "The document could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η αποθήκευση του εγγράφου."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Έγινε διόρθωση του εγγράφου '{0}'"
 
@@ -216,6 +237,7 @@ msgstr ""
 "Το αρχείο δεν μπορεσε να βρεθεί. Παρακαλούμε να αλλάξετε την πηγή ή να "
 "διαγράψετε το έγγραφο"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Το έγγραφο '{0}' διαγράφηκε."
 

@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:15+0000\n"
 "Last-Translator: serafeim <serafeim@torchbox.com>\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
@@ -32,6 +32,9 @@ msgstr "Τύπος"
 
 msgid "Permanent"
 msgstr "Μόνιμη"
+
+msgid "All"
+msgstr "Όλα"
 
 msgid "From site"
 msgstr "Από δικτυακό τόπο"
@@ -69,6 +72,9 @@ msgstr "προώθηση σε ιστοσελίδα"
 msgid "redirect to any URL"
 msgstr "προώθηση σε οποιοδήποτε σύνδεσμο"
 
+msgid "created at"
+msgstr "δημιουργία στις"
+
 msgid "temporary"
 msgstr "προσωρινό"
 
@@ -96,6 +102,9 @@ msgstr "Θέλετε πράγματι να διαγράψετε αυτή την 
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
+
+msgid "Cancel"
+msgstr "Ακύρωση"
 
 msgid "Preview"
 msgstr "Προεπισκόπηση"
@@ -142,6 +151,7 @@ msgstr ""
 msgid "Search redirects"
 msgstr "Αναζήτηση ανακατευθύνσεων"
 
+#, python-brace-format
 msgid "Redirect '{0}' updated."
 msgstr "Η ανακατεύθυνση '{0}' αποθηκεύθηκε."
 
@@ -151,9 +161,11 @@ msgstr "Επεξεργασία"
 msgid "The redirect could not be saved due to errors."
 msgstr "Η ανακατεύθυνση δε μπόρεσε να αποθηκευθεί λόγω σφαλμάτων."
 
+#, python-brace-format
 msgid "Redirect '{0}' deleted."
 msgstr "Η ανακατεύθυνση '{0}' διαγράφηκε."
 
+#, python-brace-format
 msgid "Redirect '{0}' added."
 msgstr "Η ανακατεύθυνση '{0}' προστέθηκε."
 

@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0008_document_file_size'),
+        ("wagtaildocs", "0008_document_file_size"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='document',
-            options={'verbose_name': 'document', 'verbose_name_plural': 'documents'},
+            name="document",
+            options={"verbose_name": "document", "verbose_name_plural": "documents"},
         ),
     ]

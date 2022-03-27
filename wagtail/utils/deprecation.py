@@ -1,16 +1,15 @@
 import warnings
-
 from importlib import import_module
 
 
-class RemovedInWagtail217Warning(DeprecationWarning):
+class RemovedInWagtail218Warning(DeprecationWarning):
     pass
 
 
-removed_in_next_version_warning = RemovedInWagtail217Warning
+removed_in_next_version_warning = RemovedInWagtail218Warning
 
 
-class RemovedInWagtail218Warning(PendingDeprecationWarning):
+class RemovedInWagtail219Warning(PendingDeprecationWarning):
     pass
 
 
@@ -38,6 +37,7 @@ class MovedDefinitionHandler:
         'SomeClassOrVariableName': ('path.to.new.module', 'NewClassOrVariableName'),
     }
     """
+
     def __init__(self, real_module, moved_definitions, warning_class):
         self.real_module = real_module
         self.moved_definitions = moved_definitions
@@ -62,14 +62,18 @@ class MovedDefinitionHandler:
 
         if new_name != name:
             warnings.warn(
-                "%s has been moved from %s to %s and renamed to %s" % (name, self.real_module.__name__, new_module_name, new_name),
-                category=self.warning_class, stacklevel=2
+                "%s has been moved from %s to %s and renamed to %s"
+                % (name, self.real_module.__name__, new_module_name, new_name),
+                category=self.warning_class,
+                stacklevel=2,
             )
 
         else:
             warnings.warn(
-                "%s has been moved from %s to %s" % (name, self.real_module.__name__, new_module_name),
-                category=self.warning_class, stacklevel=2
+                "%s has been moved from %s to %s"
+                % (name, self.real_module.__name__, new_module_name),
+                category=self.warning_class,
+                stacklevel=2,
             )
 
         # load the requested definition from the module named in moved_definitions

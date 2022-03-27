@@ -24,8 +24,6 @@ attribute on the rendition to position the rendition based on the focal point in
 Accessing the focal point in templates
 --------------------------------------
 
-.. versionadded:: 2.14
-
 You can access the focal point in the template by accessing the ``.focal_point`` attribute of a rendition:
 
 .. code-block:: html+Django

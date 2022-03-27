@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
@@ -263,21 +263,25 @@ msgstr "หลายกลุ่ม"
 msgid "Search groups"
 msgstr "ค้นหากลุ่ม"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "กลุ่ม'{0}'ถูกสร้างแล้ว"
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "กลุ่ม'{0}'ถูกอัพเดทแล้ว"
 
 msgid "The group could not be saved due to errors."
 msgstr "กลุ่มนี้ไม่สามารถถูกเซฟได้ในขณะที่มีข้อผิดพลาด"
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "กลุ่ม'{0}'ถูกลบทิ้งแล้ว"
 
 msgid "Search users"
 msgstr "ค้นหาผู้ใช้"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "ผู้ใช้'{0}'ถูกสร้างแล้ว"
 
@@ -287,12 +291,14 @@ msgstr "แก้ไข"
 msgid "The user could not be created due to errors."
 msgstr "ผู้ใช้นี้ไม่สามารถถูกสร้างได้ในขณะที่มีข้อผิดพลาด"
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "ผู้ใช้'{0}'ถูกอัพเดทแล้ว"
 
 msgid "The user could not be saved due to errors."
 msgstr "ผู้ใช้นี้ไม่สามารถเซฟได้ในขณะที่มีข้อผิดพลาด"
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "ผู้ใช้'{0}'ถูกลบทิ้งแล้ว"
 

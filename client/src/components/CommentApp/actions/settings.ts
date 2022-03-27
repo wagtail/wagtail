@@ -10,7 +10,7 @@ export interface UpdateGlobalSettingsAction {
 export type Action = UpdateGlobalSettingsAction;
 
 export function updateGlobalSettings(
-  update: SettingsStateUpdate
+  update: SettingsStateUpdate,
 ): UpdateGlobalSettingsAction {
   return {
     type: UPDATE_GLOBAL_SETTINGS,

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-16 13:06+0000\n"
-"Last-Translator: ongchi <ihcgno@icloud.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese Traditional (http://www.transifex.com/torchbox/"
 "wagtail/language/zh-Hant/)\n"
 "MIME-Version: 1.0\n"
@@ -336,9 +336,6 @@ msgstr "對不起啊，上傳失敗。"
 msgid "Server Error"
 msgstr "伺服器錯誤"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "將此錯誤報告給你的網站管理員，包含如下信息："
-
 msgid "Image updated."
 msgstr "圖片已更新。"
 
@@ -366,6 +363,7 @@ msgstr "刪除選擇的圖片"
 msgid "Search images"
 msgstr "搜索圖片"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "圖片 '{0}' 已更新。"
 
@@ -380,9 +378,11 @@ msgid ""
 "the image."
 msgstr "無法找到圖片來源文件。請修改來源文件或者刪除圖片。"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "圖片'{0}' 已刪除。"
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "圖片'{0}'已新增"
 

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
@@ -329,9 +329,6 @@ msgstr "ขออภัย,การอัพโหลดผิดพลาด"
 msgid "Server Error"
 msgstr "เซฟเว่อร์เกิดข้อผิดพลาด"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์ดยให้ทำตามข้อมูลนี้"
-
 msgid "Image updated."
 msgstr "รูปภาพถูกอัพเดทแล้ว"
 
@@ -347,6 +344,7 @@ msgstr "ลบ"
 msgid "Search images"
 msgstr "ค้นหารูปภาพ"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "รูปภาพ'{0}'ถูกอัพเดทแล้ว"
 
@@ -361,9 +359,11 @@ msgid ""
 "the image."
 msgstr "ไม่สามารถพบต้นฉบับของไฟล์รูป กรุณาเปลี่ยนต้นฉบับหรือลบรูปทิ้ง"
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "รูปภาพ'{0}'ถูกลบแล้ว"
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "รูปภาพ'{0}' ถูกเพิ่มเรียบร้อยแล้ว"
 

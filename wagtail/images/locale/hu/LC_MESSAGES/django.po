@@ -4,13 +4,13 @@
 #
 # Translators:
 # aaao <aron.santa@gmail.com>, 2019
-# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2021
+# Istvan Farkas <istvan.farkas@gmail.com>, 2019-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-26 13:25+0000\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2022-01-21 15:07+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
@@ -314,6 +314,21 @@ msgstr "Mentés"
 msgid "Delete image"
 msgstr "Kép törlése"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"Biztosan törölni kívánja ezt a képet?"
+msgstr[1] ""
+"\n"
+"Biztosan törölni kívánja ezeket a képeket?"
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "%(title)s kép szerkesztése"
@@ -462,9 +477,10 @@ msgstr "Sajnáljuk, de a feltöltés sikertelen volt."
 msgid "Server Error"
 msgstr "Szerverhiba"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Kérjük vegye fel a kapcsolatot az üzemeltetővel, bemásolva a következőt:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr "Hiba jelentése az aminisztrátornak a következő információkkal: "
 
 msgid "Image updated."
 msgstr "Kép frissítve."
@@ -514,6 +530,7 @@ msgstr[1] "%(num_parent_objects)d kép törölve"
 msgid "Search images"
 msgstr "Képek keresése"
 
+#, python-brace-format
 msgid "Image '{0}' updated."
 msgstr "'{0}' kép frissítve."
 
@@ -530,9 +547,11 @@ msgstr ""
 "A forrás kép nem található. Kérjük válasszon ki új forrás fájlt, vagy "
 "törölje a képet."
 
+#, python-brace-format
 msgid "Image '{0}' deleted."
 msgstr "'{0}' kép törölve."
 
+#, python-brace-format
 msgid "Image '{0}' added."
 msgstr "'{0}' kép hozzáadva."
 

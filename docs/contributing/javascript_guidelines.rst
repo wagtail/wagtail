@@ -3,8 +3,7 @@ JavaScript coding guidelines
 
 Write JavaScript according to the `Airbnb Styleguide <https://github.com/airbnb/javascript>`_, with some exceptions:
 
--  Use soft-tabs with a two space indent. Spaces are the only way to
-   guarantee code renders the same in any person's environment.
+-  Use `Prettier <https://prettier.io/>`_ for all formatting considerations.
 -  We accept ``snake_case`` in object properties, such as
    ``ajaxResponse.page_title``, however camelCase or UPPER_CASE should be used
    everywhere else.
@@ -13,9 +12,9 @@ Write JavaScript according to the `Airbnb Styleguide <https://github.com/airbnb/
 Linting and formatting code
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail uses the `ESLint <https://eslint.org/>`_ linter to help check your code meets the
-styleguide. You'll need node.js and npm on your development machine.
-Ensure project dependencies are installed by running ``npm install --no-save``
+Wagtail uses `ESLint <https://eslint.org/>`_ and `Prettier <https://prettier.io/>`_.
+You'll need Node and npm on your development machine.
+Ensure project dependencies are installed by running ``npm install --no-save``.
 
 Linting code
 ------------
@@ -33,6 +32,14 @@ excluded from the linter.
 
 Formatting code
 ---------------
+
+For Prettier auto-formatting, run:
+
+.. code-block:: console
+
+    $ npm run format
+
+If you want to autofix linting errors:
 
 .. code-block:: console
 

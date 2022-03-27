@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2021-10-15 16:43+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
@@ -53,9 +53,6 @@ msgstr[1] ""
 msgstr[2] ""
 "\n"
 "Pronađeno je %(counter)s rezultata"
-
-msgid "Title"
-msgstr "Naslov"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -132,6 +129,9 @@ msgstr "Izresci"
 #, python-format
 msgid "Select all %(snippet_type_name_plural)s"
 msgstr "Označi sve %(snippet_type_name_plural)s"
+
+msgid "Title"
+msgstr "Naslov"
 
 #, python-format
 msgid "Select %(snippet)s"

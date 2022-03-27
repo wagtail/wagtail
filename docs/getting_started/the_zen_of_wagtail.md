@@ -26,7 +26,7 @@ Suppose a content author comes to you with a request: "We need this text to be i
 
 A common sight in content management systems is a point-and-click interface to let you define the data model that makes up a page:
 
-![](../_static/images/drupal_content_type.png)
+![Image of a CMS interface](../_static/images/drupal_content_type.png)
 
 It looks nice in the sales pitch, but in reality, no CMS end-user can realistically make that kind of fundamental change - on a live site, no less - unless they have a programmer's insight into how the site is built, and what impact the change will have. As such, it will always be the programmer's job to negotiate that point-and-click interface - all you've done is taken them away from the comfortable world of writing code, where they have a whole ecosystem of tools, from text editors to version control systems, to help them develop, test and deploy their code changes.
 

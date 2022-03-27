@@ -6,16 +6,16 @@ Panel types
 Built-in Fields and Choosers
 ----------------------------
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.edit_handlers.FieldPanel` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.panels.FieldPanel` when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
-.. module:: wagtail.admin.edit_handlers
+.. module:: wagtail.admin.panels
 
 FieldPanel
 ~~~~~~~~~~
 
-.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False)
+.. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
 
     This is the panel used for basic Django field types.
 
@@ -43,29 +43,29 @@ FieldPanel
 
         This allows you to prevent a field level comment button showing for this panel if set to ``True`` (see :ref:`commenting`).
 
+    .. attribute:: FieldPanel.permission (optional)
+
+        Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
+
+
 StreamFieldPanel
 ~~~~~~~~~~~~~~~~
 
 .. class:: StreamFieldPanel(field_name, classname=None, widget=None)
 
-    This is the panel used for Wagtail's StreamField type (see :ref:`streamfield`).
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. attribute:: FieldPanel.field_name
+    .. versionchanged:: 2.17
 
-        This is the name of the class property used in your model definition.
+       ``StreamFieldPanel`` is no longer required for ``StreamField``.
 
-    .. attribute:: FieldPanel.classname (optional)
-
-        This is a string of optional CSS classes given to the panel which are used in formatting and scripted interactivity. By default, panels are formatted as inset fields.
-
-        The CSS class ``full`` can be used to format the panel so it covers the full width of the Wagtail page editor.
 
 MultiFieldPanel
 ~~~~~~~~~~~~~~~
 
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
-    This panel condenses several :class:`~wagtail.admin.edit_handlers.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
+    This panel condenses several :class:`~wagtail.admin.panels.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
 
     .. attribute:: MultiFieldPanel.children
 
@@ -114,7 +114,7 @@ FieldRowPanel
 HelpPanel
 ~~~~~~~~~
 
-.. class:: HelpPanel(content='', template='wagtailadmin/edit_handlers/help_panel.html', heading='', classname='')
+.. class:: HelpPanel(content='', template='wagtailadmin/panels/help_panel.html', heading='', classname='')
 
     .. attribute:: HelpPanel.content
 
@@ -137,12 +137,12 @@ PageChooserPanel
 
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
-    You can explicitly link :class:`~wagtail.core.models.Page`-derived models together using the :class:`~wagtail.core.models.Page` model and ``PageChooserPanel``.
+    You can explicitly link :class:`~wagtail.models.Page`-derived models together using the :class:`~wagtail.models.Page` model and ``PageChooserPanel``.
 
     .. code-block:: python
 
-        from wagtail.core.models import Page
-        from wagtail.admin.edit_handlers import PageChooserPanel
+        from wagtail.models import Page
+        from wagtail.admin.panels import PageChooserPanel
 
 
         class BookPage(Page):
@@ -166,6 +166,10 @@ PageChooserPanel
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
+    .. versionchanged:: 2.17
+
+       ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
+
 
 ImageChooserPanel
 ~~~~~~~~~~~~~~~~~
@@ -174,35 +178,17 @@ ImageChooserPanel
 
 .. class:: ImageChooserPanel(field_name)
 
-    Wagtail includes a unified image library, which you can access in your models through the :class:`~wagtail.images.models.Image` model and the ``ImageChooserPanel`` chooser. Here's how:
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.images.models import Image
-      from wagtail.images.edit_handlers import ImageChooserPanel
+       ``ImageChooserPanel`` is no longer required to obtain an image chooser interface.
 
-
-      class BookPage(Page):
-          cover = models.ForeignKey(
-              'wagtailimages.Image',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              ImageChooserPanel('cover'),
-          ]
-
-    Django's default behaviour is to "cascade" deletions through a ForeignKey relationship, which may not be what you want. This is why the :attr:`~django.db.models.Field.null`, :attr:`~django.db.models.Field.blank`, and :attr:`~django.db.models.ForeignKey.on_delete` parameters should be set to allow for an empty field. ``ImageChooserPanel`` takes only one argument: the name of the field.
-
-    Displaying ``Image`` objects in a template requires the use of a template tag. See :ref:`image_tag`.
 
 FormSubmissionsPanel
 ~~~~~~~~~~~~~~~~~~~~
 
-.. module:: wagtail.contrib.forms.edit_handlers
+.. module:: wagtail.contrib.forms.panels
 
 .. class:: FormSubmissionsPanel
 
@@ -212,7 +198,7 @@ FormSubmissionsPanel
     .. code-block:: python
 
         from wagtail.contrib.forms.models import AbstractForm
-        from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+        from wagtail.contrib.forms.panels import FormSubmissionsPanel
 
         class ContactFormPage(AbstractForm):
             content_panels = [
@@ -226,28 +212,12 @@ DocumentChooserPanel
 
 .. class:: DocumentChooserPanel(field_name)
 
-    For files in other formats, Wagtail provides a generic file store through the :class:`~wagtail.documents.models.Document` model:
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.documents.models import Document
-      from wagtail.documents.edit_handlers import DocumentChooserPanel
+       ``DocumentChooserPanel`` is no longer required to obtain a document chooser interface.
 
-
-      class BookPage(Page):
-          book_file = models.ForeignKey(
-              'wagtaildocs.Document',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              DocumentChooserPanel('book_file'),
-          ]
-
-    As with images, Wagtail documents should also have the appropriate extra parameters to prevent cascade deletions across a ForeignKey relationship. ``DocumentChooserPanel`` takes only one argument: the name of the field.
 
 SnippetChooserPanel
 ~~~~~~~~~~~~~~~~~~~
@@ -256,26 +226,12 @@ SnippetChooserPanel
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
 
-    Snippets are vanilla Django models you create yourself without a Wagtail-provided base class. A chooser, ``SnippetChooserPanel``, is provided which takes the field name as an argument.
+    Deprecated; use ``FieldPanel`` instead.
 
-    .. code-block:: python
+    .. versionchanged:: 2.17
 
-      from wagtail.snippets.edit_handlers import SnippetChooserPanel
+       ``SnippetChooserPanel`` is no longer required to obtain a document chooser interface.
 
-      class BookPage(Page):
-          advert = models.ForeignKey(
-              'demo.Advert',
-              null=True,
-              blank=True,
-              on_delete=models.SET_NULL,
-              related_name='+'
-          )
-
-          content_panels = Page.content_panels + [
-              SnippetChooserPanel('advert'),
-          ]
-
-    See :ref:`snippets` for more information.
 
 Field Customisation
 -------------------
@@ -286,7 +242,7 @@ By adding CSS classes to your panel definitions or adding extra parameters to yo
 Full-Width Input
 ~~~~~~~~~~~~~~~~
 
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.edit_handlers.MultiFieldPanel`, which places its child fields into a formset.
+Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.panels.MultiFieldPanel`, which places its child fields into a formset.
 
 
 Titles
@@ -377,11 +333,11 @@ Inline Panels and Model Clusters
 
 The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
 
-Let's look at the example of adding related links to a :class:`~wagtail.core.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+Let's look at the example of adding related links to a :class:`~wagtail.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
 .. code-block:: python
 
-  from wagtail.core.models import Orderable, Page
+  from wagtail.models import Orderable, Page
   from modelcluster.fields import ParentalKey
 
   # The abstract model for related links, complete with panels
@@ -410,7 +366,7 @@ Let's look at the example of adding related links to a :class:`~wagtail.core.mod
       InlinePanel('related_links', label="Related Links"),
     ]
 
-The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.admin.edit_handlers.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.admin.edit_handlers.InlinePanel` accepts:
+The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.admin.panels.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.admin.panels.InlinePanel` accepts:
 
 .. code-block:: python
 

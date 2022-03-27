@@ -1,62 +1,73 @@
+@use 'sass:math';
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:meta';
+
 // $color is either a color or an hsl tuple
 @mixin define-color($name, $color) {
-    $h: null;
-    $s: null;
-    $l: null;
+  $h: null;
+  $s: null;
+  $l: null;
 
-    @if type-of($color) == color {
-        $h: hue($color) / 1deg; // Cast to unitless
-        $s: saturation($color);
-        $l: lightness($color);
-    } @else {
-        $h: nth($color, 1);
-        $s: nth($color, 2);
-        $l: nth($color, 3);
-    }
+  @if meta.type-of($color) == color {
+    $h: math.div(color.hue($color), 1deg); // Cast to unitless
+    $s: color.saturation($color);
+    $l: color.lightness($color);
+  } @else {
+    $h: list.nth($color, 1);
+    $s: list.nth($color, 2);
+    $l: list.nth($color, 3);
+  }
 
-    --#{$name}-hue: #{$h};
-    --#{$name}-saturation: #{$s};
-    --#{$name}-lightness: #{$l};
-    --#{$name}: hsl(#{ var(--#{$name}-hue), var(--#{$name}-saturation), var(--#{$name}-lightness) });
+  --#{$name}-hue: #{$h};
+  --#{$name}-saturation: #{$s};
+  --#{$name}-lightness: #{$l};
+  // Prettier causes a linting issue when reformatting this.
+  /* prettier-ignore */
+  --#{$name}: hsl(#{ var(--#{$name}-hue), var(--#{$name}-saturation), var(--#{$name}-lightness) });
 }
 
 @function get-color($name) {
-    @return (var(--#{$name}-hue), var(--#{$name}-saturation), var(--#{$name}-lightness));
+  @return (
+    var(--#{$name}-hue),
+    var(--#{$name}-saturation),
+    var(--#{$name}-lightness)
+  );
 }
 
 @function css-darken($hsl-tuple, $darken-by) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return ($h, $s, calc(#{$l} - #{$darken-by + 0%}));
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return ($h, $s, calc(#{$l} - #{$darken-by + 0%}));
 }
 @function css-lighten($hsl-tuple, $lighten-by) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return ($h, $s, calc(#{$l} + #{$lighten-by + 0%}));
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return ($h, $s, calc(#{$l} + #{$lighten-by + 0%}));
 }
 @function css-saturate($hsl-tuple, $saturate-by) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return ($h, calc(#{$s} + #{$saturate-by + 0%}), $l);
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return ($h, calc(#{$s} + #{$saturate-by + 0%}), $l);
 }
 @function css-desaturate($hsl-tuple, $desaturate-by) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return ($h, calc(#{$s} - #{$desaturate-by + 0%}), $l);
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return ($h, calc(#{$s} - #{$desaturate-by + 0%}), $l);
 }
 @function css-adjust-hue($hsl-tuple, $adjust-by) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return (calc(#{$h} + #{$adjust-by}), $s, $l);
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return (calc(#{$h} + #{$adjust-by}), $s, $l);
 }
 @function css-transparentize($hsl-tuple, $alpha) {
-    $h: nth($hsl-tuple, 1);
-    $s: nth($hsl-tuple, 2);
-    $l: nth($hsl-tuple, 3);
-    @return ($h, $s, $l, $alpha);
+  $h: list.nth($hsl-tuple, 1);
+  $s: list.nth($hsl-tuple, 2);
+  $l: list.nth($hsl-tuple, 3);
+  @return ($h, $s, $l, $alpha);
 }

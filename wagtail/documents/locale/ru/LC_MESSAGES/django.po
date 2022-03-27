@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
 "Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
@@ -125,19 +125,6 @@ msgstr[3] ""
 msgid "Latest documents"
 msgstr "Последние документы"
 
-msgid "Title"
-msgstr "Заголовок"
-
-msgid "File"
-msgstr "Файл"
-
-msgid "Created"
-msgstr "Создан"
-
-#, python-format
-msgid "%(time_period)s ago"
-msgstr "%(time_period)s назад"
-
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr ""
@@ -200,6 +187,19 @@ msgstr "Использование"
 
 msgid "Documents"
 msgstr "Документы"
+
+msgid "Title"
+msgstr "Заголовок"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Created"
+msgstr "Создан"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s назад"
 
 #, python-format
 msgid ""
@@ -313,18 +313,17 @@ msgstr "Удалить"
 msgid "Server Error"
 msgstr "Ошибка Сервера"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Сообщите об этой ошибке администратору и укажите следующую информацию:"
-
 msgid "Search documents"
 msgstr "Поиск документов"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Документ '{0}' добавлен."
 
 msgid "The document could not be saved due to errors."
 msgstr "Документ не может быть сохранен из-за ошибок."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Документ '{0}' обновлен"
 
@@ -334,6 +333,7 @@ msgstr ""
 "Файл не может быть найден. Пожалуйста, измените исходный файл или удалите "
 "документ"
 
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Документ '{0}' удален."
 

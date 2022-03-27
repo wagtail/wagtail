@@ -1,4 +1,4 @@
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 class HookResponseMixin:
@@ -14,5 +14,5 @@ class HookResponseMixin:
         """
         for fn in hooks.get_hooks(hook_name):
             result = fn(*args, **kwargs)
-            if hasattr(result, 'status_code'):
+            if hasattr(result, "status_code"):
                 return result

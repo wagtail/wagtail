@@ -3,7 +3,6 @@
  * Those variables usually come from the back-end via templates.
  * See /wagtailadmin/templates/wagtailadmin/admin_base.html.
  */
-import 'element-closest';
 
 global.wagtailConfig = {
   ADMIN_API: {
@@ -40,12 +39,13 @@ global.wagtailConfig = {
     RELOAD_EDITOR: 'Reload saved content',
     SHOW_LATEST_CONTENT: 'Show latest content',
     SHOW_ERROR: 'Show error',
-    EDITOR_CRASH: 'The editor just crashed. Content has been reset to the last saved version.',
+    EDITOR_CRASH:
+      'The editor just crashed. Content has been reset to the last saved version.',
     BROKEN_LINK: 'Broken link',
     MISSING_DOCUMENT: 'Missing document',
     CLOSE: 'Close',
-    EDIT_PAGE: 'Edit \'{title}\'',
-    VIEW_CHILD_PAGES_OF_PAGE: 'View child pages of \'{title}\'',
+    EDIT_PAGE: "Edit '{title}'",
+    VIEW_CHILD_PAGES_OF_PAGE: "View child pages of '{title}'",
     PAGE_EXPLORER: 'Page explorer',
     SAVE: 'Save',
     SAVING: 'Saving...',
@@ -65,19 +65,21 @@ global.wagtailConfig = {
     SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
     SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
     SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
+    TOGGLE_SIDEBAR: 'Toggle sidebar',
+    MAIN_MENU: 'Main menu',
   },
   WAGTAIL_I18N_ENABLED: true,
   LOCALES: [
     {
       code: 'en',
-      display_name: 'English'
+      display_name: 'English',
     },
     {
       code: 'fr',
-      display_nam: 'French'
-    }
+      display_nam: 'French',
+    },
   ],
-  ACTIVE_LOCALE: 'en'
+  ACTIVE_LOCALE: 'en',
 };
 
 global.wagtailVersion = '1.6a1';

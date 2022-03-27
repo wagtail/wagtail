@@ -22,13 +22,23 @@ describe('PageExplorer', () => {
 
   it('renders', () => {
     expect(shallow(<PageExplorer store={store} />).dive()).toMatchSnapshot();
-    expect(shallow(<Provider store={store}><PageExplorer /></Provider>).dive()).toMatchSnapshot();
+    expect(
+      shallow(
+        <Provider store={store}>
+          <PageExplorer />
+        </Provider>,
+      ).dive(),
+    ).toMatchSnapshot();
   });
 
   it('visible', () => {
     store.dispatch(actions.openPageExplorer(1));
     expect(shallow(<PageExplorer store={store} />).dive()).toMatchSnapshot();
-    expect(shallow(<PageExplorer store={store} />).dive().dive()).toMatchSnapshot();
+    expect(
+      shallow(<PageExplorer store={store} />)
+        .dive()
+        .dive(),
+    ).toMatchSnapshot();
   });
 
   describe('actions', () => {

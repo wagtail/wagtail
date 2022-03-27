@@ -2,9 +2,9 @@
 {% load i18n %}
 
 {% block per_item %}
-{% if item.can_edit %}
-    <a href="{% url 'wagtailimages:edit' item.item.id %}" target="_blank" rel="noopener noreferrer">{{ item.item.title }}</a>
-{% else %}
-    {{ item.item.title }}
-{% endif %}
+    {% if item.can_edit %}
+        <a href="{% url 'wagtailimages:edit' item.item.id %}" target="_blank" rel="noreferrer">{{ item.item.title }}</a>
+    {% else %}
+        {{ item.item.title }}
+    {% endif %}
 {% endblock per_item %}

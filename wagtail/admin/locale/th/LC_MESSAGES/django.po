@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -250,6 +250,7 @@ msgstr "โปรแกรมที่แก้ไขมีปัญหา เ�
 msgid "Close"
 msgstr "ปิด"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "แก้ไข'{title}'"
 
@@ -326,12 +327,6 @@ msgstr "ตั้งรหัสใหม่"
 
 msgid "Reset your password"
 msgstr "ตั้งรหัสใหม่"
-
-msgid "Menu"
-msgstr "เมนู"
-
-msgid "Explorer"
-msgstr "อินเตอร์เน็ตเอ็กซ์โปรเล่อร์"
 
 msgid "Internal link"
 msgstr "ลิงค์ภายใน"
@@ -800,9 +795,6 @@ msgstr "สำรวจหน้าย่อยของ '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "เพิ่มหน้าย่อยที่ '%(title)s'"
 
-msgid "Add child page"
-msgstr "หน้าย่อย"
-
 msgid "Sites menu"
 msgstr "เมนูของเว็บไซด์"
 
@@ -922,29 +914,6 @@ msgid "No, don't unschedule"
 msgstr "ไม่, ไม่ต้องยกเลิกตาราง"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "การแก้ไขของ %(title)s"
-
-msgid "Revisions of"
-msgstr "การแก้ไขของ"
-
-msgid "Revision date"
-msgstr "แก้ไขวันที่"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "โดย"
-
-msgid "Scheduled for"
-msgstr "ตารางสำหรับ"
-
-msgid "No revisions of this page exist"
-msgstr "ไม่มีการแก้ไขของหน้านี้"
-
-msgid "No revision of this page exist"
-msgstr "ไม่มีการแก้ไขของหน้านี้"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1044,9 +1013,11 @@ msgstr "เพิ่มเติมชุด"
 msgid "Add collection"
 msgstr "เพิ่มเติมชุด"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "ชุด'{0}'ถูกสร้างแล้ว"
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "ชุด'{0}'อัพเดทแล้ว"
 
@@ -1056,6 +1027,7 @@ msgstr "ชุดนี้ไม่สามารถเซฟได้ในร
 msgid "Delete collection"
 msgstr "ลบทิ้งชุดนี้"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "ชุด'{0}'ถูกลบแล้ว"
 
@@ -1065,9 +1037,11 @@ msgstr "คุณแน่ใจว่าคุณต้องการลบท
 msgid "Editing"
 msgstr "กำลังแก้ไข"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "หน้า'{0}'และ{1}เป็นหน้าย่อยที่ถูกก๊อปปี้"
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "หน้า{0}ถูกคัดลอกแล้ว"
 
@@ -1077,21 +1051,26 @@ msgstr "ดูข้อความที่เก็บเอาไว้ทำ
 msgid "View live"
 msgstr "ดูถ่ายทอดสด"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "หน้า'{0}'ถูกสร้าง"
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์สำหรับตาราง"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "หน้า'{0}'ถูกสร้างและตีพิมพ์"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "หน้า'{0}'ถูกสร้างและถูกส่งสำหรับตรวจ"
 
 msgid "The page could not be created due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกสร้างในระหว่างที่การยืนยันเกิดข้อผิดพลาด"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr ""
 "หน้า{0}\n"
@@ -1100,15 +1079,19 @@ msgstr ""
 msgid "This page is currently awaiting moderation"
 msgstr "หน้าที่กำลังแสดงอยู่นี้กำลังรอคอยการตรวจอยู่"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "หน้า{0}ได้อัพเดทแล้ว"
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "หน้า{0}ได้จัดตารางในการพิมพ์เรียบร้อยแล้ว"
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "หน้า{0} ได้จัดพิมพ์เรียบร้อยแล้ว"
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "หน้า'{0}'ถูกส่งสำหรับตรวจแล้ว"
 
@@ -1118,24 +1101,29 @@ msgstr "หน้านี้ไม่สามารถเซฟได้เน
 msgid "The page could not be saved due to validation errors"
 msgstr "หน้านี้ไม่สามารถถูกเซฟระหว่างการยืนยันที่เกิดข้อผิดพลาด"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "หน้า'{0}'ตอนนี้ได้ถูกปลดล็อกแล้ว"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "หน้า{0} ปัจจุบันนี้ไม่รอตรวจ"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "หน้า{0}ถูกจัดพิมพ์แล้ว"
 
 msgid "Failed to send approval notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนให้อนุมัติ"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "หน้า'{0}' ถูกปฏิเสธสำหรับสิ่งพิมพ์"
 
 msgid "Failed to send rejection notifications"
 msgstr "ข้อผิดพลาดถูกส่งแจ้งเตือนการปฏิเสธ"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr ""
 "หน้า{0} \n"
@@ -1147,14 +1135,16 @@ msgstr "ที่เก่าแก่ที่สุด"
 msgid "Latest"
 msgstr "ล่าสุด"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "การแก้ไข{0}ของหน้า{1}"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "หน้า{0} ยกเลิกจัดพิมพ์แล้ว"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "รายงานข้อผิดพลาดนี้ของคุณกับเจ้าของเว็บไซด์ดยให้ทำตามข้อมูลนี้"
+msgid "Add child page"
+msgstr "หน้าย่อย"
 
 msgid "Bulleted list"
 msgstr "รายการสัญลักษณ์"

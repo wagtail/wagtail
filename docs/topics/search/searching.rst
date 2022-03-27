@@ -23,7 +23,7 @@ Wagtail provides a shortcut for searching pages: the ``.search()`` ``QuerySet`` 
 .. code-block:: python
 
     # Search future EventPages
-    >>> from wagtail.core.models import EventPage
+    >>> from wagtail.models import EventPage
     >>> EventPage.objects.filter(date__gt=timezone.now()).search("Hello world!")
 
 
@@ -382,7 +382,7 @@ Here's an example Django view that could be used to add a "search" page to your 
 
     from django.shortcuts import render
 
-    from wagtail.core.models import Page
+    from wagtail.models import Page
     from wagtail.search.models import Query
 
 

@@ -4,17 +4,17 @@
 #
 # Translators:
 # Jose Lourenco <jose@lourenco.ws>, 2014,2016
-# Luís Tiago Favas <al62006@utad.eu>, 2020
+# Luís Tiago Favas <traducoes@favas.eu>, 2020
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
 # 425fe09b3064b9f906f637fff94056ae_a00ea56 <0fa3588fa89906bfcb3a354600956e0e_308047>, 2015
-# Tiago Henriques <trinosauro@gmail.com>, 2015-2016
+# Tiago Henriques <trinosauro@gmail.com>, 2015-2016,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2020-07-27 18:14+0000\n"
-"Last-Translator: Luís Tiago Favas <al62006@utad.eu>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-28 20:05+0000\n"
+"Last-Translator: Tiago Henriques <trinosauro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) (http://www.transifex.com/torchbox/"
 "wagtail/language/pt_PT/)\n"
 "MIME-Version: 1.0\n"
@@ -24,14 +24,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid "Wagtail forms"
-msgstr "Formulários do Wagtail"
+msgstr "Formulários Wagtail"
 
 #, python-format
 msgid "%s submissions"
-msgstr "%s submissões"
+msgstr "%s envios"
 
 msgid "Date from"
-msgstr "Data de"
+msgstr "Data desde"
 
 msgid "Date to"
 msgstr "Data até"
@@ -77,7 +77,7 @@ msgid "Date/time"
 msgstr "Data/hora"
 
 msgid "Hidden field"
-msgstr "Campo invisível"
+msgstr "Campo escondido"
 
 msgid "submit time"
 msgstr "hora de envio"
@@ -86,14 +86,14 @@ msgid "form submission"
 msgstr "envio de formulário"
 
 msgid "form submissions"
-msgstr "submissões do formulário"
+msgstr "envios de formulário"
 
 msgid "name"
 msgstr "nome"
 
 msgid "Safe name of the form field, the label converted to ascii_snake_case"
 msgstr ""
-"Nome seguro no formato de campo, a etiqueta é convertida para "
+"Nome seguro do campo de formulário, com a etiqueta convertida em "
 "ascii_snake_case"
 
 msgid "label"
@@ -136,17 +136,17 @@ msgid "Form"
 msgstr "Formulário"
 
 msgid "Landing page"
-msgstr "Página inicial."
+msgstr "Página de entrada"
 
 msgid "to address"
-msgstr "endereço do destinatário"
+msgstr "endereçar"
 
 msgid ""
 "Optional - form submissions will be emailed to these addresses. Separate "
 "multiple addresses by comma."
 msgstr ""
-"Opcional - os formulários submetidos serão enviados para os  endereços de "
-"email seguintes. Separe entre si com uma vírgula os endereços."
+"Opcional - os envios de formulário serão enviados para estes endereços de "
+"email. Separe múltiplos os endereços com uma vírgula."
 
 msgid "from address"
 msgstr "endereço do remetente"
@@ -156,10 +156,10 @@ msgstr "assunto"
 
 #, python-format
 msgid "Delete form data %(title)s"
-msgstr "Eliminar dados do formulário %(title)s"
+msgstr "Apagar dados do formulário %(title)s"
 
 msgid "Delete form data"
-msgstr "Eliminar dados do formulário"
+msgstr "Apagar dados do formulário"
 
 msgid ""
 "\n"
@@ -171,10 +171,12 @@ msgid_plural ""
 "            "
 msgstr[0] ""
 "\n"
-"Tem a certeza que quer eliminar esta entrada das respostas do formulário?"
+"                Tem a certeza que quer apagar este envio de formulário?\n"
+"            "
 msgstr[1] ""
 "\n"
-"Tem a certeza que quer eliminar estas entradas das respostas do formulário?"
+"                Tem a certeza que quer apagar estes envios de formulário?\n"
+"            "
 
 msgid "Delete"
 msgstr "Apagar"
@@ -219,7 +221,7 @@ msgid "Origin"
 msgstr "Origem"
 
 msgid "Delete selected submissions"
-msgstr "Eliminar entradas selecionadas"
+msgstr "Apagar entradas selecionadas"
 
 msgid "No form pages have been created."
 msgstr "Não existem páginas de formulário."
@@ -227,5 +229,5 @@ msgstr "Não existem páginas de formulário."
 #, python-format
 msgid "One submission has been deleted."
 msgid_plural "%(count)d submissions have been deleted."
-msgstr[0] "Uma entrada foi apagada."
-msgstr[1] "%(count)d entradas foram apagadas."
+msgstr[0] "Um envio foi apagado."
+msgstr[1] "%(count)d envios foram apagados."

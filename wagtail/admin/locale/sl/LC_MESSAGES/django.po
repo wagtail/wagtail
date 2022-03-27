@@ -5,14 +5,15 @@
 # Translators:
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
-# Urban Prevc, 2021
+# UP, 2021
+# UP, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 05:16+0000\n"
-"Last-Translator: Urban Prevc\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -36,6 +37,9 @@ msgstr "Izbriši"
 
 msgid "Lock"
 msgstr "Zakleni"
+
+msgid "Save Draft"
+msgstr "Shrani osnutek"
 
 msgid "Page locked"
 msgstr "Stran je zaklenjena"
@@ -73,6 +77,12 @@ msgstr "Promocija"
 msgid "Settings"
 msgstr "Nastavitve"
 
+msgid "Preferred language"
+msgstr "Želeni jezik"
+
+msgid "Current time zone"
+msgstr "Trenutni časovni pas"
+
 msgid "First Name"
 msgstr "Ime"
 
@@ -82,12 +92,15 @@ msgstr "Priimek"
 msgid "Email"
 msgstr "E-pošta"
 
+msgid "Upload a profile picture"
+msgstr "Naloži profilno sliko"
+
 msgid "Enter password"
 msgstr "Vnesite geslo"
 
 #, python-format
 msgid "Enter your %s"
-msgstr "Vnesite vaše %s"
+msgstr "Vnesite %s"
 
 msgid "Enter your email address to reset your password"
 msgstr "Vnesite vaš e-naslov za ponastavitev gesla"
@@ -243,6 +256,9 @@ msgstr "Pojdite v Wagtail admin"
 msgid "Account"
 msgstr "Račun"
 
+msgid "Save account details"
+msgstr "Shrani podrobnosti računa"
+
 msgid "Change password"
 msgstr "Spremeni geslo"
 
@@ -299,11 +315,8 @@ msgstr "Geslo ponastavljeno"
 msgid "Reset your password"
 msgstr "Ponastavi geslo"
 
-msgid "Menu"
-msgstr "Meni"
-
-msgid "Explorer"
-msgstr "Raziskovalec"
+msgid "Upload a profile picture:"
+msgstr "Naloži profilno sliko:"
 
 msgid "Internal link"
 msgstr "Interna povezava"
@@ -313,6 +326,15 @@ msgstr "Zunanja povezava"
 
 msgid "Email link"
 msgstr "Povezava na e-naslov"
+
+msgid "Phone link"
+msgstr "Povezava na telefon"
+
+msgid "Anchor link"
+msgstr "Povezava na element"
+
+msgid "Add an anchor link"
+msgstr "Dodaj povezavo na element"
 
 msgid "Choose"
 msgstr "Izberite"
@@ -363,6 +385,9 @@ msgstr "Premakni navzgor"
 msgid "Move down"
 msgstr "Premakni navzdol"
 
+msgid "Comment notifications"
+msgstr "Obvestila o komentarjih"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -379,6 +404,9 @@ msgid ""
 msgstr ""
 "To je vaša nadzorna plošča, kjer boste našli prikazane koristne informacije "
 "o vaših vsebinah."
+
+msgid "Your locked pages"
+msgstr "Vaše zaklenjene strani"
 
 msgid "Title"
 msgstr "Naziv"
@@ -432,6 +460,9 @@ msgstr ""
 
 msgid "Sign in to Wagtail"
 msgstr "Prijava v Wagtail"
+
+msgid "Forgotten password?"
+msgstr "Ste pozabili geslo?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -684,9 +715,6 @@ msgstr "Razišči podrejene strani od '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj podrejeno stran v '%(title)s'"
 
-msgid "Add child page"
-msgstr "Dodaj podrejeno stran"
-
 msgid "Sites menu"
 msgstr "Meniji strani"
 
@@ -728,16 +756,6 @@ msgstr "Trenutni status:"
 msgid "Set page privacy"
 msgstr "Nastavi zasebnost objave"
 
-#, python-format
-msgid "Revisions of %(title)s"
-msgstr "Različice od %(title)s"
-
-msgid "Revisions of"
-msgstr "Različice od"
-
-msgid "No revision of this page exist"
-msgstr "Druge različice strani ne obstajajo"
-
 msgid "Enter a search term above"
 msgstr "Vnesite iskalni niz v zgornje polje"
 
@@ -755,6 +773,9 @@ msgstr "Uporabi filter"
 
 msgid "Locked"
 msgstr "Zaklenjeno"
+
+msgid "No locked pages found."
+msgstr "Zaklenjene strani niso bile najdene."
 
 msgid "Edit this item"
 msgstr "Uredi element"
@@ -803,8 +824,26 @@ msgstr "objavljeno + osnutek"
 msgid "Test"
 msgstr "Test"
 
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Notifications"
+msgstr "Obvestila"
+
+msgid "Name and Email"
+msgstr "Ime in elektronski naslov"
+
+msgid "Profile picture"
+msgstr "Profilna slika"
+
+msgid "Locale"
+msgstr "Jezik in območje"
+
 msgid "Password"
 msgstr "Geslo"
+
+msgid "Your account settings have been changed successfully!"
+msgstr "Vaše nastavitve računa so bile uspešno spremenjene!"
 
 msgid "Collections"
 msgstr "Zbirke"
@@ -812,9 +851,11 @@ msgstr "Zbirke"
 msgid "Editing"
 msgstr "Urejanje"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stran '{0}' in {1} podstrani kopiranih."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stran '{0}' kopirana."
 
@@ -824,36 +865,45 @@ msgstr "Poglej osnutek"
 msgid "View live"
 msgstr "Ogled v živo"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stran '{0}' ustvarjena."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stran '{0}' ustvarjena in načrtovana za objavo."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stran '{0}' ustvarjena in objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stran '{0}' ustvarjena in oddana v potrditev."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno ustvariti"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stran '{0}' izbrisana."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Stran trenutno čaka na potrditev"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stran '{0}' je posodobljena."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stran '{0}' je načrtovana za objavo."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stran '{0}' je objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stran '{0}' je bila oddana v potrditev."
 
@@ -863,26 +913,41 @@ msgstr "Strani ni bilo možno shraniti, ker je zaklenjena"
 msgid "The page could not be saved due to validation errors"
 msgstr "Strani, zaradi na neveljavnih vrednosti polj, ni bilo možno shraniti"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stran '{0}' je sedaj odklenjena."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stran '{0}' trenutno ne čaka na potrditev."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stran '{0}' objavljena."
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Objava strani '{0}' zavrnjena."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stran '{0}' premaknjena."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stran '{0}' umaknjena iz objave."
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
+msgid "Site history"
+msgstr "Zgodovina mesta"
+
+msgid "Locked pages"
+msgstr "Zaklenjene strani"
+
+msgid "Add child page"
+msgstr "Dodaj podrejeno stran"
+
+msgid "Locked Pages"
+msgstr "Zaklenjene strani"
 
 msgid "Reports"
 msgstr "Poročila"

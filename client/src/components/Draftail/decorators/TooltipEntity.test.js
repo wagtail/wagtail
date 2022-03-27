@@ -5,57 +5,67 @@ import TooltipEntity from './TooltipEntity';
 
 describe('TooltipEntity', () => {
   it('works', () => {
-    expect(shallow((
-      <TooltipEntity
-        entityKey="1"
-        onEdit={() => {}}
-        onRemove={() => {}}
-        icon="#icon-test"
-        url="https://www.example.com/"
-        label="www.example.com"
-      >
-        test
-      </TooltipEntity>
-    ))).toMatchSnapshot();
+    expect(
+      shallow(
+        <TooltipEntity
+          entityKey="1"
+          onEdit={() => {}}
+          onRemove={() => {}}
+          icon="#icon-test"
+          url="https://www.example.com/"
+          label="www.example.com"
+        >
+          test
+        </TooltipEntity>,
+      ),
+    ).toMatchSnapshot();
   });
 
   it('shortened label', () => {
-    expect(shallow((
-      <TooltipEntity
-        entityKey="1"
-        onEdit={() => {}}
-        onRemove={() => {}}
-        icon="#icon-test"
-        url="https://www.example.com/"
-        label="www.example.example.example.com"
-      >
-        test
-      </TooltipEntity>
-    )).setState({
-      showTooltipAt: document.createElement('div').getBoundingClientRect(),
-    }).find('Tooltip a')
-      .text()).toBe('www.example.example.…');
+    expect(
+      shallow(
+        <TooltipEntity
+          entityKey="1"
+          onEdit={() => {}}
+          onRemove={() => {}}
+          icon="#icon-test"
+          url="https://www.example.com/"
+          label="www.example.example.example.com"
+        >
+          test
+        </TooltipEntity>,
+      )
+        .setState({
+          showTooltipAt: document.createElement('div').getBoundingClientRect(),
+        })
+        .find('Tooltip a')
+        .text(),
+    ).toBe('www.example.example.…');
   });
 
   it('empty label', () => {
-    expect(shallow((
-      <TooltipEntity
-        entityKey="1"
-        onEdit={() => {}}
-        onRemove={() => {}}
-        icon="#icon-test"
-        url="https://www.example.com/"
-        label=""
-      >
-        test
-      </TooltipEntity>
-    )).setState({
-      showTooltipAt: document.createElement('div').getBoundingClientRect(),
-    }).find('Tooltip a').length).toBe(0);
+    expect(
+      shallow(
+        <TooltipEntity
+          entityKey="1"
+          onEdit={() => {}}
+          onRemove={() => {}}
+          icon="#icon-test"
+          url="https://www.example.com/"
+          label=""
+        >
+          test
+        </TooltipEntity>,
+      )
+        .setState({
+          showTooltipAt: document.createElement('div').getBoundingClientRect(),
+        })
+        .find('Tooltip a').length,
+    ).toBe(0);
   });
 
   it('#openTooltip', () => {
-    const wrapper = shallow((
+    const wrapper = shallow(
       <TooltipEntity
         entityKey="1"
         onEdit={() => {}}
@@ -65,8 +75,8 @@ describe('TooltipEntity', () => {
         label="www.example.com"
       >
         test
-      </TooltipEntity>
-    ));
+      </TooltipEntity>,
+    );
 
     const target = document.createElement('div');
     target.setAttribute('data-draftail-trigger', true);
@@ -81,7 +91,7 @@ describe('TooltipEntity', () => {
   });
 
   it('#closeTooltip', () => {
-    const wrapper = shallow((
+    const wrapper = shallow(
       <TooltipEntity
         entityKey="1"
         onEdit={() => {}}
@@ -91,8 +101,8 @@ describe('TooltipEntity', () => {
         label="www.example.com"
       >
         test
-      </TooltipEntity>
-    ));
+      </TooltipEntity>,
+    );
 
     wrapper.find('.TooltipEntity').simulate('mouseup', {
       target: document.createElement('div'),
@@ -108,7 +118,7 @@ describe('TooltipEntity', () => {
   it('#onEdit', () => {
     const onEdit = jest.fn();
 
-    const wrapper = shallow((
+    const wrapper = shallow(
       <TooltipEntity
         entityKey="1"
         onEdit={onEdit}
@@ -118,8 +128,8 @@ describe('TooltipEntity', () => {
         label="www.example.com"
       >
         test
-      </TooltipEntity>
-    ));
+      </TooltipEntity>,
+    );
 
     wrapper.instance().onEdit(new Event('click'));
 
@@ -129,7 +139,7 @@ describe('TooltipEntity', () => {
   it('#onRemove', () => {
     const onRemove = jest.fn();
 
-    const wrapper = shallow((
+    const wrapper = shallow(
       <TooltipEntity
         entityKey="1"
         onEdit={() => {}}
@@ -139,8 +149,8 @@ describe('TooltipEntity', () => {
         label="www.example.com"
       >
         test
-      </TooltipEntity>
-    ));
+      </TooltipEntity>,
+    );
 
     wrapper.instance().onRemove(new Event('click'));
 

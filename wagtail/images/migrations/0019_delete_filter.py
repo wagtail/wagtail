@@ -6,11 +6,11 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0018_remove_rendition_filter'),
+        ("wagtailimages", "0018_remove_rendition_filter"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='Filter',
+            name="Filter",
         ),
     ]
