@@ -1477,15 +1477,6 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         return can_create
 
-    def can_create_more(cls, parent):
-        """
-        Checks if there are more child pages created even if max_count_per_parent 
-        is set.
-        """
-
-        if parent.get_children().type(cls).count() > cls.max_count_per_parent:
-            return LookupError('Child page out of index')
-
     def can_move_to(self, parent):
         """
         Checks if this page instance can be moved to be a subpage of a parent

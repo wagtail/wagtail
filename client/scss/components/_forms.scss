@@ -79,6 +79,17 @@
 .typed_choice_field .input {
   position: relative;
 
+  #id_restriction_type {
+    display: flex;
+    flex-direction: column;
+
+    div > label {
+      width: max-content;
+      display: flex;
+      align-items: center;
+    }
+  }
+
   // Add select arrow back on browsers where native ui has been removed
   select ~ span:after {
     border-radius: 0 6px 6px 0;
@@ -311,6 +322,13 @@ label.required:after {
 
 .input {
   clear: both;
+  #id_groups {
+    div > label {
+      display: flex;
+      width: max-content;
+      padding-inline-end: 1.5em;
+    }
+  }
 }
 
 // field sizing and alignment
