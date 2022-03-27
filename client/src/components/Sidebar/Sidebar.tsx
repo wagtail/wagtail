@@ -21,6 +21,7 @@ export interface ModuleRenderContext {
   onSearchClick: () => void;
   currentPath: string;
   strings: Strings;
+
   navigate(url: string): Promise<void>;
 }
 
@@ -33,7 +34,9 @@ export interface SidebarProps {
   currentPath: string;
   strings: Strings;
   collapsedOnLoad: boolean;
+
   navigate(url: string): Promise<void>;
+
   onExpandCollapse?(collapsed: boolean);
 }
 
@@ -173,7 +176,11 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           (isMobile && !visibleOnMobile ? ' sidebar--hidden' : '')
         }
       >
-        <div className="sidebar__inner">
+        <div
+          className="sidebar__inner"
+          onFocus={onFocusHandler}
+          onBlur={onBlurHandler}
+        >
           <div
             className={`${
               slim ? 'w-justify-center' : 'w-justify-end'
@@ -205,9 +212,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
             </button>
           </div>
 
-          <div onFocus={onFocusHandler} onBlur={onBlurHandler}>
-            {renderedModules}
-          </div>
+          {renderedModules}
         </div>
       </div>
       <button

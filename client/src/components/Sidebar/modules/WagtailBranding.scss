@@ -35,10 +35,8 @@
   // Reduce overall size when in slim mode
   .sidebar--slim & {
     @include show-focus-outline-inside();
-
     width: 60px;
     height: 60px;
-    transform: none;
   }
 
   // Remove background on 404 page
@@ -70,24 +68,13 @@
 
   // Bird wrapper
   &__icon-wrapper {
-    @apply w-bg-white/15 w-overflow-hidden hover:w-overflow-visible;
+    @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
-    position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
-    inset-inline-start: 0;
-    top: 0;
     width: 100px;
     height: 100px;
     border-radius: 50%;
 
     .sidebar--slim & {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: 10px;
-      inset-inline-start: 10px;
-      top: 10px;
       width: 40px;
       height: 40px;
     }

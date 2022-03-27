@@ -81,7 +81,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   };
 
   const desktopClassName =
-    'sidebar-wagtail-branding' +
+    'sidebar-wagtail-branding w-transition-all w-duration-150' +
     (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
@@ -94,7 +94,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <div className="sidebar-wagtail-branding__icon-wrapper">
+      <div className="sidebar-wagtail-branding__icon-wrapper w-transition-all w-duration-150">
         <WagtailLogo slim={slim} />
       </div>
     </a>

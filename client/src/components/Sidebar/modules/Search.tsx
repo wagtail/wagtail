@@ -48,12 +48,12 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   return (
     <form
       role="search"
-      className={`w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row`}
+      className={`w-h-[42px] w-relative w-box-border w-flex w-items-center w-justify-start w-flex-row w-flex-shrink-0`}
       action={searchUrl}
       method="get"
       onSubmit={onSubmitForm}
     >
-      <div className="w-flex w-flex-row">
+      <div className="w-flex w-flex-row w-items-center w-h-full">
         <Tippy
           disabled={isVisible || !slim}
           content={strings.SEARCH}

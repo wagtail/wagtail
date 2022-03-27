@@ -7,7 +7,7 @@ interface WagtailLogoProps {
 
 const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
   const feathersClasses =
-    'group-hover:w-text-black w-transition w-duration-300';
+    'group-hover:w-text-black w-transition-all w-duration-150';
 
   return (
     <svg
@@ -18,8 +18,8 @@ const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
          w-text-primary
          w-z-10
          w-absolute
-         w-transition
-         w-duration-300
+         w-transition-all
+         w-duration-150
          hover:w-scale-75
          hover:w-rotate-6
          ${className || ''}
