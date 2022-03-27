@@ -227,6 +227,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
         >
           <button
             className="
+            sidebar-footer__account
             w-bg-primary
             w-text-white
             w-flex

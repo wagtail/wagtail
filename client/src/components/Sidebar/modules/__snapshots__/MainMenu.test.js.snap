@@ -20,6 +20,7 @@ exports[`Menu should render with the minimum required props 1`] = `
         aria-expanded="false"
         aria-haspopup="menu"
         className="
+            sidebar-footer__account
             w-bg-primary
             w-text-white
             w-flex
