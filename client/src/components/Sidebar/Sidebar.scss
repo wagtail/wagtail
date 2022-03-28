@@ -23,6 +23,7 @@
   }
 
   @include media-breakpoint-up(sm) {
+    position: static;
     inset-inline-end: $sidebar-toggle-spacing;
 
     // Remove once we drop support for Safari 13.
@@ -79,22 +80,12 @@
 
   &__collapse-toggle {
     @include sidebar-toggle;
-    display: grid;
+    // All other styling is done with utility classes on this element
   }
 
   // When in mobile mode, hide the collapse-toggle and show the nav-toggle (which is defined in the .sidebar-nav-toggle class below)
   &--mobile &__collapse-toggle {
     display: none;
-  }
-
-  // This element should cover all the area beneath the collapse toggle
-  // It's only used to attach mouse enter/exit event handlers to control peeking
-  &__peek-hover-area {
-    margin-top: $sidebar-toggle-size;
-    display: grid;
-    grid-template-columns: 1fr;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 }
 
@@ -118,5 +109,4 @@
 @import 'menu/MenuItem';
 @import 'menu/SubMenuItem';
 @import 'modules/MainMenu';
-@import 'modules/Search';
 @import 'modules/WagtailBranding';

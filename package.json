@@ -95,6 +95,7 @@
     "webpack-cli": "^4.9.1"
   },
   "dependencies": {
+    "@tippyjs/react": "^4.2.6",
     "draft-js": "^0.10.5",
     "draftail": "^1.4.1",
     "draftjs-filters": "^2.5.0",
@@ -110,6 +111,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "telepath-unpack": "^0.0.3",
+    "tippy.js": "^6.3.7",
     "uuid": "^8.3.2"
   },
   "scripts": {

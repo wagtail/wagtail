@@ -1,4 +1,5 @@
 .sidebar-sub-menu-trigger-icon {
+  $root: &;
   display: block;
   width: 20px;
   height: 20px;
@@ -27,6 +28,10 @@
     height: 16px;
     transform: translate3d(13px, 0, 0);
   }
+
+  .sidebar--slim &--open {
+    transform: translate3d(13px, 0, 0) rotate(180deg);
+  }
 }
 
 .sidebar-sub-menu-panel {
@@ -40,7 +45,7 @@
 
   > h2 {
     // w-min-h-[160px] and w-mt-[35px] classes are to vertically align the title and icon combination to the search input on the left
-    @apply w-min-h-[160px] w-mt-[35px] w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center;
+    @apply w-min-h-[160px] w-mt-[45px] w-px-4 w-box-border w-text-center w-text-white w-mb-0 w-inline-flex w-flex-col w-justify-center w-items-center;
 
     &:before {
       font-size: 4em;
@@ -49,6 +54,10 @@
       margin: 0 0 0.2em;
       width: 100%;
       opacity: 0.15;
+    }
+
+    @at-root .sidebar--slim & {
+      @apply w-mt-3;
     }
   }
 
@@ -81,9 +90,6 @@
     box-shadow: 2px 0 2px rgba(0, 0, 0, 0.35);
   }
 
-  @at-root .sidebar--slim #{&} {
-    transform: translate3d($menu-width-slim - $menu-width, 0, 0);
-  }
   // Don't apply this to nested submenus though
   @at-root .sidebar--slim .sidebar-sub-menu-panel #{&} {
     transform: translate3d(0, 0, 0);

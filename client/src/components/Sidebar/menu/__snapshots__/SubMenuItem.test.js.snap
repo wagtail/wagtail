@@ -4,21 +4,26 @@ exports[`SubMenuItem should render with the minimum required props 1`] = `
 <li
   className="sidebar-menu-item sidebar-sub-menu-item sidebar-menu-item--active"
 >
-  <button
-    aria-expanded="false"
-    aria-haspopup="menu"
-    className="sidebar-menu-item__link "
-    onClick={[Function]}
-    type="button"
+  <ForwardRef(TippyWrapper)
+    disabled={true}
+    placement="right"
   >
-    <span
-      className="menuitem-label"
-    />
-    <Icon
-      className="sidebar-sub-menu-trigger-icon"
-      name="arrow-right"
-    />
-  </button>
+    <button
+      aria-expanded="false"
+      aria-haspopup="menu"
+      className="sidebar-menu-item__link "
+      onClick={[Function]}
+      type="button"
+    >
+      <span
+        className="menuitem-label"
+      />
+      <Icon
+        className="sidebar-sub-menu-trigger-icon"
+        name="arrow-right"
+      />
+    </button>
+  </ForwardRef(TippyWrapper)>
   <SidebarPanel
     depth={2}
     isOpen={false}

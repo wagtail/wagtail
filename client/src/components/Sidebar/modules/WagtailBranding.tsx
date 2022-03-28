@@ -5,6 +5,7 @@ import WagtailLogo from './WagtailLogo';
 interface WagtailBrandingProps {
   homeUrl: string;
   strings: Strings;
+  slim: boolean;
   currentPath: string;
   navigate(url: string): void;
 }
@@ -12,6 +13,7 @@ interface WagtailBrandingProps {
 const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   homeUrl,
   strings,
+  slim,
   currentPath,
   navigate,
 }) => {
@@ -79,7 +81,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   };
 
   const desktopClassName =
-    'sidebar-wagtail-branding' +
+    'sidebar-wagtail-branding w-transition-all w-duration-150' +
     (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
@@ -92,8 +94,8 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <div className="sidebar-wagtail-branding__icon-wrapper">
-        <WagtailLogo />
+      <div className="sidebar-wagtail-branding__icon-wrapper w-transition-all w-duration-150">
+        <WagtailLogo slim={slim} />
       </div>
     </a>
   );
@@ -106,11 +108,12 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.homeUrl = homeUrl;
   }
 
-  render({ strings, key, navigate, currentPath }) {
+  render({ strings, slim, key, navigate, currentPath }) {
     return (
       <WagtailBranding
         key={key}
         homeUrl={this.homeUrl}
+        slim={slim}
         strings={strings}
         navigate={navigate}
         currentPath={currentPath}

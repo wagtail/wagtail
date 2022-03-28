@@ -3,7 +3,7 @@
 }
 
 .c-page-explorer__item__link {
-  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1;
+  @apply w-inline-flex w-items-start sm:w-items-center w-flex-wrap w-grow w-cursor-pointer w-gap-1 w-transition;
   padding: 1.45em 1em;
 
   &:focus,
@@ -35,7 +35,7 @@
 }
 
 .c-page-explorer__item__action {
-  @apply w-text-white/85;
+  @apply w-text-white/85 w-transition;
   display: inline-flex;
   align-items: center;
   justify-content: center;

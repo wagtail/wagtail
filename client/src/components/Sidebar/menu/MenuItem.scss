@@ -5,6 +5,7 @@
   position: relative;
 
   &__link {
+    @apply w-text-14;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease
@@ -15,14 +16,12 @@
     box-sizing: border-box;
     white-space: nowrap;
     border-inline-start: 3px solid transparent;
-
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
     text-align: start;
     color: $color-menu-text;
     padding: 11px 20px;
-    font-size: 13px;
     font-weight: 400;
 
     // Note, font-weights lower than normal,
@@ -88,7 +87,15 @@
 }
 
 .sidebar--slim {
-  .menuitem-label {
-    opacity: 0;
+  .sidebar-menu-item {
+    .menuitem-label {
+      opacity: 0;
+    }
+  }
+
+  .sidebar-menu-item--in-sub-menu {
+    .menuitem-label {
+      opacity: 1;
+    }
   }
 }
