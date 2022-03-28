@@ -40,79 +40,80 @@
             {% endcomment %}
 
             {# Page history #}
-            <div class="w-flex w-flex-row w-items-center w-space-x-3 w-pr-4">
+            <div class="w-flex w-flex-row w-items-center w-pr-4">
                 {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
 
-                {% if page.get_latest_revision %}
-                    <a href="{% url 'wagtailadmin_pages:history' page.id %}"
-                        class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-11 hover:w-text-primary"
-                        data-tippy-content="{% trans 'History' %}"
-                        aria-label="{% trans "History" %}"
-                    >
-                        {% icon "history" class_name="w-w-4 w-h-4" %}
-                    </a>
-                {% endif %}
-
-                {# Comments Toggle #}
-                {% with comments_number=self.form.formsets.comments|length %}
-                    <div class="w-flex w-flex-row w-items-center">
-                        <button class="w-bg-transparent w-text-grey-400 hover:w-text-primary w-relative w-p-0 {% if comments_number %} w-mr-2.5 {% endif %}"
-                            aria-label="{% trans 'Show comments' %}"
-                            data-tippy-content="{% trans 'Comments' %}"
+                <div class="w-flex w-flex-row w-items-center w-space-x-3 sm:w-space-x-5">
+                    {% if page.get_latest_revision %}
+                        <a href="{% url 'wagtailadmin_pages:history' page.id %}"
+                            class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4"
+                            data-tippy-content="{% trans 'History' %}"
+                            aria-label="{% trans "History" %}"
                         >
-                            {% icon name="comment" class_name="w-w-4 w-h-4" %}
-
-                            {% if comments_number %}
-                                <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
-                                    data-comments-toggle-count>
-                                    {# populated in page-editor.js #}
-                                </div>
-                            {% endif %}
-                        </button>
-                    </div>
-                {% endwith %}
-
-                {% comment %}
-                    {% if self.show_comments_toggle %}
-                        {% with comments_number=self.form.formsets.comments|length %}
-                            <div class="comments-controls">
-
-                                <label class="comments-toggle" aria-label="">
-                                    <span class="w-sr-only">{% trans 'Show comments' %}</span>
-
-                                    <div class="comments-toggle__icon-wrapper">
-                                        <input type="checkbox" {% if comments_number %}checked{% endif %}>
-                                        {% icon name="comment" class_name="comments-toggle__icon" %}
-
-                                </label>
-
-                                <button class="comment-notifications-toggle-button" type="button">
-                                    <span class="visuallyhidden">{% trans "Toggle visibility of comment notifications dropdown" %}</span>
-                                    {% icon name="chevron-down" class_name="comment-notifications-toggle-button__icon" %}
-                                </button>
-
-                                <div class="comment-notifications-dropdown">
-                                    <p class="comment-notifications-dropdown__title">{% trans "Commenting on this page" %}</p>
-                                    <div class="comment-notifications-toggle">
-                                        <label class="switch switch--teal-background">
-                                            {% trans "Comment notifications" %}
-                                            {{ self.form.comment_notifications }}
-                                            <span class="switch__toggle"></span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                        {% endwith %}
+                            {% icon "history" class_name="w-w-4 w-h-4" %}
+                        </a>
                     {% endif %}
-                {% endcomment %}
 
-                {% include "wagtailadmin/shared/page_status_tag.html" with page=page show_tooltip=True %}
-                {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
+                    {# Comments Toggle #}
+                    {% with comments_number=self.form.formsets.comments|length %}
+                        <div class="w-flex w-flex-row w-items-center">
+                            <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4 {% if comments_number %} w-mr-2.5 {% endif %}"
+                                aria-label="{% trans 'Show comments' %}"
+                                data-tippy-content="{% trans 'Comments' %}"
+                            >
+                                {% icon name="comment" class_name="w-w-4 w-h-4" %}
 
-                {# Privacy switch #}
-                {% include "wagtailadmin/pages/_privacy_switch.html" with classes="w-h-full" %}
+                                {% if comments_number %}
+                                    <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
+                                        data-comments-toggle-count>
+                                        {# populated in page-editor.js #}
+                                    </div>
+                                {% endif %}
+                            </button>
+                        </div>
+                    {% endwith %}
 
+                    {% comment %}
+                        {% if self.show_comments_toggle %}
+                            {% with comments_number=self.form.formsets.comments|length %}
+                                <div class="comments-controls">
+
+                                    <label class="comments-toggle" aria-label="">
+                                        <span class="w-sr-only">{% trans 'Show comments' %}</span>
+
+                                        <div class="comments-toggle__icon-wrapper">
+                                            <input type="checkbox" {% if comments_number %}checked{% endif %}>
+                                            {% icon name="comment" class_name="comments-toggle__icon" %}
+
+                                    </label>
+
+                                    <button class="comment-notifications-toggle-button" type="button">
+                                        <span class="visuallyhidden">{% trans "Toggle visibility of comment notifications dropdown" %}</span>
+                                        {% icon name="chevron-down" class_name="comment-notifications-toggle-button__icon" %}
+                                    </button>
+
+                                    <div class="comment-notifications-dropdown">
+                                        <p class="comment-notifications-dropdown__title">{% trans "Commenting on this page" %}</p>
+                                        <div class="comment-notifications-toggle">
+                                            <label class="switch switch--teal-background">
+                                                {% trans "Comment notifications" %}
+                                                {{ self.form.comment_notifications }}
+                                                <span class="switch__toggle"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            {% endwith %}
+                        {% endif %}
+                    {% endcomment %}
+
+                    {% include "wagtailadmin/shared/page_status_tag.html" with page=page show_tooltip=True classes="w-mb-0" %}
+                    {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
+
+                    {# Privacy switch #}
+                    {% include "wagtailadmin/pages/_privacy_switch.html" with classes="w-h-full" %}
+                </div>
             </div>
 
         </header>
