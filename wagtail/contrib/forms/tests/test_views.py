@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import datetime
-import json
 from io import BytesIO
 
 from django.conf import settings
@@ -102,13 +101,11 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         new_form_submission = CustomFormPageSubmission.objects.create(
             user=self.test_user,
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "email@domain.com",
-                    "your_message": "hi joe",
-                    "your_choices": {"foo": "", "bar": "", "baz": ""},
-                }
-            ),
+            form_data={
+                "your_email": "email@domain.com",
+                "your_message": "hi joe",
+                "your_choices": {"foo": "", "bar": "", "baz": ""},
+            },
         )
         new_form_submission.submit_time = "2017-08-29T12:00:00.000Z"
         new_form_submission.save()
@@ -341,25 +338,21 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
 
         new_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "your_message": "this is a fairly new message",
-                    "your_choices": ["foo", "baz"],
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "your_message": "this is a fairly new message",
+                "your_choices": ["foo", "baz"],
+            },
         )
         new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
         new_form_submission.save()
 
         old_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "old@example.com",
-                    "your_message": "this is a really old message",
-                }
-            ),
+            form_data={
+                "your_email": "old@example.com",
+                "your_message": "this is a really old message",
+            },
         )
         old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
         old_form_submission.save()
@@ -373,7 +366,7 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         """
         for i in range(100):
             submission = FormSubmission(
-                page=self.form_page, form_data=json.dumps({"hello": "world"})
+                page=self.form_page, form_data={"hello": "world"}
             )
             submission.save()
 
@@ -529,13 +522,11 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         # Add a couple of form submissions
         old_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "old@example.com",
-                    "your_message": "this is a really old message",
-                    "your_choices": ["foo", "baz"],
-                }
-            ),
+            form_data={
+                "your_email": "old@example.com",
+                "your_message": "this is a really old message",
+                "your_choices": ["foo", "baz"],
+            },
         )
         if settings.USE_TZ:
             old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
@@ -545,12 +536,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
 
         new_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "your_message": "this is a fairly new message",
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "your_message": "this is a fairly new message",
+            },
         )
         if settings.USE_TZ:
             new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
@@ -631,12 +620,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         for i in range(100):
             new_form_submission = FormSubmission.objects.create(
                 page=self.form_page,
-                form_data=json.dumps(
-                    {
-                        "your-email": "new@example-%s.com" % i,
-                        "your-message": "I like things x %s" % i,
-                    }
-                ),
+                form_data={
+                    "your-email": "new@example-%s.com" % i,
+                    "your-message": "I like things x %s" % i,
+                },
             )
             if settings.USE_TZ:
                 new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
@@ -778,12 +765,10 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
     def test_list_submissions_csv_export_with_unicode_in_submission(self):
         unicode_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "unicode@example.com",
-                    "your_message": "こんにちは、世界",
-                }
-            ),
+            form_data={
+                "your_email": "unicode@example.com",
+                "your_message": "こんにちは、世界",
+            },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
@@ -810,13 +795,11 @@ class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):
         )
         unicode_form_submission = FormSubmission.objects.create(
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "unicode@example.com",
-                    "your_message": "We don't need unicode here",
-                    "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
-                }
-            ),
+            form_data={
+                "your_email": "unicode@example.com",
+                "your_message": "We don't need unicode here",
+                "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
+            },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
@@ -848,12 +831,10 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         old_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-john"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "old@example.com",
-                    "your_message": "this is a really old message",
-                }
-            ),
+            form_data={
+                "your_email": "old@example.com",
+                "your_message": "this is a really old message",
+            },
         )
         if settings.USE_TZ:
             old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
@@ -864,12 +845,10 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         new_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-m1kola"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "your_message": "this is a fairly new message",
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "your_message": "this is a fairly new message",
+            },
         )
         if settings.USE_TZ:
             new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
@@ -992,12 +971,10 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         unicode_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-bob"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "unicode@example.com",
-                    "your_message": "こんにちは、世界",
-                }
-            ),
+            form_data={
+                "your_email": "unicode@example.com",
+                "your_message": "こんにちは、世界",
+            },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
@@ -1025,13 +1002,11 @@ class TestCustomFormsSubmissionsExport(TestCase, WagtailTestUtils):
         unicode_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-bob"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your-email": "unicode@example.com",
-                    "your-message": "We don't need unicode here",
-                    "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
-                }
-            ),
+            form_data={
+                "your-email": "unicode@example.com",
+                "your-message": "We don't need unicode here",
+                "u0412u044bu0431u0435u0440u0438u0442u0435_u0441u0430u043cu0443u044e_u043bu044eu0431u0438u043cu0443u044e_ide_u0434u043bu044f_u0440u0430u0437u0440u0430u0431u043eu0442u043au0435_u043du0430_python": "vim",
+            },
         )
         unicode_form_submission.submit_time = "2014-01-02T12:00:00.000Z"
         unicode_form_submission.save()
@@ -1063,12 +1038,10 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         old_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-john"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "old@example.com",
-                    "your_message": "this is a really old message",
-                }
-            ),
+            form_data={
+                "your_email": "old@example.com",
+                "your_message": "this is a really old message",
+            },
         )
         old_form_submission.submit_time = "2013-01-01T12:00:00.000Z"
         old_form_submission.save()
@@ -1076,12 +1049,10 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
         new_form_submission = CustomFormPageSubmission.objects.create(
             user=self.create_test_user_without_admin("user-m1kola"),
             page=self.form_page,
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "your_message": "this is a fairly new message",
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "your_message": "this is a fairly new message",
+            },
         )
         new_form_submission.submit_time = "2014-01-01T12:00:00.000Z"
         new_form_submission.save()
@@ -1097,12 +1068,10 @@ class TestCustomFormsSubmissionsList(TestCase, WagtailTestUtils):
             submission = CustomFormPageSubmission(
                 user=self.create_test_user_without_admin("generated-username-%s" % i),
                 page=self.form_page,
-                form_data=json.dumps(
-                    {
-                        "your_email": "generated-your-email-%s" % i,
-                        "your_message": "generated-your-message-%s" % i,
-                    }
-                ),
+                form_data={
+                    "your_email": "generated-your-email-%s" % i,
+                    "your_message": "generated-your-message-%s" % i,
+                },
             )
             submission.save()
 
@@ -1452,14 +1421,12 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         new_form_submission = CustomFormPageSubmission.objects.create(
             page=self.form_page,
             user=self.test_user_1,
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "chocolate": "White Chocolate",
-                    "ingredients": "White colouring",
-                    "your_excitement": self.choices[2],
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "chocolate": "White Chocolate",
+                "ingredients": "White colouring",
+                "your_excitement": self.choices[2],
+            },
         )
         if settings.USE_TZ:
             new_form_submission.submit_time = "2017-10-01T12:00:00.000Z"
@@ -1470,14 +1437,12 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         old_form_submission = CustomFormPageSubmission.objects.create(
             page=self.form_page,
             user=self.test_user_2,
-            form_data=json.dumps(
-                {
-                    "your_email": "old@example.com",
-                    "chocolate": "Dark Chocolate",
-                    "ingredients": "Charcoal",
-                    "your_excitement": self.choices[0],
-                }
-            ),
+            form_data={
+                "your_email": "old@example.com",
+                "chocolate": "Dark Chocolate",
+                "ingredients": "Charcoal",
+                "your_excitement": self.choices[0],
+            },
         )
         if settings.USE_TZ:
             old_form_submission.submit_time = "2017-01-01T12:00:00.000Z"
@@ -1493,13 +1458,11 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
             submission = CustomFormPageSubmission(
                 page=self.form_page,
                 user=self.test_user_1,
-                form_data=json.dumps(
-                    {
-                        "your_email": "foo-%s@bar.com" % i,
-                        "chocolate": "Chocolate No.%s" % i,
-                        "your_excitement": self.choices[3],
-                    }
-                ),
+                form_data={
+                    "your_email": "foo-%s@bar.com" % i,
+                    "chocolate": "Chocolate No.%s" % i,
+                    "your_excitement": self.choices[3],
+                },
             )
             submission.save()
 
@@ -1575,14 +1538,12 @@ class TestFormsWithCustomSubmissionsList(TestCase, WagtailTestUtils):
         form_submission = CustomFormPageSubmission.objects.create(
             page=self.form_page,
             user=self.create_test_user_without_admin("user-aaa-aaa"),
-            form_data=json.dumps(
-                {
-                    "your_email": "new@example.com",
-                    "chocolate": "Old chocolate idea",
-                    "ingredients": "Sugar",
-                    "your_excitement": self.choices[2],
-                }
-            ),
+            form_data={
+                "your_email": "new@example.com",
+                "chocolate": "Old chocolate idea",
+                "ingredients": "Sugar",
+                "your_excitement": self.choices[2],
+            },
         )
         form_submission.submit_time = "2016-01-01T12:00:00.000Z"
         form_submission.save()
@@ -1625,12 +1586,10 @@ class TestFormsWithCustomFormBuilderSubmissionsList(TestCase, WagtailTestUtils):
         for i in range(20):
             submission = FormSubmission.objects.create(
                 page=form_page,
-                form_data=json.dumps(
-                    {
-                        "name": "John %s" % i,
-                        "device_ip_address": "192.0.2.%s" % i,
-                    }
-                ),
+                form_data={
+                    "name": "John %s" % i,
+                    "device_ip_address": "192.0.2.%s" % i,
+                },
             )
             submission.save()
         self.form_page = form_page

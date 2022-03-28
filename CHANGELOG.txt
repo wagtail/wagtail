@@ -52,6 +52,7 @@ Changelog
  * Implement new tabs design across the admin interface (Steven Steinwand)
  * Move page meta information from the header to a new status side panel component inside of the page editing UI (Steven Steinwand, Karl Hobley)
  * Add useful help text to Tag fields to advise what content is allowed inside tags, including when `TAG_SPACES_ALLOWED` is `True` or `False` (Abdulmajeed Isa)
+ * Change `AbstractFormSubmission`'s `form_data` to use JSONField to store form submissions (Jake Howard)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)

@@ -532,7 +532,10 @@
     "pk": 1,
     "model": "tests.customformpagesubmission",
     "fields": {
-      "form_data": "{\"your-email\": \"old@example.com\", \"your-message\": \"this is a really old message\"}",
+      "form_data": {
+        "your-email": "old@example.com",
+        "your-message": "this is a really old message"
+      },
       "user": 2,
       "page": 17,
       "submit_time": "2013-01-01T12:00:00.000Z"
@@ -542,7 +545,10 @@
     "pk": 2,
     "model": "tests.customformpagesubmission",
     "fields": {
-      "form_data": "{\"your-email\": \"new@example.com\", \"your-message\": \"this is a fairly new message\"}",
+      "form_data": {
+        "your-email": "new@example.com",
+        "your-message": "this is a fairly new message"
+      },
       "user": 5,
       "page": 17,
       "submit_time": "2014-01-01T12:00:00.000Z"
@@ -791,7 +797,10 @@
     "pk": 1,
     "model": "wagtailforms.formsubmission",
     "fields": {
-      "form_data": "{\"your_email\": \"old@example.com\", \"your_message\": \"this is a really old message\"}",
+      "form_data": {
+        "your_email": "old@example.com",
+        "your_message": "this is a really old message"
+      },
       "page": 8,
       "submit_time": "2013-01-01T12:00:00.000Z"
     }
@@ -800,7 +809,10 @@
     "pk": 2,
     "model": "wagtailforms.formsubmission",
     "fields": {
-      "form_data": "{\"your_email\": \"new@example.com\", \"your_message\": \"this is a fairly new message\"}",
+      "form_data": {
+        "your_email": "new@example.com",
+        "your_message": "this is a fairly new message"
+      },
       "page": 8,
       "submit_time": "2014-01-01T12:00:00.000Z"
     }

@@ -1,5 +1,4 @@
 import hashlib
-import json
 import os
 import uuid
 
@@ -9,7 +8,6 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
@@ -646,7 +644,7 @@ class FormPageWithCustomSubmission(AbstractEmailForm):
 
     def process_form_submission(self, form):
         form_submission = self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self,
             user=form.user,
         )
