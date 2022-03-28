@@ -4,6 +4,7 @@ import unittest
 
 from django import VERSION as DJANGO_VERSION
 from django.core import mail
+from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.forms.models import FormSubmission
@@ -180,6 +181,10 @@ class TestFormSubmission(TestCase):
         # Check that the checkbox was serialised in the email correctly
         self.assertEqual(len(mail.outbox), 1)
         self.assertIn("Your choices: ", mail.outbox[0].body)
+
+    def test_invalid_from_address(self):
+        with self.assertRaises(ValidationError):
+            make_form_page(from_address="not an email")
 
 
 class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
@@ -421,6 +426,13 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
     def setUp(self):
         # Create a form page
         self.form_page = make_form_page(to_address="to@email.com, another@email.com")
+
+    def test_invalid_to_address(self):
+        with self.assertRaises(ValidationError):
+            make_form_page(to_address="not an email")
+
+        with self.assertRaises(ValidationError):
+            make_form_page(to_address="to@email.com, not an email")
 
     def test_post_valid_form(self):
         response = self.client.post(
