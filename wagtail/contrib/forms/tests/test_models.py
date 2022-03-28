@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import json
 import unittest
 
 from django import VERSION as DJANGO_VERSION
@@ -109,7 +108,7 @@ class TestFormSubmission(TestCase):
         form_page = Page.objects.get(url_path="/home/contact-us/")
         self.assertTrue(
             FormSubmission.objects.filter(
-                page=form_page, form_data__contains="hello world"
+                page=form_page, form_data__your_message="hello world"
             ).exists()
         )
 
@@ -129,8 +128,7 @@ class TestFormSubmission(TestCase):
 
         # Check the form submission
         submission = FormSubmission.objects.get()
-        submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data["your_message"], "こんにちは、世界")
+        self.assertEqual(submission.form_data["your_message"], "こんにちは、世界")
 
     def test_post_multiple_values(self):
         response = self.client.post(
@@ -150,11 +148,9 @@ class TestFormSubmission(TestCase):
         # Check that the three checkbox values were saved correctly
         form_page = Page.objects.get(url_path="/home/contact-us/")
         submission = FormSubmission.objects.filter(
-            page=form_page, form_data__contains="hello world"
+            page=form_page, form_data__your_message="hello world"
         )
-        self.assertIn("foo", submission[0].form_data)
-        self.assertIn("bar", submission[0].form_data)
-        self.assertIn("baz", submission[0].form_data)
+        self.assertEqual(submission[0].form_data["your_choices"], ["foo", "bar", "baz"])
 
         # Check that the all the multiple checkbox values are serialised in the
         # email correctly
@@ -279,7 +275,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         form_page = Page.objects.get(url_path="/home/contact-us/")
         self.assertTrue(
             CustomFormPageSubmission.objects.filter(
-                page=form_page, form_data__contains="hello world"
+                page=form_page, form_data__your_message="hello world"
             ).exists()
         )
 
@@ -312,7 +308,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         )
         self.assertEqual(submissions_qs.count(), 1)
         self.assertTrue(
-            submissions_qs.filter(form_data__contains="hello world").exists()
+            submissions_qs.filter(form_data__your_message="hello world").exists()
         )
 
         # Second submission
@@ -344,12 +340,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
             user=self.user, page=self.form_page
         )
         self.assertEqual(submissions_qs.count(), 1)
-        self.assertTrue(
-            submissions_qs.filter(form_data__contains="hello world").exists()
-        )
-        self.assertFalse(
-            submissions_qs.filter(form_data__contains="hello cruel world").exists()
-        )
+        self.assertEqual(submissions_qs.get().form_data["your_message"], "hello world")
 
     def test_post_unicode_characters(self):
         self.client.post(
@@ -367,8 +358,7 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
 
         # Check the form submission
         submission = CustomFormPageSubmission.objects.get()
-        submission_data = json.loads(submission.form_data)
-        self.assertEqual(submission_data["your_message"], "こんにちは、世界")
+        self.assertEqual(submission.form_data["your_message"], "こんにちは、世界")
 
     def test_post_multiple_values(self):
         response = self.client.post(
@@ -392,11 +382,10 @@ class TestFormWithCustomSubmission(TestCase, WagtailTestUtils):
         # Check that the three checkbox values were saved correctly
         form_page = Page.objects.get(url_path="/home/contact-us/")
         submission = CustomFormPageSubmission.objects.filter(
-            page=form_page, form_data__contains="hello world"
+            page=form_page, form_data__your_message="hello world"
         )
-        self.assertIn("foo", submission[0].form_data)
-        self.assertIn("bar", submission[0].form_data)
-        self.assertIn("baz", submission[0].form_data)
+
+        self.assertEqual(submission[0].form_data["your_choices"], ["foo", "bar", "baz"])
 
     def test_post_blank_checkbox(self):
         response = self.client.post(
@@ -464,7 +453,7 @@ class TestFormSubmissionWithMultipleRecipients(TestCase):
         form_page = Page.objects.get(url_path="/home/contact-us/")
         self.assertTrue(
             FormSubmission.objects.filter(
-                page=form_page, form_data__contains="hello world"
+                page=form_page, form_data__your_message="hello world"
             ).exists()
         )
 
@@ -514,7 +503,7 @@ class TestFormSubmissionWithMultipleRecipientsAndWithCustomSubmission(
         form_page = Page.objects.get(url_path="/home/contact-us/")
         self.assertTrue(
             CustomFormPageSubmission.objects.filter(
-                page=form_page, form_data__contains="hello world"
+                page=form_page, form_data__your_message="hello world"
             ).exists()
         )
 
@@ -551,7 +540,7 @@ class TestFormWithRedirect(TestCase):
         form_page = Page.objects.get(url_path="/home/contact-us/")
         self.assertTrue(
             FormSubmission.objects.filter(
-                page=form_page, form_data__contains="hello world"
+                page=form_page, form_data__your_message="hello world"
             ).exists()
         )
 
@@ -801,12 +790,12 @@ class TestIssue798(TestCase, WagtailTestUtils):
         # Check that form submission was saved correctly
         self.assertTrue(
             FormSubmission.objects.filter(
-                page=self.form_page, form_data__contains="hello world"
+                page=self.form_page, form_data__your_message="hello world"
             ).exists()
         )
         self.assertTrue(
             FormSubmission.objects.filter(
-                page=self.form_page, form_data__contains="7.3"
+                page=self.form_page, form_data__your_favourite_number="7.3"
             ).exists()
         )
 

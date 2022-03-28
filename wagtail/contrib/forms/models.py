@@ -1,5 +1,4 @@
 import datetime
-import json
 import os
 
 from django.conf import settings
@@ -42,7 +41,7 @@ class AbstractFormSubmission(models.Model):
     For example, if you need to save additional data or a reference to a user.
     """
 
-    form_data = models.TextField()
+    form_data = models.JSONField(encoder=DjangoJSONEncoder)
     page = models.ForeignKey(Page, on_delete=models.CASCADE)
 
     submit_time = models.DateTimeField(verbose_name=_("submit time"), auto_now_add=True)
@@ -53,14 +52,11 @@ class AbstractFormSubmission(models.Model):
 
         You can override this method to add additional data.
         """
-        form_data = json.loads(self.form_data)
-        form_data.update(
-            {
-                "submit_time": self.submit_time,
-            }
-        )
 
-        return form_data
+        return {
+            **self.form_data,
+            "submit_time": self.submit_time,
+        }
 
     def __str__(self):
         return self.form_data
@@ -231,7 +227,7 @@ class AbstractForm(Page):
         """
 
         return self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self,
         )
 

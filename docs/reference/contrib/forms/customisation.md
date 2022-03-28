@@ -58,7 +58,6 @@ Example:
 import json
 
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
@@ -95,7 +94,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self, user=form.user
         )
 
@@ -118,7 +117,6 @@ Note that this code also changes the submissions list view.
 import json
 
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
@@ -163,7 +161,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self, user=form.user
         )
 
@@ -191,7 +189,6 @@ Example:
 import json
 
 from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
 from django.shortcuts import render
 from modelcluster.fields import ParentalKey
@@ -239,7 +236,7 @@ class FormPage(AbstractEmailForm):
 
     def process_form_submission(self, form):
         self.get_submission_class().objects.create(
-            form_data=json.dumps(form.cleaned_data, cls=DjangoJSONEncoder),
+            form_data=form.cleaned_data,
             page=self, user=form.user
         )
 
