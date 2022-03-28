@@ -337,7 +337,9 @@ window.comments = (() => {
     updateCommentVisibility(commentToggle.checked);
 
     // Keep number of comments up to date with comment app
-    const commentCounter = formElement.querySelector('.comments-toggle__count');
+    const commentCounter = formElement.querySelector(
+      '[data-comments-toggle-count]',
+    );
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
         commentApp.store.getState(),

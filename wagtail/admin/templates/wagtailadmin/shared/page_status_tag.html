@@ -1,8 +1,19 @@
 {% load i18n %}
+{% comment %}
+
+    Variables accepted by this template:
+
+    - `page` - A wagtail page object
+    - `show_tooltip` - Boolean to show tooltips on the button when the page is live
+{% endcomment %}
+
 {% if page.live %}
     {% with page_url=page.url %}
         {% if page_url is not None %}
-            <a href="{{ page_url }}" target="_blank" rel="noreferrer" class="status-tag primary" title="{% trans 'Visit the live page' %}">
+            <a href="{{ page_url }}" target="_blank" rel="noreferrer"
+                class="status-tag primary w-bg-none"
+                title="{% trans 'Visit the live page' %}"
+                {% if show_tooltip %} data-tippy-content="{% trans 'Visit the live page' %}" {% endif %}>
                 <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
             </a>
         {% else %}
@@ -12,7 +23,7 @@
         {% endif %}
     {% endwith %}
 {% else %}
-    <span class="status-tag">
+    <span class="status-tag hover:w-bg-white hover:w-text-grey-400 hover:w-border-grey-100">
         <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
     </span>
 {% endif %}

@@ -1,9 +1,9 @@
 {% load wagtailadmin_tags i18n %}
 
-<div {{ self.attrs }} class="{{ classes|join:' ' }}">
-    <button class="w-text-primary w-bg-transparent hover:w-scale-105 w-transition {{ button_classes|join:' ' }}" data-page-editor-actions-button>
+<div {{ self.attrs }} class="w-flex w-justify-center w-items-center {{ classes|join:' ' }}">
+    <button class="w-p-0 w-text-primary w-bg-transparent hover:w-scale-110 w-transition {{ button_classes|join:' ' }}" data-page-editor-actions-button>
         <span class="w-sr-only">{{ title }}</span>
-        {% icon name='dots-vertical' class_name='w-w-6 w-h-6 w-text-primary' %}
+        {% icon name="ellipsis-v" class_name='w-w-5 w-h-5' %}
     </button>
 
     <div data-page-editor-actions-dropdown class="w-hidden w-p-0">
