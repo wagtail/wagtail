@@ -111,6 +111,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "telepath-unpack": "^0.0.3",
+    "tippy.js": "^6.3.7",
     "uuid": "^8.3.2"
   },
   "scripts": {
