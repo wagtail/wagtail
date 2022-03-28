@@ -956,6 +956,7 @@ def register_icons(icons):
         "doc-empty.svg",
         "doc-full-inverse.svg",
         "doc-full.svg",  # aka file-text-alt
+        "dots-vertical.svg",
         "download-alt.svg",
         "download.svg",
         "draft.svg",

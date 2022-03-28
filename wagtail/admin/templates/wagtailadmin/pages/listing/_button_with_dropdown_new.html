@@ -1,0 +1,18 @@
+{% load wagtailadmin_tags i18n %}
+
+<div {{ self.attrs }} class="{{ classes|join:' ' }}">
+    <button class="w-text-primary w-bg-transparent hover:w-scale-105 w-transition {{ button_classes|join:' ' }}" data-page-editor-actions-button>
+        <span class="w-sr-only">{{ title }}</span>
+        {% icon name='dots-vertical' class_name='w-w-6 w-h-6 w-text-primary' %}
+    </button>
+
+    <div data-page-editor-actions-dropdown class="w-hidden w-p-0">
+        <nav class="w-text-white w-flex w-flex-col w-justify-start w-font-bold" aria-label="{% trans 'Actions' %}">
+            {% for button in buttons %}
+                <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}" class="w-text-white hover:w-bg-primary-200 hover:w-text-grey-50 w-py-3 w-px-6 w-no-underline overflow-hidden first:w-rounded-t-sm last:w-rounded-b-sm {{ button.classes|join:' ' }}">
+                    {{ button.label }}
+                </a>
+            {% endfor %}
+        </nav>
+    </div>
+</div>

@@ -26,16 +26,13 @@
                         title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
                         {{ page.get_admin_display_title }}
                     </h1>
+
+                    {# Page actions dropdown #}
+                    <div>
+                        {% page_header_buttons page page_perms=page_perms %}
+                    </div>
                 </div>
 
-                {# Page actions dropdown #}
-                <div>
-                    {% if show_header_buttons %}
-                        <div>
-                            {% page_header_buttons current_page page_perms %}
-                        </div>
-                    {% endif %}
-                </div>
             </div>
 
             {# Right Side Actions #}

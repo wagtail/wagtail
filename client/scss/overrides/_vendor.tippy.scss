@@ -19,3 +19,12 @@
 .tippy-box[data-placement^='right'] > .tippy-arrow::before {
   @apply w-border-r-primary;
 }
+
+// Dropdown theme for tippy tooltips
+.tippy-box[data-theme='dropdown'] {
+  @apply w-rounded-sm;
+
+  .tippy-content {
+    @apply w-p-0;
+  }
+}
