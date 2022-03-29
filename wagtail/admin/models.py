@@ -3,11 +3,11 @@ from django.db.models import Count, Model
 from modelcluster.fields import ParentalKey
 from taggit.models import Tag
 
-# The edit_handlers module extends Page with some additional attributes required by
+# The panels module extends Page with some additional attributes required by
 # wagtail admin (namely, base_form_class and get_edit_handler). Importing this within
 # wagtail.admin.models ensures that this happens in advance of running wagtail.admin's
 # system checks.
-from wagtail.admin import edit_handlers  # NOQA
+from wagtail.admin import panels  # NOQA
 from wagtail.models import Page
 
 

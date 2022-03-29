@@ -18,6 +18,7 @@ export interface MenuItemDefinition {
 
 export interface MenuItemProps<T> {
   path: string;
+  slim: boolean;
   state: MenuState;
   item: T;
   dispatch(action: MenuAction): void;

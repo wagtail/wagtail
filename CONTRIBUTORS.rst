@@ -570,6 +570,12 @@ Contributors
 * Paarth Agarwal
 * Nicolas Ferrari
 * Vibhakar Solanki
+* Riley de Mestre
+* Mariusz Felisiak
+* Dharmik Gangani
+* Kyle Hart
+* Stephanie Cheng Smith
+* Luis Espinoza
 
 Translators
 ===========

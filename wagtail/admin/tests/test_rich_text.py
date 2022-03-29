@@ -20,7 +20,7 @@ from wagtail.test.utils import WagtailTestUtils
 class BaseRichTextEditHandlerTestCase(TestCase):
     def _clear_edit_handler_cache(self):
         """
-        These tests generate new EditHandlers with different settings. The
+        These tests generate new panel definitions with different settings. The
         cached edit handlers should be cleared before and after each test run
         to ensure that no changes leak through to other tests.
         """

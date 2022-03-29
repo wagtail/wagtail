@@ -339,10 +339,6 @@
     }
   }
 
-  &.text-notransform {
-    text-transform: initial;
-  }
-
   &.button--icon {
     .icon {
       @include svg-icon(1.5em);

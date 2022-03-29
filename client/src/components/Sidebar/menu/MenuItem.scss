@@ -5,6 +5,7 @@
   position: relative;
 
   &__link {
+    @apply w-text-14;
     @include transition(
       border-color $menu-transition-duration ease,
       background-color $menu-transition-duration ease
@@ -15,14 +16,12 @@
     box-sizing: border-box;
     white-space: nowrap;
     border-inline-start: 3px solid transparent;
-
     -webkit-font-smoothing: auto;
     border: 0;
     background: transparent;
     text-align: start;
     color: $color-menu-text;
     padding: 11px 20px;
-    font-size: 13px;
     font-weight: 400;
 
     // Note, font-weights lower than normal,
@@ -31,7 +30,6 @@
     // making the text semi-transparent
     &:hover,
     &:focus {
-      background-color: $nav-item-hover-bg;
       color: $color-white;
       text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
     }
@@ -64,18 +62,16 @@
   }
 
   &--in-sub-menu {
+    @apply hover:w-bg-primary;
+
     #{$root}__link {
       // Links inside a submenu should have normal wrapping
       white-space: normal;
     }
-
-    &:hover {
-      background-color: rgba(100, 100, 100, 0.2);
-    }
   }
 
   &--active {
-    background: $nav-item-active-bg;
+    @apply w-bg-primary-200;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 
     > a {
@@ -91,7 +87,15 @@
 }
 
 .sidebar--slim {
-  .menuitem-label {
-    opacity: 0;
+  .sidebar-menu-item {
+    .menuitem-label {
+      opacity: 0;
+    }
+  }
+
+  .sidebar-menu-item--in-sub-menu {
+    .menuitem-label {
+      opacity: 1;
+    }
   }
 }

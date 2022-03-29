@@ -2,16 +2,20 @@
 name: "🐞 Bug Report"
 about: Create a report to help us improve
 title: ''
-labels: 'type:Bug'
+labels: ['type:Bug', 'status:Unconfirmed']
 assignees: ''
 
 ---
 
+<!--
 Found a bug? Please fill out the sections below. 👍
+-->
 
 ### Issue Summary
 
+<!--
 A summary of the issue.
+-->
 
 
 ### Steps to Reproduce

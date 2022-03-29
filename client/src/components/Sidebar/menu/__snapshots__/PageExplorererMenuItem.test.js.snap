@@ -4,25 +4,30 @@ exports[`PageExplorerMenuItem should render with the minimum required props 1`] 
 <li
   className="sidebar-menu-item sidebar-page-explorer-item"
 >
-  <button
-    aria-expanded="false"
-    aria-haspopup="menu"
-    className="sidebar-menu-item__link"
-    onClick={[Function]}
-    type="button"
+  <ForwardRef(TippyWrapper)
+    disabled={true}
+    placement="right"
   >
-    <Icon
-      className="icon--menuitem"
-      name="folder-open-inverse"
-    />
-    <span
-      className="menuitem-label"
-    />
-    <Icon
-      className="sidebar-sub-menu-trigger-icon"
-      name="arrow-right"
-    />
-  </button>
+    <button
+      aria-expanded="false"
+      aria-haspopup="menu"
+      className="sidebar-menu-item__link"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        className="icon--menuitem"
+        name="folder-open-inverse"
+      />
+      <span
+        className="menuitem-label"
+      />
+      <Icon
+        className="sidebar-sub-menu-trigger-icon"
+        name="arrow-right"
+      />
+    </button>
+  </ForwardRef(TippyWrapper)>
   <div>
     <SidebarPanel
       depth={2}

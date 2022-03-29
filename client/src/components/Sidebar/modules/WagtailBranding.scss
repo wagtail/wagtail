@@ -18,7 +18,7 @@
   align-items: center;
   color: #aaa;
   -webkit-font-smoothing: auto;
-  margin: 1.8em auto 2.5em;
+  margin: 4em auto 1.8em;
   text-align: center;
   width: 100px;
   height: 100px;
@@ -26,17 +26,17 @@
     width $menu-transition-duration ease, height $menu-transition-duration ease,
     padding-top $menu-transition-duration ease;
   box-sizing: border-box;
-  overflow: hidden;
+  border-radius: 100%;
 
-  &:hover {
-    color: $color-white;
-    transform: rotate(4deg);
+  @include media-breakpoint-up(sm) {
+    margin: 1.8em auto 2.5em;
   }
 
   // Reduce overall size when in slim mode
   .sidebar--slim & {
+    @include show-focus-outline-inside();
     width: 60px;
-    transform: none;
+    height: 60px;
   }
 
   // Remove background on 404 page
@@ -47,105 +47,42 @@
   // Set wagging styles
   &--wagging {
     &:hover {
-      transform: rotate(8deg);
       transition: transform 1.2s ease;
 
-      #{$root}__icon {
-        // stylelint-disable max-nesting-depth
-        &[data-part='tail'] {
-          animation: tail-wag 0.09s alternate;
-          animation-iteration-count: infinite;
-        }
+      // stylelint-disable max-nesting-depth
+      [data-part='tail'] {
+        animation: tail-wag 0.1s alternate;
+        animation-iteration-count: infinite;
+      }
 
-        // TODO: Fix legacy specificity issues
-        &[data-part='eye--open'] {
-          display: none !important;
-        }
+      // TODO: Fix legacy specificity issues
+      [data-part='eye--open'] {
+        display: none !important;
+      }
 
-        &[data-part='eye--closed'] {
-          display: inline !important;
-        }
+      [data-part='eye--closed'] {
+        display: inline !important;
       }
     }
   }
 
   // Bird wrapper
   &__icon-wrapper {
+    @apply w-bg-white/15 w-relative w-overflow-hidden hover:w-overflow-visible;
     margin: auto;
-    position: absolute;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
-    inset-inline-start: 0;
-    top: 0;
     width: 100px;
     height: 100px;
-    background-color: #3a3a3a;
     border-radius: 50%;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    transition: left $menu-transition-duration ease,
-      inset-inline-start $menu-transition-duration ease,
-      top $menu-transition-duration ease, width $menu-transition-duration ease,
-      height $menu-transition-duration ease;
 
     .sidebar--slim & {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -10px;
-      inset-inline-start: -10px;
-      top: 10px;
-      width: 80px;
-      height: 80px;
+      width: 40px;
+      height: 40px;
     }
 
     .page404__bg & {
       width: auto;
       height: auto;
       position: static;
-    }
-  }
-
-  // Bird icons
-  &__icon {
-    display: block;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    left: 0;
-    inset-inline-start: 0;
-    top: 0;
-    width: 70%;
-    height: 70%;
-    position: absolute;
-    margin: auto;
-    bottom: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: 0;
-    inset-inline-end: 0;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    transition: left $menu-transition-duration ease,
-      inset-inline-start $menu-transition-duration ease,
-      width $menu-transition-duration ease,
-      height $menu-transition-duration ease;
-
-    .sidebar--slim & {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      left: -10px;
-      inset-inline-start: -10px;
-      width: 70%;
-      height: 70%;
-    }
-
-    // TODO: Fix legacy specificity issues
-    &[data-part='eye--open'] {
-      display: inline !important;
-    }
-
-    &[data-part='eye--closed'] {
-      display: none !important;
     }
   }
 }

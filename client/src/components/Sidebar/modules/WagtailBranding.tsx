@@ -1,26 +1,19 @@
 import * as React from 'react';
 import { ModuleDefinition, Strings } from '../Sidebar';
-
-export interface LogoImages {
-  mobileLogo: string;
-  desktopLogoBody: string;
-  desktopLogoTail: string;
-  desktopLogoEyeOpen: string;
-  desktopLogoEyeClosed: string;
-}
+import WagtailLogo from './WagtailLogo';
 
 interface WagtailBrandingProps {
   homeUrl: string;
-  images: LogoImages;
   strings: Strings;
+  slim: boolean;
   currentPath: string;
   navigate(url: string): void;
 }
 
 const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   homeUrl,
-  images,
   strings,
+  slim,
   currentPath,
   navigate,
 }) => {
@@ -88,7 +81,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   };
 
   const desktopClassName =
-    'sidebar-wagtail-branding' +
+    'sidebar-wagtail-branding w-transition-all w-duration-150' +
     (isWagging ? ' sidebar-wagtail-branding--wagging' : '');
 
   return (
@@ -101,31 +94,8 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <div className="sidebar-wagtail-branding__icon-wrapper">
-        <img
-          className="sidebar-wagtail-branding__icon"
-          data-part="body"
-          src={images.desktopLogoBody}
-          alt=""
-        />
-        <img
-          className="sidebar-wagtail-branding__icon"
-          data-part="tail"
-          src={images.desktopLogoTail}
-          alt=""
-        />
-        <img
-          className="sidebar-wagtail-branding__icon"
-          data-part="eye--open"
-          src={images.desktopLogoEyeOpen}
-          alt=""
-        />
-        <img
-          className="sidebar-wagtail-branding__icon"
-          data-part="eye--closed"
-          src={images.desktopLogoEyeClosed}
-          alt=""
-        />
+      <div className="sidebar-wagtail-branding__icon-wrapper w-transition-all w-duration-150">
+        <WagtailLogo slim={slim} />
       </div>
     </a>
   );
@@ -133,19 +103,17 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
 
 export class WagtailBrandingModuleDefinition implements ModuleDefinition {
   homeUrl: string;
-  images: LogoImages;
 
-  constructor(homeUrl: string, images: LogoImages) {
+  constructor(homeUrl: string) {
     this.homeUrl = homeUrl;
-    this.images = images;
   }
 
-  render({ strings, key, navigate, currentPath }) {
+  render({ strings, slim, key, navigate, currentPath }) {
     return (
       <WagtailBranding
         key={key}
         homeUrl={this.homeUrl}
-        images={this.images}
+        slim={slim}
         strings={strings}
         navigate={navigate}
         currentPath={currentPath}

@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.admin.edit_handlers import FieldPanel, ObjectList, TabbedInterface
+from wagtail.admin.panels import FieldPanel, ObjectList, TabbedInterface
 from wagtail.admin.views.pages.preview import PreviewOnEdit
 from wagtail.models import Page
 from wagtail.test.testapp.models import EventCategory, EventPage, SimplePage, StreamPage
@@ -66,12 +66,12 @@ def clear_edit_handler(page_cls):
     def decorator(fn):
         @wraps(fn)
         def decorated(*args, **kwargs):
-            # Clear any old EditHandlers generated
+            # Clear any old panel definitions generated
             page_cls.get_edit_handler.cache_clear()
             try:
                 fn(*args, **kwargs)
             finally:
-                # Clear the bad EditHandler generated just now
+                # Clear the bad panel definition generated just now
                 page_cls.get_edit_handler.cache_clear()
 
         return decorated

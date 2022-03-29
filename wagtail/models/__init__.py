@@ -379,7 +379,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
     ]
 
     # Define these attributes early to avoid masking errors. (Issue #3078)
-    # The canonical definition is in wagtailadmin.edit_handlers.
+    # The canonical definition is in wagtailadmin.panels.
     content_panels = []
     promote_panels = []
     settings_panels = []

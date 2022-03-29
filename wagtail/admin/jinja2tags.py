@@ -10,7 +10,7 @@ class WagtailUserbarExtension(Extension):
 
         self.environment.globals.update(
             {
-                "wagtailuserbar": jinja2.contextfunction(wagtailuserbar),
+                "wagtailuserbar": jinja2.pass_context(wagtailuserbar),
             }
         )
 

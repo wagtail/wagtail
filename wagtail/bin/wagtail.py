@@ -118,6 +118,7 @@ class UpdateModulePaths(Command):
     description = "Update a Wagtail project tree to use Wagtail 2.x module paths"
 
     REPLACEMENTS = [
+        # Added in Wagtail 2.0
         (re.compile(r"\bwagtail\.wagtailcore\b"), "wagtail"),
         (re.compile(r"\bwagtail\.wagtailadmin\b"), "wagtail.admin"),
         (re.compile(r"\bwagtail\.wagtaildocs\b"), "wagtail.documents"),
@@ -148,6 +149,14 @@ class UpdateModulePaths(Command):
         (
             re.compile(r"\bwagtail\.contrib\.wagtailstyleguide\b"),
             "wagtail.contrib.styleguide",
+        ),
+        # Added in Wagtail 3.0
+        (re.compile(r"\bwagtail\.tests\b"), "wagtail.test"),
+        (re.compile(r"\bwagtail\.core\b"), "wagtail"),
+        (re.compile(r"\bwagtail\.admin\.edit_handlers\b"), "wagtail.admin.panels"),
+        (
+            re.compile(r"\bwagtail\.contrib\.forms\.edit_handlers\b"),
+            "wagtail.contrib.forms.panels",
         ),
     ]
 

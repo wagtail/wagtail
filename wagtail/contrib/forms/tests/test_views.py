@@ -10,10 +10,10 @@ from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
 
-from wagtail.admin.edit_handlers import get_form_for_model
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.contrib.forms.edit_handlers import FormSubmissionsPanel
+from wagtail.admin.panels import get_form_for_model
 from wagtail.contrib.forms.models import FormSubmission
+from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from wagtail.contrib.forms.tests.utils import (
     make_form_page,
     make_form_page_with_custom_submission,
@@ -42,7 +42,9 @@ class TestFormResponsesPanel(TestCase):
         self.form_page = make_form_page()
 
         self.FormPageForm = get_form_for_model(
-            FormPage, form_class=WagtailAdminPageForm
+            FormPage,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
         self.panel = FormSubmissionsPanel().bind_to(
@@ -84,7 +86,9 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         self.form_page = make_form_page_with_custom_submission()
 
         self.FormPageForm = get_form_for_model(
-            FormPageWithCustomSubmission, form_class=WagtailAdminPageForm
+            FormPageWithCustomSubmission,
+            form_class=WagtailAdminPageForm,
+            fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
         self.test_user = self.create_user(username="user-n1kola", password="123")

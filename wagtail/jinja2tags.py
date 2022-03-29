@@ -1,6 +1,7 @@
 import jinja2
 import jinja2.nodes
 from jinja2.ext import Extension
+from markupsafe import Markup, escape
 
 from .templatetags.wagtailcore_tags import (
     pageurl,
@@ -19,9 +20,9 @@ class WagtailCoreExtension(Extension):
 
         self.environment.globals.update(
             {
-                "pageurl": jinja2.contextfunction(pageurl),
-                "slugurl": jinja2.contextfunction(slugurl),
-                "wagtail_site": jinja2.contextfunction(wagtail_site),
+                "pageurl": jinja2.pass_context(pageurl),
+                "slugurl": jinja2.pass_context(slugurl),
+                "wagtail_site": jinja2.pass_context(wagtail_site),
                 "wagtail_version": wagtail_version,
             }
         )
@@ -73,9 +74,9 @@ class WagtailCoreExtension(Extension):
             result = value
 
         if context.eval_ctx.autoescape:
-            return jinja2.escape(result)
+            return escape(result)
         else:
-            return jinja2.Markup(result)
+            return Markup(result)
 
 
 # Nicer import names
