@@ -1,62 +1,65 @@
 {% load i18n wagtailadmin_tags %}
-{% if workflow_state %}
-    <div class="w-border-r w-border-grey-100 w-mr-5 w-pr-5">
-        <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}"
-            class="w-flex w-items-center w-text-grey-400 w-text-14 w-font-medium w-bg-transparent w-px-0 hover:w-text-primary">
-            {% if workflow_state.status == 'needs_changes' %}
-                {% icon name="warning" class_name="w-w-4 w-h-4 w-mr-1" %}
-                {% trans "Changes requested" %}
-                <span class="w-inline-block w-pl-1">
-                    {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.finished_at time_prefix="at" %}
-                </span>
-            {% else %}
-                {% if workflow_state.status == "in_progress" %}
-                    {% icon name="time" class_name="w-w-5 w-h-5" %}
-                    {% trans "Awaiting" %}
+{% with icon_classes='w-w-5 w-h-5 w-mr-1' %}
+    {% if workflow_state %}
+        <div class="w-border-r w-border-grey-100 w-mr-5 w-pr-5">
+            <button data-url="{% url 'wagtailadmin_pages:workflow_status' page.id %}"
+                class="w-flex w-items-center w-text-grey-400 w-text-14 w-font-medium w-bg-transparent w-px-0 hover:w-text-primary">
+                {% if workflow_state.status == 'needs_changes' %}
+                    {% icon name="warning" class_name=icon_classes %}
+                    {% trans "Changes requested" %}
                     <span class="w-inline-block w-pl-1">
-                        {% trans "since" as since_text %}
+                        {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.finished_at time_prefix="at" %}
                     </span>
                 {% else %}
-                    {{ workflow_state.get_status_display }}
+                    {% if workflow_state.status == "in_progress" %}
+                        {% icon name="time" class_name=icon_classes %}
+                        {% trans "Awaiting" %}
+                        <span class="w-inline-block w-pl-1">
+                            {% trans "since" as since_text %}
+                        </span>
+                    {% else %}
+                        {{ workflow_state.get_status_display }}
+                    {% endif %}
+                    {{ workflow_state.current_task_state.task.name }}
+                    <span class="w-inline-block w-pl-1">
+                        {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.started_at %}
+                    </span>
                 {% endif %}
-                {{ workflow_state.current_task_state.task.name }}
-                <span class="w-inline-block w-pl-1">
-                    {% include "wagtailadmin/shared/last_updated.html" with since_text=since_text last_updated=workflow_state.current_task_state.started_at %}
-                </span>
-            {% endif %}
-        </button>
-    </div>
-{% else %}
-    <div class="w-flex w-items-center w-justify-center w-gap-3 w-text-grey-400 w-text-14 w-font-medium w-mr-5">
-        {% with latest_revision=page.get_latest_revision %}
-            {% if latest_revision %}
-                <div>
-                    {% if latest_revision == page.live_revision %}
-                        {% icon name="tick" class_name="w-w-5 w-h-5" %}
+            </button>
+        </div>
+    {% else %}
+        <div class="w-flex w-items-center w-justify-center w-gap-3 w-text-grey-400 w-text-14 w-font-medium w-mr-5">
+            {% with latest_revision=page.get_latest_revision %}
+                {% if latest_revision %}
+                    <div class="w-inline-flex w-justify-center w-flex-shrink-0">
+                        {% if latest_revision == page.live_revision %}
+                            {# Slightly smaller icon #}
+                            {% icon name="circle-check" class_name="w-w-4 w-h-5 w-mr-1" %}
+                            {% trans "Published" %}
+                        {% else %}
+                            {% icon name="draft" class_name=icon_classes %}
+                            {% trans "Draft saved" %}
+                        {% endif %}
+                        <span class="w-pl-1">
+                            {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_revision.created_at time_prefix="at" %}
+                        </span>
+                    </div>
+                    <div class="w-px-3 w-border-x w-border-grey-100">
+                        {% if latest_revision.user %}
+                            <span class="avatar small"
+                                data-tippy-content="{% trans 'Updated by ' %}{{ latest_revision.user|user_display_name }}"
+                                data-tippy-offset="[0, 15]"
+                            ><img src="{% avatar_url latest_revision.user size=25 %}" alt=""/></span>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {% if page.live %}
                         {% trans "Published" %}
                     {% else %}
-                        {% icon name="draft" class_name="w-w-5 w-h-5" %}
-                        {% trans "Draft saved" %}
+                        {% trans "Draft" %}
                     {% endif %}
-                    <span>
-                        {% include "wagtailadmin/shared/last_updated.html" with last_updated=latest_revision.created_at time_prefix="at" %}
-                    </span>
-                </div>
-                <div class="w-px-3 w-border-x w-border-grey-100">
-                    {% if latest_revision.user %}
-                        <span class="avatar small"
-                            data-tippy-content="{% trans 'Last changes by ' %}{{ latest_revision.user|user_display_name }}"
-                            data-tippy-offset="[0, 18]"
-                        ><img src="{% avatar_url latest_revision.user size=25 %}" alt=""/></span>
-                    {% endif %}
-                </div>
-            {% else %}
-                {% if page.live %}
-                    {% trans "Published" %}
-                {% else %}
-                    {% trans "Draft" %}
                 {% endif %}
-            {% endif %}
-        {% endwith %}
-    </div>
-{% endif %}
+            {% endwith %}
+        </div>
+    {% endif %}
+{% endwith %}

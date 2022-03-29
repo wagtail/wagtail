@@ -282,23 +282,27 @@ function initHiddenBreadcrumbs() {
   const breadcrumbs = document.querySelector('[data-hidden-breadcrumbs]');
   const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
   const TRANSITION = 300;
+  const cssClass = {
+    hidden: 'sm:w-hidden',
+    opacity: '!w-opacity-100',
+  };
   let timer;
 
   function showBreadcrumbs() {
     breadcrumbsToggle.setAttribute('aria-expanded', true);
-    breadcrumbs.classList.remove('w-hidden');
+    breadcrumbs.classList.remove(cssClass.hidden);
 
     setTimeout(() => {
-      breadcrumbs.classList.add('w-opacity-100');
+      breadcrumbs.classList.add(cssClass.opacity);
     }, TRANSITION);
   }
 
   function hideBreadcrumbs() {
     breadcrumbsToggle.setAttribute('aria-expanded', false);
-    breadcrumbs.classList.remove('w-opacity-100');
+    breadcrumbs.classList.remove(cssClass.opacity);
 
     setTimeout(() => {
-      breadcrumbs.classList.add('w-hidden');
+      breadcrumbs.classList.add(cssClass.hidden);
     }, TRANSITION);
   }
 

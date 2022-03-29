@@ -5,36 +5,29 @@
     {% page_permissions page as page_perms %}
 {% endif %}
 
-{% with label_classes='w-inline-flex w-items-center w-justify-center w-p-1 w-text-14 w-uppercase w-rounded-sm w-bg-white w-text-grey-400 w-border w-border-grey-100 hover:w-bg-primary hover:w-text-white hover:w-border-primary' %}
-    {% if not page.is_root %}
-        {% if show_label %}{% trans "Privacy" %}{% endif %}
+{% if not page.is_root %}
+    <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
+        {% trans "Privacy" %}
         {% if page_perms.can_set_view_restrictions %}
-            <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}"
-                class="{{ label_classes }} {{ classes }}"
-                data-action-set-privacy>
+            <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="status-tag primary action-set-privacy">
                 {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
-                {% if is_public %}
-                    <span class="w-sr-only">{% trans 'Set page privacy. Current status: Public' %}</span>
-                    {% icon name="view" class_name="w-w-4 w-h-4 w-text-gray-40 w-mr-1" %}
+                <span class="label-public icon icon-view" aria-label="{% trans 'Set page privacy. Current status: Public' %}">
                     {% trans "Public" %}
-                {% else %}
-                    <span class="w-sr-only">{% trans 'Set page privacy. Current status: Private' %}</span>
-                    {% icon name="no-view" class_name="w-w-4 w-h-4 w-text-gray-40 w-mr-1" %}
+                </span>
+                <span class="label-private icon icon-no-view" aria-label="{% trans 'Set page privacy. Current status: Private' %}">
                     {% trans "Private" %}
-                {% endif %}
+                </span>
             </button>
         {% else %}
-            <div class="{{ label_classes }} {{ classes }}">
-                {% if is_public %}
-                    <span class="w-sr-only">{% trans 'Page privacy. Current status: Public' %}</span>
-                    {% icon name="view" class_name="w-w-4 w-h-4 w-text-gray-40 w-mr-1" %}
+            {% if is_public %}
+                <span class="label-public status-tag primary icon icon-view" aria-label="{% trans 'Page privacy. Current status: Public' %}">
                     {% trans "Public" %}
-                {% else %}
-                    <span class="w-sr-only">{% trans 'Page privacy. Current status: Private' %}</span>
-                    {% icon name="no-view" class_name="w-w-4 w-h-4 w-text-gray-40 w-mr-1" %}
+                </span>
+            {% else %}
+                <span class="label-private status-tag primary icon icon-no-view" aria-label="{% trans 'Page privacy. Current status: Private' %}">
                     {% trans "Private" %}
-                {% endif %}
-            </div>
+                </span>
+            {% endif %}
         {% endif %}
-    {% endif %}
-{% endwith %}
+    </div>
+{% endif %}

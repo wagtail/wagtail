@@ -9,14 +9,14 @@
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
-    <header class="w-flex w-items-center w-justify-between w-bg-gray-50 w-py-0 sm:w-pl-0 w-relative w-top-0 w-z-30 sm:w-sticky w-min-h-[50px]">
+    {# Note: padding left on mobile to give space for navigation toggle  #}
+    <header class=" w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-30 sm:w-sticky w-min-h-[50px]">
 
         {# Title and breadcrumbs button #}
-        <div>
-
-            <div class="w-flex w-flex-row w-items-center w-space-x-2">
-                <button data-toggle-breadcrumbs
-                    class="w-hidden sm:w-block w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary"
+        <div class="w-w-full w-pl-[60px] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
+            <div class="w-flex w-flex-row w-items-center sm:w-space-x-2 w-w-full">
+                <button data-toggle-breadcrumbs  {# handled in page-editor.js #}
+                    class="w-hidden sm:w-block w-ml-auto sm:w-ml-0 w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary"
                     aria-label="{% trans 'Show breadcrumbs' %}"
                     aria-expanded="false"
                     data-tippy-content="{% trans 'Show breadcrumbs' %}"
@@ -24,26 +24,26 @@
                     {% icon name="horizontal-dots" class_name="w-w-4 w-h-2" %}
                 </button>
 
-                {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
+                {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400 w-hidden sm:w-inline-block" %}
 
                 <h1 class="w-text-14 w-text-primary w-font-bold"
                     title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                    <a class="w-no-underline hover:w-text-primary" href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a>
+                    <a class="w-no-underline hover:w-text-primary hover:w-underline" href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a>
                 </h1>
 
                 {# Page actions dropdown #}
-                <div>
+                <div class="w-ml-auto">
                     {% page_header_buttons page page_perms=page_perms %}
                 </div>
             </div>
         </div>
 
         {% comment %}
-                Right side actions
-            {% endcomment %}
+            Right side actions
+        {% endcomment %}
 
         {# Page history #}
-        <div class="w-flex w-flex-row w-items-center w-pr-4">
+        <div class="w-w-full w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
             {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
 
             <div class="w-flex w-flex-row w-items-center w-space-x-3 sm:w-space-x-5">
@@ -51,7 +51,7 @@
                     <a href="{% url 'wagtailadmin_pages:history' page.id %}"
                         class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4"
                         data-tippy-content="{% trans 'History' %}"
-                        data-tippy-offset="[0, 21]"
+                        data-tippy-offset="[0, 20]"
                         aria-label="{% trans "History" %}"
                     >
                         {% icon "history" class_name="w-w-4 w-h-4" %}
@@ -64,7 +64,7 @@
                         <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4 {% if comments_number %} w-mr-2.5 {% endif %}"
                             aria-label="{% trans 'Show comments' %}"
                             data-tippy-content="{% trans 'Comments' %}"
-                            data-tippy-offset="[0, 20]"
+                            data-tippy-offset="[0, 18]"
                         >
                             {% icon name="comment" class_name="w-w-4 w-h-4" %}
 
@@ -78,46 +78,11 @@
                     </div>
                 {% endwith %}
 
-                {% comment %}
-                        {% if self.show_comments_toggle %}
-                            {% with comments_number=self.form.formsets.comments|length %}
-                                <div class="comments-controls">
-
-                                    <label class="comments-toggle" aria-label="">
-                                        <span class="w-sr-only">{% trans 'Show comments' %}</span>
-
-                                        <div class="comments-toggle__icon-wrapper">
-                                            <input type="checkbox" {% if comments_number %}checked{% endif %}>
-                                            {% icon name="comment" class_name="comments-toggle__icon" %}
-
-                                    </label>
-
-                                    <button class="comment-notifications-toggle-button" type="button">
-                                        <span class="visuallyhidden">{% trans "Toggle visibility of comment notifications dropdown" %}</span>
-                                        {% icon name="chevron-down" class_name="comment-notifications-toggle-button__icon" %}
-                                    </button>
-
-                                    <div class="comment-notifications-dropdown">
-                                        <p class="comment-notifications-dropdown__title">{% trans "Commenting on this page" %}</p>
-                                        <div class="comment-notifications-toggle">
-                                            <label class="switch switch--teal-background">
-                                                {% trans "Comment notifications" %}
-                                                {{ self.form.comment_notifications }}
-                                                <span class="switch__toggle"></span>
-                                            </label>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            {% endwith %}
-                        {% endif %}
-                    {% endcomment %}
-
                 {# Privacy switch #}
-                {% include "wagtailadmin/pages/_privacy_switch.html" with classes="w-h-full" %}
+                {% include "wagtailadmin/pages/_privacy_switch_new.html" %}
 
                 {# page status #}
-                {% include "wagtailadmin/shared/page_status_tag.html" with page=page show_tooltip=True classes="w-mb-0" %}
+                {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page show_tooltip=True %}
 
             </div>
         </div>
@@ -125,42 +90,6 @@
         {% explorer_breadcrumb page page_perms=page_perms %}
 
     </header>
-
-
-    {#    <header class="merged tab-merged">#}
-    {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
-    {##}
-    {#        <div class="row">#}
-    {#            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">#}
-    {#                {{ page.get_admin_display_title }}#}
-    {#            </h1>#}
-    {##}
-    {#            <div class="right col3">#}
-    {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <ul class="row header-meta">#}
-    {#            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}#}
-    {#            {% if page.get_latest_revision %}#}
-    {#                <li>#}
-    {#                    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">#}
-    {#                        {% icon "history" class_name="default" %}#}
-    {#                        {% trans "History" %}#}
-    {#                    </a>#}
-    {#                </li>#}
-    {#            {% endif %}#}
-    {#            <li class="header-meta--type">#}
-    {#                {% icon name="doc-empty-inverse" class_name="default" %}#}
-    {#                {{ content_type.model_class.get_verbose_name }}#}
-    {#            </li>#}
-    {#            {% if locale %}#}
-    {#                <li class="header-meta--locale">#}
-    {#                    {% include "wagtailadmin/shared/locale_selector.html" %}#}
-    {#                </li>#}
-    {#            {% endif %}#}
-    {#        </ul>#}
-    {#    </header>#}
-
 
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>

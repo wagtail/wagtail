@@ -1,7 +1,7 @@
 .tab-nav {
+  @apply w-bg-grey-50;
   @include row();
   padding: 0;
-  background: $color-grey-4;
 
   li {
     list-style-type: none;

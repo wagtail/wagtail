@@ -1,0 +1,44 @@
+{% load i18n wagtailadmin_tags %}
+
+{% test_page_is_public page as is_public %}
+{% if not page_perms %}
+    {% page_permissions page as page_perms %}
+{% endif %}
+
+{% with icon_classes='w-w-4 w-h-4 w-mr-1 w-text-inherit' label_classes='w-inline-flex w-items-center w-justify-center w-p-1 w-text-14 w-uppercase w-rounded-sm w-bg-transparent w-text-grey-400 w-font-medium w-border w-border-grey-100 w-transition hover:w-text-primary hover:w-border-primary' %}
+    {% if not page.is_root %}
+        {% if show_label %}{% trans "Privacy" %}{% endif %}
+        {% if page_perms.can_set_view_restrictions %}
+            <button data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}"
+                class="{{ label_classes }} {{ classes }}"
+                data-tippy-content="{% trans 'Set page privacy.' %}"
+                data-tippy-offset="[0, 13]"
+                style="text-transform: uppercase;" {# We use inline styles here to reduce the amount uppercase is used in css #}
+                data-action-set-privacy>
+                {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
+                {% if is_public %}
+                    <span class="w-sr-only">{% trans 'Set page privacy. Current status: Public' %}</span>
+                    {% icon name="view" class_name=icon_classes %}
+                    {% trans "Public" %}
+                {% else %}
+                    <span class="w-sr-only">{% trans 'Set page privacy. Current status: Private' %}</span>
+                    {% icon name="no-view" class_name=icon_classes %}
+                    {% trans "Private" %}
+                {% endif %}
+            </button>
+        {% else %}
+            {# We use inline styles here to reduce the amount uppercase is used in css #}
+            <div class="{{ label_classes }} {{ classes }}"  style="text-transform: uppercase;">
+                {% if is_public %}
+                    <span class="w-sr-only">{% trans 'Page privacy. Current status: Public' %}</span>
+                    {% icon name="view" class_name=icon_classes %}
+                    {% trans "Public" %}
+                {% else %}
+                    <span class="w-sr-only">{% trans 'Page privacy. Current status: Private' %}</span>
+                    {% icon name="no-view" class_name=icon_classes %}
+                    {% trans "Private" %}
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endwith %}
