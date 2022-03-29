@@ -300,15 +300,10 @@ window.comments = (() => {
 
     // Comments toggle
     const commentToggle = document.querySelector('[data-comments-toggle]');
+    const commentNotifications = formElement.querySelector(
+      '[data-comment-notifications]',
+    );
     const tabContentElement = formElement.querySelector('.tab-content');
-    const commentSettingsToggleButton = formElement.querySelector(
-      '[data-comment-settings-button]',
-    );
-    const commentSettingsIcon =
-      commentSettingsToggleButton.querySelector('svg');
-    const commentNotificationsDropdown = formElement.querySelector(
-      '.comment-notifications-dropdown',
-    );
 
     const updateCommentVisibility = (visible) => {
       // Show/hide comments
@@ -318,25 +313,13 @@ window.comments = (() => {
       if (visible) {
         commentToggle.classList.add('w-text-teal-200');
         tabContentElement.classList.add('tab-content--comments-enabled');
-        commentSettingsToggleButton.classList.remove('w-hidden');
+        commentNotifications.classList.remove('w-hidden');
       } else {
         commentToggle.classList.remove('w-text-teal-200');
         tabContentElement.classList.remove('tab-content--comments-enabled');
-        commentSettingsToggleButton.classList.add('w-hidden');
-        commentSettingsToggleButton.classList.add('button-secondary');
-        commentNotificationsDropdown.classList.remove(
-          'comment-notifications-dropdown--active',
-        );
+        commentNotifications.classList.add('w-hidden');
       }
     };
-
-    commentSettingsToggleButton.addEventListener('click', () => {
-      commentNotificationsDropdown.classList.toggle(
-        'comment-notifications-dropdown--active',
-      );
-      commentSettingsToggleButton.classList.toggle('button-secondary');
-      commentSettingsIcon.classList.toggle('w-rotate-180');
-    });
 
     commentToggle.addEventListener('click', (e) => {
       commentsActive = !commentsActive;
