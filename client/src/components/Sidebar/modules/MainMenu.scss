@@ -2,8 +2,31 @@
 .sidebar-main-menu {
   overflow: auto;
   overflow-x: hidden;
-  margin-bottom: 60px;
+  // So the last items in the menu will be seen when the menu is vertically scrollable
+  margin-bottom: 52px;
+  // Scrollbar styling for firefox
+  scrollbar-color: theme('colors.grey.200');
+  scrollbar-width: thin;
+
   @include transition(margin-bottom $menu-transition-duration ease);
+
+  //Custom scrollbar styling for windows/mac and slim mode
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-button {
+    @apply w-hidden;
+    // Hide the scrollbar arrows on windows
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply w-bg-grey-200 w-rounded-sm;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply w-bg-transparent;
+  }
 
   &--open-footer {
     margin-bottom: 127px;
@@ -84,6 +107,8 @@
   }
 
   &__account {
+    @include show-focus-outline-inside();
+
     &-toggle {
       @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
     }

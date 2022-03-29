@@ -5,6 +5,7 @@ import { Menu } from './MainMenu';
 describe('Menu', () => {
   const strings = {};
   const user = { avatarUrl: 'https://gravatar/profile' };
+  const onAccountExpand = jest.fn();
 
   it('should render with the minimum required props', () => {
     const wrapper = shallow(
@@ -13,6 +14,7 @@ describe('Menu', () => {
         menuItems={[]}
         strings={strings}
         user={user}
+        onAccountExpand={onAccountExpand}
       />,
     );
 
@@ -26,6 +28,7 @@ describe('Menu', () => {
         menuItems={[]}
         strings={strings}
         user={user}
+        onAccountExpand={onAccountExpand}
       />,
     );
 

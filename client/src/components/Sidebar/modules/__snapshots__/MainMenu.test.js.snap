@@ -10,51 +10,55 @@ exports[`Menu should render with the minimum required props 1`] = `
     />
   </nav>
   <div
-    className="sidebar-footer"
+    className="sidebar-footer sidebar-footer--visible"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      className="
-          sidebar-footer__account
-          w-bg-primary
-          w-text-white
-          w-flex
-          w-items-center
-          w-relative
-          w-p-0
-          w-w-full
-          w-appearance-none
-          w-border-0
-          w-overflow-hidden
-          w-px-5
-          w-py-3
-          hover:w-bg-primary-200
-          focus:w-bg-primary-200
-          w-transition"
-      onClick={[Function]}
-      type="button"
+    <ForwardRef(TippyWrapper)
+      disabled={true}
+      placement="right"
     >
-      <div
-        className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]"
-      >
-        <img
-          alt=""
-          src="https://gravatar/profile"
-        />
-      </div>
-      <div
-        className="sidebar-footer__account-toggle"
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        className="
+            sidebar-footer__account
+            w-bg-primary
+            w-text-white
+            w-flex
+            w-items-center
+            w-relative
+            w-w-full
+            w-appearance-none
+            w-border-0
+            w-overflow-hidden
+            w-px-5
+            w-py-3
+            hover:w-bg-primary-200
+            focus:w-bg-primary-200
+            w-transition"
+        onClick={[Function]}
+        type="button"
       >
         <div
-          className="sidebar-footer__account-label w-label-3"
-        />
-        <Icon
-          className="w-w-4 w-h-4 w-text-white"
-          name="arrow-up"
-        />
-      </div>
-    </button>
+          className="avatar avatar-on-dark w-flex-shrink-0 !w-w-[28px] !w-h-[28px]"
+        >
+          <img
+            alt=""
+            src="https://gravatar/profile"
+          />
+        </div>
+        <div
+          className="sidebar-footer__account-toggle"
+        >
+          <div
+            className="sidebar-footer__account-label w-label-3"
+          />
+          <Icon
+            className="w-w-4 w-h-4 w-text-white"
+            name="arrow-up"
+          />
+        </div>
+      </button>
+    </ForwardRef(TippyWrapper)>
     <ul />
   </div>
 </Fragment>

@@ -11,10 +11,11 @@ import {
 } from '../../PageExplorer/actions';
 import { SidebarPanel } from '../SidebarPanel';
 import { SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
+import Tippy from '@tippyjs/react';
 
 export const PageExplorerMenuItem: React.FunctionComponent<
   MenuItemProps<PageExplorerMenuItemDefinition>
-> = ({ path, item, state, dispatch, navigate }) => {
+> = ({ path, slim, item, state, dispatch, navigate }) => {
   const isOpen = state.navigationPath.startsWith(path);
   const isActive = isOpen || state.activePath.startsWith(path);
   const depth = path.split('.').length;
@@ -72,17 +73,19 @@ export const PageExplorerMenuItem: React.FunctionComponent<
 
   return (
     <li className={className}>
-      <button
-        onClick={onClick}
-        className="sidebar-menu-item__link"
-        aria-haspopup="menu"
-        aria-expanded={isOpen ? 'true' : 'false'}
-        type="button"
-      >
-        <Icon name="folder-open-inverse" className="icon--menuitem" />
-        <span className="menuitem-label">{item.label}</span>
-        <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
-      </button>
+      <Tippy disabled={isOpen || !slim} content={item.label} placement="right">
+        <button
+          onClick={onClick}
+          className="sidebar-menu-item__link"
+          aria-haspopup="menu"
+          aria-expanded={isOpen ? 'true' : 'false'}
+          type="button"
+        >
+          <Icon name="folder-open-inverse" className="icon--menuitem" />
+          <span className="menuitem-label">{item.label}</span>
+          <Icon className={sidebarTriggerIconClassName} name="arrow-right" />
+        </button>
+      </Tippy>
       <div>
         <SidebarPanel
           isVisible={isVisible}
@@ -112,12 +115,13 @@ export class PageExplorerMenuItemDefinition extends LinkMenuItemDefinition {
     this.startPageId = startPageId;
   }
 
-  render({ path, state, dispatch, navigate }) {
+  render({ path, slim, state, dispatch, navigate }) {
     return (
       <PageExplorerMenuItem
         key={this.name}
         item={this}
         path={path}
+        slim={slim}
         state={state}
         dispatch={dispatch}
         navigate={navigate}

@@ -2,16 +2,32 @@ import React from 'react';
 
 interface WagtailLogoProps {
   className?: string;
+  slim: boolean;
 }
 
-const WagtailLogo = ({ className }: WagtailLogoProps) => {
-  const feathersClasses = 'group-hover:w-text-black';
+const WagtailLogo = ({ className, slim }: WagtailLogoProps) => {
+  const feathersClasses =
+    'group-hover:w-text-black w-transition-all w-duration-150';
 
   return (
     <svg
       className={`
-        ${className || ''}
-         sidebar-wagtail-branding__icon !w-overflow-visible w-group w-text-primary w-transition w-delay-150 w-duration-150 hover:w-scale-75 hover:w-rotate-6 hover:w-translate-y-[-20px] hover:w-translate-x-[10px] w-z-10 w-absolute w-w-[100px] w-h-[125px] w-top-[25px] w-left-[-20px]
+         sidebar-wagtail-branding__icon
+         !w-overflow-visible
+         w-group
+         w-text-primary
+         w-z-10
+         w-absolute
+         w-transition-all
+         w-duration-150
+         hover:w-scale-75
+         hover:w-rotate-6
+         ${className || ''}
+         ${
+           slim
+             ? 'w-w-[42px] w-h-[51px] w-top-2.5 w-left-[-9px] hover:-w-translate-y-1.5 hover:w-translate-x-1'
+             : 'w-w-[100px] w-h-[125px] w-top-[25px] -w-left-5 hover:w-translate-x-2.5 hover:-w-translate-y-5'
+         }
       `}
       width="430"
       height="537"
