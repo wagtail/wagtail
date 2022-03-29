@@ -60,15 +60,14 @@ class CopyPageAction:
         self.process_child_object = process_child_object
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
-        self.uuid_mapping = {}
+        self._uuid_mapping = {}
 
-    def get_uuid(self, old_uuid):
+    def get_new_translation_key(self, old_uuid):
         """Map old UUIDs to new UUID values."""
+        if old_uuid not in self._uuid_mapping:
+            self._uuid_mapping[old_uuid] = str(uuid.uuid4())
 
-        if old_uuid not in self.uuid_mapping:
-            self.uuid_mapping[old_uuid] = str(uuid.uuid4())
-
-        return self.uuid_mapping[old_uuid]
+        return self._uuid_mapping[old_uuid]
 
     def check(self, skip_permission_checks=False):
         from wagtail.models import UserPagePermissionsProxy
@@ -148,6 +147,7 @@ class CopyPageAction:
 
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
+
             if self.process_child_object:
                 self.process_child_object(
                     specific_page, page_copy, child_relation, child_object
@@ -157,7 +157,8 @@ class CopyPageAction:
             if self.reset_translation_key and isinstance(
                 child_object, TranslatableMixin
             ):
-                child_object.translation_key = self.get_uuid(
+
+                child_object.translation_key = self.get_new_translation_key(
                     child_object.translation_key
                 )
 
@@ -220,7 +221,10 @@ class CopyPageAction:
                             self.reset_translation_key
                             and "translation_key" in child_object
                         ):
-                            child_object["translation_key"] = self.get_uuid(
+
+                            child_object[
+                                "translation_key"
+                            ] = self.get_new_translation_key(
                                 child_object["translation_key"]
                             )
 
