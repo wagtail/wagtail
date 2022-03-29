@@ -128,6 +128,7 @@ Changelog
  * Fix: Prevent opening choosers multiple times for Image, Page, Document, Snippet (LB (Ben Johnston))
  * Fix: Ensure subsequent changes to styles files are picked up by Gulp watch (Jason Attwood)
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
+ * Fix: Add missing translation usage in Workflow templates (Anuja Verma, Saurabh Kumar)
 
 
 2.15.4 (11.02.2022)
