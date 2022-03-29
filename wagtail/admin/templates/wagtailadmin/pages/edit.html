@@ -9,8 +9,8 @@
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
-    {# Note: padding left on mobile to give space for navigation toggle  #}
-    <header class=" w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-30 sm:w-sticky w-min-h-[50px]">
+    {# Note: padding left on mobile to give space for navigation toggle, z index 99 to ensure header is always above  #}
+    <header class=" w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
 
         {# Title and breadcrumbs button #}
         <div class="w-w-full w-pl-[60px] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
@@ -61,17 +61,18 @@
                 {# Comments Toggle #}
                 {% with comments_number=self.form.formsets.comments|length %}
                     <div class="w-flex w-flex-row w-items-center">
-                        <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4 {% if comments_number %} w-mr-2.5 {% endif %}"
-                            aria-label="{% trans 'Show comments' %}"
-                            data-tippy-content="{% trans 'Comments' %}"
+                        <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary w-w-4 w-h-4 w-transition {% if comments_number %} w-mr-2.5 {% endif %}"
+                            aria-label="{% trans 'Toggle comments' %}"
+                            data-tippy-content="{% trans 'Toggle Comments' %}"
                             data-tippy-offset="[0, 18]"
+                            data-comments-toggle
                         >
                             {% icon name="comment" class_name="w-w-4 w-h-4" %}
 
                             {% if comments_number %}
                                 <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
                                     data-comments-toggle-count>
-                                    {# populated in page-editor.js #}
+                                    populated in page-editor.js
                                 </div>
                             {% endif %}
                         </button>
@@ -237,7 +238,6 @@
 
             ActivateWorkflowActionsForEditView('#page-edit-form');
             LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
-
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
                 // Initialise comments UI

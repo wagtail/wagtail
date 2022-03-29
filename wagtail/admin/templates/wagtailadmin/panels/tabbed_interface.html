@@ -7,6 +7,28 @@
             </li>
         {% endfor %}
     </ul>
+    {% if self.show_comments_toggle %}
+        <div class="right wide">
+            <div class="comments-controls">
+
+                <button data-comment-settings-button class="w-hidden button  button-small button-secondary button--icon w-inline-flex w-items-center" type="button">
+                    {% trans "Comments settings" %}
+                    {% icon name="arrow-down" class_name='w-ml-2' %}
+                </button>
+
+                <div class="comment-notifications-dropdown">
+                    <p class="comment-notifications-dropdown__title">{% trans "Comments Settings" %}</p>
+                    <div class="comment-notifications-toggle">
+                        <label class="switch switch--teal-background">
+                            {% trans "Comment notifications" %}
+                            {{ self.form.comment_notifications }}
+                            <span class="switch__toggle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </div>
 
 <div class="tab-content">

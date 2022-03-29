@@ -13,7 +13,7 @@
         {% if page_url is not None %}
             <a href="{{ page_url }}" target="_blank" rel="noreferrer"
                 class="{{ tag_classes }} {{ classes }} w-no-underline hover:w-border-primary hover:w-text-primary w-transition"
-                style="text-transform: uppercase;" {# We use inline styles here to reduce the amount uppercase is used in css #}
+                style="text-transform: capitalize;" {# We use inline styles here to reduce the amount uppercase is used in css #}
                 data-tippy-offset="[0, 13]"
                 title="{% trans 'Visit the live page' %}"
                 {% if show_tooltip %} data-tippy-content="{% trans 'Visit the live page' %}" data-tippy-offset="[0, 20]" {% endif %}>
@@ -21,13 +21,13 @@
             </a>
         {% else %}
             <span class="{{ tag_classes }} {{ classes }}"
-                style="text-transform: uppercase;" {# We use inline styles here to reduce the amount uppercase is used in css #}>
+                style="text-transform: capitalize;" {# We use inline styles here to reduce the amount uppercase is used in css #}>
                 <span class="w-sr-only">{% trans "Current page status:" %}</span> {{ page.status_string }}
             </span>
         {% endif %}
     {% else %}
         <span class="{{ tag_classes }} {{ classes }}"
-            style="text-transform: uppercase;" {# We use inline styles here to reduce the amount uppercase is used in css #}>
+            style="text-transform: capitalize;" {# We use inline styles here to reduce the amount uppercase is used in css #}>
             <span class="w-sr-only">{% trans "Current page status:" %}</span> {{ page.status_string }}
         </span>
     {% endif %}

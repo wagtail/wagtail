@@ -49,6 +49,7 @@ window.comments = (() => {
       this.fieldNode = fieldNode;
       this.unsubscribe = null;
     }
+
     /**
      * Subscribes the annotation to update when the state of a particular comment changes,
      * and to focus that comment when clicked
@@ -93,16 +94,19 @@ window.comments = (() => {
       });
       this.setOnClickHandler(localId);
     }
+
     onDelete() {
       this.node.remove();
       if (this.unsubscribe) {
         this.unsubscribe();
       }
     }
+
     onFocus() {
       this.node.classList.remove('button-secondary');
       this.node.ariaLabel = STRINGS.UNFOCUS_COMMENT;
     }
+
     onUnfocus() {
       this.node.classList.add('button-secondary');
       this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
@@ -110,12 +114,15 @@ window.comments = (() => {
       // TODO: ensure comment is focused accessibly when this is clicked,
       // and that screenreader users can return to the annotation point when desired
     }
+
     show() {
       this.node.classList.remove('u-hidden');
     }
+
     hide() {
       this.node.classList.add('u-hidden');
     }
+
     setOnClickHandler(localId) {
       this.node.addEventListener('click', () => {
         commentApp.store.dispatch(
@@ -126,11 +133,13 @@ window.comments = (() => {
         );
       });
     }
+
     getTab() {
       return this.fieldNode
         .closest('section[data-tab]')
         ?.getAttribute('data-tab');
     }
+
     getAnchorNode() {
       return this.fieldNode;
     }
@@ -144,6 +153,7 @@ window.comments = (() => {
       this.annotationTemplateNode = annotationTemplateNode;
       this.shown = false;
     }
+
     register() {
       const { selectEnabled } = commentApp.selectors;
       const initialState = commentApp.store.getState();
@@ -212,6 +222,7 @@ window.comments = (() => {
 
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
+
     updateVisibility(newShown) {
       if (newShown === this.shown) {
         return;
@@ -224,6 +235,7 @@ window.comments = (() => {
         this.commentAdditionNode.classList.remove('u-hidden');
       }
     }
+
     getAnnotationForComment() {
       const annotationNode = this.annotationTemplateNode.cloneNode(true);
       annotationNode.id = '';
@@ -270,6 +282,9 @@ window.comments = (() => {
       STRINGS,
     );
 
+    // Local state to hold active state of comments
+    let commentsActive = false;
+
     formElement
       .querySelectorAll('[data-component="add-comment-button"]')
       .forEach(initAddCommentButton);
@@ -284,14 +299,13 @@ window.comments = (() => {
     }
 
     // Comments toggle
-    const commentToggleWrapper = formElement.querySelector('.comments-toggle');
-    const commentToggle = formElement.querySelector(
-      '.comments-toggle input[type=checkbox]',
-    );
+    const commentToggle = document.querySelector('[data-comments-toggle]');
     const tabContentElement = formElement.querySelector('.tab-content');
-    const commentNotificationsToggleButton = formElement.querySelector(
-      '.comment-notifications-toggle-button',
+    const commentSettingsToggleButton = formElement.querySelector(
+      '[data-comment-settings-button]',
     );
+    const commentSettingsIcon =
+      commentSettingsToggleButton.querySelector('svg');
     const commentNotificationsDropdown = formElement.querySelector(
       '.comment-notifications-dropdown',
     );
@@ -302,48 +316,46 @@ window.comments = (() => {
 
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
+        commentToggle.classList.add('w-text-teal-200');
         tabContentElement.classList.add('tab-content--comments-enabled');
-        commentToggleWrapper.classList.add('comments-toggle--active');
-        commentNotificationsToggleButton.classList.add(
-          'comment-notifications-toggle-button--active',
-        );
+        commentSettingsToggleButton.classList.remove('w-hidden');
       } else {
+        commentToggle.classList.remove('w-text-teal-200');
         tabContentElement.classList.remove('tab-content--comments-enabled');
-        commentToggleWrapper.classList.remove('comments-toggle--active');
-        commentNotificationsToggleButton.classList.remove(
-          'comment-notifications-toggle-button--active',
-        );
+        commentSettingsToggleButton.classList.add('w-hidden');
+        commentSettingsToggleButton.classList.add('button-secondary');
         commentNotificationsDropdown.classList.remove(
           'comment-notifications-dropdown--active',
-        );
-        commentNotificationsToggleButton.classList.remove(
-          'comment-notifications-toggle-button--icon-toggle',
         );
       }
     };
 
-    commentNotificationsToggleButton.addEventListener('click', () => {
+    commentSettingsToggleButton.addEventListener('click', () => {
       commentNotificationsDropdown.classList.toggle(
         'comment-notifications-dropdown--active',
       );
-      commentNotificationsToggleButton.classList.toggle(
-        'comment-notifications-toggle-button--icon-toggle',
-      );
+      commentSettingsToggleButton.classList.toggle('button-secondary');
+      commentSettingsIcon.classList.toggle('w-rotate-180');
     });
 
-    commentToggle.addEventListener('change', (e) => {
-      updateCommentVisibility(e.target.checked);
+    commentToggle.addEventListener('click', (e) => {
+      commentsActive = !commentsActive;
+      updateCommentVisibility(commentsActive);
     });
-    updateCommentVisibility(commentToggle.checked);
 
     // Keep number of comments up to date with comment app
-    const commentCounter = formElement.querySelector(
+    const commentCounter = document.querySelector(
       '[data-comments-toggle-count]',
     );
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
         commentApp.store.getState(),
       );
+
+      // If comment counter elemnt doesn't exist don't try to update innerText
+      if (!commentCounter) {
+        return;
+      }
 
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();

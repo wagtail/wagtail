@@ -13,7 +13,6 @@
                 class="{{ label_classes }} {{ classes }}"
                 data-tippy-content="{% trans 'Set page privacy.' %}"
                 data-tippy-offset="[0, 13]"
-                style="text-transform: uppercase;" {# We use inline styles here to reduce the amount uppercase is used in css #}
                 data-action-set-privacy>
                 {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
                 {% if is_public %}
