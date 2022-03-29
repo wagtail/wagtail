@@ -83,7 +83,7 @@ def main_nav(context):
     }
 
 
-@register.inclusion_tag("wagtailadmin/shared/breadcrumb_new.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
 def explorer_breadcrumb(
     context,
     page,
@@ -91,6 +91,7 @@ def explorer_breadcrumb(
     include_self=True,
     trailing_arrow=False,
     show_header_buttons=False,
+    use_new_template=False,
 ):
     user = context["request"].user
 
@@ -108,6 +109,7 @@ def explorer_breadcrumb(
         "page_perms": page_perms,
         "trailing_arrow": trailing_arrow,
         "show_header_buttons": show_header_buttons,
+        "use_new_template": use_new_template,
     }
 
 

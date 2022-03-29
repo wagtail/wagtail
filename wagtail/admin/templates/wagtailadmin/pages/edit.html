@@ -10,43 +10,41 @@
     {% page_permissions page as page_perms %}
 
     {# Note: padding left on mobile to give space for navigation toggle, z index 99 to ensure header is always above  #}
-    <header class=" w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
+    <header class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
 
         {# Title and breadcrumbs button #}
-        <div class="w-w-full w-pl-[60px] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
-            <div class="w-flex w-flex-row w-items-center sm:w-space-x-2 w-w-full">
-                <button data-toggle-breadcrumbs  {# handled in page-editor.js #}
-                    class="w-hidden sm:w-block w-ml-auto sm:w-ml-0 w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary"
-                    aria-label="{% trans 'Show breadcrumbs' %}"
-                    aria-expanded="false"
-                    data-tippy-content="{% trans 'Show breadcrumbs' %}"
-                >
-                    {% icon name="horizontal-dots" class_name="w-w-4 w-h-2" %}
-                </button>
+        <div class="w-w-full sm:w-max-w-3/5 w-pl-[50px] sm:w-pl-0 sm:w-pr-4 w-min-h-[50px] w-flex w-justify-start w-box-border">
+            <div class="w-flex w-flex-row w-justify-start w-items-center sm:w-space-x-2 w-w-full">
 
-                {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400 w-hidden sm:w-inline-block" %}
+                {% explorer_breadcrumb page page_perms=page_perms use_new_template=True %}
 
-                <h1 class="w-text-14 w-text-primary w-font-bold"
+                {# Hidden H1 for screen readers only #}
+                <h1 class="w-sr-only"
                     title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                    <a class="w-no-underline hover:w-text-primary hover:w-underline" href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a>
                 </h1>
 
                 {# Page actions dropdown #}
-                <div class="w-ml-auto w-pr-2 sm:w-pr-0">
+                <div class="w-ml-auto w-px-2">
                     {% page_header_buttons page page_perms=page_perms %}
                 </div>
             </div>
+
         </div>
 
         {% comment %}
             Right side actions
         {% endcomment %}
 
-        {# Page history #}
-        <div class="w-w-full w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
-            {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
+
+        <div class="w-w-full sm:w-max-w-2/5 w-overflow-x-auto w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
+
+            <div class="sm:w-hidden lg:w-block">
+                {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
+            </div>
 
             <div class="w-flex w-flex-row w-items-center w-space-x-3 sm:w-space-x-5">
+
+                {# Page history #}
                 {% if page.get_latest_revision %}
                     <a href="{% url 'wagtailadmin_pages:history' page.id %}"
                         class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4"
@@ -87,8 +85,6 @@
 
             </div>
         </div>
-
-        {% explorer_breadcrumb page page_perms=page_perms %}
 
     </header>
 

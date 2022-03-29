@@ -279,45 +279,69 @@ function initKeyboardShortcuts() {
 window.initKeyboardShortcuts = initKeyboardShortcuts;
 
 function initHiddenBreadcrumbs() {
-  const breadcrumbs = document.querySelector('[data-hidden-breadcrumbs]');
   const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
-  const TRANSITION = 300;
+  const breadcrumbLinks = [
+    ...document.querySelectorAll('[data-breadcrumb-link]'),
+  ];
+
   const cssClass = {
     hidden: 'sm:w-hidden',
     opacity: '!w-opacity-100',
   };
+
   let timer;
-
-  function showBreadcrumbs() {
-    breadcrumbsToggle.setAttribute('aria-expanded', true);
-    breadcrumbs.classList.remove(cssClass.hidden);
-
-    setTimeout(() => {
-      breadcrumbs.classList.add(cssClass.opacity);
-    }, TRANSITION);
-  }
+  let open = false;
 
   function hideBreadcrumbs() {
-    breadcrumbsToggle.setAttribute('aria-expanded', false);
-    breadcrumbs.classList.remove(cssClass.opacity);
+    breadcrumbLinks.forEach((breadcrumb, index) => {
+      setTimeout(() => {
+        breadcrumb.classList.remove('w-max-w-4xl');
 
-    setTimeout(() => {
-      breadcrumbs.classList.add(cssClass.hidden);
-    }, TRANSITION);
+        setTimeout(() => {
+          breadcrumb.classList.add('w-hidden');
+          breadcrumb.classList.add('w-overflow-hidden');
+        }, 10);
+      }, index * 10);
+    });
+
+    breadcrumbsToggle.setAttribute('aria-expanded', false);
+    breadcrumbsToggle
+      .querySelector('svg use')
+      .setAttribute('href', '#icon-horizontal-dots');
+    open = false;
   }
 
+  function showBreadcrumbs() {
+    breadcrumbLinks.forEach((breadcrumb, index) => {
+      setTimeout(() => {
+        breadcrumb.classList.remove('w-hidden');
+
+        setTimeout(() => {
+          breadcrumb.classList.add('w-max-w-4xl');
+          breadcrumb.classList.remove('w-overflow-hidden');
+        }, 50);
+      }, index * 10);
+    });
+    breadcrumbsToggle.setAttribute('aria-expanded', true);
+    breadcrumbsToggle
+      .querySelector('svg use')
+      .setAttribute('href', '#icon-cross');
+    open = true;
+  }
+
+  // Events
   breadcrumbsToggle.addEventListener('click', () => {
-    showBreadcrumbs();
-  });
-
-  breadcrumbs.addEventListener('mouseenter', () => {
-    clearTimeout(timer);
-  });
-
-  breadcrumbs.addEventListener('mouseleave', () => {
-    timer = setTimeout(() => {
+    if (!open) {
+      showBreadcrumbs();
+    } else {
       hideBreadcrumbs();
-    }, 300);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      hideBreadcrumbs();
+    }
   });
 }
 

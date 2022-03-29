@@ -76,6 +76,11 @@ module.exports = {
       outlineOffset: {
         inside: '-3px',
       },
+      maxWidth: {
+        '1/2': '50%',
+        '3/5': '60%',
+        '2/5': '40%',
+      },
     },
   },
   plugins: [
