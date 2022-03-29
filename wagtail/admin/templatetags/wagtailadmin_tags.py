@@ -83,7 +83,7 @@ def main_nav(context):
     }
 
 
-@register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
+@register.inclusion_tag("wagtailadmin/shared/breadcrumb_new.html", takes_context=True)
 def explorer_breadcrumb(
     context,
     page,

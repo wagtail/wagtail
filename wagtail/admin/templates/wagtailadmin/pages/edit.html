@@ -9,71 +9,76 @@
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
 
-    <header class="w-bg-gray-50 w-pl-[50px] sm:w-pl-0">
+    <header class="w-flex w-items-center w-justify-between w-bg-gray-50 w-py-0 sm:w-pl-0 w-relative w-top-0 w-z-30 sm:w-sticky w-min-h-[50px]">
 
-        <div class="w-full w-flex w-flex-row w-justify-between w-items-center">
-            {# Title and breadcrumbs button #}
-            <div>
-                <div class="w-flex w-flex-row w-items-center w-space-x-2">
-                    <button class="w-pr-3 w-h-full w-bg-transparent" aria-label="{% trans 'Show breadcrumbs' %}">
-                        {% icon name="horizontal-dots" class_name="w-w-4 w-h-2 w-text-grey-400" %}
-                    </button>
+        {# Title and breadcrumbs button #}
+        <div>
 
-                    {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
+            <div class="w-flex w-flex-row w-items-center w-space-x-2">
+                <button data-toggle-breadcrumbs
+                    class="w-hidden sm:w-block w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary"
+                    aria-label="{% trans 'Show breadcrumbs' %}"
+                    aria-expanded="false"
+                    data-tippy-content="{% trans 'Show breadcrumbs' %}"
+                >
+                    {% icon name="horizontal-dots" class_name="w-w-4 w-h-2" %}
+                </button>
 
-                    {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
-                    <h1 class="w-text-14 w-text-primary w-font-bold w-uppercase"
-                        title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                        {{ page.get_admin_display_title }}
-                    </h1>
+                {% icon name="arrow-right" class_name="w-w-4 w-h-4 w-text-grey-400" %}
 
-                    {# Page actions dropdown #}
-                    <div>
-                        {% page_header_buttons page page_perms=page_perms %}
-                    </div>
+                <h1 class="w-text-14 w-text-primary w-font-bold"
+                    title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
+                    <a class="w-no-underline hover:w-text-primary" href="{% url 'wagtailadmin_explore' page.id %}">{{ page.get_admin_display_title }}</a>
+                </h1>
+
+                {# Page actions dropdown #}
+                <div>
+                    {% page_header_buttons page page_perms=page_perms %}
                 </div>
-
             </div>
+        </div>
 
-            {% comment %}
+        {% comment %}
                 Right side actions
             {% endcomment %}
 
-            {# Page history #}
-            <div class="w-flex w-flex-row w-items-center w-pr-4">
-                {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
+        {# Page history #}
+        <div class="w-flex w-flex-row w-items-center w-pr-4">
+            {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
 
-                <div class="w-flex w-flex-row w-items-center w-space-x-3 sm:w-space-x-5">
-                    {% if page.get_latest_revision %}
-                        <a href="{% url 'wagtailadmin_pages:history' page.id %}"
-                            class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4"
-                            data-tippy-content="{% trans 'History' %}"
-                            aria-label="{% trans "History" %}"
+            <div class="w-flex w-flex-row w-items-center w-space-x-3 sm:w-space-x-5">
+                {% if page.get_latest_revision %}
+                    <a href="{% url 'wagtailadmin_pages:history' page.id %}"
+                        class="w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4"
+                        data-tippy-content="{% trans 'History' %}"
+                        data-tippy-offset="[0, 21]"
+                        aria-label="{% trans "History" %}"
+                    >
+                        {% icon "history" class_name="w-w-4 w-h-4" %}
+                    </a>
+                {% endif %}
+
+                {# Comments Toggle #}
+                {% with comments_number=self.form.formsets.comments|length %}
+                    <div class="w-flex w-flex-row w-items-center">
+                        <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4 {% if comments_number %} w-mr-2.5 {% endif %}"
+                            aria-label="{% trans 'Show comments' %}"
+                            data-tippy-content="{% trans 'Comments' %}"
+                            data-tippy-offset="[0, 20]"
                         >
-                            {% icon "history" class_name="w-w-4 w-h-4" %}
-                        </a>
-                    {% endif %}
+                            {% icon name="comment" class_name="w-w-4 w-h-4" %}
 
-                    {# Comments Toggle #}
-                    {% with comments_number=self.form.formsets.comments|length %}
-                        <div class="w-flex w-flex-row w-items-center">
-                            <button class="w-bg-transparent w-text-grey-400 w-relative w-p-0 hover:w-scale-110 hover:w-text-primary focus:w-text-primary w-w-4 w-h-4 {% if comments_number %} w-mr-2.5 {% endif %}"
-                                aria-label="{% trans 'Show comments' %}"
-                                data-tippy-content="{% trans 'Comments' %}"
-                            >
-                                {% icon name="comment" class_name="w-w-4 w-h-4" %}
+                            {% if comments_number %}
+                                <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
+                                    data-comments-toggle-count>
+                                    {# populated in page-editor.js #}
+                                </div>
+                            {% endif %}
+                        </button>
+                    </div>
+                {% endwith %}
 
-                                {% if comments_number %}
-                                    <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
-                                        data-comments-toggle-count>
-                                        {# populated in page-editor.js #}
-                                    </div>
-                                {% endif %}
-                            </button>
-                        </div>
-                    {% endwith %}
-
-                    {% comment %}
+                {% comment %}
                         {% if self.show_comments_toggle %}
                             {% with comments_number=self.form.formsets.comments|length %}
                                 <div class="comments-controls">
@@ -108,105 +113,108 @@
                         {% endif %}
                     {% endcomment %}
 
-                    {% include "wagtailadmin/shared/page_status_tag.html" with page=page show_tooltip=True classes="w-mb-0" %}
-                    {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
+                {# Privacy switch #}
+                {% include "wagtailadmin/pages/_privacy_switch.html" with classes="w-h-full" %}
 
-                    {# Privacy switch #}
-                    {% include "wagtailadmin/pages/_privacy_switch.html" with classes="w-h-full" %}
-                </div>
+                {# page status #}
+                {% include "wagtailadmin/shared/page_status_tag.html" with page=page show_tooltip=True classes="w-mb-0" %}
+
             </div>
+        </div>
 
-        </header>
+        {% explorer_breadcrumb page page_perms=page_perms %}
 
-
-        {#    <header class="merged tab-merged">#}
-        {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
-        {##}
-        {#        <div class="row">#}
-        {#            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">#}
-        {#                {{ page.get_admin_display_title }}#}
-        {#            </h1>#}
-        {##}
-        {#            <div class="right col3">#}
-        {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
-        {#            </div>#}
-        {#        </div>#}
-        {#        <ul class="row header-meta">#}
-        {#            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}#}
-        {#            {% if page.get_latest_revision %}#}
-        {#                <li>#}
-        {#                    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">#}
-        {#                        {% icon "history" class_name="default" %}#}
-        {#                        {% trans "History" %}#}
-        {#                    </a>#}
-        {#                </li>#}
-        {#            {% endif %}#}
-        {#            <li class="header-meta--type">#}
-        {#                {% icon name="doc-empty-inverse" class_name="default" %}#}
-        {#                {{ content_type.model_class.get_verbose_name }}#}
-        {#            </li>#}
-        {#            {% if locale %}#}
-        {#                <li class="header-meta--locale">#}
-        {#                    {% include "wagtailadmin/shared/locale_selector.html" %}#}
-        {#                </li>#}
-        {#            {% endif %}#}
-        {#        </ul>#}
-        {#    </header>#}
+    </header>
 
 
-        {% block form %}
-            <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-                {% csrf_token %}
+    {#    <header class="merged tab-merged">#}
+    {#        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}#}
+    {##}
+    {#        <div class="row">#}
+    {#            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">#}
+    {#                {{ page.get_admin_display_title }}#}
+    {#            </h1>#}
+    {##}
+    {#            <div class="right col3">#}
+    {#                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <ul class="row header-meta">#}
+    {#            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}#}
+    {#            {% if page.get_latest_revision %}#}
+    {#                <li>#}
+    {#                    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">#}
+    {#                        {% icon "history" class_name="default" %}#}
+    {#                        {% trans "History" %}#}
+    {#                    </a>#}
+    {#                </li>#}
+    {#            {% endif %}#}
+    {#            <li class="header-meta--type">#}
+    {#                {% icon name="doc-empty-inverse" class_name="default" %}#}
+    {#                {{ content_type.model_class.get_verbose_name }}#}
+    {#            </li>#}
+    {#            {% if locale %}#}
+    {#                <li class="header-meta--locale">#}
+    {#                    {% include "wagtailadmin/shared/locale_selector.html" %}#}
+    {#                </li>#}
+    {#            {% endif %}#}
+    {#        </ul>#}
+    {#    </header>#}
 
-                <input type="hidden" name="next" value="{{ next }}">
-                {{ edit_handler.render_form_content }}
 
-                {% if is_revision %}
-                    <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
-                {% endif %}
+    {% block form %}
+        <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            {% csrf_token %}
 
-                <footer class="footer">
-                    <ul>
-                        <li class="footer__container">
-                            <nav aria-label="{% trans 'Actions' %}">
-                                <ul>
-                                    <li class="actions actions--primary">
-                                        <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
-                                            {{ action_menu.render_html }}
-                                        </div>
-                                    </li>
+            <input type="hidden" name="next" value="{{ next }}">
+            {{ edit_handler.render_form_content }}
 
-                                    {% if preview_modes %}
-                                        <li class="preview">
-                                            {% trans 'Preview' as preview_label %}
-                                            {% if preview_modes|length > 1 %}
-                                                <div class="dropdown dropup dropdown-button match-width">
-                                                    {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                                    <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
-                                                    <ul>
-                                                        {% for mode_name, mode_display_name in preview_modes %}
-                                                            <li>
-                                                                {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
-                                                            </li>
-                                                        {% endfor %}
-                                                    </ul>
-                                                </div>
-                                            {% else %}
+            {% if is_revision %}
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
+            {% endif %}
+
+            <footer class="footer">
+                <ul>
+                    <li class="footer__container">
+                        <nav aria-label="{% trans 'Actions' %}">
+                            <ul>
+                                <li class="actions actions--primary">
+                                    <div class="dropdown dropup dropdown-button match-width {% if is_revision %}warning{% endif %}">
+                                        {{ action_menu.render_html }}
+                                    </div>
+                                </li>
+
+                                {% if preview_modes %}
+                                    <li class="preview">
+                                        {% trans 'Preview' as preview_label %}
+                                        {% if preview_modes|length > 1 %}
+                                            <div class="dropdown dropup dropdown-button match-width">
                                                 {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
-                                            {% endif %}
-                                        </li>
-                                    {% endif %}
+                                                <div class="dropdown-toggle">{% icon name="arrow-up" %}</div>
+                                                <ul>
+                                                    {% for mode_name, mode_display_name in preview_modes %}
+                                                        <li>
+                                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with mode=mode_name label=mode_display_name %}
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        {% else %}
+                                            {% include "wagtailadmin/pages/_preview_button_on_edit.html" with label=preview_label icon=1 %}
+                                        {% endif %}
+                                    </li>
+                                {% endif %}
 
-                                    {% block extra_footer_actions %}
-                                    {% endblock %}
-                                </ul>
-                            </nav>
-                        </li>
-                        {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
-                    </ul>
-                </footer>
-            </form>
-        {% endblock %}
+                                {% block extra_footer_actions %}
+                                {% endblock %}
+                            </ul>
+                        </nav>
+                    </li>
+                    {% include "wagtailadmin/pages/_unsaved_changes_warning.html" %}
+                </ul>
+            </footer>
+        </form>
+    {% endblock %}
 
 {% endblock %}
 

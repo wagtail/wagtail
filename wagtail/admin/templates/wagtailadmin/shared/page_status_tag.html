@@ -14,7 +14,7 @@
             <a href="{{ page_url }}" target="_blank" rel="noreferrer"
                 class="status-tag primary w-bg-none {{ classes }}"
                 title="{% trans 'Visit the live page' %}"
-                {% if show_tooltip %} data-tippy-content="{% trans 'Visit the live page' %}" {% endif %}>
+                {% if show_tooltip %} data-tippy-content="{% trans 'Visit the live page' %}" data-tippy-offset="[0, 20]" {% endif %}>
                 <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
             </a>
         {% else %}

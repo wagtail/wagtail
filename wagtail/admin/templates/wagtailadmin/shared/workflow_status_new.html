@@ -44,7 +44,10 @@
                 </div>
                 <div class="w-px-3 w-border-x w-border-grey-100">
                     {% if latest_revision.user %}
-                        <span class="avatar small" data-tippy-content="{% trans 'Last changes by ' %}{{ latest_revision.user|user_display_name }}"><img src="{% avatar_url latest_revision.user size=25 %}" alt=""/></span>
+                        <span class="avatar small"
+                            data-tippy-content="{% trans 'Last changes by ' %}{{ latest_revision.user|user_display_name }}"
+                            data-tippy-offset="[0, 18]"
+                        ><img src="{% avatar_url latest_revision.user size=25 %}" alt=""/></span>
                     {% endif %}
                 </div>
             {% else %}

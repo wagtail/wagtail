@@ -198,6 +198,7 @@ function InlinePanel(opts) {
 
   return self;
 }
+
 window.InlinePanel = InlinePanel;
 
 window.cleanForSlug = cleanForSlug;
@@ -221,6 +222,7 @@ function initSlugAutoPopulate() {
     }
   });
 }
+
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initSlugCleaning() {
@@ -230,6 +232,7 @@ function initSlugCleaning() {
     $(this).val(cleanForSlug($(this).val(), false));
   });
 }
+
 window.initSlugCleaning = initSlugCleaning;
 
 function initErrorDetection() {
@@ -256,6 +259,7 @@ function initErrorDetection() {
       .attr('data-count', errorSections[index]);
   }
 }
+
 window.initErrorDetection = initErrorDetection;
 
 function initKeyboardShortcuts() {
@@ -271,7 +275,49 @@ function initKeyboardShortcuts() {
     return false;
   });
 }
+
 window.initKeyboardShortcuts = initKeyboardShortcuts;
+
+function initHiddenBreadcrumbs() {
+  const breadcrumbs = document.querySelector('[data-hidden-breadcrumbs]');
+  const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
+  const TRANSITION = 300;
+  let timer;
+
+  function showBreadcrumbs() {
+    breadcrumbsToggle.setAttribute('aria-expanded', true);
+    breadcrumbs.classList.remove('w-hidden');
+
+    setTimeout(() => {
+      breadcrumbs.classList.add('w-opacity-100');
+    }, TRANSITION);
+  }
+
+  function hideBreadcrumbs() {
+    breadcrumbsToggle.setAttribute('aria-expanded', false);
+    breadcrumbs.classList.remove('w-opacity-100');
+
+    setTimeout(() => {
+      breadcrumbs.classList.add('w-hidden');
+    }, TRANSITION);
+  }
+
+  breadcrumbsToggle.addEventListener('click', () => {
+    showBreadcrumbs();
+  });
+
+  breadcrumbs.addEventListener('mouseenter', () => {
+    clearTimeout(timer);
+  });
+
+  breadcrumbs.addEventListener('mouseleave', () => {
+    timer = setTimeout(() => {
+      hideBreadcrumbs();
+    }, 300);
+  });
+}
+
+window.initHiddenBreadcrumbs = initHiddenBreadcrumbs;
 
 $(() => {
   /* Only non-live pages should auto-populate the slug from the title */
@@ -282,6 +328,7 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
+  initHiddenBreadcrumbs();
 
   //
   // Preview
