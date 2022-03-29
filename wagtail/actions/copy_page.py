@@ -157,7 +157,6 @@ class CopyPageAction:
             if self.reset_translation_key and isinstance(
                 child_object, TranslatableMixin
             ):
-
                 child_object.translation_key = self.get_new_translation_key(
                     child_object.translation_key
                 )
@@ -221,7 +220,6 @@ class CopyPageAction:
                             self.reset_translation_key
                             and "translation_key" in child_object
                         ):
-
                             child_object[
                                 "translation_key"
                             ] = self.get_new_translation_key(
