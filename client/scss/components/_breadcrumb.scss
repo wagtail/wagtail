@@ -92,13 +92,13 @@
 .breadcrumb-next-nav {
   // Scrollbar styling for firefox
   // https://developer.mozilla.org/en-US/docs/Web/CSS/scrollbar-color
-  scrollbar-color: theme('colors.primary.DEFAULT') theme('colors.white.DEFAULT');
+  scrollbar-color: theme('colors.grey.100') theme('colors.white.DEFAULT');
   scrollbar-width: thin;
 
   //Custom scrollbar styling for windows/mac and slim mode
   &::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
+    width: 3px;
+    height: 3px;
   }
 
   &::-webkit-scrollbar-button {
@@ -107,7 +107,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply w-bg-primary w-rounded-sm;
+    @apply w-bg-grey-100 w-rounded-sm;
   }
 
   &::-webkit-scrollbar-track {

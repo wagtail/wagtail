@@ -13,7 +13,7 @@
     <header class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
 
         {# Title and breadcrumbs button #}
-        <div class="w-w-full sm:w-max-w-1/2 w-pl-[50px] sm:w-pl-0 sm:w-pr-4 w-min-h-[50px] w-flex w-justify-start w-box-border">
+        <div class="w-pl-[50px] w-w-full sm:w-max-w-[80%] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
             <div class="w-flex w-flex-row w-justify-start w-items-center sm:w-space-x-2 w-w-full">
 
                 {% explorer_breadcrumb page page_perms=page_perms use_new_template=True %}
@@ -34,10 +34,10 @@
         {% comment %}
             Right side actions
         {% endcomment %}
-        <div class="w-w-full sm:w-max-w-1/2 w-overflow-x-auto w-overflow-y-hidden w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
+        <div class="w-overflow-y-hidden w-w-full w-flex w-flex-1 sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-pl-4 w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
 
             {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-bg-transparent w-py-3 w-px-3 w-inline-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary ' %}
-                <div class="w-flex w-flex-row w-items-center">
+                <div class="w-flex  w-justify-end w-items-center">
 
                     {# Page history #}
                     {% if page.get_latest_revision %}
