@@ -3,10 +3,9 @@
 {% with breadcrumb_link_classes='w-flex w-justify-start w-items-center w-no-underline hover:w-underline w-text-grey-600 hover:w-text-primary' breadcrumb_list_classes='w-hidden w-overflow-hidden w-max-w-0 w-transition-all w-duration-300 w-whitespace-nowrap w-flex-shrink-0' icon_classes='w-w-4 w-h-4 w-mr-2' %}
     {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
     <button data-toggle-breadcrumbs  {# handled in page-editor.js #}
-        class="w-ml-0 w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary w-outline-offset-inside"
+        class="w-box-border w-ml-0 w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary w-outline-offset-inside"
         aria-label="{% trans 'Toggle breadcrumbs' %}"
         aria-expanded="false"
-        data-tippy-content="{% trans 'Toggle breadcrumbs' %}"
     >
         {% icon name="dots-horizontal" class_name="w-w-4 w-h-3" %}
     </button>

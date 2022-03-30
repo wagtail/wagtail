@@ -284,13 +284,14 @@ function initHiddenBreadcrumbs() {
     ...document.querySelectorAll('[data-breadcrumb-link]'),
   ];
 
-  const cssClass = {
-    hidden: 'sm:w-hidden',
-    opacity: '!w-opacity-100',
-  };
+  // const cssClass = {
+  //   hidden: 'sm:w-hidden',
+  //   opacity: '!w-opacity-100',
+  // };
 
-  let timer;
+  // Local state
   let open = false;
+  let mouseExitedToggle = true;
 
   function hideBreadcrumbs() {
     breadcrumbLinks.forEach((breadcrumb, index) => {
@@ -336,6 +337,22 @@ function initHiddenBreadcrumbs() {
     } else {
       hideBreadcrumbs();
     }
+  });
+
+  breadcrumbsToggle.addEventListener('mouseenter', () => {
+    // If menu is open or the mouse hasn't exited button zone do nothing
+    if (open || !mouseExitedToggle) {
+      return;
+    }
+
+    open = true;
+    // Set mouse exited so mouseover doesn't restart until mouse leaves
+    mouseExitedToggle = false;
+    showBreadcrumbs();
+  });
+
+  breadcrumbsToggle.addEventListener('mouseleave', () => {
+    mouseExitedToggle = true;
   });
 
   document.addEventListener('keydown', (e) => {

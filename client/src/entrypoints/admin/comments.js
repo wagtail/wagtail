@@ -311,11 +311,11 @@ window.comments = (() => {
 
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
-        commentToggle.classList.add('w-text-teal-200');
+        commentToggle.classList.add('w-text-primary');
         tabContentElement.classList.add('tab-content--comments-enabled');
         commentNotifications.classList.remove('w-hidden');
       } else {
-        commentToggle.classList.remove('w-text-teal-200');
+        commentToggle.classList.remove('w-text-primary');
         tabContentElement.classList.remove('tab-content--comments-enabled');
         commentNotifications.classList.add('w-hidden');
       }
