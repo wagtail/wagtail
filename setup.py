@@ -64,7 +64,7 @@ testing_extras = [
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
     # For templates linting
-    "curlylint==0.13.0",
+    "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.4.13",
     # for validating string formats in .po translation files
