@@ -33,7 +33,7 @@ The ``upload_to`` can also be a callable that returns a string. This callable ac
     class MyModel(models.Model):
     upload = models.FileField(upload_to=user_directory_path)
 
-If you’re saving a file on a Model with a FileField, using a ModelForm makes this process much easier. The file object will be saved to the location specified by the ``upload_to`` argument of the corresponding FileField when calling ``form.save():``. 
+If you’re saving a file on a Model with a FileField, using a ModelForm makes this process much easier. The file object will be saved to the location specified by the ``upload_to`` argument of the corresponding FileField when calling ``form.save():``.
 
 in Your view.py
 
