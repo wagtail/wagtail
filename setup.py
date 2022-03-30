@@ -55,7 +55,7 @@ testing_extras = [
     "django-pattern-library>=0.7,<0.8",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
-    "black==22.1.0",
+    "black==22.3.0",
     "flake8>=3.6.0",
     "isort==5.6.4",  # leave this pinned - it tends to change rules between patch releases
     "flake8-blind-except==0.1.1",
@@ -64,7 +64,7 @@ testing_extras = [
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
     # For templates linting
-    "curlylint==0.13.0",
+    "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.4.13",
     # for validating string formats in .po translation files
