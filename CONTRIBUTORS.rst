@@ -576,6 +576,7 @@ Contributors
 * Kyle Hart
 * Stephanie Cheng Smith
 * Luis Espinoza
+* Hitansh Shah
 
 Translators
 ===========

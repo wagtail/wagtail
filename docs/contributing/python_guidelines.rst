@@ -14,9 +14,10 @@ run by ``pre-commit`` if that is configured.
 
 In addition, import lines should be sorted according to `isort <https://pycqa.github.io/isort/>`_ 5.6.4 rules.
 If you have installed Wagtail's testing dependencies (``pip install -e '.[testing]'``), you can check your code by
-running ``make lint``.
+running ``make lint``. You can also just check python related linting by running ``make lint-server``.
 
-You can run all Python formatting with ``make format``.
+You can run all Python formatting with ``make format``. Similar to linting you can format python/template only files
+by running ``make format-server``.
 
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~

@@ -547,6 +547,9 @@ Migrating RichTextFields to StreamField
 
 If you change an existing RichTextField to a StreamField, the database migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text requires an extra conversion step in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. (When updating the model, don't forget to change ``FieldPanel`` to ``StreamFieldPanel`` too.) Create the migration as normal using ``./manage.py makemigrations``, then edit it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
+.. note::
+    This migration cannot be used if the StreamField has the ``use_json_field`` argument set to ``True``. To migrate, set the ``use_json_field`` argument to ``False`` first, migrate the data, then set it back to ``True``.
+
 .. code-block:: python
 
     # -*- coding: utf-8 -*-
