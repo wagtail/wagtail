@@ -8,7 +8,7 @@
     - `classes` - String of extra css classes to pass to this component
 {% endcomment %}
 
-{% with page_url=page.url tag_classes='w-inline-flex w-items-center w-justify-center w-px-1.5 w-py-0.5 w-text-14 w-rounded-sm w-bg-transparent w-text-grey-400 w-border w-border-grey-100' %}
+{% with page_url=page.url tag_classes='w-inline-flex w-items-center w-justify-center w-whitespace-nowrap w-px-1.5 w-py-0.5 w-text-14 w-rounded-sm w-bg-transparent w-text-grey-400 w-border w-border-grey-100' %}
     {% if page.live %}
         {% if page_url is not None %}
             <a href="{{ page_url }}" target="_blank" rel="noreferrer"

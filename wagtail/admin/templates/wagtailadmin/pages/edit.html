@@ -13,7 +13,7 @@
     <header class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
 
         {# Title and breadcrumbs button #}
-        <div class="w-w-full sm:w-max-w-3/5 w-pl-[50px] sm:w-pl-0 sm:w-pr-4 w-min-h-[50px] w-flex w-justify-start w-box-border">
+        <div class="w-w-full sm:w-max-w-1/2 md:w-max-w-3/5 w-pl-[50px] sm:w-pl-0 sm:w-pr-4 w-min-h-[50px] w-flex w-justify-start w-box-border">
             <div class="w-flex w-flex-row w-justify-start w-items-center sm:w-space-x-2 w-w-full">
 
                 {% explorer_breadcrumb page page_perms=page_perms use_new_template=True %}
@@ -36,7 +36,7 @@
         {% endcomment %}
 
 
-        <div class="w-w-full sm:w-max-w-2/5 w-overflow-x-auto w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
+        <div class="w-w-full sm:w-max-w-1/2 sm:w-max-w-2/5 w-overflow-x-auto w-flex w-flex-wrap sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
 
             <div class="sm:w-hidden lg:w-block">
                 {% include "wagtailadmin/shared/workflow_status_new.html" with page=page_for_status %}
