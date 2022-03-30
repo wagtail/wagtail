@@ -307,7 +307,7 @@ function initHiddenBreadcrumbs() {
     breadcrumbsToggle.setAttribute('aria-expanded', false);
     breadcrumbsToggle
       .querySelector('svg use')
-      .setAttribute('href', '#icon-horizontal-dots');
+      .setAttribute('href', '#icon-dots-horizontal');
     open = false;
   }
 

@@ -964,6 +964,7 @@ def register_icons(icons):
         "doc-full-inverse.svg",
         "doc-full.svg",  # aka file-text-alt
         "dots-vertical.svg",
+        "dots-horizontal.svg",
         "download-alt.svg",
         "download.svg",
         "draft.svg",
@@ -982,7 +983,6 @@ def register_icons(icons):
         "help.svg",
         "history.svg",
         "home.svg",
-        "horizontal-dots.svg",
         "horizontalrule.svg",
         "image.svg",  # aka picture
         "info-circle.svg",
