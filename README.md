@@ -5,18 +5,7 @@
     <br>
 </h1>
 
-[![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
-[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
-[![Twitter follow](https://img.shields.io/twitter/follow/WagtailCMS?style=social)](https://twitter.com/WagtailCMS)
-
-
 Wagtail is an open source content management system built on Django, with a strong community and commercial support. It's focused on user experience, and offers precise control for designers and developers.
-
-
 
 ![Wagtail screenshot](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/wagtail-screenshot-with-browser.png)
 
@@ -128,3 +117,12 @@ We thank the following organisations for their services used in Wagtail's develo
 
 [![Assistiv Labs](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/assistivlabs-logo.png)](https://assistivlabs.com/)<br>
 [Assistiv Labs](https://assistivlabs.com/) provides the project with unlimited access to their remote testing with assistive technologies.
+
+[![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
+[![Twitter follow](https://img.shields.io/twitter/follow/WagtailCMS?style=social)](https://twitter.com/WagtailCMS)
+
