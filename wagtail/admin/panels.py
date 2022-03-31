@@ -25,7 +25,7 @@ from wagtail.blocks import BlockField
 from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
-from wagtail.utils.deprecation import RemovedInWagtail219Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 # DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
 # compatibility, as people are likely importing them from here and then
@@ -143,7 +143,7 @@ class Panel:
                 "The `widget_overrides` method (on %r) is deprecated; "
                 "these should be returned from `get_form_options` as a "
                 "`widgets` item instead." % type(self),
-                category=RemovedInWagtail219Warning,
+                category=RemovedInWagtail50Warning,
             )
             options["widgets"] = self.widget_overrides()
 
@@ -152,7 +152,7 @@ class Panel:
                 "The `required_fields` method (on %r) is deprecated; "
                 "these should be returned from `get_form_options` as a "
                 "`fields` item instead." % type(self),
-                category=RemovedInWagtail219Warning,
+                category=RemovedInWagtail50Warning,
             )
             options["fields"] = self.required_fields()
 
@@ -161,25 +161,25 @@ class Panel:
                 "The `required_formsets` method (on %r) is deprecated; "
                 "these should be returned from `get_form_options` as a "
                 "`formsets` item instead." % type(self),
-                category=RemovedInWagtail219Warning,
+                category=RemovedInWagtail50Warning,
             )
             options["formsets"] = self.required_formsets()
 
         return options
 
-    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
+    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
     def widget_overrides(self):
         return {}
 
     widget_overrides.is_original_method = True
 
-    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
+    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
     def required_fields(self):
         return []
 
     required_fields.is_original_method = True
 
-    # RemovedInWagtail219Warning - edit handlers should override get_form_options instead
+    # RemovedInWagtail50Warning - edit handlers should override get_form_options instead
     def required_formsets(self):
         return {}
 
@@ -311,7 +311,7 @@ class EditHandler(Panel):
     def __init__(self, *args, **kwargs):
         warn(
             "wagtail.admin.edit_handlers.EditHandler has been renamed to wagtail.admin.panels.Panel",
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
@@ -430,7 +430,7 @@ class BaseCompositeEditHandler(PanelGroup):
     def __init__(self, *args, **kwargs):
         warn(
             "wagtail.admin.edit_handlers.BaseCompositeEditHandler has been renamed to wagtail.admin.panels.PanelGroup",
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
@@ -731,7 +731,7 @@ class RichTextFieldPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
             "wagtail.admin.edit_handlers.RichTextFieldPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
@@ -741,7 +741,7 @@ class BaseChooserPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
             "wagtail.admin.edit_handlers.BaseChooserPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
@@ -1137,7 +1137,7 @@ class StreamFieldPanel(FieldPanel):
     def __init__(self, *args, **kwargs):
         warn(
             "wagtail.admin.edit_handlers.StreamFieldPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         super().__init__(*args, **kwargs)
