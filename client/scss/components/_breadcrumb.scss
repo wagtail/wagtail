@@ -101,9 +101,9 @@
     height: 3px;
   }
 
+  // Hide the scrollbar arrows on windows, as we’re very space-constrained here.
   &::-webkit-scrollbar-button {
     @apply w-hidden;
-    // Hide the scrollbar arrows on windows
   }
 
   &::-webkit-scrollbar-thumb {
