@@ -51,6 +51,7 @@ from wagtail.test.testapp.models import (
     MyCustomPage,
     OneToOnePage,
     PageWithExcludedCopyField,
+    PageWithGenericRelation,
     SimpleChildPage,
     SimplePage,
     SimpleParentPage,
@@ -59,7 +60,7 @@ from wagtail.test.testapp.models import (
     StandardIndex,
     StreamPage,
     TaggedGrandchildPage,
-    TaggedPage, PageWithGenericRelation,
+    TaggedPage,
 )
 from wagtail.test.utils import WagtailTestUtils
 
@@ -1373,7 +1374,8 @@ class TestCopyPage(TestCase):
 
         # Check that comments were NOT copied over
         self.assertFalse(
-            new_christmas_event.wagtail_admin_comments.exists(), "Comments were copied"
+            new_christmas_event.wagtail_admin_comments.exists(),
+            msg="Comments were copied",
         )
 
     def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(
@@ -1406,7 +1408,7 @@ class TestCopyPage(TestCase):
         # Check that advert placements were NOT copied over, but were not removed from the old page
         self.assertFalse(
             new_christmas_event.advert_placements.exists(),
-            "Child objects were copied despite accessor_name being specified in `exclude_fields`",
+            msg="Child objects were copied despite accessor_name being specified in `exclude_fields`",
         )
         self.assertEqual(
             christmas_event.advert_placements.count(),
@@ -1505,7 +1507,7 @@ class TestCopyPage(TestCase):
         }
         self.assertFalse(
             old_speakers_ids.intersection(new_speakers_ids),
-            "Child objects in revisions were not given a new primary key",
+            msg="Child objects in revisions were not given a new primary key",
         )
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
@@ -1982,8 +1984,9 @@ class TestCopyPage(TestCase):
                 has_unpublished_changes=False,
             )
         )
-        page_copy = original_page.copy(
-            to=homepage, update_attrs={"slug": f"{original_page.slug}-2"})
+        original_page.copy(
+            to=homepage, update_attrs={"slug": f"{original_page.slug}-2"}
+        )
 
     def test_copy_page_with_excluded_parental_and_child_relations(self):
         """Test that a page will be copied with parental and child relations removed if excluded."""
