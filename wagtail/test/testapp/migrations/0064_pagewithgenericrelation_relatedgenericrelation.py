@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     dependencies = [
         ("wagtailcore", "0067_alter_pagerevision_content_json"),
         ("contenttypes", "0002_remove_content_type_name"),
-        ("tests", "0061_tag_fk_for_django_4"),
+        ("tests", "0063_jsonblockcountsstreammodel_and_more"),
     ]
 
     operations = [
