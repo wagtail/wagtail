@@ -23,6 +23,7 @@ from django.utils.safestring import mark_safe
 from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.utils.i18n
 from wagtail import hooks
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
@@ -43,11 +44,7 @@ from wagtail.models import (
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.utils.coreutils import (
-    escape_script,
-    get_content_type_label,
-    get_locales_display_names,
-)
+from wagtail.utils.coreutils import escape_script, get_content_type_label
 from wagtail.utils.staticfiles import versioned_static as versioned_static_func
 from wagtail.utils.telepath import JSContext
 
@@ -846,7 +843,7 @@ def locale_label_from_id(locale_id):
     """
     Returns the Locale display name given its id.
     """
-    return get_locales_display_names().get(locale_id)
+    return wagtail.utils.i18n.get_locales_display_names().get(locale_id)
 
 
 @register.simple_tag()

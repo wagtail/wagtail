@@ -7,10 +7,10 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext
 
+import wagtail.utils.i18n
 from wagtail import hooks
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
-from wagtail.utils.coreutils import get_content_languages
 from wagtail.utils.log_actions import LogFormatter
 
 
@@ -177,7 +177,7 @@ def register_core_log_actions(actions):
             try:
                 return _("Copied for translation from %(title)s (%(locale)s)") % {
                     "title": log_entry.data["source"]["title"],
-                    "locale": get_content_languages().get(
+                    "locale": wagtail.utils.i18n.get_content_languages().get(
                         log_entry.data["source_locale"]["language_code"]
                     )
                     or "",

@@ -1,14 +1,14 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.utils.i18n
 from wagtail.models import Locale
-from wagtail.utils.coreutils import get_content_languages
 
 
 class LocaleForm(forms.ModelForm):
     required_css_class = "required"
     language_code = forms.ChoiceField(
-        label=_("Language"), choices=get_content_languages().items()
+        label=_("Language"), choices=wagtail.utils.i18n.get_content_languages().items()
     )
 
     def __init__(self, *args, **kwargs):
@@ -20,7 +20,7 @@ class LocaleForm(forms.ModelForm):
 
         self.fields["language_code"].choices = [
             (language_code, display_name)
-            for language_code, display_name in get_content_languages().items()
+            for language_code, display_name in wagtail.utils.i18n.get_content_languages().items()
             if language_code not in used_language_codes
             or (instance and instance.language_code == language_code)
         ]

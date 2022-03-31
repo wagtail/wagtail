@@ -45,6 +45,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
+import wagtail.utils.i18n
 import wagtail.utils.models
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
@@ -70,11 +71,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.utils.copying import _copy, _copy_m2m_relations
-from wagtail.utils.coreutils import (
-    WAGTAIL_APPEND_SLASH,
-    camelcase_to_underscore,
-    get_supported_content_language_variant,
-)
+from wagtail.utils.coreutils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore
 from wagtail.utils.log_actions import log
 from wagtail.utils.treebeard import TreebeardPathFixMixin
 from wagtail.utils.url_routing import RouteResult
@@ -1201,7 +1198,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
             # This is used when LANGUAGES contain more languages than WAGTAIL_CONTENT_LANGUAGES
             try:
                 if (
-                    get_supported_content_language_variant(translation.get_language())
+                    wagtail.utils.i18n.get_supported_content_language_variant(
+                        translation.get_language()
+                    )
                     == language_code
                 ):
                     language_code = translation.get_language()

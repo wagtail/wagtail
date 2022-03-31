@@ -5,15 +5,14 @@ from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.utils.i18n
 from wagtail.models import Page, Site
 from wagtail.utils.coreutils import (
     accepts_kwarg,
     camelcase_to_underscore,
     cautious_slugify,
     find_available_slug,
-    get_content_languages,
     get_dummy_request,
-    get_supported_content_language_variant,
     multigetattr,
     safe_snake_case,
     string_to_ascii,
@@ -186,7 +185,7 @@ class TestFindAvailableSlug(TestCase):
 class TestGetContentLanguages(TestCase):
     def test_get_content_languages(self):
         self.assertEqual(
-            get_content_languages(),
+            wagtail.utils.i18n.get_content_languages(),
             {
                 "de": "German",
                 "de-at": "Austrian German",
@@ -203,7 +202,7 @@ class TestGetContentLanguages(TestCase):
     )
     def test_can_be_different_to_django_languages(self):
         self.assertEqual(
-            get_content_languages(),
+            wagtail.utils.i18n.get_content_languages(),
             {
                 "de": "German",
                 "en": "English",
@@ -218,7 +217,7 @@ class TestGetContentLanguages(TestCase):
     )
     def test_can_be_a_translation_proxy(self):
         self.assertEqual(
-            get_content_languages(),
+            wagtail.utils.i18n.get_content_languages(),
             {
                 "de": "German",
                 "en": "English",
@@ -234,7 +233,7 @@ class TestGetContentLanguages(TestCase):
     )
     def test_must_be_subset_of_django_languages(self):
         with self.assertRaises(ImproperlyConfigured) as e:
-            get_content_languages()
+            wagtail.utils.i18n.get_content_languages()
 
         self.assertEqual(
             e.exception.args,
@@ -263,7 +262,7 @@ class TestGetContentLanguages(TestCase):
 class TestGetSupportedContentLanguageVariant(TestCase):
     # From: https://github.com/django/django/blob/9e57b1efb5205bd94462e9de35254ec5ea6eb04e/tests/i18n/tests.py#L1481
     def test_get_supported_content_language_variant(self):
-        g = get_supported_content_language_variant
+        g = wagtail.utils.i18n.get_supported_content_language_variant
         self.assertEqual(g("en"), "en")
         self.assertEqual(g("en-gb"), "en")
         self.assertEqual(g("de"), "de")
@@ -289,7 +288,7 @@ class TestGetSupportedContentLanguageVariant(TestCase):
     )
     def test_uses_wagtail_content_languages(self):
         # be sure it's not using Django's LANGUAGES
-        g = get_supported_content_language_variant
+        g = wagtail.utils.i18n.get_supported_content_language_variant
         self.assertEqual(g("en"), "en")
         self.assertEqual(g("en-gb"), "en")
         self.assertEqual(g("de"), "de")
@@ -329,15 +328,21 @@ class TestGetSupportedContentLanguageVariantWithI18nFalse(TestCase):
         # despite 'en-us' not being in LANGUAGES.
         # https://github.com/wagtail/wagtail/issues/6539
 
-        self.assertEqual(get_supported_content_language_variant("en-us"), "en")
+        self.assertEqual(
+            wagtail.utils.i18n.get_supported_content_language_variant("en-us"), "en"
+        )
 
     @override_settings(LANGUAGE_CODE="zz")
     def test_language_code_not_in_languages(self):
         # Ensure we can handle a LANGUAGE_CODE setting that isn't defined in LANGUAGES -
         # in this case get_content_languages has to cope with not being able to retrieve
         # a display name for the language
-        self.assertEqual(get_supported_content_language_variant("zz"), "zz")
-        self.assertEqual(get_supported_content_language_variant("zz-gb"), "zz")
+        self.assertEqual(
+            wagtail.utils.i18n.get_supported_content_language_variant("zz"), "zz"
+        )
+        self.assertEqual(
+            wagtail.utils.i18n.get_supported_content_language_variant("zz-gb"), "zz"
+        )
 
 
 class TestMultigetattr(TestCase):

@@ -10,12 +10,9 @@ from django.utils import translation
 from django.utils.encoding import force_str
 from modelcluster.fields import ParentalKey
 
+import wagtail.utils.i18n
 from wagtail.signals import pre_validate_delete
 from wagtail.utils.copying import _copy
-from wagtail.utils.coreutils import (
-    get_content_languages,
-    get_supported_content_language_variant,
-)
 
 
 def pk(obj):
@@ -31,7 +28,9 @@ class LocaleManager(models.Manager):
         Gets a Locale from a language code.
         """
         return self.get(
-            language_code=get_supported_content_language_variant(language_code)
+            language_code=wagtail.utils.i18n.get_supported_content_language_variant(
+                language_code
+            )
         )
 
 
@@ -79,10 +78,10 @@ class Locale(models.Model):
         return super().delete(*args, **kwargs)
 
     def language_code_is_valid(self):
-        return self.language_code in get_content_languages()
+        return self.language_code in wagtail.utils.i18n.get_content_languages()
 
     def get_display_name(self):
-        return get_content_languages().get(self.language_code)
+        return wagtail.utils.i18n.get_content_languages().get(self.language_code)
 
     def __str__(self):
         return force_str(self.get_display_name() or self.language_code)
@@ -259,7 +258,7 @@ def bootstrap_translatable_model(model, locale):
 class BootstrapTranslatableModel(migrations.RunPython):
     def __init__(self, model_string, language_code=None):
         if language_code is None:
-            language_code = get_supported_content_language_variant(
+            language_code = wagtail.utils.i18n.get_supported_content_language_variant(
                 settings.LANGUAGE_CODE
             )
 
