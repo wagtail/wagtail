@@ -32,7 +32,7 @@ def check_url(url_string):
 
 def attribute_rule(allowed_attrs):
     """
-    Generator for functions that can be used as entries in Whitelister.element_rules.
+    Generator for functions that can be used as entries in HTMLCleaner.element_rules.
     These functions accept a tag, and modify its attributes by looking each attribute
     up in the 'allowed_attrs' dict defined here:
     * if the lookup fails, drop the attribute
@@ -93,7 +93,7 @@ DEFAULT_ELEMENT_RULES = {
 }
 
 
-class Whitelister:
+class HTMLCleaner:
     element_rules = DEFAULT_ELEMENT_RULES
 
     def clean(self, html):

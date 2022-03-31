@@ -51,7 +51,11 @@ from wagtail.permissions import (
     task_permission_policy,
     workflow_permission_policy,
 )
-from wagtail.whitelist import allow_without_attributes, attribute_rule, check_url
+from wagtail.rich_text.cleaner import (
+    allow_without_attributes,
+    attribute_rule,
+    check_url,
+)
 
 
 class ExplorerMenuItem(MenuItem):

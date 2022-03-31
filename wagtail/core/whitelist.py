@@ -1,1 +1,1 @@
-from wagtail.whitelist import *  # noqa
+from wagtail.rich_text.cleaner import *  # noqa

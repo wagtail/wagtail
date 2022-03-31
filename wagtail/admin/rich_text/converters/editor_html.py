@@ -3,8 +3,8 @@ from django.utils.html import escape
 
 from wagtail.models import Page
 from wagtail.rich_text import features as feature_registry
+from wagtail.rich_text.cleaner import HTMLCleaner, allow_without_attributes
 from wagtail.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-from wagtail.whitelist import Whitelister, allow_without_attributes
 
 
 class WhitelistRule:
@@ -35,7 +35,7 @@ BASE_WHITELIST_RULES = {
 }
 
 
-class DbWhitelister(Whitelister):
+class DbHTMLCleaner(HTMLCleaner):
     """
     A custom whitelisting engine to convert the HTML as returned by the rich text editor
     into the pseudo-HTML format stored in the database (in which images, documents and other
@@ -110,7 +110,7 @@ class DbWhitelister(Whitelister):
             if tag.name == "div":
                 tag.name = "p"
 
-            super(DbWhitelister, self).clean_tag_node(doc, tag)
+            super(DbHTMLCleaner, self).clean_tag_node(doc, tag)
 
 
 class EditorHTMLConverter:
@@ -128,7 +128,7 @@ class EditorHTMLConverter:
 
     @cached_property
     def whitelister(self):
-        return DbWhitelister(self.converter_rules)
+        return DbHTMLCleaner(self.converter_rules)
 
     def to_database_format(self, html):
         return self.whitelister.clean(html)

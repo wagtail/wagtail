@@ -11,7 +11,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import (
     HtmlToContentStateHandler,
 )
 from wagtail.rich_text import features as feature_registry
-from wagtail.whitelist import check_url
+from wagtail.rich_text.cleaner import check_url
 
 
 def link_entity(props):

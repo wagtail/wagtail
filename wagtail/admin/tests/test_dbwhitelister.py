@@ -4,7 +4,7 @@ from django.test import TestCase
 from wagtail.admin.rich_text.converters.editor_html import EditorHTMLConverter
 
 
-class TestDbWhitelisterMethods(TestCase):
+class TestDbHTMLCleanerMethods(TestCase):
     def setUp(self):
         self.whitelister = EditorHTMLConverter().whitelister
 
@@ -42,7 +42,7 @@ class TestDbWhitelisterMethods(TestCase):
         self.assertEqual(str(tag), "<a>foo</a>")
 
 
-class TestDbWhitelister(TestCase):
+class TestDbHTMLCleaner(TestCase):
     def setUp(self):
         self.whitelister = EditorHTMLConverter().whitelister
 

@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 from django.test import TestCase
 
-from wagtail.whitelist import (
-    Whitelister,
+from wagtail.rich_text.cleaner import (
+    HTMLCleaner,
     allow_without_attributes,
     attribute_rule,
     check_url,
@@ -95,9 +95,9 @@ class TestAttributeRule(TestCase):
         self.assertEqual(str(tag), "<b></b>")
 
 
-class TestWhitelister(TestCase):
+class TestHTMLCleaner(TestCase):
     def setUp(self):
-        self.whitelister = Whitelister()
+        self.whitelister = HTMLCleaner()
 
     def test_clean_unknown_node(self):
         """
@@ -141,7 +141,7 @@ class TestWhitelister(TestCase):
 
     def test_clean(self):
         """
-        Whitelister.clean should remove disallowed tags and attributes from
+        HTMLCleaner.clean should remove disallowed tags and attributes from
         a string
         """
         string = '<b foo="bar">snowman <barbecue>Yorkshire</barbecue></b>'
