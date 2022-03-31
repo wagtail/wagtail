@@ -14,7 +14,7 @@
 
         {# Title and breadcrumbs button #}
         <div class="w-pl-[50px] w-w-full sm:w-max-w-[80%] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
-            <div class="w-flex w-flex-row w-justify-start w-items-center sm:w-space-x-2 w-w-full">
+            <div class="w-flex w-flex-row w-justify-start w-items-center w-w-full">
 
                 {% explorer_breadcrumb page page_perms=page_perms use_new_template=True %}
 
@@ -24,7 +24,7 @@
                 </h1>
 
                 {# Page actions dropdown #}
-                <div class="w-ml-auto w-px-2">
+                <div class="">
                     {% page_header_buttons page page_perms=page_perms %}
                 </div>
             </div>

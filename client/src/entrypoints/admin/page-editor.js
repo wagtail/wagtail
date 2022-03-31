@@ -284,10 +284,10 @@ function initHiddenBreadcrumbs() {
     ...document.querySelectorAll('[data-breadcrumb-link]'),
   ];
 
-  // const cssClass = {
-  //   hidden: 'sm:w-hidden',
-  //   opacity: '!w-opacity-100',
-  // };
+  const cssClass = {
+    hidden: 'w-hidden',
+    maxWidth: 'w-max-w-4xl', // Setting this allows the breadcrumb to animate to this width
+  };
 
   // Local state
   let open = false;
@@ -296,16 +296,16 @@ function initHiddenBreadcrumbs() {
   function hideBreadcrumbs() {
     breadcrumbLinks.forEach((breadcrumb, index) => {
       setTimeout(() => {
-        breadcrumb.classList.remove('w-max-w-4xl');
+        breadcrumb.classList.remove(cssClass.maxWidth);
 
         setTimeout(() => {
-          breadcrumb.classList.add('w-hidden');
-          breadcrumb.classList.add('w-overflow-hidden');
+          breadcrumb.classList.add(cssClass.hidden);
         }, 10);
       }, index * 10);
     });
 
     breadcrumbsToggle.setAttribute('aria-expanded', false);
+    // Change Icon to dots
     breadcrumbsToggle
       .querySelector('svg use')
       .setAttribute('href', '#icon-dots-horizontal');
@@ -315,15 +315,15 @@ function initHiddenBreadcrumbs() {
   function showBreadcrumbs() {
     breadcrumbLinks.forEach((breadcrumb, index) => {
       setTimeout(() => {
-        breadcrumb.classList.remove('w-hidden');
+        breadcrumb.classList.remove(cssClass.hidden);
 
         setTimeout(() => {
-          breadcrumb.classList.add('w-max-w-4xl');
-          breadcrumb.classList.remove('w-overflow-hidden');
+          breadcrumb.classList.add(cssClass.maxWidth);
         }, 50);
       }, index * 10);
     });
     breadcrumbsToggle.setAttribute('aria-expanded', true);
+    // Change Icon to cross
     breadcrumbsToggle
       .querySelector('svg use')
       .setAttribute('href', '#icon-cross');
@@ -335,6 +335,7 @@ function initHiddenBreadcrumbs() {
     if (!open) {
       showBreadcrumbs();
     } else {
+      mouseExitedToggle = false;
       hideBreadcrumbs();
     }
   });
