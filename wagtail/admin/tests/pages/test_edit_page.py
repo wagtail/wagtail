@@ -12,9 +12,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.admin.views.pages.edit
 from wagtail.admin.admin_url_finder import AdminURLFinder
 from wagtail.admin.tests.pages.timestamps import submittable_timestamp
-from wagtail.exceptions import PageClassNotFoundError
 from wagtail.models import (
     Comment,
     CommentReply,
@@ -185,7 +185,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
 
     @mock.patch("wagtail.models.ContentType.model_class", return_value=None)
     def test_edit_when_specific_class_cannot_be_found(self, mocked_method):
-        with self.assertRaises(PageClassNotFoundError):
+        with self.assertRaises(wagtail.admin.views.pages.edit.PageClassNotFoundError):
             self.client.get(
                 reverse("wagtailadmin_pages:edit", args=(self.event_page.id,))
             )
