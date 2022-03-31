@@ -11,7 +11,7 @@ import wagtail.utils.i18n
 from wagtail import hooks
 from wagtail.models import ModelLogEntry, Page, PageLogEntry, PageViewRestriction
 from wagtail.rich_text.pages import PageLinkHandler
-from wagtail.utils.log_actions import LogFormatter
+from wagtail.utils.logging import LogFormatter
 
 
 def require_wagtail_login(next):

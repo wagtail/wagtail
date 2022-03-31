@@ -15,7 +15,7 @@ from wagtail.admin.panels import (
     extract_panel_definitions_from_model_class,
 )
 from wagtail.models import Site
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 from .forms import SiteSwitchForm
 from .permissions import user_can_edit_setting_type

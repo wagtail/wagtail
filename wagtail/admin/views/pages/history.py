@@ -20,7 +20,7 @@ from wagtail.models import (
     UserPagePermissionsProxy,
     WorkflowState,
 )
-from wagtail.utils.log_actions import registry as log_action_registry
+from wagtail.utils.logging import registry as log_action_registry
 
 
 class PageHistoryReportFilterSet(WagtailFilterSet):

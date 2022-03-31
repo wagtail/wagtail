@@ -30,7 +30,7 @@ from wagtail.admin.localization import (
 from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 
 def get_user_login_form():

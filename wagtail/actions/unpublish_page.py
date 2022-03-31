@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import PermissionDenied
 
 from wagtail.signals import page_unpublished
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 logger = logging.getLogger("wagtail")
 

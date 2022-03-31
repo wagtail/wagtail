@@ -27,8 +27,8 @@ from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
-from wagtail.utils.log_actions import log
-from wagtail.utils.log_actions import registry as log_registry
+from wagtail.utils.logging import log
+from wagtail.utils.logging import registry as log_registry
 
 
 # == Helper functions ==

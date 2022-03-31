@@ -17,7 +17,7 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.log_actions import LogActionRegistry
+from wagtail.utils.logging import LogActionRegistry
 
 
 class TestAuditLogManager(TestCase, WagtailTestUtils):

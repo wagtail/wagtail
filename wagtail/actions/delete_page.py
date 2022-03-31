@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied
 
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 
 class DeletePagePermissionError(PermissionDenied):

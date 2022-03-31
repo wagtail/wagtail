@@ -1,1 +1,1 @@
-from wagtail.utils.log_actions import *  # noqa
+from wagtail.utils.logging import *  # noqa

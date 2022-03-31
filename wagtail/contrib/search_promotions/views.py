@@ -13,7 +13,7 @@ from wagtail.admin.forms.search import SearchForm
 from wagtail.contrib.search_promotions import forms
 from wagtail.search import forms as search_forms
 from wagtail.search.models import Query
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 
 @any_permission_required(

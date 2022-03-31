@@ -19,7 +19,7 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 from wagtail.users.utils import user_can_delete_user
 from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.utils.loading import get_custom_form
-from wagtail.utils.log_actions import log
+from wagtail.utils.logging import log
 
 User = get_user_model()
 
