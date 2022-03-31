@@ -7,7 +7,6 @@ from django.test import TestCase
 from django.utils import timezone
 from freezegun import freeze_time
 
-from wagtail.log_actions import LogActionRegistry
 from wagtail.models import (
     Page,
     PageLogEntry,
@@ -18,6 +17,7 @@ from wagtail.models import (
 )
 from wagtail.test.testapp.models import SimplePage
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.log_actions import LogActionRegistry
 
 
 class TestAuditLogManager(TestCase, WagtailTestUtils):

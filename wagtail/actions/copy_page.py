@@ -4,10 +4,10 @@ import uuid
 from django.core.exceptions import PermissionDenied
 from modelcluster.models import get_all_child_relations
 
-from wagtail.log_actions import log
-from wagtail.models.copying import _copy, _copy_m2m_relations
 from wagtail.models.i18n import TranslatableMixin
 from wagtail.signals import page_published
+from wagtail.utils.copying import _copy, _copy_m2m_relations
+from wagtail.utils.log_actions import log
 
 logger = logging.getLogger("wagtail")
 

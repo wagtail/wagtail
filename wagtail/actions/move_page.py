@@ -4,8 +4,8 @@ from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from treebeard.mp_tree import MP_MoveHandler
 
-from wagtail.log_actions import log
 from wagtail.signals import post_page_move, pre_page_move
+from wagtail.utils.log_actions import log
 
 logger = logging.getLogger("wagtail")
 

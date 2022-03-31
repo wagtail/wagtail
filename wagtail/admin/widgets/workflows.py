@@ -5,9 +5,9 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.widgets import AdminChooser
 from wagtail.models import Task
+from wagtail.utils.staticfiles import versioned_static
 
 
 class AdminTaskChooser(AdminChooser):

@@ -1,1 +1,1 @@
-from wagtail.telepath import *  # noqa
+from wagtail.utils.telepath import *  # noqa

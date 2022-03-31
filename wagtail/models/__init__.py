@@ -52,15 +52,8 @@ from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
-from wagtail.coreutils import (
-    WAGTAIL_APPEND_SLASH,
-    camelcase_to_underscore,
-    get_supported_content_language_variant,
-    resolve_model_string,
-)
 from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
-from wagtail.log_actions import log
 from wagtail.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
@@ -76,8 +69,20 @@ from wagtail.signals import (
     workflow_rejected,
     workflow_submitted,
 )
-from wagtail.treebeard import TreebeardPathFixMixin
-from wagtail.url_routing import RouteResult
+from wagtail.utils.copying import (  # noqa
+    _copy,
+    _copy_m2m_relations,
+    _extract_field_data,
+)
+from wagtail.utils.coreutils import (
+    WAGTAIL_APPEND_SLASH,
+    camelcase_to_underscore,
+    get_supported_content_language_variant,
+    resolve_model_string,
+)
+from wagtail.utils.log_actions import log
+from wagtail.utils.treebeard import TreebeardPathFixMixin
+from wagtail.utils.url_routing import RouteResult
 
 from .audit_log import (  # noqa
     BaseLogEntry,
@@ -95,7 +100,6 @@ from .collections import (  # noqa
     GroupCollectionPermissionManager,
     get_root_collection_id,
 )
-from .copying import _copy, _copy_m2m_relations, _extract_field_data  # noqa
 from .i18n import (  # noqa
     BootstrapTranslatableMixin,
     BootstrapTranslatableModel,

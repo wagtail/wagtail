@@ -27,10 +27,10 @@ from wagtail.admin.localization import (
     get_available_admin_languages,
     get_available_admin_time_zones,
 )
-from wagtail.log_actions import log
 from wagtail.models import UserPagePermissionsProxy
 from wagtail.users.models import UserProfile
 from wagtail.utils.loading import get_custom_form
+from wagtail.utils.log_actions import log
 
 
 def get_user_login_form():

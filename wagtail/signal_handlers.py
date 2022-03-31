@@ -3,8 +3,8 @@ import logging
 from django.core.cache import cache
 from django.db.models.signals import post_delete, post_save, pre_delete
 
-from wagtail.coreutils import get_locales_display_names
 from wagtail.models import Locale, Page, Site
+from wagtail.utils.coreutils import get_locales_display_names
 
 logger = logging.getLogger("wagtail")
 

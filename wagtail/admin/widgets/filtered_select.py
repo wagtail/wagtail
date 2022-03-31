@@ -1,6 +1,6 @@
 from django import forms
 
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.utils.staticfiles import versioned_static
 
 
 class FilteredSelect(forms.Select):

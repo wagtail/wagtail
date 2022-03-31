@@ -1,1 +1,1 @@
-from wagtail.widget_adapters import *  # noqa
+from wagtail.utils.widget_adapters import *  # noqa

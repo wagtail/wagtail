@@ -10,7 +10,6 @@ from django.utils import timezone
 from django.utils.html import format_html
 from freezegun import freeze_time
 
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.admin.templatetags.wagtailadmin_tags import (
     avatar_url,
     i18n_enabled,
@@ -27,6 +26,7 @@ from wagtail.images.tests.utils import get_test_image_file
 from wagtail.models import Locale
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.users.models import UserProfile
+from wagtail.utils.staticfiles import versioned_static
 
 
 class TestAvatarTemplateTag(TestCase, WagtailTestUtils):

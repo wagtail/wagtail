@@ -14,8 +14,8 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
 
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import JSContext
+from wagtail.utils.staticfiles import versioned_static
+from wagtail.utils.telepath import JSContext
 
 __all__ = [
     "BaseBlock",

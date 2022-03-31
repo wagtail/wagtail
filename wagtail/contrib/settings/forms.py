@@ -2,8 +2,8 @@ from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.models import Site
+from wagtail.utils.staticfiles import versioned_static
 
 
 class SiteSwitchForm(forms.Form):

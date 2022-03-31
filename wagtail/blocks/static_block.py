@@ -3,8 +3,8 @@ from django.utils.functional import cached_property
 from django.utils.safestring import SafeString
 from django.utils.translation import gettext as _
 
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.telepath import Adapter, register
+from wagtail.utils.staticfiles import versioned_static
+from wagtail.utils.telepath import Adapter, register
 
 from .base import Block
 

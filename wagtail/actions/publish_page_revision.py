@@ -4,8 +4,8 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.utils import timezone
 
-from wagtail.log_actions import log
 from wagtail.signals import page_published
+from wagtail.utils.log_actions import log
 
 logger = logging.getLogger("wagtail")
 

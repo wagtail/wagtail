@@ -22,14 +22,11 @@ from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
-from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import COMMENTS_RELATION_NAME, Page
+from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
-# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
-# compatibility, as people are likely importing them from here and then
-# appending their own overrides
 from .forms.models import (  # NOQA
     DIRECT_FORM_FIELD_OVERRIDES,
     FORM_FIELD_OVERRIDES,
@@ -37,6 +34,10 @@ from .forms.models import (  # NOQA
     formfield_for_dbfield,
 )
 from .forms.pages import WagtailAdminPageForm
+
+# DIRECT_FORM_FIELD_OVERRIDES, FORM_FIELD_OVERRIDES are imported for backwards
+# compatibility, as people are likely importing them from here and then
+# appending their own overrides
 
 
 def widget_with_script(widget, script):
@@ -953,7 +954,7 @@ class PrivacyModalPanel(Panel):
             {"self": self, "page": self.instance, "request": self.request},
         )
 
-        from wagtail.admin.staticfiles import versioned_static
+        from wagtail.utils.staticfiles import versioned_static
 
         return mark_safe(
             '{0}<script type="text/javascript" src="{1}"></script>'.format(

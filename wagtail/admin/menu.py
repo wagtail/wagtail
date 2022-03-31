@@ -6,7 +6,7 @@ from django.utils.safestring import mark_safe
 from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
-from wagtail.coreutils import cautious_slugify
+from wagtail.utils.coreutils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):

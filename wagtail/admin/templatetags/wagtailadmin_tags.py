@@ -28,18 +28,10 @@ from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
 from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
-from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
-from wagtail.coreutils import camelcase_to_underscore
-from wagtail.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.coreutils import (
-    escape_script,
-    get_content_type_label,
-    get_locales_display_names,
-)
 from wagtail.models import (
     Collection,
     CollectionViewRestriction,
@@ -48,8 +40,16 @@ from wagtail.models import (
     PageViewRestriction,
     UserPagePermissionsProxy,
 )
-from wagtail.telepath import JSContext
 from wagtail.users.utils import get_gravatar_url
+from wagtail.utils.coreutils import camelcase_to_underscore
+from wagtail.utils.coreutils import cautious_slugify as _cautious_slugify
+from wagtail.utils.coreutils import (
+    escape_script,
+    get_content_type_label,
+    get_locales_display_names,
+)
+from wagtail.utils.staticfiles import versioned_static as versioned_static_func
+from wagtail.utils.telepath import JSContext
 
 register = template.Library()
 

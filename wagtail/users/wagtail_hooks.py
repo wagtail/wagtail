@@ -14,7 +14,6 @@ from wagtail.admin.admin_url_finder import (
 )
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.search import SearchArea
-from wagtail.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 from wagtail.permission_policies import ModelPermissionPolicy
 from wagtail.users.urls import users
 from wagtail.users.utils import user_can_delete_user
@@ -24,6 +23,7 @@ from wagtail.users.views.bulk_actions import (
     SetActiveStateBulkAction,
 )
 from wagtail.users.widgets import UserListingButton
+from wagtail.utils.compat import AUTH_USER_APP_LABEL, AUTH_USER_MODEL_NAME
 
 
 @hooks.register("register_admin_urls")

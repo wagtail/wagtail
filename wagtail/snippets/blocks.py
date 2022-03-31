@@ -1,7 +1,7 @@
 from django.utils.functional import cached_property
 
 from wagtail.blocks import ChooserBlock
-from wagtail.coreutils import resolve_model_string
+from wagtail.utils.coreutils import resolve_model_string
 
 
 class SnippetChooserBlock(ChooserBlock):

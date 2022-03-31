@@ -1,7 +1,7 @@
 from django import forms
 from telepath import Adapter, AdapterRegistry, JSContextBase  # noqa
 
-from wagtail.admin.staticfiles import versioned_static
+from wagtail.utils.staticfiles import versioned_static
 
 
 class WagtailJSContextBase(JSContextBase):

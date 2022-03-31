@@ -7,12 +7,12 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.staticfiles import versioned_static
-from wagtail.coreutils import resolve_model_string
 from wagtail.models import Page
-from wagtail.telepath import register
+from wagtail.utils.coreutils import resolve_model_string
+from wagtail.utils.staticfiles import versioned_static
+from wagtail.utils.telepath import register
+from wagtail.utils.widget_adapters import WidgetAdapter
 from wagtail.utils.widgets import WidgetWithScript
-from wagtail.widget_adapters import WidgetAdapter
 
 
 class AdminChooser(WidgetWithScript, widgets.Input):

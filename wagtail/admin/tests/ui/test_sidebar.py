@@ -11,8 +11,8 @@ from wagtail.admin.ui.sidebar import (
     SearchModule,
     SubMenuItem,
 )
-from wagtail.telepath import JSContext
 from wagtail.test.utils import WagtailTestUtils
+from wagtail.utils.telepath import JSContext
 
 
 class TestAdaptLinkMenuItem(TestCase):

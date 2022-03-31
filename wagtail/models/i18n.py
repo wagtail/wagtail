@@ -10,13 +10,12 @@ from django.utils import translation
 from django.utils.encoding import force_str
 from modelcluster.fields import ParentalKey
 
-from wagtail.coreutils import (
+from wagtail.signals import pre_validate_delete
+from wagtail.utils.copying import _copy
+from wagtail.utils.coreutils import (
     get_content_languages,
     get_supported_content_language_variant,
 )
-from wagtail.signals import pre_validate_delete
-
-from .copying import _copy
 
 
 def pk(obj):

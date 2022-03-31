@@ -5,10 +5,10 @@ from django.forms import Media, widgets
 from django.utils.functional import cached_property
 
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
-from wagtail.admin.staticfiles import versioned_static
 from wagtail.rich_text import features as feature_registry
-from wagtail.telepath import register
-from wagtail.widget_adapters import WidgetAdapter
+from wagtail.utils.staticfiles import versioned_static
+from wagtail.utils.telepath import register
+from wagtail.utils.widget_adapters import WidgetAdapter
 
 
 class DraftailRichTextArea(widgets.HiddenInput):

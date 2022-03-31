@@ -15,7 +15,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.log_actions import registry as log_action_registry
+from wagtail.utils.log_actions import registry as log_action_registry
 
 
 class LogEntryQuerySet(models.QuerySet):

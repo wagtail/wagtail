@@ -5,7 +5,8 @@ from django.utils.text import slugify
 from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.coreutils import (
+from wagtail.models import Page, Site
+from wagtail.utils.coreutils import (
     accepts_kwarg,
     camelcase_to_underscore,
     cautious_slugify,
@@ -17,7 +18,6 @@ from wagtail.coreutils import (
     safe_snake_case,
     string_to_ascii,
 )
-from wagtail.models import Page, Site
 
 
 class TestCamelCaseToUnderscore(TestCase):

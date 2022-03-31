@@ -29,7 +29,7 @@ from wagtail.contrib.redirects.utils import (
     get_supported_extensions,
     write_to_file_storage,
 )
-from wagtail.log_actions import log
+from wagtail.utils.log_actions import log
 
 permission_checker = PermissionPolicyChecker(permission_policy)
 

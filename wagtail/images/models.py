@@ -21,7 +21,6 @@ from willow.image import Image as WillowImage
 
 from wagtail import hooks
 from wagtail.admin.models import get_object_usage
-from wagtail.coreutils import string_to_ascii
 from wagtail.images.exceptions import InvalidFilterSpecError
 from wagtail.images.image_operations import (
     FilterOperation,
@@ -32,6 +31,7 @@ from wagtail.images.rect import Rect
 from wagtail.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
+from wagtail.utils.coreutils import string_to_ascii
 
 logger = logging.getLogger("wagtail.images")
 

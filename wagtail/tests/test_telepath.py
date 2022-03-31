@@ -2,7 +2,7 @@ import itertools
 
 from django.test import TestCase
 
-from wagtail.telepath import Adapter, JSContext, register
+from wagtail.utils.telepath import Adapter, JSContext, register
 
 
 class Artist:

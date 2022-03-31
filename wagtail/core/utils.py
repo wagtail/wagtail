@@ -1,4 +1,4 @@
-from wagtail.coreutils import (  # noqa
+from wagtail.utils.coreutils import (  # noqa
     SCRIPT_RE,
     SLUGIFY_RE,
     WAGTAIL_APPEND_SLASH,

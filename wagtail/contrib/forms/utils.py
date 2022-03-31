@@ -1,8 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 
 from wagtail import hooks
-from wagtail.coreutils import safe_snake_case
 from wagtail.models import UserPagePermissionsProxy, get_page_models
+from wagtail.utils.coreutils import safe_snake_case
 
 _FORM_CONTENT_TYPES = None
 
