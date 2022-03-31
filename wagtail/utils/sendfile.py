@@ -88,7 +88,7 @@ def sendfile(
     if attachment_filename:
         from django.utils.encoding import force_str
 
-        from wagtail.utils.coreutils import string_to_ascii
+        from wagtail.utils.misc import string_to_ascii
 
         attachment_filename = force_str(attachment_filename)
         ascii_filename = wagtail.utils.text.string_to_ascii(attachment_filename)

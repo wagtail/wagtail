@@ -5,7 +5,7 @@ from anyascii import anyascii
 from django.utils.encoding import force_str
 from django.utils.text import slugify
 
-from wagtail.utils.coreutils import SCRIPT_RE
+from wagtail.utils.misc import SCRIPT_RE
 
 SCRIPT_RE = re.compile(r"<(-*)/script>")
 

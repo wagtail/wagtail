@@ -13,7 +13,7 @@ from xlsxwriter.workbook import Workbook
 from wagtail.admin.forms.search import SearchForm
 from wagtail.search.backends import get_search_backend
 from wagtail.search.index import class_is_indexed
-from wagtail.utils.coreutils import multigetattr
+from wagtail.utils.misc import multigetattr
 
 
 class SearchableListMixin:

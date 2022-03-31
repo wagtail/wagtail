@@ -6,7 +6,7 @@ from django.db.models import Q
 
 import wagtail.utils.batch
 from wagtail.models import Page, Site
-from wagtail.utils.coreutils import get_dummy_request
+from wagtail.utils.misc import get_dummy_request
 
 from .models import Redirect
 

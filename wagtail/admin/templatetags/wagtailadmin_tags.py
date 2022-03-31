@@ -43,8 +43,8 @@ from wagtail.models import (
     UserPagePermissionsProxy,
 )
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.utils.coreutils import get_content_type_label
+from wagtail.utils.misc import cautious_slugify as _cautious_slugify
+from wagtail.utils.misc import get_content_type_label
 from wagtail.utils.staticfiles import versioned_static as versioned_static_func
 from wagtail.utils.telepath import JSContext
 

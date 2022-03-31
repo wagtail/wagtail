@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 import wagtail.utils.i18n
 import wagtail.utils.text
 from wagtail.models import Page, Site
-from wagtail.utils.coreutils import (
+from wagtail.utils.misc import (
     accepts_kwarg,
     find_available_slug,
     get_dummy_request,

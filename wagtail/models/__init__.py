@@ -72,8 +72,8 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.utils.copying import _copy, _copy_m2m_relations
-from wagtail.utils.coreutils import WAGTAIL_APPEND_SLASH
 from wagtail.utils.log_actions import log
+from wagtail.utils.misc import WAGTAIL_APPEND_SLASH
 from wagtail.utils.treebeard import TreebeardPathFixMixin
 from wagtail.utils.url_routing import RouteResult
 

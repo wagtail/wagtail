@@ -16,8 +16,8 @@ from wagtail.admin.filters import (
     WagtailFilterSet,
 )
 from wagtail.models import PageLogEntry
-from wagtail.utils.coreutils import get_content_type_label
 from wagtail.utils.log_actions import registry as log_action_registry
+from wagtail.utils.misc import get_content_type_label
 
 from .base import ReportView
 

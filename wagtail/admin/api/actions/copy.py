@@ -8,7 +8,7 @@ from rest_framework.serializers import Serializer
 from wagtail.actions.copy_page import CopyPageAction, CopyPageIntegrityError
 from wagtail.api.v2.utils import BadRequestError
 from wagtail.models import Page
-from wagtail.utils.coreutils import find_available_slug
+from wagtail.utils.misc import find_available_slug
 
 from .base import APIAction
 

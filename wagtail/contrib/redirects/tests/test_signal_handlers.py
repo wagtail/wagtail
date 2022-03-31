@@ -7,7 +7,7 @@ from wagtail.models import Page, Site
 from wagtail.test.routablepage.models import RoutablePageTest
 from wagtail.test.testapp.models import EventIndex
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.utils.coreutils import get_dummy_request
+from wagtail.utils.misc import get_dummy_request
 
 User = get_user_model()
 

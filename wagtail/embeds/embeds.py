@@ -3,7 +3,7 @@ from hashlib import md5
 
 from django.utils.timezone import now
 
-from wagtail.utils.coreutils import accepts_kwarg
+from wagtail.utils.misc import accepts_kwarg
 
 from .exceptions import EmbedUnsupportedProviderException
 from .finders import get_finders
