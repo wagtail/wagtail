@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Portal, initUpgradeNotification } from '../..';
-import { initActionsDropdown, initTooltips } from './page-editor-tooltips';
+import { initActionsDropdown, initTooltips } from './tippy-tooltips';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance

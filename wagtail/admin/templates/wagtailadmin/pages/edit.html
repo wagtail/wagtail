@@ -88,7 +88,7 @@
             {{ edit_handler.render_form_content }}
 
             {% if is_revision %}
-                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}"/>
+                <input type="hidden" name="revision" value="{{ revision.id|unlocalize }}" />
             {% endif %}
 
             <footer class="footer">
@@ -166,7 +166,7 @@
             window.wagtailConfig.ACTIVE_CONTENT_LOCALE = '{{ locale.language_code|escapejs }}';
         {% endif %}
 
-        $(function () {
+        $(function() {
             {% if publishing_will_cancel_workflow %}
                 /* Make user confirm before publishing the page if it will cancel an ongoing workflow */
                 let cancellationConfirmed = false;
@@ -177,7 +177,7 @@
                         ModalWorkflow({
                             'url': "{% url 'wagtailadmin_pages:confirm_workflow_cancellation' page.id %}",
                             'onload': {
-                                'confirm': function (modal, jsonData) {
+                                'confirm': function(modal, jsonData) {
                                     $('[data-confirm-cancellation]', modal.body).click((event) => {
                                         cancellationConfirmed = true;
                                         modal.close();
@@ -187,7 +187,7 @@
                                         modal.close();
                                     })
                                 },
-                                'no_confirmation_needed': function (modal, jsonData) {
+                                'no_confirmation_needed': function(modal, jsonData) {
                                     modal.close();
                                     cancellationConfirmed = true;
                                     e.currentTarget.click();
@@ -217,7 +217,7 @@
             /* Tooltips used by the workflow status component */
             $('[data-wagtail-tooltip]').tooltip({
                 animation: false,
-                title: function () {
+                title: function() {
                     return $(this).attr('data-wagtail-tooltip');
                 },
                 trigger: 'hover',
@@ -226,6 +226,7 @@
 
             ActivateWorkflowActionsForEditView('#page-edit-form');
             LockUnlockAction('{{ csrf_token|escapejs }}', '{% url 'wagtailadmin_pages:edit' page.id %}');
+
             {% get_comments_enabled as comments_enabled %}
             {% if comments_enabled %}
                 // Initialise comments UI

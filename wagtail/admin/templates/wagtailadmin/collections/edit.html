@@ -2,7 +2,7 @@
 {% load wagtailadmin_tags %}
 
 {% block before_form %}
-    {% include "wagtailadmin/collections/_privacy_switch.html" with show_label=True collection=object collection_perms=collection_perms only %}
+    {% include "wagtailadmin/collections/_privacy_switch.html" with collection=object collection_perms=collection_perms only %}
 {% endblock %}
 
 {% block extra_js %}

@@ -50,15 +50,6 @@ https://tailwindcss.com/docs/adding-custom-styles#using-css-and-layer
 @tailwind base;
 @tailwind components;
 
-// Reset border styles so tailwinds default border class works as expected
-// https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
-*,
-::before,
-::after {
-  border-width: 0;
-  border-style: solid;
-}
-
 /* SETTINGS
 These are variables, maps, and fonts.
 * No CSS should be produced by these files
@@ -158,6 +149,7 @@ These are classes that provide overrides.
 @import 'overrides/vendor.datetimepicker';
 @import 'overrides/vendor.tagit';
 @import 'overrides/vendor.tippy';
+@import 'overrides/vendor.tailwind-preflight';
 
 // UTILITIES: classes that do one simple thing.
 @import 'overrides/utilities.hidden';

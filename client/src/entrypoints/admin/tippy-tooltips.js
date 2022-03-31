@@ -25,8 +25,5 @@ export function initActionsDropdown() {
     trigger: 'click',
     interactive: true,
     theme: 'dropdown',
-    // hideOnClick: false, // Only for debugging with dev tools
   });
-
-  // tippyDropdown.show();
 }

@@ -38,7 +38,6 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             return ["wagtailadmin/pages/edit_alias.html"]
 
         else:
-            # return ["wagtailadmin/pages/edit_old.html"]
             return ["wagtailadmin/pages/edit.html"]
 
     def add_legacy_moderation_warning(self):

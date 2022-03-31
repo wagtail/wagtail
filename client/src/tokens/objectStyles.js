@@ -8,7 +8,7 @@ const borderRadius = {
 
 // If adding new values, use numerical naming.
 const borderWidth = {
-  DEFAULT: '1px', // 1px
+  DEFAULT: '0.0625rem', // 1px
   0: '0',
 };
 

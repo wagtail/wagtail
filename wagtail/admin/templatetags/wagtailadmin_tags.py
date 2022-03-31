@@ -571,7 +571,7 @@ def page_header_buttons(context, page, page_perms):
         "page": page,
         "buttons": buttons,
         "title": "Secondary actions menu",
-        "button_classes": [],
+        "button_classes": ["c-dropdown__icon"],
     }
 
 
