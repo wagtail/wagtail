@@ -1,4 +1,35 @@
 {% load wagtailadmin_tags i18n %}
+
+<div>
+    <div role="tablist"
+        class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit"
+        data-tab-nav
+        data-current-tab="{{ self.children.0.heading|cautious_slugify }}"
+    >
+        {% for child in self.children %}
+            <a href="#tab-{{ child.heading|cautious_slugify }}"
+                class="{{ child.classes|join:" " }} w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %}active after:w-w-full w-text-primary{% endif %} "
+                role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
+                data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="tab-content">
+        {% for child in self.children %}
+            <section id="tab-{{ child.heading|cautious_slugify }}"
+                class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}"
+                role="tabpanel"
+                aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
+                data-tab="{{ child.heading|cautious_slugify }}">
+                {{ child.render_as_object }}
+            </section>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% comment %}
 <div class="tab-nav merged">
     <ul data-tab-nav role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
         {% for child in self.children %}
@@ -24,8 +55,10 @@
 
 <div class="tab-content">
     {% for child in self.children %}
-        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
+        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel"
+                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
             {{ child.render_as_object }}
         </section>
     {% endfor %}
 </div>
+{% endcomment %}
