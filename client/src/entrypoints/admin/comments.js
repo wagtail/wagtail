@@ -337,7 +337,7 @@ window.comments = (() => {
         commentApp.store.getState(),
       );
 
-      // If comment counter elemnt doesn't exist don't try to update innerText
+      // If comment counter element doesn't exist don't try to update innerText
       if (!commentCounter) {
         return;
       }
