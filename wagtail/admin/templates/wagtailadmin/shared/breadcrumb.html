@@ -2,7 +2,7 @@
 
 {% if use_new_template %}
     {% comment %} A new breadcrumb template for wagtail ui updates {% endcomment %}
-    {% include 'wagtailadmin/shared/breadcrumb-next.html' %}
+    {% include 'wagtailadmin/shared/breadcrumb-next.html' with trailing_breadcrumb_title=trailing_breadcrumb_title %}
 {% else %}
     <nav aria-label="{% trans 'Breadcrumb' %}">
         <ul class="breadcrumb">

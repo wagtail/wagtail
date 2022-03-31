@@ -1,0 +1,19 @@
+{% load wagtailadmin_tags i18n %}
+{# Z index 99 to ensure header is always above  #}
+<header class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-mb-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
+
+    {# Title and breadcrumbs button #}
+    {# Padding left on mobile to give space for navigation toggle, #}
+    <div class="w-pl-[50px] w-w-full sm:w-max-w-[80%] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
+        <div class="w-flex w-flex-row w-justify-start w-items-center w-w-full">
+            {% block left %}
+            {% endblock %}
+        </div>
+    </div>
+
+
+    <div class="w-overflow-y-hidden w-w-full w-flex w-flex-1 sm:w-flex-nowrap sm:w-flex-row w-items-center w-justify-start w-pl-4 w-gap-4 sm:w-gap-0 w-py-4 w-px-4 sm:w-py-0 sm:w-justify-end w-pr-4 w-box-border">
+        {% block actions %}
+        {% endblock %}
+    </div>
+</header>

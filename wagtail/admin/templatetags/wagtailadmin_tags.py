@@ -92,6 +92,7 @@ def explorer_breadcrumb(
     trailing_arrow=False,
     show_header_buttons=False,
     use_new_template=False,
+    trailing_breadcrumb_title=None,
 ):
     user = context["request"].user
 
@@ -110,6 +111,7 @@ def explorer_breadcrumb(
         "trailing_arrow": trailing_arrow,
         "show_header_buttons": show_header_buttons,
         "use_new_template": use_new_template,
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
     }
 
 

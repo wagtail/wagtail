@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-{% with breadcrumb_link_classes='w-flex w-justify-start w-items-center w-text-grey-600 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary' breadcrumb_list_classes='w-overflow-hidden w-max-w-0 w-transition-all w-duration-300 w-whitespace-nowrap w-flex-shrink-0' icon_classes='w-w-4 w-h-4 w-mr-3' %}
+{% with breadcrumb_link_classes='w-flex w-justify-start w-items-center w-text-grey-600 w-no-underline w-outline-offset-inside hover:w-underline hover:w-text-primary' breadcrumb_list_classes='w-overflow-hidden w-transition w-duration-300 w-whitespace-nowrap w-flex-shrink-0' icon_classes='w-w-4 w-h-4 w-mr-3' %}
     {# Breadcrumbs are visible on mobile by default but hidden on desktop #}
     <button data-toggle-breadcrumbs  {# handled in page-editor.js #}
         class="w-box-border w-ml-0 w-p-4 w-h-full w-bg-transparent w-text-grey-400 w-transition hover:w-scale-110 hover:w-text-primary w-outline-offset-inside"
@@ -17,7 +17,7 @@
                 {% for page in pages %}
                     {% if page.is_root %}
                         {# Root section is shown as a 'site' icon in place of the title #}
-                        <li class="{{ breadcrumb_list_classes }}" data-breadcrumb-link hidden>
+                        <li class="{{ breadcrumb_list_classes }} w-max-w-0" data-breadcrumb-link hidden>
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore_root' %}" tabindex="0">
                                 {% trans "Root" %}
                             </a>
@@ -25,30 +25,40 @@
                     {% elif forloop.first %}
                         {# For limited-permission users whose breadcrumb starts further down from the root, the first item displays as a 'home' icon in place of the title #}
                         {% trans 'Home' as home %}
-                        <li class="{{ breadcrumb_list_classes }}" data-breadcrumb-link hidden>
+                        <li class="{{ breadcrumb_list_classes }} w-max-w-0" data-breadcrumb-link hidden>
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
                                 {% icon name="site" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}
                             </a>
                         </li>
                     {% elif forloop.last %}
-                        <li class="w-whitespace-nowrap w-flex-shrink-0">
-                            <a class="{{ breadcrumb_link_classes }} w-font-bold !w-text-primary" href="{% url 'wagtailadmin_explore' page.id %}">
+                        <li class="{{ breadcrumb_list_classes }}" {% if trailing_breadcrumb_title %} data-breadcrumb-link hidden {% endif %}>
+                            <a class="{{ breadcrumb_link_classes }} {% if not trailing_breadcrumb_title %} w-font-bold !w-text-primary {% endif %}" href="{% url 'wagtailadmin_explore' page.id %}">
                                 {% icon name="arrow-right" class_name=icon_classes %}
-                                <span class="title">{{ page.get_admin_display_title }}</span>
+                                <span>{{ page.get_admin_display_title }}</span>
                             </a>
                         </li>
+                        {# use this for a non linkable last breadcrumb #}
+                        {% if trailing_breadcrumb_title %}
+                            <li class={{ breadcrumb_list_classes }}>
+                                <div class="w-flex w-justify-start w-items-center">
+                                    {% icon name="arrow-right" class_name=icon_classes %}
+                                    <span class="w-font-bold !w-text-primary">{{ trailing_breadcrumb_title }}</span>
+                                </div>
+                            </li>
+                        {% endif %}
                     {% else %}
-                        <li class="{{ breadcrumb_list_classes }}" data-breadcrumb-link hidden>
+                        <li class="{{ breadcrumb_list_classes }}  w-max-w-0" data-breadcrumb-link hidden>
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
                                 {% icon name="arrow-right" class_name=icon_classes %}
-                                <span class="title">{{ page.get_admin_display_title }}</span>
+                                <span>{{ page.get_admin_display_title }}</span>
                             </a>
                         </li>
                     {% endif %}
                 {% endfor %}
             </ul>
-
         </nav>
+
+        {# Fade out gradient element when breadcrumbs scroll #}
         <div class="w-absolute w-top-0 w-right-0 w-w-4 w-h-full w-bg-gradient-to-l w-from-grey-50 w-to-transparent"></div>
     </div>
 
