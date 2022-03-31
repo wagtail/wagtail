@@ -22,15 +22,6 @@ header {
     }
   }
 
-  .homepage & {
-    @apply w-text-primary;
-
-    h1,
-    .user-name {
-      @apply w-text-primary;
-    }
-  }
-
   .col {
     float: left;
     margin-inline-end: 2em;

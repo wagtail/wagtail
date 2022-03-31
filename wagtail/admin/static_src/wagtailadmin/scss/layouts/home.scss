@@ -26,7 +26,7 @@ header {
 
   h1,
   .user-name {
-    color: $color-white;
+    @apply w-text-primary;
   }
 
   .user-name {
