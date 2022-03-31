@@ -1,7 +1,6 @@
 import functools
 import inspect
 import logging
-import re
 from typing import TYPE_CHECKING, Any, Dict, Iterable, Union
 
 from django.conf import settings
@@ -18,18 +17,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 WAGTAIL_APPEND_SLASH = getattr(settings, "WAGTAIL_APPEND_SLASH", True)
-
-
-SCRIPT_RE = re.compile(r"<(-*)/script>")
-
-
-def escape_script(text):
-    """
-    Escape `</script>` tags in 'text' so that it can be placed within a `<script>` block without
-    accidentally closing it. A '-' character will be inserted for each time it is escaped:
-    `<-/script>`, `<--/script>` etc.
-    """
-    return SCRIPT_RE.sub(r"<-\1/script>", text)
 
 
 def get_content_type_label(content_type):

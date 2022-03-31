@@ -44,7 +44,7 @@ from wagtail.models import (
 )
 from wagtail.users.utils import get_gravatar_url
 from wagtail.utils.coreutils import cautious_slugify as _cautious_slugify
-from wagtail.utils.coreutils import escape_script, get_content_type_label
+from wagtail.utils.coreutils import get_content_type_label
 from wagtail.utils.staticfiles import versioned_static as versioned_static_func
 from wagtail.utils.telepath import JSContext
 
@@ -311,7 +311,7 @@ class EscapeScriptNode(template.Node):
 
     def render(self, context):
         out = self.nodelist.render(context)
-        return escape_script(out)
+        return wagtail.utils.text.escape_script(out)
 
     @classmethod
     def handle(cls, parser, token):
