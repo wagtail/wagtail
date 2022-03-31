@@ -313,16 +313,16 @@ window.comments = (() => {
       if (visible) {
         commentToggle.classList.add('w-text-primary');
         tabContentElement.classList.add('tab-content--comments-enabled');
-        commentNotifications.classList.remove('w-hidden');
+        commentNotifications.hidden = false;
       } else {
         commentToggle.classList.remove('w-text-primary');
         tabContentElement.classList.remove('tab-content--comments-enabled');
-        commentNotifications.classList.add('w-hidden');
+        commentNotifications.hidden = true;
       }
     };
 
     if (commentToggle) {
-      commentToggle.addEventListener('click', (e) => {
+      commentToggle.addEventListener('click', () => {
         commentsActive = !commentsActive;
         updateCommentVisibility(commentsActive);
       });

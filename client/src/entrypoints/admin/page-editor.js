@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/cleanForSlug';
+import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
@@ -278,93 +279,6 @@ function initKeyboardShortcuts() {
 
 window.initKeyboardShortcuts = initKeyboardShortcuts;
 
-function initHiddenBreadcrumbs() {
-  const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
-  const breadcrumbLinks = [
-    ...document.querySelectorAll('[data-breadcrumb-link]'),
-  ];
-
-  const cssClass = {
-    hidden: 'w-hidden',
-    maxWidth: 'w-max-w-4xl', // Setting this allows the breadcrumb to animate to this width
-  };
-
-  // Local state
-  let open = false;
-  let mouseExitedToggle = true;
-
-  function hideBreadcrumbs() {
-    breadcrumbLinks.forEach((breadcrumb, index) => {
-      setTimeout(() => {
-        breadcrumb.classList.remove(cssClass.maxWidth);
-
-        setTimeout(() => {
-          breadcrumb.classList.add(cssClass.hidden);
-        }, 10);
-      }, index * 10);
-    });
-
-    breadcrumbsToggle.setAttribute('aria-expanded', false);
-    // Change Icon to dots
-    breadcrumbsToggle
-      .querySelector('svg use')
-      .setAttribute('href', '#icon-dots-horizontal');
-    open = false;
-  }
-
-  function showBreadcrumbs() {
-    breadcrumbLinks.forEach((breadcrumb, index) => {
-      setTimeout(() => {
-        breadcrumb.classList.remove(cssClass.hidden);
-
-        setTimeout(() => {
-          breadcrumb.classList.add(cssClass.maxWidth);
-        }, 50);
-      }, index * 10);
-    });
-    breadcrumbsToggle.setAttribute('aria-expanded', true);
-    // Change Icon to cross
-    breadcrumbsToggle
-      .querySelector('svg use')
-      .setAttribute('href', '#icon-cross');
-    open = true;
-  }
-
-  // Events
-  breadcrumbsToggle.addEventListener('click', () => {
-    if (!open) {
-      showBreadcrumbs();
-    } else {
-      mouseExitedToggle = false;
-      hideBreadcrumbs();
-    }
-  });
-
-  breadcrumbsToggle.addEventListener('mouseenter', () => {
-    // If menu is open or the mouse hasn't exited button zone do nothing
-    if (open || !mouseExitedToggle) {
-      return;
-    }
-
-    open = true;
-    // Set mouse exited so mouseover doesn't restart until mouse leaves
-    mouseExitedToggle = false;
-    showBreadcrumbs();
-  });
-
-  breadcrumbsToggle.addEventListener('mouseleave', () => {
-    mouseExitedToggle = true;
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      hideBreadcrumbs();
-    }
-  });
-}
-
-window.initHiddenBreadcrumbs = initHiddenBreadcrumbs;
-
 $(() => {
   /* Only non-live pages should auto-populate the slug from the title */
   if (!$('body').hasClass('page-is-live')) {
@@ -374,7 +288,7 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
-  initHiddenBreadcrumbs();
+  initCollapsibleBreadcrumbs();
 
   //
   // Preview

@@ -12,6 +12,11 @@
   }
 }
 
+// Tis to beat specificity
+.comments-controls[hidden] {
+  display: none;
+}
+
 .comment-notifications-toggle {
   label {
     padding: 0;

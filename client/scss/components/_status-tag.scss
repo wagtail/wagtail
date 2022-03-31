@@ -49,3 +49,9 @@ button.status-tag:hover {
   background-color: $color-teal-darker;
   color: $color-white;
 }
+
+// Special case for text-transform: uppercase.
+.page-status-tag {
+  // stylelint-disable-next-line property-disallowed-list
+  text-transform: uppercase;
+}
