@@ -6,16 +6,13 @@ from django.utils.translation import _trans
 from django.utils.translation import gettext_lazy as _
 
 import wagtail.utils.i18n
+import wagtail.utils.text
 from wagtail.models import Page, Site
 from wagtail.utils.coreutils import (
     accepts_kwarg,
-    camelcase_to_underscore,
-    cautious_slugify,
     find_available_slug,
     get_dummy_request,
     multigetattr,
-    safe_snake_case,
-    string_to_ascii,
 )
 
 
@@ -27,7 +24,9 @@ class TestCamelCaseToUnderscore(TestCase):
         ]
 
         for (original, expected_result) in test_cases:
-            self.assertEqual(camelcase_to_underscore(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.camelcase_to_underscore(original), expected_result
+            )
 
 
 class TestStringToAscii(TestCase):
@@ -48,7 +47,9 @@ class TestStringToAscii(TestCase):
         ]
 
         for (original, expected_result) in test_cases:
-            self.assertEqual(string_to_ascii(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.string_to_ascii(original), expected_result
+            )
 
 
 class TestCautiousSlugify(TestCase):
@@ -68,7 +69,9 @@ class TestCautiousSlugify(TestCase):
 
         for (original, expected_result) in test_cases:
             self.assertEqual(slugify(original), expected_result)
-            self.assertEqual(cautious_slugify(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.cautious_slugify(original), expected_result
+            )
 
     def test_escapes_non_latin_chars(self):
         test_cases = [
@@ -78,7 +81,9 @@ class TestCautiousSlugify(TestCase):
         ]
 
         for (original, expected_result) in test_cases:
-            self.assertEqual(cautious_slugify(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.cautious_slugify(original), expected_result
+            )
 
 
 class TestSafeSnakeCase(TestCase):
@@ -107,7 +112,9 @@ class TestSafeSnakeCase(TestCase):
         ]
 
         for (original, expected_result) in test_cases:
-            self.assertEqual(safe_snake_case(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.safe_snake_case(original), expected_result
+            )
 
     def test_strings_with__non_latin_chars(self):
         test_cases = [
@@ -116,7 +123,9 @@ class TestSafeSnakeCase(TestCase):
         ]
 
         for (original, expected_result) in test_cases:
-            self.assertEqual(safe_snake_case(original), expected_result)
+            self.assertEqual(
+                wagtail.utils.text.safe_snake_case(original), expected_result
+            )
 
 
 class TestAcceptsKwarg(TestCase):

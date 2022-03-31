@@ -19,6 +19,7 @@ from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
 from willow.image import Image as WillowImage
 
+import wagtail.utils.text
 from wagtail import hooks
 from wagtail.admin.models import get_object_usage
 from wagtail.images.exceptions import InvalidFilterSpecError
@@ -31,7 +32,6 @@ from wagtail.images.rect import Rect
 from wagtail.models import CollectionMember
 from wagtail.search import index
 from wagtail.search.queryset import SearchableQuerySetMixin
-from wagtail.utils.coreutils import string_to_ascii
 
 logger = logging.getLogger("wagtail.images")
 
@@ -190,7 +190,8 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         # do a unidecode in the filename and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
         filename = "".join(
-            (i if ord(i) < 128 else "_") for i in string_to_ascii(filename)
+            (i if ord(i) < 128 else "_")
+            for i in wagtail.utils.text.string_to_ascii(filename)
         )
 
         # Truncate filename so it fits in the 100 character limit

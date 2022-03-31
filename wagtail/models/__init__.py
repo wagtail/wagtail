@@ -47,6 +47,7 @@ from treebeard.mp_tree import MP_Node
 
 import wagtail.utils.i18n
 import wagtail.utils.models
+import wagtail.utils.text
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
 from wagtail.actions.create_alias import CreatePageAliasAction
@@ -71,7 +72,7 @@ from wagtail.signals import (
     workflow_submitted,
 )
 from wagtail.utils.copying import _copy, _copy_m2m_relations
-from wagtail.utils.coreutils import WAGTAIL_APPEND_SLASH, camelcase_to_underscore
+from wagtail.utils.coreutils import WAGTAIL_APPEND_SLASH
 from wagtail.utils.log_actions import log
 from wagtail.utils.treebeard import TreebeardPathFixMixin
 from wagtail.utils.url_routing import RouteResult
@@ -145,7 +146,7 @@ class PageBase(models.base.ModelBase):
             # Define a default template path derived from the app name and model name
             cls.template = "%s/%s.html" % (
                 cls._meta.app_label,
-                camelcase_to_underscore(name),
+                wagtail.utils.text.camelcase_to_underscore(name),
             )
 
         if "ajax_template" not in dct:

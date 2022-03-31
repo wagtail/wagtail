@@ -1,8 +1,8 @@
 from django.contrib.contenttypes.models import ContentType
 
+import wagtail.utils.text
 from wagtail import hooks
 from wagtail.models import UserPagePermissionsProxy, get_page_models
-from wagtail.utils.coreutils import safe_snake_case
 
 _FORM_CONTENT_TYPES = None
 
@@ -12,7 +12,7 @@ def get_field_clean_name(label):
     Converts a user entered field label to a template and JSON safe ascii value to be used
     as the internal key (clean name) for the field.
     """
-    return safe_snake_case(label)
+    return wagtail.utils.text.safe_snake_case(label)
 
 
 def get_form_types():

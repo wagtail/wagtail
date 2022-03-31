@@ -17,13 +17,13 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
 from modelcluster.models import get_serializable_data_for_fields
 
+import wagtail.utils.text
 from wagtail.admin import compare
 from wagtail.admin.forms.comments import CommentForm, CommentReplyForm
 from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_display_name
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
 from wagtail.models import COMMENTS_RELATION_NAME, Page
-from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
@@ -614,7 +614,9 @@ class FieldPanel(Panel):
         return classes
 
     def field_type(self):
-        return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
+        return wagtail.utils.text.camelcase_to_underscore(
+            self.bound_field.field.__class__.__name__
+        )
 
     def id_for_label(self):
         return self.bound_field.id_for_label

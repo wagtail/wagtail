@@ -11,8 +11,8 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
 import wagtail.utils.models
+import wagtail.utils.text
 from wagtail.rich_text import RichText, get_text_for_indexing
-from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.staticfiles import versioned_static
 from wagtail.utils.telepath import Adapter, register
 
@@ -83,8 +83,11 @@ class FieldBlockAdapter(Adapter):
     def js_args(self, block):
         classname = [
             "field",
-            camelcase_to_underscore(block.field.__class__.__name__),
-            "widget-" + camelcase_to_underscore(block.field.widget.__class__.__name__),
+            wagtail.utils.text.camelcase_to_underscore(block.field.__class__.__name__),
+            "widget-"
+            + wagtail.utils.text.camelcase_to_underscore(
+                block.field.widget.__class__.__name__
+            ),
             "fieldname-" + block.name,
         ]
 

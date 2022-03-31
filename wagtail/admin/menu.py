@@ -3,10 +3,10 @@ from django.forms.utils import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+import wagtail.utils.text
 from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
 from wagtail.admin.ui.sidebar import SubMenuItem as SubMenuItemComponent
-from wagtail.utils.coreutils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):
@@ -19,7 +19,7 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.url = url
         self.classnames = classnames
         self.icon_name = icon_name
-        self.name = name or cautious_slugify(str(label))
+        self.name = name or wagtail.utils.text.cautious_slugify(str(label))
         self.order = order
 
         if attrs:

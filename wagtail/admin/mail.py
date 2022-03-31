@@ -7,10 +7,10 @@ from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.translation import override
 
+import wagtail.utils.text
 from wagtail.admin.auth import users_with_page_permission
 from wagtail.models import GroupApprovalTask, TaskState, WorkflowState
 from wagtail.users.models import UserProfile
-from wagtail.utils.coreutils import camelcase_to_underscore
 
 logger = logging.getLogger("wagtail.admin")
 
@@ -174,7 +174,7 @@ class Notifier:
         return set()
 
     def get_template_base_prefix(self, instance, **kwargs):
-        return camelcase_to_underscore(type(instance).__name__) + "_"
+        return wagtail.utils.text.camelcase_to_underscore(type(instance).__name__) + "_"
 
     def get_context(self, instance, **kwargs):
         return {"settings": settings}

@@ -4,6 +4,8 @@
 import os.path
 from mimetypes import guess_type
 
+import wagtail.utils.text
+
 VERSION = (0, 3, 6)
 __version__ = ".".join(map(str, VERSION))
 
@@ -89,7 +91,7 @@ def sendfile(
         from wagtail.utils.coreutils import string_to_ascii
 
         attachment_filename = force_str(attachment_filename)
-        ascii_filename = string_to_ascii(attachment_filename)
+        ascii_filename = wagtail.utils.text.string_to_ascii(attachment_filename)
         parts.append('filename="%s"' % ascii_filename)
 
         if ascii_filename != attachment_filename:

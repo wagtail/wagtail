@@ -24,6 +24,7 @@ from django.utils.timesince import timesince
 from django.utils.translation import gettext_lazy as _
 
 import wagtail.utils.i18n
+import wagtail.utils.text
 from wagtail import hooks
 from wagtail.admin.localization import get_js_translation_strings
 from wagtail.admin.menu import admin_menu
@@ -42,7 +43,6 @@ from wagtail.models import (
     UserPagePermissionsProxy,
 )
 from wagtail.users.utils import get_gravatar_url
-from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.coreutils import cautious_slugify as _cautious_slugify
 from wagtail.utils.coreutils import escape_script, get_content_type_label
 from wagtail.utils.staticfiles import versioned_static as versioned_static_func
@@ -173,10 +173,14 @@ def ellipsistrim(value, max_length):
 @register.filter
 def fieldtype(bound_field):
     try:
-        return camelcase_to_underscore(bound_field.field.__class__.__name__)
+        return wagtail.utils.text.camelcase_to_underscore(
+            bound_field.field.__class__.__name__
+        )
     except AttributeError:
         try:
-            return camelcase_to_underscore(bound_field.__class__.__name__)
+            return wagtail.utils.text.camelcase_to_underscore(
+                bound_field.__class__.__name__
+            )
         except AttributeError:
             return ""
 
@@ -184,10 +188,14 @@ def fieldtype(bound_field):
 @register.filter
 def widgettype(bound_field):
     try:
-        return camelcase_to_underscore(bound_field.field.widget.__class__.__name__)
+        return wagtail.utils.text.camelcase_to_underscore(
+            bound_field.field.widget.__class__.__name__
+        )
     except AttributeError:
         try:
-            return camelcase_to_underscore(bound_field.widget.__class__.__name__)
+            return wagtail.utils.text.camelcase_to_underscore(
+                bound_field.widget.__class__.__name__
+            )
         except AttributeError:
             return ""
 
