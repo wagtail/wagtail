@@ -13,7 +13,7 @@ class Button:
     show = True
 
     def __init__(
-        self, label, url, classes=set(), icon_name="", attrs={}, priority=1000
+        self, label, url, classes=set(), icon_name=None, attrs={}, priority=1000
     ):
         self.label = label
         self.url = url
