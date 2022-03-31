@@ -321,10 +321,12 @@ window.comments = (() => {
       }
     };
 
-    commentToggle.addEventListener('click', (e) => {
-      commentsActive = !commentsActive;
-      updateCommentVisibility(commentsActive);
-    });
+    if (commentToggle) {
+      commentToggle.addEventListener('click', (e) => {
+        commentsActive = !commentsActive;
+        updateCommentVisibility(commentsActive);
+      });
+    }
 
     // Keep number of comments up to date with comment app
     const commentCounter = document.querySelector(

@@ -57,11 +57,13 @@ $(() => {
             $('.privacy-indicator-tag')
               .addClass('u-hidden')
               .attr('aria-hidden', 'true');
+            $('.privacy-indicator-icon use').attr('href', '#icon-view');
           } else {
             $('.privacy-indicator').removeClass('public').addClass('private');
             $('.privacy-indicator-tag')
               .removeClass('u-hidden')
               .attr('aria-hidden', 'false');
+            $('.privacy-indicator-icon use').attr('href', '#icon-no-view');
           }
         },
       },

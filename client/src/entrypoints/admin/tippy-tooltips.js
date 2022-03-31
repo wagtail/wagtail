@@ -10,18 +10,18 @@ export function initTooltips() {
 /**
  Actions Dropdown
  */
-export function initActionsDropdown() {
-  const pageEditorActionsDropdown = document.querySelector(
-    '[data-page-editor-actions-dropdown]',
+export function initButtonWithDropdown() {
+  const buttonWithDropdownMenu = document.querySelector(
+    '[data-button-with-dropdown-menu]',
   );
-  const pageEditorActionsButton = document.querySelector(
-    '[data-page-editor-actions-button]',
+  const buttonWithDropdownToggle = document.querySelector(
+    '[data-button-with-dropdown-toggle]',
   );
 
-  pageEditorActionsDropdown.style.display = 'block';
+  buttonWithDropdownMenu.style.display = 'block';
 
-  const tippyDropdown = tippy(pageEditorActionsButton, {
-    content: pageEditorActionsDropdown,
+  tippy(buttonWithDropdownToggle, {
+    content: buttonWithDropdownMenu,
     trigger: 'click',
     interactive: true,
     theme: 'dropdown',

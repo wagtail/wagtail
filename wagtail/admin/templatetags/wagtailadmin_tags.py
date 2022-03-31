@@ -570,8 +570,9 @@ def page_header_buttons(context, page, page_perms):
     return {
         "page": page,
         "buttons": buttons,
-        "title": "Secondary actions menu",
-        "button_classes": ["c-dropdown__icon"],
+        "title": "Actions",
+        "icon_name": "ellipsis-v",
+        "button_classes": [],
     }
 
 

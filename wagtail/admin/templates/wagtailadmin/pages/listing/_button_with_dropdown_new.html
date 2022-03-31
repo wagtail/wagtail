@@ -1,13 +1,13 @@
 {% load wagtailadmin_tags i18n %}
 
 <div {{ self.attrs }} class="w-flex w-justify-center w-items-center {{ classes|join:' ' }}">
-    <button class="w-p-0 w-text-primary w-bg-transparent hover:w-scale-110 w-transition {{ button_classes|join:' ' }}" data-page-editor-actions-button>
+    <button class="w-p-0 w-text-primary w-bg-transparent hover:w-scale-110 w-transition {{ button_classes|join:' ' }}" data-button-with-dropdown-toggle>
         <span class="w-sr-only">{{ title }}</span>
-        {% icon name="ellipsis-v" class_name='w-w-5 w-h-5' %}
+        {% icon name=icon_name class_name='w-w-5 w-h-5' %}
     </button>
 
-    <div data-page-editor-actions-dropdown class="w-hidden w-p-0">
-        <nav class="w-text-white w-flex w-flex-col w-justify-start w-py-4 w-font-bold" aria-label="{% trans 'Actions' %}">
+    <div data-button-with-dropdown-menu class="w-hidden w-p-0">
+        <nav class="w-text-white w-flex w-flex-col w-justify-start w-py-4 w-font-bold" aria-label="{{ title }}">
             {% for button in buttons %}
                 <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}"
                     class="w-group w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-4 w-px-8 w-no-underline w-transition {{ button.classes|join:' ' }}">
