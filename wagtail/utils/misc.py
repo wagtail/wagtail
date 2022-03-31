@@ -1,3 +1,4 @@
+import collections
 import functools
 import inspect
 import logging
@@ -8,6 +9,21 @@ from django.core.exceptions import SuspiciousOperation
 from django.core.signals import setting_changed
 from django.dispatch import receiver
 from django.http import HttpRequest
+
+
+def deep_update(source, overrides):
+    """Update a nested dictionary or similar mapping.
+
+    Modify ``source`` in place.
+    """
+    for key, value in overrides.items():
+        if isinstance(value, collections.Mapping) and value:
+            returned = deep_update(source.get(key, {}), value)
+            source[key] = returned
+        else:
+            source[key] = overrides[key]
+    return source
+
 
 if TYPE_CHECKING:
     from wagtail.models import Site

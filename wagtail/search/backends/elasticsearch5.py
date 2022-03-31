@@ -10,6 +10,7 @@ from django.utils.crypto import get_random_string
 from elasticsearch import Elasticsearch, NotFoundError
 from elasticsearch.helpers import bulk
 
+import wagtail.utils.misc
 from wagtail.search.backends.base import (
     BaseSearchBackend,
     BaseSearchQueryCompiler,
@@ -25,7 +26,6 @@ from wagtail.search.index import (
     class_is_indexed,
 )
 from wagtail.search.query import And, Boost, MatchAll, Not, Or, Phrase, PlainText
-from wagtail.utils.utils import deep_update
 
 
 def get_model_root(model):
@@ -1120,7 +1120,9 @@ class Elasticsearch5SearchBackend(BaseSearchBackend):
         self.settings = copy.deepcopy(
             self.settings
         )  # Make the class settings attribute as instance settings attribute
-        self.settings = deep_update(self.settings, params.pop("INDEX_SETTINGS", {}))
+        self.settings = wagtail.utils.misc.deep_update(
+            self.settings, params.pop("INDEX_SETTINGS", {})
+        )
 
         # Get Elasticsearch interface
         # Any remaining params are passed into the Elasticsearch constructor
