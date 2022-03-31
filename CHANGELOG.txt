@@ -7,6 +7,7 @@ Changelog
  * Update Jinja2 template support for Jinja2 3.x (Seb Brown)
  * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
  * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
 
 
 2.16.1 (11.02.2022)
@@ -76,6 +77,12 @@ Changelog
  * Fix: Prevent opening choosers multiple times for Image, Page, Document, Snippet (LB (Ben Johnston))
  * Fix: Ensure subsequent changes to styles files are picked up by Gulp watch (Jason Attwood)
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
+
+
+2.15.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
 
 
 2.15.4 (11.02.2022)
