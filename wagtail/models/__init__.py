@@ -45,6 +45,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from treebeard.mp_tree import MP_Node
 
+import wagtail.utils.models
 from wagtail.actions.copy_for_translation import CopyPageForTranslationAction
 from wagtail.actions.copy_page import CopyPageAction
 from wagtail.actions.create_alias import CreatePageAliasAction
@@ -52,7 +53,6 @@ from wagtail.actions.delete_page import DeletePageAction
 from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
-from wagtail.fields import StreamField
 from wagtail.forms import TaskStateCommentForm
 from wagtail.query import PageQuerySet
 from wagtail.search import index
@@ -69,47 +69,19 @@ from wagtail.signals import (
     workflow_rejected,
     workflow_submitted,
 )
-from wagtail.utils.copying import (  # noqa
-    _copy,
-    _copy_m2m_relations,
-    _extract_field_data,
-)
+from wagtail.utils.copying import _copy, _copy_m2m_relations
 from wagtail.utils.coreutils import (
     WAGTAIL_APPEND_SLASH,
     camelcase_to_underscore,
     get_supported_content_language_variant,
-    resolve_model_string,
 )
 from wagtail.utils.log_actions import log
 from wagtail.utils.treebeard import TreebeardPathFixMixin
 from wagtail.utils.url_routing import RouteResult
 
-from .audit_log import (  # noqa
-    BaseLogEntry,
-    BaseLogEntryManager,
-    LogEntryQuerySet,
-    ModelLogEntry,
-)
-from .collections import (  # noqa
-    BaseCollectionManager,
-    Collection,
-    CollectionManager,
-    CollectionMember,
-    CollectionViewRestriction,
-    GroupCollectionPermission,
-    GroupCollectionPermissionManager,
-    get_root_collection_id,
-)
-from .i18n import (  # noqa
-    BootstrapTranslatableMixin,
-    BootstrapTranslatableModel,
-    Locale,
-    LocaleManager,
-    TranslatableMixin,
-    bootstrap_translatable_model,
-    get_translatable_models,
-)
-from .sites import Site, SiteManager, SiteRootPath  # noqa
+from .audit_log import BaseLogEntry, BaseLogEntryManager, LogEntryQuerySet
+from .i18n import Locale, TranslatableMixin
+from .sites import Site
 from .view_restrictions import BaseViewRestriction
 
 logger = logging.getLogger("wagtail")
@@ -158,14 +130,6 @@ def get_default_page_content_type():
 
 
 @functools.lru_cache(maxsize=None)
-def get_streamfield_names(model_class):
-    return tuple(
-        field.name
-        for field in model_class._meta.concrete_fields
-        if isinstance(field, StreamField)
-    )
-
-
 class BasePageManager(models.Manager):
     def get_queryset(self):
         return self._queryset_class(self.model).order_by("path")
@@ -406,7 +370,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
     @classmethod
     def get_streamfield_names(cls):
-        return get_streamfield_names(cls)
+        return wagtail.utils.models.get_streamfield_names(cls)
 
     def set_url_path(self, parent):
         """
@@ -1381,7 +1345,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 cls._clean_subpage_models = get_page_models()
             else:
                 cls._clean_subpage_models = [
-                    resolve_model_string(model_string, cls._meta.app_label)
+                    wagtail.utils.models.resolve_model_string(
+                        model_string, cls._meta.app_label
+                    )
                     for model_string in subpage_types
                 ]
 
@@ -1406,7 +1372,9 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                 cls._clean_parent_page_models = get_page_models()
             else:
                 cls._clean_parent_page_models = [
-                    resolve_model_string(model_string, cls._meta.app_label)
+                    wagtail.utils.models.resolve_model_string(
+                        model_string, cls._meta.app_label
+                    )
                     for model_string in parent_page_types
                 ]
 

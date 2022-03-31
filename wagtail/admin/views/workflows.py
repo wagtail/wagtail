@@ -14,6 +14,7 @@ from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 from django.views.generic import TemplateView
 
+import wagtail.utils.models
 from wagtail.admin import messages
 from wagtail.admin.auth import PermissionPolicyChecker
 from wagtail.admin.forms.workflows import (
@@ -33,7 +34,6 @@ from wagtail.models import (
     WorkflowState,
 )
 from wagtail.permissions import task_permission_policy, workflow_permission_policy
-from wagtail.utils.coreutils import resolve_model_string
 from wagtail.workflows import get_task_types
 
 task_permission_checker = PermissionPolicyChecker(task_permission_policy)
@@ -602,7 +602,9 @@ class BaseTaskChooserView(TemplateView):
                 return self.task_models[0]
 
             elif "create_model" in self.request.GET:
-                create_model = resolve_model_string(self.request.GET["create_model"])
+                create_model = wagtail.utils.models.resolve_model_string(
+                    self.request.GET["create_model"]
+                )
 
                 if create_model not in self.task_models:
                     raise Http404

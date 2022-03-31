@@ -4,12 +4,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy as __
 
+import wagtail.utils.models
 from wagtail.admin import widgets
 from wagtail.admin.forms import WagtailAdminModelForm
 from wagtail.admin.panels import FieldPanel, InlinePanel, ObjectList
 from wagtail.admin.widgets.workflows import AdminTaskChooser
 from wagtail.models import Page, Task, Workflow, WorkflowPage
-from wagtail.utils.coreutils import get_model_string
 
 
 class TaskChooserSearchForm(forms.Form):
@@ -31,7 +31,7 @@ class TaskChooserSearchForm(forms.Form):
                     # The task type choices that are passed in use the models as values, we need
                     # to convert these to something that can be represented in HTML
                     + [
-                        (get_model_string(model), verbose_name)
+                        (wagtail.utils.models.get_model_string(model), verbose_name)
                         for model, verbose_name in task_type_choices
                     ]
                 ),
@@ -40,7 +40,8 @@ class TaskChooserSearchForm(forms.Form):
 
         # Save a mapping of task_type values back to the model that we can reference later
         self.task_type_choices = {
-            get_model_string(model): model for model, verbose_name in task_type_choices
+            wagtail.utils.models.get_model_string(model): model
+            for model, verbose_name in task_type_choices
         }
 
     def is_searching(self):

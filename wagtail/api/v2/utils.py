@@ -3,8 +3,8 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.utils.encoding import force_str
 
+import wagtail.utils.models
 from wagtail.models import Page, Site
-from wagtail.utils.coreutils import resolve_model_string
 
 
 class BadRequestError(Exception):
@@ -42,7 +42,7 @@ def page_models_from_string(string):
     page_models = []
 
     for sub_string in string.split(","):
-        page_model = resolve_model_string(sub_string)
+        page_model = wagtail.utils.models.resolve_model_string(sub_string)
 
         if not issubclass(page_model, Page):
             raise ValueError("Model is not a page")

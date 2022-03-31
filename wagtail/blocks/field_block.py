@@ -10,8 +10,9 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
 
+import wagtail.utils.models
 from wagtail.rich_text import RichText, get_text_for_indexing
-from wagtail.utils.coreutils import camelcase_to_underscore, resolve_model_string
+from wagtail.utils.coreutils import camelcase_to_underscore
 from wagtail.utils.staticfiles import versioned_static
 from wagtail.utils.telepath import Adapter, register
 
@@ -842,14 +843,16 @@ class PageChooserBlock(ChooserBlock):
         if len(self.target_models) == 1:
             return self.target_models[0]
 
-        return resolve_model_string("wagtailcore.Page")
+        return wagtail.utils.models.resolve_model_string("wagtailcore.Page")
 
     @cached_property
     def target_models(self):
         target_models = []
 
         for target_model in self.page_type:
-            target_models.append(resolve_model_string(target_model))
+            target_models.append(
+                wagtail.utils.models.resolve_model_string(target_model)
+            )
 
         return target_models
 

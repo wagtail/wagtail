@@ -7,8 +7,8 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
+import wagtail.utils.models
 from wagtail.models import Page
-from wagtail.utils.coreutils import resolve_model_string
 from wagtail.utils.staticfiles import versioned_static
 from wagtail.utils.telepath import register
 from wagtail.utils.widget_adapters import WidgetAdapter
@@ -95,7 +95,9 @@ class AdminPageChooser(AdminChooser):
             cleaned_target_models = []
             for model in target_models:
                 try:
-                    cleaned_target_models.append(resolve_model_string(model))
+                    cleaned_target_models.append(
+                        wagtail.utils.models.resolve_model_string(model)
+                    )
                 except (ValueError, LookupError):
                     raise ImproperlyConfigured(
                         "Could not resolve %r into a model. "

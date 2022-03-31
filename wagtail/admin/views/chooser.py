@@ -8,6 +8,7 @@ from django.template.response import TemplateResponse
 from django.urls.base import reverse
 from django.utils.http import urlencode
 
+import wagtail.utils.models
 from wagtail import hooks
 from wagtail.admin.forms.choosers import (
     AnchorLinkChooserForm,
@@ -18,7 +19,6 @@ from wagtail.admin.forms.choosers import (
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.modal_workflow import render_modal_workflow
 from wagtail.models import Locale, Page, Site, UserPagePermissionsProxy
-from wagtail.utils.coreutils import resolve_model_string
 
 
 def shared_context(request, extra_context=None):
@@ -42,7 +42,7 @@ def page_models_from_string(string):
     page_models = []
 
     for sub_string in string.split(","):
-        page_model = resolve_model_string(sub_string)
+        page_model = wagtail.utils.models.resolve_model_string(sub_string)
 
         if not issubclass(page_model, Page):
             raise ValueError("Model is not a page")
