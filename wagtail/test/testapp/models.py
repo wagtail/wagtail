@@ -190,7 +190,7 @@ class PageWithExcludedCopyField(Page):
 class RelatedGenericRelation(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveBigIntegerField()
-    gfk = GenericForeignKey()
+    content_object = GenericForeignKey("content_type", "object_id")
 
 
 class PageWithGenericRelation(Page):

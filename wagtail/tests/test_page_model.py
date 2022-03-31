@@ -52,6 +52,7 @@ from wagtail.test.testapp.models import (
     OneToOnePage,
     PageWithExcludedCopyField,
     PageWithGenericRelation,
+    RelatedGenericRelation,
     SimpleChildPage,
     SimplePage,
     SimpleParentPage,
@@ -1984,9 +1985,12 @@ class TestCopyPage(TestCase):
                 has_unpublished_changes=False,
             )
         )
-        original_page.copy(
+        RelatedGenericRelation.objects.create(content_object=original_page)
+        self.assertIsNotNone(original_page.generic_relation.first())
+        page_copy = original_page.copy(
             to=homepage, update_attrs={"slug": f"{original_page.slug}-2"}
         )
+        self.assertIsNone(page_copy.generic_relation.first())
 
     def test_copy_page_with_excluded_parental_and_child_relations(self):
         """Test that a page will be copied with parental and child relations removed if excluded."""
