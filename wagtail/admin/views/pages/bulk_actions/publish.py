@@ -34,14 +34,29 @@ class PublishBulkAction(PageBulkAction):
     def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
         num_parent_objects, num_child_objects = 0, 0
         for page in objects:
-            page.get_latest_revision().publish(user=user)
+            revision = page.get_latest_revision() or page.specific.save_revision(
+                user=user
+            )
+            revision.publish(user=user)
             num_parent_objects += 1
 
             if include_descendants:
-                for draft_descendant_page in page.get_descendants().not_live().defer_streamfields().specific():
-                    if user is None or draft_descendant_page.permissions_for_user(user).can_publish():
-                        draft_descendant_page.get_latest_revision().publish(user=user)
+                for draft_descendant_page in (
+                    page.get_descendants().not_live().defer_streamfields().specific()
+                ):
+                    if (
+                        user is None
+                        or draft_descendant_page.permissions_for_user(
+                            user
+                        ).can_publish()
+                    ):
+                        draft_descendant_revision = (
+                            draft_descendant_page.get_latest_revision()
+                            or draft_descendant_page.save_revision(user=user)
+                        )
+                        draft_descendant_revision.publish(user=user)
                         num_child_objects += 1
+
         return num_parent_objects, num_child_objects
 
     def get_success_message(self, num_parent_objects, num_child_objects):
