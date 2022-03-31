@@ -4,15 +4,16 @@ from typing import Iterable, Set, Tuple
 from django.conf import settings
 from django.db.models import Q
 
+import wagtail.utils.batch
 from wagtail.models import Page, Site
-from wagtail.utils.coreutils import BatchCreator, get_dummy_request
+from wagtail.utils.coreutils import get_dummy_request
 
 from .models import Redirect
 
 logger = logging.getLogger(__name__)
 
 
-class BatchRedirectCreator(BatchCreator):
+class BatchRedirectCreator(wagtail.utils.batch.BatchCreator):
     """
     A specialized ``BatchCreator`` class for saving ``Redirect`` objects.
     """
