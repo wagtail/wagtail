@@ -14,11 +14,19 @@ header {
   }
 
   h1 {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+
     &.icon:before {
       width: 1em;
       display: none;
       margin-inline-end: 0.4em;
       font-size: 1.5em;
+    }
+
+    span {
+      margin-inline-start: 0.3125rem;
     }
   }
 
@@ -29,6 +37,9 @@ header {
 
   .left {
     float: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
     .hasform &:first-child {
       padding-bottom: 0.5em;
