@@ -56,7 +56,7 @@ from wagtail.actions.move_page import MovePageAction
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.actions.unpublish_page import UnpublishPageAction
 from wagtail.forms import TaskStateCommentForm
-from wagtail.query import PageQuerySet
+from wagtail.models.query import PageQuerySet
 from wagtail.search import index
 from wagtail.signals import (
     page_published,

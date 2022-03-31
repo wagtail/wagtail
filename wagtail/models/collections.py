@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from treebeard.mp_tree import MP_Node
 
-from wagtail.query import TreeQuerySet
+from wagtail.models.query import TreeQuerySet
 from wagtail.search import index
 from wagtail.utils.treebeard import TreebeardPathFixMixin
 
