@@ -95,7 +95,7 @@
   scrollbar-color: theme('colors.grey.100') theme('colors.white.DEFAULT');
   scrollbar-width: thin;
 
-  //Custom scrollbar styling for windows/mac and slim mode
+  // Custom scrollbar styling for Safari & Chrome Windows / Mac / Android.
   &::-webkit-scrollbar {
     width: 3px;
     height: 3px;
