@@ -12,7 +12,7 @@
             <input type="hidden" name="avatar-avatar-clear" id="avatar-avatar-clear_id">
 
             {% if form.avatar.value %}
-                <button class="avatar-panel__revert-to-gravatar button button-secondary" data-gravatar-url="{% avatar_url request.user 100 gravatar_only=True %}">{% trans "Reset to default" %}</button>
+                <button type="button" class="avatar-panel__revert-to-gravatar button button-secondary" data-gravatar-url="{% avatar_url request.user 100 gravatar_only=True %}">{% trans "Reset to default" %}</button>
             {% endif %}
         </div>
     </div>
