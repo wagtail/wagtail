@@ -13,7 +13,7 @@
     <div class="w-relative w-h-full w-bg-grey-50 w-top-0 w-z-20 w-flex w-items-center w-flex-row w-overflow-x-auto w-transition w-duration-300">
         <nav class="w-flex w-items-center w-flex-row w-overflow-x-auto u-scrollbar-thin"
             aria-label="{% trans 'Breadcrumb' %}">
-            <ul class="w-flex w-flex-row w-justify-start w-items-center w-pl-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2 w-mr-4">
+            <ol class="w-flex w-flex-row w-justify-start w-items-center w-pl-0 w-gap-2 sm:w-gap-0 sm:w-space-x-2 w-mr-4">
                 {% for page in pages %}
                     {% if page.is_root %}
                         {# Root section is shown as a 'site' icon in place of the title #}
@@ -55,7 +55,7 @@
                         </li>
                     {% endif %}
                 {% endfor %}
-            </ul>
+            </ol>
         </nav>
 
         {# Fade out gradient element when breadcrumbs scroll #}
