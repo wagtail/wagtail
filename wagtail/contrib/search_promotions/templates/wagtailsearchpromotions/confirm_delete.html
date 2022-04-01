@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with query=query.query_string %}Delete {{ query }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with query=query.query_string %}Delete {{ query }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Delete" as delete_str %}
     {% include "wagtailadmin/shared/header.html" with title=delete_str subtitle=query.query_string %}

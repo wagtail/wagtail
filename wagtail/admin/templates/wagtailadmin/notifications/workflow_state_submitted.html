@@ -4,9 +4,9 @@
 
 {% block content %}
     {% if requested_by %}
-        <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title requester=requested_by|user_display_name %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with workflow=workflow.name title=page.get_admin_display_title requester=requested_by|user_display_name %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.{% endblocktrans %}</p>
     {% else %}
-        <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
     {% endif %}
 
     <p>

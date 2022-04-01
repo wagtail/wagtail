@@ -1,7 +1,7 @@
 {% extends 'wagtailadmin/notifications/base.txt' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block content %}{% blocktrans with title=page.get_admin_display_title|safe editor=editor|user_display_name|safe %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
+{% block content %}{% blocktrans trimmed with title=page.get_admin_display_title|safe editor=editor|user_display_name|safe %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
 {% spaceless %}
 
 {% endspaceless %}{% if new_comments %}

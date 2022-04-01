@@ -4,14 +4,14 @@
 
 <div class="nice-padding">
     <p>
-        {% blocktrans %}
+        {% blocktrans trimmed %}
             The URL you entered, <a target="_blank" rel="noreferrer" href="{{ submitted_url }}">{{ submitted_url }}</a>,
             looks like it matches the internal page {{ page }}, which has the URL
             <a target="_blank" rel="noreferrer" href="{{ internal_url }}">{{ internal_url }}</a>.
         {% endblocktrans %}
     </p>
     <p>
-        {% blocktrans %}
+        {% blocktrans trimmed %}
             Converting this to an internal link to {{ page }} would make the link more robust.
             Would you like to do this?
         {% endblocktrans %}

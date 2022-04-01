@@ -26,6 +26,6 @@
 <p class="add">
     <button type="button" class="button bicolor button--icon" id="id_{{ self.formset.prefix }}-ADD">
         {% icon name="plus" wrapped=1 %}
-        {% blocktrans with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+        {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
     </button>
 </p>

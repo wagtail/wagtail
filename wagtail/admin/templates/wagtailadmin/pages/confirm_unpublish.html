@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Unpublish {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Unpublish {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Unpublish" as unpublish_str %}
     {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
@@ -17,7 +17,7 @@
                             <div class="field-content">
                                 <div class="input">
                                     <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                    <label for="id_include_descendants" class="plain-checkbox-label">{% blocktrans count counter=live_descendant_count %}
+                                    <label for="id_include_descendants" class="plain-checkbox-label">{% blocktrans trimmed count counter=live_descendant_count %}
                                         This page has one subpage. Unpublish this too
                                     {% plural %}
                                         This page has {{ live_descendant_count }} subpages. Unpublish these too

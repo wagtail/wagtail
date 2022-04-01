@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Delete {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Delete" as del_str %}
@@ -10,7 +10,7 @@
         <p>
             {% trans 'Are you sure you want to delete this page?' %}
             {% if descendant_count %}
-                {% blocktrans count counter=descendant_count %}
+                {% blocktrans trimmed count counter=descendant_count %}
                     This will also delete one more subpage.
                 {% plural %}
                     This will also delete {{ descendant_count }} more subpages.
@@ -28,7 +28,7 @@
         {% page_permissions page as page_perms %}
         {% if page_perms.can_unpublish %}
             {% url 'wagtailadmin_pages:unpublish' page.id as unpublish_url %}
-            <p style="margin-top: 1em">{% blocktrans %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
+            <p style="margin-top: 1em">{% blocktrans trimmed %}Alternatively you can <a href="{{ unpublish_url }}">unpublish the page</a>. This removes the page from public view and you can edit or publish it again later.{% endblocktrans %}</p>
         {% endif %}
     </div>
 {% endblock %}

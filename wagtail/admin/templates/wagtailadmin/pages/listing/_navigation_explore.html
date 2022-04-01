@@ -9,15 +9,15 @@ Navigation controls for the page listing in 'explore' mode
         <a
             href="{% url 'wagtailadmin_explore' page.id %}"
             class="icon icon-arrow-right text-replace"
-            title="{% blocktrans with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
-            aria-label="{% blocktrans with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
+            title="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
+            aria-label="{% blocktrans trimmed with title=page.get_admin_display_title %}Explore child pages of '{{ title }}'{% endblocktrans %}"
         ></a>
     {% elif page_perms.can_add_subpage %}
         <a
             href="{% url 'wagtailadmin_pages:add_subpage' page.id %}"
             class="icon icon-plus-inverse text-replace"
-            title="{% blocktrans with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
-            aria-label="{% blocktrans with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
+            title="{% blocktrans trimmed with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
+            aria-label="{% blocktrans trimmed with title=page.get_admin_display_title %}Add a child page to '{{ title }}'{% endblocktrans %}"
         ></a>
     {% endif %}
 </td>
