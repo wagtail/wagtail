@@ -600,6 +600,7 @@ Contributors
 * Tom Hu
 * Thiago Costa de Souza
 * Benedict Faw
+* Lucie Le Frapper
 
 Translators
 ===========
