@@ -250,40 +250,40 @@ $(() => {
   });
 
   /* tabs */
-  const showTab = (tabButtonElem) => {
-    $(tabButtonElem).tab('show');
-
-    // Update data-current-tab attribute on the [data-tab-nav] element
-    const tabNavElem = tabButtonElem.closest('[data-tab-nav]');
-    tabNavElem.dataset.currentTab = tabButtonElem.dataset.tab;
-
-    // Trigger switch event
-    tabNavElem.dispatchEvent(
-      new CustomEvent('switch', { detail: { tab: tabButtonElem.dataset.tab } }),
-    );
-  };
-
-  if (window.location.hash) {
-    /* look for a tab matching the URL hash and activate it if found */
-    const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-    const tab = document.querySelector(
-      'a[href="' + cleanedHash + '"][data-tab]',
-    );
-    if (tab) showTab(tab);
-  }
-
-  // eslint-disable-next-line func-names
-  $(document).on('click', '[data-tab-nav] a', function (e) {
-    e.preventDefault();
-    showTab(this);
-    window.history.replaceState(null, null, $(this).attr('href'));
-  });
-
-  // eslint-disable-next-line func-names
-  $(document).on('click', '.tab-toggle', function (e) {
-    e.preventDefault();
-    $('[data-tab-nav] a[href="' + $(this).attr('href') + '"]').trigger('click');
-  });
+  // const showTab = (tabButtonElem) => {
+  //   $(tabButtonElem).tab('show');
+  //
+  //   // Update data-current-tab attribute on the [data-tab-nav] element
+  //   const tabNavElem = tabButtonElem.closest('[data-tab-nav]');
+  //   tabNavElem.dataset.currentTab = tabButtonElem.dataset.tab;
+  //
+  //   // Trigger switch event
+  //   tabNavElem.dispatchEvent(
+  //     new CustomEvent('switch', { detail: { tab: tabButtonElem.dataset.tab } }),
+  //   );
+  // };
+  //
+  // if (window.location.hash) {
+  //   /* look for a tab matching the URL hash and activate it if found */
+  //   const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
+  //   const tab = document.querySelector(
+  //     'a[href="' + cleanedHash + '"][data-tab]',
+  //   );
+  //   if (tab) showTab(tab);
+  // }
+  //
+  // // eslint-disable-next-line func-names
+  // $(document).on('click', '[data-tab-nav] a', function (e) {
+  //   e.preventDefault();
+  //   showTab(this);
+  //   window.history.replaceState(null, null, $(this).attr('href'));
+  // });
+  //
+  // // eslint-disable-next-line func-names
+  // $(document).on('click', '.tab-toggle', function (e) {
+  //   e.preventDefault();
+  //   $('[data-tab-nav] a[href="' + $(this).attr('href') + '"]').trigger('click');
+  // });
 
   // eslint-disable-next-line func-names
   $('.dropdown').each(function () {

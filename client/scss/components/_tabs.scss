@@ -97,15 +97,6 @@
 }
 
 .tab-content {
-  > section {
-    display: none;
-    padding-top: 1em;
-
-    &.active {
-      display: block;
-    }
-  }
-
   .page-locked & {
     cursor: not-allowed;
     user-select: none;
@@ -167,8 +158,12 @@
   }
 }
 
-//.underline-tab {
-//  &.active {
-//    @apply after:w-w-full w-text-primary;
-//  }
-//}
+.underline-tabs {
+  &__tab[aria-selected='true'] {
+    @apply after:w-w-full w-text-primary;
+  }
+
+  &__content.visible {
+    @apply w-translate-y-0 w-opacity-100;
+  }
+}
