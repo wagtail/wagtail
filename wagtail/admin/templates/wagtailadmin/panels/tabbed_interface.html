@@ -1,25 +1,27 @@
 {% load wagtailadmin_tags i18n %}
 
 <div>
-    <div role="tablist"
-        class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5"
-        data-tab-nav
-        data-current-tab="{{ self.children.0.heading|cautious_slugify }}"
-    >
-        {% for child in self.children %}
-            <a href="#tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} underline-tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %} after:w-w-full w-text-primary{% endif %} "
-                role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
-                data-tab="{{ child.heading|cautious_slugify }}">
+    <div class="w-overflow-x-auto u-scrollbar-thin">
+        <div role="tablist"
+            class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5"
+            data-tab-nav
+            data-current-tab="{{ self.children.0.heading|cautious_slugify }}"
+        >
+            {% for child in self.children %}
+                <a href="#tab-{{ child.heading|cautious_slugify }}"
+                    class="{{ child.classes|join:" " }} underline-tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %} after:w-w-full w-text-primary{% endif %} "
+                    role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
+                    data-tab="{{ child.heading|cautious_slugify }}">
 
-                {% if errors %}
-                    <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
-                        {{ errors.count }}
-                    </div>
-                {% endif %}
-                {{ child.heading }}
-            </a>
-        {% endfor %}
+                    {% if errors %}
+                        <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
+                            {{ errors.count }}
+                        </div>
+                    {% endif %}
+                    {{ child.heading }}
+                </a>
+            {% endfor %}
+        </div>
     </div>
 
     <div class="tab-content">
@@ -33,4 +35,5 @@
             </section>
         {% endfor %}
     </div>
+
 </div>
