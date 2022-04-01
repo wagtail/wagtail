@@ -2,15 +2,22 @@
 
 <div>
     <div role="tablist"
-        class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit"
+        class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5"
         data-tab-nav
         data-current-tab="{{ self.children.0.heading|cautious_slugify }}"
     >
         {% for child in self.children %}
             <a href="#tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %}active after:w-w-full w-text-primary{% endif %} "
+                class="{{ child.classes|join:" " }} underline-tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %}active{% endif %} "
                 role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
-                data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}
+                data-tab="{{ child.heading|cautious_slugify }}">
+
+                {% if errors %}
+                    <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
+                        {{ errors.count }}
+                    </div>
+                {% endif %}
+                {{ child.heading }}
             </a>
         {% endfor %}
     </div>
@@ -26,39 +33,4 @@
             </section>
         {% endfor %}
     </div>
-
 </div>
-
-{% comment %}
-<div class="tab-nav merged">
-    <ul data-tab-nav role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
-        {% for child in self.children %}
-            <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-                <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% if self.form.show_comments_toggle %}
-        <div class="right wide">
-            <div class="comments-controls" hidden data-comment-notifications>
-                <div class="comment-notifications-toggle">
-                    <label class="switch switch--teal-background">
-                        {% trans "Comment notifications" %}
-                        {{ self.form.comment_notifications }}
-                        <span class="switch__toggle"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-</div>
-
-<div class="tab-content">
-    {% for child in self.children %}
-        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel"
-                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
-            {{ child.render_as_object }}
-        </section>
-    {% endfor %}
-</div>
-{% endcomment %}

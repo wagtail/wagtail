@@ -166,3 +166,9 @@
     border-bottom: 0.3em solid $system-color-link-text;
   }
 }
+
+.underline-tab {
+  &.active {
+    @apply after:w-w-full w-text-primary;
+  }
+}
