@@ -28,8 +28,8 @@
         {% for child in self.children %}
             <section id="tab-{{ child.heading|cautious_slugify }}"
                 class="{{ child.classes|join:" " }} underline-tabs__content w-transition w-duration-150 w-translate-y-4 w-opacity-0"
-                {% if not forloop.first %}hidden{% endif %}
                 role="tabpanel"
+                hidden
                 aria-orientation="horizontal"
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
                 data-tab-content="{{ child.heading|cautious_slugify }}">

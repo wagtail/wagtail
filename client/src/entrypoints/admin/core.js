@@ -240,7 +240,7 @@ $(() => {
   });
 
   /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('shown.bs.tab', () => {
+  $(document).on('tab-changed', () => {
     // Resize autosize textareas
     // eslint-disable-next-line func-names
     $('textarea[data-autosize-on]').each(function () {

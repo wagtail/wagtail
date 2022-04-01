@@ -8,6 +8,7 @@ class Tabs {
     this.tabContainer = node;
     this.tabButtons = this.tabContainer.querySelectorAll('[data-tab]');
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
+    this.tabNav = this.tabContainer.querySelector('[data-tab-nav]');
     this.tabSelectedEvent = new Event('tab-selected');
 
     if (this.tabContainer) {
@@ -34,6 +35,7 @@ class Tabs {
         down: 'ArrowDown',
         enter: 'Enter',
         space: ' ',
+        // Key names specific for Edge
         edgeBrowser: {
           left: 'Left',
           right: 'Right',
@@ -59,14 +61,9 @@ class Tabs {
   onComponentLoaded() {
     this.bindEvents();
 
-    // Select first tab if there isn't a tab already selected set inside the template
     if (this.tabButtons) {
-      const tabSelected = this.tabContainer.querySelector(
-        '[aria-selected]',
-        true,
-      );
-      if (tabSelected) {
-        this.selectTab(tabSelected);
+      if (window.location.hash) {
+        this.selectTabByURLHash();
       } else {
         this.selectFirstTab();
       }
@@ -78,7 +75,7 @@ class Tabs {
    */
   unSelectActiveTab(newTabId) {
     // IF new tab ID is the current then don't transition out
-    if (newTabId === this.state.activeTabID) {
+    if (newTabId === this.state.activeTabID || !this.state.activeTabID) {
       return;
     }
 
@@ -86,6 +83,7 @@ class Tabs {
     const tabContent = this.tabContainer.querySelector(
       `#${this.state.activeTabID}`,
     );
+
     setTimeout(() => {
       tabContent.hidden = true;
     }, this.state.transition);
@@ -104,11 +102,9 @@ class Tabs {
    */
   selectTab(tab) {
     if (tab) {
-      // Deactivate all tabs
-      // this.deactivateTabs();
       const tabContentId = tab.getAttribute('aria-controls');
 
-      if (this.state.activeTabID) {
+      if (tabContentId) {
         this.unSelectActiveTab(tabContentId);
       }
 
@@ -123,14 +119,22 @@ class Tabs {
       // Wait for transition out
       setTimeout(() => {
         tabContent.hidden = false;
-        // Wait for hidden to happen then fade in
+        // Wait for hidden attribute to be applied then fade in
         setTimeout(() => {
           tabContent.classList.add('visible');
-        }, 150);
-      }, 150);
+        }, this.state.transition);
+      }, this.state.transition);
 
       // Dispatch tab selected event for the rest of the admin to hook into if needed
-      tab.dispatchEvent(this.tabSelectedEvent);
+      // Trigger tab specific switch event
+      this.tabNav.dispatchEvent(
+        new CustomEvent('switch', { detail: { tab: tab.dataset.tab } }),
+      );
+      // Dispatch tab-changed event on the document
+      document.dispatchEvent(new CustomEvent('tab-changed'));
+
+      // Set url hash
+      this.setUrlHash(tab.getAttribute('href'));
     }
   }
 
@@ -154,7 +158,10 @@ class Tabs {
     });
   }
 
-  // Handle keydown on tabs
+  /**
+   *  Handle keydown on tabs
+   * @param {Event}event
+   */
   keydownEventListener(event) {
     const keyPressed = event.key;
     const { keys } = this.state;
@@ -183,7 +190,10 @@ class Tabs {
     }
   }
 
-  // Handle keyup on tabs
+  /**
+   *  Handle keyup on tabs
+   * @param {Event}event
+   */
   keyupEventListener(event) {
     const keyPressed = event.key;
     const { keys } = this.state;
@@ -231,6 +241,25 @@ class Tabs {
     if (proceed) {
       this.switchTabOnArrowPress(event);
     }
+  }
+
+  selectTabByURLHash() {
+    // Select tab by hash
+    if (window.location.hash) {
+      const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
+      const tab = this.tabContainer.querySelector(
+        `a[href="${cleanedHash}"][data-tab]`,
+      );
+      this.selectTab(tab);
+    }
+  }
+
+  /**
+   *
+   * @param {string}hash
+   */
+  setUrlHash(hash) {
+    window.history.replaceState(null, null, hash);
   }
 
   // Either focus the next, previous, first, or last tab
