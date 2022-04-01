@@ -18,12 +18,14 @@ export function initButtonWithDropdown() {
     '[data-button-with-dropdown-toggle]',
   );
 
-  buttonWithDropdownMenu.style.display = 'block';
+  if (buttonWithDropdownToggle && buttonWithDropdownToggle) {
+    buttonWithDropdownMenu.style.display = 'block';
 
-  tippy(buttonWithDropdownToggle, {
-    content: buttonWithDropdownMenu,
-    trigger: 'click',
-    interactive: true,
-    theme: 'dropdown',
-  });
+    tippy(buttonWithDropdownToggle, {
+      content: buttonWithDropdownMenu,
+      trigger: 'click',
+      interactive: true,
+      theme: 'dropdown',
+    });
+  }
 }
