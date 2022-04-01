@@ -12,7 +12,6 @@ import {
 } from '../state/comments';
 import { LayoutController } from '../utils/layout';
 import { getNextCommentId } from './sequences';
-import { defaultStrings } from '../main';
 
 import CommentComponent from '../components/Comment/index';
 
@@ -50,7 +49,6 @@ export function RenderCommentsForStorybook({
       comment={comment}
       isVisible={true}
       isFocused={comment.localId === state.comments.focusedComment}
-      strings={defaultStrings}
     />
   ));
 

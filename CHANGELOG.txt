@@ -35,6 +35,7 @@ Changelog
  * Replace `data_json` `TextField` with `data` `JSONField` in `BaseLogEntry` (Sage Abdullah)
  * Split up linting / formatting tasks in Makefile into client and server components (Hitansh Shah)
  * Add support for embedding Instagram reels (Luis Nell)
+ * Use Django’s JavaScript catalog feature to manage translatable strings in JavaScript (Karl Hobley)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)

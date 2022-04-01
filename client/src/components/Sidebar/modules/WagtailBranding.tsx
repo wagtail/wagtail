@@ -108,7 +108,7 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.homeUrl = homeUrl;
   }
 
-  render({ strings, slim, key, navigate, currentPath }) {
+  render({ slim, key, navigate, currentPath }) {
     return (
       <WagtailBranding
         key={key}
