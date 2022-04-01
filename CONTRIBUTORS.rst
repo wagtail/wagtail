@@ -2,22 +2,16 @@ Core team
 =========
 
 * Andy Chosak (consumerfinance.gov)
-* Codie Roelf (Praekelt)
 * Coen van der Kamp (Four Digits)
 * Cynthia Kiser (Caltech)
 * Dan Braghis (Torchbox)
 * Dawn Wages (The Wharton School)
 * Jacob Topp-Mugglestone (Torchbox)
-* Janneke Janssen (Lukkien)
-* Jonny Scholes (Neon Jungle)
 * Kalob Taulien
 * Karl Hobley (Torchbox)
 * LB Johnston
-* Lisa Adams (Praekelt)
 * Loïc Teixeira (Springload)
-* Martin Sandström (Fröjd)
 * Matthew Westcott (Torchbox)
-* Mike Dingjan (Lab Digital)
 * Naomi Morduch Toubman
 * Scott Cranfill (JPL)
 * Storm Heg
@@ -31,10 +25,16 @@ Core team alumni
 
 * Andy Babic
 * Bertrand Bordage
+* Codie Roelf
 * Emily Horsman
+* Janneke Janssen
+* Jonny Scholes
 * Josh Barr
+* Lisa Adams
+* Martin Sandström
 * Michael van Tellingen
 * Mikalai Radchuk
+* Mike Dingjan
 * Rob Moorman
 * Tim Heap
 * Will Barton
