@@ -43,6 +43,7 @@ Changelog
  * Fix: Ensure `TabbedInterface` will not show a tab if no panels are visible due to permissions (Paarth Agarwal)
  * Fix: Ensure default sidebar branding (bird logo) is not cropped in RTL mode (Steven Steinwand)
  * Fix: Specific snippets list language picker was not properly styled (Sage Abdullah)
+ * Fix: Add an accessible label to the image focal point input when editing images (Lucie Le Frapper)
 
 
 3.0 (16.05.2022)
