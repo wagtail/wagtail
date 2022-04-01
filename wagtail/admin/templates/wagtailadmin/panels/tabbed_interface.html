@@ -5,7 +5,7 @@
         <div role="tablist"
             class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
             data-tab-nav
-            data-current-tab="{{ self.children.0.heading|cautious_slugify }}"
+            {#             data-current-tab="{{ self.children.0.heading|cautious_slugify }}"#}
         >
             {% for child in self.children %}
                 <a href="#tab-{{ child.heading|cautious_slugify }}"
@@ -26,13 +26,14 @@
 
     <div class="tab-content">
         {% for child in self.children %}
-            <section id="tab-{{ child.heading|cautious_slugify }}"
+            <section
+                id="tab-{{ child.heading|cautious_slugify }}"
                 class="{{ child.classes|join:" " }} underline-tabs__content w-transition w-duration-150 w-translate-y-4 w-opacity-0"
                 role="tabpanel"
                 hidden
-                aria-orientation="horizontal"
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
-                data-tab-content="{{ child.heading|cautious_slugify }}">
+                data-tab-content="{{ child.heading|cautious_slugify }}"
+            >
                 {{ child.render_as_object }}
             </section>
         {% endfor %}

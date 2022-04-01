@@ -6,22 +6,30 @@
     {% trans "Account" as account_str %}
     {% include "wagtailadmin/shared/header.html" with title=account_str merged=1 tabbed=1 %}
 
-    <ul class="tab-nav merged" data-tab-nav>
-        {% for tab in panels_by_tab.keys %}
-            <li{% if forloop.first %} class="active"{% endif %}><a href="#{{ tab.name }}">{{ tab.title }}</a></li>
-        {% endfor %}
+    <div class="underline-tabs" data-tabs>
+        <div class="w-overflow-x-auto u-scrollbar-thin">
+            {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
 
-        {% if menu_items %}
-            <li><a href="#actions">{% trans "More actions" %}</a></li>
-        {% endif %}
-    </ul>
+            {% if menu_items %}
+                {% trans 'More actions' as menu_items_title %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='actions' title=menu_items_title %}
+            {% endif %}
+        </div>
+    </div>
 
     <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data" novalidate>
         <div class="tab-content">
             {% csrf_token %}
 
             {% for tab, panels in panels_by_tab.items %}
-                <section id="{{ tab.name }}"{% if forloop.first %} class="active"{% endif %}>
+                <section
+                    id="tab-{{ tab.name|cautious_slugify }}"
+                    class="underline-tabs__content w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
+                    data-tab-content="{{ tab.name|cautious_slugify }}"
+                >
                     <ul class="objects">
                         {% for panel in panels %}
                             <li class="object">
@@ -46,7 +54,14 @@
             {% endfor %}
 
             {% if menu_items %}
-                <section id="actions" class="nice-padding">
+                <section
+                    id="tab-actions"
+                    class="underline-tabs__content w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    role="tabpanel"
+                    hidden
+                    aria-labelledby="tab-label-actions"
+                    data-tab-content="actions"
+                >
                     <ul class="listing">
                         {% for item in menu_items %}
                             <li class="row row-flush">
@@ -66,7 +81,7 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/account.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/account.css' %}" type="text/css"/>
     {{ media.css }}
 {% endblock %}
 {% block extra_js %}
