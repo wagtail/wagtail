@@ -8,7 +8,7 @@
     >
         {% for child in self.children %}
             <a href="#tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} underline-tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %}active{% endif %} "
+                class="{{ child.classes|join:" " }} underline-tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all {% if forloop.first %} after:w-w-full w-text-primary{% endif %} "
                 role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
                 data-tab="{{ child.heading|cautious_slugify }}">
 
