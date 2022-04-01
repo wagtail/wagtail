@@ -3,6 +3,7 @@
 exports[`Menu should render with the minimum required props 1`] = `
 <Fragment>
   <nav
+    aria-label="Main menu"
     className="sidebar-main-menu"
   >
     <ul
@@ -13,12 +14,14 @@ exports[`Menu should render with the minimum required props 1`] = `
     className="sidebar-footer sidebar-footer--visible"
   >
     <ForwardRef(TippyWrapper)
+      content="Edit your account"
       disabled={true}
       placement="right"
     >
       <button
         aria-expanded="false"
         aria-haspopup="menu"
+        aria-label="Edit your account"
         className="
             sidebar-footer__account
             w-bg-primary
@@ -36,6 +39,7 @@ exports[`Menu should render with the minimum required props 1`] = `
             focus:w-bg-primary-200
             w-transition"
         onClick={[Function]}
+        title="Edit your account"
         type="button"
       >
         <div
