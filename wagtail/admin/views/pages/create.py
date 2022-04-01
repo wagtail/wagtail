@@ -24,7 +24,12 @@ def add_subpage(request, parent_page_id):
         raise PermissionDenied
 
     page_types = [
-        (model.get_verbose_name(), model._meta.app_label, model._meta.model_name)
+        (
+            model.get_verbose_name(),
+            model._meta.app_label,
+            model._meta.model_name,
+            model.get_page_description(),
+        )
         for model in type(parent_page).creatable_subpage_models()
         if model.can_create_at(parent_page)
     ]
@@ -34,7 +39,7 @@ def add_subpage(request, parent_page_id):
     if len(page_types) == 1:
         # Only one page type is available - redirect straight to the create form rather than
         # making the user choose
-        verbose_name, app_label, model_name = page_types[0]
+        verbose_name, app_label, model_name, description = page_types[0]
         return redirect("wagtailadmin_pages:add", app_label, model_name, parent_page.id)
 
     return TemplateResponse(
