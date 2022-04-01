@@ -3,7 +3,7 @@
 exports[`Menu should render with the minimum required props 1`] = `
 <Fragment>
   <nav
-    className="sidebar-main-menu"
+    className="sidebar-main-menu u-scrollbar-thin"
   >
     <ul
       className="sidebar-main-menu__list"

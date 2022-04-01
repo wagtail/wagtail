@@ -15,14 +15,13 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       >
         <button
           aria-expanded="true"
-          className="
-                w-mr-4
+          className="w-mr-4
                 button
                 sidebar__collapse-toggle
                 w-flex
                 w-justify-center
                 w-items-center
-                sm:w-mt-4
+                sm:w-mt-1.5
                 hover:w-bg-primary-200
                 hover:text-white
                 hover:opacity-100"
