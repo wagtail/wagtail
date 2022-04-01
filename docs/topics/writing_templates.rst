@@ -111,7 +111,7 @@ See :ref:`image_tag` for full documentation.
 Rich text (filter)
 ~~~~~~~~~~~~~~~~~~
 
-This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images and links made in the Wagtail editor, into fully-baked HTML ready for display.
+This filter takes a chunk of HTML content and renders it as safe HTML in the page. Importantly, it also expands internal shorthand references to embedded images (and links made in the Wagtail editor) into fully-baked HTML ready for display.
 
 Only fields using ``RichTextField`` need this applied in the template.
 
