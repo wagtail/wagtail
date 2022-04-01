@@ -51,6 +51,7 @@ Changelog
  * Fix: Remove redundant `role="main"` attributes on `<main>` elements causing HTML validation issues (Luis Espinoza)
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
+ * Fix: Add missing `lang` attributes to `<html>` elements (James Ray)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
