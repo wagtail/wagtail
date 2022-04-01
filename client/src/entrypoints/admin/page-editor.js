@@ -236,6 +236,7 @@ function initSlugCleaning() {
 
 window.initSlugCleaning = initSlugCleaning;
 
+// TODO: Steve hookup errors to new tabbed interface
 function initErrorDetection() {
   const errorSections = {};
 
