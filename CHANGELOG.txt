@@ -49,6 +49,7 @@ Changelog
  * Fix: Make sure the “Title” column label can be translated in the page chooser and page move UI (Stephanie Cheng Smith)
  * Fix: Remove redundant `role="main"` attributes on `<main>` elements causing HTML validation issues (Luis Espinoza)
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
