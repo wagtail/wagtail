@@ -372,7 +372,7 @@ The first argument must match the value of the `related_name` attribute of the `
 
 Wagtail uses Django's [multi-table inheritance](https://docs.djangoproject.com/en/3.1/topics/db/models/#multi-table-inheritance) feature to allow multiple page models to be used in the same tree.
 
-Each page is added to both Wagtail's builtin {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
+Each page is added to both Wagtail's built-in {class}`~wagtail.models.Page` model as well as its user-defined model (such as the `BlogPage` model created earlier).
 
 Pages can exist in Python code in two forms, an instance of `Page` or an instance of the page model.
 
