@@ -588,6 +588,7 @@ Contributors
 * Caio Jhonny
 * Heather White
 * Onno Timmerman
+* Kyle J. Roux
 
 Translators
 ===========
