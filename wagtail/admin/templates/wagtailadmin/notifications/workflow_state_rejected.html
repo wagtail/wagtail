@@ -1,5 +1,6 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
 {% load wagtailadmin_tags i18n %}
+{% base_url_setting as base_url %}
 
 {% block content %}
     {% if task_state.finished_by %}
@@ -10,5 +11,5 @@
     {% if comment %}
         <p>{% blocktrans trimmed %}The following comment was left: "{{ comment }}"{% endblocktrans %}</p>
     {% endif %}
-    <p>{% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
+    <p>{% trans "You can edit the page here:"%} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
 {% endblock %}
