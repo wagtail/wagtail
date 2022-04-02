@@ -1084,7 +1084,7 @@ StandardChild.edit_handler = TabbedInterface(
         ),
         ObjectList(
             [
-                HelpPanel("remember to check for asteroids"),
+                HelpPanel("Watch out for asteroids"),
             ],
             heading="Dinosaurs",
         ),

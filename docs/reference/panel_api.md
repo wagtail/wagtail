@@ -16,6 +16,7 @@
    .. automethod:: get_form_options
    .. automethod:: get_form_class
    .. automethod:: get_bound_panel
+   .. autoproperty:: clean_name
 ```
 
 ## `BoundPanel`
@@ -24,8 +25,13 @@
 
 .. autoclass:: wagtail.admin.panels.Panel.BoundPanel
 
-   In addition to the standard template component functionality (see :ref:`creating_template_components`), this provides the following methods:
+   In addition to the standard template component functionality (see :ref:`creating_template_components`), this provides the following attributes and methods:
 
+   .. autoattribute:: panel
+   .. autoattribute:: instance
+   .. autoattribute:: request
+   .. autoattribute:: form
+   .. autoattribute:: prefix
    .. automethod:: id_for_label
    .. automethod:: is_shown
 ```

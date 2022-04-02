@@ -117,7 +117,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
-        self.assertContains(response, "<legend>Speaker lineup</legend>")
+        self.assertContains(
+            response,
+            '<label for="id_speakers-__prefix__-last_name" class="w-field__label">Surname</label>',
+        )
         self.assertContains(response, "Add speakers")
 
         # test register_page_action_menu_item hook
@@ -985,8 +988,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" aria-describedby="panel-child-promote-child-for_search_engines-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -1011,8 +1014,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
-        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
+        input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
+        input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" aria-describedby="panel-child-promote-child-common_page_configuration-child-slug-helptext" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
         self.assertNotContains(
@@ -2053,9 +2056,8 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # the error should only appear once: against the field, not in the header message
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=1)
 
@@ -2146,9 +2148,8 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # Error on title shown against the title field
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         # Error on title shown in the header message
         self.assertContains(

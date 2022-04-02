@@ -2460,7 +2460,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
 
         needle = "This page is awaiting <b>'test_task_1'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page."
-        self.assertContains(response, needle)
+        self.assertContains(response, needle, count=1)
 
         self.login(self.moderator)
         response = self.client.get(self.edit_url)

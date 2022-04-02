@@ -3,8 +3,8 @@
 <div class="w-tabs" data-tabs>
     <div class="w-tabs__wrapper">
         <div role="tablist" class="w-tabs__list">
-            {% for child in self.visible_children %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
+            {% for child, identifier in self.visible_children_with_identifiers %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=identifier title=child.heading classes=child.classes|join:" " %}
             {% endfor %}
         </div>
 
@@ -21,15 +21,15 @@
     </div>
 
     <div class="tab-content">
-        {% for child in self.visible_children %}
+        {% for child, identifier in self.visible_children_with_identifiers %}
             <section
-                id="tab-{{ child.heading|cautious_slugify }}"
+                id="tab-{{ identifier }}"
                 class="w-tabs__panel {{ child.classes|join:" " }}"
                 role="tabpanel"
-                aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
+                aria-labelledby="tab-label-{{ identifier }}"
                 hidden
             >
-                {{ child.render_as_object }}
+                {{ child.render_html }}
             </section>
         {% endfor %}
     </div>
