@@ -396,9 +396,8 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertContains(response, "The snippet could not be created due to errors.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=1)
 
@@ -711,9 +710,8 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         self.assertContains(response, "The snippet could not be saved due to errors.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=1)
 

@@ -2037,9 +2037,8 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # the error should only appear once: against the field, not in the header message
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=1)
 
@@ -2130,9 +2129,8 @@ class TestValidationErrorMessages(TestCase, WagtailTestUtils):
         # Error on title shown against the title field
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
         # Error on title shown in the header message
         self.assertContains(

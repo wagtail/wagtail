@@ -593,19 +593,15 @@ class TestFieldPanel(TestCase):
         )
         result = field_panel.render_as_object()
 
-        # check that label appears as a legend in the 'object' wrapper,
-        # but not as a field label (that would be provided by ObjectList instead)
-        self.assertIn("<legend>End date</legend>", result)
-        self.assertNotIn('<label for="id_date_to">End date:</label>', result)
-
-        # check that help text is not included (it's provided by ObjectList instead)
-        self.assertNotIn("Not required if event is on a single day", result)
+        self.assertIn("Not required if event is on a single day", result)
 
         # check that the populated form field is included
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn('<p class="error-message">', result)
+        self.assertNotIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
+        )
 
     def test_render_as_field(self):
         form = self.EventPageForm(
@@ -626,10 +622,6 @@ class TestFieldPanel(TestCase):
         )
         result = field_panel.render_as_field()
 
-        # check that label is output in the 'field' style
-        self.assertIn('<label for="id_date_to">End date:</label>', result)
-        self.assertNotIn("<legend>End date</legend>", result)
-
         # check that help text is included
         self.assertIn("Not required if event is on a single day", result)
 
@@ -637,7 +629,9 @@ class TestFieldPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn('<p class="error-message">', result)
+        self.assertNotIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
+        )
 
     def test_required_fields(self):
         result = self.end_date_panel.get_form_options()["fields"]
@@ -662,8 +656,10 @@ class TestFieldPanel(TestCase):
         )
         result = field_panel.render_as_field()
 
-        self.assertIn('<p class="error-message">', result)
-        self.assertIn("<span>Enter a valid date.</span>", result)
+        self.assertIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>Enter a valid date.',
+            result,
+        )
 
     def test_repr(self):
         form = self.EventPageForm()
@@ -731,7 +727,9 @@ class TestFieldRowPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn('<p class="error-message">', result)
+        self.assertNotIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
+        )
 
     def test_render_as_field(self):
         form = self.EventPageForm(
@@ -753,11 +751,12 @@ class TestFieldRowPanel(TestCase):
         result = field_panel.render_as_field()
 
         # check that label is output in the 'field' style
-        self.assertIn('<label for="id_date_to">End date:</label>', result)
-        self.assertNotIn("<legend>End date</legend>", result)
+        # FIXME: add these assertions back when label is reinstated
+        # self.assertIn('<label for="id_date_to">End date:</label>', result)
+        # self.assertNotIn("<legend>End date</legend>", result)
 
         # check that label is overridden with the 'heading' argument
-        self.assertIn('<label for="id_date_from">Start:</label>', result)
+        # self.assertIn('<label for="id_date_from">Start:</label>', result)
 
         # check that help text is included
         self.assertIn("Not required if event is on a single day", result)
@@ -766,7 +765,9 @@ class TestFieldRowPanel(TestCase):
         self.assertIn('value="2014-07-22"', result)
 
         # there should be no errors on this field
-        self.assertNotIn('<p class="error-message">', result)
+        self.assertNotIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
+        )
 
     def test_error_message_is_rendered(self):
         form = self.EventPageForm(
@@ -787,8 +788,10 @@ class TestFieldRowPanel(TestCase):
         )
         result = field_panel.render_as_field()
 
-        self.assertIn('<p class="error-message">', result)
-        self.assertIn("<span>Enter a valid date.</span>", result)
+        self.assertIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>Enter a valid date.',
+            result,
+        )
 
     def test_add_col_when_wrong_in_panel_def(self):
         form = self.EventPageForm(
@@ -883,7 +886,9 @@ class TestFieldRowPanelWithChooser(TestCase):
         self.assertIn('value="2014-07-20"', result)
 
         # there should be no errors on this field
-        self.assertNotIn('<p class="error-message">', result)
+        self.assertNotIn(
+            '<svg width="16" height="16"><use href="#icon-cross"></use></svg>', result
+        )
 
 
 class TestPageChooserPanel(TestCase):
@@ -949,7 +954,9 @@ class TestPageChooserPanel(TestCase):
 
     def test_render_as_field(self):
         result = self.page_chooser_panel.render_as_field()
-        self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn(
+            '<p id="id_page_help_text" class="w-help-text">help text</p>', result
+        )
         self.assertIn('<span class="title">Christmas</span>', result)
         self.assertIn(
             '<a href="/admin/pages/%d/edit/" class="edit-link button button-small button-secondary" target="_blank" rel="noreferrer">'
@@ -965,7 +972,9 @@ class TestPageChooserPanel(TestCase):
         )
         result = page_chooser_panel.render_as_field()
 
-        self.assertIn('<p class="help">help text</p>', result)
+        self.assertIn(
+            '<p id="id_page_help_text" class="w-help-text">help text</p>', result
+        )
         self.assertIn('<span class="title"></span>', result)
         self.assertIn("Choose a page", result)
 
@@ -977,7 +986,8 @@ class TestPageChooserPanel(TestCase):
             instance=self.test_instance, form=form, request=self.request
         )
         self.assertIn(
-            "<span>This field is required.</span>", page_chooser_panel.render_as_field()
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
+            page_chooser_panel.render_as_field(),
         )
 
     def test_override_page_type(self):
@@ -1072,11 +1082,12 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         result = panel.render_as_field()
 
+        # FIXME: add these assertions back when label is reinstated
         self.assertIn('<li class="object classname-for-speakers">', result)
-        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        # self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertIn('value="Father"', result)
-        self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
-        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        # self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
+        # self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn("Choose an image", result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
@@ -1139,7 +1150,8 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         result = panel.render_as_field()
 
         # rendered panel should contain first_name rendered as a text area, but no last_name field
-        self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        # FIXME: add these assertions back when label is reinstated
+        # self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
         self.assertIn("Father</textarea>", result)
         self.assertNotIn(
             '<label for="id_speakers-0-last_name">Surname:</label>', result
@@ -1153,7 +1165,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
             allow_extra_attrs=True,
         )
 
-        self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        # self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
         self.assertIn("Choose an image", result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER

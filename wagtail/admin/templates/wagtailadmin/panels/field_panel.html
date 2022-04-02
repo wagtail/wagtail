@@ -1,0 +1,20 @@
+{% load wagtailadmin_tags i18n %}
+<div id="{{ field.id_for_label }}_field" class="w-field {% if field.errors %}w-field--error{% endif %}" data-contentpath="{{ field.name }}">
+    {% if field|has_unrendered_errors %}
+        <p id="{{ field.id_for_label }}_errors" class="w-error"><svg width="16" height="16"><use href="#icon-cross"></use></svg>{% for error in field.errors %}{{ error }} {% endfor %}</p>
+    {% endif %}
+
+    {{ field|render_with_errors }}
+    {% if field.help_text %}
+        <p id="{{ field.id_for_label }}_help_text" class="w-help-text">{{ field.help_text }}</p>
+    {% endif %}
+
+    {% if show_add_comment_button %}
+        <div class="field-comment-control">
+            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
+                <svg class="icon icon-comment-add initial icon-default" aria-hidden="true"><use href="#icon-comment-add"></use></svg>
+                <svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true"><use href="#icon-comment-add-reversed"></use></svg>
+            </button>
+        </div>
+    {% endif %}
+</div>

@@ -12,7 +12,6 @@ from django.dispatch import receiver
 from django.forms import Media
 from django.forms.formsets import DELETION_FIELD_NAME, ORDERING_FIELD_NAME
 from django.forms.models import fields_for_model
-from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy
@@ -626,8 +625,7 @@ class FieldPanel(Panel):
         )
 
     class BoundPanel(Panel.BoundPanel):
-        object_template_name = "wagtailadmin/panels/single_field_panel.html"
-        field_template_name = "wagtailadmin/panels/field_panel_field.html"
+        template_name = "wagtailadmin/panels/field_panel.html"
 
         def __init__(self, panel, instance, request, form):
             super().__init__(panel=panel, instance=instance, request=request, form=form)
@@ -699,32 +697,18 @@ class FieldPanel(Panel):
             else:
                 return not self.panel.disable_comments
 
-        def render_as_object(self):
-            return render_to_string(
-                self.object_template_name,
+        def get_context_data(self, parent_context=None):
+            context = super().get_context_data(parent_context)
+            context.update(
                 {
-                    "self": self,
-                    self.panel.TEMPLATE_VAR: self,
                     "field": self.bound_field,
                     "show_add_comment_button": self.comments_enabled
                     and getattr(
                         self.bound_field.field.widget, "show_add_comment_button", True
                     ),
-                },
+                }
             )
-
-        def render_as_field(self):
-            return render_to_string(
-                self.field_template_name,
-                {
-                    "field": self.bound_field,
-                    "field_type": self.field_type(),
-                    "show_add_comment_button": self.comments_enabled
-                    and getattr(
-                        self.bound_field.field.widget, "show_add_comment_button", True
-                    ),
-                },
-            )
+            return context
 
         def get_comparison(self):
             comparator_class = self.panel.get_comparison_class()
