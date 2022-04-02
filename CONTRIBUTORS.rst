@@ -577,7 +577,8 @@ Contributors
 * Stephanie Cheng Smith
 * Luis Espinoza
 * Hitansh Shah
-* Saurabh
+* Saurabh kumar
+* James Ray
 
 Translators
 ===========

@@ -46,7 +46,7 @@
                             <td valign="top">
                                 {% include "wagtailadmin/shared/page_status_tag.html" with page=page %}
                             </td>
-                            <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=revision.created_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div></td>
+                            <td valign="top"><div class="human-readable-date" title="{{ revision.created_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=revision.created_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div></td>
                         </tr>
                     {% endfor %}
                 </tbody>

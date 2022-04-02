@@ -30,48 +30,6 @@ import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
 import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 
-export interface TranslatableStrings {
-  COMMENT: string;
-  SAVE: string;
-  SAVING: string;
-  CANCEL: string;
-  DELETE: string;
-  DELETING: string;
-  SHOW_COMMENTS: string;
-  EDIT: string;
-  REPLY: string;
-  RESOLVE: string;
-  RETRY: string;
-  DELETE_ERROR: string;
-  CONFIRM_DELETE_COMMENT: string;
-  SAVE_ERROR: string;
-  MORE_ACTIONS: string;
-  SAVE_PAGE_TO_ADD_COMMENT: string;
-  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: string;
-  SAVE_PAGE_TO_SAVE_REPLY: string;
-}
-
-export const defaultStrings = {
-  COMMENT: 'Comment',
-  SAVE: 'Save',
-  SAVING: 'Saving...',
-  CANCEL: 'Cancel',
-  DELETE: 'Delete',
-  DELETING: 'Deleting...',
-  SHOW_COMMENTS: 'Show comments',
-  EDIT: 'Edit',
-  REPLY: 'Reply',
-  RESOLVE: 'Resolve',
-  RETRY: 'Retry',
-  DELETE_ERROR: 'Delete error',
-  CONFIRM_DELETE_COMMENT: 'Are you sure?',
-  SAVE_ERROR: 'Save error',
-  MORE_ACTIONS: 'More actions',
-  SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
-  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
-  SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
-};
-
 // This is done as this is serialized pretty directly from the Django model
 export interface InitialCommentReply {
   pk: number;
@@ -116,7 +74,6 @@ function renderCommentsUi(
   store: Store,
   layout: LayoutController,
   comments: Comment[],
-  strings: TranslatableStrings,
 ): React.ReactElement {
   const state = store.getState();
   const { commentsEnabled, user, currentTab } = state.settings;
@@ -140,7 +97,6 @@ function renderCommentsUi(
       isFocused={comment.localId === focusedComment}
       forceFocus={forceFocus}
       isVisible={layout.getCommentVisible(currentTab, comment.localId)}
-      strings={strings}
     />
   ));
   return <ol className="comments-list">{commentsRendered}</ol>;
@@ -242,12 +198,9 @@ export class CommentApp {
     initialComments: InitialComment[],
 
     authors: Map<string, { name: string; avatar_url: string }>,
-    translationStrings: TranslatableStrings | null,
   ) {
     let pinnedComment: number | null = null;
     this.setUser(userId, authors);
-
-    const strings = translationStrings || defaultStrings;
 
     // Check if there is "comment" query parameter.
     // If this is set, the user has clicked on a "View on frontend" link of an
@@ -285,7 +238,7 @@ export class CommentApp {
       }
 
       ReactDOM.render(
-        renderCommentsUi(this.store, this.layout, commentList, strings),
+        renderCommentsUi(this.store, this.layout, commentList),
         element,
         () => {
           // Render again if layout has changed (eg, a comment was added, deleted or resized)
@@ -293,7 +246,7 @@ export class CommentApp {
           this.layout.refreshDesiredPositions(state.settings.currentTab);
           if (this.layout.refreshLayout()) {
             ReactDOM.render(
-              renderCommentsUi(this.store, this.layout, commentList, strings),
+              renderCommentsUi(this.store, this.layout, commentList),
               element,
             );
           }

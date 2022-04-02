@@ -17,7 +17,8 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
     def setUp(self):
         self.root_page = Page.objects.get(id=2)
 
-        # Add child pages
+        # Add child pages which will have already been published before we
+        # bulk publish them.
         self.child_pages = [
             SimplePage(
                 title=f"Hello world!-{i}",
@@ -27,6 +28,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             )
             for i in range(1, 5)
         ]
+
         self.pages_to_be_published = self.child_pages[:3]
         self.pages_not_to_be_published = self.child_pages[3:]
 
@@ -34,8 +36,21 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
             self.root_page.add_child(instance=child_page)
 
         for i, child_page in enumerate(self.child_pages):
-            child_page.content = f"Hello updated world {i}!"
+            child_page.content = f"Hello published world {i}!"
             child_page.save_revision()
+
+        # Add an additional child page which will be bulk published from a
+        # draft-only state.
+        draft_page = SimplePage(
+            title="Hello world!-5",
+            slug="hello-world-5",
+            content="Hello published world 5!",
+            live=False,
+        )
+
+        self.root_page.add_child(instance=draft_page)
+        self.child_pages.append(draft_page)
+        self.pages_to_be_published.append(draft_page)
 
         self.url = (
             reverse(
@@ -137,7 +152,7 @@ class TestBulkPublish(TestCase, WagtailTestUtils):
         for child_page in self.pages_to_be_published:
             published_page = SimplePage.objects.get(id=child_page.id)
             self.assertTrue(published_page.live)
-            self.assertIn("Hello updated", published_page.content)
+            self.assertIn("Hello published", published_page.content)
 
         # Check that the child pages not to be published remain
         for child_page in self.pages_not_to_be_published:
@@ -231,6 +246,8 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
             child_page.content = f"Hello updated world {i}!"
             child_page.save_revision()
 
+        # Add grandchild pages which will have already been published before
+        # we bulk publish them.
         # map of the form { page: [child_pages] } to be added
         self.grandchildren_pages = {
             self.pages_to_be_published[0]: [
@@ -266,6 +283,18 @@ class TestBulkPublishIncludingDescendants(TestCase, WagtailTestUtils):
                     "Hello world", "Hello grandchild"
                 )
                 grandchild_page.save_revision()
+
+        # Add an additional grandchild page which will be bulk published from
+        # a draft-only state.
+        draft_page = SimplePage(
+            title="Hello world!-d",
+            slug="hello-world-d",
+            content="Hello grandchild d!",
+            live=False,
+        )
+
+        self.pages_to_be_published[1].add_child(instance=draft_page)
+        self.grandchildren_pages[self.pages_to_be_published[1]].append(draft_page)
 
         self.url = (
             reverse(

@@ -3,7 +3,7 @@
 {% load wagtailadmin_tags i18n %}
 
 {% block content %}
-    <p>{% blocktrans with page=revision.page|safe editor=revision.user|user_display_name %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}</p>
+    <p>{% blocktrans trimmed with page=revision.page|safe editor=revision.user|user_display_name %}The page "{{ page }}" has been submitted for moderation by {{ editor }}.{% endblocktrans %}</p>
 
     <p>
         {% if revision.page.is_previewable %}

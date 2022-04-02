@@ -25,7 +25,7 @@
         {% block content_main %}
             <div class="nice-padding">
 
-                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
+                <p class="back"><a href="{{ view.index_url }}" class="icon icon-arrow-left">{% blocktrans trimmed with view.verbose_name as model_name %}Back to {{ model_name }} list{% endblocktrans %}</a></p>
 
                 {% block fields_output %}
                     {% if fields %}

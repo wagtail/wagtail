@@ -48,7 +48,7 @@ An example for a confirmation template is as follows:
   {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
   {% load i18n wagtailadmin_tags %}
 
-  {% block titletag %}{% blocktrans count counter=items|length %}Delete 1 item{% plural %}Delete {{ counter }} items{% endblocktrans %}{% endblock %}
+  {% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 item{% plural %}Delete {{ counter }} items{% endblocktrans %}{% endblock %}
 
   {% block header %}
       {% trans "Delete" as del_str %}
@@ -70,7 +70,7 @@ An example for a confirmation template is as follows:
 
   {% block items_with_no_access %}
 
-  {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this item{% plural %}You don't have permission to delete these items{% endblocktrans %}
+  {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this item{% plural %}You don't have permission to delete these items{% endblocktrans %}
   {% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
   {% endblock items_with_no_access %}

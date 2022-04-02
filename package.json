@@ -74,6 +74,7 @@
     "enzyme-to-json": "^3.6.2",
     "eslint": "^8.5.0",
     "expose-loader": "^3.1.0",
+    "gettext-extractor": "^3.5.3",
     "jest": "^26.6.3",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.7",

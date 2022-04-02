@@ -6,6 +6,8 @@ declare global {
     telepath: any;
   }
 
+  // Get text
+
   // Wagtail globals
 
   interface WagtailConfig {
@@ -26,7 +28,6 @@ declare global {
 
       display_name: string;
     }[];
-    STRINGS: any;
   }
   const wagtailConfig: WagtailConfig;
 }

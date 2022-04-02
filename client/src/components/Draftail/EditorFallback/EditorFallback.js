@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { convertFromRaw } from 'draft-js';
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { gettext } from '../../../utils/gettext';
 
 const MAX_EDITOR_RELOADS = 3;
 
@@ -74,7 +74,7 @@ class EditorFallback extends PureComponent {
               className="Draftail-ToolbarButton"
               onClick={this.toggleContent}
             >
-              {STRINGS.SHOW_LATEST_CONTENT}
+              {gettext('Show latest content')}
             </button>
           )}
 
@@ -83,7 +83,7 @@ class EditorFallback extends PureComponent {
             className="Draftail-ToolbarButton"
             onClick={this.toggleError}
           >
-            {STRINGS.SHOW_ERROR}
+            {gettext('Show error')}
           </button>
 
           {/* At first we propose reloading the editor. If it still crashes, reload the whole page. */}
@@ -93,7 +93,7 @@ class EditorFallback extends PureComponent {
               className="Draftail-ToolbarButton"
               onClick={this.onReloadEditor}
             >
-              {STRINGS.RELOAD_EDITOR}
+              {gettext('Reload saved content')}
             </button>
           ) : (
             <button
@@ -101,7 +101,7 @@ class EditorFallback extends PureComponent {
               className="Draftail-ToolbarButton"
               onClick={() => window.location.reload(false)}
             >
-              {STRINGS.RELOAD_PAGE}
+              {gettext('Reload the page')}
             </button>
           )}
         </div>
@@ -109,7 +109,9 @@ class EditorFallback extends PureComponent {
         <div className="DraftEditor-root">
           <div className="public-DraftEditor-content">
             <div className="public-DraftEditorPlaceholder-inner">
-              {STRINGS.EDITOR_CRASH}
+              {gettext(
+                'The editor just crashed. Content has been reset to the last saved version.',
+              )}
 
               {showContent && (
                 <textarea

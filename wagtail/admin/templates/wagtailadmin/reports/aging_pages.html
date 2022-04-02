@@ -39,7 +39,7 @@
                         </td>
                         <td class="updated" valign="top">
                             <div class="human-readable-date" title="{{ page.last_published_at|date:'DATETIME_FORMAT' }}">
-                                {% blocktrans with time_period=page.last_published_at|timesince %}
+                                {% blocktrans trimmed with time_period=page.last_published_at|timesince %}
                                     {{ time_period }} ago
                                 {% endblocktrans %}
                             </div>

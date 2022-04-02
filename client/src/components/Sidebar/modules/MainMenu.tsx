@@ -1,10 +1,12 @@
 import * as React from 'react';
+
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';
 import { SubMenuItemDefinition } from '../menu/SubMenuItem';
-import { ModuleDefinition, Strings } from '../Sidebar';
+import { ModuleDefinition } from '../Sidebar';
 import Tippy from '@tippyjs/react';
 
 export function renderMenu(
@@ -67,8 +69,6 @@ interface MenuProps {
   expandingOrCollapsing: boolean;
   onAccountExpand: () => void;
   currentPath: string;
-  strings: Strings;
-
   navigate(url: string): Promise<void>;
 }
 
@@ -80,7 +80,6 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   onAccountExpand,
   slim,
   currentPath,
-  strings,
   navigate,
 }) => {
   // navigationPath and activePath are two dot-delimited path's referencing a menu item
@@ -208,7 +207,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
 
   return (
     <>
-      <nav className={className} aria-label={strings.MAIN_MENU}>
+      <nav className={className} aria-label={gettext('Main menu')}>
         <ul className="sidebar-main-menu__list">
           {renderMenu('', menuItems, slim, state, dispatch, navigate)}
         </ul>
@@ -222,7 +221,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
       >
         <Tippy
           disabled={!slim}
-          content={strings.EDIT_YOUR_ACCOUNT}
+          content={gettext('Edit your account')}
           placement="right"
         >
           <button
@@ -242,9 +241,9 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
             hover:w-bg-primary-200
             focus:w-bg-primary-200
             w-transition"
-            title={strings.EDIT_YOUR_ACCOUNT}
+            title={gettext('Edit your account')}
             onClick={onClickAccountSettings}
-            aria-label={strings.EDIT_YOUR_ACCOUNT}
+            aria-label={gettext('Edit your account')}
             aria-haspopup="menu"
             aria-expanded={accountSettingsOpen ? 'true' : 'false'}
             type="button"
@@ -296,7 +295,6 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
     onAccountExpand,
     key,
     currentPath,
-    strings,
     navigate,
   }) {
     return (
@@ -309,7 +307,6 @@ export class MainMenuModuleDefinition implements ModuleDefinition {
         onAccountExpand={onAccountExpand}
         key={key}
         currentPath={currentPath}
-        strings={strings}
         navigate={navigate}
       />
     );

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% block greeting %}
-{% blocktrans with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}
+{% blocktrans trimmed with username=user.get_short_name|default:user.get_username %}Hello {{ username }},{% endblocktrans %}
 {% endblock %}
 {% block content %}
 {% endblock %}

@@ -15,7 +15,7 @@
             <div class="messages">
                 <ul>
                     {% if form.errors %}
-                        <li class="error">{% blocktrans %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
+                        <li class="error">{% blocktrans trimmed %}Your {{ username_field }} and password didn't match. Please try again.{% endblocktrans %}</li>
                     {% endif %}
                     {% for message in messages %}
                         <li class="{{ message.tags }}">{{ message }}</li>

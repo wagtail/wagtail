@@ -140,7 +140,7 @@ svg:not(:root) {
     position: absolute;
 }
 
-.option h4 {
+.option h2 {
     font-size: 19px;
     text-decoration: underline;
 }

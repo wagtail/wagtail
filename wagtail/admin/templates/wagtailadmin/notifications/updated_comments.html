@@ -3,7 +3,7 @@
 
 {% block content %}
     <p>
-        {% blocktrans with title=page.get_admin_display_title editor=editor|user_display_name %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
+        {% blocktrans trimmed with title=page.get_admin_display_title editor=editor|user_display_name %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
     </p>
 
     {% if new_comments %}

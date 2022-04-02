@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
+import { gettext } from '../../../../utils/gettext';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
@@ -15,7 +16,6 @@ import {
 import { LayoutController } from '../../utils/layout';
 import { getNextReplyId } from '../../utils/sequences';
 import CommentReplyComponent from '../CommentReply';
-import type { TranslatableStrings } from '../../main';
 import { CommentHeader } from '../CommentHeader';
 import TextArea from '../TextArea';
 
@@ -79,12 +79,11 @@ export interface CommentProps {
   isVisible: boolean;
   layout: LayoutController;
   user: Author | null;
-  strings: TranslatableStrings;
 }
 
 export default class CommentComponent extends React.Component<CommentProps> {
   renderReplies({ hideNewReply = false } = {}): React.ReactFragment {
-    const { comment, isFocused, store, user, strings } = this.props;
+    const { comment, isFocused, store, user } = this.props;
 
     if (!comment.remoteId) {
       // Hide replies UI if the comment itself isn't saved yet
@@ -146,7 +145,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
             user={user}
             comment={comment}
             reply={reply}
-            strings={strings}
             isFocused={isFocused}
           />,
         );
@@ -172,14 +170,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
               type="submit"
               className="comment__button comment__button--primary"
             >
-              {strings.REPLY}
+              {gettext('Reply')}
             </button>
             <button
               type="button"
               onClick={onClickCancelReply}
               className="comment__button"
             >
-              {strings.CANCEL}
+              {gettext('Cancel')}
             </button>
           </div>
         </form>
@@ -200,7 +198,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderCreating(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -229,7 +227,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           descriptionId={descriptionId}
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <form onSubmit={onSave}>
@@ -249,14 +246,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
               type="submit"
               className="comment__button comment__button--primary"
             >
-              {strings.COMMENT}
+              {gettext('Comment')}
             </button>
             <button
               type="button"
               onClick={onCancel}
               className="comment__button"
             >
-              {strings.CANCEL}
+              {gettext('Cancel')}
             </button>
           </div>
         </form>
@@ -265,7 +262,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderEditing(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     const onChangeText = (value: string) => {
       store.dispatch(
@@ -300,7 +297,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
           descriptionId={descriptionId}
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <form onSubmit={onSave}>
@@ -319,14 +315,14 @@ export default class CommentComponent extends React.Component<CommentProps> {
               type="submit"
               className="comment__button comment__button--primary"
             >
-              {strings.SAVE}
+              {gettext('Save')}
             </button>
             <button
               type="button"
               onClick={onCancel}
               className="comment__button"
             >
-              {strings.CANCEL}
+              {gettext('Cancel')}
             </button>
           </div>
         </form>
@@ -336,25 +332,24 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderSaving(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     return (
       <>
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
-        <div className="comment__progress">{strings.SAVING}</div>
+        <div className="comment__progress">{gettext('Saving...')}</div>
         {this.renderReplies({ hideNewReply: true })}
       </>
     );
   }
 
   renderSaveError(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     const onClickRetry = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -367,19 +362,18 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
-          {strings.SAVE_ERROR}
+          {gettext('Save error')}
           <button
             type="button"
             className="comment__button"
             onClick={onClickRetry}
           >
-            {strings.RETRY}
+            {gettext('Retry')}
           </button>
         </div>
       </>
@@ -387,7 +381,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDeleteConfirm(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     const onClickDelete = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -410,25 +404,24 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
         <div className="comment__confirm-delete">
-          {strings.CONFIRM_DELETE_COMMENT}
+          {gettext('Are you sure?')}
           <button
             type="button"
             className="comment__button"
             onClick={onClickCancel}
           >
-            {strings.CANCEL}
+            {gettext('Cancel')}
           </button>
           <button
             type="button"
             className="comment__button comment__button--primary"
             onClick={onClickDelete}
           >
-            {strings.DELETE}
+            {gettext('Delete')}
           </button>
         </div>
         {this.renderReplies({ hideNewReply: true })}
@@ -437,25 +430,24 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDeleting(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     return (
       <>
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
-        <div className="comment__progress">{strings.DELETING}</div>
+        <div className="comment__progress">{gettext('Deleting')}</div>
         {this.renderReplies({ hideNewReply: true })}
       </>
     );
   }
 
   renderDeleteError(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     const onClickRetry = async (e: React.MouseEvent) => {
       e.preventDefault();
@@ -478,26 +470,25 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           focused={isFocused}
         />
         <p className="comment__text">{comment.text}</p>
         {this.renderReplies({ hideNewReply: true })}
         <div className="comment__error">
-          {strings.DELETE_ERROR}
+          {gettext('Delete error')}
           <button
             type="button"
             className="comment__button"
             onClick={onClickCancel}
           >
-            {strings.CANCEL}
+            {gettext('Cancel')}
           </button>
           <button
             type="button"
             className="comment__button"
             onClick={onClickRetry}
           >
-            {strings.RETRY}
+            {gettext('Retry')}
           </button>
         </div>
       </>
@@ -505,7 +496,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
   }
 
   renderDefault(): React.ReactFragment {
-    const { comment, store, strings, isFocused } = this.props;
+    const { comment, store, isFocused } = this.props;
 
     // Show edit/delete buttons if this comment was authored by the current user
     let onEdit;
@@ -535,10 +526,10 @@ export default class CommentComponent extends React.Component<CommentProps> {
     let notice = '';
     if (!comment.remoteId) {
       // Save the page to add this comment
-      notice = strings.SAVE_PAGE_TO_ADD_COMMENT;
+      notice = gettext('Save the page to add this comment');
     } else if (comment.text !== comment.originalText) {
       // Save the page to save this comment
-      notice = strings.SAVE_PAGE_TO_SAVE_COMMENT_CHANGES;
+      notice = gettext('Save the page to save this comment');
     }
 
     return (
@@ -546,7 +537,6 @@ export default class CommentComponent extends React.Component<CommentProps> {
         <CommentHeader
           commentReply={comment}
           store={store}
-          strings={strings}
           onResolve={doResolveComment}
           onEdit={onEdit}
           onDelete={onDelete}

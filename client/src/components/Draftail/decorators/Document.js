@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
-
-import { STRINGS } from '../../../config/wagtailConfig';
 
 const documentIcon = <Icon name="doc-full" />;
 const missingDocumentIcon = <Icon name="warning" />;
@@ -19,7 +18,7 @@ const Document = (props) => {
 
   if (!url) {
     icon = missingDocumentIcon;
-    label = STRINGS.MISSING_DOCUMENT;
+    label = gettext('Missing document');
   } else {
     icon = documentIcon;
     label = data.filename || '';
