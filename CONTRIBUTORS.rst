@@ -584,6 +584,7 @@ Contributors
 * Vinit Kumar
 * Shwet Khatri
 * Abdulmajeed Isa
+* Sandil Ranasinghe
 
 Translators
 ===========

@@ -1,6 +1,6 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
-
 {% load wagtailadmin_tags i18n %}
+{% base_url_setting as base_url %}
 
 {% block content %}
     {% if requested_by %}
@@ -10,6 +10,6 @@
     {% endif %}
 
     <p>
-        {% trans "You can edit the page here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
+        {% trans "You can edit the page here:" %} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
     </p>
 {% endblock %}

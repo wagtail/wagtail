@@ -30,6 +30,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
@@ -282,9 +283,9 @@ def usage_count_enabled():
     return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
 
 
-@register.simple_tag
-def base_url_setting():
-    return getattr(settings, "BASE_URL", None)
+@register.simple_tag(takes_context=True)
+def base_url_setting(context=None):
+    return get_admin_base_url(context=context)
 
 
 @register.simple_tag
@@ -698,7 +699,7 @@ def js_translation_strings():
 def notification_static(path):
     """
     Variant of the {% static %}` tag for use in notification emails - tries to form
-    a full URL using BASE_URL if the static URL isn't already a full URL.
+    a full URL using WAGTAILADMIN_BASE_URL if the static URL isn't already a full URL.
     """
     return urljoin(base_url_setting(), static(path))
 
