@@ -94,9 +94,8 @@ class TestSiteSettingCreateView(BaseTestSiteSettingView):
         self.assertContains(response, "The setting could not be saved due to errors.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=2,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=2)
 
@@ -148,9 +147,8 @@ class TestSiteSettingEditView(BaseTestSiteSettingView):
         self.assertContains(response, "The setting could not be saved due to errors.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=2,
-            html=True,
         )
         self.assertContains(response, "This field is required", count=2)
 

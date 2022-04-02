@@ -1,8 +1,6 @@
-<fieldset>
-    <legend>{{ self.heading }}</legend>
-    <ul class="fields">
-        {% for child in self.visible_children %}
-            <li class="{{ child.classes|join:" " }}">{{ child.render_as_field }}</li>
-        {% endfor %}
-    </ul>
-</fieldset>
+{% load wagtailadmin_tags %}
+{% for child in self.visible_children %}
+    <label {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %} class="w-field__label">{{ child.heading }}{% if child.is_required %}<span class="w-error" aria-hidden="true">*</span>{% endif %}</label>
+
+    {% component child %}
+{% endfor %}

@@ -413,9 +413,8 @@ class TestCreateView(TestCase, WagtailTestUtils):
         self.assertFormError(response, "form", "title", "This field is required.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
 
     def test_exclude_passed_to_extract_panel_definitions(self):
@@ -687,9 +686,8 @@ class TestEditView(TestCase, WagtailTestUtils):
         self.assertFormError(response, "form", "title", "This field is required.")
         self.assertContains(
             response,
-            """<p class="error-message"><span>This field is required.</span></p>""",
+            """<svg width="16" height="16"><use href="#icon-cross"></use></svg>This field is required.""",
             count=1,
-            html=True,
         )
 
     def test_exclude_passed_to_extract_panel_definitions(self):
