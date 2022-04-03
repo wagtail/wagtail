@@ -24,7 +24,6 @@ from wagtail.admin.templatetags.wagtailadmin_tags import avatar_url, user_displa
 from wagtail.admin.ui.components import Component
 from wagtail.admin.widgets import AdminPageChooser
 from wagtail.blocks import BlockField
-from wagtail.coreutils import camelcase_to_underscore
 from wagtail.models import COMMENTS_RELATION_NAME, Page
 from wagtail.utils.decorators import cached_classmethod
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
@@ -269,12 +268,6 @@ class Panel:
             return [self.classname]
         return []
 
-    def field_type(self):
-        """
-        The kind of field it is e.g boolean_field. Useful for better semantic markup of field display based on type
-        """
-        return ""
-
     def id_for_label(self):
         """
         The ID to be used as the 'for' attribute of any <label> elements that refer
@@ -303,9 +296,6 @@ class Panel:
 
         def classes(self):
             return self.panel.classes()
-
-        def field_type(self):
-            return self.panel.field_type()
 
         def id_for_label(self):
             """
@@ -676,25 +666,7 @@ class FieldPanel(Panel):
             return True
 
         def classes(self):
-            classes = self.panel.classes().copy()
-
-            if self.bound_field.field.required:
-                classes.append("required")
-
-            # If field has any errors, add the classname 'error' to enable error styling
-            # (e.g. red background), unless the widget has its own mechanism for rendering errors
-            # via the render_with_errors mechanism (as StreamField does).
-            if self.bound_field.errors and not hasattr(
-                self.bound_field.field.widget, "render_with_errors"
-            ):
-                classes.append("error")
-
-            classes.append(self.field_type())
-
-            return classes
-
-        def field_type(self):
-            return camelcase_to_underscore(self.bound_field.field.__class__.__name__)
+            return self.panel.classes()
 
         def id_for_label(self):
             return self.bound_field.id_for_label

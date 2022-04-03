@@ -756,7 +756,7 @@ class TestFieldRowPanel(TestCase):
 
         result = field_panel.render_html()
 
-        self.assertIn('<li class="field-col coltwo error date_field col6">', result)
+        self.assertIn('<li class="field-col coltwo col6">', result)
 
     def test_added_col_doesnt_change_siblings(self):
         form = self.EventPageForm(
