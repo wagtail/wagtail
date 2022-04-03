@@ -320,9 +320,19 @@ class Panel:
             return True
 
         def render_as_object(self):
+            warn(
+                "Panel.render_as_object is deprecated. Use render_html instead",
+                category=RemovedInWagtail50Warning,
+                stacklevel=2,
+            )
             return self.render_html()
 
         def render_as_field(self):
+            warn(
+                "Panel.render_as_field is deprecated. Use render_html instead",
+                category=RemovedInWagtail50Warning,
+                stacklevel=2,
+            )
             return self.render_html()
 
         def get_context_data(self, parent_context=None):
@@ -355,7 +365,7 @@ class Panel:
             Render this as an 'object', ensuring that all fields necessary for a valid form
             submission are included
             """
-            return mark_safe(self.render_as_object() + self.render_missing_fields())
+            return mark_safe(self.render_html() + self.render_missing_fields())
 
         def __repr__(self):
             return "<%s with model=%s instance=%s request=%s form=%s>" % (

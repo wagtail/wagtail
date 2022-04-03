@@ -2,7 +2,7 @@
     <legend>{{ self.heading }}</legend>
     <ul class="fields">
         {% for child in self.visible_children %}
-            <li class="{{ child.classes|join:" " }}">{{ child.render_as_field }}</li>
+            <li class="{{ child.classes|join:" " }}">{{ child.render_html }}</li>
         {% endfor %}
     </ul>
 </fieldset>

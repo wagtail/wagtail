@@ -29,7 +29,7 @@
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
                 hidden
             >
-                {{ child.render_as_object }}
+                {{ child.render_html }}
             </section>
         {% endfor %}
     </div>

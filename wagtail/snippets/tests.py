@@ -1209,8 +1209,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-    def test_render_as_field(self):
-        field_html = self.snippet_chooser_panel.render_as_field()
+    def test_render_html(self):
+        field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
@@ -1228,14 +1228,14 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advert"
         ][0]
 
-        field_html = snippet_chooser_panel.render_as_field()
+        field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert", field_html)
         self.assertIn("Choose another advert", field_html)
 
     def test_render_js(self):
         self.assertIn(
             'createSnippetChooser("id_advert");',
-            self.snippet_chooser_panel.render_as_field(),
+            self.snippet_chooser_panel.render_html(),
         )
 
     def test_target_model_autodetected(self):
@@ -2049,8 +2049,8 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-    def test_render_as_field(self):
-        field_html = self.snippet_chooser_panel.render_as_field()
+    def test_render_html(self):
+        field_html = self.snippet_chooser_panel.render_html()
         self.assertIn(self.advert_text, field_html)
         self.assertIn("Choose advert with custom primary key", field_html)
         self.assertIn("Choose another advert with custom primary key", field_html)
@@ -2068,14 +2068,14 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
             if getattr(panel, "field_name", None) == "advertwithcustomprimarykey"
         ][0]
 
-        field_html = snippet_chooser_panel.render_as_field()
+        field_html = snippet_chooser_panel.render_html()
         self.assertIn("Choose advert with custom primary key", field_html)
         self.assertIn("Choose another advert with custom primary key", field_html)
 
     def test_render_js(self):
         self.assertIn(
             'createSnippetChooser("id_advertwithcustomprimarykey");',
-            self.snippet_chooser_panel.render_as_field(),
+            self.snippet_chooser_panel.render_html(),
         )
 
     def test_target_model_autodetected(self):
