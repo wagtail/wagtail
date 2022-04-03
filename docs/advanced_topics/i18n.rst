@@ -93,7 +93,7 @@ Language detection and routing
 
 For detecting the user's language and adding a prefix to the URLs
 (``/en/``, ``/fr-fr/``, for example), Wagtail is designed to work with Django's
-builtin internationalisation utilities such as ``i18n_patterns`` and
+built-in internationalisation utilities such as ``i18n_patterns`` and
 `LocaleMiddleware`. This means that Wagtail should work seamlessly with any
 other internationalised Django applications on your site.
 
