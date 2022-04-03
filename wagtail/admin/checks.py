@@ -164,3 +164,67 @@ There are no default tabs on non-Page models so there will be no \
         errors.append(error)
 
     return errors
+
+
+@register("panels")
+def panel_type_check(app_configs, **kwargs):
+    from wagtail.core.models import get_page_models
+    from wagtail.snippets.models import get_snippet_models
+
+    errors = []
+
+    for cls in get_page_models():
+        errors += traverse_edit_handlers(cls.get_edit_handler())
+
+    for cls in get_snippet_models():
+        if hasattr(cls, "panels"):
+            for panel in cls.panels:
+                errors += traverse_edit_handlers(panel.bind_to(cls))
+
+    return errors
+
+
+def traverse_edit_handlers(edit_handler):
+    errors = []
+
+    try:
+        for child in edit_handler.children:
+            errors += traverse_edit_handlers(child)
+    except AttributeError as e:
+        if hasattr(edit_handler, "children"):
+            print(e)
+        panel_field_error = check_panel_field_valid(edit_handler)
+        if panel_field_error:
+            errors.append(panel_field_error)
+
+    return errors
+
+
+def check_panel_field_valid(edit_handler):
+    from wagtail.admin.panels import CommentPanel, PrivacyModalPanel, TabbedInterface
+
+    if isinstance(edit_handler, (CommentPanel, PrivacyModalPanel, TabbedInterface)):
+        pass
+    else:
+        model = getattr(edit_handler, "model", None)
+        field_or_relation_name = getattr(edit_handler, "field_name", None)
+        if field_or_relation_name is None:
+            field_or_relation_name = getattr(edit_handler, "relation_name", None)
+
+        if field_or_relation_name in [f.name for f in model._meta.get_fields()]:
+            pass
+        elif hasattr(edit_handler, "relation_name") and field_or_relation_name in [
+            getattr(f, "related_name", None) for f in model._meta.get_fields()
+        ]:
+            pass
+        else:
+            return Warning(
+                "{model} does not have a field named '{field_name}', but a {edit_handler} is pointing to it".format(
+                    model=model.__name__,
+                    field_name=field_or_relation_name,
+                    edit_handler=edit_handler.__class__.__name__,
+                ),
+                hint="Check whether the field exists on the model and ensure it has been typed correctly",
+                obj=model,
+                id="wagtailadmin.W003",
+            )

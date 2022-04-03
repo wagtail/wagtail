@@ -35,6 +35,7 @@ from wagtail.admin.widgets import (
 from wagtail.models import Comment, CommentReply, Page, Site
 from wagtail.test.testapp.forms import ValidatedPageForm
 from wagtail.test.testapp.models import (
+    Advert,
     EventPage,
     EventPageChooserModel,
     EventPageSpeaker,
@@ -329,6 +330,26 @@ class TestPageEditHandlers(TestCase):
         self.assertIn("instance=None", handler_handler_repr)
         self.assertIn("request=None", handler_handler_repr)
         self.assertIn("form=None", handler_handler_repr)
+
+    def test_check_invalid_field_name_in_snippet_edit_handler(self):
+        """
+        Check that the correct warning is raised.
+        """
+
+        invalid_edit_handler = checks.Warning(
+            "Advert does not have a field named 'urll', but a FieldPanel is pointing to it",
+            hint="Check whether the field exists on the model and ensure it has been typed correctly",
+            obj=Advert,
+            id="wagtailadmin.W003",
+        )
+
+        with mock.patch.object(Advert, "panels", new=[FieldPanel("urll")]):
+            checks_result = checks.run_checks(tags=["panels"])
+
+            # Only look at warnings for Advert
+            warning = [warning for warning in checks_result if warning.obj == Advert]
+
+            self.assertEqual(warning, [invalid_edit_handler])
 
 
 class TestExtractPanelDefinitionsFromModelClass(TestCase):
