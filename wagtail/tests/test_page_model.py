@@ -2063,7 +2063,7 @@ class TestCopyPage(TestCase):
                 "slug": "translated-orderable-page",
             },
         )
-
+        new_page.save_revision().publish()
         self.assertNotEqual(
             christmas_page.speakers.first().translation_key,
             new_page.speakers.first().translation_key,

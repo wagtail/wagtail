@@ -62,10 +62,13 @@ class CopyPageAction:
         self.reset_translation_key = reset_translation_key
         self._uuid_mapping = {}
 
-    def get_new_translation_key(self, old_uuid):
-        """Map old UUIDs to new UUID values."""
+    def generate_translation_key(self, old_uuid):
+        """
+        Generates a new UUID if it isn't already being used.
+        Otherwise it will return the same UUID if it's already in use.
+        """
         if old_uuid not in self._uuid_mapping:
-            self._uuid_mapping[old_uuid] = str(uuid.uuid4())
+            self._uuid_mapping[old_uuid] = uuid.uuid4()
 
         return self._uuid_mapping[old_uuid]
 
@@ -144,7 +147,6 @@ class CopyPageAction:
         page_copy, child_object_map = _copy(
             specific_page, exclude_fields=exclude_fields, update_attrs=base_update_attrs
         )
-
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
 
@@ -157,7 +159,7 @@ class CopyPageAction:
             if self.reset_translation_key and isinstance(
                 child_object, TranslatableMixin
             ):
-                child_object.translation_key = self.get_new_translation_key(
+                child_object.translation_key = self.generate_translation_key(
                     child_object.translation_key
                 )
 
@@ -206,7 +208,6 @@ class CopyPageAction:
 
                     for child_object in child_objects:
                         child_object[child_relation.field.name] = page_copy.pk
-
                         # Remap primary key to copied versions
                         # If the primary key is not recognised (eg, the child object has been deleted from the database)
                         # set the primary key to None
@@ -222,7 +223,7 @@ class CopyPageAction:
                         ):
                             child_object[
                                 "translation_key"
-                            ] = self.get_new_translation_key(
+                            ] = self.generate_translation_key(
                                 child_object["translation_key"]
                             )
 
