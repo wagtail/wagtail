@@ -7,11 +7,10 @@
     {% trans "Editing" as editing_str %}
     {% include "wagtailadmin/shared/header.html" with title=editing_str subtitle=user.get_username merged=1 tabbed=1 icon="user" %}
 
-    <div class="underline-tabs merged" data-tabs>
-        <div class="underline-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+    <div class="w-tabs merged" data-tabs>
+        <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
             <div role="tablist"
-                class="underline-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
-                data-tab-nav
+                class="w-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
             >
                 {% trans "Account" as account_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
@@ -26,7 +25,7 @@
 
                 <section
                     id="tab-account"
-                    class="underline-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    class="w-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
                     role="tabpanel"
                     hidden
                     aria-labelledby="tab-label-account"
@@ -61,7 +60,7 @@
                 </section>
                 <section
                     id="tab-roles"
-                    class="underline-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    class="w-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
                     role="tabpanel"
                     hidden
                     aria-labelledby="tab-label-roles"

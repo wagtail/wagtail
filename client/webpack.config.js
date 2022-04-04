@@ -56,7 +56,11 @@ module.exports = function exports(env, argv) {
       'workflow-status',
       'bulk-actions',
     ],
-    'images': ['image-chooser', 'image-chooser-telepath'],
+    'images': [
+      'image-chooser',
+      'image-chooser-modal',
+      'image-chooser-telepath',
+    ],
     'documents': ['document-chooser', 'document-chooser-telepath'],
     'snippets': ['snippet-chooser', 'snippet-chooser-telepath'],
     'contrib/table_block': ['table'],

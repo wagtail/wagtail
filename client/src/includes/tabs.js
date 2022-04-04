@@ -1,16 +1,12 @@
 class Tabs {
-  static selector() {
-    return '[data-tabs]';
-  }
-
   constructor(node) {
     this.tabContainer = node;
-    this.tabButtons = this.tabContainer.querySelectorAll('[data-tab]');
+    this.tabButtons = this.tabContainer.querySelectorAll('[role="tab"]');
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
-    this.tabNav = this.tabContainer.querySelector('[data-tab-nav]');
     this.tabSelectedEvent = new Event('tab-selected');
     this.animate = this.tabContainer.hasAttribute('data-tabs-animate');
 
+    // TODO: Remove
     if (this.tabList) {
       this.vertical =
         this.tabList.getAttribute('aria-orientation') === 'vertical';
@@ -93,7 +89,7 @@ class Tabs {
     const tab = this.tabContainer.querySelector(
       `a[href='#${this.state.activeTabID}']`,
     );
-    // Tab button to deactivate
+
     tab.setAttribute('aria-selected', 'false');
     tab.setAttribute('tabindex', '-1');
   }
@@ -110,16 +106,12 @@ class Tabs {
         this.unSelectActiveTab(tabContentId);
       }
 
-      // Set currently active ID to use later
       this.state.activeTabID = tabContentId;
 
-      // Show selected tab content and activate button
       tab.setAttribute('aria-selected', true);
       tab.removeAttribute('tabindex');
       const tabContent = this.tabContainer.querySelector(`#${tabContentId}`);
 
-      // Set css class to display tab
-      // Wait for transition out
       if (this.animate) {
         this.animateIn(tabContent);
       } else {
@@ -128,7 +120,7 @@ class Tabs {
 
       // Dispatch tab selected event for the rest of the admin to hook into if needed
       // Trigger tab specific switch event
-      this.tabNav.dispatchEvent(
+      this.tabList.dispatchEvent(
         new CustomEvent('switch', { detail: { tab: tab.dataset.tab } }),
       );
       // Dispatch tab-changed event on the document
@@ -338,14 +330,7 @@ class Tabs {
 
 export default Tabs;
 
-export const initTabs = (selector) => {
-  let tabs;
-  if (selector) {
-    tabs = document.querySelectorAll(selector);
-  } else {
-    tabs = document.querySelectorAll(Tabs.selector());
-  }
-
+export const initTabs = (tabs = document.querySelectorAll('[data-tabs]')) => {
   if (tabs) {
     tabs.forEach((tabSet) => new Tabs(tabSet));
   }

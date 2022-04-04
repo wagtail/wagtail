@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 function ajaxifyImageUploadForm(modal) {
   $('form.image-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -80,7 +82,7 @@ function ajaxifyImageUploadForm(modal) {
   });
 }
 
-IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser: function (modal, jsonData) {
     var searchForm = $('form.image-search', modal.body);
     var searchUrl = searchForm.attr('action');

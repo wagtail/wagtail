@@ -1,10 +1,9 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="underline-tabs" data-tabs data-tabs-animate>
-    <div class="underline-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+<div class="w-tabs" data-tabs data-tabs-animate>
+    <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
         <div role="tablist"
-            class="underline-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
-            data-tab-nav
+            class="w-tabs__list"
         >
             {% for child in self.children %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
@@ -16,7 +15,7 @@
         {% for child in self.children %}
             <section
                 id="tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} underline-tabs__panel"
+                class="{{ child.classes|join:" " }} w-tabs__panel"
                 role="tabpanel"
                 hidden
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"

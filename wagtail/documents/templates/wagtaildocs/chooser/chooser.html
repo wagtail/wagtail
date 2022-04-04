@@ -5,11 +5,11 @@
 {{ uploadform.media.js }}
 {{ uploadform.media.css }}
 
-<div class="underline-tabs merged" data-tabs>
+<div class="w-tabs merged" data-tabs>
     {% if uploadform %}
-        <div class="underline-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+        <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
             <div role="tablist"
-                class="underline-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
+                class="w-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
                 data-tab-nav
             >
                 {% trans "Search" as search_text %}
@@ -23,7 +23,7 @@
     <div class="tab-content nice-padding">
         <section
             id="tab-search"
-            class="underline-tabs__panel"
+            class="w-tabs__panel"
             role="tabpanel"
             {% if uploadform %}hidden{% endif %}
             aria-labelledby="tab-label-search"

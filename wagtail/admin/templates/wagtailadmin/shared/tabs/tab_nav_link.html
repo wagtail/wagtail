@@ -13,12 +13,13 @@
 {% endcomment %}
 
 <a href="#tab-{{ tab_id|cautious_slugify }}"
-    class="{{ classes }} underline-tabs__tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all"
-    role="tab" aria-controls="tab-{{ tab_id|cautious_slugify }}"
-    data-tab="{{ tab_id|cautious_slugify }}">
+    class="{{ classes }} w-tabs__tab"
+    role="tab"
+    aria-controls="tab-{{ tab_id|cautious_slugify }}">
 
     {% if notifications_count %}
-        <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
+        {#  TODO: move to css :( and also move aria-controls to be generated in JS #}
+        <div  class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
             {{ notifications_count }}
         </div>
     {% endif %}
