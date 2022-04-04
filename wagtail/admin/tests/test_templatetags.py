@@ -24,9 +24,8 @@ from wagtail.admin.templatetags.wagtailadmin_tags import (
 )
 from wagtail.admin.ui.components import Component
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import Locale
+from wagtail.models import Locale, UserProfile
 from wagtail.test.utils import WagtailTestUtils
-from wagtail.users.models import UserProfile
 
 
 class TestAvatarTemplateTag(TestCase, WagtailTestUtils):

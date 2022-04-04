@@ -28,8 +28,7 @@ from wagtail.admin.localization import (
     get_available_admin_time_zones,
 )
 from wagtail.log_actions import log
-from wagtail.models import UserPagePermissionsProxy
-from wagtail.users.models import UserProfile
+from wagtail.models import UserPagePermissionsProxy, UserProfile
 from wagtail.utils.loading import get_custom_form
 
 

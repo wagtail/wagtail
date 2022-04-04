@@ -25,6 +25,7 @@ from wagtail.models import (
     PageRevision,
     PageSubscription,
     Site,
+    UserProfile,
 )
 from wagtail.signals import page_published
 from wagtail.test.testapp.models import (
@@ -43,7 +44,6 @@ from wagtail.test.testapp.models import (
 )
 from wagtail.test.utils import WagtailTestUtils
 from wagtail.test.utils.form_data import inline_formset, nested_form_data
-from wagtail.users.models import UserProfile
 
 
 class TestPageEdit(TestCase, WagtailTestUtils):

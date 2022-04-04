@@ -11,8 +11,7 @@ from wagtail.admin.userbar import (
     ExplorePageItem,
     RejectModerationEditPageItem,
 )
-from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision
-from wagtail.users.models import UserProfile
+from wagtail.models import PAGE_TEMPLATE_VAR, Page, PageRevision, UserProfile
 
 register = template.Library()
 
