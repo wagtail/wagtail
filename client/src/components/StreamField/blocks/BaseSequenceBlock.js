@@ -189,7 +189,7 @@ export class BaseSequenceChild extends EventEmitter {
     });
     capabilities.set('split', {
       enabled: false,
-      fn: this.split,
+      fn: this.split.bind(this),
     });
 
     this.block = this.blockDef.render(

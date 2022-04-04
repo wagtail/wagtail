@@ -158,18 +158,27 @@ class DraftailRichTextArea {
     this.options = options;
   }
 
-  render(container, name, id, initialState) {
-    const options = this.options;
+  render(container, name, id, initialState, parentCapabilities) {
+    const options = { ...this.options };
+    const split = parentCapabilities.get('split');
+    if (split) {
+      options.controls = options.controls ? [...options.controls] : [];
+      options.controls.push(draftail.getSplitControl(split.fn));
+    }
     const input = document.createElement('input');
     input.type = 'hidden';
     input.id = id;
     input.name = name;
-    input.value = initialState;
+
+    // If the initialState is an EditorState, rather than serialized rawContentState, it's
+    // easier for us to initialize the widget blank and then setState to the correct state
+    const initialiseBlank = initialState instanceof DraftJS.EditorState;
+    input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef
     draftail.initEditor('#' + id, options, document.currentScript);
 
-    return {
+    const boundDraftail = {
       getValue() {
         return input.value;
       },
@@ -202,6 +211,12 @@ class DraftailRichTextArea {
         }, 50);
       },
     };
+
+    if (initialiseBlank) {
+      boundDraftail.setState(initialState);
+    }
+
+    return boundDraftail;
   }
 }
 window.telepath.register(

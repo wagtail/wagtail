@@ -209,6 +209,60 @@ interface ControlProps {
   onChange: (editorState: EditorState) => void;
 }
 
+function splitState(editorState: EditorState) {
+  const selection = editorState.getSelection();
+  if (!selection.isCollapsed()) {
+    // This is a placeholder UI, and will eventually be replaced by the "type / to select block"
+    // So we probably don't need to care too much about non-collapsed selections
+    return [];
+  }
+  const anchorKey = selection.getAnchorKey();
+  const currentContent = editorState.getCurrentContent();
+
+  const multipleBlockContent = Modifier.splitBlock(
+    currentContent,
+    selection,
+  ).getBlocksAsArray();
+  const index = multipleBlockContent.findIndex(
+    (block) => block.getKey() == anchorKey,
+  );
+  const blocksBefore = multipleBlockContent.slice(0, index + 1);
+  const blocksAfter = multipleBlockContent.slice(index + 1);
+  const stateBefore = EditorState.push(
+    editorState,
+    ContentState.createFromBlockArray(blocksBefore),
+    'remove-range',
+  );
+  const stateAfter = EditorState.push(
+    editorState,
+    ContentState.createFromBlockArray(blocksAfter),
+    'remove-range',
+  );
+  return [stateBefore, stateAfter];
+}
+
+// @ts-ignore
+function getSplitControl(
+  splitFn: (stateBefore: EditorState, stateAfter: EditorState) => void,
+) {
+  return ({ getEditorState }: ControlProps) => {
+    return (
+      <ToolbarButton
+        name="split"
+        active={false}
+        title="split block" // TODO: this UI is placeholder. The full UI will need translations.
+        icon={<Icon name="comment-large-outline" />}
+        onClick={() => {
+          const [stateBefore, stateAfter] = splitState(getEditorState());
+          if (stateAfter) {
+            splitFn(stateBefore, stateAfter);
+          }
+        }}
+      />
+    );
+  };
+}
+
 function getCommentControl(
   commentApp: CommentApp,
   contentPath: string,
@@ -847,4 +901,5 @@ function CommentableEditor({
   );
 }
 
+export { getSplitControl };
 export default CommentableEditor;
