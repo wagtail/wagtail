@@ -21,7 +21,7 @@
         <img src="https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript" />
     </a>
     <a href="https://pypi.python.org/pypi/wagtail/">
-        <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Language grade: JavaScript" />
+        <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Monthly downloads" />
     </a>
     <br>
 </h1>
