@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
 
 function createImageChooser(id) {
   const chooserElement = $('#' + id + '-chooser');
@@ -77,6 +78,11 @@ function createImageChooser(id) {
           },
         },
       });
+
+      // TODO: Add this to a response instead of relying on timeout
+      setTimeout(() => {
+        initTabs();
+      }, 500);
     },
 
     clear: () => {
@@ -95,4 +101,5 @@ function createImageChooser(id) {
 
   return chooser;
 }
+
 window.createImageChooser = createImageChooser;

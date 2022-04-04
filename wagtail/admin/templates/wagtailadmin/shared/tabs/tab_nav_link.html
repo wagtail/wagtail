@@ -1,8 +1,27 @@
 {% load wagtailadmin_tags i18n %}
 
+{% comment %}
+
+    Variables accepted by this template:
+    '?' means optional
+
+    - `tab_id` - {string} A unique tab id
+    - `title` - {string} Text that the tab button will display
+    - `active` - {boolean?} Force this to be active
+    - `classes` - {string?} Extra css classes to pass to this component
+    - `notifications_count` - {number?} Show above the tab for notifications count
+{% endcomment %}
+
 <a href="#tab-{{ tab_id|cautious_slugify }}"
-    class="underline-tabs__tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all"
+    class="{{ classes }} underline-tabs__tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all"
     role="tab" aria-controls="tab-{{ tab_id|cautious_slugify }}"
     data-tab="{{ tab_id|cautious_slugify }}">
+
+    {% if notifications_count %}
+        <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
+            {{ notifications_count }}
+        </div>
+    {% endif %}
+
     {{ title }}
 </a>

@@ -1,25 +1,13 @@
 {% load wagtailadmin_tags i18n %}
 
-<div class="underline-tabs" data-tabs>
-    <div class="w-overflow-x-auto u-scrollbar-thin">
+<div class="underline-tabs" data-tabs data-tabs-animate>
+    <div class="underline-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
         <div role="tablist"
-            class="nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
+            class="underline-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
             data-tab-nav
-            {#             data-current-tab="{{ self.children.0.heading|cautious_slugify }}"#}
         >
             {% for child in self.children %}
-                <a href="#tab-{{ child.heading|cautious_slugify }}"
-                    class="{{ child.classes|join:" " }} underline-tabs__tab w-label-3 w-outline-offset-inside w-inline-flex w-text-grey-400 hover:w-text-primary w-whitespace-nowrap w-py-4 w-px-1 w-font-medium w-relative after:w-content-[''] after:w-block after:w-w-0 after:w-h-[2px] hover:after:w-w-full after:w-absolute after:-w-bottom-px after:w-left-0 after:w-bg-primary after:w-transition-all"
-                    role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}"
-                    data-tab="{{ child.heading|cautious_slugify }}">
-
-                    {% if errors %}
-                        <div class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
-                            {{ errors.count }}
-                        </div>
-                    {% endif %}
-                    {{ child.heading }}
-                </a>
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
             {% endfor %}
         </div>
     </div>
@@ -28,11 +16,10 @@
         {% for child in self.children %}
             <section
                 id="tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} underline-tabs__content w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                class="{{ child.classes|join:" " }} underline-tabs__panel"
                 role="tabpanel"
                 hidden
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
-                data-tab-content="{{ child.heading|cautious_slugify }}"
             >
                 {{ child.render_as_object }}
             </section>

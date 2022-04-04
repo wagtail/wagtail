@@ -1,4 +1,3 @@
-// Fires and 'tab-selected' event when a tab is selected
 class Tabs {
   static selector() {
     return '[data-tabs]';
@@ -10,11 +9,7 @@ class Tabs {
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
     this.tabNav = this.tabContainer.querySelector('[data-tab-nav]');
     this.tabSelectedEvent = new Event('tab-selected');
-
-    if (this.tabContainer) {
-      this.tabContent =
-        this.tabContainer.querySelectorAll('[data-tab-content]');
-    }
+    this.animate = this.tabContainer.hasAttribute('data-tabs-animate');
 
     if (this.tabList) {
       this.vertical =
@@ -25,6 +20,10 @@ class Tabs {
       // Tab Settings
       activeTabID: '',
       transition: 150,
+      // CSS Classes
+      css: {
+        animate: 'animate-in',
+      },
       // Keyboard Keys
       keys: {
         end: 'End',
@@ -61,6 +60,7 @@ class Tabs {
   onComponentLoaded() {
     this.bindEvents();
 
+    // Set active tab from url or make first tab active
     if (this.tabButtons) {
       if (window.location.hash) {
         this.selectTabByURLHash();
@@ -84,10 +84,11 @@ class Tabs {
       `#${this.state.activeTabID}`,
     );
 
-    setTimeout(() => {
+    if (this.animate) {
+      this.animateOut(tabContent);
+    } else {
       tabContent.hidden = true;
-    }, this.state.transition);
-    tabContent.classList.remove('visible');
+    }
 
     const tab = this.tabContainer.querySelector(
       `a[href='#${this.state.activeTabID}']`,
@@ -104,10 +105,12 @@ class Tabs {
     if (tab) {
       const tabContentId = tab.getAttribute('aria-controls');
 
+      // Unselect currently active tab
       if (tabContentId) {
         this.unSelectActiveTab(tabContentId);
       }
 
+      // Set currently active ID to use later
       this.state.activeTabID = tabContentId;
 
       // Show selected tab content and activate button
@@ -117,13 +120,11 @@ class Tabs {
 
       // Set css class to display tab
       // Wait for transition out
-      setTimeout(() => {
+      if (this.animate) {
+        this.animateIn(tabContent);
+      } else {
         tabContent.hidden = false;
-        // Wait for hidden attribute to be applied then fade in
-        setTimeout(() => {
-          tabContent.classList.add('visible');
-        }, this.state.transition);
-      }, this.state.transition);
+      }
 
       // Dispatch tab selected event for the rest of the admin to hook into if needed
       // Trigger tab specific switch event
@@ -138,6 +139,34 @@ class Tabs {
     }
   }
 
+  /**
+   * Fade Up and In animation
+   * @param tabContent{HTMLElement}
+   */
+  animateIn(tabContent) {
+    setTimeout(() => {
+      // eslint-disable-next-line no-param-reassign
+      tabContent.hidden = false;
+      // Wait for hidden attribute to be applied then fade in
+      setTimeout(() => {
+        tabContent.classList.add(this.state.css.animate);
+      }, this.state.transition);
+    }, this.state.transition);
+  }
+
+  /**
+   * Fade Down and Out by removing css class
+   * @param tabContent{HTMLElement}
+   */
+  animateOut(tabContent) {
+    // Wait element to transition out and then hide with hidden
+    tabContent.classList.remove(this.state.css.animate);
+    setTimeout(() => {
+      // eslint-disable-next-line no-param-reassign
+      tabContent.hidden = true;
+    }, this.state.transition);
+  }
+
   bindEvents() {
     if (!this.tabButtons) {
       return;
@@ -147,12 +176,10 @@ class Tabs {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
         this.selectTab(tab);
-
-        // If there is a carousel in the tabs then refresh the browser size
-        window.dispatchEvent(new Event('resize'));
       });
       tab.addEventListener('keydown', this.keydownEventListener.bind(this));
       tab.addEventListener('keyup', this.keyupEventListener.bind(this));
+      // Set index of tab used in keyboard controls
       // eslint-disable-next-line no-param-reassign
       tab.index = index;
     });
@@ -250,7 +277,12 @@ class Tabs {
       const tab = this.tabContainer.querySelector(
         `a[href="${cleanedHash}"][data-tab]`,
       );
-      this.selectTab(tab);
+      if (tab) {
+        this.selectTab(tab);
+      } else {
+        // The hash doesn't match a tab on the page then select first tab
+        this.selectFirstTab();
+      }
     }
   }
 
@@ -306,7 +338,15 @@ class Tabs {
 
 export default Tabs;
 
-export const initTabs = () => {
-  const tabs = document.querySelectorAll(Tabs.selector());
-  tabs.forEach((tabSet) => new Tabs(tabSet));
+export const initTabs = (selector) => {
+  let tabs;
+  if (selector) {
+    tabs = document.querySelectorAll(selector);
+  } else {
+    tabs = document.querySelectorAll(Tabs.selector());
+  }
+
+  if (tabs) {
+    tabs.forEach((tabSet) => new Tabs(tabSet));
+  }
 };

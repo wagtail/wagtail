@@ -6,38 +6,54 @@
 {{ uploadform.media.js }}
 {{ uploadform.media.css }}
 
-{% if uploadform %}
-    <ul class="tab-nav merged" data-tab-nav>
-        <li class="{% if not uploadform.errors %}active{% endif %}"><a href="#search" >{% trans "Search" %}</a></li>
-        <li class="{% if uploadform.errors %}active{% endif %}"><a href="#upload">{% trans "Upload" %}</a></li>
-    </ul>
-{% endif %}
-
-<div class="tab-content">
-    <section id="search" class="{% if not uploadform.errors %}active{% endif %} nice-padding">
-        <form class="image-search search-bar" action="{% url 'wagtailimages:chooser_results' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off" novalidate>
-            <ul class="fields">
-                {% for field in searchform %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                {% endfor %}
-                {% if collections %}
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                {% endif %}
-                {% if popular_tags %}
-                    <li class="taglist">
-                        <h3>{% trans 'Popular tags' %}</h3>
-                        {% for tag in popular_tags %}
-                            <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
-                        {% endfor %}
-                    </li>
-                {% endif %}
-            </ul>
-        </form>
-        <div id="image-results">
-            {% include "wagtailimages/chooser/results.html" %}
-        </div>
-    </section>
+<div class="underline-tabs merged" data-tabs>
     {% if uploadform %}
-        {% include "wagtailimages/chooser/upload_form.html" with form=uploadform will_select_format=will_select_format %}
+        <div class="underline-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+            <div role="tablist"
+                class="underline-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
+                data-tab-nav
+            >
+                {% trans "Search" as search_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text active=uploadform.errors %}
+                {% trans "Upload" as upload_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=upload_text active=uploadform.errors %}
+            </div>
+        </div>
     {% endif %}
+
+    <div class="tab-content nice-padding">
+        <section
+            id="tab-search"
+            class="underline-tabs__panel"
+            role="tabpanel"
+            {% if uploadform %}hidden{% endif %}
+            aria-labelledby="tab-label-search"
+        >
+            <form class="image-search search-bar" action="{% url 'wagtailimages:chooser_results' %}{% if will_select_format %}?select_format=true{% endif %}" method="GET" autocomplete="off"
+                novalidate>
+                <ul class="fields">
+                    {% for field in searchform %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endfor %}
+                    {% if collections %}
+                        {% include "wagtailadmin/shared/collection_chooser.html" %}
+                    {% endif %}
+                    {% if popular_tags %}
+                        <li class="taglist">
+                            <h3>{% trans 'Popular tags' %}</h3>
+                            {% for tag in popular_tags %}
+                                <a class="suggested-tag tag" href="{% url 'wagtailimages:index' %}?tag={{ tag.name|urlencode }}">{{ tag.name }}</a>
+                            {% endfor %}
+                        </li>
+                    {% endif %}
+                </ul>
+            </form>
+            <div id="image-results">
+                {% include "wagtailimages/chooser/results.html" %}
+            </div>
+        </section>
+        {% if uploadform %}
+            {% include "wagtailimages/chooser/upload_form.html" with form=uploadform will_select_format=will_select_format %}
+        {% endif %}
+    </div>
 </div>
