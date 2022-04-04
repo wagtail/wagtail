@@ -457,11 +457,14 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
         },
       ],
     });
+    const parentCapabilities = new Map();
+    parentCapabilities.set('split', { enabled: true });
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
       'the-name',
       'the-id',
       TEST_VALUE,
+      new Map(),
     );
   });
 

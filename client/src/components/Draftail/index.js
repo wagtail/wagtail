@@ -21,7 +21,9 @@ import {
 import Tooltip from './Tooltip/Tooltip';
 import TooltipEntity from './decorators/TooltipEntity';
 import EditorFallback from './EditorFallback/EditorFallback';
-import CommentableEditor from './CommentableEditor/CommentableEditor';
+import CommentableEditor, {
+  getSplitControl,
+} from './CommentableEditor/CommentableEditor';
 
 // 1024x1024 SVG path rendering of the "↵" character, that renders badly in MS Edge.
 const BR_ICON =
@@ -157,6 +159,7 @@ const initEditor = (selector, options, currentScript) => {
 
 export default {
   initEditor,
+  getSplitControl,
   registerPlugin,
   // Components exposed for third-party reuse.
   ModalWorkflowSource,
