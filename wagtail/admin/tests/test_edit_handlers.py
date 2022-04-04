@@ -502,14 +502,17 @@ class TestObjectList(TestCase):
         result = object_list.render_html()
 
         # result should contain ObjectList furniture
-        self.assertIn('<ul class="objects">', result)
+        self.assertIn('<div class="w-panel__header">', result)
 
         # result should contain labels for children
-        self.assertInHTML('<label for="id_date_from">Start date</label>', result)
+        self.assertInHTML(
+            '<label for="id_date_from">Start date<span class="w-error" aria-hidden="true">*</span></label>',
+            result,
+        )
 
         # result should include help text for children
         self.assertInHTML(
-            '<div class="object-help help"> <svg class="icon icon-help default" aria-hidden="true"><use href="#icon-help"></use></svg> Not required if event is on a single day</div>',
+            '<p id="id_date_to_help_text" class="w-help-text">Not required if event is on a single day</p>',
             result,
         )
 
@@ -984,7 +987,8 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         result = panel.render_html()
 
-        self.assertIn('<li class="object classname-for-speakers">', result)
+        # FIXME: reinstate when we pass classnames to the template again
+        # self.assertIn('<li class="object classname-for-speakers">', result)
         self.assertIn(
             '<label for="id_speakers-0-first_name" class="w-field__label">Name</label>',
             result,
