@@ -1,5 +1,4 @@
 import functools
-import re
 from warnings import warn
 
 from django import forms
@@ -504,24 +503,10 @@ class ObjectList(PanelGroup):
 
 class FieldRowPanel(PanelGroup):
     class BoundPanel(PanelGroup.BoundPanel):
-        template_name = "wagtailadmin/panels/field_row_panel.html"
-
-        def visible_children_with_classnames(self):
-            visible_children = self.visible_children
-            col_count = " col%s" % (12 // len(visible_children))
-            for child in visible_children:
-                classname = " ".join(child.classes())
-                if not re.search(r"\bcol\d+\b", classname):
-                    classname += col_count
-                yield child, classname
+        template_name = "wagtailadmin/panels/multi_field_panel.html"
 
 
 class MultiFieldPanel(PanelGroup):
-    def classes(self):
-        classes = super().classes()
-        classes.append("multi-field")
-        return classes
-
     class BoundPanel(PanelGroup.BoundPanel):
         template_name = "wagtailadmin/panels/multi_field_panel.html"
 

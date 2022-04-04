@@ -694,12 +694,15 @@ class TestFieldRowPanel(TestCase):
         result = field_panel.render_html()
 
         # check that label is output in the 'field' style
-        # FIXME: add these assertions back when label is reinstated
-        # self.assertIn('<label for="id_date_to">End date:</label>', result)
-        # self.assertNotIn("<legend>End date</legend>", result)
+        self.assertIn(
+            '<label for="id_date_to" class="w-field__label">End date</label>', result
+        )
 
         # check that label is overridden with the 'heading' argument
-        # self.assertIn('<label for="id_date_from">Start:</label>', result)
+        self.assertIn(
+            '<label for="id_date_from" class="w-field__label">Start<span class="w-error" aria-hidden="true">*</span></label>',
+            result,
+        )
 
         # check that help text is included
         self.assertIn("Not required if event is on a single day", result)
@@ -735,50 +738,6 @@ class TestFieldRowPanel(TestCase):
             '<svg width="16" height="16"><use href="#icon-cross"></use></svg>Enter a valid date.',
             result,
         )
-
-    def test_add_col_when_wrong_in_panel_def(self):
-        form = self.EventPageForm(
-            {
-                "title": "Pontypridd sheepdog trials",
-                "date_from": "2014-07-20",
-                "date_to": "2014-07-33",
-            },
-            instance=self.event,
-        )
-
-        form.is_valid()
-
-        field_panel = self.dates_panel.get_bound_panel(
-            instance=self.event,
-            form=form,
-            request=self.request,
-        )
-
-        result = field_panel.render_html()
-
-        self.assertIn('<li class="field-col coltwo col6">', result)
-
-    def test_added_col_doesnt_change_siblings(self):
-        form = self.EventPageForm(
-            {
-                "title": "Pontypridd sheepdog trials",
-                "date_from": "2014-07-20",
-                "date_to": "2014-07-33",
-            },
-            instance=self.event,
-        )
-
-        form.is_valid()
-
-        field_panel = self.dates_panel.get_bound_panel(
-            instance=self.event,
-            form=form,
-            request=self.request,
-        )
-
-        result = field_panel.render_html()
-
-        self.assertIn('<li class="field-col col4', result)
 
 
 class TestFieldRowPanelWithChooser(TestCase):
