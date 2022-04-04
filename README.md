@@ -2,6 +2,27 @@
     <img width="343" src=".github/wagtail.svg#gh-light-mode-only" alt="Wagtail">
     <img width="343" src=".github/wagtail-inverse.svg#gh-dark-mode-only" alt="Wagtail">
     <br>
+    <a href="https://github.com/wagtail/wagtail/actions">
+        <img src="https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg" alt="Build Status" />
+    </a>
+    <a href="https://opensource.org/licenses/BSD-3-Clause">
+        <img src="https://img.shields.io/badge/license-BSD-blue.svg" alt="License" />
+    </a>
+    <a href="https://pypi.python.org/pypi/wagtail/">
+        <img src="https://img.shields.io/pypi/v/wagtail.svg" alt="Version" />
+    </a>
+    <a href="https://lgtm.com/projects/g/wagtail/wagtail/alerts/">
+        <img src="https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Total alerts" />
+    </a>
+    <a href="https://lgtm.com/projects/g/wagtail/wagtail/context:python">
+        <img src="https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Language grade: Python" />
+    </a>
+    <a href="https://lgtm.com/projects/g/wagtail/wagtail/context:javascript">
+        <img src="https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript" />
+    </a>
+    <a href="https://pypi.python.org/pypi/wagtail/">
+        <img src="https://img.shields.io/pypi/dm/wagtail?logo=Downloads" alt="Language grade: JavaScript" />
+    </a>
     <br>
 </h1>
 
@@ -117,10 +138,3 @@ We thank the following organisations for their services used in Wagtail's develo
 
 [![Assistiv Labs](https://cdn.jsdelivr.net/gh/wagtail/wagtail@main/.github/assistivlabs-logo.png)](https://assistivlabs.com/)<br>
 [Assistiv Labs](https://assistivlabs.com/) provides the project with unlimited access to their remote testing with assistive technologies.
-
-[![Build Status](https://github.com/wagtail/wagtail/workflows/Wagtail%20CI/badge.svg)](https://github.com/wagtail/wagtail/actions)
-[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Version](https://img.shields.io/pypi/v/wagtail.svg)](https://pypi.python.org/pypi/wagtail/)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:python)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wagtail/wagtail.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wagtail/wagtail/context:javascript)
