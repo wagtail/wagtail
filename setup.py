@@ -37,6 +37,7 @@ install_requires = [
     "tablib[xls,xlsx]>=0.14.0",
     "anyascii>=0.1.5",
     "telepath>=0.1.1,<1",
+    "markupsafe==2.0.1",
 ]
 
 # Testing dependencies
