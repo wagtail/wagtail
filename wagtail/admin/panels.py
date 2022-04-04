@@ -309,6 +309,9 @@ class Panel:
             """
             return True
 
+        def is_required(self):
+            return False
+
         def render_as_object(self):
             warn(
                 "Panel.render_as_object is deprecated. Use render_html instead",
@@ -664,6 +667,9 @@ class FieldPanel(Panel):
                 return False
 
             return True
+
+        def is_required(self):
+            return self.bound_field.field.required
 
         def classes(self):
             return self.panel.classes()

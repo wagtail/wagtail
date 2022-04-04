@@ -117,7 +117,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
-        self.assertContains(response, "<legend>Speaker lineup</legend>")
+        self.assertContains(
+            response,
+            '<label for="id_speakers-__prefix__-last_name" class="w-field__label">Surname</label>',
+        )
         self.assertContains(response, "Add speakers")
 
         # test register_page_action_menu_item hook

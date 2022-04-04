@@ -1025,12 +1025,20 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
 
         result = panel.render_html()
 
-        # FIXME: add these assertions back when label is reinstated
         self.assertIn('<li class="object classname-for-speakers">', result)
-        # self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn(
+            '<label for="id_speakers-0-first_name" class="w-field__label">Name</label>',
+            result,
+        )
         self.assertIn('value="Father"', result)
-        # self.assertIn('<label for="id_speakers-0-last_name">Surname:</label>', result)
-        # self.assertIn('<label for="id_speakers-0-image">Image:</label>', result)
+        self.assertIn(
+            '<label for="id_speakers-0-last_name" class="w-field__label">Surname</label>',
+            result,
+        )
+        self.assertIn(
+            '<label for="id_speakers-0-image" class="w-field__label">Image</label>',
+            result,
+        )
         self.assertIn("Choose an image", result)
 
         # rendered panel must also contain hidden fields for id, DELETE and ORDER
@@ -1093,8 +1101,10 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         result = panel.render_html()
 
         # rendered panel should contain first_name rendered as a text area, but no last_name field
-        # FIXME: add these assertions back when label is reinstated
-        # self.assertIn('<label for="id_speakers-0-first_name">Name:</label>', result)
+        self.assertIn(
+            '<label for="id_speakers-0-first_name" class="w-field__label">Name</label>',
+            result,
+        )
         self.assertIn("Father</textarea>", result)
         self.assertNotIn(
             '<label for="id_speakers-0-last_name">Surname:</label>', result
