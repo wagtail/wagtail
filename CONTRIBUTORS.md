@@ -726,6 +726,7 @@
 * Shreshth Srivastava
 * Sandeep Choudhary
 * Antoni Martyniuk
+* Gareth Palmer
 
 ## Translators
 

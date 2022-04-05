@@ -164,11 +164,24 @@ class TableBlock(FieldBlock):
 
             if value.get("cell"):
                 new_context["classnames"] = {}
+                new_context["hidden"] = {}
                 for meta in value["cell"]:
                     if "className" in meta:
                         new_context["classnames"][(meta["row"], meta["col"])] = meta[
                             "className"
                         ]
+                    if "hidden" in meta:
+                        new_context["hidden"][(meta["row"], meta["col"])] = meta[
+                            "hidden"
+                        ]
+
+            if value.get("mergeCells"):
+                new_context["spans"] = {}
+                for merge in value["mergeCells"]:
+                    new_context["spans"][(merge["row"], merge["col"])] = {
+                        "rowspan": merge["rowspan"],
+                        "colspan": merge["colspan"],
+                    }
 
             return render_to_string(template, new_context)
         else:
