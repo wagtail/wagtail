@@ -8,9 +8,9 @@ The content will still be managed within the same form page's admin.
 This approach uses the additonal contrib module `wagtail.contrib.routable_page`.
 
 An alternative approach is to redirect to an entirely different page, which does not require the `routable_page` module.
-See [Custom landing page redirect](../reference/contrib/forms/customisation.html#custom-landing-page-redirect).
+See [](form_builder_custom_landing_page_redirect).
 
-Make sure `"wagtail.contrib.routable_page"` is added to `INSTALLED_APPS`, see [Installation](../reference/contrib/routablepage.html#installation) documentation.
+Make sure `"wagtail.contrib.routable_page"` is added to `INSTALLED_APPS`, see [](routable_page_mixin) documentation.
 
 ```python
 from django.shortcuts import redirect
