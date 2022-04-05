@@ -95,3 +95,12 @@ def generate_signature(image_id, filter_spec, key=None):
 
 def verify_signature(signature, image_id, filter_spec, key=None):
     return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
+
+
+def find_image_duplicates(ImageModel, image):
+    """
+    Given an Image model, this function finds all the duplicates of a given instance of that model.
+    To keep things simple, we assume that two images are duplicates if they have the same `file_hash` value.
+    """
+
+    return ImageModel.objects.exclude(pk=image.pk).filter(file_hash=image.file_hash)
