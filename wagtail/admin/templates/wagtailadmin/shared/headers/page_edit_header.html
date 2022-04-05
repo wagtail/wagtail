@@ -51,10 +51,7 @@
                 </button>
             {% endwith %}
 
-            {# page live view button #}
-            {% if show_live_button %}
-                {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page show_tooltip=True %}
-            {% endif %}
+            {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page show_tooltip=True %}
         </div>
     {% endwith %}
 {% endblock %}
