@@ -967,7 +967,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.assertContains(response, "Some content with a draft edit")
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
         # If a page has draft edits (ie. page has unpublished changes)
         # that affect the URL (eg. slug) we  should still ensure the

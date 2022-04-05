@@ -970,6 +970,7 @@ def register_icons(icons):
         "folder-open-inverse.svg",
         "folder.svg",
         "form.svg",
+        "globe.svg",
         "grip.svg",
         "group.svg",
         "help.svg",

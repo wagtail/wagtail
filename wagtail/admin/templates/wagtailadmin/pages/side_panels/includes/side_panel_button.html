@@ -1,0 +1,9 @@
+{% comment %}
+    Variables this template accepts:
+
+    text - The text that shows up on the button
+    classes - custom css classes for styling or js
+    data_url - A url for javascript to use
+    attr - custom attributes for the button
+{% endcomment %}
+<button type="button" class="{{ classes }} w-bg-transparent w-text-14 w-p-0 w-text-teal-200 hover:w-underline" {% if data_url %}data-url="{{ data_url }}"{% endif %} {{ attr }}>{{ text }}</button>

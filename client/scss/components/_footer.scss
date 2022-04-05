@@ -4,6 +4,7 @@
   $border-curvature: 3px;
   @include transition(bottom 0.5s ease 1s);
   @include row();
+  z-index: 20;
 
   ul {
     @include unlist();
