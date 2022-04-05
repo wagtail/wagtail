@@ -42,7 +42,8 @@
   }
 
   &__errors {
-    @apply w-w-[10px]
+    @apply w-hidden
+    w-w-[10px]
     w-h-[10px]
     w-text-[10px]
     w-p-[3px]
@@ -58,6 +59,10 @@
     w-absolute
     w-top-[7px]
     -w-right-[15px];
+
+    &--active {
+      @apply w-flex;
+    }
   }
 
   // Optional animate attr for tabs to animate in

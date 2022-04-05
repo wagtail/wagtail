@@ -13,11 +13,9 @@
 {% endcomment %}
 
 <a id="tab-label-{{ tab_id|cautious_slugify }}" href="#tab-{{ tab_id|cautious_slugify }}" class="w-tabs__tab {{ classes }}" role="tab" {% if active %} aria-selected="true" {% endif %}>
-    {% if errors_count %}
-        <div class="w-tabs__errors">
-            <span class="sr-only">{% trans 'Errors Count: ' %}</span>
-            {{ errors_count }}
-        </div>
-    {% endif %}
+    <div class="w-tabs__errors {% if errors_count %}w-tabs__errors-active{% endif %}">
+        <span class="sr-only">{% trans 'Errors Count: ' %}</span>
+        <span class="w-tabs__errors-count">{{ errors_count }}</span>
+    </div>
     {{ title }}
 </a>
