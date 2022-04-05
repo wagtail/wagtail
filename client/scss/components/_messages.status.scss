@@ -6,4 +6,8 @@
   &.failure {
     color: $color-red-dark;
   }
+
+  &.warning {
+    color: $color-orange-dark;
+  }
 }
