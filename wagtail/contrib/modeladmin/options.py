@@ -13,7 +13,7 @@ from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.models import Page
-from wagtail.utils.deprecation import RemovedInWagtail219Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .helpers import (
     AdminURLHelper,
@@ -333,7 +333,7 @@ class ModelAdmin(WagtailRegisterable):
         """
         return self.prepopulated_fields or {}
 
-    # RemovedInWagtail219Warning - remove request arg, included here so that old-style super()
+    # RemovedInWagtail50Warning - remove request arg, included here so that old-style super()
     # calls will still work
     def get_form_fields_exclude(self, request=None):
         """
@@ -451,7 +451,7 @@ class ModelAdmin(WagtailRegisterable):
         view_class = self.history_view_class
         return view_class.as_view(**kwargs)(request)
 
-    # RemovedInWagtail219Warning - remove instance and request args, included here so that
+    # RemovedInWagtail50Warning - remove instance and request args, included here so that
     # old-style super() calls will still work
     def get_edit_handler(self, instance=None, request=None):
         """
@@ -478,7 +478,7 @@ class ModelAdmin(WagtailRegisterable):
                 warn(
                     "%s.get_form_fields_exclude should not accept a request argument"
                     % type(self).__name__,
-                    category=RemovedInWagtail219Warning,
+                    category=RemovedInWagtail50Warning,
                 )
 
             panels = extract_panel_definitions_from_model_class(

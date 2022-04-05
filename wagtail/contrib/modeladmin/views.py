@@ -43,7 +43,7 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.utils.deprecation import RemovedInWagtail219Warning
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .forms import ParentChooserForm
 
@@ -172,7 +172,7 @@ class ModelFormView(WMABaseView, FormView):
             warnings.warn(
                 "%s.get_edit_handler should not accept instance or request arguments"
                 % type(self.model_admin).__name__,
-                category=RemovedInWagtail219Warning,
+                category=RemovedInWagtail50Warning,
             )
 
         return edit_handler.bind_to_model(self.model_admin.model)

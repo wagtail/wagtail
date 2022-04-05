@@ -192,7 +192,7 @@ class Panel:
         warn(
             "The %s.bind_to() method has been replaced by bind_to_model(model) and get_bound_panel(instance=instance, request=request, form=form)"
             % type(self).__name__,
-            category=RemovedInWagtail219Warning,
+            category=RemovedInWagtail50Warning,
             stacklevel=2,
         )
         return self.get_bound_panel(instance=instance, request=request, form=form)
