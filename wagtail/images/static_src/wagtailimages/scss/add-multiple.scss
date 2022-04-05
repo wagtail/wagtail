@@ -148,6 +148,15 @@
     }
   }
 
+  .upload-duplicate {
+    display: flex;
+    align-items: center;
+
+    .status-msg.warning {
+      display: block;
+    }
+  }
+
   .upload-failure {
     border-color: $color-red;
 
@@ -170,5 +179,26 @@
     .status-msg.server-error {
       display: block;
     }
+  }
+}
+
+.confirm-duplicate-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem auto;
+
+    img {
+      position: relative;
+    }
+  }
+
+  form {
+    display: inline;
   }
 }

@@ -5,6 +5,7 @@ from django import forms, template
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.test import TestCase, override_settings
+from django.test.signals import setting_changed
 from django.urls import reverse
 from taggit.forms import TagField, TagWidget
 
@@ -13,11 +14,12 @@ from wagtail.images.fields import WagtailImageField
 from wagtail.images.formats import Format, get_image_format, register_image_format
 from wagtail.images.forms import get_image_form
 from wagtail.images.models import Image as WagtailImage
+from wagtail.images.permissions import update_permission_policy
 from wagtail.images.rect import Rect, Vector
 from wagtail.images.utils import generate_signature, verify_signature
 from wagtail.images.views.serve import ServeView
 from wagtail.test.testapp.models import CustomImage, CustomImageFilePath
-from wagtail.test.utils import WagtailTestUtils
+from wagtail.test.utils import WagtailTestUtils, disconnect_signal_receiver
 
 from .utils import Image, get_test_image_file
 
@@ -796,12 +798,18 @@ class TestGetImageModel(WagtailTestUtils, TestCase):
         del settings.WAGTAILIMAGES_IMAGE_MODEL
         self.assertEqual(get_image_model_string(), "wagtailimages.Image")
 
+    @disconnect_signal_receiver(
+        signal=setting_changed, receiver=update_permission_policy
+    )
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="tests.UnknownModel")
     def test_unknown_get_image_model(self):
         """Test get_image_model with an unknown model"""
         with self.assertRaises(ImproperlyConfigured):
             get_image_model()
 
+    @disconnect_signal_receiver(
+        signal=setting_changed, receiver=update_permission_policy
+    )
     @override_settings(WAGTAILIMAGES_IMAGE_MODEL="invalid-string")
     def test_invalid_get_image_model(self):
         """Test get_image_model with an invalid model string"""
