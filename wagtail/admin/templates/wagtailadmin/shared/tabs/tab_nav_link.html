@@ -9,20 +9,15 @@
     - `title` - {string} Text that the tab button will display
     - `active` - {boolean?} Force this to be active
     - `classes` - {string?} Extra css classes to pass to this component
-    - `notifications_count` - {number?} Show above the tab for notifications count
+    - `errors_count` - {number?} Show above the tab for errors count
 {% endcomment %}
 
-<a href="#tab-{{ tab_id|cautious_slugify }}"
-    class="{{ classes }} w-tabs__tab"
-    role="tab"
-    aria-controls="tab-{{ tab_id|cautious_slugify }}">
-
-    {% if notifications_count %}
-        {#  TODO: move to css :( and also move aria-controls to be generated in JS #}
-        <div  class="w-w-[10px] w-h-[10px] w-text-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-critical-200 w-text-white w-border w-border-white w-rounded-full w-top-[7px] -w-right-[15px]">
-            {{ notifications_count }}
+<a id="tab-label-{{ tab_id|cautious_slugify }}" href="#tab-{{ tab_id|cautious_slugify }}" class="w-tabs__tab {{ classes }}" role="tab" {% if active %} aria-selected="true" {% endif %}>
+    {% if errors_count %}
+        <div class="w-tabs__errors">
+            <span class="sr-only">{% trans 'Errors Count: ' %}</span>
+            {{ errors_count }}
         </div>
     {% endif %}
-
     {{ title }}
 </a>

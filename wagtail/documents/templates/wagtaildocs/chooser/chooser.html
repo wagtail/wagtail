@@ -5,13 +5,10 @@
 {{ uploadform.media.js }}
 {{ uploadform.media.css }}
 
-<div class="w-tabs merged" data-tabs>
+<div class="w-tabs merged" data-tabs data-tabs-disable-url>
     {% if uploadform %}
         <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
-            <div role="tablist"
-                class="w-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
-                data-tab-nav
-            >
+            <div role="tablist" class="w-tabs__list">
                 {% trans "Search" as search_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text active=uploadform.errors %}
                 {% trans "Upload" as upload_text %}
@@ -25,7 +22,6 @@
             id="tab-search"
             class="w-tabs__panel"
             role="tabpanel"
-            {% if uploadform %}hidden{% endif %}
             aria-labelledby="tab-label-search"
         >
             <form class="document-search search-bar" action="{% url 'wagtaildocs:chooser_results' %}" method="GET" novalidate>

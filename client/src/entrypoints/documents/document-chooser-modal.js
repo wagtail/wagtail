@@ -1,3 +1,7 @@
+import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
+
+/* eslint-disable */
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -67,7 +71,7 @@ function ajaxifyDocumentUploadForm(modal) {
   });
 }
 
-DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser: function (modal, jsonData) {
     function ajaxifyLinks(context) {
       $('a.document-choice', context).on('click', function () {
@@ -134,6 +138,9 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     });
 
     $('#collection_chooser_collection_id').on('change', search);
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    initTabs();
   },
   document_chosen: function (modal, jsonData) {
     modal.respond('documentChosen', jsonData.result);
@@ -144,3 +151,4 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     ajaxifyDocumentUploadForm(modal);
   },
 };
+/* eslint-enable */

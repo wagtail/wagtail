@@ -7,11 +7,9 @@
     {% trans "Add user" as add_user_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 icon="user" %}
 
-    <div class="w-tabs merged" data-tabs>
+    <div class="w-tabs merged" data-tabs data-tabs-animate>
         <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
-            <div role="tablist"
-                class="w-tabs__list"
-            >
+            <div role="tablist" class="w-tabs__list">
                 {% trans "Account" as account_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
                 {% trans "Roles" as roles_text %}
@@ -24,7 +22,7 @@
                 {% csrf_token %}
                 <section
                     id="tab-account"
-                    class="w-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    class="w-tabs__panel"
                     role="tabpanel"
                     hidden
                     aria-labelledby="tab-label-account"
@@ -51,7 +49,7 @@
                 </section>
                 <section
                     id="tab-roles"
-                    class="w-tabs__panel w-transition w-duration-150 w-translate-y-4 w-opacity-0"
+                    class="w-tabs__panel"
                     role="tabpanel"
                     hidden
                     aria-labelledby="tab-label-roles"

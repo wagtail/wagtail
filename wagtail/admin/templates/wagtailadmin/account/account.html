@@ -8,9 +8,7 @@
 
     <div class="w-tabs merged" data-tabs data-tabs-animate>
         <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
-            <div role="tablist"
-                class="w-tabs__list nice-padding w-pr-0 w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5"
-            >
+            <div role="tablist" class="w-tabs__list">
                 {% for tab in panels_by_tab.keys %}
                     {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
                 {% endfor %}

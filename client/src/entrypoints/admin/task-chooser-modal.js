@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
 
 const ajaxifyTaskCreateTab = (modal, jsonData) => {
   $(
@@ -118,6 +119,9 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       const wait = setTimeout(search, 50);
       $(this).data('timer', wait);
     });
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    initTabs();
   },
   task_chosen(modal, jsonData) {
     modal.respond('taskChosen', jsonData.result);

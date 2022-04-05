@@ -45,3 +45,8 @@ img {
   border-width: 0;
   border-style: solid;
 }
+
+::before,
+::after {
+  --tw-content: '';
+}

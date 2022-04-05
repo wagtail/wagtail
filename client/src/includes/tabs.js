@@ -1,16 +1,28 @@
+/** Example Markup:
+ <div class="w-tabs" data-tabs data-tabs-animate>
+ <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+ <div role="tablist" class="w-tabs__list">
+ {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='slug' title='Tab Title' %}
+ </div>
+ <!-- Tab Content -->
+ <section id="tab-{{ tab_id }}" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-{{ tab_id }}" hidden>
+ {{ content }}
+ </section>
+ </div>
+ </div>
+ */
 class Tabs {
   constructor(node) {
     this.tabContainer = node;
     this.tabButtons = this.tabContainer.querySelectorAll('[role="tab"]');
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
-    this.tabSelectedEvent = new Event('tab-selected');
-    this.animate = this.tabContainer.hasAttribute('data-tabs-animate');
+    this.tabPanels = this.tabContainer.querySelectorAll('[role="tabpanel"]');
 
-    // TODO: Remove
-    if (this.tabList) {
-      this.vertical =
-        this.tabList.getAttribute('aria-orientation') === 'vertical';
-    }
+    // Tab Options - Add these data attributes along side the data-tabs attribute
+    // Use this to enable fade-in animations on tab select
+    this.animate = this.tabContainer.hasAttribute('data-tabs-animate');
+    // Disable url hash from appearing on tab select (normally used in modals)
+    this.disableUrl = this.tabContainer.hasAttribute('data-tabs-disable-url');
 
     this.state = {
       // Tab Settings
@@ -58,8 +70,29 @@ class Tabs {
 
     // Set active tab from url or make first tab active
     if (this.tabButtons) {
-      if (window.location.hash) {
+      // Set each button's aria-controls attribute and select tab if aria-selected has already been set on the element
+      this.tabButtons.forEach((button) => {
+        button.setAttribute(
+          'aria-controls',
+          button.getAttribute('href').substring(1),
+        );
+      });
+
+      // Check for active items set by the template
+      const tabActive = [...this.tabButtons].find(
+        (button) => button.getAttribute('aria-selected') === 'true',
+      );
+
+      if (window.location.hash && !this.disableUrl) {
         this.selectTabByURLHash();
+      } else if (tabActive) {
+        // If a tab isn't hidden for some reason hide it
+        this.tabPanels.forEach((tab) => {
+          // eslint-disable-next-line no-param-reassign
+          tab.hidden = true;
+        });
+        // Show aria-selected tab
+        this.selectTab(tabActive);
       } else {
         this.selectFirstTab();
       }
@@ -127,7 +160,9 @@ class Tabs {
       document.dispatchEvent(new CustomEvent('tab-changed'));
 
       // Set url hash
-      this.setUrlHash(tab.getAttribute('href'));
+      if (!this.disableUrl) {
+        this.setUrlHash(tab.getAttribute('href'));
+      }
     }
   }
 
@@ -286,8 +321,7 @@ class Tabs {
     window.history.replaceState(null, null, hash);
   }
 
-  // Either focus the next, previous, first, or last tab
-  // depending on key pressed
+  // Either focus the next, previous, first, or last tab depending on key pressed
   switchTabOnArrowPress(event) {
     const pressed = event.key;
     const { direction } = this.state;
