@@ -147,8 +147,21 @@ $(function () {
       var response = JSON.parse(data.result);
 
       if (response.success) {
-        itemElement.addClass('upload-success');
-
+        if (response.duplicate) {
+          itemElement.addClass('upload-duplicate');
+          $('.right', itemElement).append(response.confirm_duplicate_upload);
+          $('.confirm-duplicate-upload').on(
+            'click',
+            '.confirm-upload',
+            function (event) {
+              event.preventDefault();
+              var confirmUpload = $(this).closest('.confirm-duplicate-upload');
+              confirmUpload.remove();
+            },
+          );
+        } else {
+          itemElement.addClass('upload-success');
+        }
         $('.right', itemElement).append(response.form);
       } else {
         itemElement.addClass('upload-failure');
