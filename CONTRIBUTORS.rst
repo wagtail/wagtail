@@ -581,6 +581,7 @@ Contributors
 * James Ray
 * Anuja Verma
 * Shrey Parekh
+* Vinit Kumar
 
 Translators
 ===========
