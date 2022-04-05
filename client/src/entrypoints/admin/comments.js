@@ -1,5 +1,5 @@
+import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
-import { STRINGS } from '../../config/wagtailConfig';
 
 const KEYCODE_M = 77;
 
@@ -104,12 +104,12 @@ window.comments = (() => {
 
     onFocus() {
       this.node.classList.remove('button-secondary');
-      this.node.ariaLabel = STRINGS.UNFOCUS_COMMENT;
+      this.node.ariaLabel = gettext('Unfocus comment');
     }
 
     onUnfocus() {
       this.node.classList.add('button-secondary');
-      this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
+      this.node.ariaLabel = gettext('Focus comment');
 
       // TODO: ensure comment is focused accessibly when this is clicked,
       // and that screenreader users can return to the annotation point when desired
@@ -279,7 +279,6 @@ window.comments = (() => {
       data.user,
       data.comments,
       new Map(Object.entries(data.authors)),
-      STRINGS,
     );
 
     // Local state to hold active state of comments

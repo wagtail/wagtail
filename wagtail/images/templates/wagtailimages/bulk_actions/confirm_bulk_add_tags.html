@@ -1,7 +1,7 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 {% load wagtailimages_tags wagtailadmin_tags %}
-{% block titletag %}{% blocktrans count counter=items|length %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed count counter=items|length %}Add tags to 1 image {% plural %}Add tags to {{ counter }} images{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
@@ -41,7 +41,7 @@
 
 {% block items_with_no_access %}
 
-    {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to add tags to this image{% plural %}You don't have permission to add tags to these images{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to add tags to this image{% plural %}You don't have permission to add tags to these images{% endblocktrans %}
     {% include 'wagtailimages/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
 {% endblock items_with_no_access %}

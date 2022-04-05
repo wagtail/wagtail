@@ -8,7 +8,7 @@
                     <div class="field-content">
                         <div class="input">
                             {% icon name="search" %}
-                            <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
+                            <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans trimmed with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
                             <span></span>
                         </div>
                     </div>

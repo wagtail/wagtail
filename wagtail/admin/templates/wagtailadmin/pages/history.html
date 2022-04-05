@@ -1,7 +1,7 @@
 {% extends 'wagtailadmin/reports/base_report.html' %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans with title=subtitle %}Page history for {{ subtitle }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=subtitle %}Page history for {{ subtitle }}{% endblocktrans %}{% endblock %}
 
 {% block actions %}
     <a href="{% url 'wagtailadmin_pages:edit' page.id %}" class="button bicolor icon icon-edit">{% trans "Edit this page" %}</a>
@@ -47,7 +47,7 @@
                             {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}
                         </td>
                         <td class="updated">
-                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
+                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
                         </td>
                     </tr>
                 {% endfor %}

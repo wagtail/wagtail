@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { STRINGS } from '../../../config/wagtailConfig';
-
+import { gettext } from '../../../utils/gettext';
 import MediaBlock from '../blocks/MediaBlock';
 
 /**
@@ -12,9 +11,9 @@ const ImageBlock = (props) => {
   const { blockProps } = props;
   const { entity, onEditEntity, onRemoveEntity } = blockProps;
   const { src, alt } = entity.getData();
-  let altLabel = STRINGS.DECORATIVE_IMAGE;
+  let altLabel = gettext('Decorative image');
   if (alt) {
-    altLabel = `${STRINGS.ALT_TEXT}: “${alt}”`;
+    altLabel = `${gettext('Alt text')}: “${alt}”`;
   }
 
   return (
@@ -26,13 +25,13 @@ const ImageBlock = (props) => {
         type="button"
         onClick={onEditEntity}
       >
-        {STRINGS.EDIT}
+        {gettext('Edit')}
       </button>
       <button
         className="button button-secondary no Tooltip__button"
         onClick={onRemoveEntity}
       >
-        {STRINGS.DELETE}
+        {gettext('Delete')}
       </button>
     </MediaBlock>
   );

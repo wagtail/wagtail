@@ -8,7 +8,7 @@
     <section id="summary" class="nice-padding">
         <p class="help-block help-warning">
             {% icon name='warning' %}
-            {% blocktrans with total=import_summary.total successes=import_summary.successes errors=import_summary.errors_count %}Found {{ total }} redirects, created {{ successes }} and found {{ errors }} errors.{% endblocktrans %}
+            {% blocktrans trimmed with total=import_summary.total successes=import_summary.successes errors=import_summary.errors_count %}Found {{ total }} redirects, created {{ successes }} and found {{ errors }} errors.{% endblocktrans %}
         </p>
 
         <table class="listing">

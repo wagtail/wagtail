@@ -1,0 +1,239 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#: src/components/Draftail/blocks/ImageBlock.js:13
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:221
+msgid "Add a comment"
+msgstr ""
+
+#: src/components/Draftail/blocks/ImageBlock.js:15
+msgid "Alt text"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:410
+#: src/components/CommentApp/components/CommentReply/index.tsx:207
+msgid "Are you sure?"
+msgstr ""
+
+#: src/components/Draftail/decorators/Link.js:24
+msgid "Broken link"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:179
+#: src/components/CommentApp/components/Comment/index.tsx:255
+#: src/components/CommentApp/components/Comment/index.tsx:324
+#: src/components/CommentApp/components/Comment/index.tsx:416
+#: src/components/CommentApp/components/Comment/index.tsx:483
+#: src/components/CommentApp/components/CommentReply/index.tsx:124
+#: src/components/CommentApp/components/CommentReply/index.tsx:213
+#: src/components/CommentApp/components/CommentReply/index.tsx:277
+msgid "Cancel"
+msgstr ""
+
+#: src/entrypoints/admin/modal-workflow.js:38
+msgid "Close"
+msgstr ""
+
+#: src/components/Explorer/ExplorerPanel.tsx:178
+msgid "Close explorer"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:248
+msgid "Comment"
+msgstr ""
+
+#: src/components/Sidebar/modules/WagtailBranding.tsx:51
+#: src/components/Sidebar/modules/WagtailBranding.tsx:96
+msgid "Dashboard"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:423
+#: src/components/CommentApp/components/CommentHeader/index.tsx:172
+#: src/components/CommentApp/components/CommentReply/index.tsx:220
+#: src/components/Draftail/blocks/EmbedBlock.js:37
+#: src/components/Draftail/blocks/ImageBlock.js:33
+msgid "Delete"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:477
+#: src/components/CommentApp/components/CommentReply/index.tsx:271
+msgid "Delete error"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:442
+#: src/components/CommentApp/components/CommentReply/index.tsx:238
+msgid "Deleting"
+msgstr ""
+
+#: src/components/CommentApp/components/CommentHeader/index.tsx:167
+#: src/components/Draftail/blocks/EmbedBlock.js:31
+#: src/components/Draftail/blocks/ImageBlock.js:27
+msgid "Edit"
+msgstr ""
+
+#: src/components/Explorer/ExplorerItem.tsx:58
+#: src/components/PageExplorer/PageExplorerItem.tsx:62
+msgid "Edit '{title}'"
+msgstr ""
+
+#: src/components/Sidebar/modules/MainMenu.tsx:207
+#: src/components/Sidebar/modules/MainMenu.tsx:208
+msgid "Edit your account"
+msgstr ""
+
+#: src/components/Draftail/CommentableEditor/CommentableEditor.tsx:454
+#: src/entrypoints/admin/comments.js:112
+msgid "Focus comment"
+msgstr ""
+
+#: src/components/Draftail/index.js:94
+msgid "Horizontal line"
+msgstr ""
+
+#: src/components/Draftail/index.js:112
+msgid "Line break"
+msgstr ""
+
+#: src/components/LoadingSpinner/LoadingSpinner.js:10
+msgid "Loading…"
+msgstr ""
+
+#: src/components/Sidebar/modules/MainMenu.tsx:194
+msgid "Main menu"
+msgstr ""
+
+#: src/components/Draftail/decorators/Document.js:20
+msgid "Missing document"
+msgstr ""
+
+#: src/components/CommentApp/components/CommentHeader/index.tsx:151
+msgid "More actions"
+msgstr ""
+
+#: src/components/Explorer/ExplorerPanel.tsx:125
+#: src/components/PageExplorer/PageExplorerPanel.tsx:82
+msgid "No results"
+msgstr ""
+
+#: src/components/Explorer/PageCount.tsx:22
+#: src/components/PageExplorer/PageCount.tsx:25
+msgid "Page"
+msgstr ""
+
+#: src/components/Explorer/ExplorerPanel.tsx:184
+#: src/components/PageExplorer/PageExplorerPanel.tsx:126
+msgid "Page explorer"
+msgstr ""
+
+#: src/components/Explorer/ExplorerHeader.tsx:79
+#: src/components/Explorer/PageCount.tsx:22
+#: src/components/PageExplorer/PageCount.tsx:25
+#: src/components/PageExplorer/PageExplorerHeader.tsx:82
+msgid "Pages"
+msgstr ""
+
+#: src/components/Draftail/index.js:116
+msgid "Redo"
+msgstr ""
+
+#: src/components/Draftail/EditorFallback/EditorFallback.js:95
+msgid "Reload saved content"
+msgstr ""
+
+#: src/components/Draftail/EditorFallback/EditorFallback.js:103
+msgid "Reload the page"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:172
+msgid "Reply"
+msgstr ""
+
+#: src/components/CommentApp/components/CommentHeader/index.tsx:181
+msgid "Resolve"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:375
+#: src/components/CommentApp/components/Comment/index.tsx:490
+#: src/components/CommentApp/components/CommentReply/index.tsx:172
+#: src/components/CommentApp/components/CommentReply/index.tsx:284
+msgid "Retry"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:317
+#: src/components/CommentApp/components/CommentReply/index.tsx:117
+msgid "Save"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:369
+#: src/components/CommentApp/components/CommentReply/index.tsx:166
+msgid "Save error"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:528
+msgid "Save the page to add this comment"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:531
+msgid "Save the page to save this comment"
+msgstr ""
+
+#: src/components/CommentApp/components/CommentReply/index.tsx:322
+msgid "Save the page to save this reply"
+msgstr ""
+
+#: src/components/CommentApp/components/Comment/index.tsx:344
+#: src/components/CommentApp/components/CommentReply/index.tsx:143
+msgid "Saving..."
+msgstr ""
+
+#: src/components/Sidebar/modules/Search.tsx:50
+#: src/components/Sidebar/modules/Search.tsx:57
+#: src/components/Sidebar/modules/Search.tsx:62
+msgid "Search"
+msgstr ""
+
+#: src/components/Explorer/PageCount.tsx:20
+#: src/components/PageExplorer/PageCount.tsx:23
+msgid "See all"
+msgstr ""
+
+#: src/components/Draftail/sources/ModalWorkflowSource.js:62
+#: src/components/Explorer/ExplorerPanel.tsx:152
+#: src/components/PageExplorer/PageExplorerPanel.tsx:110
+msgid "Server Error"
+msgstr ""
+
+#: src/components/Draftail/EditorFallback/EditorFallback.js:85
+msgid "Show error"
+msgstr ""
+
+#: src/components/Draftail/EditorFallback/EditorFallback.js:76
+msgid "Show latest content"
+msgstr ""
+
+#: src/components/Draftail/EditorFallback/EditorFallback.js:111
+msgid "The editor just crashed. Content has been reset to the last saved version."
+msgstr ""
+
+#: src/components/Sidebar/Sidebar.tsx:177
+#: src/components/Sidebar/Sidebar.tsx:201
+msgid "Toggle sidebar"
+msgstr ""
+
+#: src/components/Draftail/index.js:115
+msgid "Undo"
+msgstr ""
+
+#: src/entrypoints/admin/comments.js:108
+msgid "Unfocus comment"
+msgstr ""
+
+#: src/components/Explorer/ExplorerItem.tsx:70
+#: src/components/PageExplorer/PageExplorerItem.tsx:75
+msgid "View child pages of '{title}'"
+msgstr ""
+
+#: src/components/Draftail/index.js:109
+msgid "Write here…"
+msgstr ""

@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import { Menu } from './MainMenu';
 
 describe('Menu', () => {
-  const strings = {};
   const user = { avatarUrl: 'https://gravatar/profile' };
   const onAccountExpand = jest.fn();
 
@@ -12,7 +11,6 @@ describe('Menu', () => {
       <Menu
         accountMenuItems={[]}
         menuItems={[]}
-        strings={strings}
         user={user}
         onAccountExpand={onAccountExpand}
       />,
@@ -26,7 +24,6 @@ describe('Menu', () => {
       <Menu
         accountMenuItems={[]}
         menuItems={[]}
-        strings={strings}
         user={user}
         onAccountExpand={onAccountExpand}
       />,

@@ -17,7 +17,7 @@
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
                     <p>
-                        {% blocktrans %}
+                        {% blocktrans trimmed %}
                             The root level is where you can add new sites to your Wagtail installation. Pages created here will not be accessible at any URL until they are associated with a site.
                         {% endblocktrans %}
                         {% if wagtailsites_index_url %}
@@ -25,12 +25,12 @@
                         {% endif %}
                     </p>
                     <p>
-                        {% blocktrans %}
+                        {% blocktrans trimmed %}
                             If you just want to add pages to an existing site, create them as children of the homepage instead.
                         {% endblocktrans %}
                     </p>
                 {% else %}
-                    {% blocktrans %}
+                    {% blocktrans trimmed %}
                         Pages created here will not be accessible at any URL. To add pages to an existing site, create them as children of the homepage.
                     {% endblocktrans %}
                 {% endif %}
@@ -41,14 +41,14 @@
                 {% icon name='warning' %}
                 {% if perms.wagtailcore.add_site %}
                     {% url 'wagtailsites:index' as wagtailsites_index_url %}
-                    {% blocktrans %}
+                    {% blocktrans trimmed %}
                         There is no site set up for this location. Pages created here will not be accessible at any URL until a site is associated with this location.
                     {% endblocktrans %}
                     {% if wagtailsites_index_url %}
                         <a href="{{ wagtailsites_index_url }}">{% trans "Configure a site now." %}</a>
                     {% endif %}
                 {% else %}
-                    {% blocktrans %}
+                    {% blocktrans trimmed %}
                         There is no site record for this location. Pages created here will not be accessible at any URL.
                     {% endblocktrans %}
                 {% endif %}
@@ -69,5 +69,5 @@
 
 {% block no_results %}
     {% url 'wagtailadmin_pages:add_subpage' parent_page.id as add_page_url%}
-    <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created at this location." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans %}Why not <a href="{{ add_page_url }}">create one</a>?{% endblocktrans %}{% endif %}</p></td></tr>
+    <tr><td colspan="3" class="no-results-message"><p>{% trans "No pages have been created at this location." %}{% if parent_page and parent_page_perms.can_add_subpage %} {% blocktrans trimmed %}Why not <a href="{{ add_page_url }}">create one</a>?{% endblocktrans %}{% endif %}</p></td></tr>
 {% endblock %}

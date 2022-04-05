@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets {{ snippet_type_name_plural }}{% endblocktrans %}{% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
@@ -23,7 +23,7 @@
             <div class="left">
                 <div class="col header-title">
                     <h1>{% icon name="snippet" class_name="header-title-icon" %}
-                        {% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
+                        {% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural|capfirst %}Snippets <span>{{ snippet_type_name_plural }}</span>{% endblocktrans %}</h1>
 
                     {% if is_searchable %}
                         <form class="col search-form" action="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" method="get" novalidate>
@@ -50,7 +50,7 @@
                             <li class="col">
                                 <a class="button bicolor button--icon serious delete-button u-hidden" data-url="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?">
                                     {% icon name="bin" wrapped=1 %}
-                                    {% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}
+                                    {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}
                                 </a>
                             </li>
                         {% endif %}
@@ -65,7 +65,7 @@
                             <li class="col">
                                 <a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}{% if locale %}?locale={{ locale.language_code }}{% endif %}" class="button bicolor button--icon">
                                     {% icon name="plus" wrapped=1 %}
-                                    {% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
+                                    {% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
                                 {# TODO: figure out a way of saying "Add a/an [foo]" #}
                             </li>
                         {% endif %}

@@ -1,6 +1,6 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load wagtailadmin_tags i18n %}
-{% block titletag %}{% blocktrans count counter=items|length %}Delete 1 image{% plural %}Delete {{ counter }} images{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed count counter=items|length %}Delete 1 image{% plural %}Delete {{ counter }} images{% endblocktrans %}{% endblock %}
 
 {% block header %}
     {% trans "Delete images" as del_str %}
@@ -22,7 +22,7 @@
                 <li>
                     <a href="{% url 'wagtailimages:edit' image.item.id %}"  target="_blank" rel="noreferrer">{{image.item.title}}</a>
                     {% if uc_enabled %}
-                        (<a href="{{ image.item.usage_url }}">{% blocktrans count usage_count=image.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
+                        (<a href="{{ image.item.usage_url }}">{% blocktrans trimmed count usage_count=image.item.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>)
                     {% endif %}
                 </li>
             {% endfor %}
@@ -32,7 +32,7 @@
 
 {% block items_with_no_access %}
 
-    {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this image{% plural %}You don't have permission to delete these images{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to delete this image{% plural %}You don't have permission to delete these images{% endblocktrans %}
     {% include 'wagtailimages/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
 {% endblock items_with_no_access %}

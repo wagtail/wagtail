@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { ModuleDefinition, Strings } from '../Sidebar';
+
+import { gettext } from '../../../utils/gettext';
+import { ModuleDefinition } from '../Sidebar';
 import WagtailLogo from './WagtailLogo';
 
 interface WagtailBrandingProps {
   homeUrl: string;
-  strings: Strings;
   slim: boolean;
   currentPath: string;
   navigate(url: string): void;
@@ -12,7 +13,6 @@ interface WagtailBrandingProps {
 
 const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
   homeUrl,
-  strings,
   slim,
   currentPath,
   navigate,
@@ -43,7 +43,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
       <a
         className="sidebar-custom-branding"
         href={homeUrl}
-        aria-label={strings.DASHBOARD}
+        aria-label={gettext('Dashboard')}
         aria-current={currentPath === homeUrl ? 'page' : undefined}
         dangerouslySetInnerHTML={{
           __html: brandingLogo ? brandingLogo.innerHTML : '',
@@ -88,7 +88,7 @@ const WagtailBranding: React.FunctionComponent<WagtailBrandingProps> = ({
     <a
       className={desktopClassName}
       href={homeUrl}
-      aria-label={strings.DASHBOARD}
+      aria-label={gettext('Dashboard')}
       aria-current={currentPath === homeUrl ? 'page' : undefined}
       onClick={onClick}
       onMouseMove={onMouseMove}
@@ -108,13 +108,12 @@ export class WagtailBrandingModuleDefinition implements ModuleDefinition {
     this.homeUrl = homeUrl;
   }
 
-  render({ strings, slim, key, navigate, currentPath }) {
+  render({ slim, key, navigate, currentPath }) {
     return (
       <WagtailBranding
         key={key}
         homeUrl={this.homeUrl}
         slim={slim}
-        strings={strings}
         navigate={navigate}
         currentPath={currentPath}
       />

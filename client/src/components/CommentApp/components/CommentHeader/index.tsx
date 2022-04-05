@@ -1,7 +1,8 @@
 import React, { FunctionComponent, useState, useEffect, useRef } from 'react';
+
+import { gettext } from '../../../../utils/gettext';
 import Icon from '../../../Icon/Icon';
 import type { Store } from '../../state';
-import { TranslatableStrings } from '../../main';
 
 import { Author } from '../../state/comments';
 
@@ -19,7 +20,6 @@ interface CommentReply {
 interface CommentHeaderProps {
   commentReply: CommentReply;
   store: Store;
-  strings: TranslatableStrings;
   onResolve?(commentReply: CommentReply, store: Store): void;
   onEdit?(commentReply: CommentReply, store: Store): void;
   onDelete?(commentReply: CommentReply, store: Store): void;
@@ -30,7 +30,6 @@ interface CommentHeaderProps {
 export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
   commentReply,
   store,
-  strings,
   onResolve,
   onEdit,
   onDelete,
@@ -113,7 +112,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
           >
             <details open={menuOpen} onClick={toggleMenu}>
               <summary
-                aria-label={strings.MORE_ACTIONS}
+                aria-label={gettext('More actions')}
                 aria-haspopup="menu"
                 role="button"
                 onClick={toggleMenu}
@@ -129,12 +128,12 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
               >
                 {onEdit && (
                   <button type="button" role="menuitem" onClick={onClickEdit}>
-                    {strings.EDIT}
+                    {gettext('Edit')}
                   </button>
                 )}
                 {onDelete && (
                   <button type="button" role="menuitem" onClick={onClickDelete}>
-                    {strings.DELETE}
+                    {gettext('Delete')}
                   </button>
                 )}
                 {onResolve && (
@@ -143,7 +142,7 @@ export const CommentHeader: FunctionComponent<CommentHeaderProps> = ({
                     role="menuitem"
                     onClick={onClickResolve}
                   >
-                    {strings.RESOLVE}
+                    {gettext('Resolve')}
                   </button>
                 )}
               </div>

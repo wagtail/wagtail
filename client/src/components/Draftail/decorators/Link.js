@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
 
 import TooltipEntity from '../decorators/TooltipEntity';
-
-import { STRINGS } from '../../../config/wagtailConfig';
 
 const LINK_ICON = <Icon name="link" />;
 const BROKEN_LINK_ICON = <Icon name="warning" />;
@@ -23,7 +22,7 @@ export const getLinkAttributes = (data) => {
 
   if (!url) {
     icon = BROKEN_LINK_ICON;
-    label = STRINGS.BROKEN_LINK;
+    label = gettext('Broken link');
   } else if (data.id) {
     icon = LINK_ICON;
     label = url;

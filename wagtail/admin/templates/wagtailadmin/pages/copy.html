@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with title=page.specific_deferred.get_admin_display_title %}Copy {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.specific_deferred.get_admin_display_title %}Copy {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Copy" as copy_str %}
     {% include "wagtailadmin/shared/header.html" with title=copy_str subtitle=page.specific_deferred.get_admin_display_title icon="doc-empty-inverse" %}

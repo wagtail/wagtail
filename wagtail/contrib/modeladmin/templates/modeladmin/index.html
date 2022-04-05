@@ -73,14 +73,14 @@
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
                                     {% if no_valid_parents %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
                                         <ul>
                                             {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
                                         </ul>
                                     {% else %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
                                             {% if user_can_create %}
-                                                {% blocktrans with view.create_url as url %}
+                                                {% blocktrans trimmed with view.create_url as url %}
                                                     Why not <a href="{{ url }}">add one</a>?
                                                 {% endblocktrans %}
                                             {% endif %}</p>
@@ -94,7 +94,7 @@
 
                     {% block pagination %}
                         <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
-                            <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
+                            <p>{% blocktrans trimmed with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>
                                     {% pagination_link_previous page_obj view %}

@@ -487,7 +487,7 @@
     "pk": 1,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_email",
       "sort_order": 1,
       "label": "Your email",
       "field_type": "email",
@@ -502,7 +502,7 @@
     "pk": 2,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_message",
       "sort_order": 2,
       "label": "Your message",
       "field_type": "multiline",
@@ -517,7 +517,7 @@
     "pk": 3,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_choices",
       "sort_order": 3,
       "label": "Your choices",
       "field_type": "checkboxes",

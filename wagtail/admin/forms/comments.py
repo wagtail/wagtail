@@ -6,14 +6,12 @@ from .models import WagtailAdminModelForm
 
 
 class CommentReplyForm(WagtailAdminModelForm):
-    user = None
-
     class Meta:
         fields = ("text",)
 
     def clean(self):
         cleaned_data = super().clean()
-        user = self.user
+        user = self.for_user
 
         if not self.instance.pk:
             self.instance.user = user
@@ -33,13 +31,19 @@ class CommentForm(WagtailAdminModelForm):
     This is designed to be subclassed and have the user overridden to enable user-based validation within the edit handler system
     """
 
-    user = None
-
     resolved = BooleanField(required=False)
+
+    class Meta:
+        formsets = {
+            "replies": {
+                "form": CommentReplyForm,
+                "inherit_kwargs": ["for_user"],
+            }
+        }
 
     def clean(self):
         cleaned_data = super().clean()
-        user = self.user
+        user = self.for_user
 
         if not self.instance.pk:
             self.instance.user = user
@@ -60,7 +64,7 @@ class CommentForm(WagtailAdminModelForm):
         if self.cleaned_data.get("resolved", False):
             if not getattr(self.instance, "resolved_at"):
                 self.instance.resolved_at = now()
-                self.instance.resolved_by = self.user
+                self.instance.resolved_by = self.for_user
         else:
             self.instance.resolved_by = None
             self.instance.resolved_at = None

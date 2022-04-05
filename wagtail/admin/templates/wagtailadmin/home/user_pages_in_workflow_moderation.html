@@ -46,7 +46,7 @@
                                     {{ workflow_state.current_task_state.task.name }}
                                 </td>
                                 <td valign="top">
-                                    <div class="human-readable-date" title="{{ workflow_state.current_task_state.started_at|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=workflow_state.current_task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
+                                    <div class="human-readable-date" title="{{ workflow_state.current_task_state.started_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=workflow_state.current_task_state.started_at|timesince_simple %}{{ time_period }}{% endblocktrans %} </div>
                                 </td>
                             </tr>
                         {% endwith %}
