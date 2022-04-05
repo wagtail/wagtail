@@ -201,4 +201,5 @@ class Redirect(models.Model):
 
     class Meta:
         verbose_name = _("redirect")
+        verbose_name_plural = _("redirects")
         unique_together = [("old_path", "site")]
