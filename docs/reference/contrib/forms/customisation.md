@@ -532,6 +532,8 @@ Next, you need to transform your template to display the results:
 
 You can also show the results on the landing page.
 
+(form_builder_custom_landing_page_redirect)=
+
 ## Custom landing page redirect
 
 You can override the `render_landing_page` method on your `FormPage` to change what is rendered when a form submits.
