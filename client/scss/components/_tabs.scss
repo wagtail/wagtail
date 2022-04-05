@@ -10,6 +10,10 @@
 }
 
 .w-tabs {
+  &__list {
+    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-mb-10 w-px-[20px] sm:w-px-[40px] md:w-px-[80px] xl:w-px-[120px];
+  }
+
   &__tab {
     @apply w-label-3
     w-outline-offset-inside
@@ -18,7 +22,6 @@
     hover:w-text-primary
     w-whitespace-nowrap
     w-py-4
-    w-px-1
     w-font-medium
     w-relative
     after:w-block
@@ -37,16 +40,12 @@
     }
   }
 
-  &__list {
-    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-pt-2.5 w-mb-2.5 w-pl-[50px];
-  }
-
   &__errors {
     @apply w-hidden
-    w-w-[10px]
-    w-h-[10px]
+    w-box-border
+    w-w-[16px]
+    w-h-[16px]
     w-text-[10px]
-    w-p-[3px]
     w-flex
     w-justify-center
     w-items-center
