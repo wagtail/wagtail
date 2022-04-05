@@ -41,7 +41,7 @@ class BasePermissionPolicy:
     def user_has_any_permission(self, user, actions):
         """
         Return whether the given user has permission to perform any of the given actions
-        on some or all instances of this model
+        on some or all instances of this model......
         """
         return any(self.user_has_permission(user, action) for action in actions)
 
