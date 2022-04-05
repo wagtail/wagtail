@@ -10,8 +10,12 @@
 }
 
 .w-tabs {
+  &__wrapper {
+    @apply w-mb-10;
+  }
+
   &__list {
-    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-mb-10 w-px-[20px] sm:w-px-[40px] md:w-px-[80px] xl:w-px-[120px];
+    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-px-[20px] sm:w-px-[40px] md:w-px-[80px];
   }
 
   &__tab {
