@@ -14,6 +14,7 @@ Bug fixes
 ~~~~~~~~~
 
  * Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
 
 
 Upgrade considerations
