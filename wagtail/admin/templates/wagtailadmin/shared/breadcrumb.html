@@ -1,4 +1,7 @@
 {% load i18n wagtailadmin_tags %}
+{% comment "text/markdown" %}
+    The breadcrumb component is reused across a lot of Wagtail’s headers.
+{% endcomment %}
 
 {% if use_next_template %}
     {% include 'wagtailadmin/shared/breadcrumb-next.html' with trailing_breadcrumb_title=trailing_breadcrumb_title %}
