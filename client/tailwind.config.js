@@ -10,6 +10,7 @@ const {
   fontWeight,
   letterSpacing,
   lineHeight,
+  typeScale,
 } = require('./src/tokens/typography');
 const { breakpoints } = require('./src/tokens/breakpoints');
 const {
@@ -22,7 +23,6 @@ const { spacing } = require('./src/tokens/spacing');
 /**
  * Plugins
  */
-const typeScale = require('./src/tokens/typeScale');
 const scrollbarThin = require('./src/plugins/scrollbarThin');
 
 /**
@@ -90,6 +90,20 @@ module.exports = {
      */
     plugin(({ addVariant }) => {
       addVariant('forced-colors', '@media (forced-colors: active)');
+    }),
+    /**
+     * TypeScale plugin.
+     * This plugin generates component classes using tailwind's configuration for each object inside of the typeScale const.
+     * If the tailwind config is using a prefix such as 'w-' this will be included in the compiled css class eg. .w-h1
+     */
+    plugin(({ addComponents, theme }) => {
+      const scale = {};
+      Object.entries(typeScale).forEach(([name, styles]) => {
+        scale[`.${name.replace('w-', '')}`] = Object.fromEntries(
+          Object.entries(styles).map(([key, value]) => [key, theme(value)]),
+        );
+      });
+      addComponents(scale);
     }),
   ],
   corePlugins: {
