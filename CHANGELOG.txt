@@ -62,6 +62,8 @@ Changelog
 
  * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
  * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
 
 
 2.16.1 (11.02.2022)
