@@ -57,7 +57,7 @@ class SiteSettings(dict):
         return out
 
 
-@jinja2.pass_context
+@jinja2.contextfunction
 def get_setting(context, model_string, use_default_site=False):
     if use_default_site:
         site = Site.objects.get(is_default_site=True)
