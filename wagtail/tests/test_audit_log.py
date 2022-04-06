@@ -285,8 +285,7 @@ class TestAuditLog(TestCase):
         )
 
         # check deleting a parent page logs descendent deletion
-        with self.assertNumQueries(189):
-            self.home_page.delete()
+        self.home_page.delete()
 
         self.assertEqual(
             PageLogEntry.objects.filter(action="wagtail.delete").count(), 4
