@@ -184,7 +184,9 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     file_size = models.PositiveIntegerField(null=True, editable=False)
     # A SHA-1 hash of the file contents
-    file_hash = models.CharField(max_length=40, blank=True, editable=False)
+    file_hash = models.CharField(
+        max_length=40, blank=True, editable=False, db_index=True
+    )
 
     objects = ImageQuerySet.as_manager()
 
