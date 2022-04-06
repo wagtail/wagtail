@@ -86,6 +86,71 @@ const lineHeight = {
   normal: '1.5',
 };
 
+const headingBaseStyles = {
+  fontWeight: 'fontWeight.bold',
+  color: 'colors.primary.DEFAULT',
+  lineHeight: 'lineHeight.tight',
+};
+
+/**
+ * Wagtail’s type scale styles, written with Tailwind theme function values,
+ * but in vanilla JS so the type scale can be reused outside of Tailwind.
+ */
+const typeScale = {
+  'w-h1': {
+    fontSize: 'fontSize.30',
+    fontWeight: 'fontWeight.extrabold',
+    color: 'colors.primary.DEFAULT',
+    lineHeight: 'lineHeight.tight',
+  },
+  'w-h2': {
+    fontSize: 'fontSize.24',
+    ...headingBaseStyles,
+  },
+  'w-h3': {
+    fontSize: 'fontSize.22',
+    ...headingBaseStyles,
+  },
+  'w-h4': {
+    fontSize: 'fontSize.18',
+    ...headingBaseStyles,
+  },
+  'w-label-1': {
+    fontSize: 'fontSize.16',
+    fontWeight: 'fontWeight.bold',
+    color: 'colors.primary.DEFAULT',
+    lineHeight: 'lineHeight.tight',
+  },
+  'w-label-2': {
+    fontSize: 'fontSize.15',
+    fontWeight: 'fontWeight.semibold',
+    color: 'colors.primary.DEFAULT',
+    lineHeight: 'lineHeight.tight',
+  },
+  'w-label-3': {
+    fontSize: 'fontSize.14',
+    fontWeight: 'fontWeight.medium',
+    color: 'colors.primary.DEFAULT',
+    lineHeight: 'lineHeight.tight',
+  },
+  'w-body-text': {
+    fontSize: 'fontSize.16',
+    fontWeight: 'fontWeight.normal',
+    lineHeight: 'lineHeight.normal',
+  },
+  'w-body-text-large': {
+    fontSize: 'fontSize.18',
+    fontWeight: 'fontWeight.normal',
+    lineHeight: 'lineHeight.normal',
+  },
+  'w-help-text': {
+    fontSize: 'fontSize.14',
+    fontWeight: 'fontWeight.normal',
+    color: 'colors.grey.400',
+    lineHeight: 'lineHeight.tight',
+  },
+};
+
 module.exports = {
   systemUIFontStack,
   monoFontStack,
@@ -94,4 +159,5 @@ module.exports = {
   fontWeight,
   letterSpacing,
   lineHeight,
+  typeScale,
 };

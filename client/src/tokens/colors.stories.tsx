@@ -2,7 +2,7 @@ import React from 'react';
 import colors, { Hues, Shade } from './colors';
 
 const description = `
-Wagtail’s color palette is structured as design tokens, available as CSS classes.
+Wagtail’s typographic styles are made available as separate design tokens, but in most scenarios it’s better to use one of the predefined text styles.
 `;
 
 interface PaletteProps {
@@ -57,13 +57,21 @@ const Palette = ({ color, hues }: PaletteProps) => (
   </div>
 );
 
-/**
- * Displays all icons within our sprite.
- */
-const ColorPalette = () => (
+export default {
+  title: 'Foundation / Colors',
+  parameters: {
+    docs: {
+      extractComponentDescription: () => description,
+    },
+  },
+};
+
+export const ColorPalette = () => (
   <>
     <p>
-      View <a href={getContrastGridLink()}>Contrast Grid</a>
+      View <a href={getContrastGridLink()}>Contrast Grid</a>. Here is our full
+      color palette, with contrasting text chosen for readability of this
+      example only.
     </p>
     {Object.entries(colors).map(([color, hues]) => (
       <div key={color}>
@@ -73,21 +81,3 @@ const ColorPalette = () => (
     ))}
   </>
 );
-
-export default {
-  title: 'Foundation / Colors',
-  parameters: {
-    docs: {
-      extractComponentDescription: () => description,
-    },
-  },
-  // argTypes: {
-  //   color: {
-  //     description: 'Only intended for demo purposes',
-  //   },
-  // },
-};
-
-export const AllColors = (args) => <ColorPalette {...args} />;
-
-AllColors.args = {};
