@@ -1,6 +1,6 @@
-============================
-Wagtail 2.15.5 release notes
-============================
+=============================================
+Wagtail 2.15.5 release notes - IN DEVELOPMENT
+=============================================
 
 .. contents::
     :local:
@@ -12,4 +12,5 @@ What's new
 
 Bug fixes
 ~~~~~~~~~
+
  * Allow bulk publishing of pages without revisions (Andy Chosak)

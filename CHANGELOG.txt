@@ -3,6 +3,7 @@ Changelog
 
 2.15.5 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~~~~
+
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
 
 
