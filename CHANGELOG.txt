@@ -64,6 +64,7 @@ Changelog
  * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Fix: Refactor `FormPagesListView` in wagtail.contrib.forms to avoid undefined `locale` variable when subclassing (Dan Braghis)
 
 
 2.16.1 (11.02.2022)
