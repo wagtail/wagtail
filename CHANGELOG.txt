@@ -138,6 +138,7 @@ Changelog
 ~~~~~~~~~~~~~~~~~~~
 
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
 
 
 2.15.4 (11.02.2022)
