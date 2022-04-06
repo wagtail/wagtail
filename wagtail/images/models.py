@@ -638,8 +638,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
     @property
     def full_url(self):
         url = self.url
-        if hasattr(settings, "BASE_URL") and url.startswith("/"):
-            url = settings.BASE_URL + url
+        if hasattr(settings, "WAGTAILADMIN_BASE_URL") and url.startswith("/"):
+            url = settings.WAGTAILADMIN_BASE_URL + url
         return url
 
     @property

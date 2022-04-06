@@ -1,3 +1,5 @@
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from taggit.forms import TagField as TaggitTagField
 from taggit.models import Tag
 
@@ -31,7 +33,26 @@ class TagField(TaggitTagField):
             self.widget.free_tagging = self.free_tagging
 
     def clean(self, value):
+
         value = super().clean(value)
+
+        max_tag_length = self.tag_model.name.field.max_length
+        value_too_long = ""
+        for val in value:
+            if len(val) > max_tag_length:
+                if value_too_long:
+                    value_too_long += ", "
+                value_too_long += val
+        if value_too_long:
+            raise ValidationError(
+                _(
+                    "Tag(s) %(value_too_long)s are over %(max_tag_length)d characters"
+                    % {
+                        "value_too_long": value_too_long,
+                        "max_tag_length": max_tag_length,
+                    }
+                )
+            )
 
         if not self.free_tagging:
             # filter value to just the tags that already exist in tag_model

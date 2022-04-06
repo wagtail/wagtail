@@ -212,6 +212,7 @@ class ModelFormView(WMABaseView, FormView):
             "edit_handler": bound_panel,
             "form": form,
             "prepopulated_fields": prepopulated_fields,
+            "media": self.media + bound_panel.media + form.media,
         }
         context.update(kwargs)
         return super().get_context_data(**context)

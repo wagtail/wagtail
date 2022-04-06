@@ -326,21 +326,24 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         bound_panel = self.edit_handler.get_bound_panel(
             request=self.request, instance=self.page, form=self.form
         )
+        action_menu = PageActionMenu(
+            self.request, view="create", parent_page=self.parent_page
+        )
+
         context.update(
             {
                 "content_type": self.page_content_type,
                 "page_class": self.page_class,
                 "parent_page": self.parent_page,
                 "edit_handler": bound_panel,
-                "action_menu": PageActionMenu(
-                    self.request, view="create", parent_page=self.parent_page
-                ),
+                "action_menu": action_menu,
                 "preview_modes": self.page.preview_modes,
                 "form": self.form,
                 "next": self.next_url,
                 "has_unsaved_changes": self.has_unsaved_changes,
                 "locale": None,
                 "translations": [],
+                "media": bound_panel.media + self.form.media + action_menu.media,
             }
         )
 

@@ -294,13 +294,16 @@ def create(request, app_label, model_name):
         request=request, instance=instance, form=form
     )
 
+    action_menu = SnippetActionMenu(request, view="create", model=model)
+
     context = {
         "model_opts": model._meta,
         "edit_handler": edit_handler,
         "form": form,
-        "action_menu": SnippetActionMenu(request, view="create", model=model),
+        "action_menu": action_menu,
         "locale": None,
         "translations": [],
+        "media": edit_handler.media + form.media + action_menu.media,
     }
 
     if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
@@ -388,16 +391,18 @@ def edit(request, app_label, model_name, pk):
         instance=instance, request=request, form=form
     )
     latest_log_entry = log_registry.get_logs_for_instance(instance).first()
+    action_menu = SnippetActionMenu(request, view="edit", instance=instance)
 
     context = {
         "model_opts": model._meta,
         "instance": instance,
         "edit_handler": edit_handler,
         "form": form,
-        "action_menu": SnippetActionMenu(request, view="edit", instance=instance),
+        "action_menu": action_menu,
         "locale": None,
         "translations": [],
         "latest_log_entry": latest_log_entry,
+        "media": edit_handler.media + form.media + action_menu.media,
     }
 
     if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(

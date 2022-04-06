@@ -415,7 +415,7 @@ class TestTabbedInterface(TestCase):
             request=self.request,
         )
 
-        result = tabbed_interface.render()
+        result = tabbed_interface.render_html()
 
         # result should contain tab buttons
         self.assertIn(
@@ -505,7 +505,7 @@ class TestObjectList(TestCase):
             request=self.request,
         )
 
-        result = object_list.render()
+        result = object_list.render_html()
 
         # result should contain ObjectList furniture
         self.assertIn('<ul class="objects">', result)
@@ -1187,7 +1187,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
         )
 
         # render_js_init must provide the JS initializer
-        self.assertIn("var panel = InlinePanel({", panel.render_js_init())
+        self.assertIn("var panel = InlinePanel({", panel.render_html())
 
     @override_settings(USE_L10N=True, USE_THOUSAND_SEPARATOR=True)
     def test_no_thousand_separators_in_js(self):
@@ -1217,7 +1217,7 @@ class TestInlinePanel(TestCase, WagtailTestUtils):
             instance=event_page, form=form, request=self.request
         )
 
-        self.assertIn("maxForms: 1000", panel.render_js_init())
+        self.assertIn("maxForms: 1000", panel.render_html())
 
     def test_invalid_inlinepanel_declaration(self):
         with self.ignore_deprecation_warnings():
@@ -1349,12 +1349,16 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         """
         Test that the comments toggle is enabled for a TabbedInterface containing CommentPanel, and disabled otherwise
         """
-        self.assertTrue(self.tabbed_interface.show_comments_toggle)
+        form_class = self.tabbed_interface.get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_comments_toggle)
 
         tabbed_interface_without_content_panel = TabbedInterface(
             [ObjectList(self.event_page.content_panels)]
         ).bind_to_model(EventPage)
-        self.assertFalse(tabbed_interface_without_content_panel.show_comments_toggle)
+        form_class = tabbed_interface_without_content_panel.get_form_class()
+        form = form_class()
+        self.assertFalse(form.show_comments_toggle)
 
     @override_settings(WAGTAILADMIN_COMMENTS_ENABLED=False)
     def test_comments_disabled_setting(self):
@@ -1364,7 +1368,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertFalse(
             any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
         )
-        self.assertFalse(Page.get_edit_handler().show_comments_toggle)
+        form_class = Page.get_edit_handler().get_form_class()
+        form = form_class()
+        self.assertFalse(form.show_comments_toggle)
 
     def test_comments_enabled_setting(self):
         """
@@ -1373,7 +1379,9 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         self.assertTrue(
             any(isinstance(panel, CommentPanel) for panel in Page.settings_panels)
         )
-        self.assertTrue(Page.get_edit_handler().show_comments_toggle)
+        form_class = Page.get_edit_handler().get_form_class()
+        form = form_class()
+        self.assertTrue(form.show_comments_toggle)
 
     def test_context(self):
         """
@@ -1383,7 +1391,7 @@ class TestCommentPanel(TestCase, WagtailTestUtils):
         panel = self.object_list.get_bound_panel(
             request=self.request, instance=self.event_page, form=form
         ).children[0]
-        data = panel.get_context()["comments_data"]
+        data = panel.get_context_data()["comments_data"]
 
         self.assertEqual(data["user"], self.commenting_user.pk)
 
