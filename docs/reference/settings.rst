@@ -41,6 +41,26 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 
 .. _this Google Search Central Blog post: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
 
+ADMIN BASE URL
+==============
+
+.. _wagtailadmin_base_url:
+
+``WAGTAILADMIN_BASE_URL``
+--------------------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_BASE_URL = 'http://example.com/'
+
+This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+
+If this setting is not present, Wagtail will try to fall back to ``request.site.root_url`` or to the request's host name.
+
+.. versionchanged:: 3.0
+
+  This setting was previously named ``BASE_URL`` and was undocumented, using ``BASE_URL`` will be removed in a future release.
+
 Search
 ======
 

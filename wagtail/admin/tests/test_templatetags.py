@@ -71,11 +71,15 @@ class TestNotificationStaticTemplateTag(TestCase):
     def test_local_notification_static(self):
         url = notification_static("wagtailadmin/images/email-header.jpg")
         self.assertEqual(
-            "{}/static/wagtailadmin/images/email-header.jpg".format(settings.BASE_URL),
+            "{}/static/wagtailadmin/images/email-header.jpg".format(
+                settings.WAGTAILADMIN_BASE_URL
+            ),
             url,
         )
 
-    @override_settings(STATIC_URL="/static/", BASE_URL="http://localhost:8000")
+    @override_settings(
+        STATIC_URL="/static/", WAGTAILADMIN_BASE_URL="http://localhost:8000"
+    )
     def test_local_notification_static_baseurl(self):
         url = notification_static("wagtailadmin/images/email-header.jpg")
         self.assertEqual(
@@ -84,7 +88,7 @@ class TestNotificationStaticTemplateTag(TestCase):
 
     @override_settings(
         STATIC_URL="https://s3.amazonaws.com/somebucket/static/",
-        BASE_URL="http://localhost:8000",
+        WAGTAILADMIN_BASE_URL="http://localhost:8000",
     )
     def test_remote_notification_static(self):
         url = notification_static("wagtailadmin/images/email-header.jpg")

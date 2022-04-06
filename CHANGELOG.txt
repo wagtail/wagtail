@@ -22,7 +22,7 @@ Changelog
  * Switch focus outlines implementation to `:focus-visible` for cross-browser consistency (Paarth Agarwal)
  * Remove most uppercased text styles from admin UI (Paarth Agarwal)
  * Convert all UI code to CSS logical properties for Right-to-Left (RTL) language support (Thibaud Colas)
- * Migrate multiple documentation pages from RST to MD (Vibhakar Solanki, LB (Ben Johnston))
+ * Migrate multiple documentation pages from RST to MD - including the editor's guide (Vibhakar Solanki, LB (Ben Johnston), Shwet Khatri)
  * Add documentation for defining custom form validation on models used in Wagtail's `modelAdmin` (Serafeim Papastefanos)
  * Update `README.md` logo to work for GitHub dark mode (Paarth Agarwal)
  * Avoid an unnecessary page reload when pressing enter within the header search bar (Images, Pages, Documents) (Riley de Mestre)
@@ -38,6 +38,8 @@ Changelog
  * Use Django’s JavaScript catalog feature to manage translatable strings in JavaScript (Karl Hobley)
  * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott)
  * Add `trimmed` attribute to all blocktrans tags, so spacing is more reliable in translated strings (Harris Lapiroff)
+ * Add documentation that describes how to use `ModelAdmin` to manage `Tag`s (Abdulmajeed Isa)
+ * Rename the setting `BASE_URL` (undocumented) to `WAGTAILADMIN_BASE_URL` and add to documentation, `BASE_URL` will be removed in a future release (Sandil Ranasinghe)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
@@ -52,6 +54,7 @@ Changelog
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
  * Fix: Add missing `lang` attributes to `<html>` elements (James Ray)
+ * Fix: Avoid 503 server error when entering tags over 100chars and instead show a user facing validation error (Vu Pham, Khanh Hoang)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -59,6 +62,8 @@ Changelog
 
  * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
  * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
 
 
 2.16.1 (11.02.2022)
@@ -129,6 +134,13 @@ Changelog
  * Fix: Ensure subsequent changes to styles files are picked up by Gulp watch (Jason Attwood)
  * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
  * Fix: Add missing translation usage in Workflow templates (Anuja Verma, Saurabh Kumar)
+
+
+2.15.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
 
 
 2.15.4 (11.02.2022)

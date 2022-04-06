@@ -7,7 +7,7 @@
             </li>
         {% endfor %}
     </ul>
-    {% if self.show_comments_toggle %}
+    {% if self.form.show_comments_toggle %}
         {% with comments_number=self.form.formsets.comments|length %}
             <div class="right wide">
                 <div class="comments-controls">

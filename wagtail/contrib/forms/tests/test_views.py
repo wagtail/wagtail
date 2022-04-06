@@ -46,7 +46,8 @@ class TestFormResponsesPanel(TestCase):
             fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
-        self.panel = FormSubmissionsPanel().bind_to(
+        panel = FormSubmissionsPanel().bind_to_model(FormPage)
+        self.panel = panel.get_bound_panel(
             instance=self.form_page, form=self.FormPageForm(), request=self.request
         )
 
@@ -61,7 +62,8 @@ class TestFormResponsesPanel(TestCase):
             },
         )
 
-        result = self.panel.render()
+        self.assertTrue(self.panel.is_shown())
+        result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
         link = '<a href="{}">1</a>'.format(url)
@@ -70,9 +72,7 @@ class TestFormResponsesPanel(TestCase):
 
     def test_render_without_submissions(self):
         """The panel should not be shown if the number of submission is zero."""
-        result = self.panel.render()
-
-        self.assertEqual("", result)
+        self.assertFalse(self.panel.is_shown())
 
 
 class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils):
@@ -92,7 +92,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
 
         self.test_user = self.create_user(username="user-n1kola", password="123")
 
-        self.panel = FormSubmissionsPanel().bind_to(
+        panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
+        self.panel = panel.get_bound_panel(
             instance=self.form_page, form=self.FormPageForm(), request=self.request
         )
 
@@ -112,7 +113,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         new_form_submission.submit_time = "2017-08-29T12:00:00.000Z"
         new_form_submission.save()
 
-        result = self.panel.render()
+        self.assertTrue(self.panel.is_shown())
+        result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
         link = '<a href="{}">1</a>'.format(url)
@@ -121,9 +123,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
 
     def test_render_without_submissions(self):
         """The panel should not be shown if the number of submission is zero."""
-        result = self.panel.render()
-
-        self.assertEqual("", result)
+        self.assertFalse(self.panel.is_shown())
 
 
 class TestFormsIndex(TestCase, WagtailTestUtils):

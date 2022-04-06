@@ -1299,7 +1299,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -1318,7 +1318,7 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModel()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -1339,8 +1339,8 @@ class TestSnippetChooserPanel(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList([FieldPanel("advert")]).bind_to(
-            model=SnippetChooserModel
+        edit_handler = ObjectList([FieldPanel("advert")]).bind_to_model(
+            SnippetChooserModel
         )
         form_class = edit_handler.get_form_class()
         form = form_class()
@@ -2154,7 +2154,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         self.edit_handler = get_snippet_edit_handler(model)
         self.form_class = self.edit_handler.get_form_class()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -2173,7 +2173,7 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
     def test_render_as_empty_field(self):
         test_snippet = SnippetChooserModelWithCustomPrimaryKey()
         form = self.form_class(instance=test_snippet)
-        edit_handler = self.edit_handler.bind_to(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=test_snippet, form=form, request=self.request
         )
 
@@ -2194,9 +2194,9 @@ class TestSnippetChooserPanelWithCustomPrimaryKey(TestCase, WagtailTestUtils):
         )
 
     def test_target_model_autodetected(self):
-        edit_handler = ObjectList([FieldPanel("advertwithcustomprimarykey")]).bind_to(
-            model=SnippetChooserModelWithCustomPrimaryKey
-        )
+        edit_handler = ObjectList(
+            [FieldPanel("advertwithcustomprimarykey")]
+        ).bind_to_model(SnippetChooserModelWithCustomPrimaryKey)
         form_class = edit_handler.get_form_class()
         form = form_class()
         widget = form.fields["advertwithcustomprimarykey"].widget

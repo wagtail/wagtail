@@ -13,5 +13,4 @@ wagtail/search/static
 wagtail/snippets/static
 wagtail/users/static
 wagtail/contrib/*/static
-wagtail/admin/templates/wagtailadmin/panels/inline_panel.js
 wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js

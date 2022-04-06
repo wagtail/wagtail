@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 DEBUG = False
 WAGTAIL_ROOT = os.path.dirname(os.path.dirname(__file__))
-BASE_URL = "http://testserver"
+WAGTAILADMIN_BASE_URL = "http://testserver"
 STATIC_ROOT = os.path.join(WAGTAIL_ROOT, "tests", "test-static")
 MEDIA_ROOT = os.path.join(WAGTAIL_ROOT, "tests", "test-media")
 MEDIA_URL = "/media/"
