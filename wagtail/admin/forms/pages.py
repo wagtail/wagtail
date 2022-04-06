@@ -132,9 +132,6 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
         widget=forms.CheckboxInput(), required=False
     )
 
-    # Could be set to False by a subclass constructed by TabbedInterface
-    show_comments_toggle = True
-
     def __init__(
         self,
         data=None,
@@ -156,6 +153,10 @@ class WagtailAdminPageForm(WagtailAdminModelForm):
 
         if not self.show_comments_toggle:
             del self.fields["comment_notifications"]
+
+    @property
+    def show_comments_toggle(self):
+        return "comments" in self.__class__.formsets
 
     def save(self, commit=True):
         # Save comment notifications updates to PageSubscription

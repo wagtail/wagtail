@@ -5,7 +5,6 @@ from io import BytesIO
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from django.core.checks import Info
 from django.test import RequestFactory, TestCase, override_settings
 from django.urls import reverse
 from openpyxl import load_workbook
@@ -47,7 +46,8 @@ class TestFormResponsesPanel(TestCase):
             fields=["title", "slug", "to_address", "from_address", "subject"],
         )
 
-        self.panel = FormSubmissionsPanel().bind_to(
+        panel = FormSubmissionsPanel().bind_to_model(FormPage)
+        self.panel = panel.get_bound_panel(
             instance=self.form_page, form=self.FormPageForm(), request=self.request
         )
 
@@ -62,7 +62,8 @@ class TestFormResponsesPanel(TestCase):
             },
         )
 
-        result = self.panel.render()
+        self.assertTrue(self.panel.is_shown())
+        result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
         link = '<a href="{}">1</a>'.format(url)
@@ -71,9 +72,7 @@ class TestFormResponsesPanel(TestCase):
 
     def test_render_without_submissions(self):
         """The panel should not be shown if the number of submission is zero."""
-        result = self.panel.render()
-
-        self.assertEqual("", result)
+        self.assertFalse(self.panel.is_shown())
 
 
 class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils):
@@ -93,7 +92,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
 
         self.test_user = self.create_user(username="user-n1kola", password="123")
 
-        self.panel = FormSubmissionsPanel().bind_to(
+        panel = FormSubmissionsPanel().bind_to_model(FormPageWithCustomSubmission)
+        self.panel = panel.get_bound_panel(
             instance=self.form_page, form=self.FormPageForm(), request=self.request
         )
 
@@ -113,7 +113,8 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
         new_form_submission.submit_time = "2017-08-29T12:00:00.000Z"
         new_form_submission.save()
 
-        result = self.panel.render()
+        self.assertTrue(self.panel.is_shown())
+        result = self.panel.render_html()
 
         url = reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
         link = '<a href="{}">1</a>'.format(url)
@@ -122,9 +123,7 @@ class TestFormResponsesPanelWithCustomSubmissionClass(TestCase, WagtailTestUtils
 
     def test_render_without_submissions(self):
         """The panel should not be shown if the number of submission is zero."""
-        result = self.panel.render()
-
-        self.assertEqual("", result)
+        self.assertFalse(self.panel.is_shown())
 
 
 class TestFormsIndex(TestCase, WagtailTestUtils):
@@ -520,49 +519,6 @@ class TestFormsSubmissionsList(TestCase, WagtailTestUtils):
         # check ordering matches 'submit_time' (oldest first)
         first_row_values = response.context["data_rows"][0]["fields"]
         self.assertIn("this is a really old message", first_row_values)
-
-
-class TestFormsSubmissionsListLegacyFieldName(TestCase, WagtailTestUtils):
-    fixtures = ["test.json"]
-
-    def setUp(self):
-        self.login(username="siteeditor", password="password")
-        self.form_page = Page.objects.get(
-            url_path="/home/contact-us-one-more-time/"
-        ).specific
-
-        # running checks should show an info message AND update blank clean_name values
-
-        messages = FormFieldWithCustomSubmission.check()
-
-        self.assertEqual(
-            messages,
-            [
-                Info(
-                    "Added `clean_name` on 3 form field(s)",
-                    obj=FormFieldWithCustomSubmission,
-                )
-            ],
-        )
-
-        # check clean_name has been updated
-        self.assertEqual(
-            FormFieldWithCustomSubmission.objects.all()[0].clean_name, "your-email"
-        )
-
-    def test_list_submissions(self):
-        response = self.client.get(
-            reverse("wagtailforms:list_submissions", args=(self.form_page.id,))
-        )
-
-        # Check response
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "wagtailforms/index_submissions.html")
-        self.assertEqual(len(response.context["data_rows"]), 2)
-
-        # check display of list values within form submissions
-        self.assertContains(response, "old@example.com")
-        self.assertContains(response, "new@example.com")
 
 
 class TestFormsSubmissionsExport(TestCase, WagtailTestUtils):

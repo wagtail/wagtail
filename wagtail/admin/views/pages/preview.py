@@ -51,11 +51,7 @@ class PreviewOnEdit(View):
         ).get_latest_revision_as_page()
 
     def get_form(self, page, query_dict):
-        form_class = (
-            page.get_edit_handler()
-            .bind_to(instance=page, request=self.request)
-            .get_form_class()
-        )
+        form_class = page.get_edit_handler().get_form_class()
         parent_page = page.get_parent().specific
 
         if self.session_key not in self.request.session:

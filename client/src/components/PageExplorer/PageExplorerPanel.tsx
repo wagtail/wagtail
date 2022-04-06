@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
+import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Transition, { PUSH, POP } from '../Transition/Transition';
@@ -79,7 +80,7 @@ class PageExplorerPanel extends React.Component<
     if (!page.isFetchingChildren && !page.children.items) {
       children = (
         <div key="empty" className="c-page-explorer__placeholder">
-          {STRINGS.NO_RESULTS}
+          {gettext('No results')}
         </div>
       );
     } else {
@@ -107,7 +108,7 @@ class PageExplorerPanel extends React.Component<
         ) : null}
         {page.isError ? (
           <div key="error" className="c-page-explorer__placeholder">
-            {STRINGS.SERVER_ERROR}
+            {gettext('Server Error')}
           </div>
         ) : null}
       </div>
@@ -123,7 +124,7 @@ class PageExplorerPanel extends React.Component<
         name={transition}
         className="c-page-explorer"
         component="nav"
-        label={STRINGS.PAGE_EXPLORER}
+        label={gettext('Page explorer')}
       >
         <div key={depth} className="c-transition-group">
           <PageExplorerHeader

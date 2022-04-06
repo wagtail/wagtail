@@ -3,7 +3,7 @@ import { Component } from 'react';
 import { AtomicBlockUtils, Modifier, RichUtils, EditorState } from 'draft-js';
 import { ENTITY_TYPE, DraftUtils } from 'draftail';
 
-import { STRINGS } from '../../../config/wagtailConfig';
+import { gettext } from '../../../utils/gettext';
 import { getSelectionText } from '../DraftUtils';
 
 const $ = global.jQuery;
@@ -60,7 +60,7 @@ class ModalWorkflowSource extends Component {
       responses,
       onError: () => {
         // eslint-disable-next-line no-alert
-        window.alert(STRINGS.SERVER_ERROR);
+        window.alert(gettext('Server Error'));
         onClose();
       },
     });

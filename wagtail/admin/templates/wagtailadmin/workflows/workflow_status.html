@@ -9,7 +9,7 @@
                 Submitted to <em>{{ workflow_name }}</em> at {{ started_at }}
             {% endblocktrans %}
             {% if workflow_state.requested_by %}
-                {% blocktrans with modified_by=workflow_state.requested_by|user_display_name %}by {{ modified_by }}{% endblocktrans %}
+                {% blocktrans trimmed with modified_by=workflow_state.requested_by|user_display_name %}by {{ modified_by }}{% endblocktrans %}
                 <span class="avatar small"><img src="{% avatar_url page.get_latest_revision.user size=25 %}" alt="" /></span>
             {% endif %}
         </p>

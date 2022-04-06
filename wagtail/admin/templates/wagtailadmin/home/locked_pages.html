@@ -49,7 +49,7 @@
                                 </ul>
                             </td>
                             <td>{# Deliberately empty #}</td>
-                            <td valign="top"><div class="human-readable-date" title="{{ page.locked_at|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=page.locked_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div></td>
+                            <td valign="top"><div class="human-readable-date" title="{{ page.locked_at|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=page.locked_at|timesince_simple %}{{ time_period }}{% endblocktrans %}</div></td>
                         </tr>
                     {% endfor %}
                 </tbody>

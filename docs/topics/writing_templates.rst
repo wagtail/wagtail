@@ -218,7 +218,7 @@ Used to load anything from your static files directory. Use of this tag avoids r
     ...
     <img src="{% static "name_of_app/myimage.jpg" %}" alt="My image"/>
 
-Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
+Notice that the full path is not required - the path given here is relative to the app's ``static`` directory. To avoid clashes with static files from other apps (including Wagtail itself), it's recommended to place static files in a subdirectory of ``static`` with the same name as the app.
 
 
 Multi-site support

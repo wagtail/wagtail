@@ -22,7 +22,7 @@ To modify the generated `Document` title, access and update `event.detail.data.t
 
 For single document uploads, the custom event will only run if the title does not already have a value so that we do not overwrite whatever the user has typed.
 
-You can prevent the default behaviour by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple upload, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the document.
+You can prevent the default behaviour by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple uploads, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the document.
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 

@@ -18,7 +18,7 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
    :param collapsed: When true, all blocks are initially collapsed.
 
-   .. versionchanged:: 2.17
+   .. versionchanged:: 3.0
      The required ``use_json_field`` argument is added.
 
    .. code-block:: python

@@ -1,15 +1,15 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
-
 {% load wagtailadmin_tags i18n %}
+{% base_url_setting as base_url %}
 
 {% block content %}
     {% if requested_by %}
-        <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title requester=requested_by|user_display_name %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with workflow=workflow.name title=page.get_admin_display_title requester=requested_by|user_display_name %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}" by {{ requester }}.{% endblocktrans %}</p>
     {% else %}
-        <p>{% blocktrans with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed with workflow=workflow.name title=page.get_admin_display_title %}The page "{{ title }}" has been submitted for moderation to workflow "{{ workflow }}".{% endblocktrans %}</p>
     {% endif %}
 
     <p>
-        {% trans "You can edit the page here:" %} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
+        {% trans "You can edit the page here:" %} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a>
     </p>
 {% endblock %}

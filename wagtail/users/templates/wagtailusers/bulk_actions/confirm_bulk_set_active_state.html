@@ -1,7 +1,7 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n wagtailusers_tags wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans count counter=items|length %}Change active state for 1 user {% plural %}Change active state for {{ counter }} users{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed count counter=items|length %}Change active state for 1 user {% plural %}Change active state for {{ counter }} users{% endblocktrans %}{% endblock %}
 
 {% block header %}
     {% trans "Set active state" as header_str %}
@@ -23,7 +23,7 @@
 
 {% block items_with_no_access %}
 
-    {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to edit this user{% plural %}You don't have permission to edit these users{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to edit this user{% plural %}You don't have permission to edit these users{% endblocktrans %}
     {% include 'wagtailusers/bulk_actions/list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
     {% trans "You cannot change your own active status" as no_access_msg %}

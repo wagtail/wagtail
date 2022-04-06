@@ -7,20 +7,13 @@
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
-    {{ edit_handler.form.media.css }}
-    {{ pages_formset.media.css }}
-
-    {{ view.media.css }}
+    {{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ edit_handler.form.media.js }}
-    {{ pages_formset.media.js }}
-    {{ edit_handler.html_declarations }}
-
-    {{ view.media.js }}
+    {{ media.js }}
 {% endblock %}
 
 {% block content %}

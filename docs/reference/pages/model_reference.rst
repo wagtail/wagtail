@@ -528,7 +528,7 @@ Database fields
 
         This field contains the JSON content for the page at the time the revision was created
 
-        .. versionchanged:: 2.17
+        .. versionchanged:: 3.0
 
           The field has been renamed from ``content_json`` to ``content`` and it now uses :class:`~django.db.models.JSONField` instead of
           :class:`~django.db.models.TextField`.
@@ -992,7 +992,7 @@ Database fields
         The JSON representation of any additional details for each action.
         e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
 
-        .. versionchanged:: 2.17
+        .. versionchanged:: 3.0
 
           The field has been renamed from ``data_json`` to ``data`` and it now uses :class:`~django.db.models.JSONField` instead of
           :class:`~django.db.models.TextField`.

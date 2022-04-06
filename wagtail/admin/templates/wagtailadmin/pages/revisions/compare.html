@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
 
-{% block titletag %}{% blocktrans with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title %}Comparing {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Comparing" as comparing_str %}
@@ -44,13 +44,13 @@
                                                     {% icon name='help' %}
                                                     <p>
                                                         {% if move > 0 %}
-                                                            {% blocktrans count counter=move %}
+                                                            {% blocktrans trimmed count counter=move %}
                                                                 Moved down 1 place.
                                                             {% plural %}
                                                                 Moved down {{ counter }} places.
                                                             {% endblocktrans %}
                                                         {% elif move < 0 %}
-                                                            {% blocktrans count counter=move|abs %}
+                                                            {% blocktrans trimmed count counter=move|abs %}
                                                                 Moved up 1 place.
                                                             {% plural %}
                                                                 Moved up {{ counter }} places.

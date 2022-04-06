@@ -1,5 +1,4 @@
-{% load i18n %}
-{% load wagtailadmin_tags  %}
+{% load i18n l10n wagtailadmin_tags %}
 
 {{ self.formset.management_form }}
 
@@ -26,6 +25,24 @@
 <p class="add">
     <button type="button" class="button bicolor button--icon" id="id_{{ self.formset.prefix }}-ADD">
         {% icon name="plus" wrapped=1 %}
-        {% blocktrans with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
+        {% blocktrans trimmed with label=self.label|lower %}Add {{ label }}{% endblocktrans %}
     </button>
 </p>
+
+<script>
+    (function() {
+        var panel = InlinePanel({
+            formsetPrefix: "id_{{ self.formset.prefix }}",
+            emptyChildFormPrefix: "{{ self.empty_child.form.prefix }}",
+            canOrder: {% if can_order %}true{% else %}false{% endif %},
+            maxForms: {{ self.formset.max_num|unlocalize }}
+        });
+
+        {% for child in self.children %}
+            panel.initChildControls("{{ child.form.prefix }}");
+        {% endfor %}
+        panel.setHasContent();
+        panel.updateMoveButtonDisabledStates();
+        panel.updateAddButtonState();
+    })();
+</script>

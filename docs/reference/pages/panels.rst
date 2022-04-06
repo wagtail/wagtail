@@ -55,7 +55,7 @@ StreamFieldPanel
 
     Deprecated; use ``FieldPanel`` instead.
 
-    .. versionchanged:: 2.17
+    .. versionchanged:: 3.0
 
        ``StreamFieldPanel`` is no longer required for ``StreamField``.
 
@@ -166,7 +166,7 @@ PageChooserPanel
 
     Passing ``can_choose_root=True`` will allow the editor to choose the tree root as a page. Normally this would be undesirable, since the tree root is never a usable page, but in some specialised cases it may be appropriate; for example, a page with an automatic "related articles" feed could use a PageChooserPanel to select which subsection articles will be taken from, with the root corresponding to 'everywhere'.
 
-    .. versionchanged:: 2.17
+    .. versionchanged:: 3.0
 
        ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
 
@@ -180,7 +180,7 @@ ImageChooserPanel
 
     Deprecated; use ``FieldPanel`` instead.
 
-    .. versionchanged:: 2.17
+    .. versionchanged:: 3.0
 
        ``ImageChooserPanel`` is no longer required to obtain an image chooser interface.
 
@@ -214,7 +214,7 @@ DocumentChooserPanel
 
     Deprecated; use ``FieldPanel`` instead.
 
-    .. versionchanged:: 2.17
+    .. versionchanged:: 3.0
 
        ``DocumentChooserPanel`` is no longer required to obtain a document chooser interface.
 
@@ -228,7 +228,7 @@ SnippetChooserPanel
 
     Deprecated; use ``FieldPanel`` instead.
 
-    .. versionchanged:: 2.17
+    .. versionchanged:: 3.0
 
        ``SnippetChooserPanel`` is no longer required to obtain a document chooser interface.
 

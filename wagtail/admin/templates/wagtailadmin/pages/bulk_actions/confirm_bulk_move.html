@@ -1,7 +1,7 @@
 {% extends 'wagtailadmin/bulk_actions/confirmation/base.html' %}
 {% load i18n %}
 
-{% block titletag %}{% blocktrans count counter=items|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
+{% block titletag %}{% blocktrans trimmed count counter=items|length %}Move 1 page{% plural %}Move {{ counter }} pages{% endblocktrans %}
 {% endblock %}
 
 {% block header %}
@@ -18,7 +18,7 @@
                     <a href="{% url 'wagtailadmin_pages:edit' page.item.id %}" target="_blank" rel="noreferrer">{{ page.item.get_admin_display_title }}</a>
                     {% if not page.item.is_leaf %}
                         <p>
-                            {% blocktrans count counter=page.child_pages %}
+                            {% blocktrans trimmed count counter=page.child_pages %}
                                 This page has one child page
                             {% plural %}
                                 This page has {{ counter }} child pages
@@ -33,13 +33,13 @@
 
 {% block items_with_no_access %}
 
-    {% blocktrans asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg count counter=items_with_no_access|length %}You don't have permission to move this page{% plural %}You don't have permission to move these pages{% endblocktrans %}
     {% include './list_items_with_no_access.html' with items=items_with_no_access no_access_msg=no_access_msg %}
 
-    {% blocktrans asvar no_access_msg with dest_title=destination.title count counter=items_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg with dest_title=destination.title count counter=items_with_no_access|length %}The following page cannot be moved to {{dest_title}} {% plural %}The following pages cannot be moved to {{dest_title}}{% endblocktrans %}
     {% include './list_items_with_no_access.html' with items=pages_without_destination_access no_access_msg=no_access_msg %}
 
-    {% blocktrans asvar no_access_msg count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}
+    {% blocktrans trimmed asvar no_access_msg count counter=pages_with_duplicate_slugs|length %}The following page cannot be moved due to duplicate slug{% plural %}The following pages cannot be moved due to duplicate slugs{% endblocktrans %}
     {% include './list_items_with_no_access.html' with items=pages_with_duplicate_slugs no_access_msg=no_access_msg %}
 
     {% trans "There is no valid destination page for these pages" as no_access_msg %}
