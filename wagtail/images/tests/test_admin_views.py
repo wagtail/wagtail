@@ -1641,8 +1641,10 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
         self.assertIn("form", response_json)
         self.assertIn("image_id", response_json)
         self.assertIn("success", response_json)
+        self.assertIn("duplicate", response_json)
         self.assertEqual(response_json["image_id"], response.context["image"].id)
         self.assertTrue(response_json["success"])
+        self.assertFalse(response_json["duplicate"])
 
     def test_add_post_no_title(self):
         """
@@ -1745,6 +1747,40 @@ class TestMultipleImageUploader(TestCase, WagtailTestUtils):
             response_json["error_message"],
             "Not a supported image format. Supported formats: GIF, JPEG, PNG, WEBP.",
         )
+
+    def test_add_post_duplicate(self):
+        def post_image(title="test title"):
+            return self.client.post(
+                reverse("wagtailimages:add_multiple"),
+                {
+                    "title": title,
+                    "files[]": SimpleUploadedFile(
+                        "test.png", get_test_image_file().file.getvalue()
+                    ),
+                },
+            )
+
+        # Post image then post duplicate
+        post_image()
+        response = post_image(title="test title duplicate")
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check template used
+        self.assertTemplateUsed(
+            response, "wagtailimages/images/confirm_duplicate_upload.html"
+        )
+
+        # Check image
+        self.assertEqual(response.context["image"].title, "test title duplicate")
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn("form", response_json)
+        self.assertIn("confirm_duplicate_upload", response_json)
+        self.assertTrue(response_json["success"])
+        self.assertTrue(response_json["duplicate"])
 
     def test_edit_get(self):
         """
@@ -1930,7 +1966,9 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
         response_json = json.loads(response.content.decode())
         self.assertIn("form", response_json)
         self.assertIn("success", response_json)
+        self.assertIn("duplicate", response_json)
         self.assertTrue(response_json["success"])
+        self.assertFalse(response_json["duplicate"])
 
     def test_add_post_badfile(self):
         """
@@ -1958,6 +1996,42 @@ class TestMultipleImageUploaderWithCustomImageModel(TestCase, WagtailTestUtils):
             response_json["error_message"],
             "Upload a valid image. The file you uploaded was either not an image or a corrupted image.",
         )
+
+    def test_add_post_duplicate(self):
+        def post_image(title="test title"):
+            return self.client.post(
+                reverse("wagtailimages:add_multiple"),
+                {
+                    "title": title,
+                    "files[]": SimpleUploadedFile(
+                        "test.png", get_test_image_file().file.getvalue()
+                    ),
+                },
+            )
+
+        # Post image then post duplicate
+        post_image()
+        response = post_image(title="test title duplicate")
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check template used
+        self.assertTemplateUsed(
+            response, "wagtailimages/images/confirm_duplicate_upload.html"
+        )
+
+        # Check image
+        self.assertEqual(response.context["image"].title, "test title duplicate")
+        self.assertIn("caption", response.context["form"].fields)
+        self.assertNotIn("not_editable_field", response.context["form"].fields)
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertIn("form", response_json)
+        self.assertIn("confirm_duplicate_upload", response_json)
+        self.assertTrue(response_json["success"])
+        self.assertTrue(response_json["duplicate"])
 
     def test_unique_together_validation_error(self):
         """
