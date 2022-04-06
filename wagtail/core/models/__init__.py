@@ -559,9 +559,8 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                     user=user,
                     deleted=True,
                 )
-            if self.get_children().exists():
-                for child in self.get_children():
-                    log_deletion(child.specific, user)
+            for child in self.get_descendants():
+                log_deletion(child.specific, user)
             log_deletion(self.specific, user)
 
             # this is a Page instance, so carry on as we were
