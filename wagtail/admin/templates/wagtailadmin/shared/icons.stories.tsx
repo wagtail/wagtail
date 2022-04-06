@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getTemplatePattern } from 'storybook-django/src/react';
 
+const description = `
+Wagtail comes with a base icon set, which can be extended by site implementers.
+
+Here is a list of all available icons, auto-generated from our SVG sprite.
+`;
+
 /**
  * Displays all icons within our sprite.
  */
@@ -48,6 +54,12 @@ const IconsTable = ({ color }: { color: string }) => {
 };
 
 export default {
+  title: 'Foundation / Icons',
+  parameters: {
+    docs: {
+      extractComponentDescription: () => description,
+    },
+  },
   argTypes: {
     color: {
       description: 'Only intended for demo purposes',
@@ -55,8 +67,8 @@ export default {
   },
 };
 
-export const Icons = (args) => <IconsTable {...args} />;
+export const AllIcons = (args) => <IconsTable {...args} />;
 
-Icons.args = {
+AllIcons.args = {
   color: 'currentColor',
 };
