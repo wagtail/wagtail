@@ -161,7 +161,7 @@ def browse(request, parent_page_id=None):
     if show_locale_labels:
         pages = pages.select_related("locale")
 
-        if parent_page_id is None:
+        if parent_page.is_root():
             # 'locale' is the current value of the "Locale" selector in the UI
             if request.GET.get("locale"):
                 selected_locale = get_object_or_404(
