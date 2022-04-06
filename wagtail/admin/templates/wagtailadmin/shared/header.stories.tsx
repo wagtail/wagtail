@@ -1,20 +1,16 @@
 import React from 'react';
-import TemplatePattern from '../../../../../client/storybook/TemplatePattern';
+import { Pattern, generateDocs } from 'storybook-django/src/react';
 
 import template from './header.html';
 
+const { docs, argTypes } = generateDocs(template);
+
 export default {
   parameters: {
-    docs: {
-      source: { code: template },
-      // Trial generating documentation from comment within the template. To be replaced by a better pattern.
-      extractComponentDescription: () =>
-        template
-          .match(/{% comment %}\n((.|\n)+){% endcomment %}/m)[1]
-          .replace(/ {4}/g, ''),
-    },
+    docs,
   },
   argTypes: {
+    ...argTypes,
     icon: {
       options: window.WAGTAIL_ICONS,
       control: { type: 'select' },
@@ -23,9 +19,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <TemplatePattern filename={__filename} context={args} />
-);
+const Template = (args) => <Pattern filename={__filename} context={args} />;
 
 export const Base = Template.bind({});
 

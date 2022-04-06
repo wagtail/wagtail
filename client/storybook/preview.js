@@ -29,7 +29,7 @@ const loadIconSprite = () => {
       const sprite = document.createElement('div');
       sprite.innerHTML = html;
       const symbols = Array.from(sprite.querySelectorAll('symbol'));
-      const icons = symbols.map((elt) => elt.id.replace('icon-', ''));
+      const icons = symbols.map((elt) => elt.id.replace('icon-', '')).sort();
 
       window.WAGTAIL_ICONS = icons;
       sessionStorage.setItem('WAGTAIL_ICONS', JSON.stringify(icons));

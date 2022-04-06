@@ -1,10 +1,10 @@
 {% load i18n wagtailadmin_tags %}
-{% comment %}
+{% comment "text/markdown" %}
 
     Variables accepted by this template:
 
-    - `title`
-    - `subtitle`
+    - `title` - Displayed as `h1`
+    - `subtitle` - Within the `h1` tag but smaller
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
