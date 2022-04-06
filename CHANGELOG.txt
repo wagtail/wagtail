@@ -134,6 +134,12 @@ Changelog
  * Fix: Add missing translation usage in Workflow templates (Anuja Verma, Saurabh Kumar)
 
 
+2.15.5 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+
+
 2.15.4 (11.02.2022)
 ~~~~~~~~~~~~~~~~~~~
 
