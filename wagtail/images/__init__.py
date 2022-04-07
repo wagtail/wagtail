@@ -1,12 +1,5 @@
-import django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-
-if django.VERSION >= (3, 2):
-    # The declaration is only needed for older Django versions
-    pass
-else:
-    default_app_config = "wagtail.images.apps.WagtailImagesAppConfig"
 
 
 def get_image_model_string():

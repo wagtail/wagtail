@@ -14,20 +14,6 @@ __version__ = get_version(VERSION)
 __semver__ = get_semver_version(VERSION)
 
 
-try:
-    import django
-
-    if django.VERSION >= (3, 2):
-        # The declaration is only needed for older Django versions
-        pass
-    else:
-        default_app_config = "wagtail.apps.WagtailAppConfig"
-
-except ImportError:
-    # Django is not installed. This is most likely because pip is importing this file to get the version
-    pass
-
-
 def setup():
     import warnings
 
