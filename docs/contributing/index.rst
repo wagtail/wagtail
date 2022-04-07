@@ -63,7 +63,6 @@ More information
     general_guidelines
     python_guidelines
     ui_guidelines
-    javascript_guidelines
     documentation_guidelines
     documentation-modes
     security
