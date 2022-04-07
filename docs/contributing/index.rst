@@ -62,8 +62,7 @@ More information
     styleguide
     general_guidelines
     python_guidelines
-    html_guidelines
-    css_guidelines
+    ui_guidelines
     javascript_guidelines
     documentation_guidelines
     documentation-modes
