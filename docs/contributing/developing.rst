@@ -15,7 +15,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The preferred option is to install the correct version of Node using Node Version Manager (nvm), which will always align the version with the supplied  ``.nvmrc`` file in the root of the project. See nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+The preferred option is to install the correct version of Node using `Node Version Manager (nvm) <https://github.com/creationix/nvm>`_ or `fnm <https://github.com/Schniz/fnm>`_, which will always align the version with the supplied  ``.nvmrc`` file in the root of the project.
 Alternatively, you can install `Node.js <https://nodejs.org/>`_ directly, ensure you install the version as declared in the project's root ``.nvmrc`` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
@@ -45,7 +45,7 @@ Install the tool chain for building static assets:
 
 .. code-block:: console
 
-    $ npm install --no-save
+    $ npm ci
 
 Compile the assets:
 
