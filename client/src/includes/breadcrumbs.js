@@ -16,7 +16,7 @@ export default function initCollapsibleBreadcrumbs() {
       // eslint-disable-next-line no-param-reassign
       breadcrumb.hidden = true;
     });
-    breadcrumbsToggle.setAttribute('aria-expanded', false);
+    breadcrumbsToggle.setAttribute('aria-expanded', 'false');
     // Change Icon to dots
     breadcrumbsToggle
       .querySelector('svg use')
