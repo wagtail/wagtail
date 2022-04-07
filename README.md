@@ -41,7 +41,8 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
+Note: Above commands are the implementation of Wagtail, NOT setup guide.
+For detailed **INSTALLATION and SETUP docs, see [docs.wagtail.org](https://docs.wagtail.org/)**.
 
 ### Who’s using it?
 
