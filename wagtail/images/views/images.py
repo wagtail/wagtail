@@ -82,12 +82,17 @@ class BaseListingView(TemplateView):
         paginator = Paginator(images, per_page=INDEX_PAGE_SIZE)
         images = paginator.get_page(self.request.GET.get("p"))
 
+        next_url = reverse("wagtailimages:index")
+        request_query_string = self.request.META.get("QUERY_STRING")
+        if request_query_string:
+            next_url += "?" + request_query_string
+
         context.update(
             {
                 "images": images,
                 "query_string": query_string,
                 "is_searching": bool(query_string),
-                "next": self.request.get_full_path(),
+                "next": next_url,
             }
         )
 

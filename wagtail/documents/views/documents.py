@@ -71,13 +71,18 @@ class BaseListingView(TemplateView):
         paginator = Paginator(documents, per_page=20)
         documents = paginator.get_page(self.request.GET.get("p"))
 
+        next_url = reverse("wagtaildocs:index")
+        request_query_string = self.request.META.get("QUERY_STRING")
+        if request_query_string:
+            next_url += "?" + request_query_string
+
         context.update(
             {
                 "ordering": ordering,
                 "documents": documents,
                 "query_string": query_string,
                 "is_searching": bool(query_string),
-                "next": self.request.get_full_path(),
+                "next": next_url,
             }
         )
         return context
