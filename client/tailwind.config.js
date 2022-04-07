@@ -93,8 +93,8 @@ module.exports = {
     }),
     /**
      * TypeScale plugin.
-     * This plugin generates component classes using tailwind's configuration for each object inside of the typeScale const.
-     * If the tailwind config is using a prefix such as 'w-' this will be included in the compiled css class eg. .w-h1
+     * This plugin generates component classes using tailwind's theme values for each object inside of the typeScale configuration.
+     * We have the `w-` prefix added in the configuration for documentation purposes, it needs to be removed here before Tailwind adds it back.
      */
     plugin(({ addComponents, theme }) => {
       const scale = {};

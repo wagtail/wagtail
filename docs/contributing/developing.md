@@ -4,7 +4,9 @@
 
 Setting up a local copy of [the Wagtail git repository](https://github.com/wagtail/wagtail) is slightly more involved than running a release package of Wagtail, as it requires [Node.js](https://nodejs.org/) and npm for building JavaScript and CSS assets. (This is not required when running a release version, as the compiled assets are included in the release package.)
 
-If you're happy to develop on a virtual machine, the [vagrant-wagtail-develop](https://github.com/wagtail/vagrant-wagtail-develop) and [docker-wagtail-develop](https://github.com/wagtail/docker-wagtail-develop) setup scripts are the fastest way to get up and running. They will provide you with a running instance of the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/), with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
+If you're happy to develop on a local virtual machine, the [docker-wagtail-develop](https://github.com/wagtail/docker-wagtail-develop) and [vagrant-wagtail-develop](https://github.com/wagtail/vagrant-wagtail-develop) setup scripts are the fastest way to get up and running. They will provide you with a running instance of the [Wagtail Bakery demo site](https://github.com/wagtail/bakerydemo/), with the Wagtail and bakerydemo codebases available as shared folders for editing on your host machine.
+
+You can also set up a cloud development environment that you can work with in a browser-based IDE using the [gitpod-wagtail-develop](https://github.com/wagtail/gitpod-wagtail-develop) project.
 
 (Build scripts for other platforms would be very much welcomed - if you create one, please let us know via the [Slack workspace](https://github.com/wagtail/wagtail/wiki/Slack)!)
 
@@ -12,7 +14,7 @@ If you'd prefer to set up all the components manually, read on. These instructio
 
 ## Setting up the Wagtail codebase
 
-The preferred option is to install the correct version of Node using [Node Version Manager (nvm)](https://github.com/creationix/nvm) or [fnm](https://github.com/Schniz/fnm), which will always align the version with the supplied  `.nvmrc` file in the root of the project.
+The preferred way to install the correct version of Node is to use [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) or [Fast Node Manager (fnm)](https://github.com/Schniz/fnm), which will always align the version with the supplied  `.nvmrc` file in the root of the project. To ensure you are running the correct version of Node, run `nvm install` or `fnm install` from the project root.
 Alternatively, you can install [Node.js](https://nodejs.org/) directly, ensure you install the version as declared in the project's root `.nvmrc` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
@@ -24,16 +26,10 @@ $ git clone https://github.com/wagtail/wagtail.git
 $ cd wagtail
 ```
 
-With your preferred virtualenv activated, install the Wagtail package in development mode with the included testing and documentation dependencies:
+**With your preferred virtualenv activated,** install the Wagtail package in development mode with the included testing and documentation dependencies:
 
 ```console
 $ pip install -e '.[testing,docs]' -U
-```
-
-Install Node through nvm (optional):
-
-```console
-$ nvm install
 ```
 
 Install the tool chain for building static assets:
@@ -67,13 +63,13 @@ run. You can run tests for only one part of Wagtail by passing in the path as
 an argument to `runtests.py` or `tox`:
 
 ```console
-$ # Running in the current environment
+# Running in the current environment
 $ python runtests.py wagtail
 
-$ # Running in a specified Tox environment
+# Running in a specified Tox environment
 $ tox -e py39-dj32-sqlite-noelasticsearch wagtail
 
-$ # See a list of available Tox environments
+# See a list of available Tox environments
 $ tox -l
 ```
 
@@ -81,10 +77,10 @@ You can also run tests for individual TestCases by passing in the path as
 an argument to `runtests.py`
 
 ```console
-$ # Running in the current environment
+# Running in the current environment
 $ python runtests.py wagtail.tests.test_blocks.TestIntegerBlock
 
-$ # Running in a specified Tox environment
+# Running in a specified Tox environment
 $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.tests.test_blocks.TestIntegerBlock
 ```
 
@@ -98,9 +94,9 @@ $ django-admin makemigrations --settings=wagtail.test.settings
 
 ### Testing against PostgreSQL
 
-:::{note}
+```{note}
 In order to run these tests, you must install the required modules for PostgreSQL as described in Django's [Databases documentation](https://docs.djangoproject.com/en/stable/ref/databases/).
-:::
+```
 
 By default, Wagtail tests against SQLite. You can switch to using PostgreSQL by
 using the `--postgres` argument:
@@ -171,7 +167,7 @@ Our end-to-end browser testing suite also uses [Jest](https://jestjs.io/), combi
 
 ```console
 $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
-$ # Assumes the current environment contains a valid installation of Wagtail for local development.
+# Assumes the current environment contains a valid installation of Wagtail for local development.
 $ ./wagtail/test/manage.py migrate
 $ ./wagtail/test/manage.py createcachetable
 $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
@@ -243,7 +239,7 @@ The audit also states which parts of Wagtail have and haven’t been tested, how
 
 ## Compiling static assets
 
-All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by `webpack`. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
+All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by Webpack. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
 
 To compile the assets, run:
 
@@ -263,11 +259,11 @@ Wagtail’s UI component library is built with [Storybook](https://storybook.js.
 
 ```console
 $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
-$ # Assumes the current environment contains a valid installation of Wagtail for local development.
+# Assumes the current environment contains a valid installation of Wagtail for local development.
 $ ./wagtail/test/manage.py migrate
 $ ./wagtail/test/manage.py createcachetable
 $ ./wagtail/test/manage.py runserver 0:8000
-$ # In a separate terminal:
+# In a separate terminal:
 $ npm run storybook
 ```
 
@@ -279,11 +275,11 @@ The Wagtail documentation is built by Sphinx. To install Sphinx and compile the 
 
 ```console
 $ cd /path/to/wagtail
-$ # Install the documentation dependencies
+# Install the documentation dependencies
 $ pip install -e .[docs]
-$ # or if using zsh as your shell:
-$ #    pip install -e '.[docs]' -U
-$ # Compile the docs
+# or if using zsh as your shell:
+#    pip install -e '.[docs]' -U
+# Compile the docs
 $ cd docs/
 $ make html
 ```
