@@ -24,11 +24,6 @@ header {
     }
   }
 
-  h1,
-  .user-name {
-    @apply w-text-primary;
-  }
-
   .user-name {
     font-size: 1.3em;
     font-weight: 600;
