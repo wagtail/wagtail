@@ -39,7 +39,7 @@
                         </li>
                         {# use this for a non linkable last breadcrumb #}
                         {% if trailing_breadcrumb_title %}
-                            <li class={{ breadcrumb_list_classes }}>
+                            <li class="{{ breadcrumb_list_classes }}">
                                 <div class="w-flex w-justify-start w-items-center">
                                     {% icon name="arrow-right" class_name=icon_classes %}
                                     <span class="w-font-bold !w-text-primary">{{ trailing_breadcrumb_title }}</span>
