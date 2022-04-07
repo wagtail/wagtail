@@ -573,7 +573,7 @@ def page_header_buttons(context, page, page_perms):
     return {
         "page": page,
         "buttons": buttons,
-        "title": "Actions",
+        "title": _("Actions"),
         "icon_name": "ellipsis-v",
         "button_classes": [],
     }
