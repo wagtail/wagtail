@@ -18,7 +18,8 @@
                     {% if page.is_root %}
                         {# Root section is shown as a 'site' icon in place of the title #}
                         <li class="{{ breadcrumb_list_classes }} w-max-w-0" data-breadcrumb-link hidden>
-                            <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore_root' %}" tabindex="0">
+                            <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore_root' %}" 
+                            >
                                 {% trans "Root" %}
                             </a>
                         </li>
