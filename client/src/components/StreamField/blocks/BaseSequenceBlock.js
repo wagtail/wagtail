@@ -260,6 +260,16 @@ export class BaseSequenceChild extends EventEmitter {
       this.block.setCapabilityOptions('duplicate', { enabled: false });
     }
   }
+  enableSplit() {
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('split', { enabled: true });
+    }
+  }
+  disableSplit() {
+    if (this.block && this.block.setCapabilityOptions) {
+      this.block.setCapabilityOptions('split', { enabled: false });
+    }
+  }
   enableMoveUp() {
     this.emit('enableMoveUp');
   }

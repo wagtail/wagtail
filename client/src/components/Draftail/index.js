@@ -57,10 +57,10 @@ export const wrapWagtailIcon = (type) => {
 /**
  * Initialises the DraftailEditor for a given field.
  * @param {string} selector
- * @param {Object} options
+ * @param {Object} originalOptions
  * @param {Element} currentScript
  */
-const initEditor = (selector, options, currentScript) => {
+const initEditor = (selector, originalOptions, currentScript) => {
   // document.currentScript is not available in IE11. Use a fallback instead.
   const context = currentScript ? currentScript.parentNode : document.body;
   // If the field is not in the current context, look for it in the whole body.
@@ -79,23 +79,6 @@ const initEditor = (selector, options, currentScript) => {
     field.value = JSON.stringify(rawContentState);
   };
 
-  const blockTypes = options.blockTypes || [];
-  const inlineStyles = options.inlineStyles || [];
-  let entityTypes = options.entityTypes || [];
-
-  entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
-    const plugin = PLUGINS[type.type];
-
-    // Override the properties defined in the JS plugin: Python should be the source of truth.
-    return Object.assign({}, plugin, type);
-  });
-
-  const enableHorizontalRule = options.enableHorizontalRule
-    ? {
-        description: gettext('Horizontal line'),
-      }
-    : false;
-
   const rawContentState = JSON.parse(field.value);
   field.rawContentState = rawContentState;
 
@@ -104,24 +87,42 @@ const initEditor = (selector, options, currentScript) => {
     field.draftailEditor = ref;
   };
 
-  const sharedProps = {
-    rawContentState: rawContentState,
-    onSave: serialiseInputValue,
-    placeholder: gettext('Write here…'),
-    spellCheck: true,
-    enableLineBreak: {
-      description: gettext('Line break'),
-      icon: BR_ICON,
-    },
-    showUndoControl: { description: gettext('Undo') },
-    showRedoControl: { description: gettext('Redo') },
-    maxListNesting: 4,
-    stripPastedStyles: false,
-    ...options,
-    blockTypes: blockTypes.map(wrapWagtailIcon),
-    inlineStyles: inlineStyles.map(wrapWagtailIcon),
-    entityTypes,
-    enableHorizontalRule,
+  const getSharedPropsFromOptions = (newOptions) => {
+    const enableHorizontalRule = newOptions.enableHorizontalRule
+      ? {
+          description: gettext('Horizontal line'),
+        }
+      : false;
+
+    const blockTypes = newOptions.blockTypes || [];
+    const inlineStyles = newOptions.inlineStyles || [];
+    let entityTypes = newOptions.entityTypes || [];
+
+    entityTypes = entityTypes.map(wrapWagtailIcon).map((type) => {
+      const plugin = PLUGINS[type.type];
+
+      // Override the properties defined in the JS plugin: Python should be the source of truth.
+      return Object.assign({}, plugin, type);
+    });
+    return {
+      rawContentState: rawContentState,
+      onSave: serialiseInputValue,
+      placeholder: gettext('Write here...'),
+      spellCheck: true,
+      enableLineBreak: {
+        description: gettext('Line break'),
+        icon: BR_ICON,
+      },
+      showUndoControl: { description: gettext('Undo') },
+      showRedoControl: { description: gettext('Redo') },
+      maxListNesting: 4,
+      stripPastedStyles: false,
+      ...newOptions,
+      blockTypes: blockTypes.map(wrapWagtailIcon),
+      inlineStyles: inlineStyles.map(wrapWagtailIcon),
+      entityTypes,
+      enableHorizontalRule,
+    };
   };
 
   const styles = getComputedStyle(document.documentElement);
@@ -131,30 +132,51 @@ const initEditor = (selector, options, currentScript) => {
     focusedHighlight: styles.getPropertyValue('--color-primary'),
   };
 
-  // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
-  // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
-  const contentPath = window.comments?.getContentPath(field) || '';
-  const editor =
-    window.comments?.commentApp && contentPath !== '' ? (
-      <Provider store={window.comments.commentApp.store}>
-        <CommentableEditor
-          editorRef={editorRef}
-          commentApp={window.comments.commentApp}
-          fieldNode={field.parentNode}
-          contentPath={contentPath}
-          colorConfig={colors}
-          isCommentShortcut={window.comments.isCommentShortcut}
-          {...sharedProps}
-        />
-      </Provider>
-    ) : (
-      <DraftailEditor ref={editorRef} {...sharedProps} />
-    );
+  let options;
+  let setOptions = (newOptions) => {
+    initialOptions = newOptions;
+  };
+  const DynamicOptionsEditorWrapper = ({
+    initialOptions,
+    contentPath,
+    commentApp,
+  }) => {
+    [options, setOptions] = React.useState({ ...initialOptions });
+
+    // If the field has a valid contentpath - ie is not an InlinePanel or under a ListBlock -
+    // and the comments system is initialized then use CommentableEditor, otherwise plain DraftailEditor
+    const sharedProps = getSharedPropsFromOptions(options);
+    const editor =
+      commentApp && contentPath !== '' ? (
+        <Provider store={commentApp.store}>
+          <CommentableEditor
+            editorRef={editorRef}
+            commentApp={window.comments.commentApp}
+            fieldNode={field.parentNode}
+            contentPath={contentPath}
+            colorConfig={colors}
+            isCommentShortcut={window.comments.isCommentShortcut}
+            {...sharedProps}
+          />
+        </Provider>
+      ) : (
+        <DraftailEditor ref={editorRef} {...sharedProps} />
+      );
+    return editor;
+  };
 
   ReactDOM.render(
-    <EditorFallback field={field}>{editor}</EditorFallback>,
+    <EditorFallback field={field}>
+      <DynamicOptionsEditorWrapper
+        initialOptions={originalOptions}
+        contentPath={window.comments?.getContentPath(field) || ''}
+        commentApp={window.comments?.commentApp}
+      />
+    </EditorFallback>,
     editorWrapper,
   );
+
+  return [options, setOptions];
 };
 
 export default {

@@ -293,8 +293,10 @@ export class StreamBlock extends BaseSequenceBlock {
 
       if (canDuplicate) {
         this.children[i].enableDuplication();
+        this.children[i].enableSplit();
       } else {
         this.children[i].disableDuplication();
+        this.children[i].disableSplit();
       }
     }
     for (let i = 0; i < this.inserters.length; i++) {

@@ -159,9 +159,11 @@ class DraftailRichTextArea {
   }
 
   render(container, name, id, initialState, parentCapabilities) {
-    const options = { ...this.options };
+    const originalOptions = this.options;
+    const options = { ...originalOptions };
+    const parentCapabilities = parentCapabilities || new Map();
     const split = parentCapabilities.get('split');
-    if (split) {
+    if (split && split.enabled) {
       options.controls = options.controls ? [...options.controls] : [];
       options.controls.push(draftail.getSplitControl(split.fn));
     }
@@ -176,7 +178,12 @@ class DraftailRichTextArea {
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef
-    draftail.initEditor('#' + id, options, document.currentScript);
+    let [currentOptions, setOptions] = draftail.initEditor(
+      '#' + id,
+      options,
+      document.currentScript,
+    );
+    console.log(parentCapabilities);
 
     const boundDraftail = {
       getValue() {
@@ -209,6 +216,28 @@ class DraftailRichTextArea {
         setTimeout(() => {
           input.draftailEditor.focus();
         }, 50);
+      },
+      setCapabilityOptions(capability, capabilityOptions) {
+        const newCapability = Object.assign(
+          parentCapabilities.get(capability),
+          capabilityOptions,
+        );
+        if (capability == 'split') {
+          if (newCapability.enabled) {
+            setOptions({
+              ...currentOptions,
+              controls: [
+                ...(originalOptions || []),
+                draftail.getSplitControl(newCapability.fn),
+              ],
+            });
+          } else {
+            setOptions({
+              ...currentOptions,
+              controls: [...(originalOptions || [])],
+            });
+          }
+        }
       },
     };
 

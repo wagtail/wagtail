@@ -241,7 +241,6 @@ function splitState(editorState: EditorState) {
   return [stateBefore, stateAfter];
 }
 
-// @ts-ignore
 function getSplitControl(
   splitFn: (stateBefore: EditorState, stateAfter: EditorState) => void,
 ) {
@@ -250,7 +249,7 @@ function getSplitControl(
       <ToolbarButton
         name="split"
         active={false}
-        title="split block" // TODO: this UI is placeholder. The full UI will need translations.
+        title={gettext('Split block')}
         icon={<Icon name="comment-large-outline" />}
         onClick={() => {
           const [stateBefore, stateAfter] = splitState(getEditorState());
