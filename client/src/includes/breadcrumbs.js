@@ -35,7 +35,7 @@ export default function initCollapsibleBreadcrumbs() {
         }, 50);
       }, index * 10);
     });
-    breadcrumbsToggle.setAttribute('aria-expanded', true);
+    breadcrumbsToggle.setAttribute('aria-expanded', 'true');
     // Change Icon to cross
     breadcrumbsToggle
       .querySelector('svg use')
