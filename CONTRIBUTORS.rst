@@ -672,6 +672,7 @@ Contributors
 * Benita Anawonah
 * Anisha Singh
 * Ivy Jeptoo
+* Jeremy Thompson
 
 Translators
 ===========
