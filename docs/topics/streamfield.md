@@ -629,7 +629,7 @@ from wagtail.rich_text import RichText
 def page_to_streamfield(page):
     changed = False
     if page.body.raw_text and not page.body:
-        page.body = [('rich_text', {'rich_text': RichText(page.body.raw_text)})]
+        page.body = [('rich_text', RichText(page.body.raw_text))]
         changed = True
     return page, changed
 
