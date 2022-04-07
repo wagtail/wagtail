@@ -30,8 +30,7 @@
             w-font-semibold
             hover:w-border-primary
             hover:w-text-primary
-            w-transition
-            {{ classes }}"
+            w-transition"
         data-tippy-offset="[0, 13]"
         aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private to all. Visit the live page' %}{% endif %}"
         data-tippy-content="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private to all' %}{% endif %}"
