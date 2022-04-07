@@ -33,7 +33,9 @@
             {# Comments Toggle #}
             {# TODO: Hookup comments number and self.show_comments_toggle #}
             {% with comments_number=self.form.formsets.comments|length %}
-                <button class="{{ nav_icon_button_classes }} {% if comments_number %} w-mr-2.5 {% endif %}"
+                <button
+                    type="button"
+                    class="{{ nav_icon_button_classes }} {% if comments_number %} w-mr-2.5 {% endif %}"
                     aria-label="{% trans 'Toggle comments' %}"
                     data-tippy-content="{% trans 'Comments' %}"
                     data-tippy-offset="[0, 6]"
