@@ -2,7 +2,7 @@ import React from 'react';
 import { fontFamily, typeScale } from './typography';
 
 const description = `
-Wagtail’s color palette is structured as design tokens, available as CSS classes.
+Wagtail’s type styles are structured as design tokens, available as CSS classes.
 `;
 
 export default {
@@ -16,7 +16,7 @@ export default {
 
 export const FontFamilies = () => (
   <div>
-    <p>Wagtail’s brand font is a system font stack:</p>
+    <p>Wagtail’s UI font is a system font stack:</p>
     <pre>{fontFamily.sans.join(', ')}</pre>
   </div>
 );
