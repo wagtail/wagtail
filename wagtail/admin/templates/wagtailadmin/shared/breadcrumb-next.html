@@ -49,7 +49,7 @@
                             </li>
                         {% endif %}
                     {% else %}
-                        <li class="{{ breadcrumb_list_classes }}  w-max-w-0" data-breadcrumb-link hidden>
+                        <li class="{{ breadcrumb_list_classes }} w-max-w-0" data-breadcrumb-link hidden>
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
                                 {% icon name="arrow-right" class_name=icon_classes %}
                                 <span>{{ page.get_admin_display_title }}</span>
