@@ -62,6 +62,16 @@ class CopyPageAction:
         self.reset_translation_key = reset_translation_key
         self._uuid_mapping = {}
 
+    def generate_translation_key(self, old_uuid):
+        """
+        Generates a new UUID if it isn't already being used.
+        Otherwise it will return the same UUID if it's already in use.
+        """
+        if old_uuid not in self._uuid_mapping:
+            self._uuid_mapping[old_uuid] = uuid.uuid4()
+
+        return self._uuid_mapping[old_uuid]
+
     def check(self, skip_permission_checks=False):
         from wagtail.models import UserPagePermissionsProxy
 
@@ -145,6 +155,13 @@ class CopyPageAction:
                     specific_page, page_copy, child_relation, child_object
                 )
 
+            if self.reset_translation_key and isinstance(
+                child_object, TranslatableMixin
+            ):
+                child_object.translation_key = self.generate_translation_key(
+                    child_object.translation_key
+                )
+
         # Save the new page
         if _mpnode_attrs:
             # We've got a tree position already reserved. Perform a quick save
@@ -199,6 +216,15 @@ class CopyPageAction:
                         child_object["pk"] = (
                             copied_child_object.pk if copied_child_object else None
                         )
+                        if (
+                            self.reset_translation_key
+                            and "translation_key" in child_object
+                        ):
+                            child_object[
+                                "translation_key"
+                            ] = self.generate_translation_key(
+                                child_object["translation_key"]
+                            )
 
                 revision.content = revision_content
 
