@@ -14,6 +14,8 @@ Here's an example:
 
 ```python
 # models.py
+from django.db import models
+
 from wagtail.documents.models import Document, AbstractDocument
 
 class CustomDocument(AbstractDocument):

@@ -585,6 +585,7 @@ Contributors
 * Shwet Khatri
 * Abdulmajeed Isa
 * Sandil Ranasinghe
+* Caio Jhonny
 
 Translators
 ===========
