@@ -592,28 +592,6 @@ footer .preview {
   }
 }
 
-.button.button--live {
-  background-color: $color-white;
-  color: $color-teal;
-  border-radius: 2px;
-  font-size: 14px;
-  font-weight: 600;
-  // stylelint-disable-next-line property-disallowed-list
-  text-transform: uppercase;
-  line-height: 2.3em;
-  padding: 0 0.75em;
-
-  .icon {
-    @include svg-icon(1.25em);
-    margin-inline-end: 0.25em;
-  }
-
-  &:hover {
-    background-color: $color-teal-darker;
-    color: $color-white;
-  }
-}
-
 .workflow-timeline {
   list-style: none;
   padding: 0;

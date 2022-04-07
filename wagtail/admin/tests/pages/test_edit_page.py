@@ -983,16 +983,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.child_page.id,))
         )
 
-        link_to_live = (
-            '<a href="/hello-world/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
-            'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
-        )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="hello-world" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
-        self.assertContains(response, link_to_live, html=True)
         self.assertNotContains(
             response, 'href="/revised-slug-in-draft-only/"', html=True
         )
@@ -1016,16 +1010,10 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.single_event_page.id,))
         )
 
-        link_to_live = (
-            '<a href="/mars-landing/pointless-suffix/" target="_blank" rel="noreferrer" class="button button-nostroke button--live" title="Visit the live page">\n'
-            '<svg class="icon icon-link-external initial" aria-hidden="true"><use href="#icon-link-external"></use></svg>\n\n        '
-            'Live\n        <span class="privacy-indicator-tag u-hidden" aria-hidden="true" title="This page is live but only available to certain users">(restricted)</span>'
-        )
         input_field_for_draft_slug = '<input type="text" name="slug" value="revised-slug-in-draft-only" id="id_slug" maxlength="255" required />'
         input_field_for_live_slug = '<input type="text" name="slug" value="mars-landing" id="id_slug" maxlength="255" required />'
 
         # Status Link should be the live page (not revision)
-        self.assertContains(response, link_to_live, html=True)
         self.assertNotContains(
             response, 'href="/revised-slug-in-draft-only/pointless-suffix/"', html=True
         )
