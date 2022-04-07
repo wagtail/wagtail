@@ -137,6 +137,25 @@ class TestDocumentIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, "%s?next=%s" % (edit_url, next_url))
 
 
+class TestDocumentListingResultsView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtaildocs:listing_results"), params)
+
+    def test_search(self):
+        doc = models.Document.objects.create(title="A boring report")
+
+        response = self.get({"q": "boring"})
+        self.assertEqual(response.status_code, 200)
+        # 'next' param on edit page link should point back to the documents index, not the results view
+        self.assertContains(
+            response,
+            "/admin/documents/edit/%d/?next=/admin/documents/%%3Fq%%3Dboring" % doc.id,
+        )
+
+
 class TestDocumentAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()

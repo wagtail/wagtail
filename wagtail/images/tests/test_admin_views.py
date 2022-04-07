@@ -194,6 +194,28 @@ class TestImageIndexView(TestCase, WagtailTestUtils):
         )
 
 
+class TestImageListingResultsView(TestCase, WagtailTestUtils):
+    def setUp(self):
+        self.login()
+
+    def get(self, params={}):
+        return self.client.get(reverse("wagtailimages:listing_results"), params)
+
+    def test_search(self):
+        monster = Image.objects.create(
+            title="A scary monster",
+            file=get_test_image_file(),
+        )
+
+        response = self.get({"q": "monster"})
+        self.assertEqual(response.status_code, 200)
+        # 'next' param on edit page link should point back to the images index, not the results view
+        self.assertContains(
+            response,
+            "/admin/images/%d/?next=/admin/images/%%3Fq%%3Dmonster" % monster.id,
+        )
+
+
 class TestImageAddView(TestCase, WagtailTestUtils):
     def setUp(self):
         self.login()
