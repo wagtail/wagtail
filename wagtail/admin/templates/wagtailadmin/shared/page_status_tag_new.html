@@ -39,15 +39,13 @@
         data-tippy-placement="bottom">
 
         {# Icon #}
-        {% if not page.is_root %}
-            {% with icon_classes='privacy-indicator-icon w-w-4 w-h-4 w-mr-1' %}
-                {% if is_public %}
-                    {% icon name="view" class_name=icon_classes %}
-                {% else %}
-                    {% icon name="no-view" class_name=icon_classes %}
-                {% endif %}
-            {% endwith %}
-        {% endif %}
+        {% with icon_classes='privacy-indicator-icon w-w-4 w-h-4 w-mr-1' %}
+            {% if is_public %}
+                {% icon name="view" class_name=icon_classes %}
+            {% else %}
+                {% icon name="no-view" class_name=icon_classes %}
+            {% endif %}
+        {% endwith %}
 
         {# Label #}
         <span class="w-sr-only">{% trans "Current page status:" %}</span> {% trans 'Live' %}
