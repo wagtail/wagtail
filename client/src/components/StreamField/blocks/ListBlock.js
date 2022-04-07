@@ -196,6 +196,7 @@ export class ListBlock extends BaseSequenceBlock {
         }
         for (let i = 0; i < this.children.length; i++) {
           this.children[i].disableDuplication();
+          this.children[i].disableSplit();
         }
       } else {
         /* allow adding new blocks */
@@ -204,6 +205,7 @@ export class ListBlock extends BaseSequenceBlock {
         }
         for (let i = 0; i < this.children.length; i++) {
           this.children[i].enableDuplication();
+          this.children[i].enableSplit();
         }
       }
     }
