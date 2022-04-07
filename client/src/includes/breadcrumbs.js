@@ -1,6 +1,6 @@
 export default function initCollapsibleBreadcrumbs() {
   const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
-  const breadcrumbLinks = document.querySelectorAll('[data-breadcrumb-link]');
+  const breadcrumbItems = document.querySelectorAll('[data-breadcrumb-item]');
 
   const cssClass = {
     maxWidth: 'w-max-w-4xl', // Setting this allows the breadcrumb to animate to this width
@@ -11,7 +11,7 @@ export default function initCollapsibleBreadcrumbs() {
   let mouseExitedToggle = true;
 
   function hideBreadcrumbs() {
-    breadcrumbLinks.forEach((breadcrumb) => {
+    breadcrumbItems.forEach((breadcrumb) => {
       breadcrumb.classList.remove(cssClass.maxWidth);
       // eslint-disable-next-line no-param-reassign
       breadcrumb.hidden = true;
@@ -25,7 +25,7 @@ export default function initCollapsibleBreadcrumbs() {
   }
 
   function showBreadcrumbs() {
-    breadcrumbLinks.forEach((breadcrumb, index) => {
+    breadcrumbItems.forEach((breadcrumb, index) => {
       setTimeout(() => {
         // eslint-disable-next-line no-param-reassign
         breadcrumb.hidden = false;
