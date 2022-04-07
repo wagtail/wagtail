@@ -1,6 +1,6 @@
 {% load i18n wagtailadmin_tags %}
 
-{% if use_new_template %}
+{% if use_next_template %}
     {% include 'wagtailadmin/shared/breadcrumb-next.html' with trailing_breadcrumb_title=trailing_breadcrumb_title %}
 {% else %}
     <nav aria-label="{% trans 'Breadcrumb' %}">
