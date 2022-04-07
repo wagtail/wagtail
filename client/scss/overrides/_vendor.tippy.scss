@@ -2,7 +2,7 @@
 
 .tippy-box {
   // Special font size 12px for tooltips
-  @apply w-bg-primary w-text-white w-text-[12px] w-rounded-sm w-font-medium;
+  @apply w-bg-primary w-text-white w-text-[0.75rem] w-rounded-sm w-font-medium;
 }
 
 .tippy-box[data-placement^='top'] > .tippy-arrow::before {
