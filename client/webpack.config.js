@@ -227,6 +227,15 @@ module.exports = function exports(env, argv) {
       'scss',
       'focal-point-chooser.scss',
     );
+  sassEntry[getOutputPath('images', 'css', 'chooser-duplicate-upload')] =
+    path.resolve(
+      'wagtail',
+      'images',
+      'static_src',
+      'wagtailimages',
+      'scss',
+      'chooser-duplicate-upload.scss',
+    );
   sassEntry[getOutputPath('users', 'css', 'groups_edit')] = path.resolve(
     'wagtail',
     'users',
