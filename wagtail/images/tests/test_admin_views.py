@@ -1326,6 +1326,113 @@ class TestImageChooserUploadView(TestCase, WagtailTestUtils):
         # The form should have an error
         self.assertFormError(response, "form", "file", "This field is required.")
 
+    def test_upload_duplicate(self):
+        def post_image(title="Test image"):
+            return self.client.post(
+                reverse("wagtailimages:chooser_upload"),
+                {
+                    "image-chooser-upload-title": title,
+                    "image-chooser-upload-file": SimpleUploadedFile(
+                        "test.png", get_test_image_file().file.getvalue()
+                    ),
+                },
+            )
+
+        # Post image then post duplicate
+        post_image()
+        response = post_image(title="Test duplicate image")
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(
+            response, "wagtailimages/chooser/confirm_duplicate_upload.html"
+        )
+
+        # Check context
+        Image = get_image_model()
+        new_image = Image.objects.get(title="Test duplicate image")
+        existing_image = Image.objects.get(title="Test image")
+        self.assertEqual(response.context["new_image"], new_image)
+        self.assertEqual(response.context["existing_image"], existing_image)
+
+        choose_new_image_action = reverse(
+            "wagtailimages:image_chosen", args=(new_image.id,)
+        )
+        self.assertEqual(
+            response.context["confirm_duplicate_upload_action"], choose_new_image_action
+        )
+
+        choose_existing_image_action = (
+            reverse("wagtailimages:delete", args=(new_image.id,))
+            + "?"
+            + urlencode(
+                {
+                    "next": reverse(
+                        "wagtailimages:image_chosen", args=(existing_image.id,)
+                    )
+                }
+            )
+        )
+        self.assertEqual(
+            response.context["cancel_duplicate_upload_action"],
+            choose_existing_image_action,
+        )
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "duplicate_found")
+
+    def test_upload_duplicate_select_format(self):
+        def post_image(title="Test image"):
+            return self.client.post(
+                reverse("wagtailimages:chooser_upload") + "?select_format=true",
+                {
+                    "image-chooser-upload-title": title,
+                    "image-chooser-upload-file": SimpleUploadedFile(
+                        "test.png", get_test_image_file().file.getvalue()
+                    ),
+                },
+            )
+
+        # Post image then post duplicate
+        post_image()
+        response = post_image(title="Test duplicate image")
+
+        # Check response
+        self.assertEqual(response.status_code, 200)
+
+        # Check context
+        Image = get_image_model()
+        new_image = Image.objects.get(title="Test duplicate image")
+        existing_image = Image.objects.get(title="Test image")
+
+        choose_new_image_action = reverse(
+            "wagtailimages:chooser_select_format", args=(new_image.id,)
+        )
+        self.assertEqual(
+            response.context["confirm_duplicate_upload_action"], choose_new_image_action
+        )
+
+        choose_existing_image_action = (
+            reverse("wagtailimages:delete", args=(new_image.id,))
+            + "?"
+            + urlencode(
+                {
+                    "next": reverse(
+                        "wagtailimages:chooser_select_format", args=(existing_image.id,)
+                    )
+                }
+            )
+        )
+        self.assertEqual(
+            response.context["cancel_duplicate_upload_action"],
+            choose_existing_image_action,
+        )
+
+        # Check JSON
+        response_json = json.loads(response.content.decode())
+        self.assertEqual(response_json["step"], "duplicate_found")
+
     def test_select_format_flag_after_upload_form_error(self):
         submit_url = reverse("wagtailimages:chooser_upload") + "?select_format=true"
         response = self.client.post(

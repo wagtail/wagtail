@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.template.response import TemplateResponse
 from django.urls import reverse
+from django.utils.http import urlencode
 from django.utils.translation import gettext as _
 from django.views.generic.base import View
 
@@ -16,6 +17,7 @@ from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 from wagtail.images.forms import ImageInsertionForm, get_image_form
 from wagtail.images.permissions import permission_policy
+from wagtail.images.utils import find_image_duplicates
 from wagtail.search import index as search_index
 
 permission_checker = PermissionPolicyChecker(permission_policy)
@@ -156,6 +158,42 @@ def image_chosen(request, image_id):
     )
 
 
+def duplicate_found(request, new_image, existing_image):
+    next_step_url = (
+        "wagtailimages:chooser_select_format"
+        if request.GET.get("select_format")
+        else "wagtailimages:image_chosen"
+    )
+    choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
+    choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
+
+    cancel_duplicate_upload_action = (
+        f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
+        f"{urlencode({'next': choose_existing_image_url})}"
+    )
+
+    duplicate_upload_html = render_to_string(
+        "wagtailimages/chooser/confirm_duplicate_upload.html",
+        {
+            "new_image": new_image,
+            "existing_image": existing_image,
+            "confirm_duplicate_upload_action": choose_new_image_url,
+            "cancel_duplicate_upload_action": cancel_duplicate_upload_action,
+        },
+        request,
+    )
+    return render_modal_workflow(
+        request,
+        None,
+        None,
+        None,
+        json_data={
+            "step": "duplicate_found",
+            "htmlFragment": duplicate_upload_html,
+        },
+    )
+
+
 @permission_checker.require("add")
 def chooser_upload(request):
     Image = get_image_model()
@@ -184,6 +222,15 @@ def chooser_upload(request):
 
             # Reindex the image to make sure all tags are indexed
             search_index.insert_or_update_object(image)
+
+            duplicates = find_image_duplicates(
+                image=image,
+                user=request.user,
+                permission_policy=permission_policy,
+            )
+            existing_image = duplicates.first()
+            if existing_image:
+                return duplicate_found(request, image, existing_image)
 
             if request.GET.get("select_format"):
                 form = ImageInsertionForm(
