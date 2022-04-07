@@ -154,6 +154,19 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.respond('imageChosen', jsonData.result);
     modal.close();
   },
+  duplicate_found: function (modal, jsonData) {
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    $('.use-new-image', modal.body).on('click', function () {
+      modal.loadUrl(this.href);
+      return false;
+    });
+    $('.use-existing-image', modal.body).on('click', function () {
+      var form = $(this).closest('form');
+      var CSRFToken = $('input[name="csrfmiddlewaretoken"]', form).val();
+      modal.postForm(this.href, { csrfmiddlewaretoken: CSRFToken });
+      return false;
+    });
+  },
   reshow_upload_form: function (modal, jsonData) {
     $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
     initTabs();
