@@ -14,6 +14,8 @@ export default function initCollapsibleBreadcrumbs() {
   // Local state
   let open = false;
   let mouseExitedToggle = true;
+  let keepOpen = false;
+  let hideBreadcrumbsWithDelay;
 
   function hideBreadcrumbs() {
     breadcrumbItems.forEach((breadcrumb) => {
@@ -41,19 +43,26 @@ export default function initCollapsibleBreadcrumbs() {
       }, index * 10);
     });
     breadcrumbsToggle.setAttribute('aria-expanded', 'true');
-    // Change Icon to cross
-    breadcrumbsToggle
-      .querySelector('svg use')
-      .setAttribute('href', '#icon-cross');
     open = true;
   }
 
   // Events
   breadcrumbsToggle.addEventListener('click', () => {
-    if (open) {
+    if (keepOpen) {
       mouseExitedToggle = false;
       hideBreadcrumbs();
-    } else {
+      keepOpen = false;
+    }
+
+    if (open) {
+      mouseExitedToggle = false;
+      keepOpen = true;
+
+      // Change Icon to cross
+      breadcrumbsToggle
+        .querySelector('svg use')
+        .setAttribute('href', '#icon-cross');
+    } else if (mouseExitedToggle) {
       showBreadcrumbs();
     }
   });
@@ -70,7 +79,19 @@ export default function initCollapsibleBreadcrumbs() {
     showBreadcrumbs();
   });
 
-  breadcrumbsContainer.addEventListener('mouseleave', hideBreadcrumbs());
+  breadcrumbsContainer.addEventListener('mouseleave', () => {
+    if (!keepOpen) {
+      hideBreadcrumbsWithDelay = setTimeout(() => {
+        hideBreadcrumbs();
+        //  Give a little bit of time before closing in case the user changes their mind
+      }, 500);
+    }
+  });
+
+  breadcrumbsContainer.addEventListener('mouseenter', () => {
+    clearTimeout(hideBreadcrumbsWithDelay);
+  });
+
   breadcrumbsToggle.addEventListener('mouseleave', () => {
     mouseExitedToggle = true;
   });
