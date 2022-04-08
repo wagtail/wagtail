@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Portal, initUpgradeNotification } from '../..';
+import { Icon, Portal, initUpgradeNotification, initSkipLink } from '../..';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -21,4 +21,5 @@ window.wagtail.components = {
  */
 document.addEventListener('DOMContentLoaded', () => {
   initUpgradeNotification();
+  initSkipLink();
 });

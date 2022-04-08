@@ -20,7 +20,7 @@ const mockProps = {
 describe('PageExplorerPanel', () => {
   describe('general rendering', () => {
     beforeEach(() => {
-      document.body.innerHTML = '<div data-explorer-menu-item></div>';
+      document.body.innerHTML = '<div></div>';
     });
 
     it('exists', () => {

@@ -19,12 +19,6 @@ class BaseSearchAreaTestCase(WagtailTestUtils, TestCase):
         template = Template("{% load wagtailadmin_tags %}{% search_other %}")
         return template.render(Context({"request": request}))
 
-    def menu_search(self, current_url="/admin/", data=None):
-        request = self.rf.get(current_url, data=data)
-        request.user = self.user
-        template = Template("{% load wagtailadmin_tags %}{% menu_search %}")
-        return template.render(Context({"request": request}))
-
 
 class TestSearchAreas(BaseSearchAreaTestCase):
     def setUp(self):
@@ -61,10 +55,6 @@ class TestSearchAreas(BaseSearchAreaTestCase):
             status_code=200,
             html=True,
         )
-
-    def test_menu_search(self):
-        rendered = self.menu_search()
-        self.assertIn(reverse("wagtailadmin_pages:search"), rendered)
 
     def test_search_other(self):
         rendered = self.search_other()
@@ -109,14 +99,6 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
             '{"_type": "wagtail.sidebar.SearchModule", "_args": ["/customsearch/"]}',
         )
 
-    def test_menu_search(self):
-        """
-        The search form should go to the custom search, not the page search.
-        """
-        rendered = self.menu_search()
-        self.assertNotIn(reverse("wagtailadmin_pages:search"), rendered)
-        self.assertIn('action="/customsearch/"', rendered)
-
     def test_search_other(self):
         """The pages search link should be hidden, custom search should be visible."""
         rendered = self.search_other()
@@ -125,7 +107,3 @@ class TestSearchAreaNoPagePermissions(BaseSearchAreaTestCase):
 
         self.assertNotIn("Pages", rendered)
         self.assertIn("My Search", rendered)
-
-    def test_no_searches(self):
-        rendered = self.menu_search(data={"hide-option": "true"})
-        self.assertEqual(rendered, "")
