@@ -555,7 +555,7 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
 
 
 @register.inclusion_tag(
-    "wagtailadmin/pages/listing/_button_with_dropdown_new.html", takes_context=True
+    "wagtailadmin/pages/listing/_button_with_modern_dropdown.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path

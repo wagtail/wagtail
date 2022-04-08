@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Portal, initUpgradeNotification } from '../..';
 import {
-  initButtonWithDropdown,
+  initButtonWithModernDropdown,
   initTooltips,
 } from '../../includes/initTooltips';
 
@@ -26,5 +26,5 @@ window.wagtail.components = {
 document.addEventListener('DOMContentLoaded', () => {
   initUpgradeNotification();
   initTooltips();
-  initButtonWithDropdown();
+  initButtonWithModernDropdown();
 });

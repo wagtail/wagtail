@@ -1,7 +1,7 @@
 import tippy from 'tippy.js';
 
 /**
- Tippy Tooltips
+ Default Tippy Tooltips
  */
 export function initTooltips() {
   tippy('[data-tippy-content]');
@@ -9,23 +9,33 @@ export function initTooltips() {
 
 /**
  Actions Dropdown
+ <div data-button-with-dropdown>
+  <button data-button-with-dropdown-toggle>
+  <div data-button-with-dropdown-content>
+ </div>
  */
-export function initButtonWithDropdown() {
-  const buttonWithDropdownMenu = document.querySelector(
-    '[data-button-with-dropdown-menu]',
-  );
-  const buttonWithDropdownToggle = document.querySelector(
-    '[data-button-with-dropdown-toggle]',
-  );
 
-  if (buttonWithDropdownToggle && buttonWithDropdownToggle) {
-    buttonWithDropdownMenu.style.display = 'block';
+export function initButtonWithModernDropdown() {
+  const containers = document.querySelectorAll('[data-button-with-dropdown]');
 
-    tippy(buttonWithDropdownToggle, {
-      content: buttonWithDropdownMenu,
-      trigger: 'click',
-      interactive: true,
-      theme: 'dropdown',
-    });
-  }
+  containers.forEach((container) => {
+    const content = container.querySelector(
+      '[data-button-with-dropdown-content]',
+    );
+    const toggle = container.querySelector(
+      '[data-button-with-dropdown-toggle]',
+    );
+
+    if (toggle) {
+      content.classList.remove('w-hidden');
+
+      tippy(toggle, {
+        content: content,
+        trigger: 'click',
+        interactive: true,
+        theme: 'dropdown',
+        placement: 'bottom',
+      });
+    }
+  });
 }

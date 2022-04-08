@@ -23,7 +23,7 @@
 
 // Dropdown theme for tippy tooltips
 .tippy-box[data-theme='dropdown'] {
-  @apply w-rounded w-min-w-[200px];
+  @apply w-rounded;
 
   .tippy-content {
     @apply w-p-0;

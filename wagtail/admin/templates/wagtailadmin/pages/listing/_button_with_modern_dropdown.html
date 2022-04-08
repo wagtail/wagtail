@@ -1,16 +1,16 @@
 {% load wagtailadmin_tags i18n %}
 
-<div {{ self.attrs }} class="w-flex w-justify-center w-items-center {{ classes|join:' ' }}">
+<div {{ self.attrs }} class="w-flex w-justify-center w-items-center {{ classes|join:' ' }}" data-button-with-dropdown>
     <button class="w-p-0 w-text-primary w-bg-transparent hover:w-scale-110 w-transition {{ button_classes|join:' ' }}" data-button-with-dropdown-toggle>
         <span class="w-sr-only">{{ title }}</span>
         {% icon name=icon_name class_name='w-w-5 w-h-5' %}
     </button>
 
-    <div data-button-with-dropdown-menu class="w-hidden w-p-0">
+    <div data-button-with-dropdown-content class="w-hidden w-p-0">
         <nav class="w-text-white w-flex w-flex-col w-justify-start w-py-4 w-font-bold" aria-label="{{ title }}">
             {% for button in buttons %}
                 <a href="{{ button.url }}" aria-label="{{ button.attrs.title }}"
-                    class="w-group w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-4 w-px-8 w-no-underline w-transition {{ button.classes|join:' ' }}">
+                    class="w-group w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-2 w-px-4 w-no-underline w-transition {{ button.classes|join:' ' }}">
                     {% if button.icon_name %}
                         {% icon name=button.icon_name class_name='w-w-4 w-h-4 w-mr-3 w-transition w-opacity-50 group-hover:w-opacity-100' %}
                     {% endif %}
