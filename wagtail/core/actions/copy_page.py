@@ -73,8 +73,12 @@ class CopyPageAction:
                     raise CopyPagePermissionError("You do not have permission to publish a page at the destination")
 
     def _copy_page(self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None):
-        exclude_fields = page.default_exclude_fields_in_copy + page.exclude_fields_in_copy + (exclude_fields or [])
         specific_page = page.specific
+        exclude_fields = (
+            specific_page.default_exclude_fields_in_copy
+            + specific_page.exclude_fields_in_copy
+            + (exclude_fields or [])
+        )
         if self.keep_live:
             base_update_attrs = {
                 'alias_of': None,

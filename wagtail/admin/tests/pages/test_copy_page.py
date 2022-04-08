@@ -4,7 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.core.models import GroupPagePermission, Page
-from wagtail.tests.testapp.models import SimplePage
+from wagtail.tests.testapp.models import PageWithExcludedCopyField, SimplePage
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -587,3 +587,33 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # We only need to check that it didn't crash
         self.assertEqual(response.status_code, 302)
+
+    def test_page_with_exclude_fields_in_copy(self):
+        original_page = self.test_page.add_child(
+            instance=PageWithExcludedCopyField(
+                title="Page with exclude_fields_in_copy",
+                slug="page-with-exclude-fields-in-copy",
+                content="Copy me",
+                special_field="Don't copy me",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+        post_data = {
+            "new_title": f"{original_page.title} 2",
+            "new_slug": f"{original_page.slug}-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(original_page.id,)), post_data
+        )
+        # Get copy
+        page_copy = PageWithExcludedCopyField.objects.get(slug=post_data["new_slug"])
+        self.assertEqual(page_copy.content, original_page.content)
+        self.assertNotEqual(page_copy.special_field, original_page.special_field)
+        self.assertEqual(
+            page_copy.special_field, page_copy._meta.get_field("special_field").default
+        )
