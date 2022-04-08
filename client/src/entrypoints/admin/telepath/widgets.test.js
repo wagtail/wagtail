@@ -6,6 +6,7 @@ import './widgets';
 import { createEditorStateFromRaw } from 'draftail';
 import { EditorState } from 'draft-js';
 
+import ReactTestUtils from 'react-dom/test-utils';
 import $ from 'jquery';
 window.$ = $;
 
@@ -368,6 +369,7 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
 
 describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
+  let inputElement;
 
   const TEST_RAW = {
     blocks: [
@@ -458,14 +460,16 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
       ],
     });
     const parentCapabilities = new Map();
-    parentCapabilities.set('split', { enabled: true });
+    parentCapabilities.set('split', { enabled: true, fn: jest.fn() });
+    const inputId = 'the-id';
     boundWidget = widgetDef.render(
       document.getElementById('placeholder'),
       'the-name',
-      'the-id',
+      inputId,
       TEST_VALUE,
-      new Map(),
+      parentCapabilities,
     );
+    inputElement = document.querySelector('#the-id');
   });
 
   test('it renders correctly', () => {
@@ -531,6 +535,17 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     expect(document.activeElement).toBe(
       document.querySelector('.public-DraftEditor-content'),
     );
+  });
+
+  test('setCapabilityOptions for split updates the editor controls', () => {
+    ReactTestUtils.act(() =>
+      boundWidget.setCapabilityOptions('split', { enabled: false }),
+    );
+    expect(inputElement.draftailEditor.props.controls.length).toEqual(0);
+    ReactTestUtils.act(() =>
+      boundWidget.setCapabilityOptions('split', { enabled: true }),
+    );
+    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
   });
 });
 

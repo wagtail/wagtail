@@ -174,7 +174,7 @@ class DraftailRichTextArea {
 
     // If the initialState is an EditorState, rather than serialized rawContentState, it's
     // easier for us to initialize the widget blank and then setState to the correct state
-    const initialiseBlank = initialState instanceof DraftJS.EditorState;
+    const initialiseBlank = !!initialState.getCurrentContent;
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef

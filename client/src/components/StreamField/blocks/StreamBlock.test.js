@@ -314,8 +314,6 @@ describe('telepath: wagtail.blocks.StreamBlock', () => {
       id: 'the-prefix-2-value',
       initialState: 'value',
     });
-
-    expect(document.body.innerHTML).toMatchSnapshot();
   });
 
   test('setError renders error messages', () => {
@@ -753,6 +751,93 @@ describe('telepath: wagtail.blocks.StreamBlock with blockCounts.max_num set', ()
     boundBlock.inserters[0].open();
 
     assertCannotAddBlock();
+  });
+
+  test('initialising at max_num disables splitting', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value',
+      },
+    ]);
+    expect(
+      boundBlock.children[2].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+  });
+
+  test('insert disables splitting', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+    ]);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(true);
+
+    boundBlock.insert(
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value',
+      },
+      2,
+    );
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+  });
+
+  test('delete enables splitting', () => {
+    document.body.innerHTML = '<div id="placeholder"></div>';
+    const boundBlock = blockDef.render($('#placeholder'), 'the-prefix', [
+      {
+        id: '1',
+        type: 'test_block_a',
+        value: 'First value',
+      },
+      {
+        id: '2',
+        type: 'test_block_b',
+        value: 'Second value',
+      },
+      {
+        id: '3',
+        type: 'test_block_a',
+        value: 'Third value',
+      },
+    ]);
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(false);
+
+    boundBlock.deleteBlock(2);
+
+    expect(
+      boundBlock.children[0].block.parentCapabilities.get('split').enabled,
+    ).toBe(true);
   });
 
   test('insert disables new block', () => {

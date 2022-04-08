@@ -188,7 +188,7 @@ export class BaseSequenceChild extends EventEmitter {
       fn: this.duplicate,
     });
     capabilities.set('split', {
-      enabled: false,
+      enabled: true,
       fn: this.split.bind(this),
     });
 
