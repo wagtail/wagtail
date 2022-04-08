@@ -11,6 +11,7 @@ Changelog
  * Fix issue where `ModelAdmin` index listings with export list enabled would show buttons with an incorrect layout (Josh Woodcock)
  * Use `InlinePanel`'s label when available for field comparison label (Sandil Ranasinghe)
  * Drop support for Safari 13 by removing left/right positioning in favour of CSS logical properties (Thibaud Colas)
+ * Use `FormData` instead of jQuery's `form.serialize` when editing documents or images just added so that additional fields can be better supported (Stefan Hammer)
  * Fix: Typo in `ResumeWorkflowActionFormatter` message (Stefan Hammer)
  * Fix: Throw a meaningful error when saving an image to an unrecognised image format (Christian Franke)
 
