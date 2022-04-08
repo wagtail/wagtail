@@ -3140,8 +3140,8 @@ class PageViewRestriction(BaseViewRestriction):
                 user=user,
                 data={
                     'restriction': {
-                        'type': self.removed_restriction_type,
-                        'title': force_str(dict(self.RESTRICTION_CHOICES).get(self.removed_restriction_type))
+                        'type': removed_restriction_type,
+                        'title': force_str(dict(self.RESTRICTION_CHOICES).get(removed_restriction_type))
                     }
                 }
             )
