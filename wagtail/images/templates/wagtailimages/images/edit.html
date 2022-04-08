@@ -52,7 +52,7 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <div class="u-hidden@xs">
+                <div class="w-hidden sm:w-block">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if user_can_delete %}
                         <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
@@ -108,7 +108,7 @@
             </div>
         </div>
 
-        <div class="row row-flush nice-padding u-hidden@sm">
+        <div class="row row-flush nice-padding sm:!w-hidden">
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}

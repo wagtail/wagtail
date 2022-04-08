@@ -2,41 +2,9 @@
 {% load wagtailadmin_tags wagtailcore_tags i18n %}
 
 {% block furniture %}
-    {% slim_sidebar_enabled as slim_sidebar_enabled %}
     <template data-wagtail-sidebar-branding-logo>{% block branding_logo %}{% endblock %}</template>
-    {% if slim_sidebar_enabled %}
-        {% sidebar_props %}
-        <aside id="wagtail-sidebar" data-wagtail-sidebar></aside>
-    {% else %}
-        <aside id="wagtail-sidebar" class="nav-wrapper" data-nav-primary>
-            <div class="inner">
-                <a href="{% url 'wagtailadmin_home' %}" class="logo" aria-label="{% trans 'Dashboard' %}">
-                    {# Mobile-only logo: #}
-                    <div class="wagtail-logo-container__mobile u-hidden@sm">
-                        <img class="wagtail-logo wagtail-logo__full" src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt="" width="80" />
-                    </div>
-
-                    {# Desktop logo (animated): #}
-                    {% include "wagtailadmin/shared/animated_logo.html" %}
-                    <span class="u-hidden@sm">{% trans "Dashboard" %}</span>
-                </a>
-
-                {% menu_search %}
-                {% main_nav %}
-            </div>
-            <div class="explorer__wrapper" data-explorer-menu></div>
-        </aside>
-        {# Backwards-compatibility for branding_logo customisations in legacy sidebar. #}
-        {# RemovedInWagtail40Warning Remove when removing the legacy sidebar. #}
-        <script>
-            const branding_logo = document.querySelector('[data-wagtail-sidebar-branding-logo]');
-            const legacySidebar = document.querySelector('[data-nav-primary]');
-            if (branding_logo && branding_logo.innerHTML && legacySidebar) {
-                const link = legacySidebar.querySelector('a');
-                link.innerHTML = `${branding_logo.innerHTML}<span class="u-hidden@sm">{% trans "Dashboard" %}</span>`;
-            }
-        </script>
-    {% endif %}
+    {% sidebar_props %}
+    <aside id="wagtail-sidebar" data-wagtail-sidebar></aside>
 
     <main class="content-wrapper" id="main">
         <div class="content">
@@ -64,9 +32,6 @@
                 {% endif %}
             </div>
 
-            {% if not slim_sidebar_enabled %}
-                <button type="button" id="nav-toggle" class="nav-toggle icon button unbutton" ><span class="visuallyhidden">{% trans "Toggle sidebar" %}</span></button>
-            {% endif %}
             {% block content %}{% endblock %}
         </div>
     </main>

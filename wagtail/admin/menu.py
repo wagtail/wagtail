@@ -10,8 +10,6 @@ from wagtail.coreutils import cautious_slugify
 
 
 class MenuItem(metaclass=MediaDefiningClass):
-    template = "wagtailadmin/shared/menu_item.html"
-
     def __init__(
         self, label, url, name=None, classnames="", icon_name="", attrs=None, order=1000
     ):
@@ -121,8 +119,6 @@ class Menu:
 
 
 class SubmenuMenuItem(MenuItem):
-    template = "wagtailadmin/shared/menu_submenu_item.html"
-
     """A MenuItem which wraps an inner Menu object"""
 
     def __init__(self, label, menu, **kwargs):
@@ -135,12 +131,6 @@ class SubmenuMenuItem(MenuItem):
 
     def is_active(self, request):
         return bool(self.menu.active_menu_items(request))
-
-    def get_context(self, request):
-        context = super().get_context(request)
-        context["menu_html"] = self.menu.render_html(request)
-        context["request"] = request
-        return context
 
     def render_component(self, request):
         return SubMenuItemComponent(

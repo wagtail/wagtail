@@ -45,7 +45,6 @@ module.exports = function exports(env, argv) {
       'page-editor',
       'privacy-switch',
       'sidebar',
-      'sidebar-legacy',
       'task-chooser-modal',
       'task-chooser',
       'telepath/blocks',
@@ -186,14 +185,6 @@ module.exports = function exports(env, argv) {
     'scss',
     'panels',
     'streamfield.scss',
-  );
-  sassEntry[getOutputPath('admin', 'css', 'sidebar')] = path.resolve(
-    'wagtail',
-    'admin',
-    'static_src',
-    'wagtailadmin',
-    'scss',
-    'sidebar.scss',
   );
   sassEntry[getOutputPath('admin', 'css', 'userbar')] = path.resolve(
     'wagtail',

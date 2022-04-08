@@ -28,10 +28,15 @@
   align-items: center;
 }
 
-.wagtail-logo-container__desktop {
+.page404__logo {
   float: left;
   width: 400px;
   height: 500px;
+
+  // Media for Windows High Contrast mode
+  @media (forced-colors: $media-forced-colours) {
+    background-color: $system-color-link-text;
+  }
 }
 
 .page404__text-container {

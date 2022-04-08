@@ -42,14 +42,6 @@
     @include show-focus-outline-inside;
   }
 
-  .icon--menuitem {
-    width: 1.25em;
-    height: 1.25em;
-    min-width: 1.25em;
-    margin-inline-end: 0.5em;
-    vertical-align: text-top;
-  }
-
   .icon--submenu-header {
     display: block;
     width: 4rem;
@@ -134,7 +126,8 @@
     width: $menu-width !important; // Override collapsed style
 
     > ul {
-      max-height: $nav-footer-submenu-height;
+      $footer-submenu-height: 85px;
+      max-height: $footer-submenu-height;
       visibility: visible;
     }
   }

@@ -14,7 +14,9 @@
     <main class="page404__bg">
         <div class="w-w-full w-h-full w-max-w-6xl w-mx-auto w-flex w-items-center w-justify-center">
             {% block branding_logo %}
-                {% include "wagtailadmin/shared/animated_logo.html" %}
+                <div class="page404__logo w-hidden sm:w-block">
+                    <img src="{% versioned_static 'wagtailadmin/images/wagtail-logo.svg' %}" alt=""/>
+                </div>
             {% endblock %}
 
             <div class="page404__text-container">

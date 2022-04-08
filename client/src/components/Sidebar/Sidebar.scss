@@ -87,6 +87,14 @@
   &--mobile &__collapse-toggle {
     display: none;
   }
+
+  .icon--menuitem {
+    width: 1.25em;
+    height: 1.25em;
+    min-width: 1.25em;
+    margin-inline-end: 0.5em;
+    vertical-align: text-top;
+  }
 }
 
 // This is a separate component as it needs to display in the header

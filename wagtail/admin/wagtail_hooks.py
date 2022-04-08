@@ -55,8 +55,6 @@ from wagtail.whitelist import allow_without_attributes, attribute_rule, check_ur
 
 
 class ExplorerMenuItem(MenuItem):
-    template = "wagtailadmin/shared/explorer_menu_item.html"
-
     def is_shown(self, request):
         return user_has_any_page_permission(request.user)
 
@@ -97,8 +95,6 @@ def register_explorer_menu_item():
 
 
 class SettingsMenuItem(SubmenuMenuItem):
-    template = "wagtailadmin/shared/menu_settings_menu_item.html"
-
     def render_component(self, request):
         return SubMenuItemComponent(
             self.name,
@@ -841,10 +837,6 @@ def register_core_features(features):
     )
 
 
-class ReportsMenuItem(SubmenuMenuItem):
-    template = "wagtailadmin/shared/menu_submenu_item.html"
-
-
 class LockedPagesMenuItem(MenuItem):
     def is_shown(self, request):
         return UserPagePermissionsProxy(request.user).can_remove_locks()
@@ -917,7 +909,7 @@ def register_aging_pages_report_menu_item():
 
 @hooks.register("register_admin_menu_item")
 def register_reports_menu():
-    return ReportsMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
+    return SubmenuMenuItem(_("Reports"), reports_menu, icon_name="site", order=9000)
 
 
 @hooks.register("register_icons")

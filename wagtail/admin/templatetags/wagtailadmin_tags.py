@@ -8,10 +8,8 @@ from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.db.models import Min, QuerySet
-from django.forms import Media
 from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
@@ -55,33 +53,6 @@ from wagtail.users.utils import get_gravatar_url
 register = template.Library()
 
 register.filter("intcomma", intcomma)
-
-
-@register.simple_tag(takes_context=True)
-def menu_search(context):
-    request = context["request"]
-
-    search_areas = admin_search_areas.search_items_for_request(request)
-    if not search_areas:
-        return ""
-    search_area = search_areas[0]
-
-    return render_to_string(
-        "wagtailadmin/shared/menu_search.html",
-        {
-            "search_url": search_area.url,
-        },
-    )
-
-
-@register.inclusion_tag("wagtailadmin/shared/main_nav.html", takes_context=True)
-def main_nav(context):
-    request = context["request"]
-
-    return {
-        "menu_html": admin_menu.render_html(request),
-        "request": request,
-    }
 
 
 @register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
@@ -135,33 +106,6 @@ def search_other(context, current=None):
         "options_html": admin_search_areas.render_html(request, current),
         "request": request,
     }
-
-
-@register.simple_tag
-def main_nav_js():
-    if slim_sidebar_enabled():
-        return Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
-                versioned_static("wagtailadmin/js/sidebar.js"),
-            ]
-        )
-
-    else:
-        return (
-            Media(js=[versioned_static("wagtailadmin/js/sidebar-legacy.js")])
-            + admin_menu.media["js"]
-        )
-
-
-@register.simple_tag
-def main_nav_css():
-    if slim_sidebar_enabled():
-        return Media(css={"all": [versioned_static("wagtailadmin/css/sidebar.css")]})
-
-    else:
-        # Legacy sidebar CSS in core.css
-        return admin_menu.media["css"]
 
 
 @register.filter("ellipsistrim")
@@ -848,11 +792,6 @@ def locale_label_from_id(locale_id):
     Returns the Locale display name given its id.
     """
     return get_locales_display_names().get(locale_id)
-
-
-@register.simple_tag()
-def slim_sidebar_enabled():
-    return getattr(settings, "WAGTAIL_SLIM_SIDEBAR", True)
 
 
 @register.simple_tag(takes_context=True)
