@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List, Mapping
 
 from django import forms
 from django.urls import reverse
@@ -44,14 +44,22 @@ class MenuItem:
 @adapter("wagtail.sidebar.LinkMenuItem", base=BaseSidebarAdapter)
 class LinkMenuItem(MenuItem):
     def __init__(
-        self, name: str, label: str, url: str, icon_name: str = "", classnames: str = ""
+        self,
+        name: str,
+        label: str,
+        url: str,
+        icon_name: str = "",
+        classnames: str = "",
+        attrs: Mapping[str, Any] = None,
     ):
         super().__init__(name, label, icon_name=icon_name, classnames=classnames)
         self.url = url
+        self.attrs = attrs
 
     def js_args(self):
         args = super().js_args()
         args[0]["url"] = self.url
+        args[0]["attrs"] = self.attrs
         return args
 
     def __eq__(self, other):
@@ -62,6 +70,7 @@ class LinkMenuItem(MenuItem):
             and self.url == other.url
             and self.icon_name == other.icon_name
             and self.classnames == other.classnames
+            and self.attrs == other.attrs
         )
 
 

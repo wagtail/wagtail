@@ -1,7 +1,4 @@
 from django.forms import Media, MediaDefiningClass
-from django.forms.utils import flatatt
-from django.template.loader import render_to_string
-from django.utils.safestring import mark_safe
 
 from wagtail import hooks
 from wagtail.admin.ui.sidebar import LinkMenuItem as LinkMenuItemComponent
@@ -18,12 +15,8 @@ class MenuItem(metaclass=MediaDefiningClass):
         self.classnames = classnames
         self.icon_name = icon_name
         self.name = name or cautious_slugify(str(label))
+        self.attrs = attrs
         self.order = order
-
-        if attrs:
-            self.attr_string = flatatt(attrs)
-        else:
-            self.attr_string = ""
 
     def is_shown(self, request):
         """
@@ -35,22 +28,6 @@ class MenuItem(metaclass=MediaDefiningClass):
     def is_active(self, request):
         return request.path.startswith(str(self.url))
 
-    def get_context(self, request):
-        """Defines context for the template, overridable to use more data"""
-        return {
-            "name": self.name,
-            "url": self.url,
-            "classnames": self.classnames,
-            "icon_name": self.icon_name,
-            "attr_string": self.attr_string,
-            "label": self.label,
-            "active": self.is_active(request),
-        }
-
-    def render_html(self, request):
-        context = self.get_context(request)
-        return render_to_string(self.template, context, request=request)
-
     def render_component(self, request):
         return LinkMenuItemComponent(
             self.name,
@@ -58,6 +35,7 @@ class MenuItem(metaclass=MediaDefiningClass):
             self.url,
             icon_name=self.icon_name,
             classnames=self.classnames,
+            attrs=self.attrs,
         )
 
 
@@ -102,13 +80,6 @@ class Menu:
         for item in self.registered_menu_items:
             media += item.media
         return media
-
-    def render_html(self, request):
-        menu_items = self.menu_items_for_request(request)
-        rendered_menu_items = []
-        for item in sorted(menu_items, key=lambda i: i.order):
-            rendered_menu_items.append(item.render_html(request))
-        return mark_safe("".join(rendered_menu_items))
 
     def render_component(self, request):
         menu_items = self.menu_items_for_request(request)
