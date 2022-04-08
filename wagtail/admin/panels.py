@@ -446,9 +446,6 @@ class PanelGroup(Panel):
         self.children = [child.bind_to_model(self.model) for child in self.children]
 
     class BoundPanel(Panel.BoundPanel):
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel=panel, instance=instance, request=request, form=form)
-
         @cached_property
         def children(self):
             return [
@@ -532,8 +529,8 @@ class HelpPanel(Panel):
         return kwargs
 
     class BoundPanel(Panel.BoundPanel):
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel, instance, request, form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
             self.template_name = self.panel.template
             self.content = self.panel.content
 
@@ -615,8 +612,8 @@ class FieldPanel(Panel):
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/field_panel.html"
 
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel=panel, instance=instance, request=request, form=form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
             if self.form is None:
                 self.bound_field = None
@@ -820,8 +817,8 @@ class InlinePanel(Panel):
     class BoundPanel(Panel.BoundPanel):
         template_name = "wagtailadmin/panels/inline_panel.html"
 
-        def __init__(self, panel, instance, request, form):
-            super().__init__(panel, instance, request, form)
+        def __init__(self, **kwargs):
+            super().__init__(**kwargs)
 
             self.label = self.panel.label
 
