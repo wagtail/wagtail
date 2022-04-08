@@ -1373,7 +1373,8 @@ class TestCopyPage(TestCase):
 
         # Check that comments were NOT copied over
         self.assertFalse(
-            new_christmas_event.wagtail_admin_comments.exists(), "Comments were copied"
+            new_christmas_event.wagtail_admin_comments.exists(),
+            msg="Comments were copied",
         )
 
     def test_copy_page_does_not_copy_child_objects_if_accessor_name_in_exclude_fields(
@@ -1406,7 +1407,7 @@ class TestCopyPage(TestCase):
         # Check that advert placements were NOT copied over, but were not removed from the old page
         self.assertFalse(
             new_christmas_event.advert_placements.exists(),
-            "Child objects were copied despite accessor_name being specified in `exclude_fields`",
+            msg="Child objects were copied despite accessor_name being specified in `exclude_fields`",
         )
         self.assertEqual(
             christmas_event.advert_placements.count(),
@@ -1505,7 +1506,7 @@ class TestCopyPage(TestCase):
         }
         self.assertFalse(
             old_speakers_ids.intersection(new_speakers_ids),
-            "Child objects in revisions were not given a new primary key",
+            msg="Child objects in revisions were not given a new primary key",
         )
 
     def test_copy_page_copies_revisions_and_doesnt_submit_for_moderation(self):
@@ -2057,6 +2058,9 @@ class TestCopyPage(TestCase):
             )
         )
         christmas_page.save()
+        # ensure there's a revision (which should capture the new speaker orderables)
+        christmas_page.save_revision().publish()
+
         new_page = christmas_page.copy(
             update_attrs={
                 "title": "Orderable Page",
