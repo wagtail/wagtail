@@ -242,10 +242,14 @@ export class BaseSequenceChild extends EventEmitter {
 
     // Inform the comment app that the content path of this block is no longer valid
     // This will hide any comments that were previously on the block
-    const contentPath = window.comments?.getContentPath(this.element);
+    const contentPath = this.getContentPath();
     if (contentPath && window.comments.commentApp) {
       window.comments.commentApp.invalidateContentPath(contentPath);
     }
+  }
+
+  getContentPath() {
+    return window.comments?.getContentPath(this.element);
   }
 
   enableDuplication() {

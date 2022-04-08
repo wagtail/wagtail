@@ -183,7 +183,6 @@ class DraftailRichTextArea {
       options,
       document.currentScript,
     );
-    console.log(parentCapabilities);
 
     const boundDraftail = {
       getValue() {
