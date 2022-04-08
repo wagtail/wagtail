@@ -96,7 +96,7 @@ class Collection(TreebeardPathFixMixin, MP_Node):
         return "{}↳ {}".format(' ' * 4 * display_depth, self.name)
 
     class Meta:
-        unique_together = ('name', 'depth')
+        unique_together = ('name', 'path')
         verbose_name = _('collection')
         verbose_name_plural = _('collections')
 
