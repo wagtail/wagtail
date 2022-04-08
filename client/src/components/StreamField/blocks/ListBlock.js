@@ -237,7 +237,7 @@ export class ListBlock extends BaseSequenceBlock {
     this.children[index + 1].focus({ soft: true });
   }
 
-  splitBlock(index, valueBefore, valueAfter, opts) {
+  splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
     const child = this.children[index];
     const animate = opts && opts.animate;
     child.setValue(valueBefore);

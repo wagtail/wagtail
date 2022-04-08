@@ -161,10 +161,11 @@ class DraftailRichTextArea {
   render(container, name, id, initialState, parentCapabilities) {
     const originalOptions = this.options;
     const options = { ...originalOptions };
-    const parentCapabilities = parentCapabilities || new Map();
-    const split = parentCapabilities.get('split');
+    const capabilities = parentCapabilities || new Map();
+    const split = capabilities.get('split');
     if (split && split.enabled) {
       options.controls = options.controls ? [...options.controls] : [];
+      // eslint-disable-next-line no-undef
       options.controls.push(draftail.getSplitControl(split.fn));
     }
     const input = document.createElement('input');
@@ -178,7 +179,7 @@ class DraftailRichTextArea {
     input.value = initialiseBlank ? 'null' : initialState;
     container.appendChild(input);
     // eslint-disable-next-line no-undef
-    let [currentOptions, setOptions] = draftail.initEditor(
+    const [currentOptions, setOptions] = draftail.initEditor(
       '#' + id,
       options,
       document.currentScript,
@@ -218,15 +219,16 @@ class DraftailRichTextArea {
       },
       setCapabilityOptions(capability, capabilityOptions) {
         const newCapability = Object.assign(
-          parentCapabilities.get(capability),
+          capabilities.get(capability),
           capabilityOptions,
         );
-        if (capability == 'split') {
+        if (capability === 'split') {
           if (newCapability.enabled) {
             setOptions({
               ...currentOptions,
               controls: [
                 ...(originalOptions || []),
+                // eslint-disable-next-line no-undef
                 draftail.getSplitControl(newCapability.fn),
               ],
             });
