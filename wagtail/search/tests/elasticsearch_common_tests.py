@@ -3,7 +3,9 @@ from datetime import date
 from io import StringIO
 
 from django.core import management
+from django.core.exceptions import FieldDoesNotExist
 
+from wagtail.search.index import FilterField
 from wagtail.search.query import MATCH_ALL
 from wagtail.search.tests.test_backends import BackendTests
 from wagtail.test.search import models
@@ -212,6 +214,26 @@ class ElasticsearchCommonSearchBackendTests(BackendTests):
         in_jan = models.Book.objects.filter(publication_date__month=1)
         with self.assertRaises(FilterError):
             self.backend.search(MATCH_ALL, in_jan)
+
+    def test_index_nonexisting_field(self):
+        """
+        Re-indexing should fail with a friendly error when a field does not exist,
+        as reported in #6483.
+        """
+
+        class _Book(models.Book):
+            search_fields = models.Book.search_fields + [FilterField("i-dont-exist")]
+
+        index = self.backend.get_index_for_model(_Book)
+        rebuilder = self.backend.rebuilder_class(index)
+        index = rebuilder.start()
+
+        with self.assertRaisesRegex(
+            FieldDoesNotExist, "_Book has no field named 'i-dont-exist'"
+        ):
+            index.add_model(_Book)
+
+        rebuilder.finish()
 
     # Elasticsearch always does prefix matching on `partial_match` fields,
     # even when we don’t use `Prefix`.
