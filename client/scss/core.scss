@@ -100,7 +100,7 @@ These are classes for components.
 @import '../src/components/Transition/Transition';
 @import '../src/components/LoadingSpinner/LoadingSpinner';
 @import '../src/components/PublicationStatus/PublicationStatus';
-@import '../src/components/Explorer/Explorer';
+@import '../src/components/PageExplorer/PageExplorer';
 @import '../src/components/CommentApp/main';
 
 // Legacy
@@ -120,9 +120,7 @@ These are classes for components.
 @import 'components/messages.status';
 @import 'components/header';
 @import 'components/progressbar';
-@import 'components/main-nav';
 @import 'components/tooltips';
-@import 'components/logo';
 @import 'components/grid.legacy';
 @import 'components/breadcrumb';
 @import 'components/footer';
@@ -140,6 +138,8 @@ These are classes for components.
 @import 'components/comments-notification-dropdown';
 @import 'components/bulk_actions';
 
+@import '../src/components/Sidebar/Sidebar';
+
 /* OVERRIDES
 These are classes that provide overrides.
 * Higher specificity is allowed here because these are overrides and imported last.
@@ -151,7 +151,6 @@ These are classes that provide overrides.
 @import 'overrides/vendor.tippy';
 
 // UTILITIES: classes that do one simple thing.
-@import 'overrides/utilities.hidden';
 @import 'overrides/utilities.dropdowns';
 @import 'overrides/utilities.focus';
 @import 'overrides/utilities.visuallyhidden';

@@ -1,2 +1,2 @@
 myst_parser==0.17.0
-sphinx-wagtail-theme==5.0.4
+sphinx-wagtail-theme==5.1.1

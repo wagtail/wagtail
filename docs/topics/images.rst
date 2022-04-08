@@ -390,6 +390,14 @@ done from the Django shell:
     >>> from wagtail.images.models import Rendition
     >>> Rendition.objects.all().delete()
 
+You can also directly use the image management command from the console for regenerating the renditions:
+
+.. code-block:: console
+
+    $ ./manage.py wagtail_update_image_renditions --purge
+
+You can read more about this command from :ref:`wagtail_update_image_renditions`
+
 Changing per-tag
 ^^^^^^^^^^^^^^^^
 

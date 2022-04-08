@@ -1,12 +1,5 @@
-import django
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-
-if django.VERSION >= (3, 2):
-    # The declaration is only needed for older Django versions
-    pass
-else:
-    default_app_config = "wagtail.documents.apps.WagtailDocsAppConfig"
 
 
 def get_document_model_string():

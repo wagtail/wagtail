@@ -237,15 +237,6 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
-``WAGTAIL_SLIM_SIDEBAR``
-------------------------
-
-.. code-block:: python
-
-  WAGTAIL_SLIM_SIDEBAR = False
-
-Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy sidebar and this setting will be removed in Wagtail 2.18.
-
 Comments
 ========
 
@@ -334,6 +325,19 @@ Specifies the number of items per page shown when viewing an image's usage (see 
     WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 12
 
 Specifies the number of images shown per page in the image chooser modal.
+
+.. _wagtailimages_rendition_storage:
+
+``WAGTAILIMAGES_RENDITION_STORAGE``
+-----------------------------------
+
+.. code-block:: python
+
+    WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+
+This setting allows image renditions to be stored using an alternative storage backend. The default is ``None``, which will use Django's default `FileSystemStorage`.
+
+Custom storage classes should subclass ``django.core.files.storage.Storage``. See the :doc:`Django file storage API <django:ref/files/storage>`.
 
 Documents
 =========

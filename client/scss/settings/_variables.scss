@@ -142,31 +142,7 @@ $menu-transition-duration: 150ms;
 
 $focus-outline-width: 3px;
 
-$nav-wrapper-inner-z-index: 26;
-$draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
-
 $object-title-height: 40px;
-
-// Nav
-$nav-grey-1: color.adjust($color-white, $lightness: -80%);
-$nav-grey-2: color.adjust($color-white, $lightness: -60%);
-$nav-grey-3: #262626;
-$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
-$nav-item-active-bg: color.adjust($color-white, $lightness: -90%);
-$nav-submenu-bg: color.adjust($color-white, $lightness: -85%);
-$nav-footer-account-bg: $nav-item-active-bg;
-$nav-footer-submenu-bg: $nav-submenu-bg;
-$nav-footer-closed-height: 50px;
-$nav-footer-submenu-height: 85px;
-$nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
-
-// Nav search
-$nav-search-color: color.adjust($color-white, $lightness: -20%);
-$nav-search-border: color.adjust($color-white, $lightness: -40%);
-$nav-search-bg: $nav-grey-1;
-$nav-search-hover-bg: $nav-item-hover-bg;
-$nav-search-focus-color: $color-white;
-$nav-search-focus-bg: $nav-item-hover-bg;
 
 // Form Errors
 $color-text-error: color.change($color-red, $saturation: 69%, $lightness: 52%);

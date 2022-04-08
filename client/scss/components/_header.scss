@@ -1,4 +1,5 @@
 @use 'sass:math';
+@use 'sass:color';
 
 header {
   @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
@@ -54,7 +55,7 @@ header {
 
   .search-form .icon {
     @include svg-icon(1.3rem);
-    color: $nav-search-color;
+    color: color.adjust($color-white, $lightness: -20%);
     position: absolute;
     top: 0.3em;
     // Remove once we drop support for Safari 13.

@@ -125,3 +125,22 @@ search_garbage_collect
     $ ./manage.py search_garbage_collect
 
 Wagtail keeps a log of search queries that are popular on your website. On high traffic websites, this log may get big and you may want to clean out old search queries. This command cleans out all search query logs that are more than one week old (or a number of days configurable through the :ref:`WAGTAILSEARCH_HITS_MAX_AGE <wagtailsearch_hits_max_age>` setting).
+
+.. _wagtail_update_image_renditions:
+
+wagtail_update_image_renditions
+-------------------------------
+
+.. code-block:: console
+
+    $ ./manage.py wagtail_update_image_renditions
+
+This command provides the ability to regenerate image renditions.
+This is useful if you have deployed to a server where the image renditions have not yet been generated or you have changed the underlying image rendition behaviour and need to ensure all renditions are created again.
+
+This does not remove rendition images that are unused, this can be done by clearing the folder using ``rm -rf`` or similar, once this is done you can then use the management command to generate the renditions.
+
+Options:
+
+- **--purge-only** :
+  This argument will purge all image renditions without regenerating them. They will be regenerated when next requested.
