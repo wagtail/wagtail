@@ -61,8 +61,8 @@ def explorer_breadcrumb(
     page,
     page_perms=None,
     include_self=True,
-    trailing_arrow=False,
-    show_header_buttons=False,
+    use_next_template=False,
+    trailing_breadcrumb_title=None,
 ):
     user = context["request"].user
 
@@ -78,8 +78,8 @@ def explorer_breadcrumb(
         .specific(),
         "current_page": page,
         "page_perms": page_perms,
-        "trailing_arrow": trailing_arrow,
-        "show_header_buttons": show_header_buttons,
+        "use_next_template": use_next_template,
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
     }
 
 
@@ -499,7 +499,7 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
 
 
 @register.inclusion_tag(
-    "wagtailadmin/pages/listing/_button_with_dropdown.html", takes_context=True
+    "wagtailadmin/pages/listing/_modern_dropdown.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path
@@ -513,8 +513,28 @@ def page_header_buttons(context, page, page_perms):
     return {
         "page": page,
         "buttons": buttons,
-        "title": "Secondary actions menu",
-        "button_classes": ["c-dropdown__icon"],
+        "title": _("Actions"),
+        "icon_name": "ellipsis-v",
+        "classes": [
+            "w-flex",
+            "w-justify-center",
+            "w-items-center",
+            "w-h-full",
+            "w-ml-1",
+        ],
+        "button_classes": [
+            "w-p-0",
+            "w-w-12",
+            "w-h-12",
+            "w-text-primary",
+            "w-bg-transparent",
+            "hover:w-scale-110",
+            "w-transition",
+            "w-outline-offset-inside",
+            "w-relative",
+            "w-z-30",
+        ],
+        "hide_title": True,
     }
 
 

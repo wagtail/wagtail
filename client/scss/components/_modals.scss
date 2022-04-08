@@ -98,6 +98,7 @@ $zindex-modal-background: 500;
 }
 
 .modal .close {
+  @apply w-bg-primary-200 hover:w-bg-black w-border-primary;
   padding: 0;
   position: absolute;
   width: 50px;
@@ -116,8 +117,13 @@ $zindex-modal-background: 500;
   padding-bottom: 2em;
 
   header {
+    @apply w-bg-primary w-text-white;
     padding-inline-start: 2em;
     padding-inline-end: 100px;
+
+    h1 {
+      @apply w-text-white;
+    }
 
     &.tab-merged {
       padding-inline-start: 1.6em;

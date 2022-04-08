@@ -35,6 +35,4 @@ Base.args = {
       get_admin_display_title: 'Third item',
     },
   ],
-  trailing_arrow: true,
-  show_header_buttons: false,
 };

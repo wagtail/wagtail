@@ -36,3 +36,12 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+// Reset border styles so tailwinds default border class works as expected
+// https://tailwindcss.com/docs/preflight#border-styles-are-reset-globally
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+}

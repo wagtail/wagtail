@@ -368,6 +368,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Move"),
             reverse("wagtailadmin_pages:move", args=[page.id]),
+            icon_name="arrow-right-full",
             attrs={
                 "title": _("Move page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -382,6 +383,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Copy"),
             url,
+            icon_name="copy",
             attrs={
                 "title": _("Copy page '%(title)s'")
                 % {"title": page.get_admin_display_title()}
@@ -392,6 +394,7 @@ def page_header_buttons(page, page_perms, next_url=None):
         yield Button(
             _("Add child page"),
             reverse("wagtailadmin_pages:add_subpage", args=[page.id]),
+            icon_name="circle-plus",
             attrs={
                 "aria-label": _("Add a child page to '%(title)s' ")
                 % {"title": page.get_admin_display_title()},
@@ -919,6 +922,7 @@ def register_icons(icons):
         "angle-double-right.svg",
         "arrow-down-big.svg",
         "arrow-down.svg",
+        "arrow-right-full.svg",
         "arrow-left.svg",
         "arrow-right.svg",
         "arrow-up-big.svg",
@@ -930,10 +934,13 @@ def register_icons(icons):
         "chain-broken.svg",
         "check.svg",
         "chevron-down.svg",
+        "circle-check.svg",
+        "circle-plus.svg",
         "clipboard-list.svg",
         "code.svg",
         "cog.svg",
         "cogs.svg",
+        "copy.svg",
         "collapse-down.svg",
         "collapse-up.svg",
         "comment.svg",
@@ -948,6 +955,8 @@ def register_icons(icons):
         "doc-empty.svg",
         "doc-full-inverse.svg",
         "doc-full.svg",  # aka file-text-alt
+        "dots-vertical.svg",
+        "dots-horizontal.svg",
         "download-alt.svg",
         "download.svg",
         "draft.svg",

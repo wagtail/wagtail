@@ -8,7 +8,7 @@ describe('Editor', () => {
   it('has the right heading', async () => {
     const pageHeader = await page.$('h1');
     const pageHeaderValue = await pageHeader.evaluate((el) => el.textContent);
-    expect(pageHeaderValue).toContain('New Standard page');
+    expect(pageHeaderValue).toContain('New: Standard page');
   });
 
   it('axe', async () => {

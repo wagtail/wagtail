@@ -1,0 +1,57 @@
+{% extends 'wagtailadmin/shared/headers/slim_header.html' %}
+{% load wagtailadmin_tags i18n %}
+
+{% block header_content %}
+    {% explorer_breadcrumb page=page page_perms=page_perms use_next_template=True %}
+
+    <h1 class="w-sr-only">
+        {% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }} {{ title }}{% endblocktrans %}
+    </h1>
+
+    {# Page actions dropdown #}
+    {% page_header_buttons page page_perms=page_perms %}
+{% endblock %}
+
+{% block actions %}
+    {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary' %}
+
+        {# Page history #}
+        {% if page.get_latest_revision %}
+            <a href="{% url 'wagtailadmin_pages:history' page.id %}"
+                class="{{ nav_icon_button_classes }}"
+                data-tippy-content="{% trans 'History' %}"
+                data-tippy-offset="[0, 0]"
+                data-tippy-placement="bottom"
+                aria-label="{% trans 'History' %}"
+            >
+                {% icon name="history" class_name=nav_icon_classes %}
+            </a>
+        {% endif %}
+
+        {# Comments Toggle #}
+        {# TODO: Hookup comments number and self.show_comments_toggle #}
+        {% with comments_number=self.form.formsets.comments|length %}
+            <button
+                type="button"
+                class="{{ nav_icon_button_classes }} {% if comments_number %} w-mr-2.5 {% endif %}"
+                aria-label="{% trans 'Toggle comments' %}"
+                data-tippy-content="{% trans 'Comments' %}"
+                data-tippy-offset="[0, 0]"
+                data-tippy-placement="bottom"
+                data-comments-toggle
+            >
+                {% icon name="comment" class_name=nav_icon_classes %}
+
+                {% if comments_number %}
+                    <div class="w-w-[10px] w-h-[10px] w-flex w-justify-center w-items-center w-p-[3px] w-font-bold w-absolute w-bg-teal-100 w-text-white w-text-[10px] w-border w-border-white w-rounded-full -w-top-[10px] -w-right-[12px]"
+                        data-comments-toggle-count>
+                        {# populated in page-editor.js #}
+                    </div>
+                {% endif %}
+            </button>
+        {% endwith %}
+
+        {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page %}
+
+    {% endwith %}
+{% endblock %}
