@@ -589,6 +589,7 @@ Contributors
 * Heather White
 * Onno Timmerman
 * Kyle J. Roux
+* Vaibhav Shukla
 
 Translators
 ===========
