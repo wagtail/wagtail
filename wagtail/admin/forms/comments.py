@@ -49,12 +49,16 @@ class CommentForm(WagtailAdminModelForm):
             self.instance.user = user
         elif self.instance.user != user:
             # trying to edit someone else's comment
-            if any(
-                field
-                for field in self.changed_data
-                if field not in ["resolved", "position"]
+            if (
+                any(
+                    field
+                    for field in self.changed_data
+                    if field not in ["resolved", "position", "contentpath"]
+                )
+                or cleaned_data["contentpath"].split(".")[0]
+                != self.instance.contentpath.split(".")[0]
             ):
-                # users can resolve each other's base comments and change their positions within a field
+                # users can resolve each other's base comments and change their positions within a field, or move a comment between blocks in a StreamField
                 self.add_error(
                     None, ValidationError(_("You cannot edit another user's comment."))
                 )
