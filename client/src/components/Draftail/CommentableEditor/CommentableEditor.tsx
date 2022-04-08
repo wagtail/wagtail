@@ -261,7 +261,7 @@ export function getSplitControl(
         name="split"
         active={false}
         title={gettext('Split block')}
-        icon={<Icon name="comment-large-outline" />}
+        icon={<Icon name="placeholder" />}
         onClick={() => {
           const result = splitState(getEditorState());
           if (result) {
