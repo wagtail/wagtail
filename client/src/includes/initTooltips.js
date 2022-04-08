@@ -68,7 +68,7 @@ export function initTooltips() {
  </div>
  */
 
-export function initButtonWithModernDropdown() {
+export function initModernDropdown() {
   const containers = document.querySelectorAll('[data-button-with-dropdown]');
 
   containers.forEach((container) => {
