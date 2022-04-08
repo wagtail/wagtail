@@ -3130,7 +3130,7 @@ class PageViewRestriction(BaseViewRestriction):
         """
         specific_instance = self.page.specific
         if specific_instance:
-            self.removed_restriction_type = (
+            removed_restriction_type = (
                 PageViewRestriction.objects.filter(page=self.page)
                 .values_list('restriction_type', flat=True)[0]
             )
