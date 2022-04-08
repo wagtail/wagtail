@@ -24,38 +24,36 @@
                 {% for page in pages %}
                     {% if page.is_root %}
                         <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
-                            <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore_root' %}"
-                            >
+                            <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore_root' %}">
                                 {% trans "Root" %}
                             </a>
                         </li>
                     {% elif forloop.first %}
-                        {# For limited-permission users whose breadcrumb starts further down from the root, the first item displays as a 'home' icon in place of the title #}
-                        {% trans 'Home' as home %}
+                        {# For limited-permission users whose breadcrumb starts further down from the root #}
                         <li class="{{ breadcrumb_item_classes }} w-max-w-0" data-breadcrumb-item hidden>
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
-                                {% icon name="site" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}
+                                {% trans "Root" %}
                             </a>
                         </li>
                     {% elif forloop.last %}
                         <li class="{{ breadcrumb_item_classes }}" {% if trailing_breadcrumb_title %} data-breadcrumb-item hidden {% endif %}>
+                            {% icon name="arrow-right" class_name=icon_classes %}
                             <a class="{{ breadcrumb_link_classes }} {% if not trailing_breadcrumb_title %} w-font-bold !w-text-primary {% endif %}" href="{% url 'wagtailadmin_explore' page.id %}">
-                                {% icon name="arrow-right" class_name=icon_classes %}
                                 {{ page.get_admin_display_title }}
                             </a>
                         </li>
                         {% if trailing_breadcrumb_title %}
                             <li class="{{ breadcrumb_item_classes }}">
+                                {% icon name="arrow-right" class_name=icon_classes %}
                                 <div class="w-flex w-justify-start w-items-center w-font-bold w-text-primary">
-                                    {% icon name="arrow-right" class_name=icon_classes %}
                                     {{ trailing_breadcrumb_title }}
                                 </div>
                             </li>
                         {% endif %}
                     {% else %}
                         <li class="{{ breadcrumb_item_classes }}  w-max-w-0" data-breadcrumb-item hidden>
+                            {% icon name="arrow-right" class_name=icon_classes %}
                             <a class="{{ breadcrumb_link_classes }}" href="{% url 'wagtailadmin_explore' page.id %}">
-                                {% icon name="arrow-right" class_name=icon_classes %}
                                 {{ page.get_admin_display_title }}
                             </a>
                         </li>
