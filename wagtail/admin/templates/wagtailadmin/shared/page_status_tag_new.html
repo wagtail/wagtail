@@ -32,8 +32,8 @@
             hover:w-text-primary
             w-transition"
         data-tippy-offset="[0, 13]"
-        aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private to all. Visit the live page' %}{% endif %}"
-        data-tippy-content="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private to all' %}{% endif %}"
+        aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private. Visit the live page' %}{% endif %}"
+        data-tippy-content="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private' %}{% endif %}"
         data-tippy-offset="[0, 20]"
         data-tippy-placement="bottom">
 

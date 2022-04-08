@@ -11,7 +11,7 @@ exports[`Sidebar should render with the minimum required props 1`] = `
       onFocus={[Function]}
     >
       <div
-        className="w-justify-end w-flex  w-items-center"
+        className="sm:w-mt-2 w-justify-end w-flex  w-items-center"
       >
         <button
           aria-expanded="true"
@@ -22,7 +22,6 @@ exports[`Sidebar should render with the minimum required props 1`] = `
                 w-flex
                 w-justify-center
                 w-items-center
-                sm:w-mt-1.5
                 hover:w-bg-primary-200
                 hover:text-white
                 hover:opacity-100"
