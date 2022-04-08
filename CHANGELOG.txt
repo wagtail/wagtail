@@ -43,6 +43,8 @@ Changelog
  * Validate to and from email addresses within form builder pages when using `AbstractEmailForm` (Jake Howard)
  * Add `WAGTAILIMAGES_RENDITION_STORAGE` setting to allow an alternative image rendition storage (Heather White)
  * Add `wagtail_update_image_renditions` management command to regenerate image renditions or purge all existing renditions (Hitansh Shah, Onno Timmerman, Damian Moore)
+ * Fully remove the legacy sidebar, with slim sidebar replacing it for all users (Thibaud Colas)
+ * Add support for adding custom attributes for link menu items in the slim sidebar (Thibaud Colas)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
