@@ -107,7 +107,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
     return {
       rawContentState: rawContentState,
       onSave: serialiseInputValue,
-      placeholder: gettext('Write here...'),
+      placeholder: gettext('Write here…'),
       spellCheck: true,
       enableLineBreak: {
         description: gettext('Line break'),
