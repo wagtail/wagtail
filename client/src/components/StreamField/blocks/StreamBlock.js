@@ -45,8 +45,14 @@ class StreamChild extends BaseSequenceChild {
     };
   }
 
-  split(valueBefore, valueAfter, opts) {
-    this.sequence.splitBlock(this.index, valueBefore, valueAfter, opts);
+  split(valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    this.sequence.splitBlock(
+      this.index,
+      valueBefore,
+      valueAfter,
+      shouldMoveCommentFn,
+      opts,
+    );
   }
 }
 
@@ -360,20 +366,36 @@ export class StreamBlock extends BaseSequenceBlock {
     this.children[index + 1].focus({ soft: true });
   }
 
-  splitBlock(index, valueBefore, valueAfter, opts) {
+  splitBlock(index, valueBefore, valueAfter, shouldMoveCommentFn, opts) {
     const child = this.children[index];
     const animate = opts && opts.animate;
     const initialState = child.getState();
+    const newChild = this.insert(
+      { type: initialState.type, id: uuidv4(), value: valueAfter },
+      index + 1,
+      { animate, collapsed: child.collapsed },
+    );
     child.setState({
       type: initialState.type,
       id: initialState.id,
       value: valueBefore,
     });
-    this.insert(
-      { type: initialState.type, id: null, value: valueAfter },
-      index + 1,
-      { animate, collapsed: child.collapsed },
-    );
+    const oldContentPath = child.getContentPath();
+    const newContentPath = newChild.getContentPath();
+    const commentApp = window.comments?.commentApp;
+    if (oldContentPath && newContentPath && commentApp) {
+      // Move comments from the old contentpath to the new
+      // We allow use of a custom function to determine whether to move each comment
+      // so it can be done based on intra-field position
+      const selector =
+        commentApp.utils.selectCommentsForContentPathFactory(oldContentPath);
+      const comments = selector(commentApp.store.getState());
+      comments.forEach((comment) => {
+        if (shouldMoveCommentFn(comment)) {
+          commentApp.updateContentPath(comment.localId, newContentPath);
+        }
+      });
+    }
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }

@@ -630,6 +630,7 @@ export default class CommentComponent extends React.Component<CommentProps> {
               );
             },
             initialFocus: '[data-focus-target="true"]',
+            delayFocus: false,
           } as any
         } // For some reason, the types for FocusTrap props don't yet include preventScroll.
         active={this.props.isFocused && this.props.forceFocus}

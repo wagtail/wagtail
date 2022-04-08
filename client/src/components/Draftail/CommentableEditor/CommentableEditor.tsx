@@ -214,7 +214,7 @@ function splitState(editorState: EditorState) {
   if (!selection.isCollapsed()) {
     // This is a placeholder UI, and will eventually be replaced by the "type / to select block"
     // So we probably don't need to care too much about non-collapsed selections
-    return [];
+    return;
   }
   const anchorKey = selection.getAnchorKey();
   const currentContent = editorState.getCurrentContent();
@@ -238,11 +238,22 @@ function splitState(editorState: EditorState) {
     ContentState.createFromBlockArray(blocksAfter),
     'remove-range',
   );
-  return [stateBefore, stateAfter];
+
+  const commentIdsToMove = new Set(getCommentPositions(stateAfter).keys());
+  return {
+    stateBefore,
+    stateAfter,
+    shouldMoveCommentFn: (comment: Comment) =>
+      commentIdsToMove.has(comment.localId),
+  };
 }
 
-function getSplitControl(
-  splitFn: (stateBefore: EditorState, stateAfter: EditorState) => void,
+export function getSplitControl(
+  splitFn: (
+    stateBefore: EditorState,
+    stateAfter: EditorState,
+    shouldMoveCommentFn: (comment: Comment) => boolean,
+  ) => void,
 ) {
   return ({ getEditorState }: ControlProps) => {
     return (
@@ -252,9 +263,13 @@ function getSplitControl(
         title={gettext('Split block')}
         icon={<Icon name="comment-large-outline" />}
         onClick={() => {
-          const [stateBefore, stateAfter] = splitState(getEditorState());
-          if (stateAfter) {
-            splitFn(stateBefore, stateAfter);
+          const result = splitState(getEditorState());
+          if (result) {
+            splitFn(
+              result.stateBefore,
+              result.stateAfter,
+              result.shouldMoveCommentFn,
+            );
           }
         }}
       />
@@ -331,15 +346,7 @@ function findCommentStyleRanges(
   });
 }
 
-export function updateCommentPositions({
-  editorState,
-  comments,
-  commentApp,
-}: {
-  editorState: EditorState;
-  comments: Array<Comment>;
-  commentApp: CommentApp;
-}) {
+function getCommentPositions(editorState: EditorState) {
   // Construct a map of comment id -> array of style ranges
   const commentPositions = new Map();
 
@@ -371,6 +378,19 @@ export function updateCommentPositions({
         },
       );
     });
+  return commentPositions;
+}
+
+export function updateCommentPositions({
+  editorState,
+  comments,
+  commentApp,
+}: {
+  editorState: EditorState;
+  comments: Array<Comment>;
+  commentApp: CommentApp;
+}) {
+  const commentPositions = getCommentPositions(editorState);
 
   comments
     .filter((comment) => comment.annotation)
@@ -900,5 +920,4 @@ function CommentableEditor({
   );
 }
 
-export { getSplitControl };
 export default CommentableEditor;

@@ -42,8 +42,14 @@ class ListChild extends BaseSequenceChild {
     this.block.setState(value);
   }
 
-  split(valueBefore, valueAfter, opts) {
-    this.sequence.splitBlock(this.index, valueBefore, valueAfter, opts);
+  split(valueBefore, valueAfter, shouldMoveCommentFn, opts) {
+    this.sequence.splitBlock(
+      this.index,
+      valueBefore,
+      valueAfter,
+      shouldMoveCommentFn,
+      opts,
+    );
   }
 }
 
@@ -235,7 +241,26 @@ export class ListBlock extends BaseSequenceBlock {
     const child = this.children[index];
     const animate = opts && opts.animate;
     child.setValue(valueBefore);
-    this.insert(valueAfter, index + 1, { animate, collapsed: child.collapsed });
+    const newChild = this.insert(valueAfter, index + 1, {
+      animate,
+      collapsed: child.collapsed,
+    });
+    const oldContentPath = child.getContentPath();
+    const newContentPath = newChild.getContentPath();
+    const commentApp = window.comments?.commentApp;
+    if (oldContentPath && newContentPath && commentApp) {
+      // Move comments from the old contentpath to the new
+      // We allow use of a custom function to determine whether to move each comment
+      // so it can be done based on intra-field position
+      const selector =
+        commentApp.utils.selectCommentsForContentPathFactory(oldContentPath);
+      const comments = selector(commentApp.store.getState());
+      comments.forEach((comment) => {
+        if (shouldMoveCommentFn(comment)) {
+          commentApp.updateContentPath(comment.localId, newContentPath);
+        }
+      });
+    }
     // focus the newly added field if we can do so without obtrusive UI behaviour
     this.children[index + 1].focus({ soft: true });
   }

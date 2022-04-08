@@ -191,6 +191,11 @@ export class CommentApp {
     // Called when a given content path on the form is no longer valid (eg, a block has been deleted)
     this.store.dispatch(invalidateContentPath(contentPath));
   }
+  updateContentPath(commentId: number, newContentPath: string) {
+    this.store.dispatch(
+      updateComment(commentId, { contentpath: newContentPath }),
+    );
+  }
   renderApp(
     element: HTMLElement,
     outputElement: HTMLElement,
