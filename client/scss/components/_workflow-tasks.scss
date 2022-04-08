@@ -1,42 +1,41 @@
 .workflow-tasks {
-    $task-width: 117px;
-    $task-height: 56px;
+  $task-width: 117px;
+  $task-height: 56px;
 
-    list-style-type: none;
+  list-style-type: none;
 
-    &__task {
-        display: inline-block;
-        background-color: #f8ffff;
-        border: 2px solid #7ebebe;
-        border-radius: 5px;
-        color: #007d7e;
-        box-sizing: border-box;
-        width: $task-width;
-        height: $task-height;
-        margin: 7px;
-        padding-left: 9px;
-        padding-right: 9px;
-    }
+  &__task {
+    display: inline-block;
+    background-color: #f8ffff;
+    border: 2px solid #7ebebe;
+    border-radius: 5px;
+    color: #007d7e;
+    box-sizing: border-box;
+    width: $task-width;
+    height: $task-height;
+    margin: 7px;
+    padding-inline-start: 9px;
+    padding-inline-end: 9px;
+  }
 
-    &__step {
-        font-size: 10px;
-        text-transform: uppercase;
-        margin-top: 3px;
-    }
+  &__step {
+    font-size: 10px;
+    margin-top: 3px;
+  }
 
-    &__name {
-        font-size: 16px;
-        font-weight: bold;
-        margin: 0;
+  &__name {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
 
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 
-    &__extra-tasks {
-        display: inline-block;
-        height: $task-height;
-        vertical-align: middle;
-    }
+  &__extra-tasks {
+    display: inline-block;
+    height: $task-height;
+    vertical-align: middle;
+  }
 }

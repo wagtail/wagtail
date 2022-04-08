@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,12 @@ msgstr "oznaka"
 msgid "document"
 msgstr "dokument"
 
+msgid "Yes, delete"
+msgstr "Da, izbriši"
+
+msgid "No, don't delete"
+msgstr "Ne, ne izbriši"
+
 msgid "Choose a document"
 msgstr "Izberite dokument"
 
@@ -89,12 +95,6 @@ msgstr "Izbriši %(title)s"
 msgid "Delete document"
 msgstr "Izbriši dokument"
 
-msgid "Are you sure you want to delete this document?"
-msgstr "Ali ste prepričani, da želite izbrisati dokument?"
-
-msgid "Yes, delete"
-msgstr "Da, izbriši"
-
 #, python-format
 msgid "Editing %(title)s"
 msgstr "Urejanje %(title)s"
@@ -119,6 +119,10 @@ msgstr "Naziv"
 
 msgid "File"
 msgstr "Datoteka"
+
+#, python-format
+msgid "%(time_period)s ago"
+msgstr "%(time_period)s nazaj"
 
 #, python-format
 msgid ""
@@ -179,21 +183,23 @@ msgstr "Dovoljenja dokumenta"
 msgid "Add a document permission"
 msgstr "Dodaj dovoljenje dokumenta"
 
+msgid "Delete"
+msgstr "Izbriši"
+
 msgid "Server Error"
 msgstr "Napaka na strežniku"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Javite napako skrbniku strani, skupaj s sledečimi informacijami:"
 
 msgid "Search documents"
 msgstr "Iskanje po dokumentih"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' dodan."
 
 msgid "The document could not be saved due to errors."
 msgstr "Dokumenta, zaradi napak, ni bilo možno shraniti."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokument '{0}' prenesen"
 
@@ -203,9 +209,7 @@ msgstr ""
 "Datoteke ni bilo možno najti. Spremenite izvor datoteke, ali izbrišite "
 "dokument"
 
-msgid "Delete"
-msgstr "Izbriši"
-
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' izbrisan."
 

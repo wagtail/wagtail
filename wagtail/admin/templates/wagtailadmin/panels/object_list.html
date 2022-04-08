@@ -1,0 +1,28 @@
+{% load wagtailadmin_tags  %}
+
+<ul class="objects">
+    {% for child in self.visible_children %}
+        <li class="object {{ child.classes|join:" " }}">
+            {% if child.heading %}
+                <div class="title-wrapper">
+                    <label {% if child.id_for_label %}for="{{ child.id_for_label }}"{% endif %}>
+                        {{ child.heading }}
+                    </label>
+                </div>
+            {% endif %}
+            <div class="object-layout">
+                {% if child.help_text %}
+                    <div class="object-layout_small-part">
+                        <div class="object-help help">
+                            {% icon name="help" class_name="default" %}
+                            {{ child.help_text }}
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="object-layout_big-part">
+                    {{ child.render_as_object }}
+                </div>
+            </div>
+        </li>
+    {% endfor %}
+</ul>

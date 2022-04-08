@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`wagtail.contrib.typed_table_block.blocks.TypedTableBlock it renders correctly 1`] = `
+"<div class=\\"typed-table-block \\">
+        <input type=\\"hidden\\" name=\\"mytable-column-count\\" data-column-count=\\"\\" value=\\"2\\">
+        <input type=\\"hidden\\" name=\\"mytable-row-count\\" data-row-count=\\"\\" value=\\"2\\">
+        <div data-deleted-fields=\\"\\"><input type=\\"hidden\\" name=\\"mytable-column-0-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-column-1-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-row-0-deleted\\" value=\\"\\"><input type=\\"hidden\\" name=\\"mytable-row-1-deleted\\" value=\\"\\"></div>
+        <div class=\\"typed-table-block__wrapper\\">
+          <table>
+            <thead>
+              <tr><th></th><th><input type=\\"hidden\\" name=\\"mytable-column-0-type\\" value=\\"test_block_a\\"><input type=\\"hidden\\" name=\\"mytable-column-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace prepend-column\\" aria-label=\\"Insert column\\" title=\\"Insert column\\">
+        <svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+      </button><input name=\\"mytable-column-0-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-column\\" aria-label=\\"Delete column\\" title=\\"Delete column\\">
+        <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-bin\\"></use></svg>
+      </button></th><th><input type=\\"hidden\\" name=\\"mytable-column-1-type\\" value=\\"test_block_b\\"><input type=\\"hidden\\" name=\\"mytable-column-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace prepend-column\\" aria-label=\\"Insert column\\" title=\\"Insert column\\">
+        <svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+      </button><input name=\\"mytable-column-1-heading\\" class=\\"column-heading\\" placeholder=\\"Column heading\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-column\\" aria-label=\\"Delete column\\" title=\\"Delete column\\">
+        <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-bin\\"></use></svg>
+      </button></th><th class=\\"control-cell\\">
+                  <button type=\\"button\\" class=\\"button button-small button-secondary append-column button--icon text-replace white\\" data-append-column=\\"\\" aria-label=\\"Add column\\" title=\\"Add column\\"><svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg></button>
+                </th></tr>
+            </thead>
+            <tbody><tr><td class=\\"control-cell\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace prepend-row\\" aria-label=\\"Insert row\\" title=\\"Insert row\\">
+        <svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+      </button></td><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"mytable-cell-0-0\\" id=\\"mytable-cell-0-0\\">Block A widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div></td><td><div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"mytable-cell-0-1\\" id=\\"mytable-cell-0-1\\">Block B widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div></td><td class=\\"control-cell\\"><input type=\\"hidden\\" name=\\"mytable-row-0-order\\" value=\\"0\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
+        <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-bin\\"></use></svg>
+      </button></td></tr><tr><td class=\\"control-cell\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace prepend-row\\" aria-label=\\"Insert row\\" title=\\"Insert row\\">
+        <svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-plus\\"></use></svg>
+      </button></td><td><div class=\\"field char_field widget-text_input fieldname-test_charblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"mytable-cell-1-0\\" id=\\"mytable-cell-1-0\\">Block A widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div></td><td><div class=\\"field char_field widget-admin_auto_height_text_input fieldname-test_textblock\\">
+        <div class=\\"field-content\\">
+          <div class=\\"input\\">
+            <p name=\\"mytable-cell-1-1\\" id=\\"mytable-cell-1-1\\">Block B widget</p>
+            <span></span>
+          </div>
+        </div>
+      </div></td><td class=\\"control-cell\\"><input type=\\"hidden\\" name=\\"mytable-row-1-order\\" value=\\"1\\"><button type=\\"button\\" class=\\"button button-secondary button-small button--icon text-replace no delete-row\\" aria-label=\\"Delete row\\" title=\\"Delete row\\">
+        <svg class=\\"icon icon-bin icon\\" aria-hidden=\\"true\\"><use href=\\"#icon-bin\\"></use></svg>
+      </button></td></tr></tbody>
+            <tfoot>
+              <tr>
+                <td class=\\"control-cell\\">
+                  <button type=\\"button\\" class=\\"button button-small button-secondary button--icon text-replace prepend-row\\" data-add-row=\\"\\" aria-label=\\"Add row\\" title=\\"Add row\\" style=\\"\\">
+                    <svg class=\\"icon icon-plus icon\\" aria-hidden=\\"true\\">
+                      <use href=\\"#icon-plus\\"></use>
+                    </svg>
+                  </button></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      
+        <span>
+          <div class=\\"help\\">
+            <div class=\\"icon-help\\">?</div>
+            use <strong>plenty</strong> of these
+          </div>
+        </span>
+      </div>"
+`;

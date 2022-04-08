@@ -1,12 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  Icon,
-  Portal,
-  initFocusOutline,
-  initIE11Warning,
-  initUpgradeNotification,
-} from '../..';
+import { Icon, Portal, initUpgradeNotification } from '../..';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -26,7 +20,5 @@ window.wagtail.components = {
  * Add in here code to run once the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', () => {
-  initFocusOutline();
-  initIE11Warning();
   initUpgradeNotification();
 });

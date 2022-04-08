@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Vu Pham, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Hồng Quân Nguyễn <ng.hong.quan@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +25,42 @@ msgstr "Thêm"
 msgid "Edit"
 msgstr "Biên tập"
 
+msgid "Choose"
+msgstr "Chọn"
+
+msgid "title"
+msgstr "tiêu đề"
+
+msgid "document"
+msgstr "văn bản"
+
+msgid "documents"
+msgstr "văn bản"
+
+msgid "Delete documents"
+msgstr "Xóa văn bản"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
+
+msgid "Search"
+msgstr "Tìm kiếm"
+
+msgid "Upload"
+msgstr "Đăng tải"
+
+msgid "Uploading…"
+msgstr "Đang đăng tải..."
+
+msgid "Add a document"
+msgstr "Thêm một văn bản"
+
+#, python-format
+msgid "Delete %(title)s"
+msgstr "Xóa %(title)s"
+
+msgid "Delete document"
+msgstr "Xóa văn bản"
 
 msgid "Editing"
 msgstr "Chỉnh sửa"
@@ -33,8 +68,18 @@ msgstr "Chỉnh sửa"
 msgid "Save"
 msgstr "Lưu"
 
+msgid "Title"
+msgstr "Tiêu đề"
+
 msgid "Status"
 msgstr "Trạng thái"
 
 msgid "Delete"
 msgstr "Xoá"
+
+msgid "Server Error"
+msgstr "Lỗi Hệ thống"
+
+#, python-brace-format
+msgid "Document '{0}' deleted."
+msgstr "Văn bản '{0}' đã được xóa."

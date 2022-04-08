@@ -7,9 +7,9 @@ const mockProps = {
   page: {
     meta: {
       parent: {
-        id: 1
-      }
-    }
+        id: 1,
+      },
+    },
   },
   depth: 2,
   onClick: jest.fn(),
@@ -25,12 +25,21 @@ describe('PageExplorerHeader', () => {
   });
 
   it('#depth at root', () => {
-    expect(shallow(<PageExplorerHeader {...mockProps} depth={0} />)).toMatchSnapshot();
+    expect(
+      shallow(<PageExplorerHeader {...mockProps} depth={0} />),
+    ).toMatchSnapshot();
   });
 
   it('#page', () => {
     const wrapper = shallow(
-      <PageExplorerHeader {...mockProps} page={{ id: 'a', admin_display_title: 'test', meta: { parent: { id: 1 } } }} />
+      <PageExplorerHeader
+        {...mockProps}
+        page={{
+          id: 'a',
+          admin_display_title: 'test',
+          meta: { parent: { id: 1 } },
+        }}
+      />,
     );
     expect(wrapper).toMatchSnapshot();
   });

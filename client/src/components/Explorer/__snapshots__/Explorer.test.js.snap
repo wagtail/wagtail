@@ -10,11 +10,11 @@ exports[`Explorer renders 1`] = `
   onClose={[Function]}
   store={
     Object {
+      "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
-      Symbol(observable): [Function],
     }
   }
 />
@@ -54,11 +54,11 @@ exports[`Explorer visible 1`] = `
   onClose={[Function]}
   store={
     Object {
+      "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
-      Symbol(observable): [Function],
     }
   }
 />

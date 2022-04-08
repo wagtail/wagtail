@@ -38,7 +38,7 @@ Page content
 
 The data/content entered into each page is accessed/output through Django's ``{{ double-brace }}`` notation. Each field from the model must be accessed by prefixing ``page.``. e.g the page title ``{{ page.title }}`` or another field ``{{ page.author }}``.
 
-A custom variable name can be :attr:`configured on the page model <wagtail.core.models.Page.context_object_name>`. If a custom name is defined, ``page`` is still available for use in shared templates.
+A custom variable name can be :attr:`configured on the page model <wagtail.models.Page.context_object_name>`. If a custom name is defined, ``page`` is still available for use in shared templates.
 
 Additionally ``request.`` is available and contains Django's request object.
 
@@ -218,7 +218,7 @@ Used to load anything from your static files directory. Use of this tag avoids r
     ...
     <img src="{% static "name_of_app/myimage.jpg" %}" alt="My image"/>
 
-Notice that the full path name is not required and the path snippet you enter only need begin with the parent app's directory name.
+Notice that the full path is not required - the path given here is relative to the app's ``static`` directory. To avoid clashes with static files from other apps (including Wagtail itself), it's recommended to place static files in a subdirectory of ``static`` with the same name as the app.
 
 
 Multi-site support
@@ -297,3 +297,6 @@ Sometimes you may wish to vary the template output depending on whether the page
           ...
         </script>
     {% endif %}
+
+If the page is being previewed, ``request.preview_mode`` can be used to determine the specific preview mode being used,
+if the page supports :attr:`multiple preview modes <wagtail.models.Page.preview_modes>`.

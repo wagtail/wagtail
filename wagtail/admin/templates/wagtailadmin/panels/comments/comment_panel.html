@@ -1,0 +1,4 @@
+{% load wagtailadmin_tags %}
+<button type="button" id="comment-icon" data-annotation class="button button-secondary button-small u-hidden">{% icon name='comment' class_name='initial' %}</button>
+{{ comments_data|json_script:"comments-data" }}
+<div id="comments-output" hidden></div>

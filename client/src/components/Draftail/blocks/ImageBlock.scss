@@ -1,34 +1,35 @@
+@use 'sass:color';
 @mixin wagtail-label-overrides {
-    float: none;
-    width: initial;
-    padding: 0;
+  float: none;
+  width: initial;
+  padding: 0;
 }
 
 .ImageBlock__field {
-    @include wagtail-label-overrides;
-    display: block;
-    margin-bottom: $button-spacing * 2;
-    color: $color-white;
-    cursor: pointer;
+  @include wagtail-label-overrides;
+  display: block;
+  margin-bottom: $button-spacing * 2;
+  color: $color-white;
+  cursor: pointer;
 }
 
 @mixin wagtail-input-overrides {
-    border: 0;
-    font-size: inherit;
+  border: 0;
+  font-size: inherit;
 }
 
 .ImageBlock__field__input {
-    @include wagtail-input-overrides;
-    font-size: 1rem;
-    background-color: $color-white;
-    color: $color-text-base;
+  @include wagtail-input-overrides;
+  font-size: 1rem;
+  background-color: $color-white;
+  color: $color-text-base;
 
-    &[readonly] {
-        color: transparentize($color-text-base, 0.5);
-    }
+  &[readonly] {
+    color: color.adjust($color-text-base, $alpha: -0.5);
+  }
 }
 
 .ImageBlock__alt {
-    @include font-smoothing;
-    font-size: 0.875rem;
+  @include font-smoothing;
+  font-size: 0.875rem;
 }

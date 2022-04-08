@@ -23,7 +23,7 @@ Django needs to be configured to support Jinja2 templates. As the Wagtail admin 
             'APP_DIRS': True,
             'OPTIONS': {
                 'extensions': [
-                    'wagtail.core.jinja2tags.core',
+                    'wagtail.jinja2tags.core',
                     'wagtail.admin.jinja2tags.userbar',
                     'wagtail.images.jinja2tags.images',
                 ],
@@ -91,6 +91,17 @@ Transform Wagtail's internal HTML representation, expanding internal references 
     {{ page.body|richtext }}
 
 See :ref:`rich-text-filter` for more information
+
+``wagtail_site``
+~~~~~~~~~~~~~~~~
+
+Returns the Site object corresponding to the current request.
+
+.. code-block:: html+jinja
+
+    {{ wagtail_site().site_name }}
+
+See :ref:`wagtail_site_tag` for more information
 
 ``wagtailuserbar()``
 ~~~~~~~~~~~~~~~~~~~~

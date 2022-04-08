@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Dimitri Fekas, 2022
 # Nick Mavrakis <mavrakis.n@gmail.com>, 2017
 # Wasilis Mandratzis-Walz, 2015
 # 79353a696ad19dc202b261b3067b7640_bec941e, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-04 19:31+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-04 10:16+0000\n"
+"Last-Translator: Dimitri Fekas\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -22,29 +23,14 @@ msgstr ""
 "Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+msgid "Wagtail sites"
+msgstr "Ιστότοποι Wagtail"
+
 msgid "Choose a root page"
 msgstr "Επιλέξτε μια κεντρική σελίδα"
 
 msgid "Choose a different root page"
 msgstr "Επιλέξτε μια διαφορετική κεντρική σελίδα"
-
-msgid "Site"
-msgstr "Σελιδα"
-
-msgid "Port"
-msgstr "Θυρα"
-
-msgid "Site name"
-msgstr "Όνομα δικτυακού τόπου"
-
-msgid "Root page"
-msgstr "Κεντρική σελίδα"
-
-msgid "Default?"
-msgstr "Προεπιλογή;"
-
-msgid "Default"
-msgstr "Προεπιλογή"
 
 msgid "Sites"
 msgstr "Σελιδες"
@@ -52,12 +38,23 @@ msgstr "Σελιδες"
 msgid "Add a site"
 msgstr "Προσθήκη δικτυακού τόπου"
 
+msgid "Site"
+msgstr "Σελιδα"
+
+msgid "Default?"
+msgstr "Προεπιλογή;"
+
+msgid "Default"
+msgstr "Προεπιλογή"
+
 msgid "Add site"
 msgstr "Προσθήκη δικτυακού τόπου"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Δημιουργήθηκε ο δικτυακός τόπος '{0}'."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Ενημέρωση του δικτυακού τόπου '{0}'."
 
@@ -67,6 +64,7 @@ msgstr "Το site δεν αποθηκεύτηκε λόγω σφαλμάτων"
 msgid "Delete site"
 msgstr "Διαγραφή site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Το site '{0}' διαγράφηκε"
 

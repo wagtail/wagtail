@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: oliverengel <codeangel@posteo.de>, 2021\n"
 "Language-Team: German (https://www.transifex.com/torchbox/teams/8009/de/)\n"
@@ -32,6 +32,9 @@ msgstr "Sprache"
 msgid "Select a new language"
 msgstr "Wähle eine neue Sprache aus"
 
+msgid "This locale's language code is not supported"
+msgstr "Der Sprachcode dieser Locale wird nicht unterstützt."
+
 msgid "Yes, delete"
 msgstr "Ja, löschen"
 
@@ -45,24 +48,23 @@ msgstr ""
 "Der Sprachcode dieser Locale wird nicht unterstützt. Bitte wählen Sie eine "
 "neue Sprache aus oder löschen Sie diese Locale."
 
-msgid "Usage"
-msgstr "Benutzung"
-
-msgid "This locale's language code is not supported"
-msgstr "Der Sprachcode dieser Locale wird nicht unterstützt."
-
 msgid "Locales"
 msgstr "Locale"
 
 msgid "Add a locale"
 msgstr "Eine Locale hinzufügen"
 
+msgid "Usage"
+msgstr "Benutzung"
+
 msgid "Add locale"
 msgstr "Locale hinzufügen"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Locale '{0}' erstellt."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Locale '{0}' aktualisiert."
 
@@ -72,6 +74,7 @@ msgstr "Aufgrund von Fehlern konnte die Locale nicht gespeichert werden."
 msgid "Delete locale"
 msgstr "Lösche Locale"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Locale '{0}' gelöscht."
 

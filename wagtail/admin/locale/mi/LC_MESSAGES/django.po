@@ -4,13 +4,14 @@
 #
 # Translators:
 # Awatea Randall <awatea@octave.nz>, 2021
+# Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -147,6 +148,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Kohikohinga"
 
+msgid "Add"
+msgstr "Tāpiri"
+
+msgid "Edit"
+msgstr "Whakarerekē"
+
 msgid "New title"
 msgstr "Taitara hou"
 
@@ -241,6 +248,7 @@ msgstr "Kōwhiri koa he rōpū kōtahi."
 msgid "All types"
 msgstr "Ngā momo katoa"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Kua whakarite a mahi pūheke '{0}' ki te whārangi nei."
 
@@ -254,9 +262,6 @@ msgstr "Hoatu he ingoa ki to mahi pūheke"
 
 msgid "Add tasks to your workflow"
 msgstr "Tāpiri waitara ki ō mahi pūheke"
-
-msgid "Edit"
-msgstr "Whakarerekē"
 
 msgid "Page"
 msgstr "Whārangi"
@@ -322,11 +327,13 @@ msgstr "Kua ngaro te pukapuka"
 msgid "Close"
 msgstr "Kōpani"
 
+#, python-brace-format
 msgid "Edit '{title}'"
-msgstr "Whakarerekē '{taitara}'"
+msgstr "Whakarerekē '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
-msgstr "Tirohia ki ngā whārangi tamariki ō '{taitara}'"
+msgstr "Tirohia ki ngā whārangi tamariki ō '{title}'"
 
 msgid "Page explorer"
 msgstr "Kaihōpara-a-whārangi"
@@ -408,12 +415,6 @@ msgstr "Kupu muna kia tautuhi anō"
 
 msgid "Reset your password"
 msgstr "Tautuhi anō tō kupu muna"
-
-msgid "Menu"
-msgstr "Tahua"
-
-msgid "Explorer"
-msgstr "Kaihōpara"
 
 msgid "Internal link"
 msgstr "Hono taiwhenua"
@@ -623,6 +624,9 @@ msgstr "Hangaia he whārangi ki "
 msgid "Choose which type of page you'd like to create."
 msgstr "Kōwhiri he whārangi kei te pirangi koe ki te hanga."
 
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Muku %(title)s"
@@ -661,11 +665,11 @@ msgstr "Kāhore ē timata"
 msgid "live"
 msgstr "mataora"
 
-msgid "live + draft"
-msgstr "mataora + hukihuki"
-
 msgid "draft"
 msgstr "hukihuki"
+
+msgid "live + draft"
+msgstr "mataora + hukihuki"
 
 msgid "Password"
 msgstr "Kupu muna"
@@ -681,9 +685,6 @@ msgstr "Whakakite"
 
 msgid "Awaiting my review"
 msgstr "E tatari ana mō tōku arotake"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
 
 #, python-format
 msgid "Edit '%(title)s'"

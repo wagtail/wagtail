@@ -1,5 +1,6 @@
-{% load i18n %}
+{% load i18n l10n %}
 <table class="listing">
+    <col width="10px" />
     <col />
     <col  />
     {% if collections %}
@@ -8,6 +9,7 @@
     <col width="16%" />
     <thead>
         <tr class="table-headers">
+            {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' with parent=current_collection.id %}
             <th>
                 {% if not is_searching %}
                     <a href="{% url 'wagtaildocs:index' %}{% if not ordering == "title" %}?ordering=title{% endif %}" class="icon icon-arrow-down-after {% if  ordering == "title" %}teal{% endif %}">
@@ -33,10 +35,12 @@
         </tr>
     </thead>
     <tbody>
+        {% trans "Select document" as checkbox_aria_label %}
         {% for doc in documents %}
             <tr>
-                <td class="title">
-                    <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}">{{ doc.title }}</a></div>
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="document" obj=doc aria_labelledby_prefix="document_" aria_labelledby=doc.pk|unlocalize aria_labelledby_suffix="_title" %}
+                <td id="document_{{ doc.pk|unlocalize }}_title" class="title">
+                    <div class="title-wrapper"><a href="{% url 'wagtaildocs:edit' doc.id %}{% if next %}?next={{ next|urlencode }}{% endif %}">{{ doc.title }}</a></div>
                 </td>
                 <td><a href="{{ doc.url }}" class="nolink" download>{{ doc.filename }}</a></td>
                 {% if collections %}
@@ -44,7 +48,7 @@
                 {% endif %}
                 <td>
                     <div class="human-readable-date" title="{{ doc.created_at|date:"DATETIME_FORMAT" }}">
-                        {% blocktrans with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
+                        {% blocktrans trimmed with time_period=doc.created_at|timesince %}{{ time_period }} ago{% endblocktrans %}
                     </div>
                 </td>
             </tr>

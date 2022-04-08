@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import * as React from 'react';
 
 const handleClick = (
@@ -7,7 +5,7 @@ const handleClick = (
   onClick: ((e: React.MouseEvent) => void) | undefined,
   preventDefault: boolean,
   navigate: (url: string) => Promise<void>,
-  e: React.MouseEvent
+  e: React.MouseEvent,
 ) => {
   if (preventDefault && href === '#') {
     e.preventDefault();
@@ -52,16 +50,14 @@ const Button: React.FunctionComponent<ButtonProps> = ({
 }) => {
   const hasText = React.Children.count(children) > 0;
   const accessibleElt = accessibleLabel ? (
-    <span className="visuallyhidden">
-      {accessibleLabel}
-    </span>
+    <span className="visuallyhidden">{accessibleLabel}</span>
   ) : null;
 
   return (
     <a
       className={className}
       onClick={handleClick.bind(null, href, onClick, preventDefault, navigate)}
-      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      rel={target === '_blank' ? 'noreferrer' : undefined}
       href={href}
       target={target}
       aria-haspopup={dialogTrigger ? 'dialog' : undefined}

@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Walaksawan Vervoort <nula_wala@yahoo.com>\n"
 "Language-Team: Thai (http://www.transifex.com/torchbox/wagtail/language/"
 "th/)\n"
 "MIME-Version: 1.0\n"
@@ -162,6 +162,9 @@ msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่
 
 msgid "The snippet could not be saved due to errors."
 msgstr "เกร็ดเล็กเกร็ดน้อยนี้ไม่สามารถถูกเซฟได้ในขณะที่เกิดข้อผิดพลาด"
+
+msgid "Date"
+msgstr "วันที่"
 
 #, python-format
 msgid "Choose %s"

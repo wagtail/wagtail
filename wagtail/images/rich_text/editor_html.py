@@ -1,9 +1,10 @@
+"""
+editor-html conversion for contenteditable editors
+"""
 from wagtail.admin.rich_text.converters import editor_html
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
 
-
-# hallo.js / editor-html conversion
 
 class ImageEmbedHandler:
     """
@@ -12,6 +13,7 @@ class ImageEmbedHandler:
     representation will be:
     <embed embedtype="image" id="42" format="thumb" alt="some custom alt text">
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -20,9 +22,9 @@ class ImageEmbedHandler:
         have on the resulting <embed> element.
         """
         return {
-            'id': tag['data-id'],
-            'format': tag['data-format'],
-            'alt': tag['data-alt'],
+            "id": tag["data-id"],
+            "format": tag["data-format"],
+            "alt": tag["data-alt"],
         }
 
     @staticmethod
@@ -33,15 +35,13 @@ class ImageEmbedHandler:
         """
         Image = get_image_model()
         try:
-            image = Image.objects.get(id=attrs['id'])
+            image = Image.objects.get(id=attrs["id"])
         except Image.DoesNotExist:
             return '<img alt="">'
 
-        image_format = get_image_format(attrs['format'])
+        image_format = get_image_format(attrs["format"])
 
-        return image_format.image_to_editor_html(image, attrs.get('alt', ''))
+        return image_format.image_to_editor_html(image, attrs.get("alt", ""))
 
 
-EditorHTMLImageConversionRule = [
-    editor_html.EmbedTypeRule('image', ImageEmbedHandler)
-]
+EditorHTMLImageConversionRule = [editor_html.EmbedTypeRule("image", ImageEmbedHandler)]

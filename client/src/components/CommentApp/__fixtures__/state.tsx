@@ -1,6 +1,5 @@
 import type { Comment, CommentReply, CommentsState } from '../state/comments';
 
-
 const remoteReply: CommentReply = {
   localId: 2,
   remoteId: 2,
@@ -41,7 +40,10 @@ const remoteComment: Comment = {
   newReply: '',
   newText: '',
   remoteReplyCount: 1,
-  replies: new Map([[remoteReply.localId, remoteReply], [localReply.localId, localReply]]),
+  replies: new Map([
+    [remoteReply.localId, remoteReply],
+    [localReply.localId, localReply],
+  ]),
 };
 
 const localComment: Comment = {
@@ -68,5 +70,8 @@ export const basicCommentsState: CommentsState = {
   forceFocus: false,
   pinnedComment: 1,
   remoteCommentCount: 1,
-  comments: new Map([[remoteComment.localId, remoteComment], [localComment.localId, localComment]]),
+  comments: new Map([
+    [remoteComment.localId, remoteComment],
+    [localComment.localId, localComment],
+  ]),
 };

@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: lior abazon <abazon@v15.org.il>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hebrew (Israel) (http://www.transifex.com/torchbox/wagtail/"
 "language/he_IL/)\n"
 "MIME-Version: 1.0\n"
@@ -85,6 +85,12 @@ msgstr "כתובת "
 
 msgid "Parent"
 msgstr "הורה"
+
+msgid "Add"
+msgstr "הוספה"
+
+msgid "Edit"
+msgstr "עריכה"
 
 msgid "New title"
 msgstr "כותרת חדשה"
@@ -160,9 +166,6 @@ msgstr "ערך לחיפוש"
 msgid "This field is required."
 msgstr "שדה חובה"
 
-msgid "Edit"
-msgstr "עריכה"
-
 msgid "Page"
 msgstr "עמוד"
 
@@ -208,12 +211,6 @@ msgstr "איתחול סיסמה"
 
 msgid "Reset your password"
 msgstr "אתחלו את סיסמתכם"
-
-msgid "Menu"
-msgstr "תפריט"
-
-msgid "Explorer"
-msgstr "סיור"
 
 msgid "Internal link"
 msgstr "קישור פנימי"
@@ -395,6 +392,9 @@ msgstr "בחרו איזה סוג עמוד תרצו ליצור"
 msgid "Pages using %(page_type)s"
 msgstr "עמודים מסוג %(page_type)s"
 
+msgid "Move"
+msgstr "העברה"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "מחיקת %(title)s"
@@ -428,9 +428,6 @@ msgstr[3] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "הזזת %(title)s"
-
-msgid "Move"
-msgstr "העברה"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -510,9 +507,6 @@ msgstr "מסייר בעמודים שבתוך '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "הוספת תת-עמוד אל '%(title)s'"
 
-msgid "Add child page"
-msgstr "הוספת תת-עמוד"
-
 msgid "Previous"
 msgstr "קודם"
 
@@ -551,6 +545,9 @@ msgstr "מסנן"
 msgid "Locked"
 msgstr "נעול"
 
+msgid "Edit this item"
+msgstr "ערוך פריט זה"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "עמוד %(page_num)s מתוך %(total_pages)s."
@@ -574,11 +571,11 @@ msgstr "מאת %(modified_by)s"
 msgid "live"
 msgstr "לייב"
 
-msgid "live + draft"
-msgstr "לייב + טיוטה"
-
 msgid "draft"
 msgstr "טיוטה"
+
+msgid "live + draft"
+msgstr "לייב + טיוטה"
 
 msgid "Password"
 msgstr "סיסמא"
@@ -586,9 +583,11 @@ msgstr "סיסמא"
 msgid "Editing"
 msgstr "עריכה"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "עמוד {0} ותת העמודים {1} הועתקו "
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "עמוד {0} הועתק "
 
@@ -598,18 +597,22 @@ msgstr "הצג טיוטה"
 msgid "View live"
 msgstr "תצוגה בחי"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "עמוד {0} נוצר"
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "עמוד {0} נוצר ופורסם"
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "עמוד {0} נוצר והוזן לעריכה"
 
 msgid "The page could not be created due to validation errors"
 msgstr "העמוד לא יכל להיווצר עקב שגיאות אישור "
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "עמוד {0} נמחק"
 
@@ -622,23 +625,32 @@ msgstr "העמוד לא ניתן לשמירה מכיוון שהוא נעול "
 msgid "The page could not be saved due to validation errors"
 msgstr "העמוד לא ניתן לשמירה עקב שגיאות אישור"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "עמוד {0} בלתי נעול כעת"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "העמוד {0} אינו ממתין לעריכה כרגע "
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "עמוד {0} פורסם"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "עמוד {0} נדחה עבור פרסום"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "עמוד {0} הוזז"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "פרסום עמוד {0} בוטל"
+
+msgid "Add child page"
+msgstr "הוספת תת-עמוד"
 
 msgid "Choose an item"
 msgstr "בחרו פריט"
@@ -648,9 +660,6 @@ msgstr "בחרו פריט נוסף"
 
 msgid "Clear choice"
 msgstr "נקה בחירה"
-
-msgid "Edit this item"
-msgstr "ערוך פריט זה"
 
 msgid "Choose another page"
 msgstr "בחרו עמוד נוסף"

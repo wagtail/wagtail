@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Ahmed Miske Sidi Med <boutien321@gmail.com>\n"
 "Language-Team: Arabic (http://www.transifex.com/torchbox/wagtail/language/"
 "ar/)\n"
 "MIME-Version: 1.0\n"
@@ -110,6 +110,15 @@ msgstr "ملف تعريفي للمستخدم"
 msgid "user profiles"
 msgstr "ملف تعريفي للمستخدم"
 
+msgid "Delete"
+msgstr "احذف"
+
+msgid "Yes, delete"
+msgstr "نعم, احذف"
+
+msgid "No, don't delete"
+msgstr "لا, لا تذف"
+
 msgid "Delete group"
 msgstr "احذف المجموعة"
 
@@ -120,9 +129,6 @@ msgstr "حذف هذه المجموعة سوف يلغي تصريحات المجم
 
 msgid "Are you sure you want to delete this group?"
 msgstr "هل تريد فعلا حذف هذه الجماعة؟"
-
-msgid "Yes, delete"
-msgstr "نعم, احذف"
 
 msgid "Add group"
 msgstr "أضف جماعة"
@@ -144,9 +150,6 @@ msgstr "أضف"
 
 msgid "Change"
 msgstr "غيّر"
-
-msgid "Delete"
-msgstr "احذف"
 
 msgid "Other permissions"
 msgstr "تصريحات أخرى"
@@ -231,21 +234,25 @@ msgstr "مجموعات"
 msgid "Search groups"
 msgstr "مجموعات البحث"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "تم إنشاء المجموعة '{0}'."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "تم تعديل المجموعة '{0}'."
 
 msgid "The group could not be saved due to errors."
 msgstr "من غير الممكن حفظ المجموعة بسبب أخطاء"
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "تم حذف المجموعة '{0}'."
 
 msgid "Search users"
 msgstr "ابحث عن المستخدمين"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "تم إنشاء المستخدم '{0}'."
 
@@ -255,12 +262,14 @@ msgstr "تحرير"
 msgid "The user could not be created due to errors."
 msgstr "من غير الممكن إنشاء الحساب بسبب أخطاء"
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "تم تحديث المستخدم '{0}'."
 
 msgid "The user could not be saved due to errors."
 msgstr "من غير الممكن حفظ المستخدم بسبب أخطاء"
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "تم حذف المستخدم '{0}'."
 

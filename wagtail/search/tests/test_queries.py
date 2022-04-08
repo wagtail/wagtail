@@ -1,6 +1,5 @@
 import datetime
 import json
-
 from io import StringIO
 
 from django.core import management
@@ -10,8 +9,12 @@ from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.search import models
 from wagtail.search.query import And, Or, Phrase, PlainText
 from wagtail.search.utils import (
-    balanced_reduce, normalise_query_string, parse_query_string, separate_filters_from_query)
-from wagtail.tests.utils import WagtailTestUtils
+    balanced_reduce,
+    normalise_query_string,
+    parse_query_string,
+    separate_filters_from_query,
+)
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestHitCounter(TestCase):
@@ -55,8 +58,7 @@ class TestQueryStringNormalisation(TestCase):
     def test_different_queries(self):
         queries = [
             "HelloWorld",
-            "HelloWorld!"
-            "  Hello  World!  ",
+            "HelloWorld!" "  Hello  World!  ",
             "Hello",
         ]
 
@@ -64,12 +66,12 @@ class TestQueryStringNormalisation(TestCase):
             self.assertNotEqual(self.query, models.Query.get(query))
 
     def test_truncation(self):
-        test_querystring = 'a' * 1000
+        test_querystring = "a" * 1000
         result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 255)
 
     def test_no_truncation(self):
-        test_querystring = 'a' * 10
+        test_querystring = "a" * 10
         result = normalise_query_string(test_querystring)
         self.assertEqual(len(result), 10)
 
@@ -139,22 +141,41 @@ class TestGarbageCollectCommand(TestCase):
         for i in range(10):
             q = models.Query.get("Foo bar {}".format(i))
             q.add_hit(date=old_hit_date)
-            SearchPromotion.objects.create(query=q, page_id=1, sort_order=0, description='Test')
+            SearchPromotion.objects.create(
+                query=q, page_id=1, sort_order=0, description="Test"
+            )
             promoted_querie_ids.append(q.id)
 
-        management.call_command('search_garbage_collect', stdout=StringIO())
+        management.call_command("search_garbage_collect", stdout=StringIO())
 
-        self.assertFalse(models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists())
-        self.assertFalse(models.QueryDailyHits.objects.filter(
-            date=old_hit_date, query_id__in=querie_ids_to_be_deleted).exists())
+        self.assertFalse(
+            models.Query.objects.filter(id__in=querie_ids_to_be_deleted).exists()
+        )
+        self.assertFalse(
+            models.QueryDailyHits.objects.filter(
+                date=old_hit_date, query_id__in=querie_ids_to_be_deleted
+            ).exists()
+        )
 
-        self.assertEqual(models.Query.objects.filter(id__in=recent_querie_ids).count(), 10)
-        self.assertEqual(models.QueryDailyHits.objects.filter(
-            date=recent_hit_date, query_id__in=recent_querie_ids).count(), 10)
+        self.assertEqual(
+            models.Query.objects.filter(id__in=recent_querie_ids).count(), 10
+        )
+        self.assertEqual(
+            models.QueryDailyHits.objects.filter(
+                date=recent_hit_date, query_id__in=recent_querie_ids
+            ).count(),
+            10,
+        )
 
-        self.assertEqual(models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10)
-        self.assertEqual(models.QueryDailyHits.objects.filter(
-            date=recent_hit_date, query_id__in=promoted_querie_ids).count(), 0)
+        self.assertEqual(
+            models.Query.objects.filter(id__in=promoted_querie_ids).count(), 10
+        )
+        self.assertEqual(
+            models.QueryDailyHits.objects.filter(
+                date=recent_hit_date, query_id__in=promoted_querie_ids
+            ).count(),
+            0,
+        )
 
 
 class TestQueryChooserView(TestCase, WagtailTestUtils):
@@ -162,56 +183,56 @@ class TestQueryChooserView(TestCase, WagtailTestUtils):
         self.login()
 
     def get(self, params={}):
-        return self.client.get('/admin/search/queries/chooser/', params)
+        return self.client.get("/admin/search/queries/chooser/", params)
 
     def test_simple(self):
         response = self.get()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailsearch/queries/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtailsearch/queries/chooser/chooser.html")
         response_json = json.loads(response.content.decode())
-        self.assertEqual(response_json['step'], 'chooser')
+        self.assertEqual(response_json["step"], "chooser")
 
     def test_search(self):
-        response = self.get({'q': "Hello"})
+        response = self.get({"q": "Hello"})
         self.assertEqual(response.status_code, 200)
 
     def test_pagination(self):
-        pages = ['0', '1', '-1', '9999', 'Not a page']
+        pages = ["0", "1", "-1", "9999", "Not a page"]
         for page in pages:
-            response = self.get({'p': page})
+            response = self.get({"p": page})
             self.assertEqual(response.status_code, 200)
 
 
 class TestSeparateFiltersFromQuery(SimpleTestCase):
     def test_only_query(self):
-        filters, query = separate_filters_from_query('hello world')
+        filters, query = separate_filters_from_query("hello world")
 
         self.assertDictEqual(filters, {})
-        self.assertEqual(query, 'hello world')
+        self.assertEqual(query, "hello world")
 
     def test_filter(self):
-        filters, query = separate_filters_from_query('author:foo')
+        filters, query = separate_filters_from_query("author:foo")
 
-        self.assertDictEqual(filters, {'author': 'foo'})
-        self.assertEqual(query, '')
+        self.assertDictEqual(filters, {"author": "foo"})
+        self.assertEqual(query, "")
 
     def test_filter_with_quotation_mark(self):
         filters, query = separate_filters_from_query('author:"foo bar"')
 
-        self.assertDictEqual(filters, {'author': 'foo bar'})
-        self.assertEqual(query, '')
+        self.assertDictEqual(filters, {"author": "foo bar"})
+        self.assertEqual(query, "")
 
     def test_filter_and_query(self):
-        filters, query = separate_filters_from_query('author:foo hello world')
+        filters, query = separate_filters_from_query("author:foo hello world")
 
-        self.assertDictEqual(filters, {'author': 'foo'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo"})
+        self.assertEqual(query, "hello world")
 
     def test_filter_with_quotation_mark_and_query(self):
         filters, query = separate_filters_from_query('author:"foo bar" hello world')
 
-        self.assertDictEqual(filters, {'author': 'foo bar'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo bar"})
+        self.assertEqual(query, "hello world")
 
     def test_filter_with_unclosed_quotation_mark_and_query(self):
         filters, query = separate_filters_from_query('author:"foo bar hello world')
@@ -220,15 +241,17 @@ class TestSeparateFiltersFromQuery(SimpleTestCase):
         self.assertEqual(query, 'author:"foo bar hello world')
 
     def test_two_filters_and_query(self):
-        filters, query = separate_filters_from_query('author:"foo bar" hello world bar:beer')
+        filters, query = separate_filters_from_query(
+            'author:"foo bar" hello world bar:beer'
+        )
 
-        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
-        self.assertEqual(query, 'hello world')
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
+        self.assertEqual(query, "hello world")
 
 
 class TestParseQueryString(SimpleTestCase):
     def test_simple_query(self):
-        filters, query = parse_query_string('hello world')
+        filters, query = parse_query_string("hello world")
 
         self.assertDictEqual(filters, {})
         self.assertEqual(repr(query), repr(PlainText("hello world")))
@@ -243,13 +266,22 @@ class TestParseQueryString(SimpleTestCase):
         filters, query = parse_query_string('this is simple "hello world"')
 
         self.assertDictEqual(filters, {})
-        self.assertEqual(repr(query), repr(And([PlainText("this is simple"), Phrase("hello world")])))
+        self.assertEqual(
+            repr(query), repr(And([PlainText("this is simple"), Phrase("hello world")]))
+        )
 
     def test_operator(self):
-        filters, query = parse_query_string('this is simple "hello world"', operator='or')
+        filters, query = parse_query_string(
+            'this is simple "hello world"', operator="or"
+        )
 
         self.assertDictEqual(filters, {})
-        self.assertEqual(repr(query), repr(Or([PlainText("this is simple", operator='or'), Phrase("hello world")])))
+        self.assertEqual(
+            repr(query),
+            repr(
+                Or([PlainText("this is simple", operator="or"), Phrase("hello world")])
+            ),
+        )
 
     def test_with_phrase_unclosed(self):
         filters, query = parse_query_string('"hello world')
@@ -260,13 +292,15 @@ class TestParseQueryString(SimpleTestCase):
     def test_phrase_with_filter(self):
         filters, query = parse_query_string('"hello world" author:"foo bar" bar:beer')
 
-        self.assertDictEqual(filters, {'author': 'foo bar', 'bar': 'beer'})
+        self.assertDictEqual(filters, {"author": "foo bar", "bar": "beer"})
         self.assertEqual(repr(query), repr(Phrase("hello world")))
 
     def test_multiple_phrases(self):
         filters, query = parse_query_string('"hello world" "hi earth"')
 
-        self.assertEqual(repr(query), repr(And([Phrase("hello world"), Phrase("hi earth")])))
+        self.assertEqual(
+            repr(query), repr(And([Phrase("hello world"), Phrase("hi earth")]))
+        )
 
 
 class TestBalancedReduce(SimpleTestCase):
@@ -294,15 +328,13 @@ class TestBalancedReduce(SimpleTestCase):
         def add(x, y):
             return x + y
 
-        self.assertEqual(balanced_reduce(add, ['a', 'b', 'c'], ''), 'abc')
+        self.assertEqual(balanced_reduce(add, ["a", "b", "c"], ""), "abc")
         self.assertEqual(
-            balanced_reduce(add, [['a', 'c'], [], ['d', 'w']], []),
-            ['a', 'c', 'd', 'w']
+            balanced_reduce(add, [["a", "c"], [], ["d", "w"]], []), ["a", "c", "d", "w"]
         )
         self.assertEqual(balanced_reduce(lambda x, y: x * y, range(2, 8), 1), 5040)
         self.assertEqual(
-            balanced_reduce(lambda x, y: x * y, range(2, 21), 1),
-            2432902008176640000
+            balanced_reduce(lambda x, y: x * y, range(2, 21), 1), 2432902008176640000
         )
         self.assertEqual(balanced_reduce(add, Squares(10)), 285)
         self.assertEqual(balanced_reduce(add, Squares(10), 0), 285)
@@ -310,10 +342,16 @@ class TestBalancedReduce(SimpleTestCase):
         self.assertRaises(TypeError, balanced_reduce)
         self.assertRaises(TypeError, balanced_reduce, 42, 42)
         self.assertRaises(TypeError, balanced_reduce, 42, 42, 42)
-        self.assertEqual(balanced_reduce(42, "1"), "1")  # func is never called with one item
-        self.assertEqual(balanced_reduce(42, "", "1"), "1")  # func is never called with one item
+        self.assertEqual(
+            balanced_reduce(42, "1"), "1"
+        )  # func is never called with one item
+        self.assertEqual(
+            balanced_reduce(42, "", "1"), "1"
+        )  # func is never called with one item
         self.assertRaises(TypeError, balanced_reduce, 42, (42, 42))
-        self.assertRaises(TypeError, balanced_reduce, add, [])  # arg 2 must not be empty sequence with no initial value
+        self.assertRaises(
+            TypeError, balanced_reduce, add, []
+        )  # arg 2 must not be empty sequence with no initial value
         self.assertRaises(TypeError, balanced_reduce, add, "")
         self.assertRaises(TypeError, balanced_reduce, add, ())
         self.assertRaises(TypeError, balanced_reduce, add, object())
@@ -324,7 +362,7 @@ class TestBalancedReduce(SimpleTestCase):
 
         self.assertRaises(RuntimeError, balanced_reduce, add, TestFailingIter())
 
-        self.assertEqual(balanced_reduce(add, [], None), None)
+        self.assertIsNone(balanced_reduce(add, [], None))
         self.assertEqual(balanced_reduce(add, [], 42), 42)
 
         class BadSeq:
@@ -346,6 +384,7 @@ class TestBalancedReduce(SimpleTestCase):
                     raise IndexError
 
         from operator import add
+
         self.assertEqual(balanced_reduce(add, SequenceClass(5)), 10)
         self.assertEqual(balanced_reduce(add, SequenceClass(5), 42), 52)
         self.assertRaises(TypeError, balanced_reduce, add, SequenceClass(0))
@@ -365,10 +404,12 @@ class TestBalancedReduce(SimpleTestCase):
                 self.b = b
 
             def __repr__(self):
-                return '(%s %s)' % (self.a, self.b)
+                return "(%s %s)" % (self.a, self.b)
 
         self.assertEqual(
-            repr(balanced_reduce(CombinedNode, ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])),
-            '(((A B) (C D)) ((E F) (G H)))'
+            repr(
+                balanced_reduce(CombinedNode, ["A", "B", "C", "D", "E", "F", "G", "H"])
+            ),
+            "(((A B) (C D)) ((E F) (G H)))"
             # Note: functools.reduce will return '(((((((A B) C) D) E) F) G) H)'
         )

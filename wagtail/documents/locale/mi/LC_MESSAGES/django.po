@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Awatea Randall <awatea@octave.nz>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Maori (http://www.transifex.com/torchbox/wagtail/language/"
 "mi/)\n"
 "MIME-Version: 1.0\n"
@@ -61,6 +61,18 @@ msgstr "pukapuka"
 msgid "documents"
 msgstr "Ngā pukapuka"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "I whakamahi %(usage_count)staima"
+msgstr[1] "I whakamahi %(usage_count)s taima"
+
+msgid "Yes, delete"
+msgstr "Ae, muku"
+
+msgid "No, don't delete"
+msgstr "Kao, kaua e muku"
+
 msgid "Choose a document"
 msgstr "Kōhiti he pukapuka"
 
@@ -69,9 +81,6 @@ msgstr "Haha"
 
 msgid "Upload"
 msgstr "Tukuatu"
-
-msgid "Uploading…"
-msgstr "Tukuna atu..."
 
 #, python-format
 msgid ""
@@ -115,6 +124,9 @@ msgstr ""
 "He aha ai<a class=\"upload-one-now\" href=\"%(wagtaildocs_add_document_url)s"
 "\">tukuatu i nāeanei</a>?"
 
+msgid "Uploading…"
+msgstr "Tukuna atu..."
+
 msgid "Change document:"
 msgstr "panoni pukapuka:"
 
@@ -130,21 +142,6 @@ msgstr "Muku %(title)s"
 
 msgid "Delete document"
 msgstr "Mukuhia pukapuka"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "I whakamahi %(usage_count)staima"
-msgstr[1] "I whakamahi %(usage_count)s taima"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "E pirangi ana koe kī te mukuhia tēnei pukapuka?"
-
-msgid "Yes, delete"
-msgstr "Ae, muku"
-
-msgid "No, don't delete"
-msgstr "Kao, kaua e muku"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -275,21 +272,23 @@ msgstr "Whakaae-a-pukapuka"
 msgid "Add a document permission"
 msgstr "Tāpiri he whakaae-a-pukapuka"
 
+msgid "Delete"
+msgstr "Muku"
+
 msgid "Server Error"
 msgstr "Hapa rorohiko"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Pūrongorongo tēnei hapa ki to māhita ipurangi mē ngā pārongo nei: "
 
 msgid "Search documents"
 msgstr "Haha ngā pukapuka"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Pukapuka '{0}' kua tāpiri."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ehara ka taea te puritia kī te pukapuka nei, he raruraru "
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Pukapuka '{0}' kua whakahou"
 
@@ -299,9 +298,7 @@ msgstr ""
 "Ehara ka tāea te rapu te kōnae nei. Panoni koa te mātāpuna, mukuhia tē "
 "pukapuka rānei."
 
-msgid "Delete"
-msgstr "Muku"
-
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Pukapuka '{0}' kua mukuhia."
 

@@ -17,7 +17,4 @@ function versionOutOfDate(latestVersion, currentVersion) {
   return compareVersion(latestVersion, currentVersion) > 0;
 }
 
-export {
-  compareVersion,
-  versionOutOfDate,
-};
+export { compareVersion, versionOutOfDate };

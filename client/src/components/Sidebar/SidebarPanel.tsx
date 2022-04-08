@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import * as React from 'react';
 
 export interface SidebarPanelProps {
@@ -9,21 +7,30 @@ export interface SidebarPanelProps {
   widthPx?: number;
 }
 
-export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = (
-  { isVisible, isOpen, depth, widthPx, children }) => {
-  const className = (
-    'sidebar-panel'
-    + (isVisible ? ' sidebar-panel--visible' : '')
-    + (isOpen ? ' sidebar-panel--open' : '')
-  );
+export const SidebarPanel: React.FunctionComponent<SidebarPanelProps> = ({
+  isVisible,
+  isOpen,
+  depth,
+  widthPx,
+  children,
+}) => {
+  const className =
+    'sidebar-panel' +
+    (isVisible ? ' sidebar-panel--visible' : '') +
+    (isOpen ? ' sidebar-panel--open' : '');
 
-  const style = { zIndex: -depth * 2 };
+  let zIndex = -depth * 2;
 
   const isClosing = isVisible && !isOpen;
   if (isClosing) {
     // When closing, make sure this panel displays behind any new panel that is opening
-    style.zIndex--;
+    zIndex--;
   }
+
+  const style = {
+    // See https://github.com/frenic/csstype#what-should-i-do-when-i-get-type-errors.
+    ['--z-index' as any]: zIndex,
+  };
 
   if (widthPx) {
     style['--width'] = widthPx + 'px';

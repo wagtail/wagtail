@@ -31,6 +31,8 @@ ordering: the current sort parameter
                 {% endif %}
             {% endif %}
         </th>
+    {% else %}
+        {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' with parent=parent_page.id %}
     {% endif %}
     <th class="title">
         {% trans 'Title' as title_label %}
@@ -42,7 +44,7 @@ ordering: the current sort parameter
             {% page_table_header_label label=parent_label sortable=0 parent_page_title=parent_page.title %}
         </th>
     {% endif %}
-     <th class="updated">
+    <th class="updated">
         {% trans 'Updated' as updated_label %}
         {% page_table_header_label label=updated_label sortable=sortable sort_field='latest_revision_created_at' parent_page_title=parent_page.title %}
     </th>

@@ -2,7 +2,7 @@
 {% if page.live %}
     {% with page_url=page.url %}
         {% if page_url is not None %}
-            <a href="{{ page_url }}" target="_blank" rel="noopener noreferrer" class="status-tag primary" title="{% trans 'Visit the live page' %}">
+            <a href="{{ page_url }}" target="_blank" rel="noreferrer" class="status-tag primary" title="{% trans 'Visit the live page' %}">
                 <span class="visuallyhidden">{% trans "Current page status:" %}</span> {{ page.status_string }}
             </a>
         {% else %}

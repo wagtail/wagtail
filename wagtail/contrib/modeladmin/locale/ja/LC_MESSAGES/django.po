@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-05-17 17:39+0000\n"
-"Last-Translator: Daigo Shitara <stain.witness@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-11-04 14:38+0000\n"
+"Last-Translator: Hiroki Sawano\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -125,6 +125,9 @@ msgstr "ホーム"
 msgid " By %(filter_title)s "
 msgstr "%(filter_title)sによって"
 
+msgid "History"
+msgstr "履歴"
+
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."
 msgstr "検索パラメータに一致する%(name)sはありませんでした。"
@@ -135,6 +138,9 @@ msgstr "を検索する"
 #, python-format
 msgid "Search %(name)s"
 msgstr "%(name)sを検索"
+
+msgid "Download XLSX"
+msgstr "XLSXファイルをダウンロード"
 
 msgid "Download CSV"
 msgstr "CSVをダウンロードする"
@@ -221,3 +227,9 @@ msgstr "詳細"
 #, python-format
 msgid "Inspecting %s"
 msgstr "%sの詳細"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Date"
+msgstr "日付"

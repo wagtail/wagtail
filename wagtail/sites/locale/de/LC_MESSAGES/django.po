@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-08-08 17:07+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"
@@ -33,17 +33,14 @@ msgstr "Wählen Sie eine Ursprungsseite aus"
 msgid "Choose a different root page"
 msgstr "Wählen Sie eine andere Ursprungsseite aus"
 
+msgid "Sites"
+msgstr "Webseiten"
+
+msgid "Add a site"
+msgstr "Webseite hinzufügen"
+
 msgid "Site"
 msgstr "Webseite"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Name der Webseite"
-
-msgid "Root page"
-msgstr "Ursprungsseite"
 
 msgid "Default?"
 msgstr "Standard?"
@@ -51,18 +48,14 @@ msgstr "Standard?"
 msgid "Default"
 msgstr "Standard"
 
-msgid "Sites"
-msgstr "Webseiten"
-
-msgid "Add a site"
-msgstr "Webseite hinzufügen"
-
 msgid "Add site"
 msgstr "Webseite hinzufügen"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Seite ‚{0}‘ erstellt."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Seite ‚{0}‘ aktualisiert."
 
@@ -72,6 +65,7 @@ msgstr "Aufgrund von Fehlern konnte die Webseite nicht gespeichert werden."
 msgid "Delete site"
 msgstr "Webseite löschen"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Seite ‚{0}‘ gelöscht"
 

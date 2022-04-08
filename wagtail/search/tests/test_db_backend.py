@@ -1,12 +1,20 @@
 import unittest
 
 from django.test import TestCase
+from django.test.utils import override_settings
 
 from .test_backends import BackendTests
 
 
+@override_settings(
+    WAGTAILSEARCH_BACKENDS={
+        "default": {
+            "BACKEND": "wagtail.search.backends.database.fallback",
+        }
+    }
+)
 class TestDBBackend(BackendTests, TestCase):
-    backend_path = 'wagtail.search.backends.db'
+    backend_path = "wagtail.search.backends.database.fallback"
 
     # Doesn't support autocomplete
     @unittest.expectedFailure

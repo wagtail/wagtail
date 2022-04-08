@@ -2,11 +2,11 @@
 {% if documents %}
     {% if is_searching %}
         <h2 role="alert">
-        {% blocktrans count counter=documents|length %}
-            There is {{ counter }} match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
+            {% blocktrans trimmed count counter=documents|length %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
         </h2>
 
         {% search_other %}
@@ -17,15 +17,15 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=documents %}
 {% else %}
     {% if is_searching %}
-         <h2 role="alert">{% blocktrans %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
+        <h2 role="alert">{% blocktrans trimmed %}Sorry, no documents match "<em>{{ query_string }}</em>"{% endblocktrans %}</h2>
 
-         {% search_other %}
+        {% search_other %}
     {% else %}
         {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
         {% if current_collection %}
-            <p>{% blocktrans %}You haven't uploaded any documents in this collection. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+            <p>{% blocktrans trimmed %}You haven't uploaded any documents in this collection. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
         {% else %}
-            <p>{% blocktrans %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
+            <p>{% blocktrans trimmed %}You haven't uploaded any documents. Why not <a href="{{ wagtaildocs_add_document_url }}">upload one now</a>?{% endblocktrans %}</p>
         {% endif %}
     {% endif %}
 {% endif %}

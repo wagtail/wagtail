@@ -15,15 +15,18 @@
 
 {% block content %}
     {% block header %}
-        <header class="nice-padding hasform">
-            <div class="row">
+        <header class="hasform">
+            {% block breadcrumb %}{% endblock %}
+            <div class="row nice-padding">
                 <div class="left header-left">
                     <div class="col header-title">
                         {% block h1 %}
-                        <h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>
-                            {{ view.get_page_title }}
-                            {% include 'modeladmin/includes/result_count.html' %}
-                        </h1>
+                            <h1>
+                                {% if view.header_icon %}{% icon name=view.header_icon class_name="header-title-icon" %}{% endif %}
+                                {{ view.get_page_title }}
+                                {% if view.get_page_subtitle %} <span>{{ view.get_page_subtitle }}</span> {% endif %}
+                                {% include 'modeladmin/includes/result_count.html' %}
+                            </h1>
                         {% endblock %}
                     </div>
                     {% block search %}{% search_form %}{% endblock %}
@@ -47,6 +50,7 @@
                     </div>
                 {% endblock %}
             </div>
+            {% block extra_rows %}{% endblock %}
         </header>
     {% endblock %}
 
@@ -57,10 +61,10 @@
 
                     {% block filters %}
                         {% if view.has_filters and all_count %}
-                        <div class="changelist-filter col3">
-                            <h2>{% trans 'Filter' %}</h2>
-                            {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
-                        </div>
+                            <div class="changelist-filter col3">
+                                <h2>{% trans 'Filter' %}</h2>
+                                {% for spec in view.filter_specs %}{% admin_list_filter view spec %}{% endfor %}
+                            </div>
                         {% endif %}
                     {% endblock %}
 
@@ -69,17 +73,17 @@
                             {% if not all_count %}
                                 <div class="nice-padding" style="margin-top:30px;">
                                     {% if no_valid_parents %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet. One of the following must be created before you can add any {{ name }}:{% endblocktrans %}</p>
                                         <ul>
                                             {% for type in required_parent_types %}<li><b>{{ type|title }}</b></li>{% endfor %}
                                         </ul>
                                     {% else %}
-                                        <p>{% blocktrans with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
-                                        {% if user_can_create %}
-                                            {% blocktrans with view.create_url as url %}
-                                                Why not <a href="{{ url }}">add one</a>?
-                                            {% endblocktrans %}
-                                        {% endif %}</p>
+                                        <p>{% blocktrans trimmed with view.verbose_name_plural as name %}No {{ name }} have been created yet.{% endblocktrans %}
+                                            {% if user_can_create %}
+                                                {% blocktrans trimmed with view.create_url as url %}
+                                                    Why not <a href="{{ url }}">add one</a>?
+                                                {% endblocktrans %}
+                                            {% endif %}</p>
                                     {% endif %}
                                 </div>
                             {% else %}
@@ -90,7 +94,7 @@
 
                     {% block pagination %}
                         <nav class="pagination {% if view.has_filters and all_count %}col9{% else %}col12{% endif %}" aria-label="{% trans 'Pagination' %}">
-                            <p>{% blocktrans with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
+                            <p>{% blocktrans trimmed with page_obj.number as current_page and paginator.num_pages as num_pages %}Page {{ current_page }} of {{ num_pages }}.{% endblocktrans %}</p>
                             {% if paginator.num_pages > 1 %}
                                 <ul>
                                     {% pagination_link_previous page_obj view %}

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>, 2020\n"
 "Language-Team: Hungarian (https://www.transifex.com/torchbox/teams/8009/"
@@ -31,6 +31,9 @@ msgstr "Nyelv"
 msgid "Select a new language"
 msgstr "Új nyelv kiválasztása"
 
+msgid "This locale's language code is not supported"
+msgstr "Ennek a területi beállításnak a nyelvkódja nem támogatott"
+
 msgid "Yes, delete"
 msgstr "Igen, törlöm"
 
@@ -44,24 +47,23 @@ msgstr ""
 "Ennek a területi beállításnak a nyelvkódja jelenleg nem támogatott. Kérjük "
 "válasszon egy új nyelvet, vagy törölje ezt a területi beállítást."
 
-msgid "Usage"
-msgstr "Használat"
-
-msgid "This locale's language code is not supported"
-msgstr "Ennek a területi beállításnak a nyelvkódja nem támogatott"
-
 msgid "Locales"
 msgstr "Területi beállítások"
 
 msgid "Add a locale"
 msgstr "Területi beállítás hozzáadása"
 
+msgid "Usage"
+msgstr "Használat"
+
 msgid "Add locale"
 msgstr "Területi beállítás hozzáadása"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "A(z) '{0}' területi beállítás létrehozva."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "A(z) '{0}' területi beállítás frissítve."
 
@@ -71,6 +73,7 @@ msgstr "Hiba történt a területi beállítás mentése során."
 msgid "Delete locale"
 msgstr "Nyelvi beállítás törlése"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "A(z) '{0}' területi beállítás törölve lett."
 

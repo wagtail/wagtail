@@ -26,8 +26,8 @@ describe('MediaBlock', () => {
           }}
         >
           Test
-        </MediaBlock>
-      )
+        </MediaBlock>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -50,8 +50,8 @@ describe('MediaBlock', () => {
           }}
         >
           Test
-        </MediaBlock>
-      )
+        </MediaBlock>,
+      ),
     ).toMatchSnapshot();
   });
 
@@ -88,7 +88,7 @@ describe('MediaBlock', () => {
           blockProps={blockProps}
         >
           <div id="test">Test</div>
-        </MediaBlock>
+        </MediaBlock>,
       );
     });
 
@@ -113,8 +113,7 @@ describe('MediaBlock', () => {
       wrapper.simulate('click', { target });
 
       expect(
-        wrapper
-          .find('Portal > Portal').prop('containerInfo')
+        wrapper.find('Portal > Portal').prop('containerInfo'),
       ).toMatchSnapshot();
     });
 
@@ -138,11 +137,9 @@ describe('MediaBlock', () => {
 
       wrapper.simulate('click', { target });
 
-      expect(
-        wrapper
-          .find('.Tooltip')
-          .prop('className')
-      ).toBe('Tooltip Tooltip--left');
+      expect(wrapper.find('.Tooltip').prop('className')).toBe(
+        'Tooltip Tooltip--left',
+      );
     });
 
     it('tooltip closes', () => {

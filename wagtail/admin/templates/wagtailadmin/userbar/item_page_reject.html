@@ -5,8 +5,8 @@
     <form action="{% url 'wagtailadmin_pages:reject_moderation' self.revision.id %}" target="_parent" method="post">
         {% csrf_token %}
         <button type="submit" value="{% trans 'Reject' %}" class="button" role="menuitem">
-          {% icon name="cross" class_name="wagtail-action-icon" %}
-          {% trans 'Reject' %}
+            {% icon name="cross" class_name="wagtail-action-icon" %}
+            {% trans 'Reject' %}
         </button>
     </form>
 {% endblock %}

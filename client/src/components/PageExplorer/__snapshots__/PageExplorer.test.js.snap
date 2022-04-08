@@ -9,11 +9,11 @@ exports[`PageExplorer renders 1`] = `
   onClose={[Function]}
   store={
     Object {
+      "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
-      Symbol(observable): [Function],
     }
   }
 />
@@ -52,11 +52,11 @@ exports[`PageExplorer visible 1`] = `
   onClose={[Function]}
   store={
     Object {
+      "@@observable": [Function],
       "dispatch": [Function],
       "getState": [Function],
       "replaceReducer": [Function],
       "subscribe": [Function],
-      Symbol(observable): [Function],
     }
   }
 />

@@ -1,0 +1,7 @@
+<ul class="field-row {{ self.classes|join:" " }}">
+    {% for child, classname in self.visible_children_with_classnames %}
+        <li class="field-col {{ classname }}">
+            {{ child.render_as_field }}
+        </li>
+    {% endfor %}
+</ul>

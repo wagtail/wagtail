@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2020-10-28 09:40+0000\n"
-"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -30,17 +30,14 @@ msgstr "Odaberi korijensku stranicu"
 msgid "Choose a different root page"
 msgstr "Odaberite drukčiju korijensku stranicu"
 
+msgid "Sites"
+msgstr "Sjedišta"
+
+msgid "Add a site"
+msgstr "Dodaj sjedište"
+
 msgid "Site"
 msgstr "Sjedište"
-
-msgid "Port"
-msgstr "Vrata"
-
-msgid "Site name"
-msgstr "Naziv sjedišta"
-
-msgid "Root page"
-msgstr "Korijenska stranica"
 
 msgid "Default?"
 msgstr "Zadano?"
@@ -48,18 +45,14 @@ msgstr "Zadano?"
 msgid "Default"
 msgstr "Zadano"
 
-msgid "Sites"
-msgstr "Sjedišta"
-
-msgid "Add a site"
-msgstr "Dodaj sjedište"
-
 msgid "Add site"
 msgstr "Dodaj sjedište"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sjedište '{0}' je stvoreno."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sjedište '{0}' je ažurirano."
 
@@ -69,6 +62,7 @@ msgstr "Nije moguće sačuvati sjedište zbog grešaka."
 msgid "Delete site"
 msgstr "Izbriši sjedište"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sjedište '{0}' je izbrisano."
 

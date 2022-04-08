@@ -5,8 +5,8 @@ from django.urls import reverse
 from openpyxl import load_workbook
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Site
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import Site
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestRedirectReport(TestCase, WagtailTestUtils):

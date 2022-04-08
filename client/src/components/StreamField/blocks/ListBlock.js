@@ -1,6 +1,12 @@
 /* eslint-disable no-underscore-dangle */
 
-import { BaseSequenceBlock, BaseSequenceChild, BaseInsertionControl } from './BaseSequenceBlock';
+import { v4 as uuidv4 } from 'uuid';
+
+import {
+  BaseSequenceBlock,
+  BaseSequenceChild,
+  BaseInsertionControl,
+} from './BaseSequenceBlock';
 import { escapeHtml as h } from '../../../utils/text';
 
 /* global $ */
@@ -17,7 +23,10 @@ class ListChild extends BaseSequenceChild {
   wrapper for an item inside a ListBlock
   */
   getState() {
-    return this.block.getState();
+    return {
+      id: this.id,
+      value: this.block.getState(),
+    };
   }
 
   getValue() {
@@ -37,7 +46,9 @@ class InsertPosition extends BaseInsertionControl {
     const animate = opts && opts.animate;
 
     const button = $(`
-      <button type="button" title="${h(opts.strings.ADD)}" data-streamfield-list-add
+      <button type="button" title="${h(
+        opts.strings.ADD,
+      )}" data-streamfield-list-add
           class="c-sf-add-button c-sf-add-button--visible">
         <i aria-hidden="true">+</i>
       </button>
@@ -73,7 +84,9 @@ export class ListBlock extends BaseSequenceBlock {
 
     const dom = $(`
       <div class="c-sf-container ${h(this.blockDef.meta.classname || '')}">
-        <input type="hidden" name="${h(prefix)}-count" data-streamfield-list-count value="0">
+        <input type="hidden" name="${h(
+          prefix,
+        )}-count" data-streamfield-list-count value="0">
 
         <div data-streamfield-list-container></div>
       </div>
@@ -98,10 +111,24 @@ export class ListBlock extends BaseSequenceBlock {
     this.sequenceContainer = dom.find('[data-streamfield-list-container]');
     this.container = dom;
     this.setState(initialState || []);
+    if (this.blockDef.meta.collapsed) {
+      this.children.forEach((block) => {
+        block.collapse();
+      });
+    }
 
     if (initialError) {
       this.setError(initialError);
     }
+  }
+
+  setState(blocks) {
+    // State for a ListBlock is a list of {id, value} objects, but
+    // ListBlock.insert accepts the value as first argument; id is passed in the options dict instead.
+    this.clear();
+    blocks.forEach(({ value, id }, i) => {
+      this.insert(value, i, { id: id || uuidv4() });
+    });
   }
 
   _getChildDataForInsertion() {
@@ -114,8 +141,26 @@ export class ListBlock extends BaseSequenceBlock {
     return [blockDef, initialState];
   }
 
-  _createChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts) {
-    return new ListChild(blockDef, placeholder, prefix, index, id, initialState, sequence, opts);
+  _createChild(
+    blockDef,
+    placeholder,
+    prefix,
+    index,
+    id,
+    initialState,
+    sequence,
+    opts,
+  ) {
+    return new ListChild(
+      blockDef,
+      placeholder,
+      prefix,
+      index,
+      id,
+      initialState,
+      sequence,
+      opts,
+    );
   }
 
   _createInsertionControl(placeholder, opts) {
@@ -152,12 +197,20 @@ export class ListBlock extends BaseSequenceBlock {
   }
 
   insert(value, index, opts) {
-    return this._insert(this.blockDef.childBlockDef, value, null, index, opts);
+    return this._insert(
+      this.blockDef.childBlockDef,
+      value,
+      opts?.id,
+      index,
+      opts,
+    );
   }
 
   duplicateBlock(index, opts) {
     const child = this.children[index];
-    const childState = child.getState();
+    // child.getState() is the state of the ListChild, which is a dict of value and id;
+    // for inserting a new child block, we just want the value (and will assign a new id).
+    const childState = child.getState().value;
     const animate = opts && opts.animate;
     this.insert(childState, index + 1, { animate, collapsed: child.collapsed });
     this.children[index + 1].focus({ soft: true });
@@ -171,11 +224,13 @@ export class ListBlock extends BaseSequenceBlock {
 
     // Non block errors
     const container = this.container[0];
-    container.querySelectorAll(':scope > .help-block.help-critical').forEach(element => element.remove());
+    container
+      .querySelectorAll(':scope > .help-block.help-critical')
+      .forEach((element) => element.remove());
 
     if (error.nonBlockErrors.length > 0) {
       // Add a help block for each error raised
-      error.nonBlockErrors.forEach(nonBlockError => {
+      error.nonBlockErrors.forEach((nonBlockError) => {
         const errorElement = document.createElement('p');
         errorElement.classList.add('help-block');
         errorElement.classList.add('help-critical');

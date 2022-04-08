@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2019-08-01 11:55+0000\n"
-"Last-Translator: Istvan Farkas <istvan.farkas@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:43+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Hungarian (http://www.transifex.com/torchbox/wagtail/language/"
 "hu/)\n"
 "MIME-Version: 1.0\n"
@@ -31,17 +31,14 @@ msgstr "Válassza ki a főoldalt"
 msgid "Choose a different root page"
 msgstr "Válasszon ki egy másik főoldalt"
 
+msgid "Sites"
+msgstr "Webhelyek"
+
+msgid "Add a site"
+msgstr "Webhely hozzáadása"
+
 msgid "Site"
 msgstr "Webhely"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Webhely neve"
-
-msgid "Root page"
-msgstr "Főoldal"
 
 msgid "Default?"
 msgstr "Alapméretezett?"
@@ -49,18 +46,14 @@ msgstr "Alapméretezett?"
 msgid "Default"
 msgstr "Alapértelmezett"
 
-msgid "Sites"
-msgstr "Webhelyek"
-
-msgid "Add a site"
-msgstr "Webhely hozzáadása"
-
 msgid "Add site"
 msgstr "Webhely hozzáadása"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "'{0}' webhely létrehozva."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "'{0}' oldal frissítve."
 
@@ -70,6 +63,7 @@ msgstr "Az oldalt hibák miatt nem lehetett elmenteni."
 msgid "Delete site"
 msgstr "Oldal törlése"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "A(z) '{0}' oldal törölve lett."
 

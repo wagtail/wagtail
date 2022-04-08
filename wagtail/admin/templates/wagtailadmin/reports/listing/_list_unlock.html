@@ -4,7 +4,7 @@
 
 {% block extra_columns %}
 
-<th>{% trans 'Locking status' %}</th>
+    <th>{% trans 'Locking status' %}</th>
 
 {% endblock %}
 
@@ -17,16 +17,16 @@
                 {% with page.locked_at|date:"DATETIME_FORMAT" as locking_date %}
                     {% if page.locked_by %}
                         {% if page.locked_by_id == request.user.pk %}
-                            {% blocktrans %}
+                            {% blocktrans trimmed %}
                                 Locked by <b>you</b> at <b>{{ locking_date }}</b>
                             {% endblocktrans %}
                         {% else %}
-                            {% blocktrans with locked_by=page.locked_by %}
+                            {% blocktrans trimmed with locked_by=page.locked_by %}
                                 Locked by <b>{{ locked_by }}</b> at <b>{{ locking_date }}</b>
                             {% endblocktrans %}
                         {% endif %}
                     {% else %}
-                        {% blocktrans %}
+                        {% blocktrans trimmed %}
                             Locked at <b>{{ locking_date }}</b>
                         {% endblocktrans %}
                     {% endif %}

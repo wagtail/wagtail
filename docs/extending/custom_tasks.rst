@@ -17,7 +17,7 @@ All custom tasks must be models inheriting from ``wagtailcore.Task``. In this se
 
     # <project>/models.py
 
-    from wagtail.core.models import Task
+    from wagtail.models import Task
 
 
     class UserApprovalTask(Task):
@@ -36,7 +36,7 @@ For example:
 
     from django.conf import settings
     from django.db import models
-    from wagtail.core.models import Task
+    from wagtail.models import Task
 
 
     class UserApprovalTask(Task):
@@ -54,7 +54,7 @@ can be added to ``admin_form_readonly_on_edit_fields``. For example:
 
     from django.conf import settings
     from django.db import models
-    from wagtail.core.models import Task
+    from wagtail.models import Task
 
 
     class UserApprovalTask(Task):
@@ -76,7 +76,7 @@ Wagtail will choose a default form widget to use based on the field type. But yo
 
     from django.conf import settings
     from django.db import models
-    from wagtail.core.models import Task
+    from wagtail.models import Task
 
     from .widgets import CustomUserChooserWidget
 
@@ -102,7 +102,7 @@ also be subclassed equivalently to ``Task``:
 
     # <project>/models.py
 
-    from wagtail.core.models import TaskState
+    from wagtail.models import TaskState
 
 
     class UserApprovalTaskState(TaskState):
@@ -116,7 +116,7 @@ Your custom task must then be instructed to generate an instance of your custom 
 
     from django.conf import settings
     from django.db import models
-    from wagtail.core.models import Task, TaskState
+    from wagtail.models import Task, TaskState
 
 
     class UserApprovalTaskState(TaskState):
@@ -245,7 +245,7 @@ As an example, we'll add email notifications for when our new task is started.
     # <project>/mail.py
 
     from wagtail.admin.mail import EmailNotificationMixin, Notifier
-    from wagtail.core.models import TaskState
+    from wagtail.models import TaskState
 
     from .models import UserApprovalTaskState
 
@@ -293,7 +293,7 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
 
     # <project>/signal_handlers.py
 
-    from wagtail.core.signals import task_submitted
+    from wagtail.signals import task_submitted
     from .mail import UserApprovalTaskStateSubmissionEmailNotifier
 
 
@@ -302,8 +302,7 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
     def register_signal_handlers():
         task_submitted.connect(user_approval_task_submission_email_notifier, dispatch_uid='user_approval_task_submitted_email_notification')
 
-``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig``
-(and making sure this config is set as ``default_app_config`` in ``<project>/__init__.py``).
+``register_signal_handlers()`` should then be run on loading the app: for example, by adding it to the ``ready()`` method in your ``AppConfig``.
 
 .. code-block:: python
 
@@ -319,3 +318,8 @@ Next, you need to instantiate the notifier, and connect it to the ``task_submitt
         def ready(self):
             from .signal_handlers import register_signal_handlers
             register_signal_handlers()
+
+.. note::
+   In Django versions before 3.2 your ``AppConfig`` subclass needs to be set as ``default_app_config`` in ``<project>/__init__.py``.
+   See the `relevant section in the Django docs <https://docs.djangoproject.com/en/3.1/ref/applications/#for-application-authors>`_ for the version you are using.
+

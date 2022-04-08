@@ -1,14 +1,14 @@
 from django.core.exceptions import ObjectDoesNotExist
 
-from wagtail.core.rich_text import EmbedHandler
 from wagtail.images import get_image_model
 from wagtail.images.formats import get_image_format
-
+from wagtail.rich_text import EmbedHandler
 
 # Front-end conversion
 
+
 class ImageEmbedHandler(EmbedHandler):
-    identifier = 'image'
+    identifier = "image"
 
     @staticmethod
     def get_model():
@@ -25,5 +25,5 @@ class ImageEmbedHandler(EmbedHandler):
         except ObjectDoesNotExist:
             return '<img alt="">'
 
-        image_format = get_image_format(attrs['format'])
-        return image_format.image_to_html(image, attrs.get('alt', ''))
+        image_format = get_image_format(attrs["format"])
+        return image_format.image_to_html(image, attrs.get("alt", ""))

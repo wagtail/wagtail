@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { STRINGS } from '../../../config/wagtailConfig';
-
+import { gettext } from '../../../utils/gettext';
 import MediaBlock from '../blocks/MediaBlock';
 
 /**
  * Editor block to display media and edit content.
  */
-const EmbedBlock = props => {
+const EmbedBlock = (props) => {
   const { entity, onEditEntity, onRemoveEntity } = props.blockProps;
   const { url, title, thumbnail } = entity.getData();
 
@@ -20,16 +19,23 @@ const EmbedBlock = props => {
           href={url}
           title={url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noreferrer"
         >
           {title}
         </a>
       ) : null}
-      <button className="button Tooltip__button" type="button" onClick={onEditEntity}>
-        {STRINGS.EDIT}
+      <button
+        className="button Tooltip__button"
+        type="button"
+        onClick={onEditEntity}
+      >
+        {gettext('Edit')}
       </button>
-      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-        {STRINGS.DELETE}
+      <button
+        className="button button-secondary no Tooltip__button"
+        onClick={onRemoveEntity}
+      >
+        {gettext('Delete')}
       </button>
     </MediaBlock>
   );

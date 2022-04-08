@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}New  {{ snippet_type_name }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "New" as new_str %}
     {% include "wagtailadmin/shared/header_with_locale_selector.html" with title=new_str subtitle=model_opts.verbose_name icon="snippet" tabbed=1 merged=1 %}
@@ -27,13 +27,12 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
+    {{ media.css }}
 {% endblock %}
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ edit_handler.form.media.js }}
-    {{ edit_handler.html_declarations }}
+    {{ media.js }}
 
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page

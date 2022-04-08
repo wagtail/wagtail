@@ -54,7 +54,7 @@ function createDocumentChooser(id) {
       $('.action-choose', chooserElement).focus();
     },
     openChooserModal: () => {
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       ModalWorkflow({
         url: chooserBaseUrl,
         // eslint-disable-next-line no-undef
@@ -62,8 +62,8 @@ function createDocumentChooser(id) {
         responses: {
           documentChosen: (result) => {
             chooser.setState(result);
-          }
-        }
+          },
+        },
       });
     },
 

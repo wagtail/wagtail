@@ -7,7 +7,7 @@ function createTaskChooser(id) {
   const editAction = chooserElement.find('.action-edit');
 
   $('.action-choose', chooserElement).on('click', () => {
-    // eslint-disable-next-line no-undef, new-cap
+    // eslint-disable-next-line no-undef
     ModalWorkflow({
       url: chooserElement.data('chooserUrl'),
       // eslint-disable-next-line no-undef
@@ -18,8 +18,8 @@ function createTaskChooser(id) {
           taskName.text(data.name);
           chooserElement.removeClass('blank');
           editAction.attr('href', data.edit_url);
-        }
-      }
+        },
+      },
     });
   });
 }

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Erlend <debcf78e@opayq.com>\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,18 @@ msgstr "dokument"
 msgid "documents"
 msgstr "dokumendid"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Kasutatud %(usage_count)s korda"
+msgstr[1] "Kasutatud %(usage_count)s korda"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
 msgid "Choose a document"
 msgstr "Valige dokument"
 
@@ -70,9 +82,6 @@ msgstr "Otsing"
 
 msgid "Upload"
 msgstr "Laadi üles"
-
-msgid "Uploading…"
-msgstr "Üleslaadimine ..."
 
 #, python-format
 msgid ""
@@ -114,6 +123,9 @@ msgstr ""
 "Miks mitte <a class=\"upload-one-now\" href="
 "\"%(wagtaildocs_add_document_url)s\">seda kohe üles laadida</a>?"
 
+msgid "Uploading…"
+msgstr "Üleslaadimine ..."
+
 msgid "Change document:"
 msgstr "Muuda dokumenti:"
 
@@ -129,21 +141,6 @@ msgstr "Kustuta %(title)s"
 
 msgid "Delete document"
 msgstr "Kustuta dokument"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Kasutatud %(usage_count)s korda"
-msgstr[1] "Kasutatud %(usage_count)s korda"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Kas soovite kindlasti selle dokumendi kustutada?"
-
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
-msgid "No, don't delete"
-msgstr "Ei, ära kustuta"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -271,21 +268,23 @@ msgstr "Dokumendi load"
 msgid "Add a document permission"
 msgstr "Lisage dokumendi luba"
 
+msgid "Delete"
+msgstr "Kustuta"
+
 msgid "Server Error"
 msgstr "Serveri viga"
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Teatage sellest veast oma veebimeistrile järgmise teabega:"
 
 msgid "Search documents"
 msgstr "Dokumentide otsimine"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Dokument '{0}' on lisatud."
 
 msgid "The document could not be saved due to errors."
 msgstr "Vigade tõttu ei õnnestunud dokumenti salvestada."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Dokumendi '{0}' värskendamine on toimunud"
 
@@ -293,9 +292,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Faili ei leitud. Palun muutke allikat või kustutage dokument"
 
-msgid "Delete"
-msgstr "Kustuta"
-
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Dokument '{0}' on kustutatud."
 

@@ -13,9 +13,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: dellax <michalnebbia@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/torchbox/wagtail/"
 "language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
@@ -103,6 +103,12 @@ msgstr "Nemôžete mať viac prístupových záznamov pre tú istú kolekciu."
 
 msgid "Collection"
 msgstr "Kolekcie"
+
+msgid "Add"
+msgstr "Pridať"
+
+msgid "Edit"
+msgstr "Upraviť"
 
 msgid "New title"
 msgstr "Nový titulok"
@@ -192,9 +198,6 @@ msgstr "Toto pole je povinné."
 msgid "Please select at least one group."
 msgstr "Prosím, vyberte aspoň jednu skupinu."
 
-msgid "Edit"
-msgstr "Upraviť"
-
 msgid "Page"
 msgstr "Stránka"
 
@@ -216,6 +219,7 @@ msgstr "Zavrieť prehliadač"
 msgid "Close"
 msgstr "Zavrieť"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Upraviť '{title}'"
 
@@ -280,12 +284,6 @@ msgstr "Obnova hesla"
 
 msgid "Reset your password"
 msgstr "Resetovanie vášho hesla"
-
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Prehliadač"
 
 msgid "Internal link"
 msgstr "Interný odkaz"
@@ -525,6 +523,12 @@ msgstr "Zvoľte typ stránky ktorý chcete vytvoriť"
 msgid "Pages using %(page_type)s"
 msgstr "Stránky používajúce %(page_type)s"
 
+msgid "Move"
+msgstr "Presunúť"
+
+msgid "No, don't unpublish"
+msgstr "Nie, nepublikovať"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Zmazať %(title)s"
@@ -574,9 +578,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Presunúť %(title)s"
-
-msgid "Move"
-msgstr "Presunúť"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -631,9 +632,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Áno, odpublikovať"
-
-msgid "No, don't unpublish"
-msgstr "Nie, nepublikovať"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -780,9 +778,6 @@ msgstr "Prehliadajte podstránky '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Pridajte podstránku do '%(title)s'"
 
-msgid "Add child page"
-msgstr "Pridať podstránku"
-
 msgid "Sites menu"
 msgstr "Menu sídiel"
 
@@ -910,26 +905,6 @@ msgstr[3] ""
 "                                                        "
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revízie %(title)s"
-
-msgid "Revisions of"
-msgstr "Revízie"
-
-msgid "Revision date"
-msgstr "Dátum revízie"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "od"
-
-msgid "No revisions of this page exist"
-msgstr "Pre túto stránku neexistujú žiadne revízie"
-
-msgid "No revision of this page exist"
-msgstr "Pre túto stránku neexistujú žiadna revízia"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -966,6 +941,9 @@ msgstr "Filter"
 msgid "Locked"
 msgstr "Zamknuté"
 
+msgid "Edit this item"
+msgstr "Upraviť položku"
+
 #, python-format
 msgid "Page %(page_num)s of %(total_pages)s."
 msgstr "Strana %(page_num)s z %(total_pages)s."
@@ -1001,14 +979,17 @@ msgstr "od %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Porovnaj s live verziou"
 
+msgid "More"
+msgstr "Viac"
+
 msgid "live"
 msgstr "live"
 
-msgid "live + draft"
-msgstr "live  + koncept"
-
 msgid "draft"
 msgstr "koncept"
+
+msgid "live + draft"
+msgstr "live  + koncept"
 
 msgid "Test"
 msgstr "Test"
@@ -1028,9 +1009,11 @@ msgstr "Pridať kolekciu"
 msgid "Add collection"
 msgstr "Pridať kolekciu"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Kolekcia '{0}' bola vytvorená."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Kolekcia '{0}' bola aktualizovaná."
 
@@ -1040,6 +1023,7 @@ msgstr "Kolekcia nemôže byť uložená kvôli chybám."
 msgid "Delete collection"
 msgstr "Zmazať kolekciu"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcia '{0}' bola zmazaná."
 
@@ -1049,9 +1033,11 @@ msgstr "Naozaj chcete zmazať túto kolekciu?"
 msgid "Editing"
 msgstr "Editácia"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Stránka '{0}' a {1} podstránok skopírovaných."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Stránka '{0}' bola skopírovaná."
 
@@ -1061,36 +1047,45 @@ msgstr "Zobraziť koncept"
 msgid "View live"
 msgstr "Zobraziť live"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stránka '{0}' bola vytvorená."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Stránka '{0}' vytvorená a naplánovaná pre publikáciu."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Stránka '{0}' bola úspešne vytvorená a publikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Stránka '{0}' bola úspešne vytvorená a odoslaná na moderáciu."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Táto stránka nemôže byť vytvorená, kvôli validačným chybám."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Stránka '{0}' bola zmazaná."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Táto stránka momentálne čaká na moderáciu"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Stránka '{0}' bola aktualizovaná."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Stránka '{0}' bola naplánovaná pre publikáciu."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Stránka '{0}' bola publikovaná."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Stránka '{0}' bola odoslaná na moderáciu."
 
@@ -1100,24 +1095,29 @@ msgstr "Stránka nemohla byť uložená, pretože je momentálne uzamknutá."
 msgid "The page could not be saved due to validation errors"
 msgstr "Táto stránka nemohla byť uložená, kvôli validačným chybám."
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Stránka '{0}' bola odomknutá."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Stránka '{0}'  momentálne čaká na moderáciu"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Stránka '{0}' bola publikovaná."
 
 msgid "Failed to send approval notifications"
 msgstr "Odoslanie notifikácií o schválení zlyhalo"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikácia stránky '{0}' zamietnutá."
 
 msgid "Failed to send rejection notifications"
 msgstr "Odoslanie notifikácií o zamietnutí zlyhalo"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Stránka '{0}' bola presunutá."
 
@@ -1127,14 +1127,12 @@ msgstr "Najstaršie"
 msgid "Latest"
 msgstr "Najnovšie"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Stránka '{0}' bola odpublikovaná."
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Nahláste túto chybu Vášmu webmasterovi s nasledujúcimi informáciami:"
-
-msgid "More"
-msgstr "Viac"
+msgid "Add child page"
+msgstr "Pridať podstránku"
 
 msgid "Choose an item"
 msgstr "Zvoľte položku"
@@ -1144,9 +1142,6 @@ msgstr "Zvoliť daľšiu položku"
 
 msgid "Clear choice"
 msgstr "Zmazať voľbu"
-
-msgid "Edit this item"
-msgstr "Upraviť položku"
 
 msgid "Choose another page"
 msgstr "Zvoliť ďalšiu stránku"

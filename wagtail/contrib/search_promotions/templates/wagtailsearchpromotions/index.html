@@ -20,7 +20,7 @@
     {% url "wagtailsearchpromotions:add" as add_link %}
     {% include "wagtailadmin/shared/header.html" with title=sp_title_str action_url=add_link icon="pick" action_text=sp_text_str search_url="wagtailsearchpromotions:index" %}
 
-     <div class="nice-padding">
+    <div class="nice-padding">
         <div id="editorspicks-results" class="redirects">
             {% include "wagtailsearchpromotions/results.html" %}
         </div>

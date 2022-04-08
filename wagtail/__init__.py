@@ -4,12 +4,22 @@
 
 from wagtail.utils.version import get_semver_version, get_version
 
-
 # major.minor.patch.release.number
 # release must be one of alpha, beta, rc, or final
-VERSION = (2, 15, 0, 'alpha', 0)
+VERSION = (3, 0, 0, "alpha", 0)
 
 __version__ = get_version(VERSION)
 
 # Required for npm package for frontend
 __semver__ = get_semver_version(VERSION)
+
+
+def setup():
+    import warnings
+
+    from wagtail.utils.deprecation import removed_in_next_version_warning
+
+    warnings.simplefilter("default", removed_in_next_version_warning)
+
+
+setup()

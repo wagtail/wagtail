@@ -2,7 +2,6 @@ import json
 import random
 import string
 
-
 ALPHANUM = string.ascii_lowercase + string.digits
 
 
@@ -11,18 +10,18 @@ class Block:
         self.type = typ
         self.depth = depth
         self.text = ""
-        self.key = key if key else ''.join(random.choice(ALPHANUM) for _ in range(5))
+        self.key = key if key else "".join(random.choice(ALPHANUM) for _ in range(5))
         self.inline_style_ranges = []
         self.entity_ranges = []
 
     def as_dict(self):
         return {
-            'key': self.key,
-            'type': self.type,
-            'depth': self.depth,
-            'text': self.text,
-            'inlineStyleRanges': [isr.as_dict() for isr in self.inline_style_ranges],
-            'entityRanges': [er.as_dict() for er in self.entity_ranges],
+            "key": self.key,
+            "type": self.type,
+            "depth": self.depth,
+            "text": self.text,
+            "inlineStyleRanges": [isr.as_dict() for isr in self.inline_style_ranges],
+            "entityRanges": [er.as_dict() for er in self.entity_ranges],
         }
 
 
@@ -34,9 +33,9 @@ class InlineStyleRange:
 
     def as_dict(self):
         return {
-            'offset': self.offset,
-            'length': self.length,
-            'style': self.style,
+            "offset": self.offset,
+            "length": self.length,
+            "style": self.style,
         }
 
 
@@ -48,9 +47,9 @@ class Entity:
 
     def as_dict(self):
         return {
-            'mutability': self.mutability,
-            'type': self.entity_type,
-            'data': self.data,
+            "mutability": self.mutability,
+            "type": self.entity_type,
+            "data": self.data,
         }
 
 
@@ -62,14 +61,15 @@ class EntityRange:
 
     def as_dict(self):
         return {
-            'key': self.key,
-            'offset': self.offset,
-            'length': self.length,
+            "key": self.key,
+            "offset": self.offset,
+            "length": self.length,
         }
 
 
 class ContentState:
-    """Pythonic representation of a draft.js contentState structure"""
+    """Pythonic representation of a Draftail contentState structure"""
+
     def __init__(self):
         self.blocks = []
         self.entity_count = 0
@@ -83,8 +83,10 @@ class ContentState:
 
     def as_dict(self):
         return {
-            'blocks': [block.as_dict() for block in self.blocks],
-            'entityMap': {key: entity.as_dict() for (key, entity) in self.entity_map.items()},
+            "blocks": [block.as_dict() for block in self.blocks],
+            "entityMap": {
+                key: entity.as_dict() for (key, entity) in self.entity_map.items()
+            },
         }
 
     def as_json(self, **kwargs):

@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: M. Febrian Ramadhana <febrian@ramadhana.me>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Indonesian (Indonesia) (http://www.transifex.com/torchbox/"
 "wagtail/language/id_ID/)\n"
 "MIME-Version: 1.0\n"
@@ -145,6 +145,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Koleksi"
 
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Edit"
+msgstr "Ubah"
+
 msgid "New title"
 msgstr "Judul baru"
 
@@ -230,9 +236,6 @@ msgstr "Harap memilih minimal satu grup."
 msgid "All types"
 msgstr "Semua tipe"
 
-msgid "Edit"
-msgstr "Ubah"
-
 msgid "Page"
 msgstr "Halaman"
 
@@ -293,6 +296,7 @@ msgstr ""
 msgid "Close"
 msgstr "Tutup"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Ubah '{title}'"
 
@@ -383,12 +387,6 @@ msgstr "Pengaturan ulang kata sandi"
 
 msgid "Reset your password"
 msgstr "Atur ulang kata sandi Anda"
-
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Penjelajah"
 
 msgid "Internal link"
 msgstr "Tautan dalam"
@@ -651,6 +649,12 @@ msgstr "Pilih jenis halaman yang akan anda buat."
 msgid "Pages using %(page_type)s"
 msgstr "Halaman yang menggunakan %(page_type)s"
 
+msgid "Move"
+msgstr "Pindahkan"
+
+msgid "No, don't unpublish"
+msgstr "Tidak, jangan tarik publikasi"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hapus %(title)s"
@@ -693,9 +697,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Pindahkan %(title)s"
 
-msgid "Move"
-msgstr "Pindahkan"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Apakah anda yakin ingin memindahkan halaman ini ke dalam '%(title)s'?"
@@ -736,9 +737,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "Ya, tarik publikasi"
-
-msgid "No, don't unpublish"
-msgstr "Tidak, jangan tarik publikasi"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -882,9 +880,6 @@ msgstr "Jelajahi halaman turunan dari '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Tambahkan halaman turunan ke '%(title)s'"
 
-msgid "Add child page"
-msgstr "Tambahkan halaman turunan"
-
 msgid "Sites menu"
 msgstr "Menu situs"
 
@@ -1006,29 +1001,6 @@ msgid "No, don't unschedule"
 msgstr "Tidak, jangan hapus jadwal"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revisi dari %(title)s"
-
-msgid "Revisions of"
-msgstr "Revisi dari"
-
-msgid "Revision date"
-msgstr "Tanggal revisi"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "oleh"
-
-msgid "Scheduled for"
-msgstr "Dijadwalkan untuk"
-
-msgid "No revisions of this page exist"
-msgstr "Halaman ini tidak memiliki revisi"
-
-msgid "No revision of this page exist"
-msgstr "Halaman ini tidak memiliki revisi"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1062,6 +1034,9 @@ msgstr "Saring"
 
 msgid "Locked"
 msgstr "Terkunci"
+
+msgid "Edit this item"
+msgstr "Ubah ini"
 
 msgid "Workflow"
 msgstr "Alur Kerja"
@@ -1104,14 +1079,17 @@ msgstr "oleh %(modified_by)s"
 msgid "Compare with live version"
 msgstr "Bandingkan dengan versi aktif"
 
+msgid "More"
+msgstr "Lainnya"
+
 msgid "live"
 msgstr "aktif"
 
-msgid "live + draft"
-msgstr "aktif + konsep"
-
 msgid "draft"
 msgstr "konsep"
+
+msgid "live + draft"
+msgstr "aktif + konsep"
 
 msgid "Test"
 msgstr "Uji"
@@ -1131,9 +1109,11 @@ msgstr "Tambah sebuah koleksi"
 msgid "Add collection"
 msgstr "Tambah koleksi"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Koleksi '{0}' telah dibuat."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Koleksi '{0}' diperbarui."
 
@@ -1143,6 +1123,7 @@ msgstr "Koleksi tidak dapat disimpan karena suatu galat."
 msgid "Delete collection"
 msgstr "Hapus koleksi"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Koleksi '{0}' telah dihapus."
 
@@ -1152,9 +1133,11 @@ msgstr "Apakah anda yakin akan menghapus koleksi ini?"
 msgid "Editing"
 msgstr "Mengubah"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Telah menyalin halaman '{0}' dan {1} sub-halaman."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Halaman '{0}' telah disalin."
 
@@ -1164,36 +1147,45 @@ msgstr "Tampilkan konsep"
 msgid "View live"
 msgstr "Tampilkan yang aktif"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Halaman '{0}' telah dibuat."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Halaman '{0}' telah dibuat dan dijadwalkan untuk dipublikasi."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Halaman '{0}' telah dibuat dan dipublikasi."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Halaman '{0}' telah dibuat dan dikirim untuk dimoderasi."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Halaman tersebut tidak dapat dibuat karena tidak lolos validasi."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Halaman '{0}' dihapus."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Halaman ini menunggu proses moderasi"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Halaman '{0}' telah diperbarui."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Halaman '{0}' telah dijadwalkan untuk publikasi."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Halaman '{0}' telah dikirim untuk moderasi."
 
@@ -1203,24 +1195,29 @@ msgstr "Halaman ini tidak dapat disimpan karena terkunci"
 msgid "The page could not be saved due to validation errors"
 msgstr "Halaman ini tidak dapat disimpan karena tidak lolos validasi"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Halaman '{0}' sekarang tidak dikunci."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Halaman '{0}' tidak dalam proses moderasi."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Halaman '{0}' telah dipublikasi."
 
 msgid "Failed to send approval notifications"
 msgstr "Gagal mengirim notifikasi persetujuan"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Publikasi halaman '{0}' ditolak."
 
 msgid "Failed to send rejection notifications"
 msgstr "Gagal mengirim notifikasi penolakan"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Halaman '{0}' telah dipindah."
 
@@ -1230,9 +1227,11 @@ msgstr "Paling awal"
 msgid "Latest"
 msgstr "Paling akhir"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "revisi {0} dari \"{1}\""
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Halaman '{0}' ditarik dari publikasi."
 
@@ -1242,11 +1241,8 @@ msgstr "Tampilkan"
 msgid "Awaiting my review"
 msgstr "Menunggu ulasan saya"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Laporkan kesalahan ini ke webmaster anda dengan informasi berikut:"
-
-msgid "More"
-msgstr "Lainnya"
+msgid "Add child page"
+msgstr "Tambahkan halaman turunan"
 
 msgid "Bulleted list"
 msgstr "Daftar Bullet"
@@ -1271,9 +1267,6 @@ msgstr "Pilih yang lain"
 
 msgid "Clear choice"
 msgstr "Kosongkan pilihan"
-
-msgid "Edit this item"
-msgstr "Ubah ini"
 
 msgid "Choose another page"
 msgstr "Pilih halaman lain"

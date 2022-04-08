@@ -1,5 +1,5 @@
 {% extends "wagtailadmin/base.html" %}
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
 {% block titletag %}{% trans 'Search' %}{% endblock %}
 {% block extra_js %}
     {{ block.super }}
@@ -11,6 +11,10 @@
             targetOutput: "#page-results"
         }
     </script>
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'PAGE';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -20,4 +24,6 @@
     <div id="page-results">
         {% include "wagtailadmin/pages/search_results.html" %}
     </div>
+    {% trans "Select all pages in listing" as select_all_text %}
+    {% include 'wagtailadmin/bulk_actions/footer.html' with app_label='wagtailcore' model_name='page' objects=pages select_all_obj_text=select_all_text %}
 {% endblock %}

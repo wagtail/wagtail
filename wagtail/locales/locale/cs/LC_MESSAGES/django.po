@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Mirek Zvolský <zvolsky@seznam.cz>, 2020\n"
 "Language-Team: Czech (https://www.transifex.com/torchbox/teams/8009/cs/)\n"
@@ -31,6 +31,9 @@ msgstr "Jazyk"
 msgid "Select a new language"
 msgstr "Vyberte nový jazyk"
 
+msgid "This locale's language code is not supported"
+msgstr "Tento kód jazyka není podporován"
+
 msgid "Yes, delete"
 msgstr "Ano, zrušit"
 
@@ -44,24 +47,23 @@ msgstr ""
 "Aktuálně zvolený jazykový kód není podporován. Prosím, zvolte jiný jazyk "
 "nebo odstraňte toto místní nastavení."
 
-msgid "Usage"
-msgstr "Použití"
-
-msgid "This locale's language code is not supported"
-msgstr "Tento kód jazyka není podporován"
-
 msgid "Locales"
 msgstr "Místní nastavení"
 
 msgid "Add a locale"
 msgstr "Přidat místní nastavení"
 
+msgid "Usage"
+msgstr "Použití"
+
 msgid "Add locale"
 msgstr "Přidat místní nastavení"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Místní nastavení '{0}' bylo vytvořeno."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Místní nastavení '{0}' bylo aktualizováno."
 
@@ -71,6 +73,7 @@ msgstr "Místní nastavení nelze uložit kvůli chybám."
 msgid "Delete locale"
 msgstr "Zrušit místní nastavení"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Místní nastavení '{0}' bylo zrušeno."
 

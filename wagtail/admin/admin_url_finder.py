@@ -2,8 +2,8 @@ from django.contrib.admin.utils import quote
 from django.core.exceptions import ImproperlyConfigured
 from django.urls import reverse
 
-from wagtail.core.hooks import search_for_hooks
-
+from wagtail.hooks import search_for_hooks
+from wagtail.utils.registry import ObjectTypeRegistry
 
 """
 A mechanism for finding the admin edit URL for an arbitrary object instance, optionally applying
@@ -29,6 +29,7 @@ class ModelAdminURLFinder:
     """
     Handles admin edit URL lookups for an individual model
     """
+
     edit_url_name = None
     permission_policy = None
 
@@ -41,8 +42,11 @@ class ModelAdminURLFinder:
         or None if no edit URL is available.
         """
         if self.edit_url_name is None:
-            raise ImproperlyConfigured("%r must define edit_url_name or override construct_edit_url" % type(self))
-        return reverse(self.edit_url_name, args=(quote(instance.pk), ))
+            raise ImproperlyConfigured(
+                "%r must define edit_url_name or override construct_edit_url"
+                % type(self)
+            )
+        return reverse(self.edit_url_name, args=(quote(instance.pk),))
 
     def get_edit_url(self, instance):
         """
@@ -50,8 +54,11 @@ class ModelAdminURLFinder:
         or None otherwise.
         """
         if (
-            self.user and self.permission_policy
-            and not self.permission_policy.user_has_permission_for_instance(self.user, 'change', instance)
+            self.user
+            and self.permission_policy
+            and not self.permission_policy.user_has_permission_for_instance(
+                self.user, "change", instance
+            )
         ):
             return None
         else:
@@ -62,6 +69,7 @@ class NullAdminURLFinder:
     """
     A dummy AdminURLFinder that always returns None
     """
+
     def __init__(self, user=None):
         pass
 
@@ -69,18 +77,18 @@ class NullAdminURLFinder:
         return None
 
 
-FINDER_CLASSES_BY_MODEL = {}
+finder_classes = ObjectTypeRegistry()
 
 
 def register_admin_url_finder(model, handler):
-    global FINDER_CLASSES_BY_MODEL
-    FINDER_CLASSES_BY_MODEL[model] = handler
+    finder_classes.register(model, value=handler)
 
 
 class AdminURLFinder:
     """
     The 'main' admin URL finder, which searches across all registered models
     """
+
     def __init__(self, user=None):
         search_for_hooks()  # ensure wagtail_hooks files have been loaded
         self.user = user
@@ -92,15 +100,7 @@ class AdminURLFinder:
             # do we already have a finder for this model and user?
             finder = self.finders_by_model[model]
         except KeyError:
-            finder_class = NullAdminURLFinder
-            # check all superclasses of model for a registered finder class
-            for cls in model.__mro__:
-                try:
-                    finder_class = FINDER_CLASSES_BY_MODEL[cls]
-                    break
-                except KeyError:
-                    continue
-
+            finder_class = finder_classes.get(instance) or NullAdminURLFinder
             finder = finder_class(self.user)
             self.finders_by_model[model] = finder
 

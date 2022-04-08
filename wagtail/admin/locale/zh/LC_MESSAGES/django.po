@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: serafeim <serafeim@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Chinese (http://www.transifex.com/torchbox/wagtail/language/"
 "zh/)\n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,12 @@ msgstr "URL"
 msgid "Parent"
 msgstr "上一级"
 
+msgid "Add"
+msgstr "添加"
+
+msgid "Edit"
+msgstr "编辑"
+
 msgid "New title"
 msgstr "新标题"
 
@@ -77,9 +83,6 @@ msgstr "搜索"
 
 msgid "Search term"
 msgstr "搜索词"
-
-msgid "Edit"
-msgstr "编辑"
 
 msgid "Server Error"
 msgstr "服务错误"
@@ -123,12 +126,6 @@ msgstr "密码已重置"
 
 msgid "Reset your password"
 msgstr "重置您的密码"
-
-msgid "Menu"
-msgstr "菜单"
-
-msgid "Explorer"
-msgstr "浏览"
 
 msgid "Internal link"
 msgstr "内部链接"
@@ -282,6 +279,9 @@ msgstr "选择你希望创建哪个类型的页面。"
 msgid "Pages using %(page_type)s"
 msgstr "%(page_type)s 类的页面"
 
+msgid "Move"
+msgstr "移动"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "删除%(title)s"
@@ -292,9 +292,6 @@ msgstr "你确定你要删除此页吗？"
 #, python-format
 msgid "Move %(title)s"
 msgstr "移动 %(title)s"
-
-msgid "Move"
-msgstr "移动"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -346,9 +343,6 @@ msgstr "浏览"
 msgid "Add a child page to '%(title)s'"
 msgstr "添加子页面至'%(title)s'"
 
-msgid "Add child page"
-msgstr "添加子页面"
-
 msgid "Previous"
 msgstr "向前"
 
@@ -389,6 +383,9 @@ msgstr "登出"
 msgid "by %(modified_by)s"
 msgstr "作者%(modified_by)s"
 
+msgid "More"
+msgstr "更多"
+
 msgid "Password"
 msgstr "密码"
 
@@ -401,9 +398,11 @@ msgstr "查看草稿"
 msgid "View live"
 msgstr "查看在线版"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "第 '{0}' 页已创建。"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "第 '{0}' 页已删除"
 
@@ -413,23 +412,28 @@ msgstr "这页正在等待审核"
 msgid "The page could not be saved due to validation errors"
 msgstr "这页无法保存，因为页面发生验证错误"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "第 '{0}' 页当前不需要等待审核。"
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "第 '{0}' 页已发布。"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "第 '{0}' 页已被拒绝发布。"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "第 '{0}' 页已移动。"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "第 '{0}' 页已取消发布"
 
-msgid "More"
-msgstr "更多"
+msgid "Add child page"
+msgstr "添加子页面"
 
 msgid "Choose an item"
 msgstr "选择一个选项"

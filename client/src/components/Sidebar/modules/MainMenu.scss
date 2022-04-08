@@ -1,157 +1,141 @@
 // stylelint-disable declaration-no-important
 .sidebar-main-menu {
-    overflow: auto;
-    overflow-x: hidden;
-    margin-bottom: 50px;
-    @include transition(margin-bottom $menu-transition-duration ease);
+  overflow: auto;
+  overflow-x: hidden;
+  // So the last items in the menu will be seen when the menu is vertically scrollable
+  margin-bottom: 52px;
+  // Scrollbar styling for firefox
+  scrollbar-color: theme('colors.grey.200');
+  scrollbar-width: thin;
 
-    &--open-footer {
-        margin-bottom: 127px;
+  @include transition(margin-bottom $menu-transition-duration ease);
+
+  //Custom scrollbar styling for windows/mac and slim mode
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-button {
+    @apply w-hidden;
+    // Hide the scrollbar arrows on windows
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply w-bg-grey-200 w-rounded-sm;
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply w-bg-transparent;
+  }
+
+  &--open-footer {
+    margin-bottom: 127px;
+  }
+
+  &__list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  *:focus {
+    @include show-focus-outline-inside;
+  }
+
+  .icon--menuitem {
+    width: 1.25em;
+    height: 1.25em;
+    min-width: 1.25em;
+    margin-inline-end: 0.5em;
+    vertical-align: text-top;
+  }
+
+  .icon--submenu-header {
+    display: block;
+    width: 4rem;
+    height: 4rem;
+    margin: 0 auto 0.8em;
+    opacity: 0.15;
+  }
+
+  > ul > li > a {
+    // Need !important to override body.ready class
+    transition: padding $menu-transition-duration ease !important;
+
+    .menuitem-label {
+      transition: opacity $menu-transition-duration ease;
     }
-
-    &__list {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    }
-
-    *:focus {
-        @include show-focus-outline-inside;
-    }
-
-    .icon--menuitem {
-        width: 1.25em;
-        height: 1.25em;
-        min-width: 1.25em;
-        margin-right: 0.5em;
-        vertical-align: text-top;
-    }
-
-    .icon--submenu-header {
-        display: block;
-        width: 4rem;
-        height: 4rem;
-        margin: 0 auto 0.8em;
-        opacity: 0.15;
-    }
-
-    > ul > li > a {
-        // Need !important to override body.ready class
-        transition: padding $menu-transition-duration ease !important;
-
-        .menuitem-label {
-            transition: opacity $menu-transition-duration ease;
-        }
-    }
+  }
 }
 
 .sidebar-footer {
-    position: fixed !important;  // override li styling in MenuWrapper
-    width: $menu-width;
-    bottom: 0;
-    background-color: $nav-footer-submenu-bg;
-    transition: width $menu-transition-duration ease !important;  // Override body.ready
+  @apply w-bg-primary w-bottom-0 w-fixed;
+  transition: width $menu-transition-duration ease !important; // Override body.ready
+  width: $menu-width;
 
-    > ul,
-    ul > li {
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
+  > ul,
+  ul > li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  ul > li {
+    position: relative;
+
+    @include transition(border-color $menu-transition-duration ease);
+  }
+
+  > ul {
+    @include transition(max-height $menu-transition-duration ease);
+    visibility: hidden;
+
+    max-height: 0;
+
+    a {
+      border-inline-start: 3px solid transparent;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:before {
+        font-size: 1rem;
+        margin-inline-end: 0.5em;
+        vertical-align: -10%;
+      }
+    }
+  }
+
+  &__account {
+    @include show-focus-outline-inside();
+
+    &-toggle {
+      @apply w-pl-2 w-inline-flex w-justify-between w-w-full w-translate-x-0 w-transition w-duration-150;
     }
 
-    ul > li {
-        position: relative;
-
-        @include transition(border-color $menu-transition-duration ease);
+    &-label {
+      @apply w-text-white w-text-left w-overflow-hidden w-whitespace-nowrap w-text-ellipsis;
     }
+  }
 
-    > ul {
-        @include transition(max-height $menu-transition-duration ease);
-
-        max-height: 0;
-
-        a {
-            border-left: 3px solid transparent;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-
-            &:before {
-                font-size: 1rem;
-                margin-right: 0.5em;
-                vertical-align: -10%;
-            }
-        }
-    }
+  @at-root .sidebar--slim #{&} {
+    width: $menu-width-slim;
 
     &__account {
-        background: $nav-footer-account-bg;
-        color: $color-menu-text;
-        text-transform: uppercase;
-        display: block;
-        cursor: pointer;
-        position: relative;
-
-        @include clearfix;
-
-        &:hover {
-            background-color: rgba(100, 100, 100, 0.15);
-            color: $color-white;
-            text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-        }
-
-        .avatar {
-            float: left;
-            width: 60px;
-            height: 60px;
-
-            &:before {
-                color: inherit;
-                border-color: inherit;
-            }
-        }
-
-        &--icon {
-            height: 1.5em;
-            width: 1.5em;
-            position: absolute;
-            right: 0.25em;
-        }
-
-        em {
-            box-sizing: border-box;
-            padding-right: 1.8em;
-            margin-top: 1.2em;
-            margin-left: 0.9em;
-            font-style: normal;
-            font-weight: 700;
-            width: 125px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            position: absolute;
-            left: 60px;  // Width of avatar
-            transition: left $menu-transition-duration ease;
-        }
+      @apply w-px-0 w-pb-3 w-justify-center;
     }
 
-    @at-root .sidebar--slim #{&} {
-        width: $menu-width-slim;
-
-        &__account em {
-            left: $menu-width-slim - $menu-width;
-        }
+    &__account-toggle {
+      @apply w-hidden;
     }
+  }
 
-    &--open {
-        width: $menu-width !important;  // Override collapsed style
+  &--open {
+    width: $menu-width !important; // Override collapsed style
 
-        > ul {
-            max-height: $nav-footer-submenu-height;
-        }
+    > ul {
+      max-height: $nav-footer-submenu-height;
+      visibility: visible;
     }
-
-    &--open &__account em {
-        left: 60px !important;
-    }
+  }
 }

@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Erlend <debcf78e@opayq.com>\n"
 "Language-Team: Estonian (http://www.transifex.com/torchbox/wagtail/language/"
 "et/)\n"
 "MIME-Version: 1.0\n"
@@ -109,6 +109,15 @@ msgstr "Kasutajaprofiil"
 msgid "user profiles"
 msgstr "kasutajaprofiilid"
 
+msgid "Delete"
+msgstr "Kustuta"
+
+msgid "Yes, delete"
+msgstr "Jah, kustuta"
+
+msgid "No, don't delete"
+msgstr "Ei, ära kustuta"
+
 msgid "Delete group"
 msgstr "Kustuta grupp"
 
@@ -138,9 +147,6 @@ msgstr "Selle grupi kustutamine tühistab selle grupi kõik kasutajate õigused.
 msgid "Are you sure you want to delete this group?"
 msgstr "Kas soovite kindlasti selle grupi kustutada?"
 
-msgid "Yes, delete"
-msgstr "Jah, kustuta"
-
 msgid "Add group"
 msgstr "Lisa rühm"
 
@@ -167,9 +173,6 @@ msgstr "Lisama"
 
 msgid "Change"
 msgstr "Muuda"
-
-msgid "Delete"
-msgstr "Kustuta"
 
 msgid "Other permissions"
 msgstr "Muud load"
@@ -289,21 +292,25 @@ msgstr "Grupid"
 msgid "Search groups"
 msgstr "Gruppide otsimine"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupp '{0}' on loodud."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupp '{0}' on värskendatud."
 
 msgid "The group could not be saved due to errors."
 msgstr "Rühma ei õnnestunud vigade tõttu salvestada."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupp '{0}' on kustutatud."
 
 msgid "Search users"
 msgstr "Otsi kasutajaid"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Kasutaja '{0}' on loodud."
 
@@ -313,12 +320,14 @@ msgstr "Muuda"
 msgid "The user could not be created due to errors."
 msgstr "Kasutajat ei õnnestunud vigade tõttu luua."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Kasutaja '{0}' on värskendatud."
 
 msgid "The user could not be saved due to errors."
 msgstr "Kasutajat ei õnnestunud vigade tõttu salvestada."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Kasutaja '{0}' on kustutatud."
 

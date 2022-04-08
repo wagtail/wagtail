@@ -9,9 +9,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Lyuboslav  Petrov <petrov.lyuboslav@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Bulgarian (http://www.transifex.com/torchbox/wagtail/language/"
 "bg/)\n"
 "MIME-Version: 1.0\n"
@@ -53,6 +53,9 @@ msgstr "URL"
 msgid "Parent"
 msgstr "Родител"
 
+msgid "Edit"
+msgstr "Редакция"
+
 msgid "This slug is already in use"
 msgstr "Този слъг е вече в употреба"
 
@@ -61,9 +64,6 @@ msgstr "Търсене"
 
 msgid "Search term"
 msgstr "Фраза за търсене"
-
-msgid "Edit"
-msgstr "Редакция"
 
 msgid "Save"
 msgstr "Запази"
@@ -103,12 +103,6 @@ msgstr "Паролата е възстановена"
 
 msgid "Reset your password"
 msgstr "Възстановете паролата си"
-
-msgid "Menu"
-msgstr "Меню"
-
-msgid "Explorer"
-msgstr "Файлов мениджър"
 
 msgid "Internal link"
 msgstr "Вътрешен линк"
@@ -242,6 +236,9 @@ msgstr "Изберете какъв тип страница искате да с
 msgid "Pages using %(page_type)s"
 msgstr "Страници използващи %(page_type)s"
 
+msgid "Move"
+msgstr "Премести"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Изтрийте %(title)s"
@@ -271,9 +268,6 @@ msgstr[1] ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Промести %(title)s"
-
-msgid "Move"
-msgstr "Премести"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -324,9 +318,6 @@ msgstr "Мениджър"
 msgid "Add a child page to '%(title)s'"
 msgstr "Добавете дъщерна страница към '%(title)s'"
 
-msgid "Add child page"
-msgstr "Добави дъщерна страница"
-
 msgid "Previous"
 msgstr "Предишно"
 
@@ -367,6 +358,9 @@ msgstr "Излез"
 msgid "by %(modified_by)s"
 msgstr "по %(modified_by)s"
 
+msgid "More"
+msgstr "Повече"
+
 msgid "Password"
 msgstr "Парола"
 
@@ -379,9 +373,11 @@ msgstr "Преглед на Чернова"
 msgid "View live"
 msgstr "Преглед на живо"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Страница '{0}' е създадена."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Страница '{0}' е изтрита."
 
@@ -391,23 +387,28 @@ msgstr "Тази страница очаква да бъде модериран�
 msgid "The page could not be saved due to validation errors"
 msgstr "Тази страница не можеше да бъде запазена поради валидационни грешки"
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Страница '{0}' не очаква да бъде модерирана."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Страница '{0}' е публикувана."
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Страница '{0}' отхвърлена от публикуване."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Страница '{0}' преместена."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Страница '{0}' отменена от публикуване."
 
-msgid "More"
-msgstr "Повече"
+msgid "Add child page"
+msgstr "Добави дъщерна страница"
 
 msgid "Choose an item"
 msgstr "Изберете обект"

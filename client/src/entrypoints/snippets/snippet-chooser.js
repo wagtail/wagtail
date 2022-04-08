@@ -64,7 +64,7 @@ function createSnippetChooser(id) {
         urlQuery = '?locale=' + wagtailConfig.ACTIVE_CONTENT_LOCALE;
       }
 
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       ModalWorkflow({
         url: chooserBaseUrl + urlQuery,
         // eslint-disable-next-line no-undef
@@ -80,7 +80,6 @@ function createSnippetChooser(id) {
     clear: () => {
       chooser.setState(null);
     },
-
   };
 
   $('.action-choose', chooserElement).on('click', () => {

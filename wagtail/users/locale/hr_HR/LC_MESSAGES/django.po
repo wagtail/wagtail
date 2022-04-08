@@ -6,13 +6,14 @@
 # Dino Aljević <dino8890@protonmail.com>, 2020
 # Dino Aljević <dino8890@protonmail.com>, 2020-2021
 # Luka Matijević <lumatijev@gmail.com>, 2015
+# Matt Westcott <matthew@torchbox.com>, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-15 16:44+0000\n"
+"Last-Translator: Dino Aljević <dino8890@protonmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/torchbox/wagtail/"
 "language/hr_HR/)\n"
 "MIME-Version: 1.0\n"
@@ -123,6 +124,15 @@ msgstr "korisnički profil"
 msgid "user profiles"
 msgstr "korisnički profili"
 
+msgid "Delete"
+msgstr "Obriši"
+
+msgid "Yes, delete"
+msgstr "Da, obriši"
+
+msgid "No, don't delete"
+msgstr "Ne, nemoj izbrisati"
+
 msgid "Delete group"
 msgstr "Obriši grupu"
 
@@ -157,9 +167,6 @@ msgstr ""
 msgid "Are you sure you want to delete this group?"
 msgstr "Jeste li sigurni da želite izbrisati grupu?"
 
-msgid "Yes, delete"
-msgstr "Da, obriši"
-
 msgid "Add group"
 msgstr "Dodaj grupu"
 
@@ -186,9 +193,6 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Promijeni"
-
-msgid "Delete"
-msgstr "Obriši"
 
 msgid "Other permissions"
 msgstr "Ostale dozvole"
@@ -313,23 +317,27 @@ msgstr "Grupe"
 msgid "Search groups"
 msgstr "Pretraži grupe"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Grupa '{0}' je stvorena."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Grupa '{0}' je ažurirana."
 
 msgid "The group could not be saved due to errors."
 msgstr "Nije moguće sačuvati grupu zbog grešaka."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Grupa '{0}' je izbrisana."
 
 msgid "Search users"
 msgstr "Pretraži korisnike"
 
+#, python-brace-format
 msgid "User '{0}' created."
-msgstr "Korisnik '{0'} je stvoren."
+msgstr "Korisnik '{0}' je stvoren."
 
 msgid "Edit"
 msgstr "Uredi"
@@ -337,12 +345,14 @@ msgstr "Uredi"
 msgid "The user could not be created due to errors."
 msgstr "Nije moguće stvoriti korisnika zbog grešaka."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Korisnik '{0}' je ažuriran."
 
 msgid "The user could not be saved due to errors."
 msgstr "Nije moguće sačuvati korisnika zbog grešaka."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Korisnik '{0}' je izbrisan."
 

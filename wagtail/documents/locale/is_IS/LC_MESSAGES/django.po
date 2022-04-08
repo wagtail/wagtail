@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-02-01 13:46+0000\n"
+"POT-Creation-Date: 2022-01-21 14:12+0000\n"
+"PO-Revision-Date: 2022-01-22 17:33+0000\n"
 "Last-Translator: saevarom <saevar@saevar.is>\n"
 "Language-Team: Icelandic (Iceland) (http://www.transifex.com/torchbox/"
 "wagtail/language/is_IS/)\n"
@@ -65,6 +65,85 @@ msgstr "skrá"
 msgid "documents"
 msgstr "skjöl"
 
+#, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Bæta merkingu við 1 skjal"
+msgstr[1] "Bæta merkingu við %(counter)s skjöl"
+
+msgid "Add tags to documents"
+msgstr "Bæta merkingum á skjöl"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Ertu viss um að þú viljir merkja eftirfarandi skjal?"
+msgstr[1] "Ertu viss um að þú viljir merkja eftirfarandi skjöl?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "Þú ert ekki með réttindi til að merkja þetta skjal"
+msgstr[1] "Þú ert ekki með réttindi til að merkja þessi skjöl"
+
+msgid "Yes, add"
+msgstr "Já, bæta við"
+
+msgid "No, don't add"
+msgstr "Nei, ekki bæta við"
+
+#, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Bæta 1 skjali við nýtt safn"
+msgstr[1] "Bæta %(counter)s skjölum í nýtt safn"
+
+msgid "Add documents to collection"
+msgstr "Bæta skjölum við safn"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] "Ertu viss um að þú viljir bæta þessu skjali við valið safn?"
+msgstr[1] "Ertu viss um að þú viljir bæta eftirfarandi skjölum í valið safn?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "Þú ert ekki með réttindi til að bæta þessu skjali við safn"
+msgstr[1] "Þú ert ekki með réttindi til að bæta þessum skjölum í safn"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Eyða 1 skjali"
+msgstr[1] "Eyða %(counter)s skjölum"
+
+msgid "Delete documents"
+msgstr "Eyða skjölum"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Ertu viss um að þú viljir eyða þessu skjali?"
+msgstr[1] "Ertu viss um að þú viljir eyða þessum skjölum?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Notað %(usage_count)s sinni"
+msgstr[1] "Notað %(usage_count)s sinnum"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "Þú ert ekki með réttindi til að eyða þessu skjali"
+msgstr[1] "Þú ert ekki með réttindi til að eyða þessum skjölum"
+
+msgid "Yes, delete"
+msgstr "Já, eyða"
+
+msgid "No, don't delete"
+msgstr "Nei, ekki eyða"
+
 msgid "Choose a document"
 msgstr "Veldu skrá"
 
@@ -73,9 +152,6 @@ msgstr "Leita"
 
 msgid "Upload"
 msgstr "Hlaða upp"
-
-msgid "Uploading…"
-msgstr "Hleð upp..."
 
 #, python-format
 msgid ""
@@ -120,6 +196,9 @@ msgstr ""
 "\"%(wagtaildocs_add_document_url)s\">hlaða einu upp núna</a>?\n"
 "            "
 
+msgid "Uploading…"
+msgstr "Hleð upp..."
+
 msgid "Change document:"
 msgstr "Breyta skrá"
 
@@ -135,21 +214,6 @@ msgstr "Eyða %(title)s"
 
 msgid "Delete document"
 msgstr "Eyða skrá"
-
-#, python-format
-msgid "Used %(usage_count)s time"
-msgid_plural "Used %(usage_count)s times"
-msgstr[0] "Notað %(usage_count)s sinni"
-msgstr[1] "Notað %(usage_count)s sinnum"
-
-msgid "Are you sure you want to delete this document?"
-msgstr "Ertu viss um að þú viljir eyða þessari skrá?"
-
-msgid "Yes, delete"
-msgstr "Já, eyða"
-
-msgid "No, don't delete"
-msgstr "Nei, ekki eyða"
 
 #, python-format
 msgid "Editing %(title)s"
@@ -173,6 +237,9 @@ msgstr "Notkun"
 msgid "Documents"
 msgstr "Skrár"
 
+msgid "Select all documents in listing"
+msgstr "Velja öll skjöl"
+
 msgid "Title"
 msgstr "Titill"
 
@@ -181,6 +248,9 @@ msgstr "Skrá"
 
 msgid "Created"
 msgstr "Búið til"
+
+msgid "Select document"
+msgstr "Velja skjal"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -281,21 +351,62 @@ msgstr "Aðgangsheimildir skráar"
 msgid "Add a document permission"
 msgstr "Bæta við aðgangsheimildum á skrá"
 
+msgid "Tag"
+msgstr "Merking"
+
+msgid "Add tags to the selected documents"
+msgstr "Bæta merkingum við valin skjöl"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "Nýjum merkingum hefur verið bætt við %(num_parent_objects)d skjal"
+msgstr[1] "Nýjum merkjum hefur verið bætt við %(num_parent_objects)d skjöl"
+
+msgid "Add to collection"
+msgstr "Bæta við safn"
+
+msgid "Add selected documents to collection"
+msgstr "Bæta völdum skjölum við safn"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d skjali hefur verið bætt í %(collection)s"
+msgstr[1] "%(num_parent_objects)d skjölum hefur verið bætt í %(collection)s "
+
+msgid "Delete"
+msgstr "Eyða"
+
+msgid "Delete selected documents"
+msgstr "Eyða völdum skjölum"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "%(num_parent_objects)d skjali hefur verið eytt"
+msgstr[1] "%(num_parent_objects)d skjölum hefur verið eytt"
+
 msgid "Server Error"
 msgstr "Villa á vefþjóni"
 
-msgid "Report this error to your webmaster with the following information:"
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
 msgstr "Sendu þessa villu á vefstjóra með eftirfarandi upplýsingum:"
 
 msgid "Search documents"
 msgstr "Leita að skrám"
 
+#, python-brace-format
 msgid "Document '{0}' added."
 msgstr "Skrá '{0}' bætt við."
 
 msgid "The document could not be saved due to errors."
 msgstr "Ekki var hægt að vista skránna vegna villna."
 
+#, python-brace-format
 msgid "Document '{0}' updated"
 msgstr "Skrá '{0}' uppfærð"
 
@@ -303,9 +414,7 @@ msgid ""
 "The file could not be found. Please change the source or delete the document"
 msgstr "Skráin fannst ekki. Vinsamlegast breyttu upprunanum eða eyddu skránni"
 
-msgid "Delete"
-msgstr "Eyða"
-
+#, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Skrá '{0}' hefur verið eytt."
 

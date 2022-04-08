@@ -3,7 +3,6 @@ from django import template
 from wagtail.contrib.search_promotions.models import SearchPromotion
 from wagtail.search.models import Query
 
-
 register = template.Library()
 
 

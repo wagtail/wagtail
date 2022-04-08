@@ -4,15 +4,16 @@
 #
 # Translators:
 # Ludwig Kjellström <ludwig.kjellstrom@amnesty.se>, 2015
+# Martin Sandström <martin@marteinn.se>, 2021
 # Philip Andersen <renegadevi@codeofmagi.net>, 2018
 # Thomas Kunambi <kunambi@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2018-05-27 23:14+0000\n"
-"Last-Translator: Philip Andersen <renegadevi@codeofmagi.net>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2021-10-28 17:16+0000\n"
+"Last-Translator: Martin Sandström <martin@marteinn.se>\n"
 "Language-Team: Swedish (http://www.transifex.com/torchbox/wagtail/language/"
 "sv/)\n"
 "MIME-Version: 1.0\n"
@@ -25,22 +26,19 @@ msgid "Wagtail sites"
 msgstr "Wagtail webbplatser "
 
 msgid "Choose a root page"
-msgstr "Välj en topp-sida"
+msgstr "Välj en rotsida"
 
 msgid "Choose a different root page"
-msgstr "Välj en annan topp-sida"
+msgstr "Välj en annan rotsida"
+
+msgid "Sites"
+msgstr "Sajter"
+
+msgid "Add a site"
+msgstr "Lägg till en sajt"
 
 msgid "Site"
-msgstr "Webbplats"
-
-msgid "Port"
-msgstr "Port"
-
-msgid "Site name"
-msgstr "Sajtnamn"
-
-msgid "Root page"
-msgstr "Topp-sida"
+msgstr "Sajt"
 
 msgid "Default?"
 msgstr "Standardwebbplats?"
@@ -48,18 +46,14 @@ msgstr "Standardwebbplats?"
 msgid "Default"
 msgstr "Standardwebbplats"
 
-msgid "Sites"
-msgstr "Webbplatser"
-
-msgid "Add a site"
-msgstr "Lägg till en sajt"
-
 msgid "Add site"
 msgstr "Addera sajt"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Sajt '{0}' skapad."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Sajt '{0}' uppdaterad."
 
@@ -69,6 +63,7 @@ msgstr "Sajten kunde inte sparas pga fel."
 msgid "Delete site"
 msgstr "Radera sajt"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Sajt '{0}' raderad."
 

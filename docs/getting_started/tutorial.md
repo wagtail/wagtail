@@ -1,16 +1,15 @@
 # Your first Wagtail site
 
-```eval_rst
-.. note::
-   This tutorial covers setting up a brand new Wagtail project.
-   If you'd like to add Wagtail to an existing Django project instead, see :doc:`integrating_into_django`.
+```{note}
+This tutorial covers setting up a brand new Wagtail project.
+If you'd like to add Wagtail to an existing Django project instead, see [](integrating_into_django).
 ```
 
 ## Install and run Wagtail
 
 ### Install dependencies
 
-Wagtail supports Python 3.6, 3.7, 3.8, 3.9 and 3.10.
+Wagtail supports Python 3.7, 3.8, 3.9 and 3.10.
 
 To check whether you have an appropriate version of Python 3:
 
@@ -18,13 +17,12 @@ To check whether you have an appropriate version of Python 3:
 $ python3 --version
 ```
 
-If this does not return a version number or returns a version lower than 3.6, you will need to [install Python 3](https://www.python.org/downloads/).
+If this does not return a version number or returns a version lower than 3.7, you will need to [install Python 3](https://www.python.org/downloads/).
 
-```eval_rst
-.. important::
+```{important}
    Before installing Wagtail, it is necessary to install the **libjpeg** and **zlib** libraries, which provide support for working with JPEG, PNG and GIF images (via the Python **Pillow** library).
    The way to do this varies by platform—see Pillow's
-   `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
+   [platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries).
 ```
 
 ### Create and activate a virtual environment
@@ -48,11 +46,9 @@ $ source mysite/env/bin/activate
 
 **For other shells** see the [`venv` documentation](https://docs.python.org/3/library/venv.html).
 
-```eval_rst
-.. note::
-
-   If you're using version control (e.g. git), ``mysite`` will be the directory for your project.
-   The ``env`` directory inside of it should be excluded from any version control.
+```{note}
+If you're using version control (e.g. git), `mysite` will be the directory for your project.
+The `env` directory inside of it should be excluded from any version control.
 ```
 
 ### Install Wagtail
@@ -77,10 +73,8 @@ Because the folder `mysite` was already created by `venv`, run `wagtail start` w
 $ wagtail start mysite mysite
 ```
 
-```eval_rst
-.. note::
-
-   Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and   access each other's data. All of the apps need to be registered within the ``INSTALLED_APPS`` section of the ``settings`` file. Look at this file to see how the ``start`` command has listed them in there.
+```{note}
+Generally, in Wagtail, each page type, or content type, is represented by a single app. However, different apps can be aware of each other and access each other's data. All of the apps need to be registered within the `INSTALLED_APPS` section of the `settings` file. Look at this file to see how the `start` command has listed them in there.
 ```
 
 ### Install project dependencies
@@ -136,9 +130,9 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
 ```python
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
 
 
 class HomePage(Page):
@@ -228,9 +222,9 @@ Add the new `blog` app to `INSTALLED_APPS` in `mysite/settings/base.py`.
 Lets start with a simple index page for our blog. In `blog/models.py`:
 
 ```python
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
 
 
 class BlogIndexPage(Page):
@@ -282,9 +276,9 @@ Now we need a model and template for our blog posts. In `blog/models.py`:
 ```python
 from django.db import models
 
-from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.models import Page
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel
 from wagtail.search import index
 
 
@@ -466,14 +460,13 @@ Add a new `BlogPageGalleryImage` model to `models.py`:
 ```python
 from django.db import models
 
-# New imports added for ParentalKey, Orderable, InlinePanel, ImageChooserPanel
+# New imports added for ParentalKey, Orderable, InlinePanel
 
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.search import index
 
 
@@ -506,7 +499,7 @@ class BlogPageGalleryImage(Orderable):
     caption = models.CharField(blank=True, max_length=250)
 
     panels = [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('caption'),
     ]
 ```
@@ -519,7 +512,7 @@ Inheriting from `Orderable` adds a `sort_order` field to the model, to keep trac
 
 The `ParentalKey` to `BlogPage` is what attaches the gallery images to a specific page. A `ParentalKey` works similarly to a `ForeignKey`, but also defines `BlogPageGalleryImage` as a "child" of the `BlogPage` model, so that it's treated as a fundamental part of the page in operations like submitting for moderation, and tracking revision history.
 
-`image` is a `ForeignKey` to Wagtail's built-in `Image` model, where the images themselves are stored. This comes with a dedicated panel type, `ImageChooserPanel`, which provides a pop-up interface for choosing an existing image or uploading a new one. This way, we allow an image to exist in multiple galleries - effectively, we've created a many-to-many relationship between pages and images.
+`image` is a `ForeignKey` to Wagtail's built-in `Image` model, where the images themselves are stored. This appears in the page editor as a pop-up interface for choosing an existing image or uploading a new one. This way, we allow an image to exist in multiple galleries - effectively, we've created a many-to-many relationship between pages and images.
 
 Specifying `on_delete=models.CASCADE` on the foreign key means that if the image is deleted from the system, the gallery entry is deleted as well. (In other situations, it might be appropriate to leave the entry in place - for example, if an "our staff" page included a list of people with headshots, and one of those photos was deleted, we'd rather leave the person in place on the page without a photo. In this case, we'd set the foreign key to `blank=True, null=True, on_delete=models.SET_NULL`.)
 
@@ -626,10 +619,9 @@ from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.search import index
 
 
@@ -731,7 +723,7 @@ you need to create a template `blog/blog_tag_index_page.html`:
 
 {% block content %}
 
-    {% if request.GET.tag|length %}
+    {% if request.GET.tag %}
         <h4>Showing pages tagged "{{ request.GET.tag }}"</h4>
     {% endif %}
 
@@ -763,9 +755,7 @@ something like this:
 
 ![](../_static/images/tutorial/tutorial_9.png)
 
-```eval_rst
-.. _tutorial_categories:
-```
+(tutorial_categories)=
 
 ### Categories
 
@@ -787,7 +777,7 @@ class BlogCategory(models.Model):
 
     panels = [
         FieldPanel('name'),
-        ImageChooserPanel('icon'),
+        FieldPanel('icon'),
     ]
 
     def __str__(self):
@@ -797,9 +787,8 @@ class BlogCategory(models.Model):
         verbose_name_plural = 'blog categories'
 ```
 
-```eval_rst
-.. note::
-   Note that we are using ``panels`` rather than ``content_panels`` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
+```{note}
+Note that we are using `panels` rather than `content_panels` here - since snippets generally have no need for fields such as slug or publish date, the editing interface for them is not split into separate 'content' / 'promote' / 'settings' tabs as standard, and so there is no need to distinguish between 'content panels' and 'promote panels'.
 ```
 
 Migrate this change in, and create a few categories through the Snippets area which now appears in the admin menu.

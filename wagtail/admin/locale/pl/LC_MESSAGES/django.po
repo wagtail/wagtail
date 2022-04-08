@@ -16,9 +16,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-30 14:09+0000\n"
-"Last-Translator: Miłosz Miśkiewicz\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Polish (http://www.transifex.com/torchbox/wagtail/language/"
 "pl/)\n"
 "MIME-Version: 1.0\n"
@@ -155,11 +155,20 @@ msgstr ""
 "Wybierz pozycję w hierarchii. Pamiętaj: kolekcja nie może zostać podkolekcją "
 "swoją lub swoich podkolekcji."
 
+msgid "Please select another parent"
+msgstr "Proszę wybierz innego rodzica"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr "Nie możesz posiadać wielu wystąpień uprawnień dla tej samej kolekcji."
 
 msgid "Collection"
 msgstr "Kolekcja"
+
+msgid "Add"
+msgstr "Dodaj"
+
+msgid "Edit"
+msgstr "Edytuj"
 
 msgid "You cannot edit another user's comment."
 msgstr "Nie możesz zmieniać komentarza innego użytkownika."
@@ -261,6 +270,7 @@ msgstr "Proszę wybrać co najmniej jedną grupę"
 msgid "All types"
 msgstr "Wszystkie typy"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Strona już posiada przypisany workflow '{0}'."
 
@@ -273,9 +283,6 @@ msgstr "Nadaj nazwę swojemu workflow"
 
 msgid "Add tasks to your workflow"
 msgstr "Dodaj zadania do swojego workflow"
-
-msgid "Edit"
-msgstr "Edytuj"
 
 msgid "Page"
 msgstr "Strona"
@@ -346,9 +353,11 @@ msgstr "Brakujący dokument"
 msgid "Close"
 msgstr "Zamknij"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Edytuj '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Wyświetl podstrony dla '{title}'"
 
@@ -405,6 +414,15 @@ msgstr "Komentarz"
 
 msgid "More actions"
 msgstr "Więcej akcji"
+
+msgid "Save the page to add this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this comment"
+msgstr "Zapisz stronę aby dodać komentarz"
+
+msgid "Save the page to save this reply"
+msgstr "Zapisz stronę aby zapisać odpowiedź"
 
 msgid "Dashboard"
 msgstr "Kokpit"
@@ -492,11 +510,8 @@ msgstr "Wgraj zdjęcie profilowe:"
 msgid "Reset to default"
 msgstr "Przywróć domyślne"
 
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Przeglądarka"
+msgid "Go back"
+msgstr "Wróć"
 
 msgid "Internal link"
 msgstr "Link wewnętrzny"
@@ -646,6 +661,12 @@ msgstr "Przesuń w dół"
 msgid "Add comment"
 msgstr "Dodaj komentarz"
 
+msgid "Comments"
+msgstr "Komentarze"
+
+msgid "Commenting on this page"
+msgstr "Komentowanie na tej stronie"
+
 msgid "Comment notifications"
 msgstr "Powiadomienia komentarza"
 
@@ -786,6 +807,9 @@ msgstr "Zaloguj się do Wagtaila"
 
 msgid "Signing in…"
 msgstr "Logowanie..."
+
+msgid "Forgotten password?"
+msgstr "Zapomniane hasło?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -960,12 +984,24 @@ msgstr "Wybierz typ strony, którą chcesz stworzyć."
 msgid "Pages using %(page_type)s"
 msgstr "Strony używające %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Nie usuwaj"
+
+msgid "Move"
+msgstr "Przesuń"
+
+msgid "No, don't unpublish"
+msgstr "Anuluj publikację"
+
 #, python-format
 msgid "Convert alias %(title)s"
 msgstr "Konwertuj alias %(title)s"
 
 msgid "Convert alias"
 msgstr "Konwertuj alias"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr "Czy na pewno chcesz przekształcić ten alias w normalną stronę?"
 
 msgid "This action cannot be undone."
 msgstr "Ta akcja nie może zostać cofnięta."
@@ -1033,9 +1069,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Przesuń %(title)s"
 
-msgid "Move"
-msgstr "Przesuń"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "Czy na pewno chcesz przesunąć tę stronę do '%(title)s'?"
@@ -1087,9 +1120,6 @@ msgstr[3] ""
 
 msgid "Yes, unpublish it"
 msgstr "Tak, cofnij publikację"
-
-msgid "No, don't unpublish"
-msgstr "Anuluj publikację"
 
 msgid "Publish page"
 msgstr "Opublikuj stronę"
@@ -1146,6 +1176,9 @@ msgstr "Ta strona jest aliasem innej strony."
 
 msgid "Edit original page"
 msgstr "Edytuj oryginalną stronę"
+
+msgid "Convert this alias into an ordinary page"
+msgstr "Przekształć ten alias w normalną stronę"
 
 #, python-format
 msgid "Page history for %(subtitle)s"
@@ -1267,9 +1300,6 @@ msgstr "Przeglądaj strony pochodne '%(title)s'"
 #, python-format
 msgid "Add a child page to '%(title)s'"
 msgstr "Dodaj stronę podrzędną do '%(title)s'"
-
-msgid "Add child page"
-msgstr "Dodaj stronę podrzędną"
 
 msgid "Sites menu"
 msgstr "Menu serwisów"
@@ -1433,29 +1463,6 @@ msgid "No, don't unschedule"
 msgstr "Nie, nie wyłączaj z planu"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Wersje %(title)s"
-
-msgid "Revisions of"
-msgstr "Wersje"
-
-msgid "Revision date"
-msgstr "Data rewizji"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "przez"
-
-msgid "Scheduled for"
-msgstr "Zaplanowane dla"
-
-msgid "No revisions of this page exist"
-msgstr "Dla tej strony nie istnieją żadne rewizje"
-
-msgid "No revision of this page exist"
-msgstr "Dla tej strony nie istnieją żadne rewizje"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1586,6 +1593,9 @@ msgstr "Niedokończone zadanie"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Ta strona nie została jeszcze przekazana do moderacji"
 
+msgid "No pages found."
+msgstr "Nie znaleziono żadnych stron."
+
 msgid "No pages match this report's criteria."
 msgstr "Żadne strony nie pasują do kryteriów raportu."
 
@@ -1600,9 +1610,6 @@ msgstr "Filtr"
 
 msgid "Apply filters"
 msgstr "Zastosuj filtry"
-
-msgid "No pages found."
-msgstr "Nie znaleziono żadnych stron."
 
 msgid "Locking status"
 msgstr "Status blokowania"
@@ -1646,6 +1653,9 @@ msgstr "Zablokowany"
 
 msgid "No locked pages found."
 msgstr "Nie znaleziono zablokowanych stron."
+
+msgid "Edit this item"
+msgstr "Edytuj element"
 
 msgid "By Task"
 msgstr "Wg. zadania"
@@ -1728,17 +1738,11 @@ msgstr ""
 "a>.\n"
 "        "
 
-#, python-format
-msgid ""
-"Wagtail is gradually removing support for IE11, which may affect you or your "
-"organisation. <a href=\"%(url)s\">Learn more about our IE11 support plans</"
-"a>."
-msgstr ""
-"Wagtail stopniowo wycofuje wsparcie dla IE11, co może wpłynąć na Twoją "
-"pracę. <a href=\"%(url)s\">Dowiedz się więcej o planach wsparcia</a>."
-
 msgid "Skip to main content"
 msgstr "Pomiń do głównej zawartości"
+
+msgid "View Wagtail quick actions"
+msgstr "Wyświetl szybkie akcje Wagtail"
 
 msgid "Add a child page"
 msgstr "Dodaj podstronę"
@@ -1983,6 +1987,9 @@ msgid ""
 "descending order."
 msgstr "Sortuj strony podrzędne dla '%(parent)s' według '%(label)s' malejąco."
 
+msgid "More"
+msgstr "Więcej"
+
 msgid "0 minutes"
 msgstr "0 minut"
 
@@ -1992,11 +1999,11 @@ msgstr "W tej chwili"
 msgid "live"
 msgstr "opublikowana"
 
-msgid "live + draft"
-msgstr "opublikuj + szkic"
-
 msgid "draft"
 msgstr "szkic"
+
+msgid "live + draft"
+msgstr "opublikuj + szkic"
 
 msgid "Test"
 msgstr "Test"
@@ -2034,9 +2041,11 @@ msgstr "Dodaj kolekcję"
 msgid "Add collection"
 msgstr "Dodaj kolekcję"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Stworzono kolekcję '{0}'."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Uaktualniono kolekcję '{0}'."
 
@@ -2046,9 +2055,7 @@ msgstr "Kolekcja nie mogła zostać zapisana z powodu błędów."
 msgid "Delete collection"
 msgstr "Usuń kolekcję."
 
-msgid "Please select another parent"
-msgstr "Proszę wybierz innego rodzica"
-
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Kolekcja '{0}' usunięta."
 
@@ -2058,9 +2065,15 @@ msgstr "Czy na pewno chcesz usunąć tą kolekcję?"
 msgid "Editing"
 msgstr "Edytowanie"
 
+#, python-brace-format
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Strona '{0}' została przekształcona w normalną stronę."
+
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "Strona '{0}' i podstrony {1} zostały skopiowane."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "Strona '{0}' została skopiowana."
 
@@ -2070,30 +2083,37 @@ msgstr "Pokaż szkic"
 msgid "View live"
 msgstr "Podgląd"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Stworzono stronę '{0}'."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Strona '{0}' utworzona i zaplanowana do publikacji."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Strona '{0}' została utworzona i opublikowana."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Strona '{0}' utworzona i przekazana do moderacji."
 
 msgid "The page could not be created due to validation errors"
 msgstr "Ta strona nie mogła zostać utworzona ze względu na błędy walidacji."
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Usunięto stronę '{0}'."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Ta strona oczekuje na przejrzenie."
 
+#, python-brace-format
 msgid "Page '{0}' has been replaced with version from {1}."
 msgstr "Strona '{0}' została zamieniona z wersją z dnia {1}."
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "Strona '{0}' została zaktualizowana."
 
@@ -2119,28 +2139,36 @@ msgstr "Ta strona oczekuje na <b>'{}'</b> w <b>'{}'</b> workflow."
 msgid "Only reviewers for this task can edit the page."
 msgstr "Tylko weryfikujący to zadanie mogą edytować tą stronę."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been cancelled."
 msgstr "Workflow na stronie '{0}' został anulowany."
 
+#, python-brace-format
 msgid "Version from {0} of page '{1}' has been scheduled for publishing."
 msgstr "Wersja z {0} strony '{1}' została zaplanowana do publikacji."
 
+#, python-brace-format
 msgid "Page '{0}' is live and this version has been scheduled for publishing."
 msgstr ""
 "Strona '{0}' jest opublikowana i ta wersja została zaplanowana do publikacji."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "Strona '{0}' została zaplanowana do publikacji."
 
+#, python-brace-format
 msgid "Version from {0} of page '{1}' has been published."
 msgstr "Wersja z {0} strony '{1}' została opublikowana."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "Strona '{0}' została opublikowana."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "Strona '{0}' została przekazana do przeglądu."
 
+#, python-brace-format
 msgid "Workflow on page '{0}' has been restarted."
 msgstr "Workflow na stronie '{0}' został zrestartowany."
 
@@ -2150,24 +2178,32 @@ msgstr "Nie można zapisać zmian zablokownej strony"
 msgid "The page could not be saved due to validation errors"
 msgstr "Strona nie mogła zostać zapisana z powodu błędów poprawności."
 
+msgid "Hide commenting actions"
+msgstr "Ukryj akcje komentowania"
+
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Strona '{0}' jest teraz odblokowana."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "Strona '{0}' nie oczekuje na przejrzenie."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Strona '{0}' została opublikowana."
 
 msgid "Failed to send approval notifications"
 msgstr "Nie udało się wysłać notyfikacji akceptacji"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "Strona '{0}' została odrzucona."
 
 msgid "Failed to send rejection notifications"
 msgstr "Nie udało się wysłać notyfikacji odrzuceń"
 
+#, python-brace-format
 msgid ""
 "The slug '{0}' is already in use at the selected parent page. Make sure the "
 "slug is unique and try again"
@@ -2175,6 +2211,7 @@ msgstr ""
 "Slug '{0}' jest już wykorzystywany w wybranej stronie nadrzędnej. Upewnij "
 "się, że slug jest unikalny i spróbuj ponownie."
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Przesunięto stronę '{0}'."
 
@@ -2192,15 +2229,19 @@ msgstr "Najstarsze"
 msgid "Latest"
 msgstr "Najnowsze"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr "rewizja {0} z \"{1}\""
 
+#, python-brace-format
 msgid "Version {0} of \"{1}\" unscheduled."
 msgstr "Wersja {0} z \"{1}\" odplanowana."
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Cofnięto publikację strony '{0}'."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Strona '{0}' nie oczekuje na moderację w zadaniu '{1}'."
 
@@ -2249,12 +2290,14 @@ msgstr "Dodaj workflow"
 msgid "New workflow"
 msgstr "Nowy workflow"
 
+#, python-brace-format
 msgid "Workflow '{0}' created."
 msgstr "Workflow '{0}' utworzony."
 
 msgid "Editing workflow"
 msgstr "Edycja workflow"
 
+#, python-brace-format
 msgid "Workflow '{0}' updated."
 msgstr "Workflow '{0}' zaktualizowany."
 
@@ -2267,6 +2310,7 @@ msgstr "Włącz"
 msgid "Disable workflow"
 msgstr "Wyłącz workflow"
 
+#, python-brace-format
 msgid "Workflow '{0}' disabled."
 msgstr "Workflow '{0}' wyłączony."
 
@@ -2290,21 +2334,25 @@ msgstr[3] ""
 "Ten workflow jest aktualnie uruchomiony na %(states_in_progress)d stronach. "
 "Wyłączenie tego workflow spowoduje anulowanie moderacji na tych stronach."
 
+#, python-brace-format
 msgid "Workflow '{0}' enabled."
 msgstr "Workflow '{0}' włączony."
 
+#, python-brace-format
 msgid "Workflow removed from Page '{0}'."
 msgstr "Workflow usunięty ze Strony '{0}'."
 
 msgid "New workflow task"
 msgstr "Nowe zadanie workflow"
 
+#, python-brace-format
 msgid "Task '{0}' created."
 msgstr "Zadanie '{0}' utworzone."
 
 msgid "Editing workflow task"
 msgstr "Edycja zadań workflow"
 
+#, python-brace-format
 msgid "Task '{0}' updated."
 msgstr "Zadanie '{0}' zaktualizowane."
 
@@ -2315,14 +2363,13 @@ msgstr "Edycja %(task_type)s"
 msgid "Disable task"
 msgstr "Wyłącz zadanie"
 
+#, python-brace-format
 msgid "Task '{0}' disabled."
 msgstr "Zadanie '{0}' wyłączone."
 
+#, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Zadanie '{0}' włączone."
-
-msgid "Report this error to your webmaster with the following information:"
-msgstr "Zgłoś ten błąd administratorowi strony wraz z poniższą informacją:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2336,12 +2383,12 @@ msgstr "Podejrzyj szkic '%(title)s'"
 msgid "View live version of '%(title)s'"
 msgstr "Podejrzyj opublikowaną wersję '%(title)s'"
 
+msgid "Add child page"
+msgstr "Dodaj stronę podrzędną"
+
 #, python-format
 msgid "Add a child page to '%(title)s' "
 msgstr "Dodaj podstronę dla '%(title)s' "
-
-msgid "More"
-msgstr "Więcej"
 
 #, python-format
 msgid "View more options for '%(title)s'"
@@ -2421,9 +2468,6 @@ msgstr "Wybierz inną rzecz"
 
 msgid "Clear choice"
 msgstr "Wyczyść wybór"
-
-msgid "Edit this item"
-msgstr "Edytuj element"
 
 msgid "Choose another page"
 msgstr "Wybierz inną stronę"

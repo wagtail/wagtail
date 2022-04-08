@@ -2,9 +2,8 @@ from django.forms import Media
 
 from wagtail.admin.staticfiles import versioned_static
 
-
 # Feature objects: these are mapped to feature identifiers within the rich text
-# feature registry (wagtail.core.rich_text.features). Each one implements
+# feature registry (wagtail.rich_text.features). Each one implements
 # a `construct_options` method which modifies an options dict as appropriate to
 # enable that feature.
 
@@ -33,6 +32,7 @@ class BooleanFeature(Feature):
     A feature which is enabled by a boolean flag at the top level of
     the options dict
     """
+
     def __init__(self, option_name, **kwargs):
         super().__init__(**kwargs)
         self.option_name = option_name
@@ -46,6 +46,7 @@ class ListFeature(Feature):
     Abstract class for features that are defined in a list within the options dict.
     Subclasses must define option_name
     """
+
     def __init__(self, data, **kwargs):
         super().__init__(**kwargs)
         self.data = data
@@ -59,14 +60,17 @@ class ListFeature(Feature):
 
 class EntityFeature(ListFeature):
     """A feature which is listed in the entityTypes list of the options"""
-    option_name = 'entityTypes'
+
+    option_name = "entityTypes"
 
 
 class BlockFeature(ListFeature):
     """A feature which is listed in the blockTypes list of the options"""
-    option_name = 'blockTypes'
+
+    option_name = "blockTypes"
 
 
 class InlineStyleFeature(ListFeature):
     """A feature which is listed in the inlineStyles list of the options"""
-    option_name = 'inlineStyles'
+
+    option_name = "inlineStyles"

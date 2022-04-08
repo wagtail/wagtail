@@ -1,0 +1,12 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE HTML>
+<html lang="{{ LANGUAGE_CODE }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+    <head>
+        <title>{{ self.title }}</title>
+    </head>
+    <body>
+        <h1>{{ self.title }}</h1>
+    </body>
+</html>

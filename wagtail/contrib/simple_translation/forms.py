@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy, ngettext
 
-from wagtail.core.models import Locale, Page
+from wagtail.models import Locale, Page
 
 
 class CheckboxSelectMultipleWithDisabledOptions(forms.CheckboxSelectMultiple):

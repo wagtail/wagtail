@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:36+0100\n"
-"PO-Revision-Date: 2021-09-20 20:46+0000\n"
-"Last-Translator: Loic Teixeira\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-22 17:26+0000\n"
+"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -30,17 +30,14 @@ msgstr "Kies een beginpagina"
 msgid "Choose a different root page"
 msgstr "Kies een andere beginpagina"
 
+msgid "Sites"
+msgstr "Sites"
+
+msgid "Add a site"
+msgstr "Voeg een site toe"
+
 msgid "Site"
 msgstr "Site"
-
-msgid "Port"
-msgstr "Poort"
-
-msgid "Site name"
-msgstr "Sitenaam"
-
-msgid "Root page"
-msgstr "Beginpagina"
 
 msgid "Default?"
 msgstr "Default?"
@@ -48,18 +45,14 @@ msgstr "Default?"
 msgid "Default"
 msgstr "Default"
 
-msgid "Sites"
-msgstr "Sites"
-
-msgid "Add a site"
-msgstr "Voeg een site toe"
-
 msgid "Add site"
 msgstr "Voeg site toe"
 
+#, python-brace-format
 msgid "Site '{0}' created."
 msgstr "Site '{0}' aangemaakt."
 
+#, python-brace-format
 msgid "Site '{0}' updated."
 msgstr "Site '{0}' bijgewerkt."
 
@@ -69,6 +62,7 @@ msgstr "De site kon vanwege fouten niet worden opgeslagen."
 msgid "Delete site"
 msgstr "Verwijder site"
 
+#, python-brace-format
 msgid "Site '{0}' deleted."
 msgstr "Site '{0}' verwijderd."
 

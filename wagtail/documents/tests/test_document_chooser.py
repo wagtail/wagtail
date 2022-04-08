@@ -2,9 +2,14 @@ from django.contrib.auth.models import Group, Permission
 from django.test import TestCase
 from django.urls import reverse
 
-from wagtail.core.models import Collection, GroupCollectionPermission, Page, get_root_collection_id
 from wagtail.documents.models import Document
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.models import (
+    Collection,
+    GroupCollectionPermission,
+    Page,
+    get_root_collection_id,
+)
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestChooser(TestCase, WagtailTestUtils):
@@ -22,21 +27,19 @@ class TestChooser(TestCase, WagtailTestUtils):
 
     def login_as_editor(self):
         # Create group with access to admin
-        editors_group = Group.objects.create(name='The Editors')
+        editors_group = Group.objects.create(name="The Editors")
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
-            codename='access_admin'
+            content_type__app_label="wagtailadmin", codename="access_admin"
         )
         editors_group.permissions.add(access_admin_perm)
         # Grant "choose" permission to the Editors group on the Root Collection.
         choose_document_permission = Permission.objects.get(
-            content_type__app_label='wagtaildocs',
-            codename='choose_document'
+            content_type__app_label="wagtaildocs", codename="choose_document"
         )
         GroupCollectionPermission.objects.create(
             group=editors_group,
             collection=Collection.objects.get(depth=1),
-            permission=choose_document_permission
+            permission=choose_document_permission,
         )
 
         # Create a non-superuser editor
@@ -48,25 +51,23 @@ class TestChooser(TestCase, WagtailTestUtils):
 
     def login_as_baker(self):
         # Create group with access to admin and Chooser permission on one Collection, but not another.
-        bakers_group = Group.objects.create(name='Bakers')
+        bakers_group = Group.objects.create(name="Bakers")
         access_admin_perm = Permission.objects.get(
-            content_type__app_label='wagtailadmin',
-            codename='access_admin'
+            content_type__app_label="wagtailadmin", codename="access_admin"
         )
         bakers_group.permissions.add(access_admin_perm)
         # Create the "Bakery" Collection and grant "choose" permission to the Bakers group.
         root = Collection.objects.get(id=get_root_collection_id())
-        bakery_collection = root.add_child(instance=Collection(name='Bakery'))
+        bakery_collection = root.add_child(instance=Collection(name="Bakery"))
         GroupCollectionPermission.objects.create(
             group=bakers_group,
             collection=bakery_collection,
             permission=Permission.objects.get(
-                content_type__app_label='wagtaildocs',
-                codename='choose_document'
-            )
+                content_type__app_label="wagtaildocs", codename="choose_document"
+            ),
         )
         # Create the "Office" Collection and _don't_ grant any permissions to the Bakers group.
-        root.add_child(instance=Collection(name='Office'))
+        root.add_child(instance=Collection(name="Office"))
 
         # Create a Baker user.
         user = self.create_user(username="baker", password="password")
@@ -76,13 +77,13 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.login(user)
 
     def get(self, params=None):
-        return self.client.get(reverse('wagtaildocs:chooser'), params or {})
+        return self.client.get(reverse("wagtaildocs:chooser"), params or {})
 
     def test_chooser_docs_exist(self):
         # given an editor with access to admin panel
         self.login_as_editor()
         # and a document in the database
-        doc_title = 'document.pdf'
+        doc_title = "document.pdf"
         Document.objects.create(title=doc_title)
 
         # when opening chooser
@@ -90,7 +91,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # and document is displayed
         self.assertContains(response, doc_title)
         # and no hints are displayed
@@ -102,13 +103,13 @@ class TestChooser(TestCase, WagtailTestUtils):
         # Log in as a baker, who has choose permission on the Bakery but not the Office.
         self.login_as_baker()
         # And a document to the Bakery and to the Office.
-        bun_recipe_title = 'bun_recipe.pdf'
+        bun_recipe_title = "bun_recipe.pdf"
         Document.objects.create(
-            title=bun_recipe_title, collection=Collection.objects.get(name='Bakery')
+            title=bun_recipe_title, collection=Collection.objects.get(name="Bakery")
         )
-        payroll_title = 'payroll.xlsx'
+        payroll_title = "payroll.xlsx"
         Document.objects.create(
-            title=payroll_title, collection=Collection.objects.get(name='Office')
+            title=payroll_title, collection=Collection.objects.get(name="Office")
         )
 
         # Open the doc chooser.
@@ -116,12 +117,14 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # Ensure that the bun recipe is visible, but the payroll is not.
         self.assertContains(response, bun_recipe_title)
         self.assertNotContains(response, payroll_title)
 
-    def test_chooser_collection_selector_appears_only_if_multiple_collections_are_choosable(self):
+    def test_chooser_collection_selector_appears_only_if_multiple_collections_are_choosable(
+        self,
+    ):
         # Log in as a baker, who has choose permission on the Bakery but not the Office.
         self.login_as_baker()
 
@@ -130,19 +133,18 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # Ensure that the Collection chooser is not visible, because the Baker cannot
         # choose from multiple Collections.
-        self.assertNotContains(response, 'Collection:')
+        self.assertNotContains(response, "Collection:")
 
         # Let the Baker choose from the Office Collection.
         GroupCollectionPermission.objects.create(
-            group=Group.objects.get(name='Bakers'),
-            collection=Collection.objects.get(name='Office'),
+            group=Group.objects.get(name="Bakers"),
+            collection=Collection.objects.get(name="Office"),
             permission=Permission.objects.get(
-                content_type__app_label='wagtaildocs',
-                codename='choose_document'
-            )
+                content_type__app_label="wagtaildocs", codename="choose_document"
+            ),
         )
 
         # Open the doc chooser again.
@@ -150,10 +152,10 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # Confirm that the chooser opened successfully.
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # Ensure that the Collection chooser IS visible, because the Baker can now
         # choose from multiple Collections.
-        self.assertContains(response, 'Collection:')
+        self.assertContains(response, "Collection:")
 
     def test_chooser_no_docs_upload_allowed(self):
         # given a superuser and no documents in the database
@@ -164,7 +166,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # and hint "You haven't uploaded any documents. Why not upload one now?" is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
         self.assertContains(response, self._UPLOAD_ONE_TEXT)
@@ -179,7 +181,7 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # then chooser template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/chooser.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/chooser.html")
         # and the following hint is displayed:
         # "You haven't uploaded any documents in this collection. Why not upload one now?"
         self.assertContains(response, self._NO_DOCS_TEXT)
@@ -189,15 +191,15 @@ class TestChooser(TestCase, WagtailTestUtils):
         # given a superuser
         self.login_as_superuser()
         # and a document in the database
-        doc_title = 'document.pdf'
+        doc_title = "document.pdf"
         Document.objects.create(title=doc_title)
 
         # when searching for any documents at chooser panel
-        response = self.get({'q': ''})
+        response = self.get({"q": ""})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and document is displayed
         self.assertContains(response, doc_title)
         # and no hints are displayed
@@ -210,11 +212,11 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.login_as_superuser()
 
         # when searching for any documents at chooser panel
-        response = self.get({'q': ''})
+        response = self.get({"q": ""})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents. Why not upload one now?" is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
         self.assertContains(response, self._UPLOAD_ONE_TEXT)
@@ -225,11 +227,11 @@ class TestChooser(TestCase, WagtailTestUtils):
         self.login_as_editor()
 
         # when searching for any documents at chooser panel
-        response = self.get({'q': ''})
+        response = self.get({"q": ""})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents." is displayed
         self.assertContains(response, self._NO_DOCS_TEXT)
         self.assertNotContains(response, self._UPLOAD_ONE_TEXT)
@@ -240,16 +242,16 @@ class TestChooser(TestCase, WagtailTestUtils):
         # and a document in a collection
         root_id = get_root_collection_id()
         root = Collection.objects.get(id=root_id)
-        doc_title = 'document.pdf'
+        doc_title = "document.pdf"
         Document.objects.create(title=doc_title, collection=root)
 
         # when searching for documents in another collection at chooser panel
         non_root_id = root_id + 10**10
-        response = self.get({'q': '', 'collection_id': non_root_id})
+        response = self.get({"q": "", "collection_id": non_root_id})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and the following hint is displayed:
         # "You haven't uploaded any documents in this collection. Why not upload one now?"
         self.assertContains(response, self._NO_COLLECTION_DOCS_TEXT)
@@ -265,11 +267,11 @@ class TestChooser(TestCase, WagtailTestUtils):
 
         # when searching for documents in another collection at chooser panel
         non_root_id = root_id + 10**10
-        response = self.get({'q': '', 'collection_id': non_root_id})
+        response = self.get({"q": "", "collection_id": non_root_id})
 
         # then results template is used
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtaildocs/chooser/results.html')
+        self.assertTemplateUsed(response, "wagtaildocs/chooser/results.html")
         # and hint "You haven't uploaded any documents in this collection." is displayed
         self.assertContains(response, self._NO_COLLECTION_DOCS_TEXT)
         self.assertNotContains(response, self._UPLOAD_ONE_TEXT)

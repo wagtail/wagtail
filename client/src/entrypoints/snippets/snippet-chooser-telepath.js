@@ -15,4 +15,7 @@ class SnippetChooser {
     return chooser;
   }
 }
-window.telepath.register('wagtail.snippets.widgets.SnippetChooser', SnippetChooser);
+window.telepath.register(
+  'wagtail.snippets.widgets.SnippetChooser',
+  SnippetChooser,
+);

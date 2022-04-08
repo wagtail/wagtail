@@ -19,6 +19,10 @@
             })
         });
     </script>
+    <script>
+        window.wagtailConfig.BULK_ACTION_ITEM_TYPE = 'IMAGE';
+    </script>
+    <script defer src="{% versioned_static 'wagtailadmin/js/bulk-actions.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -42,21 +46,21 @@
                     {% endif %}
                 {% endif %}
                 {% if popular_tags %}
-                <li>
-                    <fieldset class="tagfilter">
-                    <legend>{% trans 'Popular Tags:' %}</legend>
-                      {% for tag in popular_tags %}
-                          {% if tag.name != current_tag %}
-                              <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                          {% else %}
-                              <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
-                          {% endif %}
-                      {% endfor %}
-                      {% if current_tag %}
-                          <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear choice' %}</a>
-                      {% endif %}
-                    </fieldset>
-                </li>
+                    <li>
+                        <fieldset class="tagfilter">
+                            <legend>{% trans 'Popular Tags:' %}</legend>
+                            {% for tag in popular_tags %}
+                                {% if tag.name != current_tag %}
+                                    <a class="button button-small button-secondary bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                                {% else %}
+                                    <a class="button button-small bicolor button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag=tag.name %}">{% icon name="tag" wrapped=1 %}{{ tag.name }}</a>
+                                {% endif %}
+                            {% endfor %}
+                            {% if current_tag %}
+                                <a class="button button-small bicolor button-secondary button--icon" href="{% url 'wagtailimages:index' %}{% querystring tag='' %}">{% icon name="cross" wrapped=1 %}{% trans 'Clear choice' %}</a>
+                            {% endif %}
+                        </fieldset>
+                    </li>
                 {% endif %}
             </ul>
         </form>
@@ -64,6 +68,8 @@
         <div id="image-results">
             {% include "wagtailimages/images/results.html" %}
         </div>
+        {% trans "Select all images in listing" as select_all_text %}
+        {% include 'wagtailadmin/bulk_actions/footer.html' with select_all_obj_text=select_all_text app_label=app_label model_name=model_name objects=images parent=current_collection.id %}
     </div>
 
 {% endblock %}

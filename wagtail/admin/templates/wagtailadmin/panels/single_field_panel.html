@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<div data-contentpath="{{ self.field_name }}">
+    <fieldset>
+        <legend>{{ self.heading }}</legend>
+        <ul class="fields">
+            <li>
+                {% include "wagtailadmin/shared/field.html" with show_label=False show_help_text=False show_add_comment_button=False include_contentpath=False %}
+            </li>
+        </ul>
+    </fieldset>
+
+    {% if show_add_comment_button %}
+        <div class="field-comment-control field-comment-control--object">
+            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
+                <svg class="icon icon-comment-add initial icon-default" aria-hidden="true"><use href="#icon-comment-add"></use></svg>
+                <svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true"><use href="#icon-comment-add-reversed"></use></svg>
+            </button>
+        </div>
+    {% endif %}
+</div>

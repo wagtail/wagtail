@@ -6,15 +6,20 @@ StreamField block reference
 This document details the block types provided by Wagtail for use in :ref:`StreamField <streamfield>`, and how they can be combined into new block types.
 
 
-.. class:: wagtail.core.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None)
+.. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield`.
 
    :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
+   :param use_json_field: When true, the field uses :class:`~django.db.models.JSONField` as its internal type, allowing the use of ``JSONField`` lookups and transforms. When false, it uses :class:`~django.db.models.TextField` instead. This argument **must** be set to ``True``/``False``.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+   :param collapsed: When true, all blocks are initially collapsed.
+
+   .. versionchanged:: 3.0
+     The required ``use_json_field`` argument is added.
 
    .. code-block:: python
 
@@ -25,11 +30,7 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
       ], block_counts={
           'heading': {'min_num': 1},
           'image': {'max_num': 5},
-      })
-
-   .. versionadded:: 2.13
-
-       The ``min_num``, ``max_num`` and ``block_counts`` arguments were added. Previously, these were only available on the ``StreamBlock`` definition.
+      }, use_json_field=True)
 
 
 Block options
@@ -56,7 +57,7 @@ All block definitions accept the following optional keyword arguments:
 Field block types
 -----------------
 
-.. class:: wagtail.core.blocks.CharBlock
+.. class:: wagtail.blocks.CharBlock
 
    A single-line text input. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -68,7 +69,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.TextBlock
+.. class:: wagtail.blocks.TextBlock
 
    A multi-line text input. As with ``CharBlock``, the following keyword arguments are accepted in addition to the standard ones:
 
@@ -76,11 +77,12 @@ Field block types
    :param max_length: The maximum allowed length of the field.
    :param min_length: The minimum allowed length of the field.
    :param help_text: Help text to display alongside the field.
+   :param rows: Number of rows to show on the textarea (defaults to 1).
    :param validators: A list of validation functions for the field (see `Django Validators <https://docs.djangoproject.com/en/stable/ref/validators/>`__).
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.EmailBlock
+.. class:: wagtail.blocks.EmailBlock
 
    A single-line email input that validates that the value is a valid e-mail address. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -90,7 +92,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.IntegerBlock
+.. class:: wagtail.blocks.IntegerBlock
 
    A single-line integer input that validates that the value is a valid whole number. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -102,7 +104,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.FloatBlock
+.. class:: wagtail.blocks.FloatBlock
 
    A single-line Float input that validates that the value is a valid floating point number. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -113,7 +115,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.DecimalBlock
+.. class:: wagtail.blocks.DecimalBlock
 
    A single-line decimal input that validates that the value is a valid decimal number. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -127,7 +129,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.RegexBlock
+.. class:: wagtail.blocks.RegexBlock
 
    A single-line text input that validates a string against a regular expression. The regular expression used for validation must be supplied as the first argument, or as the keyword argument ``regex``.
 
@@ -149,7 +151,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.URLBlock
+.. class:: wagtail.blocks.URLBlock
 
    A single-line text input that validates that the string is a valid URL. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -161,7 +163,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.BooleanBlock
+.. class:: wagtail.blocks.BooleanBlock
 
    A checkbox. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -170,7 +172,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.DateBlock
+.. class:: wagtail.blocks.DateBlock
 
     A date picker. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -181,7 +183,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.TimeBlock
+.. class:: wagtail.blocks.TimeBlock
 
     A time picker. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -191,7 +193,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.DateTimeBlock
+.. class:: wagtail.blocks.DateTimeBlock
 
     A combined date / time picker. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -202,7 +204,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.RichTextBlock
+.. class:: wagtail.blocks.RichTextBlock
 
    A WYSIWYG editor for creating formatted text including links, bold / italics etc. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -214,7 +216,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.RawHTMLBlock
+.. class:: wagtail.blocks.RawHTMLBlock
 
    A text area for entering raw HTML which will be rendered unescaped in the page output. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -229,7 +231,7 @@ Field block types
       When this block is in use, there is nothing to prevent editors from inserting malicious scripts into the page, including scripts that would allow the editor to acquire administrator privileges when another administrator views the page. Do not use this block unless your editors are fully trusted.
 
 
-.. class:: wagtail.core.blocks.BlockQuoteBlock
+.. class:: wagtail.blocks.BlockQuoteBlock
 
    A text field, the contents of which will be wrapped in an HTML `<blockquote>` tag pair in the page output. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -241,7 +243,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.ChoiceBlock
+.. class:: wagtail.blocks.ChoiceBlock
 
    A dropdown select box for choosing one item from a list of choices. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -281,7 +283,7 @@ Field block types
 
 .. _streamfield_multiplechoiceblock:
 
-.. class:: wagtail.core.blocks.MultipleChoiceBlock
+.. class:: wagtail.blocks.MultipleChoiceBlock
 
    A select box for choosing multiple items from a list of choices. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -293,7 +295,7 @@ Field block types
    :param form_classname: A value to add to the form field's ``class`` attribute when rendered on the page editing form.
 
 
-.. class:: wagtail.core.blocks.PageChooserBlock
+.. class:: wagtail.blocks.PageChooserBlock
 
    A control for selecting a page object, using Wagtail's page browser. The following keyword arguments are accepted in addition to the standard ones:
 
@@ -340,7 +342,7 @@ Structural block types
 
 .. _streamfield_staticblock:
 
-.. class:: wagtail.core.blocks.StaticBlock
+.. class:: wagtail.blocks.StaticBlock
 
    A block which doesn't have any fields, thus passes no particular values to its template during rendering. This can be useful if you need the editor to be able to insert some content which is always the same or doesn't need to be configured within the page editor, such as an address, embed code from third-party services, or more complex pieces of code if the template uses template tags. The following additional keyword argument is accepted:
 
@@ -365,7 +367,7 @@ Structural block types
                template = 'latest_posts.html'
 
 
-.. class:: wagtail.core.blocks.StructBlock
+.. class:: wagtail.blocks.StructBlock
 
    A block consisting of a fixed group of sub-blocks to be displayed together. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
@@ -413,12 +415,12 @@ Structural block types
 
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface. Defaults to ``struct-block``; note that the admin interface has CSS styles defined on this class, so it is advised to include ``struct-block`` in this value when overriding. See :ref:`custom_editing_interfaces_for_structblock`.
    :param form_template: Path to a Django template to use to render this block's form. See :ref:`custom_editing_interfaces_for_structblock`.
-   :param value_class: A subclass of ``wagtail.core.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
+   :param value_class: A subclass of ``wagtail.blocks.StructValue`` to use as the type of returned values for this block. See :ref:`custom_value_class_for_structblock`.
    :param label_format:
      Determines the label shown when the block is collapsed in the editing interface. By default, the value of the first sub-block in the StructBlock is shown, but this can be customised by setting a string here with block names contained in braces - e.g. ``label_format = "Profile for {first_name} {surname}"``
 
 
-.. class:: wagtail.core.blocks.ListBlock
+.. class:: wagtail.blocks.ListBlock
 
    A block consisting of many sub-blocks, all of the same type. The editor can add an unlimited number of sub-blocks, and re-order and delete them. Takes the definition of the sub-block as its first argument:
 
@@ -447,9 +449,10 @@ Structural block types
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
    :param min_num: Minimum number of sub-blocks that the list must have.
    :param max_num: Maximum number of sub-blocks that the list may have.
+   :param collapsed: When true, all sub-blocks are initially collapsed.
 
 
-.. class:: wagtail.core.blocks.StreamBlock
+.. class:: wagtail.blocks.StreamBlock
 
    A block consisting of a sequence of sub-blocks of different types, which can be mixed and reordered at will. Used as the overall mechanism of the StreamField itself, but can also be nested or used within other structural block types. Takes a list of ``(name, block_definition)`` tuples as its first argument:
 
@@ -501,6 +504,7 @@ Structural block types
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
+   :param collapsed: When true, all sub-blocks are initially collapsed.
    :param form_classname: An HTML ``class`` attribute to set on the root element of this block as displayed in the editing interface.
 
     .. code-block:: python

@@ -1,12 +1,14 @@
 # Title generation on upload
 
-Override how the title is set when adding a single image, multiple images or uploading an image within a chooser modal.
+When uploading an image, Wagtail takes the filename, removes the file extension, and populates the title field. This section is about how to customise this filename to title conversion.
 
-When a file is dropped into the multi-upload page or selected on the single file selection form a title will be automatically populated into the Title field. The default behaviour is to use the image's filename excluding the extension.
+The filename to title conversion is used on the single file widget, multiple upload widget, and within chooser modals.
+
+You can also customise this [same behaviour for documents](../documents/title_generation_on_upload).
 
 You can customise the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:images-upload'` event.
 
-The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](../../reference/hooks.html#insert-global-admin-js), however any JavaScript that adds the event listener will work.
+The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
 
 ## DOM Event
 
@@ -34,7 +36,7 @@ See MDN for more information about [custom JavasScript events](https://developer
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_global_admin_js")
@@ -55,13 +57,13 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](../../reference/hooks.html#insert-editor-js) instead so that this script will not run on the `Image` upload page, only on page editors.
+Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
 
 ```python
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_editor_js")
@@ -87,7 +89,7 @@ def get_global_admin_js():
 # wagtail_hooks.py
 from django.utils.safestring import mark_safe
 
-from wagtail.core import hooks
+from wagtail import hooks
 
 
 @hooks.register("insert_global_admin_js")

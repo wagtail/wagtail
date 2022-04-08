@@ -5,8 +5,10 @@ from django.core.files.base import ContentFile
 from django.test import TestCase, override_settings
 
 from wagtail.contrib.redirects.utils import (
-    get_file_storage, get_import_formats, write_to_file_storage)
-
+    get_file_storage,
+    get_import_formats,
+    write_to_file_storage,
+)
 
 TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,9 +23,7 @@ class TestImportUtils(TestCase):
             upload_file = ContentFile(content_orig)
 
             import_formats = get_import_formats()
-            import_formats = [
-                x for x in import_formats if x.__name__ == "CSV"
-            ]
+            import_formats = [x for x in import_formats if x.__name__ == "CSV"]
             input_format = import_formats[0]()
             file_storage = write_to_file_storage(upload_file, input_format)
 
@@ -40,7 +40,7 @@ class TestImportUtils(TestCase):
 
             self.assertEqual(file_orig_checksum, file_new_checksum)
 
-    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='cache')
+    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="cache")
     def test_that_cache_storage_are_returned(self):
         FileStorage = get_file_storage()
         self.assertEqual(FileStorage.__name__, "RedirectsCacheStorage")
@@ -49,10 +49,9 @@ class TestImportUtils(TestCase):
         FileStorage = get_file_storage()
         self.assertEqual(FileStorage.__name__, "TempFolderStorage")
 
-    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE='INVALID')
+    @override_settings(WAGTAIL_REDIRECTS_FILE_STORAGE="INVALID")
     def test_invalid_file_storage_raises_errors(self):
         with self.assertRaisesMessage(
-            Exception,
-            "Invalid file storage, must be either 'tmp_file' or 'cache'"
+            Exception, "Invalid file storage, must be either 'tmp_file' or 'cache'"
         ):
             get_file_storage()

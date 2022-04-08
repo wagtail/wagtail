@@ -6,27 +6,19 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-    {{ pages_formset.media.css }}
-
-    {{ view.media.css }}
+    {{ media.css }}
     <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/workflow-edit.css' %}" type="text/css" />
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ edit_handler.form.media.js }}
-    {{ pages_formset.media.js }}
-    {{ edit_handler.html_declarations }}
-
-    {{ view.media.js }}
-
+    {{ media.js }}
     {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 only %}
 
     <form action="{% block form_action %}{{ view.edit_url }}{% endblock %}"{% if is_multipart %} enctype="multipart/form-data"{% endif %} method="POST" novalidate>
         {% csrf_token %}
@@ -43,7 +35,8 @@
                         {% if workflow.active %}
                             <div class="top-padding">
                                 <p class="help-block help-info">
-                                {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
+                                    {% icon name='help' %}
+                                    {% url 'wagtailadmin_workflows:usage' workflow.pk as workflow_pages_url %}
                                     {% blocktrans trimmed %}
                                         Workflows apply to child pages too. If you select a parent page here, its child pages will also use this workflow.
                                         See <a href="{{ workflow_pages_url }}">the list of the pages</a> your workflow applies to.
@@ -55,6 +48,7 @@
                         {% else %}
                             <div class="top-padding">
                                 <p class="help-block help-info">
+                                    {% icon name='help' %}
                                     {% trans "This workflow is disabled so it cannot be assigned to any pages." %}
                                 </p>
                             </div>

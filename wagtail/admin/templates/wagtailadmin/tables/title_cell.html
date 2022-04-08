@@ -1,7 +1,7 @@
 <td class="{% if column.classname %}{{ column.classname }} {% endif %}title">
     <div class="title-wrapper">
         {% if link_url %}
-            <a href="{{ link_url }}">{{ value }}</a>
+            <a href="{{ link_url }}" {% if link_classname %}class="{{ link_classname }}"{% endif %}>{{ value }}</a>
         {% else %}
             {{ value }}
         {% endif %}

@@ -1,11 +1,17 @@
 import operator
-
 from functools import reduce
 
-from django.contrib.admin.utils import lookup_needs_distinct
 from django.db.models import Q
 
 from wagtail.search.backends import get_search_backend
+
+try:
+    from django.contrib.admin.utils import lookup_spawns_duplicates
+except ImportError:
+    # fallback for Django <4.0
+    from django.contrib.admin.utils import (
+        lookup_needs_distinct as lookup_spawns_duplicates,
+    )
 
 
 class BaseSearchHandler:
@@ -33,15 +39,15 @@ class DjangoORMSearchHandler(BaseSearchHandler):
         if not search_term or not self.search_fields:
             return queryset
 
-        orm_lookups = ['%s__icontains' % str(search_field)
-                       for search_field in self.search_fields]
+        orm_lookups = [
+            "%s__icontains" % str(search_field) for search_field in self.search_fields
+        ]
         for bit in search_term.split():
-            or_queries = [Q(**{orm_lookup: bit})
-                          for orm_lookup in orm_lookups]
+            or_queries = [Q(**{orm_lookup: bit}) for orm_lookup in orm_lookups]
             queryset = queryset.filter(reduce(operator.or_, or_queries))
         opts = queryset.model._meta
         for search_spec in orm_lookups:
-            if lookup_needs_distinct(opts, search_spec):
+            if lookup_spawns_duplicates(opts, search_spec):
                 return queryset.distinct()
         return queryset
 
@@ -52,11 +58,17 @@ class DjangoORMSearchHandler(BaseSearchHandler):
 
 class WagtailBackendSearchHandler(BaseSearchHandler):
 
-    default_search_backend = 'default'
+    default_search_backend = "default"
 
     def search_queryset(
-        self, queryset, search_term, preserve_order=False, operator=None,
-        partial_match=True, backend=None, **kwargs
+        self,
+        queryset,
+        search_term,
+        preserve_order=False,
+        operator=None,
+        partial_match=True,
+        backend=None,
+        **kwargs,
     ):
         if not search_term:
             return queryset

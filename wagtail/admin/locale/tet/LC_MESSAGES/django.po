@@ -7,7 +7,7 @@
 # Joanico Barros <joanico@catalpa.io>, 2019
 # Mariano de Deus <dedeus_mariano@yahoo.com>, 2019
 # Mario <mario@catalpa.io>, 2019
-# Matt Westcott <matthew@torchbox.com>, 2020
+# Matt Westcott <matthew@torchbox.com>, 2020-2021
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019-2020
 # Onorio de Jesus Afonso <onorio@catalpa.io>, 2019
 # Peter Coward <peter@catalpa.io>, 2019
@@ -15,9 +15,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Mario <mario@catalpa.io>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Tetum (Tetun) (http://www.transifex.com/torchbox/wagtail/"
 "language/tet/)\n"
 "MIME-Version: 1.0\n"
@@ -120,6 +120,12 @@ msgstr "Ita labele hatama permisaun rua ba koleksaun ida"
 msgid "Collection"
 msgstr "Kolleksaun"
 
+msgid "Add"
+msgstr "Hatama"
+
+msgid "Edit"
+msgstr "Hadia"
+
 msgid "New title"
 msgstr "Titlu foun"
 
@@ -196,9 +202,6 @@ msgstr "Ita boot prezia hatama informasaun nee "
 msgid "Please select at least one group."
 msgstr "Favor ida hili grupu ida ka tan"
 
-msgid "Edit"
-msgstr "Hadia"
-
 msgid "Page"
 msgstr "Pajina"
 
@@ -263,9 +266,11 @@ msgstr "Dokumentu lakon"
 msgid "Close"
 msgstr "Taka"
 
+#, python-brace-format
 msgid "Edit '{title}'"
-msgstr " Edit '{titulu}'"
+msgstr " Edit '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Haree pajina oan sira husi '{title}'"
 
@@ -349,12 +354,6 @@ msgstr "Seña muda"
 
 msgid "Reset your password"
 msgstr "Muda ita nia Seña "
-
-msgid "Menu"
-msgstr "Menu"
-
-msgid "Explorer"
-msgstr "Explora"
 
 msgid "Internal link"
 msgstr "Ligasaun interna"
@@ -656,6 +655,15 @@ msgstr "Hili tipu pajina ita boot hakarek kria."
 msgid "Pages using %(page_type)s"
 msgstr "Pajina uza%(page_type)s"
 
+msgid "No, don't delete"
+msgstr "Lae, Labele hamoos"
+
+msgid "Move"
+msgstr "Muda"
+
+msgid "No, don't unpublish"
+msgstr "Lae, la subar"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Hamoos %(title)s"
@@ -696,9 +704,6 @@ msgstr ""
 msgid "Move %(title)s"
 msgstr "Muda %(title)s"
 
-msgid "Move"
-msgstr "Muda"
-
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
 msgstr "ita boot hakarak muda pajina ida nee too  '%(title)s' nia laran?"
@@ -737,9 +742,6 @@ msgstr[0] ""
 
 msgid "Yes, unpublish it"
 msgstr "Sin, subar"
-
-msgid "No, don't unpublish"
-msgstr "Lae, la subar"
 
 #, python-format
 msgid "Pages using %(page_class_verbose_name)s"
@@ -876,9 +878,6 @@ msgstr "Esplora pajina iha '%(title)s' nia okos"
 msgid "Add a child page to '%(title)s'"
 msgstr "Aumenta pajina iha '%(title)s' okos"
 
-msgid "Add child page"
-msgstr "Aumenta pajina iha okos"
-
 msgid "Sites menu"
 msgstr "Munu situs"
 
@@ -997,29 +996,6 @@ msgid "No, don't unschedule"
 msgstr "Lae, la hamoos"
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revizaun husi %(title)s"
-
-msgid "Revisions of"
-msgstr "Revizaun husi"
-
-msgid "Revision date"
-msgstr "Revisaun data"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "husi"
-
-msgid "Scheduled for"
-msgstr "Orariu ba"
-
-msgid "No revisions of this page exist"
-msgstr "Laiha revizaun ba pajina nee"
-
-msgid "No revision of this page exist"
-msgstr "Laiha revizaun ba pajina nee"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1091,11 +1067,11 @@ msgstr "Husi  %(modified_by)s"
 msgid "live"
 msgstr "Hela"
 
-msgid "live + draft"
-msgstr "Hela + esbosu"
-
 msgid "draft"
 msgstr "Esbosu"
+
+msgid "live + draft"
+msgstr "Hela + esbosu"
 
 msgid "Test"
 msgstr "Test"
@@ -1115,9 +1091,11 @@ msgstr "Hatama Koleksaun"
 msgid "Add collection"
 msgstr "Hatama Koleksaun"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Koleksaun '{0}' kria ona."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Koleksaun '{0}' hadia ona."
 
@@ -1127,6 +1105,7 @@ msgstr "Koleksaun iha erru, labele rai"
 msgid "Delete collection"
 msgstr "Hamoos Koleksaun"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Koleksaun '{0}' hamoos ona."
 
@@ -1139,11 +1118,16 @@ msgstr "Hadia hela"
 msgid "View live"
 msgstr "Haree iha situ"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pajina '{0}' hammos ona."
 
 msgid "Latest"
 msgstr " Mak tardi liu"
 
+#, python-brace-format
 msgid "revision {0} of \"{1}\""
 msgstr " revizaun {0} hosi \"{1}\""
+
+msgid "Add child page"
+msgstr "Aumenta pajina iha okos"

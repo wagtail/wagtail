@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2021-07-13 12:37+0000\n"
-"Last-Translator: Roger Pons <rogerpons@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2022-01-21 14:14+0000\n"
+"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,12 @@ msgstr ""
 msgid "Collection"
 msgstr "Col·lecció"
 
+msgid "Add"
+msgstr "Afegir"
+
+msgid "Edit"
+msgstr "Edita"
+
 msgid "New title"
 msgstr "Nou títol"
 
@@ -237,6 +243,7 @@ msgstr "Seleccioneu com a mínim un grup."
 msgid "All types"
 msgstr "Tots els tipus"
 
+#, python-brace-format
 msgid "This page already has workflow '{0}' assigned."
 msgstr "Aquesta pàgina ja té el fluxe de treball '{0}' assignat."
 
@@ -250,9 +257,6 @@ msgstr "Poseu-li un nom al fluxe de treball"
 
 msgid "Add tasks to your workflow"
 msgstr "Afegir tasques al fluxe de treball"
-
-msgid "Edit"
-msgstr "Edita"
 
 msgid "Page"
 msgstr "Pàgina"
@@ -319,9 +323,11 @@ msgstr "Document no trobat"
 msgid "Close"
 msgstr "Tanca"
 
+#, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Editar '{title}'"
 
+#, python-brace-format
 msgid "View child pages of '{title}'"
 msgstr "Mostra pàgines filles de '{title}'"
 
@@ -416,12 +422,6 @@ msgstr "Contrasenya reiniciada"
 
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
-
-msgid "Menu"
-msgstr "Menú"
-
-msgid "Explorer"
-msgstr "Explorador"
 
 msgid "Internal link"
 msgstr "Enllaç intern"
@@ -760,6 +760,15 @@ msgstr "Tria quin tipus de pàgina vols crear"
 msgid "Pages using %(page_type)s"
 msgstr "Pàgines que fan servir %(page_type)s"
 
+msgid "No, don't delete"
+msgstr "No, no esborrar"
+
+msgid "Move"
+msgstr "Mou"
+
+msgid "No, don't unpublish"
+msgstr "No despublicar-la"
+
 #, python-format
 msgid "Delete %(title)s"
 msgstr "Esborra %(title)s"
@@ -803,9 +812,6 @@ msgstr ""
 #, python-format
 msgid "Move %(title)s"
 msgstr "Mou %(title)s"
-
-msgid "Move"
-msgstr "Mou"
 
 #, python-format
 msgid "Are you sure you want to move this page into '%(title)s'?"
@@ -851,9 +857,6 @@ msgstr[1] ""
 
 msgid "Yes, unpublish it"
 msgstr "Si, despublicar"
-
-msgid "No, don't unpublish"
-msgstr "No despublicar-la"
 
 msgid "Publish page"
 msgstr "Publica la pàgina"
@@ -1009,9 +1012,6 @@ msgstr "Explorar pàgines filles de '%(title)s'"
 msgid "Add a child page to '%(title)s'"
 msgstr "Afegeix una pàgina filla a '%(title)s'"
 
-msgid "Add child page"
-msgstr "Afegeix una pàgina filla"
-
 msgid "Sites menu"
 msgstr "Menú de llocs"
 
@@ -1130,26 +1130,6 @@ msgstr[1] ""
 "                                                        "
 
 #, python-format
-msgid "Revisions of %(title)s"
-msgstr "Revisions de %(title)s"
-
-msgid "Revisions of"
-msgstr "Revisions de"
-
-msgid "Revision date"
-msgstr "Data de revisió"
-
-msgctxt "points to a user who created a revision"
-msgid "by"
-msgstr "per"
-
-msgid "No revisions of this page exist"
-msgstr "No existeix cap revisió per aquesta pàgina"
-
-msgid "No revision of this page exist"
-msgstr "No existeix cap revisió per aquesta pàgina"
-
-#, python-format
 msgid ""
 "\n"
 "                There is one matching page\n"
@@ -1204,6 +1184,9 @@ msgstr "La tasca és incompleta"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Aquesta pàgina encara no s'ha enviat a moderació"
 
+msgid "No pages found."
+msgstr "No s'ha trobat cap pàgina."
+
 msgid "Download XLSX"
 msgstr "Baixa XLSX"
 
@@ -1216,9 +1199,6 @@ msgstr "Filtra"
 msgid "Apply filters"
 msgstr "Aplica els filtres"
 
-msgid "No pages found."
-msgstr "No s'ha trobat cap pàgina."
-
 msgid "Locking status"
 msgstr "Estat de bloqueig"
 
@@ -1227,6 +1207,9 @@ msgstr "Bloquejada"
 
 msgid "No locked pages found."
 msgstr "No s'ha trobat cap pàgina bloquejada."
+
+msgid "Edit this item"
+msgstr "Editar aquest element"
 
 msgid "By Task"
 msgstr "Per tasca"
@@ -1332,6 +1315,9 @@ msgstr "Mostra l'historial complet"
 msgid "Compare with live version"
 msgstr "Comparar amb la versió en viu"
 
+msgid "More"
+msgstr "Més"
+
 msgid "0 minutes"
 msgstr "0 minuts"
 
@@ -1341,11 +1327,11 @@ msgstr "Ara mateix"
 msgid "live"
 msgstr "en viu"
 
-msgid "live + draft"
-msgstr "en viu + esborrany"
-
 msgid "draft"
 msgstr "esborrany"
+
+msgid "live + draft"
+msgstr "en viu + esborrany"
 
 msgid "Test"
 msgstr "Provar"
@@ -1365,9 +1351,11 @@ msgstr "Afegir una col·lecció"
 msgid "Add collection"
 msgstr "Afegir una col·lecció"
 
+#, python-brace-format
 msgid "Collection '{0}' created."
 msgstr "Col·lecció '{0}' creada."
 
+#, python-brace-format
 msgid "Collection '{0}' updated."
 msgstr "Col·lecció '{0}' actualitzada."
 
@@ -1377,6 +1365,7 @@ msgstr "La col·lecció no pot ser desada per causa d'errors."
 msgid "Delete collection"
 msgstr "Eliminar col·lecció"
 
+#, python-brace-format
 msgid "Collection '{0}' deleted."
 msgstr "Col·lecció '{0}' eliminada."
 
@@ -1386,9 +1375,11 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 msgid "Editing"
 msgstr "Editant"
 
+#, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
 msgstr "La pàgina '{0}' i {1} subpàgines han estat copiades."
 
+#, python-brace-format
 msgid "Page '{0}' copied."
 msgstr "La pàgina '{0}' ha estat copiada."
 
@@ -1398,36 +1389,45 @@ msgstr "Veure esborrany"
 msgid "View live"
 msgstr "Veure en viu"
 
+#, python-brace-format
 msgid "Page '{0}' created."
 msgstr "Pàgina '{0}' creada."
 
+#, python-brace-format
 msgid "Page '{0}' created and scheduled for publishing."
 msgstr "Pàgina '{0}' creada i programada per a la seva publicació."
 
+#, python-brace-format
 msgid "Page '{0}' created and published."
 msgstr "Pàgina '{0}' creada i publicada."
 
+#, python-brace-format
 msgid "Page '{0}' created and submitted for moderation."
 msgstr "Pàgina '{0}' creada i enviada a moderació."
 
 msgid "The page could not be created due to validation errors"
 msgstr "No es pot crear la pàgina per causa d'errors de validació"
 
+#, python-brace-format
 msgid "Page '{0}' deleted."
 msgstr "Pàgina '{0}' eliminada."
 
 msgid "This page is currently awaiting moderation"
 msgstr "Aquesta pàgina està esperant moderació"
 
+#, python-brace-format
 msgid "Page '{0}' has been updated."
 msgstr "La pàgina '{0}' ha estat actualitzada."
 
+#, python-brace-format
 msgid "Page '{0}' has been scheduled for publishing."
 msgstr "La pàgina '{0}' ha estat programada per a la seva publicació."
 
+#, python-brace-format
 msgid "Page '{0}' has been published."
 msgstr "La pàgina '{0}' ha estat publicada."
 
+#, python-brace-format
 msgid "Page '{0}' has been submitted for moderation."
 msgstr "La pàgina '{0}' ha estat enviada a moderació."
 
@@ -1437,24 +1437,29 @@ msgstr "No s'ha pogut desar la pàgina donat que està bloquejada"
 msgid "The page could not be saved due to validation errors"
 msgstr "La pàgina no s'ha pogut guardar degut a errors de validació"
 
+#, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "La pàgina '{0}' ara està desbloquejada."
 
+#, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation."
 msgstr "La pàgina '{0}' ja no es troba esperant moderació."
 
+#, python-brace-format
 msgid "Page '{0}' published."
 msgstr "Pàgina '{0}' publicada."
 
 msgid "Failed to send approval notifications"
 msgstr "Ha fallat l'enviament de notificacions d'aprovació"
 
+#, python-brace-format
 msgid "Page '{0}' rejected for publication."
 msgstr "La pàgina '{0}' ha estat rebutjada per publicació"
 
 msgid "Failed to send rejection notifications"
 msgstr "Ha fallat l'enviament de notificacions de rebuig"
 
+#, python-brace-format
 msgid "Page '{0}' moved."
 msgstr "Pàgina '{0}' moguda."
 
@@ -1464,6 +1469,7 @@ msgstr "La més antiga"
 msgid "Latest"
 msgstr "L'última"
 
+#, python-brace-format
 msgid "Page '{0}' unpublished."
 msgstr "Pàgina '{0}' despublicada."
 
@@ -1491,13 +1497,8 @@ msgstr "Títol de la pàgina"
 msgid "Add a workflow"
 msgstr "Afegir un fluxe de treball"
 
-msgid "Report this error to your webmaster with the following information:"
-msgstr ""
-"Informeu d'aquest error a l'administrador del lloc web amb la següent "
-"informació:"
-
-msgid "More"
-msgstr "Més"
+msgid "Add child page"
+msgstr "Afegeix una pàgina filla"
 
 msgid "Link"
 msgstr "Enllaç"
@@ -1522,9 +1523,6 @@ msgstr "Escull un altre element"
 
 msgid "Clear choice"
 msgstr "Opció clara"
-
-msgid "Edit this item"
-msgstr "Editar aquest element"
 
 msgid "Choose another page"
 msgstr "Escull una altra pàgina"

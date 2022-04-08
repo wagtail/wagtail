@@ -19,10 +19,10 @@ Using StreamField
 
     from django.db import models
 
-    from wagtail.core.models import Page
-    from wagtail.core.fields import StreamField
-    from wagtail.core import blocks
-    from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+    from wagtail.models import Page
+    from wagtail.fields import StreamField
+    from wagtail import blocks
+    from wagtail.admin.panels import FieldPanel, StreamFieldPanel
     from wagtail.images.blocks import ImageChooserBlock
 
     class BlogPage(Page):
@@ -267,7 +267,7 @@ StreamBlock
 
 .. code-block:: python
 
-    class PersonBlock(blocks.StreamBlock):
+    class CarouselBlock(blocks.StreamBlock):
         image = ImageChooserBlock()
         video = EmbedBlock()
 
@@ -300,7 +300,7 @@ When reading back the content of a StreamField, the value of a StreamBlock is a 
                         {% if slide.block_type == 'image' %}
                             <li class="image">{% image slide.value width-200 %}</li>
                         {% else %}
-                            <li> class="video">{% include_block slide %}</li>
+                            <li class="video">{% include_block slide %}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -547,11 +547,14 @@ Migrating RichTextFields to StreamField
 
 If you change an existing RichTextField to a StreamField, the database migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text requires an extra conversion step in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. (When updating the model, don't forget to change ``FieldPanel`` to ``StreamFieldPanel`` too.) Create the migration as normal using ``./manage.py makemigrations``, then edit it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
+.. note::
+    This migration cannot be used if the StreamField has the ``use_json_field`` argument set to ``True``. To migrate, set the ``use_json_field`` argument to ``False`` first, migrate the data, then set it back to ``True``.
+
 .. code-block:: python
 
     # -*- coding: utf-8 -*-
     from django.db import models, migrations
-    from wagtail.core.rich_text import RichText
+    from wagtail.rich_text import RichText
 
 
     def convert_to_streamfield(apps, schema_editor):
@@ -586,7 +589,7 @@ If you change an existing RichTextField to a StreamField, the database migration
             migrations.AlterField(
                 model_name='BlogPage',
                 name='body',
-                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+                field=wagtail.fields.StreamField([('rich_text', wagtail.blocks.RichTextBlock())]),
             ),
 
             migrations.RunPython(
@@ -606,7 +609,7 @@ Note that the above migration will work on published Page objects only. If you a
     from django.core.serializers.json import DjangoJSONEncoder
     from django.db import migrations, models
 
-    from wagtail.core.rich_text import RichText
+    from wagtail.rich_text import RichText
 
 
     def page_to_streamfield(page):
@@ -677,10 +680,10 @@ Note that the above migration will work on published Page objects only. If you a
                 page.save()
 
             for revision in page.revisions.all():
-                revision_data = json.loads(revision.content_json)
+                revision_data = revision.content
                 revision_data, changed = pagerevision_converter(revision_data)
                 if changed:
-                    revision.content_json = json.dumps(revision_data, cls=DjangoJSONEncoder)
+                    revision.content = revision_data
                     revision.save()
 
 
@@ -704,7 +707,7 @@ Note that the above migration will work on published Page objects only. If you a
             migrations.AlterField(
                 model_name='BlogPage',
                 name='body',
-                field=wagtail.core.fields.StreamField([('rich_text', wagtail.core.blocks.RichTextBlock())]),
+                field=wagtail.fields.StreamField([('rich_text', wagtail.blocks.RichTextBlock())]),
             ),
 
             migrations.RunPython(

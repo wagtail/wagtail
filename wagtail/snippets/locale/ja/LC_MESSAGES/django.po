@@ -11,9 +11,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-13 13:35+0100\n"
-"PO-Revision-Date: 2020-10-23 11:37+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2021-11-04 14:38+0000\n"
+"Last-Translator: Hiroki Sawano\n"
 "Language-Team: Japanese (http://www.transifex.com/torchbox/wagtail/language/"
 "ja/)\n"
 "MIME-Version: 1.0\n"
@@ -62,6 +62,9 @@ msgid ""
 msgstr ""
 "まだ%(snippet_type_name)sの形式のスニペットが作成されていません。<a href="
 "\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\">作成しますか？"
+
+msgid "History"
+msgstr "履歴"
 
 msgid "Saving…"
 msgstr "保存中..."
@@ -169,6 +172,12 @@ msgstr "このスニペットはエラーにより作成されませんでした
 
 msgid "The snippet could not be saved due to errors."
 msgstr "このスニペットはエラーにより保存されませんでした。"
+
+msgid "Action"
+msgstr "アクション"
+
+msgid "Date"
+msgstr "日付"
 
 #, python-format
 msgid "Choose %s"

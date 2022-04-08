@@ -1,7 +1,8 @@
-{% load i18n wagtailusers_tags wagtailadmin_tags %}
+{% load i18n l10n wagtailusers_tags wagtailadmin_tags %}
 <table class="listing">
     <thead>
         <tr>
+            {% include 'wagtailadmin/bulk_actions/select_all_checkbox_cell.html' %}
             <th class="name">
                 {% if ordering == "name" %}
                     <a href="{% url 'wagtailusers_users:index' %}" class="icon icon-arrow-down-after teal">
@@ -32,7 +33,8 @@
     <tbody>
         {% for user in users %}
             <tr>
-                <td class="title" valign="top">
+                {% include "wagtailadmin/bulk_actions/listing_checkbox_cell.html" with obj_type="user" obj=user aria_labelledby_prefix="user_" aria_labelledby=user.pk|unlocalize aria_labelledby_suffix="_title" %}
+                <td id="user_{{ user.pk|unlocalize }}_title" class="title" valign="top">
                     <div class="title-wrapper">
                         <span class="avatar small"><img src="{% avatar_url user size=25 %}" alt="" /></span>
                         <a href="{% url 'wagtailusers_users:edit' user.pk %}">{{ user|user_display_name }}</a>
@@ -44,7 +46,7 @@
                 <td class="username" valign="top">{{ user.get_username }}</td>
                 <td class="level" valign="top">{% if user.is_superuser %}{% trans "Admin" %}{% endif %}</td>
                 <td class="status" valign="top"><div class="status-tag {% if user.is_active %}primary{% endif %}">{% if user.is_active %}{% trans "Active" %}{% else %}{% trans "Inactive" %}{% endif %}</div></td>
-                <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"DATETIME_FORMAT" }}"{% endif %}>{% if user.last_login %}{% blocktrans with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>
+                <td {% if user.last_login %} class="human-readable-date" title="{{ user.last_login|date:"DATETIME_FORMAT" }}"{% endif %}>{% if user.last_login %}{% blocktrans trimmed with time_period=user.last_login|timesince %}{{ time_period }} ago{% endblocktrans %}{% endif %}</td>
             </tr>
         {% endfor %}
     </tbody>
