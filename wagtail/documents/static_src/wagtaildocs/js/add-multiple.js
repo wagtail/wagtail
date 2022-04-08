@@ -144,14 +144,24 @@ $(function () {
     },
   });
 
-  // ajax-enhance forms added on done()
+  /**
+   * ajax-enhance forms added on done()
+   * allows the user to modify the title, collection, tags and delete after upload
+   */
   $('#upload-list').on('submit', 'form', function (e) {
     var form = $(this);
+    var formData = new FormData(this);
     var itemElement = form.closest('#upload-list > li');
 
     e.preventDefault();
 
-    $.post(this.action, form.serialize(), function (data) {
+    $.ajax({
+      contentType: false,
+      data: formData,
+      processData: false,
+      type: 'POST',
+      url: this.action,
+    }).done(function (data) {
       if (data.success) {
         var statusText = $('.status-msg.update-success').text();
         addMessage('success', statusText);
