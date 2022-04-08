@@ -74,7 +74,7 @@ class Tabs {
       this.tabButtons.forEach((button) => {
         button.setAttribute(
           'aria-controls',
-          button.getAttribute('href').substring(1),
+          button.getAttribute('href').replace('#', ''),
         );
       });
 
