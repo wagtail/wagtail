@@ -204,8 +204,8 @@ class Tabs {
         e.preventDefault();
         this.selectTab(tab);
       });
-      tab.addEventListener('keydown', this.keydownEventListener.bind(this));
-      tab.addEventListener('keyup', this.keyupEventListener.bind(this));
+      tab.addEventListener('keydown', this.keydownEventListener);
+      tab.addEventListener('keyup', this.keyupEventListener);
       // Set index of tab used in keyboard controls
       // eslint-disable-next-line no-param-reassign
       tab.index = index;
