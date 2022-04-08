@@ -2,16 +2,15 @@
 {# Z index 99 to ensure header is always above  #}
 <header class="w-flex w-flex-col sm:w-flex-row w-items-center w-justify-between w-bg-gray-50 w-py-0 w-mb-0 w-relative w-top-0 w-z-[99] sm:w-sticky w-min-h-[50px]">
 
-    {# Title and breadcrumbs button #}
     {# Padding left on mobile to give space for navigation toggle, #}
-    <div class="w-pl-[50px] w-w-full sm:w-max-w-[80%] sm:w-pl-0 w-min-h-[50px] w-flex w-justify-start w-box-border">
-        <div class="w-flex w-flex-row w-justify-start w-items-center w-w-full">
+    <div class="w-pl-[50px] w-min-h-[50px] sm:w-pl-0 sm:w-pr-2 w-w-full w-flex-1 w-overflow-x-auto w-overflow-y-hidden w-box-border">
+        <div class="w-flex w-flex-1 w-items-center w-relative w-overflow-x-auto w-overflow-y-hidden u-scrollbar-thin w-relative">
             {% block header_content %}
             {% endblock %}
         </div>
     </div>
 
-    <div class="w-flex w-flex-1 sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-4 sm:w-py-0 sm:w-justify-end">
+    <div class="w-flex sm:w-flex-nowrap sm:w-flex-row w-items-center w-p-4 sm:w-py-0 sm:w-justify-end">
         {% block actions %}
         {% endblock %}
     </div>

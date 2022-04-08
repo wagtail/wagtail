@@ -1,6 +1,11 @@
 export default function initCollapsibleBreadcrumbs() {
-  const breadcrumbsToggle = document.querySelector('[data-toggle-breadcrumbs]');
-  const breadcrumbItems = document.querySelectorAll('[data-breadcrumb-item]');
+  const breadcrumbsContainer = document.querySelector('[data-breadcrumb-next]');
+  const breadcrumbsToggle = breadcrumbsContainer.querySelector(
+    '[data-toggle-breadcrumbs]',
+  );
+  const breadcrumbItems = breadcrumbsContainer.querySelectorAll(
+    '[data-breadcrumb-item]',
+  );
 
   const cssClass = {
     maxWidth: 'w-max-w-4xl', // Setting this allows the breadcrumb to animate to this width
@@ -65,6 +70,7 @@ export default function initCollapsibleBreadcrumbs() {
     showBreadcrumbs();
   });
 
+  breadcrumbsContainer.addEventListener('mouseleave', hideBreadcrumbs());
   breadcrumbsToggle.addEventListener('mouseleave', () => {
     mouseExitedToggle = true;
   });

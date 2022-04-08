@@ -571,7 +571,26 @@ def page_header_buttons(context, page, page_perms):
         "buttons": buttons,
         "title": _("Actions"),
         "icon_name": "ellipsis-v",
-        "button_classes": [],
+        "classes": [
+            "w-flex",
+            "w-justify-center",
+            "w-items-center",
+            "w-h-full",
+            "w-ml-1",
+        ],
+        "button_classes": [
+            "w-p-0",
+            "sm:w-w-12",
+            "w-h-full",
+            "w-text-primary",
+            "w-bg-transparent",
+            "hover:w-scale-110",
+            "w-transition",
+            "w-outline-offset-inside",
+            "w-relative",
+            "w-z-30",
+        ],
+        "hide_title": True,
     }
 
 

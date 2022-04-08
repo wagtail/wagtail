@@ -168,7 +168,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           onBlur={onBlurHandler}
         >
           <div
-            className={`${
+            className={`sm:w-mt-2 ${
               slim ? 'w-justify-center' : 'w-justify-end'
             } w-flex  w-items-center`}
           >
@@ -183,7 +183,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
                 w-flex
                 w-justify-center
                 w-items-center
-                sm:w-mt-1.5
                 hover:w-bg-primary-200
                 hover:text-white
                 hover:opacity-100`}
