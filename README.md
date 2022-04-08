@@ -51,7 +51,7 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-To get started with Wagtail, run the following in a virtual environment:
+To get started with using Wagtail, run the following in a virtual environment:
 
 ```bash
 pip install wagtail
@@ -64,6 +64,7 @@ python manage.py runserver
 ```
 
 For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
+
 
 ### Who’s using it?
 
