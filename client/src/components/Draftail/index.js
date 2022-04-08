@@ -134,7 +134,7 @@ const initEditor = (selector, originalOptions, currentScript) => {
 
   let options;
   let setOptions = (newOptions) => {
-    initialOptions = newOptions;
+    Object.assign(originalOptions, newOptions);
   };
   const DynamicOptionsEditorWrapper = ({
     initialOptions,

@@ -204,146 +204,12 @@ function addNewComment(
   );
 }
 
-interface ControlProps {
-  getEditorState: () => EditorState;
-  onChange: (editorState: EditorState) => void;
-}
-
-function splitState(editorState: EditorState) {
-  const selection = editorState.getSelection();
-  if (!selection.isCollapsed()) {
-    // This is a placeholder UI, and will eventually be replaced by the "type / to select block"
-    // So we probably don't need to care too much about non-collapsed selections
-    return;
-  }
-  const anchorKey = selection.getAnchorKey();
-  const currentContent = editorState.getCurrentContent();
-
-  const multipleBlockContent = Modifier.splitBlock(
-    currentContent,
-    selection,
-  ).getBlocksAsArray();
-  const index = multipleBlockContent.findIndex(
-    (block) => block.getKey() == anchorKey,
-  );
-  const blocksBefore = multipleBlockContent.slice(0, index + 1);
-  const blocksAfter = multipleBlockContent.slice(index + 1);
-  const stateBefore = EditorState.push(
-    editorState,
-    ContentState.createFromBlockArray(blocksBefore),
-    'remove-range',
-  );
-  const stateAfter = EditorState.push(
-    editorState,
-    ContentState.createFromBlockArray(blocksAfter),
-    'remove-range',
-  );
-
-  const commentIdsToMove = new Set(getCommentPositions(stateAfter).keys());
-  return {
-    stateBefore,
-    stateAfter,
-    shouldMoveCommentFn: (comment: Comment) =>
-      commentIdsToMove.has(comment.localId),
-  };
-}
-
-export function getSplitControl(
-  splitFn: (
-    stateBefore: EditorState,
-    stateAfter: EditorState,
-    shouldMoveCommentFn: (comment: Comment) => boolean,
-  ) => void,
-) {
-  return ({ getEditorState }: ControlProps) => {
-    return (
-      <ToolbarButton
-        name="split"
-        active={false}
-        title={gettext('Split block')}
-        icon={<Icon name="placeholder" />}
-        onClick={() => {
-          const result = splitState(getEditorState());
-          if (result) {
-            splitFn(
-              result.stateBefore,
-              result.stateAfter,
-              result.shouldMoveCommentFn,
-            );
-          }
-        }}
-      />
-    );
-  };
-}
-
-function getCommentControl(
-  commentApp: CommentApp,
-  contentPath: string,
-  fieldNode: Element,
-) {
-  return ({ getEditorState, onChange }: ControlProps) => (
-    <span className="Draftail-CommentControl" data-comment-add>
-      <ToolbarButton
-        name="comment"
-        active={false}
-        title={`${gettext('Add a comment')}\n${
-          IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
-        }`}
-        icon={
-          <>
-            <Icon name="comment-large-outline" />{' '}
-            <Icon name="comment-large-reversed" />
-          </>
-        }
-        onClick={() => {
-          onChange(
-            addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
-          );
-        }}
-      />
-    </span>
-  );
-}
-
 function styleIsComment(style: string | undefined): style is string {
   return style !== undefined && style.startsWith(COMMENT_STYLE_IDENTIFIER);
 }
 
 function getIdForCommentStyle(style: string) {
   return parseInt(style.slice(COMMENT_STYLE_IDENTIFIER.length), 10);
-}
-
-function findCommentStyleRanges(
-  contentBlock: ContentBlock,
-  callback: (start: number, end: number) => void,
-  filterFn?: (metadata: CharacterMetadata) => boolean,
-) {
-  // Find comment style ranges that do not overlap an existing entity
-  const filterFunction =
-    filterFn ||
-    ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
-  const entityRanges: Array<[number, number]> = [];
-  contentBlock.findEntityRanges(
-    (character) => character.getEntity() !== null,
-    (start, end) => entityRanges.push([start, end]),
-  );
-  contentBlock.findStyleRanges(filterFunction, (start, end) => {
-    const interferingEntityRanges = entityRanges
-      .filter((value) => value[1] > start)
-      .filter((value) => value[0] < end);
-    let currentPosition = start;
-    interferingEntityRanges.forEach((value) => {
-      const [entityStart, entityEnd] = value;
-      if (entityStart > currentPosition) {
-        callback(currentPosition, entityStart);
-      }
-      currentPosition = entityEnd;
-    });
-    if (currentPosition < end) {
-      callback(start, end);
-    }
-  });
 }
 
 function getCommentPositions(editorState: EditorState) {
@@ -379,6 +245,134 @@ function getCommentPositions(editorState: EditorState) {
       );
     });
   return commentPositions;
+}
+
+interface ControlProps {
+  getEditorState: () => EditorState;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onChange: (editorState: EditorState) => void;
+}
+
+function splitState(editorState: EditorState) {
+  const selection = editorState.getSelection();
+  const anchorKey = selection.getAnchorKey();
+  const currentContent = editorState.getCurrentContent();
+
+  const multipleBlockContent = Modifier.splitBlock(
+    currentContent,
+    selection,
+  ).getBlocksAsArray();
+  const index = multipleBlockContent.findIndex(
+    (block) => block.getKey() === anchorKey,
+  );
+  const blocksBefore = multipleBlockContent.slice(0, index + 1);
+  const blocksAfter = multipleBlockContent.slice(index + 1);
+  const stateBefore = EditorState.push(
+    editorState,
+    ContentState.createFromBlockArray(blocksBefore),
+    'remove-range',
+  );
+  const stateAfter = EditorState.push(
+    editorState,
+    ContentState.createFromBlockArray(blocksAfter),
+    'remove-range',
+  );
+
+  const commentIdsToMove = new Set(getCommentPositions(stateAfter).keys());
+  return {
+    stateBefore,
+    stateAfter,
+    shouldMoveCommentFn: (comment: Comment) =>
+      commentIdsToMove.has(comment.localId),
+  };
+}
+
+export function getSplitControl(
+  splitFn: (
+    stateBefore: EditorState,
+    stateAfter: EditorState,
+    shouldMoveCommentFn: (comment: Comment) => boolean,
+  ) => void,
+) {
+  return ({ getEditorState }: ControlProps) => (
+    <ToolbarButton
+      name="split"
+      active={false}
+      title={gettext('Split block')}
+      icon={<Icon name="placeholder" />}
+      onClick={() => {
+        const result = splitState(getEditorState());
+        if (result) {
+          splitFn(
+            result.stateBefore,
+            result.stateAfter,
+            result.shouldMoveCommentFn,
+          );
+        }
+      }}
+    />
+  );
+}
+
+function getCommentControl(
+  commentApp: CommentApp,
+  contentPath: string,
+  fieldNode: Element,
+) {
+  return ({ getEditorState, onChange }: ControlProps) => (
+    <span className="Draftail-CommentControl" data-comment-add>
+      <ToolbarButton
+        name="comment"
+        active={false}
+        title={`${gettext('Add a comment')}\n${
+          IS_MAC_OS ? '⌘ + Alt + M' : 'Ctrl + Alt + M'
+        }`}
+        icon={
+          <>
+            <Icon name="comment-large-outline" />{' '}
+            <Icon name="comment-large-reversed" />
+          </>
+        }
+        onClick={() => {
+          onChange(
+            addNewComment(getEditorState(), fieldNode, commentApp, contentPath),
+          );
+        }}
+      />
+    </span>
+  );
+}
+
+function findCommentStyleRanges(
+  contentBlock: ContentBlock,
+  callback: (start: number, end: number) => void,
+  filterFn?: (metadata: CharacterMetadata) => boolean,
+) {
+  // Find comment style ranges that do not overlap an existing entity
+  const filterFunction =
+    filterFn ||
+    ((metadata: CharacterMetadata) => metadata.getStyle().some(styleIsComment));
+  const entityRanges: Array<[number, number]> = [];
+  contentBlock.findEntityRanges(
+    (character) => character.getEntity() !== null,
+    (start, end) => entityRanges.push([start, end]),
+  );
+  contentBlock.findStyleRanges(filterFunction, (start, end) => {
+    const interferingEntityRanges = entityRanges
+      .filter((value) => value[1] > start)
+      .filter((value) => value[0] < end);
+    let currentPosition = start;
+    interferingEntityRanges.forEach((value) => {
+      const [entityStart, entityEnd] = value;
+      if (entityStart > currentPosition) {
+        callback(currentPosition, entityStart);
+      }
+      currentPosition = entityEnd;
+    });
+    if (currentPosition < end) {
+      callback(start, end);
+    }
+  });
 }
 
 export function updateCommentPositions({
