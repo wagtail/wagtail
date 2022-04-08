@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
 
-/* eslint-disable */
 function ajaxifyImageUploadForm(modal) {
   $('form.image-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -201,4 +200,3 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     });
   },
 };
-/* eslint-enable */

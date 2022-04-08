@@ -11,11 +11,11 @@
 
 .w-tabs {
   &__wrapper {
-    @apply w-mb-10;
+    @apply w-mb-10 w-overflow-x-auto;
   }
 
   &__list {
-    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-px-[20px] sm:w-px-[40px] md:w-px-[80px];
+    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-px-5 sm:w-px-10 md:w-px-20;
   }
 
   &__tab {

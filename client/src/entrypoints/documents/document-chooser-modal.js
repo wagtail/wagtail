@@ -1,7 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
 
-/* eslint-disable */
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -151,4 +150,3 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     ajaxifyDocumentUploadForm(modal);
   },
 };
-/* eslint-enable */
