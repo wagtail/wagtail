@@ -29,7 +29,7 @@ Find out more at [wagtail.org](https://wagtail.org/).
 
 Wagtail works with [Python 3](https://www.python.org/downloads/), on any platform.
 
-To get started with Wagtail, run the following in a virtual environment:
+To get started with using Wagtail, run the following in a virtual environment:
 
 ```bash
 pip install wagtail
@@ -41,8 +41,10 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-Note: Above commands are the implementation of Wagtail, NOT setup guide.
-For detailed **INSTALLATION and SETUP docs, see [docs.wagtail.org](https://docs.wagtail.org/)**.
+For detailed **INSTALLATION and SETUP** docs, see **[Wagtail’s documentation](https://docs.wagtail.org/)**.
+
+Note: To [contribute](#contributing) and **SETUP THE SOURCE CODEBASE** on your PC, consider **[Contributing to Wagtail](https://docs.wagtail.org/en/stable/contributing/developing.html#setting-up-the-wagtail-codebase)**
+
 
 ### Who’s using it?
 
