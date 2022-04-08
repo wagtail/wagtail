@@ -365,7 +365,5 @@ class Tabs {
 export default Tabs;
 
 export const initTabs = (tabs = document.querySelectorAll('[data-tabs]')) => {
-  if (tabs) {
-    tabs.forEach((tabSet) => new Tabs(tabSet));
-  }
+  tabs.forEach((tabSet) => new Tabs(tabSet));
 };
