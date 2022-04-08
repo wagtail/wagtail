@@ -41,9 +41,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-For detailed **INSTALLATION and SETUP** docs, see **[Wagtail’s documentation](https://docs.wagtail.org/)**.
-
-Note: To [contribute](#contributing) and **SETUP THE SOURCE CODEBASE** on your PC, consider **[Contributing to Wagtail](https://docs.wagtail.org/en/stable/contributing/developing.html#setting-up-the-wagtail-codebase)**
+For detailed installation and setup docs, see [docs.wagtail.org](https://docs.wagtail.org/).
 
 
 ### Who’s using it?
