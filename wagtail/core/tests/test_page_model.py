@@ -1766,6 +1766,34 @@ class TestCopyPage(TestCase):
         # The copy should just be a copy of the original page, not an alias
         self.assertIsNone(about_us_alias_copy.alias_of)
 
+    def test_copy_page_with_unique_uuids_in_orderables(self):
+        """
+        Test that a page with orderables can be copied and the translation
+        keys are updated.
+        """
+        christmas_page = EventPage.objects.get(url_path="/home/events/christmas/")
+        christmas_page.speakers.add(
+            EventPageSpeaker(
+                first_name="Santa",
+                last_name="Claus",
+            )
+        )
+        christmas_page.save()
+        # ensure there's a revision (which should capture the new speaker orderables)
+        christmas_page.save_revision().publish()
+
+        new_page = christmas_page.copy(
+            update_attrs={
+                "title": "Orderable Page",
+                "slug": "translated-orderable-page",
+            },
+        )
+        new_page.save_revision().publish()
+        self.assertNotEqual(
+            christmas_page.speakers.first().translation_key,
+            new_page.speakers.first().translation_key,
+        )
+
 
 class TestCreateAlias(TestCase):
     fixtures = ['test.json']

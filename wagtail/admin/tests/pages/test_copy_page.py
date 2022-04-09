@@ -4,7 +4,8 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.core.models import GroupPagePermission, Page
-from wagtail.tests.testapp.models import PageWithExcludedCopyField, SimplePage
+from wagtail.tests.testapp.models import (
+    EventPage, EventPageSpeaker, PageWithExcludedCopyField, SimplePage)
 from wagtail.tests.utils import WagtailTestUtils
 
 
@@ -616,4 +617,58 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         self.assertNotEqual(page_copy.special_field, original_page.special_field)
         self.assertEqual(
             page_copy.special_field, page_copy._meta.get_field("special_field").default
+        )
+
+    def test_copy_page_with_unique_uuids_in_orderables(self):
+        """
+        Test that a page with orderables can be copied and the translation
+        keys are updated.
+        """
+        event_page = EventPage(
+            title="Moon Landing",
+            location="the moon",
+            audience="public",
+            cost="free on TV",
+            date_from="1969-07-20",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        event_page.speakers.add(
+            EventPageSpeaker(
+                first_name="Neil",
+                last_name="Armstrong",
+            )
+        )
+        # ensure there's a revision (which should capture the new speaker orderables)
+        # before copying the page
+        event_page.save_revision().publish()
+
+        post_data = {
+            "new_title": "New Moon landing",
+            "new_slug": "moon-landing-redux",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=[event_page.id]), post_data
+        )
+        new_page = EventPage.objects.last()
+
+        # Hack: get the page instance from the edit form which assembles it from the
+        # latest revision. While we could do new_page.get_latest_revision().as_page_object()
+        # this follow the edit view closer and should it change the test is less
+        # prone to continue working because we're skipping some step
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[new_page.id])
+        )
+        new_page_on_edit_form = response.context["form"].instance
+
+        # publish the page, similar to EditView.publish_action()
+        new_page_on_edit_form.save_revision().publish()
+
+        self.assertNotEqual(
+            event_page.speakers.first().translation_key,
+            new_page.speakers.first().translation_key,
         )
