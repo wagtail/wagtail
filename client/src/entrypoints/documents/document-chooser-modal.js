@@ -84,14 +84,12 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
 
       $('a.upload-one-now').on('click', function (e) {
-        // Set current collection ID at upload form tab
+        // Set current collection ID at upload form
         const collectionId = $('#collection_chooser_collection_id').val();
         if (collectionId) {
           $('#id_document-chooser-upload-collection').val(collectionId);
         }
 
-        // Select upload form tab
-        $('a[href="#upload"]').tab('show');
         e.preventDefault();
       });
     }

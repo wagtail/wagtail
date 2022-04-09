@@ -17,17 +17,19 @@ class Tabs {
     this.tabButtons = this.tabContainer.querySelectorAll('[role="tab"]');
     this.tabList = this.tabContainer.querySelector('[role="tablist"]');
     this.tabPanels = this.tabContainer.querySelectorAll('[role="tabpanel"]');
+    this.keydownEventListener = this.keydownEventListener.bind(this);
 
     // Tab Options - Add these data attributes along side the data-tabs attribute
     // Use this to enable fade-in animations on tab select
     this.animate = this.tabContainer.hasAttribute('data-tabs-animate');
     // Disable url hash from appearing on tab select (normally used in modals)
-    this.disableUrl = this.tabContainer.hasAttribute('data-tabs-disable-url');
+    this.disableURL = this.tabContainer.hasAttribute('data-tabs-disable-url');
 
     this.state = {
       // Tab Settings
       activeTabID: '',
       transition: 150,
+      initialPageLoad: true,
       // CSS Classes
       css: {
         animate: 'animate-in',
@@ -42,23 +44,12 @@ class Tabs {
         down: 'ArrowDown',
         enter: 'Enter',
         space: ' ',
-        // Key names specific for Edge
-        edgeBrowser: {
-          left: 'Left',
-          right: 'Right',
-          down: 'Down',
-          up: 'Up',
-        },
       },
       direction: {
         ArrowLeft: -1,
         Left: -1,
-        ArrowUp: -1,
-        Up: -1,
         ArrowRight: 1,
         Right: 1,
-        ArrowDown: 1,
-        Down: 1,
       },
     };
 
@@ -83,7 +74,7 @@ class Tabs {
         (button) => button.getAttribute('aria-selected') === 'true',
       );
 
-      if (window.location.hash && !this.disableUrl) {
+      if (window.location.hash && !this.disableURL) {
         this.selectTabByURLHash();
       } else if (tabActive) {
         // If a tab isn't hidden for some reason hide it
@@ -159,9 +150,9 @@ class Tabs {
       // Dispatch tab-changed event on the document
       document.dispatchEvent(new CustomEvent('tab-changed'));
 
-      // Set url hash
-      if (!this.disableUrl) {
-        this.setUrlHash(tab.getAttribute('href'));
+      // Set url hash and browser history
+      if (!this.disableURL) {
+        this.setURLHash(tabContentId);
       }
     }
   }
@@ -205,10 +196,21 @@ class Tabs {
         this.selectTab(tab);
       });
       tab.addEventListener('keydown', this.keydownEventListener);
-      tab.addEventListener('keyup', this.keyupEventListener);
       // Set index of tab used in keyboard controls
       // eslint-disable-next-line no-param-reassign
       tab.index = index;
+    });
+
+    // Select previous or next tab using history
+    window.addEventListener('popstate', (e) => {
+      if (e.state && e.state.tabContent) {
+        const tab = this.tabContainer.querySelector(
+          `a[href="#${e.state.tabContent}"][role="tab"]`,
+        );
+        if (tab) {
+          this.selectTab(tab);
+        }
+      }
     });
   }
 
@@ -221,79 +223,25 @@ class Tabs {
     const { keys } = this.state;
 
     switch (keyPressed) {
+      case keys.left:
+      case keys.right:
+        this.switchTabOnArrowPress(event);
+        break;
+      case keys.enter:
+      case keys.space:
+        event.preventDefault();
+        this.selectTab(event.target);
+        break;
       case keys.end:
         event.preventDefault();
-        // Activate last tab
         this.focusLastTab();
         break;
       case keys.home:
         event.preventDefault();
-        // Activate first tab
         this.focusFirstTab();
         break;
-      // Up and down are here in keydown
-      // To prevent page scroll
-      case keys.edgeBrowser.up:
-      case keys.edgeBrowser.down:
-      case keys.up:
-      case keys.down:
-        this.determineOrientation(event);
-        break;
       default:
         break;
-    }
-  }
-
-  /**
-   *  Handle keyup on tabs
-   * @param {Event}event
-   */
-  keyupEventListener(event) {
-    const keyPressed = event.key;
-    const { keys } = this.state;
-
-    switch (keyPressed) {
-      case keys.edgeBrowser.left:
-      case keys.edgeBrowser.right:
-      case keys.left:
-      case keys.right:
-        this.determineOrientation(event);
-        break;
-      case keys.enter:
-      case keys.space:
-        this.selectTab(event.target);
-        break;
-      default:
-        break;
-    }
-  }
-
-  determineOrientation(event) {
-    const key = event.key;
-    const { keys } = this.state;
-    let proceed = false;
-
-    if (this.vertical) {
-      if (
-        key === keys.up ||
-        key === keys.edgeBrowser.up ||
-        key === keys.down ||
-        key === keys.edgeBrowser.down
-      ) {
-        event.preventDefault();
-        proceed = true;
-      }
-    } else if (
-      key === keys.left ||
-      key === keys.edgeBrowser.left ||
-      key === keys.right ||
-      key === keys.edgeBrowser.right
-    ) {
-      proceed = true;
-    }
-
-    if (proceed) {
-      this.switchTabOnArrowPress(event);
     }
   }
 
@@ -302,7 +250,7 @@ class Tabs {
     if (window.location.hash) {
       const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
       const tab = this.tabContainer.querySelector(
-        `a[href="${cleanedHash}"][data-tab]`,
+        `a[href="${cleanedHash}"][role="tab"]`,
       );
       if (tab) {
         this.selectTab(tab);
@@ -314,11 +262,21 @@ class Tabs {
   }
 
   /**
-   *
+   * Set url to have tab an tab hash at the end
    * @param {string}hash
    */
-  setUrlHash(hash) {
-    window.history.replaceState(null, null, hash);
+  setURLHash(tabId) {
+    if (this.state.initialPageLoad) {
+      // replace the state of the first (implicit) item
+      window.history.replaceState({ tabContent: tabId }, null, `#${tabId}`);
+    } else if (
+      !window.history.state ||
+      window.history.state.tabContent !== tabId
+    ) {
+      // Add a new history item to the stack
+      window.history.pushState({ tabContent: tabId }, null, `#${tabId}`);
+    }
+    this.state.initialPageLoad = false;
   }
 
   // Either focus the next, previous, first, or last tab depending on key pressed
@@ -333,9 +291,9 @@ class Tabs {
       if (target.index !== undefined) {
         if (tabs[target.index + direction[pressed]]) {
           tabs[target.index + direction[pressed]].focus();
-        } else if (pressed === keys.left || pressed === keys.up) {
+        } else if (pressed === keys.left) {
           this.focusLastTab();
-        } else if (pressed === keys.right || pressed === keys.down) {
+        } else if (pressed === keys.right) {
           this.focusFirstTab();
         }
       }
@@ -348,12 +306,6 @@ class Tabs {
 
   focusLastTab() {
     this.tabButtons[this.tabButtons.length - 1].focus();
-  }
-
-  // Handle params are passed through the url
-  handleParams() {
-    // TODO: update to select correct element on page load depending on href
-    this.tabName = window.location.hash.substring(1);
   }
 
   selectFirstTab() {

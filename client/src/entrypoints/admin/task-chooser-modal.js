@@ -60,12 +60,6 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         fetchResults(this.href);
         return false;
       });
-
-      $('a.create-one-now').on('click', (e) => {
-        // Select upload form tab
-        $('a[href="#new"]').tab('show');
-        e.preventDefault();
-      });
     }
 
     const searchForm = $('form.task-search', modal.body);

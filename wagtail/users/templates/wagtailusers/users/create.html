@@ -7,7 +7,7 @@
     {% trans "Add user" as add_user_str %}
     {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 icon="user" %}
 
-    <div class="w-tabs merged" data-tabs data-tabs-animate>
+    <div class="w-tabs" data-tabs data-tabs-animate>
         <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
             <div role="tablist" class="w-tabs__list nice-padding">
                 {% trans "Account" as account_text %}
@@ -44,7 +44,7 @@
                             {% endif %}
                         {% endblock fields %}
 
-                        <li><a href="#roles" class="button lowpriority tab-toggle icon icon-arrow-right-after">{% trans "Roles" %}</a></li>
+                        <li><a href="#tab-roles" class="button lowpriority tab-toggle icon icon-arrow-right-after">{% trans "Roles" %}</a></li>
                     </ul>
                 </section>
                 <section

@@ -15,7 +15,8 @@
   }
 
   &__list {
-    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit w-px-5 sm:w-px-10 md:w-px-20;
+    @include nice-padding();
+    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
   }
 
   &__tab {
@@ -46,8 +47,8 @@
   &__errors {
     @apply w-hidden
     w-box-border
-    w-w-[16px]
-    w-h-[16px]
+    w-w-4
+    w-h-4
     w-text-[0.75rem]
     w-flex
     w-justify-center
@@ -69,7 +70,7 @@
 
   // Optional animate attr for tabs to animate in
   &[data-tabs-animate] &__panel {
-    @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-2 w-opacity-0;
+    @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-1 w-opacity-0;
 
     &.animate-in {
       @apply w-translate-y-0 w-opacity-100;
