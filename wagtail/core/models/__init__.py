@@ -26,6 +26,7 @@ from django.core.cache import cache
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
 from django.db.models import DEFERRED, Q, Value
 from django.db.models.expressions import OuterRef, Subquery
@@ -1584,6 +1585,17 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         page_copy, child_object_map = _copy(specific_self, exclude_fields=exclude_fields, update_attrs=base_update_attrs)
 
+        uuid_mapping = {}
+
+        def generate_translation_key(uuid_mapping, old_uuid):
+            """
+            Generates a new UUID based on an old one, then re-uses it
+            """
+            if old_uuid not in uuid_mapping:
+                uuid_mapping[old_uuid] = uuid.uuid4()
+
+            return uuid_mapping[old_uuid]
+
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
             if process_child_object:
@@ -1591,7 +1603,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
             # When we're not copying for translation, we should give the translation_key a new value for each child object as well
             if reset_translation_key and isinstance(child_object, TranslatableMixin):
-                child_object.translation_key = uuid.uuid4()
+                child_object.translation_key = generate_translation_key(uuid_mapping, child_object.translation_key)
 
         # Save the new page
         if _mpnode_attrs:
@@ -1642,7 +1654,12 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
                         copied_child_object = child_object_map.get((child_relation, child_object['pk']))
                         child_object['pk'] = copied_child_object.pk if copied_child_object else None
 
-                revision.content_json = json.dumps(revision_content)
+                        if reset_translation_key and "translation_key" in child_object:
+                            child_object["translation_key"] = generate_translation_key(
+                                uuid_mapping, child_object["translation_key"]
+                            )
+
+                revision.content_json = json.dumps(revision_content, cls=DjangoJSONEncoder)
 
                 # Save
                 revision.save()
