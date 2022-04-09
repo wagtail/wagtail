@@ -1,11 +1,14 @@
 import json
+import warnings
 
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models
+from django.db.models.fields.json import KeyTransform
 from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import get_text_for_indexing
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
 class RichTextField(models.TextField):
@@ -63,8 +66,7 @@ class Creator:
 
 
 class StreamField(models.Field):
-    def __init__(self, block_types, **kwargs):
-
+    def __init__(self, block_types, use_json_field=None, **kwargs):
         # extract kwargs that are to be passed on to the block, not handled by super
         block_opts = {}
         for arg in ["min_num", "max_num", "block_counts", "collapsed"]:
@@ -78,6 +80,9 @@ class StreamField(models.Field):
 
         super().__init__(**kwargs)
 
+        self.use_json_field = use_json_field
+        self._check_json_field()
+
         if isinstance(block_types, Block):
             # use the passed block as the top-level block
             self.stream_block = block_types
@@ -90,13 +95,36 @@ class StreamField(models.Field):
 
         self.stream_block.set_meta_options(block_opts)
 
+    @property
+    def json_field(self):
+        return models.JSONField(encoder=DjangoJSONEncoder)
+
+    def _check_json_field(self):
+        if type(self.use_json_field) is not bool:
+            warnings.warn(
+                f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
+                RemovedInWagtail50Warning,
+                stacklevel=3,
+            )
+
     def get_internal_type(self):
-        return "TextField"
+        return "JSONField" if self.use_json_field else "TextField"
+
+    def get_lookup(self, lookup_name):
+        if self.use_json_field:
+            return self.json_field.get_lookup(lookup_name)
+        return super().get_lookup(lookup_name)
+
+    def get_transform(self, lookup_name):
+        if self.use_json_field:
+            return self.json_field.get_transform(lookup_name)
+        return super().get_transform(lookup_name)
 
     def deconstruct(self):
         name, path, _, kwargs = super().deconstruct()
         block_types = list(self.stream_block.child_blocks.items())
         args = [block_types]
+        kwargs["use_json_field"] = self.use_json_field
         return name, path, args, kwargs
 
     def to_python(self, value):
@@ -122,6 +150,17 @@ class StreamField(models.Field):
                 return StreamValue(self.stream_block, [])
 
             return self.stream_block.to_python(unpacked_value)
+        elif (
+            self.use_json_field
+            and value
+            and isinstance(value, list)
+            and isinstance(value[0], dict)
+        ):
+            # The value is already unpacked since JSONField-based StreamField should
+            # accept deserialised values (no need to call json.dumps() first).
+            # In addition, the value is not a list of (block_name, value) tuples
+            # handled in the `else` block.
+            return self.stream_block.to_python(value)
         else:
             # See if it looks like the standard non-smart representation of a
             # StreamField value: a list of (block_name, value) tuples
@@ -148,12 +187,29 @@ class StreamField(models.Field):
             # for reverse migrations that convert StreamField data back into plain text
             # fields.)
             return value.raw_text
-        else:
+        elif isinstance(value, StreamValue) or not self.use_json_field:
+            # StreamValue instances must be prepared first.
+            # Before use_json_field was implemented, this is also the value used in queries.
             return json.dumps(
                 self.stream_block.get_prep_value(value), cls=DjangoJSONEncoder
             )
+        else:
+            # When querying with JSONField features, the rhs might not be a StreamValue.
+            return self.json_field.get_prep_value(value)
 
     def from_db_value(self, value, expression, connection):
+        if self.use_json_field and isinstance(expression, KeyTransform):
+            # This could happen when using JSONField key transforms,
+            # e.g. Page.object.values('body__0').
+            try:
+                # We might be able to properly resolve to the appropriate StreamValue
+                # based on `expression` and `self.stream_block`, but it might be too
+                # complicated to do so. For now, just deserialise the value.
+                return json.loads(value)
+            except ValueError:
+                # Just in case the extracted value is not valid JSON.
+                return value
+
         return self.to_python(value)
 
     def formfield(self, **kwargs):

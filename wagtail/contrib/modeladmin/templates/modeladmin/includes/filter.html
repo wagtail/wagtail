@@ -1,5 +1,5 @@
 {% load i18n %}
-{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}
+{% blocktrans trimmed with filter_title=title %} By {{ filter_title }} {% endblocktrans %}
 <ul>
     {% for choice in choices %}
         <li{% if choice.selected %} class="selected"{% endif %}>

@@ -1,7 +1,6 @@
 import '../tests/stubs';
 
 import '../../wagtail/admin/static_src/wagtailadmin/scss/core.scss';
-import '../../wagtail/admin/static_src/wagtailadmin/scss/sidebar.scss';
 import './preview.scss';
 
 export const parameters = {

@@ -3,20 +3,11 @@
  * Re-exports components and other modules via a cleaner API.
  */
 
-import Button from './components/Button/Button';
-import Icon from './components/Icon/Icon';
-import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
-import Portal from './components/Portal/Portal';
-import PublicationStatus from './components/PublicationStatus/PublicationStatus';
-import Transition from './components/Transition/Transition';
-import { initUpgradeNotification } from './components/UpgradeNotification';
-
-export {
-  Button,
-  Icon,
-  LoadingSpinner,
-  Portal,
-  PublicationStatus,
-  Transition,
-  initUpgradeNotification,
-};
+export { default as Button } from './components/Button/Button';
+export { default as Icon } from './components/Icon/Icon';
+export { default as LoadingSpinner } from './components/LoadingSpinner/LoadingSpinner';
+export { default as Portal } from './components/Portal/Portal';
+export { default as PublicationStatus } from './components/PublicationStatus/PublicationStatus';
+export { default as Transition } from './components/Transition/Transition';
+export { initUpgradeNotification } from './components/UpgradeNotification';
+export { initSkipLink } from './includes/initSkipLink';

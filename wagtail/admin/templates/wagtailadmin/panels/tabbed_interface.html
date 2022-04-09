@@ -7,37 +7,18 @@
             </li>
         {% endfor %}
     </ul>
-    {% if self.show_comments_toggle %}
-        {% with comments_number=self.form.formsets.comments|length %}
-            <div class="right wide">
-                <div class="comments-controls">
-                    <label class="comments-toggle" aria-label="{% trans 'Show comments' %}">
-                        <span class="comments-toggle__label">{% trans "Comments" %}</span>
-                        <div class="comments-toggle__icon-wrapper">
-                            <input type="checkbox" {% if comments_number %}checked{% endif %}>
-                            {% icon name="comment" class_name="comments-toggle__icon" %}
-                            <div class="comments-toggle__count">{# populated in page-editor.js #}</div>
-                        </div>
+    {% if self.form.show_comments_toggle %}
+        <div class="right wide">
+            <div class="comments-controls" hidden data-comment-notifications>
+                <div class="comment-notifications-toggle">
+                    <label class="switch switch--teal-background">
+                        {% trans "Comment notifications" %}
+                        {{ self.form.comment_notifications }}
+                        <span class="switch__toggle"></span>
                     </label>
-
-                    <button class="comment-notifications-toggle-button" type="button">
-                        <span class="visuallyhidden">{% trans "Toggle visibility of comment notifications dropdown" %}</span>
-                        {% icon name="chevron-down" class_name="comment-notifications-toggle-button__icon" %}
-                    </button>
-
-                    <div class="comment-notifications-dropdown">
-                        <p class="comment-notifications-dropdown__title">{% trans "Commenting on this page" %}</p>
-                        <div class="comment-notifications-toggle">
-                            <label class="switch switch--teal-background">
-                                {% trans "Comment notifications" %}
-                                {{ self.form.comment_notifications }}
-                                <span class="switch__toggle"></span>
-                            </label>
-                        </div>
-                    </div>
                 </div>
             </div>
-        {% endwith %}
+        </div>
     {% endif %}
 </div>
 

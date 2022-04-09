@@ -1,17 +1,10 @@
 import * as React from 'react';
 
+import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 
 // Please keep in sync with $menu-transition-duration variable in `client/scss/settings/_variables.scss`
 export const SIDEBAR_TRANSITION_DURATION = 150;
-
-export interface Strings {
-  DASHBOARD: string;
-  EDIT_YOUR_ACCOUNT: string;
-  SEARCH: string;
-  TOGGLE_SIDEBAR: string;
-  MAIN_MENU: string;
-}
 
 export interface ModuleRenderContext {
   key: number;
@@ -20,7 +13,6 @@ export interface ModuleRenderContext {
   onAccountExpand: () => void;
   onSearchClick: () => void;
   currentPath: string;
-  strings: Strings;
   navigate(url: string): Promise<void>;
 }
 
@@ -31,7 +23,6 @@ export interface ModuleDefinition {
 export interface SidebarProps {
   modules: ModuleDefinition[];
   currentPath: string;
-  strings: Strings;
   collapsedOnLoad: boolean;
   navigate(url: string): Promise<void>;
   onExpandCollapse?(collapsed: boolean);
@@ -41,7 +32,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
   modules,
   currentPath,
   collapsedOnLoad = false,
-  strings,
   navigate,
   onExpandCollapse,
 }) => {
@@ -158,7 +148,6 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       onAccountExpand,
       onSearchClick,
       currentPath,
-      strings,
       navigate,
     }),
   );
@@ -179,23 +168,21 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
           onBlur={onBlurHandler}
         >
           <div
-            className={`${
+            className={`sm:w-mt-2 ${
               slim ? 'w-justify-center' : 'w-justify-end'
             } w-flex  w-items-center`}
           >
             <button
               onClick={onClickCollapseToggle}
-              aria-label={strings.TOGGLE_SIDEBAR}
+              aria-label={gettext('Toggle sidebar')}
               aria-expanded={slim ? 'false' : 'true'}
               type="button"
-              className={`
-                ${!slim ? 'w-mr-4' : ''}
+              className={`${!slim ? 'w-mr-4' : ''}
                 button
                 sidebar__collapse-toggle
                 w-flex
                 w-justify-center
                 w-items-center
-                sm:w-mt-4
                 hover:w-bg-primary-200
                 hover:text-white
                 hover:opacity-100`}
@@ -214,7 +201,7 @@ export const Sidebar: React.FunctionComponent<SidebarProps> = ({
       </div>
       <button
         onClick={onClickOpenCloseToggle}
-        aria-label={strings.TOGGLE_SIDEBAR}
+        aria-label={gettext('Toggle sidebar')}
         aria-expanded={visibleOnMobile ? 'true' : 'false'}
         className={
           'button sidebar-nav-toggle' +

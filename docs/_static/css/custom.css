@@ -32,6 +32,7 @@ li > p {
   text-align: left;
   flex-grow: 2;
   border: 0;
+  text-decoration: none;
 }
 
 .wagtailspace strong {

@@ -6,16 +6,20 @@ StreamField block reference
 This document details the block types provided by Wagtail for use in :ref:`StreamField <streamfield>`, and how they can be combined into new block types.
 
 
-.. class:: wagtail.fields.StreamField(blocks, blank=False, min_num=None, max_num=None, block_counts=None)
+.. class:: wagtail.fields.StreamField(blocks, use_json_field=None, blank=False, min_num=None, max_num=None, block_counts=None, collapsed=False)
 
    A model field for representing long-form content as a sequence of content blocks of various types. See :ref:`streamfield`.
 
    :param blocks: A list of block types, passed as either a list of ``(name, block_definition)`` tuples or a ``StreamBlock`` instance.
+   :param use_json_field: When true, the field uses :class:`~django.db.models.JSONField` as its internal type, allowing the use of ``JSONField`` lookups and transforms. When false, it uses :class:`~django.db.models.TextField` instead. This argument **must** be set to ``True``/``False``.
    :param blank: When false (the default), at least one block must be provided for the field to be considered valid.
    :param min_num: Minimum number of sub-blocks that the stream must have.
    :param max_num: Maximum number of sub-blocks that the stream may have.
    :param block_counts: Specifies the minimum and maximum number of each block type, as a dictionary mapping block names to dicts with (optional) ``min_num`` and ``max_num`` fields.
    :param collapsed: When true, all blocks are initially collapsed.
+
+   .. versionchanged:: 3.0
+     The required ``use_json_field`` argument is added.
 
    .. code-block:: python
 
@@ -26,7 +30,7 @@ This document details the block types provided by Wagtail for use in :ref:`Strea
       ], block_counts={
           'heading': {'min_num': 1},
           'image': {'max_num': 5},
-      })
+      }, use_json_field=True)
 
 
 Block options

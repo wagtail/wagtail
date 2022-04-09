@@ -3,7 +3,6 @@ import { shallow } from 'enzyme';
 import { SubMenuItem } from './SubMenuItem';
 
 describe('SubMenuItem', () => {
-  const strings = {};
   const state = { activePath: '.reports.workflows', navigationPath: '' };
 
   it('should render with the minimum required props', () => {
@@ -13,7 +12,6 @@ describe('SubMenuItem', () => {
         items={[]}
         state={state}
         path=".reports"
-        strings={strings}
       />,
     );
 
@@ -30,7 +28,6 @@ describe('SubMenuItem', () => {
         items={[]}
         state={state}
         path=".reports"
-        strings={strings}
       />,
     );
 

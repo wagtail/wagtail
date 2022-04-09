@@ -1,4 +1,4 @@
-from django.test import RequestFactory, TestCase, override_settings
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from wagtail import hooks
@@ -31,14 +31,6 @@ class TestMenuRendering(TestCase, WagtailTestUtils):
         self.client.cookies["wagtail_sidebar_collapsed"] = "1"
         response = self.client.get(reverse("wagtailadmin_home"))
         self.assertContains(response, "sidebar-collapsed")
-
-    @override_settings(WAGTAIL_SLIM_SIDEBAR=False)
-    def test_not_collapsed_with_legacy(self):
-        """Sidebar should only remember its collapsed state with the slim implementation."""
-        # Sidebar should not be collapsed because the feature flag is not enabled
-        self.client.cookies["wagtail_sidebar_collapsed"] = "1"
-        response = self.client.get(reverse("wagtailadmin_home"))
-        self.assertNotContains(response, "sidebar-collapsed")
 
     def test_simple_menu(self):
         # Note: initialise the menu before registering hooks as this is what happens in reality.

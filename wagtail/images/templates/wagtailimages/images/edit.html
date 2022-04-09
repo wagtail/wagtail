@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags wagtailadmin_tags i18n l10n %}
-{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 {% block extra_css %}
     {{ block.super }}
 
@@ -52,7 +52,7 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-                <div class="u-hidden@xs">
+                <div class="w-hidden sm:w-block">
                     <input type="submit" value="{% trans 'Save' %}" class="button" />
                     {% if user_can_delete %}
                         <a href="{% url 'wagtailimages:delete' image.id %}{% if next %}?next={{ next|urlencode }}{% endif %}" class="button button-secondary no">{% trans "Delete image" %}</a>
@@ -99,7 +99,7 @@
                             {% if uc_enabled %}
                                 <dt>{% trans "Usage" %}</dt>
                                 <dd>
-                                    <a href="{{ image.usage_url }}">{% blocktrans count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
+                                    <a href="{{ image.usage_url }}">{% blocktrans trimmed count usage_count=image.get_usage.count %}Used {{ usage_count }} time{% plural %}Used {{ usage_count }} times{% endblocktrans %}</a>
                                 </dd>
                             {% endif %}
                         </dl>
@@ -108,7 +108,7 @@
             </div>
         </div>
 
-        <div class="row row-flush nice-padding u-hidden@sm">
+        <div class="row row-flush nice-padding sm:!w-hidden">
             <div class="col5">
                 <input type="submit" value="{% trans 'Save' %}" class="button" />
                 {% if user_can_delete %}

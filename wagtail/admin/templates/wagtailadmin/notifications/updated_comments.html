@@ -1,9 +1,10 @@
 {% extends 'wagtailadmin/notifications/base.html' %}
 {% load i18n wagtailadmin_tags %}
+{% base_url_setting as base_url %}
 
 {% block content %}
     <p>
-        {% blocktrans with title=page.get_admin_display_title editor=editor|user_display_name %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
+        {% blocktrans trimmed with title=page.get_admin_display_title editor=editor|user_display_name %}{{ editor }} has updated comments on "{{ title }}".{% endblocktrans %}
     </p>
 
     {% if new_comments %}
@@ -52,7 +53,7 @@
         </ul>
     {% endif %}
 
-    <p>{% trans "You can edit the page here:"%} <a href="{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
+    <p>{% trans "You can edit the page here:"%} <a href="{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}">{{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}</a></p>
 {% endblock %}
 
 

@@ -1,4 +1,5 @@
 import datetime
+import unittest
 from unittest import mock
 
 from django.contrib.auth.models import Group, Permission
@@ -46,6 +47,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
             "wagtailadmin_pages:add", args=("tests", "simplepage", self.root_page.id)
         )
         self.assertContains(response, 'href="%s"' % target_url)
+        self.assertContains(response, "A simple page description")
         # List of available page types should not contain pages with is_creatable = False
         self.assertNotContains(response, "MTI base page")
         # List of available page types should not contain abstract pages
@@ -1440,6 +1442,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.user = self.login()
 
+    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(
@@ -1479,7 +1482,8 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
         )
 
-    def test_locale_dropdown_not_present_without_permission_to_add(self):
+    @unittest.expectedFailure  # TODO: Page editor header rewrite
+    def test_locale_selector_not_present_without_permission_to_add(self):
         # Remove user's permissions to add in the French tree
         group = Group.objects.get(name="Moderators")
         GroupPagePermission.objects.create(
@@ -1525,6 +1529,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
         self.fr_locale = Locale.objects.create(language_code="fr")
         self.user = self.login()
 
+    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse(

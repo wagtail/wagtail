@@ -8,10 +8,8 @@ from django.contrib.admin.utils import quote
 from django.contrib.humanize.templatetags.humanize import intcomma
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.db.models import Min, QuerySet
-from django.forms import Media
 from django.shortcuts import resolve_url as resolve_url_func
 from django.template.defaultfilters import stringfilter
-from django.template.loader import render_to_string
 from django.templatetags.static import static
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
@@ -30,6 +28,7 @@ from wagtail.admin.navigation import get_explorable_root_page
 from wagtail.admin.search import admin_search_areas
 from wagtail.admin.staticfiles import versioned_static as versioned_static_func
 from wagtail.admin.ui import sidebar
+from wagtail.admin.utils import get_admin_base_url
 from wagtail.admin.views.bulk_action.registry import bulk_action_registry
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.admin.widgets import ButtonWithDropdown, PageListingButton
@@ -56,41 +55,14 @@ register = template.Library()
 register.filter("intcomma", intcomma)
 
 
-@register.simple_tag(takes_context=True)
-def menu_search(context):
-    request = context["request"]
-
-    search_areas = admin_search_areas.search_items_for_request(request)
-    if not search_areas:
-        return ""
-    search_area = search_areas[0]
-
-    return render_to_string(
-        "wagtailadmin/shared/menu_search.html",
-        {
-            "search_url": search_area.url,
-        },
-    )
-
-
-@register.inclusion_tag("wagtailadmin/shared/main_nav.html", takes_context=True)
-def main_nav(context):
-    request = context["request"]
-
-    return {
-        "menu_html": admin_menu.render_html(request),
-        "request": request,
-    }
-
-
 @register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
 def explorer_breadcrumb(
     context,
     page,
     page_perms=None,
     include_self=True,
-    trailing_arrow=False,
-    show_header_buttons=False,
+    use_next_template=False,
+    trailing_breadcrumb_title=None,
 ):
     user = context["request"].user
 
@@ -106,8 +78,8 @@ def explorer_breadcrumb(
         .specific(),
         "current_page": page,
         "page_perms": page_perms,
-        "trailing_arrow": trailing_arrow,
-        "show_header_buttons": show_header_buttons,
+        "use_next_template": use_next_template,
+        "trailing_breadcrumb_title": trailing_breadcrumb_title,  # Only used in collapsible breadcrumb templates
     }
 
 
@@ -134,33 +106,6 @@ def search_other(context, current=None):
         "options_html": admin_search_areas.render_html(request, current),
         "request": request,
     }
-
-
-@register.simple_tag
-def main_nav_js():
-    if slim_sidebar_enabled():
-        return Media(
-            js=[
-                versioned_static("wagtailadmin/js/telepath/telepath.js"),
-                versioned_static("wagtailadmin/js/sidebar.js"),
-            ]
-        )
-
-    else:
-        return (
-            Media(js=[versioned_static("wagtailadmin/js/sidebar-legacy.js")])
-            + admin_menu.media["js"]
-        )
-
-
-@register.simple_tag
-def main_nav_css():
-    if slim_sidebar_enabled():
-        return Media(css={"all": [versioned_static("wagtailadmin/css/sidebar.css")]})
-
-    else:
-        # Legacy sidebar CSS in core.css
-        return admin_menu.media["css"]
 
 
 @register.filter("ellipsistrim")
@@ -282,9 +227,9 @@ def usage_count_enabled():
     return getattr(settings, "WAGTAIL_USAGE_COUNT_ENABLED", False)
 
 
-@register.simple_tag
-def base_url_setting():
-    return getattr(settings, "BASE_URL", None)
+@register.simple_tag(takes_context=True)
+def base_url_setting(context=None):
+    return get_admin_base_url(context=context)
 
 
 @register.simple_tag
@@ -554,7 +499,7 @@ def page_listing_buttons(context, page, page_perms, is_parent=False):
 
 
 @register.inclusion_tag(
-    "wagtailadmin/pages/listing/_button_with_dropdown.html", takes_context=True
+    "wagtailadmin/pages/listing/_modern_dropdown.html", takes_context=True
 )
 def page_header_buttons(context, page, page_perms):
     next_url = context.request.path
@@ -568,8 +513,28 @@ def page_header_buttons(context, page, page_perms):
     return {
         "page": page,
         "buttons": buttons,
-        "title": "Secondary actions menu",
-        "button_classes": ["c-dropdown__icon"],
+        "title": _("Actions"),
+        "icon_name": "ellipsis-v",
+        "classes": [
+            "w-flex",
+            "w-justify-center",
+            "w-items-center",
+            "w-h-full",
+            "w-ml-1",
+        ],
+        "button_classes": [
+            "w-p-0",
+            "w-w-12",
+            "w-h-12",
+            "w-text-primary",
+            "w-bg-transparent",
+            "hover:w-scale-110",
+            "w-transition",
+            "w-outline-offset-inside",
+            "w-relative",
+            "w-z-30",
+        ],
+        "hide_title": True,
     }
 
 
@@ -698,7 +663,7 @@ def js_translation_strings():
 def notification_static(path):
     """
     Variant of the {% static %}` tag for use in notification emails - tries to form
-    a full URL using BASE_URL if the static URL isn't already a full URL.
+    a full URL using WAGTAILADMIN_BASE_URL if the static URL isn't already a full URL.
     """
     return urljoin(base_url_setting(), static(path))
 
@@ -847,11 +812,6 @@ def locale_label_from_id(locale_id):
     Returns the Locale display name given its id.
     """
     return get_locales_display_names().get(locale_id)
-
-
-@register.simple_tag()
-def slim_sidebar_enabled():
-    return getattr(settings, "WAGTAIL_SLIM_SIDEBAR", True)
 
 
 @register.simple_tag(takes_context=True)

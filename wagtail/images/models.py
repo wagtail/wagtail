@@ -10,10 +10,12 @@ from django.conf import settings
 from django.core import checks
 from django.core.cache import InvalidCacheBackendError, caches
 from django.core.files import File
+from django.core.files.storage import default_storage
 from django.db import models
 from django.forms.utils import flatatt
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.module_loading import import_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from taggit.managers import TaggableManager
@@ -68,6 +70,21 @@ def get_rendition_upload_to(instance, filename):
     subclasses can override it.
     """
     return instance.get_upload_to(filename)
+
+
+def get_rendition_storage():
+    """
+    Obtain the storage object for an image rendition file.
+    Returns custom storage (if defined), or the default storage.
+
+    This needs to be a module-level function, because we do not yet
+    have an instance when Django loads the models.
+    """
+    storage = getattr(settings, "WAGTAILIMAGES_RENDITION_STORAGE", default_storage)
+    if isinstance(storage, str):
+        module = import_string(storage)
+        storage = module()
+    return storage
 
 
 class ImageFileMixin:
@@ -187,7 +204,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         folder_name = "original_images"
         filename = self.file.field.storage.get_valid_name(filename)
 
-        # do a unidecode in the filename and then
+        # convert the filename to simple ascii characters and then
         # replace non-ascii characters in filename with _ , to sidestep issues with filesystem encoding
         filename = "".join(
             (i if ord(i) < 128 else "_") for i in string_to_ascii(filename)
@@ -597,7 +614,10 @@ class Filter:
 class AbstractRendition(ImageFileMixin, models.Model):
     filter_spec = models.CharField(max_length=255, db_index=True)
     file = models.ImageField(
-        upload_to=get_rendition_upload_to, width_field="width", height_field="height"
+        upload_to=get_rendition_upload_to,
+        storage=get_rendition_storage,
+        width_field="width",
+        height_field="height",
     )
     width = models.IntegerField(editable=False)
     height = models.IntegerField(editable=False)
@@ -638,8 +658,8 @@ class AbstractRendition(ImageFileMixin, models.Model):
     @property
     def full_url(self):
         url = self.url
-        if hasattr(settings, "BASE_URL") and url.startswith("/"):
-            url = settings.BASE_URL + url
+        if hasattr(settings, "WAGTAILADMIN_BASE_URL") and url.startswith("/"):
+            url = settings.WAGTAILADMIN_BASE_URL + url
         return url
 
     @property

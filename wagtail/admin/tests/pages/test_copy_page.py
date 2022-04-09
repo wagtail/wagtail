@@ -4,7 +4,12 @@ from django.test import TestCase
 from django.urls import reverse
 
 from wagtail.models import GroupPagePermission, Page
-from wagtail.test.testapp.models import SimplePage
+from wagtail.test.testapp.models import (
+    EventPage,
+    EventPageSpeaker,
+    PageWithExcludedCopyField,
+    SimplePage,
+)
 from wagtail.test.utils import WagtailTestUtils
 
 
@@ -150,7 +155,37 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
+        )
+
+    def test_page_with_exclude_fields_in_copy(self):
+        original_page = self.test_page.add_child(
+            instance=PageWithExcludedCopyField(
+                title="Page with exclude_fields_in_copy",
+                slug="page-with-exclude-fields-in-copy",
+                content="Copy me",
+                special_field="Don't copy me",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+        post_data = {
+            "new_title": f"{original_page.title} 2",
+            "new_slug": f"{original_page.slug}-2",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=(original_page.id,)), post_data
+        )
+        # Get copy
+        page_copy = PageWithExcludedCopyField.objects.get(slug=post_data["new_slug"])
+        self.assertEqual(page_copy.content, original_page.content)
+        self.assertNotEqual(page_copy.special_field, original_page.special_field)
+        self.assertEqual(
+            page_copy.special_field, page_copy._meta.get_field("special_field").default
         )
 
     def test_page_copy_post_copy_subpages(self):
@@ -203,7 +238,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_page_copy_post_copy_subpages_publish_copies(self):
@@ -256,7 +291,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_page_copy_post_new_parent(self):
@@ -280,12 +315,12 @@ class TestPageCopy(TestCase, WagtailTestUtils):
         # Check that the page was copied to the correct place
         self.assertTrue(
             Page.objects.filter(slug="hello-world-2").first().get_parent(),
-            self.test_child_page,
+            msg=self.test_child_page,
         )
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_page_copy_post_existing_slug_within_same_parent_page(self):
@@ -485,7 +520,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_before_copy_page_hook(self):
@@ -593,7 +628,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_page_copy_alias_post_copy_subpages(self):
@@ -651,7 +686,7 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # treebeard should report no consistency problems with the tree
         self.assertFalse(
-            any(Page.find_problems()), "treebeard found consistency problems"
+            any(Page.find_problems()), msg="treebeard found consistency problems"
         )
 
     def test_page_copy_alias_post_without_source_publish_permission(self):
@@ -692,3 +727,57 @@ class TestPageCopy(TestCase, WagtailTestUtils):
 
         # We only need to check that it didn't crash
         self.assertEqual(response.status_code, 302)
+
+    def test_copy_page_with_unique_uuids_in_orderables(self):
+        """
+        Test that a page with orderables can be copied and the translation
+        keys are updated.
+        """
+        event_page = EventPage(
+            title="Moon Landing",
+            location="the moon",
+            audience="public",
+            cost="free on TV",
+            date_from="1969-07-20",
+        )
+        self.root_page.add_child(instance=event_page)
+
+        event_page.speakers.add(
+            EventPageSpeaker(
+                first_name="Neil",
+                last_name="Armstrong",
+            )
+        )
+        # ensure there's a revision (which should capture the new speaker orderables)
+        # before copying the page
+        event_page.save_revision().publish()
+
+        post_data = {
+            "new_title": "New Moon landing",
+            "new_slug": "moon-landing-redux",
+            "new_parent_page": str(self.root_page.id),
+            "copy_subpages": False,
+            "publish_copies": False,
+            "alias": False,
+        }
+        self.client.post(
+            reverse("wagtailadmin_pages:copy", args=[event_page.id]), post_data
+        )
+        new_page = EventPage.objects.last()
+
+        # Hack: get the page instance from the edit form which assembles it from the
+        # latest revision. While we could do new_page.get_latest_revision().as_page_object()
+        # this follow the edit view closer and should it change the test is less
+        # prone to continue working because we're skipping some step
+        response = self.client.get(
+            reverse("wagtailadmin_pages:edit", args=[new_page.id])
+        )
+        new_page_on_edit_form = response.context["form"].instance
+
+        # publish the page, similar to EditView.publish_action()
+        new_page_on_edit_form.save_revision().publish()
+
+        self.assertNotEqual(
+            event_page.speakers.first().translation_key,
+            new_page.speakers.first().translation_key,
+        )

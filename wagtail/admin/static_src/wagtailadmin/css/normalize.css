@@ -51,7 +51,8 @@ audio:not([controls]) {
  */
 
 [hidden] {
-  display: none;
+  /* stylelint-disable-next-line declaration-no-important */
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -87,7 +88,7 @@ button,
 input,
 select,
 textarea {
-  font-family: sans-serif;
+  font-family: inherit;
 }
 
 /**

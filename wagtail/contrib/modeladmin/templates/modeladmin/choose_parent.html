@@ -27,8 +27,8 @@
     <div>
 
         <div class="nice-padding">
-            <h2>{% blocktrans %}Choose a parent page{% endblocktrans %}</h2>
-            <p>{% blocktrans with view.verbose_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
+            <h2>{% blocktrans trimmed %}Choose a parent page{% endblocktrans %}</h2>
+            <p>{% blocktrans trimmed with view.verbose_name_plural|capfirst as plural %}{{ plural }} can be added to more than one place within your site. Which of the following would you like to be the parent of your new page?{% endblocktrans %}</p>
 
             <form action="" method="post" novalidate>
                 {% csrf_token %}

@@ -8,7 +8,7 @@ You can also customise this [same behaviour for images](../images/title_generati
 
 You can customise the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:documents-upload'` event.
 
-The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](../../reference/hooks.html#insert-global-admin-js), however any JavaScript that adds the event listener will work.
+The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
 
 ## DOM Event
 
@@ -22,7 +22,7 @@ To modify the generated `Document` title, access and update `event.detail.data.t
 
 For single document uploads, the custom event will only run if the title does not already have a value so that we do not overwrite whatever the user has typed.
 
-You can prevent the default behaviour by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple upload, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the document.
+You can prevent the default behaviour by calling `event.preventDefault()`. For the single upload page or modals, this will not pre-fill any value into the title. For multiple uploads, this will avoid any title submission and use the filename title only (with file extension) as a title is required to save the document.
 
 The event will 'bubble' up so that you can simply add a global `document` listener to capture all of these events, or you can scope your listener or handler logic as needed to ensure you only adjust titles in some specific scenarios.
 
@@ -58,7 +58,7 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](../../reference/hooks.html#insert-editor-js) instead so that this script will not run on the `Document` upload page, only on page editors.
+Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Document` upload page, only on page editors.
 
 ```python
 # wagtail_hooks.py

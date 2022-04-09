@@ -41,6 +41,26 @@ When ``WAGTAIL_APPEND_SLASH`` is ``False``, requests to Wagtail pages will be se
 
 .. _this Google Search Central Blog post: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
 
+ADMIN BASE URL
+==============
+
+.. _wagtailadmin_base_url:
+
+``WAGTAILADMIN_BASE_URL``
+--------------------------
+
+.. code-block:: python
+
+    WAGTAILADMIN_BASE_URL = 'http://example.com/'
+
+This is the base URL used by the Wagtail admin site. It is typically used for generating URLs to include in notification emails.
+
+If this setting is not present, Wagtail will try to fall back to ``request.site.root_url`` or to the request's host name.
+
+.. versionchanged:: 3.0
+
+  This setting was previously named ``BASE_URL`` and was undocumented, using ``BASE_URL`` will be removed in a future release.
+
 Search
 ======
 
@@ -217,15 +237,6 @@ If a user has not uploaded a profile picture, Wagtail will look for an avatar li
 
 Changes whether the Submit for Moderation button is displayed in the action menu.
 
-``WAGTAIL_SLIM_SIDEBAR``
-------------------------
-
-.. code-block:: python
-
-  WAGTAIL_SLIM_SIDEBAR = False
-
-Disables Wagtail’s slim sidebar to use the legacy sidebar instead. The legacy sidebar and this setting will be removed in Wagtail 2.18.
-
 Comments
 ========
 
@@ -314,6 +325,19 @@ Specifies the number of items per page shown when viewing an image's usage (see 
     WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 12
 
 Specifies the number of images shown per page in the image chooser modal.
+
+.. _wagtailimages_rendition_storage:
+
+``WAGTAILIMAGES_RENDITION_STORAGE``
+-----------------------------------
+
+.. code-block:: python
+
+    WAGTAILIMAGES_RENDITION_STORAGE = 'myapp.backends.MyCustomStorage'
+
+This setting allows image renditions to be stored using an alternative storage backend. The default is ``None``, which will use Django's default `FileSystemStorage`.
+
+Custom storage classes should subclass ``django.core.files.storage.Storage``. See the :doc:`Django file storage API <django:ref/files/storage>`.
 
 Documents
 =========

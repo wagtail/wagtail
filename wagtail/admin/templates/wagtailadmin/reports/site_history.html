@@ -43,7 +43,7 @@
                             {% include "wagtailadmin/shared/user_avatar.html" with user=entry.user username=entry.user_display_name %}
                         </td>
                         <td class="updated">
-                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
+                            <div class="human-readable-date" title="{{ entry.timestamp|date:"DATETIME_FORMAT" }}">{% blocktrans trimmed with time_period=entry.timestamp|timesince %}{{ time_period }} ago{% endblocktrans %}</div>
                         </td>
                     </tr>
                 {% endfor %}

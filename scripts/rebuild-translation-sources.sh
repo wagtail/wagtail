@@ -8,3 +8,8 @@ do
     django-admin makemessages --locale=en
     popd
 done
+
+# Extract translatable strings from JavaScript
+pushd ../client
+node extract-translatable-strings.js
+popd

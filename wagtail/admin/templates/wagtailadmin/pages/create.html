@@ -2,28 +2,12 @@
 {% load wagtailadmin_tags %}
 {% load i18n %}
 
-{% block titletag %}{% blocktrans with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with page_type=content_type.model_class.get_verbose_name %}New {{ page_type }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-editor create model-{{ content_type.model }}{% endblock %}
 
 {% block content %}
     <div id="comments"></div>
-    <header class="merged tab-merged">
-        {% explorer_breadcrumb parent_page include_self=1 trailing_arrow=True %}
-
-        <div class="row">
-            <div class="left col9 header-title">
-                <h1>{% trans 'New' %} <span>{{ content_type.model_class.get_verbose_name }}</span></h1>
-            </div>
-        </div>
-
-        {% if locale %}
-            <ul class="row header-meta">
-                <li class="header-meta--locale">
-                    {% include "wagtailadmin/shared/locale_selector.html" %}
-                </li>
-            </ul>
-        {% endif %}
-    </header>
+    {% include 'wagtailadmin/shared/headers/page_create_header.html' %}
 
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
@@ -83,8 +67,7 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-    {{ action_menu.media.css }}
+    {{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
@@ -94,13 +77,7 @@
     {% comment %}
         Additional js from widgets media. Allows for custom widgets in admin panel.
     {% endcomment %}
-    {{ edit_handler.form.media.js }}
-    {{ action_menu.media.js }}
-
-    {% comment %}
-        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)
-    {% endcomment %}
-    {{ edit_handler.html_declarations }}
+    {{ media.js }}
 
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page

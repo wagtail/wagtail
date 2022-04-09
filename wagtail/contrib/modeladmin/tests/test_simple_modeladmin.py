@@ -43,6 +43,16 @@ class TestBookIndexView(TestCase, WagtailTestUtils):
     def get(self, **params):
         return self.client.get("/admin/modeladmintest/book/", params)
 
+    def test_thumbnail_image_col_header_text(self):
+        response = self.get()
+
+        # check thumb_col_header_text is correctly used
+        self.assertContains(
+            response,
+            '<th scope="col" class="column-admin_thumb">The cover</th>',
+            html=True,
+        )
+
     def test_simple(self):
         response = self.get()
 

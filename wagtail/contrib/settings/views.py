@@ -40,7 +40,7 @@ def get_setting_edit_handler(model):
     else:
         panels = extract_panel_definitions_from_model_class(model, ["site"])
         edit_handler = ObjectList(panels)
-    return edit_handler.bind_to(model=model)
+    return edit_handler.bind_to_model(model)
 
 
 def edit_current_site(request, app_name, model_name):
@@ -67,7 +67,6 @@ def edit(request, app_name, model_name, site_pk):
 
     instance = model.for_site(site)
     edit_handler = get_setting_edit_handler(model)
-    edit_handler = edit_handler.bind_to(instance=instance, request=request)
     form_class = edit_handler.get_form_class()
 
     if request.method == "POST":
@@ -93,12 +92,17 @@ def edit(request, app_name, model_name, site_pk):
     else:
         form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.bind_to(form=form)
+    edit_handler = edit_handler.get_bound_panel(
+        instance=instance, request=request, form=form
+    )
+
+    media = form.media + edit_handler.media
 
     # Show a site switcher form if there are multiple sites
     site_switcher = None
     if Site.objects.count() > 1:
         site_switcher = SiteSwitchForm(site, model)
+        media += site_switcher.media
 
     return TemplateResponse(
         request,
@@ -111,6 +115,7 @@ def edit(request, app_name, model_name, site_pk):
             "form": form,
             "site": site,
             "site_switcher": site_switcher,
-            "tabbed": isinstance(edit_handler, TabbedInterface),
+            "tabbed": isinstance(edit_handler.panel, TabbedInterface),
+            "media": media,
         },
     )

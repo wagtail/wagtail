@@ -43,6 +43,7 @@ from wagtail.admin.views.generic.base import WagtailAdminTemplateMixin
 from wagtail.admin.views.mixins import SpreadsheetExportMixin
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .forms import ParentChooserForm
 
@@ -159,17 +160,22 @@ class ModelFormView(WMABaseView, FormView):
 
     def get_form(self):
         form = super().get_form()
-        self.edit_handler = self.edit_handler.bind_to(form=form)
         return form
 
     def get_edit_handler(self):
-        instance = self.get_instance()
-        edit_handler = self.model_admin.get_edit_handler(
-            instance=instance, request=self.request
-        )
-        return edit_handler.bind_to(
-            model=self.model_admin.model, request=self.request, instance=instance
-        )
+        try:
+            edit_handler = self.model_admin.get_edit_handler()
+        except TypeError:
+            edit_handler = self.model_admin.get_edit_handler(
+                instance=None, request=None
+            )
+            warnings.warn(
+                "%s.get_edit_handler should not accept instance or request arguments"
+                % type(self.model_admin).__name__,
+                category=RemovedInWagtail50Warning,
+            )
+
+        return edit_handler.bind_to_model(self.model_admin.model)
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()
@@ -196,12 +202,17 @@ class ModelFormView(WMABaseView, FormView):
         if form is None:
             form = self.get_form()
 
+        bound_panel = self.edit_handler.get_bound_panel(
+            form=form, instance=form.instance, request=self.request
+        )
+
         prepopulated_fields = self.get_prepopulated_fields(form)
         context = {
             "is_multipart": form.is_multipart(),
-            "edit_handler": self.edit_handler,
+            "edit_handler": bound_panel,
             "form": form,
             "prepopulated_fields": prepopulated_fields,
+            "media": self.media + bound_panel.media + form.media,
         }
         context.update(kwargs)
         return super().get_context_data(**context)

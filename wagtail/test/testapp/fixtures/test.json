@@ -22,7 +22,7 @@
     "fields": {
       "title": "Welcome to the Wagtail test site!",
       "draft_title": "Welcome to the Wagtail test site!",
-      "numchild": 9,
+      "numchild": 10,
       "show_in_menus": false,
       "live": true,
       "depth": 2,
@@ -487,7 +487,7 @@
     "pk": 1,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_email",
       "sort_order": 1,
       "label": "Your email",
       "field_type": "email",
@@ -502,7 +502,7 @@
     "pk": 2,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_message",
       "sort_order": 2,
       "label": "Your message",
       "field_type": "multiline",
@@ -517,7 +517,7 @@
     "pk": 3,
     "model": "tests.formfieldwithcustomsubmission",
     "fields": {
-      "clean_name": "",
+      "clean_name": "your_choices",
       "sort_order": 3,
       "label": "Your choices",
       "field_type": "checkboxes",
@@ -594,7 +594,6 @@
       "content": "<p>collect logs</p>"
     }
   },
-
   {
     "pk": 20,
     "model": "wagtailcore.page",
@@ -611,7 +610,30 @@
       "slug": "does-not-exist"
     }
   },
-
+  {
+    "pk": 21,
+    "model": "wagtailcore.page",
+    "fields": {
+      "title": "This page has a field that shouldn't be copied",
+      "draft_title": "This page has a field that shouldn't be copied",
+      "numchild": 0,
+      "show_in_menus": true,
+      "live": true,
+      "depth": 3,
+      "content_type": ["tests", "pagewithexcludedcopyfield"],
+      "path": "000100010010",
+      "url_path": "/home/page-with-exclude-fields-in-copy/",
+      "slug": "page-with-exclude-fields-in-copy"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "tests.pagewithexcludedcopyfield",
+    "fields": {
+      "content": "Copy me.",
+      "special_field": "Don't copy me."
+    }
+  },
   {
     "pk": 1,
     "model": "wagtailcore.site",

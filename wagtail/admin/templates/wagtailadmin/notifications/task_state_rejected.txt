@@ -1,7 +1,8 @@
 {% extends 'wagtailadmin/notifications/base.txt' %}
-{% load i18n %}
+{% load wagtailadmin_tags i18n %}
+{% base_url_setting as base_url %}
 
 {% block content %}
-{% blocktrans with title=page.get_admin_display_title|safe task=task.name|safe %}The page "{{ title }}" has been rejected in moderation stage "{{ task }}".{% endblocktrans %}
-{% trans "You can edit the page here:"%} {{ settings.BASE_URL }}{% url 'wagtailadmin_pages:edit' page.id %}
+{% blocktrans trimmed with title=page.get_admin_display_title|safe task=task.name|safe %}The page "{{ title }}" has been rejected in moderation stage "{{ task }}".{% endblocktrans %}
+{% trans "You can edit the page here:"%} {{ base_url }}{% url 'wagtailadmin_pages:edit' page.id %}
 {% endblock %}

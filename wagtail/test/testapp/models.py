@@ -162,6 +162,7 @@ class RelatedLink(LinkFields):
 # Simple page
 class SimplePage(Page):
     content = models.TextField()
+    page_description = "A simple page description"
 
     content_panels = [
         FieldPanel("title", classname="full title"),
@@ -1103,7 +1104,19 @@ class StreamModel(models.Model):
             ("text", CharBlock()),
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
-        ]
+        ],
+        use_json_field=False,
+    )
+
+
+class JSONStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        use_json_field=True,
     )
 
 
@@ -1116,6 +1129,20 @@ class MinMaxCountStreamModel(models.Model):
         ],
         min_num=2,
         max_num=5,
+        use_json_field=False,
+    )
+
+
+class JSONMinMaxCountStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        min_num=2,
+        max_num=5,
+        use_json_field=True,
     )
 
 
@@ -1131,6 +1158,23 @@ class BlockCountsStreamModel(models.Model):
             "rich_text": {"max_num": 1},
             "image": {"min_num": 1, "max_num": 1},
         },
+        use_json_field=False,
+    )
+
+
+class JSONBlockCountsStreamModel(models.Model):
+    body = StreamField(
+        [
+            ("text", CharBlock()),
+            ("rich_text", RichTextBlock()),
+            ("image", ImageChooserBlock()),
+        ],
+        block_counts={
+            "text": {"min_num": 1},
+            "rich_text": {"max_num": 1},
+            "image": {"min_num": 1, "max_num": 1},
+        },
+        use_json_field=True,
     )
 
 
@@ -1175,7 +1219,8 @@ class StreamPage(Page):
                     ]
                 ),
             ),
-        ]
+        ],
+        use_json_field=False,
     )
 
     api_fields = ("body",)
@@ -1196,6 +1241,7 @@ class DefaultStreamPage(Page):
             ("image", ImageChooserBlock()),
         ],
         default="",
+        use_json_field=False,
     )
 
     content_panels = [
@@ -1395,7 +1441,8 @@ class DefaultRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
 
     content_panels = Page.content_panels + [FieldPanel("body")]
@@ -1414,7 +1461,8 @@ class CustomRichBlockFieldPage(Page):
     body = StreamField(
         [
             ("rich_text", RichTextBlock(editor="custom")),
-        ]
+        ],
+        use_json_field=False,
     )
 
     content_panels = [
@@ -1459,7 +1507,8 @@ class InlineStreamPageSection(Orderable):
             ("text", CharBlock()),
             ("rich_text", RichTextBlock()),
             ("image", ImageChooserBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
     panels = [FieldPanel("body")]
 
@@ -1472,7 +1521,7 @@ class InlineStreamPage(Page):
 
 
 class TableBlockStreamPage(Page):
-    table = StreamField([("table", TableBlock())])
+    table = StreamField([("table", TableBlock())], use_json_field=False)
 
     content_panels = [FieldPanel("table")]
 
@@ -1502,15 +1551,15 @@ class AlwaysShowInMenusPage(Page):
 
 # test for AddField migrations on StreamFields using various default values
 class AddedStreamFieldWithoutDefaultPage(Page):
-    body = StreamField([("title", CharBlock())])
+    body = StreamField([("title", CharBlock())], use_json_field=False)
 
 
 class AddedStreamFieldWithEmptyStringDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default="")
+    body = StreamField([("title", CharBlock())], default="", use_json_field=False)
 
 
 class AddedStreamFieldWithEmptyListDefaultPage(Page):
-    body = StreamField([("title", CharBlock())], default=[])
+    body = StreamField([("title", CharBlock())], default=[], use_json_field=False)
 
 
 class SecretPage(Page):
@@ -1639,7 +1688,8 @@ class DeadlyStreamPage(Page):
     body = StreamField(
         [
             ("title", DeadlyCharBlock()),
-        ]
+        ],
+        use_json_field=False,
     )
     content_panels = Page.content_panels + [
         FieldPanel("body"),

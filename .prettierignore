@@ -11,5 +11,4 @@ _build
 *.md
 # Files which contain incompatible syntax.
 *.html
-wagtail/admin/templates/wagtailadmin/panels/inline_panel.js
 wagtail/contrib/search_promotions/templates/wagtailsearchpromotions/includes/searchpromotions_formset.js

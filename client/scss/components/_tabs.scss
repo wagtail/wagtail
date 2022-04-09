@@ -1,7 +1,7 @@
 .tab-nav {
+  @apply w-bg-grey-50;
   @include row();
   padding: 0;
-  background: $color-grey-4;
 
   li {
     list-style-type: none;
@@ -23,14 +23,14 @@
   }
 
   a {
+    // border-top 0.3em is temporary until the new tab design is implemented
+    @apply w-bg-primary w-border-t-[0.3em] w-border-primary-200;
     @include transition(border-color 0.2s ease);
-    background-color: $color-teal-darker;
     font-weight: 600;
     text-decoration: none;
     display: block;
     padding: 0.6em 0.7em 0.8em;
     color: $color-white;
-    border-top: 0.3em solid $color-teal-darker;
     max-height: 1.44em;
     overflow: hidden;
 
@@ -70,9 +70,14 @@
   }
 
   // For cases where tab-nav should merge with header
+  .page-editor & {
+    &.merged {
+      @apply w-pt-2 sm:w-pt-4;
+    }
+  }
+
   &.merged {
-    margin-top: 0;
-    background-color: $color-header-bg;
+    @apply w-mt-0;
   }
 
   li.right {
@@ -115,7 +120,7 @@
   .tab-nav {
     // For cases where tab-nav should merge with header
     &.merged {
-      background-color: $color-header-bg;
+      @apply w-bg-grey-50;
     }
 
     li {

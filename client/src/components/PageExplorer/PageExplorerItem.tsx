@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { ADMIN_URLS, STRINGS, LOCALE_NAMES } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
+import { ADMIN_URLS, LOCALE_NAMES } from '../../config/wagtailConfig';
 import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
 import PublicationStatus from '../../components/PublicationStatus/PublicationStatus';
@@ -58,7 +59,7 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
       >
         <Icon
           name="edit"
-          title={STRINGS.EDIT_PAGE.replace('{title}', title)}
+          title={gettext("Edit '{title}'").replace('{title}', title || '')}
           className="icon--item-action"
         />
       </Button>
@@ -71,7 +72,10 @@ const PageExplorerItem: React.FunctionComponent<PageExplorerItemProps> = ({
         >
           <Icon
             name="arrow-right"
-            title={STRINGS.VIEW_CHILD_PAGES_OF_PAGE.replace('{title}', title)}
+            title={gettext("View child pages of '{title}'").replace(
+              '{title}',
+              title || '',
+            )}
             className="icon--item-action"
           />
         </Button>

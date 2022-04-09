@@ -7,6 +7,8 @@ h1 {
 }
 
 header {
+  @apply w-text-primary;
+
   .col1 {
     width: 50px;
     margin-inline-end: 1em;
@@ -20,11 +22,6 @@ header {
       left: $mobile-nav-indent;
       inset-inline-start: $mobile-nav-indent;
     }
-  }
-
-  h1,
-  .user-name {
-    color: $color-white;
   }
 
   .user-name {

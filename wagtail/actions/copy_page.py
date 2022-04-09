@@ -60,6 +60,17 @@ class CopyPageAction:
         self.process_child_object = process_child_object
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
+        self._uuid_mapping = {}
+
+    def generate_translation_key(self, old_uuid):
+        """
+        Generates a new UUID if it isn't already being used.
+        Otherwise it will return the same UUID if it's already in use.
+        """
+        if old_uuid not in self._uuid_mapping:
+            self._uuid_mapping[old_uuid] = uuid.uuid4()
+
+        return self._uuid_mapping[old_uuid]
 
     def check(self, skip_permission_checks=False):
         from wagtail.models import UserPagePermissionsProxy
@@ -103,12 +114,12 @@ class CopyPageAction:
     def _copy_page(
         self, page, to=None, update_attrs=None, exclude_fields=None, _mpnode_attrs=None
     ):
+        specific_page = page.specific
         exclude_fields = (
-            page.default_exclude_fields_in_copy
-            + page.exclude_fields_in_copy
+            specific_page.default_exclude_fields_in_copy
+            + specific_page.exclude_fields_in_copy
             + (exclude_fields or [])
         )
-        specific_page = page.specific
         if self.keep_live:
             base_update_attrs = {
                 "alias_of": None,
@@ -136,19 +147,20 @@ class CopyPageAction:
         page_copy, child_object_map = _copy(
             specific_page, exclude_fields=exclude_fields, update_attrs=base_update_attrs
         )
-
         # Save copied child objects and run process_child_object on them if we need to
         for (child_relation, old_pk), child_object in child_object_map.items():
+
             if self.process_child_object:
                 self.process_child_object(
                     specific_page, page_copy, child_relation, child_object
                 )
 
-            # When we're not copying for translation, we should give the translation_key a new value for each child object as well
             if self.reset_translation_key and isinstance(
                 child_object, TranslatableMixin
             ):
-                child_object.translation_key = uuid.uuid4()
+                child_object.translation_key = self.generate_translation_key(
+                    child_object.translation_key
+                )
 
         # Save the new page
         if _mpnode_attrs:
@@ -195,7 +207,6 @@ class CopyPageAction:
 
                     for child_object in child_objects:
                         child_object[child_relation.field.name] = page_copy.pk
-
                         # Remap primary key to copied versions
                         # If the primary key is not recognised (eg, the child object has been deleted from the database)
                         # set the primary key to None
@@ -205,6 +216,15 @@ class CopyPageAction:
                         child_object["pk"] = (
                             copied_child_object.pk if copied_child_object else None
                         )
+                        if (
+                            self.reset_translation_key
+                            and "translation_key" in child_object
+                        ):
+                            child_object[
+                                "translation_key"
+                            ] = self.generate_translation_key(
+                                child_object["translation_key"]
+                            )
 
                 revision.content = revision_content
 

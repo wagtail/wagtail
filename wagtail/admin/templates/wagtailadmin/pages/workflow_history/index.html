@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
 
-{% block titletag %}{% blocktrans with title=page.specific_deferred.get_admin_display_title %}Workflow history for {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.specific_deferred.get_admin_display_title %}Workflow history for {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Workflow history for" as workflow_history_str %}

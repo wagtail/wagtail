@@ -1,11 +1,8 @@
 import * as React from 'react';
 
+import { gettext } from '../../../utils/gettext';
 import Icon from '../../Icon/Icon';
-import {
-  ModuleDefinition,
-  Strings,
-  SIDEBAR_TRANSITION_DURATION,
-} from '../Sidebar';
+import { ModuleDefinition, SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 
 import Tippy from '@tippyjs/react';
 
@@ -14,8 +11,6 @@ interface SearchInputProps {
   expandingOrCollapsing: boolean;
   onSearchClick: () => void;
   searchUrl: string;
-  strings: Strings;
-
   navigate(url: string): void;
 }
 
@@ -24,7 +19,6 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
   expandingOrCollapsing,
   onSearchClick,
   searchUrl,
-  strings,
   navigate,
 }) => {
   const isVisible = !slim || expandingOrCollapsing;
@@ -56,7 +50,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
       <div className="w-flex w-flex-row w-items-center w-h-full">
         <Tippy
           disabled={isVisible || !slim}
-          content={strings.SEARCH}
+          content={gettext('Search')}
           placement="right"
         >
           {/* Use padding left 23px to align icon in slim mode and padding right 18px to ensure focus is full width */}
@@ -76,7 +70,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           focus:w-text-white
           hover:w-bg-transparent`}
             type="submit"
-            aria-label={strings.SEARCH}
+            aria-label={gettext('Search')}
             onClick={(e) => {
               if (slim) {
                 e.preventDefault();
@@ -96,7 +90,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
         </Tippy>
 
         <label className="w-sr-only" htmlFor="menu-search-q">
-          {strings.SEARCH}
+          {gettext('Search')}
         </label>
 
         {/* Classes marked important to trump the base input styling set in _forms.scss */}
@@ -119,7 +113,7 @@ export const SearchInput: React.FunctionComponent<SearchInputProps> = ({
           type="text"
           id="menu-search-q"
           name="q"
-          placeholder={strings.SEARCH}
+          placeholder={gettext('Search')}
           ref={searchInput}
         />
       </div>
@@ -134,14 +128,7 @@ export class SearchModuleDefinition implements ModuleDefinition {
     this.searchUrl = searchUrl;
   }
 
-  render({
-    slim,
-    key,
-    expandingOrCollapsing,
-    onSearchClick,
-    strings,
-    navigate,
-  }) {
+  render({ slim, key, expandingOrCollapsing, onSearchClick, navigate }) {
     return (
       <SearchInput
         searchUrl={this.searchUrl}
@@ -149,7 +136,6 @@ export class SearchModuleDefinition implements ModuleDefinition {
         key={key}
         expandingOrCollapsing={expandingOrCollapsing}
         onSearchClick={onSearchClick}
-        strings={strings}
         navigate={navigate}
       />
     );

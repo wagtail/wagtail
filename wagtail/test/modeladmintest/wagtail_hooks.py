@@ -84,6 +84,7 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
     inspect_view_enabled = True
     inspect_view_fields_exclude = ("title",)
     thumb_image_field_name = "cover_image"
+    thumb_col_header_text = "The cover"
     search_handler_class = WagtailBackendSearchHandler
     prepopulated_fields = {"title": ("author",)}
 

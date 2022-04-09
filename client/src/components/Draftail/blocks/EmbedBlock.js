@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { STRINGS } from '../../../config/wagtailConfig';
-
+import { gettext } from '../../../utils/gettext';
 import MediaBlock from '../blocks/MediaBlock';
 
 /**
@@ -30,13 +29,13 @@ const EmbedBlock = (props) => {
         type="button"
         onClick={onEditEntity}
       >
-        {STRINGS.EDIT}
+        {gettext('Edit')}
       </button>
       <button
         className="button button-secondary no Tooltip__button"
         onClick={onRemoveEntity}
       >
-        {STRINGS.DELETE}
+        {gettext('Delete')}
       </button>
     </MediaBlock>
   );

@@ -11,11 +11,11 @@
                 </div>
             </div>
             <div class="right">
-                <a href="{% url "wagtailadmin_workflows:task_index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button-nobg button--icon">
+                <a href="{% url "wagtailadmin_workflows:task_index" %}?show_disabled={% if showing_disabled %}false{% else %}true{% endif %}" class="button button--icon w-inline-flex w-items-center">
                     {% if showing_disabled %}
-                        {% icon name="no-view" %}{% trans "Hide disabled tasks" %}
+                        {% icon name="no-view" class_name="w-mr-2" %}{% trans "Hide disabled tasks" %}
                     {% else %}
-                        {% icon name="view" %}{% trans "Show disabled tasks" %}
+                        {% icon name="view" class_name="w-mr-2" %}{% trans "Show disabled tasks" %}
                     {% endif %}
                 </a>
                 <a href="{% url view.add_url_name %}" class="button bicolor icon icon-plus">{{ view.add_item_label }}</a>
@@ -60,7 +60,7 @@
                                     {% trans "Not used" %}
                                 {% endfor %}
                                 {% if task.active_workflows.count > 5 %}
-                                    {% blocktrans count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
+                                    {% blocktrans trimmed count counter=task.active_workflows.count|add:-5 %}+{{ counter }} more{% plural %}+{{ counter }} more{% endblocktrans %}
                                 {% endif %}
                             </td>
                         </tr>
@@ -70,9 +70,9 @@
         {% else %}
             {% url view.add_url_name as add_url %}
             {% if showing_disabled %}
-                <p>{% blocktrans %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+                <p>{% blocktrans trimmed %}No tasks have been created. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
             {% else %}
-                <p>{% blocktrans %}There are no enabled tasks. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
+                <p>{% blocktrans trimmed %}There are no enabled tasks. Why not <a href="{{ add_url }}">add one</a>?{% endblocktrans %}</p>
             {% endif %}
         {% endif %}
     </div>

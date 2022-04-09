@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
 import { Provider } from 'react-redux';
 
-import { STRINGS } from '../../config/wagtailConfig';
-
+import { gettext } from '../../utils/gettext';
 import Icon from '../Icon/Icon';
 
 export { default as Link } from './decorators/Link';
@@ -91,7 +90,7 @@ const initEditor = (selector, options, currentScript) => {
 
   const enableHorizontalRule = options.enableHorizontalRule
     ? {
-        description: STRINGS.HORIZONTAL_LINE,
+        description: gettext('Horizontal line'),
       }
     : false;
 
@@ -106,14 +105,14 @@ const initEditor = (selector, options, currentScript) => {
   const sharedProps = {
     rawContentState: rawContentState,
     onSave: serialiseInputValue,
-    placeholder: STRINGS.WRITE_HERE,
+    placeholder: gettext('Write here…'),
     spellCheck: true,
     enableLineBreak: {
-      description: STRINGS.LINE_BREAK,
+      description: gettext('Line break'),
       icon: BR_ICON,
     },
-    showUndoControl: { description: STRINGS.UNDO },
-    showRedoControl: { description: STRINGS.REDO },
+    showUndoControl: { description: gettext('Undo') },
+    showRedoControl: { description: gettext('Redo') },
     maxListNesting: 4,
     stripPastedStyles: false,
     ...options,

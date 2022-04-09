@@ -49,13 +49,12 @@ testing_extras = [
     "boto3>=1.16,<1.17",
     "freezegun>=0.3.8",
     "openpyxl>=2.6.4",
-    "Unidecode>=0.04.14,<2.0",
     "azure-mgmt-cdn>=5.1,<6.0",
     "azure-mgmt-frontdoor>=0.3,<0.4",
     "django-pattern-library>=0.7,<0.8",
     # For coverage and PEP8 linting
     "coverage>=3.7.0",
-    "black==22.1.0",
+    "black==22.3.0",
     "flake8>=3.6.0",
     "isort==5.6.4",  # leave this pinned - it tends to change rules between patch releases
     "flake8-blind-except==0.1.1",
@@ -64,7 +63,7 @@ testing_extras = [
     "doc8==0.8.1",
     "flake8-assertive==2.0.0",
     # For templates linting
-    "curlylint==0.13.0",
+    "curlylint==0.13.1",
     # For template indenting
     "djhtml==1.4.13",
     # for validating string formats in .po translation files
@@ -77,7 +76,7 @@ documentation_extras = [
     "sphinxcontrib-spelling>=5.4.0,<6",
     "Sphinx>=1.5.2",
     "sphinx-autobuild>=0.6.0",
-    "sphinx-wagtail-theme==5.0.4",
+    "sphinx-wagtail-theme==5.1.1",
     "myst_parser==0.17.0",
 ]
 

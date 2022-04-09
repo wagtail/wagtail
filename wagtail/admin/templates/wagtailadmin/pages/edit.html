@@ -2,45 +2,14 @@
 {% load wagtailadmin_tags %}
 {% load i18n %}
 {% load l10n %}
-{% block titletag %}{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}: {{ title }}{% endblocktrans %}{% endblock %}
 {% block bodyclass %}page-editor {% if page.live %}page-is-live{% endif %} model-{{ content_type.model }} {% if page_locked %}page-locked{% endif %}{% endblock %}
 
 {% block content %}
     <div id="comments"></div>
     {% page_permissions page as page_perms %}
-    <header class="merged tab-merged">
-        {% explorer_breadcrumb page page_perms=page_perms show_header_buttons=True %}
 
-        <div class="row">
-            <h1 class="left col9 header-title" title="{% blocktrans with title=page.get_admin_display_title page_type=content_type.model_class.get_verbose_name %}Editing {{ page_type }}{% endblocktrans %}">
-                {{ page.get_admin_display_title }}
-            </h1>
-
-            <div class="right col3">
-                {% include "wagtailadmin/pages/_page_view_live_tag.html" with page=page_for_status %}
-            </div>
-        </div>
-        <ul class="row header-meta">
-            {% include "wagtailadmin/shared/workflow_status.html" with page=page_for_status %}
-            {% if page.get_latest_revision %}
-                <li>
-                    <a href="{% url 'wagtailadmin_pages:history' page.id %}" class="button button-small button-nobg text-notransform">
-                        {% icon "history" class_name="default" %}
-                        {% trans "History" %}
-                    </a>
-                </li>
-            {% endif %}
-            <li class="header-meta--type">
-                {% icon name="doc-empty-inverse" class_name="default" %}
-                {{ content_type.model_class.get_verbose_name }}
-            </li>
-            {% if locale %}
-                <li class="header-meta--locale">
-                    {% include "wagtailadmin/shared/locale_selector.html" %}
-                </li>
-            {% endif %}
-        </ul>
-    </header>
+    {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
@@ -101,8 +70,7 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-    {{ action_menu.media.css }}
+    {{ media.css }}
 {% endblock %}
 
 {% block extra_js %}
@@ -112,13 +80,7 @@
     {% comment %}
         Additional js from widgets media. Allows for custom widgets in admin panel.
     {% endcomment %}
-    {{ edit_handler.form.media.js }}
-    {{ action_menu.media.js }}
-
-    {% comment %}
-        Additional HTML code that edit handlers define through 'html_declarations'. (Technically this isn't JavaScript, but it will generally be data that exists for JavaScript to work with...)
-    {% endcomment %}
-    {{ edit_handler.html_declarations }}
+    {{ media.js }}
 
     <script>
         // Set wagtailConfig.ACTIVE_CONTENT_LOCALE if this is a translated page

@@ -12,10 +12,13 @@ from wagtail import hooks
 class Button:
     show = True
 
-    def __init__(self, label, url, classes=set(), attrs={}, priority=1000):
+    def __init__(
+        self, label, url, classes=set(), icon_name=None, attrs={}, priority=1000
+    ):
         self.label = label
         self.url = url
         self.classes = classes
+        self.icon_name = icon_name
         self.attrs = attrs.copy()
         self.priority = priority
 
