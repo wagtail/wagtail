@@ -17,6 +17,11 @@ export const LinkMenuItem: React.FunctionComponent<
       return;
     }
 
+    // For compatibility purposes – do not capture clicks for links with a target.
+    if (item.attrs && item.attrs.target) {
+      return;
+    }
+
     e.preventDefault();
 
     navigate(item.url).then(() => {
@@ -47,6 +52,7 @@ export const LinkMenuItem: React.FunctionComponent<
         placement="right"
       >
         <a
+          {...item.attrs}
           href={item.url}
           aria-current={isCurrent ? 'page' : undefined}
           onClick={onClick}
@@ -68,6 +74,7 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
   url: string;
   iconName: string | null;
   classNames?: string;
+  attrs: { [key: string]: any } | null;
 
   constructor({
     name,
@@ -75,12 +82,14 @@ export class LinkMenuItemDefinition implements MenuItemDefinition {
     url,
     icon_name: iconName = null,
     classnames = undefined,
+    attrs = null,
   }) {
     this.name = name;
     this.label = label;
     this.url = url;
     this.iconName = iconName;
     this.classNames = classnames;
+    this.attrs = attrs;
   }
 
   render({ path, slim, state, dispatch, navigate }) {

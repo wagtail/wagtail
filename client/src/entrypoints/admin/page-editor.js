@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { cleanForSlug } from '../../utils/cleanForSlug';
+import initCollapsibleBreadcrumbs from '../../includes/breadcrumbs';
 
 function InlinePanel(opts) {
   // lgtm[js/unused-local-variable]
@@ -198,6 +199,7 @@ function InlinePanel(opts) {
 
   return self;
 }
+
 window.InlinePanel = InlinePanel;
 
 window.cleanForSlug = cleanForSlug;
@@ -221,6 +223,7 @@ function initSlugAutoPopulate() {
     }
   });
 }
+
 window.initSlugAutoPopulate = initSlugAutoPopulate;
 
 function initSlugCleaning() {
@@ -230,6 +233,7 @@ function initSlugCleaning() {
     $(this).val(cleanForSlug($(this).val(), false));
   });
 }
+
 window.initSlugCleaning = initSlugCleaning;
 
 function initErrorDetection() {
@@ -256,6 +260,7 @@ function initErrorDetection() {
       .attr('data-count', errorSections[index]);
   }
 }
+
 window.initErrorDetection = initErrorDetection;
 
 function initKeyboardShortcuts() {
@@ -271,6 +276,7 @@ function initKeyboardShortcuts() {
     return false;
   });
 }
+
 window.initKeyboardShortcuts = initKeyboardShortcuts;
 
 $(() => {
@@ -282,6 +288,7 @@ $(() => {
   initSlugCleaning();
   initErrorDetection();
   initKeyboardShortcuts();
+  initCollapsibleBreadcrumbs();
 
   //
   // Preview

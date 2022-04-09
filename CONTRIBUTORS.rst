@@ -585,6 +585,11 @@ Contributors
 * Shwet Khatri
 * Abdulmajeed Isa
 * Sandil Ranasinghe
+* Caio Jhonny
+* Heather White
+* Onno Timmerman
+* Kyle J. Roux
+* Vaibhav Shukla
 
 Translators
 ===========

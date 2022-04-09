@@ -1,30 +1,33 @@
 @use 'sass:math';
+@use 'sass:color';
 
 header {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  background-color: $color-header-bg;
-  margin-bottom: 2em;
-  color: $color-white;
+  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
 
   a {
-    color: $color-white;
+    @apply w-text-primary w-underline;
   }
 
   h1,
   h2 {
+    @apply w-text-primary;
     margin: 0;
-    color: $color-white;
   }
 
   h1 {
-    padding: 0.2em 0;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
 
     &.icon:before {
       width: 1em;
       display: none;
       margin-inline-end: 0.4em;
       font-size: 1.5em;
+    }
+
+    span {
+      margin-inline-start: 0.3125rem;
     }
   }
 
@@ -35,6 +38,9 @@ header {
 
   .left {
     float: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
     .hasform &:first-child {
       padding-bottom: 0.5em;
@@ -49,7 +55,7 @@ header {
 
   .search-form .icon {
     @include svg-icon(1.3rem);
-    color: $nav-search-color;
+    color: color.adjust($color-white, $lightness: -20%);
     position: absolute;
     top: 0.3em;
     // Remove once we drop support for Safari 13.
@@ -193,9 +199,6 @@ header {
 
 @include media-breakpoint-up(sm) {
   header {
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-
     .left {
       float: left;
       margin-inline-end: 0;

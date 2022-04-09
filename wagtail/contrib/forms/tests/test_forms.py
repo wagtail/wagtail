@@ -222,6 +222,89 @@ class TestFormBuilder(TestCase):
         self.assertIn(get_field_clean_name(unsaved_field_1.label), fb.formfields)
         self.assertIn(get_field_clean_name(unsaved_field_2.label), fb.formfields)
 
+    def test_newline_value_separation_in_choices_and_default_value_fields(self):
+        """Ensure that the new line present between input choices or values gets formatted into choices or value list
+        respectively as an alternative to commas.
+        """
+        multiselect_field = FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your favorite colors",
+            field_type="multiselect",
+            required=True,
+            choices="red\r\nblue\r\ngreen",
+        )
+        self.form_page.form_fields.add(multiselect_field)
+
+        dropdown_field = FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Pick your next destination",
+            field_type="dropdown",
+            required=True,
+            choices="hawaii\r\nparis\r\nabuja",
+        )
+        self.form_page.form_fields.add(dropdown_field)
+
+        checkboxes_field = FormField.objects.create(
+            page=self.form_page,
+            sort_order=3,
+            label="Do you possess these attributes",
+            field_type="checkboxes",
+            required=False,
+            choices="good, kind and gentle.\r\nstrong, bold and brave.",
+        )
+        self.form_page.form_fields.add(checkboxes_field)
+
+        radio_field = FormField.objects.create(
+            page=self.form_page,
+            sort_order=2,
+            label="Your favorite animal",
+            help_text="Choose one",
+            field_type="radio",
+            required=True,
+            choices="cat\r\ndog\r\nbird",
+        )
+        self.form_page.form_fields.add(radio_field)
+
+        checkboxes_field_with_default_value = FormField.objects.create(
+            page=self.form_page,
+            sort_order=3,
+            label="Choose the correct answer",
+            field_type="checkboxes",
+            required=False,
+            choices="a\r\nb\r\nc",
+            default_value="a\r\nc",
+        )
+        self.form_page.form_fields.add(checkboxes_field_with_default_value)
+
+        fb = FormBuilder(self.form_page.get_form_fields())
+        form_class = fb.get_form_class()
+
+        self.assertEqual(
+            [("red", "red"), ("blue", "blue"), ("green", "green")],
+            form_class.base_fields["your_favorite_colors"].choices,
+        )
+        self.assertEqual(
+            [("cat", "cat"), ("dog", "dog"), ("bird", "bird")],
+            form_class.base_fields["your_favorite_animal"].choices,
+        )
+        self.assertEqual(
+            [
+                ("good, kind and gentle.", "good, kind and gentle."),
+                ("strong, bold and brave.", "strong, bold and brave."),
+            ],
+            form_class.base_fields["do_you_possess_these_attributes"].choices,
+        )
+        self.assertEqual(
+            [("hawaii", "hawaii"), ("paris", "paris"), ("abuja", "abuja")],
+            form_class.base_fields["pick_your_next_destination"].choices,
+        )
+        self.assertEqual(
+            ["a", "c"],
+            form_class.base_fields["choose_the_correct_answer"].initial,
+        )
+
 
 class TestCustomFormBuilder(TestCase):
     def setUp(self):

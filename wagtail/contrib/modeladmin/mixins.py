@@ -25,6 +25,7 @@ class ThumbnailMixin:
                 "The `wagtail.images` app must be installed in order "
                 "to use the `ThumbnailMixin` class."
             )
+        self.__class__.admin_thumb.short_description = self.thumb_col_header_text
         super().__init__(*args, **kwargs)
 
     def admin_thumb(self, obj):
@@ -53,5 +54,3 @@ class ThumbnailMixin:
         rendition = get_rendition_or_not_found(image, spec)
         img_attrs.update({"src": rendition.url})
         return mark_safe("<img{}>".format(flatatt(img_attrs)))
-
-    admin_thumb.short_description = thumb_col_header_text

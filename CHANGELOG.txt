@@ -40,6 +40,13 @@ Changelog
  * Add `trimmed` attribute to all blocktrans tags, so spacing is more reliable in translated strings (Harris Lapiroff)
  * Add documentation that describes how to use `ModelAdmin` to manage `Tag`s (Abdulmajeed Isa)
  * Rename the setting `BASE_URL` (undocumented) to `WAGTAILADMIN_BASE_URL` and add to documentation, `BASE_URL` will be removed in a future release (Sandil Ranasinghe)
+ * Validate to and from email addresses within form builder pages when using `AbstractEmailForm` (Jake Howard)
+ * Add `WAGTAILIMAGES_RENDITION_STORAGE` setting to allow an alternative image rendition storage (Heather White)
+ * Add `wagtail_update_image_renditions` management command to regenerate image renditions or purge all existing renditions (Hitansh Shah, Onno Timmerman, Damian Moore)
+ * Fully remove the legacy sidebar, with slim sidebar replacing it for all users (Thibaud Colas)
+ * Add support for adding custom attributes for link menu items in the slim sidebar (Thibaud Colas)
+ * Implement new slim page editor header with breadcrumb (Steven Steinwand, Karl Hobley)
+ * Add the ability for choices to be separated by new lines instead of just commas within the form builder, commas will still be supported if used (Abdulmajeed Isa)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
@@ -55,6 +62,9 @@ Changelog
  * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
  * Fix: Add missing `lang` attributes to `<html>` elements (James Ray)
  * Fix: Avoid 503 server error when entering tags over 100chars and instead show a user facing validation error (Vu Pham, Khanh Hoang)
+ * Fix: Ensure `thumb_col_header_text` is correctly used by `ThumbnailMixin` within `ModelAdmin` as the column header label (Kyle J. Roux)
+ * Fix: page copy in Wagtail admin ignores `exclude_fields_in_copy` (John-Scott Atlakson)
+ * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
 
 
 2.16.2 (xx.xx.xxxx) - IN DEVELOPMENT
@@ -64,6 +74,7 @@ Changelog
  * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Fix: Refactor `FormPagesListView` in wagtail.contrib.forms to avoid undefined `locale` variable when subclassing (Dan Braghis)
 
 
 2.16.1 (11.02.2022)

@@ -49,6 +49,7 @@ def register_kittens_menu_item():
         "http://www.tomroyal.com/teaandkittens/",
         classnames="kitten--test",
         icon_name="kitten",
+        attrs={"data-is-custom": "true"},
         order=10000,
     )
 

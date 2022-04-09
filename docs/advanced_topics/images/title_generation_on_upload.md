@@ -8,7 +8,7 @@ You can also customise this [same behaviour for documents](../documents/title_ge
 
 You can customise the resolved value of this title using a JavaScript [event listener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener) which will listen to the `'wagtail:images-upload'` event.
 
-The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](../../reference/hooks.html#insert-global-admin-js), however any JavaScript that adds the event listener will work.
+The simplest way to add JavaScript to the editor is via the [`insert_global_admin_js` hook](insert_global_admin_js), however any JavaScript that adds the event listener will work.
 
 ## DOM Event
 
@@ -57,7 +57,7 @@ def get_global_admin_js():
 
 ### Changing generated titles on the page editor only to remove dashes/underscores
 
-Using the [`insert_editor_js` hook](../../reference/hooks.html#insert-editor-js) instead so that this script will not run on the `Image` upload page, only on page editors.
+Using the [`insert_editor_js` hook](insert_editor_js) instead so that this script will not run on the `Image` upload page, only on page editors.
 
 ```python
 # wagtail_hooks.py

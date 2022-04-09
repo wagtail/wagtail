@@ -51,7 +51,8 @@ audio:not([controls]) {
  */
 
 [hidden] {
-  display: none;
+  /* stylelint-disable-next-line declaration-no-important */
+  display: none !important;
 }
 
 /* ==========================================================================

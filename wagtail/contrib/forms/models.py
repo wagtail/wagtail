@@ -4,6 +4,7 @@ import os
 
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.validators import validate_email
 from django.db import models
 from django.template.response import TemplateResponse
 from django.utils.formats import date_format
@@ -101,14 +102,15 @@ class AbstractFormField(Orderable):
         verbose_name=_("choices"),
         blank=True,
         help_text=_(
-            "Comma separated list of choices. Only applicable in checkboxes, radio and dropdown."
+            "Comma or new line separated list of choices. Only applicable in checkboxes, radio and dropdown."
         ),
     )
-    default_value = models.CharField(
+    default_value = models.TextField(
         verbose_name=_("default value"),
-        max_length=255,
         blank=True,
-        help_text=_("Default value. Comma separated values supported for checkboxes."),
+        help_text=_(
+            "Default value. Comma or new line separated values supported for checkboxes."
+        ),
     )
     help_text = models.CharField(
         verbose_name=_("help text"), max_length=255, blank=True
@@ -288,6 +290,11 @@ class AbstractForm(Page):
             return super().serve_preview(request, mode_name)
 
 
+def validate_to_address(value):
+    for address in value.split(","):
+        validate_email(address.strip())
+
+
 class AbstractEmailForm(AbstractForm):
     """
     A Form Page that sends email. Pages implementing a form to be send to an email should inherit from it
@@ -300,8 +307,9 @@ class AbstractEmailForm(AbstractForm):
         help_text=_(
             "Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma."
         ),
+        validators=[validate_to_address],
     )
-    from_address = models.CharField(
+    from_address = models.EmailField(
         verbose_name=_("from address"), max_length=255, blank=True
     )
     subject = models.CharField(verbose_name=_("subject"), max_length=255, blank=True)
