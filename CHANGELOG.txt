@@ -7,6 +7,7 @@ Changelog
  * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
  * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
  * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
+ * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
 
 
 2.15.4 (11.02.2022)

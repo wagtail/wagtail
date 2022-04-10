@@ -1,3 +1,4 @@
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from modelcluster.models import ClusterableModel
@@ -19,6 +20,10 @@ def _extract_field_data(source, exclude_fields=None):
 
         # Ignore reverse relations
         if field.auto_created:
+            continue
+
+        # Ignore reverse generic relations
+        if isinstance(field, GenericRelation):
             continue
 
         # Copy parental m2m relations
