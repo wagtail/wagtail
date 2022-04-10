@@ -5,7 +5,7 @@ import uuid
 
 from django import forms
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ValidationError
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
@@ -186,6 +186,16 @@ class PageWithExcludedCopyField(Page):
         FieldPanel("special_field"),
         FieldPanel("content"),
     ]
+
+
+class RelatedGenericRelation(models.Model):
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    object_id = models.PositiveBigIntegerField()
+    content_object = GenericForeignKey("content_type", "object_id")
+
+
+class PageWithGenericRelation(Page):
+    generic_relation = GenericRelation("tests.RelatedGenericRelation")
 
 
 class PageWithOldStyleRouteMethod(Page):

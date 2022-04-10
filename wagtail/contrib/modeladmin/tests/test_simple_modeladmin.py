@@ -6,6 +6,7 @@ from django.contrib.auth.models import Group
 from django.contrib.contenttypes.models import ContentType
 from django.core import checks
 from django.test import TestCase
+from django.test.utils import override_settings
 from django.utils.timezone import make_aware
 from openpyxl import load_workbook
 
@@ -14,13 +15,14 @@ from wagtail.admin.panels import FieldPanel, TabbedInterface
 from wagtail.contrib.modeladmin.helpers.search import DjangoORMSearchHandler
 from wagtail.images.models import Image
 from wagtail.images.tests.utils import get_test_image_file
-from wagtail.models import ModelLogEntry, Page
+from wagtail.models import Locale, ModelLogEntry, Page
 from wagtail.test.modeladmintest.models import (
     Author,
     Book,
     Publisher,
     RelatedLink,
     Token,
+    TranslatableBook,
 )
 from wagtail.test.modeladmintest.wagtail_hooks import BookModelAdmin
 from wagtail.test.utils import WagtailTestUtils
@@ -262,6 +264,59 @@ class TestAuthorIndexView(TestCase, WagtailTestUtils):
         self.assertContains(response, test_html, html=True)
 
 
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableBookIndexView(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get(self, **params):
+        return self.client.get("/admin/modeladmintest/translatablebook/", params)
+
+    def test_simple(self):
+        response = self.get()
+
+        self.assertEqual(response.status_code, 200)
+
+        # There are two books in the test data
+        self.assertEqual(response.context["result_count"], 2)
+
+        # Check the locale filter is there
+        expected = """
+        <ul>
+            <li class="selected">
+            <a href="?">All</a></li>
+            <li>
+            <a href="?locale__id__exact=1">English</a></li>
+            <li>
+            <a href="?locale__id__exact=2">French</a></li>
+        </ul>"""
+        self.assertContains(response, expected, html=True)
+
+    @override_settings(WAGTAIL_I18N_ENABLED=False)
+    def test_locale_selector_not_present_when_i18n_disabled(self):
+        response = self.get()
+
+        self.assertNotContains(
+            response, '<a href="?locale__id__exact=2">French</a>', html=True
+        )
+
+    def test_filter(self):
+        # Filter by locale 2 (fr)
+        response = self.get(locale__id__exact=2)
+
+        self.assertEqual(response.status_code, 200)
+
+        # Locale fr has one book in the test data
+        self.assertEqual(response.context["result_count"], 1)
+
+        for book in response.context["object_list"]:
+            self.assertEqual(book.locale_id, 2)
+
+        self.assertContains(response, "Le Seigneur des anneaux", html=True)
+
+
 class TestCreateView(TestCase, WagtailTestUtils):
     fixtures = ["modeladmintest_test.json"]
 
@@ -381,6 +436,33 @@ class TestCreateView(TestCase, WagtailTestUtils):
             'data-prepopulated-fields="[{&quot;id&quot;: &quot;#id_title&quot;, &quot;name&quot;: &quot;title&quot;, &quot;dependency_ids&quot;: [&quot;#id_author&quot;], &quot;dependency_list&quot;: [&quot;author&quot;], &quot;maxLength&quot;: 255, &quot;allowUnicode&quot;: false}]"',
             response.content.decode("UTF-8"),
         )
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableCreateView(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get(self, **params):
+        return self.client.get("/admin/modeladmintest/translatablebook/create/", params)
+
+    def test_simple(self):
+        response = self.get(locale="fr")
+
+        self.assertEqual(response.status_code, 200)
+
+        # Check that the locale select exists and is set correctly
+        expected = '<a href="javascript:void(0)" aria-label="French" class="c-dropdown__button  u-btn-current">'
+        self.assertContains(response, expected)
+
+        # Check that the other locale link is right
+        expected = """
+        <a href="/admin/modeladmintest/translatablebook/create/?locale=en" aria-label="English" class="u-link is-live">
+            English
+        </a>"""
+        self.assertContains(response, expected, html=True)
 
 
 class TestInspectView(TestCase, WagtailTestUtils):
@@ -583,6 +665,40 @@ class TestEditView(TestCase, WagtailTestUtils):
 
         # Check that the link was updated
         self.assertEqual(RelatedLink.objects.filter(title="Homepage edited").count(), 1)
+
+
+@override_settings(WAGTAIL_I18N_ENABLED=True)
+class TestTranslatableBookEditView(TestCase, WagtailTestUtils):
+    fixtures = ["modeladmintest_test.json"]
+
+    def setUp(self):
+        self.login()
+
+    def get(self, book_id, **params):
+        return self.client.get(
+            "/admin/modeladmintest/translatablebook/edit/%d/" % book_id, params
+        )
+
+    def test_simple(self):
+        book = TranslatableBook.objects.first()
+        response = self.get(book.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the locale switcher isn't there
+        self.assertNotContains(response, "English", html=True)
+
+        tbook = book.copy_for_translation(locale=Locale.objects.get(language_code="fr"))
+        tbook.save()
+
+        response = self.get(tbook.id)
+        self.assertEqual(response.status_code, 200)
+
+        # Check the locale switcher is there
+        expected = """
+        <a href="/admin/modeladmintest/translatablebook/edit/1/?locale=en" aria-label="English" class="u-link is-live">
+            English
+        </a>"""
+        self.assertContains(response, expected, html=True)
 
 
 class TestPageSpecificViews(TestCase, WagtailTestUtils):

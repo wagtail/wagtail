@@ -194,7 +194,7 @@ class TranslatableMixin(models.Model):
 
         # Update locale on any translatable child objects as well
         # Note: If this is not a subclass of ClusterableModel, child_object_map will always be '{}'
-        for (child_relation, old_pk), child_object in child_object_map.items():
+        for (_child_relation, _old_pk), child_object in child_object_map.items():
             if isinstance(child_object, TranslatableMixin):
                 child_object.locale = locale
 

@@ -2,7 +2,6 @@ from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.core.paginator import Paginator
 from django.http import Http404
-from django.http.request import QueryDict
 from django.template.response import TemplateResponse
 from django.views.decorators.vary import vary_on_headers
 
@@ -48,7 +47,6 @@ def search(request):
 
     q = MATCH_ALL
     content_types = []
-    pagination_query_params = QueryDict({}, mutable=True)
     ordering = None
 
     if "ordering" in request.GET:
@@ -78,8 +76,6 @@ def search(request):
                 pages = pages.order_by("-live")
 
     if "content_type" in request.GET:
-        pagination_query_params["content_type"] = request.GET["content_type"]
-
         try:
             app_label, model_name = request.GET["content_type"].split(".")
         except ValueError:
@@ -100,7 +96,6 @@ def search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             q = form.cleaned_data["q"]
-            pagination_query_params["q"] = q
 
             # Parse query and filter
             pages, all_pages = page_filter_search(q, pages, all_pages, ordering)
@@ -131,7 +126,6 @@ def search(request):
                 "content_types": content_types,
                 "selected_content_type": selected_content_type,
                 "ordering": ordering,
-                "pagination_query_params": pagination_query_params.urlencode(),
                 "show_locale_labels": show_locale_labels,
             },
         )
@@ -147,7 +141,6 @@ def search(request):
                 "content_types": content_types,
                 "selected_content_type": selected_content_type,
                 "ordering": ordering,
-                "pagination_query_params": pagination_query_params.urlencode(),
                 "show_locale_labels": show_locale_labels,
             },
         )

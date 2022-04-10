@@ -20,6 +20,7 @@ from .models import (
     Publisher,
     RelatedLink,
     Token,
+    TranslatableBook,
     VenuePage,
     Visitor,
 )
@@ -96,6 +97,10 @@ class BookModelAdmin(ThumbnailMixin, ModelAdmin):
 
     def author_date_of_birth(self, obj):
         return obj.author.date_of_birth
+
+
+class TranslatableBookModelAdmin(ModelAdmin):
+    model = TranslatableBook
 
 
 class TokenModelAdmin(ModelAdmin):
@@ -194,6 +199,7 @@ class PageAdmin(ModelAdmin):
 
 modeladmin_register(AuthorModelAdmin)
 modeladmin_register(BookModelAdmin)
+modeladmin_register(TranslatableBookModelAdmin)
 modeladmin_register(TokenModelAdmin)
 modeladmin_register(PublisherModelAdmin)
 modeladmin_register(EventsAdminGroup)

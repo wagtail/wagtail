@@ -47,26 +47,20 @@ class FormBuilder:
         return django.forms.DecimalField(**options)
 
     def create_dropdown_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.ChoiceField(**options)
 
     def create_multiselect_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.MultipleChoiceField(**options)
 
     def create_radio_field(self, field, options):
-        options["choices"] = map(
-            lambda x: (x.strip(), x.strip()), field.choices.split(",")
-        )
+        options["choices"] = self.get_formatted_field_choices(field)
         return django.forms.ChoiceField(widget=django.forms.RadioSelect, **options)
 
     def create_checkboxes_field(self, field, options):
-        options["choices"] = [(x.strip(), x.strip()) for x in field.choices.split(",")]
-        options["initial"] = [x.strip() for x in field.default_value.split(",")]
+        options["choices"] = self.get_formatted_field_choices(field)
+        options["initial"] = self.get_formatted_field_initial(field)
         return django.forms.MultipleChoiceField(
             widget=django.forms.CheckboxSelectMultiple, **options
         )
@@ -100,6 +94,42 @@ class FormBuilder:
                 + type,
                 "Must be one of: " + ", ".join(method_list),
             )
+
+    def get_formatted_field_choices(self, field):
+        """
+        Returns a list of choices [(string, string),] for the field.
+        Split the provided choices into a list, separated by new lines.
+        If no new lines in the provided choices, split by commas.
+        """
+
+        if "\n" in field.choices:
+            choices = map(
+                lambda x: (
+                    x.strip().rstrip(",").strip(),
+                    x.strip().rstrip(",").strip(),
+                ),
+                field.choices.split("\r\n"),
+            )
+        else:
+            choices = map(lambda x: (x.strip(), x.strip()), field.choices.split(","))
+
+        return choices
+
+    def get_formatted_field_initial(self, field):
+        """
+        Returns a list of initial values [string,] for the field.
+        Split the supplied default values into a list, separated by new lines.
+        If no new lines in the provided default values, split by commas.
+        """
+
+        if "\n" in field.default_value:
+            values = [
+                x.strip().rstrip(",").strip() for x in field.default_value.split("\r\n")
+            ]
+        else:
+            values = [x.strip() for x in field.default_value.split(",")]
+
+        return values
 
     @property
     def formfields(self):

@@ -1,5 +1,6 @@
 from warnings import warn
 
+from django.conf import settings
 from django.contrib.admin import site as default_django_admin_site
 from django.contrib.auth.models import Permission
 from django.core import checks
@@ -12,7 +13,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
-from wagtail.models import Page
+from wagtail.models import Page, TranslatableMixin
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 from .helpers import (
@@ -253,7 +254,16 @@ class ModelAdmin(WagtailRegisterable):
         Returns a sequence containing the fields to be displayed as filters in
         the right sidebar in the list view.
         """
-        return self.list_filter
+        list_filter = self.list_filter
+
+        if (
+            getattr(settings, "WAGTAIL_I18N_ENABLED", False)
+            and issubclass(self.model, TranslatableMixin)
+            and "locale" not in list_filter
+        ):
+            list_filter += ("locale",)
+
+        return list_filter
 
     def get_ordering(self, request):
         """

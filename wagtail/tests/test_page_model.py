@@ -51,6 +51,8 @@ from wagtail.test.testapp.models import (
     MyCustomPage,
     OneToOnePage,
     PageWithExcludedCopyField,
+    PageWithGenericRelation,
+    RelatedGenericRelation,
     SimpleChildPage,
     SimplePage,
     SimpleParentPage,
@@ -1969,6 +1971,26 @@ class TestCopyPage(TestCase):
         self.assertNotEqual(page.path, new_page.path)
         # special_field is in the list to be excluded
         self.assertNotEqual(page.special_field, new_page.special_field)
+
+    def test_page_with_generic_relation(self):
+        """Test that a page with a GenericRelation will have that relation ignored when
+        copying.
+        """
+        homepage = Page.objects.get(url_path="/home/")
+        original_page = homepage.add_child(
+            instance=PageWithGenericRelation(
+                title="PageWithGenericRelation",
+                slug="page-with-generic-relation",
+                live=True,
+                has_unpublished_changes=False,
+            )
+        )
+        RelatedGenericRelation.objects.create(content_object=original_page)
+        self.assertIsNotNone(original_page.generic_relation.first())
+        page_copy = original_page.copy(
+            to=homepage, update_attrs={"slug": f"{original_page.slug}-2"}
+        )
+        self.assertIsNone(page_copy.generic_relation.first())
 
     def test_copy_page_with_excluded_parental_and_child_relations(self):
         """Test that a page will be copied with parental and child relations removed if excluded."""
