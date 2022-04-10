@@ -15,6 +15,8 @@ Bug fixes
 
  * Allow bulk publishing of pages without revisions (Andy Chosak)
  * Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Generate new translation keys for translatable ``Orderable`` when page is copied without being published (Kalob Taulien, Dan Braghis)
+ * Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
 
 
 Upgrade considerations
