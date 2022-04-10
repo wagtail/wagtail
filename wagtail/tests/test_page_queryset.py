@@ -884,7 +884,7 @@ class TestSpecificQuery(TestCase):
         # 5928 - PageQuerySet.specific should gracefully handle pages whose ContentType
         # row in the specific table no longer exists
 
-        # Trick specific_iterator into always looking for EventPages
+        # Trick SpecificIteraterable.__init__() into always looking for EventPages
         with mock.patch(
             "wagtail.query.ContentType.objects.get_for_id",
             return_value=ContentType.objects.get_for_model(EventPage),
