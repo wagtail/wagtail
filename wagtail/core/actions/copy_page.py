@@ -3,6 +3,7 @@ import logging
 import uuid
 
 from django.core.exceptions import PermissionDenied
+from django.core.serializers.json import DjangoJSONEncoder
 from modelcluster.models import get_all_child_relations
 
 from wagtail.core.log_actions import log
@@ -46,6 +47,17 @@ class CopyPageAction:
         self.process_child_object = process_child_object
         self.log_action = log_action
         self.reset_translation_key = reset_translation_key
+        self._uuid_mapping = {}
+
+    def generate_translation_key(self, old_uuid):
+        """
+        Generates a new UUID if it isn't already being used.
+        Otherwise it will return the same UUID if it's already in use.
+        """
+        if old_uuid not in self._uuid_mapping:
+            self._uuid_mapping[old_uuid] = uuid.uuid4()
+
+        return self._uuid_mapping[old_uuid]
 
     def check(self, skip_permission_checks=False):
         from wagtail.core.models import UserPagePermissionsProxy
@@ -110,9 +122,10 @@ class CopyPageAction:
             if self.process_child_object:
                 self.process_child_object(specific_page, page_copy, child_relation, child_object)
 
-            # When we're not copying for translation, we should give the translation_key a new value for each child object as well
             if self.reset_translation_key and isinstance(child_object, TranslatableMixin):
-                child_object.translation_key = uuid.uuid4()
+                child_object.translation_key = self.generate_translation_key(
+                    child_object.translation_key
+                )
 
         # Save the new page
         if _mpnode_attrs:
@@ -160,8 +173,15 @@ class CopyPageAction:
                         # set the primary key to None
                         copied_child_object = child_object_map.get((child_relation, child_object['pk']))
                         child_object['pk'] = copied_child_object.pk if copied_child_object else None
+                        if (
+                            self.reset_translation_key
+                            and "translation_key" in child_object
+                        ):
+                            child_object["translation_key"] = self.generate_translation_key(
+                                child_object["translation_key"]
+                            )
 
-                revision.content_json = json.dumps(revision_content)
+                revision.content_json = json.dumps(revision_content, cls=DjangoJSONEncoder)
 
                 # Save
                 revision.save()
