@@ -341,10 +341,10 @@ class CreateSnippetView(CreateView):
 
         if form.is_valid():
             with transaction.atomic():
-                instance = form.save()
-                log(instance=instance, action="wagtail.create")
+                self.object = form.save()
+                log(instance=self.object, action="wagtail.create")
 
-            success_message = self.get_success_message(instance)
+            success_message = self.get_success_message(self.object)
             messages.success(
                 request,
                 success_message,
@@ -352,7 +352,11 @@ class CreateSnippetView(CreateView):
                     messages.button(
                         reverse(
                             "wagtailsnippets:edit",
-                            args=(self.app_label, self.model_name, quote(instance.pk)),
+                            args=(
+                                self.app_label,
+                                self.model_name,
+                                quote(self.object.pk),
+                            ),
                         ),
                         _("Edit"),
                     )
@@ -363,10 +367,10 @@ class CreateSnippetView(CreateView):
 
             urlquery = ""
             if (
-                isinstance(instance, TranslatableMixin)
-                and instance.locale is not Locale.get_default()
+                isinstance(self.object, TranslatableMixin)
+                and self.object.locale is not Locale.get_default()
             ):
-                urlquery = "?locale=" + instance.locale.language_code
+                urlquery = "?locale=" + self.object.locale.language_code
 
             return redirect(
                 reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
