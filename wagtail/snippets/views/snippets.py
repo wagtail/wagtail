@@ -327,12 +327,10 @@ class CreateSnippetView(CreateView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
-    def get_context_data(self, form=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if form is None:
-            form = self.get_form()
-
+        form = context.get("form")
         edit_handler = self._get_bound_panel(form)
         action_menu = self._get_action_menu()
         instance = form.instance
@@ -341,7 +339,6 @@ class CreateSnippetView(CreateView):
             {
                 "model_opts": self.model._meta,
                 "edit_handler": edit_handler,
-                "form": form,
                 "action_menu": action_menu,
                 "locale": None,
                 "translations": [],
