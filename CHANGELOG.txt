@@ -82,6 +82,7 @@ Changelog
  * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
  * Fix: Ensure 'next' links from image / document listings do not redirect back to partial AJAX view (Matt Westcott)
  * Fix: Skip creation of automatic redirects when page cannot be routed (Matt Westcott)
+ * Fix: Prevent JS errors on locale switcher in page chooser (Matt Westcott)
 
 
 2.16.1 (11.02.2022)
