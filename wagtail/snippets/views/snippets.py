@@ -217,6 +217,18 @@ class ListView(TemplateView):
 class CreateSnippetView(CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
 
+    def _run_before_hooks(self):
+        for fn in hooks.get_hooks("before_create_snippet"):
+            result = fn(self.request, self.model)
+            if hasattr(result, "status_code"):
+                return result
+
+    def _run_after_hooks(self):
+        for fn in hooks.get_hooks("after_create_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
 
@@ -233,14 +245,11 @@ class CreateSnippetView(CreateView):
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        self._run_before_hooks()
+
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_create_snippet"):
-            result = fn(request, self.model)
-            if hasattr(result, "status_code"):
-                return result
-
         instance = self.model()
 
         # Set locale of the new instance
@@ -300,11 +309,6 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_create_snippet"):
-            result = fn(request, self.model)
-            if hasattr(result, "status_code"):
-                return result
-
         instance = self.model()
 
         # Set locale of the new instance
@@ -348,10 +352,7 @@ class CreateSnippetView(CreateView):
                 ],
             )
 
-            for fn in hooks.get_hooks("after_create_snippet"):
-                result = fn(request, instance)
-                if hasattr(result, "status_code"):
-                    return result
+            self._run_after_hooks()
 
             urlquery = ""
             if (
