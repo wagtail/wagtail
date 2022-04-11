@@ -419,21 +419,22 @@ class TestTabbedInterface(TestCase):
 
         # result should contain tab buttons
         self.assertIn(
-            '<a href="#tab-event-details" class="active" data-tab="event-details">Event details</a>',
+            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="true">',
             result,
         )
         self.assertIn(
-            '<a href="#tab-speakers" class="" data-tab="speakers">Speakers</a>', result
+            '<a id="tab-label-speakers" href="#tab-speakers" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+            result,
         )
 
         # result should contain tab panels
-        self.assertIn('<div class="tab-content">', result)
-        self.assertIn(
-            '<section id="tab-event-details" class="shiny active" role="tabpanel" aria-labelledby="tab-label-event-details" data-tab="event-details">',
+        self.assertInHTML(
+            '<section id="tab-event-details" class="w-tabs__panel shiny" role="tabpanel" aria-labelledby="tab-label-event-details">',
             result,
         )
-        self.assertIn(
-            '<section id="tab-speakers" class=" " role="tabpanel" aria-labelledby="tab-label-speakers" data-tab="speakers">',
+
+        self.assertInHTML(
+            '<section id="tab-speakers" class="w-tabs__panel shiny" role="tabpanel" aria-labelledby="tab-label-speakers" hidden>',
             result,
         )
 

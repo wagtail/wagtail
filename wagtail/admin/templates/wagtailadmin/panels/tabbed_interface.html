@@ -13,10 +13,10 @@
         {% for child in self.children %}
             <section
                 id="tab-{{ child.heading|cautious_slugify }}"
-                class="{{ child.classes|join:" " }} w-tabs__panel"
+                class="w-tabs__panel {{ child.classes|join:" " }}"
                 role="tabpanel"
-                hidden
                 aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
+                hidden
             >
                 {{ child.render_as_object }}
             </section>
