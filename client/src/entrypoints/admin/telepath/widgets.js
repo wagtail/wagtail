@@ -163,10 +163,12 @@ class DraftailRichTextArea {
     const options = { ...originalOptions };
     const capabilities = parentCapabilities || new Map();
     const split = capabilities.get('split');
-    if (split && split.enabled) {
+    if (split) {
       options.controls = options.controls ? [...options.controls] : [];
-      // eslint-disable-next-line no-undef
-      options.controls.push(draftail.getSplitControl(split.fn));
+      options.controls.push(
+        // eslint-disable-next-line no-undef
+        draftail.getSplitControl(split.fn, !!split.enabled),
+      );
     }
     const input = document.createElement('input');
     input.type = 'hidden';
@@ -223,21 +225,17 @@ class DraftailRichTextArea {
           capabilityOptions,
         );
         if (capability === 'split') {
-          if (newCapability.enabled) {
-            setOptions({
-              ...currentOptions,
-              controls: [
-                ...(originalOptions || []),
-                // eslint-disable-next-line no-undef
-                draftail.getSplitControl(newCapability.fn),
-              ],
-            });
-          } else {
-            setOptions({
-              ...currentOptions,
-              controls: [...(originalOptions || [])],
-            });
-          }
+          setOptions({
+            ...currentOptions,
+            controls: [
+              ...(originalOptions || []),
+              // eslint-disable-next-line no-undef
+              draftail.getSplitControl(
+                newCapability.fn,
+                !!newCapability.enabled,
+              ),
+            ],
+          });
         }
       },
     };

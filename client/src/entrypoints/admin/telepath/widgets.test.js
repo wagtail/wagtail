@@ -8,11 +8,13 @@ import { EditorState } from 'draft-js';
 
 import ReactTestUtils from 'react-dom/test-utils';
 import $ from 'jquery';
+
 window.$ = $;
 
 window.comments = {
   getContentPath: jest.fn(),
 };
+window.draftail.getSplitControl = jest.fn(window.draftail.getSplitControl);
 
 describe('telepath: wagtail.widgets.Widget', () => {
   let boundWidget;
@@ -370,6 +372,7 @@ describe('telepath: wagtail.widgets.AdminAutoHeightTextInput', () => {
 describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
   let boundWidget;
   let inputElement;
+  let parentCapabilities;
 
   const TEST_RAW = {
     blocks: [
@@ -459,7 +462,7 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
         },
       ],
     });
-    const parentCapabilities = new Map();
+    parentCapabilities = new Map();
     parentCapabilities.set('split', { enabled: true, fn: jest.fn() });
     const inputId = 'the-id';
     boundWidget = widgetDef.render(
@@ -541,11 +544,19 @@ describe('telepath: wagtail.widgets.DraftailRichTextArea', () => {
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: false }),
     );
-    expect(inputElement.draftailEditor.props.controls.length).toEqual(0);
+    expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
+      parentCapabilities.get('split').fn,
+      false,
+    );
     ReactTestUtils.act(() =>
       boundWidget.setCapabilityOptions('split', { enabled: true }),
     );
     expect(inputElement.draftailEditor.props.controls.length).toEqual(1);
+    expect(window.draftail.getSplitControl).toHaveBeenLastCalledWith(
+      parentCapabilities.get('split').fn,
+      true,
+    );
   });
 });
 

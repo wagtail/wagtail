@@ -293,13 +293,34 @@ export function getSplitControl(
     stateAfter: EditorState,
     shouldMoveCommentFn: (comment: Comment) => boolean,
   ) => void,
+  enabled = true,
 ) {
+  const title = gettext('Split block');
+  const name = 'split';
+  const icon = <Icon name="cut" />;
+  if (!enabled) {
+    // Taken from https://github.com/springload/draftail/blob/main/lib/components/ToolbarButton.js#L65
+    // as it doesn't take the disabled prop
+    return () => (
+      <button
+        name={name}
+        className={'Draftail-ToolbarButton'}
+        type="button"
+        aria-label={title}
+        data-draftail-balloon={title}
+        tabIndex={-1}
+        disabled={true}
+      >
+        {icon}
+      </button>
+    );
+  }
   return ({ getEditorState }: ControlProps) => (
     <ToolbarButton
-      name="split"
+      name={name}
       active={false}
-      title={gettext('Split block')}
-      icon={<Icon name="placeholder" />}
+      title={title}
+      icon={icon}
       onClick={() => {
         const result = splitState(getEditorState());
         if (result) {

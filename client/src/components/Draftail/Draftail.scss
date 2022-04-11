@@ -109,6 +109,10 @@ $draftail-editor-font-family: $font-sans;
 }
 
 .Draftail-ToolbarButton {
+  &[disabled] {
+    opacity: 0.3;
+  }
+
   &:hover,
   &:active {
     border: 1px solid $color-grey-3;

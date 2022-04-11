@@ -950,6 +950,7 @@ def register_icons(icons):
         "comment-large-outline.svg",
         "comment-large-reversed.svg",
         "cross.svg",
+        "cut.svg",
         "date.svg",
         "doc-empty-inverse.svg",
         "doc-empty.svg",
