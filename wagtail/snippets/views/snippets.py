@@ -20,7 +20,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic.models import IndexView
+from wagtail.admin.views.generic import CreateView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
@@ -214,33 +214,112 @@ class ListView(TemplateView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-def create(request, app_label, model_name):
-    model = get_snippet_model_from_url_params(app_label, model_name)
+class CreateSnippetView(CreateView):
+    def get(self, request, *args, **kwargs):
+        app_label = kwargs.get("app_label")
+        model_name = kwargs.get("model_name")
 
-    permission = get_permission_name("add", model)
-    if not request.user.has_perm(permission):
-        raise PermissionDenied
+        model = get_snippet_model_from_url_params(app_label, model_name)
 
-    for fn in hooks.get_hooks("before_create_snippet"):
-        result = fn(request, model)
-        if hasattr(result, "status_code"):
-            return result
+        permission = get_permission_name("add", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
 
-    instance = model()
+        for fn in hooks.get_hooks("before_create_snippet"):
+            result = fn(request, model)
+            if hasattr(result, "status_code"):
+                return result
 
-    # Set locale of the new instance
-    if issubclass(model, TranslatableMixin):
-        selected_locale = request.GET.get("locale")
-        if selected_locale:
-            instance.locale = get_object_or_404(Locale, language_code=selected_locale)
-        else:
-            instance.locale = Locale.get_default()
+        instance = model()
 
-    # Make edit handler
-    edit_handler = get_snippet_edit_handler(model)
-    form_class = edit_handler.get_form_class()
+        # Set locale of the new instance
+        if issubclass(model, TranslatableMixin):
+            selected_locale = request.GET.get("locale")
+            if selected_locale:
+                instance.locale = get_object_or_404(
+                    Locale, language_code=selected_locale
+                )
+            else:
+                instance.locale = Locale.get_default()
 
-    if request.method == "POST":
+        # Make edit handler
+        edit_handler = get_snippet_edit_handler(model)
+        form_class = edit_handler.get_form_class()
+        form = form_class(instance=instance, for_user=request.user)
+
+        edit_handler = edit_handler.get_bound_panel(
+            request=request, instance=instance, form=form
+        )
+
+        action_menu = SnippetActionMenu(request, view="create", model=model)
+
+        context = {
+            "model_opts": model._meta,
+            "edit_handler": edit_handler,
+            "form": form,
+            "action_menu": action_menu,
+            "locale": None,
+            "translations": [],
+            "media": edit_handler.media + form.media + action_menu.media,
+        }
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model, TranslatableMixin
+        ):
+            context.update(
+                {
+                    "locale": instance.locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": reverse(
+                                "wagtailsnippets:add", args=[app_label, model_name]
+                            )
+                            + "?locale="
+                            + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(
+                            id=instance.locale.id
+                        )
+                    ],
+                }
+            )
+
+        return TemplateResponse(
+            request, "wagtailsnippets/snippets/create.html", context
+        )
+
+    def post(self, request, *args, **kwargs):
+        app_label = kwargs.get("app_label")
+        model_name = kwargs.get("model_name")
+
+        model = get_snippet_model_from_url_params(app_label, model_name)
+
+        permission = get_permission_name("add", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        for fn in hooks.get_hooks("before_create_snippet"):
+            result = fn(request, model)
+            if hasattr(result, "status_code"):
+                return result
+
+        instance = model()
+
+        # Set locale of the new instance
+        if issubclass(model, TranslatableMixin):
+            selected_locale = request.GET.get("locale")
+            if selected_locale:
+                instance.locale = get_object_or_404(
+                    Locale, language_code=selected_locale
+                )
+            else:
+                instance.locale = Locale.get_default()
+
+        # Make edit handler
+        edit_handler = get_snippet_edit_handler(model)
+        form_class = edit_handler.get_form_class()
+
         form = form_class(
             request.POST, request.FILES, instance=instance, for_user=request.user
         )
@@ -287,46 +366,48 @@ def create(request, app_label, model_name):
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
             )
-    else:
-        form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.get_bound_panel(
-        request=request, instance=instance, form=form
-    )
-
-    action_menu = SnippetActionMenu(request, view="create", model=model)
-
-    context = {
-        "model_opts": model._meta,
-        "edit_handler": edit_handler,
-        "form": form,
-        "action_menu": action_menu,
-        "locale": None,
-        "translations": [],
-        "media": edit_handler.media + form.media + action_menu.media,
-    }
-
-    if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-        model, TranslatableMixin
-    ):
-        context.update(
-            {
-                "locale": instance.locale,
-                "translations": [
-                    {
-                        "locale": locale,
-                        "url": reverse(
-                            "wagtailsnippets:add", args=[app_label, model_name]
-                        )
-                        + "?locale="
-                        + locale.language_code,
-                    }
-                    for locale in Locale.objects.all().exclude(id=instance.locale.id)
-                ],
-            }
+        edit_handler = edit_handler.get_bound_panel(
+            request=request, instance=instance, form=form
         )
 
-    return TemplateResponse(request, "wagtailsnippets/snippets/create.html", context)
+        action_menu = SnippetActionMenu(request, view="create", model=model)
+
+        context = {
+            "model_opts": model._meta,
+            "edit_handler": edit_handler,
+            "form": form,
+            "action_menu": action_menu,
+            "locale": None,
+            "translations": [],
+            "media": edit_handler.media + form.media + action_menu.media,
+        }
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model, TranslatableMixin
+        ):
+            context.update(
+                {
+                    "locale": instance.locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": reverse(
+                                "wagtailsnippets:add", args=[app_label, model_name]
+                            )
+                            + "?locale="
+                            + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(
+                            id=instance.locale.id
+                        )
+                    ],
+                }
+            )
+
+        return TemplateResponse(
+            request, "wagtailsnippets/snippets/create.html", context
+        )
 
 
 def edit(request, app_label, model_name, pk):
