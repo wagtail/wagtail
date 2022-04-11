@@ -263,6 +263,9 @@ class CreateSnippetView(CreateView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form_class(self):
+        return self.edit_handler.get_form_class()
+
     def get(self, request, *args, **kwargs):
         instance = self.model()
 
@@ -270,7 +273,7 @@ class CreateSnippetView(CreateView):
         instance.locale = self.locale
 
         # Make edit handler
-        form_class = self.edit_handler.get_form_class()
+        form_class = self.get_form_class()
         form = form_class(instance=instance, for_user=request.user)
 
         edit_handler = self.edit_handler.get_bound_panel(
@@ -321,7 +324,7 @@ class CreateSnippetView(CreateView):
         instance.locale = self.locale
 
         # Make edit handler
-        form_class = self.edit_handler.get_form_class()
+        form_class = self.get_form_class()
 
         form = form_class(
             request.POST, request.FILES, instance=instance, for_user=request.user
