@@ -429,7 +429,7 @@ class TestTabbedInterface(TestCase):
 
         # result should contain tab panels
         self.assertInHTML(
-            '<section id="tab-event-details" class="w-tabs__panel shiny" role="tabpanel" aria-labelledby="tab-label-event-details">',
+            '<section id="tab-event-details" class="w-tabs__panel shiny" role="tabpanel" aria-labelledby="tab-label-event-details" hidden>',
             result,
         )
 
