@@ -4,7 +4,7 @@ exports[`Menu should render with the minimum required props 1`] = `
 <Fragment>
   <nav
     aria-label="Main menu"
-    className="sidebar-main-menu u-scrollbar-thin"
+    className="sidebar-main-menu w-scrollbar-thin"
   >
     <ul
       className="sidebar-main-menu__list"

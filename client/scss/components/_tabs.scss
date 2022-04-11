@@ -16,11 +16,12 @@
 
   &__list {
     @include nice-padding();
-    @apply w-flex w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
+    @apply w-flex w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
   }
 
   &__tab {
     @apply w-label-3
+    w-box-border
     w-inline-flex
     w-text-grey-400
     hover:w-text-primary
