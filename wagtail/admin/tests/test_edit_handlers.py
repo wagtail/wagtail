@@ -419,7 +419,7 @@ class TestTabbedInterface(TestCase):
 
         # result should contain tab buttons
         self.assertIn(
-            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="true">',
+            '<a id="tab-label-event-details" href="#tab-event-details" class="w-tabs__tab shiny" role="tab" aria-selected="false" tabindex="-1">',
             result,
         )
         self.assertIn(

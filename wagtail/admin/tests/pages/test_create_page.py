@@ -145,7 +145,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
         self.assertContains(
             response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="true">',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,
@@ -216,7 +216,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="true">',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertNotContains(response, "tab-promote")
 
@@ -233,7 +233,7 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="true">',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,

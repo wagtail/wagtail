@@ -384,7 +384,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         self.assertContains(response, 'role="tablist"')
         self.assertContains(
             response,
-            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="true">',
+            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,
@@ -891,7 +891,7 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
         self.assertContains(response, 'role="tablist"')
         self.assertContains(
             response,
-            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="true">',
+            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,

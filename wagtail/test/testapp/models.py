@@ -1282,6 +1282,13 @@ class TestSetting(BaseSetting):
     title = models.CharField(max_length=100)
     email = models.EmailField(max_length=50)
 
+    edit_handler = TabbedInterface(
+        [
+            ObjectList([FieldPanel("title")], heading="First tab"),
+            ObjectList([FieldPanel("email")], heading="Second tab"),
+        ]
+    )
+
 
 @register_setting
 class ImportantPages(BaseSetting):

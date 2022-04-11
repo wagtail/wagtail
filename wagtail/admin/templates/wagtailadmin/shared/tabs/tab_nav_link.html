@@ -10,7 +10,7 @@
     - `errors_count` - {number?} Show above the tab for errors count
 {% endcomment %}
 
-<a id="tab-label-{{ tab_id|cautious_slugify }}" href="#tab-{{ tab_id|cautious_slugify }}" class="w-tabs__tab {{ classes }}" role="tab"{% if active %} aria-selected="true"{% else %} aria-selected="false" tabindex="-1"{% endif %}>
+<a id="tab-label-{{ tab_id|cautious_slugify }}" href="#tab-{{ tab_id|cautious_slugify }}" class="w-tabs__tab {{ classes }}" role="tab" aria-selected="false" tabindex="-1">
     <div class="w-tabs__errors {% if errors_count %}w-tabs__errors--active{% endif %}">
         <span class="w-sr-only">{% trans 'Errors Count: ' %}</span>
         <span class="w-tabs__errors-count">{{ errors_count }}</span>
