@@ -253,6 +253,11 @@ class CreateSnippetView(CreateView):
     def _get_edit_handler(self):
         return get_snippet_edit_handler(self.model)
 
+    def _get_bound_panel(self, form):
+        return self.edit_handler.get_bound_panel(
+            request=self.request, instance=form.instance, form=form
+        )
+
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
 
@@ -282,9 +287,7 @@ class CreateSnippetView(CreateView):
         form = self.get_form()
         instance = form.instance
 
-        edit_handler = self.edit_handler.get_bound_panel(
-            request=request, instance=instance, form=form
-        )
+        edit_handler = self._get_bound_panel(form)
 
         action_menu = SnippetActionMenu(request, view="create", model=self.model)
 
@@ -368,9 +371,7 @@ class CreateSnippetView(CreateView):
                 request, _("The snippet could not be created due to errors."), form
             )
 
-        edit_handler = self.edit_handler.get_bound_panel(
-            request=request, instance=instance, form=form
-        )
+        edit_handler = self._get_bound_panel(form)
 
         action_menu = SnippetActionMenu(request, view="create", model=self.model)
 
