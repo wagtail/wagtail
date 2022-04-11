@@ -189,7 +189,7 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
 
