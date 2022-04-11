@@ -394,21 +394,6 @@ class CreateSnippetView(CreateView):
 
         return redirect(self.get_success_url())
 
-    def form_invalid(self, form):
-        # This method is now pretty much exactly the same as CreateView.form_invalid(),
-        # but we still need to override this because we want to use messages.validation_error()
-        # instead of messages.error(). We can remove this override if CreateView uses
-        # messages.validation_error() instead.
-
-        self.form = form
-        error_message = self.get_error_message()
-        if error_message is not None:
-            messages.validation_error(self.request, error_message, form)
-
-        # We don't return from super().form_invalid() because it will create
-        # a duplicate message with messages.error()
-        return self.render_to_response(self.get_context_data(form=form))
-
 
 def edit(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
