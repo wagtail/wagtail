@@ -262,6 +262,46 @@ class CreateSnippetView(CreateView):
     def _get_action_menu(self):
         return SnippetActionMenu(self.request, view="create", model=self.model)
 
+    def get_add_url(self):
+        url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
+        if self.locale:
+            url += "?locale=" + self.locale.language_code
+        return url
+
+    def get_success_url(self):
+        urlquery = ""
+        if (
+            isinstance(self.object, TranslatableMixin)
+            and self.object.locale is not Locale.get_default()
+        ):
+            urlquery = "?locale=" + self.object.locale.language_code
+
+        return (
+            reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+            + urlquery
+        )
+
+    def get_success_message(self, instance):
+        return _("%(snippet_type)s '%(instance)s' created.") % {
+            "snippet_type": capfirst(self.model._meta.verbose_name),
+            "instance": instance,
+        }
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(
+                    "wagtailsnippets:edit",
+                    args=(
+                        self.app_label,
+                        self.model_name,
+                        quote(self.object.pk),
+                    ),
+                ),
+                _("Edit"),
+            )
+        ]
+
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
 
@@ -286,12 +326,6 @@ class CreateSnippetView(CreateView):
 
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
-
-    def get_add_url(self):
-        url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
-        if self.locale:
-            url += "?locale=" + self.locale.language_code
-        return url
 
     def get_context_data(self, form=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -339,40 +373,6 @@ class CreateSnippetView(CreateView):
             )
 
         return context
-
-    def get_success_message(self, instance):
-        return _("%(snippet_type)s '%(instance)s' created.") % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": instance,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    "wagtailsnippets:edit",
-                    args=(
-                        self.app_label,
-                        self.model_name,
-                        quote(self.object.pk),
-                    ),
-                ),
-                _("Edit"),
-            )
-        ]
-
-    def get_success_url(self):
-        urlquery = ""
-        if (
-            isinstance(self.object, TranslatableMixin)
-            and self.object.locale is not Locale.get_default()
-        ):
-            urlquery = "?locale=" + self.object.locale.language_code
-
-        return (
-            reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
-            + urlquery
-        )
 
     def form_valid(self, form):
         response = super().form_valid(form)
