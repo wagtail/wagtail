@@ -293,24 +293,23 @@ class CreateSnippetView(CreateView):
             url += "?locale=" + self.locale.language_code
         return url
 
-    def get(self, request, *args, **kwargs):
-        form = self.get_form()
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(**kwargs)
+        edit_handler = self._get_bound_panel(form)
+        action_menu = self._get_action_menu()
         instance = form.instance
 
-        edit_handler = self._get_bound_panel(form)
-
-        action_menu = self._get_action_menu()
-
-        context = {
-            "model_opts": self.model._meta,
-            "edit_handler": edit_handler,
-            "form": form,
-            "action_menu": action_menu,
-            "action_url": self.get_add_url(),
-            "locale": None,
-            "translations": [],
-            "media": edit_handler.media + form.media + action_menu.media,
-        }
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "edit_handler": edit_handler,
+                "form": form,
+                "action_menu": action_menu,
+                "locale": None,
+                "translations": [],
+                "media": edit_handler.media + form.media + action_menu.media,
+            }
+        )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
             self.model, TranslatableMixin
@@ -335,6 +334,18 @@ class CreateSnippetView(CreateView):
                 }
             )
 
+        return context
+
+    def get(self, request, *args, **kwargs):
+        # Necessary for initialization because Django's BaseCreateView extends
+        # from ModelFormMixin, which extends from SingleObjectMixin, which expects
+        # self.object in its get_context_data().
+        # Since self.object isn't available for create views until the instance is saved,
+        # we set this to None. This is also what Django does in BaseCreateView.
+        self.object = None
+
+        form = self.get_form()
+        context = self.get_context_data(form)
         return TemplateResponse(request, self.template_name, context)
 
     def get_success_message(self, instance):
@@ -392,52 +403,21 @@ class CreateSnippetView(CreateView):
         return redirect(self.get_success_url())
 
     def post(self, request, *args, **kwargs):
+        # Necessary for initialization because Django's BaseCreateView extends
+        # from ModelFormMixin, which extends from SingleObjectMixin, which expects
+        # self.object in its get_context_data().
+        # Since self.object isn't available for create views until the instance is saved,
+        # we set this to None. This is also what Django does in BaseCreateView.
+        self.object = None
+
         form = self.get_form()
-        instance = form.instance
 
         if form.is_valid():
             return self.form_valid(form)
         else:
             messages.validation_error(request, self.get_error_message(), form)
 
-        edit_handler = self._get_bound_panel(form)
-
-        action_menu = self._get_action_menu()
-
-        context = {
-            "model_opts": self.model._meta,
-            "edit_handler": edit_handler,
-            "form": form,
-            "action_menu": action_menu,
-            "action_url": self.get_add_url(),
-            "locale": None,
-            "translations": [],
-            "media": edit_handler.media + form.media + action_menu.media,
-        }
-
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
-            context.update(
-                {
-                    "locale": instance.locale,
-                    "translations": [
-                        {
-                            "locale": locale,
-                            "url": reverse(
-                                "wagtailsnippets:add",
-                                args=[self.app_label, self.model_name],
-                            )
-                            + "?locale="
-                            + locale.language_code,
-                        }
-                        for locale in Locale.objects.all().exclude(
-                            id=instance.locale.id
-                        )
-                    ],
-                }
-            )
-
+        context = self.get_context_data(form)
         return TemplateResponse(request, self.template_name, context)
 
 
