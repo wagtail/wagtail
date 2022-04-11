@@ -8,10 +8,10 @@
     {% include "wagtailadmin/shared/header.html" with title=add_user_str merged=1 tabbed=1 icon="user" %}
 
     <div class="w-tabs" data-tabs data-tabs-animate>
-        <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
+        <div class="w-tabs__wrapper">
             <div role="tablist" class="w-tabs__list nice-padding">
                 {% trans "Account" as account_text %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='account' title=account_text active=True %}
                 {% trans "Roles" as roles_text %}
                 {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='roles' title=roles_text %}
             </div>

@@ -202,7 +202,7 @@ export const Menu: React.FunctionComponent<MenuProps> = ({
   };
 
   const className =
-    'sidebar-main-menu u-scrollbar-thin' +
+    'sidebar-main-menu w-scrollbar-thin' +
     (accountSettingsOpen ? ' sidebar-main-menu--open-footer' : '');
 
   return (

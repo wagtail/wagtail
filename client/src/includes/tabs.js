@@ -104,6 +104,10 @@ class Tabs {
       `#${this.state.activeTabID}`,
     );
 
+    if (!tabContent) {
+      return;
+    }
+
     if (this.animate) {
       this.animateOut(tabContent);
     } else {
@@ -135,6 +139,10 @@ class Tabs {
       tab.setAttribute('aria-selected', true);
       tab.removeAttribute('tabindex');
       const tabContent = this.tabContainer.querySelector(`#${tabContentId}`);
+
+      if (!tabContent) {
+        return;
+      }
 
       if (this.animate) {
         this.animateIn(tabContent);
@@ -193,6 +201,9 @@ class Tabs {
     this.tabButtons.forEach((tab, index) => {
       tab.addEventListener('click', (e) => {
         e.preventDefault();
+        this.selectTab(tab);
+      });
+      tab.addEventListener('focus', () => {
         this.selectTab(tab);
       });
       tab.addEventListener('keydown', this.keydownEventListener);

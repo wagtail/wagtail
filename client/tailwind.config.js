@@ -1,6 +1,5 @@
 const plugin = require('tailwindcss/plugin');
 const vanillaRTL = require('tailwindcss-vanilla-rtl');
-
 /**
  * Design Tokens
  */
@@ -24,6 +23,7 @@ const { spacing } = require('./src/tokens/spacing');
  * Plugins
  */
 const typeScale = require('./src/tokens/typeScale');
+const scrollbarThin = require('./src/plugins/scrollbarThin');
 
 /**
  * Functions
@@ -81,6 +81,7 @@ module.exports = {
   plugins: [
     typeScale,
     vanillaRTL,
+    scrollbarThin,
     /**
      * forced-colors media query for Windows High-Contrast mode support
      * See:
