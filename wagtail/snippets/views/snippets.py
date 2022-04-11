@@ -287,6 +287,12 @@ class CreateSnippetView(CreateView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
+    def get_add_url(self):
+        url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
+        if self.locale:
+            url += "?locale=" + self.locale.language_code
+        return url
+
     def get(self, request, *args, **kwargs):
         form = self.get_form()
         instance = form.instance
@@ -300,6 +306,7 @@ class CreateSnippetView(CreateView):
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
+            "action_url": self.get_add_url(),
             "locale": None,
             "translations": [],
             "media": edit_handler.media + form.media + action_menu.media,
@@ -402,6 +409,7 @@ class CreateSnippetView(CreateView):
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
+            "action_url": self.get_add_url(),
             "locale": None,
             "translations": [],
             "media": edit_handler.media + form.media + action_menu.media,
