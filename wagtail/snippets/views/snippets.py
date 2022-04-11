@@ -335,6 +335,19 @@ class CreateSnippetView(CreateView):
             "instance": instance,
         }
 
+    def get_success_url(self):
+        urlquery = ""
+        if (
+            isinstance(self.object, TranslatableMixin)
+            and self.object.locale is not Locale.get_default()
+        ):
+            urlquery = "?locale=" + self.object.locale.language_code
+
+        return (
+            reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+            + urlquery
+        )
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         instance = form.instance
@@ -365,17 +378,7 @@ class CreateSnippetView(CreateView):
 
             self._run_after_hooks()
 
-            urlquery = ""
-            if (
-                isinstance(self.object, TranslatableMixin)
-                and self.object.locale is not Locale.get_default()
-            ):
-                urlquery = "?locale=" + self.object.locale.language_code
-
-            return redirect(
-                reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
-                + urlquery
-            )
+            return redirect(self.get_success_url())
         else:
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
