@@ -217,11 +217,14 @@ class ListView(TemplateView):
 class CreateSnippetView(CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
 
-    def get(self, request, *args, **kwargs):
-        app_label = kwargs.get("app_label")
-        model_name = kwargs.get("model_name")
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
 
-        model = get_snippet_model_from_url_params(app_label, model_name)
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+
+    def get(self, request, *args, **kwargs):
+        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
 
         permission = get_permission_name("add", model)
         if not request.user.has_perm(permission):
@@ -275,7 +278,8 @@ class CreateSnippetView(CreateView):
                         {
                             "locale": locale,
                             "url": reverse(
-                                "wagtailsnippets:add", args=[app_label, model_name]
+                                "wagtailsnippets:add",
+                                args=[self.app_label, self.model_name],
                             )
                             + "?locale="
                             + locale.language_code,
@@ -290,10 +294,7 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        app_label = kwargs.get("app_label")
-        model_name = kwargs.get("model_name")
-
-        model = get_snippet_model_from_url_params(app_label, model_name)
+        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
 
         permission = get_permission_name("add", model)
         if not request.user.has_perm(permission):
@@ -340,7 +341,7 @@ class CreateSnippetView(CreateView):
                     messages.button(
                         reverse(
                             "wagtailsnippets:edit",
-                            args=(app_label, model_name, quote(instance.pk)),
+                            args=(self.app_label, self.model_name, quote(instance.pk)),
                         ),
                         _("Edit"),
                     )
@@ -360,7 +361,8 @@ class CreateSnippetView(CreateView):
                 urlquery = "?locale=" + instance.locale.language_code
 
             return redirect(
-                reverse("wagtailsnippets:list", args=[app_label, model_name]) + urlquery
+                reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+                + urlquery
             )
         else:
             messages.validation_error(
@@ -393,7 +395,7 @@ class CreateSnippetView(CreateView):
                         {
                             "locale": locale,
                             "url": reverse(
-                                "wagtailsnippets:add", args=[app_label, model_name]
+                                "wagtailsnippets:add", args=[self.app_label, self.model_name]
                             )
                             + "?locale="
                             + locale.language_code,
