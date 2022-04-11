@@ -312,7 +312,7 @@ class CreateSnippetView(CreateView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_object(self, queryset=None):
+    def _get_initial_form_instance(self):
         instance = self.model()
 
         # Set locale of the new instance
@@ -325,7 +325,11 @@ class CreateSnippetView(CreateView):
         return self.edit_handler.get_form_class()
 
     def get_form_kwargs(self):
-        return {**super().get_form_kwargs(), "for_user": self.request.user}
+        return {
+            **super().get_form_kwargs(),
+            "instance": self._get_initial_form_instance(),
+            "for_user": self.request.user,
+        }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
