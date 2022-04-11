@@ -348,37 +348,40 @@ class CreateSnippetView(CreateView):
             + urlquery
         )
 
+    def form_valid(self, form):
+        with transaction.atomic():
+            self.object = form.save()
+            log(instance=self.object, action="wagtail.create")
+
+        success_message = self.get_success_message(self.object)
+        messages.success(
+            self.request,
+            success_message,
+            buttons=[
+                messages.button(
+                    reverse(
+                        "wagtailsnippets:edit",
+                        args=(
+                            self.app_label,
+                            self.model_name,
+                            quote(self.object.pk),
+                        ),
+                    ),
+                    _("Edit"),
+                )
+            ],
+        )
+
+        self._run_after_hooks()
+
+        return redirect(self.get_success_url())
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         instance = form.instance
 
         if form.is_valid():
-            with transaction.atomic():
-                self.object = form.save()
-                log(instance=self.object, action="wagtail.create")
-
-            success_message = self.get_success_message(self.object)
-            messages.success(
-                request,
-                success_message,
-                buttons=[
-                    messages.button(
-                        reverse(
-                            "wagtailsnippets:edit",
-                            args=(
-                                self.app_label,
-                                self.model_name,
-                                quote(self.object.pk),
-                            ),
-                        ),
-                        _("Edit"),
-                    )
-                ],
-            )
-
-            self._run_after_hooks()
-
-            return redirect(self.get_success_url())
+            return self.form_valid(form)
         else:
             messages.validation_error(
                 request, _("The snippet could not be created due to errors."), form
