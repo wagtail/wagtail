@@ -349,8 +349,15 @@ class CreateSnippetView(CreateView):
         )
 
     def form_valid(self, form):
+        # This method is now pretty much exactly the same as CreateView.form_valid(),
+        # but we still need to override this because we need to customise the button link.
+        # Once we have something like get_success_buttons(), we can replace most of the
+        # following code with a call to super().form_valid().
+
+        self.form = form
+
         with transaction.atomic():
-            self.object = form.save()
+            self.object = self.save_instance()
             log(instance=self.object, action="wagtail.create")
 
         success_message = self.get_success_message(self.object)
