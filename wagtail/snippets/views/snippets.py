@@ -346,6 +346,21 @@ class CreateSnippetView(CreateView):
             "instance": instance,
         }
 
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(
+                    "wagtailsnippets:edit",
+                    args=(
+                        self.app_label,
+                        self.model_name,
+                        quote(self.object.pk),
+                    ),
+                ),
+                _("Edit"),
+            )
+        ]
+
     def get_success_url(self):
         urlquery = ""
         if (
@@ -372,22 +387,11 @@ class CreateSnippetView(CreateView):
             log(instance=self.object, action="wagtail.create")
 
         success_message = self.get_success_message(self.object)
+        success_buttons = self.get_success_buttons()
         messages.success(
             self.request,
             success_message,
-            buttons=[
-                messages.button(
-                    reverse(
-                        "wagtailsnippets:edit",
-                        args=(
-                            self.app_label,
-                            self.model_name,
-                            quote(self.object.pk),
-                        ),
-                    ),
-                    _("Edit"),
-                )
-            ],
+            buttons=success_buttons,
         )
 
         self._run_after_hooks()
