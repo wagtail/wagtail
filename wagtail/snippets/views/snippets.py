@@ -236,6 +236,7 @@ class CreateSnippetView(CreateView):
         self.model_name = kwargs.get("model_name")
         self.model = self._get_model()
         self.locale = self._get_locale()
+        self.edit_handler = self._get_edit_handler()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -248,6 +249,9 @@ class CreateSnippetView(CreateView):
             return Locale.get_default()
 
         return None
+
+    def _get_edit_handler(self):
+        return get_snippet_edit_handler(self.model)
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
@@ -266,11 +270,10 @@ class CreateSnippetView(CreateView):
         instance.locale = self.locale
 
         # Make edit handler
-        edit_handler = get_snippet_edit_handler(self.model)
-        form_class = edit_handler.get_form_class()
+        form_class = self.edit_handler.get_form_class()
         form = form_class(instance=instance, for_user=request.user)
 
-        edit_handler = edit_handler.get_bound_panel(
+        edit_handler = self.edit_handler.get_bound_panel(
             request=request, instance=instance, form=form
         )
 
@@ -318,8 +321,7 @@ class CreateSnippetView(CreateView):
         instance.locale = self.locale
 
         # Make edit handler
-        edit_handler = get_snippet_edit_handler(self.model)
-        form_class = edit_handler.get_form_class()
+        form_class = self.edit_handler.get_form_class()
 
         form = form_class(
             request.POST, request.FILES, instance=instance, for_user=request.user
@@ -366,7 +368,7 @@ class CreateSnippetView(CreateView):
                 request, _("The snippet could not be created due to errors."), form
             )
 
-        edit_handler = edit_handler.get_bound_panel(
+        edit_handler = self.edit_handler.get_bound_panel(
             request=request, instance=instance, form=form
         )
 
