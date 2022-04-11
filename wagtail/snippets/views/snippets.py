@@ -279,11 +279,8 @@ class CreateSnippetView(CreateView):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Make edit handler
-        form_class = self.get_form_class()
-        form = form_class(**self.get_form_kwargs())
+        form = self.get_form()
+        instance = form.instance
 
         edit_handler = self.edit_handler.get_bound_panel(
             request=request, instance=instance, form=form
@@ -327,12 +324,8 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        instance = self.get_object()
-
-        # Make edit handler
-        form_class = self.get_form_class()
-
-        form = form_class(**self.get_form_kwargs())
+        form = self.get_form()
+        instance = form.instance
 
         if form.is_valid():
             with transaction.atomic():
