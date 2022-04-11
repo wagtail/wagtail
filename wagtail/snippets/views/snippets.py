@@ -293,8 +293,12 @@ class CreateSnippetView(CreateView):
             url += "?locale=" + self.locale.language_code
         return url
 
-    def get_context_data(self, form, **kwargs):
+    def get_context_data(self, form=None, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if form is None:
+            form = self.get_form()
+
         edit_handler = self._get_bound_panel(form)
         action_menu = self._get_action_menu()
         instance = form.instance
@@ -335,18 +339,6 @@ class CreateSnippetView(CreateView):
             )
 
         return context
-
-    def get(self, request, *args, **kwargs):
-        # Necessary for initialization because Django's BaseCreateView extends
-        # from ModelFormMixin, which extends from SingleObjectMixin, which expects
-        # self.object in its get_context_data().
-        # Since self.object isn't available for create views until the instance is saved,
-        # we set this to None. This is also what Django does in BaseCreateView.
-        self.object = None
-
-        form = self.get_form()
-        context = self.get_context_data(form)
-        return TemplateResponse(request, self.template_name, context)
 
     def get_success_message(self, instance):
         return _("%(snippet_type)s '%(instance)s' created.") % {
