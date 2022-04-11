@@ -215,6 +215,8 @@ class ListView(TemplateView):
 
 
 class CreateSnippetView(CreateView):
+    template_name = "wagtailsnippets/snippets/create.html"
+
     def get(self, request, *args, **kwargs):
         app_label = kwargs.get("app_label")
         model_name = kwargs.get("model_name")
@@ -285,9 +287,7 @@ class CreateSnippetView(CreateView):
                 }
             )
 
-        return TemplateResponse(
-            request, "wagtailsnippets/snippets/create.html", context
-        )
+        return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
         app_label = kwargs.get("app_label")
@@ -405,9 +405,7 @@ class CreateSnippetView(CreateView):
                 }
             )
 
-        return TemplateResponse(
-            request, "wagtailsnippets/snippets/create.html", context
-        )
+        return TemplateResponse(request, self.template_name, context)
 
 
 def edit(request, app_label, model_name, pk):
