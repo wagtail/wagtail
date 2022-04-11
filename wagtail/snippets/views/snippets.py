@@ -258,6 +258,9 @@ class CreateSnippetView(CreateView):
             request=self.request, instance=form.instance, form=form
         )
 
+    def _get_action_menu(self):
+        return SnippetActionMenu(self.request, view="create", model=self.model)
+
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
 
@@ -289,7 +292,7 @@ class CreateSnippetView(CreateView):
 
         edit_handler = self._get_bound_panel(form)
 
-        action_menu = SnippetActionMenu(request, view="create", model=self.model)
+        action_menu = self._get_action_menu()
 
         context = {
             "model_opts": self.model._meta,
@@ -373,7 +376,7 @@ class CreateSnippetView(CreateView):
 
         edit_handler = self._get_bound_panel(form)
 
-        action_menu = SnippetActionMenu(request, view="create", model=self.model)
+        action_menu = self._get_action_menu()
 
         context = {
             "model_opts": self.model._meta,
