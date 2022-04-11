@@ -222,23 +222,25 @@ class CreateSnippetView(CreateView):
 
         self.app_label = kwargs.get("app_label")
         self.model_name = kwargs.get("model_name")
+        self.model = self._get_model()
+
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get(self, request, *args, **kwargs):
-        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-        permission = get_permission_name("add", model)
+        permission = get_permission_name("add", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
         for fn in hooks.get_hooks("before_create_snippet"):
-            result = fn(request, model)
+            result = fn(request, self.model)
             if hasattr(result, "status_code"):
                 return result
 
-        instance = model()
+        instance = self.model()
 
         # Set locale of the new instance
-        if issubclass(model, TranslatableMixin):
+        if issubclass(self.model, TranslatableMixin):
             selected_locale = request.GET.get("locale")
             if selected_locale:
                 instance.locale = get_object_or_404(
@@ -248,7 +250,7 @@ class CreateSnippetView(CreateView):
                 instance.locale = Locale.get_default()
 
         # Make edit handler
-        edit_handler = get_snippet_edit_handler(model)
+        edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(instance=instance, for_user=request.user)
 
@@ -256,10 +258,10 @@ class CreateSnippetView(CreateView):
             request=request, instance=instance, form=form
         )
 
-        action_menu = SnippetActionMenu(request, view="create", model=model)
+        action_menu = SnippetActionMenu(request, view="create", model=self.model)
 
         context = {
-            "model_opts": model._meta,
+            "model_opts": self.model._meta,
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
@@ -269,7 +271,7 @@ class CreateSnippetView(CreateView):
         }
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            model, TranslatableMixin
+            self.model, TranslatableMixin
         ):
             context.update(
                 {
@@ -294,21 +296,19 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-        permission = get_permission_name("add", model)
+        permission = get_permission_name("add", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
         for fn in hooks.get_hooks("before_create_snippet"):
-            result = fn(request, model)
+            result = fn(request, self.model)
             if hasattr(result, "status_code"):
                 return result
 
-        instance = model()
+        instance = self.model()
 
         # Set locale of the new instance
-        if issubclass(model, TranslatableMixin):
+        if issubclass(self.model, TranslatableMixin):
             selected_locale = request.GET.get("locale")
             if selected_locale:
                 instance.locale = get_object_or_404(
@@ -318,7 +318,7 @@ class CreateSnippetView(CreateView):
                 instance.locale = Locale.get_default()
 
         # Make edit handler
-        edit_handler = get_snippet_edit_handler(model)
+        edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
 
         form = form_class(
@@ -334,7 +334,7 @@ class CreateSnippetView(CreateView):
                 request,
                 _("%(snippet_type)s '%(instance)s' created.")
                 % {
-                    "snippet_type": capfirst(model._meta.verbose_name),
+                    "snippet_type": capfirst(self.model._meta.verbose_name),
                     "instance": instance,
                 },
                 buttons=[
@@ -373,10 +373,10 @@ class CreateSnippetView(CreateView):
             request=request, instance=instance, form=form
         )
 
-        action_menu = SnippetActionMenu(request, view="create", model=model)
+        action_menu = SnippetActionMenu(request, view="create", model=self.model)
 
         context = {
-            "model_opts": model._meta,
+            "model_opts": self.model._meta,
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
@@ -386,7 +386,7 @@ class CreateSnippetView(CreateView):
         }
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            model, TranslatableMixin
+            self.model, TranslatableMixin
         ):
             context.update(
                 {
@@ -395,7 +395,8 @@ class CreateSnippetView(CreateView):
                         {
                             "locale": locale,
                             "url": reverse(
-                                "wagtailsnippets:add", args=[self.app_label, self.model_name]
+                                "wagtailsnippets:add",
+                                args=[self.app_label, self.model_name],
                             )
                             + "?locale="
                             + locale.language_code,
