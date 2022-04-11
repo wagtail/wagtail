@@ -80,6 +80,7 @@ Changelog
  * Fix: Page copy in Wagtail admin ignores `exclude_fields_in_copy` (John-Scott Atlakson)
  * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
  * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+ * Fix: Ensure 'next' links from image / document listings do not redirect back to partial AJAX view (Matt Westcott)
 
 
 2.16.1 (11.02.2022)
