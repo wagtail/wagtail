@@ -263,14 +263,20 @@ class CreateSnippetView(CreateView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def get_object(self, queryset=None):
+        instance = self.model()
+
+        # Set locale of the new instance
+        if issubclass(self.model, TranslatableMixin):
+            instance.locale = self.locale
+
+        return instance
+
     def get_form_class(self):
         return self.edit_handler.get_form_class()
 
     def get(self, request, *args, **kwargs):
-        instance = self.model()
-
-        # Set locale of the new instance
-        instance.locale = self.locale
+        instance = self.get_object()
 
         # Make edit handler
         form_class = self.get_form_class()
@@ -318,10 +324,7 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        instance = self.model()
-
-        # Set locale of the new instance
-        instance.locale = self.locale
+        instance = self.get_object()
 
         # Make edit handler
         form_class = self.get_form_class()
