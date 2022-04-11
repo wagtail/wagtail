@@ -97,10 +97,12 @@ def verify_signature(signature, image_id, filter_spec, key=None):
     return force_str(signature) == generate_signature(image_id, filter_spec, key=key)
 
 
-def find_image_duplicates(ImageModel, image):
+def find_image_duplicates(image, user, permission_policy):
     """
-    Given an Image model, this function finds all the duplicates of a given instance of that model.
-    To keep things simple, we assume that two images are duplicates if they have the same `file_hash` value.
+    Finds all the duplicates of a given image.
+    To keep things simple, two images are considered to be duplicates if they have the same `file_hash` value.
+    This function also ensures that the `user` can choose one of the duplicate images returned (if any).
     """
 
-    return ImageModel.objects.exclude(pk=image.pk).filter(file_hash=image.file_hash)
+    instances = permission_policy.instances_user_has_permission_for(user, "choose")
+    return instances.exclude(pk=image.pk).filter(file_hash=image.file_hash)
