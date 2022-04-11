@@ -216,6 +216,7 @@ class ListView(TemplateView):
 
 class CreateSnippetView(CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
+    error_message = _("The snippet could not be created due to errors.")
 
     def _run_before_hooks(self):
         for fn in hooks.get_hooks("before_create_snippet"):
@@ -390,9 +391,7 @@ class CreateSnippetView(CreateView):
         if form.is_valid():
             return self.form_valid(form)
         else:
-            messages.validation_error(
-                request, _("The snippet could not be created due to errors."), form
-            )
+            messages.validation_error(request, self.get_error_message(), form)
 
         edit_handler = self._get_bound_panel(form)
 
