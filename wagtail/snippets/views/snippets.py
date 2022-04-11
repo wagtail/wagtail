@@ -329,6 +329,12 @@ class CreateSnippetView(CreateView):
 
         return TemplateResponse(request, self.template_name, context)
 
+    def get_success_message(self, instance):
+        return _("%(snippet_type)s '%(instance)s' created.") % {
+            "snippet_type": capfirst(self.model._meta.verbose_name),
+            "instance": instance,
+        }
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         instance = form.instance
@@ -338,13 +344,10 @@ class CreateSnippetView(CreateView):
                 instance = form.save()
                 log(instance=instance, action="wagtail.create")
 
+            success_message = self.get_success_message(instance)
             messages.success(
                 request,
-                _("%(snippet_type)s '%(instance)s' created.")
-                % {
-                    "snippet_type": capfirst(self.model._meta.verbose_name),
-                    "instance": instance,
-                },
+                success_message,
                 buttons=[
                     messages.button(
                         reverse(
