@@ -409,21 +409,6 @@ class CreateSnippetView(CreateView):
         # a duplicate message with messages.error()
         return self.render_to_response(self.get_context_data(form=form))
 
-    def post(self, request, *args, **kwargs):
-        # Necessary for initialization because Django's BaseCreateView extends
-        # from ModelFormMixin, which extends from SingleObjectMixin, which expects
-        # self.object in its get_context_data().
-        # Since self.object isn't available for create views until the instance is saved,
-        # we set this to None. This is also what Django does in BaseCreateView.
-        self.object = None
-
-        form = self.get_form()
-
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
 
 def edit(request, app_label, model_name, pk):
     model = get_snippet_model_from_url_params(app_label, model_name)
