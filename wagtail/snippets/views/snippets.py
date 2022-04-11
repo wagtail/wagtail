@@ -235,9 +235,19 @@ class CreateSnippetView(CreateView):
         self.app_label = kwargs.get("app_label")
         self.model_name = kwargs.get("model_name")
         self.model = self._get_model()
+        self.locale = self._get_locale()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def _get_locale(self):
+        if issubclass(self.model, TranslatableMixin):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                return get_object_or_404(Locale, language_code=selected_locale)
+            return Locale.get_default()
+
+        return None
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
@@ -253,14 +263,7 @@ class CreateSnippetView(CreateView):
         instance = self.model()
 
         # Set locale of the new instance
-        if issubclass(self.model, TranslatableMixin):
-            selected_locale = request.GET.get("locale")
-            if selected_locale:
-                instance.locale = get_object_or_404(
-                    Locale, language_code=selected_locale
-                )
-            else:
-                instance.locale = Locale.get_default()
+        instance.locale = self.locale
 
         # Make edit handler
         edit_handler = get_snippet_edit_handler(self.model)
@@ -312,14 +315,7 @@ class CreateSnippetView(CreateView):
         instance = self.model()
 
         # Set locale of the new instance
-        if issubclass(self.model, TranslatableMixin):
-            selected_locale = request.GET.get("locale")
-            if selected_locale:
-                instance.locale = get_object_or_404(
-                    Locale, language_code=selected_locale
-                )
-            else:
-                instance.locale = Locale.get_default()
+        instance.locale = self.locale
 
         # Make edit handler
         edit_handler = get_snippet_edit_handler(self.model)
