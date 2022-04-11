@@ -136,6 +136,47 @@
       padding: 0 0.8em;
     }
   }
+
+  .form-side {
+    position: fixed;
+    inset-inline-end: -420px;
+    inline-size: 25%;
+    block-size: 100%;
+    max-inline-size: 420px;
+    transition: inset-inline-end 0.2s ease;
+    border-inline-start: 1px solid #e0e0e0;
+    background-color: #fff;
+    z-index: 90;
+
+    &--open {
+      inset-inline-end: 0;
+    }
+
+    &__close-button {
+      color: rgb(46, 31, 94);
+      background-color: #fff;
+      padding: 10px;
+      display: none;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    &--open .form-side__close-button {
+      display: block;
+    }
+
+    &__panel {
+      display: none;
+      padding-inline-start: 10px;
+
+      &--active {
+        display: block;
+      }
+    }
+  }
 }
 
 // An object is the basic wrapper around any field or group of fields in the editor interface

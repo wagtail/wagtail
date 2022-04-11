@@ -403,3 +403,68 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
     updateWarnings();
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const setPanel = (panelName) => {
+    const sidePanelWrapper = document.querySelector('.form-side');
+
+    // Open / close side
+    if (panelName === '') {
+      sidePanelWrapper.classList.remove('form-side--open');
+      sidePanelWrapper.removeAttribute('aria-labelledby');
+    } else {
+      sidePanelWrapper.classList.add('form-side--open');
+      sidePanelWrapper.setAttribute(
+        'aria-labelledby',
+        `side-panel-${panelName}-title`,
+      );
+    }
+
+    document.querySelectorAll('.form-side__panel').forEach((panel) => {
+      const ACTIVE_CLASS = 'form-side__panel--active';
+      const panelCurrentlyActive = panel.classList.contains(ACTIVE_CLASS);
+
+      if (panel.dataset.sidePanel === panelName) {
+        if (!panelCurrentlyActive) {
+          panel.classList.add(ACTIVE_CLASS);
+          panel.dispatchEvent(new Event('show'));
+        }
+      } else {
+        if (panelCurrentlyActive) {
+          panel.classList.remove(ACTIVE_CLASS);
+          panel.dispatchEvent(new Event('hide'));
+        }
+      }
+    });
+  };
+
+  const togglePanel = (panelName) => {
+    const isAlreadyOpen = !!document.querySelector(
+      `.form-side__panel--active[data-side-panel="${panelName}"]`,
+    );
+
+    if (isAlreadyOpen) {
+      // Close the sidebar
+      setPanel('');
+    } else {
+      // Open the sidebar / navigate to the panel
+      setPanel(panelName);
+    }
+  };
+
+  document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      togglePanel(toggle.dataset.sidePanelToggle);
+    });
+  });
+
+  document
+    .querySelector('.form-side__close-button')
+    .addEventListener('click', (e) => {
+      e.preventDefault();
+
+      setPanel('');
+    });
+});

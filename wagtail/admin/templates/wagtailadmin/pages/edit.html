@@ -11,6 +11,19 @@
 
     {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
+    <aside class="form-side">
+        <button class="form-side__close-button">
+            {% icon name="expand-right" %}
+        </button>
+
+        {% for panel in side_panels %}
+            <div class="form-side__panel" data-side-panel="{{ panel.name }}">
+                <h2 id="side-panel-{{ panel.name }}-title" aria-label="{{ panel.title }}"></h2>
+                {% component panel %}
+            </div>
+        {% endfor %}
+    </aside>
+
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}

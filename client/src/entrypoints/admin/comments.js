@@ -281,9 +281,6 @@ window.comments = (() => {
       new Map(Object.entries(data.authors)),
     );
 
-    // Local state to hold active state of comments
-    let commentsActive = false;
-
     formElement
       .querySelectorAll('[data-component="add-comment-button"]')
       .forEach(initAddCommentButton);
@@ -299,8 +296,10 @@ window.comments = (() => {
       });
     }
 
-    // Comments toggle
-    const commentToggle = document.querySelector('[data-comments-toggle]');
+    // Show/hide comments when the side panel is opened/closed
+    const commentsSidePanel = document.querySelector(
+      '[data-side-panel="comments"]',
+    );
     const commentNotifications = formElement.querySelector(
       '[data-comment-notifications]',
     );
@@ -312,20 +311,21 @@ window.comments = (() => {
 
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
-        commentToggle.classList.add('w-text-primary');
         tabContentElement.classList.add('tab-content--comments-enabled');
         commentNotifications.hidden = false;
       } else {
-        commentToggle.classList.remove('w-text-primary');
         tabContentElement.classList.remove('tab-content--comments-enabled');
         commentNotifications.hidden = true;
       }
     };
 
-    if (commentToggle) {
-      commentToggle.addEventListener('click', () => {
-        commentsActive = !commentsActive;
-        updateCommentVisibility(commentsActive);
+    if (commentsSidePanel) {
+      commentsSidePanel.addEventListener('show', () => {
+        updateCommentVisibility(true);
+      });
+
+      commentsSidePanel.addEventListener('hide', () => {
+        updateCommentVisibility(false);
       });
     }
 
