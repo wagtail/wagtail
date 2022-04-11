@@ -227,11 +227,15 @@ class CreateSnippetView(CreateView):
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("add", self.model)
+
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
         for fn in hooks.get_hooks("before_create_snippet"):
             result = fn(request, self.model)
             if hasattr(result, "status_code"):
@@ -296,10 +300,6 @@ class CreateSnippetView(CreateView):
         return TemplateResponse(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        permission = get_permission_name("add", self.model)
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
         for fn in hooks.get_hooks("before_create_snippet"):
             result = fn(request, self.model)
             if hasattr(result, "status_code"):
