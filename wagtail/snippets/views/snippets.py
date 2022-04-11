@@ -275,12 +275,15 @@ class CreateSnippetView(CreateView):
     def get_form_class(self):
         return self.edit_handler.get_form_class()
 
+    def get_form_kwargs(self):
+        return {**super().get_form_kwargs(), "for_user": self.request.user}
+
     def get(self, request, *args, **kwargs):
         instance = self.get_object()
 
         # Make edit handler
         form_class = self.get_form_class()
-        form = form_class(instance=instance, for_user=request.user)
+        form = form_class(**self.get_form_kwargs())
 
         edit_handler = self.edit_handler.get_bound_panel(
             request=request, instance=instance, form=form
@@ -329,13 +332,11 @@ class CreateSnippetView(CreateView):
         # Make edit handler
         form_class = self.get_form_class()
 
-        form = form_class(
-            request.POST, request.FILES, instance=instance, for_user=request.user
-        )
+        form = form_class(**self.get_form_kwargs())
 
         if form.is_valid():
             with transaction.atomic():
-                form.save()
+                instance = form.save()
                 log(instance=instance, action="wagtail.create")
 
             messages.success(
