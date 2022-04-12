@@ -47,9 +47,7 @@ class Tabs {
       },
       direction: {
         ArrowLeft: -1,
-        Left: -1,
         ArrowRight: 1,
-        Right: 1,
       },
     };
 
