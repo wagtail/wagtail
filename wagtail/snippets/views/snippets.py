@@ -214,7 +214,7 @@ class ListView(TemplateView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class CreateSnippetView(CreateView):
+class Create(CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
 

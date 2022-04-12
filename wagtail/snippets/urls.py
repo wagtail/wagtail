@@ -30,7 +30,7 @@ urlpatterns = [
     ),
     path(
         "<slug:app_label>/<slug:model_name>/add/",
-        snippets.CreateSnippetView.as_view(),
+        snippets.Create.as_view(),
         name="add",
     ),
     path(
