@@ -169,6 +169,15 @@ class List(IndexView):
 
         return items
 
+    def get_paginator(self, *args, **kwargs) -> Paginator:
+        paginator = super().get_paginator(*args, **kwargs)
+
+        # Swap page() for get_page() so it always returns a page even if the page argument
+        # is invalid. We do this so that we can still reuse the paginate_queryset() method
+        # from Django's MultipleObjectMixin.
+        paginator.page = paginator.get_page
+        return paginator
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
