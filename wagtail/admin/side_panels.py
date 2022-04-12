@@ -19,7 +19,7 @@ class StatusSidePanel(BaseSidePanel):
     template_name = "wagtailadmin/pages/side_panels/status.html"
     order = 100
     toggle_aria_label = gettext_lazy("Toggle status")
-    toggle_icon_name = "site"  # TODO Find the real icon
+    toggle_icon_name = "info-circle"
 
 
 class CommentsSidePanel(BaseSidePanel):
@@ -37,7 +37,7 @@ class PreviewSidePanel(BaseSidePanel):
     template_name = "wagtailadmin/pages/side_panels/preview.html"
     order = 400
     toggle_aria_label = gettext_lazy("Toggle preview")
-    toggle_icon_name = "site"  # TODO Find the real icon
+    toggle_icon_name = "mobile-alt"
 
 
 class PageSidePanels:
