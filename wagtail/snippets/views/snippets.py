@@ -151,9 +151,7 @@ class ListView(IndexView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    def get_queryset(self):
         items = self.model.objects.all()
         if self.locale:
             items = items.filter(locale=self.locale)
@@ -168,6 +166,11 @@ class ListView(IndexView):
             search_backend = get_search_backend()
             items = search_backend.search(self.search_query, items)
 
+        return items
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        items = context.get("object_list")
         paginator = Paginator(items, per_page=20)
         paginated_items = paginator.get_page(self.request.GET.get("p"))
 
