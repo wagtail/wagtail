@@ -38,25 +38,6 @@ class BaseSidePanel(Component):
     def __init__(self, page):
         self.page = page
 
-    class Toggle(Component):
-        def __init__(self, panel):
-            self.panel = panel
-
-        aria_label = gettext_lazy("Toggle")
-        template_name = "wagtailadmin/pages/editor_sidebar_panels/toggle.html"
-        icon_name = ""
-
-        def get_context_data(self, parent_context):
-            return {
-                "toggle": self,
-                "panel": self.panel,
-                "page": self.panel.page,
-            }
-
-    @property
-    def toggle(self):
-        return self.Toggle(self)
-
     def get_context_data(self, parent_context):
         return {
             "panel": self,
@@ -69,10 +50,8 @@ class StatusSidePanel(BaseSidePanel):
     title = gettext_lazy("Status")
     template_name = "wagtailadmin/pages/editor_sidebar_panels/status.html"
     order = 100
-
-    class Toggle(BaseSidePanel.Toggle):
-        aria_label = gettext_lazy("Toggle status")
-        icon_name = "site"  # TODO Find the real icon
+    toggle_aria_label = gettext_lazy("Toggle status")
+    toggle_icon_name = "site"  # TODO Find the real icon
 
 
 class HistorySidePanel(BaseSidePanel):
@@ -80,10 +59,8 @@ class HistorySidePanel(BaseSidePanel):
     title = gettext_lazy("History")
     template_name = "wagtailadmin/pages/editor_sidebar_panels/history.html"
     order = 200
-
-    class Toggle(BaseSidePanel.Toggle):
-        aria_label = gettext_lazy("Toggle history")
-        icon_name = "history"
+    toggle_aria_label = gettext_lazy("Toggle history")
+    toggle_icon_name = "history"
 
 
 class CommentsSidePanel(BaseSidePanel):
@@ -91,11 +68,8 @@ class CommentsSidePanel(BaseSidePanel):
     title = gettext_lazy("Comments")
     template_name = "wagtailadmin/pages/editor_sidebar_panels/comments.html"
     order = 300
-
-    class Toggle(BaseSidePanel.Toggle):
-        template_name = "wagtailadmin/pages/editor_sidebar_panels/comments_toggle.html"
-        aria_label = gettext_lazy("Toggle comments")
-        icon_name = "comment"
+    toggle_aria_label = gettext_lazy("Toggle comments")
+    toggle_icon_name = "comment"
 
 
 class PreviewSidePanel(BaseSidePanel):
@@ -103,10 +77,8 @@ class PreviewSidePanel(BaseSidePanel):
     title = gettext_lazy("Preview")
     template_name = "wagtailadmin/pages/editor_sidebar_panels/preview.html"
     order = 400
-
-    class Toggle(BaseSidePanel.Toggle):
-        aria_label = gettext_lazy("Toggle preview")
-        icon_name = "site"  # TODO Find the real icon
+    toggle_aria_label = gettext_lazy("Toggle preview")
+    toggle_icon_name = "site"  # TODO Find the real icon
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
