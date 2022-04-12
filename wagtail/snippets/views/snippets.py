@@ -245,7 +245,9 @@ class Create(CreateView):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def _get_locale(self):
-        if issubclass(self.model, TranslatableMixin):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
             selected_locale = self.request.GET.get("locale")
             if selected_locale:
                 return get_object_or_404(Locale, language_code=selected_locale)
@@ -276,10 +278,7 @@ class Create(CreateView):
 
     def get_success_url(self):
         urlquery = ""
-        if (
-            isinstance(self.object, TranslatableMixin)
-            and self.object.locale is not Locale.get_default()
-        ):
+        if self.locale and self.object.locale is not Locale.get_default():
             urlquery = "?locale=" + self.object.locale.language_code
 
         return (
@@ -320,7 +319,7 @@ class Create(CreateView):
         instance = self.model()
 
         # Set locale of the new instance
-        if issubclass(self.model, TranslatableMixin):
+        if self.locale:
             instance.locale = self.locale
 
         return instance
@@ -354,9 +353,7 @@ class Create(CreateView):
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
+        if self.locale:
             context.update(
                 {
                     "locale": instance.locale,
