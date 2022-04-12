@@ -16,7 +16,7 @@ class BaseSidePanel(Component):
 class StatusSidePanel(BaseSidePanel):
     name = "status"
     title = gettext_lazy("Status")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/status.html"
+    template_name = "wagtailadmin/pages/side_panels/status.html"
     order = 100
     toggle_aria_label = gettext_lazy("Toggle status")
     toggle_icon_name = "site"  # TODO Find the real icon
@@ -25,7 +25,7 @@ class StatusSidePanel(BaseSidePanel):
 class HistorySidePanel(BaseSidePanel):
     name = "history"
     title = gettext_lazy("History")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/history.html"
+    template_name = "wagtailadmin/pages/side_panels/history.html"
     order = 200
     toggle_aria_label = gettext_lazy("Toggle history")
     toggle_icon_name = "history"
@@ -34,7 +34,7 @@ class HistorySidePanel(BaseSidePanel):
 class CommentsSidePanel(BaseSidePanel):
     name = "comments"
     title = gettext_lazy("Comments")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/comments.html"
+    template_name = "wagtailadmin/pages/side_panels/comments.html"
     order = 300
     toggle_aria_label = gettext_lazy("Toggle comments")
     toggle_icon_name = "comment"
@@ -43,7 +43,7 @@ class CommentsSidePanel(BaseSidePanel):
 class PreviewSidePanel(BaseSidePanel):
     name = "preview"
     title = gettext_lazy("Preview")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/preview.html"
+    template_name = "wagtailadmin/pages/side_panels/preview.html"
     order = 400
     toggle_aria_label = gettext_lazy("Toggle preview")
     toggle_icon_name = "site"  # TODO Find the real icon
