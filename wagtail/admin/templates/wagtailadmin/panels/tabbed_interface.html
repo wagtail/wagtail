@@ -9,6 +9,23 @@
         </div>
     </div>
 
+    <template>
+        {# TODO To be re-implemented for comments side panel #}
+        {% if self.form.show_comments_toggle %}
+            <div class="right wide">
+                <div class="comments-controls" hidden data-comment-notifications>
+                    <div class="comment-notifications-toggle">
+                        <label class="switch switch--teal-background">
+                            {% trans "Comment notifications" %}
+                            {{ self.form.comment_notifications }}
+                            <span class="switch__toggle"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </template>
+
     <div class="tab-content">
         {% for child in self.children %}
             <section
