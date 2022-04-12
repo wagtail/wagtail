@@ -171,10 +171,10 @@ class ListView(IndexView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        items = context.get("object_list")
-        page_size = self.get_paginate_by(items)
-        paginator = self.get_paginator(items, page_size)
-        paginated_items = paginator.get_page(self.request.GET.get(self.page_kwarg))
+
+        # The shared admin templates expect the items to be a page object rather
+        # than the queryset (object_list), so we can't use context_object_name = "items".
+        paginated_items = context.get("page_obj")
 
         context.update(
             {
