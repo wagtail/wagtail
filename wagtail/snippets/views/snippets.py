@@ -89,6 +89,7 @@ def index(request):
 
 class ListView(IndexView):
     paginate_by = 20
+    page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
@@ -171,8 +172,9 @@ class ListView(IndexView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         items = context.get("object_list")
-        paginator = Paginator(items, per_page=self.get_paginate_by(items))
-        paginated_items = paginator.get_page(self.request.GET.get("p"))
+        page_size = self.get_paginate_by(items)
+        paginator = self.get_paginator(items, page_size)
+        paginated_items = paginator.get_page(self.request.GET.get(self.page_kwarg))
 
         context.update(
             {
