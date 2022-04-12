@@ -1,6 +1,5 @@
 import datetime
 import os
-import unittest
 from unittest import mock
 
 from django.conf import settings

@@ -1,6 +1,5 @@
 import json
 import logging
-import unittest
 from unittest import mock
 
 from django.conf import settings
