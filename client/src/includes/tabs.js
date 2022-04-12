@@ -159,7 +159,7 @@ class Tabs {
     // Dispatch tab selected event for the rest of the admin to hook into if needed
     // Trigger tab specific switch event
     this.tabList.dispatchEvent(
-      new CustomEvent('switch', {detail: {tab: tab.dataset.tab}}),
+      new CustomEvent('switch', { detail: { tab: tab.dataset.tab } }),
     );
     // Dispatch tab-changed event on the document
     document.dispatchEvent(new CustomEvent('tab-changed'));
@@ -236,7 +236,7 @@ class Tabs {
    */
   keydownEventListener(event) {
     const keyPressed = event.key;
-    const {keys} = this.state;
+    const { keys } = this.state;
 
     switch (keyPressed) {
       case keys.left:
@@ -257,7 +257,6 @@ class Tabs {
   }
 
   selectTabByURLHash() {
-    // Select tab by hash
     if (window.location.hash) {
       const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
       const tab = this.tabContainer.querySelector(
@@ -278,13 +277,13 @@ class Tabs {
   setURLHash(tabId) {
     if (this.state.initialPageLoad) {
       // replace the state of the first (implicit) item
-      window.history.replaceState({tabContent: tabId}, null, `#${tabId}`);
+      window.history.replaceState({ tabContent: tabId }, null, `#${tabId}`);
     } else if (
       !window.history.state ||
       window.history.state.tabContent !== tabId
     ) {
       // Add a new history item to the stack
-      window.history.pushState({tabContent: tabId}, null, `#${tabId}`);
+      window.history.pushState({ tabContent: tabId }, null, `#${tabId}`);
     }
     this.state.initialPageLoad = false;
   }
@@ -292,8 +291,8 @@ class Tabs {
   // Either focus the next, previous, first, or last tab depending on key pressed
   switchTabOnArrowPress(event) {
     const pressed = event.key;
-    const {direction} = this.state;
-    const {keys} = this.state;
+    const { direction } = this.state;
+    const { keys } = this.state;
     const tabs = this.tabButtons;
 
     if (direction[pressed]) {
