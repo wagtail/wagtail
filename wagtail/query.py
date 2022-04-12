@@ -1,6 +1,7 @@
 import posixpath
 import warnings
 from collections import defaultdict
+from typing import Any, Dict, Iterable, Tuple
 
 from django.apps import apps
 from django.contrib.contenttypes.models import ContentType
@@ -480,94 +481,106 @@ class PageQuerySet(SearchableQuerySetMixin, TreeQuerySet):
         )
 
 
-def specific_iterator(qs, defer=False):
-    """
-    This efficiently iterates all the specific pages in a queryset, using
-    the minimum number of queries.
-
-    This should be called from ``PageQuerySet.specific``
-    """
-    from wagtail.models import Page
-
-    annotation_aliases = qs.query.annotations.keys()
-    values = qs.values("pk", "content_type", *annotation_aliases)
-
-    annotations_by_pk = defaultdict(list)
-    if annotation_aliases:
-        # Extract annotation results keyed by pk so we can reapply to fetched pages.
-        for data in values:
-            annotations_by_pk[data["pk"]] = {
-                k: v for k, v in data.items() if k in annotation_aliases
-            }
-
-    pks_and_types = [[v["pk"], v["content_type"]] for v in values]
-    pks_by_type = defaultdict(list)
-    for pk, content_type in pks_and_types:
-        pks_by_type[content_type].append(pk)
-
-    # Content types are cached by ID, so this will not run any queries.
-    content_types = {pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types}
-
-    # Get the specific instances of all pages, one model class at a time.
-    pages_by_type = {}
-    missing_pks = []
-
-    for content_type, pks in pks_by_type.items():
-        # look up model class for this content type, falling back on the original
-        # model (i.e. Page) if the more specific one is missing
-        model = content_types[content_type].model_class() or qs.model
-        pages = model.objects.filter(pk__in=pks)
-
-        if defer:
-            # Defer all specific fields
-            fields = [
-                field.attname for field in Page._meta.get_fields() if field.concrete
-            ]
-            pages = pages.only(*fields)
-        elif qs._defer_streamfields:
-            pages = pages.defer_streamfields()
-
-        pages_for_type = {page.pk: page for page in pages}
-        pages_by_type[content_type] = pages_for_type
-        missing_pks.extend(pk for pk in pks if pk not in pages_for_type)
-
-    # Fetch generic pages to supplement missing items
-    if missing_pks:
-        generic_pages = (
-            Page.objects.filter(pk__in=missing_pks)
-            .select_related("content_type")
-            .in_bulk()
-        )
-        warnings.warn(
-            "Specific versions of the following pages could not be found. "
-            "This is most likely because a database migration has removed "
-            "the relevant table or record since the page was created:\n{}".format(
-                [
-                    {"id": p.id, "title": p.title, "type": p.content_type}
-                    for p in generic_pages.values()
-                ]
-            ),
-            category=RuntimeWarning,
-        )
-    else:
-        generic_pages = {}
-
-    # Yield all pages in the order they occurred in the original query.
-    for pk, content_type in pks_and_types:
-        try:
-            page = pages_by_type[content_type][pk]
-        except KeyError:
-            page = generic_pages[pk]
-        if annotation_aliases:
-            # Reapply annotations before returning
-            for annotation, value in annotations_by_pk.get(page.pk, {}).items():
-                setattr(page, annotation, value)
-        yield page
-
-
 class SpecificIterable(BaseIterable):
     def __iter__(self):
-        return specific_iterator(self.queryset)
+        """
+        Identify and return all specific pages in a queryset, and return them
+        in the same order, with any annotations intact.
+        """
+        from wagtail.models import Page
+
+        qs = self.queryset
+        annotation_aliases = qs.query.annotations.keys()
+        values_qs = qs.values("pk", "content_type", *annotation_aliases)
+
+        # Gather pages in batches to reduce peak memory usage
+        for values in self._get_chunks(values_qs):
+
+            annotations_by_pk = defaultdict(list)
+            if annotation_aliases:
+                # Extract annotation results keyed by pk so we can reapply to fetched pages.
+                for data in values:
+                    annotations_by_pk[data["pk"]] = {
+                        k: v for k, v in data.items() if k in annotation_aliases
+                    }
+
+            pks_and_types = [[v["pk"], v["content_type"]] for v in values]
+            pks_by_type = defaultdict(list)
+            for pk, content_type in pks_and_types:
+                pks_by_type[content_type].append(pk)
+
+            # Content types are cached by ID, so this will not run any queries.
+            content_types = {
+                pk: ContentType.objects.get_for_id(pk) for _, pk in pks_and_types
+            }
+
+            # Get the specific instances of all pages, one model class at a time.
+            pages_by_type = {}
+            missing_pks = []
+
+            for content_type, pks in pks_by_type.items():
+                # look up model class for this content type, falling back on the original
+                # model (i.e. Page) if the more specific one is missing
+                model = content_types[content_type].model_class() or qs.model
+                pages = model.objects.filter(pk__in=pks)
+
+                if qs._defer_streamfields:
+                    pages = pages.defer_streamfields()
+
+                pages_for_type = {page.pk: page for page in pages}
+                pages_by_type[content_type] = pages_for_type
+                missing_pks.extend(pk for pk in pks if pk not in pages_for_type)
+
+            # Fetch generic pages to supplement missing items
+            if missing_pks:
+                generic_pages = (
+                    Page.objects.filter(pk__in=missing_pks)
+                    .select_related("content_type")
+                    .in_bulk()
+                )
+                warnings.warn(
+                    "Specific versions of the following pages could not be found. "
+                    "This is most likely because a database migration has removed "
+                    "the relevant table or record since the page was created:\n{}".format(
+                        [
+                            {"id": p.id, "title": p.title, "type": p.content_type}
+                            for p in generic_pages.values()
+                        ]
+                    ),
+                    category=RuntimeWarning,
+                )
+            else:
+                generic_pages = {}
+
+            # Yield all pages in the order they occurred in the original query.
+            for pk, content_type in pks_and_types:
+                try:
+                    page = pages_by_type[content_type][pk]
+                except KeyError:
+                    page = generic_pages[pk]
+                if annotation_aliases:
+                    # Reapply annotations before returning
+                    for annotation, value in annotations_by_pk.get(page.pk, {}).items():
+                        setattr(page, annotation, value)
+                yield page
+
+    def _get_chunks(self, queryset) -> Iterable[Tuple[Dict[str, Any]]]:
+        if not self.chunked_fetch:
+            # The entire result will be stored in memory, so there is no
+            # benefit to splitting the result
+            yield tuple(queryset)
+        else:
+            # Iterate through the queryset, returning the rows in manageable
+            # chunks for self.__iter__() to fetch full pages for
+            current_chunk = []
+            for r in queryset.iterator(self.chunk_size):
+                current_chunk.append(r)
+                if len(current_chunk) == self.chunk_size:
+                    yield tuple(current_chunk)
+                    current_chunk.clear()
+            # Return any left-overs
+            if current_chunk:
+                yield tuple(current_chunk)
 
 
 class DeferredSpecificIterable(ModelIterable):

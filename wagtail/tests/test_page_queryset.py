@@ -722,6 +722,12 @@ class TestSpecificQuery(TestCase):
 
     fixtures = ["test_specific.json"]
 
+    def setUp(self):
+        self.live_pages = Page.objects.live().specific()
+        self.live_pages_with_annotations = (
+            Page.objects.live().specific().annotate(count=Count("pk"))
+        )
+
     def test_specific(self):
         root = Page.objects.get(url_path="/home/")
 
@@ -797,12 +803,12 @@ class TestSpecificQuery(TestCase):
     def test_specific_query_with_annotations_performs_no_additional_queries(self):
 
         with self.assertNumQueries(5):
-            pages = list(Page.objects.live().specific())
+            pages = list(self.live_pages)
 
             self.assertEqual(len(pages), 7)
 
         with self.assertNumQueries(5):
-            pages = list(Page.objects.live().specific().annotate(count=Count("pk")))
+            pages = list(self.live_pages_with_annotations)
 
             self.assertEqual(len(pages), 7)
 
@@ -878,7 +884,7 @@ class TestSpecificQuery(TestCase):
         # 5928 - PageQuerySet.specific should gracefully handle pages whose ContentType
         # row in the specific table no longer exists
 
-        # Trick specific_iterator into always looking for EventPages
+        # Trick SpecificIteraterable.__init__() into always looking for EventPages
         with mock.patch(
             "wagtail.query.ContentType.objects.get_for_id",
             return_value=ContentType.objects.get_for_model(EventPage),
@@ -942,6 +948,97 @@ class TestSpecificQuery(TestCase):
             pages[1].body
             # <StreamPage: stream page>
             pages[-1].body
+
+    def test_specific_query_with_iterator(self):
+        queryset = self.live_pages_with_annotations
+
+        # set benchmark without iterator()
+        with self.assertNumQueries(5):
+            benchmark_result = list(queryset.all())
+            self.assertEqual(len(benchmark_result), 7)
+
+        # the default chunk size for iterator() is much higher than 7, so all
+        # items should fetched with the same number of queries
+        with self.assertNumQueries(5):
+            result_1 = list(queryset.all().iterator())
+            self.assertEqual(result_1, benchmark_result)
+
+        # specifying a smaller chunk_size for iterator() should force the
+        # results to be processed in multiple batches, increasing the number
+        # of queries
+        with self.assertNumQueries(7):
+            result_2 = list(queryset.all().iterator(chunk_size=5))
+            self.assertEqual(result_2, benchmark_result)
+
+        # repeat with a smaller chunk size for good measure
+        with self.assertNumQueries(6):
+            # The number of queries is actually lower, because
+            # each chunk contains fewer 'unique' page types
+            result_3 = list(queryset.all().iterator(chunk_size=2))
+            self.assertEqual(result_3, benchmark_result)
+
+    def test_bottom_sliced_specific_query_with_iterator(self):
+        queryset = self.live_pages_with_annotations[2:]
+
+        # set benchmark without iterator()
+        with self.assertNumQueries(4):
+            benchmark_result = list(queryset.all())
+            self.assertEqual(len(benchmark_result), 5)
+
+        # using plain iterator() with the same sliced queryset should produce
+        # an identical result with the same number of queries
+        with self.assertNumQueries(4):
+            result_1 = list(queryset.all().iterator())
+            self.assertEqual(result_1, benchmark_result)
+
+        # if the iterator() chunk size is smaller than the slice,
+        # SpecificIterable should still apply chunking whilst maintaining
+        # the slice starting point
+        with self.assertNumQueries(6):
+            result_2 = list(queryset.all().iterator(chunk_size=1))
+            self.assertEqual(result_2, benchmark_result)
+
+    def test_top_sliced_specific_query_with_iterator(self):
+        queryset = self.live_pages_with_annotations[:6]
+
+        # set benchmark without iterator()
+        with self.assertNumQueries(5):
+            benchmark_result = list(queryset.all())
+            self.assertEqual(len(benchmark_result), 6)
+
+        # using plain iterator() with the same sliced queryset should produce
+        # an identical result with the same number of queries
+        with self.assertNumQueries(5):
+            result_1 = list(queryset.all().iterator())
+            self.assertEqual(result_1, benchmark_result)
+
+        # if the iterator() chunk size is smaller than the slice,
+        # SpecificIterable should still apply chunking whilst maintaining
+        # the slice end point
+        with self.assertNumQueries(7):
+            result_2 = list(queryset.all().iterator(chunk_size=1))
+            self.assertEqual(result_2, benchmark_result)
+
+    def test_top_and_bottom_sliced_specific_query_with_iterator(self):
+        queryset = self.live_pages_with_annotations[2:6]
+
+        # set benchmark without iterator()
+        with self.assertNumQueries(4):
+            benchmark_result = list(queryset.all())
+            self.assertEqual(len(benchmark_result), 4)
+
+        # using plain iterator() with the same sliced queryset should produce
+        # an identical result with the same number of queries
+        with self.assertNumQueries(4):
+            result_1 = list(queryset.all().iterator())
+            self.assertEqual(result_1, benchmark_result)
+
+        # if the iterator() chunk size is smaller than the slice,
+        # SpecificIterable should still apply chunking whilst maintaining
+        # the slice's start and end point
+        with self.assertNumQueries(5):
+            result_2 = list(queryset.all().iterator(chunk_size=3))
+            self.assertEqual(result_2, benchmark_result)
 
 
 class TestFirstCommonAncestor(TestCase):
