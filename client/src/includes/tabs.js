@@ -1,15 +1,8 @@
-/** Example Markup:
- <div class="w-tabs" data-tabs data-tabs-animate>
- <div class="w-tabs__wrapper w-overflow-x-auto u-scrollbar-thin">
- <div role="tablist" class="w-tabs__list">
- {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='slug' title='Tab Title' %}
- </div>
- <!-- Tab Content -->
- <section id="tab-{{ tab_id }}" class="w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-{{ tab_id }}" hidden>
- {{ content }}
- </section>
- </div>
- </div>
+/**
+ *  All tabs and tab content must be nested in an element with the data-tab attribute
+ *  All tab buttons need the role="tab" attr and an href with the tab content ID
+ *  Tab contents need to have the role="tabpanel" attribute and and ID attribute that matches the href of the tab link.
+ *  Tab buttons should also be wrapped in an element with the role="tablist" attribute
  */
 class Tabs {
   constructor(node) {
@@ -42,8 +35,6 @@ class Tabs {
         up: 'ArrowUp',
         right: 'ArrowRight',
         down: 'ArrowDown',
-        enter: 'Enter',
-        space: ' ',
       },
       direction: {
         ArrowLeft: -1,
@@ -120,63 +111,62 @@ class Tabs {
     tab.setAttribute('tabindex', '-1');
   }
 
-  /**
-   * @param {HTMLElement}tab
-   */
   selectTab(tab) {
-    if (tab) {
-      const tabContentId = tab.getAttribute('aria-controls');
+    if (!tab) {
+      return;
+    }
 
-      // Unselect currently active tab
-      if (tabContentId) {
-        this.unSelectActiveTab(tabContentId);
-      }
+    const tabContentId = tab.getAttribute('aria-controls');
 
-      this.state.activeTabID = tabContentId;
+    // Unselect currently active tab
+    if (tabContentId) {
+      this.unSelectActiveTab(tabContentId);
+    }
 
-      const linkedTab = this.tabContainer.querySelector(
-        `a[href="${tab.getAttribute('href')}"][role="tab"]`,
-      );
+    this.state.activeTabID = tabContentId;
 
-      // If an external button was used to trigger the tab, make sure active tab is marked active
-      if (linkedTab) {
-        linkedTab.setAttribute('aria-selected', true);
-        linkedTab.removeAttribute('tabindex');
-      }
+    const linkedTab = this.tabContainer.querySelector(
+      `a[href="${tab.getAttribute('href')}"][role="tab"]`,
+    );
 
-      tab.setAttribute('aria-selected', true);
-      tab.removeAttribute('tabindex');
-      const tabContent = this.tabContainer.querySelector(`#${tabContentId}`);
+    // If an external button was used to trigger the tab, make sure active tab is marked active
+    if (linkedTab) {
+      linkedTab.setAttribute('aria-selected', 'true');
+      linkedTab.removeAttribute('tabindex');
+    }
 
-      if (!tabContent) {
-        return;
-      }
+    tab.setAttribute('aria-selected', 'true');
+    tab.removeAttribute('tabindex');
 
-      if (this.animate) {
-        this.animateIn(tabContent);
-      } else {
-        tabContent.hidden = false;
-      }
+    const tabContent = this.tabContainer.querySelector(`#${tabContentId}`);
+    if (!tabContent) {
+      return;
+    }
 
-      if (this.state.initialPageLoad) {
-        // On first load set the scroll to top to avoid scrolling to active section and header covering up tabs
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-        }, this.state.transition * 2);
-      }
+    if (this.animate) {
+      this.animateIn(tabContent);
+    } else {
+      tabContent.hidden = false;
+    }
 
-      // Dispatch tab selected event for the rest of the admin to hook into if needed
-      // Trigger tab specific switch event
-      this.tabList.dispatchEvent(
-        new CustomEvent('switch', { detail: { tab: tab.dataset.tab } }),
-      );
-      // Dispatch tab-changed event on the document
-      document.dispatchEvent(new CustomEvent('tab-changed'));
+    if (this.state.initialPageLoad) {
+      // On first load set the scroll to top to avoid scrolling to active section and header covering up tabs
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, this.state.transition * 2);
+    }
 
-      // Set URL hash and browser history
-      if (!this.disableURL) {
-        this.setURLHash(tabContentId);
-      }
+    // Dispatch tab selected event for the rest of the admin to hook into if needed
+    // Trigger tab specific switch event
+    this.tabList.dispatchEvent(
+      new CustomEvent('switch', {detail: {tab: tab.dataset.tab}}),
+    );
+    // Dispatch tab-changed event on the document
+    document.dispatchEvent(new CustomEvent('tab-changed'));
+
+    // Set URL hash and browser history
+    if (!this.disableURL) {
+      this.setURLHash(tabContentId);
     }
   }
 
@@ -246,17 +236,12 @@ class Tabs {
    */
   keydownEventListener(event) {
     const keyPressed = event.key;
-    const { keys } = this.state;
+    const {keys} = this.state;
 
     switch (keyPressed) {
       case keys.left:
       case keys.right:
         this.switchTabOnArrowPress(event);
-        break;
-      case keys.enter:
-      case keys.space:
-        event.preventDefault();
-        this.selectTab(event.target);
         break;
       case keys.end:
         event.preventDefault();
@@ -288,19 +273,18 @@ class Tabs {
   }
 
   /**
-   * Add tab hash at the end of the URL
-   * @param {string}hash
+   * Set url to have tab an tab hash at the end
    */
   setURLHash(tabId) {
     if (this.state.initialPageLoad) {
       // replace the state of the first (implicit) item
-      window.history.replaceState({ tabContent: tabId }, null, `#${tabId}`);
+      window.history.replaceState({tabContent: tabId}, null, `#${tabId}`);
     } else if (
       !window.history.state ||
       window.history.state.tabContent !== tabId
     ) {
       // Add a new history item to the stack
-      window.history.pushState({ tabContent: tabId }, null, `#${tabId}`);
+      window.history.pushState({tabContent: tabId}, null, `#${tabId}`);
     }
     this.state.initialPageLoad = false;
   }
@@ -308,8 +292,8 @@ class Tabs {
   // Either focus the next, previous, first, or last tab depending on key pressed
   switchTabOnArrowPress(event) {
     const pressed = event.key;
-    const { direction } = this.state;
-    const { keys } = this.state;
+    const {direction} = this.state;
+    const {keys} = this.state;
     const tabs = this.tabButtons;
 
     if (direction[pressed]) {

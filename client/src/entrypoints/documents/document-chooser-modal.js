@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
+console.log('i am document chooser');
 
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {

@@ -11,9 +11,9 @@
             {# Using nice-padding and full width class until the modal header is restyled #}
             <div role="tablist" class="w-tabs__list w-w-full nice-padding">
                 {% trans "Search" as search_text %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text active=uploadform.errors %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text %}
                 {% trans "Upload" as upload_text %}
-                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=upload_text active=uploadform.errors %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=upload_text %}
             </div>
         </div>
     {% endif %}
