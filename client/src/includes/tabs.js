@@ -173,7 +173,7 @@ class Tabs {
       // Dispatch tab-changed event on the document
       document.dispatchEvent(new CustomEvent('tab-changed'));
 
-      // Set url hash and browser history
+      // Set URL hash and browser history
       if (!this.disableURL) {
         this.setURLHash(tabContentId);
       }
