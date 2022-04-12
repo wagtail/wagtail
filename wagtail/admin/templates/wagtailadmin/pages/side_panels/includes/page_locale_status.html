@@ -2,6 +2,8 @@
 {% load i18n wagtailadmin_tags %}
 
 {% block content %}
+    {% trans 'Page Locale: ' as screen_reader_title_prefix %}
+
     {% if page.get_translations.count > 0 %}
         {% blocktrans trimmed with count=page.get_translations.count asvar help_text %}
             Translated to {{ count }} other locales
@@ -24,6 +26,7 @@
             <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
                 {% for translation in translations %}
                     <a href="{{ translation.url }}"
+                        lang="{{ translation.locale.language_code }}"
                         class="w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-2 w-px-4 w-font-bold w-no-underline w-transition">
                         {{ translation.locale.get_display_name }}
                     </a>
