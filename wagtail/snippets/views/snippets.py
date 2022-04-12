@@ -92,11 +92,17 @@ class ListView(IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
-    def get(self, request, app_label, model_name):
-        self.app_label = app_label
-        self.model_name = model_name
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
 
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+        self.model = self._get_model()
+
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def dispatch(self, request, *args, **kwargs):
         permissions = [
             get_permission_name(action, self.model)
             for action in ["add", "change", "delete"]
@@ -104,7 +110,7 @@ class ListView(IndexView):
         if not any([request.user.has_perm(perm) for perm in permissions]):
             raise PermissionDenied
 
-        return super().get(request)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
