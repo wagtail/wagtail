@@ -99,10 +99,7 @@ class ListView(IndexView):
         self.model_name = kwargs.get("model_name")
         self.model = self._get_model()
         self.locale = self._get_locale()
-        self.is_searchable = self._get_is_searchable()
-        self.search_form = self._get_search_form()
-        self.is_searching = False
-        self.search_query = None
+        self._setup_search()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -117,6 +114,16 @@ class ListView(IndexView):
             return Locale.get_default()
 
         return None
+
+    def _setup_search(self):
+        self.is_searchable = self._get_is_searchable()
+        self.search_form = self._get_search_form()
+        self.is_searching = False
+        self.search_query = None
+
+        if self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data["q"]
+            self.is_searching = True
 
     def _get_is_searchable(self):
         return class_is_indexed(self.model)
@@ -157,12 +164,9 @@ class ListView(IndexView):
             items = items.order_by("pk")
 
         # Search
-        if self.search_form.is_valid():
-            self.search_query = self.search_form.cleaned_data["q"]
-
+        if self.search_query:
             search_backend = get_search_backend()
             items = search_backend.search(self.search_query, items)
-            self.is_searching = True
 
         paginator = Paginator(items, per_page=20)
         paginated_items = paginator.get_page(self.request.GET.get("p"))
