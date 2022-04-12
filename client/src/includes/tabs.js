@@ -275,12 +275,9 @@ class Tabs {
    * Set url to have tab an tab hash at the end
    */
   setURLHash(tabId) {
-    if (this.state.initialPageLoad) {
-      // replace the state of the first (implicit) item
-      window.history.replaceState({ tabContent: tabId }, null, `#${tabId}`);
-    } else if (
-      !window.history.state ||
-      window.history.state.tabContent !== tabId
+    if (
+      !this.state.initialPageLoad &&
+      (!window.history.state || window.history.state.tabContent !== tabId)
     ) {
       // Add a new history item to the stack
       window.history.pushState({ tabContent: tabId }, null, `#${tabId}`);
