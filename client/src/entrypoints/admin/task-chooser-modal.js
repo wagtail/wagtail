@@ -3,7 +3,7 @@ import { initTabs } from '../../includes/tabs';
 
 const ajaxifyTaskCreateTab = (modal, jsonData) => {
   $(
-    '#new a.task-type-choice, #new a.choose-different-task-type',
+    '#tab-new a.task-type-choice, #tab-new a.choose-different-task-type',
     modal.body,
   ).on('click', function onClickNew() {
     modal.loadUrl(this.href);
@@ -29,7 +29,7 @@ const ajaxifyTaskCreateTab = (modal, jsonData) => {
           errorThrown +
           ' - ' +
           response.status;
-        $('#new', modal.body).append(
+        $('#tab-new', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
             jsonData.error_label +
@@ -122,7 +122,7 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.close();
   },
   reshow_create_tab(modal, jsonData) {
-    $('#new', modal.body).html(jsonData.htmlFragment);
+    $('#tab-new', modal.body).html(jsonData.htmlFragment);
     ajaxifyTaskCreateTab(modal, jsonData);
   },
 };

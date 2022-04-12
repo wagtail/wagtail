@@ -32,7 +32,7 @@ function ajaxifyImageUploadForm(modal) {
             errorThrown +
             ' - ' +
             response.status;
-          $('#upload').append(
+          $('#tab-upload').append(
             '<div class="help-block help-critical">' +
               '<strong>' +
               jsonData.error_label +
@@ -155,7 +155,8 @@ window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.close();
   },
   reshow_upload_form: function (modal, jsonData) {
-    $('#upload', modal.body).replaceWith(jsonData.htmlFragment);
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    initTabs();
     ajaxifyImageUploadForm(modal);
   },
   select_format: function (modal) {

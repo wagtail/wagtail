@@ -1,6 +1,5 @@
 import $ from 'jquery';
 import { initTabs } from '../../includes/tabs';
-console.log('i am document chooser');
 
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
@@ -21,7 +20,7 @@ function ajaxifyDocumentUploadForm(modal) {
           errorThrown +
           ' - ' +
           response.status;
-        $('#upload', modal.body).append(
+        $('#tab-upload', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
             jsonData.error_label +
@@ -85,7 +84,7 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
 
       $('a.upload-one-now').on('click', function (e) {
-        // Set current collection ID at upload form
+        // Set current collection ID at upload form tab
         const collectionId = $('#collection_chooser_collection_id').val();
         if (collectionId) {
           $('#id_document-chooser-upload-collection').val(collectionId);
@@ -145,7 +144,8 @@ window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     modal.close();
   },
   reshow_upload_form: function (modal, jsonData) {
-    $('#upload', modal.body).html(jsonData.htmlFragment);
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    initTabs();
     ajaxifyDocumentUploadForm(modal);
   },
 };
