@@ -87,7 +87,7 @@ def index(request):
         raise PermissionDenied
 
 
-class ListView(IndexView):
+class List(IndexView):
     paginate_by = 20
     page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
