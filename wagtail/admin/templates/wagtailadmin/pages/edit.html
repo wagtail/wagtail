@@ -11,6 +11,8 @@
 
     {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
+    {% include "wagtailadmin/shared/page_side_panels.html" %}
+
     {% block form %}
         <form id="page-edit-form" action="{% url 'wagtailadmin_pages:edit' page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
             {% csrf_token %}

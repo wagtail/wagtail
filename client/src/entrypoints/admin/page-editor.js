@@ -403,3 +403,70 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
     updateWarnings();
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  const setPanel = (panelName) => {
+    const sidePanelWrapper = document.querySelector('[data-form-side]');
+
+    // Open / close side
+    if (panelName === '') {
+      sidePanelWrapper.classList.remove('form-side--open');
+      sidePanelWrapper.removeAttribute('aria-labelledby');
+    } else {
+      sidePanelWrapper.classList.add('form-side--open');
+      sidePanelWrapper.setAttribute(
+        'aria-labelledby',
+        `side-panel-${panelName}-title`,
+      );
+    }
+
+    document.querySelectorAll('[data-side-panel]').forEach((panel) => {
+      if (panel.dataset.sidePanel === panelName) {
+        if (panel.hidden) {
+          // eslint-disable-next-line no-param-reassign
+          panel.hidden = false;
+          panel.dispatchEvent(new CustomEvent('show'));
+        }
+      } else if (!panel.hidden) {
+        // eslint-disable-next-line no-param-reassign
+        panel.hidden = true;
+        panel.dispatchEvent(new CustomEvent('hide'));
+      }
+    });
+
+    // Update aria-expanded attribute on the panel toggles
+    document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
+      toggle.setAttribute(
+        'aria-expanded',
+        toggle.dataset.sidePanelToggle === panelName ? 'true' : 'false',
+      );
+    });
+  };
+
+  const togglePanel = (panelName) => {
+    const isAlreadyOpen = !document
+      .querySelector(`[data-side-panel="${panelName}"]`)
+      .hasAttribute('hidden');
+
+    if (isAlreadyOpen) {
+      // Close the sidebar
+      setPanel('');
+    } else {
+      // Open the sidebar / navigate to the panel
+      setPanel(panelName);
+    }
+  };
+
+  document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      togglePanel(toggle.dataset.sidePanelToggle);
+    });
+  });
+
+  const closeButton = document.querySelector('[data-form-side-close-button]');
+  if (closeButton instanceof HTMLButtonElement) {
+    closeButton.addEventListener('click', (e) => {
+      setPanel('');
+    });
+  }
+});

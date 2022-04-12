@@ -9,6 +9,8 @@
     <div id="comments"></div>
     {% include 'wagtailadmin/shared/headers/page_create_header.html' %}
 
+    {% include "wagtailadmin/shared/page_side_panels.html" %}
+
     <form id="page-edit-form" action="{% url 'wagtailadmin_pages:add' content_type.app_label content_type.model parent_page.id %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">

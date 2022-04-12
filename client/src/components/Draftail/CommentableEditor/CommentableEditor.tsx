@@ -108,7 +108,7 @@ export class DraftailInlineAnnotation implements Annotation {
     return null;
   }
   getTab() {
-    return this.field.closest('section[data-tab]')?.getAttribute('data-tab');
+    return this.field.closest('[role="tabpanel"]')?.getAttribute('id');
   }
   getAnchorNode(focused = false) {
     // The comment should always aim to float by an annotation, rather than between them
