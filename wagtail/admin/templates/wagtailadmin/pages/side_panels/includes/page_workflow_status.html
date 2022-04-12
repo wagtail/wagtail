@@ -59,7 +59,7 @@
 
 {% block action %}
     {% if workflow_state %}
-        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with classes='action-workflow-status' data_url=action_url text=action_text  %}
+        {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-action-workflow-status' data_url=action_url text=action_text  %}
     {% else %}
         {% url 'wagtailadmin_pages:history' page.id as action_url %}
         {% trans 'View history' as action_text %}

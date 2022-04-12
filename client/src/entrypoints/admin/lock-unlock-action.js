@@ -1,9 +1,7 @@
 /* When a lock/unlock action button is clicked, make a POST request to the relevant view */
 
 function LockUnlockAction(csrfToken, next) {
-  const actionElements = document.querySelectorAll(
-    '.action-lock-unlock[data-url]',
-  );
+  const actionElements = document.querySelectorAll('[data-action-lock-unlock]');
   actionElements.forEach((buttonElement) => {
     buttonElement.addEventListener(
       'click',

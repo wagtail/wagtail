@@ -20,7 +20,7 @@
             </p>
 
             {% if page.id and page_perms.can_set_view_restrictions %}
-                <button type="button" data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" class="button action-set-privacy">
+                <button type="button" data-url="{% url 'wagtailadmin_pages:set_privacy' page.id %}" data-action-set-privacy class="button">
                     {% trans "Set page privacy" %}
                 </button>
             {% endif %}
