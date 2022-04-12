@@ -99,6 +99,9 @@ class ListView(IndexView):
         self.model_name = kwargs.get("model_name")
         self.model = self._get_model()
         self.locale = self._get_locale()
+        self.is_searchable = self._get_is_searchable()
+        self.is_searching = False
+        self.search_query = None
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -113,6 +116,9 @@ class ListView(IndexView):
             return Locale.get_default()
 
         return None
+
+    def _get_is_searchable(self):
+        return class_is_indexed(self.model)
 
     def dispatch(self, request, *args, **kwargs):
         permissions = [
@@ -137,10 +143,7 @@ class ListView(IndexView):
             items = items.order_by("pk")
 
         # Search
-        is_searchable = class_is_indexed(self.model)
-        is_searching = False
-        search_query = None
-        if is_searchable and "q" in self.request.GET:
+        if self.is_searchable and "q" in self.request.GET:
             search_form = SearchForm(
                 self.request.GET,
                 placeholder=_("Search %(snippet_type_name)s")
@@ -148,11 +151,11 @@ class ListView(IndexView):
             )
 
             if search_form.is_valid():
-                search_query = search_form.cleaned_data["q"]
+                self.search_query = search_form.cleaned_data["q"]
 
                 search_backend = get_search_backend()
-                items = search_backend.search(search_query, items)
-                is_searching = True
+                items = search_backend.search(self.search_query, items)
+                self.is_searching = True
 
         else:
             search_form = SearchForm(
@@ -173,10 +176,10 @@ class ListView(IndexView):
                 "can_delete_snippets": self.request.user.has_perm(
                     get_permission_name("delete", self.model)
                 ),
-                "is_searchable": is_searchable,
+                "is_searchable": self.is_searchable,
                 "search_form": search_form,
-                "is_searching": is_searching,
-                "query_string": search_query,
+                "is_searching": self.is_searching,
+                "query_string": self.search_query,
                 "locale": None,
                 "translations": [],
             }
