@@ -54,12 +54,20 @@ class PageSidePanels:
         self.request = request
         self.page = page
 
-        self.side_panels = [
-            StatusSidePanel(page),
-            HistorySidePanel(page),
-            CommentsSidePanel(page),
-            # PreviewSidePanel(page),
-        ]
+        if page:
+            # Editing
+            self.side_panels = [
+                StatusSidePanel(page),
+                HistorySidePanel(page),
+                CommentsSidePanel(page),
+                # PreviewSidePanel(page),
+            ]
+        else:
+            # Creating
+            self.side_panels = [
+                StatusSidePanel(page),
+                CommentsSidePanel(page),
+            ]
 
     def __iter__(self):
         return iter(self.side_panels)
