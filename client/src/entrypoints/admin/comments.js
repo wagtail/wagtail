@@ -135,9 +135,7 @@ window.comments = (() => {
     }
 
     getTab() {
-      return this.fieldNode
-        .closest('section[data-tab]')
-        ?.getAttribute('data-tab');
+      return this.fieldNode.closest('[role="tabpanel"]')?.getAttribute('id');
     }
 
     getAnchorNode() {
@@ -290,7 +288,12 @@ window.comments = (() => {
       '[data-tabs] [role="tablist"]',
     );
     if (tabNavElement) {
-      commentApp.setCurrentTab(tabNavElement.dataset.currentTab);
+      commentApp.setCurrentTab(
+        tabNavElement
+          .querySelector('[role="tab"][aria-selected="true"]')
+          .getAttribute('href')
+          .replace('#', ''),
+      );
       tabNavElement.addEventListener('switch', (e) => {
         commentApp.setCurrentTab(e.detail.tab);
       });
@@ -312,10 +315,14 @@ window.comments = (() => {
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
         tabContentElement.classList.add('tab-content--comments-enabled');
-        commentNotifications.hidden = false;
+        if (commentNotifications) {
+          commentNotifications.hidden = false;
+        }
       } else {
         tabContentElement.classList.remove('tab-content--comments-enabled');
-        commentNotifications.hidden = true;
+        if (commentNotifications) {
+          commentNotifications.hidden = true;
+        }
       }
     };
 

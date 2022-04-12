@@ -159,7 +159,9 @@ class Tabs {
     // Dispatch tab selected event for the rest of the admin to hook into if needed
     // Trigger tab specific switch event
     this.tabList.dispatchEvent(
-      new CustomEvent('switch', { detail: { tab: tab.dataset.tab } }),
+      new CustomEvent('switch', {
+        detail: { tab: tab.getAttribute('href').replace('#', '') },
+      }),
     );
     // Dispatch tab-changed event on the document
     document.dispatchEvent(new CustomEvent('tab-changed'));
