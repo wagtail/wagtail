@@ -139,26 +139,37 @@
 
   .form-side {
     position: fixed;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    right: -420px;
     inset-inline-end: -420px;
-    inline-size: 25%;
-    block-size: 100%;
-    max-inline-size: 420px;
-    transition: inset-inline-end 0.2s ease;
-    border-inline-start: 1px solid #e0e0e0;
-    background-color: #fff;
+    width: 25%;
+    height: 100%;
+    max-width: 420px;
+    @include transition(
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
+      right $menu-transition-duration ease,
+      inset-inline-end $menu-transition-duration ease
+    );
+    border-inline-start: 1px solid theme('colors.grey.100');
+    background-color: $color-white;
     z-index: 90;
 
     &--open {
+      // Remove once we drop support for Safari 13.
+      // stylelint-disable-next-line property-disallowed-list
+      right: 0;
       inset-inline-end: 0;
     }
 
     &__close-button {
-      color: rgb(46, 31, 94);
-      background-color: #fff;
+      color: theme('colors.primary');
+      background-color: $color-white;
       padding: 10px;
       display: none;
 
-      svg {
+      .icon {
         width: 20px;
         height: 20px;
       }

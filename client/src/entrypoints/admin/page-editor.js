@@ -420,21 +420,19 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    document.querySelectorAll('.form-side__panel').forEach((panel) => {
+    document.querySelectorAll('[data-side-panel]').forEach((panel) => {
       const ACTIVE_CLASS = 'form-side__panel--active';
       const panelCurrentlyActive = panel.classList.contains(ACTIVE_CLASS);
 
       if (panel.dataset.sidePanel === panelName) {
         if (!panelCurrentlyActive) {
           panel.classList.add(ACTIVE_CLASS);
-          panel.dispatchEvent(new Event('show'));
+          panel.dispatchEvent(new CustomEvent('show'));
         }
-      } else {
-        if (panelCurrentlyActive) {
+      } else if (panelCurrentlyActive) {
           panel.classList.remove(ACTIVE_CLASS);
           panel.dispatchEvent(new Event('hide'));
         }
-      }
     });
   };
 

@@ -948,7 +948,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             StatusSidePanel(self.page_for_status),
             HistorySidePanel(self.page_for_status),
             CommentsSidePanel(self.page_for_status),
-            PreviewSidePanel(self.page_for_status),
+            # PreviewSidePanel(self.page_for_status),
         ]
         context.update(
             {
