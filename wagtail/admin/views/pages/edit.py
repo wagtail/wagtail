@@ -12,14 +12,13 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext as _
-from django.utils.translation import gettext_lazy
 from django.views.generic.base import ContextMixin, TemplateResponseMixin, View
 
 from wagtail.actions.publish_page_revision import PublishPageRevisionAction
 from wagtail.admin import messages
 from wagtail.admin.action_menu import PageActionMenu
 from wagtail.admin.mail import send_notification
-from wagtail.admin.ui.components import Component
+from wagtail.admin.side_panels import PageSidePanels
 from wagtail.admin.views.generic import HookResponseMixin
 from wagtail.admin.views.pages.utils import get_valid_next_url_from_request
 from wagtail.exceptions import PageClassNotFoundError
@@ -32,53 +31,6 @@ from wagtail.models import (
     UserPagePermissionsProxy,
     WorkflowState,
 )
-
-
-class BaseSidePanel(Component):
-    def __init__(self, page):
-        self.page = page
-
-    def get_context_data(self, parent_context):
-        return {
-            "panel": self,
-            "page": self.page,
-        }
-
-
-class StatusSidePanel(BaseSidePanel):
-    name = "status"
-    title = gettext_lazy("Status")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/status.html"
-    order = 100
-    toggle_aria_label = gettext_lazy("Toggle status")
-    toggle_icon_name = "site"  # TODO Find the real icon
-
-
-class HistorySidePanel(BaseSidePanel):
-    name = "history"
-    title = gettext_lazy("History")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/history.html"
-    order = 200
-    toggle_aria_label = gettext_lazy("Toggle history")
-    toggle_icon_name = "history"
-
-
-class CommentsSidePanel(BaseSidePanel):
-    name = "comments"
-    title = gettext_lazy("Comments")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/comments.html"
-    order = 300
-    toggle_aria_label = gettext_lazy("Toggle comments")
-    toggle_icon_name = "comment"
-
-
-class PreviewSidePanel(BaseSidePanel):
-    name = "preview"
-    title = gettext_lazy("Preview")
-    template_name = "wagtailadmin/pages/editor_sidebar_panels/preview.html"
-    order = 400
-    toggle_aria_label = gettext_lazy("Toggle preview")
-    toggle_icon_name = "site"  # TODO Find the real icon
 
 
 class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
@@ -916,12 +868,8 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
             instance=self.page, request=self.request, form=self.form
         )
         action_menu = PageActionMenu(self.request, view="edit", page=self.page)
-        side_panels = [
-            StatusSidePanel(self.page_for_status),
-            HistorySidePanel(self.page_for_status),
-            CommentsSidePanel(self.page_for_status),
-            # PreviewSidePanel(self.page_for_status),
-        ]
+        side_panels = PageSidePanels(self.request, self.page_for_status)
+
         context.update(
             {
                 "page": self.page,
@@ -944,7 +892,10 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 and getattr(settings, "WAGTAIL_WORKFLOW_CANCEL_ON_PUBLISH", True),
                 "locale": None,
                 "translations": [],
-                "media": bound_panel.media + self.form.media + action_menu.media,
+                "media": bound_panel.media
+                + self.form.media
+                + action_menu.media
+                + side_panels.media,
             }
         )
 
