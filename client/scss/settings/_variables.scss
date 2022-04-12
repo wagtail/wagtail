@@ -101,6 +101,7 @@ $system-color-button-text: ButtonText;
 // Fonts
 // Our fonts are based off of a list of system fallbacks to ensure
 // that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
+
 $font-sans:
   // iOS Safari, macOS Safari, macOS Firefox
   -apple-system,
@@ -117,6 +118,26 @@ $font-sans:
   Arial,
   // A last resort if all else fails, just give us something without serifs :)
   sans-serif,
+  // All the emojis 👋🙂
+  'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-mono:
+  // iOS Safari, MacOS Safari
+  ui-monospace, Menlo, Monaco,
+  // Windows
+  'Cascadia Mono',
+  'Segoe UI Mono',
+  // Linux
+  'Roboto Mono',
+  'Oxygen Mono', 'Ubuntu Monospace',
+  // Android
+  'Source Code Pro',
+  // Firefox
+  'Fira Mono',
+  // Last resort Android/others
+  'Droid Sans Mono',
+  'Courier New', monospace,
   // All the emojis 👋🙂
   'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';

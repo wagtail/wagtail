@@ -590,6 +590,7 @@ Contributors
 * Onno Timmerman
 * Kyle J. Roux
 * Vaibhav Shukla
+* Rishank Kanaparti
 
 Translators
 ===========

@@ -1,6 +1,7 @@
 // Note: Tailwind does not automatically escape font names.
 // If a font name contains an invalid identifier (like a space), we wrap it in quotes to escape the invalid characters.
 // Font stack optimised for built-in fonts of each major operating system, with support for emojis.
+
 const systemUIFontStack = [
   '-apple-system',
   'BlinkMacSystemFont',
@@ -16,7 +17,32 @@ const systemUIFontStack = [
   '"Noto Color Emoji"',
 ];
 
-const monoFontStack = ['monospace', 'serif'];
+const monoFontStack = [
+  // iOS Safari, MacOS Safari
+  'ui-monospace',
+  'Menlo',
+  'Monaco',
+  // Windows,
+  '"Cascadia Mono"',
+  '"Segoe UI Mono"',
+  // Linux
+  '"Roboto Mono"',
+  '"Oxygen Mono"',
+  '"Ubuntu Monospace"',
+  // Android
+  '"Source Code Pro"',
+  // Firefox
+  '"Fira Mono"',
+  // Last resort Android/others
+  '"Droid Sans Mono"',
+  '"Courier New"',
+  'monospace',
+  // All the emojis 👋🙂
+  '"Apple Color Emoji"',
+  '"Segoe UI Emoji"',
+  '"Segoe UI Symbol"',
+  '"Noto Color Emoji"',
+];
 
 const fontFamily = {
   sans: systemUIFontStack,
