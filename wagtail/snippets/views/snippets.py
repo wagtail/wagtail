@@ -223,12 +223,14 @@ class CreateSnippetView(CreateView):
             result = fn(self.request, self.model)
             if hasattr(result, "status_code"):
                 return result
+        return None
 
     def _run_after_hooks(self):
         for fn in hooks.get_hooks("after_create_snippet"):
             result = fn(self.request, self.object)
             if hasattr(result, "status_code"):
                 return result
+        return None
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -308,7 +310,9 @@ class CreateSnippetView(CreateView):
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
-        self._run_before_hooks()
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
 
         return super().dispatch(request, *args, **kwargs)
 
@@ -377,7 +381,11 @@ class CreateSnippetView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        self._run_after_hooks()
+
+        hooks_result = self._run_after_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
         return response
 
 
