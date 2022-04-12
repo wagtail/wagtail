@@ -220,7 +220,7 @@ class Tabs {
         e.preventDefault();
         this.selectTab(tab);
       });
-      tab.addEventListener('focus', () => {
+      tab.addEventListener('focusin', () => {
         this.selectTab(tab);
       });
       tab.addEventListener('keydown', this.keydownEventListener);

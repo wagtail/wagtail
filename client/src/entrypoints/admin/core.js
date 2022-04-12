@@ -11,6 +11,7 @@ function addMessage(status, text) {
     clearTimeout(addMsgTimeout);
   }, 100);
 }
+
 window.addMessage = addMessage;
 
 function escapeHtml(text) {
@@ -24,6 +25,7 @@ function escapeHtml(text) {
 
   return text.replace(/[&<>"']/g, (char) => map[char]);
 }
+
 window.escapeHtml = escapeHtml;
 
 function initTagField(id, autocompleteUrl, options) {
@@ -45,6 +47,7 @@ function initTagField(id, autocompleteUrl, options) {
 
   $('#' + id).tagit(finalOptions);
 }
+
 window.initTagField = initTagField;
 
 /*
@@ -218,6 +221,7 @@ function enableDirtyFormCheck(formSelector, options) {
     }
   });
 }
+
 window.enableDirtyFormCheck = enableDirtyFormCheck;
 
 $(() => {
@@ -240,7 +244,7 @@ $(() => {
   });
 
   /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('tab-changed', () => {
+  document.addEventListener('tab-changed', () => {
     // Resize autosize textareas
     // eslint-disable-next-line func-names
     $('textarea[data-autosize-on]').each(function () {

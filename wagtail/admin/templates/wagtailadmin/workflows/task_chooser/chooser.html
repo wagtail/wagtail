@@ -30,7 +30,7 @@
             class="w-tabs__panel"
             role="tabpanel"
             aria-labelledby="tab-label-existing"
-            {% if not can_create %} hidden{% endif %}>
+            {% if can_create %}hidden{% endif %}>
             <form class="task-search search-bar" action="{% url 'wagtailadmin_workflows:task_chooser_results' %}" method="GET" novalidate>
                 <ul class="fields">
                     {% for field in search_form %}

@@ -61,8 +61,8 @@
     w-border-white
     w-rounded-full
     w-absolute
-    w-top-[7px]
-    -w-right-[15px];
+    w-top-[0.4375rem]
+    -w-right-[0.9375rem];
 
     &--active {
       @apply w-flex;
