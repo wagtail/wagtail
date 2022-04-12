@@ -1,31 +1,42 @@
 {% load wagtailadmin_tags i18n %}
-<div class="tab-nav merged">
-    <ul data-tab-nav role="tablist" data-current-tab="{{ self.children.0.heading|cautious_slugify }}">
-        {% for child in self.children %}
-            <li class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tab" aria-controls="tab-{{ child.heading|cautious_slugify }}">
-                <a href="#tab-{{ child.heading|cautious_slugify }}" class="{% if forloop.first %}active{% endif %}" data-tab="{{ child.heading|cautious_slugify }}">{{ child.heading }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    {% if self.form.show_comments_toggle %}
-        <div class="right wide">
-            <div class="comments-controls" hidden data-comment-notifications>
-                <div class="comment-notifications-toggle">
-                    <label class="switch switch--teal-background">
-                        {% trans "Comment notifications" %}
-                        {{ self.form.comment_notifications }}
-                        <span class="switch__toggle"></span>
-                    </label>
+
+<div class="w-tabs" data-tabs data-tabs-animate>
+    <div class="w-tabs__wrapper">
+        <div role="tablist" class="w-tabs__list w-px-5 sm:w-px-[4.5rem]">
+            {% for child in self.children %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=child.heading title=child.heading classes=child.classes|join:" " %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <template>
+        {# TODO To be re-implemented for comments side panel #}
+        {% if self.form.show_comments_toggle %}
+            <div class="right wide">
+                <div class="comments-controls" hidden data-comment-notifications>
+                    <div class="comment-notifications-toggle">
+                        <label class="switch switch--teal-background">
+                            {% trans "Comment notifications" %}
+                            {{ self.form.comment_notifications }}
+                            <span class="switch__toggle"></span>
+                        </label>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-</div>
+        {% endif %}
+    </template>
 
-<div class="tab-content">
-    {% for child in self.children %}
-        <section id="tab-{{ child.heading|cautious_slugify }}" class="{{ child.classes|join:" " }} {% if forloop.first %}active{% endif %}" role="tabpanel" aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}" data-tab="{{ child.heading|cautious_slugify }}">
-            {{ child.render_as_object }}
-        </section>
-    {% endfor %}
+    <div class="tab-content">
+        {% for child in self.children %}
+            <section
+                id="tab-{{ child.heading|cautious_slugify }}"
+                class="w-tabs__panel {{ child.classes|join:" " }}"
+                role="tabpanel"
+                aria-labelledby="tab-label-{{ child.heading|cautious_slugify }}"
+                hidden
+            >
+                {{ child.render_as_object }}
+            </section>
+        {% endfor %}
+    </div>
 </div>

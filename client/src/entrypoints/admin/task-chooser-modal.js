@@ -1,8 +1,9 @@
 import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
 
 const ajaxifyTaskCreateTab = (modal, jsonData) => {
   $(
-    '#new a.task-type-choice, #new a.choose-different-task-type',
+    '#tab-new a.task-type-choice, #tab-new a.choose-different-task-type',
     modal.body,
   ).on('click', function onClickNew() {
     modal.loadUrl(this.href);
@@ -28,7 +29,7 @@ const ajaxifyTaskCreateTab = (modal, jsonData) => {
           errorThrown +
           ' - ' +
           response.status;
-        $('#new', modal.body).append(
+        $('#tab-new', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
             jsonData.error_label +
@@ -58,12 +59,6 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
         // eslint-disable-next-line @typescript-eslint/no-use-before-define
         fetchResults(this.href);
         return false;
-      });
-
-      $('a.create-one-now').on('click', (e) => {
-        // Select upload form tab
-        $('a[href="#new"]').tab('show');
-        e.preventDefault();
       });
     }
 
@@ -118,13 +113,16 @@ const TASK_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       const wait = setTimeout(search, 50);
       $(this).data('timer', wait);
     });
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    initTabs();
   },
   task_chosen(modal, jsonData) {
     modal.respond('taskChosen', jsonData.result);
     modal.close();
   },
   reshow_create_tab(modal, jsonData) {
-    $('#new', modal.body).html(jsonData.htmlFragment);
+    $('#tab-new', modal.body).html(jsonData.htmlFragment);
     ajaxifyTaskCreateTab(modal, jsonData);
   },
 };

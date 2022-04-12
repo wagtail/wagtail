@@ -145,10 +145,11 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
         self.assertContains(
             response,
-            '<a href="#tab-content" class="active" data-tab="content">Content</a>',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
-            response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>'
+            response,
+            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         # test register_page_action_menu_item hook
         self.assertContains(
@@ -215,11 +216,9 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a href="#tab-content" class="active" data-tab="content">Content</a>',
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
-        self.assertNotContains(
-            response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>'
-        )
+        self.assertNotContains(response, "tab-promote")
 
     def test_create_page_with_custom_tabs(self):
         """
@@ -234,14 +233,15 @@ class TestPageCreation(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            '<a href="#tab-content" class="active" data-tab="content">Content</a>',
-        )
-        self.assertContains(
-            response, '<a href="#tab-promote" class="" data-tab="promote">Promote</a>'
+            '<a id="tab-label-content" href="#tab-content" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,
-            '<a href="#tab-dinosaurs" class="" data-tab="dinosaurs">Dinosaurs</a>',
+            '<a id="tab-label-promote" href="#tab-promote" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
+        )
+        self.assertContains(
+            response,
+            '<a id="tab-label-dinosaurs" href="#tab-dinosaurs" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
 
     def test_create_page_with_non_model_field(self):

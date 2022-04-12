@@ -124,10 +124,6 @@ $zindex-modal-background: 500;
     h1 {
       @apply w-text-white;
     }
-
-    &.tab-merged {
-      padding-inline-start: 1.6em;
-    }
   }
 
   .header-title {
@@ -135,21 +131,11 @@ $zindex-modal-background: 500;
     padding-inline-start: 0 !important;
     margin-inline-start: -36px;
   }
-
-  .tab-merged .header-title {
-    margin-inline-start: 0;
-  }
 }
 
 @include media-breakpoint-up(sm) {
   .modal-dialog {
     padding: 0 0 2em $menu-width;
-  }
-
-  .modal-body {
-    header.tab-merged {
-      padding-inline-start: $desktop-nice-padding;
-    }
   }
 }
 

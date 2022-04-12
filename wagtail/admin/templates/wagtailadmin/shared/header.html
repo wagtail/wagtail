@@ -8,16 +8,15 @@
     - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
     - `query_parameters` - a query string (without the '?') to be placed after the search URL
     - `icon` - name of an icon to place against the title
-    - `tabbed` - if true, add the classname 'tab-merged'
     - `merged` - if true, add the classname 'merged'
     - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
     - `action_text` - text for the 'action' button
     - `action_icon` - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="{% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
-    <div class="row{% if not tabbed %} nice-padding{% endif %}">
+    <div class="row nice-padding">
         <div class="left">
             <div class="col header-title">
                 <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}

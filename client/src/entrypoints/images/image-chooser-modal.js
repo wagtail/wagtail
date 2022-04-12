@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
+
 function ajaxifyImageUploadForm(modal) {
   $('form.image-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -29,7 +32,7 @@ function ajaxifyImageUploadForm(modal) {
             errorThrown +
             ' - ' +
             response.status;
-          $('#upload').append(
+          $('#tab-upload').append(
             '<div class="help-block help-critical">' +
               '<strong>' +
               jsonData.error_label +
@@ -80,7 +83,7 @@ function ajaxifyImageUploadForm(modal) {
   });
 }
 
-IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+window.IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser: function (modal, jsonData) {
     var searchForm = $('form.image-search', modal.body);
     var searchUrl = searchForm.attr('action');
@@ -143,13 +146,17 @@ IMAGE_CHOOSER_MODAL_ONLOAD_HANDLERS = {
       });
       return false;
     });
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    initTabs();
   },
   image_chosen: function (modal, jsonData) {
     modal.respond('imageChosen', jsonData.result);
     modal.close();
   },
   reshow_upload_form: function (modal, jsonData) {
-    $('#upload', modal.body).replaceWith(jsonData.htmlFragment);
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    initTabs();
     ajaxifyImageUploadForm(modal);
   },
   select_format: function (modal) {

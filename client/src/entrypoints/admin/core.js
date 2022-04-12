@@ -11,6 +11,7 @@ function addMessage(status, text) {
     clearTimeout(addMsgTimeout);
   }, 100);
 }
+
 window.addMessage = addMessage;
 
 function escapeHtml(text) {
@@ -24,6 +25,7 @@ function escapeHtml(text) {
 
   return text.replace(/[&<>"']/g, (char) => map[char]);
 }
+
 window.escapeHtml = escapeHtml;
 
 function initTagField(id, autocompleteUrl, options) {
@@ -45,6 +47,7 @@ function initTagField(id, autocompleteUrl, options) {
 
   $('#' + id).tagit(finalOptions);
 }
+
 window.initTagField = initTagField;
 
 /*
@@ -218,6 +221,7 @@ function enableDirtyFormCheck(formSelector, options) {
     }
   });
 }
+
 window.enableDirtyFormCheck = enableDirtyFormCheck;
 
 $(() => {
@@ -240,49 +244,13 @@ $(() => {
   });
 
   /* Functions that need to run/rerun when active tabs are changed */
-  $(document).on('shown.bs.tab', () => {
+  document.addEventListener('tab-changed', () => {
     // Resize autosize textareas
     // eslint-disable-next-line func-names
     $('textarea[data-autosize-on]').each(function () {
       // eslint-disable-next-line no-undef
       autosize.update($(this).get());
     });
-  });
-
-  /* tabs */
-  const showTab = (tabButtonElem) => {
-    $(tabButtonElem).tab('show');
-
-    // Update data-current-tab attribute on the [data-tab-nav] element
-    const tabNavElem = tabButtonElem.closest('[data-tab-nav]');
-    tabNavElem.dataset.currentTab = tabButtonElem.dataset.tab;
-
-    // Trigger switch event
-    tabNavElem.dispatchEvent(
-      new CustomEvent('switch', { detail: { tab: tabButtonElem.dataset.tab } }),
-    );
-  };
-
-  if (window.location.hash) {
-    /* look for a tab matching the URL hash and activate it if found */
-    const cleanedHash = window.location.hash.replace(/[^\w\-#]/g, '');
-    const tab = document.querySelector(
-      'a[href="' + cleanedHash + '"][data-tab]',
-    );
-    if (tab) showTab(tab);
-  }
-
-  // eslint-disable-next-line func-names
-  $(document).on('click', '[data-tab-nav] a', function (e) {
-    e.preventDefault();
-    showTab(this);
-    window.history.replaceState(null, null, $(this).attr('href'));
-  });
-
-  // eslint-disable-next-line func-names
-  $(document).on('click', '.tab-toggle', function (e) {
-    e.preventDefault();
-    $('[data-tab-nav] a[href="' + $(this).attr('href') + '"]').trigger('click');
   });
 
   // eslint-disable-next-line func-names

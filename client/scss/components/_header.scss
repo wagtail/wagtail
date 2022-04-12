@@ -69,28 +69,6 @@ header {
     margin-bottom: 0;
   }
 
-  &.tab-merged {
-    padding-inline-start: $desktop-nice-padding;
-    padding-inline-end: $desktop-nice-padding;
-
-    .right:last-child {
-      padding-inline-end: 0;
-    }
-
-    @include media-breakpoint-down(xs) {
-      .breadcrumb {
-        padding-inline-start: calc(#{$desktop-nice-padding} - 8px);
-      }
-    }
-    @include media-breakpoint-up(sm) {
-      .breadcrumb {
-        margin-inline-start: -$desktop-nice-padding;
-        margin-inline-end: -$desktop-nice-padding;
-        padding-inline-start: math.div($desktop-nice-padding, 2);
-      }
-    }
-  }
-
   &.header-with-breadcrumb {
     padding-top: 0;
 
@@ -103,7 +81,6 @@ header {
     }
   }
 
-  &.tab-merged,
   &.no-border {
     border: 0;
 

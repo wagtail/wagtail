@@ -1,3 +1,6 @@
+import $ from 'jquery';
+import { initTabs } from '../../includes/tabs';
+
 function ajaxifyDocumentUploadForm(modal) {
   $('form.document-upload', modal.body).on('submit', function () {
     var formdata = new FormData(this);
@@ -17,7 +20,7 @@ function ajaxifyDocumentUploadForm(modal) {
           errorThrown +
           ' - ' +
           response.status;
-        $('#upload', modal.body).append(
+        $('#tab-upload', modal.body).append(
           '<div class="help-block help-critical">' +
             '<strong>' +
             jsonData.error_label +
@@ -67,7 +70,7 @@ function ajaxifyDocumentUploadForm(modal) {
   });
 }
 
-DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
+window.DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
   chooser: function (modal, jsonData) {
     function ajaxifyLinks(context) {
       $('a.document-choice', context).on('click', function () {
@@ -87,8 +90,6 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
           $('#id_document-chooser-upload-collection').val(collectionId);
         }
 
-        // Select upload form tab
-        $('a[href="#upload"]').tab('show');
         e.preventDefault();
       });
     }
@@ -134,13 +135,17 @@ DOCUMENT_CHOOSER_MODAL_ONLOAD_HANDLERS = {
     });
 
     $('#collection_chooser_collection_id').on('change', search);
+
+    // Reinitialize tabs to hook up tab event listeners in the modal
+    initTabs();
   },
   document_chosen: function (modal, jsonData) {
     modal.respond('documentChosen', jsonData.result);
     modal.close();
   },
   reshow_upload_form: function (modal, jsonData) {
-    $('#upload', modal.body).html(jsonData.htmlFragment);
+    $('#tab-upload', modal.body).replaceWith(jsonData.htmlFragment);
+    initTabs();
     ajaxifyDocumentUploadForm(modal);
   },
 };

@@ -25,9 +25,8 @@
                 {% trans "You haven't uploaded any documents." %}
             {% endif %}
             {% if uploadform %}
-                {% url 'wagtaildocs:add_multiple' as wagtaildocs_add_document_url %}
                 {% blocktrans trimmed %}
-                    Why not <a class="upload-one-now" href="{{ wagtaildocs_add_document_url }}">upload one now</a>?
+                    Why not <a class="upload-one-now" href="#tab-upload" role="tab">upload one now</a>?
                 {% endblocktrans %}
             {% endif %}
         </p>

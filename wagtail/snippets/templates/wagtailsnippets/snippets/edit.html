@@ -3,7 +3,7 @@
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" tabbed=1 merged=1 %}
+    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 %}
 
     <div class="row row-flush">
 

@@ -4,69 +4,87 @@
 {% block titletag %}{% trans "Account" %}{% endblock %}
 {% block content %}
     {% trans "Account" as account_str %}
-    {% include "wagtailadmin/shared/header.html" with title=account_str merged=1 tabbed=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=account_str merged=1 %}
 
-    <ul class="tab-nav merged" data-tab-nav>
-        {% for tab in panels_by_tab.keys %}
-            <li{% if forloop.first %} class="active"{% endif %}><a href="#{{ tab.name }}">{{ tab.title }}</a></li>
-        {% endfor %}
+    <div class="w-tabs" data-tabs data-tabs-animate>
+        <div class="w-tabs__wrapper">
+            <div role="tablist" class="w-tabs__list nice-padding">
+                {% for tab in panels_by_tab.keys %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id=tab.name title=tab.title %}
+                {% endfor %}
 
-        {% if menu_items %}
-            <li><a href="#actions">{% trans "More actions" %}</a></li>
-        {% endif %}
-    </ul>
+                {% if menu_items %}
+                    {% trans 'More actions' as menu_items_title %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='actions' title=menu_items_title %}
+                {% endif %}
+            </div>
+        </div>
 
-    <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data" novalidate>
-        <div class="tab-content">
-            {% csrf_token %}
+        <form action="{% url 'wagtailadmin_account' %}" method="post" enctype="multipart/form-data" novalidate>
+            <div class="tab-content">
+                {% csrf_token %}
 
-            {% for tab, panels in panels_by_tab.items %}
-                <section id="{{ tab.name }}"{% if forloop.first %} class="active"{% endif %}>
-                    <ul class="objects">
-                        {% for panel in panels %}
-                            <li class="object">
-                                <div class="title-wrapper">
-                                    <label>{{ panel.title }}</label>
-                                </div>
-                                <div class="object-layout">
-                                    <div class="object-layout_big-part">
-                                        <div class="top-padding">
-                                            {{ panel.render }}
+                {% for tab, panels in panels_by_tab.items %}
+                    <section
+                        id="tab-{{ tab.name|cautious_slugify }}"
+                        class="w-tabs__panel"
+                        role="tabpanel"
+                        hidden
+                        aria-labelledby="tab-label-{{ tab.name|cautious_slugify }}"
+                    >
+                        <ul class="objects">
+                            {% for panel in panels %}
+                                <li class="object">
+                                    <div class="title-wrapper">
+                                        <label>{{ panel.title }}</label>
+                                    </div>
+                                    <div class="object-layout">
+                                        <div class="object-layout_big-part">
+                                            <div class="top-padding">
+                                                {{ panel.render }}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
 
-                    <div class="top-padding nice-padding">
-                        <button type="submit" class="button">{% trans 'Save account details' %}</button>
-                    </div>
-                </section>
-            {% endfor %}
+                        <div class="top-padding nice-padding">
+                            <button type="submit" class="button">{% trans 'Save account details' %}</button>
+                        </div>
+                    </section>
+                {% endfor %}
 
-            {% if menu_items %}
-                <section id="actions" class="nice-padding">
-                    <ul class="listing">
-                        {% for item in menu_items %}
-                            <li class="row row-flush">
-                                <div class="col6">
-                                    <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
-                                </div>
-                                <small class="col6">{{ item.help_text }}</small>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </section>
-            {% endif %}
-        </div>
-    </form>
+                {% if menu_items %}
+                    <section
+                        id="tab-actions"
+                        class="w-tabs__panel"
+                        role="tabpanel"
+                        hidden
+                        aria-labelledby="tab-label-actions"
+                    >
+                        <ul class="listing">
+                            {% for item in menu_items %}
+                                <li class="row row-flush">
+                                    <div class="col6">
+                                        <a href="{{ item.url }}" class="button button-primary">{{ item.label }}</a>
+                                    </div>
+                                    <small class="col6">{{ item.help_text }}</small>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+
 {% endblock %}
 
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/account.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% versioned_static 'wagtailadmin/css/layouts/account.css' %}" type="text/css"/>
     {{ media.css }}
 {% endblock %}
 {% block extra_js %}

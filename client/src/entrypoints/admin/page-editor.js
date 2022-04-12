@@ -255,9 +255,11 @@ function initErrorDetection() {
   // now identify them on each tab
   // eslint-disable-next-line guard-for-in
   for (const index in errorSections) {
-    $('[data-tab-nav] a[href="#' + index + '"]')
-      .addClass('errors')
-      .attr('data-count', errorSections[index]);
+    $('[data-tabs] a[href="#' + index + '"]')
+      .find('.w-tabs__errors')
+      .addClass('w-tabs__errors--active')
+      .find('.w-tabs__errors-count')
+      .text(errorSections[index]);
   }
 }
 

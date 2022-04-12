@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Icon, Portal, initUpgradeNotification, initSkipLink } from '../..';
 import { initModernDropdown, initTooltips } from '../../includes/initTooltips';
+import { initTabs } from '../../includes/tabs';
 
 if (process.env.NODE_ENV === 'development') {
   // Run react-axe in development only, so it does not affect performance
@@ -24,5 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initUpgradeNotification();
   initTooltips();
   initModernDropdown();
+  initTabs();
   initSkipLink();
 });

@@ -1,5 +1,8 @@
 export default function initCollapsibleBreadcrumbs() {
   const breadcrumbsContainer = document.querySelector('[data-breadcrumb-next]');
+  if (!breadcrumbsContainer) {
+    return;
+  }
   const breadcrumbsToggle = breadcrumbsContainer.querySelector(
     '[data-toggle-breadcrumbs]',
   );

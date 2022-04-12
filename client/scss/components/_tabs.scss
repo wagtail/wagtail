@@ -1,111 +1,4 @@
-.tab-nav {
-  @apply w-bg-grey-50;
-  @include row();
-  padding: 0;
-
-  li {
-    list-style-type: none;
-    width: 33%;
-    float: left;
-    padding: 0;
-    position: relative;
-    margin-inline-end: 2px;
-
-    &:first-of-type {
-      padding-inline-start: $desktop-nice-padding;
-      margin-inline-start: 0;
-    }
-  }
-
-  h2 {
-    margin: 0;
-    font-size: inherit;
-  }
-
-  a {
-    // border-top 0.3em is temporary until the new tab design is implemented
-    @apply w-bg-primary w-border-t-[0.3em] w-border-primary-200;
-    @include transition(border-color 0.2s ease);
-    font-weight: 600;
-    text-decoration: none;
-    display: block;
-    padding: 0.6em 0.7em 0.8em;
-    color: $color-white;
-    max-height: 1.44em;
-    overflow: hidden;
-
-    &:hover {
-      color: $color-white;
-      border-top-color: rgba(0, 0, 0, 0.35);
-    }
-  }
-
-  a.errors {
-    &:after {
-      border-radius: 50px;
-      box-shadow: 1px 2px 2px rgba(0, 0, 0, 0.1);
-      position: absolute;
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: -0.5em;
-      inset-inline-end: -0.5em;
-      top: -0.5em;
-      z-index: 5;
-      min-width: 0.9em;
-      color: $color-white;
-      background: $color-red;
-      content: attr(data-count);
-      padding: 0 0.3em;
-      line-height: 1.4em;
-      text-align: center;
-      font-size: 0.8em;
-    }
-  }
-
-  li.active a {
-    box-shadow: none;
-    color: $color-grey-1;
-    background-color: $color-white;
-    border-top: 0.3em solid $color-grey-1;
-  }
-
-  // For cases where tab-nav should merge with header
-  .page-editor & {
-    &.merged {
-      @apply w-pt-2 sm:w-pt-4;
-    }
-  }
-
-  &.merged {
-    @apply w-mt-0;
-  }
-
-  li.right {
-    float: right;
-    margin-inline-end: 0;
-    margin-inline-start: 2px;
-  }
-
-  li.wide {
-    width: unset;
-  }
-
-  .right {
-    max-height: 1.44em;
-    overflow: visible;
-  }
-}
-
 .tab-content {
-  > section {
-    display: none;
-    padding-top: 1em;
-
-    &.active {
-      display: block;
-    }
-  }
-
   .page-locked & {
     cursor: not-allowed;
     user-select: none;
@@ -116,53 +9,72 @@
   }
 }
 
-@include media-breakpoint-up(sm) {
-  .tab-nav {
-    // For cases where tab-nav should merge with header
-    &.merged {
-      @apply w-bg-grey-50;
-    }
+.w-tabs {
+  &__wrapper {
+    @apply w-mb-10 w-overflow-x-auto w-scrollbar-thin;
+  }
 
-    li {
-      width: auto;
-      padding: 0;
-    }
+  &__list {
+    @include nice-padding();
+    @apply w-flex w-my-[3px] w-space-x-6 w-border-b w-border-grey-100 w-w-fit;
+  }
 
-    a {
-      padding-inline-start: $mobile-nice-padding;
-      padding-inline-end: $mobile-nice-padding;
-    }
+  &__tab {
+    @apply w-label-3
+    w-box-border
+    w-inline-flex
+    w-text-grey-400
+    hover:w-text-primary
+    w-whitespace-nowrap
+    w-py-4
+    w-font-medium
+    w-relative
+    after:w-block
+    after:w-w-0
+    after:w-h-[2px]
+    after:w-bg-primary
+    after:w-absolute
+    after:w-left-0
+    after:-w-bottom-px
+    after:w-transition-all
+    motion-reduce:after:w-transition-none
+    hover:after:w-w-full;
 
-    li.settings a {
-      padding-inline-start: 2em;
-      padding-inline-end: 2em;
+    &[aria-selected='true'] {
+      @apply after:w-w-full w-text-primary;
     }
   }
 
-  .modal-content .tab-nav li {
-    padding: 0;
-    min-width: 0;
+  &__errors {
+    @apply w-hidden
+    w-box-border
+    w-w-4
+    w-h-4
+    w-text-[0.75rem]
+    w-flex
+    w-justify-center
+    w-items-center
+    w-font-bold
+    w-bg-critical-200
+    w-text-white
+    w-border
+    w-border-white
+    w-rounded-full
+    w-absolute
+    w-top-[0.4375rem]
+    -w-right-[0.9375rem];
 
-    &:first-of-type {
-      padding-inline-start: $desktop-nice-padding;
+    &--active {
+      @apply w-flex;
     }
   }
-}
 
-@include media-breakpoint-down(xs) {
-  // To allow tabs on the edit page to be editable
-  .tab-nav li:first-of-type {
-    padding-inline-start: 1.6em;
-  }
+  // Optional animate attr for tabs to animate in
+  &[data-tabs-animate] &__panel {
+    @apply motion-reduce:w-transition-none w-transition w-duration-150 w-translate-y-1 w-opacity-0;
 
-  .tab-nav li {
-    width: auto;
-  }
-}
-
-// Media for Windows High Contrast
-@media (forced-colors: $media-forced-colours) {
-  .tab-nav li.active a {
-    border-bottom: 0.3em solid $system-color-link-text;
+    &.animate-in {
+      @apply w-translate-y-0 w-opacity-100;
+    }
   }
 }

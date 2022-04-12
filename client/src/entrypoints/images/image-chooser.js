@@ -95,4 +95,5 @@ function createImageChooser(id) {
 
   return chooser;
 }
+
 window.createImageChooser = createImageChooser;

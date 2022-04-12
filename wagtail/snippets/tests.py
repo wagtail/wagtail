@@ -372,19 +372,7 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
-        self.assertNotContains(
-            response, '<ul data-tab-nav role="tablist" data-current-tab="advert">'
-        )
-        self.assertNotContains(
-            response,
-            '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>',
-            html=True,
-        )
-        self.assertNotContains(
-            response,
-            '<a href="#tab-other" class="" data-tab="other">Other</a>',
-            html=True,
-        )
+        self.assertNotContains(response, 'role="tablist"', html=True)
 
     def test_snippet_with_tabbed_interface(self):
         response = self.client.get(
@@ -393,18 +381,14 @@ class TestSnippetCreateView(TestCase, WagtailTestUtils):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/create.html")
+        self.assertContains(response, 'role="tablist"')
         self.assertContains(
-            response, '<ul data-tab-nav role="tablist" data-current-tab="advert">'
+            response,
+            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,
-            '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<a href="#tab-other" class="" data-tab="other">Other</a>',
-            html=True,
+            '<a id="tab-label-other" href="#tab-other" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
 
     def test_create_with_limited_permissions(self):
@@ -698,17 +682,7 @@ class TestSnippetEditView(BaseTestSnippetEditView):
         response = self.get()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
-        self.assertNotContains(
-            response, '<ul data-tab-nav role="tablist" data-current-tab="advert">'
-        )
-        self.assertNotContains(
-            response,
-            '<a href="#advert" class="active" data-tab="advert">Advert</a>',
-            html=True,
-        )
-        self.assertNotContains(
-            response, '<a href="#other" class="" data-tab="other">Other</a>', html=True
-        )
+        self.assertNotContains(response, 'role="tablist"')
 
         # "Last updated" timestamp should be present
         self.assertContains(
@@ -914,18 +888,14 @@ class TestEditTabbedSnippet(BaseTestSnippetEditView):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "wagtailsnippets/snippets/edit.html")
+        self.assertContains(response, 'role="tablist"')
         self.assertContains(
-            response, '<ul data-tab-nav role="tablist" data-current-tab="advert">'
+            response,
+            '<a id="tab-label-advert" href="#tab-advert" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
         self.assertContains(
             response,
-            '<a href="#tab-advert" class="active" data-tab="advert">Advert</a>',
-            html=True,
-        )
-        self.assertContains(
-            response,
-            '<a href="#tab-other" class="" data-tab="other">Other</a>',
-            html=True,
+            '<a id="tab-label-other" href="#tab-other" class="w-tabs__tab " role="tab" aria-selected="false" tabindex="-1">',
         )
 
 
