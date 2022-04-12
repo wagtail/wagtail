@@ -256,13 +256,17 @@ class CreateSnippetView(CreateView):
     def _get_edit_handler(self):
         return get_snippet_edit_handler(self.model)
 
-    def _get_bound_panel(self, form):
-        return self.edit_handler.get_bound_panel(
-            request=self.request, instance=form.instance, form=form
-        )
+    def dispatch(self, request, *args, **kwargs):
+        permission = get_permission_name("add", self.model)
 
-    def _get_action_menu(self):
-        return SnippetActionMenu(self.request, view="create", model=self.model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
+        return super().dispatch(request, *args, **kwargs)
 
     def get_add_url(self):
         url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
@@ -304,17 +308,13 @@ class CreateSnippetView(CreateView):
             )
         ]
 
-    def dispatch(self, request, *args, **kwargs):
-        permission = get_permission_name("add", self.model)
+    def _get_bound_panel(self, form):
+        return self.edit_handler.get_bound_panel(
+            request=self.request, instance=form.instance, form=form
+        )
 
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
-        hooks_result = self._run_before_hooks()
-        if hooks_result is not None:
-            return hooks_result
-
-        return super().dispatch(request, *args, **kwargs)
+    def _get_action_menu(self):
+        return SnippetActionMenu(self.request, view="create", model=self.model)
 
     def _get_initial_form_instance(self):
         instance = self.model()
