@@ -1,11 +1,15 @@
 {% load wagtailadmin_tags i18n %}
 
 <div class="w-divide-y w-divide-grey-100">
-    {% include 'wagtailadmin/pages/side_panels/includes/page_workflow_status.html' %}
+    {% if page.id %}
+        {% include 'wagtailadmin/pages/side_panels/includes/page_workflow_status.html' %}
+    {% endif %}
     {% if locale %}
         {% include 'wagtailadmin/pages/side_panels/includes/page_locale_status.html' %}
     {% endif %}
-    {% include 'wagtailadmin/pages/side_panels/includes/page_locked_status.html' %}
+    {% if page.id %}
+        {% include 'wagtailadmin/pages/side_panels/includes/page_locked_status.html' %}
+    {% endif %}
     {% include 'wagtailadmin/pages/side_panels/includes/page_privacy_status.html' %}
 
 

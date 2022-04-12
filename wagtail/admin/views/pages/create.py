@@ -330,7 +330,7 @@ class CreateView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
         action_menu = PageActionMenu(
             self.request, view="create", parent_page=self.parent_page
         )
-        side_panels = PageSidePanels(self.request, None)
+        side_panels = PageSidePanels(self.request, self.page)
 
         context.update(
             {

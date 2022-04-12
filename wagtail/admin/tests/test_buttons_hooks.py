@@ -125,7 +125,6 @@ class TestButtonsHooks(TestCase, WagtailTestUtils):
             "Another useless dropdown button in &quot;One more more button&quot; dropdown",
         )
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_register_page_header_buttons(self):
         def page_header_buttons(page, page_perms, next_url=None):
             yield wagtailadmin_widgets.Button(

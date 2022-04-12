@@ -29,18 +29,28 @@ class StatusSidePanel(BaseSidePanel):
         context = super().get_context_data(parent_context)
         user_perms = UserPagePermissionsProxy(self.request.user)
 
-        context.update(
-            {
-                "lock_url": reverse("wagtailadmin_pages:lock", args=(self.page.id,)),
-                "unlock_url": reverse(
-                    "wagtailadmin_pages:unlock", args=(self.page.id,)
-                ),
-                "user_can_lock": user_perms.for_page(self.page).can_lock(),
-                "user_can_unlock": user_perms.for_page(self.page).can_unlock(),
-                "locale": None,
-                "translations": [],
-            }
-        )
+        if self.page.id:
+            context.update(
+                {
+                    "lock_url": reverse(
+                        "wagtailadmin_pages:lock", args=(self.page.id,)
+                    ),
+                    "unlock_url": reverse(
+                        "wagtailadmin_pages:unlock", args=(self.page.id,)
+                    ),
+                    "user_can_lock": user_perms.for_page(self.page).can_lock(),
+                    "user_can_unlock": user_perms.for_page(self.page).can_unlock(),
+                    "locale": None,
+                    "translations": [],
+                }
+            )
+        else:
+            context.update(
+                {
+                    "locale": None,
+                    "translations": [],
+                }
+            )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
             context.update(
@@ -87,18 +97,11 @@ class PageSidePanels:
         self.request = request
         self.page = page
 
-        if page:
-            # Editing
-            self.side_panels = [
-                StatusSidePanel(page, self.request),
-                CommentsSidePanel(page, self.request),
-                # PreviewSidePanel(page),
-            ]
-        else:
-            # Creating
-            self.side_panels = [
-                CommentsSidePanel(page, self.request),
-            ]
+        self.side_panels = [
+            StatusSidePanel(page, self.request),
+            CommentsSidePanel(page, self.request),
+            # PreviewSidePanel(page),
+        ]
 
     def __iter__(self):
         return iter(self.side_panels)
