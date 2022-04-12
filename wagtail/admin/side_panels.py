@@ -22,15 +22,6 @@ class StatusSidePanel(BaseSidePanel):
     toggle_icon_name = "site"  # TODO Find the real icon
 
 
-class HistorySidePanel(BaseSidePanel):
-    name = "history"
-    title = gettext_lazy("History")
-    template_name = "wagtailadmin/pages/side_panels/history.html"
-    order = 200
-    toggle_aria_label = gettext_lazy("Toggle history")
-    toggle_icon_name = "history"
-
-
 class CommentsSidePanel(BaseSidePanel):
     name = "comments"
     title = gettext_lazy("Comments")
@@ -58,7 +49,6 @@ class PageSidePanels:
             # Editing
             self.side_panels = [
                 StatusSidePanel(page),
-                HistorySidePanel(page),
                 CommentsSidePanel(page),
                 # PreviewSidePanel(page),
             ]
