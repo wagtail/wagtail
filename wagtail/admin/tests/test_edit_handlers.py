@@ -367,7 +367,7 @@ class TestExtractPanelDefinitionsFromModelClass(TestCase):
         )
 
 
-class TestTabbedInterface(TestCase, WagtailTestUtils):
+class TestTabbedInterface(TestCase):
     def setUp(self):
         self.request = RequestFactory().get("/")
         user = AnonymousUser()  # technically, Anonymous users cannot access the admin
