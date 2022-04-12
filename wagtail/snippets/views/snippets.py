@@ -100,6 +100,7 @@ class ListView(IndexView):
         self.model = self._get_model()
         self.locale = self._get_locale()
         self.is_searchable = self._get_is_searchable()
+        self.search_form = self._get_search_form()
         self.is_searching = False
         self.search_query = None
 
@@ -119,6 +120,19 @@ class ListView(IndexView):
 
     def _get_is_searchable(self):
         return class_is_indexed(self.model)
+
+    def _get_search_form(self):
+        if self.is_searchable and "q" in self.request.GET:
+            return SearchForm(
+                self.request.GET,
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name_plural},
+            )
+
+        return SearchForm(
+            placeholder=_("Search %(snippet_type_name)s")
+            % {"snippet_type_name": self.model._meta.verbose_name_plural}
+        )
 
     def dispatch(self, request, *args, **kwargs):
         permissions = [
@@ -143,25 +157,12 @@ class ListView(IndexView):
             items = items.order_by("pk")
 
         # Search
-        if self.is_searchable and "q" in self.request.GET:
-            search_form = SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name_plural},
-            )
+        if self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data["q"]
 
-            if search_form.is_valid():
-                self.search_query = search_form.cleaned_data["q"]
-
-                search_backend = get_search_backend()
-                items = search_backend.search(self.search_query, items)
-                self.is_searching = True
-
-        else:
-            search_form = SearchForm(
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name_plural}
-            )
+            search_backend = get_search_backend()
+            items = search_backend.search(self.search_query, items)
+            self.is_searching = True
 
         paginator = Paginator(items, per_page=20)
         paginated_items = paginator.get_page(self.request.GET.get("p"))
@@ -177,7 +178,7 @@ class ListView(IndexView):
                     get_permission_name("delete", self.model)
                 ),
                 "is_searchable": self.is_searchable,
-                "search_form": search_form,
+                "search_form": self.search_form,
                 "is_searching": self.is_searching,
                 "query_string": self.search_query,
                 "locale": None,
