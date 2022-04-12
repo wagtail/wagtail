@@ -11,13 +11,13 @@
 
     {% include 'wagtailadmin/shared/headers/page_edit_header.html' %}
 
-    <aside class="form-side">
-        <button class="form-side__close-button" aria-label="{% trans 'Toggle side panel' %}">
+    <aside class="form-side" data-form-side>
+        <button type="button" class="form-side__close-button" data-form-side-close-button aria-label="{% trans 'Toggle side panel' %}">
             {% icon name="expand-right" %}
         </button>
 
         {% for panel in side_panels %}
-            <div class="form-side__panel" data-side-panel="{{ panel.name }}">
+            <div class="form-side__panel" data-side-panel="{{ panel.name }}" hidden>
                 <h2 id="side-panel-{{ panel.name }}-title" aria-label="{{ panel.title }}"></h2>
                 {% component panel %}
             </div>

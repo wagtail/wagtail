@@ -406,7 +406,7 @@ window.updateFooterSaveWarning = (formDirty, commentsDirty) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   const setPanel = (panelName) => {
-    const sidePanelWrapper = document.querySelector('.form-side');
+    const sidePanelWrapper = document.querySelector('[data-form-side]');
 
     // Open / close side
     if (panelName === '') {
@@ -421,25 +421,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('[data-side-panel]').forEach((panel) => {
-      const ACTIVE_CLASS = 'form-side__panel--active';
-      const panelCurrentlyActive = panel.classList.contains(ACTIVE_CLASS);
-
       if (panel.dataset.sidePanel === panelName) {
-        if (!panelCurrentlyActive) {
-          panel.classList.add(ACTIVE_CLASS);
+        if (panel.hidden) {
+          // eslint-disable-next-line no-param-reassign
+          panel.hidden = false;
           panel.dispatchEvent(new CustomEvent('show'));
         }
-      } else if (panelCurrentlyActive) {
-          panel.classList.remove(ACTIVE_CLASS);
-          panel.dispatchEvent(new Event('hide'));
-        }
+      } else if (!panel.hidden) {
+        // eslint-disable-next-line no-param-reassign
+        panel.hidden = true;
+        panel.dispatchEvent(new CustomEvent('hide'));
+      }
+    });
+
+    // Update aria-expanded attribute on the panel toggles
+    document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
+      toggle.setAttribute(
+        'aria-expanded',
+        toggle.dataset.sidePanelToggle === panelName ? 'true' : 'false',
+      );
     });
   };
 
   const togglePanel = (panelName) => {
-    const isAlreadyOpen = !!document.querySelector(
-      `.form-side__panel--active[data-side-panel="${panelName}"]`,
-    );
+    const isAlreadyOpen = !document
+      .querySelector(`[data-side-panel="${panelName}"]`)
+      .hasAttribute('hidden');
 
     if (isAlreadyOpen) {
       // Close the sidebar
@@ -451,18 +458,15 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   document.querySelectorAll('[data-side-panel-toggle]').forEach((toggle) => {
-    toggle.addEventListener('click', (e) => {
-      e.preventDefault();
-
+    toggle.addEventListener('click', () => {
       togglePanel(toggle.dataset.sidePanelToggle);
     });
   });
 
-  document
-    .querySelector('.form-side__close-button')
-    .addEventListener('click', (e) => {
-      e.preventDefault();
-
+  const closeButton = document.querySelector('[data-form-side-close-button]');
+  if (closeButton instanceof HTMLButtonElement) {
+    closeButton.addEventListener('click', (e) => {
       setPanel('');
     });
+  }
 });

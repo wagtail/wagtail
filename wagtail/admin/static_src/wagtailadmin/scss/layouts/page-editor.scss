@@ -146,12 +146,8 @@
     width: 25%;
     height: 100%;
     max-width: 420px;
-    @include transition(
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right $menu-transition-duration ease,
-      inset-inline-end $menu-transition-duration ease
-    );
+    transition: right $menu-transition-duration ease,
+      inset-inline-end $menu-transition-duration ease;
     border-inline-start: 1px solid theme('colors.grey.100');
     background-color: $color-white;
     z-index: 90;
@@ -164,7 +160,7 @@
     }
 
     &__close-button {
-      color: theme('colors.primary');
+      color: theme('colors.primary.DEFAULT');
       background-color: $color-white;
       padding: 10px;
       display: none;
