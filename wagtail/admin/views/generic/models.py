@@ -149,6 +149,13 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
             return None
         return self.success_message.format(instance)
 
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+            )
+        ]
+
     def get_error_message(self):
         if self.error_message is None:
             return None
@@ -173,23 +180,16 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
             self.object = self.save_instance()
             log(instance=self.object, action="wagtail.create")
         success_message = self.get_success_message(self.object)
+        success_buttons = self.get_success_buttons()
         if success_message is not None:
-            messages.success(
-                self.request,
-                success_message,
-                buttons=[
-                    messages.button(
-                        reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
-                    )
-                ],
-            )
+            messages.success(self.request, success_message, buttons=success_buttons)
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
 

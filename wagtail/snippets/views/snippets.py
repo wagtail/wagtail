@@ -20,7 +20,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic.models import IndexView
+from wagtail.admin.views.generic import CreateView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
@@ -214,119 +214,176 @@ class ListView(TemplateView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-def create(request, app_label, model_name):
-    model = get_snippet_model_from_url_params(app_label, model_name)
+class Create(CreateView):
+    template_name = "wagtailsnippets/snippets/create.html"
+    error_message = _("The snippet could not be created due to errors.")
 
-    permission = get_permission_name("add", model)
-    if not request.user.has_perm(permission):
-        raise PermissionDenied
+    def _run_before_hooks(self):
+        for fn in hooks.get_hooks("before_create_snippet"):
+            result = fn(self.request, self.model)
+            if hasattr(result, "status_code"):
+                return result
+        return None
 
-    for fn in hooks.get_hooks("before_create_snippet"):
-        result = fn(request, model)
-        if hasattr(result, "status_code"):
-            return result
+    def _run_after_hooks(self):
+        for fn in hooks.get_hooks("after_create_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+        return None
 
-    instance = model()
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
 
-    # Set locale of the new instance
-    if issubclass(model, TranslatableMixin):
-        selected_locale = request.GET.get("locale")
-        if selected_locale:
-            instance.locale = get_object_or_404(Locale, language_code=selected_locale)
-        else:
-            instance.locale = Locale.get_default()
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+        self.model = self._get_model()
+        self.locale = self._get_locale()
+        self.edit_handler = self._get_edit_handler()
 
-    # Make edit handler
-    edit_handler = get_snippet_edit_handler(model)
-    form_class = edit_handler.get_form_class()
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    if request.method == "POST":
-        form = form_class(
-            request.POST, request.FILES, instance=instance, for_user=request.user
+    def _get_locale(self):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                return get_object_or_404(Locale, language_code=selected_locale)
+            return Locale.get_default()
+
+        return None
+
+    def _get_edit_handler(self):
+        return get_snippet_edit_handler(self.model)
+
+    def dispatch(self, request, *args, **kwargs):
+        permission = get_permission_name("add", self.model)
+
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_add_url(self):
+        url = reverse("wagtailsnippets:add", args=[self.app_label, self.model_name])
+        if self.locale:
+            url += "?locale=" + self.locale.language_code
+        return url
+
+    def get_success_url(self):
+        urlquery = ""
+        if self.locale and self.object.locale is not Locale.get_default():
+            urlquery = "?locale=" + self.object.locale.language_code
+
+        return (
+            reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+            + urlquery
         )
 
-        if form.is_valid():
-            with transaction.atomic():
-                form.save()
-                log(instance=instance, action="wagtail.create")
+    def get_success_message(self, instance):
+        return _("%(snippet_type)s '%(instance)s' created.") % {
+            "snippet_type": capfirst(self.model._meta.verbose_name),
+            "instance": instance,
+        }
 
-            messages.success(
-                request,
-                _("%(snippet_type)s '%(instance)s' created.")
-                % {
-                    "snippet_type": capfirst(model._meta.verbose_name),
-                    "instance": instance,
-                },
-                buttons=[
-                    messages.button(
-                        reverse(
-                            "wagtailsnippets:edit",
-                            args=(app_label, model_name, quote(instance.pk)),
-                        ),
-                        _("Edit"),
-                    )
-                ],
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(
+                    "wagtailsnippets:edit",
+                    args=(
+                        self.app_label,
+                        self.model_name,
+                        quote(self.object.pk),
+                    ),
+                ),
+                _("Edit"),
             )
+        ]
 
-            for fn in hooks.get_hooks("after_create_snippet"):
-                result = fn(request, instance)
-                if hasattr(result, "status_code"):
-                    return result
+    def _get_bound_panel(self, form):
+        return self.edit_handler.get_bound_panel(
+            request=self.request, instance=form.instance, form=form
+        )
 
-            urlquery = ""
-            if (
-                isinstance(instance, TranslatableMixin)
-                and instance.locale is not Locale.get_default()
-            ):
-                urlquery = "?locale=" + instance.locale.language_code
+    def _get_action_menu(self):
+        return SnippetActionMenu(self.request, view="create", model=self.model)
 
-            return redirect(
-                reverse("wagtailsnippets:list", args=[app_label, model_name]) + urlquery
-            )
-        else:
-            messages.validation_error(
-                request, _("The snippet could not be created due to errors."), form
-            )
-    else:
-        form = form_class(instance=instance, for_user=request.user)
+    def _get_initial_form_instance(self):
+        instance = self.model()
 
-    edit_handler = edit_handler.get_bound_panel(
-        request=request, instance=instance, form=form
-    )
+        # Set locale of the new instance
+        if self.locale:
+            instance.locale = self.locale
 
-    action_menu = SnippetActionMenu(request, view="create", model=model)
+        return instance
 
-    context = {
-        "model_opts": model._meta,
-        "edit_handler": edit_handler,
-        "form": form,
-        "action_menu": action_menu,
-        "locale": None,
-        "translations": [],
-        "media": edit_handler.media + form.media + action_menu.media,
-    }
+    def get_form_class(self):
+        return self.edit_handler.get_form_class()
 
-    if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-        model, TranslatableMixin
-    ):
+    def get_form_kwargs(self):
+        return {
+            **super().get_form_kwargs(),
+            "instance": self._get_initial_form_instance(),
+            "for_user": self.request.user,
+        }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        form = context.get("form")
+        edit_handler = self._get_bound_panel(form)
+        action_menu = self._get_action_menu()
+        instance = form.instance
+
         context.update(
             {
-                "locale": instance.locale,
-                "translations": [
-                    {
-                        "locale": locale,
-                        "url": reverse(
-                            "wagtailsnippets:add", args=[app_label, model_name]
-                        )
-                        + "?locale="
-                        + locale.language_code,
-                    }
-                    for locale in Locale.objects.all().exclude(id=instance.locale.id)
-                ],
+                "model_opts": self.model._meta,
+                "edit_handler": edit_handler,
+                "action_menu": action_menu,
+                "locale": None,
+                "translations": [],
+                "media": edit_handler.media + form.media + action_menu.media,
             }
         )
 
-    return TemplateResponse(request, "wagtailsnippets/snippets/create.html", context)
+        if self.locale:
+            context.update(
+                {
+                    "locale": instance.locale,
+                    "translations": [
+                        {
+                            "locale": locale,
+                            "url": reverse(
+                                "wagtailsnippets:add",
+                                args=[self.app_label, self.model_name],
+                            )
+                            + "?locale="
+                            + locale.language_code,
+                        }
+                        for locale in Locale.objects.all().exclude(
+                            id=instance.locale.id
+                        )
+                    ],
+                }
+            )
+
+        return context
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        hooks_result = self._run_after_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
+        return response
 
 
 def edit(request, app_label, model_name, pk):

@@ -28,7 +28,11 @@ urlpatterns = [
         snippets.ListView.as_view(results_only=True),
         name="list_results",
     ),
-    path("<slug:app_label>/<slug:model_name>/add/", snippets.create, name="add"),
+    path(
+        "<slug:app_label>/<slug:model_name>/add/",
+        snippets.Create.as_view(),
+        name="add",
+    ),
     path(
         "<slug:app_label>/<slug:model_name>/edit/<str:pk>/", snippets.edit, name="edit"
     ),
