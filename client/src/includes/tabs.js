@@ -136,6 +136,16 @@ class Tabs {
 
       this.state.activeTabID = tabContentId;
 
+      const linkedTab = this.tabContainer.querySelector(
+        `a[href="${tab.getAttribute('href')}"][role="tab"]`,
+      );
+
+      // If an external button was used to trigger the tab, make sure active tab is marked active
+      if (linkedTab) {
+        linkedTab.setAttribute('aria-selected', true);
+        linkedTab.removeAttribute('tabindex');
+      }
+
       tab.setAttribute('aria-selected', true);
       tab.removeAttribute('tabindex');
       const tabContent = this.tabContainer.querySelector(`#${tabContentId}`);
