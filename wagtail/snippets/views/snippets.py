@@ -98,9 +98,21 @@ class ListView(IndexView):
         self.app_label = kwargs.get("app_label")
         self.model_name = kwargs.get("model_name")
         self.model = self._get_model()
+        self.locale = self._get_locale()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def _get_locale(self):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                return get_object_or_404(Locale, language_code=selected_locale)
+            return Locale.get_default()
+
+        return None
 
     def dispatch(self, request, *args, **kwargs):
         permissions = [
@@ -116,29 +128,8 @@ class ListView(IndexView):
         context = super().get_context_data(**kwargs)
 
         items = self.model.objects.all()
-        enable_locale_filter = getattr(
-            settings, "WAGTAIL_I18N_ENABLED", False
-        ) and issubclass(self.model, TranslatableMixin)
-
-        if enable_locale_filter:
-            if "locale" in self.request.GET:
-                try:
-                    locale = Locale.objects.get(
-                        language_code=self.request.GET["locale"]
-                    )
-                except Locale.DoesNotExist:
-                    # Redirect to snippet without locale
-                    return redirect(
-                        "wagtailsnippets:list", self.app_label, self.model_name
-                    )
-            else:
-                # Default to active locale (this will take into account the user's chosen admin language)
-                locale = Locale.get_active()
-
-            items = items.filter(locale=locale)
-
-        else:
-            locale = None
+        if self.locale:
+            items = items.filter(locale=self.locale)
 
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
@@ -191,10 +182,10 @@ class ListView(IndexView):
             }
         )
 
-        if enable_locale_filter:
+        if self.locale:
             context.update(
                 {
-                    "locale": locale,
+                    "locale": self.locale,
                     "translations": [
                         {
                             "locale": locale,
@@ -205,7 +196,7 @@ class ListView(IndexView):
                             + "?locale="
                             + locale.language_code,
                         }
-                        for locale in Locale.objects.all().exclude(id=locale.id)
+                        for locale in Locale.objects.all().exclude(id=self.locale.id)
                     ],
                 }
             )
