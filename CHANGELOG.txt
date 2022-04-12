@@ -49,6 +49,7 @@ Changelog
  * Add the ability for choices to be separated by new lines instead of just commas within the form builder, commas will still be supported if used (Abdulmajeed Isa)
  * Add internationalisation UI to modeladmin (Andrés Martano)
  * Support chunking in `PageQuerySet.specific()` to reduce memory consumption (Andy Babic)
+ * Implement new tabs design across the admin interface (Steven Steinwand)
  * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
  * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
  * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
@@ -68,6 +69,7 @@ Changelog
  * Fix: Page copy in Wagtail admin ignores `exclude_fields_in_copy` (John-Scott Atlakson)
  * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
  * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+ * Fix: Implement ARIA tabs markup and keyboards interactions for admin tabs (Steven Steinwand)
 
 
 2.16.2 (11.04.2022)
