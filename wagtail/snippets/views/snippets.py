@@ -608,12 +608,10 @@ class Delete(DeleteView):
         instances = self.model.objects.filter(pk__in=ids)
         return instances
 
-    def get(self, request, *args, **kwargs):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         count = len(self.object)
-
-        return TemplateResponse(
-            request,
-            self.template_name,
+        context.update(
             {
                 "model_opts": self.model._meta,
                 "count": count,
@@ -626,8 +624,9 @@ class Delete(DeleteView):
                     + "?"
                     + urlencode([("id", instance.pk) for instance in self.object])
                 ),
-            },
+            }
         )
+        return context
 
     def delete_action(self):
         with transaction.atomic():
