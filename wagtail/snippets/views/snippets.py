@@ -486,6 +486,27 @@ class Edit(EditView):
 
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
+    def get_success_message(self):
+        return _("%(snippet_type)s '%(instance)s' updated.") % {
+            "snippet_type": capfirst(self.model._meta.verbose_name),
+            "instance": self.object,
+        }
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(
+                    "wagtailsnippets:edit",
+                    args=(
+                        self.app_label,
+                        self.model_name,
+                        quote(self.object.pk),
+                    ),
+                ),
+                _("Edit"),
+            )
+        ]
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
 
@@ -494,26 +515,12 @@ class Edit(EditView):
                 form.save()
                 log(instance=self.object, action="wagtail.edit")
 
+            success_message = self.get_success_message()
+            success_buttons = self.get_success_buttons()
             messages.success(
                 request,
-                _("%(snippet_type)s '%(instance)s' updated.")
-                % {
-                    "snippet_type": capfirst(self.model._meta.verbose_name),
-                    "instance": self.object,
-                },
-                buttons=[
-                    messages.button(
-                        reverse(
-                            "wagtailsnippets:edit",
-                            args=(
-                                self.app_label,
-                                self.model_name,
-                                quote(self.object.pk),
-                            ),
-                        ),
-                        _("Edit"),
-                    )
-                ],
+                success_message,
+                buttons=success_buttons,
             )
 
             hooks_result = self._run_after_hooks()
