@@ -634,6 +634,9 @@ class Delete(DeleteView):
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
+    def get_success_url(self):
+        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+
     def get_success_message(self):
         count = len(self.object)
         if count == 1:
@@ -663,7 +666,7 @@ class Delete(DeleteView):
         if hooks_result is not None:
             return hooks_result
 
-        return redirect("wagtailsnippets:list", self.app_label, self.model_name)
+        return redirect(self.get_success_url())
 
 
 class Usage(IndexView):
