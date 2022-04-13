@@ -1,9 +1,8 @@
 {% load wagtailadmin_tags wagtailimages_tags i18n %}
 
 <div class="confirm-duplicate-upload">
-    {% image existing_image max-150x150 as image %}
     <figure>
-        <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" />
+        {% image existing_image max-150x150 %}
         <figcaption>{{ existing_image.title }}</figcaption>
     </figure>
     <div>
