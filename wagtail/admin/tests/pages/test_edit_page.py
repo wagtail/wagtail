@@ -987,7 +987,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, input_field_for_draft_slug, html=True)
         self.assertNotContains(response, input_field_for_live_slug, html=True)
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_editor_page_shows_custom_live_url_in_status_when_draft_edits_exist(self):
         # When showing a live URL in the status button that differs from the draft one,
         # ensure that we pick up any custom URL logic defined on the specific page model
