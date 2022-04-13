@@ -356,7 +356,7 @@ window.comments = (() => {
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();
       } else {
-        commentCounter.innerText = '';
+        commentCount.innerText = '';
       }
     };
     commentApp.store.subscribe(updateCommentCount);
