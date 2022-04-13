@@ -394,6 +394,7 @@ class Edit(EditView):
         self.model_name = kwargs.get("model_name")
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
+        self.object = self.get_object()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -410,8 +411,6 @@ class Edit(EditView):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
         for fn in hooks.get_hooks("before_edit_snippet"):
             result = fn(request, self.object)
             if hasattr(result, "status_code"):
@@ -467,8 +466,6 @@ class Edit(EditView):
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-
         for fn in hooks.get_hooks("before_edit_snippet"):
             result = fn(request, self.object)
             if hasattr(result, "status_code"):
