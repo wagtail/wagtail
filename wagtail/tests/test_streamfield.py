@@ -22,7 +22,7 @@ from wagtail.test.testapp.models import (
     MinMaxCountStreamModel,
     StreamModel,
 )
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
+from wagtail.utils.deprecation import RemovedInWagtail40Warning
 
 
 class TestLazyStreamField(TestCase):
@@ -217,6 +217,30 @@ class TestSystemCheck(TestCase):
 
 class TestJSONSystemCheck(TestSystemCheck):
     use_json_field = True
+
+
+class TestUseJsonFieldWarning(TestCase):
+    def tearDown(self):
+        # unregister DeprecatedStreamModel from the overall model registry
+        # so that it doesn't break tests elsewhere
+        for package in ("wagtailcore", "wagtail.tests"):
+            try:
+                del apps.all_models[package]["deprecatedstreammodel"]
+            except KeyError:
+                pass
+        apps.clear_cache()
+
+    def test_system_check_validates_block(self):
+        message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
+        with self.assertWarnsMessage(RemovedInWagtail40Warning, message):
+
+            class DeprecatedStreamModel(models.Model):
+                body = StreamField(
+                    [
+                        ("heading", blocks.CharBlock()),
+                        ("rich text", blocks.RichTextBlock()),
+                    ],
+                )
 
 
 class TestStreamValueAccess(TestCase):
@@ -641,11 +665,6 @@ class TestJSONStreamField(TestCase):
         cls.instance = JSONStreamModel.objects.create(
             body=[{"type": "text", "value": "foo"}],
         )
-
-    def test_use_json_field_warning(self):
-        message = "StreamField must explicitly set use_json_field argument to True/False instead of None."
-        with self.assertWarnsMessage(RemovedInWagtail50Warning, message):
-            StreamField([("paragraph", blocks.CharBlock())])
 
     def test_internal_type(self):
         text = StreamField([("paragraph", blocks.CharBlock())], use_json_field=False)

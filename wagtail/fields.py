@@ -8,7 +8,7 @@ from django.utils.encoding import force_str
 
 from wagtail.blocks import Block, BlockField, StreamBlock, StreamValue
 from wagtail.rich_text import get_text_for_indexing
-from wagtail.utils.deprecation import RemovedInWagtail50Warning
+from wagtail.utils.deprecation import RemovedInWagtail40Warning
 
 
 class RichTextField(models.TextField):
@@ -81,7 +81,6 @@ class StreamField(models.Field):
         super().__init__(**kwargs)
 
         self.use_json_field = use_json_field
-        self._check_json_field()
 
         if isinstance(block_types, Block):
             # use the passed block as the top-level block
@@ -103,7 +102,7 @@ class StreamField(models.Field):
         if type(self.use_json_field) is not bool:
             warnings.warn(
                 f"StreamField must explicitly set use_json_field argument to True/False instead of {self.use_json_field}.",
-                RemovedInWagtail50Warning,
+                RemovedInWagtail40Warning,
                 stacklevel=3,
             )
 
@@ -235,6 +234,11 @@ class StreamField(models.Field):
 
     def contribute_to_class(self, cls, name, **kwargs):
         super().contribute_to_class(cls, name, **kwargs)
+
+        # Output deprecation warning on missing use_json_field argument, unless this is a fake model
+        # for a migration
+        if cls.__module__ != "__fake__":
+            self._check_json_field()
 
         # Add Creator descriptor to allow the field to be set from a list or a
         # JSON string.
