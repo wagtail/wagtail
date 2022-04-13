@@ -655,7 +655,7 @@ class Delete(DeleteView):
                 "model_opts": self.model._meta,
                 "count": count,
                 "instances": self.object,
-                "submit_url": self.get_delete_url(),
+                "action_url": self.get_delete_url(),
             }
         )
         return context
