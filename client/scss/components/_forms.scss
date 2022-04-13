@@ -488,7 +488,6 @@ li.inline:first-child {
     inset-inline-end: 0;
     height: 100%;
     line-height: 100%;
-    z-index: 1;
 
     &--object {
       // Remove once we drop support for Safari 13.
@@ -496,11 +495,11 @@ li.inline:first-child {
       right: 20px;
       inset-inline-end: 20px;
 
-      @include media-breakpoint-up(sm) {
+      @include media-breakpoint-up(lg) {
         // Remove once we drop support for Safari 13.
         // stylelint-disable-next-line property-disallowed-list
-        right: 440px;
-        inset-inline-end: 440px;
+        right: 350px;
+        inset-inline-end: 350px;
       }
     }
 
