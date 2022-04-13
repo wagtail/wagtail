@@ -569,11 +569,15 @@ class Delete(DeleteView):
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("delete", self.model)
+
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
         if self.pk:
             instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
         else:
@@ -606,10 +610,6 @@ class Delete(DeleteView):
         )
 
     def post(self, request, *args, **kwargs):
-        permission = get_permission_name("delete", self.model)
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
         if self.pk:
             instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
         else:
