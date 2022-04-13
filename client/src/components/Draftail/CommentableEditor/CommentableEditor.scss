@@ -1,3 +1,11 @@
+.Draftail-CommentControl {
+  display: none;
+
+  .tab-content--comments-enabled & {
+    display: block;
+  }
+}
+
 .Draftail-CommentControl .Draftail-ToolbarButton {
   color: theme('colors.secondary.100');
 

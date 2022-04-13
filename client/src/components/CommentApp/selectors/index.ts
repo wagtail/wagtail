@@ -27,8 +27,6 @@ export function selectCommentFactory(localId: number) {
   });
 }
 
-export const selectEnabled = (state: State) => state.settings.commentsEnabled;
-
 export const selectIsDirty = createSelector(
   selectComments,
   selectRemoteCommentCount,
