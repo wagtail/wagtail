@@ -557,6 +557,8 @@ def delete(request, app_label, model_name, pk=None):
 
 class Usage(IndexView):
     template_name = "wagtailsnippets/snippets/usage.html"
+    paginate_by = 20
+    page_kwarg = "p"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -565,21 +567,33 @@ class Usage(IndexView):
         self.model_name = kwargs.get("model_name")
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
+        self.instance = self._get_instance()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def get(self, request, *args, **kwargs):
-        instance = get_object_or_404(self.model, pk=unquote(self.pk))
+    def _get_instance(self):
+        return get_object_or_404(self.model, pk=unquote(self.pk))
 
-        paginator = Paginator(instance.get_usage(), per_page=20)
-        used_by = paginator.get_page(request.GET.get("p"))
+    def get_queryset(self):
+        return self.instance.get_usage()
 
-        return TemplateResponse(
-            request,
-            self.template_name,
-            {"instance": instance, "used_by": used_by},
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
         )
+
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({"instance": self.instance, "used_by": context.get("page_obj")})
+        return context
 
 
 def redirect_to_edit(request, app_label, model_name, pk):
