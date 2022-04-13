@@ -387,21 +387,29 @@ class Create(CreateView):
 
 
 class Edit(EditView):
-    def get(self, request, *args, app_label, model_name, pk, **kwargs):
-        model = get_snippet_model_from_url_params(app_label, model_name)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
 
-        permission = get_permission_name("change", model)
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+        self.model = self._get_model()
+
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def get(self, request, *args, pk, **kwargs):
+        permission = get_permission_name("change", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
-        instance = get_object_or_404(model, pk=unquote(pk))
+        instance = get_object_or_404(self.model, pk=unquote(pk))
 
         for fn in hooks.get_hooks("before_edit_snippet"):
             result = fn(request, instance)
             if hasattr(result, "status_code"):
                 return result
 
-        edit_handler = get_snippet_edit_handler(model)
+        edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(instance=instance, for_user=request.user)
 
@@ -412,7 +420,7 @@ class Edit(EditView):
         action_menu = SnippetActionMenu(request, view="edit", instance=instance)
 
         context = {
-            "model_opts": model._meta,
+            "model_opts": self.model._meta,
             "instance": instance,
             "edit_handler": edit_handler,
             "form": form,
@@ -424,7 +432,7 @@ class Edit(EditView):
         }
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            model, TranslatableMixin
+            self.model, TranslatableMixin
         ):
             context.update(
                 {
@@ -434,7 +442,11 @@ class Edit(EditView):
                             "locale": translation.locale,
                             "url": reverse(
                                 "wagtailsnippets:edit",
-                                args=[app_label, model_name, quote(translation.pk)],
+                                args=[
+                                    self.app_label,
+                                    self.model_name,
+                                    quote(translation.pk),
+                                ],
                             ),
                         }
                         for translation in instance.get_translations().select_related(
@@ -446,21 +458,19 @@ class Edit(EditView):
 
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
-    def post(self, request, *args, app_label, model_name, pk, **kwargs):
-        model = get_snippet_model_from_url_params(app_label, model_name)
-
-        permission = get_permission_name("change", model)
+    def post(self, request, *args, pk, **kwargs):
+        permission = get_permission_name("change", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
-        instance = get_object_or_404(model, pk=unquote(pk))
+        instance = get_object_or_404(self.model, pk=unquote(pk))
 
         for fn in hooks.get_hooks("before_edit_snippet"):
             result = fn(request, instance)
             if hasattr(result, "status_code"):
                 return result
 
-        edit_handler = get_snippet_edit_handler(model)
+        edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(
             request.POST, request.FILES, instance=instance, for_user=request.user
@@ -475,14 +485,14 @@ class Edit(EditView):
                 request,
                 _("%(snippet_type)s '%(instance)s' updated.")
                 % {
-                    "snippet_type": capfirst(model._meta.verbose_name),
+                    "snippet_type": capfirst(self.model._meta.verbose_name),
                     "instance": instance,
                 },
                 buttons=[
                     messages.button(
                         reverse(
                             "wagtailsnippets:edit",
-                            args=(app_label, model_name, quote(instance.pk)),
+                            args=(self.app_label, self.model_name, quote(instance.pk)),
                         ),
                         _("Edit"),
                     )
@@ -494,7 +504,7 @@ class Edit(EditView):
                 if hasattr(result, "status_code"):
                     return result
 
-            return redirect("wagtailsnippets:list", app_label, model_name)
+            return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
         edit_handler = edit_handler.get_bound_panel(
             instance=instance, request=request, form=form
@@ -503,7 +513,7 @@ class Edit(EditView):
         action_menu = SnippetActionMenu(request, view="edit", instance=instance)
 
         context = {
-            "model_opts": model._meta,
+            "model_opts": self.model._meta,
             "instance": instance,
             "edit_handler": edit_handler,
             "form": form,
@@ -515,7 +525,7 @@ class Edit(EditView):
         }
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            model, TranslatableMixin
+            self.model, TranslatableMixin
         ):
             context.update(
                 {
@@ -525,7 +535,11 @@ class Edit(EditView):
                             "locale": translation.locale,
                             "url": reverse(
                                 "wagtailsnippets:edit",
-                                args=[app_label, model_name, quote(translation.pk)],
+                                args=[
+                                    self.app_label,
+                                    self.model_name,
+                                    quote(translation.pk),
+                                ],
                             ),
                         }
                         for translation in instance.get_translations().select_related(
