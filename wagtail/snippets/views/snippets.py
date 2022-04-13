@@ -388,6 +388,7 @@ class Create(CreateView):
 
 class Edit(EditView):
     template_name = "wagtailsnippets/snippets/edit.html"
+    error_message = _("The snippet could not be saved due to errors.")
 
     def _run_before_hooks(self):
         for fn in hooks.get_hooks("before_edit_snippet"):
