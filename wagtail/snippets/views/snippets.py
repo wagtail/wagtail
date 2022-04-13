@@ -431,6 +431,17 @@ class Edit(EditView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def _get_bound_panel(self, form):
+        return self.edit_handler.get_bound_panel(
+            request=self.request, instance=self.object, form=form
+        )
+
+    def _get_action_menu(self):
+        return SnippetActionMenu(self.request, view="edit", instance=self.object)
+
+    def _get_latest_log_entry(self):
+        return log_registry.get_logs_for_instance(self.object).first()
+
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
@@ -443,11 +454,9 @@ class Edit(EditView):
     def get(self, request, *args, **kwargs):
         form = self.get_form()
 
-        edit_handler = self.edit_handler.get_bound_panel(
-            instance=self.object, request=request, form=form
-        )
-        latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
-        action_menu = SnippetActionMenu(request, view="edit", instance=self.object)
+        edit_handler = self._get_bound_panel(form)
+        action_menu = self._get_action_menu()
+        latest_log_entry = self._get_latest_log_entry()
 
         context = {
             "model_opts": self.model._meta,
@@ -527,11 +536,9 @@ class Edit(EditView):
         if form.is_valid():
             return self.form_valid(form)
 
-        edit_handler = self.edit_handler.get_bound_panel(
-            instance=self.object, request=request, form=form
-        )
-        latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
-        action_menu = SnippetActionMenu(request, view="edit", instance=self.object)
+        edit_handler = self._get_bound_panel(form)
+        action_menu = self._get_action_menu()
+        latest_log_entry = self._get_latest_log_entry()
 
         context = {
             "model_opts": self.model._meta,
