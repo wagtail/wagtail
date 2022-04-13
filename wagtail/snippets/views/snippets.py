@@ -565,6 +565,7 @@ class Delete(DeleteView):
         self.model_name = kwargs.get("model_name")
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
+        self.object = self.get_object()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -577,19 +578,23 @@ class Delete(DeleteView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
-        if self.pk:
-            instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
-        else:
-            ids = request.GET.getlist("id")
-            instances = self.model.objects.filter(pk__in=ids)
+    def get_object(self, queryset=None):
+        # Customised to allow returning multiple objects instead of just one
 
+        if self.pk:
+            return [get_object_or_404(self.model, pk=unquote(self.pk))]
+
+        ids = self.request.GET.getlist("id")
+        instances = self.model.objects.filter(pk__in=ids)
+        return instances
+
+    def get(self, request, *args, **kwargs):
         for fn in hooks.get_hooks("before_delete_snippet"):
-            result = fn(request, instances)
+            result = fn(request, self.object)
             if hasattr(result, "status_code"):
                 return result
 
-        count = len(instances)
+        count = len(self.object)
 
         return TemplateResponse(
             request,
@@ -597,34 +602,28 @@ class Delete(DeleteView):
             {
                 "model_opts": self.model._meta,
                 "count": count,
-                "instances": instances,
+                "instances": self.object,
                 "submit_url": (
                     reverse(
                         "wagtailsnippets:delete-multiple",
                         args=(self.app_label, self.model_name),
                     )
                     + "?"
-                    + urlencode([("id", instance.pk) for instance in instances])
+                    + urlencode([("id", instance.pk) for instance in self.object])
                 ),
             },
         )
 
     def post(self, request, *args, **kwargs):
-        if self.pk:
-            instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
-        else:
-            ids = request.GET.getlist("id")
-            instances = self.model.objects.filter(pk__in=ids)
-
         for fn in hooks.get_hooks("before_delete_snippet"):
-            result = fn(request, instances)
+            result = fn(request, self.object)
             if hasattr(result, "status_code"):
                 return result
 
-        count = len(instances)
+        count = len(self.object)
 
         with transaction.atomic():
-            for instance in instances:
+            for instance in self.object:
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
@@ -649,7 +648,7 @@ class Delete(DeleteView):
         messages.success(request, message_content)
 
         for fn in hooks.get_hooks("after_delete_snippet"):
-            result = fn(request, instances)
+            result = fn(request, self.object)
             if hasattr(result, "status_code"):
                 return result
 
