@@ -608,32 +608,6 @@ class Delete(DeleteView):
         instances = self.model.objects.filter(pk__in=ids)
         return instances
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        count = len(self.object)
-        context.update(
-            {
-                "model_opts": self.model._meta,
-                "count": count,
-                "instances": self.object,
-                "submit_url": (
-                    reverse(
-                        "wagtailsnippets:delete-multiple",
-                        args=(self.app_label, self.model_name),
-                    )
-                    + "?"
-                    + urlencode([("id", instance.pk) for instance in self.object])
-                ),
-            }
-        )
-        return context
-
-    def delete_action(self):
-        with transaction.atomic():
-            for instance in self.object:
-                log(instance=instance, action="wagtail.delete")
-                instance.delete()
-
     def get_success_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
 
@@ -656,6 +630,32 @@ class Delete(DeleteView):
             "snippet_type": capfirst(self.model._meta.verbose_name_plural),
             "count": count,
         }
+
+    def delete_action(self):
+        with transaction.atomic():
+            for instance in self.object:
+                log(instance=instance, action="wagtail.delete")
+                instance.delete()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        count = len(self.object)
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "count": count,
+                "instances": self.object,
+                "submit_url": (
+                    reverse(
+                        "wagtailsnippets:delete-multiple",
+                        args=(self.app_label, self.model_name),
+                    )
+                    + "?"
+                    + urlencode([("id", instance.pk) for instance in self.object])
+                ),
+            }
+        )
+        return context
 
     def form_valid(self, form):
         response = super().form_valid(form)
