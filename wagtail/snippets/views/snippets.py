@@ -633,30 +633,30 @@ class Delete(DeleteView):
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
-    def post(self, request, *args, **kwargs):
+    def get_success_message(self):
         count = len(self.object)
-
-        self.delete_action()
-
         if count == 1:
-            message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
+            return _("%(snippet_type)s '%(instance)s' deleted.") % {
                 "snippet_type": capfirst(self.model._meta.verbose_name),
                 "instance": self.object[0],
             }
-        else:
-            # This message is only used in plural form, but we'll define it with ngettext so that
-            # languages with multiple plural forms can be handled correctly (or, at least, as
-            # correctly as possible within the limitations of verbose_name_plural...)
-            message_content = ngettext(
-                "%(count)d %(snippet_type)s deleted.",
-                "%(count)d %(snippet_type)s deleted.",
-                count,
-            ) % {
-                "snippet_type": capfirst(self.model._meta.verbose_name_plural),
-                "count": count,
-            }
 
-        messages.success(request, message_content)
+        # This message is only used in plural form, but we'll define it with ngettext so that
+        # languages with multiple plural forms can be handled correctly (or, at least, as
+        # correctly as possible within the limitations of verbose_name_plural...)
+        return ngettext(
+            "%(count)d %(snippet_type)s deleted.",
+            "%(count)d %(snippet_type)s deleted.",
+            count,
+        ) % {
+            "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+            "count": count,
+        }
+
+    def post(self, request, *args, **kwargs):
+        self.delete_action()
+
+        messages.success(request, self.get_success_message())
 
         hooks_result = self._run_after_hooks()
         if hooks_result is not None:
