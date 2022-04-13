@@ -558,6 +558,20 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
+    def _run_before_hooks(self):
+        for fn in hooks.get_hooks("before_delete_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+        return None
+
+    def _run_after_hooks(self):
+        for fn in hooks.get_hooks("after_delete_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+        return None
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
 
@@ -576,6 +590,10 @@ class Delete(DeleteView):
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
@@ -589,11 +607,6 @@ class Delete(DeleteView):
         return instances
 
     def get(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_delete_snippet"):
-            result = fn(request, self.object)
-            if hasattr(result, "status_code"):
-                return result
-
         count = len(self.object)
 
         return TemplateResponse(
@@ -615,11 +628,6 @@ class Delete(DeleteView):
         )
 
     def post(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_delete_snippet"):
-            result = fn(request, self.object)
-            if hasattr(result, "status_code"):
-                return result
-
         count = len(self.object)
 
         with transaction.atomic():
@@ -647,10 +655,9 @@ class Delete(DeleteView):
 
         messages.success(request, message_content)
 
-        for fn in hooks.get_hooks("after_delete_snippet"):
-            result = fn(request, self.object)
-            if hasattr(result, "status_code"):
-                return result
+        hooks_result = self._run_after_hooks()
+        if hooks_result is not None:
+            return hooks_result
 
         return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
