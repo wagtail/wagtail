@@ -387,7 +387,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
                 )
 
             lock_message += format_html(
-                '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                 reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                 _("Unlock"),
             )
@@ -412,7 +412,7 @@ class EditView(TemplateResponseMixin, ContextMixin, HookResponseMixin, View):
 
             if self.page_perms.can_unlock():
                 lock_message += format_html(
-                    '<span class="buttons"><button class="button button-small button-secondary" data-locking-action="{}">{}</button></span>',
+                    '<span class="buttons"><button type="button" class="button button-small button-secondary" data-action-lock-unlock data-url="{}">{}</button></span>',
                     reverse("wagtailadmin_pages:unlock", args=(self.page.id,)),
                     _("Unlock"),
                 )

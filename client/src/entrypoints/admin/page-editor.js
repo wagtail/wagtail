@@ -469,4 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
       setPanel('');
     });
   }
+
+  setPanel('status');
 });
