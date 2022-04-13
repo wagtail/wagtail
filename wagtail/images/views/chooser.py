@@ -158,21 +158,18 @@ def image_chosen(request, image_id):
     )
 
 
-def duplicate_found(request, new_image, duplicates):
+def duplicate_found(request, new_image, existing_image):
     next_step_url = (
         "wagtailimages:chooser_select_format"
         if request.GET.get("select_format")
         else "wagtailimages:image_chosen"
     )
-
-    confirm_duplicate_upload_action = reverse(next_step_url, args=(new_image.id,))
-
-    existing_image = duplicates[0]
+    choose_new_image_url = reverse(next_step_url, args=(new_image.id,))
     choose_existing_image_url = reverse(next_step_url, args=(existing_image.id,))
+
     cancel_duplicate_upload_action = (
-        reverse("wagtailimages:delete", args=(new_image.id,))
-        + "?"
-        + urlencode({"next": choose_existing_image_url})
+        f"{reverse('wagtailimages:delete', args=(new_image.id,))}?"
+        f"{urlencode({'next': choose_existing_image_url})}"
     )
 
     duplicate_upload_html = render_to_string(
@@ -180,7 +177,7 @@ def duplicate_found(request, new_image, duplicates):
         {
             "new_image": new_image,
             "existing_image": existing_image,
-            "confirm_duplicate_upload_action": confirm_duplicate_upload_action,
+            "confirm_duplicate_upload_action": choose_new_image_url,
             "cancel_duplicate_upload_action": cancel_duplicate_upload_action,
         },
         request,
@@ -231,8 +228,9 @@ def chooser_upload(request):
                 user=request.user,
                 permission_policy=permission_policy,
             )
-            if duplicates:
-                return duplicate_found(request, image, duplicates)
+            existing_image = duplicates.first()
+            if existing_image:
+                return duplicate_found(request, image, existing_image)
 
             if request.GET.get("select_format"):
                 form = ImageInsertionForm(
