@@ -340,9 +340,11 @@ window.comments = (() => {
     const commentToggle = document.querySelector(
       '[data-side-panel-toggle="comments"]',
     );
+
     const commentCounter = document.createElement('div');
     commentCounter.style.marginTop = '-0.8rem'; // TODO: replace this with suitable Tailwind classes
     commentToggle.appendChild(commentCounter);
+
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
         commentApp.store.getState(),
