@@ -1,8 +1,8 @@
 {% load wagtailadmin_tags %}
-<section class="w-py-6" aria-labelledby="status-sidebar-{{ title|cautious_slugify }}">
+<div class="w-py-6">
 
     {% block content %}
-        <div class="w-flex w-space-x-3">
+        <section class="w-flex w-space-x-3" aria-labelledby="status-sidebar-{{ title|cautious_slugify }}">
             {% icon name=icon_name class_name='w-w-5 w-h-5 w-text-primary w-flex-shrink-0' %}
 
             <div class="w-flex w-flex-1 w-items-start w-justify-between">
@@ -17,17 +17,17 @@
                 {% block action %}
                     {% if hide_action %}
                         <a class="w-text-14 w-text-teal-200 w-no-underline hover:w-underline w-transition"
-                            href="{{ action_url }}"
-                            aria-describedby="status-sidebar-{{ title|cautious_slugify }}"
+                           href="{{ action_url }}"
+                           aria-describedby="status-sidebar-{{ title|cautious_slugify }}"
                         >
                             {{ action_text }}
                         </a>
                     {% endif %}
                 {% endblock %}
             </div>
-        </div>
+        </section>
     {% endblock %}
 
     {% block bottom %}
     {% endblock %}
-</section>
+</div>
