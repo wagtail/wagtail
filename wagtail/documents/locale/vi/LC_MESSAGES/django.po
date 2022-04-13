@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Amelia Dao, 2022
 # Vu Pham, 2021
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:12+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Amelia Dao, 2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +20,23 @@ msgstr ""
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
+msgid "Wagtail documents"
+msgstr "Tài liệu Wagtail"
+
+msgid "Collection"
+msgstr "Bộ sưu tập"
+
 msgid "Add"
 msgstr "Thêm"
 
+msgid "Add/edit documents you own"
+msgstr "Thêm/Sửa tài liệu của bạn"
+
 msgid "Edit"
 msgstr "Biên tập"
+
+msgid "Edit any document"
+msgstr "Chỉnh sửa bất kì tài liệu nào"
 
 msgid "Choose"
 msgstr "Chọn"
@@ -31,17 +44,43 @@ msgstr "Chọn"
 msgid "title"
 msgstr "tiêu đề"
 
+msgid "file"
+msgstr "Tệp"
+
+msgid "created at"
+msgstr "Được tạo lúc"
+
+msgid "uploaded by user"
+msgstr "Được tải lên bởi người dùng"
+
 msgid "document"
 msgstr "văn bản"
 
 msgid "documents"
 msgstr "văn bản"
 
+msgid "Yes, add"
+msgstr "Đồng ý, thêm"
+
+msgid "No, don't add"
+msgstr "Không thêm"
+
 msgid "Delete documents"
 msgstr "Xóa văn bản"
 
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "Dùng %(usage_count)s lần"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
+
+msgid "No, don't delete"
+msgstr "Không xoá"
+
+msgid "Choose a document"
+msgstr "Chọn một văn bản"
 
 msgid "Search"
 msgstr "Tìm kiếm"
@@ -83,3 +122,6 @@ msgstr "Lỗi Hệ thống"
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Văn bản '{0}' đã được xóa."
+
+msgid "Edit this document"
+msgstr "Biên tập văn bản này"

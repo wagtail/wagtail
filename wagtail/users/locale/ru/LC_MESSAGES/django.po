@@ -13,7 +13,8 @@
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
-# Влад <integration.into.society@gmail.com>, 2021
+# Vladislav <integration.into.society@gmail.com>, 2022
+# Vladislav <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
@@ -21,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:44+0000\n"
-"Last-Translator: sergeybe <sergeybe@gmail.com>\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -136,14 +137,60 @@ msgstr "профиль пользователя"
 msgid "user profiles"
 msgstr "профили пользователя"
 
+msgid "Assign role"
+msgstr "Назначить роль"
+
+msgid "Are you sure you want to assign this role to these users?"
+msgstr "Вы уверены, что хотите назначить эту роль этим пользователям?"
+
+msgid "You don't have permission to edit this user"
+msgid_plural "You don't have permission to edit these users"
+msgstr[0] "У вас недостаточно прав для редактирования этого пользователя"
+msgstr[1] "У вас недостаточно прав для редактирования этих пользователей"
+msgstr[2] "У вас недостаточно прав для редактирования этих пользователей"
+msgstr[3] "У вас недостаточно прав для редактирования этих пользователей"
+
+msgid "Yes, assign"
+msgstr "Да, назначить"
+
+msgid "No, don't assign"
+msgstr "Нет, не назначать"
+
+#, python-format
+msgid "Delete 1 user "
+msgid_plural "Delete %(counter)s users"
+msgstr[0] "Удалить одного пользователя"
+msgstr[1] "Удалить %(counter)s пользователей"
+msgstr[2] "Удалить %(counter)s пользователей"
+msgstr[3] "Удалить %(counter)s пользователей"
+
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Are you sure you want to delete these users?"
+msgstr "Вы уверены, что хотите удалить этих пользователей?"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
 
 msgid "No, don't delete"
 msgstr "Нет, не удалять"
+
+msgid "Set active state"
+msgstr "Установить активное состояние"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Вы уверены, что хотите изменить активное состояние для этих пользователей?"
+
+msgid "You cannot change your own active status"
+msgstr "Вы не можете изменить свой активный статус"
+
+msgid "Yes, change state"
+msgstr "Да, изменить состояние"
+
+msgid "No, don't change state"
+msgstr "Нет, не менять состояние"
 
 msgid "Delete group"
 msgstr "Удалить группу"
@@ -217,6 +264,9 @@ msgstr "Добавить"
 msgid "Change"
 msgstr "Изменить"
 
+msgid "Custom permissions"
+msgstr "Пользовательские разрешения"
+
 msgid "Other permissions"
 msgstr "Другие разрешения"
 
@@ -267,6 +317,9 @@ msgstr "Пользователи"
 
 msgid "Add a user"
 msgstr "Добавить пользователя"
+
+msgid "Select all users in listing"
+msgstr "Выбрать всех пользователей в списке"
 
 msgid "Username"
 msgstr "Имя пользователя"
@@ -336,6 +389,15 @@ msgid ""
 msgstr ""
 "Пользователи не сконфигурированы. <a href=\"%(wagtailusers_add_url)s"
 "\">Добавить пользователя</a>."
+
+msgid "Assign role to selected users"
+msgstr "Назначить роль выбранным пользователям"
+
+msgid "Delete selected users"
+msgstr "Удалить выбранных пользователей"
+
+msgid "Change the active state for selected users"
+msgstr "Изменить активное состояние для выбранных пользователей"
 
 msgid "Groups"
 msgstr "Группы"

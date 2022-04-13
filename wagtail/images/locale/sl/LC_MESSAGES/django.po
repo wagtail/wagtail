@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,12 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail images"
+msgstr "Wagtail slike"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -46,11 +53,38 @@ msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Datoteka je prevelika (%%s). Največja dovoljena velikost je %s."
 
 #, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "Ta datoteka ima preveč pikslov (%%s). Maksimalno število pikslov %s."
+
+#, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Datoteka je prevelika. Največja dovoljena velikost je %s."
 
+msgid "Full width"
+msgstr "Polna širina"
+
+msgid "Left-aligned"
+msgstr "Poravnano levo"
+
+msgid "Right-aligned"
+msgstr "Desno poravnano"
+
 msgid "Collection"
 msgstr "Zbirka"
+
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "Slika je dekorativna"
+
+msgid "Alt text"
+msgstr "Nadomestno besedilo"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr ""
+"Dodajte nekaj nadomestnega besedila za svojo sliko ali jo označite kot "
+"okrasno"
 
 msgid "Filter"
 msgstr "Filter"
@@ -97,6 +131,9 @@ msgstr "Uredi katerokoli sliko"
 msgid "Choose"
 msgstr "Izberite"
 
+msgid "Select images in choosers"
+msgstr "Izberite slike v izbirnikih"
+
 msgid "title"
 msgstr "naziv"
 
@@ -117,6 +154,31 @@ msgstr "naložil uporabnik"
 
 msgid "tags"
 msgstr "oznaka"
+
+msgid "image"
+msgstr "slika"
+
+msgid "images"
+msgstr "slike"
+
+msgid "Add tags to images"
+msgstr "Dodaj oznake k slikam"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Ali ste prepričani, da želite označiti naslednjo sliko?"
+msgstr[1] "Ali ste prepričani, da želite označiti naslednji sliki?"
+msgstr[2] "Ali ste prepričani, da želite označiti naslednje slike?"
+msgstr[3] "Ali ste prepričani, da želite označiti naslednje slike?"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, ne dodaj"
+
+msgid "Delete images"
+msgstr "Izbriši slike"
 
 msgid "Yes, delete"
 msgstr "Da, izbriši"
@@ -144,6 +206,9 @@ msgstr "Izberite obliko zapisa"
 
 msgid "Insert image"
 msgstr "Vstavi sliko"
+
+msgid "Uploading…"
+msgstr "Nalagam..."
 
 msgid "Change image file:"
 msgstr "Spremeni datoteko slike:"
@@ -198,11 +263,20 @@ msgstr "Velikost"
 msgid "File not found"
 msgstr "Datoteka ne obstaja"
 
+msgid "Usage"
+msgstr "Uporaba"
+
 msgid "Images"
 msgstr "Slike"
 
 msgid "Clear choice"
 msgstr "Počisti izbiro"
+
+msgid "Select image"
+msgstr "Izberi sliko"
+
+msgid "pixels"
+msgstr "pikslov"
 
 #, python-format
 msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
@@ -285,8 +359,23 @@ msgstr "Dovoljenja slike"
 msgid "Add an image permission"
 msgstr "Dodaj dovoljenje slike"
 
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add tags to the selected images"
+msgstr "Izbranim slikam dodajte oznake"
+
+msgid "Add to collection"
+msgstr "Dodaj v zbirko"
+
+msgid "Add selected images to collection"
+msgstr "Dodajte izbrane slike v zbirko"
+
 msgid "Delete"
 msgstr "Izbriši"
+
+msgid "Delete selected images"
+msgstr "Izbriši izbrane slike"
 
 msgid "Search images"
 msgstr "Iskanje po slikah"
@@ -318,6 +407,9 @@ msgstr "Slika '{0}' dodana."
 
 msgid "The image could not be created due to errors."
 msgstr "Slike, zaradi napak, ni bilo možno ustvariti."
+
+msgid "Image"
+msgstr "Slika"
 
 #, python-format
 msgid "%(count)s image"

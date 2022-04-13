@@ -4,14 +4,14 @@
 #
 # Translators:
 # Matas Dailyda <matas@dailyda.com>, 2017-2018
-# Naglis Jonaitis, 2020-2021
+# Naglis Jonaitis, 2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Naglis Jonaitis, 2020-2022\n"
 "Language-Team: Lithuanian (http://www.transifex.com/torchbox/wagtail/"
 "language/lt/)\n"
 "MIME-Version: 1.0\n"
@@ -78,6 +78,12 @@ msgstr "Data nuo"
 
 msgid "Date to"
 msgstr "Data iki"
+
+msgid "Preferred language"
+msgstr "Pageidaujama kalba"
+
+msgid "Current time zone"
+msgstr "Dabartinė laiko juosta"
 
 msgid "First Name"
 msgstr "Vardas"
@@ -247,12 +253,24 @@ msgstr "Anuliuoti"
 msgid "Redo"
 msgstr "Atgrąžinti"
 
+msgid "Reload the page"
+msgstr "Įkelti puslapį iš naujo"
+
+msgid "Show error"
+msgstr "Rodyti klaidą"
+
+msgid "Broken link"
+msgstr "Neveikianti nuoroda"
+
 msgid "Close"
 msgstr "Uždaryti"
 
 #, python-brace-format
 msgid "Edit '{title}'"
 msgstr "Redaguoti '{title}'"
+
+msgid "Page explorer"
+msgstr "Puslapių naršyklė"
 
 msgid "Save"
 msgstr "Išsaugoti"
@@ -263,11 +281,20 @@ msgstr "Saugojama..."
 msgid "Cancel"
 msgstr "Atšaukti"
 
+msgid "Add a comment"
+msgstr "Pridėti komentarą"
+
 msgid "Show comments"
 msgstr "Rodyti komentarus"
 
+msgid "Reply"
+msgstr "Atsakyti"
+
 msgid "Resolve"
 msgstr "Išspręsti"
+
+msgid "Retry"
+msgstr "Bandyti dar kartą"
 
 msgid "Comment"
 msgstr "Komentaras"
@@ -323,6 +350,13 @@ msgstr "Nustatykite savo naują slaptažodį"
 msgid "Check your email"
 msgstr "Patikrinkite savo elektroninį paštą"
 
+msgid ""
+"A link to reset your password has been emailed to you if an account exists "
+"for this address."
+msgstr ""
+"Slaptažodžio atstatymo nuoroda išsiųsta el. paštu, jei paskyra su šiuo el. "
+"pašto adresu egzistuoja."
+
 msgid "Please follow the link below to reset your password:"
 msgstr "Sekite žemiau esančią nuorodą kad atstatytumėte savo slaptažodį:"
 
@@ -338,6 +372,9 @@ msgstr "Atstatyti savo slaptažodį"
 msgid "Go back"
 msgstr "Grįžti atgal"
 
+msgid "Select row"
+msgstr "Pažymėti eilutę"
+
 msgid "Select all"
 msgstr "Pažymėti visas"
 
@@ -349,6 +386,15 @@ msgstr "Išorinė nuoroda"
 
 msgid "Email link"
 msgstr "Elektroninio pašto nuoroda"
+
+msgid "Phone link"
+msgstr "Telefono nuoroda"
+
+msgid "Anchor link"
+msgstr "Pririšta nuoroda"
+
+msgid "Add an anchor link"
+msgstr "Pridėti pririštą nuorodą"
 
 msgid "Choose"
 msgstr "Pasirinkti"
@@ -384,6 +430,26 @@ msgstr[3] ""
 "Tik sekantys puslapio tipai gali būti pasirinkti šiam laukui: %(type)s. "
 "Paieškos rezultatai nerodys kitų tipų puslapių."
 
+msgid "Convert to internal link"
+msgstr "Paversti į vidinę nuorodą"
+
+#, python-format
+msgid ""
+"\n"
+"                Converting this to an internal link to %(page)s would make "
+"the link more robust.\n"
+"                Would you like to do this?\n"
+"            "
+msgstr ""
+"\n"
+"                Pavertus šią nuorodą į vidinę nuorodą į %(page)s padarytų "
+"nuorodą patvaresnę.\n"
+"                Ar norite tai atlikti?\n"
+"            "
+
+msgid "Use external link"
+msgstr "Naudoti išorinę nuorodą"
+
 msgid "Add an email link"
 msgstr "Pridėti elektroninio pašto nuorodą"
 
@@ -392,6 +458,9 @@ msgstr "Iterpti nuorodą"
 
 msgid "Add an external link"
 msgstr "Pridėti išorinę nuorodą"
+
+msgid "Add a phone link"
+msgstr "Pridėti telefono nuorodą"
 
 msgid "Collection privacy"
 msgstr "Kolekcijos privatumas"
@@ -504,6 +573,9 @@ msgstr "Data"
 msgid "Site summary"
 msgstr "Tinklalapio suvestinė"
 
+msgid "Tasks"
+msgstr "Užduotys"
+
 msgid "Sign in"
 msgstr "Prisijungti"
 
@@ -514,8 +586,14 @@ msgstr "Jūsų %(username_field)s ir slaptažodis nesutapo. Bandykite dar kartą
 msgid "Sign in to Wagtail"
 msgstr "Prisijungti prie Wagtail"
 
+msgid "Remember me"
+msgstr "Prisiminti mane"
+
 msgid "Signing in…"
 msgstr "Prisijungiama..."
+
+msgid "Forgotten password?"
+msgstr "Pamiršote slaptažodį?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -774,6 +852,9 @@ msgstr "prieš %(time_period)s"
 msgid "Exploring %(title)s"
 msgstr "Naršoma %(title)s"
 
+msgid "Select page"
+msgstr "Pasirinkti puslapį"
+
 msgid "Drag"
 msgstr "Tempti"
 
@@ -915,6 +996,9 @@ msgstr ""
 "Prašome uždaryti šį skirtuką ir redaguoti puslapį kad ištaisytumėte "
 "klaidas,\n"
 "ir tik tada bandyti peržiūrėti puslapį dar karta."
+
+msgid "Set page privacy"
+msgstr "Nustatyti puslapio privatumą"
 
 msgid "Cancel scheduled publish"
 msgstr "Atšaukti suplanuotą publikavimą"

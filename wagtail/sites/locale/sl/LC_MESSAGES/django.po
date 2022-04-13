@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-10-03 15:24+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail sites"
+msgstr "Wagtail stran"
 
 msgid "Choose a root page"
 msgstr "Izberite začetno stran"
@@ -29,6 +33,9 @@ msgstr "Izberite drugo začetno stran"
 msgid "Sites"
 msgstr "Spletna mesta"
 
+msgid "Add a site"
+msgstr "Dodaj stran"
+
 msgid "Site"
 msgstr "Spletno mesto"
 
@@ -37,3 +44,27 @@ msgstr "Privzeta?"
 
 msgid "Default"
 msgstr "Privzeta"
+
+msgid "Add site"
+msgstr "Dodaj stran"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Stran '{0}' kreirana."
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Stran '{0}' posodobljena."
+
+msgid "The site could not be saved due to errors."
+msgstr "Stran ne more biti shranjena zaradi napake"
+
+msgid "Delete site"
+msgstr "Izbriši stran"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Stran '{0}' izbrisana."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Ali ste prepričani da želite izbrisati to stran?"

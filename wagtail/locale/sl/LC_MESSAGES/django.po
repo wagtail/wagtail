@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 # UP, 2021
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,11 +22,28 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Wagtail core"
+msgstr "Wagtail jedro"
+
+msgid "Add Comment"
+msgstr "Dodaj komentar"
+
+#, python-format
+msgid "The minimum number of items is %d"
+msgstr "Najmanjše število predmetov je %d"
+
+#, python-format
+msgid "The maximum number of items is %d"
+msgstr "Največje število predmetov je %d"
+
 msgid "Move up"
 msgstr "Premakni navzgor"
 
 msgid "Move down"
 msgstr "Premakni navzdol"
+
+msgid "Duplicate"
+msgstr "Podvoji"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -33,11 +51,24 @@ msgstr "Izbriši"
 msgid "Add"
 msgstr "Dodaj"
 
+#, python-format
+msgid "%(label)s: this block has no options."
+msgstr "%(label)s: ta blok nima možnosti."
+
+msgid "This block has no options."
+msgstr "Ta blok nima možnosti."
+
 msgid "This field is required."
 msgstr "Polje je obvezno."
 
 msgid "Password"
 msgstr "Geslo"
+
+msgid "The password you have entered is not correct. Please try again."
+msgstr "Geslo, ki ste ga vnesli, ni pravilno. Prosim poskusite ponovno."
+
+msgid "Comment"
+msgstr "Komentar"
 
 msgid "title"
 msgstr "naziv"
@@ -109,11 +140,23 @@ msgstr "pretečeno"
 msgid "locked"
 msgstr "zaklenjeno"
 
+msgid "locked at"
+msgstr "zaklenjena na"
+
+msgid "locked by"
+msgstr "zaklenil"
+
 msgid "first published at"
 msgstr "datum prve objave"
 
+msgid "last published at"
+msgstr "nazadnje objavljeno ob"
+
 msgid "latest revision created at"
 msgstr "zadnja različica ustvarjena"
+
+msgid "live revision"
+msgstr "revizija objavljenih"
 
 msgid "This slug is already in use"
 msgstr "Ključ je že v uporabi"
@@ -121,8 +164,17 @@ msgstr "Ključ je že v uporabi"
 msgid "scheduled"
 msgstr "načrtovana"
 
+msgid "in moderation"
+msgstr "v pregledu"
+
 msgid "draft"
 msgstr "osnutek"
+
+msgid "live + scheduled"
+msgstr "objavljeno + po urniku"
+
+msgid "live + in moderation"
+msgstr "objavljeno + v pregledu"
 
 msgid "live + draft"
 msgstr "objavljeno + osnutek"
@@ -172,8 +224,23 @@ msgstr "Objavi"
 msgid "Publish any page"
 msgstr "Objavi katerokoli stran"
 
+msgid "Bulk delete"
+msgstr "Množično brisanje"
+
+msgid "Delete pages with children"
+msgstr "Izbrišite strani z otroki"
+
 msgid "Lock"
 msgstr "Zakleni"
+
+msgid "Lock/unlock pages you've locked"
+msgstr "Zaklenite/odklenite strani, ki ste jih zaklenili"
+
+msgid "Unlock"
+msgstr "Odkleni"
+
+msgid "Unlock any page"
+msgstr "Odklenite katero koli stran"
 
 msgid "group"
 msgstr "skupina"
@@ -181,14 +248,94 @@ msgstr "skupina"
 msgid "permission type"
 msgstr "tip dovoljenja"
 
+msgid "group page permission"
+msgstr "dovoljenje za stran skupine"
+
+msgid "group page permissions"
+msgstr "dovoljenja skupinske strani"
+
+msgid "page view restriction"
+msgstr "omejitev ogledov strani"
+
+msgid "page view restrictions"
+msgstr "omejitve ogledov strani"
+
+msgid "workflow"
+msgstr "potek dela"
+
+msgid "task"
+msgstr "naloga"
+
 msgid "name"
 msgstr "ime"
+
+msgid "active"
+msgstr "aktiven"
+
+msgid "tasks"
+msgstr "naloge"
+
+msgid "workflows"
+msgstr "delovni potek"
 
 msgid "groups"
 msgstr "skupine"
 
 msgid "Approve"
 msgstr "Potrdi"
+
+msgid "In progress"
+msgstr "V teku"
+
+msgid "Approved"
+msgstr "dobreno"
+
+msgid "Needs changes"
+msgstr "Potrebuje spremembe"
+
+msgid "Cancelled"
+msgstr "Preklicano"
+
+msgid "status"
+msgstr "status"
+
+msgid "Not started"
+msgstr "Ni začeto"
+
+msgid "Rejected"
+msgstr "Zavrnjeno"
+
+msgid "Skipped"
+msgstr "Preskočeno"
+
+msgid "started at"
+msgstr "začeto ob"
+
+msgid "finished at"
+msgstr "zaključeno ob"
+
+msgid "finished by"
+msgstr "zaključil"
+
+msgid "Draft saved"
+msgstr "Osnutek je shranjen"
+
+msgid "log entry"
+msgstr "vnos v dnevnik"
+
+msgid "log entries"
+msgstr "vnosi v dnevnik"
+
+#, python-format
+msgid "user %(id)s (deleted)"
+msgstr "uporabnik%(id)s (izbrisan)"
+
+msgid "system"
+msgstr "sistem"
+
+#, python-format
+msgid "Unknown %(action)s"
+msgstr "Neznan %(action)s"
 
 msgid "collection"
 msgstr "zbirka"
@@ -223,6 +370,9 @@ msgstr "spletno mesto"
 msgid "sites"
 msgstr "spletna mesta"
 
+msgid "default"
+msgstr "privzeto"
+
 #, python-format
 msgid ""
 "%(hostname)s is already configured as the default site. You must unset that "
@@ -246,14 +396,53 @@ msgstr "Zasebno, dostopno uporabnikom iz določenih skupin"
 msgid "password"
 msgstr "geslo"
 
+msgid "Log in"
+msgstr "Prijava"
+
+msgid "Password required"
+msgstr "Geslo zahtevano"
+
+msgid "You need a password to access this page."
+msgstr "Za dostop do te strani potrebujete geslo."
+
+msgid "Continue"
+msgstr "Nadaljuj"
+
+msgid "English"
+msgstr "angleščina"
+
+msgid "French"
+msgstr "francoski"
+
+msgid "German"
+msgstr "nemški"
+
+msgid "Create"
+msgstr "Ustvari"
+
+msgid "Created"
+msgstr "Ustvarjeno"
+
 msgid "Edited"
 msgstr "Urejeno"
+
+msgid "Deleted"
+msgstr "Izbrisano"
 
 msgid "Published"
 msgstr "Objavljeno"
 
+msgid "Publish scheduled draft"
+msgstr "Objavi načrtovani osnutek"
+
+msgid "Published scheduled draft"
+msgstr "Objavljen načrtovani osnutek"
+
 msgid "Unpublish"
 msgstr "Umakni iz objave"
+
+msgid "Unpublished"
+msgstr "Neobjavljeno"
 
 msgid "Locked"
 msgstr "Zaklenjeno"
@@ -264,8 +453,79 @@ msgstr "Odklenjeno"
 msgid "Reject"
 msgstr "Zavrni"
 
+msgid "Rename"
+msgstr "Preimenuj"
+
+msgid "Renamed"
+msgstr "Preimenovano"
+
+msgid "Revert"
+msgstr "Povrni"
+
 msgid "Copy"
 msgstr "Kopiraj"
 
+#, python-format
+msgid "Copied from %(title)s"
+msgstr "Kopirano iz %(title)s"
+
+msgid "Copied"
+msgstr "Kopirano"
+
+msgid "Copy for translation"
+msgstr "Kopiraj iz prevoda"
+
+#, python-format
+msgid "Copied for translation from %(title)s (%(locale)s)"
+msgstr "Kopirano za prevod iz %(title)s (%(locale)s)"
+
+msgid "Copied for translation"
+msgstr "Kopirano za prevod"
+
 msgid "Move"
 msgstr "Premakni"
+
+msgid "Moved"
+msgstr "Premaknjeno"
+
+msgid "Reorder"
+msgstr "Preuredite"
+
+msgid "Reordered"
+msgstr "Preurejeno"
+
+msgid "Page scheduled for publishing"
+msgstr "Stran je načrtovana za objavo"
+
+msgid "Unschedule publication"
+msgstr "Prekliči objavo"
+
+msgid "Add comment"
+msgstr "Dodaj komentar"
+
+msgid "Added a comment"
+msgstr "Dodan komentar"
+
+msgid "Edit comment"
+msgstr "Uredi komentar"
+
+msgid "Edited a comment"
+msgstr "Uredil komentar"
+
+msgid "Delete comment"
+msgstr "Izbriši komentar"
+
+msgid "Deleted a comment"
+msgstr "Izbrisal komentar"
+
+msgid "Resolve comment"
+msgstr "Rešite komentar"
+
+msgid "Edit reply to comment"
+msgstr "Uredi odgovor na komentar"
+
+msgid "Edited a reply"
+msgstr "Uredil odgovor"
+
+msgid "Delete reply to comment"
+msgstr "Izbriši odgovor na komentar"

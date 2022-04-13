@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 15:51+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +19,38 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
 msgid "Delete"
 msgstr "Dileu"
 
 msgid "Add"
 msgstr "Ychwanegu"
 
+msgid "This field is required."
+msgstr "Mae angen y'r ffild hon."
+
+msgid "Password"
+msgstr "Cyfrinair"
+
 msgid "Comment"
 msgstr "Sylw"
 
 msgid "title"
 msgstr "teitl"
+
+msgid "This slug is already in use"
+msgstr "Mae'r wlithen hon eisoes yn cael ei defnyddio"
+
+msgid "Default"
+msgstr "Diofyn"
+
+msgid "page"
+msgstr "tudalen"
 
 msgid "created at"
 msgstr "creu yn"
@@ -46,8 +67,26 @@ msgstr "Clo"
 msgid "Unlock"
 msgstr "Datgloi"
 
+msgid "name"
+msgstr "enw"
+
+msgid "groups"
+msgstr "grwpiau"
+
+msgid "site"
+msgstr "safle"
+
 msgid "default"
 msgstr "diofyn"
 
+msgid "Continue"
+msgstr "Parhau"
+
+msgid "Published"
+msgstr "Wedi cyhoeddi"
+
 msgid "Unpublish"
 msgstr "Anghyhoedd"
+
+msgid "Copy"
+msgstr "Copio"

@@ -7,13 +7,14 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
+# Vladislav <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-16 14:47+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"PO-Revision-Date: 2016-05-11 20:22+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -132,6 +133,10 @@ msgstr "Последнее обновление"
 
 msgid "History"
 msgstr "История"
+
+#, python-format
+msgid "%(result_count)s out of %(all_count)s"
+msgstr "%(result_count)s из %(all_count)s"
 
 #, python-format
 msgid "Sorry, there are no %(name)s matching your search parameters."

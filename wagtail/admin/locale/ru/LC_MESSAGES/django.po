@@ -24,9 +24,10 @@
 # Sergey Khalymon <sergiykhalimon@gmail.com>, 2015
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018,2020
 # Vassily <zuber.kg@gmail.com>, 2019
+# Vladislav <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
 # Виталий Чекрыжев, 2021
-# Влад <integration.into.society@gmail.com>, 2021
+# Vladislav <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 msgid ""
@@ -34,8 +35,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -56,7 +57,7 @@ msgid "Resubmit to {}"
 msgstr "Обновить {}"
 
 msgid "Submit to {}"
-msgstr "Отправить в {}"
+msgstr "Отправить в \"{}\""
 
 msgid "Restart workflow "
 msgstr "Перезапустить рабочий процесс"
@@ -87,7 +88,7 @@ msgstr "Страница заблокирована"
 
 #, python-format
 msgid "%(label)s and Publish"
-msgstr "%(label)sи Опубликовать"
+msgstr "%(label)s и Опубликовать"
 
 msgid "Wagtail admin"
 msgstr "Wagtail админ"
@@ -199,7 +200,7 @@ msgid "Delete collections"
 msgstr "Удалить коллекцию"
 
 msgid "You cannot edit another user's comment."
-msgstr "Вы не можете редактировать комментарий другого пользователя."
+msgstr "Вы не можете редактировать комментарии других пользователей."
 
 msgid "New title"
 msgstr "Новый заголовок"
@@ -435,6 +436,12 @@ msgstr "Сохранить ошибку"
 msgid "This will be saved when the page is saved"
 msgstr "Это будет сохранено при сохранении страницы."
 
+msgid "Focus comment"
+msgstr "Сфокусироваться на комментарии"
+
+msgid "Unfocus comment"
+msgstr "Убрать фокус"
+
 msgid "Comment"
 msgstr "Оставить комментарий"
 
@@ -450,6 +457,12 @@ msgstr "Сохраните страницу, чтобы сохранить эт�
 msgid "Save the page to save this reply"
 msgstr "Сохраните страницу, чтобы добавить этот ответ"
 
+msgid "Toggle sidebar"
+msgstr "Переключить боковую панель"
+
+msgid "Main menu"
+msgstr "Главное меню"
+
 msgid "Dashboard"
 msgstr "Панель управления"
 
@@ -462,6 +475,69 @@ msgstr "1 страница выбрана"
 #, python-brace-format
 msgid "{0} pages selected"
 msgstr "{0} страниц выбрано"
+
+#, python-brace-format
+msgid "All {0} pages on this screen selected"
+msgstr "Выбраны все {0} страницы на этом экране"
+
+msgid "All pages in listing selected"
+msgstr "Выбраны все страницы в списке"
+
+msgid "1 document selected"
+msgstr "1 документ выбран"
+
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "{0} документов выбрано"
+
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "Выбраны все {0} документов на этом экране"
+
+msgid "All documents in listing selected"
+msgstr "Все документы из списка выбраны"
+
+msgid "1 image selected"
+msgstr "Выбрано 1 изображение"
+
+#, python-brace-format
+msgid "{0} images selected"
+msgstr "{0} изображений выбрано"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "Все {0} изображений выбрано на этом экране"
+
+msgid "All images in listing selected"
+msgstr "Выбраны все изображения из списка"
+
+msgid "1 user selected"
+msgstr "1 пользователь выбран"
+
+#, python-brace-format
+msgid "{0} users selected"
+msgstr "{0} пользователей выбрано"
+
+#, python-brace-format
+msgid "All {0} users on this screen selected"
+msgstr "Выбраны все {0} пользователей на этом экране"
+
+msgid "All users in listing selected"
+msgstr "Выбраны все пользователи из списка"
+
+msgid "1 item selected"
+msgstr "1 элемент выбран"
+
+#, python-brace-format
+msgid "{0} items selected"
+msgstr "Выбрано {0} элементов "
+
+#, python-brace-format
+msgid "All {0} items on this screen selected"
+msgstr "Выбраны все {0} элементов на этом экране"
+
+msgid "All items in listing selected"
+msgstr "Все элементы в списке выбраны"
 
 msgid "Error 404: Page not found"
 msgstr "Ошибка 404: Страница не найдена"
@@ -544,6 +620,12 @@ msgstr "Восстановление значений по умолчанию"
 
 msgid "Go back"
 msgstr "Обратно"
+
+msgid "Bulk actions"
+msgstr "Массовые действия"
+
+msgid "Select row"
+msgstr "Выбрать строку"
 
 msgid "Select all"
 msgstr "Выбрать все"
@@ -628,6 +710,30 @@ msgstr[3] ""
 "типов.\n"
 "            "
 
+msgid "Convert to internal link"
+msgstr "Преобразовать во внутреннюю ссылку"
+
+#, python-format
+msgid ""
+"\n"
+"                The URL you entered, <a target=\"_blank\" rel=\"noreferrer "
+"noopener\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"                looks like it matches the internal page %(page)s, which has "
+"the URL\n"
+"                <a target=\"_blank\" rel=\"noreferrer noopener\" href="
+"\"%(internal_url)s\">%(internal_url)s</a>.\n"
+"            "
+msgstr ""
+"\n"
+"URL-адрес, который вы ввели, <a target=\"_blank\" rel=\"noreferrer noopener"
+"\" href=\"%(submitted_url)s\">%(submitted_url)s</a>,\n"
+"похоже соответствует внутренней странице %(page)s, которая имеет URL-адрес\n"
+"<a target=\"_blank\" rel=\"noreferrer noopener\" href=\"%(internal_url)s\">"
+"%(internal_url)s</a>."
+
+msgid "Use external link"
+msgstr "Использовать внешнюю ссылку"
+
 msgid "Add an email link"
 msgstr "Добавить ссылку адреса электронной почты"
 
@@ -695,6 +801,16 @@ msgstr "Двигать вниз"
 
 msgid "Add comment"
 msgstr "Добавить комментарий"
+
+msgid "Comments"
+msgstr "Комментарии"
+
+msgid "Toggle visibility of comment notifications dropdown"
+msgstr ""
+"Переключить видимость раскрывающегося списка уведомлений о комментариях"
+
+msgid "Commenting on this page"
+msgstr "Комментарии на этой странице"
 
 msgid "Comment notifications"
 msgstr "Уведомления о комментариях"
@@ -824,6 +940,9 @@ msgstr "В ожидании вашего отзыва"
 msgid "Tasks"
 msgstr "Задачи"
 
+msgid "Task submitted by"
+msgstr "Задание отправлено"
+
 msgid "Sign in"
 msgstr "Войти"
 
@@ -835,8 +954,14 @@ msgstr ""
 msgid "Sign in to Wagtail"
 msgstr "Войти в Wagtail"
 
+msgid "Remember me"
+msgstr "Запомнить меня"
+
 msgid "Signing in…"
 msgstr "Выполняется вход..."
+
+msgid "Forgotten password?"
+msgstr "Забыли пароль?"
 
 #, python-format
 msgid "The page \"%(title)s\" has been approved."
@@ -1080,11 +1205,194 @@ msgstr "Выберите тип создаваемой страницы."
 msgid "Pages using %(page_type)s"
 msgstr "Страницы, использующие %(page_type)s"
 
+#, python-format
+msgid "Delete 1 page "
+msgid_plural "Delete %(counter)s pages"
+msgstr[0] "Удалить 1 страницу"
+msgstr[1] "Удалить %(counter)s страниц"
+msgstr[2] "Удалить %(counter)s страниц"
+msgstr[3] "Удалить %(counter)s страниц"
+
+msgid "Are you sure you want to delete these pages?"
+msgstr "Вы уверены, что хотите удалить эти страницы?"
+
+msgid "You don't have permission to delete this page"
+msgid_plural "You don't have permission to delete these pages"
+msgstr[0] "У вас недостаточно прав для удаления этой страницы"
+msgstr[1] "У вас недостаточно прав для удаления этих страниц"
+msgstr[2] "У вас недостаточно прав для удаления этих страниц"
+msgstr[3] "У вас недостаточно прав для удаления этих страниц"
+
 msgid "No, don't delete"
 msgstr "Нет, не удалять"
 
+#, python-format
+msgid "Move 1 page"
+msgid_plural "Move %(counter)s pages"
+msgstr[0] "Переместить одну страницу"
+msgstr[1] "Переместить %(counter)s страниц"
+msgstr[2] "Переместить %(counter)s страниц"
+msgstr[3] "Переместить %(counter)s страниц"
+
 msgid "Move"
 msgstr "Переместить"
+
+msgid "Are you sure you want to move these pages?"
+msgstr "Вы уверены, что хотите переместить эти страницы?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one child page\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s child pages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Эта страница содержит одну дочернюю страницу\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+msgstr[2] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+msgstr[3] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+
+msgid "You don't have permission to move this page"
+msgid_plural "You don't have permission to move these pages"
+msgstr[0] "У вас недостаточно прав для перемещения этой страницы"
+msgstr[1] "У вас недостаточно прав для перемещения этих страниц"
+msgstr[2] "У вас недостаточно прав для перемещения этих страниц"
+msgstr[3] "У вас недостаточно прав для перемещения этих страниц"
+
+msgid "The following page cannot be moved due to duplicate slug"
+msgid_plural "The following pages cannot be moved due to duplicate slugs"
+msgstr[0] ""
+"Следующие страницы не могут быть перемещены из-за повторяющегося слага"
+msgstr[1] ""
+"Следующие страницы не могут быть перемещены из-за повторяющихся слагов"
+msgstr[2] ""
+"Следующие страницы не могут быть перемещены из-за повторяющихся слагов"
+msgstr[3] ""
+"Следующие страницы не могут быть перемещены из-за повторяющихся слагов"
+
+msgid "There is no valid destination page for these pages"
+msgstr "Это не корректное назначение для данных страниц"
+
+msgid "Yes, move these pages"
+msgstr "Да, переместить эти страницы"
+
+msgid "No, don't move"
+msgstr "Нет, не перемещать"
+
+#, python-format
+msgid "Publish 1 page "
+msgid_plural "Publish %(counter)s pages"
+msgstr[0] "Опубликована одна страница"
+msgstr[1] "Опубликовано %(counter)s страниц"
+msgstr[2] "Опубликовано %(counter)s страниц"
+msgstr[3] "Опубликовано %(counter)s страниц"
+
+msgid "Are you sure you want to publish these pages?"
+msgstr "Вы уверены, что хотите опубликовать эти страницы?"
+
+#, python-format
+msgid ""
+"\n"
+"                This page has one unpublished subpage\n"
+"                "
+msgid_plural ""
+"\n"
+"                This page has %(counter)s unpublished subpages\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Эта страница содержит одну дочернюю неопубликованную "
+"страницу\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Эта страница содержит %(counter)s неопубликованных "
+"дочерних страниц\n"
+"                    "
+msgstr[2] ""
+"\n"
+"                    Эта страница содержит %(counter)s неопубликованных "
+"дочерних страниц\n"
+"                    "
+msgstr[3] ""
+"\n"
+"                    Эта страница содержит %(counter)s неопубликованных "
+"дочерних страниц\n"
+"                    "
+
+msgid "You don't have permission to publish this page"
+msgid_plural "You don't have permission to publish these pages"
+msgstr[0] "У вас недостаточно прав для публикации этой страницы"
+msgstr[1] "У вас недостаточно прав для публикации этих страниц"
+msgstr[2] "У вас недостаточно прав для публикации этих страниц"
+msgstr[3] "У вас недостаточно прав для публикации этих страниц"
+
+msgid "Yes, publish"
+msgstr "Да, опубликовать"
+
+msgid "No, don't publish"
+msgstr "Нет, не публиковать"
+
+#, python-format
+msgid "Unpublish 1 page "
+msgid_plural "Unpublish %(counter)s pages"
+msgstr[0] "Страница снята с публикации"
+msgstr[1] "%(counter)s страниц снято с публикации"
+msgstr[2] "%(counter)s страниц снято с публикации"
+msgstr[3] "%(counter)s страниц снято с публикации"
+
+msgid "Are you sure you want to unpublish these pages?"
+msgstr "Вы уверены, что хотите отменить публикацию этих страниц?"
+
+#, python-format
+msgid ""
+"\n"
+"                    This page has one subpage\n"
+"                    "
+msgid_plural ""
+"\n"
+"                    This page has %(counter)s subpages\n"
+"                    "
+msgstr[0] ""
+"\n"
+"                    Эта страница содержит одну дочернюю страницу\n"
+"                    "
+msgstr[1] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+msgstr[2] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+msgstr[3] ""
+"\n"
+"                    Эта страница содержит %(counter)s дочерних страниц\n"
+"                    "
+
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "У вас недостаточно прав для снятия с публикации этой страницы"
+msgstr[1] "У вас недостаточно прав для снятия с публикации этих страниц"
+msgstr[2] "У вас недостаточно прав для снятия с публикации этих страниц"
+msgstr[3] "У вас недостаточно прав для снятия с публикации этих страниц"
+
+msgid "Yes, unpublish"
+msgstr "Да, отменить публикацию"
 
 msgid "No, don't unpublish"
 msgstr "Нет, оставить опубликованным"
@@ -1095,6 +1403,10 @@ msgstr "Сконвертировать псевдоним %(title)s"
 
 msgid "Convert alias"
 msgstr "Сконвертировать  псевдоним"
+
+msgid "Are you sure you want to convert this alias into an ordinary page?"
+msgstr ""
+"Вы уверены, что хотите преобразовать этот псевдоним в обычную страницу?"
 
 msgid "This action cannot be undone."
 msgstr "Это действие не может быть отменено."
@@ -1285,6 +1597,9 @@ msgstr "Эта страница псевдоним другой страницы
 msgid "Edit original page"
 msgstr "Редактировать оригинальную страницу"
 
+msgid "Convert this alias into an ordinary page"
+msgstr "Преобразовать этот псевдоним в обычную страницу"
+
 #, python-format
 msgid "Page history for %(subtitle)s"
 msgstr "Страница истории для %(subtitle)s"
@@ -1314,6 +1629,12 @@ msgstr "Записи в журнале не найдены."
 #, python-format
 msgid "Exploring %(title)s"
 msgstr "Обзор %(title)s"
+
+msgid "Select all pages in listing"
+msgstr "Выбрать все страницы из списка"
+
+msgid "Select page"
+msgstr "Выбрать страницу"
 
 msgid "Drag"
 msgstr "Перетянуть"
@@ -1715,6 +2036,28 @@ msgstr "Незавершенная задача"
 msgid "This page hasn't been submitted for moderation yet"
 msgstr "Страница еще не была отправлена на модерацию"
 
+msgid "Collection management permissions"
+msgstr "Управление доступом к коллекции"
+
+msgid "Add a collection permission"
+msgstr "Добавить права доступа к коллекции"
+
+msgid "Last published"
+msgstr "Последняя публикация"
+
+msgid "Last published by"
+msgstr "Последняя публикация от"
+
+#, python-format
+msgid ""
+"\n"
+"                                    %(time_period)s ago\n"
+"                                "
+msgstr ""
+"\n"
+"                                    %(time_period)s назад\n"
+"                                "
+
 msgid "No pages found."
 msgstr "Страницы не найдены."
 
@@ -1854,8 +2197,19 @@ msgstr ""
 "вашем браузере</a>.\n"
 "        "
 
+#, python-format
+msgid ""
+"Wagtail has removed support for IE11. <a href=\"%(url)s\">Learn more about "
+"IE11 alternatives</a>."
+msgstr ""
+"Была удаленна поддержка IE11. <a href=\"%(url)s\">Узнайте больше об "
+"альтернативах</a>."
+
 msgid "Skip to main content"
 msgstr "Пропустить главный контент"
+
+msgid "View Wagtail quick actions"
+msgstr "Просмотр быстрых действий"
 
 msgid "Add a child page"
 msgstr "Добавить дочернюю страницу"
@@ -2105,6 +2459,9 @@ msgstr ""
 msgid "More"
 msgstr "Больше"
 
+msgid "View more bulk actions"
+msgstr "Посмотреть больше массовых действий"
+
 msgid "0 minutes"
 msgstr "0 минут"
 
@@ -2179,6 +2536,74 @@ msgstr "Вы уверены что хотите удалить эту колле
 
 msgid "Editing"
 msgstr "Редактирование"
+
+msgid "Delete selected pages"
+msgstr "Удалить выбранные страницы"
+
+msgid "1 page has been deleted"
+msgstr "1 страница была удалена"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been deleted"
+msgstr "%(num_parent_objects)d страниц было удалено"
+
+msgid "Select a new parent page"
+msgstr "Выбрать новую родительскую страницу"
+
+msgid "Move selected pages"
+msgstr "Переместить выбранные страницы"
+
+#, python-format
+msgid "%(num_pages)d page has been moved"
+msgid_plural "%(num_pages)d pages have been moved"
+msgstr[0] "%(num_pages)d страница была перемещена"
+msgstr[1] "%(num_pages)d страниц было перемещено"
+msgstr[2] "%(num_pages)d страниц было перемещено"
+msgstr[3] "%(num_pages)d страниц было перемещено"
+
+msgid "Publish selected pages"
+msgstr "Опубликовать выбранные страницы"
+
+msgid "1 page has been published"
+msgstr "1 страница была опубликована"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been published"
+msgstr "%(num_parent_objects)d страниц было опубликовано"
+
+msgid "Unpublish selected pages"
+msgstr "Отменить публикацию выбранных страниц"
+
+msgid "1 page has been unpublished"
+msgstr "1 страница была снята с публикации"
+
+#, python-format
+msgid "%(num_parent_objects)d pages have been unpublished"
+msgstr "%(num_parent_objects)d страниц было снято с публикации"
+
+#, python-format
+msgid ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child page have been "
+"unpublished"
+msgid_plural ""
+"%(num_parent_objects)d pages and %(num_child_objects)d child pages have been "
+"unpublished"
+msgstr[0] ""
+"%(num_parent_objects)d страниц и %(num_child_objects)d дочерняя страница "
+"были сняты с публикации"
+msgstr[1] ""
+"%(num_parent_objects)d страниц и %(num_child_objects)d их дочерних страниц "
+"было снято с публикации"
+msgstr[2] ""
+"%(num_parent_objects)d страниц и %(num_child_objects)d их дочерних страниц "
+"было снято с публикации"
+msgstr[3] ""
+"%(num_parent_objects)d страниц и %(num_child_objects)d их дочерних страниц "
+"было снято с публикации"
+
+#, python-brace-format
+msgid "Page '{0}' has been converted into an ordinary page."
+msgstr "Страница \"{0}\" преобразована в обычную страницу."
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -2287,6 +2712,9 @@ msgstr "Страница не может быть сохранена, так к�
 msgid "The page could not be saved due to validation errors"
 msgstr "Страница не может быть сохранена из-за ошибок при проверке"
 
+msgid "Hide commenting actions"
+msgstr "Скрыть действия комментирования"
+
 #, python-brace-format
 msgid "Page '{0}' is now unlocked."
 msgstr "Страница '{0}' разблокирована."
@@ -2350,6 +2778,15 @@ msgstr "Страница '{0}' снята с публикации."
 #, python-brace-format
 msgid "The page '{0}' is not currently awaiting moderation in task '{1}'."
 msgstr "Страница '{0}' в данный момент не ожидает модерации по задаче '{1}'."
+
+msgid "Last published before"
+msgstr "Последняя публикация до"
+
+msgid "Aging pages"
+msgstr "Устаревающие страницы"
+
+msgid "Last published at"
+msgstr "Последняя публикация на"
 
 msgid "Site history"
 msgstr "История действий на сайте"
@@ -2473,9 +2910,41 @@ msgstr "Отключить задачу"
 msgid "Task '{0}' disabled."
 msgstr "Задача '{0}' отключена."
 
+#, python-format
+msgid ""
+"This task is in progress on %(states_in_progress)d page. Disabling this task "
+"will cause it to be skipped in the moderation workflow and not be listed for "
+"selection when editing a workflow."
+msgid_plural ""
+"This task is in progress on %(states_in_progress)d pages. Disabling this "
+"task will cause it to be skipped in the moderation workflow and not be "
+"listed for selection when editing a workflow."
+msgstr[0] ""
+"Эта задача выполняется на %(states_in_progress)d странице. Отключение этой "
+"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
+"и не будет указана для выбора при редактировании рабочего процесса."
+msgstr[1] ""
+"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
+"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
+"и не будет указана для выбора при редактировании рабочего процесса."
+msgstr[2] ""
+"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
+"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
+"и не будет указана для выбора при редактировании рабочего процесса."
+msgstr[3] ""
+"Эта задача выполняется на %(states_in_progress)d страницах. Отключение этой "
+"задачи приведет к тому, что она будет пропущена в рабочем процессе модерации "
+"и не будет указана для выбора при редактировании рабочего процесса."
+
 #, python-brace-format
 msgid "Task '{0}' enabled."
 msgstr "Задача '{0}' включена."
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Сообщите об этой ошибке администратору веб-сайта со следующей информацией:"
 
 #, python-format
 msgid "Edit '%(title)s'"
@@ -2522,6 +2991,10 @@ msgstr "Посмотреть историю страницы '%(title)s'"
 
 msgid "Sort menu order"
 msgstr "Задать порядок сортировки"
+
+#, python-format
+msgid "Change ordering of child pages of '%(title)s'"
+msgstr "Изменить порядок дочерних страниц '%(title)s'"
 
 #, python-format
 msgid "Heading %(level)d"

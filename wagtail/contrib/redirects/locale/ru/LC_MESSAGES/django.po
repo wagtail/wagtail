@@ -7,14 +7,14 @@
 # Eugene <eugene.mechanism@gmail.com>, 2014-2015
 # Никита Викторович <hnknta@gmail.com>, 2014
 # sergeybe <sergeybe@gmail.com>, 2020
-# Влад <integration.into.society@gmail.com>, 2021
+# Vladislav <integration.into.society@gmail.com>, 2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:15+0000\n"
-"Last-Translator: Eugene <eugene.mechanism@gmail.com>\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2021-2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -81,8 +81,21 @@ msgstr ""
 msgid "redirect to a page"
 msgstr "перенаправить на страницу"
 
+msgid "target page route"
+msgstr "маршрут целевой страницы"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"При желании укажите маршрут на целевую страницу для перенаправления. "
+"Оставьте пустым, чтобы перенаправить на страницу по умолчанию."
+
 msgid "redirect to any URL"
 msgstr "перенаправить к любому адресу"
+
+msgid "automatically created"
+msgstr "создан автоматически"
 
 msgid "created at"
 msgstr "создано"

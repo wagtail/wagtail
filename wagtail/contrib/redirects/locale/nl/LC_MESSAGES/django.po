@@ -8,14 +8,14 @@
 # Meteor0id, 2018
 # Storm Heg <storm@stormbase.digital>, 2021-2022
 # Thijs Kramer <thijskramer@gmail.com>, 2015
-# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2021
+# Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2021-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-22 17:04+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Thijs Kramer <thijskramer@gmail.com>, 2015-2016,2021-2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -104,7 +104,7 @@ msgid "temporary"
 msgstr "tijdelijk"
 
 msgid "redirect"
-msgstr "stuur door"
+msgstr "Doorverwijzing"
 
 msgid "Add redirect"
 msgstr "Voeg doorverwijzing toe"

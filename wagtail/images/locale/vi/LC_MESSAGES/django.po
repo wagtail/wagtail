@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Collection"
+msgstr "Bộ sưu tập"
 
 msgid "Add"
 msgstr "Thêm"
@@ -30,8 +33,29 @@ msgstr "Chọn"
 msgid "title"
 msgstr "tiêu đề"
 
+msgid "file"
+msgstr "Tệp"
+
+msgid "created at"
+msgstr "Được tạo lúc"
+
+msgid "uploaded by user"
+msgstr "Được tải lên bởi người dùng"
+
+msgid "Yes, add"
+msgstr "Đồng ý, thêm"
+
+msgid "No, don't add"
+msgstr "Không thêm"
+
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
+
+msgid "No, don't delete"
+msgstr "Không xoá"
+
+msgid "Choose an image"
+msgstr "Chọn một hình ảnh"
 
 msgid "Search"
 msgstr "Tìm kiếm"
@@ -54,6 +78,9 @@ msgstr "Chỉnh sửa"
 msgid "URL"
 msgstr "URL"
 
+msgid "Preview"
+msgstr "Xem trước"
+
 msgid "Title"
 msgstr "Tiêu đề"
 
@@ -65,3 +92,6 @@ msgstr "Lỗi Hệ thống"
 
 msgid "Delete"
 msgstr "Xoá"
+
+msgid "Change image"
+msgstr "Thay đổi hình ảnh"

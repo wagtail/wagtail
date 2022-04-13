@@ -9,14 +9,15 @@
 # Никита Викторович <hnknta@gmail.com>, 2014
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
+# Vladislav <integration.into.society@gmail.com>, 2022
 # Никита Викторович <hnknta@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-19 21:18+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +44,12 @@ msgstr ""
 
 msgid "Query Daily Hits"
 msgstr "Запрос Ежедневных Хитов"
+
+msgid "index entry"
+msgstr "индексная запись"
+
+msgid "index entries"
+msgstr "индексные записи"
 
 msgid "Popular search terms"
 msgstr "Популярные поисковые запросы"

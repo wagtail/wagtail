@@ -5,14 +5,14 @@
 # Translators:
 # Antoni Aloy <aaloy@apsl.net>, 2016
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2021
+# Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017-2018,2020-2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -82,6 +82,12 @@ msgstr "Planifica la publicació"
 msgid "Privacy"
 msgstr "Privadesa"
 
+msgid "For search engines"
+msgstr "Per motors de cerca"
+
+msgid "For site menus"
+msgstr "Per menús de lloc web"
+
 msgid "Content"
 msgstr "Contingut"
 
@@ -141,6 +147,9 @@ msgstr ""
 "Seleccioneu la posició jeràrquica. Nota: una col·lecció no pot ser filla "
 "d'ella mateixa o d'un dels seus descendents."
 
+msgid "Please select another parent"
+msgstr "Trieu un altre pare"
+
 msgid "You cannot have multiple permission records for the same collection."
 msgstr ""
 "No podeu tenir múltiples registres de permisos per la mateixa col·lecció."
@@ -151,8 +160,20 @@ msgstr "Col·lecció"
 msgid "Add"
 msgstr "Afegir"
 
+msgid "Add collections"
+msgstr "Afegir col·leccions"
+
 msgid "Edit"
 msgstr "Edita"
+
+msgid "Edit collections"
+msgstr "Editar col·leccions"
+
+msgid "Delete collections"
+msgstr "Esborrar col·leccions"
+
+msgid "You cannot edit another user's comment."
+msgstr "No podeu editar un comentari d'un altre usuari."
 
 msgid "New title"
 msgstr "Nou títol"
@@ -282,6 +303,9 @@ msgstr "Tanca l'explorador"
 msgid "Alt text"
 msgstr "Text alternatiu"
 
+msgid "Decorative image"
+msgstr "Imatge decorativa"
+
 msgid "Write here…"
 msgstr "Escriviu aquí..."
 
@@ -343,14 +367,138 @@ msgstr "Desant..."
 msgid "Cancel"
 msgstr "Cancel·lar"
 
+msgid "Deleting..."
+msgstr "Esborrant..."
+
+msgid "Add a comment"
+msgstr "Afegir un comentari"
+
+msgid "Show comments"
+msgstr "Mostrar comentaris"
+
+msgid "Reply"
+msgstr "Respondre"
+
+msgid "Resolve"
+msgstr "Resoldre"
+
+msgid "Retry"
+msgstr "Tornar a intentar"
+
+msgid "Delete error"
+msgstr "Esborrar error"
+
+msgid "Are you sure?"
+msgstr "N'esteu segur?"
+
+msgid "Save error"
+msgstr "Desar error"
+
+msgid "This will be saved when the page is saved"
+msgstr "Serà desat quan la pàgina sigui desada"
+
+msgid "Focus comment"
+msgstr "Comentari d'enfocament"
+
+msgid "Unfocus comment"
+msgstr "Comentari de desenfocament"
+
 msgid "Comment"
 msgstr "Comentari"
+
+msgid "More actions"
+msgstr "Més accions"
+
+msgid "Save the page to add this comment"
+msgstr "Deseu la pàgina per afegir aquest comentari"
+
+msgid "Save the page to save this comment"
+msgstr "Deseu la pàgina per desar aquest comentari"
+
+msgid "Save the page to save this reply"
+msgstr "Deseu la pàgina per desar aquesta resposta"
+
+msgid "Toggle sidebar"
+msgstr "Commutar la barra lateral"
+
+msgid "Main menu"
+msgstr "Menú principal"
 
 msgid "Dashboard"
 msgstr "Tauler de control"
 
 msgid "Edit your account"
 msgstr "Modifica el teu compte d'usuari"
+
+msgid "1 page selected"
+msgstr "1 pàgina seleccionada"
+
+#, python-brace-format
+msgid "{0} pages selected"
+msgstr "{0} pàgines seleccionades"
+
+#, python-brace-format
+msgid "All {0} pages on this screen selected"
+msgstr "S'ha seleccionat les {0} pàgines de la pantalla"
+
+msgid "All pages in listing selected"
+msgstr "S'ha seleccionat totes les pàgines del llistat"
+
+msgid "1 document selected"
+msgstr "1 document seleccionat"
+
+#, python-brace-format
+msgid "{0} documents selected"
+msgstr "{0} documents seleccionats"
+
+#, python-brace-format
+msgid "All {0} documents on this screen selected"
+msgstr "S'ha seleccionat els {0} documents de la pantalla"
+
+msgid "All documents in listing selected"
+msgstr "S'ha seleccionat tots els documents del llistat"
+
+msgid "1 image selected"
+msgstr "1 imatge seleccionada"
+
+#, python-brace-format
+msgid "{0} images selected"
+msgstr "{0} imatges seleccionades"
+
+#, python-brace-format
+msgid "All {0} images on this screen selected"
+msgstr "S'ha seleccionat les {0} imatges de la pantalla"
+
+msgid "All images in listing selected"
+msgstr "S'ha seleccionat totes les imatges del llistat"
+
+msgid "1 user selected"
+msgstr "1 usuari seleccionat"
+
+#, python-brace-format
+msgid "{0} users selected"
+msgstr "{0} usuaris seleccionats"
+
+#, python-brace-format
+msgid "All {0} users on this screen selected"
+msgstr "S'ha seleccionat els {0} usuaris de la pantalla"
+
+msgid "All users in listing selected"
+msgstr "S'ha seleccionat tots els usuaris del llistat"
+
+msgid "1 item selected"
+msgstr "1 element seleccionat"
+
+#, python-brace-format
+msgid "{0} items selected"
+msgstr "{0} elements seleccionats"
+
+#, python-brace-format
+msgid "All {0} items on this screen selected"
+msgstr "S'ha seleccionat els {0} elements de la pantalla"
+
+msgid "All items in listing selected"
+msgstr "S'ha seleccionat tots els elements del llistat"
 
 msgid "Error 404: Page not found"
 msgstr "Error 404: Pàgina no trobada"
@@ -366,6 +514,9 @@ msgstr "Anar a l'administració de Wagtail"
 
 msgid "Account"
 msgstr "Compte"
+
+msgid "Save account details"
+msgstr "Desar els detalls del compte"
 
 msgid "Change password"
 msgstr "Canviar contrasenya"
@@ -422,6 +573,24 @@ msgstr "Contrasenya reiniciada"
 
 msgid "Reset your password"
 msgstr "Reinicia la teva contrasenya "
+
+msgid "Upload a profile picture:"
+msgstr "Pujar una imatge de perfil:"
+
+msgid "Reset to default"
+msgstr "Reinicialitzar als valors per defecte"
+
+msgid "Go back"
+msgstr "Anar enrere"
+
+msgid "Bulk actions"
+msgstr "Accions en lot"
+
+msgid "Select row"
+msgstr "Seleccionar fila"
+
+msgid "Select all"
+msgstr "Seleccionar tot"
 
 msgid "Internal link"
 msgstr "Enllaç intern"
@@ -491,6 +660,12 @@ msgstr[1] ""
 "de pàgina: %(type)s. Els resultats de la cerca exclouran pàgines d'altres "
 "tipus..\n"
 "            "
+
+msgid "Convert to internal link"
+msgstr "Convertir a enllaç intern"
+
+msgid "Use external link"
+msgstr "Utilitzar enllaç extern"
 
 msgid "Add an email link"
 msgstr "Afegir un enllaç de correu"
@@ -766,8 +941,22 @@ msgstr "No, no esborrar"
 msgid "Move"
 msgstr "Mou"
 
+msgid "You don't have permission to unpublish this page"
+msgid_plural "You don't have permission to unpublish these pages"
+msgstr[0] "No teniu permisos per despublicar aquesta pàgina"
+msgstr[1] "No teniu permisos per despublicar aquestes pàgines"
+
+msgid "Yes, unpublish"
+msgstr "Sí, despublicar"
+
 msgid "No, don't unpublish"
 msgstr "No despublicar-la"
+
+msgid "Yes, convert it"
+msgstr "Sí, convertir"
+
+msgid "No, leave it as an alias"
+msgstr "No, deixar-ho com un àlies"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -893,6 +1082,9 @@ msgstr "Editant %(page_type)s: %(title)s"
 
 msgid "History"
 msgstr "Historial"
+
+msgid "This page is an alias of another page."
+msgstr "Aquesta pàgina és un àlies d'una altra."
 
 msgid "Action"
 msgstr "Acció"
@@ -1272,6 +1464,9 @@ msgstr "Crear"
 msgid "Assigned pages"
 msgstr "Pàgines assignades"
 
+msgid "Assign to another page"
+msgstr "Assignar a una altra pàgina"
+
 msgid "Choose a task"
 msgstr "Trieu una tasca"
 
@@ -1374,6 +1569,18 @@ msgstr "Segur que voleu eliminar aquesta col·lecció?"
 
 msgid "Editing"
 msgstr "Editant"
+
+msgid "Delete selected pages"
+msgstr "Esborrar les pàgines seleccionades"
+
+msgid "Move selected pages"
+msgstr "Moure les pàgines seleccionades"
+
+msgid "Publish selected pages"
+msgstr "Publicar les pàgines seleccionades"
+
+msgid "Unpublish selected pages"
+msgstr "Despublicar les pàgines seleccionades"
 
 #, python-brace-format
 msgid "Page '{0}' and {1} subpages copied."
@@ -1496,6 +1703,16 @@ msgstr "Títol de la pàgina"
 
 msgid "Add a workflow"
 msgstr "Afegir un fluxe de treball"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar d'aquest error a l'administrador web amb la informació següent:"
+
+#, python-format
+msgid "Edit '%(title)s'"
+msgstr "Editar '%(title)s'"
 
 msgid "Add child page"
 msgstr "Afegeix una pàgina filla"

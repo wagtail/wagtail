@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017,2020
+# Roger Pons <rogerpons@gmail.com>, 2017,2020,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2020,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -23,6 +23,9 @@ msgstr ""
 
 msgid "Wagtail images"
 msgstr "Imatges de Wagtail"
+
+msgid "GIF, JPEG, PNG, WEBP"
+msgstr "GIF, JPEG, PNG, WEBP"
 
 #, python-format
 msgid ""
@@ -49,6 +52,10 @@ msgid "This file is too big (%%s). Maximum filesize %s."
 msgstr "Aquest fitxer és massa gran (%%s). Mida màxima de fitxer %s."
 
 #, python-format
+msgid "This file has too many pixels (%%s). Maximum pixels %s."
+msgstr "El fitxer té massa píxels (%%s). Píxels màxims %s."
+
+#, python-format
 msgid "This file is too big. Maximum filesize %s."
 msgstr "Aquest fitxer és massa gran. Mida màxima de fitxer %s."
 
@@ -64,8 +71,17 @@ msgstr "Alineat a la dreta"
 msgid "Collection"
 msgstr "Col·lecció"
 
+msgid "Format"
+msgstr "Format"
+
+msgid "Image is decorative"
+msgstr "La imatge és decorativa"
+
 msgid "Alt text"
 msgstr "Text alternatiu"
+
+msgid "Please add some alt text for your image or mark it as decorative"
+msgstr "Afegiu un text alternatiu a la imatge o marqueu-la com a decorativa"
 
 msgid "Filter"
 msgstr "Filtrar"
@@ -112,6 +128,9 @@ msgstr "Editar alguna imatge"
 msgid "Choose"
 msgstr "Seleccionar"
 
+msgid "Select images in choosers"
+msgstr "Seleccionar imatges als selectors"
+
 msgid "title"
 msgstr "títol"
 
@@ -138,6 +157,70 @@ msgstr "imatge"
 
 msgid "images"
 msgstr "imatges"
+
+#, python-format
+msgid "Add tags to 1 image "
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Afegir etiquetes a 1 imatges"
+msgstr[1] "Afegir etiquetes a %(counter)s imatges"
+
+msgid "Add tags to images"
+msgstr "Afegir etiquetes a les imatges"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "N'esteu segur que voleu etiquetar la imatge següent?"
+msgstr[1] "N'esteu segur que voleu etiquetar les imatges següents?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "No teniu permís per afegir etiquetes a aquesta imatge"
+msgstr[1] "No teniu permís per afegir etiquetes a aquestes imatges"
+
+msgid "Yes, add"
+msgstr "Sí, afegir"
+
+msgid "No, don't add"
+msgstr "No afegir"
+
+#, python-format
+msgid "Add 1 image to new collection "
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Afegir 1 imatge a la nova col·lecció"
+msgstr[1] "Afegir %(counter)s imatges a la nova col·lecció"
+
+msgid "Add images to collection"
+msgstr "Afegir imatges a una col·lecció"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"N'esteu segur que voleu afegir la imatge següent a la col·lecció "
+"seleccionada?"
+msgstr[1] ""
+"N'esteu segur que voleu afegir les imatges següents a la col·lecció "
+"seleccionada?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "No teniu permís per afegir aquesta imatge a la col·lecció"
+msgstr[1] "No teniu permís per afegir aquestes imatges a la col·lecció"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Esborrar 1 imatge"
+msgstr[1] "Esborrar %(counter)s imatges"
+
+msgid "Delete images"
+msgstr "Esborrar imatges"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Esteu segur de voler esborrar aquesta imatge?"
+msgstr[1] "Esteu segur de voler esborrar aquestes imatges?"
 
 msgid "Yes, delete"
 msgstr "Si, esborra"
@@ -321,6 +404,12 @@ msgstr "La pujada ha fallat."
 msgid "Server Error"
 msgstr "Error del servidor"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar d'aquest error a l'administrador web amb la informació següent:"
+
 msgid "Image updated."
 msgstr "Imatge actualitzada."
 
@@ -329,6 +418,12 @@ msgstr "Permisos d'imatge"
 
 msgid "Add an image permission"
 msgstr "Afegir un permís d'imatge"
+
+msgid "Tag"
+msgstr "Etiqueta"
+
+msgid "Add to collection"
+msgstr "Afegir a col·lecció"
 
 msgid "Delete"
 msgstr "Eliminar"

@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:15+0000\n"
-"Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +20,271 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Wagtail redirects"
+msgstr "Ailgyfeiriad Wagtail"
+
+msgid "Type"
+msgstr "Math"
+
+msgid "Permanent"
+msgstr "Parhaol"
+
+msgid "Temporary"
+msgstr "Dros Dro"
+
 msgid "All"
 msgstr "I gyd"
+
+msgid "From site"
+msgstr "O'r safle"
+
+msgid "All sites"
+msgstr "Safleoedd i gyd"
+
+msgid "A redirect with this path already exists."
+msgstr "Mae ailgyfeiriad gyda'r llwybr hwn eisoes yn bodoli."
+
+msgid "File to import"
+msgstr "Ffeil i'w mewnforio"
+
+#, python-format
+msgid "Supported formats: %(supported_formats)s."
+msgstr "Fformatau a gefnogir: %(supported_formats)s."
+
+msgid "From field"
+msgstr "O"
+
+msgid "To field"
+msgstr "I"
+
+msgid "redirect from"
+msgstr "ailgyfeirio o"
+
+msgid "site"
+msgstr "safle"
+
+msgid "permanent"
+msgstr "parhaol"
+
+msgid ""
+"Recommended. Permanent redirects ensure search engines forget the old page "
+"(the 'Redirect from') and index the new page instead."
+msgstr ""
+"Argymhellir. Mae ailgyfeiriadau parhaol yn sicrhau bod peiriannau chwilio yn "
+"anghofio'r hen dudalen (yr 'Ailgyfeirio o') ac yn mynegeio'r dudalen newydd "
+"yn lle hynny."
+
+msgid "redirect to a page"
+msgstr "ailgyfeirio i dudalen"
+
+msgid "target page route"
+msgstr "llwybr tudalen targed"
+
+msgid ""
+"Optionally specify a route on the target page to redirect to. Leave blank to "
+"redirect to the default page route."
+msgstr ""
+"Yn ddewisol, nodwch lwybr ar y dudalen darged i ailgyfeirio iddo. Gadewch yn "
+"wag i ailgyfeirio i'r llwybr tudalen rhagosodedig."
+
+msgid "redirect to any URL"
+msgstr "ailgyfeirio i unrhyw URL"
+
+msgid "automatically created"
+msgstr "creu yn awtomatig"
 
 msgid "created at"
 msgstr "creu yn"
 
+msgid "temporary"
+msgstr "dros dro"
+
+msgid "redirect"
+msgstr "ailgyfeirio"
+
+msgid "Add redirect"
+msgstr "Ychwanegu ailgyfeiriad"
+
 msgid "Save"
 msgstr "Cadw"
+
+msgid "Redirects"
+msgstr "Ailgyfeiriadau"
+
+msgid "Import redirects"
+msgstr "Mewnforio ailgyfeiriadau"
+
+msgid ""
+"\n"
+"                <p>Select a file where redirects are separated into rows and "
+"contains the columns representing <code>from</code> and <code>to</code> "
+"(they can be named anything).</p>\n"
+"                <p>After submitting you will be taken to a confirmation view "
+"where you can customize your redirects before import.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Dewiswch ffeil lle mae ailgyfeiriadau wedi'u gwahanu'n "
+"rhesi ac yn cynnwys y colofnau sy'n cynrychioli <code> o </code> ac <code> i "
+"</code> (gellir eu henwi yn unrhyw beth).</p>\n"
+"                <p>Ar ôl cyflwyno byddwch yn cael eich tywys i olwg "
+"cadarnhau lle gallwch addasu eich ailgyfeiriadau cyn mewnforio.</p>\n"
+"            "
+
+msgid "Import"
+msgstr "Mewnforio"
+
+#, python-format
+msgid "Delete redirect %(title)s"
+msgstr "Dileu ailgyfeiriad %(title)s"
 
 msgid "Delete"
 msgstr "Dileu"
 
+msgid "Are you sure you want to delete this redirect?"
+msgstr "Ydych chi'n siŵr eich bod am ddileu'r ailgyfeiriad hwn?"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+msgid "Confirm import"
+msgstr "Cadarnhau fewnforio"
+
+msgid "Confirm"
+msgstr "Cadarnhau"
+
+msgid "Cancel"
+msgstr "Canslo"
+
+msgid "Preview"
+msgstr "Rhagolwg"
+
+#, python-format
+msgid "Editing %(title)s"
+msgstr "Golygu %(title)s"
+
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Delete redirect"
+msgstr "Dileu ailgyfeiriad"
+
+msgid "Summary"
+msgstr "Crynodeb"
+
+#, python-format
+msgid ""
+"Found %(total)s redirects, created %(successes)s and found %(errors)s errors."
+msgstr ""
+"Wedi dod o hyd i %(total)s ailgyfeiriadau, creu %(successes)s a darganfod "
+"gwallau %(errors)s."
+
+msgid "From"
+msgstr "O"
+
+msgid "To"
+msgstr "I"
+
+msgid "Error"
+msgstr "Gwall"
+
+msgid "Continue"
+msgstr "Parhau"
+
+msgid "Export redirects"
+msgstr "Allforio ailgyfeiriadau"
 
 msgid "Site"
 msgstr "Safle"
 
+msgid "Edit this redirect"
+msgstr "Golygu'r ailgyfeiriad hwn"
+
+msgid "No redirects found."
+msgstr "Heb ganfod ailgyfeiriadau."
+
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Mae 'na %(counter)s cyfateb\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+
+#, python-format
+msgid "Sorry, no redirects match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes unrhyw ailgyfeiriadau yn cyfateb \"<em>"
+"%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No redirects have been created. Why not <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">add one</a>?"
+msgstr ""
+"Nid oes unrhyw ailgyfeiriadau wedi'u creu. Pam ddim <a href="
+"\"%(wagtailredirects_add_redirect_url)s\">ychwanegu un</a>?"
+
+msgid "Search redirects"
+msgstr "Chwilio ailgyfeiriadau"
+
+#, python-brace-format
+msgid "Redirect '{0}' updated."
+msgstr "Ailgyfeiriad '{0}' wedi'i ddiweddaru."
+
 msgid "Edit"
 msgstr "Golygu"
+
+msgid "The redirect could not be saved due to errors."
+msgstr "Ni fu modd cadw'r ailgyfeiriad oherwydd gwallau."
+
+#, python-brace-format
+msgid "Redirect '{0}' deleted."
+msgstr "Ailgyfeiriad '{0}' wedi'i ddileu."
+
+#, python-brace-format
+msgid "Redirect '{0}' added."
+msgstr "Ailgyfeiriad '{0}' wedi'i ychwanegu."
+
+msgid "The redirect could not be created due to errors."
+msgstr "Ni fu modd creu'r ailgyfeiriad oherwydd gwallau."
+
+msgid "File format of type \"{}\" is not supported"
+msgstr "Ni chefnogir fformat ffeil o'r math \"{}\"."
+
+#, python-format
+msgid "Imported file has a wrong encoding: %s"
+msgstr "Mae gan ffeil a fewnforiwyd amgodio anghywir: %s"
+
+#, python-format
+msgid "%(error)s encountered while trying to read file: %(filename)s"
+msgstr "%(error)s dod ar eu traws wrth geisio darllen ffeil: %(filename)s"
+
+#, python-format
+msgid "Imported %(total)d redirect"
+msgid_plural "Imported %(total)d redirects"
+msgstr[0] "Wedi mewnforio %(total)d ailgyfeiriad"
+msgstr[1] "Wedi mewnforio %(total)d ailgyfeiriadau"
+msgstr[2] "Wedi mewnforio %(total)d ailgyfeiriadau"
+msgstr[3] "Wedi mewnforio %(total)d ailgyfeiriadau"
+
+msgid "Export Redirects"
+msgstr "Allforio Ailgyfeiriadau"
