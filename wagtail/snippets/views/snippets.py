@@ -608,6 +608,16 @@ class Delete(DeleteView):
         instances = self.model.objects.filter(pk__in=ids)
         return instances
 
+    def get_delete_url(self):
+        return (
+            reverse(
+                "wagtailsnippets:delete-multiple",
+                args=(self.app_label, self.model_name),
+            )
+            + "?"
+            + urlencode([("id", instance.pk) for instance in self.object])
+        )
+
     def get_success_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
 
@@ -645,14 +655,7 @@ class Delete(DeleteView):
                 "model_opts": self.model._meta,
                 "count": count,
                 "instances": self.object,
-                "submit_url": (
-                    reverse(
-                        "wagtailsnippets:delete-multiple",
-                        args=(self.app_label, self.model_name),
-                    )
-                    + "?"
-                    + urlencode([("id", instance.pk) for instance in self.object])
-                ),
+                "submit_url": self.get_delete_url(),
             }
         )
         return context
