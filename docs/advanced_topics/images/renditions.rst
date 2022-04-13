@@ -34,3 +34,23 @@ be accessed through the Rendition's ``image`` property:
     True
 
 See also: :ref:`image_tag`
+
+.. _image_rendition_methods:
+
+Model methods involved in rendition generation
+----------------------------------------------
+
+The following ``AbstractImage`` model methods are involved in finding and generating a renditions. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
+
+.. automodule:: wagtail.images.models
+
+.. class:: AbstractImage
+    :noindex:
+
+    .. autofunction:: get_rendition
+
+    .. autofunction:: find_existing_rendition
+
+    .. autofunction:: create_rendition
+
+    .. autofunction:: generate_rendition_file
