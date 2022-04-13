@@ -157,12 +157,13 @@ $(function () {
               event.preventDefault();
               var confirmUpload = $(this).closest('.confirm-duplicate-upload');
               confirmUpload.remove();
+              $('.right', itemElement).append(response.form);
             },
           );
         } else {
           itemElement.addClass('upload-success');
+          $('.right', itemElement).append(response.form);
         }
-        $('.right', itemElement).append(response.form);
       } else {
         itemElement.addClass('upload-failure');
         $('.right .error_messages', itemElement).append(response.error_message);
