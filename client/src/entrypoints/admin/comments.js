@@ -340,9 +340,14 @@ window.comments = (() => {
     const commentToggle = document.querySelector(
       '[data-side-panel-toggle="comments"]',
     );
+
     const commentCounter = document.createElement('div');
-    commentCounter.style.marginTop = '-0.8rem'; // TODO: replace this with suitable Tailwind classes
+    commentCounter.className =
+      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] w-translate-x-[-6px] w-text-[0.5625rem] w-font-bold w-bg-teal-100 w-text-white w-border w-border-white w-rounded-[1rem]';
+    commentToggle.className =
+      'w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary';
     commentToggle.appendChild(commentCounter);
+
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
         commentApp.store.getState(),
@@ -356,7 +361,8 @@ window.comments = (() => {
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();
       } else {
-        commentCount.innerText = '';
+        // Note: Hide the circle when its content is empty
+        commentCounter.hidden = true;
       }
     };
     commentApp.store.subscribe(updateCommentCount);
