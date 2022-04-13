@@ -408,10 +408,14 @@ class Edit(EditView):
         self.model_name = kwargs.get("model_name")
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
+        self.edit_handler = self._get_edit_handler()
         self.object = self.get_object()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def _get_edit_handler(self):
+        return get_snippet_edit_handler(self.model)
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("change", self.model)
@@ -428,12 +432,14 @@ class Edit(EditView):
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
+    def get_form_class(self):
+        return self.edit_handler.get_form_class()
+
     def get(self, request, *args, **kwargs):
-        edit_handler = get_snippet_edit_handler(self.model)
-        form_class = edit_handler.get_form_class()
+        form_class = self.get_form_class()
         form = form_class(instance=self.object, for_user=request.user)
 
-        edit_handler = edit_handler.get_bound_panel(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=self.object, request=request, form=form
         )
         latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
@@ -479,8 +485,7 @@ class Edit(EditView):
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
     def post(self, request, *args, **kwargs):
-        edit_handler = get_snippet_edit_handler(self.model)
-        form_class = edit_handler.get_form_class()
+        form_class = self.get_form_class()
         form = form_class(
             request.POST, request.FILES, instance=self.object, for_user=request.user
         )
@@ -518,7 +523,7 @@ class Edit(EditView):
 
             return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
-        edit_handler = edit_handler.get_bound_panel(
+        edit_handler = self.edit_handler.get_bound_panel(
             instance=self.object, request=request, form=form
         )
         latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
