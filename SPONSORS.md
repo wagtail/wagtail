@@ -51,3 +51,5 @@ The features below were developed thanks to the sponsorship of these organsation
 - Persistent IDs for ListBlock items - [NHS](https://www.nhs.uk/)
 
 - Page editor redesign - [Google](http://google.com/)
+
+- StreamField rich text block splitter - [The Motley Fool](https://www.fool.com/)
