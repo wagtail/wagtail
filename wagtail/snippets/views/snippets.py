@@ -657,16 +657,14 @@ class Delete(DeleteView):
             "count": count,
         }
 
-    def post(self, request, *args, **kwargs):
-        self.delete_action()
-
-        messages.success(request, self.get_success_message())
+    def form_valid(self, form):
+        response = super().form_valid(form)
 
         hooks_result = self._run_after_hooks()
         if hooks_result is not None:
             return hooks_result
 
-        return redirect(self.get_success_url())
+        return response
 
 
 class Usage(IndexView):
