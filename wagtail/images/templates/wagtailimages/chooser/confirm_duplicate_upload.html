@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="{% versioned_static 'wagtailimages/css/chooser-duplicate-upload.css' %}" type="text/css" />
 {% endblock %}
 
-<section id="upload" class="duplicate-upload active nice-padding">
+<section id="tab-upload" class="duplicate-upload w-tabs__panel" role="tabpanel" aria-labelledby="tab-label-upload">
     <p class="help-block help-warning">
         {% icon name='warning' %}
         {% trans "Upload successful. However, your new image seems to be a duplicate of an existing image. You may delete it if it wasn't required." %}
