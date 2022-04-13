@@ -20,7 +20,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic import CreateView, EditView, IndexView
+from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
@@ -557,27 +557,64 @@ class Edit(EditView):
         return response
 
 
-def delete(request, app_label, model_name, pk=None):
-    model = get_snippet_model_from_url_params(app_label, model_name)
+class Delete(DeleteView):
+    def get(self, request, *args, app_label, model_name, pk=None, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
 
-    permission = get_permission_name("delete", model)
-    if not request.user.has_perm(permission):
-        raise PermissionDenied
+        permission = get_permission_name("delete", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
 
-    if pk:
-        instances = [get_object_or_404(model, pk=unquote(pk))]
-    else:
-        ids = request.GET.getlist("id")
-        instances = model.objects.filter(pk__in=ids)
+        if pk:
+            instances = [get_object_or_404(model, pk=unquote(pk))]
+        else:
+            ids = request.GET.getlist("id")
+            instances = model.objects.filter(pk__in=ids)
 
-    for fn in hooks.get_hooks("before_delete_snippet"):
-        result = fn(request, instances)
-        if hasattr(result, "status_code"):
-            return result
+        for fn in hooks.get_hooks("before_delete_snippet"):
+            result = fn(request, instances)
+            if hasattr(result, "status_code"):
+                return result
 
-    count = len(instances)
+        count = len(instances)
 
-    if request.method == "POST":
+        return TemplateResponse(
+            request,
+            "wagtailsnippets/snippets/confirm_delete.html",
+            {
+                "model_opts": model._meta,
+                "count": count,
+                "instances": instances,
+                "submit_url": (
+                    reverse(
+                        "wagtailsnippets:delete-multiple", args=(app_label, model_name)
+                    )
+                    + "?"
+                    + urlencode([("id", instance.pk) for instance in instances])
+                ),
+            },
+        )
+
+    def post(self, request, *args, app_label, model_name, pk=None, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
+
+        permission = get_permission_name("delete", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        if pk:
+            instances = [get_object_or_404(model, pk=unquote(pk))]
+        else:
+            ids = request.GET.getlist("id")
+            instances = model.objects.filter(pk__in=ids)
+
+        for fn in hooks.get_hooks("before_delete_snippet"):
+            result = fn(request, instances)
+            if hasattr(result, "status_code"):
+                return result
+
+        count = len(instances)
+
         with transaction.atomic():
             for instance in instances:
                 log(instance=instance, action="wagtail.delete")
@@ -609,21 +646,6 @@ def delete(request, app_label, model_name, pk=None):
                 return result
 
         return redirect("wagtailsnippets:list", app_label, model_name)
-
-    return TemplateResponse(
-        request,
-        "wagtailsnippets/snippets/confirm_delete.html",
-        {
-            "model_opts": model._meta,
-            "count": count,
-            "instances": instances,
-            "submit_url": (
-                reverse("wagtailsnippets:delete-multiple", args=(app_label, model_name))
-                + "?"
-                + urlencode([("id", instance.pk) for instance in instances])
-            ),
-        },
-    )
 
 
 class Usage(IndexView):
