@@ -387,6 +387,8 @@ class Create(CreateView):
 
 
 class Edit(EditView):
+    template_name = "wagtailsnippets/snippets/edit.html"
+
     def _run_before_hooks(self):
         for fn in hooks.get_hooks("before_edit_snippet"):
             result = fn(self.request, self.object)
@@ -484,7 +486,7 @@ class Edit(EditView):
                 }
             )
 
-        return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
+        return TemplateResponse(request, self.template_name, context)
 
     def get_success_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
@@ -568,7 +570,7 @@ class Edit(EditView):
                 }
             )
 
-        return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
+        return TemplateResponse(request, self.template_name, context)
 
 
 def delete(request, app_label, model_name, pk=None):
