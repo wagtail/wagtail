@@ -158,21 +158,13 @@ export class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(
-    placeholder,
-    prefix,
-    initialState,
-    initialError,
-    parent,
-    parentCapabilities,
-  ) {
+  render(placeholder, prefix, initialState, initialError, parentCapabilities) {
     return new FieldBlock(
       this,
       placeholder,
       prefix,
       initialState,
       initialError,
-      parent,
       parentCapabilities,
     );
   }
