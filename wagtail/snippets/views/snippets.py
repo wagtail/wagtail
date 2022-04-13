@@ -435,9 +435,13 @@ class Edit(EditView):
     def get_form_class(self):
         return self.edit_handler.get_form_class()
 
+    def get_form_kwargs(self):
+        return {**super().get_form_kwargs(), "for_user": self.request.user}
+
     def get(self, request, *args, **kwargs):
         form_class = self.get_form_class()
-        form = form_class(instance=self.object, for_user=request.user)
+        form_kwargs = self.get_form_kwargs()
+        form = form_class(**form_kwargs)
 
         edit_handler = self.edit_handler.get_bound_panel(
             instance=self.object, request=request, form=form
@@ -486,9 +490,8 @@ class Edit(EditView):
 
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
-        form = form_class(
-            request.POST, request.FILES, instance=self.object, for_user=request.user
-        )
+        form_kwargs = self.get_form_kwargs()
+        form = form_class(**form_kwargs)
 
         if form.is_valid():
             with transaction.atomic():
