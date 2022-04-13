@@ -499,10 +499,6 @@ class Edit(EditView):
 
         return context
 
-    def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return TemplateResponse(request, self.template_name, context)
-
     def get_success_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
 
@@ -552,15 +548,6 @@ class Edit(EditView):
             return hooks_result
 
         return response
-
-    def post(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        form = context.get("form")
-
-        if form.is_valid():
-            return self.form_valid(form)
-
-        return TemplateResponse(request, self.template_name, context)
 
 
 def delete(request, app_label, model_name, pk=None):
