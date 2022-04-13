@@ -2363,7 +2363,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
 
         self.page.save_revision()
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved", 1)
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
         self.submit()
         response = self.client.get(self.edit_url)
@@ -2397,7 +2397,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         self.submit()
         self.submit("action-cancel-workflow")
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved")
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
     def test_status_after_restart(self):
         self.submit()
@@ -2436,7 +2436,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(self.edit_url)
 
         needle = "This page is awaiting <b>'test_task_1'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page."
-        self.assertTagInHTML(needle, str(response.content), count=1)
+        self.assertContains(response, needle)
 
         self.login(self.moderator)
         response = self.client.get(self.edit_url)
