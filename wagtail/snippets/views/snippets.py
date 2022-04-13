@@ -558,6 +558,8 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
+    template_name = "wagtailsnippets/snippets/confirm_delete.html"
+
     def _run_before_hooks(self):
         for fn in hooks.get_hooks("before_delete_snippet"):
             result = fn(self.request, self.object)
@@ -611,7 +613,7 @@ class Delete(DeleteView):
 
         return TemplateResponse(
             request,
-            "wagtailsnippets/snippets/confirm_delete.html",
+            self.template_name,
             {
                 "model_opts": self.model._meta,
                 "count": count,
