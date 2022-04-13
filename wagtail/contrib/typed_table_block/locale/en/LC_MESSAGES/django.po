@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,30 +18,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: blocks.py:287
+#: blocks.py:284
 msgid "Add column"
 msgstr ""
 
-#: blocks.py:288
+#: blocks.py:285
 msgid "Add row"
 msgstr ""
 
-#: blocks.py:289
+#: blocks.py:286
 msgid "Column heading"
 msgstr ""
 
-#: blocks.py:290
+#: blocks.py:287
 msgid "Insert column"
 msgstr ""
 
-#: blocks.py:291
+#: blocks.py:288
 msgid "Delete column"
 msgstr ""
 
-#: blocks.py:292
+#: blocks.py:289
 msgid "Insert row"
 msgstr ""
 
-#: blocks.py:293
+#: blocks.py:290
 msgid "Delete row"
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:25
+#: forms.py:27
 msgid "default"
 msgstr ""
 
@@ -46,15 +47,15 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: views.py:49
+#: views.py:54
 msgid "This setting could not be opened because there is no site defined."
 msgstr ""
 
-#: views.py:77
+#: views.py:84
 #, python-format
 msgid "%(setting_type)s updated."
 msgstr ""
 
-#: views.py:85
+#: views.py:90
 msgid "The setting could not be saved due to errors."
 msgstr ""

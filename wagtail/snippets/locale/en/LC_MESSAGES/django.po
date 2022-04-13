@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,13 +16,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: action_menu.py:153 wagtail_hooks.py:58
+#: action_menu.py:67 wagtail_hooks.py:61
 msgid "Delete"
 msgstr ""
 
-#: action_menu.py:175
-#: templates/wagtailsnippets/snippets/action_menu/save.html:4
+#: action_menu.py:91 templates/wagtailsnippets/snippets/action_menu/save.html:4
 msgid "Save"
 msgstr ""
 
@@ -41,14 +41,8 @@ msgstr ""
 #: templates/wagtailsnippets/chooser/results.html:5
 #: templates/wagtailsnippets/snippets/results.html:5
 #, python-format
-msgid ""
-"\n"
-"            There is %(counter)s match\n"
-"        "
-msgid_plural ""
-"\n"
-"            There are %(counter)s matches\n"
-"        "
+msgid "There is %(counter)s match"
+msgid_plural "There are %(counter)s matches"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -62,8 +56,8 @@ msgstr ""
 #, python-format
 msgid ""
 "You haven't created any %(snippet_type_name)s snippets. Why not <a href="
-"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noopener "
-"noreferrer\">create one now</a>?"
+"\"%(wagtailsnippets_create_snippet_url)s\" target=\"_blank\" rel=\"noreferrer"
+"\">create one now</a>?"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/_header_with_history.html:12
@@ -142,7 +136,7 @@ msgid "Usage"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/index.html:3
-#: templates/wagtailsnippets/snippets/index.html:5 wagtail_hooks.py:31
+#: templates/wagtailsnippets/snippets/index.html:5 wagtail_hooks.py:34
 msgid "Snippets"
 msgstr ""
 
@@ -152,7 +146,7 @@ msgid "Select all %(snippet_type_name_plural)s"
 msgstr ""
 
 #: templates/wagtailsnippets/snippets/list.html:13
-#: templates/wagtailsnippets/snippets/usage.html:16 views/chooser.py:87
+#: templates/wagtailsnippets/snippets/usage.html:16 views/chooser.py:103
 msgid "Title"
 msgstr ""
 
@@ -209,79 +203,79 @@ msgstr ""
 msgid "Edit this page"
 msgstr ""
 
-#: views/chooser.py:66 views/chooser.py:78 views/snippets.py:134
-#: views/snippets.py:146
+#: views/chooser.py:77 views/chooser.py:90 views/snippets.py:150
+#: views/snippets.py:163
 #, python-format
 msgid "Search %(snippet_type_name)s"
 msgstr ""
 
-#: views/snippets.py:224
+#: views/snippets.py:219
+msgid "The snippet could not be created due to errors."
+msgstr ""
+
+#: views/snippets.py:290
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' created."
 msgstr ""
 
-#: views/snippets.py:231 views/snippets.py:313 wagtail_hooks.py:50
+#: views/snippets.py:306 views/snippets.py:429 wagtail_hooks.py:50
 msgid "Edit"
 msgstr ""
 
-#: views/snippets.py:247
-msgid "The snippet could not be created due to errors."
-msgstr ""
-
-#: views/snippets.py:306
+#: views/snippets.py:418
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' updated."
 msgstr ""
 
-#: views/snippets.py:325
+#: views/snippets.py:442
 msgid "The snippet could not be saved due to errors."
 msgstr ""
 
-#: views/snippets.py:386
+#: views/snippets.py:516
 #, python-format
 msgid "%(snippet_type)s '%(instance)s' deleted."
 msgstr ""
 
-#: views/snippets.py:395
+#: views/snippets.py:525
 #, python-format
 msgid "%(count)d %(snippet_type)s deleted."
 msgid_plural "%(count)d %(snippet_type)s deleted."
 msgstr[0] ""
 msgstr[1] ""
 
-#: views/snippets.py:450
+#: views/snippets.py:586
 msgid "Snippet history"
 msgstr ""
 
-#: views/snippets.py:454
+#: views/snippets.py:590
 msgid "Action"
 msgstr ""
 
-#: views/snippets.py:456
+#: views/snippets.py:592
 msgid "Date"
 msgstr ""
 
-#: wagtail_hooks.py:52
+#: wagtail_hooks.py:55
 #, python-format
 msgid "Edit '%(title)s'"
 msgstr ""
 
-#: wagtail_hooks.py:60
+#: wagtail_hooks.py:66
 #, python-format
 msgid "Delete '%(title)s'"
 msgstr ""
 
-#: widgets.py:22
+#: widgets.py:21
 #, python-format
 msgid "Choose %s"
 msgstr ""
 
-#: widgets.py:23
+#: widgets.py:22
 #, python-format
 msgid "Choose another %s"
 msgstr ""
 
-#: widgets.py:24
+#: widgets.py:23
 #, python-format
 msgid "Edit this %s"
 msgstr ""
