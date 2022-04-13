@@ -1,4 +1,3 @@
-from django.core.exceptions import ImproperlyConfigured
 from django.dispatch import receiver
 from django.test.signals import setting_changed
 
@@ -26,13 +25,9 @@ def set_permission_policy():
     """Sets the permission policy for the current image model."""
 
     global permission_policy
-    try:
-        permission_policy = CollectionOwnershipPermissionPolicy(
-            get_image_model(), auth_model=Image, owner_field_name="uploaded_by_user"
-        )
-    except ImproperlyConfigured:
-        # Wrong configuration of the base image model; leave permission policy as is.
-        return
+    permission_policy = CollectionOwnershipPermissionPolicy(
+        get_image_model(), auth_model=Image, owner_field_name="uploaded_by_user"
+    )
 
 
 @receiver(setting_changed)
