@@ -11,15 +11,13 @@
     </p>
 
     <figure class="duplicate-upload__figure col6">
-        <figcaption>Existing</figcaption>
-        {% image existing_image max-800x600 as img %}
-        <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}" alt="{{ img.alt }}" class="show-transparency"/>
+        <figcaption>{% trans "Existing" %}</figcaption>
+        {% image existing_image max-800x600 class="show-transparency" %}
         <a href="{% url 'wagtailimages:edit' existing_image.id %}">{{ existing_image.title }}</a>
     </figure>
     <figure class="duplicate-upload__figure col6">
-        <figcaption>New</figcaption>
-        {% image new_image max-800x600 as image %}
-        <img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" alt="{{ image.alt }}" class="show-transparency"/>
+        <figcaption>{% trans "New" %}</figcaption>
+        {% image new_image max-800x600 class="show-transparency" %}
         <a href="{% url 'wagtailimages:edit' new_image.id %}">{{ new_image.title }}</a>
     </figure>
 
