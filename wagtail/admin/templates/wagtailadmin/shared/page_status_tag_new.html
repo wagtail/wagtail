@@ -7,9 +7,9 @@
     - `classes` - String of extra css classes to pass to this component
 {% endcomment %}
 
-{% test_page_is_public page as is_public %}
-
 {% if page.live and page.url is not None %}
+    {% test_page_is_public page as is_public %}
+
     <a href="{{ page.url }}" target="_blank" rel="noreferrer"
         class="
             page-status-tag
