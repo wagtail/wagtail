@@ -70,25 +70,28 @@ def get_snippet_edit_handler(model):
 
 class Index(IndexView):
     template_name = "wagtailsnippets/snippets/index.html"
+    context_object_name = "snippet_model_opts"
 
-    def get(self, request, *args, **kwargs):
-        snippet_model_opts = [
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.snippet_types = self._get_snippet_types()
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.snippet_types:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
+
+    def _get_snippet_types(self):
+        return [
             model._meta
             for model in get_snippet_models()
-            if user_can_edit_snippet_type(request.user, model)
+            if user_can_edit_snippet_type(self.request.user, model)
         ]
-        if snippet_model_opts:
-            return TemplateResponse(
-                request,
-                self.template_name,
-                {
-                    "snippet_model_opts": sorted(
-                        snippet_model_opts, key=lambda x: x.verbose_name.lower()
-                    )
-                },
-            )
-        else:
-            raise PermissionDenied
+
+    def get_queryset(self):
+        # It's not a queryset, but this allows us to use context_object_name
+        # and reuse get_context_data of IndexView.
+        return sorted(self.snippet_types, key=lambda x: x.verbose_name.lower())
 
 
 class ListView(TemplateView):
