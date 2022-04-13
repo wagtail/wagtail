@@ -451,24 +451,26 @@ class Edit(EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
-    def get(self, request, *args, **kwargs):
-        form = self.get_form()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
+        form = context.get("form")
         edit_handler = self._get_bound_panel(form)
         action_menu = self._get_action_menu()
         latest_log_entry = self._get_latest_log_entry()
 
-        context = {
-            "model_opts": self.model._meta,
-            "instance": self.object,
-            "edit_handler": edit_handler,
-            "form": form,
-            "action_menu": action_menu,
-            "locale": None,
-            "translations": [],
-            "latest_log_entry": latest_log_entry,
-            "media": edit_handler.media + form.media + action_menu.media,
-        }
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "instance": self.object,
+                "edit_handler": edit_handler,
+                "action_menu": action_menu,
+                "locale": None,
+                "translations": [],
+                "latest_log_entry": latest_log_entry,
+                "media": edit_handler.media + form.media + action_menu.media,
+            }
+        )
 
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
             self.model, TranslatableMixin
@@ -495,6 +497,10 @@ class Edit(EditView):
                 }
             )
 
+        return context
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
         return TemplateResponse(request, self.template_name, context)
 
     def get_success_url(self):
@@ -548,51 +554,11 @@ class Edit(EditView):
         return response
 
     def post(self, request, *args, **kwargs):
-        form = self.get_form()
+        context = self.get_context_data(**kwargs)
+        form = context.get("form")
 
         if form.is_valid():
             return self.form_valid(form)
-
-        edit_handler = self._get_bound_panel(form)
-        action_menu = self._get_action_menu()
-        latest_log_entry = self._get_latest_log_entry()
-
-        context = {
-            "model_opts": self.model._meta,
-            "instance": self.object,
-            "edit_handler": edit_handler,
-            "form": form,
-            "action_menu": action_menu,
-            "locale": None,
-            "translations": [],
-            "latest_log_entry": latest_log_entry,
-            "media": edit_handler.media + form.media + action_menu.media,
-        }
-
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
-            context.update(
-                {
-                    "locale": self.object.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailsnippets:edit",
-                                args=[
-                                    self.app_label,
-                                    self.model_name,
-                                    quote(translation.pk),
-                                ],
-                            ),
-                        }
-                        for translation in self.object.get_translations().select_related(
-                            "locale"
-                        )
-                    ],
-                }
-            )
 
         return TemplateResponse(request, self.template_name, context)
 
