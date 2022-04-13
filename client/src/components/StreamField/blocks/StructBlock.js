@@ -70,7 +70,6 @@ export class StructBlock {
           prefix + '-' + childBlockDef.name,
           state[childBlockDef.name],
           initialError?.blockErrors[childBlockDef.name],
-          this,
           new Map(),
         );
 
