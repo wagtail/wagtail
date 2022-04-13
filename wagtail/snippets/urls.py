@@ -34,7 +34,9 @@ urlpatterns = [
         name="add",
     ),
     path(
-        "<slug:app_label>/<slug:model_name>/edit/<str:pk>/", snippets.edit, name="edit"
+        "<slug:app_label>/<slug:model_name>/edit/<str:pk>/",
+        snippets.Edit.as_view(),
+        name="edit",
     ),
     path(
         "<slug:app_label>/<slug:model_name>/multiple/delete/",

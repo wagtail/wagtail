@@ -20,7 +20,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic import CreateView, IndexView
+from wagtail.admin.views.generic import CreateView, EditView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
@@ -386,24 +386,82 @@ class Create(CreateView):
         return response
 
 
-def edit(request, app_label, model_name, pk):
-    model = get_snippet_model_from_url_params(app_label, model_name)
+class Edit(EditView):
+    def get(self, request, *args, app_label, model_name, pk, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
 
-    permission = get_permission_name("change", model)
-    if not request.user.has_perm(permission):
-        raise PermissionDenied
+        permission = get_permission_name("change", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
 
-    instance = get_object_or_404(model, pk=unquote(pk))
+        instance = get_object_or_404(model, pk=unquote(pk))
 
-    for fn in hooks.get_hooks("before_edit_snippet"):
-        result = fn(request, instance)
-        if hasattr(result, "status_code"):
-            return result
+        for fn in hooks.get_hooks("before_edit_snippet"):
+            result = fn(request, instance)
+            if hasattr(result, "status_code"):
+                return result
 
-    edit_handler = get_snippet_edit_handler(model)
-    form_class = edit_handler.get_form_class()
+        edit_handler = get_snippet_edit_handler(model)
+        form_class = edit_handler.get_form_class()
+        form = form_class(instance=instance, for_user=request.user)
 
-    if request.method == "POST":
+        edit_handler = edit_handler.get_bound_panel(
+            instance=instance, request=request, form=form
+        )
+        latest_log_entry = log_registry.get_logs_for_instance(instance).first()
+        action_menu = SnippetActionMenu(request, view="edit", instance=instance)
+
+        context = {
+            "model_opts": model._meta,
+            "instance": instance,
+            "edit_handler": edit_handler,
+            "form": form,
+            "action_menu": action_menu,
+            "locale": None,
+            "translations": [],
+            "latest_log_entry": latest_log_entry,
+            "media": edit_handler.media + form.media + action_menu.media,
+        }
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model, TranslatableMixin
+        ):
+            context.update(
+                {
+                    "locale": instance.locale,
+                    "translations": [
+                        {
+                            "locale": translation.locale,
+                            "url": reverse(
+                                "wagtailsnippets:edit",
+                                args=[app_label, model_name, quote(translation.pk)],
+                            ),
+                        }
+                        for translation in instance.get_translations().select_related(
+                            "locale"
+                        )
+                    ],
+                }
+            )
+
+        return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
+
+    def post(self, request, *args, app_label, model_name, pk, **kwargs):
+        model = get_snippet_model_from_url_params(app_label, model_name)
+
+        permission = get_permission_name("change", model)
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        instance = get_object_or_404(model, pk=unquote(pk))
+
+        for fn in hooks.get_hooks("before_edit_snippet"):
+            result = fn(request, instance)
+            if hasattr(result, "status_code"):
+                return result
+
+        edit_handler = get_snippet_edit_handler(model)
+        form_class = edit_handler.get_form_class()
         form = form_class(
             request.POST, request.FILES, instance=instance, for_user=request.user
         )
@@ -437,53 +495,47 @@ def edit(request, app_label, model_name, pk):
                     return result
 
             return redirect("wagtailsnippets:list", app_label, model_name)
-        else:
-            messages.validation_error(
-                request, _("The snippet could not be saved due to errors."), form
-            )
-    else:
-        form = form_class(instance=instance, for_user=request.user)
 
-    edit_handler = edit_handler.get_bound_panel(
-        instance=instance, request=request, form=form
-    )
-    latest_log_entry = log_registry.get_logs_for_instance(instance).first()
-    action_menu = SnippetActionMenu(request, view="edit", instance=instance)
-
-    context = {
-        "model_opts": model._meta,
-        "instance": instance,
-        "edit_handler": edit_handler,
-        "form": form,
-        "action_menu": action_menu,
-        "locale": None,
-        "translations": [],
-        "latest_log_entry": latest_log_entry,
-        "media": edit_handler.media + form.media + action_menu.media,
-    }
-
-    if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-        model, TranslatableMixin
-    ):
-        context.update(
-            {
-                "locale": instance.locale,
-                "translations": [
-                    {
-                        "locale": translation.locale,
-                        "url": reverse(
-                            "wagtailsnippets:edit",
-                            args=[app_label, model_name, quote(translation.pk)],
-                        ),
-                    }
-                    for translation in instance.get_translations().select_related(
-                        "locale"
-                    )
-                ],
-            }
+        edit_handler = edit_handler.get_bound_panel(
+            instance=instance, request=request, form=form
         )
+        latest_log_entry = log_registry.get_logs_for_instance(instance).first()
+        action_menu = SnippetActionMenu(request, view="edit", instance=instance)
 
-    return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
+        context = {
+            "model_opts": model._meta,
+            "instance": instance,
+            "edit_handler": edit_handler,
+            "form": form,
+            "action_menu": action_menu,
+            "locale": None,
+            "translations": [],
+            "latest_log_entry": latest_log_entry,
+            "media": edit_handler.media + form.media + action_menu.media,
+        }
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            model, TranslatableMixin
+        ):
+            context.update(
+                {
+                    "locale": instance.locale,
+                    "translations": [
+                        {
+                            "locale": translation.locale,
+                            "url": reverse(
+                                "wagtailsnippets:edit",
+                                args=[app_label, model_name, quote(translation.pk)],
+                            ),
+                        }
+                        for translation in instance.get_translations().select_related(
+                            "locale"
+                        )
+                    ],
+                }
+            )
+
+        return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
 
 def delete(request, app_label, model_name, pk=None):
