@@ -9,13 +9,13 @@ from wagtail.permission_policies.collections import CollectionOwnershipPermissio
 permission_policy = None
 
 
-class ImagesPermissionPolicy:
+class ImagesPermissionPolicyGetter:
     """
     A helper to retrieve the current permission policy dynamically.
     Following the descriptor protocol, this should be used as a class attribute::
 
         class MyImageView(PermissionCheckedMixin, ...):
-            permission_policy = ImagesPermissionPolicy()
+            permission_policy = ImagesPermissionPolicyGetter()
     """
 
     def __get__(self, obj, objtype=None):
