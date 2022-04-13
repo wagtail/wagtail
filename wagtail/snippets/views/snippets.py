@@ -556,6 +556,8 @@ def delete(request, app_label, model_name, pk=None):
 
 
 class Usage(IndexView):
+    template_name = "wagtailsnippets/snippets/usage.html"
+
     def get(self, request, app_label, model_name, pk):
         model = get_snippet_model_from_url_params(app_label, model_name)
         instance = get_object_or_404(model, pk=unquote(pk))
@@ -565,7 +567,7 @@ class Usage(IndexView):
 
         return TemplateResponse(
             request,
-            "wagtailsnippets/snippets/usage.html",
+            self.template_name,
             {"instance": instance, "used_by": used_by},
         )
 
