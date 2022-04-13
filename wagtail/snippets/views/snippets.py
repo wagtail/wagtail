@@ -392,6 +392,7 @@ class Edit(EditView):
 
         self.app_label = kwargs.get("app_label")
         self.model_name = kwargs.get("model_name")
+        self.pk = kwargs.get("pk")
         self.model = self._get_model()
 
     def _get_model(self):
@@ -405,27 +406,30 @@ class Edit(EditView):
 
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, pk, **kwargs):
-        instance = get_object_or_404(self.model, pk=unquote(pk))
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
 
         for fn in hooks.get_hooks("before_edit_snippet"):
-            result = fn(request, instance)
+            result = fn(request, self.object)
             if hasattr(result, "status_code"):
                 return result
 
         edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
-        form = form_class(instance=instance, for_user=request.user)
+        form = form_class(instance=self.object, for_user=request.user)
 
         edit_handler = edit_handler.get_bound_panel(
-            instance=instance, request=request, form=form
+            instance=self.object, request=request, form=form
         )
-        latest_log_entry = log_registry.get_logs_for_instance(instance).first()
-        action_menu = SnippetActionMenu(request, view="edit", instance=instance)
+        latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
+        action_menu = SnippetActionMenu(request, view="edit", instance=self.object)
 
         context = {
             "model_opts": self.model._meta,
-            "instance": instance,
+            "instance": self.object,
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
@@ -440,7 +444,7 @@ class Edit(EditView):
         ):
             context.update(
                 {
-                    "locale": instance.locale,
+                    "locale": self.object.locale,
                     "translations": [
                         {
                             "locale": translation.locale,
@@ -453,7 +457,7 @@ class Edit(EditView):
                                 ],
                             ),
                         }
-                        for translation in instance.get_translations().select_related(
+                        for translation in self.object.get_translations().select_related(
                             "locale"
                         )
                     ],
@@ -462,37 +466,41 @@ class Edit(EditView):
 
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
-    def post(self, request, *args, pk, **kwargs):
-        instance = get_object_or_404(self.model, pk=unquote(pk))
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
 
         for fn in hooks.get_hooks("before_edit_snippet"):
-            result = fn(request, instance)
+            result = fn(request, self.object)
             if hasattr(result, "status_code"):
                 return result
 
         edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(
-            request.POST, request.FILES, instance=instance, for_user=request.user
+            request.POST, request.FILES, instance=self.object, for_user=request.user
         )
 
         if form.is_valid():
             with transaction.atomic():
                 form.save()
-                log(instance=instance, action="wagtail.edit")
+                log(instance=self.object, action="wagtail.edit")
 
             messages.success(
                 request,
                 _("%(snippet_type)s '%(instance)s' updated.")
                 % {
                     "snippet_type": capfirst(self.model._meta.verbose_name),
-                    "instance": instance,
+                    "instance": self.object,
                 },
                 buttons=[
                     messages.button(
                         reverse(
                             "wagtailsnippets:edit",
-                            args=(self.app_label, self.model_name, quote(instance.pk)),
+                            args=(
+                                self.app_label,
+                                self.model_name,
+                                quote(self.object.pk),
+                            ),
                         ),
                         _("Edit"),
                     )
@@ -500,21 +508,21 @@ class Edit(EditView):
             )
 
             for fn in hooks.get_hooks("after_edit_snippet"):
-                result = fn(request, instance)
+                result = fn(request, self.object)
                 if hasattr(result, "status_code"):
                     return result
 
             return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
         edit_handler = edit_handler.get_bound_panel(
-            instance=instance, request=request, form=form
+            instance=self.object, request=request, form=form
         )
-        latest_log_entry = log_registry.get_logs_for_instance(instance).first()
-        action_menu = SnippetActionMenu(request, view="edit", instance=instance)
+        latest_log_entry = log_registry.get_logs_for_instance(self.object).first()
+        action_menu = SnippetActionMenu(request, view="edit", instance=self.object)
 
         context = {
             "model_opts": self.model._meta,
-            "instance": instance,
+            "instance": self.object,
             "edit_handler": edit_handler,
             "form": form,
             "action_menu": action_menu,
@@ -529,7 +537,7 @@ class Edit(EditView):
         ):
             context.update(
                 {
-                    "locale": instance.locale,
+                    "locale": self.object.locale,
                     "translations": [
                         {
                             "locale": translation.locale,
@@ -542,7 +550,7 @@ class Edit(EditView):
                                 ],
                             ),
                         }
-                        for translation in instance.get_translations().select_related(
+                        for translation in self.object.get_translations().select_related(
                             "locale"
                         )
                     ],
