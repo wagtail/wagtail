@@ -558,9 +558,19 @@ def delete(request, app_label, model_name, pk=None):
 class Usage(IndexView):
     template_name = "wagtailsnippets/snippets/usage.html"
 
-    def get(self, request, app_label, model_name, pk):
-        model = get_snippet_model_from_url_params(app_label, model_name)
-        instance = get_object_or_404(model, pk=unquote(pk))
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+        self.pk = kwargs.get("pk")
+        self.model = self._get_model()
+
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def get(self, request, *args, **kwargs):
+        instance = get_object_or_404(self.model, pk=unquote(self.pk))
 
         paginator = Paginator(instance.get_usage(), per_page=20)
         used_by = paginator.get_page(request.GET.get("p"))
