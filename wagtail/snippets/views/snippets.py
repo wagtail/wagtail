@@ -564,19 +564,21 @@ class Delete(DeleteView):
         self.app_label = kwargs.get("app_label")
         self.model_name = kwargs.get("model_name")
         self.pk = kwargs.get("pk")
+        self.model = self._get_model()
+
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def get(self, request, *args, **kwargs):
-        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-        permission = get_permission_name("delete", model)
+        permission = get_permission_name("delete", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
         if self.pk:
-            instances = [get_object_or_404(model, pk=unquote(self.pk))]
+            instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
         else:
             ids = request.GET.getlist("id")
-            instances = model.objects.filter(pk__in=ids)
+            instances = self.model.objects.filter(pk__in=ids)
 
         for fn in hooks.get_hooks("before_delete_snippet"):
             result = fn(request, instances)
@@ -589,7 +591,7 @@ class Delete(DeleteView):
             request,
             "wagtailsnippets/snippets/confirm_delete.html",
             {
-                "model_opts": model._meta,
+                "model_opts": self.model._meta,
                 "count": count,
                 "instances": instances,
                 "submit_url": (
@@ -604,17 +606,15 @@ class Delete(DeleteView):
         )
 
     def post(self, request, *args, **kwargs):
-        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-        permission = get_permission_name("delete", model)
+        permission = get_permission_name("delete", self.model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
         if self.pk:
-            instances = [get_object_or_404(model, pk=unquote(self.pk))]
+            instances = [get_object_or_404(self.model, pk=unquote(self.pk))]
         else:
             ids = request.GET.getlist("id")
-            instances = model.objects.filter(pk__in=ids)
+            instances = self.model.objects.filter(pk__in=ids)
 
         for fn in hooks.get_hooks("before_delete_snippet"):
             result = fn(request, instances)
@@ -630,7 +630,7 @@ class Delete(DeleteView):
 
         if count == 1:
             message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
-                "snippet_type": capfirst(model._meta.verbose_name),
+                "snippet_type": capfirst(self.model._meta.verbose_name),
                 "instance": instance,
             }
         else:
@@ -642,7 +642,7 @@ class Delete(DeleteView):
                 "%(count)d %(snippet_type)s deleted.",
                 count,
             ) % {
-                "snippet_type": capfirst(model._meta.verbose_name_plural),
+                "snippet_type": capfirst(self.model._meta.verbose_name_plural),
                 "count": count,
             }
 
