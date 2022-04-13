@@ -68,24 +68,25 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-def index(request):
-    snippet_model_opts = [
-        model._meta
-        for model in get_snippet_models()
-        if user_can_edit_snippet_type(request.user, model)
-    ]
-    if snippet_model_opts:
-        return TemplateResponse(
-            request,
-            "wagtailsnippets/snippets/index.html",
-            {
-                "snippet_model_opts": sorted(
-                    snippet_model_opts, key=lambda x: x.verbose_name.lower()
-                )
-            },
-        )
-    else:
-        raise PermissionDenied
+class Index(IndexView):
+    def get(self, request, *args, **kwargs):
+        snippet_model_opts = [
+            model._meta
+            for model in get_snippet_models()
+            if user_can_edit_snippet_type(request.user, model)
+        ]
+        if snippet_model_opts:
+            return TemplateResponse(
+                request,
+                "wagtailsnippets/snippets/index.html",
+                {
+                    "snippet_model_opts": sorted(
+                        snippet_model_opts, key=lambda x: x.verbose_name.lower()
+                    )
+                },
+            )
+        else:
+            raise PermissionDenied
 
 
 class ListView(TemplateView):
