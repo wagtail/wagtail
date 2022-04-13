@@ -7,9 +7,9 @@
     - `classes` - String of extra css classes to pass to this component
 {% endcomment %}
 
-{% test_page_is_public page as is_public %}
-
 {% if page.live and page.url is not None %}
+    {% test_page_is_public page as is_public %}
+
     <a href="{{ page.url }}" target="_blank" rel="noreferrer"
         class="
             page-status-tag
@@ -34,7 +34,6 @@
         data-tippy-offset="[0, 13]"
         aria-label="{% if is_public %}{% trans 'Visible to all. Visit the live page' %}{% else %}{% trans 'Private. Visit the live page' %}{% endif %}"
         data-tippy-content="{% if is_public %}{% trans 'Visible to all' %}{% else %}{% trans 'Private' %}{% endif %}"
-        data-tippy-offset="[0, 20]"
         data-tippy-placement="bottom">
 
         {% with icon_classes='privacy-indicator-icon w-w-4 w-h-4 w-mr-1' %}

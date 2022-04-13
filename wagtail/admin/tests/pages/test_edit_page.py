@@ -1,6 +1,5 @@
 import datetime
 import os
-import unittest
 from unittest import mock
 
 from django.conf import settings
@@ -115,10 +114,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
-        # TODO: Page editor header rewrite
-        # self.assertContains(
-        #     response, '<li class="header-meta--status">Published</li>', html=True
-        # )
+        self.assertContains(response, 'id="status-sidebar-live"')
 
         # Test InlinePanel labels/headings
         self.assertContains(response, "<legend>Speaker lineup</legend>")
@@ -162,10 +158,7 @@ class TestPageEdit(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=(self.unpublished_page.id,))
         )
         self.assertEqual(response.status_code, 200)
-        # TODO: Page editor header rewrite
-        # self.assertContains(
-        #     response, '<li class="header-meta--status">Draft</li>', html=True
-        # )
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
     def test_edit_multipart(self):
         """
@@ -967,7 +960,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         )
         self.assertContains(response, "Some content with a draft edit")
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_editor_page_shows_live_url_in_status_when_draft_edits_exist(self):
         # If a page has draft edits (ie. page has unpublished changes)
         # that affect the URL (eg. slug) we  should still ensure the
@@ -995,7 +987,6 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertContains(response, input_field_for_draft_slug, html=True)
         self.assertNotContains(response, input_field_for_live_slug, html=True)
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_editor_page_shows_custom_live_url_in_status_when_draft_edits_exist(self):
         # When showing a live URL in the status button that differs from the draft one,
         # ensure that we pick up any custom URL logic defined on the specific page model
@@ -1183,11 +1174,8 @@ class TestPageEdit(TestCase, WagtailTestUtils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response["Content-Type"], "text/html; charset=utf-8")
 
-        # Should still have status in the header
-        # TODO: Page editor header rewrite
-        # self.assertContains(
-        #     response, '<li class="header-meta--status">Published</li>', html=True
-        # )
+        # Should still have status in the sidebar
+        self.assertContains(response, 'id="status-sidebar-live"')
 
         # Check the edit_alias.html template was used instead
         self.assertTemplateUsed(response, "wagtailadmin/pages/edit_alias.html")
@@ -2267,21 +2255,17 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         )
         self.user = self.login()
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_selector(self):
         response = self.client.get(
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertContains(response, f'href="{edit_translation_url}"')
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -2289,17 +2273,13 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertNotContains(response, '<li class="header-meta--locale">')
+        self.assertNotContains(response, "Page Locale:")
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{edit_translation_url}"')
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_locale_dropdown_not_present_without_permission_to_edit(self):
         # Remove user's permissions to edit French tree
         en_events_index = Page.objects.get(url_path="/home/events/")
@@ -2323,15 +2303,12 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             reverse("wagtailadmin_pages:edit", args=[self.christmas_page.id])
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{edit_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{edit_translation_url}"')
 
 
 class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):

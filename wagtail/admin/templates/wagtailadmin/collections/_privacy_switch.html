@@ -5,7 +5,7 @@
 {% if not collection.is_root %}
     <div class="privacy-indicator {% if is_public %}public{% else %}private{% endif %}">
         {% trans "Privacy" %}
-        <button data-url="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" class="status-tag primary  action-set-privacy">
+        <button data-url="{% url 'wagtailadmin_collections:set_privacy' collection.id %}" data-action-set-privacy class="status-tag primary">
             {# labels are shown/hidden in CSS according to the 'private' / 'public' class on view-permission-indicator #}
             <span class="label-public icon icon-view" aria-label="{% trans 'Set collection privacy. Current status: Public' %}">
                 {% trans "Public" %}

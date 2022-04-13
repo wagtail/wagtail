@@ -7,7 +7,7 @@
 
     {% for panel in side_panels %}
         <div class="form-side__panel" data-side-panel="{{ panel.name }}" hidden>
-            <h2 id="side-panel-{{ panel.name }}-title" aria-label="{{ panel.title }}"></h2>
+            <h2 id="side-panel-{{ panel.name }}-title" class="w-sr-only">{{ panel.title }}</h2>
             {% component panel %}
         </div>
     {% endfor %}

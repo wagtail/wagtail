@@ -1,6 +1,5 @@
 import json
 import logging
-import unittest
 from unittest import mock
 
 from django.conf import settings
@@ -906,7 +905,6 @@ class TestSubmitToWorkflow(TestCase, WagtailTestUtils):
         self.assertEqual(task_state.task.specific, self.task_1)
         self.assertEqual(task_state.status, task_state.STATUS_IN_PROGRESS)
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_submit_for_approval_changes_status_in_header_meta(self):
         edit_url = reverse("wagtailadmin_pages:edit", args=(self.page.id,))
 
@@ -2358,7 +2356,6 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
 
         self.assertTemplateUsed(response, "wagtailadmin/workflows/workflow_status.html")
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_status_through_workflow_cycle(self):
         self.login(self.superuser)
         response = self.client.get(self.edit_url)
@@ -2366,7 +2363,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
 
         self.page.save_revision()
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved", 1)
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
         self.submit()
         response = self.client.get(self.edit_url)
@@ -2393,17 +2390,15 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         )
 
         response = self.workflow_action("approve")
-        self.assertContains(response, "Published")
+        self.assertContains(response, 'id="status-sidebar-live"')
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_status_after_cancel(self):
         # start workflow, then cancel
         self.submit()
         self.submit("action-cancel-workflow")
         response = self.client.get(self.edit_url)
-        self.assertContains(response, "Draft saved")
+        self.assertContains(response, 'id="status-sidebar-draft"')
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_status_after_restart(self):
         self.submit()
         response = self.workflow_action("approve")
@@ -2435,15 +2430,14 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         response = self.client.get(workflow_status_url)
         self.assertIn("good work", response.json().get("html"))
 
-    @unittest.expectedFailure  # TODO: Page editor header rewrite
     def test_workflow_edit_locked_message(self):
         self.submit()
         self.login(self.submitter)
         response = self.client.get(self.edit_url)
 
         needle = "This page is awaiting <b>'test_task_1'</b> in the <b>'test_workflow'</b> workflow. Only reviewers for this task can edit the page."
-        self.assertTagInHTML(needle, str(response.content), count=1)
+        self.assertContains(response, needle)
 
         self.login(self.moderator)
         response = self.client.get(self.edit_url)
-        self.assertNotInHTML(needle, str(response.content))
+        self.assertNotContains(response, needle)

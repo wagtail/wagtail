@@ -5,7 +5,7 @@ from urllib.parse import urljoin
 from django import template
 from django.conf import settings
 from django.contrib.admin.utils import quote
-from django.contrib.humanize.templatetags.humanize import intcomma
+from django.contrib.humanize.templatetags.humanize import intcomma, naturaltime
 from django.contrib.messages.constants import DEFAULT_TAGS as MESSAGE_TAGS
 from django.db.models import Min, QuerySet
 from django.shortcuts import resolve_url as resolve_url_func
@@ -53,6 +53,7 @@ from wagtail.users.utils import get_gravatar_url
 register = template.Library()
 
 register.filter("intcomma", intcomma)
+register.filter("naturaltime", naturaltime)
 
 
 @register.inclusion_tag("wagtailadmin/shared/breadcrumb.html", takes_context=True)
@@ -713,7 +714,9 @@ def timesince_simple(d):
 
 
 @register.simple_tag
-def timesince_last_update(last_update, time_prefix="", use_shorthand=True):
+def timesince_last_update(
+    last_update, time_prefix="", user_display_name="", use_shorthand=True
+):
     """
     Returns:
          - the time of update if last_update is today, if any prefix is supplied, the output will use it
@@ -726,12 +729,11 @@ def timesince_last_update(last_update, time_prefix="", use_shorthand=True):
         else:
             time_str = last_update.strftime("%H:%M")
 
-        return (
-            time_str
-            if not time_prefix
-            else "%(prefix)s %(formatted_time)s"
-            % {"prefix": time_prefix, "formatted_time": time_str}
-        )
+        time_prefix = f"{time_prefix} " if time_prefix else time_prefix
+        by_user = f" by {user_display_name}" if user_display_name else user_display_name
+
+        return f"{time_prefix}{time_str}{by_user}"
+
     else:
         if use_shorthand:
             return timesince_simple(last_update)

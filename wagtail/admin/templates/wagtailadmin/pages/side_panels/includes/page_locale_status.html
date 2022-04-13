@@ -1,0 +1,39 @@
+{% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
+{% load i18n wagtailadmin_tags %}
+
+{% block content %}
+    {% trans 'Page Locale: ' as screen_reader_title_prefix %}
+
+    {% if translations %}
+        {% blocktrans trimmed with count=page.get_translations.count asvar help_text %}
+            Translated to {{ count }} other locales
+        {% endblocktrans %}
+    {% else %}
+        {% trans 'No other translations' as help_text %}
+    {% endif %}
+
+    {% with icon_name='globe' title=page.locale.get_display_name %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock %}
+
+{% block action %}
+    {% if translations %}
+        <div data-button-with-dropdown>
+            {% trans 'Switch locales' as action_text %}
+            {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-button-with-dropdown-toggle' text=action_text %}
+
+            <div class="w-hidden w-text-white w-flex w-flex-col w-justify-start w-py-2" data-button-with-dropdown-content>
+                {% for translation in translations %}
+                    <a href="{{ translation.url }}"
+                        lang="{{ translation.locale.language_code }}"
+                        class="w-inline-flex w-items-center w-text-white hover:w-text-white hover:w-bg-primary-200 w-py-2 w-px-4 w-font-bold w-no-underline w-transition">
+                        {{ translation.locale.get_display_name }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        {# No locales to switch to #}
+    {% endif %}
+{% endblock %}

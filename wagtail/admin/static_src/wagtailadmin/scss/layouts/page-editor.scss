@@ -116,14 +116,6 @@
       line-height: 2.5em;
     }
 
-    .action-workflow-status {
-      font-weight: 600;
-
-      span {
-        font-weight: 300;
-      }
-    }
-
     .human-readable-date {
       display: inline;
     }
@@ -138,52 +130,53 @@
   }
 
   .form-side {
-    position: fixed;
-    // Remove once we drop support for Safari 13.
-    // stylelint-disable-next-line property-disallowed-list
-    right: -420px;
-    inset-inline-end: -420px;
-    width: 25%;
-    height: 100%;
-    max-width: 420px;
-    transition: right $menu-transition-duration ease,
-      inset-inline-end $menu-transition-duration ease;
-    border-inline-start: 1px solid theme('colors.grey.100');
-    background-color: $color-white;
-    z-index: 90;
+    @apply w-fixed
+    w-z-[90]
+    w-right-0
+    w-top-[100px]
+    sm:w-top-[50px]
+    sm:w-max-w-[500px]
+    w-w-full
+    sm:w-w-[70%]
+    xl:w-w-[30%]
+    w-transform
+    w-translate-x-full
+    w-h-full
+    w-px-5
+    w-py-10
+    md:w-p-10
+    w-bg-white
+    w-box-border
+    w-transition
+    w-duration-300
+    w-border-l
+    w-border-grey-100;
 
     &--open {
-      // Remove once we drop support for Safari 13.
-      // stylelint-disable-next-line property-disallowed-list
-      right: 0;
-      inset-inline-end: 0;
+      @apply w-translate-x-0;
     }
 
     &__close-button {
-      color: theme('colors.primary.DEFAULT');
-      background-color: $color-white;
-      padding: 10px;
-      display: none;
+      @apply w-text-primary w-absolute w-left-2 w-top-2 hover:w-text-primary-200 w-bg-white w-p-2.5 w-hidden w-transition;
 
       .icon {
-        width: 20px;
-        height: 20px;
+        @apply w-w-5 w-h-5;
       }
     }
 
-    &--open .form-side__close-button {
-      display: block;
+    &--open .form-side__close-button,
+    &--open .form-side__panel {
+      @apply w-block;
     }
 
     &__panel {
-      display: none;
-      padding-inline-start: 10px;
-
-      &--active {
-        display: block;
-      }
+      @apply w-hidden w-pl-2.5;
     }
   }
+}
+
+.has-messages .form-side {
+  @apply w-top-[170px] md:w-top-[120px];
 }
 
 // An object is the basic wrapper around any field or group of fields in the editor interface
