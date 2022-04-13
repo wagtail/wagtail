@@ -150,7 +150,7 @@ $(function () {
         if (response.duplicate) {
           itemElement.addClass('upload-duplicate');
           $('.right', itemElement).append(response.confirm_duplicate_upload);
-          $('.confirm-duplicate-upload').on(
+          $('.confirm-duplicate-upload', itemElement).on(
             'click',
             '.confirm-upload',
             function (event) {
