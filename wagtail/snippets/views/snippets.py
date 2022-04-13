@@ -412,12 +412,20 @@ class Edit(EditView):
         self.model = self._get_model()
         self.edit_handler = self._get_edit_handler()
         self.object = self.get_object()
+        self.locale = self._get_locale()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
     def _get_edit_handler(self):
         return get_snippet_edit_handler(self.model)
+
+    def _get_locale(self):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            return self.object.locale
+        return None
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("change", self.model)
@@ -472,12 +480,10 @@ class Edit(EditView):
             }
         )
 
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
+        if self.locale:
             context.update(
                 {
-                    "locale": self.object.locale,
+                    "locale": self.locale,
                     "translations": [
                         {
                             "locale": translation.locale,
