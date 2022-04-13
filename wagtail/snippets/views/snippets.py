@@ -649,11 +649,10 @@ class Delete(DeleteView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        count = len(self.object)
         context.update(
             {
                 "model_opts": self.model._meta,
-                "count": count,
+                "count": len(self.object),
                 "instances": self.object,
                 "action_url": self.get_delete_url(),
             }
