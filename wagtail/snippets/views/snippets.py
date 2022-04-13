@@ -627,18 +627,21 @@ class Delete(DeleteView):
             },
         )
 
-    def post(self, request, *args, **kwargs):
-        count = len(self.object)
-
+    def delete_action(self):
         with transaction.atomic():
             for instance in self.object:
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
+    def post(self, request, *args, **kwargs):
+        count = len(self.object)
+
+        self.delete_action()
+
         if count == 1:
             message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
                 "snippet_type": capfirst(self.model._meta.verbose_name),
-                "instance": instance,
+                "instance": self.object[0],
             }
         else:
             # This message is only used in plural form, but we'll define it with ngettext so that
