@@ -486,6 +486,9 @@ class Edit(EditView):
 
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
+    def get_success_url(self):
+        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+
     def get_success_message(self):
         return _("%(snippet_type)s '%(instance)s' updated.") % {
             "snippet_type": capfirst(self.model._meta.verbose_name),
@@ -507,27 +510,20 @@ class Edit(EditView):
             )
         ]
 
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        hooks_result = self._run_after_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
+        return response
+
     def post(self, request, *args, **kwargs):
         form = self.get_form()
 
         if form.is_valid():
-            with transaction.atomic():
-                form.save()
-                log(instance=self.object, action="wagtail.edit")
-
-            success_message = self.get_success_message()
-            success_buttons = self.get_success_buttons()
-            messages.success(
-                request,
-                success_message,
-                buttons=success_buttons,
-            )
-
-            hooks_result = self._run_after_hooks()
-            if hooks_result is not None:
-                return hooks_result
-
-            return redirect("wagtailsnippets:list", self.app_label, self.model_name)
+            return self.form_valid(form)
 
         edit_handler = self.edit_handler.get_bound_panel(
             instance=self.object, request=request, form=form
