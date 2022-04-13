@@ -1449,16 +1449,13 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-french"')
 
         add_translation_url = reverse(
             "wagtailadmin_pages:add",
             args=["tests", "eventpage", self.translated_events_page.id],
         )
-        self.assertContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertContains(response, f'href="{add_translation_url}"')
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -1469,16 +1466,13 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertNotContains(response, '<li class="header-meta--locale">')
+        self.assertNotContains(response, "Page Locale:")
 
         add_translation_url = reverse(
             "wagtailadmin_pages:add",
             args=["tests", "eventpage", self.translated_events_page.id],
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{add_translation_url}"')
 
     def test_locale_selector_not_present_without_permission_to_add(self):
         # Remove user's permissions to add in the French tree
@@ -1505,16 +1499,13 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-french"')
 
         add_translation_url = reverse(
             "wagtailadmin_pages:add",
             args=["tests", "eventpage", self.translated_events_page.id],
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{add_translation_url}"')
 
 
 @override_settings(WAGTAIL_I18N_ENABLED=True)
@@ -1534,7 +1525,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, '<li class="header-meta--locale">')
+        self.assertContains(response, 'id="status-sidebar-french"')
 
         add_translation_url = (
             reverse(
@@ -1543,10 +1534,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             )
             + "?locale=fr"
         )
-        self.assertContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertContains(response, f'href="{add_translation_url}"')
 
     @override_settings(WAGTAIL_I18N_ENABLED=False)
     def test_locale_selector_not_present_when_i18n_disabled(self):
@@ -1557,7 +1545,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertNotContains(response, '<li class="header-meta--locale">')
+        self.assertNotContains(response, "Page Locale:")
 
         add_translation_url = (
             reverse(
@@ -1566,10 +1554,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             )
             + "?locale=fr"
         )
-        self.assertNotContains(
-            response,
-            f'<a href="{add_translation_url}" aria-label="French" class="u-link is-live">',
-        )
+        self.assertNotContains(response, f'href="{add_translation_url}"')
 
 
 class TestPageSubscriptionSettings(TestCase, WagtailTestUtils):
