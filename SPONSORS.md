@@ -49,3 +49,5 @@ The features below were developed thanks to the sponsorship of these organsation
 - Automatic redirect creation - [The National Archives](https://www.nationalarchives.gov.uk)
 
 - Persistent IDs for ListBlock items - [NHS](https://www.nhs.uk/)
+
+- Page editor redesign - [Google](http://google.com/)
