@@ -4,7 +4,7 @@
 {% block content %}
     {% trans 'Page Locale: ' as screen_reader_title_prefix %}
 
-    {% if page.get_translations.count > 0 %}
+    {% if translations %}
         {% blocktrans trimmed with count=page.get_translations.count asvar help_text %}
             Translated to {{ count }} other locales
         {% endblocktrans %}
@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block action %}
-    {% if page.get_translations.count > 0 %}
+    {% if translations %}
         <div data-button-with-dropdown>
             {% trans 'Switch locales' as action_text %}
             {% include 'wagtailadmin/pages/side_panels/includes/side_panel_button.html' with attr='data-button-with-dropdown-toggle' text=action_text %}
