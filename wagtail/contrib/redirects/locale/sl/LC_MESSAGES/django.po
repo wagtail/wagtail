@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:15+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -22,6 +22,9 @@ msgstr ""
 
 msgid "Type"
 msgstr "Tip"
+
+msgid "All"
+msgstr "Vse"
 
 msgid "From site"
 msgstr "Iz spletnega mesta"
@@ -86,6 +89,9 @@ msgstr "Ali ste prepričani, da želite izbrisati preusmeritev?"
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
+msgid "Cancel"
+msgstr "Prekliči"
+
 msgid "Preview"
 msgstr "Predogled"
 
@@ -104,6 +110,9 @@ msgstr "Iz"
 
 msgid "To"
 msgstr "Na"
+
+msgid "Continue"
+msgstr "Nadaljuj"
 
 msgid "Site"
 msgstr "Spletno mesto"

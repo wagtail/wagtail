@@ -12,7 +12,9 @@
 # Mikalai Radchuk <radchuk.m@gmail.com>, 2016-2017
 # Mikhail Sidorov <pevzi23@gmail.com>, 2019
 # sergeybe <sergeybe@gmail.com>, 2020
+# Vladislav <integration.into.society@gmail.com>, 2022
 # Виктор Виктор <spam.vitek@gmail.com>, 2020
+# Vladislav <integration.into.society@gmail.com>, 2022
 # Михаил Герасимов, 2019
 # Sergey Mazanov <mvver@outlook.com>, 2021
 msgid ""
@@ -20,8 +22,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:12+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -76,6 +78,35 @@ msgstr "документ"
 
 msgid "documents"
 msgstr "документы"
+
+msgid "Add tags to documents"
+msgstr "Добавить теги к документам"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "Вы уверены, что хотите пометить этот документ?"
+msgstr[1] "Вы уверены, что хотите пометить следующие документы?"
+msgstr[2] "Вы уверены, что хотите пометить следующие документы?"
+msgstr[3] "Вы уверены, что хотите пометить следующие документы?"
+
+msgid "Yes, add"
+msgstr "Да, добавить"
+
+msgid "No, don't add"
+msgstr "Нет, не добавлять"
+
+msgid "Add documents to collection"
+msgstr "Добавить документы в коллекцию"
+
+msgid "Delete documents"
+msgstr "Удалить документы"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Вы уверены, что хотите удалить этот документ?"
+msgstr[1] "Вы уверены, что хотите удалить эти документы?"
+msgstr[2] "Вы уверены, что хотите удалить эти документы?"
+msgstr[3] "Вы уверены, что хотите удалить эти документы?"
 
 #, python-format
 msgid "Used %(usage_count)s time"
@@ -188,6 +219,9 @@ msgstr "Использование"
 msgid "Documents"
 msgstr "Документы"
 
+msgid "Select all documents in listing"
+msgstr "Выбрать все документы из списка"
+
 msgid "Title"
 msgstr "Заголовок"
 
@@ -196,6 +230,9 @@ msgstr "Файл"
 
 msgid "Created"
 msgstr "Создан"
+
+msgid "Select document"
+msgstr "Выбрать документ"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -307,11 +344,32 @@ msgstr "Доступ к документу"
 msgid "Add a document permission"
 msgstr "Добавить права доступа к документу"
 
+msgid "Tag"
+msgstr "Тэг"
+
+msgid "Add tags to the selected documents"
+msgstr "Добавить теги к выбранным документам"
+
+msgid "Add to collection"
+msgstr "Добавить в коллекцию"
+
+msgid "Add selected documents to collection"
+msgstr "Добавить выбранные документы в коллекцию"
+
 msgid "Delete"
 msgstr "Удалить"
 
+msgid "Delete selected documents"
+msgstr "Удалить выбранные документы"
+
 msgid "Server Error"
 msgstr "Ошибка Сервера"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Сообщите об этой ошибке администратору веб-сайта со следующей информацией:"
 
 msgid "Search documents"
 msgstr "Поиск документов"

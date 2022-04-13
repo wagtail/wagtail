@@ -5,7 +5,7 @@
 #
 # Translators:
 # Anatoly <pandorinpan@gmail.com>, 2021
-# Влад <integration.into.society@gmail.com>, 2021
+# Vladislav <integration.into.society@gmail.com>, 2022
 #
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Влад <integration.into.society@gmail.com>, 2021\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/torchbox/teams/8009/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,6 +23,9 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Wagtail simple translation"
+msgstr "Простой перевод Wagtail"
 
 msgid "Select all"
 msgstr "Выбрать все"
@@ -39,6 +42,27 @@ msgstr[0] "Включает ветку ({} страница)"
 msgstr[1] "Включает ветку ({} страниц):"
 msgstr[2] "Включает ветку ({} страниц):"
 msgstr[3] "Включает ветку ({} страниц):"
+
+msgid "A locale is disabled because a parent page is not translated."
+msgid_plural ""
+"Some locales are disabled because some parent pages are not translated."
+msgstr[0] "Локаль отключена, поскольку родительская страница не переведена."
+msgstr[1] ""
+"Некоторые локали отключены, поскольку некоторые родительские страницы не "
+"переведены."
+msgstr[2] ""
+"Некоторые локали отключены, поскольку некоторые родительские страницы не "
+"переведены."
+msgstr[3] ""
+"Некоторые локали отключены, поскольку некоторые родительские страницы не "
+"переведены."
+
+msgid "Translate the parent page."
+msgid_plural "Translate the parent pages."
+msgstr[0] "Перевести родительскую страницу."
+msgstr[1] "Перевести родительские страницы."
+msgstr[2] "Перевести родительские страницы."
+msgstr[3] "Перевести родительские страницы."
 
 msgid "Submit"
 msgstr "Применить"
@@ -59,6 +83,10 @@ msgstr "Страница '{page_title}' была успешно создана �
 #, python-brace-format
 msgid "Translate {model_name}"
 msgstr "Перевести {model_name}"
+
+#, python-brace-format
+msgid "Successfully created {locales} for {model_name} '{object}'"
+msgstr "Создано успешно {locales} для {model_name} '{object}'"
 
 #, python-format
 msgid "Translate '%(title)s'"

@@ -4,7 +4,7 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Vu Pham, 2021
+# Vu Pham, 2022
 #
 #, fuzzy
 msgid ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
-"Last-Translator: Vu Pham, 2021\n"
+"Last-Translator: Vu Pham, 2022\n"
 "Language-Team: Vietnamese (https://www.transifex.com/torchbox/teams/8009/"
 "vi/)\n"
 "MIME-Version: 1.0\n"
@@ -24,3 +24,6 @@ msgstr ""
 
 msgid "Select all"
 msgstr "Chọn tất cả"
+
+msgid "Translate"
+msgstr "Dịch"

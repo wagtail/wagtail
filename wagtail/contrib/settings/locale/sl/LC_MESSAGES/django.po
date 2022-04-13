@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Matej Stavanja <matej.stavanja@zfm.si>, 2019
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
@@ -11,8 +12,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>\n"
+"PO-Revision-Date: 2016-03-01 19:20+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -21,6 +22,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "default"
+msgstr "privzeto"
 
 #, python-format
 msgid "Editing %(setting_type_name)s - %(instance)s"
@@ -43,6 +47,10 @@ msgstr "Nastavitve"
 
 msgid "This setting could not be opened because there is no site defined."
 msgstr "Te nastavitve ni bilo mogoče odpreti, ker stran ni določena."
+
+#, python-format
+msgid "%(setting_type)s updated."
+msgstr "%(setting_type)s posodobljeno."
 
 msgid "The setting could not be saved due to errors."
 msgstr "Nastavitve zaradi napak ni bilo možno shraniti."

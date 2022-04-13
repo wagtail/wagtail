@@ -11,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: Vu Pham, 2021-2022\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -86,6 +86,9 @@ msgstr "Nhập địa chỉ email của bạn để thiết lập lại mật kh
 msgid "URL"
 msgstr "URL"
 
+msgid "Collection"
+msgstr "Bộ sưu tập"
+
 msgid "Add"
 msgstr "Thêm"
 
@@ -131,6 +134,9 @@ msgstr "Lưu"
 
 msgid "Saving..."
 msgstr "Đang lưu..."
+
+msgid "Cancel"
+msgstr "Hủy bỏ"
 
 msgid "Deleting..."
 msgstr "Đang xóa..."
@@ -204,6 +210,9 @@ msgstr "Đường dẫn email"
 msgid "Choose"
 msgstr "Chọn"
 
+msgid "Choose a page"
+msgstr "Chọn một trang"
+
 msgid "Public"
 msgstr "Công khai"
 
@@ -235,6 +244,9 @@ msgstr "Phê chuẩn"
 msgid "Reject"
 msgstr "Từ chối"
 
+msgid "Preview"
+msgstr "Xem trước"
+
 msgid "Status"
 msgstr "Trạng thái"
 
@@ -246,6 +258,9 @@ msgstr "Đang xuất bản..."
 
 msgid "Saving…"
 msgstr "Đang lưu..."
+
+msgid "No, don't delete"
+msgstr "Không xoá"
 
 #, python-format
 msgid "Delete %(title)s"
@@ -298,5 +313,24 @@ msgstr "Chỉnh sửa"
 msgid "View live"
 msgstr "Xem bản live"
 
+msgid "Earliest"
+msgstr "Sớm nhất"
+
 msgid "Date/Time"
 msgstr "Ngày/Giờ"
+
+msgid "Requested By"
+msgstr "Yêu cầu bởi"
+
+msgid "Add a workflow"
+msgstr "Thêm một luồng công việc"
+
+msgid "New workflow"
+msgstr "Luồng công việc mới"
+
+#, python-brace-format
+msgid "Workflow '{0}' created."
+msgstr "Luồng công việc '{0}' đã được tạo."
+
+msgid "Editing workflow"
+msgstr "Biên tập luồng công việc"

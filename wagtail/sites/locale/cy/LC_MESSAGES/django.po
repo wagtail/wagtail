@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-10-03 15:24+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -19,5 +20,50 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Wagtail sites"
+msgstr "Safleoedd Wagtail"
+
+msgid "Choose a root page"
+msgstr "Ddewiswch tudalen wreiddiol"
+
+msgid "Choose a different root page"
+msgstr "Dewisiwch tudalen wreiddiol wahanol"
+
+msgid "Sites"
+msgstr "Safleoedd"
+
+msgid "Add a site"
+msgstr "Ychwanegu safle"
+
 msgid "Site"
 msgstr "Safle"
+
+msgid "Default?"
+msgstr "Diofyn?"
+
+msgid "Default"
+msgstr "Diofyn"
+
+msgid "Add site"
+msgstr "Ychwanegu safle"
+
+#, python-brace-format
+msgid "Site '{0}' created."
+msgstr "Gwefan '{0}' wedi'i chreu"
+
+#, python-brace-format
+msgid "Site '{0}' updated."
+msgstr "Gwefan '{0}' wedi'i diweddaru"
+
+msgid "The site could not be saved due to errors."
+msgstr "Ni fu modd cadw'r wefan oherwydd gwallau."
+
+msgid "Delete site"
+msgstr "Dileu safle"
+
+#, python-brace-format
+msgid "Site '{0}' deleted."
+msgstr "Safle '{0}' wedi'i dileu."
+
+msgid "Are you sure you want to delete this site?"
+msgstr "Ydych chi'n siŵr eich bod am ddileu'r wefan hon?"

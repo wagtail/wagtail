@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-10-27 07:32+0000\n"
-"Last-Translator: UP\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail users"
+msgstr "Wagtail uporabniki"
 
 msgid "Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only."
 msgstr ""
@@ -85,8 +89,26 @@ msgstr "zavrnitev objave"
 msgid "Receive notification when your page edit is rejected"
 msgstr "Prejmi obvestilo, ko je objava strani zavrnjena"
 
+msgid "preferred language"
+msgstr "Želeni jezik"
+
+msgid "Select language for the admin"
+msgstr "Izberite jezik za skrbnika"
+
+msgid "current time zone"
+msgstr "trenutni časovni pas"
+
+msgid "Select your current time zone"
+msgstr "Izberite svoj trenutni časovni pas"
+
+msgid "profile picture"
+msgstr "profilna slika"
+
 msgid "user profile"
 msgstr "uporabniški profil"
+
+msgid "user profiles"
+msgstr "uporabniški profili"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -96,6 +118,13 @@ msgstr "Da, izbriši"
 
 msgid "No, don't delete"
 msgstr "Ne, ne izbriši"
+
+msgid "Set active state"
+msgstr "Nastavite aktivno stanje"
+
+msgid "Are you sure you want to change the active state for these users?"
+msgstr ""
+"Ali ste prepričani, da želite spremeniti aktivno stanje za te uporabnike?"
 
 msgid "Delete group"
 msgstr "Izbriši skupino"
@@ -119,6 +148,9 @@ msgstr "Urejanje"
 msgid "Save"
 msgstr "Shrani"
 
+msgid "Permissions"
+msgstr "Dovoljenja"
+
 msgid "Object permissions"
 msgstr "Dovoljenja objekta"
 
@@ -130,6 +162,9 @@ msgstr "Dodaj"
 
 msgid "Change"
 msgstr "Spremeni"
+
+msgid "Custom permissions"
+msgstr "Dovoljenja po meri"
 
 msgid "Other permissions"
 msgstr "Ostala dovoljenja"
@@ -157,6 +192,12 @@ msgstr ""
 "Dodana ni še nobena skupina. Zakaj je ne bi <a href="
 "\"%(wagtailusers_create_group_url)s\">dodali</a>?"
 
+msgid "Delete user"
+msgstr "Izbriši uporabnika"
+
+msgid "Are you sure you want to delete this user?"
+msgstr "Ali ste prepričani, da želite izbrisati tega uporabnika?"
+
 msgid "Add user"
 msgstr "Dodaj uporabnika"
 
@@ -181,6 +222,9 @@ msgstr "Nivo"
 msgid "Status"
 msgstr "Status"
 
+msgid "Last Login"
+msgstr "Zadnja prijava"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -197,6 +241,9 @@ msgstr "%(time_period)s nazaj"
 #, python-format
 msgid "Sorry, no users match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni uporabnika, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
+
+msgid "Delete selected users"
+msgstr "Izbriši izbrane uporabnike"
 
 msgid "Groups"
 msgstr "Skupine"
@@ -238,3 +285,13 @@ msgstr "Uporabnik '{0}' posodobljen."
 
 msgid "The user could not be saved due to errors."
 msgstr "Uporabnika, zaradi napak, ni bilo možno shraniti."
+
+#, python-brace-format
+msgid "User '{0}' deleted."
+msgstr "Uporabnik '{0}' izbrisan."
+
+msgid "Edit this user"
+msgstr "Uredi tega uporabnika"
+
+msgid "Delete this user"
+msgstr "Izbriši tega uporabnika"

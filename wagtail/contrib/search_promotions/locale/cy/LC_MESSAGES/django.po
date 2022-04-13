@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-05-17 17:38+0000\n"
-"Last-Translator: Adam Hughes <adamhughes31@gmail.com>\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -19,17 +20,192 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
 
+msgid "Wagtail search promotions"
+msgstr "Hyrwyddiadau chwilio Wagtail"
+
+msgid "Please specify at least one recommendation for this search term."
+msgstr "Nodwch o leiaf un argymhelliad ar gyfer y term chwilio hwn."
+
+msgid "page"
+msgstr "tudalen"
+
+msgid "description"
+msgstr "disgrifiad"
+
+msgid "search promotion"
+msgstr "hyrwyddo chwilio"
+
+msgid "Add search promotion"
+msgstr "Ychwanegwch hyrwyddo chwilio"
+
+msgid "Add search pick"
+msgstr "Ychwanegu dewis chwilio"
+
+msgid ""
+"\n"
+"                <p>Promoted search results are a means of recommending "
+"specific pages that might not organically come high up in search results. E."
+"g recommending your primary donation page to a user searching with the less "
+"common term \"<em>giving</em>\".</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Mae canlyniadau chwilio a hyrwyddir yn fodd o argymell "
+"tudalennau penodol nad ydynt efallai'n dod yn uchel yn organig mewn "
+"canlyniadau chwilio. E.e. argymell eich tudalen rhoddion cynradd i "
+"ddefnyddiwr sy'n chwilio gyda'r term llai cyffredin \"<em>yn rhoi</em>\".</"
+"p>\n"
+"            "
+
+msgid ""
+"\n"
+"                <p>The \"Search term(s)/phrase\" field below must contain "
+"the full and exact search for which you wish to provide recommended results, "
+"<em>including</em> any misspellings/user error. To help, you can choose from "
+"search terms that have been popular with users of your site.</p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p>Rhaid i'r maes \"Term(au)/ymadrodd chwilio\" isod gynnwys "
+"y chwiliad llawn ac union yr hoffech ddarparu canlyniadau a argymhellir ar "
+"ei gyfer, <em>yn cynnwys </em> unrhyw gamsillafiadau/gwall defnyddiwr. I "
+"helpu, gallwch ddewis o dermau chwilio sydd wedi bod yn boblogaidd gyda "
+"defnyddwyr eich gwefan.</p>\n"
+"            "
+
 msgid "Save"
 msgstr "Cadw"
+
+#, python-format
+msgid "Delete %(query)s"
+msgstr "Dileu %(query)s"
 
 msgid "Delete"
 msgstr "Dileu"
 
+msgid ""
+"Are you sure you want to delete all promoted results for this search term?"
+msgstr ""
+"Ydych chi'n siŵr eich bod am ddileu'r holl ganlyniadau a hyrwyddir ar gyfer "
+"y term chwilio hwn?"
+
+msgid "Yes, delete"
+msgstr "Ia, dileu"
+
+#, python-format
+msgid "Editing %(query)s"
+msgstr "Golygu %(query)s"
+
 msgid "Editing"
 msgstr "Golygu"
+
+msgid "Move up"
+msgstr "Symyd i fyny"
+
+msgid "Move down"
+msgstr "Symyd i lawr"
+
+msgid "Promoted search result"
+msgstr "Canlyniad chwilio wedi'i hyrwyddo"
+
+msgid "Add recommended page"
+msgstr "Ychwanegu tudalen a argymhellir"
+
+msgid "Search Terms"
+msgstr "Termau Chwilio"
+
+msgid "Promoted search results"
+msgstr "Canlyniad chwilio wedi'i hyrwyddo"
+
+msgid "Add new promoted result"
+msgstr "Ychwanegu canlyniad newydd a hyrwyddir"
+
+msgid "Search term(s)"
+msgstr "Term(au) chwilio"
+
+msgid "Order by search term alphabetically"
+msgstr "Trefnwch yn ôl term chwilio yn nhrefn yr wyddor"
+
+msgid "Order by search term reverse alphabetically"
+msgstr "Trefnwch yn ôl term chwilio bacio yn ôl yr wyddor"
+
+msgid "Promoted results"
+msgstr "Canlyniadau a hyrwyddir"
+
+msgid "Views (past week)"
+msgstr "Golygfeydd (yr wythnos ddiwethaf)"
+
+msgid "Order by views (lowest first)"
+msgstr "Trefn yn ôl golygfeydd (yr isaf yn gyntaf)"
+
+msgid "Order by views (highest first)"
+msgstr "Trefn yn ôl golygfeydd (uchaf yn gyntaf)"
+
+msgid "Edit this promotion"
+msgstr "Golygu'r hyrwyddiad hwn"
 
 msgid "None"
 msgstr "Ddim"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Mae 'na %(counter)s cyfateb\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+msgstr[2] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+msgstr[3] ""
+"\n"
+"            Mae 'na %(counter)s cyfatebion\n"
+"        "
+
+#, python-format
+msgid "Sorry, no promoted results match \"<em>%(query_string)s</em>\""
+msgstr ""
+"Mae'n ddrwg gennym, nid oes unrhyw ganlyniadau wedi'u hyrwyddo yn cyfateb "
+"\"<em>%(query_string)s</em>\""
+
+#, python-format
+msgid ""
+"No promoted results have been created. Why not <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">add one</a>?"
+msgstr ""
+"Nid oes unrhyw ganlyniadau wedi'u hyrwyddo wedi'u creu. Pam ddim <a href="
+"\"%(wagtailsearchpromotions_add_url)s\">ychwanegu un</a>?"
+
+msgid "Search promoted results"
+msgstr "Chwilio canlyniadau a hyrwyddir"
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' created."
+msgstr "Dewisiadau'r golygydd ar gyfer '{0}' wedi'i creu."
+
 msgid "Edit"
 msgstr "Golygu"
+
+msgid "Recommendations have not been created due to errors"
+msgstr "Nid yw argymhellion wedi'u creu oherwydd gwallau"
+
+#, python-brace-format
+msgid "Editor's picks for '{0}' updated."
+msgstr "Dewisiadau'r golygydd ar gyfer '{0}' wedi'i diweddaru."
+
+msgid "Recommendations have not been saved due to errors"
+msgstr "Nid yw argymhellion wedi'u cadw oherwydd gwallau"
+
+msgid "Editor's picks deleted."
+msgstr "Dewisiadau'r golygydd wedi'u dileu."

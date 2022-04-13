@@ -4,13 +4,14 @@
 #
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2017
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2018-10-28 14:54+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +20,9 @@ msgstr ""
 "Language: cy\n"
 "Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n==2) ? 1 : (n != 8 && n != "
 "11) ? 2 : 3;\n"
+
+msgid "Wagtail embeds"
+msgstr "Gwreiddio Wagtail"
 
 msgid "Cannot find an embed for this URL."
 msgstr "Methu dod o hyd i'r URL hwn."
@@ -31,6 +35,9 @@ msgstr "Rhowch URL dilys"
 
 msgid "embed"
 msgstr "Ymgorffori"
+
+msgid "embeds"
+msgstr "gwreiddio"
 
 msgid "Insert embed"
 msgstr "Mewnosod ymgorffori"
@@ -51,3 +58,6 @@ msgid ""
 msgstr ""
 "Mae'n ymddangos bod gwall gyda wrth geisio ymgorffori URL hwn. Ceisiwch eto "
 "yn nes ymlaen."
+
+msgid "Embed"
+msgstr "Gwreiddio"

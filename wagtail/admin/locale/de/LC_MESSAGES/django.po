@@ -16,7 +16,7 @@
 # Herbert Poul, 2015,2021
 # oliverengel <codeangel@posteo.de>, 2021
 # unicode_it <info@unicode-it.de>, 2021
-# Jannis Vajen, 2016
+# jnns, 2016
 # Bohreromir, 2020
 # Johannes Spielmann <j@spielmannsolutions.com>, 2014-2015
 # karlsander <karlsander@gmail.com>, 2014
@@ -46,8 +46,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2022-01-22 17:19+0000\n"
-"Last-Translator: oliverengel <codeangel@posteo.de>\n"
+"PO-Revision-Date: 2014-02-21 15:50+0000\n"
+"Last-Translator: oliverengel <codeangel@posteo.de>, 2021-2022\n"
 "Language-Team: German (http://www.transifex.com/torchbox/wagtail/language/"
 "de/)\n"
 "MIME-Version: 1.0\n"

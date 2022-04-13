@@ -10,13 +10,14 @@
 # Tatsiana Tsygan <art.tatsiana@gmail.com>, 2018
 # Vassily <zuber.kg@gmail.com>, 2017
 # Виктор Виктор <spam.vitek@gmail.com>, 2020-2021
+# Vladislav <integration.into.society@gmail.com>, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2021-10-16 14:47+0000\n"
-"Last-Translator: Виктор Виктор <spam.vitek@gmail.com>\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -221,6 +222,9 @@ msgstr[0] "%(count)d %(snippet_type)sудалён."
 msgstr[1] "%(count)d %(snippet_type)s удалено."
 msgstr[2] "%(count)d %(snippet_type)s удалено."
 msgstr[3] "%(count)d %(snippet_type)sудалено"
+
+msgid "Snippet history"
+msgstr "История фрагмента"
 
 msgid "Action"
 msgstr "Действие"

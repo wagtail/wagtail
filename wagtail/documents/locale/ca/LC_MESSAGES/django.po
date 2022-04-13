@@ -5,14 +5,14 @@
 # Translators:
 # David Llop, 2014
 # David Llop, 2014
-# Roger Pons <rogerpons@gmail.com>, 2017
+# Roger Pons <rogerpons@gmail.com>, 2017,2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:12+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Roger Pons <rogerpons@gmail.com>, 2017,2022\n"
 "Language-Team: Catalan (http://www.transifex.com/torchbox/wagtail/language/"
 "ca/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +20,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: ca\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Wagtail documents"
+msgstr "Documents de Wagtail"
 
 msgid "Collection"
 msgstr "Col·lecció"
@@ -39,6 +42,9 @@ msgstr "Editar algun document"
 msgid "Choose"
 msgstr "Seleccionar"
 
+msgid "Select documents in choosers"
+msgstr "Seleccionar documents als selectors"
+
 msgid "title"
 msgstr "títol"
 
@@ -57,6 +63,86 @@ msgstr "etiquetes"
 msgid "document"
 msgstr "document"
 
+msgid "documents"
+msgstr "documents"
+
+#, python-format
+msgid "Add tags to 1 document "
+msgid_plural "Add tags to %(counter)s documents"
+msgstr[0] "Afegir etiquetes a 1 document"
+msgstr[1] "Afegir etiquetes a %(counter)s documents"
+
+msgid "Add tags to documents"
+msgstr "Afegir etiquetes als documents"
+
+msgid "Are you sure you want to tag the following document?"
+msgid_plural "Are you sure you want to tag the following documents?"
+msgstr[0] "N'esteu segur que voleu etiquetar el document següent?"
+msgstr[1] "N'esteu segur que voleu etiquetar els documents següents?"
+
+msgid "You don't have permission to add tags to this document"
+msgid_plural "You don't have permission to add tags to these documents"
+msgstr[0] "No teniu permís per afegir etiquetes a aquest document"
+msgstr[1] "No teniu permí per afegir etiquetes a aquests documents"
+
+msgid "Yes, add"
+msgstr "Afegir"
+
+msgid "No, don't add"
+msgstr "No afegir"
+
+#, python-format
+msgid "Add 1 document to new collection "
+msgid_plural "Add %(counter)s documents to new collection"
+msgstr[0] "Afegir 1 document a la nova col·lecció"
+msgstr[1] "Afegir %(counter)s documents a la nova col·lecció"
+
+msgid "Add documents to collection"
+msgstr "Afegir documents a la col·lecció"
+
+msgid ""
+"Are you sure you want to add the following document to the selected "
+"collection?"
+msgid_plural ""
+"Are you sure you want to add the following documents to the selected "
+"collection?"
+msgstr[0] ""
+"N'esteu segur que voleu afegir el document següent a la col·lecció "
+"seleccionada?"
+msgstr[1] ""
+"N'esteu segur que voleu afegir els documents següents a la col·lecció "
+"seleccionada?"
+
+msgid "You don't have permission to add this document to a collection"
+msgid_plural "You don't have permission to add these documents to a collection"
+msgstr[0] "No teniu permís per afegir aquest document a una col·lecció"
+msgstr[1] "No teniu permís per afegir aquests documents a una col·lecció"
+
+#, python-format
+msgid "Delete 1 document "
+msgid_plural "Delete %(counter)s documents"
+msgstr[0] "Esborrar 1 document"
+msgstr[1] "Esborrar %(counter)s documents"
+
+msgid "Delete documents"
+msgstr "Esborrar documents"
+
+msgid "Are you sure you want to delete this document?"
+msgid_plural "Are you sure you want to delete these documents?"
+msgstr[0] "Segur que voleu esborrar aquest document?"
+msgstr[1] "Segur que voleu esborrar aquests documents?"
+
+#, python-format
+msgid "Used %(usage_count)s time"
+msgid_plural "Used %(usage_count)s times"
+msgstr[0] "S'ha utilitzat %(usage_count)s vegada"
+msgstr[1] "S'ha utilitzat %(usage_count)s vegades"
+
+msgid "You don't have permission to delete this document"
+msgid_plural "You don't have permission to delete these documents"
+msgstr[0] "No teniu permís per esborrar aquest document"
+msgstr[1] "No teniu permís per esborrar aquests documents"
+
 msgid "Yes, delete"
 msgstr "Si, esborra"
 
@@ -72,12 +158,48 @@ msgstr "Cercar"
 msgid "Upload"
 msgstr "Pujar"
 
+#, python-format
+msgid ""
+"\n"
+"            There is %(counter)s match\n"
+"        "
+msgid_plural ""
+"\n"
+"            There are %(counter)s matches\n"
+"        "
+msgstr[0] ""
+"\n"
+"            Hi ha %(counter)s coincidència\n"
+"        "
+msgstr[1] ""
+"\n"
+"            Hi ha %(counter)s coincidències\n"
+"        "
+
 msgid "Latest documents"
 msgstr "Últims documents"
 
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Ho sentim, cap document coincideix amb \"<em>%(query_string)s</em\""
+
+msgid "You haven't uploaded any documents in this collection."
+msgstr "No heu pujat cap document a aquest col·lecció."
+
+msgid "You haven't uploaded any documents."
+msgstr "No heu pujat cap document."
+
+#, python-format
+msgid ""
+"\n"
+"            Why not <a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">upload one now</a>?\n"
+"            "
+msgstr ""
+"\n"
+"            Per què no<a class=\"upload-one-now\" href="
+"\"%(wagtaildocs_add_document_url)s\">pujar-ne un ara</a>?\n"
+"            "
 
 msgid "Uploading…"
 msgstr "Pujant…"
@@ -120,6 +242,9 @@ msgstr "Ús"
 msgid "Documents"
 msgstr "Documents"
 
+msgid "Select all documents in listing"
+msgstr "Seleccionar tots els documents del llistat"
+
 msgid "Title"
 msgstr "Títol"
 
@@ -128,6 +253,9 @@ msgstr "Arxiu"
 
 msgid "Created"
 msgstr "Creada"
+
+msgid "Select document"
+msgstr "Seleccionar document"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -168,6 +296,28 @@ msgstr "Estat"
 msgid "Edit this page"
 msgstr "Editar aquesta plana"
 
+#, python-format
+msgid ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgid_plural ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">created in %(site_name)s</span>\n"
+"    "
+msgstr[0] ""
+"\n"
+"        <span>%(total)s</span> Document <span class=\"visuallyhidden\">creat "
+"a %(site_name)s</span>\n"
+"    "
+msgstr[1] ""
+"\n"
+"        <span>%(total)s</span> Documents <span class=\"visuallyhidden"
+"\">creats a %(site_name)s</span>\n"
+"    "
+
 msgid "Add multiple documents"
 msgstr "Afegir diversos documents"
 
@@ -185,8 +335,23 @@ msgstr "O trieu del vostre ordinador"
 msgid "Add to collection:"
 msgstr "Afegir a la col·lecció:"
 
+msgid ""
+"Upload successful. Please update this document with a more appropriate "
+"title, if necessary. You may also delete the document completely if the "
+"upload wasn't required."
+msgstr ""
+"S'ha pujat correctament. Si cal, actualitzeu aquest document amb un títol "
+"més adient. També podeu esborrar completament el document si la càrrega no "
+"era necessària."
+
 msgid "Sorry, upload failed."
 msgstr "La pujada ha fallat."
+
+msgid "Document updated."
+msgstr "Document actualitzat."
+
+msgid "You need a password to access this document."
+msgstr "Necessiteu una contrasenya per accedir a aquest document."
 
 msgid "Document permissions"
 msgstr "Permisos de document"
@@ -194,11 +359,51 @@ msgstr "Permisos de document"
 msgid "Add a document permission"
 msgstr "Afegir un permís de document"
 
+msgid "Tag"
+msgstr "Etiqueta"
+
+msgid "Add tags to the selected documents"
+msgstr "Afegir etiquetes als documents seleccionats"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d document"
+msgid_plural "New tags have been added to %(num_parent_objects)d documents"
+msgstr[0] "S'han afegit noves etiquetes a %(num_parent_objects)d document"
+msgstr[1] "S'han afegit noves etiquetes a %(num_parent_objects)d documents"
+
+msgid "Add to collection"
+msgstr "Afegir a col·lecció"
+
+msgid "Add selected documents to collection"
+msgstr "Afegir els documents seleccionats a la col·lecció"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been added to %(collection)s"
+msgid_plural ""
+"%(num_parent_objects)d documents have been added to %(collection)s"
+msgstr[0] "S'ha afegit %(num_parent_objects)d document a %(collection)s"
+msgstr[1] "S'han afegit %(num_parent_objects)d documents a %(collection)s"
+
 msgid "Delete"
 msgstr "Eliminar"
 
+msgid "Delete selected documents"
+msgstr "Esborrar els documents seleccionats"
+
+#, python-format
+msgid "%(num_parent_objects)d document has been deleted"
+msgid_plural "%(num_parent_objects)d documents have been deleted"
+msgstr[0] "S'ha esborrat %(num_parent_objects)d document"
+msgstr[1] "S'han esborrat %(num_parent_objects)d documents"
+
 msgid "Server Error"
 msgstr "Error del servidor"
+
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Informar d'aquest error a l'administrador web amb la informació següent:"
 
 msgid "Search documents"
 msgstr "Cercar documents"
@@ -221,6 +426,9 @@ msgstr "No s'ha trobat el fitxer. Canvieu l'origen o elimineu el document."
 #, python-brace-format
 msgid "Document '{0}' deleted."
 msgstr "Document '{0}' esborrat."
+
+msgid "Document"
+msgstr "Document"
 
 #, python-format
 msgid "%(count)s document"

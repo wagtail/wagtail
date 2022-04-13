@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Lev Predan Kowarski <predan.kowarski@gmail.com>, 2020
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2020-12-21 21:39+0000\n"
-"Last-Translator: Lev Predan Kowarski <predan.kowarski@gmail.com>\n"
+"PO-Revision-Date: 2014-09-11 15:42+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,19 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail forms"
+msgstr "Obrazci Wagtail"
+
+#, python-format
+msgid "%s submissions"
+msgstr "%s stališča"
+
+msgid "Date from"
+msgstr "Datum od"
+
+msgid "Date to"
+msgstr "Datum do"
 
 msgid "Single line text"
 msgstr "Enovrstično besedilo"
@@ -44,6 +58,9 @@ msgstr "Kljukice"
 
 msgid "Drop down"
 msgstr "Izbirnik"
+
+msgid "Multiple select"
+msgstr "Večkratna izbira"
 
 msgid "Radio buttons"
 msgstr "Izbirni gumbi"
@@ -87,6 +104,12 @@ msgstr "privzeta vrednost"
 msgid "help text"
 msgstr "besedilo pomoči"
 
+msgid "Form"
+msgstr "Obrazec"
+
+msgid "Landing page"
+msgstr "Začetna stran"
+
 msgid "to address"
 msgstr "naslov prejemnika"
 
@@ -111,6 +134,9 @@ msgstr "Oddani obrazci %(form_title)s"
 
 msgid "Filter"
 msgstr "Filter"
+
+msgid "Download XLSX"
+msgstr "Prenesi XLSX"
 
 msgid "Download CSV"
 msgstr "Prenesi CSV"

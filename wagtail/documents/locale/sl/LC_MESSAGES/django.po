@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Andrej, 2022
 # Matt Westcott <matthew@torchbox.com>, 2016
 # Mitja Pagon <mitja.pagon@inueni.com>, 2016
 msgid ""
@@ -10,8 +11,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:12+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:06+0000\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -20,6 +21,9 @@ msgstr ""
 "Language: sl\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
+
+msgid "Wagtail documents"
+msgstr "Wagtail dokumenti"
 
 msgid "Collection"
 msgstr "Zbirka"
@@ -57,6 +61,18 @@ msgstr "oznaka"
 msgid "document"
 msgstr "dokument"
 
+msgid "documents"
+msgstr "dokumenti"
+
+msgid "Yes, add"
+msgstr "Da, dodaj"
+
+msgid "No, don't add"
+msgstr "Ne, ne dodaj"
+
+msgid "Delete documents"
+msgstr "Izbrišite dokumente"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
 
@@ -78,6 +94,9 @@ msgstr "Zadnji dokumenti"
 #, python-format
 msgid "Sorry, no documents match \"<em>%(query_string)s</em>\""
 msgstr "Žal ni dokumenta, ki bi ustrezal nizu \"<em>%(query_string)s</em>\""
+
+msgid "Uploading…"
+msgstr "Nalagam..."
 
 msgid "Change document:"
 msgstr "Spremeni dokument:"
@@ -111,6 +130,9 @@ msgstr "Velikost"
 msgid "File not found"
 msgstr "Datoteka ne obstaja"
 
+msgid "Usage"
+msgstr "Uporaba"
+
 msgid "Documents"
 msgstr "Dokumenti"
 
@@ -119,6 +141,9 @@ msgstr "Naziv"
 
 msgid "File"
 msgstr "Datoteka"
+
+msgid "Created"
+msgstr "Ustvarjeno"
 
 #, python-format
 msgid "%(time_period)s ago"
@@ -182,6 +207,12 @@ msgstr "Dovoljenja dokumenta"
 
 msgid "Add a document permission"
 msgstr "Dodaj dovoljenje dokumenta"
+
+msgid "Tag"
+msgstr "Oznaka"
+
+msgid "Add to collection"
+msgstr "Dodaj v zbirko"
 
 msgid "Delete"
 msgstr "Izbriši"

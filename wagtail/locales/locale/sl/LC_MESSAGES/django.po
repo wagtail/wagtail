@@ -5,6 +5,7 @@
 #
 # Translators:
 # Mitja Pagon <mitja.pagon@inueni.com>, 2021
+# Andrej, 2022
 #
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
-"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2021\n"
+"Last-Translator: Andrej, 2022\n"
 "Language-Team: Slovenian (https://www.transifex.com/torchbox/teams/8009/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -23,5 +24,35 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
+msgid "Wagtail locales"
+msgstr "Wagtail obmoćja"
+
+msgid "Language"
+msgstr "Jezik"
+
+msgid "Select a new language"
+msgstr "Izberite nov jezik"
+
 msgid "Yes, delete"
 msgstr "Da, izbriši"
+
+msgid "Back"
+msgstr "Nazaj"
+
+msgid "Locales"
+msgstr "Jeziki"
+
+msgid "Add a locale"
+msgstr "Dodajte jezik"
+
+msgid "Usage"
+msgstr "Uporaba"
+
+msgid "Add locale"
+msgstr "Dodaj jezik"
+
+msgid "Delete locale"
+msgstr "Odstrani jezik"
+
+msgid "Are you sure you want to delete this locale?"
+msgstr "Ali ste prepričani da želite odstraniti ta jezik?"

@@ -12,7 +12,8 @@
 # Rustam Mirzaev <mirus@2x2.pw>, 2017
 # sergeybe <sergeybe@gmail.com>, 2020
 # Sergey Komarov <sjkomarov@gmail.com>, 2014
-# Влад <integration.into.society@gmail.com>, 2021
+# Vladislav <integration.into.society@gmail.com>, 2022
+# Vladislav <integration.into.society@gmail.com>, 2021-2022
 # Мирон Левицкий <miron200504@gmail.com>, 2018
 # Михаил Герасимов, 2019
 # gsstver <gsstver@gmail.com>, 2016
@@ -22,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:07+0000\n"
-"PO-Revision-Date: 2022-01-21 14:14+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2014-02-20 21:05+0000\n"
+"Last-Translator: Vladislav <integration.into.society@gmail.com>, 2022\n"
 "Language-Team: Russian (http://www.transifex.com/torchbox/wagtail/language/"
 "ru/)\n"
 "MIME-Version: 1.0\n"
@@ -173,12 +174,99 @@ msgid "images"
 msgstr "Изображения"
 
 #, python-format
+msgid "Add tags to 1 image "
+msgid_plural "Add tags to %(counter)s images"
+msgstr[0] "Добавить теги к 1 изображению"
+msgstr[1] "Добавить теги к %(counter)s изображениям"
+msgstr[2] "Добавить теги к %(counter)s изображениям"
+msgstr[3] "Добавить теги к %(counter)s изображениям"
+
+msgid "Add tags to images"
+msgstr "Добавить теги к изображениям"
+
+msgid "Are you sure you want to tag the following image?"
+msgid_plural "Are you sure you want to tag the following images?"
+msgstr[0] "Вы уверены, что хотите пометить следующие изображение?"
+msgstr[1] "Вы уверены, что хотите пометить следующие изображения?"
+msgstr[2] "Вы уверены, что хотите пометить следующие изображения?"
+msgstr[3] "Вы уверены, что хотите пометить следующие изображения?"
+
+msgid "You don't have permission to add tags to this image"
+msgid_plural "You don't have permission to add tags to these images"
+msgstr[0] "У вас недостаточно прав для добавления тегов к этому изображению"
+msgstr[1] "У вас недостаточно прав для добавления тегов к этим изображениям"
+msgstr[2] "У вас недостаточно прав для добавления тегов к этим изображениям"
+msgstr[3] "У вас недостаточно прав для добавления тегов к этим изображениям"
+
+msgid "Yes, add"
+msgstr "Да, добавить"
+
+msgid "No, don't add"
+msgstr "Нет, не добавлять"
+
+#, python-format
+msgid "Add 1 image to new collection "
+msgid_plural "Add %(counter)s images to new collection"
+msgstr[0] "Добавить 1 изображение в новую коллекцию"
+msgstr[1] "Добавить %(counter)s изображения в новую коллекцию"
+msgstr[2] "Добавить %(counter)s изображения в новую коллекцию"
+msgstr[3] "Добавить %(counter)s изображения в новую коллекцию"
+
+msgid "Add images to collection"
+msgstr "Добавить изображения в коллекцию"
+
+msgid ""
+"Are you sure you want to add the following image to the selected collection?"
+msgid_plural ""
+"Are you sure you want to add the following images to the selected collection?"
+msgstr[0] ""
+"Вы уверены, что хотите добавить это изображение в выбранную коллекцию?"
+msgstr[1] ""
+"Вы уверены, что хотите добавить следующие изображения в выбранную коллекцию?"
+msgstr[2] ""
+"Вы уверены, что хотите добавить следующие изображения в выбранную коллекцию?"
+msgstr[3] ""
+"Вы уверены, что хотите добавить следующие изображения в выбранную коллекцию?"
+
+msgid "You don't have permission to add this image to a collection"
+msgid_plural "You don't have permission to add these images to a collection"
+msgstr[0] "У вас недостаточно прав для добавления изображения в коллекцию"
+msgstr[1] "У вас недостаточно прав для добавления этих изображений в коллекцию"
+msgstr[2] "У вас недостаточно прав для добавления этих изображений в коллекцию"
+msgstr[3] "У вас недостаточно прав для добавления этих изображений в коллекцию"
+
+#, python-format
+msgid "Delete 1 image"
+msgid_plural "Delete %(counter)s images"
+msgstr[0] "Удалить 1 изображение"
+msgstr[1] "Удалить %(counter)s изображения"
+msgstr[2] "Удалить %(counter)s изображения"
+msgstr[3] "Удалить %(counter)s изображения"
+
+msgid "Delete images"
+msgstr "Удалить изображения"
+
+msgid "Are you sure you want to delete this image?"
+msgid_plural "Are you sure you want to delete these images?"
+msgstr[0] "Вы уверены, что хотите удалить это изображение?"
+msgstr[1] "Вы уверены, что хотите удалить эти изображения?"
+msgstr[2] "Вы уверены, что хотите удалить эти изображения?"
+msgstr[3] "Вы уверены, что хотите удалить эти изображения?"
+
+#, python-format
 msgid "Used %(usage_count)s time"
 msgid_plural "Used %(usage_count)s times"
 msgstr[0] "Использовано %(usage_count)sраз"
 msgstr[1] "Использовано %(usage_count)s раз"
 msgstr[2] "Использовано %(usage_count)s раз"
 msgstr[3] "Использовано%(usage_count)s раз"
+
+msgid "You don't have permission to delete this image"
+msgid_plural "You don't have permission to delete these images"
+msgstr[0] "У вас недостаточно прав для удаления этого изображения"
+msgstr[1] "У вас недостаточно прав для удаления этих изображений"
+msgstr[2] "У вас недостаточно прав для удаления этих изображений"
+msgstr[3] "У вас недостаточно прав для удаления этих изображений"
 
 msgid "Yes, delete"
 msgstr "Да, удалить"
@@ -279,6 +367,31 @@ msgstr "Сохранить"
 msgid "Delete image"
 msgstr "Удалить изображение"
 
+msgid ""
+"\n"
+"                    Are you sure you want to delete this image?\n"
+"                "
+msgid_plural ""
+"\n"
+"                    Are you sure you want to delete these images?\n"
+"                "
+msgstr[0] ""
+"\n"
+"                    Вы уверены, что хотите удалить это изображение?\n"
+"                "
+msgstr[1] ""
+"\n"
+"                    Вы уверены, что хотите удалить эти изображения?\n"
+"                "
+msgstr[2] ""
+"\n"
+"                    Вы уверены, что хотите удалить эти изображения?\n"
+"                "
+msgstr[3] ""
+"\n"
+"                    Вы уверены, что хотите удалить эти изображения?\n"
+"                "
+
 #, python-format
 msgid "Editing image %(title)s"
 msgstr "Редактирование изображения %(title)s"
@@ -328,6 +441,12 @@ msgstr "Популярные тэги:"
 
 msgid "Clear choice"
 msgstr "Очистить выбор"
+
+msgid "Select all images in listing"
+msgstr "Выбрать все изображения из списка"
+
+msgid "Select image"
+msgstr "Выбрать изображение"
 
 msgid "pixels"
 msgstr "пикселей"
@@ -421,6 +540,12 @@ msgstr "Извините, загрузка не удалась."
 msgid "Server Error"
 msgstr "Ошибка Сервера"
 
+msgid ""
+"Report this error to your website administrator with the following "
+"information:"
+msgstr ""
+"Сообщите об этой ошибке администратору веб-сайта со следующей информацией:"
+
 msgid "Image updated."
 msgstr "Изображение обновлено."
 
@@ -430,8 +555,47 @@ msgstr "Права доступа к изображению"
 msgid "Add an image permission"
 msgstr "Добавить права доступа к изображению"
 
+msgid "Tag"
+msgstr "Тэг"
+
+msgid "Add tags to the selected images"
+msgstr "Добавить теги к выбранным изображениям"
+
+#, python-format
+msgid "New tags have been added to %(num_parent_objects)d image"
+msgid_plural "New tags have been added to %(num_parent_objects)d images"
+msgstr[0] "К %(num_parent_objects)d изображению добавлены новые теги"
+msgstr[1] "К %(num_parent_objects)d изображениям добавлены новые теги"
+msgstr[2] "К %(num_parent_objects)d изображениям добавлены новые теги"
+msgstr[3] "К %(num_parent_objects)d изображениям добавлены новые теги"
+
+msgid "Add to collection"
+msgstr "Добавить в коллекцию"
+
+msgid "Add selected images to collection"
+msgstr "Добавить выбранные изображения в коллекцию"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been added to %(collection)s"
+msgid_plural "%(num_parent_objects)d images have been added to %(collection)s"
+msgstr[0] "%(num_parent_objects)d изображение было добавлено в %(collection)s"
+msgstr[1] "%(num_parent_objects)d изображения были добавлены в %(collection)s"
+msgstr[2] "%(num_parent_objects)d изображения были добавлены в %(collection)s"
+msgstr[3] "%(num_parent_objects)d изображения были добавлены в %(collection)s"
+
 msgid "Delete"
 msgstr "Удалить"
+
+msgid "Delete selected images"
+msgstr "Удалить выбранные изображения"
+
+#, python-format
+msgid "%(num_parent_objects)d image has been deleted"
+msgid_plural "%(num_parent_objects)d images have been deleted"
+msgstr[0] " %(num_parent_objects)d изображение было удалено"
+msgstr[1] "%(num_parent_objects)d изображений было удалено"
+msgstr[2] "%(num_parent_objects)d изображений было удалено"
+msgstr[3] "%(num_parent_objects)d  изображений было удалено"
 
 msgid "Search images"
 msgstr "Поиск изображений"

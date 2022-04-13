@@ -4,13 +4,14 @@
 #
 # Translators:
 # Adam Hughes <adamhughes31@gmail.com>, 2020
+# Philip Crisp, 2022
 msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-01-21 14:10+0000\n"
-"PO-Revision-Date: 2021-04-20 19:24+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"PO-Revision-Date: 2016-05-11 20:23+0000\n"
+"Last-Translator: Philip Crisp, 2022\n"
 "Language-Team: Welsh (http://www.transifex.com/torchbox/wagtail/language/"
 "cy/)\n"
 "MIME-Version: 1.0\n"
@@ -44,3 +45,6 @@ msgid ""
 msgstr ""
 "Pennawd sy'n nodi pwnc cyffredinol y tabl, ac sy'n ddefnyddiol i ddefnyddwyr "
 "darllenwyr sgrin"
+
+msgid "Table"
+msgstr "Bwrdd"
