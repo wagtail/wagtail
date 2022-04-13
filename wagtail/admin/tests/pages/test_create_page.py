@@ -1449,7 +1449,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, 'id="status-sidebar-french"')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         add_translation_url = reverse(
             "wagtailadmin_pages:add",
@@ -1499,7 +1499,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, 'id="status-sidebar-french"')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         add_translation_url = reverse(
             "wagtailadmin_pages:add",
@@ -1525,7 +1525,7 @@ class TestLocaleSelectorOnRootPage(TestCase, WagtailTestUtils):
             )
         )
 
-        self.assertContains(response, 'id="status-sidebar-french"')
+        self.assertContains(response, 'id="status-sidebar-english"')
 
         add_translation_url = (
             reverse(
