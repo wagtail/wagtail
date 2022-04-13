@@ -558,15 +558,22 @@ class Edit(EditView):
 
 
 class Delete(DeleteView):
-    def get(self, request, *args, app_label, model_name, pk=None, **kwargs):
-        model = get_snippet_model_from_url_params(app_label, model_name)
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+
+        self.app_label = kwargs.get("app_label")
+        self.model_name = kwargs.get("model_name")
+        self.pk = kwargs.get("pk")
+
+    def get(self, request, *args, **kwargs):
+        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
 
         permission = get_permission_name("delete", model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
-        if pk:
-            instances = [get_object_or_404(model, pk=unquote(pk))]
+        if self.pk:
+            instances = [get_object_or_404(model, pk=unquote(self.pk))]
         else:
             ids = request.GET.getlist("id")
             instances = model.objects.filter(pk__in=ids)
@@ -587,7 +594,8 @@ class Delete(DeleteView):
                 "instances": instances,
                 "submit_url": (
                     reverse(
-                        "wagtailsnippets:delete-multiple", args=(app_label, model_name)
+                        "wagtailsnippets:delete-multiple",
+                        args=(self.app_label, self.model_name),
                     )
                     + "?"
                     + urlencode([("id", instance.pk) for instance in instances])
@@ -595,15 +603,15 @@ class Delete(DeleteView):
             },
         )
 
-    def post(self, request, *args, app_label, model_name, pk=None, **kwargs):
-        model = get_snippet_model_from_url_params(app_label, model_name)
+    def post(self, request, *args, **kwargs):
+        model = get_snippet_model_from_url_params(self.app_label, self.model_name)
 
         permission = get_permission_name("delete", model)
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
-        if pk:
-            instances = [get_object_or_404(model, pk=unquote(pk))]
+        if self.pk:
+            instances = [get_object_or_404(model, pk=unquote(self.pk))]
         else:
             ids = request.GET.getlist("id")
             instances = model.objects.filter(pk__in=ids)
@@ -645,7 +653,7 @@ class Delete(DeleteView):
             if hasattr(result, "status_code"):
                 return result
 
-        return redirect("wagtailsnippets:list", app_label, model_name)
+        return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
 
 class Usage(IndexView):
