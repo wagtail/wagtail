@@ -521,6 +521,23 @@ class Edit(EditView):
             )
         ]
 
+    def get_edit_url(self):
+        return reverse(
+            "wagtailsnippets:edit",
+            args=[self.app_label, self.model_name, quote(self.object.pk)],
+        )
+
+    def get_delete_url(self):
+        # This actually isn't used because we use a custom action menu
+        return reverse(
+            "wagtailsnippets:delete",
+            args=[
+                self.app_label,
+                self.model_name,
+                quote(self.object.pk),
+            ],
+        )
+
     def form_valid(self, form):
         response = super().form_valid(form)
 
