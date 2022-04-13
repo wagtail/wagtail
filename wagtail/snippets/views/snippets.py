@@ -439,9 +439,7 @@ class Edit(EditView):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
     def get(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form_kwargs = self.get_form_kwargs()
-        form = form_class(**form_kwargs)
+        form = self.get_form()
 
         edit_handler = self.edit_handler.get_bound_panel(
             instance=self.object, request=request, form=form
@@ -489,9 +487,7 @@ class Edit(EditView):
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
     def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form_kwargs = self.get_form_kwargs()
-        form = form_class(**form_kwargs)
+        form = self.get_form()
 
         if form.is_valid():
             with transaction.atomic():
