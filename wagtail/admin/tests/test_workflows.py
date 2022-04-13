@@ -2390,7 +2390,7 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
         )
 
         response = self.workflow_action("approve")
-        self.assertContains(response, "Published")
+        self.assertContains(response, 'id="status-sidebar-live"')
 
     def test_status_after_cancel(self):
         # start workflow, then cancel
@@ -2440,4 +2440,4 @@ class TestWorkflowStatus(TestCase, WagtailTestUtils):
 
         self.login(self.moderator)
         response = self.client.get(self.edit_url)
-        self.assertNotInHTML(needle, str(response.content))
+        self.assertNotContains(response, needle)
