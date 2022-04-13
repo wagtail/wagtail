@@ -22,12 +22,12 @@
     </figure>
 
     <div class="duplicate-upload__actions col12">
-        <a href="{{ confirm_duplicate_upload_action }}" class="use-new-image button button-longrunning">
+        <a href="{{ confirm_duplicate_upload_action }}" class="use-new-image button button-secondary">
             {% trans 'Use new image' %}
         </a>
         <form method="POST">
             {% csrf_token %}
-            <a href="{{ cancel_duplicate_upload_action }}" class="use-existing-image button button-secondary">
+            <a href="{{ cancel_duplicate_upload_action }}" class="use-existing-image button button-longrunning">
                 {% trans "Use existing and delete new" %}
             </a>
         </form>
