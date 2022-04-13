@@ -69,6 +69,8 @@ def get_snippet_edit_handler(model):
 
 
 class Index(IndexView):
+    template_name = "wagtailsnippets/snippets/index.html"
+
     def get(self, request, *args, **kwargs):
         snippet_model_opts = [
             model._meta
@@ -78,7 +80,7 @@ class Index(IndexView):
         if snippet_model_opts:
             return TemplateResponse(
                 request,
-                "wagtailsnippets/snippets/index.html",
+                self.template_name,
                 {
                     "snippet_model_opts": sorted(
                         snippet_model_opts, key=lambda x: x.verbose_name.lower()
