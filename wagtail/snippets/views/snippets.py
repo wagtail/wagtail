@@ -387,6 +387,20 @@ class Create(CreateView):
 
 
 class Edit(EditView):
+    def _run_before_hooks(self):
+        for fn in hooks.get_hooks("before_edit_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+        return None
+
+    def _run_after_hooks(self):
+        for fn in hooks.get_hooks("after_edit_snippet"):
+            result = fn(self.request, self.object)
+            if hasattr(result, "status_code"):
+                return result
+        return None
+
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
 
@@ -405,17 +419,16 @@ class Edit(EditView):
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_edit_snippet"):
-            result = fn(request, self.object)
-            if hasattr(result, "status_code"):
-                return result
-
         edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(instance=self.object, for_user=request.user)
@@ -466,11 +479,6 @@ class Edit(EditView):
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
     def post(self, request, *args, **kwargs):
-        for fn in hooks.get_hooks("before_edit_snippet"):
-            result = fn(request, self.object)
-            if hasattr(result, "status_code"):
-                return result
-
         edit_handler = get_snippet_edit_handler(self.model)
         form_class = edit_handler.get_form_class()
         form = form_class(
@@ -504,10 +512,9 @@ class Edit(EditView):
                 ],
             )
 
-            for fn in hooks.get_hooks("after_edit_snippet"):
-                result = fn(request, self.object)
-                if hasattr(result, "status_code"):
-                    return result
+            hooks_result = self._run_after_hooks()
+            if hooks_result is not None:
+                return hooks_result
 
             return redirect("wagtailsnippets:list", self.app_label, self.model_name)
 
