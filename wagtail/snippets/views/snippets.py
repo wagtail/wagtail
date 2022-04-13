@@ -397,11 +397,15 @@ class Edit(EditView):
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
 
-    def get(self, request, *args, pk, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("change", self.model)
+
         if not request.user.has_perm(permission):
             raise PermissionDenied
 
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, pk, **kwargs):
         instance = get_object_or_404(self.model, pk=unquote(pk))
 
         for fn in hooks.get_hooks("before_edit_snippet"):
@@ -459,10 +463,6 @@ class Edit(EditView):
         return TemplateResponse(request, "wagtailsnippets/snippets/edit.html", context)
 
     def post(self, request, *args, pk, **kwargs):
-        permission = get_permission_name("change", self.model)
-        if not request.user.has_perm(permission):
-            raise PermissionDenied
-
         instance = get_object_or_404(self.model, pk=unquote(pk))
 
         for fn in hooks.get_hooks("before_edit_snippet"):
