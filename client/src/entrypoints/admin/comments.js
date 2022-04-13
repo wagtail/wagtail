@@ -337,9 +337,12 @@ window.comments = (() => {
     }
 
     // Keep number of comments up to date with comment app
-    const commentCounter = document.querySelector(
-      '[data-comments-toggle-count]',
+    const commentToggle = document.querySelector(
+      '[data-side-panel-toggle="comments"]',
     );
+    const commentCounter = document.createElement('div');
+    commentCounter.style.marginTop = '-0.8rem'; // TODO: replace this with suitable Tailwind classes
+    commentToggle.appendChild(commentCounter);
     const updateCommentCount = () => {
       const commentCount = commentApp.selectors.selectCommentCount(
         commentApp.store.getState(),
@@ -353,8 +356,7 @@ window.comments = (() => {
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();
       } else {
-        // Note: CSS will hide the circle when its content is empty
-        commentCounter.innerText = '';
+        commentCount.innerText = '';
       }
     };
     commentApp.store.subscribe(updateCommentCount);
