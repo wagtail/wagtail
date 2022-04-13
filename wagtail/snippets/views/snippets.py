@@ -439,6 +439,50 @@ class Edit(EditView):
 
         return super().dispatch(request, *args, **kwargs)
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(self.model, pk=unquote(self.pk))
+
+    def get_edit_url(self):
+        return reverse(
+            "wagtailsnippets:edit",
+            args=[self.app_label, self.model_name, quote(self.object.pk)],
+        )
+
+    def get_delete_url(self):
+        # This actually isn't used because we use a custom action menu
+        return reverse(
+            "wagtailsnippets:delete",
+            args=[
+                self.app_label,
+                self.model_name,
+                quote(self.object.pk),
+            ],
+        )
+
+    def get_success_url(self):
+        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+
+    def get_success_message(self):
+        return _("%(snippet_type)s '%(instance)s' updated.") % {
+            "snippet_type": capfirst(self.model._meta.verbose_name),
+            "instance": self.object,
+        }
+
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(
+                    "wagtailsnippets:edit",
+                    args=(
+                        self.app_label,
+                        self.model_name,
+                        quote(self.object.pk),
+                    ),
+                ),
+                _("Edit"),
+            )
+        ]
+
     def _get_bound_panel(self, form):
         return self.edit_handler.get_bound_panel(
             request=self.request, instance=self.object, form=form
@@ -449,9 +493,6 @@ class Edit(EditView):
 
     def _get_latest_log_entry(self):
         return log_registry.get_logs_for_instance(self.object).first()
-
-    def get_object(self, queryset=None):
-        return get_object_or_404(self.model, pk=unquote(self.pk))
 
     def get_form_class(self):
         return self.edit_handler.get_form_class()
@@ -504,47 +545,6 @@ class Edit(EditView):
             )
 
         return context
-
-    def get_success_url(self):
-        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
-
-    def get_success_message(self):
-        return _("%(snippet_type)s '%(instance)s' updated.") % {
-            "snippet_type": capfirst(self.model._meta.verbose_name),
-            "instance": self.object,
-        }
-
-    def get_success_buttons(self):
-        return [
-            messages.button(
-                reverse(
-                    "wagtailsnippets:edit",
-                    args=(
-                        self.app_label,
-                        self.model_name,
-                        quote(self.object.pk),
-                    ),
-                ),
-                _("Edit"),
-            )
-        ]
-
-    def get_edit_url(self):
-        return reverse(
-            "wagtailsnippets:edit",
-            args=[self.app_label, self.model_name, quote(self.object.pk)],
-        )
-
-    def get_delete_url(self):
-        # This actually isn't used because we use a custom action menu
-        return reverse(
-            "wagtailsnippets:delete",
-            args=[
-                self.app_label,
-                self.model_name,
-                quote(self.object.pk),
-            ],
-        )
 
     def form_valid(self, form):
         response = super().form_valid(form)
