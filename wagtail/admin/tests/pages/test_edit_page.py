@@ -2278,7 +2278,7 @@ class TestLocaleSelector(TestCase, WagtailTestUtils):
         edit_translation_url = reverse(
             "wagtailadmin_pages:edit", args=[self.translated_christmas_page.id]
         )
-        self.assertContains(response, f'href="{edit_translation_url}"')
+        self.assertNotContains(response, f'href="{edit_translation_url}"')
 
     def test_locale_dropdown_not_present_without_permission_to_edit(self):
         # Remove user's permissions to edit French tree
