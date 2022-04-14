@@ -330,7 +330,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def get_rendition(self, filter: Union["Filter", str]) -> "AbstractRendition":
         """
-        Returns a ``Rendition``* instance with a ``file`` field value (an
+        Returns a ``Rendition*`` instance with a ``file`` field value (an
         image) reflecting the supplied ``filter`` value and focal point values
         from this object.
 
@@ -365,7 +365,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def find_existing_rendition(self, filter: "Filter") -> "AbstractRendition":
         """
-        Returns an existing ``Rendition``* instance with a ``file`` field value
+        Returns an existing ``Rendition*`` instance with a ``file`` field value
         (an image) reflecting the supplied ``filter`` value and focal point
         values from this object.
 
@@ -408,7 +408,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
 
     def create_rendition(self, filter: "Filter") -> "AbstractRendition":
         """
-        Creates and returns a ``Rendition``* instance with a ``file`` field
+        Creates and returns a ``Rendition*`` instance with a ``file`` field
         value (an image) reflecting the supplied ``filter`` value and focal
         point values from this object.
 
