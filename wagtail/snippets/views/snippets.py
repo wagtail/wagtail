@@ -4,7 +4,6 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
