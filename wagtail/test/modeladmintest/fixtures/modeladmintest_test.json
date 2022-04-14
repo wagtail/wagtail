@@ -105,7 +105,8 @@
     "model": "modeladmintest.translatablebook",
     "fields": {
       "title": "The Lord of the Rings",
-      "author_id": 1
+      "author_id": 1,
+      "locale_id": 1
     }
   },
   {

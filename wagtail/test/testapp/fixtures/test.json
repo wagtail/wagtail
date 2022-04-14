@@ -648,6 +648,7 @@
     "pk": 21,
     "model": "wagtailcore.page",
     "fields": {
+      "locale": 1,
       "title": "This page has a field that shouldn't be copied",
       "draft_title": "This page has a field that shouldn't be copied",
       "numchild": 0,
