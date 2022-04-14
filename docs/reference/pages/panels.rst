@@ -269,9 +269,9 @@ You must define a ``heading`` or ``label`` when using ``collapsible`` with ``Inl
     content_panels = [
         MultiFieldPanel(
             [
-                ImageChooserPanel('cover'),
-                DocumentChooserPanel('book_file'),
-                PageChooserPanel('publisher'),
+                FieldPanel('cover'),
+                FieldPanel('book_file'),
+                FieldPanel('publisher'),
             ],
             heading="Collection of Book Fields",
             classname="collapsible collapsed"
