@@ -106,8 +106,8 @@ class List(IndexView):
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
-        self._setup_search()
         super().setup(request, *args, **kwargs)
+        self._setup_search()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
