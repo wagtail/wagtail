@@ -408,8 +408,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const setPanel = (panelName) => {
     const sidePanelWrapper = document.querySelector('[data-form-side]');
 
-    // Open / close side
-    if (panelName === '') {
+    // Open / close side panel
+
+    // HACK: For now, the comments will show without the side-panel opening.
+    // They will later be updated so that they render inside the side panel.
+    // We couldn't implement this for Wagtail 3.0 as the existing field styling
+    // renders the "Add comment" button on the right hand side, and this gets
+    // covered up by the side panel.
+    // RemovedInWagtail40Warning
+
+    if (panelName === '' || panelName === 'comments') {
       sidePanelWrapper.classList.remove('form-side--open');
       sidePanelWrapper.removeAttribute('aria-labelledby');
     } else {
