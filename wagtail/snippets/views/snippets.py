@@ -93,11 +93,11 @@ class List(IndexView):
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
+    def setup(self, request, *args, app_label, model_name, **kwargs):
+        super().setup(request, *args, app_label, model_name**kwargs)
 
-        self.app_label = kwargs.get("app_label")
-        self.model_name = kwargs.get("model_name")
+        self.app_label = app_label
+        self.model_name = model_name
         self.model = self._get_model()
         self.locale = self._get_locale()
         self._setup_search()
