@@ -26,7 +26,7 @@ from django.core.handlers.base import BaseHandler
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db import models, transaction
-from django.db.models import DEFERRED, Q, Value
+from django.db.models import DEFERRED, Q, QuerySet, Value
 from django.db.models.expressions import OuterRef, Subquery
 from django.db.models.functions import Concat, Substr
 from django.dispatch import receiver
@@ -2775,6 +2775,16 @@ class PageViewRestriction(BaseViewRestriction):
     class Meta:
         verbose_name = _("page view restriction")
         verbose_name_plural = _("page view restrictions")
+
+    @classmethod
+    def get_all_queryset(cls) -> QuerySet:
+        return super().get_all_queryset().select_related("page").order_by("-page__path")
+
+    def get_affected_objects_q(self) -> Q:
+        return Q(path__startswith=self.page.path)
+
+    def is_descendant_of(self, other: "PageViewRestriction") -> bool:
+        raise self.page.is_descendant_of(other.page)
 
     def save(self, user=None, **kwargs):
         """

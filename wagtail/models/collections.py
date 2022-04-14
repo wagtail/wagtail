@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group, Permission
 from django.db import models
+from django.db.models import Q, QuerySet
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
@@ -33,6 +34,21 @@ class CollectionViewRestriction(BaseViewRestriction):
     class Meta:
         verbose_name = _("collection view restriction")
         verbose_name_plural = _("collection view restrictions")
+
+    @classmethod
+    def get_all_queryset(cls) -> QuerySet:
+        return (
+            super()
+            .get_all_queryset()
+            .select_related("collection")
+            .order_by("-collection__path")
+        )
+
+    def get_affected_objects_q(self) -> Q:
+        return models.Q(collection__path__startswith=self.collection.path)
+
+    def is_descendant_of(self, other: "CollectionViewRestriction") -> bool:
+        raise self.collection.is_descendant_of(other.collection)
 
 
 class Collection(TreebeardPathFixMixin, MP_Node):
