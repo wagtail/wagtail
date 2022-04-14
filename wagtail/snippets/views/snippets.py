@@ -103,27 +103,14 @@ class List(IndexView):
     results_only = False
 
     def setup(self, request, *args, app_label, model_name, **kwargs):
-        super().setup(request, *args, app_label, model_name, **kwargs)
-
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
-        self.locale = self._get_locale()
         self._setup_search()
+        super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-    def _get_locale(self):
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
-            selected_locale = self.request.GET.get("locale")
-            if selected_locale:
-                return get_object_or_404(Locale, language_code=selected_locale)
-            return Locale.get_default()
-
-        return None
 
     def _setup_search(self):
         self.is_searchable = self._get_is_searchable()
@@ -255,27 +242,14 @@ class Create(CreateView):
         return self.run_hook("after_create_snippet", self.request, self.object)
 
     def setup(self, request, *args, app_label, model_name, **kwargs):
-        super().setup(request, *args, **kwargs)
-
         self.app_label = app_label
         self.model_name = model_name
         self.model = self._get_model()
-        self.locale = self._get_locale()
         self.edit_handler = self._get_edit_handler()
+        super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-    def _get_locale(self):
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
-            selected_locale = self.request.GET.get("locale")
-            if selected_locale:
-                return get_object_or_404(Locale, language_code=selected_locale)
-            return Locale.get_default()
-
-        return None
 
     def _get_edit_handler(self):
         return get_snippet_edit_handler(self.model)
@@ -406,15 +380,13 @@ class Edit(EditView):
         return self.run_hook("after_edit_snippet", self.request, self.object)
 
     def setup(self, request, *args, app_label, model_name, pk, **kwargs):
-        super().setup(request, *args, **kwargs)
-
         self.app_label = app_label
         self.model_name = model_name
         self.pk = pk
         self.model = self._get_model()
         self.edit_handler = self._get_edit_handler()
         self.object = self.get_object()
-        self.locale = self._get_locale()
+        super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -422,7 +394,7 @@ class Edit(EditView):
     def _get_edit_handler(self):
         return get_snippet_edit_handler(self.model)
 
-    def _get_locale(self):
+    def get_locale(self):
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
             self.model, TranslatableMixin
         ):
@@ -556,7 +528,6 @@ class Delete(DeleteView):
 
     def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
-
         self.app_label = app_label
         self.model_name = model_name
         self.pk = pk
@@ -647,13 +618,12 @@ class Usage(IndexView):
     page_kwarg = "p"
 
     def setup(self, request, *args, app_label, model_name, **kwargs):
-        super().setup(request, *args, **kwargs)
-
         self.app_label = app_label
         self.model_name = model_name
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
         self.instance = self._get_instance()
+        super().setup(request, *args, **kwargs)
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)

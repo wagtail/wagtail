@@ -18,6 +18,7 @@ from wagtail.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
 from .hooks import BeforeAfterHookMixin
+from .mixins import LocaleMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -54,7 +55,9 @@ else:
             return HttpResponseRedirect(success_url)
 
 
-class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView):
+class IndexView(
+    LocaleMixin, PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView
+):
     model = None
     index_url_name = None
     add_url_name = None
@@ -128,6 +131,7 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
 
 
 class CreateView(
+    LocaleMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
@@ -203,6 +207,7 @@ class CreateView(
 
 
 class EditView(
+    LocaleMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
