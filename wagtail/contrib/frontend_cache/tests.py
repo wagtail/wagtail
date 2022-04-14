@@ -255,6 +255,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "CDN_PROFILE_NAME": "wagtail-io-profile",
                     "CDN_ENDPOINT_NAME": "wagtail-io-endpoint",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
@@ -296,6 +297,7 @@ class TestBackendConfiguration(SimpleTestCase):
                     "RESOURCE_GROUP_NAME": "test-resource-group",
                     "FRONT_DOOR_NAME": "wagtail-io-front-door",
                     "CREDENTIALS": "Fake credentials",
+                    "SUBSCRIPTION_ID": "fake-subscription-id",
                 },
             }
         )
