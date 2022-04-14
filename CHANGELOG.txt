@@ -6,6 +6,7 @@ Changelog
 
  * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
  * Implement splitting of rich text blocks within StreamField (Jacob Topp-Mugglestone)
+ * Add support for image rendition prefetching (Andy Babic)
  * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas, Paarth Agarwal)
  * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
  * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
