@@ -87,10 +87,10 @@ The following ``AbstractImage`` model methods are involved in finding and genera
 .. class:: AbstractImage
     :noindex:
 
-    .. autofunction:: get_rendition
+    .. automethod:: get_rendition
 
-    .. autofunction:: find_existing_rendition
+    .. automethod:: find_existing_rendition
 
-    .. autofunction:: create_rendition
+    .. automethod:: create_rendition
 
-    .. autofunction:: generate_rendition_file
+    .. automethod:: generate_rendition_file
