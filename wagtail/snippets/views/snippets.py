@@ -15,7 +15,6 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
-
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
