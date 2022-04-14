@@ -76,17 +76,17 @@ class Index(TemplateView):
         super().setup(request, *args, **kwargs)
         self.snippet_types = self._get_snippet_types()
 
-    def dispatch(self, request, *args, **kwargs):
-        if not self.snippet_types:
-            raise PermissionDenied
-        return super().dispatch(request, *args, **kwargs)
-
     def _get_snippet_types(self):
         return [
             model._meta
             for model in get_snippet_models()
             if user_can_edit_snippet_type(self.request.user, model)
         ]
+
+    def dispatch(self, request, *args, **kwargs):
+        if not self.snippet_types:
+            raise PermissionDenied
+        return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         snippet_model_opts = sorted(
