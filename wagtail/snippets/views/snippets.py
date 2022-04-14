@@ -658,7 +658,6 @@ class Delete(DeleteView):
         context.update(
             {
                 "model_opts": self.model._meta,
-                "count": len(self.objects),
                 "instances": self.objects,
                 "action_url": self.get_delete_url(),
             }
