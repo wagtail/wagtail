@@ -40,6 +40,9 @@ See also: :ref:`image_tag`
 Prefetching image renditions
 ----------------------------
 
+.. versionadded:: 3.0
+    This following guidance is only applicable in Wagtail versions 3.0 and above.
+
 When using a queryset to render a list of objects with images, you can make use of Django's built-in ``prefetch_related()`` queryset method to prefetch the renditions needed for rendering with a single additional query. For long lists of items, or where multiple renditions are used for each item, this can provide a significant boost to performance.
 
 For example, say you were rendering a list of events (with thumbnail images for each). Your code might look something like this:
@@ -79,6 +82,9 @@ If images in your project tend to have very large numbers of renditions, and you
 
 Model methods involved in rendition generation
 ----------------------------------------------
+
+.. versionadded:: 3.0
+    The following method references are only applicable to Wagtail versions 3.0 and above.
 
 The following ``AbstractImage`` model methods are involved in finding and generating a renditions. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
 
