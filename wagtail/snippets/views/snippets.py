@@ -15,6 +15,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
+
 from wagtail import hooks
 from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
@@ -68,9 +69,8 @@ def get_snippet_edit_handler(model):
 # == Views ==
 
 
-class Index(IndexView):
+class Index(TemplateView):
     template_name = "wagtailsnippets/snippets/index.html"
-    context_object_name = "snippet_model_opts"
 
     def setup(self, request, *args, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -88,10 +88,11 @@ class Index(IndexView):
             if user_can_edit_snippet_type(self.request.user, model)
         ]
 
-    def get_queryset(self):
-        # It's not a queryset, but this allows us to use context_object_name
-        # and reuse get_context_data of IndexView.
-        return sorted(self.snippet_types, key=lambda x: x.verbose_name.lower())
+    def get_context_data(self, **kwargs):
+        snippet_model_opts = sorted(
+            self.snippet_types, key=lambda x: x.verbose_name.lower()
+        )
+        return super().get_context_data(snippet_model_opts=snippet_model_opts, **kwargs)
 
 
 class ListView(TemplateView):
