@@ -177,6 +177,20 @@ class List(IndexView):
         page = paginator.get_page(page_number)
         return (paginator, page, page.object_list, page.has_other_pages())
 
+    def get_translations_context(self):
+        return [
+            {
+                "locale": locale,
+                "url": reverse(
+                    "wagtailsnippets:list",
+                    args=[self.app_label, self.model_name],
+                )
+                + "?locale="
+                + locale.language_code,
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -198,29 +212,8 @@ class List(IndexView):
                 "search_form": self.search_form,
                 "is_searching": self.is_searching,
                 "query_string": self.search_query,
-                "locale": None,
-                "translations": [],
             }
         )
-
-        if self.locale:
-            context.update(
-                {
-                    "locale": self.locale,
-                    "translations": [
-                        {
-                            "locale": locale,
-                            "url": reverse(
-                                "wagtailsnippets:list",
-                                args=[self.app_label, self.model_name],
-                            )
-                            + "?locale="
-                            + locale.language_code,
-                        }
-                        for locale in Locale.objects.all().exclude(id=self.locale.id)
-                    ],
-                }
-            )
 
         return context
 
@@ -326,45 +319,35 @@ class Create(CreateView):
             "for_user": self.request.user,
         }
 
+    def get_translations_context(self):
+        return [
+            {
+                "locale": locale,
+                "url": reverse(
+                    "wagtailsnippets:add",
+                    args=[self.app_label, self.model_name],
+                )
+                + "?locale="
+                + locale.language_code,
+            }
+            for locale in Locale.objects.all().exclude(id=self.locale.id)
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         form = context.get("form")
         edit_handler = self._get_bound_panel(form)
         action_menu = self._get_action_menu()
-        instance = form.instance
 
         context.update(
             {
                 "model_opts": self.model._meta,
                 "edit_handler": edit_handler,
                 "action_menu": action_menu,
-                "locale": None,
-                "translations": [],
                 "media": edit_handler.media + form.media + action_menu.media,
             }
         )
-
-        if self.locale:
-            context.update(
-                {
-                    "locale": instance.locale,
-                    "translations": [
-                        {
-                            "locale": locale,
-                            "url": reverse(
-                                "wagtailsnippets:add",
-                                args=[self.app_label, self.model_name],
-                            )
-                            + "?locale="
-                            + locale.language_code,
-                        }
-                        for locale in Locale.objects.all().exclude(
-                            id=instance.locale.id
-                        )
-                    ],
-                }
-            )
 
         return context
 
@@ -470,6 +453,22 @@ class Edit(EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
+    def get_translations_context(self):
+        return [
+            {
+                "locale": translation.locale,
+                "url": reverse(
+                    "wagtailsnippets:edit",
+                    args=[
+                        self.app_label,
+                        self.model_name,
+                        quote(translation.pk),
+                    ],
+                ),
+            }
+            for translation in self.object.get_translations().select_related("locale")
+        ]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -484,35 +483,10 @@ class Edit(EditView):
                 "instance": self.object,
                 "edit_handler": edit_handler,
                 "action_menu": action_menu,
-                "locale": None,
-                "translations": [],
                 "latest_log_entry": latest_log_entry,
                 "media": edit_handler.media + form.media + action_menu.media,
             }
         )
-
-        if self.locale:
-            context.update(
-                {
-                    "locale": self.locale,
-                    "translations": [
-                        {
-                            "locale": translation.locale,
-                            "url": reverse(
-                                "wagtailsnippets:edit",
-                                args=[
-                                    self.app_label,
-                                    self.model_name,
-                                    quote(translation.pk),
-                                ],
-                            ),
-                        }
-                        for translation in self.object.get_translations().select_related(
-                            "locale"
-                        )
-                    ],
-                }
-            )
 
         return context
 
