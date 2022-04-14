@@ -3,8 +3,7 @@ from wagtail import hooks
 
 class HookResponseMixin:
     """
-    A mixin for class-based views to support hooks like `before_edit_page`, which are triggered
-    during execution of some operation and can return a response to halt that operation.
+    A mixin for class-based views to run hooks by `hook_name`.
     """
 
     def run_hook(self, hook_name, *args, **kwargs):
@@ -16,6 +15,7 @@ class HookResponseMixin:
             result = fn(*args, **kwargs)
             if hasattr(result, "status_code"):
                 return result
+        return None
 
 
 class BeforeAfterHookMixin(HookResponseMixin):
