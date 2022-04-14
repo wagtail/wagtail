@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const closeButton = document.querySelector('[data-form-side-close-button]');
   if (closeButton instanceof HTMLButtonElement) {
-    closeButton.addEventListener('click', (e) => {
+    closeButton.addEventListener('click', () => {
       setPanel('');
     });
   }
