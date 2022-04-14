@@ -3,13 +3,13 @@
 {% block titletag %}{% blocktrans trimmed with snippet_type_name=model_opts.verbose_name %}Editing {{ snippet_type_name }} - {{ instance }}{% endblocktrans %}{% endblock %}
 {% block content %}
     {% trans "Editing" as editing_str %}
-    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 %}
+    {% include "wagtailsnippets/snippets/_header_with_history.html" with title=editing_str subtitle=instance icon="snippet" merged=1 locale=locale translations=translations latest_log_entry=latest_log_entry model_opts=model_opts instance=instance only %}
 
     <div class="row row-flush">
 
         {% usage_count_enabled as uc_enabled %}
         <div class="{% if uc_enabled %}col10 divider-after{% else %}col12{% endif %}">
-            <form action="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name instance.pk|admin_urlquote %}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+            <form action="{{ action_url }}" method="POST" novalidate{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 {% csrf_token %}
                 {{ edit_handler.render_form_content }}
                 <footer class="footer">
