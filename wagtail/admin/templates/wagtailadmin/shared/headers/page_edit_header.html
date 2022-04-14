@@ -14,6 +14,8 @@
 
 {% block actions %}
     {% with nav_icon_classes='w-w-4 w-h-4' nav_icon_button_classes='w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary' %}
+        {% include "wagtailadmin/shared/page_side_panel_toggles.html" %}
+
         {# Page history #}
         {% if page.get_latest_revision %}
             <a href="{% url 'wagtailadmin_pages:history' page.id %}"
@@ -26,8 +28,6 @@
                 {% icon name="history" class_name=nav_icon_classes %}
             </a>
         {% endif %}
-
-        {% include "wagtailadmin/shared/page_side_panel_toggles.html" %}
 
         {% include "wagtailadmin/shared/page_status_tag_new.html" with page=page_for_status %}
 
