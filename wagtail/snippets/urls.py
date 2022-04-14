@@ -48,7 +48,7 @@ urlpatterns = [
     ),
     path(
         "<slug:app_label>/<slug:model_name>/usage/<str:pk>/",
-        snippets.usage,
+        snippets.Usage.as_view(),
         name="usage",
     ),
     path(
