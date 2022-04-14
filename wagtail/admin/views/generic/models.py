@@ -17,6 +17,7 @@ from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
+from .hooks import BeforeAfterHookMixin
 from .permissions import PermissionCheckedMixin
 
 if DJANGO_VERSION >= (4, 0):
@@ -126,7 +127,12 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         return context
 
 
-class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateView):
+class CreateView(
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseCreateView,
+):
     model = None
     form_class = None
     index_url_name = None
@@ -183,6 +189,9 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
         success_buttons = self.get_success_buttons()
         if success_message is not None:
             messages.success(self.request, success_message, buttons=success_buttons)
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
@@ -193,7 +202,12 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
         return super().form_invalid(form)
 
 
-class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView):
+class EditView(
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseUpdateView,
+):
     model = None
     form_class = None
     index_url_name = None
@@ -262,6 +276,9 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
                 success_message,
                 buttons=success_buttons,
             )
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
@@ -284,7 +301,12 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
         return context
 
 
-class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteView):
+class DeleteView(
+    PermissionCheckedMixin,
+    BeforeAfterHookMixin,
+    WagtailAdminTemplateMixin,
+    BaseDeleteView,
+):
     model = None
     index_url_name = None
     delete_url_name = None
@@ -321,4 +343,7 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
         success_url = self.get_success_url()
         self.delete_action()
         messages.success(self.request, self.get_success_message())
+        hook_response = self.run_after_hook()
+        if hook_response is not None:
+            return hook_response
         return HttpResponseRedirect(success_url)

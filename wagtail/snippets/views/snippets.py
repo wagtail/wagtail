@@ -21,7 +21,6 @@ from wagtail.admin.views.generic import (
     CreateView,
     DeleteView,
     EditView,
-    BeforeAfterHookMixin,
     IndexView,
 )
 from wagtail.log_actions import log
@@ -245,7 +244,7 @@ class List(IndexView):
             return ["wagtailsnippets/snippets/type_index.html"]
 
 
-class Create(BeforeAfterHookMixin, CreateView):
+class Create(CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
 
@@ -396,7 +395,7 @@ class Create(BeforeAfterHookMixin, CreateView):
         return context
 
 
-class Edit(BeforeAfterHookMixin, EditView):
+class Edit(EditView):
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
 
@@ -546,7 +545,7 @@ class Edit(BeforeAfterHookMixin, EditView):
         return context
 
 
-class Delete(BeforeAfterHookMixin, DeleteView):
+class Delete(DeleteView):
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
     def run_before_hook(self):
