@@ -40,12 +40,12 @@ urlpatterns = [
     ),
     path(
         "<slug:app_label>/<slug:model_name>/multiple/delete/",
-        snippets.delete,
+        snippets.Delete.as_view(),
         name="delete-multiple",
     ),
     path(
         "<slug:app_label>/<slug:model_name>/delete/<str:pk>/",
-        snippets.delete,
+        snippets.Delete.as_view(),
         name="delete",
     ),
     path(

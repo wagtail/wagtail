@@ -20,7 +20,7 @@ from wagtail.admin import messages
 from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
-from wagtail.admin.views.generic import CreateView, EditView, IndexView
+from wagtail.admin.views.generic import CreateView, DeleteView, EditView, IndexView
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
@@ -557,73 +557,121 @@ class Edit(EditView):
         return response
 
 
-def delete(request, app_label, model_name, pk=None):
-    model = get_snippet_model_from_url_params(app_label, model_name)
+class Delete(DeleteView):
+    template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
-    permission = get_permission_name("delete", model)
-    if not request.user.has_perm(permission):
-        raise PermissionDenied
+    def _run_before_hooks(self):
+        for fn in hooks.get_hooks("before_delete_snippet"):
+            result = fn(self.request, self.objects)
+            if hasattr(result, "status_code"):
+                return result
+        return None
 
-    if pk:
-        instances = [get_object_or_404(model, pk=unquote(pk))]
-    else:
-        ids = request.GET.getlist("id")
-        instances = model.objects.filter(pk__in=ids)
+    def _run_after_hooks(self):
+        for fn in hooks.get_hooks("after_delete_snippet"):
+            result = fn(self.request, self.objects)
+            if hasattr(result, "status_code"):
+                return result
+        return None
 
-    for fn in hooks.get_hooks("before_delete_snippet"):
-        result = fn(request, instances)
-        if hasattr(result, "status_code"):
-            return result
+    def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
+        super().setup(request, *args, **kwargs)
 
-    count = len(instances)
+        self.app_label = app_label
+        self.model_name = model_name
+        self.pk = pk
+        self.model = self._get_model()
+        self.objects = self.get_objects()
 
-    if request.method == "POST":
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def dispatch(self, request, *args, **kwargs):
+        permission = get_permission_name("delete", self.model)
+
+        if not request.user.has_perm(permission):
+            raise PermissionDenied
+
+        hooks_result = self._run_before_hooks()
+        if hooks_result is not None:
+            return hooks_result
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_object(self, queryset=None):
+        # DeleteView requires either a pk kwarg or a positional arg, but we use
+        # an `id` query param for multiple objects. We need to explicitly override
+        # this so that we don't have to override `post()`.
+        return None
+
+    def get_objects(self):
+        # Replaces get_object to allow returning multiple objects instead of just one
+
+        if self.pk:
+            return [get_object_or_404(self.model, pk=unquote(self.pk))]
+
+        ids = self.request.GET.getlist("id")
+        objects = self.model.objects.filter(pk__in=ids)
+        return objects
+
+    def get_delete_url(self):
+        return (
+            reverse(
+                "wagtailsnippets:delete-multiple",
+                args=(self.app_label, self.model_name),
+            )
+            + "?"
+            + urlencode([("id", instance.pk) for instance in self.objects])
+        )
+
+    def get_success_url(self):
+        return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
+
+    def get_success_message(self):
+        count = len(self.objects)
+        if count == 1:
+            return _("%(snippet_type)s '%(instance)s' deleted.") % {
+                "snippet_type": capfirst(self.model._meta.verbose_name),
+                "instance": self.objects[0],
+            }
+
+        # This message is only used in plural form, but we'll define it with ngettext so that
+        # languages with multiple plural forms can be handled correctly (or, at least, as
+        # correctly as possible within the limitations of verbose_name_plural...)
+        return ngettext(
+            "%(count)d %(snippet_type)s deleted.",
+            "%(count)d %(snippet_type)s deleted.",
+            count,
+        ) % {
+            "snippet_type": capfirst(self.model._meta.verbose_name_plural),
+            "count": count,
+        }
+
+    def delete_action(self):
         with transaction.atomic():
-            for instance in instances:
+            for instance in self.objects:
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
-        if count == 1:
-            message_content = _("%(snippet_type)s '%(instance)s' deleted.") % {
-                "snippet_type": capfirst(model._meta.verbose_name),
-                "instance": instance,
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "model_opts": self.model._meta,
+                "objects": self.objects,
+                "action_url": self.get_delete_url(),
             }
-        else:
-            # This message is only used in plural form, but we'll define it with ngettext so that
-            # languages with multiple plural forms can be handled correctly (or, at least, as
-            # correctly as possible within the limitations of verbose_name_plural...)
-            message_content = ngettext(
-                "%(count)d %(snippet_type)s deleted.",
-                "%(count)d %(snippet_type)s deleted.",
-                count,
-            ) % {
-                "snippet_type": capfirst(model._meta.verbose_name_plural),
-                "count": count,
-            }
+        )
+        return context
 
-        messages.success(request, message_content)
+    def form_valid(self, form):
+        response = super().form_valid(form)
 
-        for fn in hooks.get_hooks("after_delete_snippet"):
-            result = fn(request, instances)
-            if hasattr(result, "status_code"):
-                return result
+        hooks_result = self._run_after_hooks()
+        if hooks_result is not None:
+            return hooks_result
 
-        return redirect("wagtailsnippets:list", app_label, model_name)
-
-    return TemplateResponse(
-        request,
-        "wagtailsnippets/snippets/confirm_delete.html",
-        {
-            "model_opts": model._meta,
-            "count": count,
-            "instances": instances,
-            "submit_url": (
-                reverse("wagtailsnippets:delete-multiple", args=(app_label, model_name))
-                + "?"
-                + urlencode([("id", instance.pk) for instance in instances])
-            ),
-        },
-    )
+        return response
 
 
 class Usage(IndexView):
