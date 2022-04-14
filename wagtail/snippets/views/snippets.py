@@ -611,8 +611,8 @@ class Delete(DeleteView):
             return [get_object_or_404(self.model, pk=unquote(self.pk))]
 
         ids = self.request.GET.getlist("id")
-        instances = self.model.objects.filter(pk__in=ids)
-        return instances
+        objects = self.model.objects.filter(pk__in=ids)
+        return objects
 
     def get_delete_url(self):
         return (
@@ -658,7 +658,7 @@ class Delete(DeleteView):
         context.update(
             {
                 "model_opts": self.model._meta,
-                "instances": self.objects,
+                "objects": self.objects,
                 "action_url": self.get_delete_url(),
             }
         )
