@@ -574,12 +574,12 @@ class Delete(DeleteView):
                 return result
         return None
 
-    def setup(self, request, *args, **kwargs):
+    def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
 
-        self.app_label = kwargs.get("app_label")
-        self.model_name = kwargs.get("model_name")
-        self.pk = kwargs.get("pk")
+        self.app_label = app_label
+        self.model_name = model_name
+        self.pk = pk
         self.model = self._get_model()
         self.object = self.get_object()
 
