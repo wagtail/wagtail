@@ -1,6 +1,11 @@
 {% extends 'wagtailadmin/pages/side_panels/includes/action_list_item.html' %}
 {% load wagtailadmin_tags i18n %}
 
+{% comment %}
+    This template is used to show Live, Draft, Live and Draft, In Moderation or Live and In Moderation.
+    Sometimes {{ block.super }} will be called two times in the instances where the page is in multiple states eg. Live + Draft
+{% endcomment %}
+
 {% block content %}
     <div class="w-space-y-3">
         {% trans 'Page status: ' as screen_reader_title_prefix %}
