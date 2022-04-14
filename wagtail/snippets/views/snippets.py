@@ -562,14 +562,14 @@ class Delete(DeleteView):
 
     def _run_before_hooks(self):
         for fn in hooks.get_hooks("before_delete_snippet"):
-            result = fn(self.request, self.object)
+            result = fn(self.request, self.objects)
             if hasattr(result, "status_code"):
                 return result
         return None
 
     def _run_after_hooks(self):
         for fn in hooks.get_hooks("after_delete_snippet"):
-            result = fn(self.request, self.object)
+            result = fn(self.request, self.objects)
             if hasattr(result, "status_code"):
                 return result
         return None
@@ -581,7 +581,7 @@ class Delete(DeleteView):
         self.model_name = model_name
         self.pk = pk
         self.model = self._get_model()
-        self.object = self.get_object()
+        self.objects = self.get_objects()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
@@ -599,7 +599,13 @@ class Delete(DeleteView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
-        # Customised to allow returning multiple objects instead of just one
+        # DeleteView requires either a pk kwarg or a positional arg, but we use
+        # an `id` query param for multiple objects. We need to explicitly override
+        # this so that we don't have to override `post()`.
+        return None
+
+    def get_objects(self):
+        # Replaces get_object to allow returning multiple objects instead of just one
 
         if self.pk:
             return [get_object_or_404(self.model, pk=unquote(self.pk))]
@@ -615,18 +621,18 @@ class Delete(DeleteView):
                 args=(self.app_label, self.model_name),
             )
             + "?"
-            + urlencode([("id", instance.pk) for instance in self.object])
+            + urlencode([("id", instance.pk) for instance in self.objects])
         )
 
     def get_success_url(self):
         return reverse("wagtailsnippets:list", args=[self.app_label, self.model_name])
 
     def get_success_message(self):
-        count = len(self.object)
+        count = len(self.objects)
         if count == 1:
             return _("%(snippet_type)s '%(instance)s' deleted.") % {
                 "snippet_type": capfirst(self.model._meta.verbose_name),
-                "instance": self.object[0],
+                "instance": self.objects[0],
             }
 
         # This message is only used in plural form, but we'll define it with ngettext so that
@@ -643,7 +649,7 @@ class Delete(DeleteView):
 
     def delete_action(self):
         with transaction.atomic():
-            for instance in self.object:
+            for instance in self.objects:
                 log(instance=instance, action="wagtail.delete")
                 instance.delete()
 
@@ -652,8 +658,8 @@ class Delete(DeleteView):
         context.update(
             {
                 "model_opts": self.model._meta,
-                "count": len(self.object),
-                "instances": self.object,
+                "count": len(self.objects),
+                "instances": self.objects,
                 "action_url": self.get_delete_url(),
             }
         )
