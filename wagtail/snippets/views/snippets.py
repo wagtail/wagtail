@@ -232,11 +232,11 @@ class Create(CreateView):
                 return result
         return None
 
-    def setup(self, request, *args, **kwargs):
+    def setup(self, request, *args, app_label, model_name, **kwargs):
         super().setup(request, *args, **kwargs)
 
-        self.app_label = kwargs.get("app_label")
-        self.model_name = kwargs.get("model_name")
+        self.app_label = app_label
+        self.model_name = model_name
         self.model = self._get_model()
         self.locale = self._get_locale()
         self.edit_handler = self._get_edit_handler()
@@ -404,12 +404,12 @@ class Edit(EditView):
                 return result
         return None
 
-    def setup(self, request, *args, **kwargs):
+    def setup(self, request, *args, app_label, model_name, pk, **kwargs):
         super().setup(request, *args, **kwargs)
 
-        self.app_label = kwargs.get("app_label")
-        self.model_name = kwargs.get("model_name")
-        self.pk = kwargs.get("pk")
+        self.app_label = app_label
+        self.model_name = model_name
+        self.pk = pk
         self.model = self._get_model()
         self.edit_handler = self._get_edit_handler()
         self.object = self.get_object()
@@ -631,11 +631,11 @@ class Usage(IndexView):
     paginate_by = 20
     page_kwarg = "p"
 
-    def setup(self, request, *args, **kwargs):
+    def setup(self, request, *args, app_label, model_name, **kwargs):
         super().setup(request, *args, **kwargs)
 
-        self.app_label = kwargs.get("app_label")
-        self.model_name = kwargs.get("model_name")
+        self.app_label = app_label
+        self.model_name = model_name
         self.pk = kwargs.get("pk")
         self.model = self._get_model()
         self.instance = self._get_instance()
