@@ -495,10 +495,10 @@ class Delete(DeleteView):
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
 
     def run_before_hook(self):
-        return self.run_hook("before_delete_snippet", self.request, self.object)
+        return self.run_hook("before_delete_snippet", self.request, self.objects)
 
     def run_after_hook(self):
-        return self.run_hook("after_delete_snippet", self.request, self.object)
+        return self.run_hook("after_delete_snippet", self.request, self.objects)
 
     def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
