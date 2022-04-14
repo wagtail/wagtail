@@ -381,7 +381,7 @@ Structural block types
                ('photo', ImageChooserBlock(required=False)),
                ('biography', blocks.RichTextBlock()),
            ], icon='user')),
-       ])
+       ], use_json_field=True)
 
 
    Alternatively, StructBlock can be subclassed to specify a reusable set of sub-blocks:
@@ -409,7 +409,7 @@ Structural block types
            ('paragraph', blocks.RichTextBlock()),
            ('image', ImageChooserBlock()),
            ('person', PersonBlock()),
-       ])
+       ], use_json_field=True)
 
    The following additional options are available as either keyword arguments or Meta class attributes:
 
@@ -429,7 +429,7 @@ Structural block types
        body = StreamField([
            # ...
            ('ingredients_list', blocks.ListBlock(blocks.CharBlock(label="Ingredient"))),
-       ])
+       ], use_json_field=True)
 
 
    Any block type is valid as the sub-block type, including structural types:
@@ -442,7 +442,7 @@ Structural block types
                ('ingredient', blocks.CharBlock()),
                ('amount', blocks.CharBlock(required=False)),
            ]))),
-       ])
+       ], use_json_field=True)
 
    The following additional options are available as either keyword arguments or Meta class attributes:
 
@@ -471,7 +471,7 @@ Structural block types
                ],
                icon='cogs'
            )),
-       ])
+       ], use_json_field=True)
 
 
    As with StructBlock, the list of sub-blocks can also be provided as a subclass of StreamBlock:
@@ -496,7 +496,10 @@ Structural block types
    .. code-block:: python
 
        class HomePage(Page):
-           carousel = StreamField(CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}))
+           carousel = StreamField(
+               CarouselBlock(max_num=10, block_counts={'video': {'max_num': 2}}),
+               use_json_field=True
+            )
 
    ``StreamBlock`` accepts the following additional options as either keyword arguments or ``Meta`` properties:
 
@@ -516,7 +519,7 @@ Structural block types
                ('hashtag', blocks.CharBlock()),
                ('post_date', blocks.DateBlock()),
            ], form_classname='event-promotions')),
-       ])
+       ], use_json_field=True)
 
     .. code-block:: python
         :emphasize-lines: 6
