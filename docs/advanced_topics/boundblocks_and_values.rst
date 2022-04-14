@@ -26,7 +26,7 @@ This gives us a block that behaves as an ordinary text field, but wraps its outp
             # ...
             ('heading', HeadingBlock()),
             # ...
-        ])
+        ], use_json_field=True)
 
 .. code-block:: html+django
 

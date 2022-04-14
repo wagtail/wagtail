@@ -22,7 +22,7 @@ Using StreamField
     from wagtail.models import Page
     from wagtail.fields import StreamField
     from wagtail import blocks
-    from wagtail.admin.panels import FieldPanel, StreamFieldPanel
+    from wagtail.admin.panels import FieldPanel
     from wagtail.images.blocks import ImageChooserBlock
 
     class BlogPage(Page):
@@ -32,14 +32,13 @@ Using StreamField
             ('heading', blocks.CharBlock(form_classname="full title")),
             ('paragraph', blocks.RichTextBlock()),
             ('image', ImageChooserBlock()),
-        ])
+        ], use_json_field=True)
 
         content_panels = Page.content_panels + [
             FieldPanel('author'),
             FieldPanel('date'),
-            StreamFieldPanel('body'),
+            FieldPanel('body'),
         ]
-
 
 In this example, the body field of ``BlogPage`` is defined as a ``StreamField`` where authors can compose content from three different block types: headings, paragraphs, and images, which can be used and repeated in any order. The block types available to authors are defined as a list of ``(name, block_type)`` tuples: 'name' is used to identify the block type within templates, and should follow the standard Python conventions for variable names: lower-case and underscores, no spaces.
 
@@ -47,6 +46,10 @@ You can find the complete list of available block types in the :ref:`StreamField
 
 .. note::
    StreamField is not a direct replacement for other field types such as RichTextField. If you need to migrate an existing field to StreamField, refer to :ref:`streamfield_migrating_richtext`.
+
+.. versionchanged:: 3.0
+
+  The ``use_json_field=True`` argument was added. This indicates that the database's native JSONField support should be used for this field, and is a temporary measure to assist in migrating StreamFields created on earlier Wagtail versions; it will become the default in a future release.
 
 
 .. _streamfield_template_rendering:
@@ -130,7 +133,7 @@ StructBlock
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ])
+    ], use_json_field=True)
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a StructBlock is a dict-like object with keys corresponding to the block names given in the definition:
 
@@ -173,7 +176,7 @@ Placing a StructBlock's list of child blocks inside a ``StreamField`` definition
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ])
+    ], use_json_field=True)
 
 
 Block icons
@@ -194,7 +197,7 @@ In the menu that content authors use to add new blocks to a StreamField, each bl
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ])
+    ], use_json_field=True)
 
 .. code-block:: python
    :emphasize-lines: 7-8
@@ -224,7 +227,7 @@ ListBlock
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ])
+    ], use_json_field=True)
 
 When reading back the content of a StreamField (such as when rendering a template), the value of a ListBlock is a list of child values:
 
@@ -261,7 +264,7 @@ StreamBlock
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ])
+    ], use_json_field=True)
 
 ``StreamBlock`` can also be subclassed in the same way as ``StructBlock``, with the child blocks being specified as attributes on the class:
 
@@ -285,7 +288,7 @@ A StreamBlock subclass defined in this way can also be passed to a ``StreamField
 
 
     class BlogPage(Page):
-        body = StreamField(CommonContentBlock())
+        body = StreamField(CommonContentBlock(), use_json_field=True)
 
 
 When reading back the content of a StreamField, the value of a StreamBlock is a sequence of block objects with ``block_type`` and ``value`` properties, just like the top-level value of the StreamField itself.
@@ -322,7 +325,7 @@ By default, a StreamField can contain an unlimited number of blocks. The ``min_n
         ('heading', blocks.CharBlock(form_classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
-    ], min_num=2, max_num=5)
+    ], min_num=2, max_num=5, use_json_field=True)
 
 Or equivalently:
 
@@ -348,7 +351,7 @@ The ``block_counts`` option can be used to set a minimum or maximum count for sp
         ('image', ImageChooserBlock()),
     ], block_counts={
         'heading': {'min_num': 1, 'max_num': 3},
-    })
+    }, use_json_field=True)
 
 Or equivalently:
 
@@ -545,7 +548,7 @@ A StreamField's value behaves as a list, and blocks can be inserted, overwritten
 Migrating RichTextFields to StreamField
 ---------------------------------------
 
-If you change an existing RichTextField to a StreamField, the database migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text requires an extra conversion step in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. (When updating the model, don't forget to change ``FieldPanel`` to ``StreamFieldPanel`` too.) Create the migration as normal using ``./manage.py makemigrations``, then edit it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
+If you change an existing RichTextField to a StreamField, the database migration will complete with no errors, since both fields use a text column within the database. However, StreamField uses a JSON representation for its data, so the existing text requires an extra conversion step in order to become accessible again. For this to work, the StreamField needs to include a RichTextBlock as one of the available block types. Create the migration as normal using ``./manage.py makemigrations``, then edit it as follows (in this example, the 'body' field of the ``demo.BlogPage`` model is being converted to a StreamField with a RichTextBlock named ``rich_text``):
 
 .. note::
     This migration cannot be used if the StreamField has the ``use_json_field`` argument set to ``True``. To migrate, set the ``use_json_field`` argument to ``False`` first, migrate the data, then set it back to ``True``.
