@@ -19,14 +19,35 @@ class HookResponseMixin:
 
 
 class BeforeAfterHookMixin(HookResponseMixin):
-    before_hook_name = None
-    after_hook_name = None
+    """
+    A mixin for class-based views to support hooks like `before_edit_page` and
+    `after_edit_page`, which are triggered during execution of some operation and
+    can return a response to halt that operation and/or change the view response.
+    """
 
     def run_before_hook(self):
-        return self.run_hook(self.before_hook_name)
+        """
+        Define how to run the hooks before the operation is executed.
+        The `self.run_hook(hook_name, *args, **kwargs)` from HookResponseMixin
+        can be utilised to call the hooks.
+
+        If this method returns a response, the operation will be aborted and the
+        hook response will be returned as the view response, skipping the default
+        response.
+        """
+        return None
 
     def run_after_hook(self):
-        return self.run_hook(self.after_hook_name)
+        """
+        Define how to run the hooks after the operation is executed.
+        The `self.run_hook(hook_name, *args, **kwargs)` from HookResponseMixin
+        can be utilised to call the hooks.
+
+        If this method returns a response, it will be returned as the view
+        response immediately after the operation finishes, skipping the default
+        response.
+        """
+        return None
 
     def dispatch(self, *args, **kwargs):
         hooks_result = self.run_before_hook()

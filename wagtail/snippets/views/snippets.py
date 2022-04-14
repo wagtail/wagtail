@@ -248,14 +248,12 @@ class List(IndexView):
 class Create(BeforeAfterHookMixin, CreateView):
     template_name = "wagtailsnippets/snippets/create.html"
     error_message = _("The snippet could not be created due to errors.")
-    before_hook_name = "before_create_snippet"
-    after_hook_name = "after_create_snippet"
 
     def run_before_hook(self):
-        return self.run_hook(self.before_hook_name, self.request, self.model)
+        return self.run_hook("before_create_snippet", self.request, self.model)
 
     def run_after_hook(self):
-        return self.run_hook(self.after_hook_name, self.request, self.object)
+        return self.run_hook("after_create_snippet", self.request, self.object)
 
     def setup(self, request, *args, app_label, model_name, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -401,14 +399,12 @@ class Create(BeforeAfterHookMixin, CreateView):
 class Edit(BeforeAfterHookMixin, EditView):
     template_name = "wagtailsnippets/snippets/edit.html"
     error_message = _("The snippet could not be saved due to errors.")
-    before_hook_name = "before_edit_snippet"
-    after_hook_name = "after_edit_snippet"
 
     def run_before_hook(self):
-        return self.run_hook(self.before_hook_name, self.request, self.object)
+        return self.run_hook("before_edit_snippet", self.request, self.object)
 
     def run_after_hook(self):
-        return self.run_hook(self.after_hook_name, self.request, self.object)
+        return self.run_hook("after_edit_snippet", self.request, self.object)
 
     def setup(self, request, *args, app_label, model_name, pk, **kwargs):
         super().setup(request, *args, **kwargs)
@@ -552,14 +548,12 @@ class Edit(BeforeAfterHookMixin, EditView):
 
 class Delete(BeforeAfterHookMixin, DeleteView):
     template_name = "wagtailsnippets/snippets/confirm_delete.html"
-    before_hook_name = "before_delete_snippet"
-    after_hook_name = "after_delete_snippet"
 
     def run_before_hook(self):
-        return self.run_hook(self.before_hook_name, self.request, self.object)
+        return self.run_hook("before_delete_snippet", self.request, self.object)
 
     def run_after_hook(self):
-        return self.run_hook(self.after_hook_name, self.request, self.object)
+        return self.run_hook("after_delete_snippet", self.request, self.object)
 
     def setup(self, request, *args, app_label, model_name, pk=None, **kwargs):
         super().setup(request, *args, **kwargs)
