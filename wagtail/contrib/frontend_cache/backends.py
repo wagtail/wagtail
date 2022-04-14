@@ -243,7 +243,6 @@ class AzureBaseBackend(BaseBackend):
             raise ImproperlyConfigured(
                 "The setting 'WAGTAILFRONTENDCACHE' requires 'RESOURCE_GROUP_NAME' to be specified."
             )
-        self._custom_headers = params.pop("CUSTOM_HEADERS", None)
 
     def purge_batch(self, urls):
         self._purge_content([self._get_path(url) for url in urls])
@@ -293,7 +292,7 @@ class AzureBaseBackend(BaseBackend):
 
     def _get_client_kwargs(self):
         return {
-            "credentials": self._get_credentials(),
+            "credential": self._get_credentials(),
             "subscription_id": self._get_subscription_id(),
         }
 
@@ -314,14 +313,13 @@ class AzureBaseBackend(BaseBackend):
         kwargs = self._get_client_kwargs()
         return klass(**kwargs)
 
-    def _get_purge_kwargs(self, paths):
+    def _get_purge_kwargs(self, **kwargs):
         """
         Get keyword arguments passes to Azure purge content calls.
         """
         return {
             "resource_group_name": self._resource_group_name,
-            "custom_headers": self._custom_headers,
-            "content_paths": paths,
+            **kwargs,
         }
 
     def _purge_content(self, paths):
@@ -358,12 +356,20 @@ class AzureFrontDoorBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._front_door_service_url)
+        if self._front_door_service_url:
+            kwargs.setdefault("base_url", self._front_door_service_url)
         return kwargs
 
+    def _get_purge_kwargs(self, *, paths, **kwargs):
+        from azure.mgmt.frontdoor.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
+        )
+
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             front_door_name=self._front_door_name,
         )
 
@@ -387,12 +393,20 @@ class AzureCdnBackend(AzureBaseBackend):
 
     def _get_client_kwargs(self):
         kwargs = super()._get_client_kwargs()
-        kwargs.setdefault("base_url", self._cdn_service_url)
+        if self._cdn_service_url:
+            kwargs.setdefault("base_url", self._cdn_service_url)
         return kwargs
 
     def _make_purge_call(self, client, paths):
-        return client.endpoints.purge_content(
-            **self._get_purge_kwargs(paths),
+        return client.endpoints.begin_purge_content(
+            **self._get_purge_kwargs(paths=paths),
             profile_name=self._cdn_profile_name,
             endpoint_name=self._cdn_endpoint_name,
+        )
+
+    def _get_purge_kwargs(self, *, paths, **kwargs):
+        from azure.mgmt.cdn.models import PurgeParameters
+
+        return super()._get_purge_kwargs(
+            content_file_paths=PurgeParameters(content_paths=paths)
         )
