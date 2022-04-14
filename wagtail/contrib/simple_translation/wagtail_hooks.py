@@ -94,8 +94,8 @@ def register_snippet_listing_buttons(snippet, user, next_url=None):
             )
 
 
-@hooks.register("construct_synced_page_tree_list")
-def construct_synced_page_tree_list(pages: List[Page], action: str):
+@hooks.register("construct_translated_pages_to_cascade_actions")
+def construct_translated_pages_to_cascade_actions(pages: List[Page], action: str):
     if not getattr(settings, "WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE", False):
         return
 

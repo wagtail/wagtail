@@ -792,10 +792,10 @@ Hooks for customising the way users are directed through the process of creating
   The function does not have to return anything, but if an object with a ``status_code`` property is returned, Wagtail will use it as a response object and skip the rest of the view.
 
 
-.. _construct_synced_page_tree_list:
+.. _construct_translated_pages_to_cascade_actions:
 
-``construct_synced_page_tree_list``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``construct_translated_pages_to_cascade_actions``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   Return additional pages to process in a synced tree setup.
 

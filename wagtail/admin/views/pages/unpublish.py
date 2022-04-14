@@ -24,7 +24,7 @@ def unpublish(request, page_id):
     pages_to_unpublish = {page}
 
     if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-        for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+        for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
             fn_pages = fn([page], "unpublish")
             if fn_pages and isinstance(fn_pages, dict):
                 for additional_pages in fn_pages.values():

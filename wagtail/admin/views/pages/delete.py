@@ -27,10 +27,10 @@ def delete(request, page_id):
 
         pages_to_delete = {page}
 
-        # The `construct_synced_page_tree_list` hook returns translation and
+        # The `construct_translated_pages_to_cascade_actions` hook returns translation and
         # alias pages when the action is set to "delete"
         if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
-            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
                 fn_pages = fn([page], "delete")
                 if fn_pages and isinstance(fn_pages, dict):
                     for additional_pages in fn_pages.values():

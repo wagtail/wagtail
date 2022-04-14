@@ -117,21 +117,23 @@ class TestConstructSyncedPageTreeListHook(Utils):
         self.assertIsInstance(pages, list)
 
     def test_double_registered_hook(self):
-        # We should have two implementations of `construct_synced_page_tree_list`
+        # We should have two implementations of `construct_translated_pages_to_cascade_actions`
         # One in simple_translation.wagtail_hooks and the other will be
         # registered as a temporary hook.
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.unpublish_hook
+            "construct_translated_pages_to_cascade_actions", self.unpublish_hook
         ):
-            defined_hooks = hooks.get_hooks("construct_synced_page_tree_list")
+            defined_hooks = hooks.get_hooks(
+                "construct_translated_pages_to_cascade_actions"
+            )
             self.assertEqual(len(defined_hooks), 2)
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_page_tree_sync_on(self):
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.unpublish_hook
+            "construct_translated_pages_to_cascade_actions", self.unpublish_hook
         ):
-            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
                 response = fn([self.en_homepage], "unpublish")
                 if response:
                     self.assertIsInstance(response, dict)
@@ -140,18 +142,18 @@ class TestConstructSyncedPageTreeListHook(Utils):
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=False)
     def test_page_tree_sync_off(self):
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.unpublish_hook
+            "construct_translated_pages_to_cascade_actions", self.unpublish_hook
         ):
-            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
                 response = fn([self.en_homepage], "unpublish")
                 self.assertIsNone(response)
 
     @override_settings(WAGTAILSIMPLETRANSLATION_SYNC_PAGE_TREE=True)
     def test_missing_hook_action(self):
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.missing_hook_action
+            "construct_translated_pages_to_cascade_actions", self.missing_hook_action
         ):
-            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
                 response = fn([self.en_homepage], "")
                 if response is not None:
                     self.assertIsInstance(response, dict)
@@ -343,11 +345,11 @@ class TestDeletingTranslatedPages(Utils):
         self.assertEqual(action, "delete")
         self.assertIsInstance(pages, list)
 
-    def test_construct_synced_page_tree_list_when_deleting(self):
+    def test_construct_translated_pages_to_cascade_actions_when_deleting(self):
         with hooks.register_temporarily(
-            "construct_synced_page_tree_list", self.delete_hook
+            "construct_translated_pages_to_cascade_actions", self.delete_hook
         ):
-            for fn in hooks.get_hooks("construct_synced_page_tree_list"):
+            for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
                 response = fn([self.en_homepage], "delete")
                 if response is not None:
                     self.assertIsInstance(response, dict)
@@ -474,7 +476,7 @@ class TestDeletingTranslatedPages(Utils):
         """
         When deleting a page that has an alias page in the same tree, the alias page
         should continue to exist while the original page should be deleted
-        while using the `construct_synced_page_tree_list` hook is active.
+        while using the `construct_translated_pages_to_cascade_actions` hook is active.
         """
         self.login()
 
@@ -511,7 +513,7 @@ class TestDeletingTranslatedPages(Utils):
     def test_translation_alias_pages_when_deleting_source_page(self):
         """
         When deleting a page that has an alias page, the alias page
-        should be deleted while using the `construct_synced_page_tree_list`
+        should be deleted while using the `construct_translated_pages_to_cascade_actions`
         hook is active.
         """
         self.login()
