@@ -9,12 +9,14 @@ from django.db.models import Max, Q
 from django.forms import Media
 from django.http import Http404, HttpResponse
 from django.template.loader import render_to_string
-from django.template.response import TemplateResponse
+from django.utils.translation import gettext_lazy
+from django.views.generic.base import TemplateView
 
 from wagtail import hooks
 from wagtail.admin.navigation import get_site_for_user
 from wagtail.admin.site_summary import SiteSummaryPanel
 from wagtail.admin.ui.components import Component
+from wagtail.admin.views.generic import WagtailAdminTemplateMixin
 from wagtail.models import (
     Page,
     Revision,
@@ -212,40 +214,56 @@ class RecentEditsPanel(Component):
         return context
 
 
-def home(request):
+class HomeView(WagtailAdminTemplateMixin, TemplateView):
 
-    panels = [
-        SiteSummaryPanel(request),
-        UpgradeNotificationPanel(),
-        WorkflowPagesToModeratePanel(),
-        PagesForModerationPanel(),
-        UserPagesInWorkflowModerationPanel(),
-        RecentEditsPanel(),
-        LockedPagesPanel(),
-    ]
+    template_name = "wagtailadmin/home.html"
+    page_title = gettext_lazy("Dashboard")
 
-    for fn in hooks.get_hooks("construct_homepage_panels"):
-        fn(request, panels)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        panels = self.get_panels()
+        site_details = self.get_site_details()
 
-    media = Media()
+        context["media"] = self.get_media(panels)
+        context["panels"] = sorted(panels, key=lambda p: p.order)
+        context["user"] = self.request.user
 
-    for panel in panels:
-        media += panel.media
+        return {**context, **site_details}
 
-    site_details = get_site_for_user(request.user)
+    def get_media(self, panels=[]):
+        media = Media()
 
-    return TemplateResponse(
-        request,
-        "wagtailadmin/home.html",
-        {
-            "root_page": site_details["root_page"],
-            "root_site": site_details["root_site"],
-            "site_name": site_details["site_name"],
-            "panels": sorted(panels, key=lambda p: p.order),
-            "user": request.user,
-            "media": media,
-        },
-    )
+        for panel in panels:
+            media += panel.media
+
+        return media
+
+    def get_panels(self):
+        request = self.request
+        panels = [
+            SiteSummaryPanel(request),
+            UpgradeNotificationPanel(),
+            WorkflowPagesToModeratePanel(),
+            PagesForModerationPanel(),
+            UserPagesInWorkflowModerationPanel(),
+            RecentEditsPanel(),
+            LockedPagesPanel(),
+        ]
+
+        for fn in hooks.get_hooks("construct_homepage_panels"):
+            fn(request, panels)
+
+        return panels
+
+    def get_site_details(self):
+        request = self.request
+        site = get_site_for_user(request.user)
+
+        return {
+            "root_page": site["root_page"],
+            "root_site": site["root_site"],
+            "site_name": site["site_name"],
+        }
 
 
 def error_test(request):
