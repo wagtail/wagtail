@@ -96,7 +96,7 @@ def _page_urls_for_sites(
 
         # use a `HttpRequest` to influence the return value
         request = get_dummy_request(site=site)
-        # resuse cached site root paths if available
+        # reuse cached site root paths if available
         if hasattr(cache_target, "_wagtail_cached_site_root_paths"):
             request._wagtail_cached_site_root_paths = (
                 cache_target._wagtail_cached_site_root_paths

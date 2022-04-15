@@ -418,7 +418,7 @@ class AbstractImage(ImageFileMixin, CollectionMember, index.Indexed, models.Mode
         *If using custom image models, an instance of the custom rendition
         model will be returned.
         """
-        # Because of unique contraints applied to the model, we use
+        # Because of unique constraints applied to the model, we use
         # get_or_create() to guard against race conditions
         rendition, created = self.renditions.get_or_create(
             filter_spec=filter.spec,

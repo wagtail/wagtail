@@ -5,7 +5,7 @@ By default `wagtail.contrib.forms.models.FormPage` success responses don't do th
 
 Instead of rendering the `render_landing_page` content in the POST response, we will redirect to a `route` of the `FormPage` instance at a child URL path.
 The content will still be managed within the same form page's admin.
-This approach uses the additonal contrib module `wagtail.contrib.routable_page`.
+This approach uses the additional contrib module `wagtail.contrib.routable_page`.
 
 An alternative approach is to redirect to an entirely different page, which does not require the `routable_page` module.
 See [](form_builder_custom_landing_page_redirect).

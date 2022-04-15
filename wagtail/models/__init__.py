@@ -1840,7 +1840,7 @@ class Page(AbstractPage, index.Indexed, ClusterableModel, metaclass=PageBase):
 
         .. note::
 
-            Redirect paths are 'normalized' to apply consistant ordering to GET parameters,
+            Redirect paths are 'normalized' to apply consistent ordering to GET parameters,
             so you don't need to include every variation. Fragment identifiers are discarded
             too, so should be avoided.
         """
