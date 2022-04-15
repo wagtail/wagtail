@@ -13,6 +13,7 @@ from wagtail import hooks
 from wagtail.admin.admin_url_finder import register_admin_url_finder
 from wagtail.admin.checks import check_panels_in_model
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
+from wagtail.coreutils import accepts_kwarg
 from wagtail.models import Page, TranslatableMixin
 from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
@@ -141,6 +142,7 @@ class ModelAdmin(WagtailRegisterable):
     form_view_extra_css = []
     form_view_extra_js = []
     form_fields_exclude = []
+    base_url_path = None
 
     def __init__(self, parent=None):
         """
@@ -157,7 +159,18 @@ class ModelAdmin(WagtailRegisterable):
         self.permission_helper = self.get_permission_helper_class()(
             self.model, self.inspect_view_enabled
         )
-        self.url_helper = self.get_url_helper_class()(self.model)
+        url_helper_class = self.get_url_helper_class()
+        if accepts_kwarg(url_helper_class, "base_url_path"):
+            self.url_helper = url_helper_class(
+                self.model, base_url_path=self.base_url_path
+            )
+        else:
+            warn(
+                "%s.__init__ needs to be updated to accept a `base_url_path` keyword argument"
+                % url_helper_class.__name__,
+                category=RemovedInWagtail50Warning,
+            )
+            self.url_helper = url_helper_class(self.model)
 
         # Needed to support RelatedFieldListFilter
         # See: https://github.com/wagtail/wagtail/issues/5105

@@ -50,7 +50,7 @@ class TestExtractPanelDefinitionsFromModelAdmin(TestCase, WagtailTestUtils):
     def test_model_panels(self):
         """loads the 'create' view and verifies that form fields are returned
         which have been defined via model Friend.panels"""
-        response = self.client.get("/admin/modeladmintest/friend/create/")
+        response = self.client.get("/admin/friendadmin/create/")
         self.assertEqual(
             list(response.context["form"].fields), ["first_name", "phone_number"]
         )

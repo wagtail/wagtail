@@ -6,19 +6,24 @@ from django.utils.functional import cached_property
 
 
 class AdminURLHelper:
-    def __init__(self, model):
+    def __init__(self, model, base_url_path=None):
         self.model = model
         self.opts = model._meta
+        self.base_url_path = self._get_base_url_path(base_url_path)
+
+    def _get_base_url_path(self, base_url_path):
+        if base_url_path:
+            return base_url_path.strip().strip("/")
+        return r"%s/%s" % (self.opts.app_label, self.opts.model_name)
 
     def _get_action_url_pattern(self, action):
         if action == "index":
-            return r"^%s/%s/$" % (self.opts.app_label, self.opts.model_name)
-        return r"^%s/%s/%s/$" % (self.opts.app_label, self.opts.model_name, action)
+            return r"^%s/$" % (self.base_url_path)
+        return r"^%s/%s/$" % (self.base_url_path, action)
 
     def _get_object_specific_action_url_pattern(self, action):
-        return r"^%s/%s/%s/(?P<instance_pk>[-\w]+)/$" % (
-            self.opts.app_label,
-            self.opts.model_name,
+        return r"^%s/%s/(?P<instance_pk>[-\w]+)/$" % (
+            self.base_url_path,
             action,
         )
 
@@ -28,9 +33,8 @@ class AdminURLHelper:
         return self._get_object_specific_action_url_pattern(action)
 
     def get_action_url_name(self, action):
-        return "%s_%s_modeladmin_%s" % (
-            self.opts.app_label,
-            self.opts.model_name,
+        return "%s_modeladmin_%s" % (
+            self.base_url_path.replace("/", "_"),
             action,
         )
 
