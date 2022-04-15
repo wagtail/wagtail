@@ -43,6 +43,7 @@ Want to know more about customising ``ModelAdmin``?
     :maxdepth: 1
 
     primer
+    base_url
     menu_item
     indexview
     create_edit_delete_views
@@ -117,6 +118,7 @@ to create, view, and edit ``Book`` entries.
 
     class BookAdmin(ModelAdmin):
         model = Book
+        base_url_path = 'bookadmin' # customise the URL from default to admin/bookadmin
         menu_label = 'Book'  # ditch this to use verbose_name_plural from model
         menu_icon = 'pilcrow'  # change as required
         menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)

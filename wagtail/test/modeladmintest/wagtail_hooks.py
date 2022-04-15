@@ -148,6 +148,7 @@ class PersonAdmin(ModelAdmin):
 
 class FriendAdmin(ModelAdmin):
     model = Friend
+    base_url_path = "friendadmin"
 
 
 class VisitorAdmin(ModelAdmin):
