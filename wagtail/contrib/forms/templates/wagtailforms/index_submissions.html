@@ -81,12 +81,12 @@
     </script>
 {% endblock %}
 {% block content %}
-    <header>
+    <header class="header">
         <form action="" method="get" novalidate>
             <div class="row">
                 <div class="left">
                     <div class="col">
-                        <h1>
+                        <h1 class="header__title">
                             {% icon name="form" %}
                             {% blocktrans trimmed with form_title=form_page.title|capfirst %}Form data <span>{{ form_title }}</span>{% endblocktrans %}
                         </h1>
