@@ -169,7 +169,7 @@ class TestCollectionsIndexView(CollectionInstanceTestUtils, TestCase, WagtailTes
         self.assertNotContains(response, "Add a collection")
 
     def test_marketing_user_with_add_permission_on_root(self):
-        # Grant the marketing group permission to add to root colection
+        # Grant the marketing group permission to add to root collection
         GroupCollectionPermission.objects.create(
             group=self.marketing_group,
             collection=self.root_collection,

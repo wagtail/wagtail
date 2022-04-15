@@ -1145,7 +1145,7 @@ class TestChildRelationComparison(TestCase):
             objs_a, objs_b
         )
         self.assertEqual(map_forwards, {0: 1})  # Map Father Christmas to Father Ted
-        self.assertEqual(map_backwards, {1: 0})  # Map Father Ted ot Father Christmas
+        self.assertEqual(map_backwards, {1: 0})  # Map Father Ted to Father Christmas
         self.assertEqual(added, [0])  # Add Santa Claus
         self.assertEqual(deleted, [])
 

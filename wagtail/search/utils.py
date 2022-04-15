@@ -16,7 +16,7 @@ def balanced_reduce(operator, seq, initializer=NOT_SET):
     """
     Has the same result as Python's reduce function, but performs the calculations in a different order.
 
-    This is important when the operator is constructing data structures such as search query clases.
+    This is important when the operator is constructing data structures such as search query classes.
     This method will make the resulting data structures flatter, so operations that need to traverse
     them don't end up crashing with recursion errors.
 

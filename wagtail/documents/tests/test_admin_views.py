@@ -839,7 +839,7 @@ class TestMultipleDocumentUploader(TestCase, WagtailTestUtils):
 
     def test_add_post_with_title(self):
         """
-        This tests that a POST request to the add view saves the document with a suplied title and returns an edit form
+        This tests that a POST request to the add view saves the document with a supplied title and returns an edit form
         """
         response = self.client.post(
             reverse("wagtaildocs:add_multiple"),
@@ -1169,7 +1169,7 @@ class TestMultipleCustomDocumentUploaderWithRequiredField(TestMultipleDocumentUp
 
     def test_add_post_with_title(self):
         """
-        This tests that a POST request to the add view saves the document with a suplied title and returns an edit form
+        This tests that a POST request to the add view saves the document with a supplied title and returns an edit form
         """
         response = self.client.post(
             reverse("wagtaildocs:add_multiple"),

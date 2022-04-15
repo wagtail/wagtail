@@ -592,6 +592,7 @@ Contributors
 * Vaibhav Shukla
 * Rishank Kanaparti
 * Daniel Kirkham
+* Luz Paz
 
 Translators
 ===========
