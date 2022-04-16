@@ -1,20 +1,21 @@
-.. _editing-api:
+(editing-api)=
 
-Panel types
-===========
+# Panel types
 
-Built-in Fields and Choosers
-----------------------------
+## Built-in Fields and Choosers
 
-Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into :class:`~wagtail.admin.panels.FieldPanel` when defining your panels. Wagtail will take care of the rest.
+Django's field types are automatically recognised and provided with an appropriate widget for input. Just define that field the normal Django way and pass the field name into
+[`FieldPanel`](wagtail.admin.panels.FieldPanel) when defining your panels. Wagtail will take care of the rest.
 
 Here are some Wagtail-specific types that you might include as fields in your models.
 
+```{eval-rst}
 .. module:: wagtail.admin.panels
+```
 
-FieldPanel
-~~~~~~~~~~
+### FieldPanel
 
+```{eval-rst}
 .. class:: FieldPanel(field_name, classname=None, widget=None, heading='', disable_comments=False, permission=None)
 
     This is the panel used for basic Django field types.
@@ -46,11 +47,11 @@ FieldPanel
     .. attribute:: FieldPanel.permission (optional)
 
         Allows a field to be selectively shown to users with sufficient permission. Accepts a permission codename such as ``'myapp.change_blog_category'`` - if the logged-in user does not have that permission, the field will be omitted from the form. See Django's documentation on :ref:`custom permissions <django:custom-permissions>` for details on how to set permissions up; alternatively, if you want to set a field as only available to superusers, you can use any arbitrary string (such as ``'superuser'``) as the codename, since superusers automatically pass all permission tests.
+```
 
+### StreamFieldPanel
 
-StreamFieldPanel
-~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: StreamFieldPanel(field_name, classname=None, widget=None)
 
     Deprecated; use ``FieldPanel`` instead.
@@ -58,11 +59,11 @@ StreamFieldPanel
     .. versionchanged:: 3.0
 
        ``StreamFieldPanel`` is no longer required for ``StreamField``.
+```
 
+### MultiFieldPanel
 
-MultiFieldPanel
-~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: MultiFieldPanel(children, heading="", classname=None)
 
     This panel condenses several :class:`~wagtail.admin.panels.FieldPanel` s or choosers, from a ``list`` or ``tuple``, under a single ``heading`` string.
@@ -74,27 +75,27 @@ MultiFieldPanel
     .. attribute:: MultiFieldPanel.heading
 
         A heading for the fields
+```
 
+### InlinePanel
 
-InlinePanel
-~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: InlinePanel(relation_name, panels=None, classname='', heading='', label='', help_text='', min_num=None, max_num=None)
 
     This panel allows for the creation of a "cluster" of related objects over a join to a separate model, such as a list of related links or slides to an image carousel.
+```
 
-    This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of ``InlinePanel``, see :ref:`inline_panels`.
+This is a powerful but complex feature which will take some space to cover, so we'll skip over it for now. For a full explanation on the usage of `InlinePanel`, see {ref}`inline_panels`.
 
-.. topic:: Collapsing InlinePanels to save space
+#### Collapsing InlinePanels to save space
 
-    Note that you can use ``classname="collapsible collapsed"`` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
-    See :ref:`collapsible` for more details on ``collapsible`` usage.
+Note that you can use `classname="collapsible collapsed"` to load the panel collapsed under its heading in order to save space in the Wagtail admin.
+See {ref}`collapsible` for more details on `collapsible` usage.
 
 
+### FieldRowPanel
 
-FieldRowPanel
-~~~~~~~~~~~~~
-
+```{eval-rst}
 .. class:: FieldRowPanel(children, classname=None)
 
     This panel creates a columnar layout in the editing interface, where each of the child Panels appears alongside each other rather than below.
@@ -110,10 +111,11 @@ FieldRowPanel
     .. attribute:: FieldRowPanel.classname
 
         A class to apply to the FieldRowPanel as a whole
+```
 
-HelpPanel
-~~~~~~~~~
+### HelpPanel
 
+```{eval-rst}
 .. class:: HelpPanel(content='', template='wagtailadmin/panels/help_panel.html', heading='', classname='')
 
     .. attribute:: HelpPanel.content
@@ -131,10 +133,11 @@ HelpPanel
     .. attribute:: HelpPanel.classname
 
         String of CSS classes given to the panel which are used in formatting and scripted interactivity.
+```
 
-PageChooserPanel
-~~~~~~~~~~~~~~~~
+### PageChooserPanel
 
+```{eval-rst}
 .. class:: PageChooserPanel(field_name, page_type=None, can_choose_root=False)
 
     You can explicitly link :class:`~wagtail.models.Page`-derived models together using the :class:`~wagtail.models.Page` model and ``PageChooserPanel``.
@@ -169,11 +172,11 @@ PageChooserPanel
     .. versionchanged:: 3.0
 
        ``FieldPanel`` now also provides a page chooser interface for foreign keys to page models. ``PageChooserPanel`` is only required when specifying the ``page_type`` or ``can_choose_root`` parameters.
+```
 
+### ImageChooserPanel
 
-ImageChooserPanel
-~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. module:: wagtail.images.edit_handlers
 
 .. class:: ImageChooserPanel(field_name)
@@ -183,11 +186,11 @@ ImageChooserPanel
     .. versionchanged:: 3.0
 
        ``ImageChooserPanel`` is no longer required to obtain an image chooser interface.
+```
 
+### FormSubmissionsPanel
 
-FormSubmissionsPanel
-~~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. module:: wagtail.contrib.forms.panels
 
 .. class:: FormSubmissionsPanel
@@ -204,10 +207,11 @@ FormSubmissionsPanel
             content_panels = [
                 FormSubmissionsPanel(),
             ]
+```
 
-DocumentChooserPanel
-~~~~~~~~~~~~~~~~~~~~
+### DocumentChooserPanel
 
+```{eval-rst}
 .. module:: wagtail.documents.edit_handlers
 
 .. class:: DocumentChooserPanel(field_name)
@@ -217,11 +221,11 @@ DocumentChooserPanel
     .. versionchanged:: 3.0
 
        ``DocumentChooserPanel`` is no longer required to obtain a document chooser interface.
+```
 
+### SnippetChooserPanel
 
-SnippetChooserPanel
-~~~~~~~~~~~~~~~~~~~
-
+```{eval-rst}
 .. module:: wagtail.snippets.edit_handlers
 
 .. class:: SnippetChooserPanel(field_name, snippet_type=None)
@@ -231,41 +235,37 @@ SnippetChooserPanel
     .. versionchanged:: 3.0
 
        ``SnippetChooserPanel`` is no longer required to obtain a document chooser interface.
+```
+
+## Field Customisation
+
+By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there.
+(See {doc}`Django model field reference <django:ref/models/fields>`).
+
+### Full-Width Input
+
+Use `classname="full"` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a
+[`MultiFieldPanel`](wagtail.admin.panels.MultiFieldPanel), which places its child fields into a formset.
 
 
-Field Customisation
--------------------
-
-By adding CSS classes to your panel definitions or adding extra parameters to your field definitions, you can control much of how your fields will display in the Wagtail page editing interface. Wagtail's page editing interface takes much of its behaviour from Django's admin, so you may find many options for customisation covered there. (See :doc:`Django model field reference <ref/models/fields>`).
-
-
-Full-Width Input
-~~~~~~~~~~~~~~~~
-
-Use ``classname="full"`` to make a field (input element) stretch the full width of the Wagtail page editor. This will not work if the field is encapsulated in a :class:`~wagtail.admin.panels.MultiFieldPanel`, which places its child fields into a formset.
-
-
-Titles
-~~~~~~
+### Titles
 
 Use ``classname="title"`` to make Page's built-in title field stand out with more vertical padding.
 
 
-.. _collapsible:
+(collapsible)=
 
-Collapsible
-~~~~~~~~~~~
+### Collapsible
 
 By default, panels are expanded and not collapsible.
-Use ``classname="collapsible"`` to enable the collapse control.
-Use ``classname="collapsible collapsed"`` will load the editor page with the panel collapsed under its heading.
+Use `classname="collapsible"` to enable the collapse control.
+Use `classname="collapsible collapsed"` will load the editor page with the panel collapsed under its heading.
 
-You must define a ``heading`` when using ``collapsible`` with ``MultiFieldPanel``.
-You must define a ``heading`` or ``label`` when using ``collapsible`` with ``InlinePanel``.
+You must define a `heading` when using `collapsible` with `MultiFieldPanel`.
+You must define a `heading` or `label` when using `collapsible` with `InlinePanel`.
 
 
-.. code-block:: python
-
+```python
     content_panels = [
         MultiFieldPanel(
             [
@@ -277,105 +277,100 @@ You must define a ``heading`` or ``label`` when using ``collapsible`` with ``Inl
             classname="collapsible collapsed"
         ),
     ]
+```
 
+### Placeholder Text
 
-Placeholder Text
-~~~~~~~~~~~~~~~~
-
-By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from :doc:`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in ``wagtail.admin.widgets``.
+By default, Wagtail uses the field's label as placeholder text. To change it, pass to the FieldPanel a widget with a placeholder attribute set to your desired text. You can select widgets from {doc}`Django's form widgets <django:ref/forms/widgets>`, or any of the Wagtail's widgets found in `wagtail.admin.widgets`.
 
 For example, to customize placeholders for a Book model exposed via ModelAdmin:
 
-.. code-block:: python
+```python
+# models.py
+from django import forms            # the default Django widgets live here
+from wagtail.admin import widgets   # to use Wagtail's special datetime widget
 
-    # models.py
-    from django import forms            # the default Django widgets live here
-    from wagtail.admin import widgets   # to use Wagtail's special datetime widget
+class Book(models.Model):
+    title = models.CharField(max_length=256)
+    release_date = models.DateField()
+    price = models.DecimalField(max_digits=5, decimal_places=2)
 
-    class Book(models.Model):
-        title = models.CharField(max_length=256)
-        release_date = models.DateField()
-        price = models.DecimalField(max_digits=5, decimal_places=2)
+    # you can create them separately
+    title_widget = forms.TextInput(
+        attrs = {
+            'placeholder': 'Enter Full Title'
+        }
+    )
+    # using the correct widget for your field type and desired effect
+    date_widget = widgets.AdminDateInput(
+        attrs = {
+            'placeholder': 'dd-mm-yyyy'
+        }
+    )
 
-        # you can create them separately
-        title_widget = forms.TextInput(
-            attrs = {
-                'placeholder': 'Enter Full Title'
-            }
-        )
-        # using the correct widget for your field type and desired effect
-        date_widget = widgets.AdminDateInput(
-            attrs = {
-                'placeholder': 'dd-mm-yyyy'
-            }
-        )
+    panels = [
+        FieldPanel('title', widget=title_widget), # then add them as a variable
+        FieldPanel('release_date', widget=date_widget),
+        FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
+    ]
+```
 
-        panels = [
-            FieldPanel('title', widget=title_widget), # then add them as a variable
-            FieldPanel('release_date', widget=date_widget),
-            FieldPanel('price', widget=forms.NumberInput(attrs={'placeholder': 'Retail price on release'})) # or directly inline
-        ]
+### Required Fields
 
-Required Fields
-~~~~~~~~~~~~~~~
+To make input or chooser selection mandatory for a field, add [`blank=False`](<django.db.models.Field.blank>) to its model definition.
 
-To make input or chooser selection mandatory for a field, add :attr:`blank=False <django.db.models.Field.blank>` to its model definition.
+### Hiding Fields
 
-Hiding Fields
-~~~~~~~~~~~~~
+Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with [`editable=False`](<django.db.models.Field.editable>).
 
-Without a panel definition, a default form field (without label) will be used to represent your fields. If you intend to hide a field on the Wagtail page editor, define the field with :attr:`editable=False <django.db.models.Field.editable>`.
+(inline_panels)=
 
-.. _inline_panels:
+## Inline Panels and Model Clusters
 
-Inline Panels and Model Clusters
---------------------------------
+The `django-modelcluster` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called `ParentalKey`.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via `ParentalKey` can be created on-the-fly and saved to a draft revision of a `Page` object.
 
-The ``django-modelcluster`` module allows for streamlined relation of extra models to a Wagtail page via a ForeignKey-like relationship called ``ParentalKey``.  Normally, your related objects "cluster" would need to be created beforehand (or asynchronously) before being linked to a Page; however, objects related to a Wagtail page via ``ParentalKey`` can be created on-the-fly and saved to a draft revision of a ``Page`` object.
+Let's look at the example of adding related links to a [`Page`](wagtail.models.Page)-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
 
-Let's look at the example of adding related links to a :class:`~wagtail.models.Page`-derived model. We want to be able to add as many as we like, assign an order, and do all of this without leaving the page editing screen.
+```python
+from wagtail.models import Orderable, Page
+from modelcluster.fields import ParentalKey
 
-.. code-block:: python
+# The abstract model for related links, complete with panels
+class RelatedLink(models.Model):
+    title = models.CharField(max_length=255)
+    link_external = models.URLField("External link", blank=True)
 
-  from wagtail.models import Orderable, Page
-  from modelcluster.fields import ParentalKey
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('link_external'),
+    ]
 
-  # The abstract model for related links, complete with panels
-  class RelatedLink(models.Model):
-      title = models.CharField(max_length=255)
-      link_external = models.URLField("External link", blank=True)
+    class Meta:
+        abstract = True
 
-      panels = [
-          FieldPanel('title'),
-          FieldPanel('link_external'),
-      ]
+# The real model which combines the abstract model, an
+# Orderable helper class, and what amounts to a ForeignKey link
+# to the model we want to add related links to (BookPage)
+class BookPageRelatedLinks(Orderable, RelatedLink):
+    page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='related_links')
 
-      class Meta:
-          abstract = True
-
-  # The real model which combines the abstract model, an
-  # Orderable helper class, and what amounts to a ForeignKey link
-  # to the model we want to add related links to (BookPage)
-  class BookPageRelatedLinks(Orderable, RelatedLink):
-      page = ParentalKey('demo.BookPage', on_delete=models.CASCADE, related_name='related_links')
-
-  class BookPage(Page):
+class BookPage(Page):
     # ...
 
     content_panels = Page.content_panels + [
-      InlinePanel('related_links', label="Related Links"),
+        InlinePanel('related_links', label="Related Links"),
     ]
+```
 
-The ``RelatedLink`` class is a vanilla Django abstract model. The ``BookPageRelatedLinks`` model extends it with capability for being ordered in the Wagtail interface via the ``Orderable`` class as well as adding a ``page`` property which links the model to the ``BookPage`` model we're adding the related links objects to. Finally, in the panel definitions for ``BookPage``, we'll add an :class:`~wagtail.admin.panels.InlinePanel` to provide an interface for it all. Let's look again at the parameters that :class:`~wagtail.admin.panels.InlinePanel` accepts:
+The `RelatedLink` class is a vanilla Django abstract model. The `BookPageRelatedLinks` model extends it with capability for being ordered in the Wagtail interface via the `Orderable` class as well as adding a `page` property which links the model to the `BookPage` model we're adding the related links objects to. Finally, in the panel definitions for `BookPage`, we'll add an [`InlinePanel`](wagtail.admin.panels.InlinePanel) to provide an interface for it all. Let's look again at the parameters that [`InlinePanel`](wagtail.admin.panels.InlinePanel) accepts:
 
-.. code-block:: python
+```python
+InlinePanel(relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None)
+```
 
-    InlinePanel( relation_name, panels=None, heading='', label='', help_text='', min_num=None, max_num=None )
+The `relation_name` is the `related_name` label given to the cluster's `ParentalKey` relation. You can add the `panels` manually or make them part of the cluster model. `heading` and `help_text` provide a heading and caption, respectively, for the Wagtail editor. `label` sets the text on the add button, and is used as the heading when `heading` is not present. Finally, `min_num` and `max_num` allow you to set the minimum/maximum number of forms that the user must submit.
 
-The ``relation_name`` is the ``related_name`` label given to the cluster's ``ParentalKey`` relation. You can add the ``panels`` manually or make them part of the cluster model. ``heading`` and ``help_text`` provide a heading and caption, respectively, for the Wagtail editor. ``label`` sets the text on the add button, and is used as the heading when ``heading`` is not present. Finally, ``min_num`` and ``max_num`` allow you to set the minimum/maximum number of forms that the user must submit.
+For another example of using model clusters, see {ref}`tagging`.
 
-For another example of using model clusters, see :ref:`tagging`
-
-For more on ``django-modelcluster``, visit `the django-modelcluster github project page`_.
-
-.. _the django-modelcluster github project page: https://github.com/torchbox/django-modelcluster
+For more on `django-modelcluster`, visit
+[the django-modelcluster github project page](https://github.com/torchbox/django-modelcluster)
