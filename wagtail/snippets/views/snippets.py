@@ -4,7 +4,6 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
-from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
@@ -93,16 +92,62 @@ class Index(TemplateView):
         return super().get_context_data(snippet_model_opts=snippet_model_opts, **kwargs)
 
 
-class ListView(TemplateView):
-
+class List(IndexView):
+    paginate_by = 20
+    page_kwarg = "p"
     # If true, returns just the 'results' include, for use in AJAX responses from search
     results_only = False
 
-    def get(self, request, app_label, model_name):
+    def setup(self, request, *args, app_label, model_name, **kwargs):
+        super().setup(request, *args, app_label, model_name, **kwargs)
+
         self.app_label = app_label
         self.model_name = model_name
-        self.model = get_snippet_model_from_url_params(app_label, model_name)
+        self.model = self._get_model()
+        self.locale = self._get_locale()
+        self._setup_search()
 
+    def _get_model(self):
+        return get_snippet_model_from_url_params(self.app_label, self.model_name)
+
+    def _get_locale(self):
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
+            self.model, TranslatableMixin
+        ):
+            selected_locale = self.request.GET.get("locale")
+            if selected_locale:
+                return get_object_or_404(Locale, language_code=selected_locale)
+            return Locale.get_default()
+
+        return None
+
+    def _setup_search(self):
+        self.is_searchable = self._get_is_searchable()
+        self.search_form = self._get_search_form()
+        self.is_searching = False
+        self.search_query = None
+
+        if self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data["q"]
+            self.is_searching = True
+
+    def _get_is_searchable(self):
+        return class_is_indexed(self.model)
+
+    def _get_search_form(self):
+        if self.is_searchable and "q" in self.request.GET:
+            return SearchForm(
+                self.request.GET,
+                placeholder=_("Search %(snippet_type_name)s")
+                % {"snippet_type_name": self.model._meta.verbose_name_plural},
+            )
+
+        return SearchForm(
+            placeholder=_("Search %(snippet_type_name)s")
+            % {"snippet_type_name": self.model._meta.verbose_name_plural}
+        )
+
+    def dispatch(self, request, *args, **kwargs):
         permissions = [
             get_permission_name(action, self.model)
             for action in ["add", "change", "delete"]
@@ -110,35 +155,12 @@ class ListView(TemplateView):
         if not any([request.user.has_perm(perm) for perm in permissions]):
             raise PermissionDenied
 
-        return super().get(request)
+        return super().dispatch(request, *args, **kwargs)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
+    def get_queryset(self):
         items = self.model.objects.all()
-        enable_locale_filter = getattr(
-            settings, "WAGTAIL_I18N_ENABLED", False
-        ) and issubclass(self.model, TranslatableMixin)
-
-        if enable_locale_filter:
-            if "locale" in self.request.GET:
-                try:
-                    locale = Locale.objects.get(
-                        language_code=self.request.GET["locale"]
-                    )
-                except Locale.DoesNotExist:
-                    # Redirect to snippet without locale
-                    return redirect(
-                        "wagtailsnippets:list", self.app_label, self.model_name
-                    )
-            else:
-                # Default to active locale (this will take into account the user's chosen admin language)
-                locale = Locale.get_active()
-
-            items = items.filter(locale=locale)
-
-        else:
-            locale = None
+        if self.locale:
+            items = items.filter(locale=self.locale)
 
         # Preserve the snippet's model-level ordering if specified, but fall back on PK if not
         # (to ensure pagination is consistent)
@@ -146,31 +168,30 @@ class ListView(TemplateView):
             items = items.order_by("pk")
 
         # Search
-        is_searchable = class_is_indexed(self.model)
-        is_searching = False
-        search_query = None
-        if is_searchable and "q" in self.request.GET:
-            search_form = SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name_plural},
-            )
+        if self.search_query:
+            search_backend = get_search_backend()
+            items = search_backend.search(self.search_query, items)
 
-            if search_form.is_valid():
-                search_query = search_form.cleaned_data["q"]
+        return items
 
-                search_backend = get_search_backend()
-                items = search_backend.search(search_query, items)
-                is_searching = True
+    def paginate_queryset(self, queryset, page_size):
+        paginator = self.get_paginator(
+            queryset,
+            page_size,
+            orphans=self.get_paginate_orphans(),
+            allow_empty_first_page=self.get_allow_empty(),
+        )
 
-        else:
-            search_form = SearchForm(
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name_plural}
-            )
+        page_number = self.request.GET.get(self.page_kwarg)
+        page = paginator.get_page(page_number)
+        return (paginator, page, page.object_list, page.has_other_pages())
 
-        paginator = Paginator(items, per_page=20)
-        paginated_items = paginator.get_page(self.request.GET.get("p"))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # The shared admin templates expect the items to be a page object rather
+        # than the queryset (object_list), so we can't use context_object_name = "items".
+        paginated_items = context.get("page_obj")
 
         context.update(
             {
@@ -182,19 +203,19 @@ class ListView(TemplateView):
                 "can_delete_snippets": self.request.user.has_perm(
                     get_permission_name("delete", self.model)
                 ),
-                "is_searchable": is_searchable,
-                "search_form": search_form,
-                "is_searching": is_searching,
-                "query_string": search_query,
+                "is_searchable": self.is_searchable,
+                "search_form": self.search_form,
+                "is_searching": self.is_searching,
+                "query_string": self.search_query,
                 "locale": None,
                 "translations": [],
             }
         )
 
-        if enable_locale_filter:
+        if self.locale:
             context.update(
                 {
-                    "locale": locale,
+                    "locale": self.locale,
                     "translations": [
                         {
                             "locale": locale,
@@ -205,7 +226,7 @@ class ListView(TemplateView):
                             + "?locale="
                             + locale.language_code,
                         }
-                        for locale in Locale.objects.all().exclude(id=locale.id)
+                        for locale in Locale.objects.all().exclude(id=self.locale.id)
                     ],
                 }
             )

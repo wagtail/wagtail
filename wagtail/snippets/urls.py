@@ -20,12 +20,10 @@ urlpatterns = [
         chooser.chosen,
         name="chosen",
     ),
-    path(
-        "<slug:app_label>/<slug:model_name>/", snippets.ListView.as_view(), name="list"
-    ),
+    path("<slug:app_label>/<slug:model_name>/", snippets.List.as_view(), name="list"),
     path(
         "<slug:app_label>/<slug:model_name>/results/",
-        snippets.ListView.as_view(results_only=True),
+        snippets.List.as_view(results_only=True),
         name="list_results",
     ),
     path(
