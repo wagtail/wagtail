@@ -1,6 +1,12 @@
 Changelog
 =========
 
+unreleased (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Add clarity to confirmation when being asked to convert an external link to an internal one (Thijs Kramer)
+
+
 3.0 (xx.xx.xxxx) - IN DEVELOPMENT
 ~~~~~~~~~~~~~~~~
 
