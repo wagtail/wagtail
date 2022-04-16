@@ -206,6 +206,7 @@ For example:
 
 .. code-block:: python
 
+    from wagtail.api import APIField
     from wagtail.images.api.fields import ImageRenditionField
 
     class BlogPage(Page):
@@ -239,6 +240,7 @@ This would add the following to the JSON:
         },
         "feed_image_thumbnail": {
             "url": "/media/images/a_test_image.fill-100x100.jpg",
+            "full_url": "http://www.example.com/media/images/a_test_image.fill-100x100.jpg",
             "width": 100,
             "height": 100,
             "alt": "image alt text"
