@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy, ngettext
+from django.views.generic import TemplateView
 
 from wagtail import hooks
 from wagtail.admin import messages
