@@ -35,10 +35,56 @@ be accessed through the Rendition's ``image`` property:
 
 See also: :ref:`image_tag`
 
+.. _prefetching_image_renditions:
+
+Prefetching image renditions
+----------------------------
+
+.. versionadded:: 3.0
+    This following guidance is only applicable in Wagtail versions 3.0 and above.
+
+When using a queryset to render a list of objects with images, you can make use of Django's built-in ``prefetch_related()`` queryset method to prefetch the renditions needed for rendering with a single additional query. For long lists of items, or where multiple renditions are used for each item, this can provide a significant boost to performance.
+
+For example, say you were rendering a list of events (with thumbnail images for each). Your code might look something like this:
+
+.. code-block:: python
+
+    def get_events():
+        return EventPage.objects.live().select_related("listing_image")
+
+The above can be modified slightly to prefetch the renditions for listing images:
+
+.. code-block:: python
+
+    def get_events():
+        return EventPage.objects.live().select_related("listing_image").prefetch_related("listing_image__renditions")
+
+If images in your project tend to have very large numbers of renditions, and you know in advance the ones you need, you might want to consider using a ``Prefetch`` object to select only the renditions you need for rendering. For example:
+
+.. code-block:: python
+
+    from django.db.models import Prefetch
+    from wagtail.images import get_image_model
+
+
+    def get_events():
+        # These are the renditions required for rendering
+        renditions_queryset = get_image_model().get_rendition_model().objects.filter(
+            filter_spec__in=["fill-300x186", "fill-600x400", "fill-940x680"]
+        )
+
+        # `Prefetch` is used to fetch only the required renditions
+        return EventPage.objects.live().select_related("listing_image").prefetch_related(
+            Prefetch("listing_image__renditions", queryset=renditions_queryset)
+        )
+
 .. _image_rendition_methods:
 
 Model methods involved in rendition generation
 ----------------------------------------------
+
+.. versionadded:: 3.0
+    The following method references are only applicable to Wagtail versions 3.0 and above.
 
 The following ``AbstractImage`` model methods are involved in finding and generating a renditions. If using a custom image model, you can customise the behaviour of either of these methods by overriding them on your model:
 
@@ -47,10 +93,10 @@ The following ``AbstractImage`` model methods are involved in finding and genera
 .. class:: AbstractImage
     :noindex:
 
-    .. autofunction:: get_rendition
+    .. automethod:: get_rendition
 
-    .. autofunction:: find_existing_rendition
+    .. automethod:: find_existing_rendition
 
-    .. autofunction:: create_rendition
+    .. automethod:: create_rendition
 
-    .. autofunction:: generate_rendition_file
+    .. automethod:: generate_rendition_file
