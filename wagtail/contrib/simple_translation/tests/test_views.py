@@ -1,4 +1,3 @@
-from xxlimited import new
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.http import Http404
@@ -211,17 +210,17 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         ]
 
         new_index_page = [
-            trans_page 
+            trans_page
             for trans_page in self.en_blog_index.get_translations()
             if trans_page.locale.language_code == "de"
         ][0]
         assert new_index_page.title == old_index_title
         new_post_page = [
-            trans_page 
+            trans_page
             for trans_page in self.en_blog_post.get_translations()
             if trans_page.locale.language_code == "de"
         ][0]
-        assert new_post_page.title == old_post_title        
+        assert new_post_page.title == old_post_title
 
     def test_translating_latest_draft_page_revision(self):
         """In case when Page have only draft revisions"""
@@ -257,13 +256,13 @@ class TestSubmitPageTranslationView(WagtailTestUtils, TestCase):
         ]
 
         new_index_page = [
-            trans_page 
+            trans_page
             for trans_page in draft_index_page.get_translations()
             if trans_page.locale.language_code == "de"
         ][0]
         assert new_index_page.title == new_index_title
         new_post_page = [
-            trans_page 
+            trans_page
             for trans_page in draft_blog_post.get_translations()
             if trans_page.locale.language_code == "de"
         ][0]
