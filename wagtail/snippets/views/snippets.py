@@ -8,7 +8,6 @@ from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
-from django.template.response import TemplateResponse
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
