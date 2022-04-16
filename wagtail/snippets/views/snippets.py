@@ -93,7 +93,7 @@ class List(IndexView):
     results_only = False
 
     def setup(self, request, *args, app_label, model_name, **kwargs):
-        super().setup(request, *args, app_label, model_name**kwargs)
+        super().setup(request, *args, app_label, model_name, **kwargs)
 
         self.app_label = app_label
         self.model_name = model_name
