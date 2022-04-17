@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { gettext } from '../../../../utils/gettext';
+import { gettext } from '../../../utils/gettext';
 import type { Store } from '../../state';
 import type { Comment, CommentReply, Author } from '../../state/comments';
 import { updateReply, deleteReply } from '../../actions/comments';
 import { CommentHeader } from '../CommentHeader';
 import TextArea from '../TextArea';
-import Icon from '../../../Icon/Icon';
+import Icon from '../../../components/Icon/Icon';
 
 export async function saveCommentReply(
   comment: Comment,

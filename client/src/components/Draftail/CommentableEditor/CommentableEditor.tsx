@@ -1,7 +1,7 @@
 import { gettext } from '../../../utils/gettext';
-import type { CommentApp } from '../../CommentApp/main';
-import type { Annotation } from '../../CommentApp/utils/annotation';
-import type { Comment } from '../../CommentApp/state/comments';
+import type { CommentApp } from '../../../commenting/main';
+import type { Annotation } from '../../../commenting/utils/annotation';
+import type { Comment } from '../../../commenting/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,

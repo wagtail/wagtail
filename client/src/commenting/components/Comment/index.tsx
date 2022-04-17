@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import FocusTrap from 'focus-trap-react';
 
-import { gettext } from '../../../../utils/gettext';
-import Icon from '../../../Icon/Icon';
+import { gettext } from '../../../utils/gettext';
+import Icon from '../../../components/Icon/Icon';
 import type { Store } from '../../state';
 import { Author, Comment, newCommentReply } from '../../state/comments';
 import {
