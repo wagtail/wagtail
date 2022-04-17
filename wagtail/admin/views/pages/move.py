@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
@@ -74,13 +75,41 @@ def move_confirm(request, page_to_move_id, destination_id):
         if hasattr(result, "status_code"):
             return result
 
+    pages_to_move = {page_to_move}
+
+    # The `construct_translated_pages_to_cascade_actions` hook returns translation and
+    # alias pages when the action is set to "move"
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
+            fn_pages = fn([page_to_move], "move")
+            if fn_pages and isinstance(fn_pages, dict):
+                for additional_pages in fn_pages.values():
+                    pages_to_move.update(additional_pages)
+
+    pages_to_move = list(pages_to_move)
+
     if request.method == "POST":
-        # any invalid moves *should* be caught by the permission check in the action class,
-        # so don't bother to catch InvalidMoveToDescendant
+        # any invalid moves *should* be caught by the permission check in the action
+        # class, so don't bother to catch InvalidMoveToDescendant
         action = MovePageAction(
             page_to_move, destination, pos="last-child", user=request.user
         )
         action.execute()
+
+        if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+            # Move translation and alias pages if they have the same parent page.
+            parent_page_translations = page_to_move.get_parent().get_translations()
+            for translation in pages_to_move:
+                if translation.get_parent() in parent_page_translations:
+                    # Move the translated or alias page to it's translated or
+                    # alias "destination" page.
+                    action = MovePageAction(
+                        translation,
+                        destination.get_translation(translation.locale),
+                        pos="last-child",
+                        user=request.user,
+                    )
+                    action.execute()
 
         messages.success(
             request,
@@ -106,5 +135,12 @@ def move_confirm(request, page_to_move_id, destination_id):
         {
             "page_to_move": page_to_move,
             "destination": destination,
+            "translations_to_move_count": len(
+                [
+                    translation.id
+                    for translation in pages_to_move
+                    if not translation.alias_of_id and translation.id != page_to_move.id
+                ]
+            ),
         },
     )

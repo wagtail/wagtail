@@ -6,22 +6,50 @@
     {% include "wagtailadmin/shared/header.html" with title=unpublish_str subtitle=page.get_admin_display_title icon="doc-empty-inverse" %}
 
     <div class="nice-padding">
-        <p>{% trans "Are you sure you want to unpublish this page?" %}</p>
+        <p>
+            {% trans "Are you sure you want to unpublish this page?" %}
+            {% if translation_count %}
+                {% blocktrans trimmed with translation_count=translation_count count counter=translation_count %}
+                    This will also unpublish one translation of the page.
+                {% plural %}
+                    This will also unpublish all {{ translation_count }} translations of the page.
+                {% endblocktrans %}
+            {% endif %}
+        </p>
+
         <form action="{% url 'wagtailadmin_pages:unpublish' page.id %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
             <ul class="fields">
-                {% if live_descendant_count > 0 %}
+                {% if live_descendant_count > 0 or translation_descendant_count > 0 %}
                     <li>
                         <div class="field boolean_field checkbox_input">
                             <div class="field-content">
                                 <div class="input">
                                     <input id="id_include_descendants" name="include_descendants" type="checkbox">
-                                    <label for="id_include_descendants" class="plain-checkbox-label">{% blocktrans trimmed count counter=live_descendant_count %}
-                                        This page has one subpage. Unpublish this too
-                                    {% plural %}
-                                        This page has {{ live_descendant_count }} subpages. Unpublish these too
-                                    {% endblocktrans %}</label>
+                                    <label for="id_include_descendants" class="plain-checkbox-label">
+                                        {% if translation_descendant_count %}
+                                            {% if translation_descendant_count == 1 %}
+                                                {% blocktrans trimmed count counter=live_descendant_count %}
+                                                    This page has one subpage and its translations have a combined one translated child page. Unpublish these too
+                                                {% plural %}
+                                                    This page has {{ live_descendant_count }} child pages and its translations have a combined one translated child page. Unpublish these too
+                                                {% endblocktrans %}
+                                            {% else %}
+                                                {% blocktrans trimmed count counter=live_descendant_count %}
+                                                    This page has one child page and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
+                                                {% plural %}
+                                                    This page has {{ live_descendant_count }} child pages and its translations have a combined {{ translation_descendant_count }} translated child pages. Unpublish these too
+                                                {% endblocktrans %}
+                                            {% endif %}
+                                        {% else %}
+                                            {% blocktrans trimmed count counter=live_descendant_count %}
+                                                This page has one subpage. Unpublish this too
+                                            {% plural %}
+                                                This page has {{ live_descendant_count }} subpages. Unpublish these too
+                                            {% endblocktrans %}
+                                        {% endif %}
+                                    </label>
                                 </div>
                             </div>
                         </div>

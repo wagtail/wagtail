@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
@@ -20,6 +21,17 @@ def unpublish(request, page_id):
 
     next_url = get_valid_next_url_from_request(request)
 
+    pages_to_unpublish = {page}
+
+    if getattr(settings, "WAGTAIL_I18N_ENABLED", False):
+        for fn in hooks.get_hooks("construct_translated_pages_to_cascade_actions"):
+            fn_pages = fn([page], "unpublish")
+            if fn_pages and isinstance(fn_pages, dict):
+                for additional_pages in fn_pages.values():
+                    pages_to_unpublish.update(additional_pages)
+
+    pages_to_unpublish = list(pages_to_unpublish)
+
     if request.method == "POST":
         include_descendants = request.POST.get("include_descendants", False)
 
@@ -28,10 +40,11 @@ def unpublish(request, page_id):
             if hasattr(result, "status_code"):
                 return result
 
-        action = UnpublishPageAction(
-            page, user=request.user, include_descendants=include_descendants
-        )
-        action.execute(skip_permission_checks=True)
+        for page in pages_to_unpublish:
+            action = UnpublishPageAction(
+                page, user=request.user, include_descendants=include_descendants
+            )
+            action.execute(skip_permission_checks=True)
 
         for fn in hooks.get_hooks("after_unpublish_page"):
             result = fn(request, page)
@@ -59,5 +72,12 @@ def unpublish(request, page_id):
             "page": page,
             "next": next_url,
             "live_descendant_count": page.get_descendants().live().count(),
+            "translation_count": len(pages_to_unpublish[1:]),
+            "translation_descendant_count": sum(
+                [
+                    p.get_descendants().filter(alias_of__isnull=True).live().count()
+                    for p in pages_to_unpublish[1:]
+                ]
+            ),
         },
     )
