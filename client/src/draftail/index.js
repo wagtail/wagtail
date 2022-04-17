@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { DraftailEditor } from 'draftail';
 import { Provider } from 'react-redux';
 
-import { gettext } from '../../utils/gettext';
-import Icon from '../Icon/Icon';
+import { gettext } from '../utils/gettext';
+import Icon from '../components/Icon/Icon';
 
 export { default as Link } from './decorators/Link';
 export { default as Document } from './decorators/Document';

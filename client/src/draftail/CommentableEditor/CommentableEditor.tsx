@@ -1,7 +1,7 @@
-import { gettext } from '../../../utils/gettext';
-import type { CommentApp } from '../../../commenting/main';
-import type { Annotation } from '../../../commenting/utils/annotation';
-import type { Comment } from '../../../commenting/state/comments';
+import { gettext } from '../../utils/gettext';
+import type { CommentApp } from '../../commenting/main';
+import type { Annotation } from '../../commenting/utils/annotation';
+import type { Comment } from '../../commenting/state/comments';
 import {
   DraftailEditor,
   ToolbarButton,
@@ -33,7 +33,7 @@ import React, {
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 
-import Icon from '../../Icon/Icon';
+import Icon from '../../components/Icon/Icon';
 
 const { isOptionKeyCommand } = KeyBindingUtil;
 

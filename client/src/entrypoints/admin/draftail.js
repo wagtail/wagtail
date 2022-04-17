@@ -4,7 +4,7 @@ import draftail, {
   Document,
   ImageBlock,
   EmbedBlock,
-} from '../../components/Draftail/index';
+} from '../../draftail/index';
 
 /**
  * Entry point loaded when the Draftail editor is in use.

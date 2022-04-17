@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import { createEditorStateFromRaw } from 'draftail';
 
-import { CommentApp } from '../../../commenting/main';
-import { updateGlobalSettings } from '../../../commenting/actions/settings';
-import { newComment } from '../../../commenting/state/comments';
+import { CommentApp } from '../../commenting/main';
+import { updateGlobalSettings } from '../../commenting/actions/settings';
+import { newComment } from '../../commenting/state/comments';
 
 import CommentableEditor, {
   updateCommentPositions,

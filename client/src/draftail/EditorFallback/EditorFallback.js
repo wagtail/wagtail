@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
 import { convertFromRaw } from 'draft-js';
 
-import { gettext } from '../../../utils/gettext';
+import { gettext } from '../../utils/gettext';
 
 const MAX_EDITOR_RELOADS = 3;
 

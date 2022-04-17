@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Icon } from 'draftail';
 
 import Tooltip from '../Tooltip/Tooltip';
-import Portal from '../../Portal/Portal';
+import Portal from '../../components/Portal/Portal';
 
 const shortenLabel = (label) => {
   let shortened = label;

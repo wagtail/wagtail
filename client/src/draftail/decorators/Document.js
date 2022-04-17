@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { gettext } from '../../../utils/gettext';
-import Icon from '../../Icon/Icon';
+import { gettext } from '../../utils/gettext';
+import Icon from '../../components/Icon/Icon';
 
-import TooltipEntity from '../decorators/TooltipEntity';
+import TooltipEntity from './TooltipEntity';
 
 const documentIcon = <Icon name="doc-full" />;
 const missingDocumentIcon = <Icon name="warning" />;
