@@ -2,7 +2,7 @@
 
 import '../../admin/telepath/telepath';
 import { TypedTableBlockDefinition } from './typed_table_block';
-import { FieldBlockDefinition } from '../../../components/StreamField/blocks/FieldBlock';
+import { FieldBlockDefinition } from '../../../streamfield/blocks/FieldBlock';
 
 import $ from 'jquery';
 window.$ = $;

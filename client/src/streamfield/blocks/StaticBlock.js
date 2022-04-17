@@ -1,4 +1,4 @@
-import { escapeHtml as h } from '../../../utils/text';
+import { escapeHtml as h } from '../../utils/text';
 
 export class StaticBlock {
   constructor(blockDef, placeholder) {

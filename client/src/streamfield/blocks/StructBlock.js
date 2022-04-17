@@ -1,6 +1,6 @@
 /* global $ */
 
-import { escapeHtml as h } from '../../../utils/text';
+import { escapeHtml as h } from '../../utils/text';
 
 export class StructBlockValidationError {
   constructor(blockErrors) {

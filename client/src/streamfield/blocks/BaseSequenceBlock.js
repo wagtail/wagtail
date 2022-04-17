@@ -3,7 +3,7 @@
 /* global $ */
 
 import EventEmitter from 'events';
-import { escapeHtml as h } from '../../../utils/text';
+import { escapeHtml as h } from '../../utils/text';
 
 class ActionButton {
   constructor(sequenceChild) {

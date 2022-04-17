@@ -1,8 +1,8 @@
 /* global $ */
-import { escapeHtml as h } from '../../../utils/text';
 import ReactDOM from 'react-dom';
 import React from 'react';
-import Icon from '../../Icon/Icon';
+import Icon from '../../components/Icon/Icon';
+import { escapeHtml as h } from '../../utils/text';
 
 export class FieldBlock {
   constructor(

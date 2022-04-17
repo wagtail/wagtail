@@ -1,26 +1,26 @@
 import {
   FieldBlock,
   FieldBlockDefinition,
-} from '../../../components/StreamField/blocks/FieldBlock';
+} from '../../../streamfield/blocks/FieldBlock';
 import {
   StaticBlock,
   StaticBlockDefinition,
-} from '../../../components/StreamField/blocks/StaticBlock';
+} from '../../../streamfield/blocks/StaticBlock';
 import {
   StructBlock,
   StructBlockDefinition,
   StructBlockValidationError,
-} from '../../../components/StreamField/blocks/StructBlock';
+} from '../../../streamfield/blocks/StructBlock';
 import {
   ListBlock,
   ListBlockDefinition,
   ListBlockValidationError,
-} from '../../../components/StreamField/blocks/ListBlock';
+} from '../../../streamfield/blocks/ListBlock';
 import {
   StreamBlock,
   StreamBlockDefinition,
   StreamBlockValidationError,
-} from '../../../components/StreamField/blocks/StreamBlock';
+} from '../../../streamfield/blocks/StreamBlock';
 
 const wagtailStreamField = window.wagtailStreamField || {};
 
