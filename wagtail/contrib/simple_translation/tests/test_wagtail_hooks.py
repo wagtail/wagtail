@@ -332,7 +332,7 @@ class TestMovingTranslatedPages(Utils):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["translations_to_move_count"], 1)
         self.assertIn(
-            "This will also move 1 translation of this page and its child pages",
+            "This will also move one translation of this page and its child pages",
             response.content.decode("utf-8"),
         )
 
