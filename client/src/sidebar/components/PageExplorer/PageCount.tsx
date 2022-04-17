@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { gettext } from '../../utils/gettext';
-import { ADMIN_URLS } from '../../config/wagtailConfig';
-import Icon from '../Icon/Icon';
+import { gettext } from '../../../utils/gettext';
+import { ADMIN_URLS } from '../../../config/wagtailConfig';
+import Icon from '../../../components/Icon/Icon';
 
 interface PageCountProps {
   page: {

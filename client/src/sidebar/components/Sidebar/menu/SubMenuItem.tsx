@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Icon from '../../Icon/Icon';
+import Icon from '../../../../components/Icon/Icon';
 
 import { renderMenu } from '../modules/MainMenu';
 import { SidebarPanel } from '../SidebarPanel';

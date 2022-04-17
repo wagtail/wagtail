@@ -1,8 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
 
-import * as admin from '../../api/admin';
-import { createAction } from '../../utils/actions';
-import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import * as admin from '../../../api/admin';
+import { createAction } from '../../../utils/actions';
+import { MAX_EXPLORER_PAGES } from '../../../config/wagtailConfig';
 
 import { State, Action } from './reducers';
 

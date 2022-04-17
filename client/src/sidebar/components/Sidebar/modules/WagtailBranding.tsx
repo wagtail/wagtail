@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { gettext } from '../../../utils/gettext';
+import { gettext } from '../../../../utils/gettext';
 import { ModuleDefinition } from '../Sidebar';
 import WagtailLogo from './WagtailLogo';
 

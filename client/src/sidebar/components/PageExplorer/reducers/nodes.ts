@@ -1,4 +1,4 @@
-import { WagtailPageAPI } from '../../../api/admin';
+import { WagtailPageAPI } from '../../../../api/admin';
 import { OPEN_EXPLORER, CLOSE_EXPLORER } from './explorer';
 
 export interface PageState extends WagtailPageAPI {

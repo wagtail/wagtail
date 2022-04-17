@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { gettext } from '../../../utils/gettext';
-import Icon from '../../Icon/Icon';
+import { gettext } from '../../../../utils/gettext';
+import Icon from '../../../../components/Icon/Icon';
 
 import { LinkMenuItemDefinition } from '../menu/LinkMenuItem';
 import { MenuItemDefinition } from '../menu/MenuItem';

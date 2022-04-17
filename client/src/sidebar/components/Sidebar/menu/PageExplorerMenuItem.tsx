@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import Icon from '../../Icon/Icon';
+import Icon from '../../../../components/Icon/Icon';
 import { MenuItemProps } from './MenuItem';
 import { LinkMenuItemDefinition } from './LinkMenuItem';
 import { Provider } from 'react-redux';

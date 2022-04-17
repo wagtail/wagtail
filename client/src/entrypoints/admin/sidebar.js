@@ -1,11 +1,11 @@
-import { initSidebar } from '../../components/Sidebar';
-import { LinkMenuItemDefinition } from '../../components/Sidebar/menu/LinkMenuItem';
-import { SubMenuItemDefinition } from '../../components/Sidebar/menu/SubMenuItem';
-import { PageExplorerMenuItemDefinition } from '../../components/Sidebar/menu/PageExplorerMenuItem';
+import { initSidebar } from '../../sidebar/components/Sidebar';
+import { LinkMenuItemDefinition } from '../../sidebar/components/Sidebar/menu/LinkMenuItem';
+import { SubMenuItemDefinition } from '../../sidebar/components/Sidebar/menu/SubMenuItem';
+import { PageExplorerMenuItemDefinition } from '../../sidebar/components/Sidebar/menu/PageExplorerMenuItem';
 
-import { WagtailBrandingModuleDefinition } from '../../components/Sidebar/modules/WagtailBranding';
-import { SearchModuleDefinition } from '../../components/Sidebar/modules/Search';
-import { MainMenuModuleDefinition } from '../../components/Sidebar/modules/MainMenu';
+import { WagtailBrandingModuleDefinition } from '../../sidebar/components/Sidebar/modules/WagtailBranding';
+import { SearchModuleDefinition } from '../../sidebar/components/Sidebar/modules/Search';
+import { MainMenuModuleDefinition } from '../../sidebar/components/Sidebar/modules/MainMenu';
 
 window.telepath.register(
   'wagtail.sidebar.LinkMenuItem',

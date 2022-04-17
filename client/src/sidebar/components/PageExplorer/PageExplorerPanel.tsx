@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { gettext } from '../../utils/gettext';
-import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { gettext } from '../../../utils/gettext';
+import { MAX_EXPLORER_PAGES } from '../../../config/wagtailConfig';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Transition, { PUSH, POP } from '../Transition/Transition';

@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import { gettext } from '../../../utils/gettext';
-import Icon from '../../Icon/Icon';
+import { gettext } from '../../../../utils/gettext';
+import Icon from '../../../../components/Icon/Icon';
 import { ModuleDefinition, SIDEBAR_TRANSITION_DURATION } from '../Sidebar';
 
 import Tippy from '@tippyjs/react';
