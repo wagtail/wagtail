@@ -593,6 +593,7 @@ Contributors
 * Rishank Kanaparti
 * Daniel Kirkham
 * Luz Paz
+* Simon Krull
 
 Translators
 ===========
