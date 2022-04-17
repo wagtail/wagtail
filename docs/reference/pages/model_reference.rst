@@ -2,7 +2,7 @@
 Model Reference
 ===============
 
-.. automodule:: wagtail.core.models
+.. automodule:: wagtail.models
 
 This document contains reference information for the model classes inside the ``wagtailcore`` module.
 
@@ -90,9 +90,11 @@ Database fields
 
         (boolean)
 
-        Toggles whether the page should be included in site-wide menus.
+        Toggles whether the page should be included in site-wide menus, and is shown in the ``promote_panels`` within the Page editor.
 
-        This is used by the :meth:`~wagtail.core.query.PageQuerySet.in_menu` QuerySet filter.
+        Wagtail does not include any menu implementation by default, which means that this field will not do anything in the front facing content unless built that way in a specific Wagtail installation.
+
+        However, this is used by the :meth:`~wagtail.query.PageQuerySet.in_menu` QuerySet filter to make it easier to query for pages that use this field.
 
         Defaults to ``False`` and can be overridden on the model with ``show_in_menus_default = True``.
 
@@ -269,6 +271,8 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
     .. automethod:: can_move_to
 
+    .. automethod:: get_route_paths
+
     .. attribute:: password_required_template
 
         Defines which template file should be used to render the login form for Protected pages using this model. This overrides the default, defined using ``PASSWORD_REQUIRED_TEMPLATE`` in your settings. See :ref:`private_pages`
@@ -331,7 +335,7 @@ In addition to the model fields provided, ``Page`` has many properties and metho
 
 The ``Site`` model is useful for multi-site installations as it allows an administrator to configure which part of the tree to use for each hostname that the server responds on.
 
-The :meth:`~wagtail.core.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
+The :meth:`~wagtail.models.Site.find_for_request` function returns the Site object that will handle the given HTTP request.
 
 
 Database fields
@@ -367,7 +371,7 @@ Database fields
 
     .. attribute:: root_page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
         This is a link to the root page of the site. This page will be what appears at the ``/`` URL on the site and would usually be a homepage.
 
@@ -454,7 +458,7 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
     .. attribute:: locale
 
-        (Foreign Key to :class:`~wagtail.core.models.Locale`)
+        (Foreign Key to :class:`~wagtail.models.Locale`)
 
         For pages, this defaults to the locale of the parent page.
 
@@ -487,9 +491,9 @@ The ``locale`` and ``translation_key`` fields have a unique key constraint to pr
 
 Every time a page is edited a new ``PageRevision`` is created and saved to the database. It can be used to find the full history of all changes that have been made to a page and it also provides a place for new changes to be kept before going live.
 
-- Revisions can be created from any :class:`~wagtail.core.models.Page` object by calling its :meth:`~Page.save_revision` method
-- The content of the page is JSON-serialised and stored in the :attr:`~PageRevision.content_json` field
-- You can retrieve a ``PageRevision`` as a :class:`~wagtail.core.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
+- Revisions can be created from any :class:`~wagtail.models.Page` object by calling its :meth:`~Page.save_revision` method
+- The content of the page is JSON-serialisable and stored in the :attr:`~PageRevision.content` field
+- You can retrieve a ``PageRevision`` as a :class:`~wagtail.models.Page` object by calling the :meth:`~PageRevision.as_page_object` method
 
 Database fields
 ~~~~~~~~~~~~~~~
@@ -498,7 +502,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: submitted_for_moderation
 
@@ -518,11 +522,16 @@ Database fields
 
         This links to the user that created the revision
 
-    .. attribute:: content_json
+    .. attribute:: content
 
-        (text)
+        (dict)
 
         This field contains the JSON content for the page at the time the revision was created
+
+        .. versionchanged:: 3.0
+
+          The field has been renamed from ``content_json`` to ``content`` and it now uses :class:`~django.db.models.JSONField` instead of
+          :class:`~django.db.models.TextField`.
 
 Managers
 ~~~~~~~~
@@ -558,7 +567,7 @@ Methods and properties
 
     .. automethod:: as_page_object
 
-        This method retrieves this revision as an instance of its :class:`~wagtail.core.models.Page` subclass.
+        This method retrieves this revision as an instance of its :class:`~wagtail.models.Page` subclass.
 
     .. automethod:: approve_moderation
 
@@ -590,7 +599,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: permission_type
 
@@ -606,7 +615,7 @@ Database fields
 
     .. attribute:: page
 
-        (foreign key to :class:`~wagtail.core.models.Page`)
+        (foreign key to :class:`~wagtail.models.Page`)
 
     .. attribute:: password
 
@@ -976,12 +985,17 @@ Database fields
 
         A foreign key to the user that triggered the action.
 
-    .. attribute:: data_json
+    .. attribute:: data
 
-        (text)
+        (dict)
 
         The JSON representation of any additional details for each action.
         e.g. source page id and title when copying from a page. Or workflow id/name and next step id/name on a workflow transition
+
+        .. versionchanged:: 3.0
+
+          The field has been renamed from ``data_json`` to ``data`` and it now uses :class:`~django.db.models.JSONField` instead of
+          :class:`~django.db.models.TextField`.
 
     .. attribute:: timestamp
 
@@ -1008,8 +1022,6 @@ Methods and properties
     :noindex:
 
     .. autoattribute:: user_display_name
-
-    .. autoattribute:: data
 
     .. autoattribute:: comment
 

@@ -1,18 +1,56 @@
+from django import VERSION as DJANGO_VERSION
 from django.db import transaction
+from django.forms import Form
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.utils.translation import gettext_lazy
-from django.views.generic.edit import BaseCreateView, BaseDeleteView, BaseUpdateView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import BaseCreateView
+from django.views.generic.edit import BaseDeleteView as DjangoBaseDeleteView
+from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
 from wagtail.admin.ui.tables import Table, TitleColumn
-from wagtail.core.log_actions import log
+from wagtail.log_actions import log
 
 from .base import WagtailAdminTemplateMixin
 from .permissions import PermissionCheckedMixin
+
+if DJANGO_VERSION >= (4, 0):
+    BaseDeleteView = DjangoBaseDeleteView
+else:
+    # As of Django 4.0 BaseDeleteView has switched to a new implementation based on FormMixin
+    # where custom deletion logic now lives in form_valid:
+    # https://docs.djangoproject.com/en/4.0/releases/4.0/#deleteview-changes
+    # Here we define BaseDeleteView to match the Django 4.0 implementation to keep it consistent
+    # across all versions.
+    class BaseDeleteView(DeletionMixin, FormMixin, BaseDetailView):
+        """
+        Base view for deleting an object.
+        Using this base class requires subclassing to provide a response mixin.
+        """
+
+        form_class = Form
+
+        def post(self, request, *args, **kwargs):
+            # Set self.object before the usual form processing flow.
+            # Inlined because having DeletionMixin as the first base, for
+            # get_success_url(), makes leveraging super() with ProcessFormView
+            # overly complex.
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+
+        def form_valid(self, form):
+            success_url = self.get_success_url()
+            self.object.delete()
+            return HttpResponseRedirect(success_url)
 
 
 class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView):
@@ -20,14 +58,14 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
     index_url_name = None
     add_url_name = None
     edit_url_name = None
-    template_name = 'wagtailadmin/generic/index.html'
+    template_name = "wagtailadmin/generic/index.html"
     context_object_name = None
-    any_permission_required = ['add', 'change', 'delete']
-    page_kwarg = 'p'
+    any_permission_required = ["add", "change", "delete"]
+    page_kwarg = "p"
     default_ordering = None
 
     def get(self, request, *args, **kwargs):
-        if not hasattr(self, 'columns'):
+        if not hasattr(self, "columns"):
             self.columns = self.get_columns()
 
         return super().get(request, *args, **kwargs)
@@ -38,7 +76,10 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         except AttributeError:
             return [
                 TitleColumn(
-                    'name', label=gettext_lazy("Name"), accessor=str, get_url=lambda obj: self.get_edit_url(obj)
+                    "name",
+                    label=gettext_lazy("Name"),
+                    accessor=str,
+                    get_url=lambda obj: self.get_edit_url(obj),
                 ),
             ]
 
@@ -55,11 +96,11 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         for col in self.columns:
             if col.sort_key:
                 orderings.append(col.sort_key)
-                orderings.append('-%s' % col.sort_key)
+                orderings.append("-%s" % col.sort_key)
         return orderings
 
     def get_ordering(self):
-        ordering = self.request.GET.get('ordering', self.default_ordering)
+        ordering = self.request.GET.get("ordering", self.default_ordering)
         if ordering not in self.get_valid_orderings():
             ordering = self.default_ordering
         return ordering
@@ -68,17 +109,20 @@ class IndexView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseListView)
         context = super().get_context_data(**kwargs)
         index_url = self.get_index_url()
         table = Table(
-            self.columns, context['object_list'], base_url=index_url, ordering=self.get_ordering()
+            self.columns,
+            context["object_list"],
+            base_url=index_url,
+            ordering=self.get_ordering(),
         )
 
-        context['can_add'] = (
+        context["can_add"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, 'add')
+            or self.permission_policy.user_has_permission(self.request.user, "add")
         )
-        context['table'] = table
-        context['media'] = table.media
-        context['index_url'] = index_url
-        context['is_paginated'] = bool(self.paginate_by)
+        context["table"] = table
+        context["media"] = table.media
+        context["index_url"] = index_url
+        context["is_paginated"] = bool(self.paginate_by)
         return context
 
 
@@ -88,10 +132,11 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
     index_url_name = None
     add_url_name = None
     edit_url_name = None
-    template_name = 'wagtailadmin/generic/create.html'
-    permission_required = 'add'
+    template_name = "wagtailadmin/generic/create.html"
+    permission_required = "add"
     success_message = None
     error_message = None
+    submit_button_label = gettext_lazy("Create")
 
     def get_add_url(self):
         return reverse(self.add_url_name)
@@ -104,6 +149,13 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
             return None
         return self.success_message.format(instance)
 
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+            )
+        ]
+
     def get_error_message(self):
         if self.error_message is None:
             return None
@@ -111,7 +163,8 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['action_url'] = self.get_add_url()
+        context["action_url"] = self.get_add_url()
+        context["submit_button_label"] = self.submit_button_label
         return context
 
     def save_instance(self):
@@ -125,19 +178,18 @@ class CreateView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseCreateVi
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-            log(instance=self.object, action='wagtail.create')
+            log(instance=self.object, action="wagtail.create")
         success_message = self.get_success_message(self.object)
+        success_buttons = self.get_success_buttons()
         if success_message is not None:
-            messages.success(self.request, success_message, buttons=[
-                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
-            ])
+            messages.success(self.request, success_message, buttons=success_buttons)
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
 
@@ -149,15 +201,16 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
     delete_url_name = None
     page_title = gettext_lazy("Editing")
     context_object_name = None
-    template_name = 'wagtailadmin/generic/edit.html'
-    permission_required = 'change'
+    template_name = "wagtailadmin/generic/edit.html"
+    permission_required = "change"
     delete_item_label = gettext_lazy("Delete")
     success_message = None
     error_message = None
+    submit_button_label = gettext_lazy("Save")
 
     def get_object(self, queryset=None):
-        if 'pk' not in self.kwargs:
-            self.kwargs['pk'] = self.args[0]
+        if "pk" not in self.kwargs:
+            self.kwargs["pk"] = self.args[0]
         return super().get_object(queryset)
 
     def get_page_subtitle(self):
@@ -184,6 +237,13 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
             return None
         return self.success_message.format(self.object)
 
+    def get_success_buttons(self):
+        return [
+            messages.button(
+                reverse(self.edit_url_name, args=(self.object.id,)), _("Edit")
+            )
+        ]
+
     def get_error_message(self):
         if self.error_message is None:
             return None
@@ -193,29 +253,33 @@ class EditView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseUpdateView
         self.form = form
         with transaction.atomic():
             self.object = self.save_instance()
-            log(instance=self.object, action='wagtail.edit')
+            log(instance=self.object, action="wagtail.edit")
         success_message = self.get_success_message()
+        success_buttons = self.get_success_buttons()
         if success_message is not None:
-            messages.success(self.request, success_message, buttons=[
-                messages.button(reverse(self.edit_url_name, args=(self.object.id,)), _('Edit'))
-            ])
+            messages.success(
+                self.request,
+                success_message,
+                buttons=success_buttons,
+            )
         return redirect(self.get_success_url())
 
     def form_invalid(self, form):
         self.form = form
         error_message = self.get_error_message()
         if error_message is not None:
-            messages.error(self.request, error_message)
+            messages.validation_error(self.request, error_message, form)
         return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['action_url'] = self.get_edit_url()
-        context['delete_url'] = self.get_delete_url()
-        context['delete_item_label'] = self.delete_item_label
-        context['can_delete'] = (
+        context["action_url"] = self.get_edit_url()
+        context["submit_button_label"] = self.submit_button_label
+        context["delete_url"] = self.get_delete_url()
+        context["delete_item_label"] = self.delete_item_label
+        context["can_delete"] = (
             self.permission_policy is None
-            or self.permission_policy.user_has_permission(self.request.user, 'delete')
+            or self.permission_policy.user_has_permission(self.request.user, "delete")
         )
         return context
 
@@ -224,14 +288,14 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
     model = None
     index_url_name = None
     delete_url_name = None
-    template_name = 'wagtailadmin/generic/confirm_delete.html'
+    template_name = "wagtailadmin/generic/confirm_delete.html"
     context_object_name = None
-    permission_required = 'delete'
+    permission_required = "delete"
     success_message = None
 
     def get_object(self, queryset=None):
-        if 'pk' not in self.kwargs:
-            self.kwargs['pk'] = self.args[0]
+        if "pk" not in self.kwargs:
+            self.kwargs["pk"] = self.args[0]
         return super().get_object(queryset)
 
     def get_success_url(self):
@@ -248,11 +312,13 @@ class DeleteView(PermissionCheckedMixin, WagtailAdminTemplateMixin, BaseDeleteVi
             return None
         return self.success_message.format(self.object)
 
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        success_url = self.get_success_url()
+    def delete_action(self):
         with transaction.atomic():
-            log(instance=self.object, action='wagtail.delete')
+            log(instance=self.object, action="wagtail.delete")
             self.object.delete()
-        messages.success(request, self.get_success_message())
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.delete_action()
+        messages.success(self.request, self.get_success_message())
         return HttpResponseRedirect(success_url)

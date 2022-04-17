@@ -34,13 +34,13 @@
                                 {% minimum_collection_depth collections as min_depth %}
                                 {% for collection in collections %}
                                     <option value="{{ collection.id|unlocalize }}">
-                                      {% if request.user.is_superuser %}
-                                          {# Superuser may see all collections. #}
-                                          {% format_collection collection %}
-                                      {% else %}
-                                          {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
-                                          {% format_collection collection min_depth %}
-                                      {% endif %}
+                                        {% if request.user.is_superuser %}
+                                            {# Superuser may see all collections. #}
+                                            {% format_collection collection %}
+                                        {% else %}
+                                            {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
+                                            {% format_collection collection min_depth %}
+                                        {% endif %}
                                     </option>
                                 {% endfor %}
                             </select>
@@ -69,10 +69,13 @@
             </div>
             <div class="right col9">
                 <p class="status-msg success">{% trans "Upload successful. Please update this image with a more appropriate title, if necessary. You may also delete the image completely if the upload wasn't required." %}</p>
+                <p class="status-msg warning">
+                    {% trans "Upload successful. However, your new image seems to be a duplicate of this existing image. You may delete it if it wasn't required." %}
+                </p>
                 <p class="status-msg failure">{% trans "Sorry, upload failed." %}</p>
                 <p class="status-msg server-error">
                     <strong>{% trans "Server Error" %}</strong>
-                    {% trans "Report this error to your webmaster with the following information:"%}
+                    {% trans "Report this error to your website administrator with the following information:"%}
                     <br /><span class="error-text"></span> - <span class="error-code"></span>
                 </p>
                 <p class="status-msg update-success">{% trans "Image updated." %}</p>

@@ -1,10 +1,10 @@
 from django.utils.functional import cached_property
 from django.utils.html import escape
 
-from wagtail.core.models import Page
-from wagtail.core.rich_text import features as feature_registry
-from wagtail.core.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
-from wagtail.core.whitelist import Whitelister, allow_without_attributes
+from wagtail.models import Page
+from wagtail.rich_text import features as feature_registry
+from wagtail.rich_text.rewriters import EmbedRewriter, LinkRewriter, MultiRuleRewriter
+from wagtail.whitelist import Whitelister, allow_without_attributes
 
 
 class WhitelistRule:
@@ -28,10 +28,10 @@ class LinkTypeRule:
 # Whitelist rules which are always active regardless of the rich text features that are enabled
 
 BASE_WHITELIST_RULES = {
-    '[document]': allow_without_attributes,
-    'p': allow_without_attributes,
-    'div': allow_without_attributes,
-    'br': allow_without_attributes,
+    "[document]": allow_without_attributes,
+    "p": allow_without_attributes,
+    "div": allow_without_attributes,
+    "br": allow_without_attributes,
 }
 
 
@@ -48,6 +48,7 @@ class DbWhitelister(Whitelister):
       determined by the handler for that type defined in link_handlers, while keeping the
       element content intact.
     """
+
     def __init__(self, converter_rules):
         self.converter_rules = converter_rules
         self.element_rules = BASE_WHITELIST_RULES.copy()
@@ -58,20 +59,22 @@ class DbWhitelister(Whitelister):
     @cached_property
     def embed_handlers(self):
         return {
-            rule.embed_type: rule.handler for rule in self.converter_rules
+            rule.embed_type: rule.handler
+            for rule in self.converter_rules
             if isinstance(rule, EmbedTypeRule)
         }
 
     @cached_property
     def link_handlers(self):
         return {
-            rule.link_type: rule.handler for rule in self.converter_rules
+            rule.link_type: rule.handler
+            for rule in self.converter_rules
             if isinstance(rule, LinkTypeRule)
         }
 
     def clean_tag_node(self, doc, tag):
-        if 'data-embedtype' in tag.attrs:
-            embed_type = tag['data-embedtype']
+        if "data-embedtype" in tag.attrs:
+            embed_type = tag["data-embedtype"]
             # fetch the appropriate embed handler for this embedtype
             try:
                 embed_handler = self.embed_handlers[embed_type]
@@ -81,17 +84,17 @@ class DbWhitelister(Whitelister):
                 return
 
             embed_attrs = embed_handler.get_db_attributes(tag)
-            embed_attrs['embedtype'] = embed_type
+            embed_attrs["embedtype"] = embed_type
 
-            embed_tag = doc.new_tag('embed', **embed_attrs)
+            embed_tag = doc.new_tag("embed", **embed_attrs)
             embed_tag.can_be_empty_element = True
             tag.replace_with(embed_tag)
-        elif tag.name == 'a' and 'data-linktype' in tag.attrs:
+        elif tag.name == "a" and "data-linktype" in tag.attrs:
             # first, whitelist the contents of this tag
             for child in tag.contents:
                 self.clean_node(doc, child)
 
-            link_type = tag['data-linktype']
+            link_type = tag["data-linktype"]
             try:
                 link_handler = self.link_handlers[link_type]
             except KeyError:
@@ -100,12 +103,12 @@ class DbWhitelister(Whitelister):
                 return
 
             link_attrs = link_handler.get_db_attributes(tag)
-            link_attrs['linktype'] = link_type
+            link_attrs["linktype"] = link_type
             tag.attrs.clear()
             tag.attrs.update(**link_attrs)
         else:
-            if tag.name == 'div':
-                tag.name = 'p'
+            if tag.name == "div":
+                tag.name = "p"
 
             super(DbWhitelister, self).clean_tag_node(doc, tag)
 
@@ -117,7 +120,7 @@ class EditorHTMLConverter:
 
         self.converter_rules = []
         for feature in features:
-            rule = feature_registry.get_converter_rule('editorhtml', feature)
+            rule = feature_registry.get_converter_rule("editorhtml", feature)
             if rule is not None:
                 # rule should be a list of WhitelistRule() instances - append this to
                 # the main converter_rules list
@@ -140,9 +143,7 @@ class EditorHTMLConverter:
             elif isinstance(rule, LinkTypeRule):
                 link_rules[rule.link_type] = rule.handler.expand_db_attributes
 
-        return MultiRuleRewriter([
-            LinkRewriter(link_rules), EmbedRewriter(embed_rules)
-        ])
+        return MultiRuleRewriter([LinkRewriter(link_rules), EmbedRewriter(embed_rules)])
 
     def from_database_format(self, html):
         return self.html_rewriter(html)
@@ -155,6 +156,7 @@ class PageLinkHandler:
     representation will be:
     <a linktype="page" id="42">hello world</a>
     """
+
     @staticmethod
     def get_db_attributes(tag):
         """
@@ -162,12 +164,12 @@ class PageLinkHandler:
         data-linktype="page" attribute), return a dict of the attributes we should
         have on the resulting <a linktype="page"> element.
         """
-        return {'id': tag['data-id']}
+        return {"id": tag["data-id"]}
 
     @staticmethod
     def expand_db_attributes(attrs):
         try:
-            page = Page.objects.get(id=attrs['id'])
+            page = Page.objects.get(id=attrs["id"])
 
             attrs = 'data-linktype="page" data-id="%d" ' % page.id
             parent_page = page.get_parent()

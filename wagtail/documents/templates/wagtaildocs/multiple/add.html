@@ -34,13 +34,13 @@
                                 {% minimum_collection_depth collections as min_depth %}
                                 {% for collection in collections %}
                                     <option value="{{ collection.id|unlocalize }}">
-                                      {% if request.user.is_superuser %}
-                                          {# Superuser may see all collections. #}
-                                          {% format_collection collection %}
-                                      {% else %}
-                                          {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
-                                          {% format_collection collection min_depth %}
-                                      {% endif %}
+                                        {% if request.user.is_superuser %}
+                                            {# Superuser may see all collections. #}
+                                            {% format_collection collection %}
+                                        {% else %}
+                                            {# Pass the minimum depth of the permitted collections, since user isn't a superuser #}
+                                            {% format_collection collection min_depth %}
+                                        {% endif %}
                                     </option>
                                 {% endfor %}
                             </select>

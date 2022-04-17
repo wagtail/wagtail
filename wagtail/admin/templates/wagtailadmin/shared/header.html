@@ -3,36 +3,33 @@
 
     Variables accepted by this template:
 
-    title
-    subtitle
-
-    search_url - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
-    query_parameters - a query string (without the '?') to be placed after the search URL
-
-    icon - name of an icon to place against the title
-
-    tabbed - if true, add the classname 'tab-merged'
-    merged - if true, add the classname 'merged'
-
-    action_url - if present, display an 'action' button. This is the URL to be used as the link URL for the button
-    action_text - text for the 'action' button
-    action_icon - icon for the 'action' button, default is 'icon-plus'
+    - `title`
+    - `subtitle`
+    - `search_url` - if present, display a search box. This is a URL route name (taking no parameters) to be used as the action for that search box
+    - `query_parameters` - a query string (without the '?') to be placed after the search URL
+    - `icon` - name of an icon to place against the title
+    - `merged` - if true, add the classname 'merged'
+    - `action_url` - if present, display an 'action' button. This is the URL to be used as the link URL for the button
+    - `action_text` - text for the 'action' button
+    - `action_icon` - icon for the 'action' button, default is 'icon-plus'
 
 {% endcomment %}
-<header class="{% if merged %}merged{% endif %} {% if tabbed %}tab-merged{% endif %} {% if search_form %}hasform{% endif %}">
+<header class="{% if merged %}merged{% endif %} {% if search_form %}hasform{% endif %}">
     {% block breadcrumb %}{% endblock %}
-    <div class="row{% if not tabbed %} nice-padding{% endif %}">
+    <div class="row nice-padding">
         <div class="left">
             <div class="col header-title">
                 <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
-                {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
+                    {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
             {% if search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                     <ul class="fields">
                         {% for field in search_form %}
-                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+                            {% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" icon="search" %}
                         {% endfor %}
+                        {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
+                        <li class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></li>
                         <li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
                     </ul>
                 </form>
@@ -43,7 +40,7 @@
                 {% if action_url %}
                     <div class="actionbutton">
                         {% with action_icon|default:'plus' as action_icon_name %}
-                        <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
+                            <a href="{{ action_url }}" class="button bicolor button--icon">{% icon name=action_icon_name wrapped=1 %}{{ action_text }}</a>
                         {% endwith %}
                     </div>
                 {% endif %}

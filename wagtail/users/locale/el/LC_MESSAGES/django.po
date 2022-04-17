@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Yiannis Inglessis <negtheone@gmail.com>, 2016\n"
 "Language-Team: Greek (http://www.transifex.com/torchbox/wagtail/language/"
 "el/)\n"
 "MIME-Version: 1.0\n"
@@ -106,6 +106,9 @@ msgstr "Διαγραφή"
 
 msgid "Yes, delete"
 msgstr "Ναι, να διαγραφεί"
+
+msgid "No, don't delete"
+msgstr "Ακύρωση διαγραφής"
 
 msgid "Delete group"
 msgstr "Διαγραφή ομάδας"
@@ -242,21 +245,25 @@ msgstr "Ομάδες"
 msgid "Search groups"
 msgstr "Αναζήτηση ομαδων"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Η ομαδα '{0}' δημιουργήθηκε."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Η ομαδα '{0}' ενημερώθηκε."
 
 msgid "The group could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων της ομαδας"
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Η ομαδα '{0}' διαγράφηκε."
 
 msgid "Search users"
 msgstr "Αναζήτηση χρηστών"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Ο χρήστης '{0}' δημιουργήθηκε."
 
@@ -266,12 +273,14 @@ msgstr "Επεξεργασία"
 msgid "The user could not be created due to errors."
 msgstr "Δεν ήταν δυνατή η δημιουργία του χρήστη."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Τα στοιχεία του χρήστη '{0}' ενημερώθηκαν."
 
 msgid "The user could not be saved due to errors."
 msgstr "Δεν ήταν δυνατή η ενημέρωση των στοιχείων του χρήστη."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Ο χρήστης '{0}' διαγράφηκε."
 

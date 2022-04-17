@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtaildocs', '0005_alter_uploaded_by_user_on_delete_action'),
-        ('wagtaildocs', '0006_copy_document_permissions_to_collections'),
+        ("wagtaildocs", "0005_alter_uploaded_by_user_on_delete_action"),
+        ("wagtaildocs", "0006_copy_document_permissions_to_collections"),
     ]
 
-    operations = [
-    ]
+    operations = []

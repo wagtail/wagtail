@@ -15,8 +15,8 @@ If you'd prefer to set up all the components manually, read on. These instructio
 Setting up the Wagtail codebase
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Install `Node.js <https://nodejs.org/>`_, version 14.
-You can also use Node version manager (nvm) since Wagtail supplies a ``.nvmrc`` file in the root of the project with the minimum required Node version - see nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+The preferred option is to install the correct version of Node using Node Version Manager (nvm), which will always align the version with the supplied  ``.nvmrc`` file in the root of the project. See nvm's `installation instructions <https://github.com/creationix/nvm>`_.
+Alternatively, you can install `Node.js <https://nodejs.org/>`_ directly, ensure you install the version as declared in the project's root ``.nvmrc`` file.
 
 You will also need to install the **libjpeg** and **zlib** libraries, if you haven't done so already - see Pillow's `platform-specific installation instructions <https://pillow.readthedocs.org/en/latest/installation.html#external-libraries>`_.
 
@@ -60,7 +60,7 @@ Any Wagtail sites you start up in this virtualenv will now run against this deve
 Testing
 ~~~~~~~
 
-From the root of the Wagtail codebase, run the following command to run all the tests:
+From the root of the Wagtail codebase, run the following command to run all the Python tests:
 
 .. code-block:: console
 
@@ -76,10 +76,10 @@ an argument to ``runtests.py`` or ``tox``:
 .. code-block:: console
 
     $ # Running in the current environment
-    $ python runtests.py wagtail.core
+    $ python runtests.py wagtail
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail
 
     $ # See a list of available Tox environments
     $ tox -l
@@ -90,10 +90,10 @@ an argument to ``runtests.py``
 .. code-block:: console
 
     $ # Running in the current environment
-    $ python runtests.py wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ python runtests.py wagtail.tests.test_blocks.TestIntegerBlock
 
     $ # Running in a specified Tox environment
-    $ tox -e py36-dj22-sqlite-noelasticsearch wagtail.core.tests.test_blocks.TestIntegerBlock
+    $ tox -e py39-dj32-sqlite-noelasticsearch wagtail.tests.test_blocks.TestIntegerBlock
 
 Running migrations for the test app models
 ------------------------------------------
@@ -102,7 +102,7 @@ You can create migrations for the test app by running the following from the Wag
 
 .. code-block:: console
 
-    $ django-admin makemigrations --settings=wagtail.tests.settings
+    $ django-admin makemigrations --settings=wagtail.test.settings
 
 
 Testing against PostgreSQL
@@ -172,6 +172,33 @@ If your Elasticsearch instance is located somewhere else, you can set the
 
     $ ELASTICSEARCH_URL=http://my-elasticsearch-instance:9200 python runtests.py --elasticsearch
 
+Unit tests for JavaScript
+-------------------------
+
+We use `Jest <https://jestjs.io/>`_ for unit tests of client-side business logic or UI components. From the root of the Wagtail codebase, run the following command to run all the front-end unit tests:
+
+.. code-block:: console
+
+    $ npm run test:unit
+
+Integration tests
+-----------------
+
+Our end-to-end browser testing suite also uses `Jest <https://jestjs.io/>`_, combined with `Puppeteer <https://pptr.dev/>`_. We set this up to be installed separately so as not to increase the installation size of the existing Node tooling. To run the tests, you will need to install the dependencies and run the test suite’s Django development server:
+
+.. code-block:: console
+
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
+    $ # Assumes the current environment contains a valid installation of Wagtail for local development.
+    $ ./wagtail/test/manage.py migrate
+    $ ./wagtail/test/manage.py createcachetable
+    $ DJANGO_SUPERUSER_EMAIL=admin@example.com DJANGO_SUPERUSER_USERNAME=admin DJANGO_SUPERUSER_PASSWORD=changeme ./wagtail/test/manage.py createsuperuser --noinput
+    $ ./wagtail/test/manage.py runserver 0:8000
+    $ npm --prefix client/tests/integration install
+    $ npm run test:integration
+
+Integration tests target ``http://localhost:8000`` by default. Use the ``TEST_ORIGIN`` environment variable to use a different port, or test a remote Wagtail instance: ``TEST_ORIGIN=http://localhost:9000 npm run test:integration``.
+
 Browser and device support
 --------------------------
 
@@ -184,10 +211,10 @@ Mobile Safari  iOS Phone      Last 2
 Mobile Safari  iOS Tablet     Last 2
 Chrome         Android        Last 2
 Chrome         Desktop        Last 2
-MS Edge        Desktop        Last 2
+MS Edge        Windows        Last 2
 Firefox        Desktop        Latest
 Firefox ESR    Desktop        Latest
-Safari         macOS          Last 2
+Safari         macOS          Last 3
 =============  =============  =============
 
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable on other browsers **and will work on future browsers**.
@@ -224,6 +251,7 @@ We want to make Wagtail accessible for users of a wide variety of assistive tech
 We aim for Wagtail to work in those environments. Our development standards ensure that the site is usable with other assistive technologies. In practice, testing with assistive technology can be a daunting task that requires specialised training – here are tools we rely on to help identify accessibility issues, to use during development and code reviews:
 
 * `react-axe <https://github.com/dequelabs/react-axe>`_ integrated directly in our build tools, to identify actionable issues. Logs its results in the browser console.
+* `@wordpress/jest-puppeteer-axe <https://github.com/WordPress/gutenberg/tree/trunk/packages/jest-puppeteer-axe>`_ running Axe checks as part of integration tests.
 * `Axe <https://chrome.google.com/webstore/detail/axe/lhdoppojpmngadmnindnejefpokejbdd>`_ Chrome extension for more comprehensive automated tests of a given page.
 * `Accessibility Insights for Web <https://accessibilityinsights.io/docs/en/web/overview>`_ Chrome extension for semi-automated tests, and manual audits.
 
@@ -240,7 +268,7 @@ The audit also states which parts of Wagtail have and haven’t been tested, how
 Compiling static assets
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``gulp``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
+All static assets such as JavaScript, CSS, images, and fonts for the Wagtail admin are compiled from their respective sources by ``webpack``. The compiled assets are not committed to the repository, and are compiled before packaging each new release. Compiled assets should not be submitted as part of a pull request.
 
 To compile the assets, run:
 
@@ -253,6 +281,23 @@ This must be done after every change to the source files. To watch the source fi
 .. code-block:: console
 
     $ npm start
+
+Using the pattern library
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Wagtail’s UI component library is built with `Storybook <https://storybook.js.org/>`_ and `django-pattern-library <https://github.com/torchbox/django-pattern-library>`_. To run it locally,
+
+.. code-block:: console
+
+    $ export DJANGO_SETTINGS_MODULE=wagtail.test.settings_ui
+    $ # Assumes the current environment contains a valid installation of Wagtail for local development.
+    $ ./wagtail/test/manage.py migrate
+    $ ./wagtail/test/manage.py createcachetable
+    $ ./wagtail/test/manage.py runserver 0:8000
+    $ # In a separate terminal:
+    $ npm run storybook
+
+The last command will start Storybook at ``http://localhost:6006/``. It will proxy specific requests to Django at ``http://localhost:8000`` by default. Use the ``TEST_ORIGIN`` environment variable to use a different port for Django: ``TEST_ORIGIN=http://localhost:9000 npm run storybook``.
 
 Compiling the documentation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -278,7 +323,7 @@ To start this simple server, run the following commands:
 .. code-block:: console
 
     $ cd docs/_build/html/
-    $ python -mhttp.server 8080
+    $ python -m http.server 8080
 
 Now you can open <http://localhost:8080/> in your web browser to see the compiled documentation.
 
@@ -303,3 +348,15 @@ To do this, you can run the following command to see the changes automatically a
 
 .. _Databases documentation: https://docs.djangoproject.com/en/stable/ref/databases/
 .. _DATABASES: https://docs.djangoproject.com/en/stable/ref/settings/#databases
+
+
+Automatically lint and code format on commits
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+`pre-commit <https://pre-commit.com/>`_ is configured to automatically run code linting and formatting checks with every commit. To install pre-commit into your git hooks run:
+
+.. code-block:: console
+
+    $ pre-commit install
+
+pre-commit should now run on every commit you make.

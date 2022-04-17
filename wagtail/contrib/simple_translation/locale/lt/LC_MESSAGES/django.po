@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
 "PO-Revision-Date: 2021-04-21 08:38+0000\n"
 "Last-Translator: Naglis Jonaitis, 2021\n"
 "Language-Team: Lithuanian (https://www.transifex.com/torchbox/teams/8009/"
@@ -45,6 +45,7 @@ msgstr "{} lokalės"
 msgid "Translate page"
 msgstr "Versti puslapį"
 
+#, python-brace-format
 msgid "Translate {model_name}"
 msgstr "Versti {model_name}"
 

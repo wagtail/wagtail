@@ -1,7 +1,7 @@
 {% extends "wagtailadmin/base.html" %}
 {% load wagtailimages_tags wagtailadmin_tags i18n %}
 
-{% block titletag %}{% blocktrans with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with title=image.title %}Editing image {{ title }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Generating URL" as title_str %}
@@ -30,7 +30,7 @@
                 <img class="preview" src="" alt="{% trans 'Preview' %}" />
             </div>
         </div>
-        <p id="note-size" class="help-block help-warning">{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
+        <p id="note-size" class="help-block help-warning">{% icon name='warning' %}{% trans "Note that images generated larger than the screen will appear smaller when previewed here, so they fit the screen." %}</p>
     </div>
 {% endblock %}
 

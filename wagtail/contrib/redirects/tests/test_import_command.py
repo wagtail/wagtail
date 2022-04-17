@@ -1,6 +1,5 @@
 import os
 import tempfile
-
 from io import StringIO
 from unittest.mock import patch
 
@@ -9,8 +8,7 @@ from django.core.management.base import CommandError
 from django.test import TestCase
 
 from wagtail.contrib.redirects.models import Redirect
-from wagtail.core.models import Site
-
+from wagtail.models import Site
 
 TEST_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -83,7 +81,7 @@ class TestImportCommand(TestCase):
         redirect = Redirect.objects.first()
         self.assertEqual(redirect.old_path, "/alpha")
         self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertEqual(redirect.is_permanent, True)
+        self.assertIs(redirect.is_permanent, True)
 
     def test_trailing_slash_gets_stripped(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
@@ -148,7 +146,7 @@ class TestImportCommand(TestCase):
         redirect = Redirect.objects.first()
         self.assertEqual(redirect.old_path, "/alpha")
         self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertEqual(redirect.is_permanent, False)
+        self.assertIs(redirect.is_permanent, False)
 
     def test_duplicate_from_links_get_skipped(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
@@ -222,7 +220,7 @@ class TestImportCommand(TestCase):
         redirect = Redirect.objects.first()
         self.assertEqual(redirect.old_path, "/alpha")
         self.assertEqual(redirect.redirect_link, "http://omega.test/")
-        self.assertEqual(redirect.is_permanent, True)
+        self.assertIs(redirect.is_permanent, True)
 
     def test_nothing_gets_saved_on_dry_run(self):
         invalid_file = tempfile.NamedTemporaryFile(mode="w+", encoding="utf-8")
@@ -306,7 +304,7 @@ class TestImportCommand(TestCase):
         self.assertEqual(len(redirects), 2)
         self.assertEqual(redirects[0].old_path, "/three")
         self.assertEqual(redirects[0].redirect_link, "http://three.test/")
-        self.assertEqual(redirects[0].is_permanent, True)
+        self.assertIs(redirects[0].is_permanent, True)
         self.assertEqual(redirects[1].old_path, "/four")
         self.assertEqual(redirects[1].redirect_link, "http://four.test/")
 
@@ -333,4 +331,4 @@ class TestImportCommand(TestCase):
         self.assertEqual(len(redirects), 1)
         self.assertEqual(redirects[0].old_path, "/one")
         self.assertEqual(redirects[0].redirect_link, "http://one.test/")
-        self.assertEqual(redirects[0].is_permanent, True)
+        self.assertIs(redirects[0].is_permanent, True)

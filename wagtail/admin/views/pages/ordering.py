@@ -2,7 +2,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 def set_page_position(request, page_to_move_id):
@@ -12,9 +12,9 @@ def set_page_position(request, page_to_move_id):
     if not parent_page.permissions_for_user(request.user).can_reorder_children():
         raise PermissionDenied
 
-    if request.method == 'POST':
+    if request.method == "POST":
         # Get position parameter
-        position = request.GET.get('position', None)
+        position = request.GET.get("position", None)
 
         # Find page that's already in this position
         position_page = None
@@ -34,11 +34,11 @@ def set_page_position(request, page_to_move_id):
             # right. If left, then left.
             old_position = list(parent_page.get_children()).index(page_to_move)
             if int(position) < old_position:
-                page_to_move.move(position_page, pos='left', user=request.user)
+                page_to_move.move(position_page, pos="left", user=request.user)
             elif int(position) > old_position:
-                page_to_move.move(position_page, pos='right', user=request.user)
+                page_to_move.move(position_page, pos="right", user=request.user)
         else:
             # Move page to end
-            page_to_move.move(parent_page, pos='last-child', user=request.user)
+            page_to_move.move(parent_page, pos="last-child", user=request.user)
 
-    return HttpResponse('')
+    return HttpResponse("")

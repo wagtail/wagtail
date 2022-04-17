@@ -9,16 +9,16 @@ export interface IconProps {
 /**
  * Provide a `title` as an accessible label intended for screen readers.
  */
-const Icon: React.FunctionComponent<IconProps> = ({ name, className, title }) => (
+const Icon: React.FunctionComponent<IconProps> = ({
+  name,
+  className,
+  title,
+}) => (
   <>
     <svg className={`icon icon-${name} ${className || ''}`} aria-hidden="true">
-      <use href={`#icon-${name}`}></use>
+      <use href={`#icon-${name}`} />
     </svg>
-    {title &&
-      <span className="visuallyhidden">
-        {title}
-      </span>
-    }
+    {title && <span className="visuallyhidden">{title}</span>}
   </>
 );
 

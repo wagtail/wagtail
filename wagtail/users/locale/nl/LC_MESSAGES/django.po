@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# Harmen <sigmo@sigmo.nl>, 2022
 # Kees Hink <keeshink@gmail.com>, 2017
 # Storm Heg <storm@stormbase.digital>, 2021
 # Thijs Kramer <thijskramer@gmail.com>, 2015
@@ -11,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-28 17:59+0000\n"
-"Last-Translator: Storm Heg <storm@stormbase.digital>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2014-02-19 11:54+0000\n"
+"Last-Translator: Harmen <sigmo@sigmo.nl>, 2022\n"
 "Language-Team: Dutch (http://www.transifex.com/torchbox/wagtail/language/"
 "nl/)\n"
 "MIME-Version: 1.0\n"
@@ -112,13 +113,13 @@ msgid "Select language for the admin"
 msgstr "Selecteer de taal voor de admin"
 
 msgid "current time zone"
-msgstr "huidige tijd zone"
+msgstr "huidige tijdzone"
 
 msgid "Select your current time zone"
-msgstr "Selecteer je huidige tijd zone"
+msgstr "Selecteer je huidige tijdzone"
 
 msgid "profile picture"
-msgstr "profiel foto"
+msgstr "profielfoto"
 
 msgid "user profile"
 msgstr "gebruikersprofiel"
@@ -248,10 +249,10 @@ msgid "Name"
 msgstr "Naam"
 
 msgid "Add"
-msgstr "Mag toevoegen"
+msgstr "Toevoegen"
 
 msgid "Change"
-msgstr "Mag wijzigen"
+msgstr "Wijzigen"
 
 msgid "Custom permissions"
 msgstr "Aangepaste machtigingen"
@@ -413,21 +414,25 @@ msgstr "Groepen"
 msgid "Search groups"
 msgstr "Zoek groepen"
 
+#, python-brace-format
 msgid "Group '{0}' created."
 msgstr "Groep '{0}' aangemaakt."
 
+#, python-brace-format
 msgid "Group '{0}' updated."
 msgstr "Groep '{0}' is gewijzigd."
 
 msgid "The group could not be saved due to errors."
 msgstr "De groep kon vanwege fouten niet worden opgeslagen."
 
+#, python-brace-format
 msgid "Group '{0}' deleted."
 msgstr "Groep '{0}' verwijderd."
 
 msgid "Search users"
 msgstr "Zoek gebruikers"
 
+#, python-brace-format
 msgid "User '{0}' created."
 msgstr "Gebruiker '{0}' aangemaakt."
 
@@ -437,12 +442,14 @@ msgstr "Wijzig"
 msgid "The user could not be created due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden aangemaakt."
 
+#, python-brace-format
 msgid "User '{0}' updated."
 msgstr "Gebruiker '{0}' is gewijzigd."
 
 msgid "The user could not be saved due to errors."
 msgstr "De gebruiker kon vanwege fouten niet worden opgeslagen."
 
+#, python-brace-format
 msgid "User '{0}' deleted."
 msgstr "Gebruiker '{0}' is verwijderd."
 

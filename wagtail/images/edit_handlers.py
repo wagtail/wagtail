@@ -1,26 +1,30 @@
+from warnings import warn
+
 from django.template.loader import render_to_string
 
 from wagtail.admin.compare import ForeignObjectComparison
-from wagtail.admin.edit_handlers import BaseChooserPanel
+from wagtail.admin.panels import FieldPanel
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
-from .widgets import AdminImageChooser
 
-
-class ImageChooserPanel(BaseChooserPanel):
-    object_type_name = "image"
-
-    def widget_overrides(self):
-        return {self.field_name: AdminImageChooser}
-
-    def get_comparison_class(self):
-        return ImageFieldComparison
+class ImageChooserPanel(FieldPanel):
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.images.edit_handlers.ImageChooserPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)
 
 
 class ImageFieldComparison(ForeignObjectComparison):
     def htmldiff(self):
         image_a, image_b = self.get_objects()
 
-        return render_to_string("wagtailimages/widgets/compare.html", {
-            'image_a': image_a,
-            'image_b': image_b,
-        })
+        return render_to_string(
+            "wagtailimages/widgets/compare.html",
+            {
+                "image_a": image_a,
+                "image_b": image_b,
+            },
+        )

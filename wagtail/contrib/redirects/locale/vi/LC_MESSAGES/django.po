@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-08-12 07:43+0000\n"
-"Last-Translator: Duc Huynh <duchuynhthoai@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2014-02-20 21:04+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/torchbox/wagtail/"
 "language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "All"
+msgstr "Tất cả"
+
+msgid "created at"
+msgstr "Được tạo lúc"
 
 msgid "Save"
 msgstr "Lưu"
@@ -26,6 +32,12 @@ msgstr "Xoá"
 
 msgid "Yes, delete"
 msgstr "Đúng, xoá đi"
+
+msgid "Cancel"
+msgstr "Hủy bỏ"
+
+msgid "Preview"
+msgstr "Xem trước"
 
 msgid "Editing"
 msgstr "Chỉnh sửa"

@@ -3,7 +3,7 @@ const Headers = global.Headers;
 
 const REQUEST_TIMEOUT = 15000;
 
-const checkStatus = (response) =>  {
+const checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -13,7 +13,7 @@ const checkStatus = (response) =>  {
   throw error;
 };
 
-const parseJSON = response => response.json();
+const parseJSON = (response) => response.json();
 
 // Response timeout cancelling the promise (not the request).
 // See https://github.com/github/fetch/issues/175#issuecomment-216791333.
@@ -23,13 +23,16 @@ const timeout = (ms, promise) => {
       reject(new Error('Response timeout'));
     }, ms);
 
-    promise.then((res) => {
-      clearTimeout(timeoutId);
-      resolve(res);
-    }, (err) => {
-      clearTimeout(timeoutId);
-      reject(err);
-    });
+    promise.then(
+      (res) => {
+        clearTimeout(timeoutId);
+        resolve(res);
+      },
+      (err) => {
+        clearTimeout(timeoutId);
+        reject(err);
+      },
+    );
   });
 
   return race;
@@ -46,7 +49,7 @@ const request = (method, url) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     }),
-    method: method
+    method: method,
   };
 
   return timeout(REQUEST_TIMEOUT, fetch(url, options))
@@ -54,4 +57,4 @@ const request = (method, url) => {
     .then(parseJSON);
 };
 
-export const get = url => request('GET', url);
+export const get = (url) => request('GET', url);

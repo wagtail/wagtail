@@ -3,41 +3,21 @@ CSS coding guidelines
 
 Our CSS is written in `Sass <https://sass-lang.com/>`_, using the SCSS syntax.
 
-Compiling
-~~~~~~~~~
-
-The SCSS source files are compiled to CSS using the
-`gulp <https://gulpjs.com/>`_ build system.
-This requires `Node.js <https://nodejs.org>`_ to run.
-To install the libraries required for compiling the SCSS,
-run the following from the Wagtail repository root:
-
-.. code-block:: console
-
-    $ npm install --no-save
-
-
-To compile the assets, run:
-
-.. code-block:: console
-
-    $ npm run build
-
-
-Alternatively, the SCSS files can be monitored,
-automatically recompiling when any changes are observed, by running:
-
-.. code-block:: console
-
-    $ npm start
-
-
 Linting and formatting SCSS
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Wagtail uses the `stylelint <https://stylelint.io/>`_ linter.
+Wagtail uses `stylelint <https://stylelint.io/>`_ for linting,
+and `Prettier <https://prettier.io/>`_ for formatting.
 You'll need Node.js and npm on your development machine.
 Ensure project dependencies are installed by running ``npm install --no-save``
+
+Tailwind CSS
+-------------
+
+Wagtail uses utility classes via `Tailwind <https://tailwindcss.com/>`_, generated based on values set in the ``tailwind.config.js`` file.
+
+To use these utilities you will need to prefix your class names with ``w-`` to avoid interfering with other predefined styles of similar names.
+
 
 Linting code
 ------------
@@ -55,7 +35,13 @@ below, plus a little more.
 Formatting code
 ---------------
 
-If you want to autofix errors, you can run that command directly with:
+For Prettier auto-formatting, run:
+
+.. code-block:: console
+
+    $ npm run format
+
+If you want to autofix linting errors:
 
 .. code-block:: console
 
@@ -71,22 +57,6 @@ or plugins. This configuration can be found at
 
 Styleguide Reference
 ~~~~~~~~~~~~~~~~~~~~
-
-Spacing
--------
-
--  Use soft-tabs with a four space indent. Spaces are the only way to
-   guarantee code renders the same in any person's environment.
--  Put spaces after ``:`` in property declarations.
--  Put spaces before ``{`` in rule declarations.
--  Put line breaks between rulesets.
--  When grouping selectors, put each selector on its own line.
--  Place closing braces of declaration blocks on a new line.
--  Each declaration should appear on its own line for more accurate
-   error reporting.
--  Add a newline at the end of your ``.scss`` files.
--  Strip trailing whitespace from your rules.
--  Add a space after the comma, in comma-delimited property values e.g ``rgba()``
 
 Formatting
 ----------

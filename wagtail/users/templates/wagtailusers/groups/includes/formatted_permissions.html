@@ -9,7 +9,7 @@
         <col width="15%" />
         <col width="15%" />
         {% if custom_perms_exist %}
-        <col width="30%" />
+            <col width="30%" />
         {% endif %}
         <thead>
             <tr>
@@ -18,48 +18,48 @@
                 <th>{% trans "Change" %}</th>
                 <th>{% trans "Delete" %}</th>
                 {% if custom_perms_exist %}
-                <th>{% trans "Custom permissions" %}</th>
+                    <th>{% trans "Custom permissions" %}</th>
                 {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for content_perms_dict in object_perms %}
-            <tr>
-                <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
-                <td>
-                    {% if content_perms_dict.add %}
-                        <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.add.perm.name }}</label>
-                        {{ content_perms_dict.add.checkbox.tag }}
+                <tr>
+                    <td class="title"><h3>{{ content_perms_dict.object|capfirst }}</h3></td>
+                    <td>
+                        {% if content_perms_dict.add %}
+                            <label for="{{ content_perms_dict.add.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.add.perm.name }}</label>
+                            {{ content_perms_dict.add.checkbox.tag }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if content_perms_dict.change %}
+                            <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.change.perm.name }}</label>
+                            {{ content_perms_dict.change.checkbox.tag }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if content_perms_dict.delete %}
+                            <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.delete.perm.name }}</label>
+                            {{ content_perms_dict.delete.checkbox.tag }}
+                        {% endif %}
+                    </td>
+                    {% if custom_perms_exist %}
+                        <td>
+                            {% if content_perms_dict.custom %}
+                                <fieldset class="custom-permissions">
+                                    <legend>{% trans "Custom permissions" %}</legend>
+                                    {% for custom_perm in content_perms_dict.custom %}
+                                        <label class="custom-permissions-item">
+                                            <input type="checkbox" name="permissions" value="{{ custom_perm.perm.id }}" {% if custom_perm.selected %}checked{% endif %}>
+                                            {{ custom_perm.name }}
+                                        </label>
+                                    {% endfor %}
+                                </fieldset>
+                            {% endif %}
+                        </td>
                     {% endif %}
-                </td>
-                <td>
-                    {% if content_perms_dict.change %}
-                        <label for="{{ content_perms_dict.change.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.change.perm.name }}</label>
-                        {{ content_perms_dict.change.checkbox.tag }}
-                    {% endif %}
-                </td>
-                <td>
-                    {% if content_perms_dict.delete %}
-                        <label for="{{ content_perms_dict.delete.checkbox.id_for_label }}" class="visuallyhidden">{{ content_perms_dict.delete.perm.name }}</label>
-                        {{ content_perms_dict.delete.checkbox.tag }}
-                    {% endif %}
-                </td>
-                {% if custom_perms_exist %}
-                <td>
-                    {% if content_perms_dict.custom %}
-                    <fieldset class="custom-permissions">
-                        <legend>{% trans "Custom permissions" %}</legend>
-                        {% for custom_perm in content_perms_dict.custom %}
-                        <label class="custom-permissions-item">
-                            <input type="checkbox" name="permissions" value="{{ custom_perm.perm.id }}" {% if custom_perm.selected %}checked{% endif %}>
-                            {{ custom_perm.name }}
-                        </label>
-                        {% endfor %}
-                    </fieldset>
-                    {% endif %}
-                </td>
-                {% endif %}
-            </tr>
+                </tr>
             {% endfor %}
         </tbody>
     </table>

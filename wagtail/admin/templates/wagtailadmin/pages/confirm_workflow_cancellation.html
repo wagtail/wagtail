@@ -4,15 +4,15 @@
 
 <div class="nice-padding">
     <p>
-    {% if needs_changes %}
-        {% blocktrans %}
-            This page was marked as needing changes at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
-        {% endblocktrans %}
-    {% else %}
-        {% blocktrans %}
-            This page is currently at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
-        {% endblocktrans %}
-    {% endif %}
+        {% if needs_changes %}
+            {% blocktrans trimmed %}
+                This page was marked as needing changes at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans trimmed %}
+                This page is currently at <strong>{{ task }}</strong> in <strong>{{ workflow }}</strong>.
+            {% endblocktrans %}
+        {% endif %}
     </p>
     <p>{% trans 'Publishing this page will cancel the current workflow.' %}</p>
     <p>{% trans 'Would you still like to publish this page?' %}</p>

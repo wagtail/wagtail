@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-
 import React from 'react';
 
-import { STRINGS, MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
+import { gettext } from '../../utils/gettext';
+import { MAX_EXPLORER_PAGES } from '../../config/wagtailConfig';
 
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import Transition, { PUSH, POP } from '../Transition/Transition';
@@ -22,25 +21,25 @@ interface PageExplorerPanelProps {
 
 interface PageExplorerPanelState {
   transition: typeof PUSH | typeof POP;
-  paused: boolean;
 }
 
 /**
  * The main panel of the page explorer menu, with heading,
  * menu items, and special states.
  */
-class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExplorerPanelState> {
+class PageExplorerPanel extends React.Component<
+  PageExplorerPanelProps,
+  PageExplorerPanelState
+> {
   constructor(props) {
     super(props);
 
     this.state = {
       transition: PUSH,
-      paused: false,
     };
 
     this.onItemClick = this.onItemClick.bind(this);
     this.onHeaderClick = this.onHeaderClick.bind(this);
-    this.clickOutside = this.clickOutside.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -50,27 +49,6 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     this.setState({
       transition: isPush ? PUSH : POP,
     });
-  }
-
-  clickOutside(e) {
-    const { onClose } = this.props;
-    const explorer = document.querySelector('[data-explorer-menu]');
-    const toggle = document.querySelector('[data-explorer-menu-item]');
-
-    if (!explorer || !toggle) {
-      return;
-    }
-
-    const isInside = explorer.contains(e.target) || toggle.contains(e.target);
-    if (!isInside) {
-      onClose();
-    }
-
-    if (toggle.contains(e.target)) {
-      this.setState({
-        paused: true,
-      });
-    }
   }
 
   onItemClick(id, e) {
@@ -102,7 +80,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     if (!page.isFetchingChildren && !page.children.items) {
       children = (
         <div key="empty" className="c-page-explorer__placeholder">
-          {STRINGS.NO_RESULTS}
+          {gettext('No results')}
         </div>
       );
     } else {
@@ -130,7 +108,7 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
         ) : null}
         {page.isError ? (
           <div key="error" className="c-page-explorer__placeholder">
-            {STRINGS.SERVER_ERROR}
+            {gettext('Server Error')}
           </div>
         ) : null}
       </div>
@@ -142,7 +120,12 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
     const { transition } = this.state;
 
     return (
-      <Transition name={transition} className="c-page-explorer" component="nav" label={STRINGS.PAGE_EXPLORER}>
+      <Transition
+        name={transition}
+        className="c-page-explorer"
+        component="nav"
+        label={gettext('Page explorer')}
+      >
         <div key={depth} className="c-transition-group">
           <PageExplorerHeader
             depth={depth}
@@ -154,7 +137,8 @@ class PageExplorerPanel extends React.Component<PageExplorerPanelProps, PageExpl
 
           {this.renderChildren()}
 
-          {page.isError || page.children.items && page.children.count > MAX_EXPLORER_PAGES ? (
+          {page.isError ||
+          (page.children.items && page.children.count > MAX_EXPLORER_PAGES) ? (
             <PageCount page={page} />
           ) : null}
         </div>

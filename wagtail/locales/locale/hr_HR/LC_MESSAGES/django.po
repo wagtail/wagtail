@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
 "PO-Revision-Date: 2020-10-23 10:41+0000\n"
 "Last-Translator: Dino Aljević <dino8890@protonmail.com>, 2021\n"
 "Language-Team: Croatian (Croatia) (https://www.transifex.com/torchbox/"
@@ -60,9 +60,11 @@ msgstr "Upotreba"
 msgid "Add locale"
 msgstr "Dodaj lokalitet"
 
+#, python-brace-format
 msgid "Locale '{0}' created."
 msgstr "Lokalitet '{0}' je stvoren."
 
+#, python-brace-format
 msgid "Locale '{0}' updated."
 msgstr "Lokalitet '{0}' je ažuriran."
 
@@ -72,6 +74,7 @@ msgstr "Nije moguće sačuvati lokalitet zbog grešaka."
 msgid "Delete locale"
 msgstr "Izbriši lokalitet"
 
+#, python-brace-format
 msgid "Locale '{0}' deleted."
 msgstr "Lokalitet '{0}' je izbrisan."
 

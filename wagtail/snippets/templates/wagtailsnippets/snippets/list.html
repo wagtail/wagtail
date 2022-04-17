@@ -7,7 +7,7 @@
             {% if can_delete_snippets %}
                 <th>
                     <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
-                    <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
+                    <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans trimmed with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
                 </th>
             {% endif %}
             <th>{% trans "Title" %}</th>
@@ -19,7 +19,7 @@
                 {% if can_delete_snippets %}
                     <td class="select">
                         <input type="checkbox" name="select_snippet" id="select-snippet-{{ snippet.pk }}" value="{{ snippet.pk }}" class="toggle-select-row"/>
-                        <label for="select-snippet-{{ snippet.pk }}" class="visuallyhidden">{% blocktrans %}Select {{ snippet }}{% endblocktrans %}</label>
+                        <label for="select-snippet-{{ snippet.pk }}" class="visuallyhidden">{% blocktrans trimmed %}Select {{ snippet }}{% endblocktrans %}</label>
                     </td>
                 {% endif %}
                 <td class="title">

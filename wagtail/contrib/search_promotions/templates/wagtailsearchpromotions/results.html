@@ -2,11 +2,11 @@
 {% if queries %}
     {% if is_searching %}
         <h2 role="alert">
-        {% blocktrans count counter=queries|length %}
-            There is {{ counter }} match
-        {% plural %}
-            There are {{ counter }} matches
-        {% endblocktrans %}
+            {% blocktrans trimmed count counter=queries|length %}
+                There is {{ counter }} match
+            {% plural %}
+                There are {{ counter }} matches
+            {% endblocktrans %}
         </h2>
     {% endif %}
 
@@ -15,9 +15,9 @@
     {% include "wagtailadmin/shared/pagination_nav.html" with items=queries linkurl="wagtailsearchpromotions:index" %}
 {% else %}
     {% if is_searching %}
-         <p role="alert">{% blocktrans %}Sorry, no promoted results match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
+        <p role="alert">{% blocktrans trimmed %}Sorry, no promoted results match "<em>{{ query_string }}</em>"{% endblocktrans %}</p>
     {% else %}
         {% url 'wagtailsearchpromotions:add' as wagtailsearchpromotions_add_url %}
-        <p>{% blocktrans %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
+        <p>{% blocktrans trimmed %}No promoted results have been created. Why not <a href="{{ wagtailsearchpromotions_add_url }}">add one</a>?{% endblocktrans %}</p>
     {% endif %}
 {% endif %}

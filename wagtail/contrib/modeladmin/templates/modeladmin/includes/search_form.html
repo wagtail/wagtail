@@ -1,20 +1,21 @@
-{% load i18n %}
+{% load i18n wagtailadmin_tags %}
 {% if show_search %}
-<form id="changelist-search" class="col search-form" action="{{ view.index_url }}" method="get">
-    <ul class="fields">
-        <li class="required">
-            <div class="field char_field text_input field-small iconfield">
-                <label for="id_q" class="visuallyhidden">{% trans 'Search for' %}</label>
-                <div class="field-content">
-                    <div class="input icon-search ">
-                        <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
-                        <span></span>
+    <form id="changelist-search" class="col search-form" action="{{ view.index_url }}" method="get">
+        <ul class="fields">
+            <li class="required">
+                <div class="field char_field text_input field-small iconfield">
+                    <label for="id_q" class="visuallyhidden">{% trans 'Search for' %}</label>
+                    <div class="field-content">
+                        <div class="input">
+                            {% icon name="search" %}
+                            <input id="id_q" name="{{ search_var }}" value="{{ view.query }}" placeholder="{% blocktrans trimmed with view.verbose_name_plural|lower as name %}Search {{ name }}{% endblocktrans %}" type="text">
+                            <span></span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </li>
-        <li class="submit visuallyhidden"><input type="submit" value="Search" class="button"></li>
-    </ul>
-</form>
-<script type="text/javascript">document.getElementById("id_q").focus();</script>
+            </li>
+            <li class="submit visuallyhidden"><input type="submit" value="Search" class="button"></li>
+        </ul>
+    </form>
+    <script type="text/javascript">document.getElementById("id_q").focus();</script>
 {% endif %}

@@ -1,5 +1,6 @@
 import datetime
 
+from django import VERSION as DJANGO_VERSION
 from django.apps import apps
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
@@ -8,6 +9,7 @@ from django.db import connection, models
 from django.db.models.fields import TextField
 from django.db.models.fields.related import OneToOneField
 from django.db.models.functions import Cast
+from django.db.models.sql.where import WhereNode
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -115,11 +117,21 @@ class TextIDGenericRelation(GenericRelation):
             from_field.get_col(remote_alias), Cast(to_field.get_col(alias), from_field)
         )
 
-    def get_extra_restriction(self, where_class, alias, remote_alias):
-        cond = where_class()
-        cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
-        cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
-        return cond
+    if DJANGO_VERSION >= (4, 0):
+
+        def get_extra_restriction(self, alias, remote_alias):
+            cond = WhereNode()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
+            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
+            return cond
+
+    else:
+
+        def get_extra_restriction(self, where_class, alias, remote_alias):
+            cond = where_class()
+            cond.add(self.get_content_type_lookup(alias, remote_alias), "AND")
+            cond.add(self.get_object_id_lookup(alias, remote_alias), "AND")
+            return cond
 
     def resolve_related_fields(self):
         return []
@@ -166,7 +178,7 @@ class BaseIndexEntry(models.Model):
 
 
 # AbstractIndexEntry will be defined depending on which database system we're using.
-if connection.vendor == 'postgresql':
+if connection.vendor == "postgresql":
     from django.contrib.postgres.indexes import GinIndex
     from django.contrib.postgres.search import SearchVectorField
 
@@ -194,7 +206,8 @@ if connection.vendor == 'postgresql':
 
     AbstractIndexEntry = AbstractPostgresIndexEntry
 
-elif connection.vendor == 'sqlite':
+elif connection.vendor == "sqlite":
+    from wagtail.search.backends.database.sqlite.utils import fts5_available
 
     class AbstractSQLiteIndexEntry(BaseIndexEntry):
         """
@@ -210,16 +223,23 @@ elif connection.vendor == 'sqlite':
 
     AbstractIndexEntry = AbstractSQLiteIndexEntry
 
-    class SQLiteFTSIndexEntry(models.Model):
-        autocomplete = TextField(null=True)
-        title = TextField(null=False)
-        body = TextField(null=True)
-        index_entry = OneToOneField(primary_key=True, to='wagtailsearch.indexentry', on_delete=models.CASCADE, db_column='rowid')
+    if fts5_available():
 
-        class Meta:
-            db_table = "wagtailsearch_indexentry_fts"
+        class SQLiteFTSIndexEntry(models.Model):
+            autocomplete = TextField(null=True)
+            title = TextField(null=False)
+            body = TextField(null=True)
+            index_entry = OneToOneField(
+                primary_key=True,
+                to="wagtailsearch.indexentry",
+                on_delete=models.CASCADE,
+                db_column="rowid",
+            )
 
-elif connection.vendor == 'mysql':
+            class Meta:
+                db_table = "wagtailsearch_indexentry_fts"
+
+elif connection.vendor == "mysql":
 
     class AbstractMySQLIndexEntry(BaseIndexEntry):
         """
@@ -243,8 +263,10 @@ class IndexEntry(AbstractIndexEntry):
     """
     The IndexEntry model that will get created in the database.
     """
+
     class Meta(AbstractIndexEntry.Meta):
         """
         Contains everything in the AbstractIndexEntry Meta class, but makes this model concrete.
         """
+
         abstract = False

@@ -1,5 +1,6 @@
 import React from 'react';
-import { STRINGS } from '../../config/wagtailConfig';
+
+import { gettext } from '../../utils/gettext';
 import Icon from '../../components/Icon/Icon';
 
 /**
@@ -7,7 +8,8 @@ import Icon from '../../components/Icon/Icon';
  */
 const LoadingSpinner = () => (
   <span>
-    <Icon name="spinner" className="c-spinner" />{` ${STRINGS.LOADING}`}
+    <Icon name="spinner" className="c-spinner" />
+    {` ${gettext('Loading…')}`}
   </span>
 );
 

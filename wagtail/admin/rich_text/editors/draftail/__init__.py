@@ -4,16 +4,15 @@ import warnings
 from django.forms import Media, widgets
 from django.utils.functional import cached_property
 
-from wagtail.admin.edit_handlers import RichTextFieldPanel
 from wagtail.admin.rich_text.converters.contentstate import ContentstateConverter
 from wagtail.admin.staticfiles import versioned_static
-from wagtail.core.rich_text import features as feature_registry
-from wagtail.core.telepath import register
-from wagtail.core.widget_adapters import WidgetAdapter
+from wagtail.rich_text import features as feature_registry
+from wagtail.telepath import register
+from wagtail.widget_adapters import WidgetAdapter
 
 
 class DraftailRichTextArea(widgets.HiddenInput):
-    template_name = 'wagtailadmin/widgets/draftail_rich_text_area.html'
+    template_name = "wagtailadmin/widgets/draftail_rich_text_area.html"
     is_hidden = False
 
     # this class's constructor accepts a 'features' kwarg
@@ -22,26 +21,23 @@ class DraftailRichTextArea(widgets.HiddenInput):
     # Draftail has its own commenting
     show_add_comment_button = False
 
-    def get_panel(self):
-        return RichTextFieldPanel
-
     def __init__(self, *args, **kwargs):
         # note: this constructor will receive an 'options' kwarg taken from the WAGTAILADMIN_RICH_TEXT_EDITORS setting,
         # but we don't currently recognise any options from there (other than 'features', which is passed here as a separate kwarg)
-        kwargs.pop('options', None)
+        kwargs.pop("options", None)
         self.options = {}
         self.plugins = []
 
-        self.features = kwargs.pop('features', None)
+        self.features = kwargs.pop("features", None)
         if self.features is None:
             self.features = feature_registry.get_default_features()
 
         for feature in self.features:
-            plugin = feature_registry.get_editor_plugin('draftail', feature)
+            plugin = feature_registry.get_editor_plugin("draftail", feature)
             if plugin is None:
                 warnings.warn(
                     f"Draftail received an unknown feature '{feature}'.",
-                    category=RuntimeWarning
+                    category=RuntimeWarning,
                 )
             else:
                 plugin.construct_options(self.options)
@@ -49,11 +45,11 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
         self.converter = ContentstateConverter(self.features)
 
-        default_attrs = {'data-draftail-input': True}
-        attrs = kwargs.get('attrs')
+        default_attrs = {"data-draftail-input": True}
+        attrs = kwargs.get("attrs")
         if attrs:
             default_attrs.update(attrs)
-        kwargs['attrs'] = default_attrs
+        kwargs["attrs"] = default_attrs
 
         super().__init__(*args, **kwargs)
 
@@ -63,13 +59,13 @@ class DraftailRichTextArea(widgets.HiddenInput):
         value = super().format_value(value)
 
         if value is None:
-            value = ''
+            value = ""
 
         return self.converter.from_database_format(value)
 
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
-        context['widget']['options_json'] = json.dumps(self.options)
+        context["widget"]["options_json"] = json.dumps(self.options)
         return context
 
     def value_from_datadict(self, data, files, name):
@@ -80,11 +76,12 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
     @cached_property
     def media(self):
-        media = Media(js=[
-            versioned_static('wagtailadmin/js/draftail.js'),
-        ], css={
-            'all': [versioned_static('wagtailadmin/css/panels/draftail.css')]
-        })
+        media = Media(
+            js=[
+                versioned_static("wagtailadmin/js/draftail.js"),
+            ],
+            css={"all": [versioned_static("wagtailadmin/css/panels/draftail.css")]},
+        )
 
         for plugin in self.plugins:
             media += plugin.media
@@ -93,7 +90,7 @@ class DraftailRichTextArea(widgets.HiddenInput):
 
 
 class DraftailRichTextAreaAdapter(WidgetAdapter):
-    js_constructor = 'wagtail.widgets.DraftailRichTextArea'
+    js_constructor = "wagtail.widgets.DraftailRichTextArea"
 
     def js_args(self, widget):
         return [

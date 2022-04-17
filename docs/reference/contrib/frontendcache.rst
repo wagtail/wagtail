@@ -124,7 +124,7 @@ In case you run multiple sites with Wagtail and each site has its CloudFront dis
         'cloudfront': {
             'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudfrontBackend',
             'DISTRIBUTION_ID': {
-                'www.wagtail.io': 'your-distribution-id',
+                'www.wagtail.org': 'your-distribution-id',
                 'www.madewithwagtail.org': 'your-distribution-id',
             },
         },
@@ -293,7 +293,7 @@ This signal handler would trigger the invalidation of the index page using the
     from django.dispatch import receiver
     from django.db.models.signals import pre_delete
 
-    from wagtail.core.signals import page_published
+    from wagtail.signals import page_published
     from wagtail.contrib.frontend_cache.utils import PurgeBatch
 
     ...

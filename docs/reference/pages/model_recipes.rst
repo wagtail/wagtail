@@ -4,10 +4,10 @@
 Recipes
 =======
 
-Overriding the :meth:`~wagtail.core.models.Page.serve` Method
+Overriding the :meth:`~wagtail.models.Page.serve` Method
 --------------------------------------------------------------------
 
-Wagtail defaults to serving :class:`~wagtail.core.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.core.models.Page.serve` method provided by the :class:`~wagtail.core.models.Page` class and handle the Django request and response more directly.
+Wagtail defaults to serving :class:`~wagtail.models.Page`-derived models by passing a reference to the page object to a Django HTML template matching the model's name, but suppose you wanted to serve something other than HTML? You can override the :meth:`~wagtail.models.Page.serve` method provided by the :class:`~wagtail.models.Page` class and handle the Django request and response more directly.
 
 Consider this example from the Wagtail demo site's ``models.py``, which serves an ``EventPage`` object as an iCal file if the ``format`` variable is set in the request:
 
@@ -34,14 +34,14 @@ Consider this example from the Wagtail demo site's ``models.py``, which serves a
                 # Display event page as usual
                 return super().serve(request)
 
-:meth:`~wagtail.core.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
+:meth:`~wagtail.models.Page.serve` takes a Django request object and returns a Django response object. Wagtail returns a ``TemplateResponse`` object with the template and context which it generates, which allows middleware to function as intended, so keep in mind that a simpler response object like a ``HttpResponse`` will not receive these benefits.
 
 With this strategy, you could use Django or Python utilities to render your model in JSON or XML or any other format you'd like.
 
 
 .. _overriding_route_method:
 
-Adding Endpoints with Custom :meth:`~wagtail.core.models.Page.route` Methods
+Adding Endpoints with Custom :meth:`~wagtail.models.Page.route` Methods
 -----------------------------------------------------------------------------------
 
 .. note::
@@ -80,20 +80,20 @@ Wagtail routes requests by iterating over the path components (separated with a 
                     # the page matches the request, but isn't published, so 404
                     raise Http404
 
-:meth:`~wagtail.core.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.core.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
+:meth:`~wagtail.models.Page.route` takes the current object (``self``), the ``request`` object, and a list of the remaining ``path_components`` from the request URL. It either continues delegating routing by calling :meth:`~wagtail.models.Page.route` again on one of its children in the Wagtail tree, or ends the routing process by returning a ``RouteResult`` object or raising a 404 error.
 
-The ``RouteResult`` object (defined in wagtail.core.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.core.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.core.models.Page.serve`.
+The ``RouteResult`` object (defined in wagtail.url_routing) encapsulates all the information Wagtail needs to call a page's :meth:`~wagtail.models.Page.serve` method and return a final response: this information consists of the page object, and any additional ``args``/``kwargs`` to be passed to :meth:`~wagtail.models.Page.serve`.
 
-By overriding the :meth:`~wagtail.core.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
+By overriding the :meth:`~wagtail.models.Page.route` method, we could create custom endpoints for each object in the Wagtail tree. One use case might be using an alternate template when encountering the ``print/`` endpoint in the path. Another might be a REST API which interacts with the current object. Just to see what's involved, lets make a simple model which prints out all of its child path components.
 
 First, ``models.py``:
 
 .. code-block:: python
 
     from django.shortcuts import render
-    from wagtail.core.url_routing import RouteResult
+    from wagtail.url_routing import RouteResult
     from django.http.response import Http404
-    from wagtail.core.models import Page
+    from wagtail.models import Page
 
     ...
 
@@ -256,29 +256,32 @@ By default, tag fields work on a "free tagging" basis: editors can enter anythin
 
 Here we have registered ``BlogTag`` as a snippet, to provide an interface for administrators (and other users with the appropriate permissions) to manage the allowed set of tags. With the ``free_tagging = False`` option set, editors can no longer enter arbitrary text into the tag field, and must instead select existing tags from the autocomplete dropdown.
 
-.. _page_model_auto_redirects_recipe:
+Managing tags with Wagtail's `ModelAdmin`
+-----------------------------------------
 
-Have redirects created automatically when changing page slug
-------------------------------------------------------------
+In order to manage all the tags used in a project, you can a use the ``ModelAdmin`` to add the ``Tag`` model to the Wagtail admin. This will allow you to have a tag admin interface within the main menu in which you can add, edit or delete your tags.
 
-You may want redirects created automatically when a url gets changed in the admin so as to avoid broken links. You can add something like the following block to a ``wagtail_hooks.py`` file within one of your project's apps.
+Tags that are removed from a content don't get deleted from the ``Tag`` model and will still be shown in typeahead tag completion. So having a tag interface is a great way to completely get rid of tags you don't need.
 
+To add the tag interface, add the following block of code to a ``wagtail_hooks.py`` file within any your project’s apps:
 
 .. code-block:: python
 
-    from wagtail.core import hooks
-    from wagtail.contrib.redirects.models import Redirect
-
-    # Create redirect when editing slugs
-    @hooks.register('before_edit_page')
-    def create_redirect_on_slug_change(request, page):
-        if request.method == 'POST':
-            if page.slug != request.POST['slug']:
-                Redirect.objects.create(
-                        old_path=page.url[:-1],
-                        site=page.get_site(),
-                        redirect_page=page
-                    )
+    from wagtail.contrib.modeladmin.options import ModelAdmin, modeladmin_register
+    from taggit.models import Tag
 
 
-Note: This does not work in some cases e.g. when you redirect a page, create a new page in that url and then move the new one. It should be helpful in most cases however.
+    class TagsModelAdmin(ModelAdmin):
+        Tag.panels = [FieldPanel("name")]  # only show the name field
+        model = Tag
+        menu_label = "Tags"
+        menu_icon = "tag"  # change as required
+        menu_order = 200  # will put in 3rd place (000 being 1st, 100 2nd)
+        list_display = ["name", "slug"]
+        search_fields = ("name",)
+
+
+    modeladmin_register(TagsModelAdmin)
+
+
+A ``Tag`` model has a ``name`` and ``slug`` required fields. If you decide to add a tag, it is recommended to only display the ``name`` field panel as the slug field is autofilled when the ``name`` field is filled and you don't need to enter the same name in both the fields.

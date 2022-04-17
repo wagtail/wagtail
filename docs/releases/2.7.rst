@@ -18,7 +18,7 @@ Improved StreamField design
 
 .. image:: ../_static/images/releasenotes_2_7_streamfield_styles.png
 
-The design of the StreamField user interface has been updated to improve clarity and usability, including better handling of nested blocks. This work was completed by Bertrand Bordage as part of the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunding campaign. We would like to thank all `supporters of the campaign <https://wagtail.io/blog/wagtails-first-hatch-backers/>`_.
+The design of the StreamField user interface has been updated to improve clarity and usability, including better handling of nested blocks. This work was completed by Bertrand Bordage as part of the `Wagtail's First Hatch <https://www.kickstarter.com/projects/noripyt/wagtails-first-hatch>`_ crowdfunding campaign. We would like to thank all `supporters of the campaign <https://wagtail.org/blog/wagtails-first-hatch-backers/>`_.
 
 
 WebP image support

@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { FieldBlockDefinition } from './FieldBlock';
-import { StructBlockDefinition, StructBlockValidationError } from './StructBlock';
+import {
+  StructBlockDefinition,
+  StructBlockValidationError,
+} from './StructBlock';
 
 import $ from 'jquery';
 window.$ = $;
@@ -26,13 +29,27 @@ class DummyWidgetDefinition {
     const widgetName = this.widgetName;
     constructor(widgetName, { name, id, initialState });
 
-    $(placeholder).replaceWith(`<p name="${name}" id="${id}">${widgetName}</p>`);
+    $(placeholder).replaceWith(
+      `<p name="${name}" id="${id}">${widgetName}</p>`,
+    );
     return {
-      setState(state) { setState(widgetName, state); },
-      getState() { getState(widgetName); return `state: ${widgetName} - ${name}`; },
-      getValue() { getValue(widgetName); return `value: ${widgetName} - ${name}`; },
-      getTextLabel() { return `label: ${name}`; },
-      focus() { focus(widgetName); },
+      setState(state) {
+        setState(widgetName, state);
+      },
+      getState() {
+        getState(widgetName);
+        return `state: ${widgetName} - ${name}`;
+      },
+      getValue() {
+        getValue(widgetName);
+        return `value: ${widgetName} - ${name}`;
+      },
+      getTextLabel() {
+        return `label: ${name}`;
+      },
+      focus() {
+        focus(widgetName);
+      },
       idForLabel: id,
     };
   }
@@ -66,8 +83,9 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             label: 'Heading text',
             required: true,
             icon: 'placeholder',
-            classname: 'field char_field widget-text_input fieldname-heading_text'
-          }
+            classname:
+              'field char_field widget-text_input fieldname-heading_text',
+          },
         ),
         new FieldBlockDefinition(
           'size',
@@ -76,8 +94,8 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
             label: 'Size',
             required: false,
             icon: 'placeholder',
-            classname: 'field choice_field widget-select fieldname-size'
-          }
+            classname: 'field choice_field widget-select fieldname-size',
+          },
         ),
       ],
       {
@@ -87,19 +105,15 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
         classname: 'struct-block',
         helpText: 'use <strong>lots</strong> of these',
         helpIcon: '<div class="icon-help">?</div>',
-      }
+      },
     );
 
     // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
-    boundBlock = blockDef.render(
-      $('#placeholder'),
-      'the-prefix',
-      {
-        heading_text: 'Test heading text',
-        size: '123'
-      }
-    );
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', {
+      heading_text: 'Test heading text',
+      size: '123',
+    });
   });
 
   test('it renders correctly', () => {
@@ -129,7 +143,7 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     expect(getValue.mock.calls.length).toBe(2);
     expect(value).toEqual({
       heading_text: 'value: Heading widget - the-prefix-heading_text',
-      size: 'value: Size widget - the-prefix-size'
+      size: 'value: Size widget - the-prefix-size',
     });
   });
 
@@ -138,14 +152,14 @@ describe('telepath: wagtail.blocks.StructBlock', () => {
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual({
       heading_text: 'state: Heading widget - the-prefix-heading_text',
-      size: 'state: Size widget - the-prefix-size'
+      size: 'state: Size widget - the-prefix-size',
     });
   });
 
   test('setState() calls setState() on all widgets', () => {
     boundBlock.setState({
       heading_text: 'Changed heading text',
-      size: '456'
+      size: '456',
     });
     expect(setState.mock.calls.length).toBe(2);
     expect(setState.mock.calls[0][0]).toBe('Heading widget');
@@ -196,8 +210,9 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
             label: 'Heading text',
             required: true,
             icon: 'placeholder',
-            classname: 'field char_field widget-text_input fieldname-heading_text'
-          }
+            classname:
+              'field char_field widget-text_input fieldname-heading_text',
+          },
         ),
         new FieldBlockDefinition(
           'size',
@@ -206,8 +221,8 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
             label: 'Size',
             required: false,
             icon: 'placeholder',
-            classname: 'field choice_field widget-select fieldname-size'
-          }
+            classname: 'field choice_field widget-select fieldname-size',
+          },
         ),
       ],
       {
@@ -221,19 +236,15 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
           <div data-structblock-child="size"></div>
         </div>`,
         labelFormat: '{heading_text} - {size}',
-      }
+      },
     );
 
     // Render it
     document.body.innerHTML = '<div id="placeholder"></div>';
-    boundBlock = blockDef.render(
-      $('#placeholder'),
-      'the-prefix',
-      {
-        heading_text: 'Test heading text',
-        size: '123'
-      }
-    );
+    boundBlock = blockDef.render($('#placeholder'), 'the-prefix', {
+      heading_text: 'Test heading text',
+      size: '123',
+    });
   });
 
   test('it renders correctly', () => {
@@ -263,7 +274,7 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
     expect(getValue.mock.calls.length).toBe(2);
     expect(value).toEqual({
       heading_text: 'value: Heading widget - the-prefix-heading_text',
-      size: 'value: Size widget - the-prefix-size'
+      size: 'value: Size widget - the-prefix-size',
     });
   });
 
@@ -272,14 +283,14 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
     expect(getState.mock.calls.length).toBe(2);
     expect(state).toEqual({
       heading_text: 'state: Heading widget - the-prefix-heading_text',
-      size: 'state: Size widget - the-prefix-size'
+      size: 'state: Size widget - the-prefix-size',
     });
   });
 
   test('setState() calls setState() on all widgets', () => {
     boundBlock.setState({
       heading_text: 'Changed heading text',
-      size: '456'
+      size: '456',
     });
     expect(setState.mock.calls.length).toBe(2);
     expect(setState.mock.calls[0][0]).toBe('Heading widget');
@@ -296,7 +307,7 @@ describe('telepath: wagtail.blocks.StructBlock with formTemplate', () => {
 
   test('getTextLabel() returns text label according to labelFormat', () => {
     expect(boundBlock.getTextLabel()).toBe(
-      'label: the-prefix-heading_text - label: the-prefix-size'
+      'label: the-prefix-heading_text - label: the-prefix-size',
     );
   });
 });

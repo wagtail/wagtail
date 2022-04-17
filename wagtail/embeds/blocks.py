@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.core import blocks
+from wagtail import blocks
 from wagtail.embeds.format import embed_to_frontend_html
 
 
@@ -14,6 +14,7 @@ class EmbedValue:
     we want to be able to do {% embed value.url 500 %} without
     doing a redundant fetch of the embed at the default width.
     """
+
     def __init__(self, url, max_width=None, max_height=None):
         self.url = url
         self.max_width = max_width
@@ -36,7 +37,11 @@ class EmbedBlock(blocks.URLBlock):
             return self.meta.default
         else:
             # assume default has been passed as a string
-            return EmbedValue(self.meta.default, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
+            return EmbedValue(
+                self.meta.default,
+                getattr(self.meta, "max_width", None),
+                getattr(self.meta, "max_height", None),
+            )
 
     def to_python(self, value):
         # The JSON representation of an EmbedBlock's value is a URL string;
@@ -44,19 +49,23 @@ class EmbedBlock(blocks.URLBlock):
         if not value:
             return None
         else:
-            return EmbedValue(value, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
+            return EmbedValue(
+                value,
+                getattr(self.meta, "max_width", None),
+                getattr(self.meta, "max_height", None),
+            )
 
     def get_prep_value(self, value):
         # serialisable value should be a URL string
         if value is None:
-            return ''
+            return ""
         else:
             return value.url
 
     def value_for_form(self, value):
         # the value to be handled by the URLField is a plain URL string (or the empty string)
         if value is None:
-            return ''
+            return ""
         else:
             return value.url
 
@@ -65,7 +74,11 @@ class EmbedBlock(blocks.URLBlock):
         if not value:
             return None
         else:
-            return EmbedValue(value, getattr(self.meta, 'max_width', None), getattr(self.meta, 'max_height', None))
+            return EmbedValue(
+                value,
+                getattr(self.meta, "max_width", None),
+                getattr(self.meta, "max_height", None),
+            )
 
     def clean(self, value):
         if isinstance(value, EmbedValue) and not value.html:

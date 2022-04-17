@@ -8,9 +8,7 @@ from wagtail.users.views.users import change_user_perm
 
 
 class RoleForm(forms.Form):
-    role = forms.ModelChoiceField(
-        queryset=Group.objects.all()
-    )
+    role = forms.ModelChoiceField(queryset=Group.objects.all())
 
 
 class AssignRoleBulkAction(UserBulkAction):
@@ -26,7 +24,7 @@ class AssignRoleBulkAction(UserBulkAction):
 
     def get_execution_context(self):
         return {
-            'role': self.cleaned_form.cleaned_data['role'],
+            "role": self.cleaned_form.cleaned_data["role"],
         }
 
     @classmethod
@@ -41,8 +39,8 @@ class AssignRoleBulkAction(UserBulkAction):
         return ngettext(
             "%(num_parent_objects)d user has been assigned as %(role)s",
             "%(num_parent_objects)d users have been assigned as %(role)s",
-            num_parent_objects
+            num_parent_objects,
         ) % {
-            'num_parent_objects': num_parent_objects,
-            'role': self.cleaned_form.cleaned_data['role'].name
+            "num_parent_objects": num_parent_objects,
+            "role": self.cleaned_form.cleaned_data["role"].name,
         }

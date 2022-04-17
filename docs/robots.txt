@@ -2,4 +2,4 @@ User-agent: *
 
 Disallow: /*/pdf/
 
-Sitemap: https://docs.wagtail.io/sitemap.xml
+Sitemap: https://docs.wagtail.org/sitemap.xml

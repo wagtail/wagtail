@@ -15,7 +15,7 @@ interface Action<N, P, M> {
 export function createAction<N extends string, T extends any[], P, M>(
   type: N,
   actionCreator: (...args: T) => P = identity,
-  metaCreator?: (...args: T) => M
+  metaCreator?: (...args: T) => M,
 ): (...args: T) => Action<N, P, M> {
   return (...args) => {
     const action: Action<N, P, M> = {

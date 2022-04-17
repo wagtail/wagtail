@@ -18,7 +18,7 @@
                 <div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
             </div>
             <div class="col9">
-                <h1>{% block branding_welcome %}{% blocktrans %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
+                <h1>{% block branding_welcome %}{% blocktrans trimmed %}Welcome to the {{ site_name }} Wagtail CMS{% endblocktrans %}{% endblock %}</h1>
                 <div class="user-name">{{ user|user_display_name }}</div>
             </div>
         </div>
@@ -34,7 +34,7 @@
 {% endblock %}
 
 {% block extra_js %}
-{{ block.super }}
-<script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
-{{ media.js }}
+    {{ block.super }}
+    <script src="{% versioned_static 'wagtailadmin/js/collapsible.js' %}"></script>
+    {{ media.js }}
 {% endblock %}

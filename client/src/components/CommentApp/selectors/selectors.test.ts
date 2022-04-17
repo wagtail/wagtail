@@ -18,12 +18,10 @@ test('Select comments for contentpath', () => {
     comments: basicCommentsState,
     settings: INITIAL_SETTINGS_STATE,
   };
-  const testContentPathSelector = selectCommentsForContentPathFactory(
-    'test_contentpath'
-  );
-  const testContentPathSelector2 = selectCommentsForContentPathFactory(
-    'test_contentpath_2'
-  );
+  const testContentPathSelector =
+    selectCommentsForContentPathFactory('test_contentpath');
+  const testContentPathSelector2 =
+    selectCommentsForContentPathFactory('test_contentpath_2');
   const selectedComments = testContentPathSelector(state);
   expect(selectedComments.length).toBe(1);
   expect(selectedComments[0].contentpath).toBe('test_contentpath');
@@ -35,79 +33,90 @@ test('Select comments for contentpath', () => {
 test('Select is dirty', () => {
   const state = {
     comments: INITIAL_COMMENTS_STATE,
-    settings: INITIAL_SETTINGS_STATE
+    settings: INITIAL_SETTINGS_STATE,
   };
-  const stateWithUnsavedComment = reducer(state, actions.addComment(newComment(
-    'test_contentpath',
-    'test_position',
-    1,
-    null,
-    null,
-    0,
-    {
-      remoteId: null,
-      text: 'my new comment'
-    }
-  )));
+  const stateWithUnsavedComment = reducer(
+    state,
+    actions.addComment(
+      newComment('test_contentpath', 'test_position', 1, null, null, 0, {
+        remoteId: null,
+        text: 'my new comment',
+      }),
+    ),
+  );
 
   expect(selectIsDirty(stateWithUnsavedComment)).toBe(true);
 
-  const stateWithSavedComment = reducer(state, actions.addComment(newComment(
-    'test_contentpath',
-    'test_position',
-    1,
-    null,
-    null,
-    0,
-    {
-      remoteId: 1,
-      text: 'my saved comment'
-    }
-  )));
+  const stateWithSavedComment = reducer(
+    state,
+    actions.addComment(
+      newComment('test_contentpath', 'test_position', 1, null, null, 0, {
+        remoteId: 1,
+        text: 'my saved comment',
+      }),
+    ),
+  );
 
   expect(selectIsDirty(stateWithSavedComment)).toBe(false);
 
-  const stateWithDeletedComment = reducer(stateWithSavedComment, actions.deleteComment(1));
+  const stateWithDeletedComment = reducer(
+    stateWithSavedComment,
+    actions.deleteComment(1),
+  );
 
   expect(selectIsDirty(stateWithDeletedComment)).toBe(true);
 
-  const stateWithResolvedComment = reducer(stateWithSavedComment, actions.updateComment(1, { resolved: true }));
+  const stateWithResolvedComment = reducer(
+    stateWithSavedComment,
+    actions.updateComment(1, { resolved: true }),
+  );
 
   expect(selectIsDirty(stateWithResolvedComment)).toBe(true);
 
-  const stateWithEditedComment = reducer(stateWithSavedComment, actions.updateComment(1, { text: 'edited_text' }));
+  const stateWithEditedComment = reducer(
+    stateWithSavedComment,
+    actions.updateComment(1, { text: 'edited_text' }),
+  );
 
   expect(selectIsDirty(stateWithEditedComment)).toBe(true);
 
-  const stateWithUnsavedReply = reducer(stateWithSavedComment, actions.addReply(1, newCommentReply(
-    2,
-    null,
-    0,
-    {
-      remoteId: null,
-      text: 'new reply'
-    }
-  )));
+  const stateWithUnsavedReply = reducer(
+    stateWithSavedComment,
+    actions.addReply(
+      1,
+      newCommentReply(2, null, 0, {
+        remoteId: null,
+        text: 'new reply',
+      }),
+    ),
+  );
 
   expect(selectIsDirty(stateWithUnsavedReply)).toBe(true);
 
-  const stateWithSavedReply = reducer(stateWithSavedComment, actions.addReply(1, newCommentReply(
-    2,
-    null,
-    0,
-    {
-      remoteId: 2,
-      text: 'new saved reply'
-    }
-  )));
+  const stateWithSavedReply = reducer(
+    stateWithSavedComment,
+    actions.addReply(
+      1,
+      newCommentReply(2, null, 0, {
+        remoteId: 2,
+        text: 'new saved reply',
+      }),
+    ),
+  );
 
   expect(selectIsDirty(stateWithSavedReply)).toBe(false);
 
-  const stateWithDeletedReply = reducer(stateWithSavedReply, actions.deleteReply(1, 2));
+  const stateWithDeletedReply = reducer(
+    stateWithSavedReply,
+    actions.deleteReply(1, 2),
+  );
 
   expect(selectIsDirty(stateWithDeletedReply)).toBe(true);
 
-  const stateWithEditedReply = reducer(stateWithSavedReply, actions.updateReply(1, 2, { text: 'edited_text' }));
+  const stateWithEditedReply = reducer(
+    stateWithSavedReply,
+    actions.updateReply(1, 2, { text: 'edited_text' }),
+  );
 
   expect(selectIsDirty(stateWithEditedReply)).toBe(true);
 });

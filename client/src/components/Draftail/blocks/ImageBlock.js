@@ -1,31 +1,37 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { STRINGS } from '../../../config/wagtailConfig';
-
+import { gettext } from '../../../utils/gettext';
 import MediaBlock from '../blocks/MediaBlock';
 
 /**
  * Editor block to preview and edit images.
  */
-const ImageBlock = props => {
+const ImageBlock = (props) => {
   const { blockProps } = props;
   const { entity, onEditEntity, onRemoveEntity } = blockProps;
   const { src, alt } = entity.getData();
-  let altLabel = STRINGS.DECORATIVE_IMAGE;
+  let altLabel = gettext('Decorative image');
   if (alt) {
-    altLabel = `${STRINGS.ALT_TEXT}: “${alt}”`;
+    altLabel = `${gettext('Alt text')}: “${alt}”`;
   }
 
   return (
     <MediaBlock {...props} src={src} alt="">
       <p className="ImageBlock__alt">{altLabel}</p>
 
-      <button className="button Tooltip__button" type="button" onClick={onEditEntity}>
-        {STRINGS.EDIT}
+      <button
+        className="button Tooltip__button"
+        type="button"
+        onClick={onEditEntity}
+      >
+        {gettext('Edit')}
       </button>
-      <button className="button button-secondary no Tooltip__button" onClick={onRemoveEntity}>
-        {STRINGS.DELETE}
+      <button
+        className="button button-secondary no Tooltip__button"
+        onClick={onRemoveEntity}
+      >
+        {gettext('Delete')}
       </button>
     </MediaBlock>
   );

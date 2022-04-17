@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2021-10-15 16:43+0000\n"
-"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>\n"
+"POT-Creation-Date: 2022-01-21 14:07+0000\n"
+"PO-Revision-Date: 2014-02-19 19:01+0000\n"
+"Last-Translator: Amós Oviedo <amos.oviedo@gmail.com>, 2014,2016\n"
 "Language-Team: Galician (http://www.transifex.com/torchbox/wagtail/language/"
 "gl/)\n"
 "MIME-Version: 1.0\n"
@@ -32,9 +32,6 @@ msgstr "Seleccionar"
 
 msgid "Search"
 msgstr "Porcurar"
-
-msgid "Title"
-msgstr "Título"
 
 #, python-format
 msgid "Sorry, no snippets match \"<em>%(query_string)s</em>\""
@@ -69,6 +66,9 @@ msgstr "Editando"
 
 msgid "Snippets"
 msgstr "Fragmentos"
+
+msgid "Title"
+msgstr "Título"
 
 #, python-format
 msgid ""

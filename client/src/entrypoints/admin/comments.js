@@ -1,5 +1,5 @@
+import { gettext } from '../../utils/gettext';
 import { initCommentApp } from '../../components/CommentApp/main';
-import { STRINGS } from '../../config/wagtailConfig';
 
 const KEYCODE_M = 77;
 
@@ -10,9 +10,9 @@ window.comments = (() => {
   const commentApp = initCommentApp();
 
   /**
-  * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
-  * shortcut
-  */
+   * Returns true if the provided keyboard event is using the 'add/focus comment' keyboard
+   * shortcut
+   */
   function isCommentShortcut(e) {
     return (e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === KEYCODE_M;
   }
@@ -40,20 +40,21 @@ window.comments = (() => {
    */
   class BasicFieldLevelAnnotation {
     /**
-    * Create a field-level annotation
-    * @param {Element} fieldNode - an element to provide the comment position
-    * @param {Element} node - the button to focus/pin the comment
-    */
+     * Create a field-level annotation
+     * @param {Element} fieldNode - an element to provide the comment position
+     * @param {Element} node - the button to focus/pin the comment
+     */
     constructor(fieldNode, node) {
       this.node = node;
       this.fieldNode = fieldNode;
       this.unsubscribe = null;
     }
+
     /**
-    * Subscribes the annotation to update when the state of a particular comment changes,
-    * and to focus that comment when clicked
-    * @param {number} localId - the localId of the comment to subscribe to
-    */
+     * Subscribes the annotation to update when the state of a particular comment changes,
+     * and to focus that comment when clicked
+     * @param {number} localId - the localId of the comment to subscribe to
+     */
     subscribeToUpdates(localId) {
       const { selectFocused, selectEnabled } = commentApp.selectors;
       const selectComment = commentApp.utils.selectCommentFactory(localId);
@@ -73,7 +74,7 @@ window.comments = (() => {
         if (!comment) {
           this.onDelete();
         }
-        const nowFocused = (selectFocused(state) === localId);
+        const nowFocused = selectFocused(state) === localId;
         if (nowFocused !== focused) {
           if (focused) {
             this.onUnfocus();
@@ -90,97 +91,99 @@ window.comments = (() => {
           }
           shown = selectEnabled(state);
         }
-      }
-      );
+      });
       this.setOnClickHandler(localId);
     }
+
     onDelete() {
-      // IE11
-      if (!this.node.remove) {
-        this.node.parentNode.removeChild(this.node);
-      } else {
-        this.node.remove();
-      }
+      this.node.remove();
       if (this.unsubscribe) {
         this.unsubscribe();
       }
     }
+
     onFocus() {
       this.node.classList.remove('button-secondary');
-      this.node.ariaLabel = STRINGS.UNFOCUS_COMMENT;
+      this.node.ariaLabel = gettext('Unfocus comment');
     }
+
     onUnfocus() {
       this.node.classList.add('button-secondary');
-      this.node.ariaLabel = STRINGS.FOCUS_COMMENT;
-      // eslint-disable-next-line no-warning-comments
+      this.node.ariaLabel = gettext('Focus comment');
+
       // TODO: ensure comment is focused accessibly when this is clicked,
       // and that screenreader users can return to the annotation point when desired
     }
+
     show() {
       this.node.classList.remove('u-hidden');
     }
+
     hide() {
       this.node.classList.add('u-hidden');
     }
+
     setOnClickHandler(localId) {
       this.node.addEventListener('click', () => {
         commentApp.store.dispatch(
-          commentApp.actions.setFocusedComment(localId, { updatePinnedComment: true, forceFocus: true })
+          commentApp.actions.setFocusedComment(localId, {
+            updatePinnedComment: true,
+            forceFocus: true,
+          }),
         );
       });
     }
+
     getTab() {
-      return this.fieldNode.closest('section[data-tab]')?.getAttribute('data-tab');
+      return this.fieldNode.closest('[role="tabpanel"]')?.getAttribute('id');
     }
+
     getAnchorNode() {
       return this.fieldNode;
     }
   }
 
   class FieldLevelCommentWidget {
-    constructor({
-      fieldNode,
-      commentAdditionNode,
-      annotationTemplateNode,
-    }) {
+    constructor({ fieldNode, commentAdditionNode, annotationTemplateNode }) {
       this.fieldNode = fieldNode;
       this.contentpath = getContentPath(fieldNode);
       this.commentAdditionNode = commentAdditionNode;
       this.annotationTemplateNode = annotationTemplateNode;
       this.shown = false;
     }
+
     register() {
       const { selectEnabled } = commentApp.selectors;
       const initialState = commentApp.store.getState();
       let currentlyEnabled = selectEnabled(initialState);
-      const selectCommentsForContentPath = commentApp.utils.selectCommentsForContentPathFactory(
-        this.contentpath
-      );
+      const selectCommentsForContentPath =
+        commentApp.utils.selectCommentsForContentPathFactory(this.contentpath);
       let currentComments = selectCommentsForContentPath(initialState);
       this.updateVisibility(currentComments.length === 0 && currentlyEnabled);
       const unsubscribeWidget = commentApp.store.subscribe(() => {
         const state = commentApp.store.getState();
         const newComments = selectCommentsForContentPath(state);
         const newEnabled = selectEnabled(state);
-        const commentsChanged = (currentComments !== newComments);
-        const enabledChanged = (currentlyEnabled !== newEnabled);
+        const commentsChanged = currentComments !== newComments;
+        const enabledChanged = currentlyEnabled !== newEnabled;
         if (commentsChanged) {
           // Add annotations for any new comments
           currentComments = newComments;
-          currentComments.filter((comment) => comment.annotation === null).forEach((comment) => {
-            const annotation = this.getAnnotationForComment(comment);
-            commentApp.updateAnnotation(
-              annotation,
-              comment.localId
-            );
-            annotation.subscribeToUpdates(comment.localId);
-          });
+          currentComments
+            .filter((comment) => comment.annotation === null)
+            .forEach((comment) => {
+              const annotation = this.getAnnotationForComment(comment);
+              commentApp.updateAnnotation(annotation, comment.localId);
+              annotation.subscribeToUpdates(comment.localId);
+            });
         }
         if (enabledChanged || commentsChanged) {
           // If comments have been enabled or disabled, or the comments have changed
           // check whether to show the widget (if comments are enabled and there are no existing comments)
           currentlyEnabled = newEnabled;
-          this.updateVisibility(currentComments.length === 0 && currentlyEnabled);
+          this.updateVisibility(
+            currentComments.length === 0 && currentlyEnabled,
+          );
         }
       });
       initialState.comments.comments.forEach((comment) => {
@@ -206,17 +209,18 @@ window.comments = (() => {
             addComment();
           } else {
             commentApp.store.dispatch(
-              commentApp.actions.setFocusedComment(
-                currentComments[0].localId,
-                { updatePinnedComment: true, forceFocus: true }
-              )
+              commentApp.actions.setFocusedComment(currentComments[0].localId, {
+                updatePinnedComment: true,
+                forceFocus: true,
+              }),
             );
           }
         }
       });
-      // eslint-disable-next-line no-warning-comments
+
       return unsubscribeWidget; // TODO: listen for widget deletion and use this
     }
+
     updateVisibility(newShown) {
       if (newShown === this.shown) {
         return;
@@ -229,12 +233,20 @@ window.comments = (() => {
         this.commentAdditionNode.classList.remove('u-hidden');
       }
     }
+
     getAnnotationForComment() {
       const annotationNode = this.annotationTemplateNode.cloneNode(true);
       annotationNode.id = '';
       annotationNode.classList.remove('u-hidden');
-      this.commentAdditionNode.insertAdjacentElement('afterend', annotationNode);
-      return new BasicFieldLevelAnnotation(this.fieldNode, annotationNode, commentApp);
+      this.commentAdditionNode.insertAdjacentElement(
+        'afterend',
+        annotationNode,
+      );
+      return new BasicFieldLevelAnnotation(
+        this.fieldNode,
+        annotationNode,
+        commentApp,
+      );
     }
   }
 
@@ -254,30 +266,47 @@ window.comments = (() => {
     const commentsOutputElement = document.getElementById('comments-output');
     const dataElement = document.getElementById('comments-data');
     if (!commentsElement || !commentsOutputElement || !dataElement) {
-      throw new Error('Comments app failed to initialise. Missing HTML element');
+      throw new Error(
+        'Comments app failed to initialise. Missing HTML element',
+      );
     }
     const data = JSON.parse(dataElement.textContent);
     commentApp.renderApp(
-      commentsElement, commentsOutputElement, data.user, data.comments, new Map(Object.entries(data.authors)), STRINGS
+      commentsElement,
+      commentsOutputElement,
+      data.user,
+      data.comments,
+      new Map(Object.entries(data.authors)),
     );
 
-    Array.from(formElement.querySelectorAll('[data-component="add-comment-button"]')).forEach(initAddCommentButton);
+    formElement
+      .querySelectorAll('[data-component="add-comment-button"]')
+      .forEach(initAddCommentButton);
 
     // Attach the commenting app to the tab navigation, if it exists
-    const tabNavElement = formElement.querySelector('[data-tab-nav]');
+    const tabNavElement = formElement.querySelector(
+      '[data-tabs] [role="tablist"]',
+    );
     if (tabNavElement) {
-      commentApp.setCurrentTab(tabNavElement.dataset.currentTab);
+      commentApp.setCurrentTab(
+        tabNavElement
+          .querySelector('[role="tab"][aria-selected="true"]')
+          .getAttribute('href')
+          .replace('#', ''),
+      );
       tabNavElement.addEventListener('switch', (e) => {
         commentApp.setCurrentTab(e.detail.tab);
       });
     }
 
-    // Comments toggle
-    const commentToggleWrapper = formElement.querySelector('.comments-toggle');
-    const commentToggle = formElement.querySelector('.comments-toggle input[type=checkbox]');
+    // Show/hide comments when the side panel is opened/closed
+    const commentsSidePanel = document.querySelector(
+      '[data-side-panel="comments"]',
+    );
+    const commentNotifications = formElement.querySelector(
+      '[data-comment-notifications]',
+    );
     const tabContentElement = formElement.querySelector('.tab-content');
-    const commentNotificationsToggleButton = formElement.querySelector('.comment-notifications-toggle-button');
-    const commentNotificationsDropdown = formElement.querySelector('.comment-notifications-dropdown');
 
     const updateCommentVisibility = (visible) => {
       // Show/hide comments
@@ -286,37 +315,54 @@ window.comments = (() => {
       // Add/Remove tab-nav--comments-enabled class. This changes the size of streamfields
       if (visible) {
         tabContentElement.classList.add('tab-content--comments-enabled');
-        commentToggleWrapper.classList.add('comments-toggle--active');
-        commentNotificationsToggleButton.classList.add('comment-notifications-toggle-button--active');
+        if (commentNotifications) {
+          commentNotifications.hidden = false;
+        }
       } else {
         tabContentElement.classList.remove('tab-content--comments-enabled');
-        commentToggleWrapper.classList.remove('comments-toggle--active');
-        commentNotificationsToggleButton.classList.remove('comment-notifications-toggle-button--active');
-        commentNotificationsDropdown.classList.remove('comment-notifications-dropdown--active');
-        commentNotificationsToggleButton.classList.remove('comment-notifications-toggle-button--icon-toggle');
+        if (commentNotifications) {
+          commentNotifications.hidden = true;
+        }
       }
     };
 
-    commentNotificationsToggleButton.addEventListener('click', () => {
-      commentNotificationsDropdown.classList.toggle('comment-notifications-dropdown--active');
-      commentNotificationsToggleButton.classList.toggle('comment-notifications-toggle-button--icon-toggle');
-    });
+    if (commentsSidePanel) {
+      commentsSidePanel.addEventListener('show', () => {
+        updateCommentVisibility(true);
+      });
 
-    commentToggle.addEventListener('change', (e) => {
-      updateCommentVisibility(e.target.checked);
-    });
-    updateCommentVisibility(commentToggle.checked);
+      commentsSidePanel.addEventListener('hide', () => {
+        updateCommentVisibility(false);
+      });
+    }
 
     // Keep number of comments up to date with comment app
-    const commentCounter = formElement.querySelector('.comments-toggle__count');
+    const commentToggle = document.querySelector(
+      '[data-side-panel-toggle="comments"]',
+    );
+
+    const commentCounter = document.createElement('div');
+    commentCounter.className =
+      '-w-mr-3 w-py-0.5 w-px-[0.325rem] w-translate-y-[-8px] w-translate-x-[-6px] w-text-[0.5625rem] w-font-bold w-bg-teal-100 w-text-white w-border w-border-white w-rounded-[1rem]';
+    commentToggle.className =
+      'w-h-[50px] w-bg-transparent w-box-border w-py-3 w-px-3 w-flex w-justify-center w-items-center w-outline-offset-inside w-text-grey-400 w-transition hover:w-transform hover:w-scale-110 hover:w-text-primary focus:w-text-primary';
+    commentToggle.appendChild(commentCounter);
+
     const updateCommentCount = () => {
-      const commentCount = commentApp.selectors.selectCommentCount(commentApp.store.getState());
+      const commentCount = commentApp.selectors.selectCommentCount(
+        commentApp.store.getState(),
+      );
+
+      // If comment counter element doesn't exist don't try to update innerText
+      if (!commentCounter) {
+        return;
+      }
 
       if (commentCount > 0) {
         commentCounter.innerText = commentCount.toString();
       } else {
-        // Note: CSS will hide the circle when its content is empty
-        commentCounter.innerText = '';
+        // Note: Hide the circle when its content is empty
+        commentCounter.hidden = true;
       }
     };
     commentApp.store.subscribe(updateCommentCount);

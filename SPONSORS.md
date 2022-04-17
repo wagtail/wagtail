@@ -45,3 +45,11 @@ The features below were developed thanks to the sponsorship of these organsation
 - Telepath for StreamField editing - [YouGov](https://yougov.co.uk/)
 
 - Commenting - [The Motley Fool](https://www.fool.com/)
+
+- Automatic redirect creation - [The National Archives](https://www.nationalarchives.gov.uk)
+
+- Persistent IDs for ListBlock items - [NHS](https://www.nhs.uk/)
+
+- Page editor redesign - [Google](http://google.com/)
+
+- StreamField rich text block splitter - [The Motley Fool](https://www.fool.com/)

@@ -71,7 +71,7 @@
 
         <section class="palette" id="accessiblecolours">
 
-        <h2>Accessible colour combinations</h2>
+            <h2>Accessible colour combinations</h2>
             <p>WCAG (Web Content Accessibility Guidelines) ensures that content is accessible by everyone, regardless of any disability or user device. To ensure text remains compliant with WCAG 2.0 AA standards, use only these permitted colour combinations.</p>
 
             <p>Use this <a href="https://accessibility.oit.ncsu.edu/tools/color-contrast/accessible-color-palette.php?colors=43b1b0,358c8b,246060,71b2d4,cd3238,e9b04d,189370,f37e77,fcf2f2,ffffff,000000,333333,404040,666666,d9d9d9,e6e6e6,fafafa,cacaca&amp;level=AA">Color Palette Accessibility Checker</a> to test new colour combinations using the existing colour palette.</p>
@@ -257,15 +257,18 @@
             </p>
 
             <div class="help-block help-info">
+                {% icon name='help' %}
                 <p>This is help text that might be just for information, explaining what happens next, or drawing the user's attention to something they're about to do</p>
                 <p>It could be multiple lines</p>
             </div>
 
             <p class="help-block help-warning">
+                {% icon name='warning' %}
                 A warning message might be output in cases where a user's action could have serious consequences
             </p>
 
             <div class="help-block help-critical">
+                {% icon name='warning' %}
                 A critical message would probably be rare, in cases where a particularly brittle or dangerously destructive action could be performed and needs to be warned about.
             </div>
 
@@ -324,7 +327,7 @@
                             <h2><a href="">Something here</a></h2>
                         </div>
 
-                        <small class="col6" style="text-align:right">Something else</small>
+                        <small class="col6" style="text-align:end">Something else</small>
                     </div>
                 </li>
                 <li>
@@ -333,7 +336,7 @@
                             <a href="">Something here</a>
                         </div>
 
-                        <small class="col6" style="text-align:right">Something else</small>
+                        <small class="col6" style="text-align:end">Something else</small>
                     </div>
                 </li>
                 <li>
@@ -342,7 +345,7 @@
                             <a href="">Something here</a>
                         </div>
 
-                        <small class="col6" style="text-align:right">Something else</small>
+                        <small class="col6" style="text-align:end">Something else</small>
                     </div>
                 </li>
             </ul>
@@ -389,7 +392,7 @@
 
         <section id="buttons">
             <h2>Buttons</h2>
-            <p class="help-block help-warning">Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Do not use <code>{% filter force_escape|lower %}<input type="button">{% endfilter %}</code> use <code>{% filter force_escape|lower %}<button type="button"></button>{% endfilter %}</code> instead. This addresses inconsistencies between rendering of buttons x-browser.</p>
 
 
             <p>Buttons must have interaction possible (i.e be an input or button element) to get a suitable hover cursor</p>
@@ -452,7 +455,7 @@
             <a href="#" class="button button-small no">No</a>
 
             <h3>Buttons with internal loading indicators (currently only <code>button</code> supported)</h3>
-            <p class="help-block help-warning">Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
+            <p class="help-block help-warning">{% icon name='warning' %}Note that in some browsers, clicking these buttons minutely affects the appearance of Dropdown buttons, below. This is yet to be resolved.</p>
             <button class="button button-longrunning">{% icon name="spinner" %}Click me</button>
 
             <h4>Secondary</h4>
@@ -585,7 +588,7 @@
                     Inline dropdown components, primarily used in the listing.
                 </p>
 
-                <div class="c-dropdown u-para t-default" data-dropdown="">
+                <div class="c-dropdown t-default" data-dropdown="">
                     <a class="c-dropdown__button  u-btn-current">
                         More
                         <div data-dropdown-toggle="" class="o-icon  c-dropdown__toggle c-dropdown__togle--icon  [ icon icon-arrow-down ]">
@@ -614,33 +617,6 @@
                                 <li class="c-dropdown__item ">
                                     <a href="/admin/pages/2/unpublish/" class="u-link is-live ">
                                         Unpublish
-                                    </a>
-                                </li>
-                                <li>
-                                    <hr class="c-dropdown__divider">
-                                </li>
-                                <li class="c-dropdown__item">
-                                    <a href="#" class="u-link is-live">
-                                        <span title="Live" class="c-indicator c-dropdown__indicator"></span>
-                                        Live
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item">
-                                    <a href="#" class="u-link is-draft">
-                                        <span title="Draft" class="c-indicator c-dropdown__indicator"></span>
-                                        Draft
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item">
-                                    <a href="#" class="u-link is-live+draft">
-                                        <span title="Live + Draft" class="c-indicator c-dropdown__indicator"></span>
-                                        Live + Draft
-                                    </a>
-                                </li>
-                                <li class="c-dropdown__item">
-                                    <a href="#" class="u-link is-absent">
-                                        <span title="Absent" class="c-indicator c-dropdown__indicator"></span>
-                                        Absent
                                     </a>
                                 </li>
                             </ul>
@@ -709,26 +685,21 @@
         <section id="tabs">
             <h2>Tabs</h2>
 
-            <ul class="tab-nav" data-tab-nav>
-                <li class="active"><a href="#tab1">Tab 1</a></li>
-                <li><a href="#tab2">Tab 2</a></li>
-            </ul>
-
-            <p>Tabs are currently only used following headers, where they often appear merged with the bottom of the header:</p>
-
-            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged" data-tab-nav>
-                <li class="active"><a href="#">Tab1</a></li>
-                <li><a href="#">Tab2</a></li>
-            </ul>
+            <div class="w-tabs" data-tabs data-tabs-animate>
+                <div role="tablist" class="w-tabs__list">
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-1' title='Tab 1' %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-2' title='Tab 2' %}
+                </div>
+            </div>
 
             <p>Tabs can also indicate errors:</p>
 
-            {% include "wagtailadmin/shared/header.html" with title=title_trans merged=1 %}
-            <ul class="tab-nav merged" data-tab-nav>
-                <li class="active"><a href="#" class="errors" data-count="123">Tab1</a></li>
-                <li><a href="#" class="errors" data-count="1">Tab2</a></li>
-            </ul>
+            <div class="w-tabs" data-tabs data-tabs-animate>
+                <div role="tablist" class="w-tabs__list">
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-1' title='Tab 1' errors_count='5' %}
+                    {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='tab-errors-2' title='Tab 2' errors_count='55' %}
+                </div>
+            </div>
         </section>
 
         <section id="breadcrumbs">
@@ -736,10 +707,10 @@
 
             <ul class="breadcrumb">
                 {% trans 'Home' as home %}
-                <li class="home"><a href="{% url 'wagtailadmin_home' %}">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
-                <li><a href="#"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item home"><a href="{% url 'wagtailadmin_home' %}" class="breadcrumb-link">{% icon name="home" class_name="home_icon" title=home %}{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Various</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">Subpages</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
+                <li class="breadcrumb-item "><a href="#" class="breadcrumb-link"><span class="title">There is a max length of this many</span>{% icon name="arrow-right" class_name="arrow_right_icon" %}</a></li>
             </ul>
 
         </section>
@@ -753,7 +724,7 @@
 
             <p>&nbsp;</p>
 
-             <div id="progress-example2" class="progress active">
+            <div id="progress-example2" class="progress active">
                 <div class="bar" style="width: 50%;">50%</div>
             </div>
         </section>
@@ -786,21 +757,21 @@
         <section id="icons" class="icons">
             <h2>SVG Icons</h2>
 
-          <style>
-            .spinning {
-              animation-name: spin-wag;
-              animation-duration: 500ms;
-              animation-iteration-count: infinite;
-              animation-timing-function: linear;
-            }
-            @keyframes spin-wag {
-                from {
-                    transform: translateY(0.6em) rotate(0deg);
-                } to {
-                    transform: translateY(0.6em) rotate(360deg);
+            <style>
+                .spinning {
+                    animation-name: spin-wag;
+                    animation-duration: 500ms;
+                    animation-iteration-count: infinite;
+                    animation-timing-function: linear;
                 }
-            }
-          </style>
+                @keyframes spin-wag {
+                    from {
+                        transform: translateY(0.6em) rotate(0deg);
+                    } to {
+                        transform: translateY(0.6em) rotate(360deg);
+                    }
+                }
+            </style>
 
             <ul class="unlist">
                 <li>{% icon 'wagtail-icon' %} wagtail</li>

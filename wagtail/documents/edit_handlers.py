@@ -1,10 +1,14 @@
-from wagtail.admin.edit_handlers import BaseChooserPanel
+from warnings import warn
 
-from .widgets import AdminDocumentChooser
+from wagtail.admin.panels import FieldPanel
+from wagtail.utils.deprecation import RemovedInWagtail50Warning
 
 
-class DocumentChooserPanel(BaseChooserPanel):
-    object_type_name = "document"
-
-    def widget_overrides(self):
-        return {self.field_name: AdminDocumentChooser}
+class DocumentChooserPanel(FieldPanel):
+    def __init__(self, *args, **kwargs):
+        warn(
+            "wagtail.documents.edit_handlers.DocumentChooserPanel is obsolete and should be replaced by wagtail.admin.panels.FieldPanel",
+            category=RemovedInWagtail50Warning,
+            stacklevel=2,
+        )
+        super().__init__(*args, **kwargs)

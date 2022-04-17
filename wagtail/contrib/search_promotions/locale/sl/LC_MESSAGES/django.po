@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wagtail\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
-"PO-Revision-Date: 2020-07-24 16:51+0000\n"
-"Last-Translator: Matt Westcott <matthew@torchbox.com>\n"
+"POT-Creation-Date: 2022-01-21 14:10+0000\n"
+"PO-Revision-Date: 2015-08-26 14:04+0000\n"
+"Last-Translator: Mitja Pagon <mitja.pagon@inueni.com>, 2016\n"
 "Language-Team: Slovenian (http://www.transifex.com/torchbox/wagtail/language/"
 "sl/)\n"
 "MIME-Version: 1.0\n"
@@ -148,6 +148,7 @@ msgstr ""
 msgid "Search promoted results"
 msgstr "Iskanje po promoviranih rezultatih"
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' created."
 msgstr "Promoviran rezultat za '{0}' ustvarjen."
 
@@ -157,6 +158,7 @@ msgstr "Uredi"
 msgid "Recommendations have not been created due to errors"
 msgstr "Promoviranega rezultata, zaradi napak, ni bilo možno ustvariti."
 
+#, python-brace-format
 msgid "Editor's picks for '{0}' updated."
 msgstr "Promoviran rezultat za '{0}' posodobljen."
 

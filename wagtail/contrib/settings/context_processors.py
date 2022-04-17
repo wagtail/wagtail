@@ -1,6 +1,6 @@
 from django.utils.functional import SimpleLazyObject
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from .registry import registry
 
@@ -31,12 +31,12 @@ class SettingModuleProxy(dict):
         self.request_or_site = request_or_site
 
     def __getitem__(self, model_name):
-        """ Get a setting instance for a model """
+        """Get a setting instance for a model"""
         # Model names are treated as case-insensitive
         return super().__getitem__(model_name.lower())
 
     def __missing__(self, model_name):
-        """ Get and cache settings that have not been looked up yet """
+        """Get and cache settings that have not been looked up yet"""
         self[model_name] = value = self.get_setting(model_name)
         return value
 
@@ -54,7 +54,7 @@ class SettingModuleProxy(dict):
         return Model.for_request(self.request_or_site)
 
     def __str__(self):
-        return 'SettingsModuleProxy({0})'.format(self.app_label)
+        return "SettingsModuleProxy({0})".format(self.app_label)
 
 
 def settings(request):
@@ -69,4 +69,4 @@ def settings(request):
         else:
             return SettingsProxy(request)
 
-    return {'settings': SimpleLazyObject(lambda: _inner(request))}
+    return {"settings": SimpleLazyObject(lambda: _inner(request))}

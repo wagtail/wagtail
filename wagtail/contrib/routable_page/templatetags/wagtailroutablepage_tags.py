@@ -1,7 +1,6 @@
 from django import template
 
-from wagtail.core.models import Site
-
+from wagtail.models import Site
 
 register = template.Library()
 
@@ -20,10 +19,10 @@ def routablepageurl(context, page, url_name, *args, **kwargs):
     Positional arguments and keyword arguments should be passed as normal
     positional arguments and keyword arguments.
     """
-    request = context['request']
+    request = context["request"]
     site = Site.find_for_request(request)
     base_url = page.relative_url(site, request)
     routed_url = page.reverse_subpage(url_name, args=args, kwargs=kwargs)
-    if not base_url.endswith('/'):
-        base_url += '/'
+    if not base_url.endswith("/"):
+        base_url += "/"
     return base_url + routed_url

@@ -1,55 +1,59 @@
+.u-hidden {
+  // stylelint-disable-next-line declaration-no-important
+  display: none !important;
+}
+
 .clearfix {
-    @include clearfix();
+  @include clearfix();
 }
 
 .nice-padding {
-    padding-left: $mobile-nice-padding;
-    padding-right: $mobile-nice-padding;
+  padding-inline-start: $mobile-nice-padding;
+  padding-inline-end: $mobile-nice-padding;
 
-    @include media-breakpoint-up(sm) {
-        padding-left: $desktop-nice-padding;
-        padding-right: $desktop-nice-padding;
-    }
+  @include media-breakpoint-up(sm) {
+    padding-inline-start: $desktop-nice-padding;
+    padding-inline-end: $desktop-nice-padding;
+  }
 }
 
 @include media-breakpoint-up(sm) {
-    .divider-before {
-        border-left: 1px solid $color-grey-4;
-    }
+  .divider-before {
+    border-inline-start: 1px solid $color-grey-4;
+  }
 
-    .divider-after {
-        border-right: 1px solid $color-grey-4;
-    }
-
+  .divider-after {
+    border-inline-end: 1px solid $color-grey-4;
+  }
 }
 
 body.reordering {
-    overflow: visible;
+  overflow: visible;
 }
 
 // Show a transparency grid in background
 .show-transparency {
-    background: url('#{$images-root}transparency.svg');
+  background: url('#{$images-root}transparency.svg');
 }
 
 // make a block-level element inline
 .inline {
-    display: inline;
+  display: inline;
 }
 
 .inline-block {
-    display: inline-block;
+  display: inline-block;
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 .unlist {
-    @include unlist();
+  @include unlist();
 }
 
 // utility class to allow things to be scrollable if their contents can't wrap more nicely
 .overflow {
-    overflow: auto;
+  overflow: auto;
 }

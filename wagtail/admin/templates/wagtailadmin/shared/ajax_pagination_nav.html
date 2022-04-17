@@ -1,8 +1,9 @@
+{# DEPRECATED. Use pagination_nav.html with meaningful URLs instead #}
 {% load i18n %}
 {% load wagtailadmin_tags %}
 
 <nav class="pagination" aria-label="{% trans 'Pagination' %}">
-    <p>{% blocktrans with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
+    <p>{% blocktrans trimmed with page_num=items.number total_pages=items.paginator.num_pages %}Page {{ page_num }} of {{ total_pages }}.{% endblocktrans %}</p>
     <ul>
         <li class="prev">
             {% if items.has_previous %}

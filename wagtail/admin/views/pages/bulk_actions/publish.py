@@ -16,39 +16,57 @@ class PublishBulkAction(PageBulkAction):
 
     def object_context(self, obj):
         context = super().object_context(obj)
-        context['draft_descendant_count'] = context['item'].get_descendants().not_live().count()
+        context["draft_descendant_count"] = (
+            context["item"].get_descendants().not_live().count()
+        )
         return context
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['has_draft_descendants'] = any(map(lambda x: x['draft_descendant_count'], context['items']))
+        context["has_draft_descendants"] = any(
+            map(lambda x: x["draft_descendant_count"], context["items"])
+        )
         return context
 
     def get_execution_context(self):
         return {
             **super().get_execution_context(),
-            'include_descendants': self.cleaned_form.cleaned_data['include_descendants'],
+            "include_descendants": self.cleaned_form.cleaned_data[
+                "include_descendants"
+            ],
         }
 
     @classmethod
     def execute_action(cls, objects, include_descendants=False, user=None, **kwargs):
         num_parent_objects, num_child_objects = 0, 0
         for page in objects:
-            page = page.specific
-            revision = page.save_revision(user=user)
+            revision = page.get_latest_revision() or page.specific.save_revision(
+                user=user
+            )
             revision.publish(user=user)
             num_parent_objects += 1
 
             if include_descendants:
-                for draft_descendant_page in page.get_descendants().not_live().defer_streamfields().specific():
-                    if user is None or draft_descendant_page.permissions_for_user(user).can_publish():
-                        revision = draft_descendant_page.save_revision(user=user)
-                        revision.publish(user=user)
+                for draft_descendant_page in (
+                    page.get_descendants().not_live().defer_streamfields().specific()
+                ):
+                    if (
+                        user is None
+                        or draft_descendant_page.permissions_for_user(
+                            user
+                        ).can_publish()
+                    ):
+                        draft_descendant_revision = (
+                            draft_descendant_page.get_latest_revision()
+                            or draft_descendant_page.save_revision(user=user)
+                        )
+                        draft_descendant_revision.publish(user=user)
                         num_child_objects += 1
+
         return num_parent_objects, num_child_objects
 
     def get_success_message(self, num_parent_objects, num_child_objects):
-        include_descendants = self.cleaned_form.cleaned_data['include_descendants']
+        include_descendants = self.cleaned_form.cleaned_data["include_descendants"]
         if num_parent_objects == 1:
             if include_descendants:
                 if num_child_objects == 0:
@@ -57,25 +75,27 @@ class PublishBulkAction(PageBulkAction):
                     success_message = ngettext(
                         "1 page and %(num_child_objects)d child page have been published",
                         "1 page and %(num_child_objects)d child pages have been published",
-                        num_child_objects
-                    ) % {
-                        'num_child_objects': num_child_objects
-                    }
+                        num_child_objects,
+                    ) % {"num_child_objects": num_child_objects}
             else:
                 success_message = _("1 page has been published")
         else:
             if include_descendants:
                 if num_child_objects == 0:
-                    success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': num_parent_objects}
+                    success_message = _(
+                        "%(num_parent_objects)d pages have been published"
+                    ) % {"num_parent_objects": num_parent_objects}
                 else:
                     success_message = ngettext(
                         "%(num_parent_objects)d pages and %(num_child_objects)d child page have been published",
                         "%(num_parent_objects)d pages and %(num_child_objects)d child pages have been published",
-                        num_child_objects
+                        num_child_objects,
                     ) % {
-                        'num_child_objects': num_child_objects,
-                        'num_parent_objects': num_parent_objects
+                        "num_child_objects": num_child_objects,
+                        "num_parent_objects": num_parent_objects,
                     }
             else:
-                success_message = _("%(num_parent_objects)d pages have been published") % {'num_parent_objects': num_parent_objects}
+                success_message = _(
+                    "%(num_parent_objects)d pages have been published"
+                ) % {"num_parent_objects": num_parent_objects}
         return success_message

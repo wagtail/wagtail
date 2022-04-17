@@ -1,7 +1,4 @@
-import {
-  EditorState,
-  convertFromRaw,
-} from 'draft-js';
+import { EditorState, convertFromRaw } from 'draft-js';
 
 import { getSelectionText } from './DraftUtils';
 
@@ -69,7 +66,7 @@ describe('DraftUtils', () => {
           {
             key: 'b',
             text: 'multiblock',
-          }
+          },
         ],
       });
       let editorState = EditorState.createWithContent(content);
@@ -99,7 +96,7 @@ describe('DraftUtils', () => {
           {
             key: 'b',
             text: 'multiblock',
-          }
+          },
         ],
       });
       let editorState = EditorState.createWithContent(content);

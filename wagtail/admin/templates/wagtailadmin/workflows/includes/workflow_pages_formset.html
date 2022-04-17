@@ -40,11 +40,11 @@
 </table>
 
 <script type="text/django-form-template" id="id_{{ formset.prefix }}-EMPTY_FORM_TEMPLATE">
-{% escapescript %}
-    <tr id="inline_child_{{ formset.empty_form.prefix }}">
+    {% escapescript %}
+        <tr id="inline_child_{{ formset.empty_form.prefix }}">
         {% include "wagtailadmin/workflows/includes/workflow_pages_form.html" with form=formset.empty_form only %}
-    </tr>
-{% endescapescript %}
+        </tr>
+    {% endescapescript %}
 </script>
 
 <p class="add">

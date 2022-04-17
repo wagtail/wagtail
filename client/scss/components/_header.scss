@@ -1,212 +1,229 @@
+@use 'sass:math';
+@use 'sass:color';
+
 header {
-    padding-top: 1em;
-    padding-bottom: 1em;
-    background-color: $color-header-bg;
-    margin-bottom: 2em;
-    color: $color-white;
+  @apply w-bg-grey-50 w-text-primary w-border-b w-border-grey-100 w-py-4 w-mb-8;
+
+  a {
+    @apply w-text-primary w-underline;
+  }
+
+  h1,
+  h2 {
+    @apply w-text-primary;
+    margin: 0;
+  }
+
+  h1 {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &.icon:before {
+      width: 1em;
+      display: none;
+      margin-inline-end: 0.4em;
+      font-size: 1.5em;
+    }
+
+    span {
+      margin-inline-start: 0.3125rem;
+    }
+  }
+
+  .col {
+    float: left;
+    margin-inline-end: 2em;
+  }
+
+  .left {
+    float: left;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .hasform &:first-child {
+      padding-bottom: 0.5em;
+      float: none;
+    }
+  }
+
+  .right {
+    text-align: end;
+    float: right;
+  }
+
+  .search-form .icon {
+    @include svg-icon(1.3rem);
+    color: color.adjust($color-white, $lightness: -20%);
+    position: absolute;
+    top: 0.3em;
+    // Remove once we drop support for Safari 13.
+    // stylelint-disable-next-line property-disallowed-list
+    left: 0.5em;
+    inset-inline-start: 0.5em;
+  }
+
+  // For case where content below header should merge with it
+  &.merged {
+    margin-bottom: 0;
+  }
+
+  &.header-with-breadcrumb {
+    padding-top: 0;
+
+    .breadcrumb {
+      margin-bottom: 1rem;
+      padding-inline-start: math.div(
+        $desktop-nice-padding,
+        2
+      ); // rather than padding-inline-start: revert;
+    }
+  }
+
+  &.no-border {
+    border: 0;
+
+    @include media-breakpoint-down(xs) {
+      // To all hamburger menu to be visible
+      padding-inline-start: 1.6em;
+      padding-inline-end: 1.6em;
+      padding-top: 11px;
+
+      .nice-padding {
+        margin-inline-start: -$desktop-nice-padding;
+      }
+    }
+  }
+
+  &.merged.no-border {
+    padding-bottom: 0;
+  }
+
+  &.no-v-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .button {
+    background-color: $color-teal-darker;
+
+    &:hover {
+      background-color: $color-teal-dark;
+    }
+  }
+
+  label {
+    @include visuallyhidden();
+  }
+
+  input[type='text'],
+  select {
+    border-width: 0;
+
+    &:focus {
+      background-color: $color-white;
+    }
+  }
+
+  .error-message {
+    color: inherit;
+  }
+
+  .fields {
+    margin-top: -0.5em;
+
+    li {
+      padding-bottom: 0;
+    }
+
+    .field {
+      padding: 0;
+    }
+  }
+
+  .field-content {
+    width: auto;
+    padding: 0;
+  }
+
+  .last-updated {
+    ul {
+      padding: 0;
+    }
+
+    li {
+      display: inline;
+      margin-inline-end: 2em;
+    }
+
+    .avatar.small {
+      margin-inline-start: 0;
+    }
 
     a {
-        color: $color-white;
+      font-weight: bold;
     }
-
-    h1,
-    h2 {
-        margin: 0;
-        color: $color-white;
-    }
-
-    h1 {
-        padding: 0.2em 0;
-
-        &.icon:before {
-            width: 1em;
-            display: none;
-            margin-right: 0.4em;
-            font-size: 1.5em;
-        }
-    }
-
-    .col {
-        float: left;
-        margin-right: 2em;
-    }
-
-    .left {
-        float: left;
-
-        .hasform &:first-child {
-            padding-bottom: 0.5em;
-            float: none;
-        }
-    }
-
-    .right {
-        text-align: right;
-        float: right;
-    }
-
-    // For case where content below header should merge with it
-    &.merged {
-        margin-bottom: 0;
-    }
-
-    &.tab-merged {
-        padding-left: $desktop-nice-padding;
-        padding-right: $desktop-nice-padding;
-
-        .right:last-child {
-            padding-right: 0;
-        }
-    }
-
-    &.tab-merged,
-    &.no-border {
-        border: 0;
-
-        @include media-breakpoint-down(xs) {
-            // To all hamburger menu to be visible
-            padding-left: 1.6em;
-            padding-right: 1.6em;
-            padding-top: 11px;
-
-            .nice-padding {
-                margin-left: -$desktop-nice-padding;
-            }
-        }
-
-    }
-
-    &.merged.no-border {
-        padding-bottom: 0;
-    }
-
-    &.no-v-padding {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .button {
-        background-color: $color-teal-darker;
-
-        &:hover {
-            background-color: $color-teal-dark;
-        }
-    }
-
-    label {
-        @include visuallyhidden();
-    }
-
-    input[type=text],
-    select {
-        border-width: 0;
-
-        &:focus {
-            background-color: $color-white;
-        }
-    }
-
-    .error-message {
-        color: inherit;
-    }
-
-    .fields {
-        margin-top: -0.5em;
-
-        li {
-            padding-bottom: 0;
-        }
-
-        .field {
-            padding: 0;
-        }
-    }
-
-    .field-content {
-        width: auto;
-        padding: 0;
-    }
-
-    .last-updated {
-        ul {
-            padding: 0;
-        }
-
-        li {
-            display: inline;
-            margin-right: 2em;
-        }
-
-        .avatar.small {
-            margin-left: 0;
-        }
-
-        a {
-            font-weight: bold;
-        }
-    }
+  }
 }
 
 // Media for Windows High Contrast
 @media (forced-colors: $media-forced-colours) {
-    header .field-content {
-        border: 0.1em solid $system-color-link-text;
-    }
+  header .field-content {
+    border: 0.1em solid $system-color-link-text;
+  }
 }
 
 @include media-breakpoint-up(sm) {
-    header {
-        padding-top: 1.5em;
-        padding-bottom: 1.5em;
+  header {
+    .left {
+      float: left;
+      margin-inline-end: 0;
 
-        .left {
-            float: left;
-            margin-right: 0;
-
-            &:first-child {
-                padding-bottom: 0;
-                float: left;
-            }
-        }
-
-        .second {
-            clear: none;
-
-            .right,
-            .left {
-                float: right;
-            }
-        }
-
-        h1.icon:before {
-            display: inline-block;
-        }
-
-        .col3 {
-            @include column(3);
-        }
-
-        .col3.actionbutton {
-            width: auto;
-        }
-
-        .col6 {
-            @include column(6);
-        }
-
-        .col9 {
-            @include column(9);
-        }
+      &:first-child {
+        padding-bottom: 0;
+        float: left;
+      }
     }
+
+    .second {
+      clear: none;
+
+      .right,
+      .left {
+        float: right;
+      }
+    }
+
+    h1.icon:before {
+      display: inline-block;
+    }
+
+    .col3 {
+      @include column(3);
+    }
+
+    .col3.actionbutton {
+      width: auto;
+    }
+
+    .col6 {
+      @include column(6);
+    }
+
+    .col9 {
+      @include column(9);
+    }
+  }
 }
 
 .header-title {
-    @include media-breakpoint-down(xs) {
-        padding-left: $mobile-nav-indent;
-    }
+  @include media-breakpoint-down(xs) {
+    padding-inline-start: $mobile-nav-indent;
+  }
 
-    &-icon {
-        @include svg-icon();
-        margin-right: 0.5em;
-    }
+  &-icon {
+    @include svg-icon();
+    margin-inline-end: 0.5em;
+  }
 }

@@ -1,24 +1,20 @@
 from django.test import TestCase, override_settings
 
-from wagtail.core.models import Site
-from wagtail.tests.testapp.models import ImportantPages, TestSetting
+from wagtail.models import Site
+from wagtail.test.testapp.models import ImportantPages, TestSetting
 
 from .base import SettingsTestMixin
 
 
-@override_settings(ALLOWED_HOSTS=['localhost', 'other'])
+@override_settings(ALLOWED_HOSTS=["localhost", "other"])
 class SettingModelTestCase(SettingsTestMixin, TestCase):
-
     def test_for_site_returns_expected_settings(self):
         for site, expected_site_settings in (
             (self.default_site, self.default_site_settings),
             (self.other_site, self.other_site_settings),
         ):
             with self.subTest(site=site):
-                self.assertEqual(
-                    TestSetting.for_site(site),
-                    expected_site_settings
-                )
+                self.assertEqual(TestSetting.for_site(site), expected_site_settings)
 
     def test_for_request_returns_expected_settings(self):
         default_site_request = self.get_request()
@@ -29,16 +25,13 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         ):
             with self.subTest(request=request):
                 self.assertEqual(
-                    TestSetting.for_request(request),
-                    expected_site_settings
+                    TestSetting.for_request(request), expected_site_settings
                 )
 
     def test_for_request_result_caching(self):
         # repeat test to show caching is unique per request instance,
         # even when the requests are for the same site
-        for i, request in enumerate(
-            [self.get_request(), self.get_request()], 1
-        ):
+        for i, request in enumerate([self.get_request(), self.get_request()], 1):
             with self.subTest(attempt=i):
 
                 # force site query beforehand
@@ -59,7 +52,7 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         )
 
     def test_select_related(self, expected_queries=4):
-        """ The `select_related` attribute on setting models is `None` by default, so fetching foreign keys values requires additional queries """
+        """The `select_related` attribute on setting models is `None` by default, so fetching foreign keys values requires additional queries"""
         request = self.get_request()
 
         self._create_importantpages_object()
@@ -75,19 +68,23 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
             settings.privacy_policy_page
 
     def test_select_related_use_reduces_total_queries(self):
-        """ But, `select_related` can be used to reduce the number of queries needed to fetch foreign keys """
+        """But, `select_related` can be used to reduce the number of queries needed to fetch foreign keys"""
         try:
             # set class attribute temporarily
-            ImportantPages.select_related = ['sign_up_page', 'general_terms_page', 'privacy_policy_page']
+            ImportantPages.select_related = [
+                "sign_up_page",
+                "general_terms_page",
+                "privacy_policy_page",
+            ]
             self.test_select_related(expected_queries=1)
         finally:
             # undo temporary change
             ImportantPages.select_related = None
 
     def test_get_page_url_when_settings_fetched_via_for_request(self):
-        """ Using ImportantPages.for_request() makes the setting
+        """Using ImportantPages.for_request() makes the setting
         object request-aware, improving efficiency and allowing
-        site-relative URLs to be returned """
+        site-relative URLs to be returned"""
 
         self._create_importantpages_object()
 
@@ -98,9 +95,9 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         self.default_site.root_page._get_site_root_paths(request)
 
         for page_fk_field, expected_result in (
-            ('sign_up_page', '/'),
-            ('general_terms_page', '/'),
-            ('privacy_policy_page', 'http://other/'),
+            ("sign_up_page", "/"),
+            ("general_terms_page", "/"),
+            ("privacy_policy_page", "http://other/"),
         ):
             with self.subTest(page_fk_field=page_fk_field):
 
@@ -109,25 +106,23 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
                     # request for a URL will trigger a query to
                     # fetch the page
                     self.assertEqual(
-                        settings.get_page_url(page_fk_field),
-                        expected_result)
+                        settings.get_page_url(page_fk_field), expected_result
+                    )
 
                     # when called directly
                     self.assertEqual(
-                        settings.get_page_url(page_fk_field),
-                        expected_result
+                        settings.get_page_url(page_fk_field), expected_result
                     )
 
                     # when called indirectly via shortcut
                     self.assertEqual(
-                        getattr(settings.page_url, page_fk_field),
-                        expected_result
+                        getattr(settings.page_url, page_fk_field), expected_result
                     )
 
     def test_get_page_url_when_for_settings_fetched_via_for_site(self):
-        """ ImportantPages.for_site() cannot make the settings object
+        """ImportantPages.for_site() cannot make the settings object
         request-aware, so things are a little less efficient, and the
-        URLs returned will not be site-relative """
+        URLs returned will not be site-relative"""
         self._create_importantpages_object()
 
         settings = ImportantPages.for_site(self.default_site)
@@ -136,9 +131,9 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
         self.default_site.root_page._get_site_root_paths()
 
         for page_fk_field, expected_result in (
-            ('sign_up_page', 'http://localhost/'),
-            ('general_terms_page', 'http://localhost/'),
-            ('privacy_policy_page', 'http://other/'),
+            ("sign_up_page", "http://localhost/"),
+            ("general_terms_page", "http://localhost/"),
+            ("privacy_policy_page", "http://other/"),
         ):
             with self.subTest(page_fk_field=page_fk_field):
 
@@ -151,27 +146,24 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
                 with self.assertNumQueries(2):
 
                     self.assertEqual(
-                        settings.get_page_url(page_fk_field),
-                        expected_result
+                        settings.get_page_url(page_fk_field), expected_result
                     )
 
                     # when called directly
                     self.assertEqual(
-                        settings.get_page_url(page_fk_field),
-                        expected_result
+                        settings.get_page_url(page_fk_field), expected_result
                     )
 
                     # when called indirectly via shortcut
                     self.assertEqual(
-                        getattr(settings.page_url, page_fk_field),
-                        expected_result
+                        getattr(settings.page_url, page_fk_field), expected_result
                     )
 
     def test_get_page_url_raises_attributeerror_if_attribute_name_invalid(self):
         settings = self._create_importantpages_object()
         # when called directly
         with self.assertRaises(AttributeError):
-            settings.get_page_url('not_an_attribute')
+            settings.get_page_url("not_an_attribute")
         # when called indirectly via shortcut
         with self.assertRaises(AttributeError):
             settings.page_url.not_an_attribute
@@ -182,6 +174,6 @@ class SettingModelTestCase(SettingsTestMixin, TestCase):
             with self.subTest(attribute_value=value):
                 settings.test_attribute = value
                 # when called directly
-                self.assertEqual(settings.get_page_url('test_attribute'), '')
+                self.assertEqual(settings.get_page_url("test_attribute"), "")
                 # when called indirectly via shortcut
-                self.assertEqual(settings.page_url.test_attribute, '')
+                self.assertEqual(settings.page_url.test_attribute, "")

@@ -46,7 +46,7 @@ $(() => {
       optionData.push({
         value: this.value,
         label: this.label,
-        filterValue: filterValue
+        filterValue: filterValue,
       });
     });
 
@@ -62,7 +62,10 @@ $(() => {
       } else {
         filteredValues = [];
         for (let i = 0; i < optionData.length; i++) {
-          if (optionData[i].value === '' || optionData[i].filterValue.indexOf(chosenFilter) !== -1) {
+          if (
+            optionData[i].value === '' ||
+            optionData[i].filterValue.indexOf(chosenFilter) !== -1
+          ) {
             filteredValues.push(optionData[i]);
           }
         }

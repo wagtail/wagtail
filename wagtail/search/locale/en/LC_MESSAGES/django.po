@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-15 17:42+0100\n"
+"POT-Creation-Date: 2022-04-13 19:17+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,30 +16,31 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: apps.py:12
+#: apps.py:14
 msgid "Wagtail search"
 msgstr ""
 
-#: forms.py:6
+#: forms.py:7
 msgid "Search term(s)/phrase"
 msgstr ""
 
-#: forms.py:7
+#: forms.py:9
 msgid ""
 "Enter the full search string to match. An exact match is required for your "
 "Promoted Results to be displayed, wildcards are NOT allowed."
 msgstr ""
 
-#: models.py:98 models.py:99
+#: models.py:100 models.py:101
 msgid "Query Daily Hits"
 msgstr ""
 
-#: models.py:150
+#: models.py:162
 msgid "index entry"
 msgstr ""
 
-#: models.py:151
+#: models.py:163
 msgid "index entries"
 msgstr ""
 

@@ -1,19 +1,204 @@
 Changelog
 =========
 
-2.16 (xx.xx.xxxx) - IN DEVELOPMENT
+3.0 (xx.xx.xxxx) - IN DEVELOPMENT
+~~~~~~~~~~~~~~~~
+
+ * Phase out special-purpose panel types (`StreamFieldPanel`, `RichTextFieldPanel`, `ImageChooserPanel`, `DocumentChooserPanel`, `PageChooserPanel`, `SnippetChooserPanel`) in favour of `FieldPanel` (Matt Westcott)
+ * Implement splitting of rich text blocks within StreamField (Jacob Topp-Mugglestone)
+ * Add support for image rendition prefetching (Andy Babic)
+ * Upgrade ESLint and Stylelint configurations to latest shared Wagtail configs (Thibaud Colas, Paarth Agarwal)
+ * Major updates to frontend tooling; move Node tooling from Gulp to Webpack, upgrade to Node v16 and npm v8, eslint v8, stylelint v14 and others (Thibaud Colas)
+ * Change comment headers’ date formatting to use browser APIs instead of requiring a library (LB (Ben Johnston))
+ * Lint with flake8-comprehensions and flake8-assertive, including adding a pre-commit hook for these (Mads Jensen, Dan Braghis)
+ * Switch the Wagtail branding font to a system font stack (Steven Steinwand, Paarth Agarwal)
+ * Add black configuration and reformat code using it (Dan Braghis)
+ * Remove UI code for legacy browser support: polyfills, IE11 workarounds, Modernizr (Thibaud Colas)
+ * Remove redirect auto-creation recipe from documentation as this feature is now supported in Wagtail core (Andy Babic)
+ * Remove IE11 warnings (Gianluca De Cola)
+ * Remove the legacy Hallo rich text editor as it has moved to an external package (LB (Ben Johnston))
+ * Increase the size of checkboxes throughout the UI, and simplify their alignment (Steven Steinwand)
+ * Adopt [MyST](https://myst-parser.readthedocs.io/en/latest/) for parsing documentation written in Markdown, replaces recommonmark (LB (Ben Johnston), Thibaud Colas)
+ * Installing docs extras requirements in CircleCI so issues with the docs requirements are picked up earlier (Thibaud Colas)
+ * Remove core usage of jinjalint and migrate to curlylint to resolve dependency incompatibility issues (Thibaud Colas)
+ * Switch focus outlines implementation to `:focus-visible` for cross-browser consistency (Paarth Agarwal)
+ * Remove most uppercased text styles from admin UI (Paarth Agarwal)
+ * Convert all UI code to CSS logical properties for Right-to-Left (RTL) language support (Thibaud Colas)
+ * Migrate multiple documentation pages from RST to MD - including the editor's guide (Vibhakar Solanki, LB (Ben Johnston), Shwet Khatri)
+ * Add documentation for defining custom form validation on models used in Wagtail's `modelAdmin` (Serafeim Papastefanos)
+ * Update `README.md` logo to work for GitHub dark mode (Paarth Agarwal)
+ * Avoid an unnecessary page reload when pressing enter within the header search bar (Images, Pages, Documents) (Riley de Mestre)
+ * Removed unofficial length parameter on `If-Modified-Since` header in `sendfile_streaming_backend` which was only used by IE (Mariusz Felisiak)
+ * Add Pinterest support to the list of default oEmbed providers (Dharmik Gangani)
+ * Update Jinja2 template support for Jinja2 3.x (Seb Brown)
+ * Add ability for `StreamField` to use `JSONField` to store data, rather than `TextField` (Sage Abdullah)
+ * Replace `content_json` `TextField` with `content` `JSONField` in `PageRevision` (Sage Abdullah)
+ * Remove `replace_text` management command (Sage Abdullah)
+ * Replace `data_json` `TextField` with `data` `JSONField` in `BaseLogEntry` (Sage Abdullah)
+ * Split up linting / formatting tasks in Makefile into client and server components (Hitansh Shah)
+ * Add support for embedding Instagram reels (Luis Nell)
+ * Use Django’s JavaScript catalog feature to manage translatable strings in JavaScript (Karl Hobley)
+ * Add a `page_description` to the Page model, to provide help text for a given page type (Kalob Taulien, Thibaud Colas, Matt Westcott)
+ * Add `trimmed` attribute to all blocktrans tags, so spacing is more reliable in translated strings (Harris Lapiroff)
+ * Add documentation that describes how to use `ModelAdmin` to manage `Tag`s (Abdulmajeed Isa)
+ * Rename the setting `BASE_URL` (undocumented) to `WAGTAILADMIN_BASE_URL` and add to documentation, `BASE_URL` will be removed in a future release (Sandil Ranasinghe)
+ * Validate to and from email addresses within form builder pages when using `AbstractEmailForm` (Jake Howard)
+ * Add `WAGTAILIMAGES_RENDITION_STORAGE` setting to allow an alternative image rendition storage (Heather White)
+ * Add `wagtail_update_image_renditions` management command to regenerate image renditions or purge all existing renditions (Hitansh Shah, Onno Timmerman, Damian Moore)
+ * Fully remove the legacy sidebar, with slim sidebar replacing it for all users (Thibaud Colas)
+ * Add support for adding custom attributes for link menu items in the slim sidebar (Thibaud Colas)
+ * Implement new slim page editor header with breadcrumb (Steven Steinwand, Karl Hobley)
+ * Add the ability for choices to be separated by new lines instead of just commas within the form builder, commas will still be supported if used (Abdulmajeed Isa)
+ * Add internationalisation UI to modeladmin (Andrés Martano)
+ * Support chunking in `PageQuerySet.specific()` to reduce memory consumption (Andy Babic)
+ * Implement new tabs design across the admin interface (Steven Steinwand)
+ * Move page meta information from the header to a new status side panel component inside of the page editing UI (Steven Steinwand, Karl Hobley)
+ * Add useful help text to Tag fields to advise what content is allowed inside tags, including when `TAG_SPACES_ALLOWED` is `True` or `False` (Abdulmajeed Isa)
+ * Change `AbstractFormSubmission`'s `form_data` to use JSONField to store form submissions (Jake Howard)
+ * Add image duplicate detection on upload (Tidiane Dia, with sponsorship from The Motley Fool)
+ * Add a system font stack for monospace fonts (Rishank Kanaparti)
+ * Fix: When using `simple_translations` ensure that the user is redirected to the page edit view when submitting for a single locale (Mitchel Cabuloy)
+ * Fix: When previewing unsaved changes to `Form` pages, ensure that all added fields are correctly shown in the preview (Joshua Munn)
+ * Fix: When Documents (e.g. PDFs) have been configured to be served inline via `WAGTAILDOCS_CONTENT_TYPES` & `WAGTAILDOCS_INLINE_CONTENT_TYPES` ensure that the filename is correctly set in the `Content-Disposition` header so that saving the files will use the correct filename (John-Scott Atlakson)
+ * Fix: Improve the contrast of the “Remember me” checkbox against the login page’s background (Steven Steinwand)
+ * Fix: Group permission rows with custom permissions no longer have extra padding (Steven Steinwand)
+ * Fix: Make sure the focus outline of checkboxes is fully around the outer border (Steven Steinwand)
+ * Fix: Consistently set `aria-haspopup="menu"` for all sidebar menu items that have sub-menus (LB (Ben Johnston))
+ * Fix: Make sure `aria-expanded` is always explicitly set as a string in sidebar (LB (Ben Johnston))
+ * Fix: Use a button element instead of a link for page explorer menu item, for the correct semantics and behavior (LB (Ben Johnston))
+ * Fix: Make sure the “Title” column label can be translated in the page chooser and page move UI (Stephanie Cheng Smith)
+ * Fix: Remove redundant `role="main"` attributes on `<main>` elements causing HTML validation issues (Luis Espinoza)
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Stop skipping heading levels in Wagtail welcome page (Jesse Menn)
+ * Fix: Add missing `lang` attributes to `<html>` elements (James Ray)
+ * Fix: Avoid 503 server error when entering tags over 100chars and instead show a user facing validation error (Vu Pham, Khanh Hoang)
+ * Fix: Ensure `thumb_col_header_text` is correctly used by `ThumbnailMixin` within `ModelAdmin` as the column header label (Kyle J. Roux)
+ * Fix: Page copy in Wagtail admin ignores `exclude_fields_in_copy` (John-Scott Atlakson)
+ * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
+ * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+ * Fix: Implement ARIA tabs markup and keyboards interactions for admin tabs (Steven Steinwand)
+
+
+2.16.2 (11.04.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Update django-treebeard dependency to 4.5.1 or above (Serafeim Papastefanos)
+ * Fix: Fix permission error when sorting pages having page type restrictions (Thijs Kramer)
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Fix: Refactor `FormPagesListView` in wagtail.contrib.forms to avoid undefined `locale` variable when subclassing (Dan Braghis)
+ * Fix: Page copy in Wagtail admin ignores `exclude_fields_in_copy` (John-Scott Atlakson)
+ * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
+ * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+ * Fix: Ensure 'next' links from image / document listings do not redirect back to partial AJAX view (Matt Westcott)
+ * Fix: Skip creation of automatic redirects when page cannot be routed (Matt Westcott)
+ * Fix: Prevent JS errors on locale switcher in page chooser (Matt Westcott)
+
+
+2.16.1 (11.02.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Ensure that correct sidebar submenus open when labels use non-Latin alphabets (Matt Westcott)
+ * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Set cookie for sidebar collapsed state to "SameSite: lax" (LB (Ben Johnston))
+ * Fix: Prevent error on creating automatic redirects for sites with non-standard ports (Matt Westcott)
+ * Fix: Restore ability to customise admin UI colours via CSS (LB (Ben Johnston))
+
+
+2.16 (07.02.2022)
 ~~~~~~~~~~~~~~~~~
 
+ * Added support for Django 4.0
+ * Removed support for Django 3.0 and 3.1
+ * Removed support for Python 3.6
+ * Added persistent IDs for ListBlock items, allowing commenting and improvements to revision comparisons (Matt Westcott, Tidjani Dia, with sponsorship from [NHS](https://www.nhs.uk/))
  * Added Aging Pages report (Tidjani Dia)
+ * Added automatic redirect creation feature (Andy Babic, with sponsorship from [The National Archives](https://www.nationalarchives.gov.uk))
+ * Added `page_slug_changed` signal for pages (Andy Babic)
  * Add more SketchFab oEmbed patterns for models (Tom Usher)
  * Add collapse option to `StreamField`, `StreamBlock`, and `ListBlock` which will load all sub-blocks initially collapsed (Matt Westcott)
  * Private pages can now be fetched over the API (Nabil Khalil)
  * Added `alias_of` field to the pages API (Dmitrii Faiazov)
  * Add support for Azure CDN and Front Door front-end cache invalidation (Tomasz Knapik)
- * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
- * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast (Sakshi Uppoor)
+ * Improved styling of workflow timeline modal view (Tidjani Dia)
+ * Add secondary actions menu in edit page headers (Tidjani Dia)
+ * Removed WOFF fonts
+ * Add system check for missing core Page fields in `search_fields` (LB (Ben Johnston))
+ * Improve CircleCI frontend & backend build caches, add automated browser accessibility test suite in CircleCI (Thibaud Colas)
+ * Add a 'remember me' checkbox to the admin sign in form, if unticked (default) the auth session will expire if the browser is closed (Michael Karamuth, Jake Howard)
+ * When returning to image or document listing views after editing, filters (collection or tag) are now remembered (Tidjani Dia)
+ * Improve the visibility of field error messages, in Windows high-contrast mode and out (Jason Attwood)
+ * Improve implementations of visually-hidden text in explorer and main menu toggle (Martin Coote)
+ * Add locale labels to page listings (Dan Braghis)
+ * Add locale labels to page reports (Dan Braghis)
+ * Change release check domain to releases.wagtail.org (Jake Howard)
+ * Add the user who submitted a page for moderation to the "Awaiting your review" homepage summary panel (Tidiane Dia)
+ * When moving pages, default to the current parent section (Tidjani Dia)
+ * `admin/expanding_formset.js` has been renamed to `admin/expanding-formset.js` (LB (Ben Johnston))
+ * Change docs URL to docs.wagtail.org (Jake Howard)
+ * Update links to wagtail.io to point to new domain wagtail.org (Jake Howard)
+ * Add borders to TypedTableBlock to help visualize rows and columns (Scott Cranfill)
+ * Set default submit button label on generic create views to 'Create' instead of 'Save' (Matt Westcott)
+ * Improve display of image listing for long image titles (Krzysztof Jeziorny)
+ * Use SVG icons in admin home page site summary items (Jérôme Lebleu)
+ * Ensure site summary items wrap on smaller devices on the admin home page (Jérôme Lebleu)
+ * Rework Workflow task chooser modal to align with other chooser modals, using consistent pagination and leveraging class based views (Matt Westcott)
+ * Implemented a locale switcher on the forms listing page in the admin (Dan Braghis)
+ * Implemented a locale switcher on the page chooser modal (Dan Braghis)
+ * Implemented the `wagtail_site` template tag for Jinja2 (Vladimir Tananko)
+ * Change webmaster to website administrator in the admin (Naomi Morduch Toubman)
+ * Added documentation for creating custom submenus in the admin menu (Sævar Öfjörð Magnússon)
+ * Choice blocks in StreamField now show label rather than value when collapsed (Jérôme Lebleu)
+ * Added documentation to clarify configuration of user-uploaded files (Cynthia Kiser)
+ * Change security contact address to security@wagtail.org (Jake Howard)
+ * Fix: Accessibility fixes for Windows high contrast mode; Dashboard icons colour and contrast, help/error/warning blocks for fields and general content, side comment buttons within the page editor, dropdown buttons (Sakshi Uppoor, Shariq Jamil, LB (Ben Johnston), Jason Attwood)
  * Fix: Rename additional 'spin' CSS animations to avoid clashes with other libraries (Kevin Gutiérrez)
+ * Fix: `default_app_config` deprecations for Django >= 3.2 (Tibor Leupold)
+ * Fix: Refresh page from database on create before passing to hooks. Page aliases get correct `first_published_date` and `last_published_date` (Dan Braghis)
+ * Fix: Additional login form fields from `WAGTAILADMIN_USER_LOGIN_FORM` are now rendered correctly (Michael Karamuth)
+ * Fix: Icon only button styling issue on small devices where height would not be set correctly (Vu Pham)
+ * Fix: Add padding to the Draftail editor to ensure `ol` items are not cut off (Khanh Hoang)
+ * Fix: Prevent opening choosers multiple times for Image, Page, Document, Snippet (LB (Ben Johnston))
+ * Fix: Ensure subsequent changes to styles files are picked up by Gulp watch (Jason Attwood)
+ * Fix: Ensure that programmatic page moves are correctly logged as 'move' and not 'reorder' in some cases (Andy Babic)
+ * Fix: Add missing translation usage in Workflow templates (Anuja Verma, Saurabh Kumar)
 
+
+2.15.5 (11.04.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Allow bulk publishing of pages without revisions (Andy Chosak)
+ * Fix: Ensure that all descendant pages are logged when deleting a page, not just immediate children (Jake Howard)
+ * Fix: Translation key `IntegrityError` when publishing pages with translatable `Orderable`s that were copied without being published (Kalob Taulien, Dan Braghis)
+ * Fix: Ignore `GenericRelation` when copying pages (John-Scott Atlakson)
+
+
+2.15.4 (11.02.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Fix issue where invalid bulk action URLs would incorrectly trigger a server error (500) instead of a valid not found (404) (Ihor Marhitych)
+ * Fix: Fix issue where bulk actions would not work for object IDs greater than 999 when `USE_THOUSAND_SEPARATOR` (Dennis McGregor)
+ * Fix: Fix syntax when logging image rendition generation (Jake Howard)
+
+
+2.15.3 (26.01.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Implement correct check for SQLite installations without full-text search support (Matt Westcott)
+
+
+2.15.2 (18.01.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: CVE-2022-21683 - Comment reply notifications sent to incorrect users (Ihor Marhitych, Jacob Topp-Mugglestone)
+ * Fix: Transform operations in Filter.run() when image has been re-oriented (Justin Michalicek)
+ * Fix: Remove extraneous header action buttons when creating or editing workflows and tasks (Matt Westcott)
+ * Fix: Ensure that bulk publish actions pick up the latest draft revision (Matt Westcott)
+ * Fix: Ensure the `checkbox_aria_label` is used correctly in the Bulk Actions checkboxes (Vu Pham)
+ * Fix: Prevent error on MySQL search backend when searching three or more terms (Aldán Creo)
+ * Fix: Allow wagtail.search app migrations to complete on versions of SQLite without full-text search support (Matt Westcott)
+ * Fix: Update Pillow dependency to allow 9.x (Matt Westcott)
 
 
 2.15.1 (11.11.2021)
@@ -305,6 +490,12 @@ Changelog
  * Fix: Fix unique constraint on WorkflowState for SQL Server compatibility (David Beitey)
  * Fix: Reinstate chevron on collection dropdown (Mike Brown)
  * Fix: Prevent delete button showing on collection / workflow edit views when delete permission is absent (Helder Correia)
+
+
+2.11.9 (24.01.2022)
+~~~~~~~~~~~~~~~~~~~
+
+ * Fix: Update Pillow dependency to allow 9.x (Rizwan Mansuri)
 
 
 2.11.8 (17.06.2021)

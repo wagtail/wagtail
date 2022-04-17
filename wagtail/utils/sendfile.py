@@ -2,12 +2,10 @@
 # to sendfile()
 # See: https://github.com/johnsensible/django-sendfile/pull/33
 import os.path
-
 from mimetypes import guess_type
 
-
 VERSION = (0, 3, 6)
-__version__ = '.'.join(map(str, VERSION))
+__version__ = ".".join(map(str, VERSION))
 
 
 def _lazy_load(fn):
@@ -21,6 +19,7 @@ def _lazy_load(fn):
     def clear():
         while _cached:
             _cached.pop()
+
     _decorated.clear = clear
     return _decorated
 
@@ -32,15 +31,23 @@ def _get_sendfile():
     from django.conf import settings
     from django.core.exceptions import ImproperlyConfigured
 
-    backend = getattr(settings, 'SENDFILE_BACKEND', None)
+    backend = getattr(settings, "SENDFILE_BACKEND", None)
     if not backend:
-        raise ImproperlyConfigured('You must specify a value for SENDFILE_BACKEND')
+        raise ImproperlyConfigured("You must specify a value for SENDFILE_BACKEND")
     module = import_module(backend)
     return module.sendfile
 
 
-def sendfile(request, filename, attachment=False, attachment_filename=None, mimetype=None, encoding=None, backend=None):
-    '''
+def sendfile(
+    request,
+    filename,
+    attachment=False,
+    attachment_filename=None,
+    mimetype=None,
+    encoding=None,
+    backend=None,
+):
+    """
     create a response to send file using backend configured in SENDFILE_BACKEND
 
     If attachment is True the content-disposition header will be set.
@@ -54,11 +61,12 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
 
     If no mimetype or encoding are specified, then they will be guessed via the
     filename (using the standard python mimetypes module)
-    '''
+    """
     _sendfile = backend or _get_sendfile()
 
     if not os.path.exists(filename):
         from django.http import Http404
+
         raise Http404('"%s" does not exist' % filename)
 
     guessed_mimetype, guessed_encoding = guess_type(filename)
@@ -66,34 +74,33 @@ def sendfile(request, filename, attachment=False, attachment_filename=None, mime
         if guessed_mimetype:
             mimetype = guessed_mimetype
         else:
-            mimetype = 'application/octet-stream'
+            mimetype = "application/octet-stream"
 
     response = _sendfile(request, filename, mimetype=mimetype)
     if attachment:
-        if attachment_filename is None:
-            attachment_filename = os.path.basename(filename)
-        parts = ['attachment']
-        if attachment_filename:
-            from django.utils.encoding import force_str
-
-            from wagtail.core.utils import string_to_ascii
-
-            attachment_filename = force_str(attachment_filename)
-            ascii_filename = string_to_ascii(attachment_filename)
-            parts.append('filename="%s"' % ascii_filename)
-
-            if ascii_filename != attachment_filename:
-                from urllib.parse import quote
-
-                quoted_filename = quote(attachment_filename)
-                parts.append('filename*=UTF-8\'\'%s' % quoted_filename)
-
-        response['Content-Disposition'] = '; '.join(parts)
+        parts = ["attachment"]
     else:
-        response['Content-Disposition'] = 'inline'
+        parts = ["inline"]
+    if attachment_filename is None:
+        attachment_filename = os.path.basename(filename)
+    if attachment_filename:
+        from django.utils.encoding import force_str
 
-    response['Content-length'] = os.path.getsize(filename)
-    response['Content-Type'] = mimetype
-    response['Content-Encoding'] = encoding or guessed_encoding
+        from wagtail.coreutils import string_to_ascii
+
+        attachment_filename = force_str(attachment_filename)
+        ascii_filename = string_to_ascii(attachment_filename)
+        parts.append('filename="%s"' % ascii_filename)
+
+        if ascii_filename != attachment_filename:
+            from urllib.parse import quote
+
+            quoted_filename = quote(attachment_filename)
+            parts.append("filename*=UTF-8''%s" % quoted_filename)
+
+    response["Content-Disposition"] = "; ".join(parts)
+    response["Content-length"] = os.path.getsize(filename)
+    response["Content-Type"] = mimetype
+    response["Content-Encoding"] = encoding or guessed_encoding
 
     return response

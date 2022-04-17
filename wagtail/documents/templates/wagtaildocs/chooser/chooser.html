@@ -1,34 +1,46 @@
 {% load i18n wagtailadmin_tags %}
 {% trans "Choose a document" as  choose_str %}
-{% include "wagtailadmin/shared/header.html" with title=choose_str tabbed=1 merged=1 icon="doc-full-inverse" %}
+{% include "wagtailadmin/shared/header.html" with title=choose_str merged=1 icon="doc-full-inverse" %}
 
 {{ uploadform.media.js }}
 {{ uploadform.media.css }}
 
-{% if uploadform %}
-    <ul class="tab-nav merged" data-tab-nav>
-        <li class="{% if not uploadform.errors %}active {% endif %}"><a href="#search">{% trans "Search" %}</a></li>
-        <li class="{% if uploadform.errors %}active {% endif %}"><a href="#upload">{% trans "Upload" %}</a></li>
-    </ul>
-{% endif %}
-
-<div class="tab-content">
-    <section id="search" class="{% if not uploadform.errors %}active {% endif %}nice-padding">
-        <form class="document-search search-bar" action="{% url 'wagtaildocs:chooser_results' %}" method="GET" novalidate>
-            <ul class="fields">
-                {% for field in searchform %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                {% endfor %}
-                {% if collections %}
-                    {% include "wagtailadmin/shared/collection_chooser.html" %}
-                {% endif %}
-            </ul>
-        </form>
-        <div id="search-results" class="listing documents">
-            {% include "wagtaildocs/chooser/results.html" %}
-        </div>
-    </section>
+<div class="w-tabs" data-tabs data-tabs-disable-url>
     {% if uploadform %}
-        {% include "wagtaildocs/chooser/upload_form.html" with form=uploadform %}
+        <div class="w-tabs__wrapper w-overflow-hidden">
+            {# Using nice-padding and full width class until the modal header is restyled #}
+            <div role="tablist" class="w-tabs__list w-w-full nice-padding">
+                {% trans "Search" as search_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='search' title=search_text %}
+                {% trans "Upload" as upload_text %}
+                {% include 'wagtailadmin/shared/tabs/tab_nav_link.html' with tab_id='upload' title=upload_text %}
+            </div>
+        </div>
     {% endif %}
+
+    <div class="tab-content nice-padding">
+        <section
+            id="tab-search"
+            class="w-tabs__panel"
+            role="tabpanel"
+            aria-labelledby="tab-label-search"
+        >
+            <form class="document-search search-bar" action="{% url 'wagtaildocs:chooser_results' %}" method="GET" novalidate>
+                <ul class="fields">
+                    {% for field in searchform %}
+                        {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+                    {% endfor %}
+                    {% if collections %}
+                        {% include "wagtailadmin/shared/collection_chooser.html" %}
+                    {% endif %}
+                </ul>
+            </form>
+            <div id="search-results" class="listing documents">
+                {% include "wagtaildocs/chooser/results.html" %}
+            </div>
+        </section>
+        {% if uploadform %}
+            {% include "wagtaildocs/chooser/upload_form.html" with form=uploadform %}
+        {% endif %}
+    </div>
 </div>

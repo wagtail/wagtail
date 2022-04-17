@@ -40,10 +40,6 @@ ul {
     font-weight: 400;
 }
 
-main {
-    display: block; /* For IE11 support */
-}
-
 svg:not(:root) {
     overflow: hidden;
 }
@@ -59,7 +55,7 @@ svg:not(:root) {
 
 .logo {
     width: 150px;
-    margin-right: 20px;
+    margin-inline-end: 20px;
 }
 
 .logo a {
@@ -85,36 +81,20 @@ svg:not(:root) {
     max-width: 265px;
 }
 
-@-webkit-keyframes pos {
-    0%, 100% {
-        -webkit-transform: rotate(-6deg);
-        transform: rotate(-6deg);
-    }
-    50% {
-        -webkit-transform: rotate(6deg);
-        transform: rotate(6deg);
-    }
-}
-
 @keyframes pos {
     0%, 100% {
-        -webkit-transform: rotate(-6deg);
         transform: rotate(-6deg);
     }
     50% {
-        -webkit-transform: rotate(6deg);
         transform: rotate(6deg);
     }
 }
 
 .egg {
     fill: #43b1b0;
-    -webkit-animation: pos 3s ease infinite;
-            animation: pos 3s ease infinite;
-    -webkit-transform: translateY(50px);
-            transform: translateY(50px);
-    -webkit-transform-origin: 50% 80%;
-            transform-origin: 50% 80%;
+    animation: pos 3s ease infinite;
+    transform: translateY(50px);
+    transform-origin: 50% 80%;
 }
 
 .main-text {
@@ -153,11 +133,14 @@ svg:not(:root) {
     padding: 5px;
     border-radius: 100%;
     top: 10px;
+    /* Remove once we drop support for Safari 13. */
+    /* stylelint-disable-next-line property-disallowed-list */
     left: 0;
+    inset-inline-start: 0;
     position: absolute;
 }
 
-.option h4 {
+.option h2 {
     font-size: 19px;
     text-decoration: underline;
 }

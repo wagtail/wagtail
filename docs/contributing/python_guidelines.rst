@@ -4,11 +4,20 @@ Python coding guidelines
 PEP8
 ~~~~
 
-We ask that all Python contributions adhere to the `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ style guide, apart from the restriction on line length (E501) and some minor docstring-related issues.
-The list of PEP8 violations to ignore is in the ``setup.cfg`` file, under the ``[flake8]`` header.
-You might want to configure the flake8 linter in your editor/IDE to use the configuration in this file.
+We ask that all Python contributions adhere to the `PEP8 <https://www.python.org/dev/peps/pep-0008/>`_ style guide.
+All files should be formatted using the `black <https://github.com/psf/black>`_ auto-formatter. This will be
+run by ``pre-commit`` if that is configured.
 
-In addition, import lines should be sorted according to `isort <https://pycqa.github.io/isort/>`_ 5.6.4 rules. If you have installed Wagtail's testing dependencies (``pip install -e .[testing]``), you can check your code by running ``make lint``.
+* The project repository includes an ``.editorconfig`` file. We recommend using
+  a text editor with `EditorConfig <https://editorconfig.org/>`_ support to avoid indentation and
+  whitespace issues. Python and HTML files use 4 spaces for indentation.
+
+In addition, import lines should be sorted according to `isort <https://pycqa.github.io/isort/>`_ 5.6.4 rules.
+If you have installed Wagtail's testing dependencies (``pip install -e '.[testing]'``), you can check your code by
+running ``make lint``. You can also just check python related linting by running ``make lint-server``.
+
+You can run all Python formatting with ``make format``. Similar to linting you can format python/template only files
+by running ``make format-server``.
 
 Django compatibility
 ~~~~~~~~~~~~~~~~~~~~

@@ -6,7 +6,7 @@
         <ul class="bulk-actions-buttons">{% bulk_action_choices app_label model_name %}</ul>
         <span data-bulk-action-num-objects class="num-objects"></span>
         {% if objects.has_other_pages %}
-        <button data-bulk-action-num-objects-in-listing class="num-objects-in-listing u-hidden">{{ select_all_obj_text }}</button>
+            <button type="button" data-bulk-action-num-objects-in-listing class="num-objects-in-listing u-hidden">{{ select_all_obj_text }}</button>
         {% endif %}
     </div>
 </section>

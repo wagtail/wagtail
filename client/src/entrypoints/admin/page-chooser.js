@@ -21,7 +21,7 @@ function createPageChooser(id, openAtParentId, options) {
       id: input.val(),
       parentId: openAtParentId,
       adminTitle: pageTitle.text(),
-      editUrl: editLink.attr('href')
+      editUrl: editLink.attr('href'),
     };
   }
 
@@ -72,7 +72,7 @@ function createPageChooser(id, openAtParentId, options) {
       if (options.user_perms) {
         urlParams.user_perms = options.user_perms;
       }
-      // eslint-disable-next-line no-undef, new-cap
+      // eslint-disable-next-line no-undef
       ModalWorkflow({
         url: url,
         urlParams: urlParams,
@@ -81,8 +81,8 @@ function createPageChooser(id, openAtParentId, options) {
         responses: {
           pageChosen: (result) => {
             chooser.setState(result);
-          }
-        }
+          },
+        },
       });
     },
 

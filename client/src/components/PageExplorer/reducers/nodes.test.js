@@ -22,7 +22,10 @@ describe('nodes', () => {
   });
 
   it('GET_PAGE_FAILURE', () => {
-    const state = nodes(initialState, { type: 'OPEN_EXPLORER', payload: { id: 1 } });
+    const state = nodes(initialState, {
+      type: 'OPEN_EXPLORER',
+      payload: { id: 1 },
+    });
     const action = { type: 'GET_PAGE_FAILURE', payload: { id: 1 } };
     expect(nodes(state, action)).toMatchSnapshot();
   });
@@ -33,16 +36,15 @@ describe('nodes', () => {
   });
 
   it('GET_CHILDREN_SUCCESS', () => {
-    const state = nodes(initialState, { type: 'OPEN_EXPLORER', payload: { id: 1 } });
+    const state = nodes(initialState, {
+      type: 'OPEN_EXPLORER',
+      payload: { id: 1 },
+    });
     const action = {
       type: 'GET_CHILDREN_SUCCESS',
       payload: {
         id: 1,
-        items: [
-          { id: 3 },
-          { id: 4 },
-          { id: 5 },
-        ],
+        items: [{ id: 3 }, { id: 4 }, { id: 5 }],
         meta: {
           total_count: 3,
         },
@@ -52,7 +54,10 @@ describe('nodes', () => {
   });
 
   it('GET_CHILDREN_FAILURE', () => {
-    const state = nodes(initialState, { type: 'OPEN_EXPLORER', payload: { id: 1 } });
+    const state = nodes(initialState, {
+      type: 'OPEN_EXPLORER',
+      payload: { id: 1 },
+    });
     const action = { type: 'GET_CHILDREN_FAILURE', payload: { id: 1 } };
     expect(nodes(state, action)).toMatchSnapshot();
   });

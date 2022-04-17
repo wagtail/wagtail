@@ -37,6 +37,7 @@ class ImageTransform:
     accumulates the operations into a single scale/offset which can be used for
     features such as transforming the focal point of the image.
     """
+
     def __init__(self, size):
         self._check_size(size)
         self.size = size
@@ -57,7 +58,7 @@ class ImageTransform:
         clone = self.clone()
         clone.scale = (
             clone.scale[0] * size[0] / self.size[0],
-            clone.scale[1] * size[1] / self.size[1]
+            clone.scale[1] * size[1] / self.size[1],
         )
         clone.size = size
         return clone
@@ -72,7 +73,7 @@ class ImageTransform:
         clone = self.clone()
         clone.offset = (
             clone.offset[0] - rect.left / self.scale[0],
-            clone.offset[1] - rect.top / self.scale[1]
+            clone.offset[1] - rect.top / self.scale[1],
         )
         clone.size = tuple(rect.size)
         return clone
@@ -88,7 +89,7 @@ class ImageTransform:
         """
         return Vector(
             (vector.x + self.offset[0]) * self.scale[0],
-            (vector.y + self.offset[1]) * self.scale[1]
+            (vector.y + self.offset[1]) * self.scale[1],
         )
 
     def untransform_vector(self, vector):
@@ -102,7 +103,7 @@ class ImageTransform:
         """
         return Vector(
             vector.x / self.scale[0] - self.offset[0],
-            vector.y / self.scale[1] - self.offset[1]
+            vector.y / self.scale[1] - self.offset[1],
         )
 
     def get_rect(self):
@@ -113,12 +114,17 @@ class ImageTransform:
             -self.offset[0],
             -self.offset[1],
             -self.offset[0] + self.size[0] / self.scale[0],
-            -self.offset[1] + self.size[1] / self.scale[1]
+            -self.offset[1] + self.size[1] / self.scale[1],
         )
 
     @staticmethod
     def _check_size(size):
-        if not isinstance(size, tuple) or len(size) != 2 or int(size[0]) != size[0] or int(size[1]) != size[1]:
+        if (
+            not isinstance(size, tuple)
+            or len(size) != 2
+            or int(size[0]) != size[0]
+            or int(size[1]) != size[1]
+        ):
             raise TypeError("Image size must be a 2-tuple of integers")
 
         if size[0] < 1 or size[1] < 1:
@@ -131,11 +137,16 @@ class TransformOperation(Operation):
 
 
 class FillOperation(TransformOperation):
-    vary_fields = ('focal_point_width', 'focal_point_height', 'focal_point_x', 'focal_point_y')
+    vary_fields = (
+        "focal_point_width",
+        "focal_point_height",
+        "focal_point_x",
+        "focal_point_y",
+    )
 
     def construct(self, size, *extra):
         # Get width and height
-        width_str, height_str = size.split('x')
+        width_str, height_str = size.split("x")
         self.width = int(width_str)
         self.height = int(height_str)
 
@@ -143,7 +154,7 @@ class FillOperation(TransformOperation):
         self.crop_closeness = 0
 
         for extra_part in extra:
-            if extra_part.startswith('c'):
+            if extra_part.startswith("c"):
                 self.crop_closeness = int(extra_part[1:])
             else:
                 raise ValueError("Unrecognised filter spec part: %s" % extra_part)
@@ -174,7 +185,9 @@ class FillOperation(TransformOperation):
         # Use crop closeness to zoom in
         if focal_point is not None:
             # Get crop min
-            crop_min_scale = max(focal_point.width, focal_point.height * crop_aspect_ratio)
+            crop_min_scale = max(
+                focal_point.width, focal_point.height * crop_aspect_ratio
+            )
             crop_min_width = crop_min_scale
             crop_min_height = crop_min_scale / crop_aspect_ratio
 
@@ -182,8 +195,11 @@ class FillOperation(TransformOperation):
             if not crop_min_scale >= crop_max_scale:
                 # Calculate max crop closeness to prevent upscaling
                 max_crop_closeness = max(
-                    1 - (self.width - crop_min_width) / (crop_max_width - crop_min_width),
-                    1 - (self.height - crop_min_height) / (crop_max_height - crop_min_height)
+                    1
+                    - (self.width - crop_min_width) / (crop_max_width - crop_min_width),
+                    1
+                    - (self.height - crop_min_height)
+                    / (crop_max_height - crop_min_height),
                 )
 
                 # Apply max crop closeness
@@ -191,8 +207,14 @@ class FillOperation(TransformOperation):
 
                 if 1 >= crop_closeness >= 0:
                     # Get crop width and height
-                    crop_width = crop_max_width + (crop_min_width - crop_max_width) * crop_closeness
-                    crop_height = crop_max_height + (crop_min_height - crop_max_height) * crop_closeness
+                    crop_width = (
+                        crop_max_width
+                        + (crop_min_width - crop_max_width) * crop_closeness
+                    )
+                    crop_height = (
+                        crop_max_height
+                        + (crop_min_height - crop_max_height) * crop_closeness
+                    )
 
         # Find focal point UV
         if focal_point is not None:
@@ -239,7 +261,7 @@ class FillOperation(TransformOperation):
 class MinMaxOperation(TransformOperation):
     def construct(self, size):
         # Get width and height
-        width_str, height_str = size.split('x')
+        width_str, height_str = size.split("x")
         self.width = int(width_str)
         self.height = int(height_str)
 
@@ -249,7 +271,7 @@ class MinMaxOperation(TransformOperation):
         horz_scale = self.width / image_width
         vert_scale = self.height / image_height
 
-        if self.method == 'min':
+        if self.method == "min":
             if image_width <= self.width or image_height <= self.height:
                 return transform
 
@@ -260,7 +282,7 @@ class MinMaxOperation(TransformOperation):
                 width = int(image_width * vert_scale)
                 height = self.height
 
-        elif self.method == 'max':
+        elif self.method == "max":
             if image_width <= self.width and image_height <= self.height:
                 return transform
 
@@ -289,7 +311,7 @@ class WidthHeightOperation(TransformOperation):
     def run(self, transform, image):
         image_width, image_height = transform.size
 
-        if self.method == 'width':
+        if self.method == "width":
             if image_width <= self.size:
                 return transform
 
@@ -298,7 +320,7 @@ class WidthHeightOperation(TransformOperation):
             width = self.size
             height = int(image_height * scale)
 
-        elif self.method == 'height':
+        elif self.method == "height":
             if image_height <= self.size:
                 return transform
 
@@ -360,7 +382,7 @@ class JPEGQualityOperation(FilterOperation):
             raise ValueError("JPEG quality must not be higher than 100")
 
     def run(self, willow, image, env):
-        env['jpeg-quality'] = self.quality
+        env["jpeg-quality"] = self.quality
 
 
 class WebPQualityOperation(FilterOperation):
@@ -371,7 +393,7 @@ class WebPQualityOperation(FilterOperation):
             raise ValueError("WebP quality must not be higher than 100")
 
     def run(self, willow, image, env):
-        env['webp-quality'] = self.quality
+        env["webp-quality"] = self.quality
 
 
 class FormatOperation(FilterOperation):
@@ -379,13 +401,12 @@ class FormatOperation(FilterOperation):
         self.format = format
         self.options = options
 
-        if self.format not in ['jpeg', 'png', 'gif', 'webp']:
-            raise ValueError(
-                "Format must be either 'jpeg', 'png', 'gif', or 'webp'")
+        if self.format not in ["jpeg", "png", "gif", "webp"]:
+            raise ValueError("Format must be either 'jpeg', 'png', 'gif', or 'webp'")
 
     def run(self, willow, image, env):
-        env['output-format'] = self.format
-        env['output-format-options'] = self.options
+        env["output-format"] = self.format
+        env["output-format-options"] = self.options
 
 
 class BackgroundColorOperation(FilterOperation):

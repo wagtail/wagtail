@@ -5,53 +5,92 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0002_initial_data'),
+        ("wagtailcore", "0002_initial_data"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EditorsPick',
+            name="EditorsPick",
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('sort_order', models.IntegerField(blank=True, null=True, editable=False)),
-                ('description', models.TextField(blank=True)),
-                ('page', models.ForeignKey(on_delete=models.CASCADE, to='wagtailcore.Page')),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        auto_created=True,
+                        verbose_name="ID",
+                        primary_key=True,
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, null=True, editable=False),
+                ),
+                ("description", models.TextField(blank=True)),
+                (
+                    "page",
+                    models.ForeignKey(on_delete=models.CASCADE, to="wagtailcore.Page"),
+                ),
             ],
             options={
-                'ordering': ('sort_order',),
+                "ordering": ("sort_order",),
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Query',
+            name="Query",
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('query_string', models.CharField(unique=True, max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        auto_created=True,
+                        verbose_name="ID",
+                        primary_key=True,
+                    ),
+                ),
+                ("query_string", models.CharField(unique=True, max_length=255)),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='QueryDailyHits',
+            name="QueryDailyHits",
             fields=[
-                ('id', models.AutoField(serialize=False, auto_created=True, verbose_name='ID', primary_key=True)),
-                ('date', models.DateField()),
-                ('hits', models.IntegerField(default=0)),
-                ('query', models.ForeignKey(on_delete=models.CASCADE, to='wagtailsearch.Query', related_name='daily_hits')),
+                (
+                    "id",
+                    models.AutoField(
+                        serialize=False,
+                        auto_created=True,
+                        verbose_name="ID",
+                        primary_key=True,
+                    ),
+                ),
+                ("date", models.DateField()),
+                ("hits", models.IntegerField(default=0)),
+                (
+                    "query",
+                    models.ForeignKey(
+                        on_delete=models.CASCADE,
+                        to="wagtailsearch.Query",
+                        related_name="daily_hits",
+                    ),
+                ),
             ],
-            options={
-            },
+            options={},
             bases=(models.Model,),
         ),
         migrations.AlterUniqueTogether(
-            name='querydailyhits',
-            unique_together=set([('query', 'date')]),
+            name="querydailyhits",
+            unique_together={("query", "date")},
         ),
         migrations.AddField(
-            model_name='editorspick',
-            name='query',
-            field=models.ForeignKey(on_delete=models.CASCADE, to='wagtailsearch.Query', related_name='editors_picks'),
+            model_name="editorspick",
+            name="query",
+            field=models.ForeignKey(
+                on_delete=models.CASCADE,
+                to="wagtailsearch.Query",
+                related_name="editors_picks",
+            ),
             preserve_default=True,
         ),
     ]

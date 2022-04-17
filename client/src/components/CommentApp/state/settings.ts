@@ -18,12 +18,15 @@ export const INITIAL_STATE: SettingsState = {
   currentTab: null,
 };
 
-export const reducer = produce((draft: SettingsState, action: actions.Action) => {
-  switch (action.type) {
-  case actions.UPDATE_GLOBAL_SETTINGS:
-    update(draft, action.update);
-    break;
-  default:
-    break;
-  }
-}, INITIAL_STATE);
+export const reducer = produce(
+  (draft: SettingsState, action: actions.Action) => {
+    switch (action.type) {
+      case actions.UPDATE_GLOBAL_SETTINGS:
+        update(draft, action.update);
+        break;
+      default:
+        break;
+    }
+  },
+  INITIAL_STATE,
+);

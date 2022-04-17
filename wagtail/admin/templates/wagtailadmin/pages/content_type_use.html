@@ -1,6 +1,6 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n %}
-{% block titletag %}{% blocktrans with page_class_verbose_name=page_class.get_verbose_name %}Pages using {{ page_class_verbose_name }}{% endblocktrans %}{% endblock %}
+{% block titletag %}{% blocktrans trimmed with page_class_verbose_name=page_class.get_verbose_name %}Pages using {{ page_class_verbose_name }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
     {% trans "Pages using" as pages_str %}

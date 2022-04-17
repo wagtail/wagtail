@@ -34,10 +34,10 @@ class AddView(PermissionCheckedMixin, TemplateView):
     # - get_upload_form_class()
     # - get_edit_form_class()
 
-    permission_required = 'add'
-    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    permission_required = "add"
+    edit_form_template_name = "wagtailadmin/generic/multiple_upload/edit_form.html"
 
-    @method_decorator(vary_on_headers('X-Requested-With'))
+    @method_decorator(vary_on_headers("X-Requested-With"))
     def dispatch(self, request):
         self.model = self.get_model()
 
@@ -54,12 +54,14 @@ class AddView(PermissionCheckedMixin, TemplateView):
         edit_form_class = self.get_edit_form_class()
         return {
             self.context_object_name: self.object,
-            'edit_action': reverse(self.edit_object_url_name, args=(self.object.id,)),
-            'delete_action': reverse(self.delete_object_url_name, args=(self.object.id,)),
-            'form': edit_form_class(
+            "edit_action": reverse(self.edit_object_url_name, args=(self.object.id,)),
+            "delete_action": reverse(
+                self.delete_object_url_name, args=(self.object.id,)
+            ),
+            "form": edit_form_class(
                 instance=self.object,
-                prefix='%s-%d' % (self.edit_object_form_prefix, self.object.id),
-                user=self.request.user
+                prefix="%s-%d" % (self.edit_object_form_prefix, self.object.id),
+                user=self.request.user,
             ),
         }
 
@@ -68,12 +70,12 @@ class AddView(PermissionCheckedMixin, TemplateView):
         Return the JSON response data for an object that has been successfully uploaded
         """
         return {
-            'success': True,
+            "success": True,
             self.context_object_id_name: int(self.object.id),
-            'form': render_to_string(
+            "form": render_to_string(
                 self.edit_form_template_name,
                 self.get_edit_object_form_context_data(),
-                request=self.request
+                request=self.request,
             ),
         }
 
@@ -85,12 +87,16 @@ class AddView(PermissionCheckedMixin, TemplateView):
         edit_form_class = self.get_edit_form_class()
         return {
             self.context_upload_name: self.upload_object,
-            'edit_action': reverse(self.edit_upload_url_name, args=(self.upload_object.id,)),
-            'delete_action': reverse(self.delete_upload_url_name, args=(self.upload_object.id,)),
-            'form': edit_form_class(
+            "edit_action": reverse(
+                self.edit_upload_url_name, args=(self.upload_object.id,)
+            ),
+            "delete_action": reverse(
+                self.delete_upload_url_name, args=(self.upload_object.id,)
+            ),
+            "form": edit_form_class(
                 instance=self.object,
-                prefix='%s-%d' % (self.edit_upload_form_prefix, self.upload_object.id),
-                user=self.request.user
+                prefix="%s-%d" % (self.edit_upload_form_prefix, self.upload_object.id),
+                user=self.request.user,
             ),
         }
 
@@ -100,12 +106,12 @@ class AddView(PermissionCheckedMixin, TemplateView):
         upload object and now needs extra metadata to become a final object
         """
         return {
-            'success': True,
+            "success": True,
             self.context_upload_id_name: self.upload_object.id,
-            'form': render_to_string(
+            "form": render_to_string(
                 self.edit_form_template_name,
                 self.get_edit_upload_form_context_data(),
-                request=self.request
+                request=self.request,
             ),
         }
 
@@ -114,8 +120,8 @@ class AddView(PermissionCheckedMixin, TemplateView):
         Return the JSON response data for an invalid form submission
         """
         return {
-            'success': False,
-            'error_message': '\n'.join(form.errors['file']),
+            "success": False,
+            "error_message": "\n".join(form.errors["file"]),
         }
 
     def post(self, request):
@@ -124,12 +130,16 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
         # Build a form for validation
         upload_form_class = self.get_upload_form_class()
-        form = upload_form_class({
-            'title': request.POST.get('title', request.FILES['files[]'].name),
-            'collection': request.POST.get('collection'),
-        }, {
-            'file': request.FILES['files[]'],
-        }, user=request.user)
+        form = upload_form_class(
+            {
+                "title": request.POST.get("title", request.FILES["files[]"].name),
+                "collection": request.POST.get("collection"),
+            },
+            {
+                "file": request.FILES["files[]"],
+            },
+            user=request.user,
+        )
 
         if form.is_valid():
             # Save it
@@ -137,7 +147,7 @@ class AddView(PermissionCheckedMixin, TemplateView):
 
             # Success! Send back an edit form for this object to the user
             return JsonResponse(self.get_edit_object_response_data())
-        elif 'file' in form.errors:
+        elif "file" in form.errors:
             # The uploaded file is invalid; reject it now
             return JsonResponse(self.get_invalid_response_data(form))
         else:
@@ -145,11 +155,11 @@ class AddView(PermissionCheckedMixin, TemplateView):
             # on a custom image model. Store the object as an upload_model instance instead and
             # present the edit form so that it will become a proper object when successfully filled in
             self.upload_object = self.upload_model.objects.create(
-                file=self.request.FILES['files[]'], uploaded_by_user=self.request.user
+                file=self.request.FILES["files[]"], uploaded_by_user=self.request.user
             )
             self.object = self.model(
-                title=self.request.FILES['files[]'].name,
-                collection_id=self.request.POST.get('collection')
+                title=self.request.FILES["files[]"].name,
+                collection_id=self.request.POST.get("collection"),
             )
 
             return JsonResponse(self.get_edit_upload_response_data())
@@ -162,16 +172,20 @@ class AddView(PermissionCheckedMixin, TemplateView):
         upload_form_class = self.get_upload_form_class()
         self.form = upload_form_class(user=self.request.user)
 
-        collections = self.permission_policy.collections_user_has_permission_for(self.request.user, 'add')
+        collections = self.permission_policy.collections_user_has_permission_for(
+            self.request.user, "add"
+        )
         if len(collections) < 2:
             # no need to show a collections chooser
             collections = None
 
-        context.update({
-            'help_text': self.form.fields['file'].help_text,
-            'collections': collections,
-            'form_media': self.form.media,
-        })
+        context.update(
+            {
+                "help_text": self.form.fields["file"].help_text,
+                "collections": collections,
+                "form_media": self.form.media,
+            }
+        )
 
         return context
 
@@ -188,8 +202,8 @@ class EditView(View):
     # - get_model()
     # - get_edit_form_class()
 
-    http_method_names = ['post']
-    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    http_method_names = ["post"]
+    edit_form_template_name = "wagtailadmin/generic/multiple_upload/edit_form.html"
 
     def save_object(self, form):
         form.save()
@@ -201,34 +215,49 @@ class EditView(View):
 
         self.object = get_object_or_404(self.model, id=object_id)
 
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'change', self.object):
+        if not self.permission_policy.user_has_permission_for_instance(
+            request.user, "change", self.object
+        ):
             raise PermissionDenied
 
         form = self.form_class(
-            request.POST, request.FILES,
+            request.POST,
+            request.FILES,
             instance=self.object,
-            prefix='%s-%d' % (self.edit_object_form_prefix, object_id),
-            user=request.user
+            prefix="%s-%d" % (self.edit_object_form_prefix, object_id),
+            user=request.user,
         )
 
         if form.is_valid():
             self.save_object(form)
 
-            return JsonResponse({
-                'success': True,
-                self.context_object_id_name: int(object_id),
-            })
+            return JsonResponse(
+                {
+                    "success": True,
+                    self.context_object_id_name: int(object_id),
+                }
+            )
         else:
-            return JsonResponse({
-                'success': False,
-                self.context_object_id_name: int(object_id),
-                'form': render_to_string(self.edit_form_template_name, {
-                    self.context_object_name: self.object,  # only used for tests
-                    'edit_action': reverse(self.edit_object_url_name, args=(object_id,)),
-                    'delete_action': reverse(self.delete_object_url_name, args=(object_id,)),
-                    'form': form,
-                }, request=request),
-            })
+            return JsonResponse(
+                {
+                    "success": False,
+                    self.context_object_id_name: int(object_id),
+                    "form": render_to_string(
+                        self.edit_form_template_name,
+                        {
+                            self.context_object_name: self.object,  # only used for tests
+                            "edit_action": reverse(
+                                self.edit_object_url_name, args=(object_id,)
+                            ),
+                            "delete_action": reverse(
+                                self.delete_object_url_name, args=(object_id,)
+                            ),
+                            "form": form,
+                        },
+                        request=request,
+                    ),
+                }
+            )
 
 
 class DeleteView(View):
@@ -237,22 +266,26 @@ class DeleteView(View):
     # - pk_url_kwarg
     # - context_object_id_name
 
-    http_method_names = ['post']
+    http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
         object_id = kwargs[self.pk_url_kwarg]
         self.model = self.get_model()
         self.object = get_object_or_404(self.model, id=object_id)
 
-        if not self.permission_policy.user_has_permission_for_instance(request.user, 'delete', self.object):
+        if not self.permission_policy.user_has_permission_for_instance(
+            request.user, "delete", self.object
+        ):
             raise PermissionDenied
 
         self.object.delete()
 
-        return JsonResponse({
-            'success': True,
-            self.context_object_id_name: int(object_id),
-        })
+        return JsonResponse(
+            {
+                "success": True,
+                self.context_object_id_name: int(object_id),
+            }
+        )
 
 
 class CreateFromUploadView(View):
@@ -267,11 +300,13 @@ class CreateFromUploadView(View):
     # - get_model()
     # - get_edit_form_class()
 
-    http_method_names = ['post']
-    edit_form_template_name = 'wagtailadmin/generic/multiple_upload/edit_form.html'
+    http_method_names = ["post"]
+    edit_form_template_name = "wagtailadmin/generic/multiple_upload/edit_form.html"
 
     def save_object(self, form):
-        self.object.file.save(os.path.basename(self.upload.file.name), self.upload.file.file, save=False)
+        self.object.file.save(
+            os.path.basename(self.upload.file.name), self.upload.file.file, save=False
+        )
         self.object.uploaded_by_user = self.request.user
         form.save()
 
@@ -287,10 +322,11 @@ class CreateFromUploadView(View):
 
         self.object = self.model()
         form = self.form_class(
-            request.POST, request.FILES,
+            request.POST,
+            request.FILES,
             instance=self.object,
-            prefix='%s-%d' % (self.edit_upload_form_prefix, upload_id),
-            user=request.user
+            prefix="%s-%d" % (self.edit_upload_form_prefix, upload_id),
+            user=request.user,
         )
 
         if form.is_valid():
@@ -298,20 +334,32 @@ class CreateFromUploadView(View):
             self.upload.file.delete()
             self.upload.delete()
 
-            return JsonResponse({
-                'success': True,
-                self.context_object_id_name: self.object.id,
-            })
+            return JsonResponse(
+                {
+                    "success": True,
+                    self.context_object_id_name: self.object.id,
+                }
+            )
         else:
-            return JsonResponse({
-                'success': False,
-                'form': render_to_string(self.edit_form_template_name, {
-                    self.context_upload_name: self.upload,
-                    'edit_action': reverse(self.edit_upload_url_name, args=(self.upload.id,)),
-                    'delete_action': reverse(self.delete_upload_url_name, args=(self.upload.id,)),
-                    'form': form,
-                }, request=request),
-            })
+            return JsonResponse(
+                {
+                    "success": False,
+                    "form": render_to_string(
+                        self.edit_form_template_name,
+                        {
+                            self.context_upload_name: self.upload,
+                            "edit_action": reverse(
+                                self.edit_upload_url_name, args=(self.upload.id,)
+                            ),
+                            "delete_action": reverse(
+                                self.delete_upload_url_name, args=(self.upload.id,)
+                            ),
+                            "form": form,
+                        },
+                        request=request,
+                    ),
+                }
+            )
 
 
 class DeleteUploadView(View):
@@ -319,7 +367,7 @@ class DeleteUploadView(View):
     # - upload_model
     # - upload_pk_url_kwarg
 
-    http_method_names = ['post']
+    http_method_names = ["post"]
 
     def post(self, request, *args, **kwargs):
         upload_id = kwargs[self.upload_pk_url_kwarg]
@@ -331,6 +379,8 @@ class DeleteUploadView(View):
         upload.file.delete()
         upload.delete()
 
-        return JsonResponse({
-            'success': True,
-        })
+        return JsonResponse(
+            {
+                "success": True,
+            }
+        )

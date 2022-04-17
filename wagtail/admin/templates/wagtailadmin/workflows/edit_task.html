@@ -6,24 +6,16 @@
 {% block extra_css %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_css.html" %}
-    {{ edit_handler.form.media.css }}
-
-    {{ view.media.css }}
 {% endblock %}
 
 {% block extra_js %}
     {{ block.super }}
     {% include "wagtailadmin/pages/_editor_js.html" %}
-    {{ edit_handler.form.media.js }}
-    {{ edit_handler.html_declarations }}
-
-    {{ view.media.js }}
-
     {% include "wagtailadmin/workflows/includes/_edit_js.html" %}
 {% endblock %}
 
 {% block content %}
-    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon merged=1 %}
+    {% include "wagtailadmin/shared/header.html" with title=view.page_title subtitle=object.name icon=view.header_icon only %}
 
     <form action="{{ view.edit_url }}" enctype="multipart/form-data" method="POST" novalidate>
         {% csrf_token %}
@@ -36,15 +28,16 @@
                     {{ field }}
                 {% endif %}
             {% endfor %}
-                <li>
-                    <div class="help-block help-info">
-                        {% for workflow in object.active_workflows %}
-                            {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
-                            <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
-                        {% empty %}
-                            {% trans "Not used" %}
-                        {% endfor %}
-                    </div>
+            <li>
+                <div class="help-block help-info">
+                    {% icon name='help' %}
+                    {% for workflow in object.active_workflows %}
+                        {% if forloop.first %}<strong>{% trans "Used on the following active workflows" %}:</strong> {% endif %}
+                        <a href="{% url 'wagtailadmin_workflows:edit' workflow.pk %}">{{ workflow.name }}</a>{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        {% trans "Not used" %}
+                    {% endfor %}
+                </div>
             </li>
         </ul>
 

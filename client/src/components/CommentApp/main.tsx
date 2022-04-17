@@ -14,7 +14,7 @@ import {
   setFocusedComment,
   updateComment,
   commentActionFunctions,
-  invalidateContentPath
+  invalidateContentPath,
 } from './actions/comments';
 import { updateGlobalSettings } from './actions/settings';
 import {
@@ -24,55 +24,12 @@ import {
   selectEnabled,
   selectFocused,
   selectIsDirty,
-  selectCommentCount
+  selectCommentCount,
 } from './selectors';
 import CommentComponent from './components/Comment';
 import { CommentFormSetComponent } from './components/Form';
 import { INITIAL_STATE as INITIAL_SETTINGS_STATE } from './state/settings';
 
-export interface TranslatableStrings {
-  COMMENT: string;
-  SAVE: string;
-  SAVING: string;
-  CANCEL: string;
-  DELETE: string;
-  DELETING: string;
-  SHOW_COMMENTS: string;
-  EDIT: string;
-  REPLY: string;
-  RESOLVE: string;
-  RETRY: string;
-  DELETE_ERROR: string;
-  CONFIRM_DELETE_COMMENT: string;
-  SAVE_ERROR: string;
-  MORE_ACTIONS: string;
-  SAVE_PAGE_TO_ADD_COMMENT: string;
-  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: string;
-  SAVE_PAGE_TO_SAVE_REPLY: string;
-}
-
-export const defaultStrings = {
-  COMMENT: 'Comment',
-  SAVE: 'Save',
-  SAVING: 'Saving...',
-  CANCEL: 'Cancel',
-  DELETE: 'Delete',
-  DELETING: 'Deleting...',
-  SHOW_COMMENTS: 'Show comments',
-  EDIT: 'Edit',
-  REPLY: 'Reply',
-  RESOLVE: 'Resolve',
-  RETRY: 'Retry',
-  DELETE_ERROR: 'Delete error',
-  CONFIRM_DELETE_COMMENT: 'Are you sure?',
-  SAVE_ERROR: 'Save error',
-  MORE_ACTIONS: 'More actions',
-  SAVE_PAGE_TO_ADD_COMMENT: 'Save the page to add this comment',
-  SAVE_PAGE_TO_SAVE_COMMENT_CHANGES: 'Save the page to save this comment',
-  SAVE_PAGE_TO_SAVE_REPLY: 'Save the page to save this reply',
-};
-
-/* eslint-disable camelcase */
 // This is done as this is serialized pretty directly from the Django model
 export interface InitialCommentReply {
   pk: number;
@@ -97,9 +54,14 @@ export interface InitialComment {
 }
 /* eslint-enable */
 
-// eslint-disable-next-line camelcase
-const getAuthor = (authors: Map<string, {name: string, avatar_url: string}>, id: any): Author => {
-  const authorData = getOrDefault(authors, String(id), { name: '', avatar_url: '' });
+const getAuthor = (
+  authors: Map<string, { name: string; avatar_url: string }>,
+  id: any,
+): Author => {
+  const authorData = getOrDefault(authors, String(id), {
+    name: '',
+    avatar_url: '',
+  });
 
   return {
     id,
@@ -112,7 +74,6 @@ function renderCommentsUi(
   store: Store,
   layout: LayoutController,
   comments: Comment[],
-  strings: TranslatableStrings
 ): React.ReactElement {
   const state = store.getState();
   const { commentsEnabled, user, currentTab } = state.settings;
@@ -123,7 +84,9 @@ function renderCommentsUi(
     commentsToRender = [];
   }
   // Hide all resolved/deleted comments
-  commentsToRender = commentsToRender.filter(({ deleted, resolved }) => !(deleted || resolved));
+  commentsToRender = commentsToRender.filter(
+    ({ deleted, resolved }) => !(deleted || resolved),
+  );
   const commentsRendered = commentsToRender.map((comment) => (
     <CommentComponent
       key={comment.localId}
@@ -134,12 +97,9 @@ function renderCommentsUi(
       isFocused={comment.localId === focusedComment}
       forceFocus={forceFocus}
       isVisible={layout.getCommentVisible(currentTab, comment.localId)}
-      strings={strings}
     />
   ));
-  return (
-    <ol className="comments-list">{commentsRendered}</ol>
-  );
+  return <ol className="comments-list">{commentsRendered}</ol>;
   /* eslint-enable react/no-danger */
 }
 
@@ -148,47 +108,39 @@ export class CommentApp {
   layout: LayoutController;
   utils = {
     selectCommentsForContentPathFactory,
-    selectCommentFactory
-  }
+    selectCommentFactory,
+  };
   selectors = {
     selectComments,
     selectEnabled,
     selectFocused,
     selectIsDirty,
-    selectCommentCount
-  }
+    selectCommentCount,
+  };
   actions = commentActionFunctions;
 
   constructor() {
     this.store = createStore(reducer, {
-      settings: INITIAL_SETTINGS_STATE
+      settings: INITIAL_SETTINGS_STATE,
     });
     this.layout = new LayoutController();
   }
-  // eslint-disable-next-line camelcase
-  setUser(userId: any, authors: Map<string, {name: string, avatar_url: string}>) {
+
+  setUser(
+    userId: any,
+    authors: Map<string, { name: string; avatar_url: string }>,
+  ) {
     this.store.dispatch(
       updateGlobalSettings({
-        user: getAuthor(authors, userId)
-      })
+        user: getAuthor(authors, userId),
+      }),
     );
   }
-  updateAnnotation(
-    annotation: Annotation,
-    commentId: number
-  ) {
+  updateAnnotation(annotation: Annotation, commentId: number) {
     this.attachAnnotationLayout(annotation, commentId);
-    this.store.dispatch(
-      updateComment(
-        commentId,
-        { annotation: annotation }
-      )
-    );
+    this.store.dispatch(updateComment(commentId, { annotation: annotation }));
   }
-  attachAnnotationLayout(
-    annotation: Annotation,
-    commentId: number
-  ) {
+  attachAnnotationLayout(annotation: Annotation, commentId: number) {
     // Attach an annotation to an existing comment in the layout
 
     // const layout engine know the annotation so it would position the comment correctly
@@ -214,37 +166,46 @@ export class CommentApp {
           Date.now(),
           {
             mode: 'creating',
-          }
-        )
-      )
+          },
+        ),
+      ),
     );
 
     // Focus and pin the comment
-    this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true, forceFocus: true }));
+    this.store.dispatch(
+      setFocusedComment(commentId, {
+        updatePinnedComment: true,
+        forceFocus: true,
+      }),
+    );
     return commentId;
   }
   setVisible(visible: boolean) {
-    this.store.dispatch(updateGlobalSettings({
-      commentsEnabled: visible,
-    }));
+    this.store.dispatch(
+      updateGlobalSettings({
+        commentsEnabled: visible,
+      }),
+    );
   }
   invalidateContentPath(contentPath: string) {
     // Called when a given content path on the form is no longer valid (eg, a block has been deleted)
     this.store.dispatch(invalidateContentPath(contentPath));
+  }
+  updateContentPath(commentId: number, newContentPath: string) {
+    this.store.dispatch(
+      updateComment(commentId, { contentpath: newContentPath }),
+    );
   }
   renderApp(
     element: HTMLElement,
     outputElement: HTMLElement,
     userId: any,
     initialComments: InitialComment[],
-    // eslint-disable-next-line camelcase
-    authors: Map<string, {name: string, avatar_url: string}>,
-    translationStrings: TranslatableStrings | null
+
+    authors: Map<string, { name: string; avatar_url: string }>,
   ) {
     let pinnedComment: number | null = null;
     this.setUser(userId, authors);
-
-    const strings = translationStrings || defaultStrings;
 
     // Check if there is "comment" query parameter.
     // If this is set, the user has clicked on a "View on frontend" link of an
@@ -258,14 +219,18 @@ export class CommentApp {
 
     const render = () => {
       const state = this.store.getState();
-      const commentList: Comment[] = Array.from(state.comments.comments.values());
+      const commentList: Comment[] = Array.from(
+        state.comments.comments.values(),
+      );
 
       ReactDOM.render(
         <CommentFormSetComponent
-          comments={commentList.filter(comment => comment.mode !== 'creating')}
+          comments={commentList.filter(
+            (comment) => comment.mode !== 'creating',
+          )}
           remoteCommentCount={state.comments.remoteCommentCount}
         />,
-        outputElement
+        outputElement,
       );
 
       // Check if the pinned comment has changed
@@ -278,7 +243,7 @@ export class CommentApp {
       }
 
       ReactDOM.render(
-        renderCommentsUi(this.store, this.layout, commentList, strings),
+        renderCommentsUi(this.store, this.layout, commentList),
         element,
         () => {
           // Render again if layout has changed (eg, a comment was added, deleted or resized)
@@ -286,11 +251,11 @@ export class CommentApp {
           this.layout.refreshDesiredPositions(state.settings.currentTab);
           if (this.layout.refreshLayout()) {
             ReactDOM.render(
-              renderCommentsUi(this.store, this.layout, commentList, strings),
-              element
+              renderCommentsUi(this.store, this.layout, commentList),
+              element,
             );
           }
-        }
+        },
       );
     };
 
@@ -312,10 +277,10 @@ export class CommentApp {
               remoteId: comment.pk,
               text: comment.text,
               deleted: comment.deleted,
-              resolved: comment.resolved
-            }
-          )
-        )
+              resolved: comment.resolved,
+            },
+          ),
+        ),
       );
 
       // Create replies
@@ -330,18 +295,23 @@ export class CommentApp {
               {
                 remoteId: reply.pk,
                 text: reply.text,
-                deleted: reply.deleted
-              }
-            )
-          )
+                deleted: reply.deleted,
+              },
+            ),
+          ),
         );
       }
 
       // If this is the initial focused comment. Focus and pin it
-      // eslint-disable-next-line no-warning-comments
+
       // TODO: Scroll to this comment
       if (initialFocusedCommentId && comment.pk === initialFocusedCommentId) {
-        this.store.dispatch(setFocusedComment(commentId, { updatePinnedComment: true, forceFocus: true }));
+        this.store.dispatch(
+          setFocusedComment(commentId, {
+            updatePinnedComment: true,
+            forceFocus: true,
+          }),
+        );
       }
     }
 
@@ -353,10 +323,17 @@ export class CommentApp {
     document.body.addEventListener('mousedown', (e) => {
       if (e.target instanceof HTMLElement) {
         // ignore if click target is a comment or an annotation
-        if (!e.target.closest('#comments, [data-annotation], [data-comment-add]')) {
+        if (
+          !e.target.closest('#comments, [data-annotation], [data-comment-add]')
+        ) {
           // Running store.dispatch directly here seems to prevent the event from being handled anywhere else
           setTimeout(() => {
-            this.store.dispatch(setFocusedComment(null, { updatePinnedComment: true, forceFocus: false }));
+            this.store.dispatch(
+              setFocusedComment(null, {
+                updatePinnedComment: true,
+                forceFocus: false,
+              }),
+            );
           }, 200);
         }
       }
@@ -365,7 +342,9 @@ export class CommentApp {
     document.body.addEventListener('commentAnchorVisibilityChange', () => {
       // If any streamfield blocks or panels have collapsed or expanded
       // check if we need to rerender
-      this.layout.refreshDesiredPositions(this.store.getState().settings.currentTab);
+      this.layout.refreshDesiredPositions(
+        this.store.getState().settings.currentTab,
+      );
       if (this.layout.refreshLayout()) {
         render();
       }

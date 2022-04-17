@@ -1,9 +1,18 @@
 /* global $ */
-
 import { escapeHtml as h } from '../../../utils/text';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import Icon from '../../Icon/Icon';
 
 export class FieldBlock {
-  constructor(blockDef, placeholder, prefix, initialState, initialError) {
+  constructor(
+    blockDef,
+    placeholder,
+    prefix,
+    initialState,
+    initialError,
+    parentCapabilities,
+  ) {
     this.blockDef = blockDef;
     this.type = blockDef.name;
 
@@ -21,13 +30,27 @@ export class FieldBlock {
     const widgetElement = dom.find('[data-streamfield-widget]').get(0);
     this.element = dom[0];
 
+    this.parentCapabilities = parentCapabilities || new Map();
+
+    this.prefix = prefix;
+
     try {
-      this.widget = this.blockDef.widget.render(widgetElement, prefix, prefix, initialState);
+      this.widget = this.blockDef.widget.render(
+        widgetElement,
+        prefix,
+        prefix,
+        initialState,
+        this.parentCapabilities,
+      );
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
       this.setError([
-        { messages: ['This widget failed to render, please check the console for details'] }
+        {
+          messages: [
+            'This widget failed to render, please check the console for details',
+          ],
+        },
       ]);
       return;
     }
@@ -37,7 +60,7 @@ export class FieldBlock {
     if (this.blockDef.meta.helpText) {
       const helpElement = document.createElement('p');
       helpElement.classList.add('help');
-      helpElement.innerHTML = this.blockDef.meta.helpText;  // unescaped, as per Django conventions
+      helpElement.innerHTML = this.blockDef.meta.helpText; // unescaped, as per Django conventions
       this.element.querySelector('.field-content').appendChild(helpElement);
     }
 
@@ -48,17 +71,22 @@ export class FieldBlock {
 
       const addCommentButtonElement = document.createElement('button');
       addCommentButtonElement.type = 'button';
-      addCommentButtonElement.setAttribute('aria-label', blockDef.meta.strings.ADD_COMMENT);
+      addCommentButtonElement.setAttribute(
+        'aria-label',
+        blockDef.meta.strings.ADD_COMMENT,
+      );
       addCommentButtonElement.setAttribute('data-comment-add', '');
       addCommentButtonElement.classList.add('button');
       addCommentButtonElement.classList.add('button-secondary');
       addCommentButtonElement.classList.add('button-small');
       addCommentButtonElement.classList.add('u-hidden');
-      addCommentButtonElement.innerHTML = (
-        '<svg class="icon icon-comment-add initial icon-default" aria-hidden="true" focusable="false">'
-        + '<use href="#icon-comment-add"></use></svg>'
-        + '<svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true" focusable="false">'
-        + '<use href="#icon-comment-add-reversed"></use></svg>'
+
+      ReactDOM.render(
+        <>
+          <Icon name="comment-add" className="icon-default" />
+          <Icon name="comment-add-reversed" className="icon-reversed" />
+        </>,
+        addCommentButtonElement,
       );
       fieldCommentControlElement.appendChild(addCommentButtonElement);
       window.comments.initAddCommentButton(addCommentButtonElement);
@@ -69,6 +97,13 @@ export class FieldBlock {
     }
   }
 
+  setCapabilityOptions(capability, options) {
+    Object.assign(this.parentCapabilities.get(capability), options);
+    if (this.widget && this.widget.setCapabilityOptions) {
+      this.widget.setCapabilityOptions(capability, options);
+    }
+  }
+
   setState(state) {
     if (this.widget) {
       this.widget.setState(state);
@@ -76,14 +111,18 @@ export class FieldBlock {
   }
 
   setError(errorList) {
-    this.element.querySelectorAll(':scope > .field-content > .error-message').forEach(element => element.remove());
+    this.element
+      .querySelectorAll(':scope > .field-content > .error-message')
+      .forEach((element) => element.remove());
 
     if (errorList) {
       this.element.classList.add('error');
 
       const errorElement = document.createElement('p');
       errorElement.classList.add('error-message');
-      errorElement.innerHTML = errorList.map(error => `<span>${h(error.messages[0])}</span>`).join('');
+      errorElement.innerHTML = errorList
+        .map((error) => `<span>${h(error.messages[0])}</span>`)
+        .join('');
       this.element.querySelector('.field-content').appendChild(errorElement);
     } else {
       this.element.classList.remove('error');
@@ -119,7 +158,14 @@ export class FieldBlockDefinition {
     this.meta = meta;
   }
 
-  render(placeholder, prefix, initialState, initialError) {
-    return new FieldBlock(this, placeholder, prefix, initialState, initialError);
+  render(placeholder, prefix, initialState, initialError, parentCapabilities) {
+    return new FieldBlock(
+      this,
+      placeholder,
+      prefix,
+      initialState,
+      initialError,
+      parentCapabilities,
+    );
   }
 }

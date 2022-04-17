@@ -2,12 +2,12 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils.http import urlencode
 
-from wagtail.tests.testapp.models import EventPage
-from wagtail.tests.utils import WagtailTestUtils
+from wagtail.test.testapp.models import EventPage
+from wagtail.test.utils import WagtailTestUtils
 
 
 class TestContentTypeUse(TestCase, WagtailTestUtils):
-    fixtures = ['test.json']
+    fixtures = ["test.json"]
 
     def setUp(self):
         self.user = self.login()
@@ -15,17 +15,20 @@ class TestContentTypeUse(TestCase, WagtailTestUtils):
 
     def test_content_type_use(self):
         # Get use of event page
-        request_url = reverse('wagtailadmin_pages:type_use', args=('tests', 'eventpage'))
+        request_url = reverse(
+            "wagtailadmin_pages:type_use", args=("tests", "eventpage")
+        )
         response = self.client.get(request_url)
 
         # Check response
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'wagtailadmin/pages/content_type_use.html')
+        self.assertTemplateUsed(response, "wagtailadmin/pages/content_type_use.html")
         self.assertContains(response, "Christmas")
 
         # Links to 'delete' etc should include a 'next' URL parameter pointing back here
         delete_url = (
-            reverse('wagtailadmin_pages:delete', args=(self.christmas_page.id,))
-            + '?' + urlencode({'next': request_url})
+            reverse("wagtailadmin_pages:delete", args=(self.christmas_page.id,))
+            + "?"
+            + urlencode({"next": request_url})
         )
         self.assertContains(response, delete_url)

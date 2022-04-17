@@ -2,26 +2,28 @@ from django.template.loader import render_to_string
 
 
 class BaseItem:
-    template = 'wagtailadmin/userbar/item_base.html'
+    template = "wagtailadmin/userbar/item_base.html"
 
     def render(self, request):
-        return render_to_string(self.template, dict(self=self, request=request), request=request)
+        return render_to_string(
+            self.template, {"self": self, "request": request}, request=request
+        )
 
 
 class AdminItem(BaseItem):
-    template = 'wagtailadmin/userbar/item_admin.html'
+    template = "wagtailadmin/userbar/item_admin.html"
 
     def render(self, request):
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         return super().render(request)
 
 
 class AddPageItem(BaseItem):
-    template = 'wagtailadmin/userbar/item_page_add.html'
+    template = "wagtailadmin/userbar/item_page_add.html"
 
     def __init__(self, page):
         self.page = page
@@ -33,7 +35,7 @@ class AddPageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to add children here
@@ -45,7 +47,7 @@ class AddPageItem(BaseItem):
 
 
 class ExplorePageItem(BaseItem):
-    template = 'wagtailadmin/userbar/item_page_explore.html'
+    template = "wagtailadmin/userbar/item_page_explore.html"
 
     def __init__(self, page):
         self.page = page
@@ -57,19 +59,22 @@ class ExplorePageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if user doesn't have ability to edit or publish sub-pages on the parent page
         permission_checker = self.parent_page.permissions_for_user(request.user)
-        if not permission_checker.can_edit() and not permission_checker.can_publish_subpage():
+        if (
+            not permission_checker.can_edit()
+            and not permission_checker.can_publish_subpage()
+        ):
             return ""
 
         return super().render(request)
 
 
 class EditPageItem(BaseItem):
-    template = 'wagtailadmin/userbar/item_page_edit.html'
+    template = "wagtailadmin/userbar/item_page_edit.html"
 
     def __init__(self, page):
         self.page = page
@@ -80,7 +85,7 @@ class EditPageItem(BaseItem):
             return ""
 
         # Don't render if user doesn't have permission to access the admin area
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         # Don't render if the user doesn't have permission to edit this page
@@ -102,7 +107,7 @@ class ModeratePageItem(BaseItem):
         if not self.revision.submitted_for_moderation:
             return ""
 
-        if not request.user.has_perm('wagtailadmin.access_admin'):
+        if not request.user.has_perm("wagtailadmin.access_admin"):
             return ""
 
         if not self.revision.page.permissions_for_user(request.user).can_publish():
@@ -112,8 +117,8 @@ class ModeratePageItem(BaseItem):
 
 
 class ApproveModerationEditPageItem(ModeratePageItem):
-    template = 'wagtailadmin/userbar/item_page_approve.html'
+    template = "wagtailadmin/userbar/item_page_approve.html"
 
 
 class RejectModerationEditPageItem(ModeratePageItem):
-    template = 'wagtailadmin/userbar/item_page_reject.html'
+    template = "wagtailadmin/userbar/item_page_reject.html"

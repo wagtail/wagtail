@@ -1,3 +1,4 @@
+@use 'sass:color';
 // paths
 
 // We can't use absolute paths here, because those are dependent on Django's
@@ -5,9 +6,7 @@
 // compiled CSS files are used.
 // */
 
-$static-root: '../../';
-$images-root: $static-root + 'wagtailadmin/images/';
-$font-root: '../../wagtailadmin/fonts/';
+$images-root: '../images/';
 
 // grid settings
 $grid-columns: 12;
@@ -20,11 +19,15 @@ $desktop-nice-padding: 50px;
 
 // screen breakpoints
 $breakpoints: (
-    xs: 0,
-    sm: 50em,    // 800px
-    md: 56.25em, // 900px
-    lg: 75em,    // 1200px
-    xl: 100em,   // 1440px
+  xs: 0,
+  sm: 50em,
+  // 800px
+  md: 56.25em,
+  // 900px
+  lg: 75em,
+  // 1200px
+  xl: 100em,
+  // 1440px
 );
 
 // colours
@@ -48,13 +51,13 @@ $color-white: #fff;
 $color-black: #000;
 
 // darker to lighter
-$color-grey-1: darken($color-white, 80);
-$color-grey-2: darken($color-white, 70);
-$color-grey-3: darken($color-white, 15);
-$color-grey-4: darken($color-white, 10);
-$color-grey-5: darken($color-white, 2);
+$color-grey-1: color.adjust($color-white, $lightness: -80%);
+$color-grey-2: color.adjust($color-white, $lightness: -70%);
+$color-grey-3: color.adjust($color-white, $lightness: -15%);
+$color-grey-4: color.adjust($color-white, $lightness: -10%);
+$color-grey-5: color.adjust($color-white, $lightness: -2%);
 
-$color-menu-text: darken($color-white, 20);
+$color-menu-text: color.adjust($color-white, $lightness: -20%);
 
 $color-thead-bg: $color-grey-5;
 $color-header-bg: $color-teal;
@@ -63,16 +66,22 @@ $color-fieldset-hover: $color-grey-5;
 $color-input-border: $color-grey-4;
 $color-input-focus: var(--color-input-focus);
 $color-input-focus-border: var(--color-input-focus-border);
-$color-input-error-bg: lighten(saturate($color-red, 28), 45);
+$color-input-error-bg: color.adjust(
+  color.adjust($color-red, $saturation: 28%),
+  $lightness: 45%
+);
 
 $color-button: $color-teal;
 $color-button-hover: $color-teal-darker;
 $color-button-yes: $color-green-dark;
-$color-button-yes-hover: darken($color-button-yes, 8%);
+$color-button-yes-hover: color.adjust($color-button-yes, $lightness: -8%);
 $color-button-no: $color-red-dark;
-$color-button-no-hover: darken($color-button-no, 20%);
+$color-button-no-hover: color.adjust($color-button-no, $lightness: -20%);
 $color-button-warning: $color-orange-dark;
-$color-button-warning-hover: darken($color-button-warning, 20%);
+$color-button-warning-hover: color.adjust(
+  $color-button-warning,
+  $lightness: -20%
+);
 
 $color-link: $color-teal-darker;
 $color-link-hover: $color-teal-dark;
@@ -81,14 +90,8 @@ $color-link-hover: $color-teal-dark;
 // because it shouldn’t be reused for anything else in the UI.
 $color-focus-outline: #ffbf47;
 
-$color-text-base: darken($color-white, 85);
-$color-text-input: darken($color-white, 90);
-
-// Color states
-$color-state-live: #59b524;
-$color-state-draft: #808080;
-$color-state-absent: #ff8f11;
-$color-state-live-draft: #43b1b0;
+$color-text-base: color.adjust($color-white, $lightness: -85%);
+$color-text-input: color.adjust($color-white, $lightness: -90%);
 
 // System Colors
 $media-forced-colours: active;
@@ -96,17 +99,63 @@ $system-color-link-text: LinkText;
 $system-color-button-text: ButtonText;
 
 // Fonts
-$font-sans: Open Sans, Arial, sans-serif;
-$font-serif: Roboto Slab, Georgia, serif;
+// Our fonts are based off of a list of system fallbacks to ensure
+// that the most 'up-to-date' and available system font is used and rendered consistently as possible across browsers.
+
+$font-sans:
+  // iOS Safari, macOS Safari, macOS Firefox
+  -apple-system,
+  // macOS Chrome
+  BlinkMacSystemFont,
+  // Windows - for all browsers on Windows 7+ (putting Segoe UI before system-ui ensures Segoe UI will be rendered for different languages)
+  'Segoe UI',
+  system-ui,
+  // Targets Android and newer Chrome OS'. (If Roboto is installed on your windows computer Segoe UI will take precedence.)
+  Roboto,
+  // A common fallback font for older macOS'
+  'Helvetica Neue',
+  // Very old Windows versions (special shout-out to whoever is using windows 95)
+  Arial,
+  // A last resort if all else fails, just give us something without serifs :)
+  sans-serif,
+  // All the emojis 👋🙂
+  'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+$font-mono:
+  // iOS Safari, MacOS Safari
+  ui-monospace, Menlo, Monaco,
+  // Windows
+  'Cascadia Mono',
+  'Segoe UI Mono',
+  // Linux
+  'Roboto Mono',
+  'Oxygen Mono', 'Ubuntu Monospace',
+  // Android
+  'Source Code Pro',
+  // Firefox
+  'Fira Mono',
+  // Last resort Android/others
+  'Droid Sans Mono',
+  'Courier New', monospace,
+  // All the emojis 👋🙂
+  'Apple Color Emoji',
+  'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+// Legacy icon font, to be removed in the near future.
+$font-wagtail-icons: wagtail;
 
 // misc sizing
 $thumbnail-width: 130px;
 $menu-width: 200px;
-$menu-width-slim: 60px;
+$menu-width-slim: 65px;
 
 $menu-width-max: 320px;
 
 $mobile-nav-indent: 50px;
+
+$sidebar-toggle-spacing: 12px;
+$sidebar-toggle-size: 35px;
 
 // transitions
 // Please keep in sync with SIDEBAR_TRANSITION_DURATION variable in `client/src/components/Sidebar/Sidebar.tsx`
@@ -114,28 +163,17 @@ $menu-transition-duration: 150ms;
 
 $focus-outline-width: 3px;
 
-$nav-wrapper-inner-z-index: 26;
-$draftail-editor-z-index: $nav-wrapper-inner-z-index + 1;
-
 $object-title-height: 40px;
 
-// Nav
-$nav-grey-1: darken($color-white, 80);
-$nav-grey-2: darken($color-white, 60);
-$nav-grey-3: #262626;
-$nav-item-hover-bg: rgba(100, 100, 100, 0.15);
-$nav-item-active-bg: darken($color-white, 90);
-$nav-submenu-bg: darken($color-white, 85);
-$nav-footer-account-bg: $nav-item-active-bg;
-$nav-footer-submenu-bg: $nav-submenu-bg;
-$nav-footer-closed-height: 50px;
-$nav-footer-submenu-height: 77px;
-$nav-footer-open-height: $nav-footer-closed-height + $nav-footer-submenu-height;
-
-// Nav search
-$nav-search-color: darken($color-white, 20);
-$nav-search-border: darken($color-white, 40);
-$nav-search-bg: $nav-grey-1;
-$nav-search-hover-bg: $nav-item-hover-bg;
-$nav-search-focus-color: $color-white;
-$nav-search-focus-bg: $nav-item-hover-bg;
+// Form Errors
+$color-text-error: color.change($color-red, $saturation: 69%, $lightness: 52%);
+$color-text-error-forced-color: color.change(
+  $color-red,
+  $saturation: 100%,
+  $lightness: 50%
+);
+$color-text-warning-forced-color: color.change(
+  $color-orange,
+  $saturation: 100%,
+  $lightness: 70%
+);

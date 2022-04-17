@@ -1,6 +1,11 @@
 {% load i18n wagtailadmin_tags %}
-
-<section id="upload" class="{% if form.errors %}active{% endif %} nice-padding">
+<section
+    id="tab-upload"
+    class="w-tabs__panel"
+    role="tabpanel"
+    hidden
+    aria-labelledby="tab-label-upload"
+>
     {% include "wagtailadmin/shared/non_field_errors.html" with form=form %}
     <form class="image-upload" action="{% url 'wagtailimages:chooser_upload' %}{% if will_select_format %}?select_format=true{% endif %}" method="POST" enctype="multipart/form-data" novalidate>
         {% csrf_token %}
