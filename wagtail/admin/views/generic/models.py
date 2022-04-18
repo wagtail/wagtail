@@ -78,6 +78,7 @@ class IndexView(
 
     def setup_search(self):
         self.is_searchable = self.get_is_searchable()
+        self.search_url = self.get_search_url()
         self.search_form = self.get_search_form()
         self.is_searching = False
         self.search_query = None
@@ -92,6 +93,9 @@ class IndexView(
         if self.is_searchable is None:
             return class_is_indexed(self.model)
         return self.is_searchable
+
+    def get_search_url(self):
+        return reverse(self.index_url_name)
 
     def get_search_form(self):
         if self.model is None:
@@ -169,6 +173,7 @@ class IndexView(
         context["index_url"] = index_url
         context["is_paginated"] = bool(self.paginate_by)
         context["is_searchable"] = self.is_searchable
+        context["search_url"] = self.get_search_url()
         context["search_form"] = self.search_form
         context["is_searching"] = self.is_searching
         context["query_string"] = self.search_query
