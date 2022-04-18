@@ -597,6 +597,7 @@ Contributors
 * Przemysław Buczkowski
 * Josh Woodcock
 * Christian Franke
+* Tom Hu
 
 Translators
 ===========
