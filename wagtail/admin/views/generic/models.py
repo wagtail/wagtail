@@ -359,6 +359,7 @@ class EditView(
 
 
 class DeleteView(
+    LocaleMixin,
     PermissionCheckedMixin,
     BeforeAfterHookMixin,
     WagtailAdminTemplateMixin,
