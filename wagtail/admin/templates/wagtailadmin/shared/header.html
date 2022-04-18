@@ -22,7 +22,7 @@
                 <h1>{% if icon %}{% icon name=icon class_name="header-title-icon" %}{% endif %}
                     {{ title }}{% if subtitle %} <span>{{ subtitle }}</span>{% endif %}</h1>
             </div>
-            {% if search_url %}
+            {% if is_searchable and search_url %}
                 <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
                     <ul class="fields">
                         {% for field in search_form %}
