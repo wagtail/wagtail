@@ -1738,6 +1738,7 @@ class TestCopyForTranslationAction(AdminAPITestCase):
         ][0]
         assert new_post_page.title == new_page_title
 
+
 class TestCreatePageAliasAction(AdminAPITestCase):
     fixtures = ["test.json"]
 
