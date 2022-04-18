@@ -14,7 +14,6 @@ from django.utils.translation import gettext_lazy, ngettext
 from django.views.generic import TemplateView
 
 from wagtail.admin import messages
-from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.panels import ObjectList, extract_panel_definitions_from_model_class
 from wagtail.admin.ui.tables import Column, DateColumn, UserColumn
 from wagtail.admin.views.generic import (
@@ -27,7 +26,6 @@ from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
 from wagtail.models import Locale, TranslatableMixin
 from wagtail.search.backends import get_search_backend
-from wagtail.search.index import class_is_indexed
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
 from wagtail.snippets.permissions import get_permission_name, user_can_edit_snippet_type
@@ -107,36 +105,9 @@ class List(IndexView):
         self.model_name = model_name
         self.model = self._get_model()
         super().setup(request, *args, **kwargs)
-        self._setup_search()
 
     def _get_model(self):
         return get_snippet_model_from_url_params(self.app_label, self.model_name)
-
-    def _setup_search(self):
-        self.is_searchable = self._get_is_searchable()
-        self.search_form = self._get_search_form()
-        self.is_searching = False
-        self.search_query = None
-
-        if self.search_form.is_valid():
-            self.search_query = self.search_form.cleaned_data["q"]
-            self.is_searching = True
-
-    def _get_is_searchable(self):
-        return class_is_indexed(self.model)
-
-    def _get_search_form(self):
-        if self.is_searchable and "q" in self.request.GET:
-            return SearchForm(
-                self.request.GET,
-                placeholder=_("Search %(snippet_type_name)s")
-                % {"snippet_type_name": self.model._meta.verbose_name_plural},
-            )
-
-        return SearchForm(
-            placeholder=_("Search %(snippet_type_name)s")
-            % {"snippet_type_name": self.model._meta.verbose_name_plural}
-        )
 
     def dispatch(self, request, *args, **kwargs):
         permissions = [
@@ -208,10 +179,6 @@ class List(IndexView):
                 "can_delete_snippets": self.request.user.has_perm(
                     get_permission_name("delete", self.model)
                 ),
-                "is_searchable": self.is_searchable,
-                "search_form": self.search_form,
-                "is_searching": self.is_searching,
-                "query_string": self.search_query,
             }
         )
 

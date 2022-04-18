@@ -13,8 +13,10 @@ from django.views.generic.edit import BaseUpdateView, DeletionMixin, FormMixin
 from django.views.generic.list import BaseListView
 
 from wagtail.admin import messages
+from wagtail.admin.forms.search import SearchForm
 from wagtail.admin.ui.tables import Table, TitleColumn
 from wagtail.log_actions import log
+from wagtail.search.index import class_is_indexed
 
 from .base import WagtailAdminTemplateMixin
 from .hooks import BeforeAfterHookMixin
@@ -67,6 +69,45 @@ class IndexView(
     any_permission_required = ["add", "change", "delete"]
     page_kwarg = "p"
     default_ordering = None
+    is_searchable = None
+    search_kwarg = "q"
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.setup_search()
+
+    def setup_search(self):
+        self.is_searchable = self.get_is_searchable()
+        self.search_form = self.get_search_form()
+        self.is_searching = False
+        self.search_query = None
+
+        if self.search_form and self.search_form.is_valid():
+            self.search_query = self.search_form.cleaned_data[self.search_kwarg]
+            self.is_searching = True
+
+    def get_is_searchable(self):
+        if self.model is None:
+            return False
+        if self.is_searchable is None:
+            return class_is_indexed(self.model)
+        return self.is_searchable
+
+    def get_search_form(self):
+        if self.model is None:
+            return None
+
+        if self.is_searchable and self.search_kwarg in self.request.GET:
+            return SearchForm(
+                self.request.GET,
+                placeholder=_("Search %(model_name)s")
+                % {"model_name": self.model._meta.verbose_name_plural},
+            )
+
+        return SearchForm(
+            placeholder=_("Search %(model_name)s")
+            % {"model_name": self.model._meta.verbose_name_plural}
+        )
 
     def get(self, request, *args, **kwargs):
         if not hasattr(self, "columns"):
@@ -127,6 +168,10 @@ class IndexView(
         context["media"] = table.media
         context["index_url"] = index_url
         context["is_paginated"] = bool(self.paginate_by)
+        context["is_searchable"] = self.is_searchable
+        context["search_form"] = self.search_form
+        context["is_searching"] = self.is_searching
+        context["query_string"] = self.search_query
         return context
 
 
