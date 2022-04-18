@@ -24,7 +24,10 @@ class TypeField(Field):
 
     def to_representation(self, obj):
         name = type(obj)._meta.app_label + "." + type(obj).__name__
-        self.context["view"].seen_types[name] = type(obj)
+
+        if "view" in self.context:
+            self.context["view"].seen_types[name] = type(obj)
+
         return name
 
 
@@ -88,7 +91,10 @@ class PageTypeField(Field):
         if page.specific_class is None:
             return None
         name = page.specific_class._meta.app_label + "." + page.specific_class.__name__
-        self.context["view"].seen_types[name] = page.specific_class
+
+        if "view" in self.context:
+            self.context["view"].seen_types[name] = page.specific_class
+
         return name
 
 
