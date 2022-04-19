@@ -1,7 +1,6 @@
 from urllib.parse import urlencode
 
 from django.apps import apps
-from django.conf import settings
 from django.contrib.admin.utils import quote, unquote
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
@@ -24,7 +23,7 @@ from wagtail.admin.views.generic import (
 )
 from wagtail.log_actions import log
 from wagtail.log_actions import registry as log_registry
-from wagtail.models import Locale, TranslatableMixin
+from wagtail.models import Locale
 from wagtail.search.backends import get_search_backend
 from wagtail.snippets.action_menu import SnippetActionMenu
 from wagtail.snippets.models import get_snippet_models
@@ -334,13 +333,6 @@ class Edit(EditView):
 
     def get_panel(self):
         return get_snippet_edit_handler(self.model)
-
-    def get_locale(self):
-        if getattr(settings, "WAGTAIL_I18N_ENABLED", False) and issubclass(
-            self.model, TranslatableMixin
-        ):
-            return self.object.locale
-        return None
 
     def dispatch(self, request, *args, **kwargs):
         permission = get_permission_name("change", self.model)

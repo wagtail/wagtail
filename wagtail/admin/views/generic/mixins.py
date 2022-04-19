@@ -21,6 +21,9 @@ class LocaleMixin:
         if not i18n_enabled:
             return None
 
+        if hasattr(self, "object") and self.object:
+            return self.object.locale
+
         selected_locale = self.request.GET.get("locale")
         if selected_locale:
             return get_object_or_404(Locale, language_code=selected_locale)
