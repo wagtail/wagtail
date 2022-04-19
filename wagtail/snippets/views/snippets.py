@@ -146,7 +146,7 @@ class List(IndexView):
         page = paginator.get_page(page_number)
         return (paginator, page, page.object_list, page.has_other_pages())
 
-    def get_translations_context(self):
+    def get_translations(self):
         return [
             {
                 "locale": locale,
@@ -275,7 +275,7 @@ class Create(CreateView):
             "for_user": self.request.user,
         }
 
-    def get_translations_context(self):
+    def get_translations(self):
         return [
             {
                 "locale": locale,
@@ -391,7 +391,7 @@ class Edit(EditView):
     def get_form_kwargs(self):
         return {**super().get_form_kwargs(), "for_user": self.request.user}
 
-    def get_translations_context(self):
+    def get_translations(self):
         return [
             {
                 "locale": translation.locale,

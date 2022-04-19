@@ -76,7 +76,7 @@ class LocaleMixin:
         super().setup(request, *args, **kwargs)
         self.locale = self.get_locale()
 
-    def get_translations_context(self):
+    def get_translations(self):
         return []
 
     def get_locale(self):
@@ -101,7 +101,7 @@ class LocaleMixin:
             return context
 
         context["locale"] = self.locale
-        context["translations"] = self.get_translations_context()
+        context["translations"] = self.get_translations()
         return context
 
 
