@@ -21,6 +21,7 @@ from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.mail import send_mail
 from wagtail.admin.panels import (
     FieldPanel,
+    HelpPanel,
     InlinePanel,
     MultiFieldPanel,
     ObjectList,
@@ -216,6 +217,7 @@ class FilePage(Page):
 
     content_panels = [
         FieldPanel("title", classname="full title"),
+        HelpPanel("remember to check for viruses"),
         FieldPanel("file_field"),
     ]
 
